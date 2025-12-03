@@ -59,7 +59,7 @@ export class ListArticlesQuery {
     } = request;
 
     let startDateToSearch = startDate;
-    let endDateToSearch = startDate;
+    let endDateToSearch = endDate;
 
     if (preset) {
       const presetDates = this.parseDatePreset(preset);
