@@ -1,0 +1,26 @@
+import { FeedProfile } from '../shared/types/feed';
+
+export type Config = {
+  prompts: {
+    articleSummary: string;
+    impactRating: string;
+    categoryClassification: string;
+    clusterAnalysis: string;
+    briefSynthesis: string;
+  };
+  processing: {
+    briefingArticleLookbackHours: number;
+    minArticlesForBriefing: number;
+    articlesPerPage: number;
+    clustersQtd: number;
+  };
+  models: {
+    deepseekChatModel: string;
+    embeddingModel: string;
+  };
+  app: {
+    defaultFeedProfile: FeedProfile;
+    databaseFile: string;
+    maxArticlesForScrapping: number;
+  };
+};
