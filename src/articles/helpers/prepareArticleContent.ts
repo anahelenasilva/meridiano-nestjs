@@ -4,7 +4,6 @@ import { DBArticle } from '../article.entity';
 
 // Type-safe wrapper for marked.parse
 const parseMarkdown = async (content: string): Promise<string> => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
   const result = await marked.parse(content);
   return typeof result === 'string' ? result : String(result);
 };
