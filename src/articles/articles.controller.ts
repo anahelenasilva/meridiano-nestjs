@@ -16,13 +16,13 @@ import { ListArticlesQuery } from './queries/list-articles.query';
 export class ArticlesController {
   constructor(
     private readonly articlesService: ArticlesService,
-    private readonly listArticlesQuqey: ListArticlesQuery,
+    private readonly listArticlesQuery: ListArticlesQuery,
     private readonly getArticleByIdQuery: GetArticleByIdQuery,
   ) {}
 
   @Get()
   async listArticles(@Query() input: PaginatedArticleInput) {
-    return await this.listArticlesQuqey.execute(input);
+    return await this.listArticlesQuery.execute(input);
   }
 
   @Get(':id')
