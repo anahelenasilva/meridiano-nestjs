@@ -7,4 +7,3 @@ export abstract class AbstractDatabaseService implements OnModuleDestroy {
   abstract closeDb(): Promise<void>;
   abstract onModuleDestroy(): Promise<void>;
 }
-

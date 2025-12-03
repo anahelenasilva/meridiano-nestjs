@@ -115,4 +115,3 @@ export class SQLiteDatabaseService extends AbstractDatabaseService {
     await this.closeDb();
   }
 }
-

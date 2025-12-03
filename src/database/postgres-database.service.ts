@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
+
 import { Injectable } from '@nestjs/common';
 import { Pool, QueryResult } from 'pg';
 import { AbstractDatabaseService } from './abstract-database.service';
@@ -152,7 +150,6 @@ class PostgresPreparedStatement implements PreparedStatement {
 
 @Injectable()
 export class PostgresDatabaseService extends AbstractDatabaseService {
-  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   private pool: Pool | null = null;
 
   constructor() {

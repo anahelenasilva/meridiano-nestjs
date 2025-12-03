@@ -8,13 +8,17 @@ export type RunCallback = (this: RunCallbackContext, err: Error | null) => void;
 
 export interface DatabaseConnection {
   prepare(sql: string): PreparedStatement;
-  run(
+  run(sql: string, params?: any[], callback?: RunCallback): RunResult;
+  all(
     sql: string,
     params?: any[],
-    callback?: RunCallback,
-  ): RunResult;
-  all(sql: string, params?: any[], callback?: (err: Error | null, rows?: any[]) => void): void;
-  get(sql: string, params?: any[], callback?: (err: Error | null, row?: any) => void): void;
+    callback?: (err: Error | null, rows?: any[]) => void,
+  ): void;
+  get(
+    sql: string,
+    params?: any[],
+    callback?: (err: Error | null, row?: any) => void,
+  ): void;
   serialize(callback: () => void): void;
   close(callback?: (err: Error | null) => void): void;
 }
@@ -28,4 +32,3 @@ export interface RunResult {
   lastID?: number;
   changes?: number;
 }
-
