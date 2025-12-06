@@ -25,12 +25,14 @@
     "briefing:scrape": "ts-node src/scripts/runBriefing.ts --scrape",
     "briefing:process": "ts-node src/scripts/runBriefing.ts --process",
     "briefing:rate": "ts-node src/scripts/runBriefing.ts --rate",
-    "briefing:generate": "ts-node src/scripts/runBriefing.ts --generate"
+    "briefing:generate": "ts-node src/scripts/runBriefing.ts --generate",
+    "yt-transcript": "ts-node src/scripts/runYoutubeTranscripts.ts"
   },
   "dependencies": {
     "@mozilla/readability": "^0.5.0",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
+    "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^11.0.1",
     "axios": "^1.7.7",
     "cheerio": "^1.0.0",
@@ -45,7 +47,8 @@
     "reflect-metadata": "^0.2.2",
     "rss-parser": "^3.13.0",
     "rxjs": "^7.8.1",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "youtubei.js": "^16.0.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -72,10 +75,11 @@
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
     "ts-loader": "^9.5.2",
-    "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.7.3",
-    "typescript-eslint": "^8.20.0"
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.1"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -87,6 +91,12 @@
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(youtubei.js)/)"
+    ],
+    "moduleNameMapper": {
+      "^youtubei.js$": "<rootDir>/__mocks__/youtubei.js.ts"
     },
     "collectCoverageFrom": [
       "**/*.(t|j)s"

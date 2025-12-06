@@ -66,6 +66,19 @@ export class SQLiteDatabaseService extends AbstractDatabaseService {
         )
       `;
 
+      const createYoutubeTranscriptionsTable = `
+        CREATE TABLE IF NOT EXISTS youtube_transcriptions (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          channel_id TEXT NOT NULL,
+          channel_name TEXT NOT NULL,
+          video_title TEXT NOT NULL,
+          posted_at DATETIME NOT NULL,
+          video_url TEXT NOT NULL,
+          processed_at DATETIME NOT NULL,
+          transcription_text TEXT NOT NULL
+        )
+      `;
+
       this.db.serialize(() => {
         this.db!.run(createArticlesTable, (err) => {
           if (err) {
@@ -75,6 +88,13 @@ export class SQLiteDatabaseService extends AbstractDatabaseService {
         });
 
         this.db!.run(createBriefingsTable, (err) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+        });
+
+        this.db!.run(createYoutubeTranscriptionsTable, (err) => {
           if (err) {
             reject(err);
           } else {

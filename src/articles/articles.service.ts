@@ -394,7 +394,6 @@ export class ArticlesService {
         rows.forEach((row) => {
           if (row.categories) {
             try {
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
               const categories = JSON.parse(row.categories);
               if (Array.isArray(categories)) {
                 categories.forEach((category) => {
