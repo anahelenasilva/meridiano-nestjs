@@ -7,6 +7,7 @@ export interface DBYoutubeTranscription {
   videoUrl: string;
   processedAt: Date;
   transcriptionText: string;
+  transcriptionSummary?: string;
 }
 
 export interface YoutubeTranscription {
@@ -18,4 +19,5 @@ export interface YoutubeTranscription {
   videoUrl: string;
   processedAt: Date;
   transcriptionText: string;
+  transcriptionSummary?: string;
 }

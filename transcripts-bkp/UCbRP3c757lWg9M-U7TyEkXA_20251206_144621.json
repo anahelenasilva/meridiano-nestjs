@@ -1,0 +1,2189 @@
+{
+  "type": "Video",
+  "video_id": "KAmQTmooLGQ",
+  "title": "China is winning the AI race",
+  "description_snippet": {
+    "text": "OpenAI, Anthropic, and Google are all making amazing models, but their good ones are closed weight. China seems to be doing the opposite...\n\nThank you G2i for sponsoring! Check them out at:...",
+    "runs": [
+      {
+        "text": "OpenAI, Anthropic, and Google are all making amazing models, but their good ones are closed weight. China seems to be doing the opposite...\n\nThank you G2i for sponsoring! Check them out at:...",
+        "bold": false,
+        "bracket": false,
+        "deemphasize": false,
+        "italics": false,
+        "strikethrough": false,
+        "error_underline": false,
+        "underline": false
+      }
+    ],
+    "rtl": false
+  },
+  "expandable_metadata": null,
+  "thumbnails": [
+    {
+      "url": "https://i.ytimg.com/vi/KAmQTmooLGQ/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAnhsUj338dn501JP2mFLR0boyp_w",
+      "width": 336,
+      "height": 188
+    },
+    {
+      "url": "https://i.ytimg.com/vi/KAmQTmooLGQ/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLB4YKGDgOUq7fprlmJYQhAd8Mzegg",
+      "width": 246,
+      "height": 138
+    },
+    {
+      "url": "https://i.ytimg.com/vi/KAmQTmooLGQ/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLA4Jr9qFjsFqh9LnJ6zJmo2xNX9pQ",
+      "width": 196,
+      "height": 110
+    },
+    {
+      "url": "https://i.ytimg.com/vi/KAmQTmooLGQ/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLCXYvD7kJAY5oRAvxhw8py2npOXmA",
+      "width": 168,
+      "height": 94
+    }
+  ],
+  "thumbnail_overlays": [
+    {
+      "type": "ThumbnailOverlayTimeStatus",
+      "text": "36:08",
+      "style": "DEFAULT"
+    },
+    {
+      "type": "ThumbnailOverlayToggleButton",
+      "is_toggled": false,
+      "icon_type": {
+        "toggled": "CHECK",
+        "untoggled": "WATCH_LATER"
+      },
+      "tooltip": {
+        "toggled": "Added",
+        "untoggled": "Watch later"
+      },
+      "toggled_endpoint": {
+        "type": "NavigationEndpoint",
+        "name": "playlistEditEndpoint",
+        "payload": {
+          "playlistId": "WL",
+          "actions": [
+            {
+              "action": "ACTION_REMOVE_VIDEO_BY_VIDEO_ID",
+              "removedVideoId": "KAmQTmooLGQ"
+            }
+          ]
+        },
+        "metadata": {
+          "api_url": "browse/edit_playlist",
+          "send_post": true
+        },
+        "command": {
+          "type": "PlaylistEditEndpoint"
+        }
+      },
+      "untoggled_endpoint": {
+        "type": "NavigationEndpoint",
+        "name": "playlistEditEndpoint",
+        "payload": {
+          "playlistId": "WL",
+          "actions": [
+            {
+              "addedVideoId": "KAmQTmooLGQ",
+              "action": "ACTION_ADD_VIDEO"
+            }
+          ]
+        },
+        "metadata": {
+          "api_url": "browse/edit_playlist",
+          "send_post": true
+        },
+        "command": {
+          "type": "PlaylistEditEndpoint"
+        }
+      }
+    },
+    {
+      "type": "ThumbnailOverlayToggleButton",
+      "icon_type": {
+        "toggled": "PLAYLIST_ADD_CHECK",
+        "untoggled": "ADD_TO_QUEUE_TAIL"
+      },
+      "tooltip": {
+        "toggled": "Added",
+        "untoggled": "Add to queue"
+      },
+      "untoggled_endpoint": {
+        "type": "NavigationEndpoint",
+        "name": "signalServiceEndpoint",
+        "payload": {
+          "signal": "CLIENT_SIGNAL",
+          "actions": [
+            {
+              "addToPlaylistCommand": {
+                "openMiniplayer": true,
+                "videoId": "KAmQTmooLGQ",
+                "listType": "PLAYLIST_EDIT_LIST_TYPE_QUEUE",
+                "onCreateListCommand": {
+                  "clickTrackingParams": "CJcCEMfsBBgDIhMIqrruncKpkQMV1UZIAB1EFS0tygEEoISN8Q==",
+                  "commandMetadata": {
+                    "webCommandMetadata": {
+                      "sendPost": true,
+                      "apiUrl": "/youtubei/v1/playlist/create"
+                    }
+                  },
+                  "createPlaylistServiceEndpoint": {
+                    "videoIds": [
+                      "KAmQTmooLGQ"
+                    ],
+                    "params": "CAQ%3D"
+                  }
+                },
+                "videoIds": [
+                  "KAmQTmooLGQ"
+                ]
+              }
+            }
+          ]
+        },
+        "metadata": {
+          "send_post": true
+        },
+        "command": {
+          "type": "SignalServiceEndpoint",
+          "actions": [
+            {
+              "type": "AddToPlaylistCommand",
+              "open_miniplayer": true,
+              "video_id": "KAmQTmooLGQ",
+              "list_type": "PLAYLIST_EDIT_LIST_TYPE_QUEUE",
+              "endpoint": {
+                "type": "NavigationEndpoint",
+                "name": "createPlaylistServiceEndpoint",
+                "payload": {
+                  "videoIds": [
+                    "KAmQTmooLGQ"
+                  ],
+                  "params": "CAQ%3D"
+                },
+                "metadata": {
+                  "api_url": "playlist/create",
+                  "send_post": true
+                },
+                "command": {
+                  "type": "CreatePlaylistServiceEndpoint"
+                }
+              },
+              "video_ids": [
+                "KAmQTmooLGQ"
+              ]
+            }
+          ],
+          "signal": "CLIENT_SIGNAL"
+        }
+      }
+    },
+    {
+      "type": "ThumbnailOverlayNowPlaying",
+      "text": "Now playing"
+    }
+  ],
+  "rich_thumbnail": [
+    {
+      "url": "https://i.ytimg.com/an_webp/KAmQTmooLGQ/mqdefault_6s.webp?du=3000&sqp=CMjA0ckG&rs=AOn4CLD2-Mw6N5nq4z-2jg6b_9tLigtVHQ",
+      "width": 320,
+      "height": 180
+    }
+  ],
+  "author": {
+    "id": "N/A",
+    "name": "N/A",
+    "thumbnails": [],
+    "badges": [
+      {
+        "type": "MetadataBadge",
+        "icon_type": "CHECK_CIRCLE_THICK",
+        "style": "BADGE_STYLE_TYPE_VERIFIED",
+        "tooltip": "Verified"
+      }
+    ],
+    "is_moderator": false,
+    "is_verified": true,
+    "is_verified_artist": false,
+    "url": "https://www.youtube.com/u/undefined"
+  },
+  "badges": [],
+  "endpoint": {
+    "type": "NavigationEndpoint",
+    "name": "watchEndpoint",
+    "payload": {
+      "videoId": "KAmQTmooLGQ",
+      "watchEndpointSupportedOnesieConfig": {
+        "html5PlaybackOnesieConfig": {
+          "commonConfig": {
+            "url": "https://rr6---sn-pmcg-bg0s.googlevideo.com/initplayback?source=youtube&oeis=1&c=WEB&oad=3200&ovd=3200&oaad=11000&oavd=11000&ocs=700&oewis=1&oputc=1&ofpcc=1&msp=1&odepv=1&id=2809904e6a282c64&ip=146.70.163.206&initcwndbps=2367500&mt=1765042638&oweuc="
+          }
+        }
+      }
+    },
+    "metadata": {
+      "url": "/watch?v=KAmQTmooLGQ",
+      "page_type": "WEB_PAGE_TYPE_WATCH",
+      "api_url": "/player"
+    },
+    "command": {
+      "type": "WatchEndpoint"
+    }
+  },
+  "published": {
+    "text": "11 hours ago",
+    "rtl": false
+  },
+  "view_count": {
+    "text": "37,989 views",
+    "rtl": false
+  },
+  "short_view_count": {
+    "text": "37K views",
+    "accessibility": {
+      "accessibility_data": {
+        "label": "37 thousand views"
+      }
+    },
+    "rtl": false
+  },
+  "length_text": {
+    "text": "36:08",
+    "accessibility": {
+      "accessibility_data": {
+        "label": "36 minutes, 8 seconds"
+      }
+    },
+    "rtl": false
+  },
+  "show_action_menu": false,
+  "is_watched": false,
+  "menu": {
+    "type": "Menu",
+    "items": [
+      {
+        "type": "MenuServiceItem",
+        "text": "Add to queue",
+        "icon_type": "ADD_TO_QUEUE_TAIL",
+        "endpoint": {
+          "type": "NavigationEndpoint",
+          "name": "signalServiceEndpoint",
+          "payload": {
+            "signal": "CLIENT_SIGNAL",
+            "actions": [
+              {
+                "addToPlaylistCommand": {
+                  "openMiniplayer": true,
+                  "videoId": "KAmQTmooLGQ",
+                  "listType": "PLAYLIST_EDIT_LIST_TYPE_QUEUE",
+                  "onCreateListCommand": {
+                    "clickTrackingParams": "CJwCEP6YBBgHIhMIqrruncKpkQMV1UZIAB1EFS0tygEEoISN8Q==",
+                    "commandMetadata": {
+                      "webCommandMetadata": {
+                        "sendPost": true,
+                        "apiUrl": "/youtubei/v1/playlist/create"
+                      }
+                    },
+                    "createPlaylistServiceEndpoint": {
+                      "videoIds": [
+                        "KAmQTmooLGQ"
+                      ],
+                      "params": "CAQ%3D"
+                    }
+                  },
+                  "videoIds": [
+                    "KAmQTmooLGQ"
+                  ],
+                  "videoCommand": {
+                    "clickTrackingParams": "CJwCEP6YBBgHIhMIqrruncKpkQMV1UZIAB1EFS0tygEEoISN8Q==",
+                    "commandMetadata": {
+                      "webCommandMetadata": {
+                        "url": "/watch?v=KAmQTmooLGQ",
+                        "webPageType": "WEB_PAGE_TYPE_WATCH",
+                        "rootVe": 3832
+                      }
+                    },
+                    "watchEndpoint": {
+                      "videoId": "KAmQTmooLGQ",
+                      "watchEndpointSupportedOnesieConfig": {
+                        "html5PlaybackOnesieConfig": {
+                          "commonConfig": {
+                            "url": "https://rr6---sn-pmcg-bg0s.googlevideo.com/initplayback?source=youtube&oeis=1&c=WEB&oad=3200&ovd=3200&oaad=11000&oavd=11000&ocs=700&oewis=1&oputc=1&ofpcc=1&msp=1&odepv=1&id=2809904e6a282c64&ip=146.70.163.206&initcwndbps=2367500&mt=1765042638&oweuc="
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "metadata": {
+            "send_post": true
+          },
+          "command": {
+            "type": "SignalServiceEndpoint",
+            "actions": [
+              {
+                "type": "AddToPlaylistCommand",
+                "open_miniplayer": true,
+                "video_id": "KAmQTmooLGQ",
+                "list_type": "PLAYLIST_EDIT_LIST_TYPE_QUEUE",
+                "endpoint": {
+                  "type": "NavigationEndpoint",
+                  "name": "createPlaylistServiceEndpoint",
+                  "payload": {
+                    "videoIds": [
+                      "KAmQTmooLGQ"
+                    ],
+                    "params": "CAQ%3D"
+                  },
+                  "metadata": {
+                    "api_url": "playlist/create",
+                    "send_post": true
+                  },
+                  "command": {
+                    "type": "CreatePlaylistServiceEndpoint"
+                  }
+                },
+                "video_ids": [
+                  "KAmQTmooLGQ"
+                ]
+              }
+            ],
+            "signal": "CLIENT_SIGNAL"
+          }
+        }
+      },
+      {
+        "type": "MenuNavigationItem",
+        "text": "Save to playlist",
+        "icon_type": "BOOKMARK_BORDER",
+        "endpoint": {
+          "type": "NavigationEndpoint",
+          "name": "signInEndpoint",
+          "payload": {
+            "nextEndpoint": {
+              "clickTrackingParams": "CJsCEJSsCRgIIhMIqrruncKpkQMV1UZIAB1EFS0tygEEoISN8Q==",
+              "showSheetCommand": {
+                "panelLoadingStrategy": {
+                  "requestTemplate": {
+                    "panelId": "PAadd_to_playlist",
+                    "params": "-gYNCgtLQW1RVG1vb0xHUQ%3D%3D"
+                  }
+                }
+              }
+            }
+          },
+          "next_endpoint": {
+            "type": "NavigationEndpoint",
+            "name": "showSheetCommand",
+            "payload": {
+              "panelLoadingStrategy": {
+                "requestTemplate": {
+                  "panelId": "PAadd_to_playlist",
+                  "params": "-gYNCgtLQW1RVG1vb0xHUQ%3D%3D"
+                }
+              }
+            },
+            "metadata": {}
+          },
+          "metadata": {
+            "url": "https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Den&hl=en",
+            "page_type": "WEB_PAGE_TYPE_UNKNOWN"
+          }
+        }
+      },
+      {
+        "type": "MenuServiceItemDownload",
+        "has_separator": false,
+        "endpoint": {
+          "type": "NavigationEndpoint",
+          "name": "offlineVideoEndpoint",
+          "payload": {
+            "videoId": "KAmQTmooLGQ",
+            "onAddCommand": {
+              "clickTrackingParams": "CJoCENGqBRgJIhMIqrruncKpkQMV1UZIAB1EFS0tygEEoISN8Q==",
+              "getDownloadActionCommand": {
+                "videoId": "KAmQTmooLGQ",
+                "params": "CAIQAA%3D%3D",
+                "isCrossDeviceDownload": false
+              }
+            }
+          },
+          "metadata": {}
+        }
+      },
+      {
+        "type": "MenuServiceItem",
+        "text": "Share",
+        "icon_type": "SHARE",
+        "endpoint": {
+          "type": "NavigationEndpoint",
+          "name": "shareEntityServiceEndpoint",
+          "payload": {
+            "serializedShareEntity": "CgtLQW1RVG1vb0xHUQ%3D%3D",
+            "commands": [
+              {
+                "clickTrackingParams": "CJYCENwwIhMIqrruncKpkQMV1UZIAB1EFS0tygEEoISN8Q==",
+                "openPopupAction": {
+                  "popup": {
+                    "unifiedSharePanelRenderer": {
+                      "trackingParams": "CJkCEI5iIhMIqrruncKpkQMV1UZIAB1EFS0t",
+                      "showLoadingSpinner": true
+                    }
+                  },
+                  "popupType": "DIALOG",
+                  "beReused": true
+                }
+              }
+            ]
+          },
+          "metadata": {
+            "api_url": "share/get_share_panel",
+            "send_post": true
+          },
+          "command": {
+            "type": "ShareEntityServiceEndpoint"
+          }
+        }
+      }
+    ],
+    "flexible_items": [],
+    "top_level_buttons": [],
+    "accessibility": {
+      "accessibility_data": {
+        "label": "Action menu"
+      }
+    }
+  },
+  "videoId": "KAmQTmooLGQ",
+  "url": "https://www.youtube.com/watch?v=KAmQTmooLGQ",
+  "publishedAt": "11 hours ago",
+  "description": "OpenAI, Anthropic, and Google are all making amazing models, but their good ones are closed weight. China seems to be doing the opposite...\n\nThank you G2i for sponsoring! Check them out at:...",
+  "thumbnailUrl": "https://i.ytimg.com/vi/KAmQTmooLGQ/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAnhsUj338dn501JP2mFLR0boyp_w",
+  "transcript": [
+    {
+      "text": "If you look at the current top models, they're all from America, Google, Anthropic, and OpenAI. We are clearly",
+      "duration": 6480,
+      "offset": "80"
+    },
+    {
+      "text": "winning the AI race until you zoom out a little bit. Then you see a lot of these",
+      "duration": 5440,
+      "offset": "6560"
+    },
+    {
+      "text": "blue bars appearing in the chart. Those blue bars are for openweight models. And if we look at the top three, Kimmy,",
+      "duration": 7199,
+      "offset": "12000"
+    },
+    {
+      "text": "Deepseek, and Mini Maxm2, you realize that China's winning the openweight race",
+      "duration": 5761,
+      "offset": "19199"
+    },
+    {
+      "text": "and by quite a bit. The first model from the US to appear here is GPTO OSS120B.",
+      "duration": 6960,
+      "offset": "24960"
+    },
+    {
+      "text": "And as a person who's used that model quite a bit, it's rough. It might score well on intelligence charts, but its",
+      "duration": 6720,
+      "offset": "31920"
+    },
+    {
+      "text": "ability to reliably call tools and be used in your workflows is nothing in comparison to what I've experienced with",
+      "duration": 5840,
+      "offset": "38640"
+    },
+    {
+      "text": "Kimmy, with Miniax, and now with Deep Seek V3.2. Huge gap between those. And if we want",
+      "duration": 7120,
+      "offset": "44480"
+    },
+    {
+      "text": "to look at the European introductions like uh Mestral Large 3, which just dropped and kind of inspired this video,",
+      "duration": 6160,
+      "offset": "51600"
+    },
+    {
+      "text": "they're barely even on the chart. Things are rough. Oh, and almost forgot, much",
+      "duration": 5599,
+      "offset": "57760"
+    },
+    {
+      "text": "like they seem to have, Llama 4 all the way at the end here. There were supposed",
+      "duration": 5201,
+      "offset": "63359"
+    },
+    {
+      "text": "to be three versions of Llama 4. If you remember, it was supposed to be Scout, Maverick, and I forgot the name of the larger one because they never put out",
+      "duration": 6400,
+      "offset": "68560"
+    },
+    {
+      "text": "the larger one because they all suck so bad. There's a 20 bill per pram model from OpenAI that beats out Mestral and",
+      "duration": 6720,
+      "offset": "74960"
+    },
+    {
+      "text": "there's lots of 15 bill ones that do too. It's rough out there. But the thing I really want to focus on today is the",
+      "duration": 7200,
+      "offset": "81680"
+    },
+    {
+      "text": "open weight wars and why China seems like they will be winning them for the foreseeable future. It's kind of crazy",
+      "duration": 6559,
+      "offset": "88880"
+    },
+    {
+      "text": "that when you only talk about models that weights are downloadable and usable, all of a sudden America gets",
+      "duration": 5521,
+      "offset": "95439"
+    },
+    {
+      "text": "wiped off the chart. There's a lot of reasons for this and I can't wait to talk about them, but since openw weight",
+      "duration": 5360,
+      "offset": "100960"
+    },
+    {
+      "text": "models don't pay the bills, we're going to do a quick sponsor break first. Here's a hard question for you. How do you know if an engineer is actually",
+      "duration": 6880,
+      "offset": "106320"
+    },
+    {
+      "text": "good? It's really hard to do. You might be able to look at their HTML shirt and make some assumptions, but when you're",
+      "duration": 5519,
+      "offset": "113200"
+    },
+    {
+      "text": "doing an interview, especially when you're reading someone's resume, how do you know they're actually good and not just AI generating some slop that you're",
+      "duration": 6241,
+      "offset": "118719"
+    },
+    {
+      "text": "going through a huge pile of as you fill this role? It's never been more annoying to hire good engineers. I feel like",
+      "duration": 5840,
+      "offset": "124960"
+    },
+    {
+      "text": "there's fewer of them in the pile and the pile's never been bigger. If you're tired of trying to find the needle in the hay stack and get a good engineer to",
+      "duration": 7120,
+      "offset": "130800"
+    },
+    {
+      "text": "work for you finally, you got to check out today's sponsor, G2I. These guys are without question the best way to hire",
+      "duration": 6000,
+      "offset": "137920"
+    },
+    {
+      "text": "good engineers fast. They have over 8,000 of them ready to go in their incredible network. These aren't people",
+      "duration": 5679,
+      "offset": "143920"
+    },
+    {
+      "text": "who are fresh out of college. These are real experienced engineers that have worked at big fang companies and small",
+      "duration": 5521,
+      "offset": "149599"
+    },
+    {
+      "text": "startups alike. know how to use all the tools you need, already are familiar with fancy AI development stuff, so",
+      "duration": 5199,
+      "offset": "155120"
+    },
+    {
+      "text": "they're not going to be slow. Whether you want a couple junior engineers to kickstart a new project, or a lead that",
+      "duration": 5041,
+      "offset": "160319"
+    },
+    {
+      "text": "can dig you out of tech debt hell, they have you covered. You create a shared Slack channel with them. They",
+      "duration": 5280,
+      "offset": "165360"
+    },
+    {
+      "text": "effectively are operating like your recruiting team. You give them a handful of questions to ask the engineers. They ask the engineers and record actual",
+      "duration": 7200,
+      "offset": "170640"
+    },
+    {
+      "text": "video responses from them so you know what the person's actually like. You go through them, figure out the ones you",
+      "duration": 5119,
+      "offset": "177840"
+    },
+    {
+      "text": "want. They'll then go do a technical interview that they've speced out so you don't have to worry. Record it, send you",
+      "duration": 5200,
+      "offset": "182959"
+    },
+    {
+      "text": "the results, and once they've gone through all that, you can review it, figure out who you think fits best, and",
+      "duration": 5360,
+      "offset": "188159"
+    },
+    {
+      "text": "then you can hire them. They're also just super generous to work with. I've referred a lot of people on a personal",
+      "duration": 5440,
+      "offset": "193519"
+    },
+    {
+      "text": "level, like a lot of the YC startups I work with, and every single one has had an incredible experience with G2I. Stop",
+      "duration": 5441,
+      "offset": "198959"
+    },
+    {
+      "text": "hiring the old way and stop wasting your time. Get good engineers fast at soyv.link/g2i.",
+      "duration": 5119,
+      "offset": "204400"
+    },
+    {
+      "text": "Before we can discuss why China's winning so hard, it's important to understand what is an openw weight",
+      "duration": 5841,
+      "offset": "209519"
+    },
+    {
+      "text": "model. The point of openweight models is somewhat similar to open-source models where you're giving out a significant",
+      "duration": 6400,
+      "offset": "215360"
+    },
+    {
+      "text": "portion of how the thing works. There's a big difference between openweight and open source though. With open source,",
+      "duration": 6640,
+      "offset": "221760"
+    },
+    {
+      "text": "the code that is used to create the thing people experience is exposed. With Linux, for example, the actual thing you",
+      "duration": 6640,
+      "offset": "228400"
+    },
+    {
+      "text": "download isn't the code when you're using Linux. What you download is the binary that's compiled by the code. The",
+      "duration": 6880,
+      "offset": "235040"
+    },
+    {
+      "text": "code is the input that results in the output that you are downloading and using. As such, I've seen a lot of",
+      "duration": 5760,
+      "offset": "241920"
+    },
+    {
+      "text": "people complain that openw weight models aren't open- source because you can't recreate that binary yourself. And I",
+      "duration": 8080,
+      "offset": "247680"
+    },
+    {
+      "text": "don't really agree. Obviously, it would be cool if we had all of the training data and everything else that went into",
+      "duration": 5840,
+      "offset": "255760"
+    },
+    {
+      "text": "how the models were made. But the reason open source is valuable is because you can reproduce the actual output. I can",
+      "duration": 8080,
+      "offset": "261600"
+    },
+    {
+      "text": "take the code and on my computer compile it and get a result. There are almost no",
+      "duration": 5600,
+      "offset": "269680"
+    },
+    {
+      "text": "consumers, almost no developers who have all of the things that are necessary to spend the millions of dollars on really",
+      "duration": 6960,
+      "offset": "275280"
+    },
+    {
+      "text": "hard to get infrastructure to turn that data into a model. There is no real",
+      "duration": 5200,
+      "offset": "282240"
+    },
+    {
+      "text": "reason to expose that and there's a ton of risk and liability if you expose all of the data that's used in your training",
+      "duration": 6000,
+      "offset": "287440"
+    },
+    {
+      "text": "and every other company's just going to take that data, throw it into their data sets and suddenly be able to beat you in",
+      "duration": 5600,
+      "offset": "293440"
+    },
+    {
+      "text": "all of the things you're good at. Depending on how you cut the lines and think about it, I would argue the data",
+      "duration": 5200,
+      "offset": "299040"
+    },
+    {
+      "text": "is almost the equivalent of the engineers in this case, not the equivalent of the source code. People think about source code very",
+      "duration": 6080,
+      "offset": "304240"
+    },
+    {
+      "text": "specifically because you use the source code to compile the thing that you want and as such we should have the data if",
+      "duration": 5439,
+      "offset": "310320"
+    },
+    {
+      "text": "we want to call these models open. I would argue we're just drawing our lines a bit differently. So in open source a",
+      "duration": 6561,
+      "offset": "315759"
+    },
+    {
+      "text": "developer creates source code that compiles into a binary that users can use. In open weights data is used to",
+      "duration": 8080,
+      "offset": "322320"
+    },
+    {
+      "text": "train weights that result in generated tokens. If you think of it this way where you're",
+      "duration": 7600,
+      "offset": "330400"
+    },
+    {
+      "text": "drawing the lines here, you say like the researchers",
+      "duration": 5840,
+      "offset": "338000"
+    },
+    {
+      "text": "collect the data that creates the weights that generate tokens. I would",
+      "duration": 5600,
+      "offset": "343840"
+    },
+    {
+      "text": "see why you would call this not open. But I don't think that is quite how it works. I think of it this way where the",
+      "duration": 6720,
+      "offset": "349440"
+    },
+    {
+      "text": "data is similar to the developer in the case of the weights because it creates the thing that we can use to generate",
+      "duration": 7280,
+      "offset": "356160"
+    },
+    {
+      "text": "the thing we actually want which in this case is the binary it's the Linux installable the actual kernel and in our",
+      "duration": 6000,
+      "offset": "363440"
+    },
+    {
+      "text": "case with models it's the tokens that we get from using the model. So the open weights mean you have all of the pieces",
+      "duration": 7520,
+      "offset": "369440"
+    },
+    {
+      "text": "you need to run the model and generate results with it yourself. The weights are the collection of parameters that",
+      "duration": 6480,
+      "offset": "376960"
+    },
+    {
+      "text": "are all mapped to and point to each other. So when you give it some text, it can guess what the best next token would",
+      "duration": 6080,
+      "offset": "383440"
+    },
+    {
+      "text": "be based on the text you give it and this giant hundreds of gigabytes pile of vectors and data that it has collapsed",
+      "duration": 6000,
+      "offset": "389520"
+    },
+    {
+      "text": "into this model that it can use to generate the next token as predictably and reliably as possible. I think it's",
+      "duration": 5920,
+      "offset": "395520"
+    },
+    {
+      "text": "really cool that open weight has gone as far as it has. And I think it's really convenient that openweight models can",
+      "duration": 6000,
+      "offset": "401440"
+    },
+    {
+      "text": "use the same licenses that open source code can. I already see people disagreeing in chat. I don't care. The",
+      "duration": 6160,
+      "offset": "407440"
+    },
+    {
+      "text": "weights are not the binary. The weights are a thing that can be reused and",
+      "duration": 5920,
+      "offset": "413600"
+    },
+    {
+      "text": "modified in very useful ways. The nature of how baked these things are. Like",
+      "duration": 5519,
+      "offset": "419520"
+    },
+    {
+      "text": "compiling code costs pennies and can be done on most computers. Turning data",
+      "duration": 5521,
+      "offset": "425039"
+    },
+    {
+      "text": "into weights isn't even a deterministic process. And I know there's a lot of debates around this. I know there's a",
+      "duration": 6320,
+      "offset": "430560"
+    },
+    {
+      "text": "lot of things that like Richard Stallman's going to disagree with me here on. I don't really care. This all",
+      "duration": 6560,
+      "offset": "436880"
+    },
+    {
+      "text": "comes down to whether you put this here or here. And I'm not one to [ __ ] when",
+      "duration": 5199,
+      "offset": "443440"
+    },
+    {
+      "text": "we get something as cool as openweight models. There's only one lab I know of that actually puts out the data and it's",
+      "duration": 7041,
+      "offset": "448639"
+    },
+    {
+      "text": "Allen Allen Institute. They were funded by Paul Allen from Microsoft as an attempt to do truly open AI research in",
+      "duration": 7280,
+      "offset": "455680"
+    },
+    {
+      "text": "the US. And their models aren't just open weight models. Their models also have the data exposed too. So you could",
+      "duration": 6799,
+      "offset": "462960"
+    },
+    {
+      "text": "hypothetically retrain the model on the data yourself. None of it's deterministic enough that you'll get the exact same weights. But yeah, it's",
+      "duration": 8801,
+      "offset": "469759"
+    },
+    {
+      "text": "exists. If you're wondering where this falls in the charts, right next to llama, not great. So, it's",
+      "duration": 7600,
+      "offset": "478560"
+    },
+    {
+      "text": "cool that we do have a fully open lab that is sharing the data and everything that is based in the US, but they're not",
+      "duration": 6719,
+      "offset": "486160"
+    },
+    {
+      "text": "really competitive. Just wanted to call that one out quick. The harsh reality is if we use the strict open- source",
+      "duration": 6641,
+      "offset": "492879"
+    },
+    {
+      "text": "definition that currently exists for code, there will never be a model that meets the definition of open source. And",
+      "duration": 6720,
+      "offset": "499520"
+    },
+    {
+      "text": "I agree, there probably won't be. And we shouldn't use the term open- source to describe models. Open weight is still a",
+      "duration": 5919,
+      "offset": "506240"
+    },
+    {
+      "text": "very cool and useful thing. So with an open weight model, the value you get out of it is I can take those weights and",
+      "duration": 6641,
+      "offset": "512159"
+    },
+    {
+      "text": "run them on my own hardware or look at different providers that are hosting them as well. If we go to something like",
+      "duration": 6000,
+      "offset": "518800"
+    },
+    {
+      "text": "open router and take a look at a Gemini model like Gemini 3 Pro preview, you can",
+      "duration": 5760,
+      "offset": "524800"
+    },
+    {
+      "text": "use it in two places, Google Vertex and Google AI Studio because the weights for this model have never left Google's",
+      "duration": 6240,
+      "offset": "530560"
+    },
+    {
+      "text": "campus. The weights that you use to run these models and generate these results are exclusively provided through",
+      "duration": 5920,
+      "offset": "536800"
+    },
+    {
+      "text": "Google's own infrastructure because they want to sell you the API, not the model. And since Google has their own",
+      "duration": 5600,
+      "offset": "542720"
+    },
+    {
+      "text": "infrastructure, they don't let other companies have access to this except for Apple privately potentially with a",
+      "duration": 5199,
+      "offset": "548320"
+    },
+    {
+      "text": "really really big pay deal of like a billion plus dollars to get the weights privately that they can use for some",
+      "duration": 5521,
+      "offset": "553519"
+    },
+    {
+      "text": "Siri stuff. If you look at something like OpenAI's GPT 5.1, your options are",
+      "duration": 6000,
+      "offset": "559040"
+    },
+    {
+      "text": "OpenAI. Some of these models are also available on Azure too, but that's it due to the OpenAI Microsoft partnership.",
+      "duration": 5840,
+      "offset": "565040"
+    },
+    {
+      "text": "Let's compare that to Deep Seek 3.2 EXP. We got Deep Infra, Novita, Shoots,",
+      "duration": 6240,
+      "offset": "570880"
+    },
+    {
+      "text": "Silicon Flow, and Atlas Cloud. Let's look at Kimmy K2. Kimmy K2, Shoots,",
+      "duration": 6080,
+      "offset": "577120"
+    },
+    {
+      "text": "Silicon Flow, Novita, Deep Infra, Parasel, Bite Plus, plus seven more. Moonshot. These are people who actually",
+      "duration": 5759,
+      "offset": "583200"
+    },
+    {
+      "text": "made the model. They are the eighth option in this list. Fireworks, Atlas cloud, base 10 together, Grock, and",
+      "duration": 6320,
+      "offset": "588959"
+    },
+    {
+      "text": "Turbo from Moonshot.AI. Also notice the Turbo option for Moonshot, which costs",
+      "duration": 5281,
+      "offset": "595279"
+    },
+    {
+      "text": "$8 per million out, is less than half the speed of Gro's solution here, and 8x",
+      "duration": 5839,
+      "offset": "600560"
+    },
+    {
+      "text": "the latency, too. Kind of nuts. The open weight models allow for various providers to offer them, which allows",
+      "duration": 7041,
+      "offset": "606399"
+    },
+    {
+      "text": "for a different level of competition across infrastructure solutions. That is really, really cool. But it does also",
+      "duration": 6320,
+      "offset": "613440"
+    },
+    {
+      "text": "mean that the official infrastructure in this case for Moonshot isn't really a great option. Moonshot charges 60 cents",
+      "duration": 7120,
+      "offset": "619760"
+    },
+    {
+      "text": "per mill in and 250 per mill out for under 20 tokens per second. Grock",
+      "duration": 5040,
+      "offset": "626880"
+    },
+    {
+      "text": "charges a dollar per mill in and $3 per mill out. So slightly more for 356",
+      "duration": 5599,
+      "offset": "631920"
+    },
+    {
+      "text": "tokens per second. That is more than a 10x increase in throughput for a very minor bump in cost. This is the",
+      "duration": 7361,
+      "offset": "637519"
+    },
+    {
+      "text": "difference. When you have this type of competition, the value prop of your own infrastructure goes down, which makes it",
+      "duration": 6320,
+      "offset": "644880"
+    },
+    {
+      "text": "a lot harder for a company like Moonshot to make money on the Kimmy models, even though they are fourth on the artificial",
+      "duration": 7680,
+      "offset": "651200"
+    },
+    {
+      "text": "intelligence chart. Google is a trillion dollar company. Enthropic is a multi-billion dollar company,",
+      "duration": 6000,
+      "offset": "658880"
+    },
+    {
+      "text": "potentially worth trillions someday. OpenAI is already worth half a trillion dollars. Kimmy K2 Thinking by Moonshot",
+      "duration": 6880,
+      "offset": "664880"
+    },
+    {
+      "text": "is a small company in China that isn't making real revenue yet. Do you know what's really funny though? Do you know",
+      "duration": 5360,
+      "offset": "671760"
+    },
+    {
+      "text": "which of these four companies has been the kindest to work with for me as a creator? Moonshot. They've been trying",
+      "duration": 6800,
+      "offset": "677120"
+    },
+    {
+      "text": "really hard for me to give them a mailing address so they can ship me a care package. They've been awesome to work with. They always hit me up early.",
+      "duration": 6000,
+      "offset": "683920"
+    },
+    {
+      "text": "They offer me free inference for any tests I want to do. They constantly send me useful resources about the things I'm",
+      "duration": 5760,
+      "offset": "689920"
+    },
+    {
+      "text": "talking about. Moonshot's been a genuinely awesome company to work with and they even shout out their competitors when they have big launches.",
+      "duration": 6320,
+      "offset": "695680"
+    },
+    {
+      "text": "Like when Zai had a big release, they immediately went and supported them. They're a very good faith player,",
+      "duration": 5920,
+      "offset": "702000"
+    },
+    {
+      "text": "weirdly. So, Deepseek is very similar in this regard. Not in the com sense. Like, I've never heard from anybody at",
+      "duration": 5760,
+      "offset": "707920"
+    },
+    {
+      "text": "Deepseek. By the way, Deep Seek guys, if you want to hit me up, I'd love to chat. Very, very big fan of what you did. I would never have built T3 chat if it",
+      "duration": 6080,
+      "offset": "713680"
+    },
+    {
+      "text": "wasn't for Deep Seek V3 at the end of last year. I'm so impressed with the work that DeepSeek has been doing for a while now and their research is",
+      "duration": 6480,
+      "offset": "719760"
+    },
+    {
+      "text": "incredible. They put out 12 papers last year that were so far ahead of where everyone else was. And the discoveries",
+      "duration": 6240,
+      "offset": "726240"
+    },
+    {
+      "text": "that made FP8 training much more reliable resulted in every lab fundamentally changing how they did",
+      "duration": 6560,
+      "offset": "732480"
+    },
+    {
+      "text": "training. You could argue that a large portion of the speed that AIF accelerated this year came from the",
+      "duration": 5760,
+      "offset": "739040"
+    },
+    {
+      "text": "research DeepS put out for free last year. And yes, I have also talked to the ZI guys. They've been great. They've",
+      "duration": 5039,
+      "offset": "744800"
+    },
+    {
+      "text": "been really, really awesome. It's crazy how good at comms the Chinese labs have been with me at the very least. Openai",
+      "duration": 5921,
+      "offset": "749839"
+    },
+    {
+      "text": "has been really good. Google's up and down. Enthropic is interesting. But my",
+      "duration": 6800,
+      "offset": "755760"
+    },
+    {
+      "text": "experience with the Chinese labs has been really good as a journalist, so to speak, covering these things publicly.",
+      "duration": 6560,
+      "offset": "762560"
+    },
+    {
+      "text": "But none of that answers the question, why do open weight? Why are these companies releasing these models in a",
+      "duration": 6240,
+      "offset": "769120"
+    },
+    {
+      "text": "way that they make no money off them? Like the real winner whenever DeepSeek drops isn't DeepSeek. It's companies",
+      "duration": 5919,
+      "offset": "775360"
+    },
+    {
+      "text": "like Grock and Together and all these like cloud info providers that will host them for us. We currently don't have",
+      "duration": 6721,
+      "offset": "781279"
+    },
+    {
+      "text": "Deepseek version 3.2 like the final official version on T3 chat yet because none of the providers are doing it well",
+      "duration": 6800,
+      "offset": "788000"
+    },
+    {
+      "text": "enough just yet. I would even argue being open weight makes things much harder for the labs even outside of the",
+      "duration": 5920,
+      "offset": "794800"
+    },
+    {
+      "text": "costs since Kimmy K2 is available for anyone to host themselves. different",
+      "duration": 5919,
+      "offset": "800720"
+    },
+    {
+      "text": "hosts aren't necessarily hosting it properly in the quality of certain behaviors like tool calls might go down",
+      "duration": 6081,
+      "offset": "806639"
+    },
+    {
+      "text": "meaningfully depending on which host you're using. Kimmy actually went as far as creating the vendor verifier where they rank all of the companies hosting",
+      "duration": 7200,
+      "offset": "812720"
+    },
+    {
+      "text": "their models based on how reliably they do tool calling. These are all of the",
+      "duration": 5200,
+      "offset": "819920"
+    },
+    {
+      "text": "companies that they say are hitting over 73%. And if we scroll down, you'll see others",
+      "duration": 7120,
+      "offset": "825120"
+    },
+    {
+      "text": "not performing quite as well. It's cool that they're doing better now because previously the gap was a lot bigger. But",
+      "duration": 5680,
+      "offset": "832240"
+    },
+    {
+      "text": "by creating this bench and making this data public, they incentivize the hosts to fix their [ __ ] and also gave them the",
+      "duration": 6479,
+      "offset": "837920"
+    },
+    {
+      "text": "tool called eval python file that they can run against their own infra and find the bugs and fix them. Doing this type",
+      "duration": 5841,
+      "offset": "844399"
+    },
+    {
+      "text": "of thing is really really annoying but they are doing it because otherwise the reputation of these models will be hurt",
+      "duration": 6640,
+      "offset": "850240"
+    },
+    {
+      "text": "as a result of other labs and other hosts not hosting these things properly.",
+      "duration": 5440,
+      "offset": "856880"
+    },
+    {
+      "text": "It's a small thing, but I also love they're using UV. Like, these guys get what US developers are expecting. So,",
+      "duration": 6480,
+      "offset": "862320"
+    },
+    {
+      "text": "it's clear that doing open weight is harder. It makes it so you make way less money. Why the hell are they doing it?",
+      "duration": 6399,
+      "offset": "868800"
+    },
+    {
+      "text": "To be frank, nobody would trust them otherwise. If you're using a Chinese model and it's",
+      "duration": 7200,
+      "offset": "875199"
+    },
+    {
+      "text": "being hosted in China, all the data in and out is now at a real risk, like a",
+      "duration": 6081,
+      "offset": "882399"
+    },
+    {
+      "text": "very legitimate risk. A lot of these companies have Chinese government hands in them. There is no security team in",
+      "duration": 6560,
+      "offset": "888480"
+    },
+    {
+      "text": "the US that would approve of you using a Chinese model from Chinese infrastructure. And open weights allow",
+      "duration": 5520,
+      "offset": "895040"
+    },
+    {
+      "text": "them to be relevant in the space right now. The fact that I'm legitimately considering doing more work with Chinese",
+      "duration": 6000,
+      "offset": "900560"
+    },
+    {
+      "text": "models as an American shows that the openweight strategy is working for them because it's the only way they can hold",
+      "duration": 6800,
+      "offset": "906560"
+    },
+    {
+      "text": "any mind share in the US. There's even been attempts to ban the use of Chinese models in the US. When Deep Seek R1",
+      "duration": 7360,
+      "offset": "913360"
+    },
+    {
+      "text": "first dropped, there was a huge freak out about that. And the government here was actually considering passing",
+      "duration": 6559,
+      "offset": "920720"
+    },
+    {
+      "text": "legislation that would make it illegal to download the weights. Wild. Insane. I have files on my computers that would",
+      "duration": 6481,
+      "offset": "927279"
+    },
+    {
+      "text": "suddenly become illegal if that crazy proposal was to actually go through. Absurd. So, this is like seriously the",
+      "duration": 6160,
+      "offset": "933760"
+    },
+    {
+      "text": "only way these Chinese labs will be taken seriously. And this goes a lot further than language models, too. It's",
+      "duration": 5200,
+      "offset": "939920"
+    },
+    {
+      "text": "the same deal with a lot of their image and video generation models as well. These models are not something that",
+      "duration": 6240,
+      "offset": "945120"
+    },
+    {
+      "text": "you'd want to run out of China, especially because they have restrictions on what GPUs they're even",
+      "duration": 5599,
+      "offset": "951360"
+    },
+    {
+      "text": "allowed to have access to. So, you might not be able to run some of these models they're making on infra and the infra",
+      "duration": 6401,
+      "offset": "956959"
+    },
+    {
+      "text": "they have is limited to the use cases that they are using for which is mostly training. There's a whole culture around",
+      "duration": 6080,
+      "offset": "963360"
+    },
+    {
+      "text": "getting cheaper GPUs and adding more VRAM to them in China in order to get",
+      "duration": 5839,
+      "offset": "969440"
+    },
+    {
+      "text": "around these import restrictions, which is kind of crazy. All of this results in these models only being viable if they",
+      "duration": 7441,
+      "offset": "975279"
+    },
+    {
+      "text": "are released in a way that we can host them ourselves and use them ourselves. There is no reason to make a great model",
+      "duration": 6239,
+      "offset": "982720"
+    },
+    {
+      "text": "in China and not release the weights because you won't be able to make money off it anyways right now. And this makes",
+      "duration": 6721,
+      "offset": "988959"
+    },
+    {
+      "text": "these companies go from entirely ignored here to genuinely very relevant to the",
+      "duration": 6240,
+      "offset": "995680"
+    },
+    {
+      "text": "conversations we're having. The research that kicked off a ton of this AI boom is the attention is all you need paper from",
+      "duration": 6640,
+      "offset": "1001920"
+    },
+    {
+      "text": "the Google research Google brain deep mind team over at Google that was all about the transformer model that allowed",
+      "duration": 7600,
+      "offset": "1008560"
+    },
+    {
+      "text": "for us to create language models as we now know them. This then went further with OpenAI's follow-up research,",
+      "duration": 6720,
+      "offset": "1016160"
+    },
+    {
+      "text": "improving language understanding by generative pre-training. These two papers kind of kickstarted what we now",
+      "duration": 6959,
+      "offset": "1022880"
+    },
+    {
+      "text": "know as AI. And these are open papers where they published what they did, how",
+      "duration": 5360,
+      "offset": "1029839"
+    },
+    {
+      "text": "they did it, how they got there, and what it could do. Hypothetically speaking, any one of these labs could have sat on this information, not",
+      "duration": 6961,
+      "offset": "1035199"
+    },
+    {
+      "text": "published it, and went and made crazy things with it. But then other companies wouldn't be able to innovate further.",
+      "duration": 5758,
+      "offset": "1042160"
+    },
+    {
+      "text": "Like if Google didn't release this paper, OpenAI wouldn't have had the kickstart that they needed. And if OpenAI didn't follow up with this paper,",
+      "duration": 7041,
+      "offset": "1047919"
+    },
+    {
+      "text": "we wouldn't have GPT as a concept. Or maybe somebody else would have come up with it eventually. But if these were",
+      "duration": 6320,
+      "offset": "1054960"
+    },
+    {
+      "text": "all private innovations that each lab was hopefully coming up with itself, the likelihood that any of them progressed",
+      "duration": 5840,
+      "offset": "1061280"
+    },
+    {
+      "text": "meaningfully is way lower. The culture around sharing our learnings and understanding is rooted deeply in",
+      "duration": 6000,
+      "offset": "1067120"
+    },
+    {
+      "text": "science and research. This is just how advancements happen in technology. On",
+      "duration": 5760,
+      "offset": "1073120"
+    },
+    {
+      "text": "one hand, this does remind me of the open source world, the way that we're all building on top of each other. But",
+      "duration": 5120,
+      "offset": "1078880"
+    },
+    {
+      "text": "on the other hand, it's not truly traditionally open because we're spending tons of money doing this",
+      "duration": 6559,
+      "offset": "1084000"
+    },
+    {
+      "text": "research and work and only publishing the things that we think are worth publishing and sharing and don't screw",
+      "duration": 5041,
+      "offset": "1090559"
+    },
+    {
+      "text": "our competitive advantages. Back when nobody had working AI, sharing all of",
+      "duration": 5360,
+      "offset": "1095600"
+    },
+    {
+      "text": "this made a lot of sense. Now that the American labs are in a cutthroat race competing with each other, their",
+      "duration": 6719,
+      "offset": "1100960"
+    },
+    {
+      "text": "willingness to share has gone down a ton. It's silly, but the first like cool",
+      "duration": 5120,
+      "offset": "1107679"
+    },
+    {
+      "text": "thing I've seen for different labs supporting each other in America in 2025 was when Sam Alman tweeted that Gemini 3",
+      "duration": 7521,
+      "offset": "1112799"
+    },
+    {
+      "text": "seems like a good model. Other than that, I have not seen much in terms of good faith operations between executives",
+      "duration": 6640,
+      "offset": "1120320"
+    },
+    {
+      "text": "at Anthropic, Google, and OpenAI. There's just very little collaboration happening at this point because they're",
+      "duration": 6880,
+      "offset": "1126960"
+    },
+    {
+      "text": "too busy trying to fight each other. Meanwhile, Deepseek breaks everything again with V3.2 getting crazy scores,",
+      "duration": 8000,
+      "offset": "1133840"
+    },
+    {
+      "text": "especially on tool calling stuff. And ZI is right here in the replies legend",
+      "duration": 5199,
+      "offset": "1141840"
+    },
+    {
+      "text": "heart. Like this is a whole different world. This is what the research was like here before the competition",
+      "duration": 6000,
+      "offset": "1147039"
+    },
+    {
+      "text": "started. We operated like this in the US before where these companies were supportive of each other. Now that",
+      "duration": 5601,
+      "offset": "1153039"
+    },
+    {
+      "text": "they're all cutthroat trying to win this economic race, they're not as willing to collaborate and they're much more",
+      "duration": 5919,
+      "offset": "1158640"
+    },
+    {
+      "text": "skeptical of things like distillation, people using their models to generate a bunch of synthetic data to then retrain",
+      "duration": 6641,
+      "offset": "1164559"
+    },
+    {
+      "text": "their own models with. In fact, a lot of them are accusing companies like DeepSeek of doing this with their data.",
+      "duration": 6479,
+      "offset": "1171200"
+    },
+    {
+      "text": "There was a point where certain Deepseek models, if you ask them what model are you, they would say chat GPT because they had data in their training corpus",
+      "duration": 7441,
+      "offset": "1177679"
+    },
+    {
+      "text": "that came from those American models. If Chinese models want to win, they have to be open because otherwise we won't use",
+      "duration": 6000,
+      "offset": "1185120"
+    },
+    {
+      "text": "them. If Chinese labs want to be competitive, they have to collaborate because we still have a lead there. And",
+      "duration": 6160,
+      "offset": "1191120"
+    },
+    {
+      "text": "there's one last piece that I haven't dove into much yet. I think this will make it into the video depending on how",
+      "duration": 5680,
+      "offset": "1197280"
+    },
+    {
+      "text": "angry chat is. This is going to be fun. Don't get too mad, boys. China sucks at writing software.",
+      "duration": 6719,
+      "offset": "1202960"
+    },
+    {
+      "text": "They're not quite as bad as Japan, but they're up there. China's incredible",
+      "duration": 5281,
+      "offset": "1209679"
+    },
+    {
+      "text": "manufacturing. They are surprisingly competent at research. Chinese software, from my experience,",
+      "duration": 7520,
+      "offset": "1214960"
+    },
+    {
+      "text": "is so atrocious that they end up spinning satellite",
+      "duration": 5280,
+      "offset": "1222480"
+    },
+    {
+      "text": "companies up in the US so they can hire United States-based software developers to make software that works. A",
+      "duration": 7520,
+      "offset": "1227760"
+    },
+    {
+      "text": "significant portion of Tik Tok's development happens here now because we have better engineers in the US. The",
+      "duration": 5600,
+      "offset": "1235280"
+    },
+    {
+      "text": "same way that a significant portion of manufacturing happens in China because they're better at it. Software",
+      "duration": 5200,
+      "offset": "1240880"
+    },
+    {
+      "text": "development happens in America because we're better at it. People are mad about the Japanese one. I don't care. Sony's even accepted that the PlayStation",
+      "duration": 6320,
+      "offset": "1246080"
+    },
+    {
+      "text": "software is an untenable mess and has fully outsourced it to the United",
+      "duration": 5200,
+      "offset": "1252400"
+    },
+    {
+      "text": "States. They are hiring consultancies in the US to save the operating system for PlayStation because they are so bad at",
+      "duration": 6640,
+      "offset": "1257600"
+    },
+    {
+      "text": "software. great at research, great at manufacturing, pretty good at logistics,",
+      "duration": 5120,
+      "offset": "1264240"
+    },
+    {
+      "text": "not capable of writing software. A significant portion of why I made T3 Chat is that as much as I hated the",
+      "duration": 6000,
+      "offset": "1269360"
+    },
+    {
+      "text": "Claude interface and the chat GBT interface, the Deep Seek 1 was actually unusable, entirely unusable, miserable",
+      "duration": 7920,
+      "offset": "1275360"
+    },
+    {
+      "text": "to touch. And I wanted to use the model somewhere better. And I made T3 Chat kind of as a pun on V3 Chat because I",
+      "duration": 6480,
+      "offset": "1283280"
+    },
+    {
+      "text": "like Deepseek V3 so much and I wanted to have a better interface for it. The Chinese labs cannot compete on the",
+      "duration": 5440,
+      "offset": "1289760"
+    },
+    {
+      "text": "software side. And this is where most people come in. Most users don't see",
+      "duration": 5200,
+      "offset": "1295200"
+    },
+    {
+      "text": "this new model came out and then go download the weights and try running it on their local GPU. Most of these",
+      "duration": 5519,
+      "offset": "1300400"
+    },
+    {
+      "text": "weights cannot be run that way because most of them are too massive to run even on like a high-end local GPU. You're not",
+      "duration": 7441,
+      "offset": "1305919"
+    },
+    {
+      "text": "going to run Mini Max or Kimmy K2 thinking on your RTX 5080 anytime soon.",
+      "duration": 5600,
+      "offset": "1313360"
+    },
+    {
+      "text": "So the average consumer wouldn't have done that anyways even if they could. They're going to go to the app store and",
+      "duration": 5280,
+      "offset": "1318960"
+    },
+    {
+      "text": "look up the app and the Deepseek app will never even come close to the apps by the American labs or even by a third",
+      "duration": 6400,
+      "offset": "1324240"
+    },
+    {
+      "text": "party like Perplexity or like us with T3 chat. So they cannot win on the top level where people are adopting the",
+      "duration": 6320,
+      "offset": "1330640"
+    },
+    {
+      "text": "thing. They cannot win on the API level because no American companies are going to use their APIs. So they have to go",
+      "duration": 5360,
+      "offset": "1336960"
+    },
+    {
+      "text": "even deeper. They have to provide the models so they can win at that level some amount and we can build everything",
+      "duration": 5120,
+      "offset": "1342320"
+    },
+    {
+      "text": "else the way we want to on top. So what about America? Can the US make a",
+      "duration": 5040,
+      "offset": "1347440"
+    },
+    {
+      "text": "comeback here? Can we somehow get back in the actual ring with openweight",
+      "duration": 5760,
+      "offset": "1352480"
+    },
+    {
+      "text": "models? The only major US-based openweight model to come out this year has been the new models from OpenAI. GBT",
+      "duration": 7600,
+      "offset": "1358240"
+    },
+    {
+      "text": "OSS120 is the fourth best performing openweight model according to artificial",
+      "duration": 5360,
+      "offset": "1365840"
+    },
+    {
+      "text": "analysis. That doesn't sound great. Like it's open AI. They're a half trillion dollar company. How are they not",
+      "duration": 5440,
+      "offset": "1371200"
+    },
+    {
+      "text": "competing with these small Chinese labs? It's not because they don't have the resources to do it. It's because of this. The 12B Mini Maxm 2 is 230 billion",
+      "duration": 10159,
+      "offset": "1376640"
+    },
+    {
+      "text": "params, almost double. And according to artificial analysis, it gets the same score. Deepseek 3.2 is 685 billion",
+      "duration": 8081,
+      "offset": "1386799"
+    },
+    {
+      "text": "params, 5x the amount on the OpenAI open weight model. Kimmy K2 thinking is a 1",
+      "duration": 6080,
+      "offset": "1394880"
+    },
+    {
+      "text": "trillion parameter model. Almost 10x the OpenAI model. None of these can be run",
+      "duration": 6959,
+      "offset": "1400960"
+    },
+    {
+      "text": "on machines that you have in your house. That is way too much memory to run any",
+      "duration": 5441,
+      "offset": "1407919"
+    },
+    {
+      "text": "of these things. The 120B model can max out my RTX 5090. None of these other",
+      "duration": 5199,
+      "offset": "1413360"
+    },
+    {
+      "text": "ones are going to fit on your GPUs. We're talking 500 gigs of VRAM to run K2 thinking. The strategy that OpenAI took",
+      "duration": 7360,
+      "offset": "1418559"
+    },
+    {
+      "text": "here is one that I actually commend. I was at one of the original listen group",
+      "duration": 5281,
+      "offset": "1425919"
+    },
+    {
+      "text": "session things they did with developers who wanted the open weight models and they actually like had Sam Alman come in and talk to us a whole bunch. It was",
+      "duration": 5599,
+      "offset": "1431200"
+    },
+    {
+      "text": "genuinely really cool and we got to ask a ton of questions. In Sam's opinion, the only reason you would want an open",
+      "duration": 5760,
+      "offset": "1436799"
+    },
+    {
+      "text": "weight model when there are good APIs with closed weight models is because you want to run it on hardware you own. I",
+      "duration": 6000,
+      "offset": "1442559"
+    },
+    {
+      "text": "think there's a real value in the competition of different providers hosting models that makes something like",
+      "duration": 6161,
+      "offset": "1448559"
+    },
+    {
+      "text": "certain Kimmy models or DeepSec models really fast on certain providers. But for the most part, he is right. If",
+      "duration": 7199,
+      "offset": "1454720"
+    },
+    {
+      "text": "there's a model from a lab you trust that's hosted in places you trust, the only reason you would want it to be open",
+      "duration": 6000,
+      "offset": "1461919"
+    },
+    {
+      "text": "weight is so you can run it yourself. It's not going to be cheaper to spin up a bunch of servers that you need to",
+      "duration": 5681,
+      "offset": "1467919"
+    },
+    {
+      "text": "spend hundreds of thousands of dollars in GPUs on than it is to just hit an API from somebody who's already doing it. It",
+      "duration": 5439,
+      "offset": "1473600"
+    },
+    {
+      "text": "would be way cheaper to run it on your GPU in your house, though. It'd be even cheaper to run on your laptop with a",
+      "duration": 5041,
+      "offset": "1479039"
+    },
+    {
+      "text": "much smaller model. So, they were trying to figure out what sizes to target based",
+      "duration": 5120,
+      "offset": "1484080"
+    },
+    {
+      "text": "on what we wanted to run them on. Every other lab seems focused on how much money do they have and how smart a model",
+      "duration": 6880,
+      "offset": "1489200"
+    },
+    {
+      "text": "can they generate, not thinking about how big or small is the model going to be. They're much more so thinking about",
+      "duration": 6079,
+      "offset": "1496080"
+    },
+    {
+      "text": "how they can win and have the best scores possible. Open AAI already knows they have the best scores possible. They",
+      "duration": 7120,
+      "offset": "1502159"
+    },
+    {
+      "text": "don't want to make the openweight models do that because then they're just giving a free win to all their competition, but",
+      "duration": 5280,
+      "offset": "1509279"
+    },
+    {
+      "text": "they do want to play in the open model space. They do want to give models to people who want to run them on their own hardware. And that's why they put out",
+      "duration": 6641,
+      "offset": "1514559"
+    },
+    {
+      "text": "two models, the 120B and the 20B. The 120 bill you can run on a single beefy",
+      "duration": 5440,
+      "offset": "1521200"
+    },
+    {
+      "text": "enough GPU. And the 20 bill you can run on a modern enough laptop with a real GPU in it. That was a very specific",
+      "duration": 7360,
+      "offset": "1526640"
+    },
+    {
+      "text": "decision they made rather than how good of a model can we make possibly. They thought about this as given these two",
+      "duration": 6880,
+      "offset": "1534000"
+    },
+    {
+      "text": "performance targets, how smart can we make something that fits within that box? And they have crushed that box.",
+      "duration": 7520,
+      "offset": "1540880"
+    },
+    {
+      "text": "There is nothing that comes close to GBT OSS120B within those performance constraints.",
+      "duration": 7200,
+      "offset": "1548400"
+    },
+    {
+      "text": "This is a really good angle for American companies to compete in the openw weight space and I am thankful somebody",
+      "duration": 6720,
+      "offset": "1555600"
+    },
+    {
+      "text": "actually took the time to do it this way. I can use these models for real things. And since these models are",
+      "duration": 5920,
+      "offset": "1562320"
+    },
+    {
+      "text": "lighter and easier to run, some of the speeds these companies are getting out of them are nuts. GBT OSS120B",
+      "duration": 7120,
+      "offset": "1568240"
+    },
+    {
+      "text": "is pulling on Parasale 300 TPS",
+      "duration": 5480,
+      "offset": "1575360"
+    },
+    {
+      "text": "on Somanova. It's pulling 650 on Grock. It's 550. That's crazy.",
+      "duration": 8481,
+      "offset": "1585279"
+    },
+    {
+      "text": "There are models that are pulling 10 tokens per second. This is 55 times faster than some of those models. And",
+      "duration": 5440,
+      "offset": "1593760"
+    },
+    {
+      "text": "many of them are dumber, too. The fact that these models are usable on consumer hardware and can perform that fast in",
+      "duration": 7040,
+      "offset": "1599200"
+    },
+    {
+      "text": "certain cases and are actually useful for things is incredible. And I see why this is the angle OpenAI took. OpenAI",
+      "duration": 7439,
+      "offset": "1606240"
+    },
+    {
+      "text": "was not interested in making a model that competed with GPT5 or 5.1. They were interested in making the best",
+      "duration": 5761,
+      "offset": "1613679"
+    },
+    {
+      "text": "possible thing you could run yourself. These Chinese labs aren't interested in making things you can run yourself. If",
+      "duration": 5599,
+      "offset": "1619440"
+    },
+    {
+      "text": "it so happens that you can, that's a cool side effect. There are two customers of open weight",
+      "duration": 8840,
+      "offset": "1625039"
+    },
+    {
+      "text": "consumers and enthusiasts and info providers.",
+      "duration": 6439,
+      "offset": "1635600"
+    },
+    {
+      "text": "OpenAI is an info provider. That's how they make a meaningful amount of their money about 20 to 30% depending on the",
+      "duration": 5920,
+      "offset": "1644080"
+    },
+    {
+      "text": "month. They don't want to or they don't want more info providers. Enthropic you",
+      "duration": 5760,
+      "offset": "1650000"
+    },
+    {
+      "text": "can use their mo with enthropic you can use their models on Google and AWS and now also on Azure. OpenAI was only",
+      "duration": 6480,
+      "offset": "1655760"
+    },
+    {
+      "text": "usable on OpenAI's infra until somewhat recently where they partnered with Azure and Microsoft during one of their crazy",
+      "duration": 5840,
+      "offset": "1662240"
+    },
+    {
+      "text": "finance rounds. So Azure can now host some OpenAI models. Meanwhile, all of the Chinese labs are hostable on almost",
+      "duration": 6880,
+      "offset": "1668080"
+    },
+    {
+      "text": "all of those providers and a bunch of other places too. Most of the Chinese models we're talking about cannot reasonably be hosted by a consumer or an",
+      "duration": 6719,
+      "offset": "1674960"
+    },
+    {
+      "text": "enthusiast. And people are wondering about how much RAM does 120 bill per RAM mean. It doesn't mean 120 gigs. In this",
+      "duration": 6000,
+      "offset": "1681679"
+    },
+    {
+      "text": "case, it means 80 gigs of VRAM. Supposedly, you can get away with 60 fine. And honestly, you can get away",
+      "duration": 6801,
+      "offset": "1687679"
+    },
+    {
+      "text": "with a little less in certain cases, but you can run the 120 bill model on a computer with enough VRAM. Yeah. So,",
+      "duration": 6480,
+      "offset": "1694480"
+    },
+    {
+      "text": "this laptop's 128 gig. Let's set up LM Studio and try it quick. One of the cool things about Apple Silicon is that the",
+      "duration": 7360,
+      "offset": "1700960"
+    },
+    {
+      "text": "GPUs and the CPUs are sharing memory. You don't have separate VRAM from regular RAM, which means I have 128 gigs",
+      "duration": 7839,
+      "offset": "1708320"
+    },
+    {
+      "text": "of VRAM on this machine. Look, when you set up LM Studio, it tells you to use GBT OSS 20 because it's one of the best",
+      "duration": 7520,
+      "offset": "1716159"
+    },
+    {
+      "text": "small models. So, the 20 bill model is 12 gigs and the 120 bill model is 60",
+      "duration": 7360,
+      "offset": "1723679"
+    },
+    {
+      "text": "plus. So, I just got the GBT OSS 20 bill running on my laptop here. It's a maxed",
+      "duration": 6801,
+      "offset": "1731039"
+    },
+    {
+      "text": "out M4 Pro from Apple. M4 Max. Didn't have the patience to wait for the M5. I",
+      "duration": 5199,
+      "offset": "1737840"
+    },
+    {
+      "text": "got it very recently. We got 128 gigs of RAM and we're using 12 gigs right now from the GP OSS20 bill model. Can I tell",
+      "duration": 6481,
+      "offset": "1743039"
+    },
+    {
+      "text": "it to write me three poems about JavaScript?",
+      "duration": 5399,
+      "offset": "1749520"
+    },
+    {
+      "text": "And it is flying. That was 117 tokens per second on my laptop locally. Pretty",
+      "duration": 7120,
+      "offset": "1757120"
+    },
+    {
+      "text": "cool, right? Let's switch this over to OSS 120 bill. It's going to take a sec",
+      "duration": 6720,
+      "offset": "1764240"
+    },
+    {
+      "text": "to load because it has to load that all into memory. And you can see my memory consumption going up fast. We're now at",
+      "duration": 6560,
+      "offset": "1770960"
+    },
+    {
+      "text": "59 gigs of VRAM being used for this. It's total memory cuz Mac OS and Apple",
+      "duration": 5200,
+      "offset": "1777520"
+    },
+    {
+      "text": "silicon using the same memory for both. Send",
+      "duration": 5559,
+      "offset": "1782720"
+    },
+    {
+      "text": "slower, but that chugged. The fact that I can get almost 80 TPS on a model that smart on my own computer. Do you",
+      "duration": 7359,
+      "offset": "1794320"
+    },
+    {
+      "text": "understand how [ __ ] cool that is? This is what OpenAI's choice was. They wanted to make models that you can run",
+      "duration": 6480,
+      "offset": "1801679"
+    },
+    {
+      "text": "on real consumer hardware. And while there aren't many good GPUs that you can buy and plug into your desktop that can",
+      "duration": 5921,
+      "offset": "1808159"
+    },
+    {
+      "text": "do this because desktop GPUs have very limited VRAM, if you get a Mac Studio or a MacBook Pro with enough RAM, you can",
+      "duration": 7599,
+      "offset": "1814080"
+    },
+    {
+      "text": "actually do inference on it. That's the difference. It's so different that we just got a crazy comment from chat.",
+      "duration": 6401,
+      "offset": "1821679"
+    },
+    {
+      "text": "Apple's RAM prices seem reasonable now. They actually kind of are when you consider this and also the crazy squeeze",
+      "duration": 5199,
+      "offset": "1828080"
+    },
+    {
+      "text": "happening in memory. This is cool. This is really cool. The point of this distinction for me is very simple. Open",
+      "duration": 7280,
+      "offset": "1833279"
+    },
+    {
+      "text": "interested in helping the competition here because they are deep in that space and they see no issue with the current",
+      "duration": 5761,
+      "offset": "1840559"
+    },
+    {
+      "text": "state of in providers in the US. The Chinese labs can't provide their own infrastructure because nobody will use",
+      "duration": 5839,
+      "offset": "1846320"
+    },
+    {
+      "text": "it. So they need other input providers to host their stuff. By doing openweight models, they can convince those labs to",
+      "duration": 5921,
+      "offset": "1852159"
+    },
+    {
+      "text": "host their things. Consumers and enthusiasts can't use most of those models because they're way too big, but",
+      "duration": 5120,
+      "offset": "1858080"
+    },
+    {
+      "text": "they can use the two that OpenAI released. OpenAI is interested in this space because it's one of the few that",
+      "duration": 5359,
+      "offset": "1863200"
+    },
+    {
+      "text": "they weren't really competitive in and they wanted to to go back and win it and they did. The the goal of the GPOSS",
+      "duration": 6480,
+      "offset": "1868559"
+    },
+    {
+      "text": "models has been achieved. If you are running a model locally, there's a good chance you're using GPTOSS or you're",
+      "duration": 5281,
+      "offset": "1875039"
+    },
+    {
+      "text": "doing something less optimal than you otherwise could. But that's not winning open weights because that's not going to",
+      "duration": 6160,
+      "offset": "1880320"
+    },
+    {
+      "text": "get you high up on the chart here. And this is where my conclusion comes. I",
+      "duration": 5439,
+      "offset": "1886480"
+    },
+    {
+      "text": "don't think we're ever going to see an open weight model from the US win on",
+      "duration": 5521,
+      "offset": "1891919"
+    },
+    {
+      "text": "this chart ever again. There's just very little incentive for labs to do it. Meanwhile, the Chinese labs won't make",
+      "duration": 5920,
+      "offset": "1897440"
+    },
+    {
+      "text": "it to America and they won't even be on charts like this if they don't do open weight. Don't think of this as why",
+      "duration": 6159,
+      "offset": "1903360"
+    },
+    {
+      "text": "aren't American companies keeping up with these open weight models. Rather, think of this as why do the Chinese labs",
+      "duration": 5921,
+      "offset": "1909519"
+    },
+    {
+      "text": "have to do open weight even if nobody can use the things they're publishing other than like six companies. There are",
+      "duration": 5760,
+      "offset": "1915440"
+    },
+    {
+      "text": "very very few places in the world that can handle a one trillion parameter model. But they put it out anyways",
+      "duration": 6959,
+      "offset": "1921200"
+    },
+    {
+      "text": "because they need a way for American labs and American companies and infrastructure providers to use it.",
+      "duration": 5120,
+      "offset": "1928159"
+    },
+    {
+      "text": "There is some hope left, but it's dwindling fast because at the very end of this chart, we have Llama. Meta has",
+      "duration": 8561,
+      "offset": "1933279"
+    },
+    {
+      "text": "released all of their models as open weight. Historically, they were one of the first people doing good openweight",
+      "duration": 6000,
+      "offset": "1941840"
+    },
+    {
+      "text": "models. In fact, the way a lot of people were using Deepseek models originally wasn't through DeepSeek. It was by using",
+      "duration": 6800,
+      "offset": "1947840"
+    },
+    {
+      "text": "the Deepseek R1 model to do a finetune on Llama 3. And a lot of us were using",
+      "duration": 5360,
+      "offset": "1954640"
+    },
+    {
+      "text": "that Llama 3 fine-tune as Deepseek even though it was Llama bastardiz into acting like Deepseek.",
+      "duration": 7200,
+      "offset": "1960000"
+    },
+    {
+      "text": "There is some chance for Meta to catch up here, especially some of the hires they've made. But I just don't see it",
+      "duration": 5599,
+      "offset": "1967200"
+    },
+    {
+      "text": "happening. They are so so far behind at this point. There's also some effort to try and fund this type of research. like",
+      "duration": 7760,
+      "offset": "1972799"
+    },
+    {
+      "text": "the White House's attempts to fund open models and AI research in the US, providing everything from inference to",
+      "duration": 6561,
+      "offset": "1980559"
+    },
+    {
+      "text": "power and paying for research to happen here. This was published in July and I",
+      "duration": 6240,
+      "offset": "1987120"
+    },
+    {
+      "text": "have not heard anything about it since there's also the potential security risk. The problem with openweight models",
+      "duration": 7439,
+      "offset": "1993360"
+    },
+    {
+      "text": "in security is that you can't take it back once you put it out. If it turns out that you could use Deep Seek 3.2 to",
+      "duration": 7760,
+      "offset": "2000799"
+    },
+    {
+      "text": "to make a nuclear weapon. They can't take it away. That issue now exists",
+      "duration": 5921,
+      "offset": "2008559"
+    },
+    {
+      "text": "forever in the model in the weights. Once it is published, you can't unpublish it. Meanwhile, if some issue",
+      "duration": 6559,
+      "offset": "2014480"
+    },
+    {
+      "text": "was discovered with OpenAI's new model, you can add a layer in front to prevent it. If it turns out GPT5's weights are",
+      "duration": 6401,
+      "offset": "2021039"
+    },
+    {
+      "text": "capable of telling you how to make a nuclear weapon, you can put a safeguard in front when the API request comes in",
+      "duration": 5680,
+      "offset": "2027440"
+    },
+    {
+      "text": "and before the response goes out with those instructions, you can block it. you can prevent it. Security risks,",
+      "duration": 5840,
+      "offset": "2033120"
+    },
+    {
+      "text": "copyright risks, all of these types of things are a lot easier if you can block the request in or out before it gets to",
+      "duration": 6640,
+      "offset": "2038960"
+    },
+    {
+      "text": "the model. But once the model's out there, you've lost your ability to do this. So there's a huge risk and",
+      "duration": 5360,
+      "offset": "2045600"
+    },
+    {
+      "text": "liability from the labs that are publishing these openweight models. It's a lot more work to do it. It's a lot more work to do it right. But the",
+      "duration": 6240,
+      "offset": "2050960"
+    },
+    {
+      "text": "Chinese labs don't really care. Their willingness to put out things that are",
+      "duration": 5120,
+      "offset": "2057200"
+    },
+    {
+      "text": "potentially actual security risks is zero. They just don't give a [ __ ] They put it out when they can win benchmarks.",
+      "duration": 5519,
+      "offset": "2062320"
+    },
+    {
+      "text": "The American labs have liability to worry about. They have expectations to worry about. Investors, they don't want",
+      "duration": 5201,
+      "offset": "2067839"
+    },
+    {
+      "text": "to piss off. They have to go out of their way to make sure their models are safe and don't have potential copyright",
+      "duration": 5039,
+      "offset": "2073040"
+    },
+    {
+      "text": "issues. And even if we start funding the creation of these openweight models here, the expectations that would be set",
+      "duration": 7121,
+      "offset": "2078079"
+    },
+    {
+      "text": "on them from the government of them being safe, reliable, and hitting the expectations of the American government",
+      "duration": 5840,
+      "offset": "2085200"
+    },
+    {
+      "text": "is going to make it a lot harder to do, right? It's a lot easier to add these things in front of the model than in the",
+      "duration": 5440,
+      "offset": "2091040"
+    },
+    {
+      "text": "model itself. And when you are giving the model weights out, you're giving up your ability to control what goes in. So",
+      "duration": 7760,
+      "offset": "2096480"
+    },
+    {
+      "text": "my conclusion is pretty clear. I think I do not see America competing in the open",
+      "duration": 6960,
+      "offset": "2104240"
+    },
+    {
+      "text": "weight models that are only hostable via infra providers like these super giant models. I don't see us competing there.",
+      "duration": 6480,
+      "offset": "2111200"
+    },
+    {
+      "text": "But I think we have a unique potential to win here. As more people get stronger computers with better GPUs as more",
+      "duration": 7120,
+      "offset": "2117680"
+    },
+    {
+      "text": "consumers have more reasons to try out these models, as Apple starts shipping",
+      "duration": 5440,
+      "offset": "2124800"
+    },
+    {
+      "text": "models on our devices, as Chrome starts shipping models in Chrome itself, where there's more reason to run locally,",
+      "duration": 6000,
+      "offset": "2130240"
+    },
+    {
+      "text": "there's a very, very good chance that America can win with those. But we need",
+      "duration": 5280,
+      "offset": "2136240"
+    },
+    {
+      "text": "an incentive if we're going to give out the weights. And right now there is not much incentive for American labs to give",
+      "duration": 6400,
+      "offset": "2141520"
+    },
+    {
+      "text": "models out for free to their competition. There is potentially incentive to give us things that we can run on our own machines. So I don't see",
+      "duration": 6720,
+      "offset": "2147920"
+    },
+    {
+      "text": "us winning anytime soon, but I hope we can win here. Let me know what you guys think. Am I way overblowing this or is",
+      "duration": 6880,
+      "offset": "2154640"
+    },
+    {
+      "text": "China definitely going to be the winner of open weight? Curious how y'all feel and if you even care, let me know. And until next time, peace nerds.",
+      "duration": 8240,
+      "offset": "2161520"
+    }
+  ],
+  "transcriptText": "If you look at the current top models, they're all from America, Google, Anthropic, and OpenAI. We are clearly winning the AI race until you zoom out a little bit. Then you see a lot of these blue bars appearing in the chart. Those blue bars are for openweight models. And if we look at the top three, Kimmy, Deepseek, and Mini Maxm2, you realize that China's winning the openweight race and by quite a bit. The first model from the US to appear here is GPTO OSS120B. And as a person who's used that model quite a bit, it's rough. It might score well on intelligence charts, but its ability to reliably call tools and be used in your workflows is nothing in comparison to what I've experienced with Kimmy, with Miniax, and now with Deep Seek V3.2. Huge gap between those. And if we want to look at the European introductions like uh Mestral Large 3, which just dropped and kind of inspired this video, they're barely even on the chart. Things are rough. Oh, and almost forgot, much like they seem to have, Llama 4 all the way at the end here. There were supposed to be three versions of Llama 4. If you remember, it was supposed to be Scout, Maverick, and I forgot the name of the larger one because they never put out the larger one because they all suck so bad. There's a 20 bill per pram model from OpenAI that beats out Mestral and there's lots of 15 bill ones that do too. It's rough out there. But the thing I really want to focus on today is the open weight wars and why China seems like they will be winning them for the foreseeable future. It's kind of crazy that when you only talk about models that weights are downloadable and usable, all of a sudden America gets wiped off the chart. There's a lot of reasons for this and I can't wait to talk about them, but since openw weight models don't pay the bills, we're going to do a quick sponsor break first. Here's a hard question for you. How do you know if an engineer is actually good? It's really hard to do. You might be able to look at their HTML shirt and make some assumptions, but when you're doing an interview, especially when you're reading someone's resume, how do you know they're actually good and not just AI generating some slop that you're going through a huge pile of as you fill this role? It's never been more annoying to hire good engineers. I feel like there's fewer of them in the pile and the pile's never been bigger. If you're tired of trying to find the needle in the hay stack and get a good engineer to work for you finally, you got to check out today's sponsor, G2I. These guys are without question the best way to hire good engineers fast. They have over 8,000 of them ready to go in their incredible network. These aren't people who are fresh out of college. These are real experienced engineers that have worked at big fang companies and small startups alike. know how to use all the tools you need, already are familiar with fancy AI development stuff, so they're not going to be slow. Whether you want a couple junior engineers to kickstart a new project, or a lead that can dig you out of tech debt hell, they have you covered. You create a shared Slack channel with them. They effectively are operating like your recruiting team. You give them a handful of questions to ask the engineers. They ask the engineers and record actual video responses from them so you know what the person's actually like. You go through them, figure out the ones you want. They'll then go do a technical interview that they've speced out so you don't have to worry. Record it, send you the results, and once they've gone through all that, you can review it, figure out who you think fits best, and then you can hire them. They're also just super generous to work with. I've referred a lot of people on a personal level, like a lot of the YC startups I work with, and every single one has had an incredible experience with G2I. Stop hiring the old way and stop wasting your time. Get good engineers fast at soyv.link/g2i. Before we can discuss why China's winning so hard, it's important to understand what is an openw weight model. The point of openweight models is somewhat similar to open-source models where you're giving out a significant portion of how the thing works. There's a big difference between openweight and open source though. With open source, the code that is used to create the thing people experience is exposed. With Linux, for example, the actual thing you download isn't the code when you're using Linux. What you download is the binary that's compiled by the code. The code is the input that results in the output that you are downloading and using. As such, I've seen a lot of people complain that openw weight models aren't open- source because you can't recreate that binary yourself. And I don't really agree. Obviously, it would be cool if we had all of the training data and everything else that went into how the models were made. But the reason open source is valuable is because you can reproduce the actual output. I can take the code and on my computer compile it and get a result. There are almost no consumers, almost no developers who have all of the things that are necessary to spend the millions of dollars on really hard to get infrastructure to turn that data into a model. There is no real reason to expose that and there's a ton of risk and liability if you expose all of the data that's used in your training and every other company's just going to take that data, throw it into their data sets and suddenly be able to beat you in all of the things you're good at. Depending on how you cut the lines and think about it, I would argue the data is almost the equivalent of the engineers in this case, not the equivalent of the source code. People think about source code very specifically because you use the source code to compile the thing that you want and as such we should have the data if we want to call these models open. I would argue we're just drawing our lines a bit differently. So in open source a developer creates source code that compiles into a binary that users can use. In open weights data is used to train weights that result in generated tokens. If you think of it this way where you're drawing the lines here, you say like the researchers collect the data that creates the weights that generate tokens. I would see why you would call this not open. But I don't think that is quite how it works. I think of it this way where the data is similar to the developer in the case of the weights because it creates the thing that we can use to generate the thing we actually want which in this case is the binary it's the Linux installable the actual kernel and in our case with models it's the tokens that we get from using the model. So the open weights mean you have all of the pieces you need to run the model and generate results with it yourself. The weights are the collection of parameters that are all mapped to and point to each other. So when you give it some text, it can guess what the best next token would be based on the text you give it and this giant hundreds of gigabytes pile of vectors and data that it has collapsed into this model that it can use to generate the next token as predictably and reliably as possible. I think it's really cool that open weight has gone as far as it has. And I think it's really convenient that openweight models can use the same licenses that open source code can. I already see people disagreeing in chat. I don't care. The weights are not the binary. The weights are a thing that can be reused and modified in very useful ways. The nature of how baked these things are. Like compiling code costs pennies and can be done on most computers. Turning data into weights isn't even a deterministic process. And I know there's a lot of debates around this. I know there's a lot of things that like Richard Stallman's going to disagree with me here on. I don't really care. This all comes down to whether you put this here or here. And I'm not one to [ __ ] when we get something as cool as openweight models. There's only one lab I know of that actually puts out the data and it's Allen Allen Institute. They were funded by Paul Allen from Microsoft as an attempt to do truly open AI research in the US. And their models aren't just open weight models. Their models also have the data exposed too. So you could hypothetically retrain the model on the data yourself. None of it's deterministic enough that you'll get the exact same weights. But yeah, it's exists. If you're wondering where this falls in the charts, right next to llama, not great. So, it's cool that we do have a fully open lab that is sharing the data and everything that is based in the US, but they're not really competitive. Just wanted to call that one out quick. The harsh reality is if we use the strict open- source definition that currently exists for code, there will never be a model that meets the definition of open source. And I agree, there probably won't be. And we shouldn't use the term open- source to describe models. Open weight is still a very cool and useful thing. So with an open weight model, the value you get out of it is I can take those weights and run them on my own hardware or look at different providers that are hosting them as well. If we go to something like open router and take a look at a Gemini model like Gemini 3 Pro preview, you can use it in two places, Google Vertex and Google AI Studio because the weights for this model have never left Google's campus. The weights that you use to run these models and generate these results are exclusively provided through Google's own infrastructure because they want to sell you the API, not the model. And since Google has their own infrastructure, they don't let other companies have access to this except for Apple privately potentially with a really really big pay deal of like a billion plus dollars to get the weights privately that they can use for some Siri stuff. If you look at something like OpenAI's GPT 5.1, your options are OpenAI. Some of these models are also available on Azure too, but that's it due to the OpenAI Microsoft partnership. Let's compare that to Deep Seek 3.2 EXP. We got Deep Infra, Novita, Shoots, Silicon Flow, and Atlas Cloud. Let's look at Kimmy K2. Kimmy K2, Shoots, Silicon Flow, Novita, Deep Infra, Parasel, Bite Plus, plus seven more. Moonshot. These are people who actually made the model. They are the eighth option in this list. Fireworks, Atlas cloud, base 10 together, Grock, and Turbo from Moonshot.AI. Also notice the Turbo option for Moonshot, which costs $8 per million out, is less than half the speed of Gro's solution here, and 8x the latency, too. Kind of nuts. The open weight models allow for various providers to offer them, which allows for a different level of competition across infrastructure solutions. That is really, really cool. But it does also mean that the official infrastructure in this case for Moonshot isn't really a great option. Moonshot charges 60 cents per mill in and 250 per mill out for under 20 tokens per second. Grock charges a dollar per mill in and $3 per mill out. So slightly more for 356 tokens per second. That is more than a 10x increase in throughput for a very minor bump in cost. This is the difference. When you have this type of competition, the value prop of your own infrastructure goes down, which makes it a lot harder for a company like Moonshot to make money on the Kimmy models, even though they are fourth on the artificial intelligence chart. Google is a trillion dollar company. Enthropic is a multi-billion dollar company, potentially worth trillions someday. OpenAI is already worth half a trillion dollars. Kimmy K2 Thinking by Moonshot is a small company in China that isn't making real revenue yet. Do you know what's really funny though? Do you know which of these four companies has been the kindest to work with for me as a creator? Moonshot. They've been trying really hard for me to give them a mailing address so they can ship me a care package. They've been awesome to work with. They always hit me up early. They offer me free inference for any tests I want to do. They constantly send me useful resources about the things I'm talking about. Moonshot's been a genuinely awesome company to work with and they even shout out their competitors when they have big launches. Like when Zai had a big release, they immediately went and supported them. They're a very good faith player, weirdly. So, Deepseek is very similar in this regard. Not in the com sense. Like, I've never heard from anybody at Deepseek. By the way, Deep Seek guys, if you want to hit me up, I'd love to chat. Very, very big fan of what you did. I would never have built T3 chat if it wasn't for Deep Seek V3 at the end of last year. I'm so impressed with the work that DeepSeek has been doing for a while now and their research is incredible. They put out 12 papers last year that were so far ahead of where everyone else was. And the discoveries that made FP8 training much more reliable resulted in every lab fundamentally changing how they did training. You could argue that a large portion of the speed that AIF accelerated this year came from the research DeepS put out for free last year. And yes, I have also talked to the ZI guys. They've been great. They've been really, really awesome. It's crazy how good at comms the Chinese labs have been with me at the very least. Openai has been really good. Google's up and down. Enthropic is interesting. But my experience with the Chinese labs has been really good as a journalist, so to speak, covering these things publicly. But none of that answers the question, why do open weight? Why are these companies releasing these models in a way that they make no money off them? Like the real winner whenever DeepSeek drops isn't DeepSeek. It's companies like Grock and Together and all these like cloud info providers that will host them for us. We currently don't have Deepseek version 3.2 like the final official version on T3 chat yet because none of the providers are doing it well enough just yet. I would even argue being open weight makes things much harder for the labs even outside of the costs since Kimmy K2 is available for anyone to host themselves. different hosts aren't necessarily hosting it properly in the quality of certain behaviors like tool calls might go down meaningfully depending on which host you're using. Kimmy actually went as far as creating the vendor verifier where they rank all of the companies hosting their models based on how reliably they do tool calling. These are all of the companies that they say are hitting over 73%. And if we scroll down, you'll see others not performing quite as well. It's cool that they're doing better now because previously the gap was a lot bigger. But by creating this bench and making this data public, they incentivize the hosts to fix their [ __ ] and also gave them the tool called eval python file that they can run against their own infra and find the bugs and fix them. Doing this type of thing is really really annoying but they are doing it because otherwise the reputation of these models will be hurt as a result of other labs and other hosts not hosting these things properly. It's a small thing, but I also love they're using UV. Like, these guys get what US developers are expecting. So, it's clear that doing open weight is harder. It makes it so you make way less money. Why the hell are they doing it? To be frank, nobody would trust them otherwise. If you're using a Chinese model and it's being hosted in China, all the data in and out is now at a real risk, like a very legitimate risk. A lot of these companies have Chinese government hands in them. There is no security team in the US that would approve of you using a Chinese model from Chinese infrastructure. And open weights allow them to be relevant in the space right now. The fact that I'm legitimately considering doing more work with Chinese models as an American shows that the openweight strategy is working for them because it's the only way they can hold any mind share in the US. There's even been attempts to ban the use of Chinese models in the US. When Deep Seek R1 first dropped, there was a huge freak out about that. And the government here was actually considering passing legislation that would make it illegal to download the weights. Wild. Insane. I have files on my computers that would suddenly become illegal if that crazy proposal was to actually go through. Absurd. So, this is like seriously the only way these Chinese labs will be taken seriously. And this goes a lot further than language models, too. It's the same deal with a lot of their image and video generation models as well. These models are not something that you'd want to run out of China, especially because they have restrictions on what GPUs they're even allowed to have access to. So, you might not be able to run some of these models they're making on infra and the infra they have is limited to the use cases that they are using for which is mostly training. There's a whole culture around getting cheaper GPUs and adding more VRAM to them in China in order to get around these import restrictions, which is kind of crazy. All of this results in these models only being viable if they are released in a way that we can host them ourselves and use them ourselves. There is no reason to make a great model in China and not release the weights because you won't be able to make money off it anyways right now. And this makes these companies go from entirely ignored here to genuinely very relevant to the conversations we're having. The research that kicked off a ton of this AI boom is the attention is all you need paper from the Google research Google brain deep mind team over at Google that was all about the transformer model that allowed for us to create language models as we now know them. This then went further with OpenAI's follow-up research, improving language understanding by generative pre-training. These two papers kind of kickstarted what we now know as AI. And these are open papers where they published what they did, how they did it, how they got there, and what it could do. Hypothetically speaking, any one of these labs could have sat on this information, not published it, and went and made crazy things with it. But then other companies wouldn't be able to innovate further. Like if Google didn't release this paper, OpenAI wouldn't have had the kickstart that they needed. And if OpenAI didn't follow up with this paper, we wouldn't have GPT as a concept. Or maybe somebody else would have come up with it eventually. But if these were all private innovations that each lab was hopefully coming up with itself, the likelihood that any of them progressed meaningfully is way lower. The culture around sharing our learnings and understanding is rooted deeply in science and research. This is just how advancements happen in technology. On one hand, this does remind me of the open source world, the way that we're all building on top of each other. But on the other hand, it's not truly traditionally open because we're spending tons of money doing this research and work and only publishing the things that we think are worth publishing and sharing and don't screw our competitive advantages. Back when nobody had working AI, sharing all of this made a lot of sense. Now that the American labs are in a cutthroat race competing with each other, their willingness to share has gone down a ton. It's silly, but the first like cool thing I've seen for different labs supporting each other in America in 2025 was when Sam Alman tweeted that Gemini 3 seems like a good model. Other than that, I have not seen much in terms of good faith operations between executives at Anthropic, Google, and OpenAI. There's just very little collaboration happening at this point because they're too busy trying to fight each other. Meanwhile, Deepseek breaks everything again with V3.2 getting crazy scores, especially on tool calling stuff. And ZI is right here in the replies legend heart. Like this is a whole different world. This is what the research was like here before the competition started. We operated like this in the US before where these companies were supportive of each other. Now that they're all cutthroat trying to win this economic race, they're not as willing to collaborate and they're much more skeptical of things like distillation, people using their models to generate a bunch of synthetic data to then retrain their own models with. In fact, a lot of them are accusing companies like DeepSeek of doing this with their data. There was a point where certain Deepseek models, if you ask them what model are you, they would say chat GPT because they had data in their training corpus that came from those American models. If Chinese models want to win, they have to be open because otherwise we won't use them. If Chinese labs want to be competitive, they have to collaborate because we still have a lead there. And there's one last piece that I haven't dove into much yet. I think this will make it into the video depending on how angry chat is. This is going to be fun. Don't get too mad, boys. China sucks at writing software. They're not quite as bad as Japan, but they're up there. China's incredible manufacturing. They are surprisingly competent at research. Chinese software, from my experience, is so atrocious that they end up spinning satellite companies up in the US so they can hire United States-based software developers to make software that works. A significant portion of Tik Tok's development happens here now because we have better engineers in the US. The same way that a significant portion of manufacturing happens in China because they're better at it. Software development happens in America because we're better at it. People are mad about the Japanese one. I don't care. Sony's even accepted that the PlayStation software is an untenable mess and has fully outsourced it to the United States. They are hiring consultancies in the US to save the operating system for PlayStation because they are so bad at software. great at research, great at manufacturing, pretty good at logistics, not capable of writing software. A significant portion of why I made T3 Chat is that as much as I hated the Claude interface and the chat GBT interface, the Deep Seek 1 was actually unusable, entirely unusable, miserable to touch. And I wanted to use the model somewhere better. And I made T3 Chat kind of as a pun on V3 Chat because I like Deepseek V3 so much and I wanted to have a better interface for it. The Chinese labs cannot compete on the software side. And this is where most people come in. Most users don't see this new model came out and then go download the weights and try running it on their local GPU. Most of these weights cannot be run that way because most of them are too massive to run even on like a high-end local GPU. You're not going to run Mini Max or Kimmy K2 thinking on your RTX 5080 anytime soon. So the average consumer wouldn't have done that anyways even if they could. They're going to go to the app store and look up the app and the Deepseek app will never even come close to the apps by the American labs or even by a third party like Perplexity or like us with T3 chat. So they cannot win on the top level where people are adopting the thing. They cannot win on the API level because no American companies are going to use their APIs. So they have to go even deeper. They have to provide the models so they can win at that level some amount and we can build everything else the way we want to on top. So what about America? Can the US make a comeback here? Can we somehow get back in the actual ring with openweight models? The only major US-based openweight model to come out this year has been the new models from OpenAI. GBT OSS120 is the fourth best performing openweight model according to artificial analysis. That doesn't sound great. Like it's open AI. They're a half trillion dollar company. How are they not competing with these small Chinese labs? It's not because they don't have the resources to do it. It's because of this. The 12B Mini Maxm 2 is 230 billion params, almost double. And according to artificial analysis, it gets the same score. Deepseek 3.2 is 685 billion params, 5x the amount on the OpenAI open weight model. Kimmy K2 thinking is a 1 trillion parameter model. Almost 10x the OpenAI model. None of these can be run on machines that you have in your house. That is way too much memory to run any of these things. The 120B model can max out my RTX 5090. None of these other ones are going to fit on your GPUs. We're talking 500 gigs of VRAM to run K2 thinking. The strategy that OpenAI took here is one that I actually commend. I was at one of the original listen group session things they did with developers who wanted the open weight models and they actually like had Sam Alman come in and talk to us a whole bunch. It was genuinely really cool and we got to ask a ton of questions. In Sam's opinion, the only reason you would want an open weight model when there are good APIs with closed weight models is because you want to run it on hardware you own. I think there's a real value in the competition of different providers hosting models that makes something like certain Kimmy models or DeepSec models really fast on certain providers. But for the most part, he is right. If there's a model from a lab you trust that's hosted in places you trust, the only reason you would want it to be open weight is so you can run it yourself. It's not going to be cheaper to spin up a bunch of servers that you need to spend hundreds of thousands of dollars in GPUs on than it is to just hit an API from somebody who's already doing it. It would be way cheaper to run it on your GPU in your house, though. It'd be even cheaper to run on your laptop with a much smaller model. So, they were trying to figure out what sizes to target based on what we wanted to run them on. Every other lab seems focused on how much money do they have and how smart a model can they generate, not thinking about how big or small is the model going to be. They're much more so thinking about how they can win and have the best scores possible. Open AAI already knows they have the best scores possible. They don't want to make the openweight models do that because then they're just giving a free win to all their competition, but they do want to play in the open model space. They do want to give models to people who want to run them on their own hardware. And that's why they put out two models, the 120B and the 20B. The 120 bill you can run on a single beefy enough GPU. And the 20 bill you can run on a modern enough laptop with a real GPU in it. That was a very specific decision they made rather than how good of a model can we make possibly. They thought about this as given these two performance targets, how smart can we make something that fits within that box? And they have crushed that box. There is nothing that comes close to GBT OSS120B within those performance constraints. This is a really good angle for American companies to compete in the openw weight space and I am thankful somebody actually took the time to do it this way. I can use these models for real things. And since these models are lighter and easier to run, some of the speeds these companies are getting out of them are nuts. GBT OSS120B is pulling on Parasale 300 TPS on Somanova. It's pulling 650 on Grock. It's 550. That's crazy. There are models that are pulling 10 tokens per second. This is 55 times faster than some of those models. And many of them are dumber, too. The fact that these models are usable on consumer hardware and can perform that fast in certain cases and are actually useful for things is incredible. And I see why this is the angle OpenAI took. OpenAI was not interested in making a model that competed with GPT5 or 5.1. They were interested in making the best possible thing you could run yourself. These Chinese labs aren't interested in making things you can run yourself. If it so happens that you can, that's a cool side effect. There are two customers of open weight consumers and enthusiasts and info providers. OpenAI is an info provider. That's how they make a meaningful amount of their money about 20 to 30% depending on the month. They don't want to or they don't want more info providers. Enthropic you can use their mo with enthropic you can use their models on Google and AWS and now also on Azure. OpenAI was only usable on OpenAI's infra until somewhat recently where they partnered with Azure and Microsoft during one of their crazy finance rounds. So Azure can now host some OpenAI models. Meanwhile, all of the Chinese labs are hostable on almost all of those providers and a bunch of other places too. Most of the Chinese models we're talking about cannot reasonably be hosted by a consumer or an enthusiast. And people are wondering about how much RAM does 120 bill per RAM mean. It doesn't mean 120 gigs. In this case, it means 80 gigs of VRAM. Supposedly, you can get away with 60 fine. And honestly, you can get away with a little less in certain cases, but you can run the 120 bill model on a computer with enough VRAM. Yeah. So, this laptop's 128 gig. Let's set up LM Studio and try it quick. One of the cool things about Apple Silicon is that the GPUs and the CPUs are sharing memory. You don't have separate VRAM from regular RAM, which means I have 128 gigs of VRAM on this machine. Look, when you set up LM Studio, it tells you to use GBT OSS 20 because it's one of the best small models. So, the 20 bill model is 12 gigs and the 120 bill model is 60 plus. So, I just got the GBT OSS 20 bill running on my laptop here. It's a maxed out M4 Pro from Apple. M4 Max. Didn't have the patience to wait for the M5. I got it very recently. We got 128 gigs of RAM and we're using 12 gigs right now from the GP OSS20 bill model. Can I tell it to write me three poems about JavaScript? And it is flying. That was 117 tokens per second on my laptop locally. Pretty cool, right? Let's switch this over to OSS 120 bill. It's going to take a sec to load because it has to load that all into memory. And you can see my memory consumption going up fast. We're now at 59 gigs of VRAM being used for this. It's total memory cuz Mac OS and Apple silicon using the same memory for both. Send slower, but that chugged. The fact that I can get almost 80 TPS on a model that smart on my own computer. Do you understand how [ __ ] cool that is? This is what OpenAI's choice was. They wanted to make models that you can run on real consumer hardware. And while there aren't many good GPUs that you can buy and plug into your desktop that can do this because desktop GPUs have very limited VRAM, if you get a Mac Studio or a MacBook Pro with enough RAM, you can actually do inference on it. That's the difference. It's so different that we just got a crazy comment from chat. Apple's RAM prices seem reasonable now. They actually kind of are when you consider this and also the crazy squeeze happening in memory. This is cool. This is really cool. The point of this distinction for me is very simple. Open interested in helping the competition here because they are deep in that space and they see no issue with the current state of in providers in the US. The Chinese labs can't provide their own infrastructure because nobody will use it. So they need other input providers to host their stuff. By doing openweight models, they can convince those labs to host their things. Consumers and enthusiasts can't use most of those models because they're way too big, but they can use the two that OpenAI released. OpenAI is interested in this space because it's one of the few that they weren't really competitive in and they wanted to to go back and win it and they did. The the goal of the GPOSS models has been achieved. If you are running a model locally, there's a good chance you're using GPTOSS or you're doing something less optimal than you otherwise could. But that's not winning open weights because that's not going to get you high up on the chart here. And this is where my conclusion comes. I don't think we're ever going to see an open weight model from the US win on this chart ever again. There's just very little incentive for labs to do it. Meanwhile, the Chinese labs won't make it to America and they won't even be on charts like this if they don't do open weight. Don't think of this as why aren't American companies keeping up with these open weight models. Rather, think of this as why do the Chinese labs have to do open weight even if nobody can use the things they're publishing other than like six companies. There are very very few places in the world that can handle a one trillion parameter model. But they put it out anyways because they need a way for American labs and American companies and infrastructure providers to use it. There is some hope left, but it's dwindling fast because at the very end of this chart, we have Llama. Meta has released all of their models as open weight. Historically, they were one of the first people doing good openweight models. In fact, the way a lot of people were using Deepseek models originally wasn't through DeepSeek. It was by using the Deepseek R1 model to do a finetune on Llama 3. And a lot of us were using that Llama 3 fine-tune as Deepseek even though it was Llama bastardiz into acting like Deepseek. There is some chance for Meta to catch up here, especially some of the hires they've made. But I just don't see it happening. They are so so far behind at this point. There's also some effort to try and fund this type of research. like the White House's attempts to fund open models and AI research in the US, providing everything from inference to power and paying for research to happen here. This was published in July and I have not heard anything about it since there's also the potential security risk. The problem with openweight models in security is that you can't take it back once you put it out. If it turns out that you could use Deep Seek 3.2 to to make a nuclear weapon. They can't take it away. That issue now exists forever in the model in the weights. Once it is published, you can't unpublish it. Meanwhile, if some issue was discovered with OpenAI's new model, you can add a layer in front to prevent it. If it turns out GPT5's weights are capable of telling you how to make a nuclear weapon, you can put a safeguard in front when the API request comes in and before the response goes out with those instructions, you can block it. you can prevent it. Security risks, copyright risks, all of these types of things are a lot easier if you can block the request in or out before it gets to the model. But once the model's out there, you've lost your ability to do this. So there's a huge risk and liability from the labs that are publishing these openweight models. It's a lot more work to do it. It's a lot more work to do it right. But the Chinese labs don't really care. Their willingness to put out things that are potentially actual security risks is zero. They just don't give a [ __ ] They put it out when they can win benchmarks. The American labs have liability to worry about. They have expectations to worry about. Investors, they don't want to piss off. They have to go out of their way to make sure their models are safe and don't have potential copyright issues. And even if we start funding the creation of these openweight models here, the expectations that would be set on them from the government of them being safe, reliable, and hitting the expectations of the American government is going to make it a lot harder to do, right? It's a lot easier to add these things in front of the model than in the model itself. And when you are giving the model weights out, you're giving up your ability to control what goes in. So my conclusion is pretty clear. I think I do not see America competing in the open weight models that are only hostable via infra providers like these super giant models. I don't see us competing there. But I think we have a unique potential to win here. As more people get stronger computers with better GPUs as more consumers have more reasons to try out these models, as Apple starts shipping models on our devices, as Chrome starts shipping models in Chrome itself, where there's more reason to run locally, there's a very, very good chance that America can win with those. But we need an incentive if we're going to give out the weights. And right now there is not much incentive for American labs to give models out for free to their competition. There is potentially incentive to give us things that we can run on our own machines. So I don't see us winning anytime soon, but I hope we can win here. Let me know what you guys think. Am I way overblowing this or is China definitely going to be the winner of open weight? Curious how y'all feel and if you even care, let me know. And until next time, peace nerds."
+}

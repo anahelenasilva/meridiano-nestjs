@@ -1,0 +1,1536 @@
+{
+  "videoId": "Yj9677a3y6c",
+  "title": "Bun got bought by Anthropic (yes really)",
+  "url": "https://www.youtube.com/watch?v=Yj9677a3y6c",
+  "publishedAt": "3 days ago",
+  "description": "Anthropic just bought Bun. As insane as it sounds, I think this makes a ton of sense...\n\nThank you Depot for sponsoring! Check them out at: https://soydev.link/depot\n(and make sure to use THEO)...",
+  "thumbnailUrl": "https://i.ytimg.com/vi/Yj9677a3y6c/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLA3MH6q7f6WqdyrQ01b2FE0TPSA9w",
+  "transcript": [
+    {
+      "text": "It's no secret that I've been a huge fan of Bun for a while. Way back in 2022, I was Jared's first interview talking",
+      "duration": 5839,
+      "offset": "0"
+    },
+    {
+      "text": "about it. And the ride we've been on since has been crazy. I'm a fan, a user, a builder, and an investor, all working",
+      "duration": 5521,
+      "offset": "5839"
+    },
+    {
+      "text": "with Bun wherever it makes sense to. And I'm really, really lucky to consider Jared a good friend. So, knowing that",
+      "duration": 5600,
+      "offset": "11360"
+    },
+    {
+      "text": "there is bias to account for here, especially when you realize that they were just acquired by a company I'm not necessarily known for being the biggest",
+      "duration": 6640,
+      "offset": "16960"
+    },
+    {
+      "text": "fan of. Yes, Bun is joining Anthropic. This seems just absolutely insane. And",
+      "duration": 6880,
+      "offset": "23600"
+    },
+    {
+      "text": "as a result, I've seen even more insane takes about it. From, oh, they're being aqua hired, buns dead, to, \"Of course",
+      "duration": 6160,
+      "offset": "30480"
+    },
+    {
+      "text": "they did that. They're going to build a cloud environment to compete with Verscell for Cloud Code.\" And yeah, all",
+      "duration": 5439,
+      "offset": "36640"
+    },
+    {
+      "text": "of this is insane. Just as insane as me technically having equity in Anthropic now, which is kind of hilarious that I",
+      "duration": 5601,
+      "offset": "42079"
+    },
+    {
+      "text": "have equity in anthropic and not OpenAI. All of that aside, I have thoughts here. I also have a lot of inside info, so I",
+      "duration": 6000,
+      "offset": "47680"
+    },
+    {
+      "text": "have to dance around it to the best of my ability. But uh this is a weird topic because I am uniquely qualified both as",
+      "duration": 5920,
+      "offset": "53680"
+    },
+    {
+      "text": "a friend and investor of Jared and Bun, but also as somebody who's deep in the web world, deep in the building world",
+      "duration": 6080,
+      "offset": "59600"
+    },
+    {
+      "text": "for full stack stuff around JavaScript, and also really deep on the direction of this AI stuff and where Enthropic is",
+      "duration": 6479,
+      "offset": "65680"
+    },
+    {
+      "text": "trying to go. We have a lot to talk about here, guys, and I can't wait to do it, but uh I didn't get a payout for",
+      "duration": 5761,
+      "offset": "72159"
+    },
+    {
+      "text": "this yet. So, let's hear a quick word from today's sponsor. There are a few things that hurt developer velocity more than slow builds. If a user reports a",
+      "duration": 6320,
+      "offset": "77920"
+    },
+    {
+      "text": "problem and you go and fix it in 10 minutes, but you have to wait two hours for the build to complete just to realize there's a small mistake and then",
+      "duration": 6000,
+      "offset": "84240"
+    },
+    {
+      "text": "go through the whole loop again, there goes all of your agility. You're throwing away so much opportunity to",
+      "duration": 5120,
+      "offset": "90240"
+    },
+    {
+      "text": "move fast and ship fast. And those blocks will keep your engineers from staying motivated on those tasks. If",
+      "duration": 5759,
+      "offset": "95360"
+    },
+    {
+      "text": "you're looking at a huge pile of tickets that have been building up over time, there's a good chance your build time is a part of why that's happening. That's",
+      "duration": 6320,
+      "offset": "101119"
+    },
+    {
+      "text": "why I look at this number and just can't fathom why anyone isn't already using Depot. Seriously, Post Hog's actual",
+      "duration": 7360,
+      "offset": "107439"
+    },
+    {
+      "text": "production builds went from 153 minutes to 4 minutes. I know it sounds too good",
+      "duration": 6081,
+      "offset": "114799"
+    },
+    {
+      "text": "to be true, but let's be real. A lot of this is because GitHub doesn't know what they're doing. But the other side is",
+      "duration": 5440,
+      "offset": "120880"
+    },
+    {
+      "text": "that these guys are so locked in and focused on performance. Depot is obsessed with squeezing every ounce of",
+      "duration": 7120,
+      "offset": "126320"
+    },
+    {
+      "text": "potential improvement in your GitHub actions. Honestly, if this costs 10 times more than GitHub actions, I'd",
+      "duration": 5760,
+      "offset": "133440"
+    },
+    {
+      "text": "probably still be a happy customer because of the amount of time it's saving my teams. But it ends up being cheaper, which is just insane. Since",
+      "duration": 7360,
+      "offset": "139200"
+    },
+    {
+      "text": "migrating from default GitHub actions, our Docker image build times have literally been cut in half. Dev is",
+      "duration": 5039,
+      "offset": "146560"
+    },
+    {
+      "text": "incredible for reducing our build times by 10x from 8 minutes to 20 seconds. Depot's awesome. Got my buildin push",
+      "duration": 5761,
+      "offset": "151599"
+    },
+    {
+      "text": "from 30 minutes to 4, and it will be about 12 seconds when it's cached. Moving to Depot takes 5 minutes. So, if",
+      "duration": 5200,
+      "offset": "157360"
+    },
+    {
+      "text": "your builds are longer than that, your next build will cut the cost difference. It's so worth it. Give them a shot now at soyave.link/depo.",
+      "duration": 6800,
+      "offset": "162560"
+    },
+    {
+      "text": "Where to even start with this one? There are two articles as well as all the things people are saying and then of",
+      "duration": 5280,
+      "offset": "169360"
+    },
+    {
+      "text": "course my own speculation that we'll be doing near the end. So, if you want to hear my thoughts on why they're doing this and where it's going, stick to the",
+      "duration": 6800,
+      "offset": "174640"
+    },
+    {
+      "text": "end for that. Oopic acquires bun as Claude Code reaches the 1 billion milestone. pretty crazy revenue for",
+      "duration": 6960,
+      "offset": "181440"
+    },
+    {
+      "text": "cloud code, but also they're basically giving discounts for Claude by using cloud code. So, I get it. Claude is the",
+      "duration": 5759,
+      "offset": "188400"
+    },
+    {
+      "text": "world's smartest and most capable AI model for developers, startups, and enterprises. Kind of crazy that the",
+      "duration": 5281,
+      "offset": "194159"
+    },
+    {
+      "text": "first sentence is nothing about bun at all. In fact, you have to go quite a bit before bun is mentioned. I heard someone",
+      "duration": 5120,
+      "offset": "199440"
+    },
+    {
+      "text": "say that the amount of mentions of things in here is weird. Claude is mentioned 25 times. Claude code is",
+      "duration": 5679,
+      "offset": "204560"
+    },
+    {
+      "text": "mentioned 11 times. And bun is mentioned 18. Fun. Cloud Code represents a new era",
+      "duration": 5601,
+      "offset": "210239"
+    },
+    {
+      "text": "of agentic coding, fundamentally changing how teams build software. In November, Cloud Code achieved a",
+      "duration": 5039,
+      "offset": "215840"
+    },
+    {
+      "text": "significant milestone. Just six months after becoming available, it reached a billion in run rate revenue. Today, we're announcing that Anthropics",
+      "duration": 5440,
+      "offset": "220879"
+    },
+    {
+      "text": "acquiring Bun, a breakthrough JavaScript runtime to further accelerate Cloud Code. This is the key piece here. We'll",
+      "duration": 7041,
+      "offset": "226319"
+    },
+    {
+      "text": "talk more about the importance of this in a bit. Bun's redefining speed and performance for modern software",
+      "duration": 5040,
+      "offset": "233360"
+    },
+    {
+      "text": "engineering and development. Founded by Jared in 2021, Bun is dramatically faster than the leading competition. As",
+      "duration": 5680,
+      "offset": "238400"
+    },
+    {
+      "text": "an all-in-one toolkit combining runtime, package manager, bundler, and testrunner, it's become essential infra",
+      "duration": 5519,
+      "offset": "244080"
+    },
+    {
+      "text": "for AIL software engineering, helping devs build, and test applications at unprecedented velocity. Bun has improved",
+      "duration": 6561,
+      "offset": "249599"
+    },
+    {
+      "text": "the JS and TypeScript developer experience by optimizing for reliability, speed, and delight. For those using cloud code, this acquisition",
+      "duration": 6160,
+      "offset": "256160"
+    },
+    {
+      "text": "means faster performance, improved stability, and new capabilities. Together, we'll keep making Bun the best",
+      "duration": 5760,
+      "offset": "262320"
+    },
+    {
+      "text": "JS runtime for all developers while building even better workflows into Cloud Code. Here's a whole section of",
+      "duration": 6720,
+      "offset": "268080"
+    },
+    {
+      "text": "glazing Cloud Code. We've been a close partner of Bun for many months. If you didn't know, Claude Code bundles Bun",
+      "duration": 6480,
+      "offset": "274800"
+    },
+    {
+      "text": "alongside it when you install it as the runtime for Cloud Code. Our collaboration has been central to the",
+      "duration": 5440,
+      "offset": "281280"
+    },
+    {
+      "text": "rapid execution of Cloud Code team and directly drove the recent launch of Cloud Code's native installer. We know",
+      "duration": 5919,
+      "offset": "286720"
+    },
+    {
+      "text": "the bun team is building from the same vantage point that we do at Anthropic with a focus on rethinking the dev",
+      "duration": 5441,
+      "offset": "292639"
+    },
+    {
+      "text": "experience at building innovative and useful products. I did notice this when I last installed Claude that there was a",
+      "duration": 5280,
+      "offset": "298080"
+    },
+    {
+      "text": "bunch of callouts for native in it. I thought they might have done the stupid Rust rewrite that a handful of these products have done that didn't need it.",
+      "duration": 7200,
+      "offset": "303360"
+    },
+    {
+      "text": "No, that's not what they did. They did this to make a single binary you can install using bun. It's simpler, more",
+      "duration": 6639,
+      "offset": "310560"
+    },
+    {
+      "text": "stable, and doesn't require node. We recommend this as the default installation method for all cloud code users going forward with brew with curl",
+      "duration": 6641,
+      "offset": "317199"
+    },
+    {
+      "text": "or on Windows with IRM. Makes sense. This is bundling a single binary that is",
+      "duration": 6079,
+      "offset": "323840"
+    },
+    {
+      "text": "wrapped with bun so that it can execute and manage its own runtime and have to worry about you having the right version of node installed. I know a lot of",
+      "duration": 5761,
+      "offset": "329919"
+    },
+    {
+      "text": "companies get really annoying about setting up cloud codecs and these things because they want a single binary they",
+      "duration": 6079,
+      "offset": "335680"
+    },
+    {
+      "text": "can approve and distribute internally, but if you also have to have node distributed internally with the right version and everything, they the IT",
+      "duration": 6720,
+      "offset": "341759"
+    },
+    {
+      "text": "teams get all [ __ ] with it. I think that's stupid. Your IT team should be competent if they're controlling what",
+      "duration": 5121,
+      "offset": "348479"
+    },
+    {
+      "text": "tech your developers can use. But a lot of companies aren't competent and as such this type of single approvable",
+      "duration": 5439,
+      "offset": "353600"
+    },
+    {
+      "text": "binary is necessary. I've heard from many that this is the reason why codeex got rewritten in Rust, which is the",
+      "duration": 5280,
+      "offset": "359039"
+    },
+    {
+      "text": "worst possible reason to rewrite something in Rust. I much prefer the method that Anthropic took here. They even got the CPO of Anthropic to leave",
+      "duration": 6401,
+      "offset": "364319"
+    },
+    {
+      "text": "some comments. Bun represents exactly the kind of technical excellence we want to bring into Anthropic. Jared and his",
+      "duration": 5599,
+      "offset": "370720"
+    },
+    {
+      "text": "team rethought the entire JS tool chain from first principles while remaining focused on real use cases. Kind of",
+      "duration": 5201,
+      "offset": "376319"
+    },
+    {
+      "text": "disagree here. They didn't rethink the tool chain so much as rewrite it so that",
+      "duration": 5119,
+      "offset": "381520"
+    },
+    {
+      "text": "it's fully compatible. Something like Dino was the rethinking of the JS tool chain which failed and now they're",
+      "duration": 6400,
+      "offset": "386639"
+    },
+    {
+      "text": "trying to do compat as well. Bun is a compatibility play. Bringing the Bun team into Enthropic means we can build",
+      "duration": 5600,
+      "offset": "393039"
+    },
+    {
+      "text": "the infra to compound that momentum and keep pace with the exponential growth in AI adoption. The decision to acquire Bun",
+      "duration": 6161,
+      "offset": "398639"
+    },
+    {
+      "text": "is in line with our strategic disciplined approach to acquisitions. We will continue to pursue opportunities that bolster our technical excellence,",
+      "duration": 6080,
+      "offset": "404800"
+    },
+    {
+      "text": "reinforce our strengths as the leader in enterprise AI, and most importantly align with our principles and mission. And one last important piece because",
+      "duration": 5759,
+      "offset": "410880"
+    },
+    {
+      "text": "people are worried about bun going private which makes sense because cloud code is the only one of these major agent coding tools that is still closed",
+      "duration": 6081,
+      "offset": "416639"
+    },
+    {
+      "text": "source. Bun will remain open source and MIT licensed and we will continue to invest in making it the runtime bundler",
+      "duration": 6000,
+      "offset": "422720"
+    },
+    {
+      "text": "package manager and testr runner of choice for JavaScript and TypeScript devs. I already see people in chat being",
+      "duration": 5120,
+      "offset": "428720"
+    },
+    {
+      "text": "skeptical of that. I'll say it myself. If they were to screw with the open",
+      "duration": 5040,
+      "offset": "433840"
+    },
+    {
+      "text": "source nature of Bun, I will be the loudest person complaining about that by",
+      "duration": 6240,
+      "offset": "438880"
+    },
+    {
+      "text": "far. They will never hear the end of it from me. I would argue that this is now",
+      "duration": 5199,
+      "offset": "445120"
+    },
+    {
+      "text": "time to do the opposite. They need to triple down on open source. They need to open source cloud code alongside this.",
+      "duration": 6961,
+      "offset": "450319"
+    },
+    {
+      "text": "There is no world in which they stop supporting Bun as a result of this. In fact, it's the opposite. Enthropic bets",
+      "duration": 6639,
+      "offset": "457280"
+    },
+    {
+      "text": "so hard on Bun that Bun not getting profitable and then dying is a huge risk for them. We'll talk about all of that",
+      "duration": 6720,
+      "offset": "463919"
+    },
+    {
+      "text": "in just a bit. First, I want to read this from Bun's perspective. Bun is",
+      "duration": 5361,
+      "offset": "470639"
+    },
+    {
+      "text": "joining Anthropic. Anthropic is betting on Bun as the infrastructure powering cloud code, the cloud agent SDK, and",
+      "duration": 5120,
+      "offset": "476000"
+    },
+    {
+      "text": "future AI coding products and tools. So, what doesn't change? I really like this is at the start. Bun stays open source and MIT license. It continues to be",
+      "duration": 6160,
+      "offset": "481120"
+    },
+    {
+      "text": "extremely actively maintained. Same team is still working on bun. Pretty much everybody at the bun company is coming",
+      "duration": 5919,
+      "offset": "487280"
+    },
+    {
+      "text": "through for this acquisition. And the one person who isn't that I know of because they were still in the process of being hired, they got a really",
+      "duration": 6641,
+      "offset": "493199"
+    },
+    {
+      "text": "generous payout. So like Jared went really hard to make sure everybody at Bun and Oven won here. And that's",
+      "duration": 7280,
+      "offset": "499840"
+    },
+    {
+      "text": "something that matters a lot to me. My biggest concern with Bun has always been can Jared run a company that makes money",
+      "duration": 5520,
+      "offset": "507120"
+    },
+    {
+      "text": "and get the win back to his team. I was concerned he might not have it in him,",
+      "duration": 5040,
+      "offset": "512640"
+    },
+    {
+      "text": "but this is the perfect path. Jared's a builder. He wants to build. He doesn't want to be an executive. He doesn't want",
+      "duration": 5440,
+      "offset": "517680"
+    },
+    {
+      "text": "to run a company. He doesn't want to deal with profitability and all of these things. Someone who's talked with him a bunch about it, interviewed him and",
+      "duration": 5839,
+      "offset": "523120"
+    },
+    {
+      "text": "roasted him privately and publicly over his lack of vision for a way for them to make money. Like, this is the perfect",
+      "duration": 6880,
+      "offset": "528959"
+    },
+    {
+      "text": "ending for that. This is letting him go focus on what he's good at, get his team what they deserve for the work they've",
+      "duration": 5680,
+      "offset": "535839"
+    },
+    {
+      "text": "done, and everything gets to accelerate as a result. Also, of course, Bun is still public on GitHub. They're not",
+      "duration": 5521,
+      "offset": "541519"
+    },
+    {
+      "text": "going to change that. And Bun's road map will continue to focus on high performance JS tooling, node compat replacing node as the default serverside",
+      "duration": 5840,
+      "offset": "547040"
+    },
+    {
+      "text": "runtime for JavaScript. The one thing I do expect to change is that we're going to see less of these like Reddus",
+      "duration": 5360,
+      "offset": "552880"
+    },
+    {
+      "text": "connectors or like the MySQL plugin built into bun. I would expect less of that type of thing and more of the like",
+      "duration": 7599,
+      "offset": "558240"
+    },
+    {
+      "text": "locked in focus on making bun the best runtime for node applications. Cloud",
+      "duration": 5361,
+      "offset": "565839"
+    },
+    {
+      "text": "code ships as a bun executable to millions of users. If bun breaks, cloud code breaks. Enthropic has direct",
+      "duration": 5520,
+      "offset": "571200"
+    },
+    {
+      "text": "incentives to keep bun excellent. Yes, perfect. So, what is changing? We",
+      "duration": 6960,
+      "offset": "576720"
+    },
+    {
+      "text": "will help make coding tools like cloud code and the agent SDK faster and smaller. We get a close first look at",
+      "duration": 5920,
+      "offset": "583680"
+    },
+    {
+      "text": "what's around the corner for AI coding tools and making bun better for it. And most importantly, Bun will ship faster.",
+      "duration": 7120,
+      "offset": "589600"
+    },
+    {
+      "text": "Now that Jared's not distracted by running a company, dealing with investors, and all his other things, and can just focus on shipping, he's going",
+      "duration": 7200,
+      "offset": "596720"
+    },
+    {
+      "text": "to ship hard. My only concern is that Anthropic has enough interesting stuff going on that he might get nerd sniped",
+      "duration": 5919,
+      "offset": "603920"
+    },
+    {
+      "text": "by something else. But now that Bun has the resources it needs internally, they can keep moving. There's a fun little",
+      "duration": 6641,
+      "offset": "609839"
+    },
+    {
+      "text": "like how Bun started story in here. I'll link it in the description if you want to read the whole thing. I'll breeze",
+      "duration": 5280,
+      "offset": "616480"
+    },
+    {
+      "text": "through it really quick though. 5 years ago, Jared was building a Voxil game in the browser kind of like Minecraft. Cobbase got large. Iteration cycles took",
+      "duration": 6800,
+      "offset": "621760"
+    },
+    {
+      "text": "45 seconds to test if changes worked. He was using Nex.js and the hot server reloads were taking almost a minute. He",
+      "duration": 5519,
+      "offset": "628560"
+    },
+    {
+      "text": "got frustrated, so he started porting ES builds JSX and TypeScript transpiler from Go to Zigg all the way back in 2021. 3 weeks later, I had a somewhat",
+      "duration": 7361,
+      "offset": "634079"
+    },
+    {
+      "text": "working JSX and TypeScript transpiler. Spent much of the first year in a cramped apartment in Oakland coding and tweeting about bun. In order to get the",
+      "duration": 6639,
+      "offset": "641440"
+    },
+    {
+      "text": "server side rendering to work, you need a runtime and all the runtimes need to interpret and jit the code. So, he",
+      "duration": 6241,
+      "offset": "648079"
+    },
+    {
+      "text": "started working on top of WebKit to make his own runtime. Bun 0.1 was released in July. This is when I interviewed him, by",
+      "duration": 5920,
+      "offset": "654320"
+    },
+    {
+      "text": "the way. Looking at that in retrospect is wild. There 20k stars on GitHub. What",
+      "duration": 5200,
+      "offset": "660240"
+    },
+    {
+      "text": "he doesn't mention is he also had a YC company that was still active but in pivot hell and pivoted it to Bun. So",
+      "duration": 6800,
+      "offset": "665440"
+    },
+    {
+      "text": "technically Bun is a YC company but it's similar to like T3 Chat's a YC company where Ping was a YC company. Ping did",
+      "duration": 7360,
+      "offset": "672240"
+    },
+    {
+      "text": "not go great. And then T3 Chat happened under the same company and went way",
+      "duration": 5760,
+      "offset": "679600"
+    },
+    {
+      "text": "better than expected. They raised a big round from Kleiner Perkins. He took a small salary. He always underpaid",
+      "duration": 6000,
+      "offset": "685360"
+    },
+    {
+      "text": "himself. Believe it or not, Jared until today was broke. So, it's going to be",
+      "duration": 5039,
+      "offset": "691360"
+    },
+    {
+      "text": "fun to see how he handles having money. My suspicion is nothing will change. They raised again, this time a $19",
+      "duration": 5521,
+      "offset": "696399"
+    },
+    {
+      "text": "million series A. This was in 2023 September after the 1.0 launch. 1.1",
+      "duration": 6080,
+      "offset": "701920"
+    },
+    {
+      "text": "added Windows 1.2 made big changes for node compat added built-in Postgress and S3. And this is when X and Midjourney",
+      "duration": 7120,
+      "offset": "708000"
+    },
+    {
+      "text": "started to use them. It's my understanding that X is using them mostly for package management, not the runtime. Midjourney, I believe, is using",
+      "duration": 5839,
+      "offset": "715120"
+    },
+    {
+      "text": "the runtime as well. This is part of what makes Bun complex. It's a bundler. It's a runtime. It's an alternative tool",
+      "duration": 6241,
+      "offset": "720959"
+    },
+    {
+      "text": "set and standard library for a bunch of things. It's a lot of stuff in one. And it seems like the majority of people",
+      "duration": 5360,
+      "offset": "727200"
+    },
+    {
+      "text": "using Bun are primarily using it for the installer and bundler. Anthropic is one of the few companies using it for the runtime, which I think is a really safe",
+      "duration": 7120,
+      "offset": "732560"
+    },
+    {
+      "text": "and good thing because them using it for the runtime means that the acquisition isn't going to be the end of the",
+      "duration": 6000,
+      "offset": "739680"
+    },
+    {
+      "text": "runtime. Like if Twitter or X purchased Bun, they'd be all focused on the bundler and the package manager side,",
+      "duration": 6240,
+      "offset": "745680"
+    },
+    {
+      "text": "probably not the runtime side. Anthropic, one of the few companies that uses most of Bun and can benefit from",
+      "duration": 6159,
+      "offset": "751920"
+    },
+    {
+      "text": "all of it. Then 1.3 dropped. I actually did an interview with Jared in person at a small 1.3 launch event in the city",
+      "duration": 6880,
+      "offset": "758079"
+    },
+    {
+      "text": "just a few weeks ago and I grilled him on not having a plan to make money and he really didn't at the time. It seems",
+      "duration": 5680,
+      "offset": "764959"
+    },
+    {
+      "text": "like it was just a few days after that that things started to really accelerate. AI started to get good in",
+      "duration": 5921,
+      "offset": "770639"
+    },
+    {
+      "text": "late 2024. AI coding tools went from cool demo to actually useful. I know that Jared's been using Cloud Code and",
+      "duration": 5760,
+      "offset": "776560"
+    },
+    {
+      "text": "Claude models for doing stuff in bun for a while now. He used to very excitedly say that for the first time Jared's not",
+      "duration": 5199,
+      "offset": "782320"
+    },
+    {
+      "text": "the one committing the most code to bun. It's now clawed. And since Bun is a single file executable, you don't have",
+      "duration": 5041,
+      "offset": "787519"
+    },
+    {
+      "text": "to do a whole system install with a bunch of [ __ ] You can just bundle bun itself. It's easy to bundle with the CLI",
+      "duration": 5440,
+      "offset": "792560"
+    },
+    {
+      "text": "tools. You can compile any JS project into a self-contained binary that runs anywhere. Even if the user doesn't have Bun or Node installed, it works with",
+      "duration": 6399,
+      "offset": "798000"
+    },
+    {
+      "text": "native add-ons. It has fast startup and it's easy to distribute. That's why Cloud Code, Factory AI, Open Code, and tons of other things are all built with",
+      "duration": 6161,
+      "offset": "804399"
+    },
+    {
+      "text": "Bun. And the result of this was that Jared got obsessed with Cloud Code. The GitHub username with the most merge PRs and buns repo is the Claude Codebot. We",
+      "duration": 6640,
+      "offset": "810560"
+    },
+    {
+      "text": "have it set up in our internal Discord and we use it to help fix bugs. It opens up PRs with tests that fail in earlier",
+      "duration": 5120,
+      "offset": "817200"
+    },
+    {
+      "text": "system installed versions of bun before the fix and it pass in the fix debug bun or build. It's doing the full like write",
+      "duration": 6639,
+      "offset": "822320"
+    },
+    {
+      "text": "a test, use the new version, change it until it works thing. Responds to review comments. It does the whole thing. This",
+      "duration": 6081,
+      "offset": "828959"
+    },
+    {
+      "text": "feels a few months ahead of where things are going. Certainly not years. And here is the key piece. Today, Bun makes 0 in",
+      "duration": 7919,
+      "offset": "835040"
+    },
+    {
+      "text": "revenue. If you watch my most recent Bun video, the last third of it is me roasting Jared for this and trying to",
+      "duration": 6240,
+      "offset": "842959"
+    },
+    {
+      "text": "describe a path for them to make money. And this has clearly been stressing him out as well as the team at Bun. I can't",
+      "duration": 5121,
+      "offset": "849199"
+    },
+    {
+      "text": "tell you how many private conversations of how do people at Bun worried about what the long-term plan is for the",
+      "duration": 6639,
+      "offset": "854320"
+    },
+    {
+      "text": "company. One of the most common questions I get is about sustainability. Questions like how does Bun become business? If I bet my work project or",
+      "duration": 6481,
+      "offset": "860959"
+    },
+    {
+      "text": "company stock on Bun, will it still be around in 5 or 10 years? These are key. is one of the big things I was nervous",
+      "duration": 6240,
+      "offset": "867440"
+    },
+    {
+      "text": "about with Bun is I don't know where it's going to be because it wasn't making money and you need money to",
+      "duration": 5279,
+      "offset": "873680"
+    },
+    {
+      "text": "survive. I know Nex.js is still going to be here in 5 years even if it's in a rough state because it's a huge part of",
+      "duration": 5041,
+      "offset": "878959"
+    },
+    {
+      "text": "Versell's business. They have a lot of money. They want to keep making money. They need Nex to succeed. I don't know",
+      "duration": 5199,
+      "offset": "884000"
+    },
+    {
+      "text": "that about Bun. The DA has always been will eventually build a cloud hosting product integrated with Bun's runtime",
+      "duration": 5681,
+      "offset": "889199"
+    },
+    {
+      "text": "and bundler. Same with Dino and that did not work for them. Getting this right is really hard and would take Jared's full",
+      "duration": 6000,
+      "offset": "894880"
+    },
+    {
+      "text": "focus, which means he wouldn't be working on Bun, the actual open source project as much anymore, which he does",
+      "duration": 5120,
+      "offset": "900880"
+    },
+    {
+      "text": "not want to do. Jared just wants to focus on the thing he cares about. And making money is not the thing he cares about. As someone who's a good friend of",
+      "duration": 6800,
+      "offset": "906000"
+    },
+    {
+      "text": "his, there are few people who are less motivated by money than him. The only monetary motivation I've seen from him",
+      "duration": 5920,
+      "offset": "912800"
+    },
+    {
+      "text": "is getting his team paid. The money was a way for him to keep working on this thing he cares about, not a thing that",
+      "duration": 5119,
+      "offset": "918720"
+    },
+    {
+      "text": "he wanted to have a whole bunch of in his bank account. Now his team is paid. Now his burden is cleared and he can go",
+      "duration": 6000,
+      "offset": "923839"
+    },
+    {
+      "text": "lock in and build. Forcing ourselves down the prescribed path felt wrong when AI coding tools are getting this good",
+      "duration": 5521,
+      "offset": "929839"
+    },
+    {
+      "text": "this fast. He also just didn't want to do it. I I love this. The walk. This",
+      "duration": 5360,
+      "offset": "935360"
+    },
+    {
+      "text": "part's very funny for reasons we'll get to in a minute. We've been prioritizing issues from the Cloud Code team for several months now. It'd be a lot easier",
+      "duration": 6160,
+      "offset": "940720"
+    },
+    {
+      "text": "if Cloud Coco's open source. Just saying. I have so many ideas all the time and it's really fun. Many of these",
+      "duration": 5280,
+      "offset": "946880"
+    },
+    {
+      "text": "ideas also help other AI coding products. Look at that. Dax getting a link in an anthropic post. Me every time",
+      "duration": 7840,
+      "offset": "952160"
+    },
+    {
+      "text": "I need something in bun fixed for open code and it's the video of just them saying Jared Jared over and over again.",
+      "duration": 6880,
+      "offset": "960000"
+    },
+    {
+      "text": "A few weeks ago I went on a 4hour walk with Boris from the Cloud Code team. We talked about Bun. We talked about where",
+      "duration": 5920,
+      "offset": "966880"
+    },
+    {
+      "text": "AI code is going. We talked about what it would look like for Bun's team to join Enthropic. The link here is very",
+      "duration": 6000,
+      "offset": "972800"
+    },
+    {
+      "text": "funny. Oh [ __ ] no. What happened October 28th? This is the only day that we know",
+      "duration": 5360,
+      "offset": "978800"
+    },
+    {
+      "text": "of where Jared wasn't writing commits. He has one of the craziest contribution graphs we've ever seen.",
+      "duration": 7679,
+      "offset": "984160"
+    },
+    {
+      "text": "Jared, all things happening in October 28th, no contributions. Dax tweeted very",
+      "duration": 6800,
+      "offset": "991839"
+    },
+    {
+      "text": "concerned about this. That was because he was on this walk with Boris from the",
+      "duration": 5120,
+      "offset": "998639"
+    },
+    {
+      "text": "Cloud Code team. Very funny that Dax got two tweet links in this article. We talked about what it",
+      "duration": 6801,
+      "offset": "1003759"
+    },
+    {
+      "text": "would look like for Bun's team to join Anthropic. Then we did that about three more times over the next few weeks. Then I did that with many of the competitors.",
+      "duration": 6079,
+      "offset": "1010560"
+    },
+    {
+      "text": "I think Anthropic is going to win. Yeah, he did his due diligence. I'm sure he talked to everybody from Codeex to",
+      "duration": 6161,
+      "offset": "1016639"
+    },
+    {
+      "text": "Curser. I don't know. He didn't tell me who else he talked to. All he told me was how excited he was to go to Anthropic. He really seems excited about",
+      "duration": 7200,
+      "offset": "1022800"
+    },
+    {
+      "text": "working with these guys in particular the Cloudco team. And I even have some good friends on the Cloudco team who are",
+      "duration": 5120,
+      "offset": "1030000"
+    },
+    {
+      "text": "awesome. Shout out to Daisy. She's she's the reason I'm not a lot harsher on claude code. She clearly really cares",
+      "duration": 5678,
+      "offset": "1035120"
+    },
+    {
+      "text": "and I I know there's a lot of people fighting internally to make it open source. Just to reinforce the point,",
+      "duration": 5921,
+      "offset": "1040799"
+    },
+    {
+      "text": "anthropic, we can we can bridge this gap. You guys are making a lot of progress right now. You're doing a lot of good things and this is a huge win",
+      "duration": 6480,
+      "offset": "1046720"
+    },
+    {
+      "text": "for the whole ecosystem. As long as you don't screw over Bun and the Bun team and people using it in any meaningful",
+      "duration": 5920,
+      "offset": "1053200"
+    },
+    {
+      "text": "way, we're going to be a lot better. But if you on top of that were to open",
+      "duration": 5520,
+      "offset": "1059120"
+    },
+    {
+      "text": "source cloud code and start contributing more to the open source JavaScript ecosystem,",
+      "duration": 5279,
+      "offset": "1064640"
+    },
+    {
+      "text": "Slate's cleared. We're good. I would be a very proud investor and shareholder in",
+      "duration": 5521,
+      "offset": "1069919"
+    },
+    {
+      "text": "Anthropic at that point. So, uh, to the handful of people on Cloud Code that are still convinced it's your secret sauce",
+      "duration": 5760,
+      "offset": "1075440"
+    },
+    {
+      "text": "and open sourcing it would be disastrous, you're wrong. Just do it.",
+      "duration": 5040,
+      "offset": "1081200"
+    },
+    {
+      "text": "betting on anthropics sounded like a more interesting path to be in the center of things to work alongside the team building the best AI coding",
+      "duration": 5520,
+      "offset": "1086240"
+    },
+    {
+      "text": "product. Jared likes chasing what he's excited about. This is ADHD winning and",
+      "duration": 5039,
+      "offset": "1091760"
+    },
+    {
+      "text": "it's winning hard here. Jared's the type of person who was half an hour to an hour late to his own launch event",
+      "duration": 6481,
+      "offset": "1096799"
+    },
+    {
+      "text": "because he was coding. This is all a bit crazy. At the time of writing, Bun's monthly downloads grew 25% over the last",
+      "duration": 6639,
+      "offset": "1103280"
+    },
+    {
+      "text": "month, passing 7.2 million monthly downloads. We had four years of runway to figure out monetization. We didn't",
+      "duration": 5201,
+      "offset": "1109919"
+    },
+    {
+      "text": "have to join Anthropic. They had four years to figure this all out and they're still doing it. That said, it does get harder every month to figure out how to",
+      "duration": 6559,
+      "offset": "1115120"
+    },
+    {
+      "text": "make money. Every product I've ever launched started with a paid tier because we don't want to have this risk.",
+      "duration": 6801,
+      "offset": "1121679"
+    },
+    {
+      "text": "Shout out to the people who do. It's scary. I I don't want more users to mean",
+      "duration": 5040,
+      "offset": "1128480"
+    },
+    {
+      "text": "we go out of business faster. Personally, this is how I build and the companies I invest in tend to already have revenue. It's scary. But if you're",
+      "duration": 5840,
+      "offset": "1133520"
+    },
+    {
+      "text": "smart enough and know what you're doing, I'll throw some money in, which is what I did with Jared and Bun. And here we are. Instead of putting the users and",
+      "duration": 7040,
+      "offset": "1139360"
+    },
+    {
+      "text": "the community through bun, the VC back startup tries to figure out monetization. Thanks to anthropic, we",
+      "duration": 5200,
+      "offset": "1146400"
+    },
+    {
+      "text": "can skip that chapter entirely and just focus on building the best JS tooling. When people ask, will bun still be",
+      "duration": 5840,
+      "offset": "1151600"
+    },
+    {
+      "text": "around in 5 or 10 years? Answering with, we raise $26 million isn't a great answer. Those investors eventually need",
+      "duration": 6640,
+      "offset": "1157440"
+    },
+    {
+      "text": "a return or you have to raise more money until you can get that return. There's a bigger question behind that. What does",
+      "duration": 5599,
+      "offset": "1164080"
+    },
+    {
+      "text": "software engineering even look like in 2 to 3 years? Yeah, we're now at the point where the smartest engineers I know are",
+      "duration": 6641,
+      "offset": "1169679"
+    },
+    {
+      "text": "saying this. Two years ago, the dumbest engineers I knew were saying this, like AI is going to replace everyone. Last",
+      "duration": 6400,
+      "offset": "1176320"
+    },
+    {
+      "text": "year, everybody was pushing back on it, like, \"No, this stuff's not that good. You can't build real software with it.\"",
+      "duration": 5760,
+      "offset": "1182720"
+    },
+    {
+      "text": "This year, the smartest people I know are like, \"Oh [ __ ] things are changing.\" AI code tools are getting",
+      "duration": 6319,
+      "offset": "1188480"
+    },
+    {
+      "text": "really good, really fast, and they're using buns, single file executables to ship CLIs and agents that run",
+      "duration": 5201,
+      "offset": "1194799"
+    },
+    {
+      "text": "everywhere. If most new code is going to be written, tested, and deployed by agents, then the runtime and tooling around the code are way more important.",
+      "duration": 6559,
+      "offset": "1200000"
+    },
+    {
+      "text": "There's a lot more code overall that needs to be written and tested a lot faster. And humans are more detached from every individual line. So the",
+      "duration": 6641,
+      "offset": "1206559"
+    },
+    {
+      "text": "environment it runs in has to be fast and predictable. Bun started with a focus on making devs faster. AI coding",
+      "duration": 6160,
+      "offset": "1213200"
+    },
+    {
+      "text": "tools do a similar thing. It's a natural fit. And that's why they're joining Anthropic. Anthropic is investing in bun",
+      "duration": 5679,
+      "offset": "1219360"
+    },
+    {
+      "text": "as the infra for cloud code, cloud agent SDK, and future AI coding products. This is why people are thinking that this is",
+      "duration": 5441,
+      "offset": "1225039"
+    },
+    {
+      "text": "a cloud bet. I'm sure if they do make more cloud plays, there's a good chance Bun will be used for that. But this",
+      "duration": 5520,
+      "offset": "1230480"
+    },
+    {
+      "text": "isn't what I thought initially. This isn't anthropic buying Bun to make them make the internal anthropic cloud. This",
+      "duration": 7200,
+      "offset": "1236000"
+    },
+    {
+      "text": "is them investing heavily in the tools that work. Because as I've said many times, the code quality at Anthropic is",
+      "duration": 7040,
+      "offset": "1243200"
+    },
+    {
+      "text": "not great. Just go use the cloud website if you don't believe me. like it's just",
+      "duration": 6000,
+      "offset": "1250240"
+    },
+    {
+      "text": "the the quality of the code being shipped there does not even come close the quality of the models and research that they're doing. They almost feel at",
+      "duration": 6480,
+      "offset": "1256240"
+    },
+    {
+      "text": "odds with each other. The quality of understanding of the JS ecosystem and",
+      "duration": 5120,
+      "offset": "1262720"
+    },
+    {
+      "text": "tooling at Anthropic has more than doubled through this acquisition. Their",
+      "duration": 5360,
+      "offset": "1267840"
+    },
+    {
+      "text": "job is to make Bun the best place to build, run, and test AIdriven software while continuing to be a great general",
+      "duration": 5359,
+      "offset": "1273200"
+    },
+    {
+      "text": "purpose JS runtime bundler, package manager, and testr runner. Being part of Anthropic gives Bun long-term stability,",
+      "duration": 5521,
+      "offset": "1278559"
+    },
+    {
+      "text": "a home as well as resources so people can safely bet their stock on Bun, a front row seat to where AI coding tools are headed so we can shape Bun around",
+      "duration": 6240,
+      "offset": "1284080"
+    },
+    {
+      "text": "the future instead of guessing from the outside as well as more firepower. They can actually hire more and not worry",
+      "duration": 5280,
+      "offset": "1290320"
+    },
+    {
+      "text": "about their run rate dwindling and their time till they're out of money happening faster. It's really scary to hire when",
+      "duration": 7120,
+      "offset": "1295600"
+    },
+    {
+      "text": "you have a certain amount of runway. When your company only has enough money for three years and then you hire and now you have two and a half years, you",
+      "duration": 5680,
+      "offset": "1302720"
+    },
+    {
+      "text": "hire again, you have one year. It's terrifying. And of course, same key points from the top. It's open source.",
+      "duration": 6159,
+      "offset": "1308400"
+    },
+    {
+      "text": "It's still will be built in public. The same team is working on it. And they're still obsessed with making JST faster to install, build, run, and test. And of",
+      "duration": 6561,
+      "offset": "1314559"
+    },
+    {
+      "text": "course, if you're skeptical, make sure you're subscribed to my channel. Only half of you guys are. It's just a little button at the bottom of the screen you",
+      "duration": 5919,
+      "offset": "1321120"
+    },
+    {
+      "text": "can click. I'll be covering this. If anything changes going forward, I will be the loudest annoying voice",
+      "duration": 6481,
+      "offset": "1327039"
+    },
+    {
+      "text": "complaining if Anthropic screws this up at all. I genuinely don't think they will. Again, as the person who is most",
+      "duration": 8720,
+      "offset": "1333520"
+    },
+    {
+      "text": "skeptical of Anthropic most often, I think this is a good alignment and pulls",
+      "duration": 5600,
+      "offset": "1342240"
+    },
+    {
+      "text": "Anthropic in the direction I want to see them going in. This feels good to me. I'm not just saying that cuz I'm now",
+      "duration": 6000,
+      "offset": "1347840"
+    },
+    {
+      "text": "technically an investor. That one's weird. I'm saying this because I do really believe in the BUN team and I",
+      "duration": 6959,
+      "offset": "1353840"
+    },
+    {
+      "text": "trust the people who see what in them, what I see in them, too. So, subscribe if you want to make sure that I can hold them accountable. Quick FAQ and then",
+      "duration": 7281,
+      "offset": "1360799"
+    },
+    {
+      "text": "I'll dive into my own skepticism here. Is Bun still open source? Yes. Will still be on GitHub? Yes. Do they still",
+      "duration": 5520,
+      "offset": "1368080"
+    },
+    {
+      "text": "care about node compatibility? Yes. Is the same team working on bun? Yes. And now they don't have to worry about",
+      "duration": 6480,
+      "offset": "1373600"
+    },
+    {
+      "text": "making money somehow. What does this do for Bun's road map? Bun's team will work more closely with the cloud code team.",
+      "duration": 5760,
+      "offset": "1380080"
+    },
+    {
+      "text": "It probably will look similar to the relationship between Google and V8, Safari and JS Core, Mozilla Firefox and",
+      "duration": 5360,
+      "offset": "1385840"
+    },
+    {
+      "text": "Spider Monkey, but with more independence to prioritize the wide variety of ways people and companies both use Bun today. Let's do some quick",
+      "duration": 6400,
+      "offset": "1391200"
+    },
+    {
+      "text": "memes. We finally can see the back of the Bun logo. Quality meme. Good work, Terminal.",
+      "duration": 8000,
+      "offset": "1397600"
+    },
+    {
+      "text": "Dax quoting the how funny is this? The 4-hour walk thing being the day that that happened, which is just hilarious.",
+      "duration": 6720,
+      "offset": "1405600"
+    },
+    {
+      "text": "But also Jared's This is my favorite. People would always ask, \"How is bun sustainable? If I bet my company's tuck",
+      "duration": 5200,
+      "offset": "1412320"
+    },
+    {
+      "text": "on bun, will it still be around in a few years?\" We didn't have a great answer to this question until today. Yeah, they",
+      "duration": 7519,
+      "offset": "1417520"
+    },
+    {
+      "text": "did it. And I still see a lot of skepticism in chat. Used to love bun. It's going to [ __ ] I can't trust them.",
+      "duration": 6321,
+      "offset": "1425039"
+    },
+    {
+      "text": "I'm so worried. All of these people saying things like this. Again, I am the person who loves to do this more than",
+      "duration": 6480,
+      "offset": "1431360"
+    },
+    {
+      "text": "anybody. It's like my whole thing to [ __ ] on anthropic. But the harsh reality is that there's a lot of good",
+      "duration": 6160,
+      "offset": "1437840"
+    },
+    {
+      "text": "engineering going on that makes this make sense. We need to go back in time a little bit to when OpenAI dropped 04",
+      "duration": 6799,
+      "offset": "1444000"
+    },
+    {
+      "text": "Mini because I was excited about their codec CLI in here in particular, but I",
+      "duration": 5281,
+      "offset": "1450799"
+    },
+    {
+      "text": "had a particular statement I made about it. I want to find ink.js. Ink, if",
+      "duration": 5120,
+      "offset": "1456080"
+    },
+    {
+      "text": "you're not familiar, is a React renderer for the terminal, similar to how React Native lets you render on iOS or",
+      "duration": 5920,
+      "offset": "1461200"
+    },
+    {
+      "text": "Android, or React 3 fiber lets you render in 3JS and canvas. Ink.js lets you render in the terminal. Very cool",
+      "duration": 6799,
+      "offset": "1467120"
+    },
+    {
+      "text": "stuff. Means that you can use all the React patterns you're used to. That said, I've seen a couple people move off",
+      "duration": 5041,
+      "offset": "1473919"
+    },
+    {
+      "text": "of Ink because it gets rough at scale. Just maintaining it well with the performance can be a real challenge. The",
+      "duration": 5839,
+      "offset": "1478960"
+    },
+    {
+      "text": "Wrangler CLI by Cloudflare used to be using ink. Then they move to Go. Then they move back to TypeScript, but no",
+      "duration": 6000,
+      "offset": "1484799"
+    },
+    {
+      "text": "more ink. JJS, so it' be more performant and maintainable. So yeah, I've seen a lot of back and forth with this. And I",
+      "duration": 5441,
+      "offset": "1490799"
+    },
+    {
+      "text": "have a bad feeling if they have performance issues, they're just going to leave JS. Then realize they were wrong and go back to it. So, uh, to the",
+      "duration": 5280,
+      "offset": "1496240"
+    },
+    {
+      "text": "OpenAI people watching this, to Fluid in particular, don't move offjs. If you have problems, talk to me. We'll get you",
+      "duration": 6480,
+      "offset": "1501520"
+    },
+    {
+      "text": "guys off inc if it isn't the right thing for what you're doing. But if it does work, great. Keep using it. It's a Yeah,",
+      "duration": 5600,
+      "offset": "1508000"
+    },
+    {
+      "text": "they moved to Rust a week after I said that. Almost like I called it.",
+      "duration": 5920,
+      "offset": "1513600"
+    },
+    {
+      "text": "Yeah. So, this has been a problem with a lot of these. They move out of the JavaScript ecosystem. So the other big",
+      "duration": 7440,
+      "offset": "1519520"
+    },
+    {
+      "text": "lab that could afford them, OpenAI, won't do it because they moved off of JS",
+      "duration": 5360,
+      "offset": "1526960"
+    },
+    {
+      "text": "because they wanted the fastest, most powerful, best possible thing. What's wrong with Rust? It's impossible to",
+      "duration": 5359,
+      "offset": "1532320"
+    },
+    {
+      "text": "contribute to unless you're like a full-time Rust person. Iteration speed goes down a ton. The flexibility of the",
+      "duration": 5600,
+      "offset": "1537679"
+    },
+    {
+      "text": "tool set goes down a ton, too. If it turns out you need to make a change, good luck. Have fun. There's a lot of",
+      "duration": 5280,
+      "offset": "1543279"
+    },
+    {
+      "text": "things that are making the development of codecs a lot slower. They're putting a lot of engineering effort and money and time into it, but it's still",
+      "duration": 6801,
+      "offset": "1548559"
+    },
+    {
+      "text": "iterating way slower than Claude is. And even then, like Open Code is, and all of these smaller teams and companies that",
+      "duration": 6000,
+      "offset": "1555360"
+    },
+    {
+      "text": "are building on top of JS. There's a lot of ways they could have made Codex faster and a single binary, which were the main goals that didn't involve",
+      "duration": 5760,
+      "offset": "1561360"
+    },
+    {
+      "text": "rewriting in Rust. Yeah. Yeah. This is why that happened. Their strategy was",
+      "duration": 6240,
+      "offset": "1567120"
+    },
+    {
+      "text": "this bold rewrite that slows down the whole team. Enthropic strategy was to acquire the dependency that helps make",
+      "duration": 5439,
+      "offset": "1573360"
+    },
+    {
+      "text": "things way faster and safer without risking the whole business. Even Rust fans can admit this. I love Rust and",
+      "duration": 6240,
+      "offset": "1578799"
+    },
+    {
+      "text": "wish I could use it in production, but it just takes too long to write. Yes. Also, TypeScript and Python are almost",
+      "duration": 6000,
+      "offset": "1585039"
+    },
+    {
+      "text": "never slow enough that you need C or Rust for speed. TypeScript and Python are just as good for security. Yes. And",
+      "duration": 5281,
+      "offset": "1591039"
+    },
+    {
+      "text": "on top of that, since the thing that is slow in these apps isn't hopefully isn't the code, it's the LLMs. If you're",
+      "duration": 6719,
+      "offset": "1596320"
+    },
+    {
+      "text": "already having to wait 13 minutes for a response from one of these LLMs generating all this stuff, the amount of",
+      "duration": 6640,
+      "offset": "1603039"
+    },
+    {
+      "text": "like execution cost that you're eating using JS versus Rust is very very",
+      "duration": 5441,
+      "offset": "1609679"
+    },
+    {
+      "text": "little, like almost nothing. This is a big thing I'm talking about a lot with JS is JS backends went from making some",
+      "duration": 7039,
+      "offset": "1615120"
+    },
+    {
+      "text": "sense to making a lot of sense when the average request time went up so much. Because if I'm observing 500 requests at",
+      "duration": 6241,
+      "offset": "1622159"
+    },
+    {
+      "text": "a time, all doing LLM generations where I'm streaming down tokens from a third party API, having the JavaScript",
+      "duration": 6480,
+      "offset": "1628400"
+    },
+    {
+      "text": "concurrency model around the event loop makes that work really, really well because most of the time your JS is just",
+      "duration": 6000,
+      "offset": "1634880"
+    },
+    {
+      "text": "waiting for the next packet to come in so it can forward it down to the user. JS is great for this. Setting up good",
+      "duration": 5600,
+      "offset": "1640880"
+    },
+    {
+      "text": "enough multi-threading systems in other languages to handle that type of concurrent workload is not fun at all.",
+      "duration": 6000,
+      "offset": "1646480"
+    },
+    {
+      "text": "Go can kind of do it. None of the other major languages handle that specific type of concurrency through request",
+      "duration": 5920,
+      "offset": "1652480"
+    },
+    {
+      "text": "loads particularly well. JavaScript does this beautifully. You're going to be building your own concurrency and event",
+      "duration": 6399,
+      "offset": "1658400"
+    },
+    {
+      "text": "modeling solution if you're not using JS or Go. Why not just use them? Like yeah,",
+      "duration": 7360,
+      "offset": "1664799"
+    },
+    {
+      "text": "it's insane to me. So that's another huge part. Anthropics the biggest company by far that is going all in on",
+      "duration": 7361,
+      "offset": "1672159"
+    },
+    {
+      "text": "bun like this if they want to make sure their dependency survives because like you know the classic XKCD dependency",
+      "duration": 5759,
+      "offset": "1679520"
+    },
+    {
+      "text": "chart where you have all modern infrastructure and then a project from some random person in Nebraska. Think of",
+      "duration": 6321,
+      "offset": "1685279"
+    },
+    {
+      "text": "this as everything anthropic is building guy who doesn't know how to make money building bun VCbacked huge huge risk for",
+      "duration": 9040,
+      "offset": "1691600"
+    },
+    {
+      "text": "Anthropic. But now that this dependency is owned by Anthropic and they have competitors that are using that same",
+      "duration": 5600,
+      "offset": "1700640"
+    },
+    {
+      "text": "dependency, there is some incentive for them to lock it down and not help with",
+      "duration": 5039,
+      "offset": "1706240"
+    },
+    {
+      "text": "things that help those competitors. The fact that Cloud Code itself is closed source really makes it feel like",
+      "duration": 5441,
+      "offset": "1711279"
+    },
+    {
+      "text": "something they would do. And I again I implore y'all on the Cloud Code team,",
+      "duration": 5120,
+      "offset": "1716720"
+    },
+    {
+      "text": "Boris, Cat, Jared, everyone else involved in these decisions, there's no good reason to keep cloud code closed",
+      "duration": 6240,
+      "offset": "1721840"
+    },
+    {
+      "text": "source. It doesn't make sense. I've heard arguments for everything from secret sauce to maintaining the repo and",
+      "duration": 6240,
+      "offset": "1728080"
+    },
+    {
+      "text": "the community around it is difficult. You now have one of the best open source maintaining groups ever in this web",
+      "duration": 6160,
+      "offset": "1734320"
+    },
+    {
+      "text": "ecosystem working for you guys. There's no reason to not do this. It will make people so much less scared about this",
+      "duration": 7120,
+      "offset": "1740480"
+    },
+    {
+      "text": "bun acquisition. If you want to reduce all of the FUD and the fear and the concern people are having in my chat",
+      "duration": 6079,
+      "offset": "1747600"
+    },
+    {
+      "text": "right now, make the good faith play. Open-source cla code. I don't know what",
+      "duration": 6000,
+      "offset": "1753679"
+    },
+    {
+      "text": "you're hiding or what you're scared of. You need to just do it. I Yeah, I think",
+      "duration": 6561,
+      "offset": "1759679"
+    },
+    {
+      "text": "that's all I have on this one. I'm excited for the future of Bun and the future of Clad Code and all the things",
+      "duration": 5439,
+      "offset": "1766240"
+    },
+    {
+      "text": "that is going to happen here. The only major risk I perceive is Jared getting nerds night by something else and no",
+      "duration": 5921,
+      "offset": "1771679"
+    },
+    {
+      "text": "longer focusing on Bun as much now that he's going to be surrounded with cool things going on. There's a decent chance of that happening, but I am sure that",
+      "duration": 6959,
+      "offset": "1777600"
+    },
+    {
+      "text": "Bun will be in very good hands now that it is finally funded properly. I'm honestly just relieved that I no longer",
+      "duration": 6480,
+      "offset": "1784559"
+    },
+    {
+      "text": "have to talk about whether or not Bun will ever make money or how it will be here in the future. We have our answer,",
+      "duration": 5281,
+      "offset": "1791039"
+    },
+    {
+      "text": "anthropic. One of the best things that ever happened to software development from AI is this. The fact that AI money",
+      "duration": 5680,
+      "offset": "1796320"
+    },
+    {
+      "text": "is allowing for bun to be maintained and exist long term. That's a very good thing. And I'm excited for the future",
+      "duration": 5760,
+      "offset": "1802000"
+    },
+    {
+      "text": "for the BUN team. And I'm also more excited than ever for Anthropic. And no, not just because I'm now technically an",
+      "duration": 5039,
+      "offset": "1807760"
+    },
+    {
+      "text": "investor, because this is a really good faith play. And I trust Jared's judgment. If Jared talked to all the",
+      "duration": 5120,
+      "offset": "1812799"
+    },
+    {
+      "text": "teams and this is the one he wants to work with, I trust him. And I'm asking you guys, too, as well. I really hope",
+      "duration": 6161,
+      "offset": "1817919"
+    },
+    {
+      "text": "that my trust doesn't get burned by these guys. But Jared's never burned me before and I trust him to do this right.",
+      "duration": 5760,
+      "offset": "1824080"
+    },
+    {
+      "text": "He did his team right as well. And that's something that's really important to me. You want to watch me hold these guys accountable, make sure you",
+      "duration": 5439,
+      "offset": "1829840"
+    },
+    {
+      "text": "subscribe. Until next time, peace nerds.",
+      "duration": 4721,
+      "offset": "1835279"
+    }
+  ],
+  "transcriptText": "It's no secret that I've been a huge fan of Bun for a while. Way back in 2022, I was Jared's first interview talking about it. And the ride we've been on since has been crazy. I'm a fan, a user, a builder, and an investor, all working with Bun wherever it makes sense to. And I'm really, really lucky to consider Jared a good friend. So, knowing that there is bias to account for here, especially when you realize that they were just acquired by a company I'm not necessarily known for being the biggest fan of. Yes, Bun is joining Anthropic. This seems just absolutely insane. And as a result, I've seen even more insane takes about it. From, oh, they're being aqua hired, buns dead, to, \"Of course they did that. They're going to build a cloud environment to compete with Verscell for Cloud Code.\" And yeah, all of this is insane. Just as insane as me technically having equity in Anthropic now, which is kind of hilarious that I have equity in anthropic and not OpenAI. All of that aside, I have thoughts here. I also have a lot of inside info, so I have to dance around it to the best of my ability. But uh this is a weird topic because I am uniquely qualified both as a friend and investor of Jared and Bun, but also as somebody who's deep in the web world, deep in the building world for full stack stuff around JavaScript, and also really deep on the direction of this AI stuff and where Enthropic is trying to go. We have a lot to talk about here, guys, and I can't wait to do it, but uh I didn't get a payout for this yet. So, let's hear a quick word from today's sponsor. There are a few things that hurt developer velocity more than slow builds. If a user reports a problem and you go and fix it in 10 minutes, but you have to wait two hours for the build to complete just to realize there's a small mistake and then go through the whole loop again, there goes all of your agility. You're throwing away so much opportunity to move fast and ship fast. And those blocks will keep your engineers from staying motivated on those tasks. If you're looking at a huge pile of tickets that have been building up over time, there's a good chance your build time is a part of why that's happening. That's why I look at this number and just can't fathom why anyone isn't already using Depot. Seriously, Post Hog's actual production builds went from 153 minutes to 4 minutes. I know it sounds too good to be true, but let's be real. A lot of this is because GitHub doesn't know what they're doing. But the other side is that these guys are so locked in and focused on performance. Depot is obsessed with squeezing every ounce of potential improvement in your GitHub actions. Honestly, if this costs 10 times more than GitHub actions, I'd probably still be a happy customer because of the amount of time it's saving my teams. But it ends up being cheaper, which is just insane. Since migrating from default GitHub actions, our Docker image build times have literally been cut in half. Dev is incredible for reducing our build times by 10x from 8 minutes to 20 seconds. Depot's awesome. Got my buildin push from 30 minutes to 4, and it will be about 12 seconds when it's cached. Moving to Depot takes 5 minutes. So, if your builds are longer than that, your next build will cut the cost difference. It's so worth it. Give them a shot now at soyave.link/depo. Where to even start with this one? There are two articles as well as all the things people are saying and then of course my own speculation that we'll be doing near the end. So, if you want to hear my thoughts on why they're doing this and where it's going, stick to the end for that. Oopic acquires bun as Claude Code reaches the 1 billion milestone. pretty crazy revenue for cloud code, but also they're basically giving discounts for Claude by using cloud code. So, I get it. Claude is the world's smartest and most capable AI model for developers, startups, and enterprises. Kind of crazy that the first sentence is nothing about bun at all. In fact, you have to go quite a bit before bun is mentioned. I heard someone say that the amount of mentions of things in here is weird. Claude is mentioned 25 times. Claude code is mentioned 11 times. And bun is mentioned 18. Fun. Cloud Code represents a new era of agentic coding, fundamentally changing how teams build software. In November, Cloud Code achieved a significant milestone. Just six months after becoming available, it reached a billion in run rate revenue. Today, we're announcing that Anthropics acquiring Bun, a breakthrough JavaScript runtime to further accelerate Cloud Code. This is the key piece here. We'll talk more about the importance of this in a bit. Bun's redefining speed and performance for modern software engineering and development. Founded by Jared in 2021, Bun is dramatically faster than the leading competition. As an all-in-one toolkit combining runtime, package manager, bundler, and testrunner, it's become essential infra for AIL software engineering, helping devs build, and test applications at unprecedented velocity. Bun has improved the JS and TypeScript developer experience by optimizing for reliability, speed, and delight. For those using cloud code, this acquisition means faster performance, improved stability, and new capabilities. Together, we'll keep making Bun the best JS runtime for all developers while building even better workflows into Cloud Code. Here's a whole section of glazing Cloud Code. We've been a close partner of Bun for many months. If you didn't know, Claude Code bundles Bun alongside it when you install it as the runtime for Cloud Code. Our collaboration has been central to the rapid execution of Cloud Code team and directly drove the recent launch of Cloud Code's native installer. We know the bun team is building from the same vantage point that we do at Anthropic with a focus on rethinking the dev experience at building innovative and useful products. I did notice this when I last installed Claude that there was a bunch of callouts for native in it. I thought they might have done the stupid Rust rewrite that a handful of these products have done that didn't need it. No, that's not what they did. They did this to make a single binary you can install using bun. It's simpler, more stable, and doesn't require node. We recommend this as the default installation method for all cloud code users going forward with brew with curl or on Windows with IRM. Makes sense. This is bundling a single binary that is wrapped with bun so that it can execute and manage its own runtime and have to worry about you having the right version of node installed. I know a lot of companies get really annoying about setting up cloud codecs and these things because they want a single binary they can approve and distribute internally, but if you also have to have node distributed internally with the right version and everything, they the IT teams get all [ __ ] with it. I think that's stupid. Your IT team should be competent if they're controlling what tech your developers can use. But a lot of companies aren't competent and as such this type of single approvable binary is necessary. I've heard from many that this is the reason why codeex got rewritten in Rust, which is the worst possible reason to rewrite something in Rust. I much prefer the method that Anthropic took here. They even got the CPO of Anthropic to leave some comments. Bun represents exactly the kind of technical excellence we want to bring into Anthropic. Jared and his team rethought the entire JS tool chain from first principles while remaining focused on real use cases. Kind of disagree here. They didn't rethink the tool chain so much as rewrite it so that it's fully compatible. Something like Dino was the rethinking of the JS tool chain which failed and now they're trying to do compat as well. Bun is a compatibility play. Bringing the Bun team into Enthropic means we can build the infra to compound that momentum and keep pace with the exponential growth in AI adoption. The decision to acquire Bun is in line with our strategic disciplined approach to acquisitions. We will continue to pursue opportunities that bolster our technical excellence, reinforce our strengths as the leader in enterprise AI, and most importantly align with our principles and mission. And one last important piece because people are worried about bun going private which makes sense because cloud code is the only one of these major agent coding tools that is still closed source. Bun will remain open source and MIT licensed and we will continue to invest in making it the runtime bundler package manager and testr runner of choice for JavaScript and TypeScript devs. I already see people in chat being skeptical of that. I'll say it myself. If they were to screw with the open source nature of Bun, I will be the loudest person complaining about that by far. They will never hear the end of it from me. I would argue that this is now time to do the opposite. They need to triple down on open source. They need to open source cloud code alongside this. There is no world in which they stop supporting Bun as a result of this. In fact, it's the opposite. Enthropic bets so hard on Bun that Bun not getting profitable and then dying is a huge risk for them. We'll talk about all of that in just a bit. First, I want to read this from Bun's perspective. Bun is joining Anthropic. Anthropic is betting on Bun as the infrastructure powering cloud code, the cloud agent SDK, and future AI coding products and tools. So, what doesn't change? I really like this is at the start. Bun stays open source and MIT license. It continues to be extremely actively maintained. Same team is still working on bun. Pretty much everybody at the bun company is coming through for this acquisition. And the one person who isn't that I know of because they were still in the process of being hired, they got a really generous payout. So like Jared went really hard to make sure everybody at Bun and Oven won here. And that's something that matters a lot to me. My biggest concern with Bun has always been can Jared run a company that makes money and get the win back to his team. I was concerned he might not have it in him, but this is the perfect path. Jared's a builder. He wants to build. He doesn't want to be an executive. He doesn't want to run a company. He doesn't want to deal with profitability and all of these things. Someone who's talked with him a bunch about it, interviewed him and roasted him privately and publicly over his lack of vision for a way for them to make money. Like, this is the perfect ending for that. This is letting him go focus on what he's good at, get his team what they deserve for the work they've done, and everything gets to accelerate as a result. Also, of course, Bun is still public on GitHub. They're not going to change that. And Bun's road map will continue to focus on high performance JS tooling, node compat replacing node as the default serverside runtime for JavaScript. The one thing I do expect to change is that we're going to see less of these like Reddus connectors or like the MySQL plugin built into bun. I would expect less of that type of thing and more of the like locked in focus on making bun the best runtime for node applications. Cloud code ships as a bun executable to millions of users. If bun breaks, cloud code breaks. Enthropic has direct incentives to keep bun excellent. Yes, perfect. So, what is changing? We will help make coding tools like cloud code and the agent SDK faster and smaller. We get a close first look at what's around the corner for AI coding tools and making bun better for it. And most importantly, Bun will ship faster. Now that Jared's not distracted by running a company, dealing with investors, and all his other things, and can just focus on shipping, he's going to ship hard. My only concern is that Anthropic has enough interesting stuff going on that he might get nerd sniped by something else. But now that Bun has the resources it needs internally, they can keep moving. There's a fun little like how Bun started story in here. I'll link it in the description if you want to read the whole thing. I'll breeze through it really quick though. 5 years ago, Jared was building a Voxil game in the browser kind of like Minecraft. Cobbase got large. Iteration cycles took 45 seconds to test if changes worked. He was using Nex.js and the hot server reloads were taking almost a minute. He got frustrated, so he started porting ES builds JSX and TypeScript transpiler from Go to Zigg all the way back in 2021. 3 weeks later, I had a somewhat working JSX and TypeScript transpiler. Spent much of the first year in a cramped apartment in Oakland coding and tweeting about bun. In order to get the server side rendering to work, you need a runtime and all the runtimes need to interpret and jit the code. So, he started working on top of WebKit to make his own runtime. Bun 0.1 was released in July. This is when I interviewed him, by the way. Looking at that in retrospect is wild. There 20k stars on GitHub. What he doesn't mention is he also had a YC company that was still active but in pivot hell and pivoted it to Bun. So technically Bun is a YC company but it's similar to like T3 Chat's a YC company where Ping was a YC company. Ping did not go great. And then T3 Chat happened under the same company and went way better than expected. They raised a big round from Kleiner Perkins. He took a small salary. He always underpaid himself. Believe it or not, Jared until today was broke. So, it's going to be fun to see how he handles having money. My suspicion is nothing will change. They raised again, this time a $19 million series A. This was in 2023 September after the 1.0 launch. 1.1 added Windows 1.2 made big changes for node compat added built-in Postgress and S3. And this is when X and Midjourney started to use them. It's my understanding that X is using them mostly for package management, not the runtime. Midjourney, I believe, is using the runtime as well. This is part of what makes Bun complex. It's a bundler. It's a runtime. It's an alternative tool set and standard library for a bunch of things. It's a lot of stuff in one. And it seems like the majority of people using Bun are primarily using it for the installer and bundler. Anthropic is one of the few companies using it for the runtime, which I think is a really safe and good thing because them using it for the runtime means that the acquisition isn't going to be the end of the runtime. Like if Twitter or X purchased Bun, they'd be all focused on the bundler and the package manager side, probably not the runtime side. Anthropic, one of the few companies that uses most of Bun and can benefit from all of it. Then 1.3 dropped. I actually did an interview with Jared in person at a small 1.3 launch event in the city just a few weeks ago and I grilled him on not having a plan to make money and he really didn't at the time. It seems like it was just a few days after that that things started to really accelerate. AI started to get good in late 2024. AI coding tools went from cool demo to actually useful. I know that Jared's been using Cloud Code and Claude models for doing stuff in bun for a while now. He used to very excitedly say that for the first time Jared's not the one committing the most code to bun. It's now clawed. And since Bun is a single file executable, you don't have to do a whole system install with a bunch of [ __ ] You can just bundle bun itself. It's easy to bundle with the CLI tools. You can compile any JS project into a self-contained binary that runs anywhere. Even if the user doesn't have Bun or Node installed, it works with native add-ons. It has fast startup and it's easy to distribute. That's why Cloud Code, Factory AI, Open Code, and tons of other things are all built with Bun. And the result of this was that Jared got obsessed with Cloud Code. The GitHub username with the most merge PRs and buns repo is the Claude Codebot. We have it set up in our internal Discord and we use it to help fix bugs. It opens up PRs with tests that fail in earlier system installed versions of bun before the fix and it pass in the fix debug bun or build. It's doing the full like write a test, use the new version, change it until it works thing. Responds to review comments. It does the whole thing. This feels a few months ahead of where things are going. Certainly not years. And here is the key piece. Today, Bun makes 0 in revenue. If you watch my most recent Bun video, the last third of it is me roasting Jared for this and trying to describe a path for them to make money. And this has clearly been stressing him out as well as the team at Bun. I can't tell you how many private conversations of how do people at Bun worried about what the long-term plan is for the company. One of the most common questions I get is about sustainability. Questions like how does Bun become business? If I bet my work project or company stock on Bun, will it still be around in 5 or 10 years? These are key. is one of the big things I was nervous about with Bun is I don't know where it's going to be because it wasn't making money and you need money to survive. I know Nex.js is still going to be here in 5 years even if it's in a rough state because it's a huge part of Versell's business. They have a lot of money. They want to keep making money. They need Nex to succeed. I don't know that about Bun. The DA has always been will eventually build a cloud hosting product integrated with Bun's runtime and bundler. Same with Dino and that did not work for them. Getting this right is really hard and would take Jared's full focus, which means he wouldn't be working on Bun, the actual open source project as much anymore, which he does not want to do. Jared just wants to focus on the thing he cares about. And making money is not the thing he cares about. As someone who's a good friend of his, there are few people who are less motivated by money than him. The only monetary motivation I've seen from him is getting his team paid. The money was a way for him to keep working on this thing he cares about, not a thing that he wanted to have a whole bunch of in his bank account. Now his team is paid. Now his burden is cleared and he can go lock in and build. Forcing ourselves down the prescribed path felt wrong when AI coding tools are getting this good this fast. He also just didn't want to do it. I I love this. The walk. This part's very funny for reasons we'll get to in a minute. We've been prioritizing issues from the Cloud Code team for several months now. It'd be a lot easier if Cloud Coco's open source. Just saying. I have so many ideas all the time and it's really fun. Many of these ideas also help other AI coding products. Look at that. Dax getting a link in an anthropic post. Me every time I need something in bun fixed for open code and it's the video of just them saying Jared Jared over and over again. A few weeks ago I went on a 4hour walk with Boris from the Cloud Code team. We talked about Bun. We talked about where AI code is going. We talked about what it would look like for Bun's team to join Enthropic. The link here is very funny. Oh [ __ ] no. What happened October 28th? This is the only day that we know of where Jared wasn't writing commits. He has one of the craziest contribution graphs we've ever seen. Jared, all things happening in October 28th, no contributions. Dax tweeted very concerned about this. That was because he was on this walk with Boris from the Cloud Code team. Very funny that Dax got two tweet links in this article. We talked about what it would look like for Bun's team to join Anthropic. Then we did that about three more times over the next few weeks. Then I did that with many of the competitors. I think Anthropic is going to win. Yeah, he did his due diligence. I'm sure he talked to everybody from Codeex to Curser. I don't know. He didn't tell me who else he talked to. All he told me was how excited he was to go to Anthropic. He really seems excited about working with these guys in particular the Cloudco team. And I even have some good friends on the Cloudco team who are awesome. Shout out to Daisy. She's she's the reason I'm not a lot harsher on claude code. She clearly really cares and I I know there's a lot of people fighting internally to make it open source. Just to reinforce the point, anthropic, we can we can bridge this gap. You guys are making a lot of progress right now. You're doing a lot of good things and this is a huge win for the whole ecosystem. As long as you don't screw over Bun and the Bun team and people using it in any meaningful way, we're going to be a lot better. But if you on top of that were to open source cloud code and start contributing more to the open source JavaScript ecosystem, Slate's cleared. We're good. I would be a very proud investor and shareholder in Anthropic at that point. So, uh, to the handful of people on Cloud Code that are still convinced it's your secret sauce and open sourcing it would be disastrous, you're wrong. Just do it. betting on anthropics sounded like a more interesting path to be in the center of things to work alongside the team building the best AI coding product. Jared likes chasing what he's excited about. This is ADHD winning and it's winning hard here. Jared's the type of person who was half an hour to an hour late to his own launch event because he was coding. This is all a bit crazy. At the time of writing, Bun's monthly downloads grew 25% over the last month, passing 7.2 million monthly downloads. We had four years of runway to figure out monetization. We didn't have to join Anthropic. They had four years to figure this all out and they're still doing it. That said, it does get harder every month to figure out how to make money. Every product I've ever launched started with a paid tier because we don't want to have this risk. Shout out to the people who do. It's scary. I I don't want more users to mean we go out of business faster. Personally, this is how I build and the companies I invest in tend to already have revenue. It's scary. But if you're smart enough and know what you're doing, I'll throw some money in, which is what I did with Jared and Bun. And here we are. Instead of putting the users and the community through bun, the VC back startup tries to figure out monetization. Thanks to anthropic, we can skip that chapter entirely and just focus on building the best JS tooling. When people ask, will bun still be around in 5 or 10 years? Answering with, we raise $26 million isn't a great answer. Those investors eventually need a return or you have to raise more money until you can get that return. There's a bigger question behind that. What does software engineering even look like in 2 to 3 years? Yeah, we're now at the point where the smartest engineers I know are saying this. Two years ago, the dumbest engineers I knew were saying this, like AI is going to replace everyone. Last year, everybody was pushing back on it, like, \"No, this stuff's not that good. You can't build real software with it.\" This year, the smartest people I know are like, \"Oh [ __ ] things are changing.\" AI code tools are getting really good, really fast, and they're using buns, single file executables to ship CLIs and agents that run everywhere. If most new code is going to be written, tested, and deployed by agents, then the runtime and tooling around the code are way more important. There's a lot more code overall that needs to be written and tested a lot faster. And humans are more detached from every individual line. So the environment it runs in has to be fast and predictable. Bun started with a focus on making devs faster. AI coding tools do a similar thing. It's a natural fit. And that's why they're joining Anthropic. Anthropic is investing in bun as the infra for cloud code, cloud agent SDK, and future AI coding products. This is why people are thinking that this is a cloud bet. I'm sure if they do make more cloud plays, there's a good chance Bun will be used for that. But this isn't what I thought initially. This isn't anthropic buying Bun to make them make the internal anthropic cloud. This is them investing heavily in the tools that work. Because as I've said many times, the code quality at Anthropic is not great. Just go use the cloud website if you don't believe me. like it's just the the quality of the code being shipped there does not even come close the quality of the models and research that they're doing. They almost feel at odds with each other. The quality of understanding of the JS ecosystem and tooling at Anthropic has more than doubled through this acquisition. Their job is to make Bun the best place to build, run, and test AIdriven software while continuing to be a great general purpose JS runtime bundler, package manager, and testr runner. Being part of Anthropic gives Bun long-term stability, a home as well as resources so people can safely bet their stock on Bun, a front row seat to where AI coding tools are headed so we can shape Bun around the future instead of guessing from the outside as well as more firepower. They can actually hire more and not worry about their run rate dwindling and their time till they're out of money happening faster. It's really scary to hire when you have a certain amount of runway. When your company only has enough money for three years and then you hire and now you have two and a half years, you hire again, you have one year. It's terrifying. And of course, same key points from the top. It's open source. It's still will be built in public. The same team is working on it. And they're still obsessed with making JST faster to install, build, run, and test. And of course, if you're skeptical, make sure you're subscribed to my channel. Only half of you guys are. It's just a little button at the bottom of the screen you can click. I'll be covering this. If anything changes going forward, I will be the loudest annoying voice complaining if Anthropic screws this up at all. I genuinely don't think they will. Again, as the person who is most skeptical of Anthropic most often, I think this is a good alignment and pulls Anthropic in the direction I want to see them going in. This feels good to me. I'm not just saying that cuz I'm now technically an investor. That one's weird. I'm saying this because I do really believe in the BUN team and I trust the people who see what in them, what I see in them, too. So, subscribe if you want to make sure that I can hold them accountable. Quick FAQ and then I'll dive into my own skepticism here. Is Bun still open source? Yes. Will still be on GitHub? Yes. Do they still care about node compatibility? Yes. Is the same team working on bun? Yes. And now they don't have to worry about making money somehow. What does this do for Bun's road map? Bun's team will work more closely with the cloud code team. It probably will look similar to the relationship between Google and V8, Safari and JS Core, Mozilla Firefox and Spider Monkey, but with more independence to prioritize the wide variety of ways people and companies both use Bun today. Let's do some quick memes. We finally can see the back of the Bun logo. Quality meme. Good work, Terminal. Dax quoting the how funny is this? The 4-hour walk thing being the day that that happened, which is just hilarious. But also Jared's This is my favorite. People would always ask, \"How is bun sustainable? If I bet my company's tuck on bun, will it still be around in a few years?\" We didn't have a great answer to this question until today. Yeah, they did it. And I still see a lot of skepticism in chat. Used to love bun. It's going to [ __ ] I can't trust them. I'm so worried. All of these people saying things like this. Again, I am the person who loves to do this more than anybody. It's like my whole thing to [ __ ] on anthropic. But the harsh reality is that there's a lot of good engineering going on that makes this make sense. We need to go back in time a little bit to when OpenAI dropped 04 Mini because I was excited about their codec CLI in here in particular, but I had a particular statement I made about it. I want to find ink.js. Ink, if you're not familiar, is a React renderer for the terminal, similar to how React Native lets you render on iOS or Android, or React 3 fiber lets you render in 3JS and canvas. Ink.js lets you render in the terminal. Very cool stuff. Means that you can use all the React patterns you're used to. That said, I've seen a couple people move off of Ink because it gets rough at scale. Just maintaining it well with the performance can be a real challenge. The Wrangler CLI by Cloudflare used to be using ink. Then they move to Go. Then they move back to TypeScript, but no more ink. JJS, so it' be more performant and maintainable. So yeah, I've seen a lot of back and forth with this. And I have a bad feeling if they have performance issues, they're just going to leave JS. Then realize they were wrong and go back to it. So, uh, to the OpenAI people watching this, to Fluid in particular, don't move offjs. If you have problems, talk to me. We'll get you guys off inc if it isn't the right thing for what you're doing. But if it does work, great. Keep using it. It's a Yeah, they moved to Rust a week after I said that. Almost like I called it. Yeah. So, this has been a problem with a lot of these. They move out of the JavaScript ecosystem. So the other big lab that could afford them, OpenAI, won't do it because they moved off of JS because they wanted the fastest, most powerful, best possible thing. What's wrong with Rust? It's impossible to contribute to unless you're like a full-time Rust person. Iteration speed goes down a ton. The flexibility of the tool set goes down a ton, too. If it turns out you need to make a change, good luck. Have fun. There's a lot of things that are making the development of codecs a lot slower. They're putting a lot of engineering effort and money and time into it, but it's still iterating way slower than Claude is. And even then, like Open Code is, and all of these smaller teams and companies that are building on top of JS. There's a lot of ways they could have made Codex faster and a single binary, which were the main goals that didn't involve rewriting in Rust. Yeah. Yeah. This is why that happened. Their strategy was this bold rewrite that slows down the whole team. Enthropic strategy was to acquire the dependency that helps make things way faster and safer without risking the whole business. Even Rust fans can admit this. I love Rust and wish I could use it in production, but it just takes too long to write. Yes. Also, TypeScript and Python are almost never slow enough that you need C or Rust for speed. TypeScript and Python are just as good for security. Yes. And on top of that, since the thing that is slow in these apps isn't hopefully isn't the code, it's the LLMs. If you're already having to wait 13 minutes for a response from one of these LLMs generating all this stuff, the amount of like execution cost that you're eating using JS versus Rust is very very little, like almost nothing. This is a big thing I'm talking about a lot with JS is JS backends went from making some sense to making a lot of sense when the average request time went up so much. Because if I'm observing 500 requests at a time, all doing LLM generations where I'm streaming down tokens from a third party API, having the JavaScript concurrency model around the event loop makes that work really, really well because most of the time your JS is just waiting for the next packet to come in so it can forward it down to the user. JS is great for this. Setting up good enough multi-threading systems in other languages to handle that type of concurrent workload is not fun at all. Go can kind of do it. None of the other major languages handle that specific type of concurrency through request loads particularly well. JavaScript does this beautifully. You're going to be building your own concurrency and event modeling solution if you're not using JS or Go. Why not just use them? Like yeah, it's insane to me. So that's another huge part. Anthropics the biggest company by far that is going all in on bun like this if they want to make sure their dependency survives because like you know the classic XKCD dependency chart where you have all modern infrastructure and then a project from some random person in Nebraska. Think of this as everything anthropic is building guy who doesn't know how to make money building bun VCbacked huge huge risk for Anthropic. But now that this dependency is owned by Anthropic and they have competitors that are using that same dependency, there is some incentive for them to lock it down and not help with things that help those competitors. The fact that Cloud Code itself is closed source really makes it feel like something they would do. And I again I implore y'all on the Cloud Code team, Boris, Cat, Jared, everyone else involved in these decisions, there's no good reason to keep cloud code closed source. It doesn't make sense. I've heard arguments for everything from secret sauce to maintaining the repo and the community around it is difficult. You now have one of the best open source maintaining groups ever in this web ecosystem working for you guys. There's no reason to not do this. It will make people so much less scared about this bun acquisition. If you want to reduce all of the FUD and the fear and the concern people are having in my chat right now, make the good faith play. Open-source cla code. I don't know what you're hiding or what you're scared of. You need to just do it. I Yeah, I think that's all I have on this one. I'm excited for the future of Bun and the future of Clad Code and all the things that is going to happen here. The only major risk I perceive is Jared getting nerds night by something else and no longer focusing on Bun as much now that he's going to be surrounded with cool things going on. There's a decent chance of that happening, but I am sure that Bun will be in very good hands now that it is finally funded properly. I'm honestly just relieved that I no longer have to talk about whether or not Bun will ever make money or how it will be here in the future. We have our answer, anthropic. One of the best things that ever happened to software development from AI is this. The fact that AI money is allowing for bun to be maintained and exist long term. That's a very good thing. And I'm excited for the future for the BUN team. And I'm also more excited than ever for Anthropic. And no, not just because I'm now technically an investor, because this is a really good faith play. And I trust Jared's judgment. If Jared talked to all the teams and this is the one he wants to work with, I trust him. And I'm asking you guys, too, as well. I really hope that my trust doesn't get burned by these guys. But Jared's never burned me before and I trust him to do this right. He did his team right as well. And that's something that's really important to me. You want to watch me hold these guys accountable, make sure you subscribe. Until next time, peace nerds."
+}

@@ -219,10 +219,13 @@ export class PostgresDatabaseService extends AbstractDatabaseService {
         channel_id TEXT NOT NULL,
         channel_name TEXT NOT NULL,
         video_title TEXT NOT NULL,
-        posted_at TIMESTAMP NOT NULL,
+        posted_at TEXT NOT NULL,
         video_url TEXT NOT NULL,
         processed_at TIMESTAMP NOT NULL,
-        transcription_text TEXT NOT NULL
+        transcription_text TEXT NOT NULL,
+        transcription_summary TEXT NULL,
+        transcription_analysis TEXT NULL,
+        transcription_cassification TEXT NULL
       )
     `;
 

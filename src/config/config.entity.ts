@@ -7,6 +7,9 @@ export type Config = {
     categoryClassification: string;
     clusterAnalysis: string;
     briefSynthesis: string;
+    transcriptionSummary: string;
+    transcriptionAnalysis: string;
+    transcriptionClassification: string;
   };
   processing: {
     briefingArticleLookbackHours: number;

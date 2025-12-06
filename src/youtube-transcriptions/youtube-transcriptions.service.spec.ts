@@ -4,6 +4,9 @@ jest.mock('./transcript.service');
 jest.mock('./storage.service');
 
 import { Test, TestingModule } from '@nestjs/testing';
+import { AiService } from '../ai/ai.service';
+import { ConfigService } from '../config/config.service';
+import { DatabaseService } from '../database/database.service';
 import { StorageService } from './storage.service';
 import { TranscriptService } from './transcript.service';
 import { YoutubeTranscriptionsService } from './youtube-transcriptions.service';
@@ -27,6 +30,18 @@ describe('YoutubeTranscriptionsService', () => {
     saveTranscripts: jest.fn(),
   };
 
+  const mockDatabaseService = {
+    saveTranscriptionToDatabase: jest.fn(),
+  };
+
+  const mockAiService = {
+    callDeepseekChat: jest.fn(),
+  };
+
+  const mockConfigService = {
+    getTranscriptionSummaryPrompt: jest.fn(),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -42,6 +57,18 @@ describe('YoutubeTranscriptionsService', () => {
         {
           provide: StorageService,
           useValue: mockStorageService,
+        },
+        {
+          provide: DatabaseService,
+          useValue: mockDatabaseService,
+        },
+        {
+          provide: AiService,
+          useValue: mockAiService,
+        },
+        {
+          provide: ConfigService,
+          useValue: mockConfigService,
         },
       ],
     }).compile();
@@ -98,8 +125,7 @@ describe('YoutubeTranscriptionsService', () => {
 
       // Assert
       expect(mockYouTubeService.getChannelVideos).toHaveBeenCalledWith(
-        'UC123',
-        2,
+        mockChannel,
       );
       expect(mockTranscriptService.getTranscript).toHaveBeenCalledTimes(2);
       expect(mockStorageService.saveTranscript).toHaveBeenCalledTimes(2);

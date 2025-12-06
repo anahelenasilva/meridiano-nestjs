@@ -1,0 +1,1606 @@
+{
+  "videoId": "1M_p8R7WT-8",
+  "title": "OpenAI is in \"CODE RED\" (Did Gemini win that hard??)",
+  "url": "https://www.youtube.com/watch?v=1M_p8R7WT-8",
+  "publishedAt": "2 days ago",
+  "description": "OpenAI has never really cared what their competition was doing, at least until now. This are definitely about to change...\n\nThank you WorkOS for sponsoring! Check them out at: https://soydev.link/w...",
+  "thumbnailUrl": "https://i.ytimg.com/vi/1M_p8R7WT-8/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBA50o9QipWE8xqduK1rIwVc4pMHg",
+  "transcript": [
+    {
+      "text": "It seems like OpenAI is finally feeling the heat. Sam Alman has just declared a code red internally. This is kind of",
+      "duration": 6879,
+      "offset": "0"
+    },
+    {
+      "text": "crazy. Historically, OpenAI hasn't really thought too much about the competition. Almost all of my conversations with them just really",
+      "duration": 6161,
+      "offset": "6879"
+    },
+    {
+      "text": "didn't seem to think much about what other companies were doing. They didn't care much about Anthropic and they",
+      "duration": 5680,
+      "offset": "13040"
+    },
+    {
+      "text": "really didn't seem to care about companies like Amazon and Google. That has changed. combination of the Gemini 3",
+      "duration": 6080,
+      "offset": "18720"
+    },
+    {
+      "text": "Pro launch as well as recent developments in openw weight models, especially from Deepseek seems to have",
+      "duration": 5440,
+      "offset": "24800"
+    },
+    {
+      "text": "OpenAI quite a bit scared. This is reminiscent of the explosion that happened internally at Meta when",
+      "duration": 5839,
+      "offset": "30240"
+    },
+    {
+      "text": "Deepseek originally dropped that resulted in like 3/4 of the Llama team getting fired or leaving.",
+      "duration": 6561,
+      "offset": "36079"
+    },
+    {
+      "text": "This is a big deal. This is not the type of thing Sam normally does. This is not the type of thing OpenAI normally spends",
+      "duration": 6079,
+      "offset": "42640"
+    },
+    {
+      "text": "their time on, but they are clearly scared more so than ever. Now, there's a",
+      "duration": 5840,
+      "offset": "48719"
+    },
+    {
+      "text": "lot to read into in this memo. I don't know how much of it has actually leaked, but we'll figure that out going forward.",
+      "duration": 5281,
+      "offset": "54559"
+    },
+    {
+      "text": "We need to discuss why OpenAI is doing this, why they're feeling so much pressure, what their long-term plans",
+      "duration": 5440,
+      "offset": "59840"
+    },
+    {
+      "text": "are, and what they're going to do before the end of the year, because I have a feeling they're going to drop something",
+      "duration": 5440,
+      "offset": "65280"
+    },
+    {
+      "text": "very soon. As always, OpenAI is not paying me for any of my coverage or content. There is a company paying me",
+      "duration": 5360,
+      "offset": "70720"
+    },
+    {
+      "text": "though, so let's hear from them really quick. There's a lot of data that I want to be able to store for my users, but might not want to have in my database as",
+      "duration": 6399,
+      "offset": "76080"
+    },
+    {
+      "text": "clear text. Like if users are bringing their own API tokens for a service like T3 chat, I don't want to keep those API",
+      "duration": 5841,
+      "offset": "82479"
+    },
+    {
+      "text": "keys as plain text in my DB. I want to store them in a way that only that user can access, but ideally is still owned",
+      "duration": 6240,
+      "offset": "88320"
+    },
+    {
+      "text": "and managed by me. Which is why today's sponsor has been awesome. Turns out work OS has a thing just built in for this,",
+      "duration": 6879,
+      "offset": "94560"
+    },
+    {
+      "text": "and now we're using it all over T3 chat. Their vault product is super cool. You store the data wherever you choose to.",
+      "duration": 6561,
+      "offset": "101439"
+    },
+    {
+      "text": "And what you're storing in work OS is just a key to unlock it. They give you the primitives you need to access the",
+      "duration": 5840,
+      "offset": "108000"
+    },
+    {
+      "text": "key and run it against your data. So that you don't have to have work OS as your database. They're just there as",
+      "duration": 5520,
+      "offset": "113840"
+    },
+    {
+      "text": "your O layer. And that lets users access data and read the actual contents of that data without having to build all",
+      "duration": 5920,
+      "offset": "119360"
+    },
+    {
+      "text": "this complex infrastructure yourself. If that's all Work OS offered, it would have been worth us making the move. But there is so much more. From the admin",
+      "duration": 6800,
+      "offset": "125280"
+    },
+    {
+      "text": "portal that makes it way easier for companies to onboard to your platform to their MCP off stuff that they're",
+      "duration": 5200,
+      "offset": "132080"
+    },
+    {
+      "text": "industry leading in. Turns out making O for MCP is annoying because the standard sucks. They fixed it. Okit, which is all",
+      "duration": 6400,
+      "offset": "137280"
+    },
+    {
+      "text": "the UI layer and components that you'll need to onboard things and get it added to your codebase. User management,",
+      "duration": 5199,
+      "offset": "143680"
+    },
+    {
+      "text": "enterprise SSO, Radar has been awesome, too, having an actual user level thing checking the validity of a user. There's",
+      "duration": 6561,
+      "offset": "148879"
+    },
+    {
+      "text": "a reason every company is making the move to work OS. small companies like OpenAI and big ones like T3 chat.",
+      "duration": 6159,
+      "offset": "155440"
+    },
+    {
+      "text": "Actually though, Verscell, Cursor, Indeed, Plaid, Loom, Socket, FAL, Source Graph, Cardo, Web Flow, and so many",
+      "duration": 6801,
+      "offset": "161599"
+    },
+    {
+      "text": "more. This is a wild list of companies. It's crazy that we all picked this solution, but once you try it, you'll",
+      "duration": 5520,
+      "offset": "168400"
+    },
+    {
+      "text": "probably understand why. Stop losing enterprise customers. Move to work OS today at swive.link/workos.",
+      "duration": 5760,
+      "offset": "173920"
+    },
+    {
+      "text": "So, let's start by reading what news coverage exists on this. Then we'll dive into all of the fun things OpenAI is",
+      "duration": 6400,
+      "offset": "179680"
+    },
+    {
+      "text": "cooking in order to try and compete with their increasing competition. OpenAI CEO Sam Alman has set off a code red alert",
+      "duration": 6400,
+      "offset": "186080"
+    },
+    {
+      "text": "to employees to improve its flagship product Chat GPT and delay other product developments according to Wall Street",
+      "duration": 5920,
+      "offset": "192480"
+    },
+    {
+      "text": "Journal. Interesting. I didn't know this was specific to Chat GPT. I wonder if the best AI chat ever made might be",
+      "duration": 6559,
+      "offset": "198400"
+    },
+    {
+      "text": "getting them a little bit scared. By the way, if you want every single model in the best possible UI for eight bucks a",
+      "duration": 6161,
+      "offset": "204959"
+    },
+    {
+      "text": "month, check out T3 Chat. When I say every model, I mean it. Including image gen models, which I've been using for",
+      "duration": 6160,
+      "offset": "211120"
+    },
+    {
+      "text": "memes. Obviously, I have my thoughts on image gen, but it's good for this type of thing. And if you want your first month for just a dollar at checkout,",
+      "duration": 6480,
+      "offset": "217280"
+    },
+    {
+      "text": "apply the code code red. Yes, code red at checkout for your first month for $1. And if you're Sam Alman watching this",
+      "duration": 6479,
+      "offset": "223760"
+    },
+    {
+      "text": "video, by the way, uh we might not be a dollar to acquire, but if you do want us to fix chat GPT, you can get my phone",
+      "duration": 7441,
+      "offset": "230239"
+    },
+    {
+      "text": "number pretty easily. Let's chat. Seriously though, if Anthropic is buying Bun to fix their developer stuff, I",
+      "duration": 6479,
+      "offset": "237680"
+    },
+    {
+      "text": "think it makes a lot of sense for OpenAI to buy us to fix their user experience stuff. We're kind of the guys who do that. Anyways, Wall Street Journal",
+      "duration": 6961,
+      "offset": "244159"
+    },
+    {
+      "text": "reported that Altman sent an internal memo to staff on Monday saying more work was needed to enhance the artificial intelligence chatbot's speed,",
+      "duration": 6880,
+      "offset": "251120"
+    },
+    {
+      "text": "reliability, and personalization features. Do you know who's really good at speed and reliability for chatbots?",
+      "duration": 5120,
+      "offset": "258000"
+    },
+    {
+      "text": "Sam, let's chat. This week marks 3 years since OpenAI first released chat GPT,",
+      "duration": 5440,
+      "offset": "263120"
+    },
+    {
+      "text": "sparking global fascination in a commercial boom in generative AI technology and giving the San Francisco",
+      "duration": 5199,
+      "offset": "268560"
+    },
+    {
+      "text": "based startup an early lead. The company faces increased competition with rivals including Google which last month",
+      "duration": 5201,
+      "offset": "273759"
+    },
+    {
+      "text": "unleashed Gemini 3, the latest version of its own AI assistant. Opening I didn't immediately respond to a request",
+      "duration": 6239,
+      "offset": "278960"
+    },
+    {
+      "text": "for comment on Tuesday. Tech news outlet the information also report on the memo.",
+      "duration": 5041,
+      "offset": "285199"
+    },
+    {
+      "text": "They have 800 million weekly users but they also are valued at 500 billion. They don't make a profit and they've committed to more than a trillion",
+      "duration": 6000,
+      "offset": "290240"
+    },
+    {
+      "text": "dollars in financial obligations in cloud computing over the next 10 years. The risk OpenAI won't make enough money",
+      "duration": 6239,
+      "offset": "296240"
+    },
+    {
+      "text": "to fulfill the expectations of backers like Oracle Nvidia has amplified investor concerns about the AI bubble and OpenAI VP and its head of Chibbt",
+      "duration": 6641,
+      "offset": "302479"
+    },
+    {
+      "text": "post on social media Monday that online search is one of the product's biggest areas of opportunity as the company focuses on making Chashibbt more capable",
+      "duration": 6799,
+      "offset": "309120"
+    },
+    {
+      "text": "and even more intuitive and personal. They currently make revenue from premium subscriptions, but most users are on the free version. They also have their own",
+      "duration": 6321,
+      "offset": "315919"
+    },
+    {
+      "text": "web browser. Apparently, in the memo, they said they're delaying work on advertising, AI agents for health and",
+      "duration": 5200,
+      "offset": "322240"
+    },
+    {
+      "text": "shopping, and a personal assistant called Pulse. Pulse, if you don't know, is a thing that popped up in chat GPT",
+      "duration": 5120,
+      "offset": "327440"
+    },
+    {
+      "text": "that was like, \"Here are some things that we think might be interesting to you today.\" And I have some screenshots, I don't feel like finding them, of",
+      "duration": 5440,
+      "offset": "332560"
+    },
+    {
+      "text": "really cringe things it would say to me based on stuff I had done in the past with it. It was It was weird. It was",
+      "duration": 5680,
+      "offset": "338000"
+    },
+    {
+      "text": "like bringing up text stacks that haven't been relevant for a year cuz I asked about them forever ago. Very interesting. The ads thing is",
+      "duration": 7120,
+      "offset": "343680"
+    },
+    {
+      "text": "particularly fascinating because some people were reporting not too long ago, like literally 3 days ago, that the",
+      "duration": 7119,
+      "offset": "350800"
+    },
+    {
+      "text": "Android app for ChatgPT had ads features added to its like reference and like XML",
+      "duration": 6481,
+      "offset": "357919"
+    },
+    {
+      "text": "dump. So, they were planning on introducing some ad stuff, which makes sense when you realize that Google makes",
+      "duration": 5040,
+      "offset": "364400"
+    },
+    {
+      "text": "almost all of their money from ads still. The only two real players in the advertising space are Google and Meta",
+      "duration": 6640,
+      "offset": "369440"
+    },
+    {
+      "text": "because they have all of the data, all of the infra, all of the targeting, all of the tooling, and all of the things needed to do advertising right. They're",
+      "duration": 6000,
+      "offset": "376080"
+    },
+    {
+      "text": "the only companies that can make real amounts of money through ads. Everybody else is stuck with whatever margins",
+      "duration": 5600,
+      "offset": "382080"
+    },
+    {
+      "text": "Google's willing to give up when you integrate their ad stuff. So, if OpenAI wanted to do this, they'd have to build",
+      "duration": 5120,
+      "offset": "387680"
+    },
+    {
+      "text": "their own solution for almost all of that because there's no world in which Google's giving them a good deal on AdSense. Just not going to happen. So if",
+      "duration": 6720,
+      "offset": "392800"
+    },
+    {
+      "text": "they want to compete with Google, the king of ads, they need to win in like every single vertical. Artificial",
+      "duration": 5840,
+      "offset": "399520"
+    },
+    {
+      "text": "analysis did this report earlier this year. Artificial analysis publishes reports on the state of AI relatively",
+      "duration": 6320,
+      "offset": "405360"
+    },
+    {
+      "text": "regularly. And there's an interesting chart I use a lot in here. Go to artificial analysis if you want to see the whole thing. I'll link the site in",
+      "duration": 6480,
+      "offset": "411680"
+    },
+    {
+      "text": "the description. You can find it relatively easily there. This chart's a big part of why OpenAI is currently",
+      "duration": 5039,
+      "offset": "418160"
+    },
+    {
+      "text": "scared. There are four major verticals that all of these companies are competing on. apps, models, cloud",
+      "duration": 6400,
+      "offset": "423199"
+    },
+    {
+      "text": "inference, and the actual hardware the inference is done on. So to give a basic example for someone running their own",
+      "duration": 6880,
+      "offset": "429599"
+    },
+    {
+      "text": "inference, you're probably going to be using NVIDIA GPUs. You're probably going to be hosting on something like AWS or",
+      "duration": 6321,
+      "offset": "436479"
+    },
+    {
+      "text": "Azure. Maybe you're using anthropic open directly. The foundation models, these are the models you're actually using. So",
+      "duration": 5440,
+      "offset": "442800"
+    },
+    {
+      "text": "for basic example, accelerator hardware could be NVIDIA. Cloud inference could be Amazon. The model could be sonnet.",
+      "duration": 5280,
+      "offset": "448240"
+    },
+    {
+      "text": "And the app could be T3 chat. Just as a simple example of what each of these is, Google is very uniquely positioned here",
+      "duration": 7360,
+      "offset": "453520"
+    },
+    {
+      "text": "because they have their own apps. The biggest AI app ever made is actually Google. Literally Google. Google.com.",
+      "duration": 6240,
+      "offset": "460880"
+    },
+    {
+      "text": "The most popular AI app ever made. You Google search something. Oh, look at that. I didn't even This is the thing.",
+      "duration": 5760,
+      "offset": "467120"
+    },
+    {
+      "text": "New try AI mode. Search whatever's on your mind and get AI powered results. I",
+      "duration": 5039,
+      "offset": "472880"
+    },
+    {
+      "text": "see why Enthropic is scared. That's not even what I was trying to do here. But you know what? Let's turn it on. Is this",
+      "duration": 7120,
+      "offset": "477919"
+    },
+    {
+      "text": "what happens now when I Google? It isn't. Interesting. I have to click AI mode to go to that.",
+      "duration": 7720,
+      "offset": "485039"
+    },
+    {
+      "text": "Interesting. It doesn't know about T3 chat. That means it's using the new Gemini because it it knowledge is somewhat dated. Why is it linking the",
+      "duration": 7120,
+      "offset": "498960"
+    },
+    {
+      "text": "Git Nation podcast episode of all things?",
+      "duration": 5119,
+      "offset": "506080"
+    },
+    {
+      "text": "That perform well. Oh, 16k plays. Yeah, I think it's one of the most popular videos on their channel.",
+      "duration": 5441,
+      "offset": "511199"
+    },
+    {
+      "text": "The point I'm making is that that little blurb at the top of Google, the search generation AI overview thing, this is",
+      "duration": 5920,
+      "offset": "516640"
+    },
+    {
+      "text": "the most popular AI app in the world. This is, in my opinion, the single biggest risk to OpenAI. Like terrifying",
+      "duration": 8560,
+      "offset": "522560"
+    },
+    {
+      "text": "that your core product is now just the thing that happens when you Google",
+      "duration": 5680,
+      "offset": "531120"
+    },
+    {
+      "text": "search. That would scare the [ __ ] out of me. Especially because Google can make money off ads which allows them to",
+      "duration": 5200,
+      "offset": "536800"
+    },
+    {
+      "text": "provide this for free. That's really scary. And that's the application layer. Historically, OpenAI has been the winner",
+      "duration": 5600,
+      "offset": "542000"
+    },
+    {
+      "text": "cuz the average person when they think of AI, they're thinking of chat GPT. My parents get confused when I tell them",
+      "duration": 5760,
+      "offset": "547600"
+    },
+    {
+      "text": "about what I'm building because they think of AI as chat GPT. So like, oh, you're building into chat GPT? Like is",
+      "duration": 5280,
+      "offset": "553360"
+    },
+    {
+      "text": "OpenAI paying you? They're just confused. Google is the only company I can think of that has a real chance of",
+      "duration": 5680,
+      "offset": "558640"
+    },
+    {
+      "text": "disrupting here. Although I did take an Uber yesterday from somebody who was insisting that Meta's AI chat is the",
+      "duration": 5840,
+      "offset": "564320"
+    },
+    {
+      "text": "best and that he was going to make a really successful company using it, but then he went into some really crazy conspiracy theories. So, I don't think",
+      "duration": 5920,
+      "offset": "570160"
+    },
+    {
+      "text": "he's a great reference as anything other than a normal kind of weird person. And then there's the foundation models.",
+      "duration": 5840,
+      "offset": "576080"
+    },
+    {
+      "text": "Historically, OpenAI has maintained the lead or very close to it. But for the first time ever, in my opinion, right",
+      "duration": 6960,
+      "offset": "581920"
+    },
+    {
+      "text": "now, OpenAI doesn't have the best model for anything. That's weird. GBD 5.1 Pro",
+      "duration": 6959,
+      "offset": "588880"
+    },
+    {
+      "text": "is still incredible and can solve things I haven't seen other models solve, but it's not available over API. I can't",
+      "duration": 5921,
+      "offset": "595839"
+    },
+    {
+      "text": "really benchmark it. It's only usable through the chatbt site, so it's hard to to know the extent of how good it is",
+      "duration": 6160,
+      "offset": "601760"
+    },
+    {
+      "text": "beyond playing with it and getting fun answers, which but 5.1 Pro isn't really",
+      "duration": 5200,
+      "offset": "607920"
+    },
+    {
+      "text": "measurable the way other models are. When it comes to code, Anthropic is currently in the lead in my opinion by quite a bit with Opus 4.5. I've been",
+      "duration": 6560,
+      "offset": "613120"
+    },
+    {
+      "text": "very impressed with that model. When it comes to general benchmark performance and things like ArcGI and stuff, Google",
+      "duration": 5920,
+      "offset": "619680"
+    },
+    {
+      "text": "is crushing all of the benchmarks. Google also has better search and a much faster model. This is one of the most",
+      "duration": 6080,
+      "offset": "625600"
+    },
+    {
+      "text": "annoying things and I I can't imagine OpenAI not addressing this with future",
+      "duration": 5360,
+      "offset": "631680"
+    },
+    {
+      "text": "releases. GBT 5.1 is not a fast model. It's up to 50 TPS and if you look at",
+      "duration": 7359,
+      "offset": "637040"
+    },
+    {
+      "text": "codeex, it's 32. I don't think Codex is even on the API yet. It's only available via codecs like the CLI. And I think",
+      "duration": 6880,
+      "offset": "644399"
+    },
+    {
+      "text": "they gave it access to a couple other companies, but 32TPS is very, very slow, especially when you",
+      "duration": 7120,
+      "offset": "651279"
+    },
+    {
+      "text": "compare that to Gemini 3 Pro, which is at 75ish. That's 2 to 3x difference, and it feels",
+      "duration": 6961,
+      "offset": "658399"
+    },
+    {
+      "text": "like a whole different world. Opus 4.5 is in the 60s pretty consistently.",
+      "duration": 6479,
+      "offset": "665360"
+    },
+    {
+      "text": "And Sonnet 4.5 has actually dropped a little. It's in the It's hitting the 60s consistently. The point here is that the",
+      "duration": 6000,
+      "offset": "671839"
+    },
+    {
+      "text": "experience I get actually using the new models that are being provided by OpenAI feels not great because it just it's",
+      "duration": 7041,
+      "offset": "677839"
+    },
+    {
+      "text": "slow. And this is a very good point from Michaela from Zed. 5.1 is for completions and responses. 5.1 CEX is",
+      "duration": 6560,
+      "offset": "684880"
+    },
+    {
+      "text": "only for responses. Codex max is only CLI. And 5.1 Pro is only chat. Yeah,",
+      "duration": 7120,
+      "offset": "691440"
+    },
+    {
+      "text": "apparently chat GPT traffic has declined by up to 6%",
+      "duration": 5600,
+      "offset": "698560"
+    },
+    {
+      "text": "recently. The theory is that this has happened since the Gemini 3 launch, which would improve the like AI search",
+      "duration": 5520,
+      "offset": "704160"
+    },
+    {
+      "text": "results on Google, but that's pretty brutal. Hard to know with these numbers, like we don't actually have access to",
+      "duration": 6240,
+      "offset": "709680"
+    },
+    {
+      "text": "those numbers. This is from Similar Web, which is a analytics firm that tries to track usage across things. They are",
+      "duration": 6159,
+      "offset": "715920"
+    },
+    {
+      "text": "seeing a 7% decline over the last couple weeks. That is terrifying. 6% of chat GBT users is more users than we have by",
+      "duration": 8481,
+      "offset": "722079"
+    },
+    {
+      "text": "quite a bit back here. So, OpenAI now has real computational applications.",
+      "duration": 5839,
+      "offset": "730560"
+    },
+    {
+      "text": "People still associate AI with chat GBT and they even like call it chat. I thought that was fake. I thought people",
+      "duration": 6000,
+      "offset": "736399"
+    },
+    {
+      "text": "were referring to chat like how I refer to my Twitch chat. No, normies refer to chat GBT as chat and they'll just say",
+      "duration": 6240,
+      "offset": "742399"
+    },
+    {
+      "text": "like, \"Have you asked chat about that?\" Or, \"So, I was talking to chat earlier.\" Insane to me. Like, actually,",
+      "duration": 7361,
+      "offset": "748639"
+    },
+    {
+      "text": "despite that, Google now has a real edge and is starting to take cuts out of OpenAI's traffic. the foundation model",
+      "duration": 6480,
+      "offset": "756000"
+    },
+    {
+      "text": "side which we were just discussing. OpenAI doesn't have the best model for any one thing right now. They have really good general models but they're",
+      "duration": 5840,
+      "offset": "762480"
+    },
+    {
+      "text": "quite a bit slower and not super pleasant to use. The cloud inference thing is also very interesting because",
+      "duration": 5840,
+      "offset": "768320"
+    },
+    {
+      "text": "historically OpenAI has been the frontier lab that is the most reliable cloud. Anthropic is so unreliable that",
+      "duration": 5919,
+      "offset": "774160"
+    },
+    {
+      "text": "you basically have to use a service like Open Router to diversify your traffic to other places. Thankfully, Anthropic has",
+      "duration": 6641,
+      "offset": "780079"
+    },
+    {
+      "text": "partnerships with both Google and AWS and recently even Azure, so you can use their models on other clouds with other",
+      "duration": 5760,
+      "offset": "786720"
+    },
+    {
+      "text": "GPUs and not have to worry about Anthropics provisioning. Anthropics struggled a lot with their own infrastructure for quite a bit now.",
+      "duration": 6400,
+      "offset": "792480"
+    },
+    {
+      "text": "Their stuff's down hilariously often, but despite that, they've managed to get their revenue up. According to CNBC,",
+      "duration": 7120,
+      "offset": "798880"
+    },
+    {
+      "text": "they only had a thousand enterprise customers two years ago, and now they have over 300,000. and they define those",
+      "duration": 7200,
+      "offset": "806000"
+    },
+    {
+      "text": "as customers that spend more than 100k a year on the infra on their stuff. Cool",
+      "duration": 5600,
+      "offset": "813200"
+    },
+    {
+      "text": "to know that I'm one of their large accounts now with T3 chat. Jesus Christ. Yeah, we spend a lot of money on",
+      "duration": 5360,
+      "offset": "818800"
+    },
+    {
+      "text": "anthropic. So on the infant side, OpenAI was one of the better options. The only",
+      "duration": 5280,
+      "offset": "824160"
+    },
+    {
+      "text": "other place you can use OpenAI models is currently Azure because of the weird partnership between Microsoft and OpenAI that's slowly falling apart. Google, of",
+      "duration": 7199,
+      "offset": "829440"
+    },
+    {
+      "text": "course, with Google Cloud, you're good. I'm not going to say Google Cloud's great. The differences between AI Studio",
+      "duration": 5681,
+      "offset": "836639"
+    },
+    {
+      "text": "and Vertex are [ __ ] obnoxious. I'm so tired of fighting those two platforms and I've been yelling at the AI Studio team for a while now. I actually am",
+      "duration": 6480,
+      "offset": "842320"
+    },
+    {
+      "text": "meeting with them in a few weeks and I'll be yelling at them even more. There are so many things that are broken with it. It is actually hilarious. Uh, fun",
+      "duration": 6640,
+      "offset": "848800"
+    },
+    {
+      "text": "fact, you can't over API force Nanobanana to only do a certain number of images. It is possible to force Nano",
+      "duration": 7120,
+      "offset": "855440"
+    },
+    {
+      "text": "Banana Pro to generate multiple images over API even if you try to restrict it with your system prompt.",
+      "duration": 6800,
+      "offset": "862560"
+    },
+    {
+      "text": "Yeah, I have feelings. So, OpenAI is okay here, but they're only as okay as",
+      "duration": 5120,
+      "offset": "869360"
+    },
+    {
+      "text": "their models are because you're not going to use their infra for other models. You might use GCP for other",
+      "duration": 5359,
+      "offset": "874480"
+    },
+    {
+      "text": "models. You are going to use Microsoft for other models because Microsoft's models are garbage. Amazon did just put",
+      "duration": 5521,
+      "offset": "879839"
+    },
+    {
+      "text": "out their first ever decent model, but you're not using Bedrock for that right now. You're using Bedrock for anthropic",
+      "duration": 5520,
+      "offset": "885360"
+    },
+    {
+      "text": "support almost certainly. So, OpenAI needs their models to be the best for their cloud inference to be a real",
+      "duration": 6160,
+      "offset": "890880"
+    },
+    {
+      "text": "player and their API usage is still not a big portion of their revenue. For OpenAI, 73% of their revenue is",
+      "duration": 6640,
+      "offset": "897040"
+    },
+    {
+      "text": "currently chatg subscriptions and only 27% is the API and multimodal services.",
+      "duration": 6159,
+      "offset": "903680"
+    },
+    {
+      "text": "So, they need the subscriptions to be their main source of revenue. They can't really compete otherwise. The only thing",
+      "duration": 6161,
+      "offset": "909839"
+    },
+    {
+      "text": "they could do is ads. And we've already discussed why that's going to be rough for them. And then there's the accelerator hardware. This is one of",
+      "duration": 6639,
+      "offset": "916000"
+    },
+    {
+      "text": "those weird edges that puts Google far ahead. Google is the only lab that's",
+      "duration": 5281,
+      "offset": "922639"
+    },
+    {
+      "text": "making good models and making good chips. Google doesn't need Nvidia to",
+      "duration": 5279,
+      "offset": "927920"
+    },
+    {
+      "text": "win. Google is actually selling their own chips now to Meta to help them win with Llama. Google doesn't have to rely",
+      "duration": 7521,
+      "offset": "933199"
+    },
+    {
+      "text": "on the Nvidia monopoly to succeed. The only other companies coming close to Google's chip architecture stuff are",
+      "duration": 6400,
+      "offset": "940720"
+    },
+    {
+      "text": "these three at the back here. Gro, Cerebras, and Samanova. These companies are effectively building ASIC chips",
+      "duration": 5680,
+      "offset": "947120"
+    },
+    {
+      "text": "similar to like for the Bitcoin mining stuff and they're just doing this for inference. So that's why on Grock you",
+      "duration": 5440,
+      "offset": "952800"
+    },
+    {
+      "text": "can get absurd speeds. If we look at Kimmy K2 for example, the non-thinking version, most hosts are getting between",
+      "duration": 6159,
+      "offset": "958240"
+    },
+    {
+      "text": "40 and 80 TPS. Some are struggling a lot with like 16 TPS, but if you look at",
+      "duration": 5601,
+      "offset": "964399"
+    },
+    {
+      "text": "Grock with a Q, the ones making their own chips, they're hitting 330 TPS",
+      "duration": 5519,
+      "offset": "970000"
+    },
+    {
+      "text": "comically faster because all they're doing is building these chips that are really fast. Rather than selling the",
+      "duration": 5760,
+      "offset": "975519"
+    },
+    {
+      "text": "chips, they're selling you access to their servers so that you can get the way faster speeds. Grog with the Q is",
+      "duration": 5041,
+      "offset": "981279"
+    },
+    {
+      "text": "awesome. I really like these guys, but those companies are building chips and architecture which makes them compete on",
+      "duration": 5680,
+      "offset": "986320"
+    },
+    {
+      "text": "a different level. None of them are trying to build a chat app or a search product. And none of them are trying to train their own models. They're trying to provide APIs that we can hit to get",
+      "duration": 6959,
+      "offset": "992000"
+    },
+    {
+      "text": "better performance using chips that they make that are way faster and use less energy. Open is not competing there at",
+      "duration": 6161,
+      "offset": "998959"
+    },
+    {
+      "text": "all. So, they're at the whim of Nvidia. That's why they have to make those crazy trillion dollar commitments because they",
+      "duration": 6000,
+      "offset": "1005120"
+    },
+    {
+      "text": "have to buy chips in order to fight because they're not producing their own. A long last time ago, they were actually",
+      "duration": 5360,
+      "offset": "1011120"
+    },
+    {
+      "text": "considering buying Cerebrris to benefit them like before they even shipped Chat GPT. But now it's too late. Going to be",
+      "duration": 6640,
+      "offset": "1016480"
+    },
+    {
+      "text": "a rough play for them to make. And any attempt to compete here is going to sever their relationship with Nvidia.",
+      "duration": 5040,
+      "offset": "1023120"
+    },
+    {
+      "text": "And they need that relationship to stay strong or they're [ __ ] So open is kind of caught in between a rock and a",
+      "duration": 5919,
+      "offset": "1028160"
+    },
+    {
+      "text": "hard place here. Other models are getting better enough that the competition is ramping. If other models",
+      "duration": 6880,
+      "offset": "1034079"
+    },
+    {
+      "text": "are better and a company like us with T3 chat can provide a better interface, you're losing surface area that you can",
+      "duration": 6321,
+      "offset": "1040959"
+    },
+    {
+      "text": "compete on. Bunch of places open can be competitive in best model, best chat",
+      "duration": 5040,
+      "offset": "1047280"
+    },
+    {
+      "text": "interface, advertising, revenue, infrastructure, APIs, developer",
+      "duration": 7120,
+      "offset": "1052320"
+    },
+    {
+      "text": "experience. So this is like coding with things like codecs and whatnot. Mind share. These are all the places that in",
+      "duration": 6400,
+      "offset": "1059440"
+    },
+    {
+      "text": "my opinion OpenAI needs to be thinking about and competing in historically they've maintained best model.",
+      "duration": 5520,
+      "offset": "1065840"
+    },
+    {
+      "text": "Historically they've had a good enough chat interface that no one was thinking twice about it. It had its rough edges,",
+      "duration": 5760,
+      "offset": "1071360"
+    },
+    {
+      "text": "but since they hired Nean and a few others, they've been able to make it better. Still nowhere near as stable as T3 chat, but better ad revenue. We",
+      "duration": 7760,
+      "offset": "1077120"
+    },
+    {
+      "text": "discussed it can't really compete in infer APIs are only as good as the model is. These two are very dependent for",
+      "duration": 5679,
+      "offset": "1084880"
+    },
+    {
+      "text": "them because you're only using their inferent APIs for OpenAI models. Developer experience, they put a lot of work in at the start of the year, but",
+      "duration": 6561,
+      "offset": "1090559"
+    },
+    {
+      "text": "now there's real risk happening here with all the developments occurring at Enthropic, especially with the acquisition of Bun and Mind Share. This",
+      "duration": 6320,
+      "offset": "1097120"
+    },
+    {
+      "text": "is the one place I think they're really winning. Best model, I think it depends right now. Anthropic and Google are both",
+      "duration": 5840,
+      "offset": "1103440"
+    },
+    {
+      "text": "crushing it right now. Best chat interface, T3 chat. Seriously though,",
+      "duration": 5040,
+      "offset": "1109280"
+    },
+    {
+      "text": "uh, OpenAI is the big lead right now. As in like of the major labs, OpenAI has by",
+      "duration": 7120,
+      "offset": "1114320"
+    },
+    {
+      "text": "far the best chat app. Cloud.AI miserable experience. No one actually uses it. Seriously, it's so bad. It's",
+      "duration": 6320,
+      "offset": "1121440"
+    },
+    {
+      "text": "every time I use it, I find new bugs. And the Gemini, like I was going to try and use Gemini for a week. I survived",
+      "duration": 5919,
+      "offset": "1127760"
+    },
+    {
+      "text": "two hours before getting so frustrated. It's so bad. I cannot fathom how bad it is. It's so bad that I don't even want",
+      "duration": 7120,
+      "offset": "1133679"
+    },
+    {
+      "text": "to work there. Like, if Google was to give us an offer to come in and replace the Gemini app with T3 chat, it would",
+      "duration": 5921,
+      "offset": "1140799"
+    },
+    {
+      "text": "have to be a lot of money for me to deal with all the [ __ ] Like, there's no world in which there's a good work",
+      "duration": 5120,
+      "offset": "1146720"
+    },
+    {
+      "text": "environment in that level of [ __ ] shipped. And then there's AI Studio, which is somehow even [ __ ] worse. It",
+      "duration": 6640,
+      "offset": "1151840"
+    },
+    {
+      "text": "It's insane just how bad the interfaces are on Google's side. They cannot ship software. This is particularly funny",
+      "duration": 5120,
+      "offset": "1158480"
+    },
+    {
+      "text": "because right now I'm live filming my videos on Twitch, which is what I usually do. I also am live on YouTube,",
+      "duration": 5600,
+      "offset": "1163600"
+    },
+    {
+      "text": "but I can't be live on YouTube with the chat on right now because they broke it.",
+      "duration": 5920,
+      "offset": "1169200"
+    },
+    {
+      "text": "Yes, if I have YouTube chat on my YouTube live stream, it oos my tab. Chat",
+      "duration": 6000,
+      "offset": "1175120"
+    },
+    {
+      "text": "interfaces are hard. Interfaces that have text that is formatted with fancy animations and stuff. Updating thousands",
+      "duration": 5840,
+      "offset": "1181120"
+    },
+    {
+      "text": "of times per second is a difficult problem. I worked really hard on this with a really talented team at Twitch.",
+      "duration": 5920,
+      "offset": "1186960"
+    },
+    {
+      "text": "I'm still friends with a lot of them. Building a good performant chat interface is not as easy as people seem to think. And if you hack one together",
+      "duration": 6159,
+      "offset": "1192880"
+    },
+    {
+      "text": "and you're impressed with how fast it is, add syntax highlighting, add math and latte, add animations, add complex",
+      "duration": 6401,
+      "offset": "1199039"
+    },
+    {
+      "text": "rendering of any form, add image rendering that resizes. It falls apart fast, I promise you. And",
+      "duration": 6720,
+      "offset": "1205440"
+    },
+    {
+      "text": "even and YouTube can't even make a live chat that updates once every 20 seconds without failing. Google doesn't have the",
+      "duration": 7120,
+      "offset": "1212160"
+    },
+    {
+      "text": "engineering expertise to compete in the user experience side, which is why they're leaning so heavily into the",
+      "duration": 5279,
+      "offset": "1219280"
+    },
+    {
+      "text": "Google experience instead. Gemini's chat app will never be a popular solution",
+      "duration": 5281,
+      "offset": "1224559"
+    },
+    {
+      "text": "because it will never be [ __ ] good. Hopefully, I don't need to convince you guys that Google is incapable of shipping good software. I think it's",
+      "duration": 6000,
+      "offset": "1229840"
+    },
+    {
+      "text": "pretty apparent, but that matters now. So, the edge that OpenAI has over Google",
+      "duration": 6000,
+      "offset": "1235840"
+    },
+    {
+      "text": "is the quality of the software that they're shipping. OpenAI still has the lead here, but they're at a real risk",
+      "duration": 5280,
+      "offset": "1241840"
+    },
+    {
+      "text": "now. As silly as it is, something like T3 chat is a huge risk for them because",
+      "duration": 5200,
+      "offset": "1247120"
+    },
+    {
+      "text": "T3 chat's great if you want to try lots of models and have a slightly better chat experience, but a lot of people",
+      "duration": 5440,
+      "offset": "1252320"
+    },
+    {
+      "text": "just go back to chat GBT. I would honestly guess that half of our subs are still maintaining a chat GBT",
+      "duration": 5200,
+      "offset": "1257760"
+    },
+    {
+      "text": "subscription as well and switch between the two. If we get better enough and the other competing models get better",
+      "duration": 6240,
+      "offset": "1262960"
+    },
+    {
+      "text": "enough, there's less and less reason to keep that chatbt subscription and more and more reason to try out the other",
+      "duration": 6400,
+      "offset": "1269200"
+    },
+    {
+      "text": "models on something like T3 Chat. And god forbid if anthropic was to buy T3 chat and we were to go fix the claude",
+      "duration": 6720,
+      "offset": "1275600"
+    },
+    {
+      "text": "website, all of a sudden they are really screwed. By the way, Enthropic, it seems like you're interested in companies that",
+      "duration": 5760,
+      "offset": "1282320"
+    },
+    {
+      "text": "are in the JavaScript world. I know we've had our issues in the past. There's a lot of ways that we can bridge those issues. All it would take is open",
+      "duration": 7360,
+      "offset": "1288080"
+    },
+    {
+      "text": "source cloud code and a a light acquisition. I'm sure we can work out an 8-digit number. Anyways, advertising",
+      "duration": 7280,
+      "offset": "1295440"
+    },
+    {
+      "text": "revenue. This is, as I said before, where they cannot win. Google and Meta",
+      "duration": 5680,
+      "offset": "1302720"
+    },
+    {
+      "text": "are the only winners here. There have been a lot of people suggesting that AI",
+      "duration": 5040,
+      "offset": "1308400"
+    },
+    {
+      "text": "chats would do so much better if you just added ads to it. Do you have any idea how much this [ __ ] costs? Do you",
+      "duration": 5599,
+      "offset": "1313440"
+    },
+    {
+      "text": "have any idea how little money you make off of ads? Just to give you an idea, these are numbers I'm not supposed to",
+      "duration": 5601,
+      "offset": "1319039"
+    },
+    {
+      "text": "share. I don't care. I get 2.3 million views or so a month. That's pretty good.",
+      "duration": 6720,
+      "offset": "1324640"
+    },
+    {
+      "text": "My audience is developers, which is really good. My ad revenue is $6,800",
+      "duration": 7120,
+      "offset": "1331360"
+    },
+    {
+      "text": "for the month. 2.3 million views, $6,800.",
+      "duration": 6319,
+      "offset": "1338480"
+    },
+    {
+      "text": "Do you understand how [ __ ] that ratio is? I pay my editor more than that. We're doing a video every day. Ad rev is",
+      "duration": 8321,
+      "offset": "1344799"
+    },
+    {
+      "text": "[ __ ] It's so much lower than people think. It is very hard to make a lot of",
+      "duration": 6559,
+      "offset": "1353120"
+    },
+    {
+      "text": "money on ads, especially when the average request costs money. I don't feel like going in our dashboard and",
+      "duration": 6401,
+      "offset": "1359679"
+    },
+    {
+      "text": "figuring out how much the average request costs with GBT 5.1, but um just",
+      "duration": 5680,
+      "offset": "1366080"
+    },
+    {
+      "text": "for an example with Sonnet, Sonnet 4.5 costs $3 per million input tokens and",
+      "duration": 6399,
+      "offset": "1371760"
+    },
+    {
+      "text": "$15 per million out. Assuming the average request has 2,000 input tokens",
+      "duration": 6400,
+      "offset": "1378159"
+    },
+    {
+      "text": "and I don't know 800 out, that's about two cents per request. I know that",
+      "duration": 6321,
+      "offset": "1384559"
+    },
+    {
+      "text": "sounds small, but imagine you make a 100 requests in a couple sessions. That's",
+      "duration": 5520,
+      "offset": "1390880"
+    },
+    {
+      "text": "$2. And every time you make a new request in a thread, the amount of input tokens goes up and it gets more",
+      "duration": 5040,
+      "offset": "1396400"
+    },
+    {
+      "text": "expensive as follow-up requests happen. Long threads are very expensive unless you do crazy compaction [ __ ] that makes",
+      "duration": 6000,
+      "offset": "1401440"
+    },
+    {
+      "text": "the quality of the responses worse. If the average user doing a thing cost 2 cents, like if we were to just look at",
+      "duration": 6719,
+      "offset": "1407440"
+    },
+    {
+      "text": "these numbers for views on YouTube, 2.3 million requests times that 0.02,",
+      "duration": 8000,
+      "offset": "1414159"
+    },
+    {
+      "text": "that's $46,000. Assuming every single one of my viewers made one request that",
+      "duration": 5841,
+      "offset": "1422159"
+    },
+    {
+      "text": "was around the average cost, it would cost me $46,000 and my ad revenue was",
+      "duration": 5760,
+      "offset": "1428000"
+    },
+    {
+      "text": "under $7,000. Ads cannot sustain you here unless you have ways to reduce costs a ton and",
+      "duration": 6640,
+      "offset": "1433760"
+    },
+    {
+      "text": "maximize return from those advertisements. The only two companies that can maximize return on advertisements are Google and Meta. The",
+      "duration": 7600,
+      "offset": "1440400"
+    },
+    {
+      "text": "only one of these companies that has the ability to reduce costs is Google. Google has their own chips, which means",
+      "duration": 6720,
+      "offset": "1448000"
+    },
+    {
+      "text": "they can make things run faster and cheaper than their competition. Google has the service of google.com which",
+      "duration": 6160,
+      "offset": "1454720"
+    },
+    {
+      "text": "means if you and I both Google the same thing and they do an AI result for it,",
+      "duration": 5120,
+      "offset": "1460880"
+    },
+    {
+      "text": "you can get the cache version if I got the generated one which saves them a ton of money. It's possible that a huge",
+      "duration": 6240,
+      "offset": "1466000"
+    },
+    {
+      "text": "percentage of those Google searched AI result things are cached results so that we don't have to cost them more money",
+      "duration": 6720,
+      "offset": "1472240"
+    },
+    {
+      "text": "for each one. Reading from a cache is comically cheaper than generating a new response. Google can make inference",
+      "duration": 5599,
+      "offset": "1478960"
+    },
+    {
+      "text": "cheaper. They can reduce the amount of inference and they can make more money per ad than anyone else can. Advertising",
+      "duration": 5761,
+      "offset": "1484559"
+    },
+    {
+      "text": "revenue is only a viable path for Google right now. In my opinion, Meta is so desperate to reduce their costs that",
+      "duration": 6000,
+      "offset": "1490320"
+    },
+    {
+      "text": "they are inking a crazy contract with Google to be the only other company using Google's chips in their server",
+      "duration": 6320,
+      "offset": "1496320"
+    },
+    {
+      "text": "factories and warehouses. That's crazy. Then we have the infrastructure and API side. OpenAI is the only major lab",
+      "duration": 6000,
+      "offset": "1502640"
+    },
+    {
+      "text": "that's cloud is competent other than arguably Google. But Google Cloud, I've",
+      "duration": 5039,
+      "offset": "1508640"
+    },
+    {
+      "text": "been there. I would argue for better or worse, Google and AWS are winning. Azure could",
+      "duration": 6000,
+      "offset": "1513679"
+    },
+    {
+      "text": "be a real competitor here, but they have to put a little bit more work in. They're getting there, but Google and",
+      "duration": 5041,
+      "offset": "1519679"
+    },
+    {
+      "text": "AWS are the ones that have the best surface for this right now because you",
+      "duration": 5040,
+      "offset": "1524720"
+    },
+    {
+      "text": "can use other models on their clouds. They're clouds that have other value to the developers. And as nice as OpenAI's",
+      "duration": 6240,
+      "offset": "1529760"
+    },
+    {
+      "text": "infra is, if you're not using their models anyways, you can just move to Google or AWS. And even Azure, which was",
+      "duration": 5679,
+      "offset": "1536000"
+    },
+    {
+      "text": "their one alt bet, now supports anthropic models as well. And developer experience, cloud one, openai was",
+      "duration": 8081,
+      "offset": "1541679"
+    },
+    {
+      "text": "catching up, but cloud code has continued to accelerate. And on top of that, Opus 4.5 is groundbreaking, and",
+      "duration": 6480,
+      "offset": "1549760"
+    },
+    {
+      "text": "the bun acquisition positions them incredibly well, much more so than a CLI that breaks half the time that was",
+      "duration": 5760,
+      "offset": "1556240"
+    },
+    {
+      "text": "written in Rust. Yeah, the the rewrite of codecs in Rust will be remembered as one of the dumbest things OpenAI has",
+      "duration": 6159,
+      "offset": "1562000"
+    },
+    {
+      "text": "ever done. I told them ahead of time to not do it. I yelled at Fouad for doing it real early. They committed because they wanted one binary and look how",
+      "duration": 6721,
+      "offset": "1568159"
+    },
+    {
+      "text": "that's going for them. Nobody wants to contribute to it anymore. And then we have mind share. This is OpenAI's last",
+      "duration": 6080,
+      "offset": "1574880"
+    },
+    {
+      "text": "frontier. Google can beat the chat interface with the search interface. Google can beat the subscription revenue",
+      "duration": 6000,
+      "offset": "1580960"
+    },
+    {
+      "text": "with advertising revenue. Google can beat the infrastructure with their own chips. Google probably can't beat",
+      "duration": 5280,
+      "offset": "1586960"
+    },
+    {
+      "text": "developer experience. That's why they acquired Windsurf. They're desperately trying to win there and that's not going to happen. So Enthropic will have that",
+      "duration": 6000,
+      "offset": "1592240"
+    },
+    {
+      "text": "one edge there. Mind share is what Open AI has left. The fact that Chachibbt is",
+      "duration": 5280,
+      "offset": "1598240"
+    },
+    {
+      "text": "the Xerox, the Kleenex, the the name brand of AI for most people is their final frontier. That is what they have",
+      "duration": 6960,
+      "offset": "1603520"
+    },
+    {
+      "text": "left. They have to maintain that. Chat GBT needs to be the best chat experience",
+      "duration": 5920,
+      "offset": "1610480"
+    },
+    {
+      "text": "or OpenAI will lose. If they don't maintain that perception, they don't have the position to keep fighting and",
+      "duration": 5440,
+      "offset": "1616400"
+    },
+    {
+      "text": "to keep winning. They don't have the income to justify the trillions of dollars they've committed to spending. They don't have the users that they need",
+      "duration": 6319,
+      "offset": "1621840"
+    },
+    {
+      "text": "to make money and win. Which leads me once again to remind you, Sam, that buying us is a really cheap hedge to",
+      "duration": 6640,
+      "offset": "1628159"
+    },
+    {
+      "text": "make it more likely you maintain this. Hit me up.",
+      "duration": 5681,
+      "offset": "1634799"
+    },
+    {
+      "text": "I think this does a good enough job of putting my thoughts down on paper. It's a weird market right now, and I do not",
+      "duration": 6000,
+      "offset": "1640480"
+    },
+    {
+      "text": "envy the people who have to think about this and fight it every day, but at the same time, very thankful to be a layer",
+      "duration": 5679,
+      "offset": "1646480"
+    },
+    {
+      "text": "above. I know everybody loves memeing on the AI rapper services, but it's never felt better to be a rapper because T3",
+      "duration": 6801,
+      "offset": "1652159"
+    },
+    {
+      "text": "chat is still making money. We're in a really good spot. If Google or Enthropic or somehow Amazon end up winning the",
+      "duration": 6480,
+      "offset": "1658960"
+    },
+    {
+      "text": "model wars, all of them are so bad at UI that we win by default. We're in a really good position right now. And it",
+      "duration": 6000,
+      "offset": "1665440"
+    },
+    {
+      "text": "would be really hard to convince me to give that up for almost anything. The moment we have our mobile app ready to go, which by the way, coming in hot,",
+      "duration": 6719,
+      "offset": "1671440"
+    },
+    {
+      "text": "competition's going to heat up. So, what can they do now? What strats can OpenAI",
+      "duration": 5681,
+      "offset": "1678159"
+    },
+    {
+      "text": "pull to position themselves better? There are some crazy things they could do like buy Cursor. That would be nuts.",
+      "duration": 6719,
+      "offset": "1683840"
+    },
+    {
+      "text": "Cursor is a very, very valuable company. And that acquisition would be weird for a bunch of reasons. In particular, the",
+      "duration": 5761,
+      "offset": "1690559"
+    },
+    {
+      "text": "agreement that currently exists between Microsoft and OpenAI where all OpenAI IP",
+      "duration": 5440,
+      "offset": "1696320"
+    },
+    {
+      "text": "is officially licensed to Microsoft would mean that all the work that's gone into Cursor would be accessible to",
+      "duration": 6000,
+      "offset": "1701760"
+    },
+    {
+      "text": "Microsoft and then they can all fold that into co-pilot in VS Code. makes that an unlikely path unless they can",
+      "duration": 5360,
+      "offset": "1707760"
+    },
+    {
+      "text": "sever that relationship. Another path, and this is what I'm almost certain they're taking, drop a model ASAP. I",
+      "duration": 5520,
+      "offset": "1713120"
+    },
+    {
+      "text": "honestly kind of feel like they were holding the Codex Max model in case things ramped up too hard with Gemini 3",
+      "duration": 6720,
+      "offset": "1718640"
+    },
+    {
+      "text": "Pro. They were clearly sitting on that for a bit and then dropped it all of a sudden because they wanted to stay in",
+      "duration": 5760,
+      "offset": "1725360"
+    },
+    {
+      "text": "the lead on the leaderboards. It's also somewhat clear that GBT 5 and 5.1 aren't",
+      "duration": 5520,
+      "offset": "1731120"
+    },
+    {
+      "text": "huge models. They don't have the big model smell. They are slow enough that I would be surprised if they were small",
+      "duration": 6240,
+      "offset": "1736640"
+    },
+    {
+      "text": "models, but they're not as big as many of the old OpenAI models were. That's why they made the price as cheap as they",
+      "duration": 5360,
+      "offset": "1742880"
+    },
+    {
+      "text": "did. They can almost certainly put out a bigger model. GBD 4.5 is the biggest they ever released. Five is smaller for",
+      "duration": 6000,
+      "offset": "1748240"
+    },
+    {
+      "text": "sure, but if they have a big model they're sitting on that can crush benchmarks, I wouldn't be surprised if they drop that soon. I don't know how it",
+      "duration": 6159,
+      "offset": "1754240"
+    },
+    {
+      "text": "will be branded or named, but they've got to be cooking there. I've heard a lot of rumors all over Twitter.",
+      "duration": 5121,
+      "offset": "1760399"
+    },
+    {
+      "text": "Something's going on. What else can they do? they can win on integrations. They were doing a pretty good job with Apple",
+      "duration": 6720,
+      "offset": "1765520"
+    },
+    {
+      "text": "for a bit where Siri could search with chat GPT, but now Google has a",
+      "duration": 5039,
+      "offset": "1772240"
+    },
+    {
+      "text": "partnership with Apple where Apple is buying a model from Google to host on their own infrastructure. Very unlikely",
+      "duration": 6321,
+      "offset": "1777279"
+    },
+    {
+      "text": "that OpenAI can do that anymore now that Google realized the risk there and is squeezing a win out of it. OpenAI should",
+      "duration": 8160,
+      "offset": "1783600"
+    },
+    {
+      "text": "try and I'm sure they are in order to maintain that relationship with Apple. I wish them luck because Google knows",
+      "duration": 6000,
+      "offset": "1791760"
+    },
+    {
+      "text": "better than anybody how valuable it is to have Apple use you as a default. One other thing they could do and I suspect",
+      "duration": 7200,
+      "offset": "1797760"
+    },
+    {
+      "text": "they'll do this at some point. I don't think it's as big of a thing unless they're already winning hardware. Not",
+      "duration": 5920,
+      "offset": "1804960"
+    },
+    {
+      "text": "making their own chips or CPUs or GPUs or TPUs or whatever, but actually selling devices that are useful AI stuff",
+      "duration": 6399,
+      "offset": "1810880"
+    },
+    {
+      "text": "that an average chatbt user would consider actually using. If they can crush the equivalent of like an Amazon",
+      "duration": 7520,
+      "offset": "1817279"
+    },
+    {
+      "text": "Echo or whatever the [ __ ] the like Alexa stuff is called, there's a real potential angle there. I don't know how",
+      "duration": 6240,
+      "offset": "1824799"
+    },
+    {
+      "text": "big it is, but I know those things are really popular, so I would be surprised if the Joanie IV stuff isn't going in",
+      "duration": 5281,
+      "offset": "1831039"
+    },
+    {
+      "text": "that direction. But the biggest thing by far is to make sure that chat GPT wins.",
+      "duration": 6000,
+      "offset": "1836320"
+    },
+    {
+      "text": "OpenAI doesn't really matter beyond Chat GPT in the general marketplace right now.",
+      "duration": 7520,
+      "offset": "1842320"
+    },
+    {
+      "text": "That's not where they're investing their money. Their money is going into research, infrastructure, GPUs,",
+      "duration": 5199,
+      "offset": "1849840"
+    },
+    {
+      "text": "partnerships, advertising, and all these other things. I would be surprised if more than 5% of OpenAI's spend was",
+      "duration": 7360,
+      "offset": "1855039"
+    },
+    {
+      "text": "directly related to chat GPT. A new model comes out and chat GPT gets it and is betterish, but I've honestly been",
+      "duration": 6481,
+      "offset": "1862399"
+    },
+    {
+      "text": "surprised recently. It feels like when new models drop, T3 chat supports them better than chat GPT does. Yeah, they",
+      "duration": 6799,
+      "offset": "1868880"
+    },
+    {
+      "text": "need to quadruple or more their investment in chat GPT and go really hard to make sure it wins. There are",
+      "duration": 6961,
+      "offset": "1875679"
+    },
+    {
+      "text": "certain ways they can do that, many of which I've hinted throughout here. But the big thing is the investment. They",
+      "duration": 5200,
+      "offset": "1882640"
+    },
+    {
+      "text": "need to think about chat GPT less as a random surface that is being hit by",
+      "duration": 5120,
+      "offset": "1887840"
+    },
+    {
+      "text": "users and more as a core part of their business. They released it as a demo of",
+      "duration": 5040,
+      "offset": "1892960"
+    },
+    {
+      "text": "their models originally and has gone way further than they expected. But now it's time to quadruple down and make sure",
+      "duration": 5679,
+      "offset": "1898000"
+    },
+    {
+      "text": "ChachiBt wins and it seems like judging from the reporting we were reading earlier. This is exactly how Sam feels",
+      "duration": 6880,
+      "offset": "1903679"
+    },
+    {
+      "text": "as well. As the memo said, they're delaying work on pretty much everything else in favor of investing more on",
+      "duration": 6641,
+      "offset": "1910559"
+    },
+    {
+      "text": "chatbt. That to me feels like the right call. As fun as these other experiments are, I haven't seen anyone using one of",
+      "duration": 6719,
+      "offset": "1917200"
+    },
+    {
+      "text": "those chatbt apps yet. I know one person who kind of uses Atlas as one of their like five browsers. Their agent stuff",
+      "duration": 6961,
+      "offset": "1923919"
+    },
+    {
+      "text": "just isn't that great and I'd rather roll my own. The advertising they can't really win in. Held and shopping is cool",
+      "duration": 8159,
+      "offset": "1930880"
+    },
+    {
+      "text": "demos, but I don't think they're going to do particularly great in those spaces. They got to just make the best",
+      "duration": 5041,
+      "offset": "1939039"
+    },
+    {
+      "text": "chat experience. I think this is most of my thoughts covered. Curious how y'all",
+      "duration": 5920,
+      "offset": "1944080"
+    },
+    {
+      "text": "feel though. Am I way overreacting to this or is there actual danger for open AI? Curious how y'all feel. And until",
+      "duration": 6480,
+      "offset": "1950000"
+    },
+    {
+      "text": "next time, peace nerds.",
+      "duration": 3360,
+      "offset": "1956480"
+    }
+  ],
+  "transcriptText": "It seems like OpenAI is finally feeling the heat. Sam Alman has just declared a code red internally. This is kind of crazy. Historically, OpenAI hasn't really thought too much about the competition. Almost all of my conversations with them just really didn't seem to think much about what other companies were doing. They didn't care much about Anthropic and they really didn't seem to care about companies like Amazon and Google. That has changed. combination of the Gemini 3 Pro launch as well as recent developments in openw weight models, especially from Deepseek seems to have OpenAI quite a bit scared. This is reminiscent of the explosion that happened internally at Meta when Deepseek originally dropped that resulted in like 3/4 of the Llama team getting fired or leaving. This is a big deal. This is not the type of thing Sam normally does. This is not the type of thing OpenAI normally spends their time on, but they are clearly scared more so than ever. Now, there's a lot to read into in this memo. I don't know how much of it has actually leaked, but we'll figure that out going forward. We need to discuss why OpenAI is doing this, why they're feeling so much pressure, what their long-term plans are, and what they're going to do before the end of the year, because I have a feeling they're going to drop something very soon. As always, OpenAI is not paying me for any of my coverage or content. There is a company paying me though, so let's hear from them really quick. There's a lot of data that I want to be able to store for my users, but might not want to have in my database as clear text. Like if users are bringing their own API tokens for a service like T3 chat, I don't want to keep those API keys as plain text in my DB. I want to store them in a way that only that user can access, but ideally is still owned and managed by me. Which is why today's sponsor has been awesome. Turns out work OS has a thing just built in for this, and now we're using it all over T3 chat. Their vault product is super cool. You store the data wherever you choose to. And what you're storing in work OS is just a key to unlock it. They give you the primitives you need to access the key and run it against your data. So that you don't have to have work OS as your database. They're just there as your O layer. And that lets users access data and read the actual contents of that data without having to build all this complex infrastructure yourself. If that's all Work OS offered, it would have been worth us making the move. But there is so much more. From the admin portal that makes it way easier for companies to onboard to your platform to their MCP off stuff that they're industry leading in. Turns out making O for MCP is annoying because the standard sucks. They fixed it. Okit, which is all the UI layer and components that you'll need to onboard things and get it added to your codebase. User management, enterprise SSO, Radar has been awesome, too, having an actual user level thing checking the validity of a user. There's a reason every company is making the move to work OS. small companies like OpenAI and big ones like T3 chat. Actually though, Verscell, Cursor, Indeed, Plaid, Loom, Socket, FAL, Source Graph, Cardo, Web Flow, and so many more. This is a wild list of companies. It's crazy that we all picked this solution, but once you try it, you'll probably understand why. Stop losing enterprise customers. Move to work OS today at swive.link/workos. So, let's start by reading what news coverage exists on this. Then we'll dive into all of the fun things OpenAI is cooking in order to try and compete with their increasing competition. OpenAI CEO Sam Alman has set off a code red alert to employees to improve its flagship product Chat GPT and delay other product developments according to Wall Street Journal. Interesting. I didn't know this was specific to Chat GPT. I wonder if the best AI chat ever made might be getting them a little bit scared. By the way, if you want every single model in the best possible UI for eight bucks a month, check out T3 Chat. When I say every model, I mean it. Including image gen models, which I've been using for memes. Obviously, I have my thoughts on image gen, but it's good for this type of thing. And if you want your first month for just a dollar at checkout, apply the code code red. Yes, code red at checkout for your first month for $1. And if you're Sam Alman watching this video, by the way, uh we might not be a dollar to acquire, but if you do want us to fix chat GPT, you can get my phone number pretty easily. Let's chat. Seriously though, if Anthropic is buying Bun to fix their developer stuff, I think it makes a lot of sense for OpenAI to buy us to fix their user experience stuff. We're kind of the guys who do that. Anyways, Wall Street Journal reported that Altman sent an internal memo to staff on Monday saying more work was needed to enhance the artificial intelligence chatbot's speed, reliability, and personalization features. Do you know who's really good at speed and reliability for chatbots? Sam, let's chat. This week marks 3 years since OpenAI first released chat GPT, sparking global fascination in a commercial boom in generative AI technology and giving the San Francisco based startup an early lead. The company faces increased competition with rivals including Google which last month unleashed Gemini 3, the latest version of its own AI assistant. Opening I didn't immediately respond to a request for comment on Tuesday. Tech news outlet the information also report on the memo. They have 800 million weekly users but they also are valued at 500 billion. They don't make a profit and they've committed to more than a trillion dollars in financial obligations in cloud computing over the next 10 years. The risk OpenAI won't make enough money to fulfill the expectations of backers like Oracle Nvidia has amplified investor concerns about the AI bubble and OpenAI VP and its head of Chibbt post on social media Monday that online search is one of the product's biggest areas of opportunity as the company focuses on making Chashibbt more capable and even more intuitive and personal. They currently make revenue from premium subscriptions, but most users are on the free version. They also have their own web browser. Apparently, in the memo, they said they're delaying work on advertising, AI agents for health and shopping, and a personal assistant called Pulse. Pulse, if you don't know, is a thing that popped up in chat GPT that was like, \"Here are some things that we think might be interesting to you today.\" And I have some screenshots, I don't feel like finding them, of really cringe things it would say to me based on stuff I had done in the past with it. It was It was weird. It was like bringing up text stacks that haven't been relevant for a year cuz I asked about them forever ago. Very interesting. The ads thing is particularly fascinating because some people were reporting not too long ago, like literally 3 days ago, that the Android app for ChatgPT had ads features added to its like reference and like XML dump. So, they were planning on introducing some ad stuff, which makes sense when you realize that Google makes almost all of their money from ads still. The only two real players in the advertising space are Google and Meta because they have all of the data, all of the infra, all of the targeting, all of the tooling, and all of the things needed to do advertising right. They're the only companies that can make real amounts of money through ads. Everybody else is stuck with whatever margins Google's willing to give up when you integrate their ad stuff. So, if OpenAI wanted to do this, they'd have to build their own solution for almost all of that because there's no world in which Google's giving them a good deal on AdSense. Just not going to happen. So if they want to compete with Google, the king of ads, they need to win in like every single vertical. Artificial analysis did this report earlier this year. Artificial analysis publishes reports on the state of AI relatively regularly. And there's an interesting chart I use a lot in here. Go to artificial analysis if you want to see the whole thing. I'll link the site in the description. You can find it relatively easily there. This chart's a big part of why OpenAI is currently scared. There are four major verticals that all of these companies are competing on. apps, models, cloud inference, and the actual hardware the inference is done on. So to give a basic example for someone running their own inference, you're probably going to be using NVIDIA GPUs. You're probably going to be hosting on something like AWS or Azure. Maybe you're using anthropic open directly. The foundation models, these are the models you're actually using. So for basic example, accelerator hardware could be NVIDIA. Cloud inference could be Amazon. The model could be sonnet. And the app could be T3 chat. Just as a simple example of what each of these is, Google is very uniquely positioned here because they have their own apps. The biggest AI app ever made is actually Google. Literally Google. Google.com. The most popular AI app ever made. You Google search something. Oh, look at that. I didn't even This is the thing. New try AI mode. Search whatever's on your mind and get AI powered results. I see why Enthropic is scared. That's not even what I was trying to do here. But you know what? Let's turn it on. Is this what happens now when I Google? It isn't. Interesting. I have to click AI mode to go to that. Interesting. It doesn't know about T3 chat. That means it's using the new Gemini because it it knowledge is somewhat dated. Why is it linking the Git Nation podcast episode of all things? That perform well. Oh, 16k plays. Yeah, I think it's one of the most popular videos on their channel. The point I'm making is that that little blurb at the top of Google, the search generation AI overview thing, this is the most popular AI app in the world. This is, in my opinion, the single biggest risk to OpenAI. Like terrifying that your core product is now just the thing that happens when you Google search. That would scare the [ __ ] out of me. Especially because Google can make money off ads which allows them to provide this for free. That's really scary. And that's the application layer. Historically, OpenAI has been the winner cuz the average person when they think of AI, they're thinking of chat GPT. My parents get confused when I tell them about what I'm building because they think of AI as chat GPT. So like, oh, you're building into chat GPT? Like is OpenAI paying you? They're just confused. Google is the only company I can think of that has a real chance of disrupting here. Although I did take an Uber yesterday from somebody who was insisting that Meta's AI chat is the best and that he was going to make a really successful company using it, but then he went into some really crazy conspiracy theories. So, I don't think he's a great reference as anything other than a normal kind of weird person. And then there's the foundation models. Historically, OpenAI has maintained the lead or very close to it. But for the first time ever, in my opinion, right now, OpenAI doesn't have the best model for anything. That's weird. GBD 5.1 Pro is still incredible and can solve things I haven't seen other models solve, but it's not available over API. I can't really benchmark it. It's only usable through the chatbt site, so it's hard to to know the extent of how good it is beyond playing with it and getting fun answers, which but 5.1 Pro isn't really measurable the way other models are. When it comes to code, Anthropic is currently in the lead in my opinion by quite a bit with Opus 4.5. I've been very impressed with that model. When it comes to general benchmark performance and things like ArcGI and stuff, Google is crushing all of the benchmarks. Google also has better search and a much faster model. This is one of the most annoying things and I I can't imagine OpenAI not addressing this with future releases. GBT 5.1 is not a fast model. It's up to 50 TPS and if you look at codeex, it's 32. I don't think Codex is even on the API yet. It's only available via codecs like the CLI. And I think they gave it access to a couple other companies, but 32TPS is very, very slow, especially when you compare that to Gemini 3 Pro, which is at 75ish. That's 2 to 3x difference, and it feels like a whole different world. Opus 4.5 is in the 60s pretty consistently. And Sonnet 4.5 has actually dropped a little. It's in the It's hitting the 60s consistently. The point here is that the experience I get actually using the new models that are being provided by OpenAI feels not great because it just it's slow. And this is a very good point from Michaela from Zed. 5.1 is for completions and responses. 5.1 CEX is only for responses. Codex max is only CLI. And 5.1 Pro is only chat. Yeah, apparently chat GPT traffic has declined by up to 6% recently. The theory is that this has happened since the Gemini 3 launch, which would improve the like AI search results on Google, but that's pretty brutal. Hard to know with these numbers, like we don't actually have access to those numbers. This is from Similar Web, which is a analytics firm that tries to track usage across things. They are seeing a 7% decline over the last couple weeks. That is terrifying. 6% of chat GBT users is more users than we have by quite a bit back here. So, OpenAI now has real computational applications. People still associate AI with chat GBT and they even like call it chat. I thought that was fake. I thought people were referring to chat like how I refer to my Twitch chat. No, normies refer to chat GBT as chat and they'll just say like, \"Have you asked chat about that?\" Or, \"So, I was talking to chat earlier.\" Insane to me. Like, actually, despite that, Google now has a real edge and is starting to take cuts out of OpenAI's traffic. the foundation model side which we were just discussing. OpenAI doesn't have the best model for any one thing right now. They have really good general models but they're quite a bit slower and not super pleasant to use. The cloud inference thing is also very interesting because historically OpenAI has been the frontier lab that is the most reliable cloud. Anthropic is so unreliable that you basically have to use a service like Open Router to diversify your traffic to other places. Thankfully, Anthropic has partnerships with both Google and AWS and recently even Azure, so you can use their models on other clouds with other GPUs and not have to worry about Anthropics provisioning. Anthropics struggled a lot with their own infrastructure for quite a bit now. Their stuff's down hilariously often, but despite that, they've managed to get their revenue up. According to CNBC, they only had a thousand enterprise customers two years ago, and now they have over 300,000. and they define those as customers that spend more than 100k a year on the infra on their stuff. Cool to know that I'm one of their large accounts now with T3 chat. Jesus Christ. Yeah, we spend a lot of money on anthropic. So on the infant side, OpenAI was one of the better options. The only other place you can use OpenAI models is currently Azure because of the weird partnership between Microsoft and OpenAI that's slowly falling apart. Google, of course, with Google Cloud, you're good. I'm not going to say Google Cloud's great. The differences between AI Studio and Vertex are [ __ ] obnoxious. I'm so tired of fighting those two platforms and I've been yelling at the AI Studio team for a while now. I actually am meeting with them in a few weeks and I'll be yelling at them even more. There are so many things that are broken with it. It is actually hilarious. Uh, fun fact, you can't over API force Nanobanana to only do a certain number of images. It is possible to force Nano Banana Pro to generate multiple images over API even if you try to restrict it with your system prompt. Yeah, I have feelings. So, OpenAI is okay here, but they're only as okay as their models are because you're not going to use their infra for other models. You might use GCP for other models. You are going to use Microsoft for other models because Microsoft's models are garbage. Amazon did just put out their first ever decent model, but you're not using Bedrock for that right now. You're using Bedrock for anthropic support almost certainly. So, OpenAI needs their models to be the best for their cloud inference to be a real player and their API usage is still not a big portion of their revenue. For OpenAI, 73% of their revenue is currently chatg subscriptions and only 27% is the API and multimodal services. So, they need the subscriptions to be their main source of revenue. They can't really compete otherwise. The only thing they could do is ads. And we've already discussed why that's going to be rough for them. And then there's the accelerator hardware. This is one of those weird edges that puts Google far ahead. Google is the only lab that's making good models and making good chips. Google doesn't need Nvidia to win. Google is actually selling their own chips now to Meta to help them win with Llama. Google doesn't have to rely on the Nvidia monopoly to succeed. The only other companies coming close to Google's chip architecture stuff are these three at the back here. Gro, Cerebras, and Samanova. These companies are effectively building ASIC chips similar to like for the Bitcoin mining stuff and they're just doing this for inference. So that's why on Grock you can get absurd speeds. If we look at Kimmy K2 for example, the non-thinking version, most hosts are getting between 40 and 80 TPS. Some are struggling a lot with like 16 TPS, but if you look at Grock with a Q, the ones making their own chips, they're hitting 330 TPS comically faster because all they're doing is building these chips that are really fast. Rather than selling the chips, they're selling you access to their servers so that you can get the way faster speeds. Grog with the Q is awesome. I really like these guys, but those companies are building chips and architecture which makes them compete on a different level. None of them are trying to build a chat app or a search product. And none of them are trying to train their own models. They're trying to provide APIs that we can hit to get better performance using chips that they make that are way faster and use less energy. Open is not competing there at all. So, they're at the whim of Nvidia. That's why they have to make those crazy trillion dollar commitments because they have to buy chips in order to fight because they're not producing their own. A long last time ago, they were actually considering buying Cerebrris to benefit them like before they even shipped Chat GPT. But now it's too late. Going to be a rough play for them to make. And any attempt to compete here is going to sever their relationship with Nvidia. And they need that relationship to stay strong or they're [ __ ] So open is kind of caught in between a rock and a hard place here. Other models are getting better enough that the competition is ramping. If other models are better and a company like us with T3 chat can provide a better interface, you're losing surface area that you can compete on. Bunch of places open can be competitive in best model, best chat interface, advertising, revenue, infrastructure, APIs, developer experience. So this is like coding with things like codecs and whatnot. Mind share. These are all the places that in my opinion OpenAI needs to be thinking about and competing in historically they've maintained best model. Historically they've had a good enough chat interface that no one was thinking twice about it. It had its rough edges, but since they hired Nean and a few others, they've been able to make it better. Still nowhere near as stable as T3 chat, but better ad revenue. We discussed it can't really compete in infer APIs are only as good as the model is. These two are very dependent for them because you're only using their inferent APIs for OpenAI models. Developer experience, they put a lot of work in at the start of the year, but now there's real risk happening here with all the developments occurring at Enthropic, especially with the acquisition of Bun and Mind Share. This is the one place I think they're really winning. Best model, I think it depends right now. Anthropic and Google are both crushing it right now. Best chat interface, T3 chat. Seriously though, uh, OpenAI is the big lead right now. As in like of the major labs, OpenAI has by far the best chat app. Cloud.AI miserable experience. No one actually uses it. Seriously, it's so bad. It's every time I use it, I find new bugs. And the Gemini, like I was going to try and use Gemini for a week. I survived two hours before getting so frustrated. It's so bad. I cannot fathom how bad it is. It's so bad that I don't even want to work there. Like, if Google was to give us an offer to come in and replace the Gemini app with T3 chat, it would have to be a lot of money for me to deal with all the [ __ ] Like, there's no world in which there's a good work environment in that level of [ __ ] shipped. And then there's AI Studio, which is somehow even [ __ ] worse. It It's insane just how bad the interfaces are on Google's side. They cannot ship software. This is particularly funny because right now I'm live filming my videos on Twitch, which is what I usually do. I also am live on YouTube, but I can't be live on YouTube with the chat on right now because they broke it. Yes, if I have YouTube chat on my YouTube live stream, it oos my tab. Chat interfaces are hard. Interfaces that have text that is formatted with fancy animations and stuff. Updating thousands of times per second is a difficult problem. I worked really hard on this with a really talented team at Twitch. I'm still friends with a lot of them. Building a good performant chat interface is not as easy as people seem to think. And if you hack one together and you're impressed with how fast it is, add syntax highlighting, add math and latte, add animations, add complex rendering of any form, add image rendering that resizes. It falls apart fast, I promise you. And even and YouTube can't even make a live chat that updates once every 20 seconds without failing. Google doesn't have the engineering expertise to compete in the user experience side, which is why they're leaning so heavily into the Google experience instead. Gemini's chat app will never be a popular solution because it will never be [ __ ] good. Hopefully, I don't need to convince you guys that Google is incapable of shipping good software. I think it's pretty apparent, but that matters now. So, the edge that OpenAI has over Google is the quality of the software that they're shipping. OpenAI still has the lead here, but they're at a real risk now. As silly as it is, something like T3 chat is a huge risk for them because T3 chat's great if you want to try lots of models and have a slightly better chat experience, but a lot of people just go back to chat GBT. I would honestly guess that half of our subs are still maintaining a chat GBT subscription as well and switch between the two. If we get better enough and the other competing models get better enough, there's less and less reason to keep that chatbt subscription and more and more reason to try out the other models on something like T3 Chat. And god forbid if anthropic was to buy T3 chat and we were to go fix the claude website, all of a sudden they are really screwed. By the way, Enthropic, it seems like you're interested in companies that are in the JavaScript world. I know we've had our issues in the past. There's a lot of ways that we can bridge those issues. All it would take is open source cloud code and a a light acquisition. I'm sure we can work out an 8-digit number. Anyways, advertising revenue. This is, as I said before, where they cannot win. Google and Meta are the only winners here. There have been a lot of people suggesting that AI chats would do so much better if you just added ads to it. Do you have any idea how much this [ __ ] costs? Do you have any idea how little money you make off of ads? Just to give you an idea, these are numbers I'm not supposed to share. I don't care. I get 2.3 million views or so a month. That's pretty good. My audience is developers, which is really good. My ad revenue is $6,800 for the month. 2.3 million views, $6,800. Do you understand how [ __ ] that ratio is? I pay my editor more than that. We're doing a video every day. Ad rev is [ __ ] It's so much lower than people think. It is very hard to make a lot of money on ads, especially when the average request costs money. I don't feel like going in our dashboard and figuring out how much the average request costs with GBT 5.1, but um just for an example with Sonnet, Sonnet 4.5 costs $3 per million input tokens and $15 per million out. Assuming the average request has 2,000 input tokens and I don't know 800 out, that's about two cents per request. I know that sounds small, but imagine you make a 100 requests in a couple sessions. That's $2. And every time you make a new request in a thread, the amount of input tokens goes up and it gets more expensive as follow-up requests happen. Long threads are very expensive unless you do crazy compaction [ __ ] that makes the quality of the responses worse. If the average user doing a thing cost 2 cents, like if we were to just look at these numbers for views on YouTube, 2.3 million requests times that 0.02, that's $46,000. Assuming every single one of my viewers made one request that was around the average cost, it would cost me $46,000 and my ad revenue was under $7,000. Ads cannot sustain you here unless you have ways to reduce costs a ton and maximize return from those advertisements. The only two companies that can maximize return on advertisements are Google and Meta. The only one of these companies that has the ability to reduce costs is Google. Google has their own chips, which means they can make things run faster and cheaper than their competition. Google has the service of google.com which means if you and I both Google the same thing and they do an AI result for it, you can get the cache version if I got the generated one which saves them a ton of money. It's possible that a huge percentage of those Google searched AI result things are cached results so that we don't have to cost them more money for each one. Reading from a cache is comically cheaper than generating a new response. Google can make inference cheaper. They can reduce the amount of inference and they can make more money per ad than anyone else can. Advertising revenue is only a viable path for Google right now. In my opinion, Meta is so desperate to reduce their costs that they are inking a crazy contract with Google to be the only other company using Google's chips in their server factories and warehouses. That's crazy. Then we have the infrastructure and API side. OpenAI is the only major lab that's cloud is competent other than arguably Google. But Google Cloud, I've been there. I would argue for better or worse, Google and AWS are winning. Azure could be a real competitor here, but they have to put a little bit more work in. They're getting there, but Google and AWS are the ones that have the best surface for this right now because you can use other models on their clouds. They're clouds that have other value to the developers. And as nice as OpenAI's infra is, if you're not using their models anyways, you can just move to Google or AWS. And even Azure, which was their one alt bet, now supports anthropic models as well. And developer experience, cloud one, openai was catching up, but cloud code has continued to accelerate. And on top of that, Opus 4.5 is groundbreaking, and the bun acquisition positions them incredibly well, much more so than a CLI that breaks half the time that was written in Rust. Yeah, the the rewrite of codecs in Rust will be remembered as one of the dumbest things OpenAI has ever done. I told them ahead of time to not do it. I yelled at Fouad for doing it real early. They committed because they wanted one binary and look how that's going for them. Nobody wants to contribute to it anymore. And then we have mind share. This is OpenAI's last frontier. Google can beat the chat interface with the search interface. Google can beat the subscription revenue with advertising revenue. Google can beat the infrastructure with their own chips. Google probably can't beat developer experience. That's why they acquired Windsurf. They're desperately trying to win there and that's not going to happen. So Enthropic will have that one edge there. Mind share is what Open AI has left. The fact that Chachibbt is the Xerox, the Kleenex, the the name brand of AI for most people is their final frontier. That is what they have left. They have to maintain that. Chat GBT needs to be the best chat experience or OpenAI will lose. If they don't maintain that perception, they don't have the position to keep fighting and to keep winning. They don't have the income to justify the trillions of dollars they've committed to spending. They don't have the users that they need to make money and win. Which leads me once again to remind you, Sam, that buying us is a really cheap hedge to make it more likely you maintain this. Hit me up. I think this does a good enough job of putting my thoughts down on paper. It's a weird market right now, and I do not envy the people who have to think about this and fight it every day, but at the same time, very thankful to be a layer above. I know everybody loves memeing on the AI rapper services, but it's never felt better to be a rapper because T3 chat is still making money. We're in a really good spot. If Google or Enthropic or somehow Amazon end up winning the model wars, all of them are so bad at UI that we win by default. We're in a really good position right now. And it would be really hard to convince me to give that up for almost anything. The moment we have our mobile app ready to go, which by the way, coming in hot, competition's going to heat up. So, what can they do now? What strats can OpenAI pull to position themselves better? There are some crazy things they could do like buy Cursor. That would be nuts. Cursor is a very, very valuable company. And that acquisition would be weird for a bunch of reasons. In particular, the agreement that currently exists between Microsoft and OpenAI where all OpenAI IP is officially licensed to Microsoft would mean that all the work that's gone into Cursor would be accessible to Microsoft and then they can all fold that into co-pilot in VS Code. makes that an unlikely path unless they can sever that relationship. Another path, and this is what I'm almost certain they're taking, drop a model ASAP. I honestly kind of feel like they were holding the Codex Max model in case things ramped up too hard with Gemini 3 Pro. They were clearly sitting on that for a bit and then dropped it all of a sudden because they wanted to stay in the lead on the leaderboards. It's also somewhat clear that GBT 5 and 5.1 aren't huge models. They don't have the big model smell. They are slow enough that I would be surprised if they were small models, but they're not as big as many of the old OpenAI models were. That's why they made the price as cheap as they did. They can almost certainly put out a bigger model. GBD 4.5 is the biggest they ever released. Five is smaller for sure, but if they have a big model they're sitting on that can crush benchmarks, I wouldn't be surprised if they drop that soon. I don't know how it will be branded or named, but they've got to be cooking there. I've heard a lot of rumors all over Twitter. Something's going on. What else can they do? they can win on integrations. They were doing a pretty good job with Apple for a bit where Siri could search with chat GPT, but now Google has a partnership with Apple where Apple is buying a model from Google to host on their own infrastructure. Very unlikely that OpenAI can do that anymore now that Google realized the risk there and is squeezing a win out of it. OpenAI should try and I'm sure they are in order to maintain that relationship with Apple. I wish them luck because Google knows better than anybody how valuable it is to have Apple use you as a default. One other thing they could do and I suspect they'll do this at some point. I don't think it's as big of a thing unless they're already winning hardware. Not making their own chips or CPUs or GPUs or TPUs or whatever, but actually selling devices that are useful AI stuff that an average chatbt user would consider actually using. If they can crush the equivalent of like an Amazon Echo or whatever the [ __ ] the like Alexa stuff is called, there's a real potential angle there. I don't know how big it is, but I know those things are really popular, so I would be surprised if the Joanie IV stuff isn't going in that direction. But the biggest thing by far is to make sure that chat GPT wins. OpenAI doesn't really matter beyond Chat GPT in the general marketplace right now. That's not where they're investing their money. Their money is going into research, infrastructure, GPUs, partnerships, advertising, and all these other things. I would be surprised if more than 5% of OpenAI's spend was directly related to chat GPT. A new model comes out and chat GPT gets it and is betterish, but I've honestly been surprised recently. It feels like when new models drop, T3 chat supports them better than chat GPT does. Yeah, they need to quadruple or more their investment in chat GPT and go really hard to make sure it wins. There are certain ways they can do that, many of which I've hinted throughout here. But the big thing is the investment. They need to think about chat GPT less as a random surface that is being hit by users and more as a core part of their business. They released it as a demo of their models originally and has gone way further than they expected. But now it's time to quadruple down and make sure ChachiBt wins and it seems like judging from the reporting we were reading earlier. This is exactly how Sam feels as well. As the memo said, they're delaying work on pretty much everything else in favor of investing more on chatbt. That to me feels like the right call. As fun as these other experiments are, I haven't seen anyone using one of those chatbt apps yet. I know one person who kind of uses Atlas as one of their like five browsers. Their agent stuff just isn't that great and I'd rather roll my own. The advertising they can't really win in. Held and shopping is cool demos, but I don't think they're going to do particularly great in those spaces. They got to just make the best chat experience. I think this is most of my thoughts covered. Curious how y'all feel though. Am I way overreacting to this or is there actual danger for open AI? Curious how y'all feel. And until next time, peace nerds."
+}

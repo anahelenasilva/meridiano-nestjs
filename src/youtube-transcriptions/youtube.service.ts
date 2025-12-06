@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Innertube } from 'youtubei.js';
+
+import { ChannelConfig } from '../shared/types/channel';
 import { VideoMetadata } from '../shared/types/video';
+import { parseRelativeTime } from './helpers/parse-relative-time';
 
 @Injectable()
 export class YouTubeService {
@@ -19,11 +22,11 @@ export class YouTubeService {
 
   /**
    * Fetch videos from a YouTube channel
-   * @param channelId - The YouTube channel ID
+   * @param channelConfig - The channel configuration
    * @param maxVideos - Maximum number of videos to fetch
    * @returns Array of video metadata
    */
-  async getChannelVideos(channelId: string, maxVideos: number) {
+  async getChannelVideos(channelConfig: ChannelConfig) {
     try {
       await this.initialize();
 
@@ -31,10 +34,15 @@ export class YouTubeService {
         throw new Error('Failed to initialize YouTube client');
       }
 
-      console.log(`Fetching videos from channel: ${channelId}`);
+      const { channelId, channelName, channelDescription, maxVideos } =
+        channelConfig;
 
-      const channel = await this.youtube.getChannel(channelId);
-      const videos = await channel.getVideos();
+      console.log(
+        `Fetching videos from channel: ${channelId}: ${channelDescription}`,
+      );
+
+      const channelData = await this.youtube.getChannel(channelId);
+      const videos = await channelData.getVideos();
 
       const videoMetadataList: VideoMetadata[] = [];
       let count = 0;
@@ -43,13 +51,18 @@ export class YouTubeService {
         if (count >= maxVideos) break;
 
         if (video.type === 'Video') {
-          const v = video as any; // Type assertion to bypass union type checking
+          const v = video as any;
 
           const metadata: VideoMetadata = {
+            channel: {
+              id: channelId,
+              name: channelName,
+              description: channelDescription,
+            },
             videoId: v.id,
             title: v.title.text || 'No title',
             url: `https://www.youtube.com/watch?v=${v.id}`,
-            publishedAt: v.published.text || 'Unknown',
+            publishedAt: parseRelativeTime(v.published.text || 'Unknown'),
             description: v.description || undefined,
             thumbnailUrl: v.thumbnails[0]?.url || undefined,
           };
@@ -60,11 +73,14 @@ export class YouTubeService {
       }
 
       console.log(
-        `Found ${videoMetadataList.length} videos from channel ${channelId}`,
+        `Found ${videoMetadataList.length} videos from channel ${channelId}: ${channelName}`,
       );
       return videoMetadataList;
     } catch (error) {
-      console.error(`Error fetching videos from channel ${channelId}:`, error);
+      console.error(
+        `Error fetching videos from channel ${channelConfig.channelId}: ${channelConfig.channelName}:`,
+        error,
+      );
       throw error;
     }
   }

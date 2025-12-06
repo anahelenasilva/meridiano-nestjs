@@ -96,3 +96,13 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+# To-dos
+# Next steps
+- [ ] Check if youtube transcription already exists in database before adding it and process it
+- [ ] Convert cli commands to usese so it's more decoupled and easy to reuse
+- [ ] Isolate prompts configs from config.service.ts to separate files, so it's easier to mantain; also do this for the other configs
+- [ ] Add articles manually
+- [ ] Star/bookmark an article
+- [ ] See stars/bookmarks in a special view
+- [ ] See starred articles in the briefing
