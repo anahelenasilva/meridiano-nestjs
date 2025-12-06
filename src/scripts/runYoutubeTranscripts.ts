@@ -1,6 +1,6 @@
-import { INestApplicationContext } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import * as dotenv from 'dotenv';
+
 import { AppModule } from '../app.module';
 import { ConfigService } from '../config/config.service';
 import { ChannelConfig } from '../shared/types/channel';
@@ -8,13 +8,7 @@ import { YoutubeTranscriptionsService } from '../youtube-transcriptions/youtube-
 
 dotenv.config();
 
-interface Services {
-  app: INestApplicationContext;
-  youtubeTranscriptionsService: YoutubeTranscriptionsService;
-  configService: ConfigService;
-}
-
-async function initialize(): Promise<Services> {
+async function initialize() {
   const app = await NestFactory.createApplicationContext(AppModule);
   return {
     app,
@@ -23,7 +17,7 @@ async function initialize(): Promise<Services> {
   };
 }
 
-async function main(): Promise<void> {
+async function main() {
   console.log(
     `\n🎥 YouTube Transcript Extractor - ${new Date().toISOString()}\n`,
   );
@@ -46,11 +40,13 @@ async function main(): Promise<void> {
       console.log(
         '⚠️  No channels configured. Please add channels to config.youtubeTranscriptions.channels',
       );
+
       await services.app.close();
       return;
     }
 
     console.log(`Found ${channels.length} channel(s) to process:\n`);
+
     channels.forEach((channel, index) => {
       console.log(
         `${index + 1}. ${channel.channelName} (${channel.channelId})`,
@@ -58,6 +54,7 @@ async function main(): Promise<void> {
       console.log(`   Description: ${channel.channelDescription}`);
       console.log(`   Max videos: ${channel.maxVideos}`);
     });
+
     console.log();
 
     // Extract transcripts from all channels
