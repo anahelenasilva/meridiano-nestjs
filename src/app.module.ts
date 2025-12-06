@@ -11,6 +11,7 @@ import { ScraperModule } from './scraper/scraper.module';
 import { ProcessorModule } from './processor/processor.module';
 import { BriefingModule } from './briefing/briefing.module';
 import { TechModule } from './tech/tech.module';
+import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-transcriptions.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { TechModule } from './tech/tech.module';
     ProcessorModule,
     BriefingModule,
     TechModule,
+    YoutubeTranscriptionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
 import { Injectable } from '@nestjs/common';
 import { Pool, QueryResult } from 'pg';
 import { AbstractDatabaseService } from './abstract-database.service';
@@ -215,9 +213,23 @@ export class PostgresDatabaseService extends AbstractDatabaseService {
       )
     `;
 
+    const createYoutubeTranscriptionsTable = `
+      CREATE TABLE IF NOT EXISTS youtube_transcriptions (
+        id SERIAL PRIMARY KEY,
+        channel_id TEXT NOT NULL,
+        channel_name TEXT NOT NULL,
+        video_title TEXT NOT NULL,
+        posted_at TIMESTAMP NOT NULL,
+        video_url TEXT NOT NULL,
+        processed_at TIMESTAMP NOT NULL,
+        transcription_text TEXT NOT NULL
+      )
+    `;
+
     try {
       await this.pool.query(createArticlesTable);
       await this.pool.query(createBriefingsTable);
+      await this.pool.query(createYoutubeTranscriptionsTable);
       console.log('PostgreSQL tables created/verified');
     } catch (err) {
       console.error('Error creating tables:', err);

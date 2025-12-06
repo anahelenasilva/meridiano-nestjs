@@ -23,4 +23,14 @@ export type Config = {
     databaseFile: string;
     maxArticlesForScrapping: number;
   };
+  youtubeTranscriptions: {
+    channels: {
+      [channelId: string]: {
+        name: string;
+        url: string;
+        description: string;
+      };
+    };
+    maxVideosPerChannel: number;
+  };
 };

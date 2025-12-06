@@ -90,6 +90,18 @@ Analyzed News Clusters (Most significant first):
       databaseFile: 'meridian.db',
       maxArticlesForScrapping: 50,
     },
+
+    youtubeTranscriptions: {
+      channels: {
+        'UCbRP3c757lWg9M-U7TyEkXA': {
+          url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCbRP3c757lWg9M-U7TyEkXA',
+          name: 'Theo Browne',
+          description:
+            'Theo is a software dev, AI nerd, TypeScript sympathizer, creator of T3 Chat and the T3 Stack.',
+        },
+      },
+      maxVideosPerChannel: 1,
+    },
   };
 
   getConfig(): Config {
@@ -177,5 +189,9 @@ Analyzed News Clusters (Most significant first):
 
   getAppConfig() {
     return { ...this.CONFIGS.app };
+  }
+
+  getYoutubeChannelsConfig() {
+    return { ...this.CONFIGS.youtubeTranscriptions };
   }
 }
