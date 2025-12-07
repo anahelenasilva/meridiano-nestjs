@@ -21,6 +21,9 @@ async function bootstrap() {
   console.log(`   GET /api/articles - List articles`);
   console.log(`   GET /api/articles/:id - Get article details`);
   console.log(`   GET /api/profiles - Get available feed profiles`);
+  console.log(`   GET /api/youtube/transcriptions - List youtube transcriptions`);
+  console.log(`   GET /api/youtube/transcriptions/:id - Get youtube transcription details`);
   console.log(`   GET /api/health - Health check`);
 }
+
 void bootstrap();
