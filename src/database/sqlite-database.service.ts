@@ -72,7 +72,7 @@ export class SQLiteDatabaseService extends AbstractDatabaseService {
           channel_id TEXT NOT NULL,
           channel_name TEXT NOT NULL,
           video_title TEXT NOT NULL,
-          posted_at TEXT NOT NULL,
+          posted_at TEXT NULL,
           video_url TEXT UNIQUE NOT NULL,
           processed_at DATETIME NOT NULL,
           transcription_text TEXT NOT NULL,

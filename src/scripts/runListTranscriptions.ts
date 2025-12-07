@@ -8,7 +8,6 @@ dotenv.config();
 
 async function initialize() {
   const app = await NestFactory.createApplicationContext(AppModule);
-  await app.init(); // Initialize the application to trigger onModuleInit hooks
   return {
     app,
     youtubeTranscriptionsService: app.get(YoutubeTranscriptionsService),
