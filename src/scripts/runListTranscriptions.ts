@@ -43,20 +43,12 @@ async function main() {
       console.log(`   Video Title: ${transcription.videoTitle}`);
       console.log(`   Video URL: ${transcription.videoUrl}`);
       console.log(`   Posted At: ${transcription.postedAt?.toISOString() || 'N/A'}`);
-      console.log(
-        `   Processed At: ${transcription.processedAt.toISOString()}`,
-      );
-      console.log(
-        `   Transcription Length: ${transcription.transcriptionText?.length || 0} chars`,
-      );
-      console.log(
-        `   Has Summary: ${transcription.transcriptionSummary ? 'Yes' : 'No'}`,
-      );
+      console.log(`   Processed At: ${transcription.processedAt.toISOString()}`);
+      console.log(`   Transcription Length: ${transcription.transcriptionText?.length || 0} chars`);
+      console.log(`   Has Summary: ${transcription.transcriptionSummary ? 'Yes' : 'No'}`);
 
       if (transcription.transcriptionSummary) {
-        console.log(
-          `   Summary Preview: ${transcription.transcriptionSummary.substring(0, 150)}...`,
-        );
+        console.log(`   Summary Preview: ${transcription.transcriptionSummary.substring(0, 150)}...`);
       }
 
       console.log(`   ----------------------------------------`);
