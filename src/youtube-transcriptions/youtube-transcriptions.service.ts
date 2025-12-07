@@ -240,15 +240,14 @@ export class YoutubeTranscriptionsService {
         !videoData.transcriptText ||
         !videoData.title ||
         !videoData.url ||
-        !videoData.videoId
+        !videoData.videoId ||
+        !videoData.channel?.id ||
+        !videoData.channel?.name
       ) {
-        return {
-          success: false,
-          error: 'Missing required fields in JSON file',
-        };
+        return { success: false, error: 'Missing required fields in video data' };
       }
 
-      console.log(`  Summarizing transcription for: ${videoData.title}`);
+      console.log(`  Summarizing transcription for: ${videoData.title} by ${videoData.channel.name}`);
 
       const summaryPrompt = this.configService.getTranscriptionSummaryPrompt(
         videoData.transcriptText.substring(0, 8000), // Limit text length
