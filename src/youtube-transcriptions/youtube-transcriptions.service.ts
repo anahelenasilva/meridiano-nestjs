@@ -5,7 +5,9 @@ import { DatabaseService } from '../database/database.service';
 import { ChannelConfig } from '../shared/types/channel';
 import { VideoWithTranscript } from '../shared/types/video';
 import {
+  CountTotalTranscriptionsInput,
   DBYoutubeTranscription,
+  PaginatedYoutubeTranscriptionInput,
   YoutubeTranscription,
 } from './entities/youtube-transcription.entity';
 import { StorageService } from './storage.service';
@@ -244,7 +246,10 @@ export class YoutubeTranscriptionsService {
         !videoData.channel?.id ||
         !videoData.channel?.name
       ) {
-        return { success: false, error: 'Missing required fields in video data' };
+        return {
+          success: false,
+          error: 'Missing required fields in video data',
+        };
       }
 
       console.log(`  Summarizing transcription for: ${videoData.title} by ${videoData.channel.name}`);
@@ -256,9 +261,7 @@ export class YoutubeTranscriptionsService {
       const summary = await this.aiService.callDeepseekChat(summaryPrompt);
 
       if (!summary) {
-        console.log(
-          `  Warning: Failed to generate summary for ${videoData.title}. Saving without summary.`,
-        );
+        console.log(`  Warning: Failed to generate summary for ${videoData.title}. Saving without summary.`);
       }
 
       const insertedId = await this.addTranscription(
@@ -273,9 +276,7 @@ export class YoutubeTranscriptionsService {
         };
       }
 
-      console.log(
-        `  ✓ Successfully processed and saved transcription (ID: ${insertedId})`,
-      );
+      console.log(`  ✓ Successfully processed and saved transcription (ID: ${insertedId})`);
       return { success: true };
     } catch (error) {
       const errorMessage =
@@ -285,5 +286,262 @@ export class YoutubeTranscriptionsService {
         error: `Failed to process file: ${errorMessage}`,
       };
     }
+  }
+
+  /**
+   * Get a single transcription by ID
+   * @param id - The transcription ID
+   * @returns The transcription or null if not found
+   */
+  async getTranscriptionById(id: number): Promise<YoutubeTranscription | null> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      const query = `
+        SELECT
+          id,
+          channel_id AS channelId,
+          channel_name AS channelName,
+          video_title AS videoTitle,
+          posted_at AS postedAt,
+          video_url AS videoUrl,
+          processed_at AS processedAt,
+          transcription_text AS transcriptionText,
+          transcription_summary AS transcriptionSummary
+        FROM youtube_transcriptions
+        WHERE id = ?
+      `;
+
+      db.get(
+        query,
+        [id],
+        (err: Error | null, row: YoutubeTranscription | undefined) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          if (row) {
+            const transcription: YoutubeTranscription = {
+              ...row,
+              postedAt: row.postedAt ? new Date(row.postedAt) : undefined,
+              processedAt: new Date(row.processedAt),
+            };
+            resolve(transcription);
+          } else {
+            resolve(null);
+          }
+        },
+      );
+    });
+  }
+
+  /**
+   * Get distinct channel IDs from the database
+   * @returns Array of unique channel IDs
+   */
+  async getDistinctChannelIds(): Promise<string[]> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      db.all(
+        'SELECT DISTINCT channel_id FROM youtube_transcriptions ORDER BY channel_id',
+        [],
+        (err: Error | null, rows: { channel_id: string }[]) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(rows.map((row) => row.channel_id));
+        },
+      );
+    });
+  }
+
+  /**
+   * Get distinct channel names from the database
+   * @returns Array of unique channel names
+   */
+  async getDistinctChannelNames(): Promise<string[]> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      db.all(
+        'SELECT DISTINCT channel_name FROM youtube_transcriptions ORDER BY channel_name',
+        [],
+        (err: Error | null, rows: { channel_name: string }[]) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(rows.map((row) => row.channel_name));
+        },
+      );
+    });
+  }
+
+  /**
+   * Get paginated transcriptions with filters
+   * @param options - Pagination and filter options
+   * @returns Array of youtube transcriptions
+   */
+  async getTranscriptionsPaginated(
+    options: PaginatedYoutubeTranscriptionInput,
+  ): Promise<YoutubeTranscription[]> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      const {
+        page = 1,
+        perPage = 20,
+        sort_by = 'posted_at',
+        direction = 'desc',
+        channel_id,
+        channel_name,
+        search,
+        start_date,
+        end_date,
+      } = options;
+
+      let query = `
+        SELECT
+          id,
+          channel_id AS channelId,
+          channel_name AS channelName,
+          video_title AS videoTitle,
+          posted_at AS postedAt,
+          video_url AS videoUrl,
+          processed_at AS processedAt,
+          transcription_text AS transcriptionText,
+          transcription_summary AS transcriptionSummary
+        FROM youtube_transcriptions
+        WHERE 1=1
+      `;
+      const params: (string | number)[] = [];
+
+      if (channel_id) {
+        query += ' AND channel_id = ?';
+        params.push(channel_id);
+      }
+
+      if (channel_name) {
+        query += ' AND channel_name = ?';
+        params.push(channel_name);
+      }
+
+      if (search) {
+        query +=
+          ' AND (video_title LIKE ? OR transcription_text LIKE ? OR transcription_summary LIKE ?)';
+        const searchPattern = `%${search}%`;
+        params.push(searchPattern, searchPattern, searchPattern);
+      }
+
+      if (start_date) {
+        query += ' AND DATE(posted_at) >= ?';
+        params.push(start_date);
+      }
+
+      if (end_date) {
+        query += ' AND DATE(posted_at) <= ?';
+        params.push(end_date);
+      }
+
+      const validSortColumns = [
+        'posted_at',
+        'video_title',
+        'processed_at',
+        'channel_name',
+      ];
+      const sortColumn = validSortColumns.includes(sort_by)
+        ? sort_by
+        : 'posted_at';
+      const sortDirection = direction === 'asc' ? 'ASC' : 'DESC';
+      query += ` ORDER BY ${sortColumn} ${sortDirection}`;
+
+      const offset = (page - 1) * perPage;
+      query += ' LIMIT ? OFFSET ?';
+      params.push(perPage, offset);
+
+      db.all(
+        query,
+        params,
+        (err: Error | null, rows: YoutubeTranscription[]) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          const transcriptions: YoutubeTranscription[] = rows.map((row) => ({
+            ...row,
+            postedAt: row.postedAt ? new Date(row.postedAt) : undefined,
+            processedAt: new Date(row.processedAt),
+          }));
+
+          resolve(transcriptions);
+        },
+      );
+    });
+  }
+
+  /**
+   * Count total transcriptions with filters
+   * @param options - Filter options
+   * @returns Total count of matching transcriptions
+   */
+  async countTotalTranscriptions(
+    options: CountTotalTranscriptionsInput,
+  ): Promise<number> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      const { channel_id, channel_name, search, start_date, end_date } =
+        options;
+
+      let query =
+        'SELECT COUNT(*) as count FROM youtube_transcriptions WHERE 1=1';
+      const params: (string | number)[] = [];
+
+      if (channel_id) {
+        query += ' AND channel_id = ?';
+        params.push(channel_id);
+      }
+
+      if (channel_name) {
+        query += ' AND channel_name = ?';
+        params.push(channel_name);
+      }
+
+      if (search) {
+        query +=
+          ' AND (video_title LIKE ? OR transcription_text LIKE ? OR transcription_summary LIKE ?)';
+        const searchPattern = `%${search}%`;
+        params.push(searchPattern, searchPattern, searchPattern);
+      }
+
+      if (start_date) {
+        query += ' AND DATE(posted_at) >= ?';
+        params.push(start_date);
+      }
+
+      if (end_date) {
+        query += ' AND DATE(posted_at) <= ?';
+        params.push(end_date);
+      }
+
+      db.get(
+        query,
+        params,
+        (err: Error | null, row: { count: number } | undefined) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(row?.count || 0);
+        },
+      );
+    });
   }
 }
