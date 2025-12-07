@@ -337,46 +337,31 @@ export class YoutubeTranscriptionsService {
   }
 
   /**
-   * Get distinct channel IDs from the database
-   * @returns Array of unique channel IDs
+   * Get distinct channels (ID and name pairs) from the database
+   * @returns Array of unique channels with id and name
    */
-  async getDistinctChannelIds(): Promise<string[]> {
+  async getDistinctChannels(): Promise<{ id: string; name: string }[]> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
       db.all(
-        'SELECT DISTINCT channel_id FROM youtube_transcriptions ORDER BY channel_id',
+        'SELECT DISTINCT channel_id, channel_name FROM youtube_transcriptions ORDER BY channel_name',
         [],
-        (err: Error | null, rows: { channel_id: string }[]) => {
+        (
+          err: Error | null,
+          rows: { channel_id: string; channel_name: string }[],
+        ) => {
           if (err) {
             reject(err);
             return;
           }
 
-          resolve(rows.map((row) => row.channel_id));
-        },
-      );
-    });
-  }
-
-  /**
-   * Get distinct channel names from the database
-   * @returns Array of unique channel names
-   */
-  async getDistinctChannelNames(): Promise<string[]> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
-
-      db.all(
-        'SELECT DISTINCT channel_name FROM youtube_transcriptions ORDER BY channel_name',
-        [],
-        (err: Error | null, rows: { channel_name: string }[]) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-
-          resolve(rows.map((row) => row.channel_name));
+          resolve(
+            rows.map((row) => ({
+              id: row.channel_id,
+              name: row.channel_name,
+            })),
+          );
         },
       );
     });

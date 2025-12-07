@@ -61,14 +61,7 @@ export class ListYoutubeTranscriptionsQuery {
       }
     }
 
-    const availableChannelIds = await this.service.getDistinctChannelIds();
-    const availableChannelNames = await this.service.getDistinctChannelNames();
-
-    // Combine channel IDs and names into objects
-    const availableChannels = availableChannelIds.map((id, index) => ({
-      id,
-      name: availableChannelNames[index] || '',
-    }));
+    const availableChannels = await this.service.getDistinctChannels();
 
     const totalTranscriptions = await this.service.countTotalTranscriptions({
       channel_id: channel_id,
