@@ -71,6 +71,39 @@ Maintain an objective, analytical tone relevant to the '{feed_profile}' context.
 Analyzed News Clusters (Most significant first):
 {cluster_analyses_text}
 `,
+
+      transcriptionSummary: `
+        Summarize the key points of this youtube video transcription objectively in 2-4 sentences.
+Identify the main topics covered on the video and the main points discussed. Also, identify and highlight any tools used in the video that the author mentions, the main features of the tool, how it can be used, and briefly whether the author likes it or not.
+
+Transcription:
+{article_content}
+`,
+      transcriptionClassification: `Analyze the following youtube video transcription title and content to classify it into appropriate categories.
+
+Available categories:
+- ai: AI related content
+- news: General news youtube video
+- blog: Blog posts or opinion pieces
+- research: Research youtube video or technical studies
+- nodejs: Node.js related content
+- typescript: TypeScript related content
+- tutorial: Tutorials or how-to guides
+- other: Content that doesn't fit other categories
+
+Transcription Title: "{title}"
+Transcription Content: "{content}"
+
+Analyze the content and return ONLY a JSON array of relevant categories. For example:
+["news", "nodejs"] or ["tutorial", "typescript"] or ["research"]
+
+Choose 1-3 most relevant categories. Return only the JSON array, no other text.`,
+      transcriptionAnalysis: `These are summaries of potentially related youtube video transcription from a '{feed_profile}' context:
+
+{cluster_summaries_text}
+
+What is the core event or topic discussed? Summarize the key developments and significance in 3-5 sentences based *only* on the provided text. If the youtube video transcription seem unrelated, state that clearly.
+`,
     },
 
     processing: {
@@ -134,6 +167,12 @@ Analyzed News Clusters (Most significant first):
     return this.formatPrompt(this.CONFIGS.prompts.categoryClassification, {
       title,
       content,
+    });
+  }
+
+  getTranscriptionSummaryPrompt(transcriptionText: string): string {
+    return this.formatPrompt(this.CONFIGS.prompts.transcriptionSummary, {
+      article_content: transcriptionText,
     });
   }
 

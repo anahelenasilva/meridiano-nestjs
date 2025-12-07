@@ -1,4 +1,9 @@
 export interface VideoMetadata {
+  channel: {
+    id: string;
+    name: string;
+    description: string;
+  };
   videoId: string;
   title: string;
   url: string;

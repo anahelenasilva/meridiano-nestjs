@@ -11,7 +11,7 @@ import {
 
 // Wrapper to make PostgreSQL Pool/Client compatible with SQLite-like API
 class PostgresConnection implements DatabaseConnection {
-  constructor(private pool: Pool) {}
+  constructor(private pool: Pool) { }
 
   prepare(sql: string): PreparedStatement {
     return new PostgresPreparedStatement(this.pool, sql);
@@ -101,7 +101,7 @@ class PostgresPreparedStatement implements PreparedStatement {
   constructor(
     private pool: Pool,
     private sql: string,
-  ) {}
+  ) { }
 
   run(params: any[], callback?: RunCallback): RunResult {
     const result: RunResult = {};
@@ -157,10 +157,8 @@ export class PostgresDatabaseService extends AbstractDatabaseService {
   async initDb(): Promise<void> {
     const connectionString =
       process.env.DATABASE_URL ||
-      `postgresql://${process.env.DB_USER || 'postgres'}:${
-        process.env.DB_PASSWORD || ''
-      }@${process.env.DB_HOST || 'localhost'}:${
-        process.env.DB_PORT || '5432'
+      `postgresql://${process.env.DB_USER || 'postgres'}:${process.env.DB_PASSWORD || ''
+      }@${process.env.DB_HOST || 'localhost'}:${process.env.DB_PORT || '5432'
       }/${process.env.DB_NAME || 'meridian'}`;
 
     this.pool = new Pool({
@@ -219,10 +217,13 @@ export class PostgresDatabaseService extends AbstractDatabaseService {
         channel_id TEXT NOT NULL,
         channel_name TEXT NOT NULL,
         video_title TEXT NOT NULL,
-        posted_at TIMESTAMP NOT NULL,
-        video_url TEXT NOT NULL,
+        posted_at TEXT NULL,
+        video_url TEXT UNIQUE NOT NULL,
         processed_at TIMESTAMP NOT NULL,
-        transcription_text TEXT NOT NULL
+        transcription_text TEXT NOT NULL,
+        transcription_summary TEXT NULL,
+        transcription_analysis TEXT NULL,
+        transcription_cassification TEXT NULL
       )
     `;
 

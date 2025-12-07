@@ -3,10 +3,11 @@ export interface DBYoutubeTranscription {
   channelId: string;
   channelName: string;
   videoTitle: string;
-  postedAt: Date;
+  postedAt?: Date;
   videoUrl: string;
   processedAt: Date;
   transcriptionText: string;
+  transcriptionSummary?: string;
 }
 
 export interface YoutubeTranscription {
@@ -14,8 +15,9 @@ export interface YoutubeTranscription {
   channelId: string;
   channelName: string;
   videoTitle: string;
-  postedAt: Date;
+  postedAt?: Date;
   videoUrl: string;
   processedAt: Date;
   transcriptionText: string;
+  transcriptionSummary?: string;
 }
