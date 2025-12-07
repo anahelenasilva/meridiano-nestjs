@@ -43,7 +43,7 @@ async function main() {
       console.log(`   Channel ID: ${transcription.channelId}`);
       console.log(`   Video Title: ${transcription.videoTitle}`);
       console.log(`   Video URL: ${transcription.videoUrl}`);
-      console.log(`   Posted At: ${transcription.postedAt.toISOString()}`);
+      console.log(`   Posted At: ${transcription.postedAt?.toISOString() || 'N/A'}`);
       console.log(
         `   Processed At: ${transcription.processedAt.toISOString()}`,
       );

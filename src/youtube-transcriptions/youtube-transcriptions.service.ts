@@ -21,7 +21,7 @@ export class YoutubeTranscriptionsService {
     private readonly databaseService: DatabaseService,
     private readonly aiService: AiService,
     private readonly configService: ConfigService,
-  ) {}
+  ) { }
 
   /**
    * Extract transcripts from videos in a single channel
@@ -155,7 +155,7 @@ export class YoutubeTranscriptionsService {
           videoData.channel.id,
           videoData.channel.name,
           videoData.title,
-          videoData.publishedAt,
+          videoData.publishedAt !== 'Unknown' ? videoData.publishedAt : null,
           videoData.url,
           new Date().toISOString(),
           videoData.transcriptText,
@@ -213,7 +213,7 @@ export class YoutubeTranscriptionsService {
           } else {
             const transcriptions: YoutubeTranscription[] = rows.map((row) => ({
               ...row,
-              postedAt: new Date(row.postedAt),
+              postedAt: row.postedAt ? new Date(row.postedAt) : undefined,
               processedAt: new Date(row.processedAt),
             }));
             resolve(transcriptions);
