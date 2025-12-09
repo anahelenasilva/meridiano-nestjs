@@ -137,12 +137,12 @@ export const techRSSFeeds: RSSFeed[] = [
     enabled: true,
   },
   {
-    url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCbRP3c757lWg9M-U7TyEkXA',
-    name: "Theo Browne's YouTube Channel",
+    url: 'https://feed.infoq.com/',
+    name: "InfoQ",
     category: 'tech',
     description:
-      'Theo is a software dev, AI nerd, TypeScript sympathizer, creator of T3 Chat and the T3 Stack.',
-    enabled: false,
+      'InfoQ is a technology news website that covers the latest news and trends in the technology industry.',
+    enabled: true,
   },
 ];
 
