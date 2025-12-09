@@ -73,7 +73,7 @@ Analyzed News Clusters (Most significant first):
 `,
 
       transcriptionSummary: `
-        Summarize the key points of this youtube video transcription objectively in 2-4 sentences.
+        Summarize the key points of this youtube video transcription objectively in 4-6 sentences.
 Identify the main topics covered on the video and the main points discussed. Also, identify and highlight any tools used in the video that the author mentions, the main features of the tool, how it can be used, and briefly whether the author likes it or not. If the author mentions a tool in a paid promotion, mention it briefly and say that the author is paid to promote it.
 
 Transcription:
