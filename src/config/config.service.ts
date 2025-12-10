@@ -73,8 +73,18 @@ Analyzed News Clusters (Most significant first):
 `,
 
       transcriptionSummary: `
-        Summarize the key points of this youtube video transcription objectively in 4-6 sentences.
-Identify the main topics covered on the video and the main points discussed. Also, identify and highlight any tools used in the video that the author mentions, the main features of the tool, how it can be used, and briefly whether the author likes it or not. If the author mentions a tool in a paid promotion, mention it briefly and say that the author is paid to promote it.
+You are an expert summarizer and critical reader.
+
+I will paste a youtube video transcription. Your job is to:
+- Extract the core ideas and arguments.
+- Translate complex points into clear, simple language.
+- Organize the summary so it is easy to scan.
+
+Output on the {article_content} property:
+1) 3-5 sentence overview in plain English.
+2) Key takeaways as concise bullet points and/or short sections, as appropriate.
+3) Notable data, trends, or memorable quotes called out clearly.
+4) Brief critique: any bias, outdated information, gaps, or missing context.
 
 Transcription:
 {article_content}
