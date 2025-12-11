@@ -32,6 +32,8 @@ export type Config = {
         name: string;
         url: string;
         description: string;
+        enabled: boolean;
+        maxVideos?: number;
       };
     };
     maxVideosPerChannel: number;

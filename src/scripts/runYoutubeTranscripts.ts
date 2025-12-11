@@ -26,19 +26,22 @@ async function main() {
     const services = await initialize();
     const ytConfig = services.configService.getYoutubeChannelsConfig();
 
-    // Convert config channels to ChannelConfig array
-    const channels: ChannelConfig[] = Object.entries(ytConfig.channels).map(
-      ([channelId, channelData]) => ({
+    // Convert config channels to ChannelConfig array, filtering out disabled channels
+    const channels: ChannelConfig[] = Object.entries(ytConfig.channels)
+      .filter(([channelId, channelData]) => channelId !== undefined && channelData.enabled !== false)
+      .map(([channelId, channelData]) => ({
         channelId,
         channelName: channelData.name,
         channelDescription: channelData.description,
-        maxVideos: ytConfig.maxVideosPerChannel,
-      }),
-    );
+        maxVideos:
+          channelData.maxVideos && channelData.maxVideos > 0
+            ? channelData.maxVideos
+            : ytConfig.maxVideosPerChannel,
+      }));
 
     if (channels.length === 0) {
       console.log(
-        '⚠️  No channels configured. Please add channels to config.youtubeTranscriptions.channels',
+        '⚠️  No enabled channels configured. Please add channels to config.youtubeTranscriptions.channels and set enabled to true',
       );
 
       await services.app.close();

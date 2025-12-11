@@ -97,6 +97,14 @@ async function main() {
           continue;
         }
 
+        if (channelData.enabled === false) {
+          console.log(
+            `  ⚠️  Channel ${channelData.name} is disabled. Skipping.`,
+          );
+          stats.skipped++;
+          continue;
+        }
+
         const channelName = channelData.name;
 
         console.log(`  Channel: ${channelName}`);
