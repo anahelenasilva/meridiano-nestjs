@@ -100,7 +100,7 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 # To-dos
 - [x] Check if youtube transcription already exists in database before adding it and process it
 - [ ] Send email with articles briefings; use my `personal-sendmail-api`
-- [ ] Convert cli commands to usese so it's more decoupled and easy to reuse
+- [ ] Convert cli commands to use usecase so it's more decoupled and easy to reuse
 - [ ] Isolate prompts configs from config.service.ts to separate files, so it's easier to mantain; also do this for the other configs
 - [ ] Add articles manually
 - [ ] Star/bookmark an article
