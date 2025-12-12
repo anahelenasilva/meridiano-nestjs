@@ -14,11 +14,12 @@ export class ProcessorService {
     private readonly aiService: AiService,
     private readonly configService: ConfigService,
     private readonly profilesService: ProfilesService,
-  ) {}
+  ) { }
 
   async processArticles(
     feedProfile: FeedProfile,
     limit: number = 1000,
+    articleId?: number,
   ): Promise<ProcessingStats> {
     console.log('\n--- Starting Article Processing ---');
 
@@ -31,8 +32,15 @@ export class ProcessorService {
       startTime: new Date(),
     };
 
-    const unprocessedArticles =
-      await this.articlesService.getUnprocessedArticles(feedProfile, limit);
+    let unprocessedArticles;
+    if (articleId) {
+      const article =
+        await this.articlesService.getUnprocessedArticleById(articleId);
+      unprocessedArticles = article ? [article] : [];
+    } else {
+      unprocessedArticles =
+        await this.articlesService.getUnprocessedArticles(feedProfile, limit);
+    }
 
     if (unprocessedArticles.length === 0) {
       console.log('No new articles to process.');
@@ -53,11 +61,11 @@ export class ProcessorService {
       try {
         const summaryPrompt = profilePrompts.articleSummary
           ? this.configService.formatPrompt(profilePrompts.articleSummary, {
-              article_content: article.raw_content.substring(0, 4000),
-            })
+            article_content: article.raw_content.substring(0, 4000),
+          })
           : this.configService.getArticleSummaryPrompt(
-              article.raw_content.substring(0, 4000),
-            );
+            article.raw_content.substring(0, 4000),
+          );
 
         const summary = await this.aiService.callDeepseekChat(summaryPrompt);
 
@@ -108,6 +116,7 @@ export class ProcessorService {
   async rateArticles(
     feedProfile: FeedProfile,
     limit: number = 1000,
+    articleId?: number,
   ): Promise<ProcessingStats> {
     console.log('\n--- Starting Article Impact Rating ---');
 
@@ -120,10 +129,17 @@ export class ProcessorService {
       startTime: new Date(),
     };
 
-    const unratedArticles = await this.articlesService.getUnratedArticles(
-      feedProfile,
-      limit,
-    );
+    let unratedArticles;
+    if (articleId) {
+      const article =
+        await this.articlesService.getUnratedArticleById(articleId);
+      unratedArticles = article ? [article] : [];
+    } else {
+      unratedArticles = await this.articlesService.getUnratedArticles(
+        feedProfile,
+        limit,
+      );
+    }
 
     if (unratedArticles.length === 0) {
       console.log('No new articles to rate.');
@@ -147,8 +163,8 @@ export class ProcessorService {
       try {
         const ratingPrompt = profilePrompts.impactRating
           ? this.configService.formatPrompt(profilePrompts.impactRating, {
-              summary: article.processed_content,
-            })
+            summary: article.processed_content,
+          })
           : this.configService.getImpactRatingPrompt(article.processed_content);
 
         const ratingResponse =
@@ -211,6 +227,7 @@ export class ProcessorService {
   async categorizeArticles(
     feedProfile: FeedProfile,
     limit: number = 1000,
+    articleId?: number,
   ): Promise<ProcessingStats> {
     console.log('\n--- Starting Article Categorization ---');
 
@@ -223,8 +240,15 @@ export class ProcessorService {
       startTime: new Date(),
     };
 
-    const uncategorizedArticles =
-      await this.articlesService.getUncategorizedArticles(feedProfile, limit);
+    let uncategorizedArticles;
+    if (articleId) {
+      const article =
+        await this.articlesService.getUncategorizedArticleById(articleId);
+      uncategorizedArticles = article ? [article] : [];
+    } else {
+      uncategorizedArticles =
+        await this.articlesService.getUncategorizedArticles(feedProfile, limit);
+    }
 
     if (uncategorizedArticles.length === 0) {
       console.log('No new articles to categorize.');

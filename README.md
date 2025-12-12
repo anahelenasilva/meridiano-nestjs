@@ -83,6 +83,27 @@ Check out a few resources that may come in handy when working with NestJS:
 - To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
 - Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
+## How to run Redis
+Install Redis using Homebrew:
+
+**Install Redis:**
+
+```bash
+brew install redis
+```
+
+**Then start Redis:**
+
+```bash
+brew services start redis
+```
+
+Or if you want to run it without starting Redis as a background service:
+
+```bash
+redis-server
+```
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
@@ -102,7 +123,7 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 - [ ] Send email with articles briefings; use my `personal-sendmail-api`
 - [ ] Convert cli commands to use usecase so it's more decoupled and easy to reuse
 - [ ] Isolate prompts configs from config.service.ts to separate files, so it's easier to mantain; also do this for the other configs
-- [ ] Add articles manually
+- [x] Add articles manually
 - [ ] Star/bookmark an article
 - [ ] See stars/bookmarks in a special view
 - [ ] See starred articles in the briefing

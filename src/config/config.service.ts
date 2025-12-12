@@ -251,4 +251,12 @@ What is the core event or topic discussed? Summarize the key developments and si
   getYoutubeChannelsConfig() {
     return { ...this.CONFIGS.youtubeTranscriptions };
   }
+
+  getRedisConfig() {
+    return {
+      host: process.env.REDIS_HOST || 'localhost',
+      port: parseInt(process.env.REDIS_PORT || '6379', 10),
+      password: process.env.REDIS_PASSWORD || undefined,
+    };
+  }
 }

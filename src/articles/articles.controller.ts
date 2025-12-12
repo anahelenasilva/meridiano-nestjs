@@ -10,6 +10,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { QueueService } from '../queue/queue.service';
 import { ScraperService } from '../scraper/scraper.service';
 import type { PaginatedArticleInput } from './article.entity';
 import { ArticlesService } from './articles.service';
@@ -24,10 +25,11 @@ export class ArticlesController {
     private readonly listArticlesQuery: ListArticlesQuery,
     private readonly getArticleByIdQuery: GetArticleByIdQuery,
     private readonly scraperService: ScraperService,
+    private readonly queueService: QueueService,
   ) { }
 
   @Post()
-  async createArticle(@Body() createArticleDto: CreateArticleDto) {
+  async create(@Body() createArticleDto: CreateArticleDto) {
     const { url, feedProfile } = createArticleDto;
 
     try {
@@ -40,10 +42,15 @@ export class ArticlesController {
         throw new BadRequestException('Article already exists in database');
       }
 
-      return {
-        success: true,
+      // Add job to queue for async processing
+      const jobInfo = await this.queueService.addArticleProcessingJob(
         articleId,
-        message: 'Article scraped and saved successfully',
+        feedProfile,
+      );
+
+      return {
+        ...jobInfo,
+        message: 'Article scraped and queued for processing',
       };
     } catch (error) {
       if (error instanceof BadRequestException) {
@@ -57,6 +64,19 @@ export class ArticlesController {
       throw new BadRequestException(
         `Failed to scrape article: ${errorMessage}`,
       );
+    }
+  }
+
+  @Get('jobs/:jobId')
+  async getJobStatus(@Param('jobId') jobId: string) {
+    try {
+      return await this.queueService.getJobStatus(jobId);
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+
+      throw new BadRequestException('Failed to get job status');
     }
   }
 
