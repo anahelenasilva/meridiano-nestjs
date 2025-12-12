@@ -1,4 +1,4 @@
-import { FeedConfiguration, RSSFeed } from '../types/feed';
+import { FeedConfiguration, FeedProfile, RSSFeed } from '../types/feed';
 
 export const brasilRSSFeeds: RSSFeed[] = [
   {
@@ -79,7 +79,7 @@ Qual é o evento ou tópico principal discutido? Resuma os principais desenvolvi
 };
 
 export const brasilFeedConfig: FeedConfiguration = {
-  profile: 'brasil',
+  profile: FeedProfile.BRASIL,
   rssFeeds: brasilRSSFeeds,
   prompts: brasilPrompts,
   settings: {

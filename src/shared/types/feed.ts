@@ -1,12 +1,13 @@
-export type FeedProfile =
-  | 'default'
-  | 'technology'
-  | 'politics'
-  | 'business'
-  | 'health'
-  | 'science'
-  | 'brasil'
-  | 'teclas';
+export enum FeedProfile {
+  DEFAULT = 'default',
+  TECHNOLOGY = 'technology',
+  POLITICS = 'politics',
+  BUSINESS = 'business',
+  HEALTH = 'health',
+  SCIENCE = 'science',
+  BRASIL = 'brasil',
+  TECLAS = 'teclas',
+}
 
 export interface RSSFeed {
   url: string;

@@ -129,7 +129,7 @@ What is the core event or topic discussed? Summarize the key developments and si
     },
 
     app: {
-      defaultFeedProfile: 'default',
+      defaultFeedProfile: FeedProfile.DEFAULT,
       databaseFile: 'meridian.db',
       maxArticlesForScrapping: 50,
     },

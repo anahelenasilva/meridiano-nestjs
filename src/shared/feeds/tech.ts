@@ -1,4 +1,4 @@
-import { FeedConfiguration, RSSFeed } from '../types/feed';
+import { FeedConfiguration, FeedProfile, RSSFeed } from '../types/feed';
 
 export const techRSSFeeds: RSSFeed[] = [
   {
@@ -180,7 +180,7 @@ Analyzed News Clusters (Most significant first):
 };
 
 export const techFeedConfig: FeedConfiguration = {
-  profile: 'technology',
+  profile: FeedProfile.TECHNOLOGY,
   rssFeeds: techRSSFeeds,
   prompts: techPrompts,
   settings: {

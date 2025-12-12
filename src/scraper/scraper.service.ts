@@ -52,7 +52,7 @@ export class ScraperService {
     private readonly articlesService: ArticlesService,
     private readonly profilesService: ProfilesService,
     private readonly configService: ConfigService,
-  ) {}
+  ) { }
 
   async fetchArticleContentAndOgImage(url: string): Promise<ArticleContent> {
     let content: string | null = null;
@@ -145,6 +145,77 @@ export class ScraperService {
     }
 
     return null;
+  }
+
+  async scrapeSingleArticle(
+    url: string,
+    feedProfile: FeedProfile,
+  ): Promise<number | null> {
+    console.log(`\n--- Scraping single article: ${url} ---`);
+
+    // Check if article already exists
+    if (await this.articlesService.articleExists(url)) {
+      console.log('Article already exists in database');
+      return null;
+    }
+
+    // Fetch article content and OG image
+    console.log('Fetching article content and OG image...');
+    const { content: rawContent, ogImage: ogImageUrl } =
+      await this.fetchArticleContentAndOgImage(url);
+
+    if (!rawContent) {
+      throw new Error('Failed to extract article content');
+    }
+
+    // Extract title from HTML
+    let title = 'Untitled Article';
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          'User-Agent':
+            'Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0',
+        },
+        timeout: 20000,
+      });
+      const htmlContent = response.data as string;
+      const dom = new JSDOM(htmlContent, { url });
+
+      // Try to extract title from various sources
+      const titleElement = dom.window.document.querySelector('title');
+      const ogTitleElement = dom.window.document.querySelector(
+        'meta[property="og:title"]',
+      );
+
+      if (ogTitleElement && ogTitleElement.getAttribute('content')) {
+        title = ogTitleElement.getAttribute('content') || title;
+      } else if (titleElement && titleElement.textContent) {
+        title = titleElement.textContent.trim();
+      }
+    } catch (error) {
+      console.warn('Failed to extract title, using default', error);
+    }
+
+    // Use current date as published date
+    const publishedDate = new Date();
+    const feedSource = 'Manual';
+
+    console.log(`Adding article: ${title}`);
+    const articleId = await this.articlesService.addArticle(
+      url,
+      title,
+      publishedDate,
+      feedSource,
+      rawContent,
+      feedProfile,
+      ogImageUrl || undefined,
+    );
+
+    if (articleId) {
+      console.log(`Article added successfully with ID: ${articleId}`);
+    }
+
+    return articleId;
   }
 
   async scrapeArticles(
