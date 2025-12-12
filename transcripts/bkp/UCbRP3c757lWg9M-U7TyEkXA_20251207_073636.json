@@ -1,0 +1,1736 @@
+{
+  "channel": {
+    "id": "UCbRP3c757lWg9M-U7TyEkXA",
+    "name": "Theo Browne",
+    "description": "Theo is a software dev, AI nerd, TypeScript sympathizer, creator of T3 Chat and the T3 Stack."
+  },
+  "videoId": "-g1yKRo5XtY",
+  "title": "How I code with AI right now",
+  "url": "https://www.youtube.com/watch?v=-g1yKRo5XtY",
+  "publishedAt": "2025-12-06T10:36:35.370Z",
+  "thumbnailUrl": "https://i.ytimg.com/vi/KAmQTmooLGQ/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBEg5HzItC77WuX1l_DqyT0BBt64g",
+  "description": "The way I'm using AI has changed, a lot. And I think it's finally time to talk about it...\n\nThanks you Arcjet for sponsoring! Check them out at: https://soydev.link/arcjet\n\nSOURCES\nhttps://x.com/bm...",
+  "transcript": [
+    {
+      "text": "If you look at the current top models, they're all from America, Google, Anthropic, and OpenAI. We are clearly",
+      "duration": 6480,
+      "offset": "80"
+    },
+    {
+      "text": "winning the AI race until you zoom out a little bit. Then you see a lot of these",
+      "duration": 5440,
+      "offset": "6560"
+    },
+    {
+      "text": "blue bars appearing in the chart. Those blue bars are for openweight models. And if we look at the top three, Kimmy,",
+      "duration": 7199,
+      "offset": "12000"
+    },
+    {
+      "text": "Deepseek, and Mini Maxm2, you realize that China's winning the openweight race",
+      "duration": 5761,
+      "offset": "19199"
+    },
+    {
+      "text": "and by quite a bit. The first model from the US to appear here is GPTO OSS120B.",
+      "duration": 6960,
+      "offset": "24960"
+    },
+    {
+      "text": "And as a person who's used that model quite a bit, it's rough. It might score well on intelligence charts, but its",
+      "duration": 6720,
+      "offset": "31920"
+    },
+    {
+      "text": "ability to reliably call tools and be used in your workflows is nothing in comparison to what I've experienced with",
+      "duration": 5840,
+      "offset": "38640"
+    },
+    {
+      "text": "Kimmy, with Miniax, and now with Deep Seek V3.2. Huge gap between those. And if we want",
+      "duration": 7120,
+      "offset": "44480"
+    },
+    {
+      "text": "to look at the European introductions like uh Mestral Large 3, which just dropped and kind of inspired this video,",
+      "duration": 6160,
+      "offset": "51600"
+    },
+    {
+      "text": "they're barely even on the chart. Things are rough. Oh, and almost forgot, much",
+      "duration": 5599,
+      "offset": "57760"
+    },
+    {
+      "text": "like they seem to have, Llama 4 all the way at the end here. There were supposed",
+      "duration": 5201,
+      "offset": "63359"
+    },
+    {
+      "text": "to be three versions of Llama 4. If you remember, it was supposed to be Scout, Maverick, and I forgot the name of the larger one because they never put out",
+      "duration": 6400,
+      "offset": "68560"
+    },
+    {
+      "text": "the larger one because they all suck so bad. There's a 20 bill per pram model from OpenAI that beats out Mestral and",
+      "duration": 6720,
+      "offset": "74960"
+    },
+    {
+      "text": "there's lots of 15 bill ones that do too. It's rough out there. But the thing I really want to focus on today is the",
+      "duration": 7200,
+      "offset": "81680"
+    },
+    {
+      "text": "open weight wars and why China seems like they will be winning them for the foreseeable future. It's kind of crazy",
+      "duration": 6559,
+      "offset": "88880"
+    },
+    {
+      "text": "that when you only talk about models that weights are downloadable and usable, all of a sudden America gets",
+      "duration": 5521,
+      "offset": "95439"
+    },
+    {
+      "text": "wiped off the chart. There's a lot of reasons for this and I can't wait to talk about them, but since openw weight",
+      "duration": 5360,
+      "offset": "100960"
+    },
+    {
+      "text": "models don't pay the bills, we're going to do a quick sponsor break first. Here's a hard question for you. How do you know if an engineer is actually",
+      "duration": 6880,
+      "offset": "106320"
+    },
+    {
+      "text": "good? It's really hard to do. You might be able to look at their HTML shirt and make some assumptions, but when you're",
+      "duration": 5519,
+      "offset": "113200"
+    },
+    {
+      "text": "doing an interview, especially when you're reading someone's resume, how do you know they're actually good and not just AI generating some slop that you're",
+      "duration": 6241,
+      "offset": "118719"
+    },
+    {
+      "text": "going through a huge pile of as you fill this role? It's never been more annoying to hire good engineers. I feel like",
+      "duration": 5840,
+      "offset": "124960"
+    },
+    {
+      "text": "there's fewer of them in the pile and the pile's never been bigger. If you're tired of trying to find the needle in the hay stack and get a good engineer to",
+      "duration": 7120,
+      "offset": "130800"
+    },
+    {
+      "text": "work for you finally, you got to check out today's sponsor, G2I. These guys are without question the best way to hire",
+      "duration": 6000,
+      "offset": "137920"
+    },
+    {
+      "text": "good engineers fast. They have over 8,000 of them ready to go in their incredible network. These aren't people",
+      "duration": 5679,
+      "offset": "143920"
+    },
+    {
+      "text": "who are fresh out of college. These are real experienced engineers that have worked at big fang companies and small",
+      "duration": 5521,
+      "offset": "149599"
+    },
+    {
+      "text": "startups alike. know how to use all the tools you need, already are familiar with fancy AI development stuff, so",
+      "duration": 5199,
+      "offset": "155120"
+    },
+    {
+      "text": "they're not going to be slow. Whether you want a couple junior engineers to kickstart a new project, or a lead that",
+      "duration": 5041,
+      "offset": "160319"
+    },
+    {
+      "text": "can dig you out of tech debt hell, they have you covered. You create a shared Slack channel with them. They",
+      "duration": 5280,
+      "offset": "165360"
+    },
+    {
+      "text": "effectively are operating like your recruiting team. You give them a handful of questions to ask the engineers. They ask the engineers and record actual",
+      "duration": 7200,
+      "offset": "170640"
+    },
+    {
+      "text": "video responses from them so you know what the person's actually like. You go through them, figure out the ones you",
+      "duration": 5119,
+      "offset": "177840"
+    },
+    {
+      "text": "want. They'll then go do a technical interview that they've speced out so you don't have to worry. Record it, send you",
+      "duration": 5200,
+      "offset": "182959"
+    },
+    {
+      "text": "the results, and once they've gone through all that, you can review it, figure out who you think fits best, and",
+      "duration": 5360,
+      "offset": "188159"
+    },
+    {
+      "text": "then you can hire them. They're also just super generous to work with. I've referred a lot of people on a personal",
+      "duration": 5440,
+      "offset": "193519"
+    },
+    {
+      "text": "level, like a lot of the YC startups I work with, and every single one has had an incredible experience with G2I. Stop",
+      "duration": 5441,
+      "offset": "198959"
+    },
+    {
+      "text": "hiring the old way and stop wasting your time. Get good engineers fast at soyv.link/g2i.",
+      "duration": 5119,
+      "offset": "204400"
+    },
+    {
+      "text": "Before we can discuss why China's winning so hard, it's important to understand what is an openw weight",
+      "duration": 5841,
+      "offset": "209519"
+    },
+    {
+      "text": "model. The point of openweight models is somewhat similar to open-source models where you're giving out a significant",
+      "duration": 6400,
+      "offset": "215360"
+    },
+    {
+      "text": "portion of how the thing works. There's a big difference between openweight and open source though. With open source,",
+      "duration": 6640,
+      "offset": "221760"
+    },
+    {
+      "text": "the code that is used to create the thing people experience is exposed. With Linux, for example, the actual thing you",
+      "duration": 6640,
+      "offset": "228400"
+    },
+    {
+      "text": "download isn't the code when you're using Linux. What you download is the binary that's compiled by the code. The",
+      "duration": 6880,
+      "offset": "235040"
+    },
+    {
+      "text": "code is the input that results in the output that you are downloading and using. As such, I've seen a lot of",
+      "duration": 5760,
+      "offset": "241920"
+    },
+    {
+      "text": "people complain that openw weight models aren't open- source because you can't recreate that binary yourself. And I",
+      "duration": 8080,
+      "offset": "247680"
+    },
+    {
+      "text": "don't really agree. Obviously, it would be cool if we had all of the training data and everything else that went into",
+      "duration": 5840,
+      "offset": "255760"
+    },
+    {
+      "text": "how the models were made. But the reason open source is valuable is because you can reproduce the actual output. I can",
+      "duration": 8080,
+      "offset": "261600"
+    },
+    {
+      "text": "take the code and on my computer compile it and get a result. There are almost no",
+      "duration": 5600,
+      "offset": "269680"
+    },
+    {
+      "text": "consumers, almost no developers who have all of the things that are necessary to spend the millions of dollars on really",
+      "duration": 6960,
+      "offset": "275280"
+    },
+    {
+      "text": "hard to get infrastructure to turn that data into a model. There is no real",
+      "duration": 5200,
+      "offset": "282240"
+    },
+    {
+      "text": "reason to expose that and there's a ton of risk and liability if you expose all of the data that's used in your training",
+      "duration": 6000,
+      "offset": "287440"
+    },
+    {
+      "text": "and every other company's just going to take that data, throw it into their data sets and suddenly be able to beat you in",
+      "duration": 5600,
+      "offset": "293440"
+    },
+    {
+      "text": "all of the things you're good at. Depending on how you cut the lines and think about it, I would argue the data",
+      "duration": 5200,
+      "offset": "299040"
+    },
+    {
+      "text": "is almost the equivalent of the engineers in this case, not the equivalent of the source code. People think about source code very",
+      "duration": 6080,
+      "offset": "304240"
+    },
+    {
+      "text": "specifically because you use the source code to compile the thing that you want and as such we should have the data if",
+      "duration": 5439,
+      "offset": "310320"
+    },
+    {
+      "text": "we want to call these models open. I would argue we're just drawing our lines a bit differently. So in open source a",
+      "duration": 6561,
+      "offset": "315759"
+    },
+    {
+      "text": "developer creates source code that compiles into a binary that users can use. In open weights data is used to",
+      "duration": 8080,
+      "offset": "322320"
+    },
+    {
+      "text": "train weights that result in generated tokens. If you think of it this way where you're",
+      "duration": 7600,
+      "offset": "330400"
+    },
+    {
+      "text": "drawing the lines here, you say like the researchers",
+      "duration": 5840,
+      "offset": "338000"
+    },
+    {
+      "text": "collect the data that creates the weights that generate tokens. I would",
+      "duration": 5600,
+      "offset": "343840"
+    },
+    {
+      "text": "see why you would call this not open. But I don't think that is quite how it works. I think of it this way where the",
+      "duration": 6720,
+      "offset": "349440"
+    },
+    {
+      "text": "data is similar to the developer in the case of the weights because it creates the thing that we can use to generate",
+      "duration": 7280,
+      "offset": "356160"
+    },
+    {
+      "text": "the thing we actually want which in this case is the binary it's the Linux installable the actual kernel and in our",
+      "duration": 6000,
+      "offset": "363440"
+    },
+    {
+      "text": "case with models it's the tokens that we get from using the model. So the open weights mean you have all of the pieces",
+      "duration": 7520,
+      "offset": "369440"
+    },
+    {
+      "text": "you need to run the model and generate results with it yourself. The weights are the collection of parameters that",
+      "duration": 6480,
+      "offset": "376960"
+    },
+    {
+      "text": "are all mapped to and point to each other. So when you give it some text, it can guess what the best next token would",
+      "duration": 6080,
+      "offset": "383440"
+    },
+    {
+      "text": "be based on the text you give it and this giant hundreds of gigabytes pile of vectors and data that it has collapsed",
+      "duration": 6000,
+      "offset": "389520"
+    },
+    {
+      "text": "into this model that it can use to generate the next token as predictably and reliably as possible. I think it's",
+      "duration": 5920,
+      "offset": "395520"
+    },
+    {
+      "text": "really cool that open weight has gone as far as it has. And I think it's really convenient that openweight models can",
+      "duration": 6000,
+      "offset": "401440"
+    },
+    {
+      "text": "use the same licenses that open source code can. I already see people disagreeing in chat. I don't care. The",
+      "duration": 6160,
+      "offset": "407440"
+    },
+    {
+      "text": "weights are not the binary. The weights are a thing that can be reused and",
+      "duration": 5920,
+      "offset": "413600"
+    },
+    {
+      "text": "modified in very useful ways. The nature of how baked these things are. Like",
+      "duration": 5519,
+      "offset": "419520"
+    },
+    {
+      "text": "compiling code costs pennies and can be done on most computers. Turning data",
+      "duration": 5521,
+      "offset": "425039"
+    },
+    {
+      "text": "into weights isn't even a deterministic process. And I know there's a lot of debates around this. I know there's a",
+      "duration": 6320,
+      "offset": "430560"
+    },
+    {
+      "text": "lot of things that like Richard Stallman's going to disagree with me here on. I don't really care. This all",
+      "duration": 6560,
+      "offset": "436880"
+    },
+    {
+      "text": "comes down to whether you put this here or here. And I'm not one to [ __ ] when",
+      "duration": 5199,
+      "offset": "443440"
+    },
+    {
+      "text": "we get something as cool as openweight models. There's only one lab I know of that actually puts out the data and it's",
+      "duration": 7041,
+      "offset": "448639"
+    },
+    {
+      "text": "Allen Allen Institute. They were funded by Paul Allen from Microsoft as an attempt to do truly open AI research in",
+      "duration": 7280,
+      "offset": "455680"
+    },
+    {
+      "text": "the US. And their models aren't just open weight models. Their models also have the data exposed too. So you could",
+      "duration": 6799,
+      "offset": "462960"
+    },
+    {
+      "text": "hypothetically retrain the model on the data yourself. None of it's deterministic enough that you'll get the exact same weights. But yeah, it's",
+      "duration": 8801,
+      "offset": "469759"
+    },
+    {
+      "text": "exists. If you're wondering where this falls in the charts, right next to llama, not great. So, it's",
+      "duration": 7600,
+      "offset": "478560"
+    },
+    {
+      "text": "cool that we do have a fully open lab that is sharing the data and everything that is based in the US, but they're not",
+      "duration": 6719,
+      "offset": "486160"
+    },
+    {
+      "text": "really competitive. Just wanted to call that one out quick. The harsh reality is if we use the strict open- source",
+      "duration": 6641,
+      "offset": "492879"
+    },
+    {
+      "text": "definition that currently exists for code, there will never be a model that meets the definition of open source. And",
+      "duration": 6720,
+      "offset": "499520"
+    },
+    {
+      "text": "I agree, there probably won't be. And we shouldn't use the term open- source to describe models. Open weight is still a",
+      "duration": 5919,
+      "offset": "506240"
+    },
+    {
+      "text": "very cool and useful thing. So with an open weight model, the value you get out of it is I can take those weights and",
+      "duration": 6641,
+      "offset": "512159"
+    },
+    {
+      "text": "run them on my own hardware or look at different providers that are hosting them as well. If we go to something like",
+      "duration": 6000,
+      "offset": "518800"
+    },
+    {
+      "text": "open router and take a look at a Gemini model like Gemini 3 Pro preview, you can",
+      "duration": 5760,
+      "offset": "524800"
+    },
+    {
+      "text": "use it in two places, Google Vertex and Google AI Studio because the weights for this model have never left Google's",
+      "duration": 6240,
+      "offset": "530560"
+    },
+    {
+      "text": "campus. The weights that you use to run these models and generate these results are exclusively provided through",
+      "duration": 5920,
+      "offset": "536800"
+    },
+    {
+      "text": "Google's own infrastructure because they want to sell you the API, not the model. And since Google has their own",
+      "duration": 5600,
+      "offset": "542720"
+    },
+    {
+      "text": "infrastructure, they don't let other companies have access to this except for Apple privately potentially with a",
+      "duration": 5199,
+      "offset": "548320"
+    },
+    {
+      "text": "really really big pay deal of like a billion plus dollars to get the weights privately that they can use for some",
+      "duration": 5521,
+      "offset": "553519"
+    },
+    {
+      "text": "Siri stuff. If you look at something like OpenAI's GPT 5.1, your options are",
+      "duration": 6000,
+      "offset": "559040"
+    },
+    {
+      "text": "OpenAI. Some of these models are also available on Azure too, but that's it due to the OpenAI Microsoft partnership.",
+      "duration": 5840,
+      "offset": "565040"
+    },
+    {
+      "text": "Let's compare that to Deep Seek 3.2 EXP. We got Deep Infra, Novita, Shoots,",
+      "duration": 6240,
+      "offset": "570880"
+    },
+    {
+      "text": "Silicon Flow, and Atlas Cloud. Let's look at Kimmy K2. Kimmy K2, Shoots,",
+      "duration": 6080,
+      "offset": "577120"
+    },
+    {
+      "text": "Silicon Flow, Novita, Deep Infra, Parasel, Bite Plus, plus seven more. Moonshot. These are people who actually",
+      "duration": 5759,
+      "offset": "583200"
+    },
+    {
+      "text": "made the model. They are the eighth option in this list. Fireworks, Atlas cloud, base 10 together, Grock, and",
+      "duration": 6320,
+      "offset": "588959"
+    },
+    {
+      "text": "Turbo from Moonshot.AI. Also notice the Turbo option for Moonshot, which costs",
+      "duration": 5281,
+      "offset": "595279"
+    },
+    {
+      "text": "$8 per million out, is less than half the speed of Gro's solution here, and 8x",
+      "duration": 5839,
+      "offset": "600560"
+    },
+    {
+      "text": "the latency, too. Kind of nuts. The open weight models allow for various providers to offer them, which allows",
+      "duration": 7041,
+      "offset": "606399"
+    },
+    {
+      "text": "for a different level of competition across infrastructure solutions. That is really, really cool. But it does also",
+      "duration": 6320,
+      "offset": "613440"
+    },
+    {
+      "text": "mean that the official infrastructure in this case for Moonshot isn't really a great option. Moonshot charges 60 cents",
+      "duration": 7120,
+      "offset": "619760"
+    },
+    {
+      "text": "per mill in and 250 per mill out for under 20 tokens per second. Grock",
+      "duration": 5040,
+      "offset": "626880"
+    },
+    {
+      "text": "charges a dollar per mill in and $3 per mill out. So slightly more for 356",
+      "duration": 5599,
+      "offset": "631920"
+    },
+    {
+      "text": "tokens per second. That is more than a 10x increase in throughput for a very minor bump in cost. This is the",
+      "duration": 7361,
+      "offset": "637519"
+    },
+    {
+      "text": "difference. When you have this type of competition, the value prop of your own infrastructure goes down, which makes it",
+      "duration": 6320,
+      "offset": "644880"
+    },
+    {
+      "text": "a lot harder for a company like Moonshot to make money on the Kimmy models, even though they are fourth on the artificial",
+      "duration": 7680,
+      "offset": "651200"
+    },
+    {
+      "text": "intelligence chart. Google is a trillion dollar company. Enthropic is a multi-billion dollar company,",
+      "duration": 6000,
+      "offset": "658880"
+    },
+    {
+      "text": "potentially worth trillions someday. OpenAI is already worth half a trillion dollars. Kimmy K2 Thinking by Moonshot",
+      "duration": 6880,
+      "offset": "664880"
+    },
+    {
+      "text": "is a small company in China that isn't making real revenue yet. Do you know what's really funny though? Do you know",
+      "duration": 5360,
+      "offset": "671760"
+    },
+    {
+      "text": "which of these four companies has been the kindest to work with for me as a creator? Moonshot. They've been trying",
+      "duration": 6800,
+      "offset": "677120"
+    },
+    {
+      "text": "really hard for me to give them a mailing address so they can ship me a care package. They've been awesome to work with. They always hit me up early.",
+      "duration": 6000,
+      "offset": "683920"
+    },
+    {
+      "text": "They offer me free inference for any tests I want to do. They constantly send me useful resources about the things I'm",
+      "duration": 5760,
+      "offset": "689920"
+    },
+    {
+      "text": "talking about. Moonshot's been a genuinely awesome company to work with and they even shout out their competitors when they have big launches.",
+      "duration": 6320,
+      "offset": "695680"
+    },
+    {
+      "text": "Like when Zai had a big release, they immediately went and supported them. They're a very good faith player,",
+      "duration": 5920,
+      "offset": "702000"
+    },
+    {
+      "text": "weirdly. So, Deepseek is very similar in this regard. Not in the com sense. Like, I've never heard from anybody at",
+      "duration": 5760,
+      "offset": "707920"
+    },
+    {
+      "text": "Deepseek. By the way, Deep Seek guys, if you want to hit me up, I'd love to chat. Very, very big fan of what you did. I would never have built T3 chat if it",
+      "duration": 6080,
+      "offset": "713680"
+    },
+    {
+      "text": "wasn't for Deep Seek V3 at the end of last year. I'm so impressed with the work that DeepSeek has been doing for a while now and their research is",
+      "duration": 6480,
+      "offset": "719760"
+    },
+    {
+      "text": "incredible. They put out 12 papers last year that were so far ahead of where everyone else was. And the discoveries",
+      "duration": 6240,
+      "offset": "726240"
+    },
+    {
+      "text": "that made FP8 training much more reliable resulted in every lab fundamentally changing how they did",
+      "duration": 6560,
+      "offset": "732480"
+    },
+    {
+      "text": "training. You could argue that a large portion of the speed that AIF accelerated this year came from the",
+      "duration": 5760,
+      "offset": "739040"
+    },
+    {
+      "text": "research DeepS put out for free last year. And yes, I have also talked to the ZI guys. They've been great. They've",
+      "duration": 5039,
+      "offset": "744800"
+    },
+    {
+      "text": "been really, really awesome. It's crazy how good at comms the Chinese labs have been with me at the very least. Openai",
+      "duration": 5921,
+      "offset": "749839"
+    },
+    {
+      "text": "has been really good. Google's up and down. Enthropic is interesting. But my",
+      "duration": 6800,
+      "offset": "755760"
+    },
+    {
+      "text": "experience with the Chinese labs has been really good as a journalist, so to speak, covering these things publicly.",
+      "duration": 6560,
+      "offset": "762560"
+    },
+    {
+      "text": "But none of that answers the question, why do open weight? Why are these companies releasing these models in a",
+      "duration": 6240,
+      "offset": "769120"
+    },
+    {
+      "text": "way that they make no money off them? Like the real winner whenever DeepSeek drops isn't DeepSeek. It's companies",
+      "duration": 5919,
+      "offset": "775360"
+    },
+    {
+      "text": "like Grock and Together and all these like cloud info providers that will host them for us. We currently don't have",
+      "duration": 6721,
+      "offset": "781279"
+    },
+    {
+      "text": "Deepseek version 3.2 like the final official version on T3 chat yet because none of the providers are doing it well",
+      "duration": 6800,
+      "offset": "788000"
+    },
+    {
+      "text": "enough just yet. I would even argue being open weight makes things much harder for the labs even outside of the",
+      "duration": 5920,
+      "offset": "794800"
+    },
+    {
+      "text": "costs since Kimmy K2 is available for anyone to host themselves. different",
+      "duration": 5919,
+      "offset": "800720"
+    },
+    {
+      "text": "hosts aren't necessarily hosting it properly in the quality of certain behaviors like tool calls might go down",
+      "duration": 6081,
+      "offset": "806639"
+    },
+    {
+      "text": "meaningfully depending on which host you're using. Kimmy actually went as far as creating the vendor verifier where they rank all of the companies hosting",
+      "duration": 7200,
+      "offset": "812720"
+    },
+    {
+      "text": "their models based on how reliably they do tool calling. These are all of the",
+      "duration": 5200,
+      "offset": "819920"
+    },
+    {
+      "text": "companies that they say are hitting over 73%. And if we scroll down, you'll see others",
+      "duration": 7120,
+      "offset": "825120"
+    },
+    {
+      "text": "not performing quite as well. It's cool that they're doing better now because previously the gap was a lot bigger. But",
+      "duration": 5680,
+      "offset": "832240"
+    },
+    {
+      "text": "by creating this bench and making this data public, they incentivize the hosts to fix their [ __ ] and also gave them the",
+      "duration": 6479,
+      "offset": "837920"
+    },
+    {
+      "text": "tool called eval python file that they can run against their own infra and find the bugs and fix them. Doing this type",
+      "duration": 5841,
+      "offset": "844399"
+    },
+    {
+      "text": "of thing is really really annoying but they are doing it because otherwise the reputation of these models will be hurt",
+      "duration": 6640,
+      "offset": "850240"
+    },
+    {
+      "text": "as a result of other labs and other hosts not hosting these things properly.",
+      "duration": 5440,
+      "offset": "856880"
+    },
+    {
+      "text": "It's a small thing, but I also love they're using UV. Like, these guys get what US developers are expecting. So,",
+      "duration": 6480,
+      "offset": "862320"
+    },
+    {
+      "text": "it's clear that doing open weight is harder. It makes it so you make way less money. Why the hell are they doing it?",
+      "duration": 6399,
+      "offset": "868800"
+    },
+    {
+      "text": "To be frank, nobody would trust them otherwise. If you're using a Chinese model and it's",
+      "duration": 7200,
+      "offset": "875199"
+    },
+    {
+      "text": "being hosted in China, all the data in and out is now at a real risk, like a",
+      "duration": 6081,
+      "offset": "882399"
+    },
+    {
+      "text": "very legitimate risk. A lot of these companies have Chinese government hands in them. There is no security team in",
+      "duration": 6560,
+      "offset": "888480"
+    },
+    {
+      "text": "the US that would approve of you using a Chinese model from Chinese infrastructure. And open weights allow",
+      "duration": 5520,
+      "offset": "895040"
+    },
+    {
+      "text": "them to be relevant in the space right now. The fact that I'm legitimately considering doing more work with Chinese",
+      "duration": 6000,
+      "offset": "900560"
+    },
+    {
+      "text": "models as an American shows that the openweight strategy is working for them because it's the only way they can hold",
+      "duration": 6800,
+      "offset": "906560"
+    },
+    {
+      "text": "any mind share in the US. There's even been attempts to ban the use of Chinese models in the US. When Deep Seek R1",
+      "duration": 7360,
+      "offset": "913360"
+    },
+    {
+      "text": "first dropped, there was a huge freak out about that. And the government here was actually considering passing",
+      "duration": 6559,
+      "offset": "920720"
+    },
+    {
+      "text": "legislation that would make it illegal to download the weights. Wild. Insane. I have files on my computers that would",
+      "duration": 6481,
+      "offset": "927279"
+    },
+    {
+      "text": "suddenly become illegal if that crazy proposal was to actually go through. Absurd. So, this is like seriously the",
+      "duration": 6160,
+      "offset": "933760"
+    },
+    {
+      "text": "only way these Chinese labs will be taken seriously. And this goes a lot further than language models, too. It's",
+      "duration": 5200,
+      "offset": "939920"
+    },
+    {
+      "text": "the same deal with a lot of their image and video generation models as well. These models are not something that",
+      "duration": 6240,
+      "offset": "945120"
+    },
+    {
+      "text": "you'd want to run out of China, especially because they have restrictions on what GPUs they're even",
+      "duration": 5599,
+      "offset": "951360"
+    },
+    {
+      "text": "allowed to have access to. So, you might not be able to run some of these models they're making on infra and the infra",
+      "duration": 6401,
+      "offset": "956959"
+    },
+    {
+      "text": "they have is limited to the use cases that they are using for which is mostly training. There's a whole culture around",
+      "duration": 6080,
+      "offset": "963360"
+    },
+    {
+      "text": "getting cheaper GPUs and adding more VRAM to them in China in order to get",
+      "duration": 5839,
+      "offset": "969440"
+    },
+    {
+      "text": "around these import restrictions, which is kind of crazy. All of this results in these models only being viable if they",
+      "duration": 7441,
+      "offset": "975279"
+    },
+    {
+      "text": "are released in a way that we can host them ourselves and use them ourselves. There is no reason to make a great model",
+      "duration": 6239,
+      "offset": "982720"
+    },
+    {
+      "text": "in China and not release the weights because you won't be able to make money off it anyways right now. And this makes",
+      "duration": 6721,
+      "offset": "988959"
+    },
+    {
+      "text": "these companies go from entirely ignored here to genuinely very relevant to the",
+      "duration": 6240,
+      "offset": "995680"
+    },
+    {
+      "text": "conversations we're having. The research that kicked off a ton of this AI boom is the attention is all you need paper from",
+      "duration": 6640,
+      "offset": "1001920"
+    },
+    {
+      "text": "the Google research Google brain deep mind team over at Google that was all about the transformer model that allowed",
+      "duration": 7600,
+      "offset": "1008560"
+    },
+    {
+      "text": "for us to create language models as we now know them. This then went further with OpenAI's follow-up research,",
+      "duration": 6720,
+      "offset": "1016160"
+    },
+    {
+      "text": "improving language understanding by generative pre-training. These two papers kind of kickstarted what we now",
+      "duration": 6959,
+      "offset": "1022880"
+    },
+    {
+      "text": "know as AI. And these are open papers where they published what they did, how",
+      "duration": 5360,
+      "offset": "1029839"
+    },
+    {
+      "text": "they did it, how they got there, and what it could do. Hypothetically speaking, any one of these labs could have sat on this information, not",
+      "duration": 6961,
+      "offset": "1035199"
+    },
+    {
+      "text": "published it, and went and made crazy things with it. But then other companies wouldn't be able to innovate further.",
+      "duration": 5758,
+      "offset": "1042160"
+    },
+    {
+      "text": "Like if Google didn't release this paper, OpenAI wouldn't have had the kickstart that they needed. And if OpenAI didn't follow up with this paper,",
+      "duration": 7041,
+      "offset": "1047919"
+    },
+    {
+      "text": "we wouldn't have GPT as a concept. Or maybe somebody else would have come up with it eventually. But if these were",
+      "duration": 6320,
+      "offset": "1054960"
+    },
+    {
+      "text": "all private innovations that each lab was hopefully coming up with itself, the likelihood that any of them progressed",
+      "duration": 5840,
+      "offset": "1061280"
+    },
+    {
+      "text": "meaningfully is way lower. The culture around sharing our learnings and understanding is rooted deeply in",
+      "duration": 6000,
+      "offset": "1067120"
+    },
+    {
+      "text": "science and research. This is just how advancements happen in technology. On",
+      "duration": 5760,
+      "offset": "1073120"
+    },
+    {
+      "text": "one hand, this does remind me of the open source world, the way that we're all building on top of each other. But",
+      "duration": 5120,
+      "offset": "1078880"
+    },
+    {
+      "text": "on the other hand, it's not truly traditionally open because we're spending tons of money doing this",
+      "duration": 6559,
+      "offset": "1084000"
+    },
+    {
+      "text": "research and work and only publishing the things that we think are worth publishing and sharing and don't screw",
+      "duration": 5041,
+      "offset": "1090559"
+    },
+    {
+      "text": "our competitive advantages. Back when nobody had working AI, sharing all of",
+      "duration": 5360,
+      "offset": "1095600"
+    },
+    {
+      "text": "this made a lot of sense. Now that the American labs are in a cutthroat race competing with each other, their",
+      "duration": 6719,
+      "offset": "1100960"
+    },
+    {
+      "text": "willingness to share has gone down a ton. It's silly, but the first like cool",
+      "duration": 5120,
+      "offset": "1107679"
+    },
+    {
+      "text": "thing I've seen for different labs supporting each other in America in 2025 was when Sam Alman tweeted that Gemini 3",
+      "duration": 7521,
+      "offset": "1112799"
+    },
+    {
+      "text": "seems like a good model. Other than that, I have not seen much in terms of good faith operations between executives",
+      "duration": 6640,
+      "offset": "1120320"
+    },
+    {
+      "text": "at Anthropic, Google, and OpenAI. There's just very little collaboration happening at this point because they're",
+      "duration": 6880,
+      "offset": "1126960"
+    },
+    {
+      "text": "too busy trying to fight each other. Meanwhile, Deepseek breaks everything again with V3.2 getting crazy scores,",
+      "duration": 8000,
+      "offset": "1133840"
+    },
+    {
+      "text": "especially on tool calling stuff. And ZI is right here in the replies legend",
+      "duration": 5199,
+      "offset": "1141840"
+    },
+    {
+      "text": "heart. Like this is a whole different world. This is what the research was like here before the competition",
+      "duration": 6000,
+      "offset": "1147039"
+    },
+    {
+      "text": "started. We operated like this in the US before where these companies were supportive of each other. Now that",
+      "duration": 5601,
+      "offset": "1153039"
+    },
+    {
+      "text": "they're all cutthroat trying to win this economic race, they're not as willing to collaborate and they're much more",
+      "duration": 5919,
+      "offset": "1158640"
+    },
+    {
+      "text": "skeptical of things like distillation, people using their models to generate a bunch of synthetic data to then retrain",
+      "duration": 6641,
+      "offset": "1164559"
+    },
+    {
+      "text": "their own models with. In fact, a lot of them are accusing companies like DeepSeek of doing this with their data.",
+      "duration": 6479,
+      "offset": "1171200"
+    },
+    {
+      "text": "There was a point where certain Deepseek models, if you ask them what model are you, they would say chat GPT because they had data in their training corpus",
+      "duration": 7441,
+      "offset": "1177679"
+    },
+    {
+      "text": "that came from those American models. If Chinese models want to win, they have to be open because otherwise we won't use",
+      "duration": 6000,
+      "offset": "1185120"
+    },
+    {
+      "text": "them. If Chinese labs want to be competitive, they have to collaborate because we still have a lead there. And",
+      "duration": 6160,
+      "offset": "1191120"
+    },
+    {
+      "text": "there's one last piece that I haven't dove into much yet. I think this will make it into the video depending on how",
+      "duration": 5680,
+      "offset": "1197280"
+    },
+    {
+      "text": "angry chat is. This is going to be fun. Don't get too mad, boys. China sucks at writing software.",
+      "duration": 6719,
+      "offset": "1202960"
+    },
+    {
+      "text": "They're not quite as bad as Japan, but they're up there. China's incredible",
+      "duration": 5281,
+      "offset": "1209679"
+    },
+    {
+      "text": "manufacturing. They are surprisingly competent at research. Chinese software, from my experience,",
+      "duration": 7520,
+      "offset": "1214960"
+    },
+    {
+      "text": "is so atrocious that they end up spinning satellite",
+      "duration": 5280,
+      "offset": "1222480"
+    },
+    {
+      "text": "companies up in the US so they can hire United States-based software developers to make software that works. A",
+      "duration": 7520,
+      "offset": "1227760"
+    },
+    {
+      "text": "significant portion of Tik Tok's development happens here now because we have better engineers in the US. The",
+      "duration": 5600,
+      "offset": "1235280"
+    },
+    {
+      "text": "same way that a significant portion of manufacturing happens in China because they're better at it. Software",
+      "duration": 5200,
+      "offset": "1240880"
+    },
+    {
+      "text": "development happens in America because we're better at it. People are mad about the Japanese one. I don't care. Sony's even accepted that the PlayStation",
+      "duration": 6320,
+      "offset": "1246080"
+    },
+    {
+      "text": "software is an untenable mess and has fully outsourced it to the United",
+      "duration": 5200,
+      "offset": "1252400"
+    },
+    {
+      "text": "States. They are hiring consultancies in the US to save the operating system for PlayStation because they are so bad at",
+      "duration": 6640,
+      "offset": "1257600"
+    },
+    {
+      "text": "software. great at research, great at manufacturing, pretty good at logistics,",
+      "duration": 5120,
+      "offset": "1264240"
+    },
+    {
+      "text": "not capable of writing software. A significant portion of why I made T3 Chat is that as much as I hated the",
+      "duration": 6000,
+      "offset": "1269360"
+    },
+    {
+      "text": "Claude interface and the chat GBT interface, the Deep Seek 1 was actually unusable, entirely unusable, miserable",
+      "duration": 7920,
+      "offset": "1275360"
+    },
+    {
+      "text": "to touch. And I wanted to use the model somewhere better. And I made T3 Chat kind of as a pun on V3 Chat because I",
+      "duration": 6480,
+      "offset": "1283280"
+    },
+    {
+      "text": "like Deepseek V3 so much and I wanted to have a better interface for it. The Chinese labs cannot compete on the",
+      "duration": 5440,
+      "offset": "1289760"
+    },
+    {
+      "text": "software side. And this is where most people come in. Most users don't see",
+      "duration": 5200,
+      "offset": "1295200"
+    },
+    {
+      "text": "this new model came out and then go download the weights and try running it on their local GPU. Most of these",
+      "duration": 5519,
+      "offset": "1300400"
+    },
+    {
+      "text": "weights cannot be run that way because most of them are too massive to run even on like a high-end local GPU. You're not",
+      "duration": 7441,
+      "offset": "1305919"
+    },
+    {
+      "text": "going to run Mini Max or Kimmy K2 thinking on your RTX 5080 anytime soon.",
+      "duration": 5600,
+      "offset": "1313360"
+    },
+    {
+      "text": "So the average consumer wouldn't have done that anyways even if they could. They're going to go to the app store and",
+      "duration": 5280,
+      "offset": "1318960"
+    },
+    {
+      "text": "look up the app and the Deepseek app will never even come close to the apps by the American labs or even by a third",
+      "duration": 6400,
+      "offset": "1324240"
+    },
+    {
+      "text": "party like Perplexity or like us with T3 chat. So they cannot win on the top level where people are adopting the",
+      "duration": 6320,
+      "offset": "1330640"
+    },
+    {
+      "text": "thing. They cannot win on the API level because no American companies are going to use their APIs. So they have to go",
+      "duration": 5360,
+      "offset": "1336960"
+    },
+    {
+      "text": "even deeper. They have to provide the models so they can win at that level some amount and we can build everything",
+      "duration": 5120,
+      "offset": "1342320"
+    },
+    {
+      "text": "else the way we want to on top. So what about America? Can the US make a",
+      "duration": 5040,
+      "offset": "1347440"
+    },
+    {
+      "text": "comeback here? Can we somehow get back in the actual ring with openweight",
+      "duration": 5760,
+      "offset": "1352480"
+    },
+    {
+      "text": "models? The only major US-based openweight model to come out this year has been the new models from OpenAI. GBT",
+      "duration": 7600,
+      "offset": "1358240"
+    },
+    {
+      "text": "OSS120 is the fourth best performing openweight model according to artificial",
+      "duration": 5360,
+      "offset": "1365840"
+    },
+    {
+      "text": "analysis. That doesn't sound great. Like it's open AI. They're a half trillion dollar company. How are they not",
+      "duration": 5440,
+      "offset": "1371200"
+    },
+    {
+      "text": "competing with these small Chinese labs? It's not because they don't have the resources to do it. It's because of this. The 12B Mini Maxm 2 is 230 billion",
+      "duration": 10159,
+      "offset": "1376640"
+    },
+    {
+      "text": "params, almost double. And according to artificial analysis, it gets the same score. Deepseek 3.2 is 685 billion",
+      "duration": 8081,
+      "offset": "1386799"
+    },
+    {
+      "text": "params, 5x the amount on the OpenAI open weight model. Kimmy K2 thinking is a 1",
+      "duration": 6080,
+      "offset": "1394880"
+    },
+    {
+      "text": "trillion parameter model. Almost 10x the OpenAI model. None of these can be run",
+      "duration": 6959,
+      "offset": "1400960"
+    },
+    {
+      "text": "on machines that you have in your house. That is way too much memory to run any",
+      "duration": 5441,
+      "offset": "1407919"
+    },
+    {
+      "text": "of these things. The 120B model can max out my RTX 5090. None of these other",
+      "duration": 5199,
+      "offset": "1413360"
+    },
+    {
+      "text": "ones are going to fit on your GPUs. We're talking 500 gigs of VRAM to run K2 thinking. The strategy that OpenAI took",
+      "duration": 7360,
+      "offset": "1418559"
+    },
+    {
+      "text": "here is one that I actually commend. I was at one of the original listen group",
+      "duration": 5281,
+      "offset": "1425919"
+    },
+    {
+      "text": "session things they did with developers who wanted the open weight models and they actually like had Sam Alman come in and talk to us a whole bunch. It was",
+      "duration": 5599,
+      "offset": "1431200"
+    },
+    {
+      "text": "genuinely really cool and we got to ask a ton of questions. In Sam's opinion, the only reason you would want an open",
+      "duration": 5760,
+      "offset": "1436799"
+    },
+    {
+      "text": "weight model when there are good APIs with closed weight models is because you want to run it on hardware you own. I",
+      "duration": 6000,
+      "offset": "1442559"
+    },
+    {
+      "text": "think there's a real value in the competition of different providers hosting models that makes something like",
+      "duration": 6161,
+      "offset": "1448559"
+    },
+    {
+      "text": "certain Kimmy models or DeepSec models really fast on certain providers. But for the most part, he is right. If",
+      "duration": 7199,
+      "offset": "1454720"
+    },
+    {
+      "text": "there's a model from a lab you trust that's hosted in places you trust, the only reason you would want it to be open",
+      "duration": 6000,
+      "offset": "1461919"
+    },
+    {
+      "text": "weight is so you can run it yourself. It's not going to be cheaper to spin up a bunch of servers that you need to",
+      "duration": 5681,
+      "offset": "1467919"
+    },
+    {
+      "text": "spend hundreds of thousands of dollars in GPUs on than it is to just hit an API from somebody who's already doing it. It",
+      "duration": 5439,
+      "offset": "1473600"
+    },
+    {
+      "text": "would be way cheaper to run it on your GPU in your house, though. It'd be even cheaper to run on your laptop with a",
+      "duration": 5041,
+      "offset": "1479039"
+    },
+    {
+      "text": "much smaller model. So, they were trying to figure out what sizes to target based",
+      "duration": 5120,
+      "offset": "1484080"
+    },
+    {
+      "text": "on what we wanted to run them on. Every other lab seems focused on how much money do they have and how smart a model",
+      "duration": 6880,
+      "offset": "1489200"
+    },
+    {
+      "text": "can they generate, not thinking about how big or small is the model going to be. They're much more so thinking about",
+      "duration": 6079,
+      "offset": "1496080"
+    },
+    {
+      "text": "how they can win and have the best scores possible. Open AAI already knows they have the best scores possible. They",
+      "duration": 7120,
+      "offset": "1502159"
+    },
+    {
+      "text": "don't want to make the openweight models do that because then they're just giving a free win to all their competition, but",
+      "duration": 5280,
+      "offset": "1509279"
+    },
+    {
+      "text": "they do want to play in the open model space. They do want to give models to people who want to run them on their own hardware. And that's why they put out",
+      "duration": 6641,
+      "offset": "1514559"
+    },
+    {
+      "text": "two models, the 120B and the 20B. The 120 bill you can run on a single beefy",
+      "duration": 5440,
+      "offset": "1521200"
+    },
+    {
+      "text": "enough GPU. And the 20 bill you can run on a modern enough laptop with a real GPU in it. That was a very specific",
+      "duration": 7360,
+      "offset": "1526640"
+    },
+    {
+      "text": "decision they made rather than how good of a model can we make possibly. They thought about this as given these two",
+      "duration": 6880,
+      "offset": "1534000"
+    },
+    {
+      "text": "performance targets, how smart can we make something that fits within that box? And they have crushed that box.",
+      "duration": 7520,
+      "offset": "1540880"
+    },
+    {
+      "text": "There is nothing that comes close to GBT OSS120B within those performance constraints.",
+      "duration": 7200,
+      "offset": "1548400"
+    },
+    {
+      "text": "This is a really good angle for American companies to compete in the openw weight space and I am thankful somebody",
+      "duration": 6720,
+      "offset": "1555600"
+    },
+    {
+      "text": "actually took the time to do it this way. I can use these models for real things. And since these models are",
+      "duration": 5920,
+      "offset": "1562320"
+    },
+    {
+      "text": "lighter and easier to run, some of the speeds these companies are getting out of them are nuts. GBT OSS120B",
+      "duration": 7120,
+      "offset": "1568240"
+    },
+    {
+      "text": "is pulling on Parasale 300 TPS",
+      "duration": 5480,
+      "offset": "1575360"
+    },
+    {
+      "text": "on Somanova. It's pulling 650 on Grock. It's 550. That's crazy.",
+      "duration": 8481,
+      "offset": "1585279"
+    },
+    {
+      "text": "There are models that are pulling 10 tokens per second. This is 55 times faster than some of those models. And",
+      "duration": 5440,
+      "offset": "1593760"
+    },
+    {
+      "text": "many of them are dumber, too. The fact that these models are usable on consumer hardware and can perform that fast in",
+      "duration": 7040,
+      "offset": "1599200"
+    },
+    {
+      "text": "certain cases and are actually useful for things is incredible. And I see why this is the angle OpenAI took. OpenAI",
+      "duration": 7439,
+      "offset": "1606240"
+    },
+    {
+      "text": "was not interested in making a model that competed with GPT5 or 5.1. They were interested in making the best",
+      "duration": 5761,
+      "offset": "1613679"
+    },
+    {
+      "text": "possible thing you could run yourself. These Chinese labs aren't interested in making things you can run yourself. If",
+      "duration": 5599,
+      "offset": "1619440"
+    },
+    {
+      "text": "it so happens that you can, that's a cool side effect. There are two customers of open weight",
+      "duration": 8840,
+      "offset": "1625039"
+    },
+    {
+      "text": "consumers and enthusiasts and info providers.",
+      "duration": 6439,
+      "offset": "1635600"
+    },
+    {
+      "text": "OpenAI is an info provider. That's how they make a meaningful amount of their money about 20 to 30% depending on the",
+      "duration": 5920,
+      "offset": "1644080"
+    },
+    {
+      "text": "month. They don't want to or they don't want more info providers. Enthropic you",
+      "duration": 5760,
+      "offset": "1650000"
+    },
+    {
+      "text": "can use their mo with enthropic you can use their models on Google and AWS and now also on Azure. OpenAI was only",
+      "duration": 6480,
+      "offset": "1655760"
+    },
+    {
+      "text": "usable on OpenAI's infra until somewhat recently where they partnered with Azure and Microsoft during one of their crazy",
+      "duration": 5840,
+      "offset": "1662240"
+    },
+    {
+      "text": "finance rounds. So Azure can now host some OpenAI models. Meanwhile, all of the Chinese labs are hostable on almost",
+      "duration": 6880,
+      "offset": "1668080"
+    },
+    {
+      "text": "all of those providers and a bunch of other places too. Most of the Chinese models we're talking about cannot reasonably be hosted by a consumer or an",
+      "duration": 6719,
+      "offset": "1674960"
+    },
+    {
+      "text": "enthusiast. And people are wondering about how much RAM does 120 bill per RAM mean. It doesn't mean 120 gigs. In this",
+      "duration": 6000,
+      "offset": "1681679"
+    },
+    {
+      "text": "case, it means 80 gigs of VRAM. Supposedly, you can get away with 60 fine. And honestly, you can get away",
+      "duration": 6801,
+      "offset": "1687679"
+    },
+    {
+      "text": "with a little less in certain cases, but you can run the 120 bill model on a computer with enough VRAM. Yeah. So,",
+      "duration": 6480,
+      "offset": "1694480"
+    },
+    {
+      "text": "this laptop's 128 gig. Let's set up LM Studio and try it quick. One of the cool things about Apple Silicon is that the",
+      "duration": 7360,
+      "offset": "1700960"
+    },
+    {
+      "text": "GPUs and the CPUs are sharing memory. You don't have separate VRAM from regular RAM, which means I have 128 gigs",
+      "duration": 7839,
+      "offset": "1708320"
+    },
+    {
+      "text": "of VRAM on this machine. Look, when you set up LM Studio, it tells you to use GBT OSS 20 because it's one of the best",
+      "duration": 7520,
+      "offset": "1716159"
+    },
+    {
+      "text": "small models. So, the 20 bill model is 12 gigs and the 120 bill model is 60",
+      "duration": 7360,
+      "offset": "1723679"
+    },
+    {
+      "text": "plus. So, I just got the GBT OSS 20 bill running on my laptop here. It's a maxed",
+      "duration": 6801,
+      "offset": "1731039"
+    },
+    {
+      "text": "out M4 Pro from Apple. M4 Max. Didn't have the patience to wait for the M5. I",
+      "duration": 5199,
+      "offset": "1737840"
+    },
+    {
+      "text": "got it very recently. We got 128 gigs of RAM and we're using 12 gigs right now from the GP OSS20 bill model. Can I tell",
+      "duration": 6481,
+      "offset": "1743039"
+    },
+    {
+      "text": "it to write me three poems about JavaScript?",
+      "duration": 5399,
+      "offset": "1749520"
+    },
+    {
+      "text": "And it is flying. That was 117 tokens per second on my laptop locally. Pretty",
+      "duration": 7120,
+      "offset": "1757120"
+    },
+    {
+      "text": "cool, right? Let's switch this over to OSS 120 bill. It's going to take a sec",
+      "duration": 6720,
+      "offset": "1764240"
+    },
+    {
+      "text": "to load because it has to load that all into memory. And you can see my memory consumption going up fast. We're now at",
+      "duration": 6560,
+      "offset": "1770960"
+    },
+    {
+      "text": "59 gigs of VRAM being used for this. It's total memory cuz Mac OS and Apple",
+      "duration": 5200,
+      "offset": "1777520"
+    },
+    {
+      "text": "silicon using the same memory for both. Send",
+      "duration": 5559,
+      "offset": "1782720"
+    },
+    {
+      "text": "slower, but that chugged. The fact that I can get almost 80 TPS on a model that smart on my own computer. Do you",
+      "duration": 7359,
+      "offset": "1794320"
+    },
+    {
+      "text": "understand how [ __ ] cool that is? This is what OpenAI's choice was. They wanted to make models that you can run",
+      "duration": 6480,
+      "offset": "1801679"
+    },
+    {
+      "text": "on real consumer hardware. And while there aren't many good GPUs that you can buy and plug into your desktop that can",
+      "duration": 5921,
+      "offset": "1808159"
+    },
+    {
+      "text": "do this because desktop GPUs have very limited VRAM, if you get a Mac Studio or a MacBook Pro with enough RAM, you can",
+      "duration": 7599,
+      "offset": "1814080"
+    },
+    {
+      "text": "actually do inference on it. That's the difference. It's so different that we just got a crazy comment from chat.",
+      "duration": 6401,
+      "offset": "1821679"
+    },
+    {
+      "text": "Apple's RAM prices seem reasonable now. They actually kind of are when you consider this and also the crazy squeeze",
+      "duration": 5199,
+      "offset": "1828080"
+    },
+    {
+      "text": "happening in memory. This is cool. This is really cool. The point of this distinction for me is very simple. Open",
+      "duration": 7280,
+      "offset": "1833279"
+    },
+    {
+      "text": "interested in helping the competition here because they are deep in that space and they see no issue with the current",
+      "duration": 5761,
+      "offset": "1840559"
+    },
+    {
+      "text": "state of in providers in the US. The Chinese labs can't provide their own infrastructure because nobody will use",
+      "duration": 5839,
+      "offset": "1846320"
+    },
+    {
+      "text": "it. So they need other input providers to host their stuff. By doing openweight models, they can convince those labs to",
+      "duration": 5921,
+      "offset": "1852159"
+    },
+    {
+      "text": "host their things. Consumers and enthusiasts can't use most of those models because they're way too big, but",
+      "duration": 5120,
+      "offset": "1858080"
+    },
+    {
+      "text": "they can use the two that OpenAI released. OpenAI is interested in this space because it's one of the few that",
+      "duration": 5359,
+      "offset": "1863200"
+    },
+    {
+      "text": "they weren't really competitive in and they wanted to to go back and win it and they did. The the goal of the GPOSS",
+      "duration": 6480,
+      "offset": "1868559"
+    },
+    {
+      "text": "models has been achieved. If you are running a model locally, there's a good chance you're using GPTOSS or you're",
+      "duration": 5281,
+      "offset": "1875039"
+    },
+    {
+      "text": "doing something less optimal than you otherwise could. But that's not winning open weights because that's not going to",
+      "duration": 6160,
+      "offset": "1880320"
+    },
+    {
+      "text": "get you high up on the chart here. And this is where my conclusion comes. I",
+      "duration": 5439,
+      "offset": "1886480"
+    },
+    {
+      "text": "don't think we're ever going to see an open weight model from the US win on",
+      "duration": 5521,
+      "offset": "1891919"
+    },
+    {
+      "text": "this chart ever again. There's just very little incentive for labs to do it. Meanwhile, the Chinese labs won't make",
+      "duration": 5920,
+      "offset": "1897440"
+    },
+    {
+      "text": "it to America and they won't even be on charts like this if they don't do open weight. Don't think of this as why",
+      "duration": 6159,
+      "offset": "1903360"
+    },
+    {
+      "text": "aren't American companies keeping up with these open weight models. Rather, think of this as why do the Chinese labs",
+      "duration": 5921,
+      "offset": "1909519"
+    },
+    {
+      "text": "have to do open weight even if nobody can use the things they're publishing other than like six companies. There are",
+      "duration": 5760,
+      "offset": "1915440"
+    },
+    {
+      "text": "very very few places in the world that can handle a one trillion parameter model. But they put it out anyways",
+      "duration": 6959,
+      "offset": "1921200"
+    },
+    {
+      "text": "because they need a way for American labs and American companies and infrastructure providers to use it.",
+      "duration": 5120,
+      "offset": "1928159"
+    },
+    {
+      "text": "There is some hope left, but it's dwindling fast because at the very end of this chart, we have Llama. Meta has",
+      "duration": 8561,
+      "offset": "1933279"
+    },
+    {
+      "text": "released all of their models as open weight. Historically, they were one of the first people doing good openweight",
+      "duration": 6000,
+      "offset": "1941840"
+    },
+    {
+      "text": "models. In fact, the way a lot of people were using Deepseek models originally wasn't through DeepSeek. It was by using",
+      "duration": 6800,
+      "offset": "1947840"
+    },
+    {
+      "text": "the Deepseek R1 model to do a finetune on Llama 3. And a lot of us were using",
+      "duration": 5360,
+      "offset": "1954640"
+    },
+    {
+      "text": "that Llama 3 fine-tune as Deepseek even though it was Llama bastardiz into acting like Deepseek.",
+      "duration": 7200,
+      "offset": "1960000"
+    },
+    {
+      "text": "There is some chance for Meta to catch up here, especially some of the hires they've made. But I just don't see it",
+      "duration": 5599,
+      "offset": "1967200"
+    },
+    {
+      "text": "happening. They are so so far behind at this point. There's also some effort to try and fund this type of research. like",
+      "duration": 7760,
+      "offset": "1972799"
+    },
+    {
+      "text": "the White House's attempts to fund open models and AI research in the US, providing everything from inference to",
+      "duration": 6561,
+      "offset": "1980559"
+    },
+    {
+      "text": "power and paying for research to happen here. This was published in July and I",
+      "duration": 6240,
+      "offset": "1987120"
+    },
+    {
+      "text": "have not heard anything about it since there's also the potential security risk. The problem with openweight models",
+      "duration": 7439,
+      "offset": "1993360"
+    },
+    {
+      "text": "in security is that you can't take it back once you put it out. If it turns out that you could use Deep Seek 3.2 to",
+      "duration": 7760,
+      "offset": "2000799"
+    },
+    {
+      "text": "to make a nuclear weapon. They can't take it away. That issue now exists",
+      "duration": 5921,
+      "offset": "2008559"
+    },
+    {
+      "text": "forever in the model in the weights. Once it is published, you can't unpublish it. Meanwhile, if some issue",
+      "duration": 6559,
+      "offset": "2014480"
+    },
+    {
+      "text": "was discovered with OpenAI's new model, you can add a layer in front to prevent it. If it turns out GPT5's weights are",
+      "duration": 6401,
+      "offset": "2021039"
+    },
+    {
+      "text": "capable of telling you how to make a nuclear weapon, you can put a safeguard in front when the API request comes in",
+      "duration": 5680,
+      "offset": "2027440"
+    },
+    {
+      "text": "and before the response goes out with those instructions, you can block it. you can prevent it. Security risks,",
+      "duration": 5840,
+      "offset": "2033120"
+    },
+    {
+      "text": "copyright risks, all of these types of things are a lot easier if you can block the request in or out before it gets to",
+      "duration": 6640,
+      "offset": "2038960"
+    },
+    {
+      "text": "the model. But once the model's out there, you've lost your ability to do this. So there's a huge risk and",
+      "duration": 5360,
+      "offset": "2045600"
+    },
+    {
+      "text": "liability from the labs that are publishing these openweight models. It's a lot more work to do it. It's a lot more work to do it right. But the",
+      "duration": 6240,
+      "offset": "2050960"
+    },
+    {
+      "text": "Chinese labs don't really care. Their willingness to put out things that are",
+      "duration": 5120,
+      "offset": "2057200"
+    },
+    {
+      "text": "potentially actual security risks is zero. They just don't give a [ __ ] They put it out when they can win benchmarks.",
+      "duration": 5519,
+      "offset": "2062320"
+    },
+    {
+      "text": "The American labs have liability to worry about. They have expectations to worry about. Investors, they don't want",
+      "duration": 5201,
+      "offset": "2067839"
+    },
+    {
+      "text": "to piss off. They have to go out of their way to make sure their models are safe and don't have potential copyright",
+      "duration": 5039,
+      "offset": "2073040"
+    },
+    {
+      "text": "issues. And even if we start funding the creation of these openweight models here, the expectations that would be set",
+      "duration": 7121,
+      "offset": "2078079"
+    },
+    {
+      "text": "on them from the government of them being safe, reliable, and hitting the expectations of the American government",
+      "duration": 5840,
+      "offset": "2085200"
+    },
+    {
+      "text": "is going to make it a lot harder to do, right? It's a lot easier to add these things in front of the model than in the",
+      "duration": 5440,
+      "offset": "2091040"
+    },
+    {
+      "text": "model itself. And when you are giving the model weights out, you're giving up your ability to control what goes in. So",
+      "duration": 7760,
+      "offset": "2096480"
+    },
+    {
+      "text": "my conclusion is pretty clear. I think I do not see America competing in the open",
+      "duration": 6960,
+      "offset": "2104240"
+    },
+    {
+      "text": "weight models that are only hostable via infra providers like these super giant models. I don't see us competing there.",
+      "duration": 6480,
+      "offset": "2111200"
+    },
+    {
+      "text": "But I think we have a unique potential to win here. As more people get stronger computers with better GPUs as more",
+      "duration": 7120,
+      "offset": "2117680"
+    },
+    {
+      "text": "consumers have more reasons to try out these models, as Apple starts shipping",
+      "duration": 5440,
+      "offset": "2124800"
+    },
+    {
+      "text": "models on our devices, as Chrome starts shipping models in Chrome itself, where there's more reason to run locally,",
+      "duration": 6000,
+      "offset": "2130240"
+    },
+    {
+      "text": "there's a very, very good chance that America can win with those. But we need",
+      "duration": 5280,
+      "offset": "2136240"
+    },
+    {
+      "text": "an incentive if we're going to give out the weights. And right now there is not much incentive for American labs to give",
+      "duration": 6400,
+      "offset": "2141520"
+    },
+    {
+      "text": "models out for free to their competition. There is potentially incentive to give us things that we can run on our own machines. So I don't see",
+      "duration": 6720,
+      "offset": "2147920"
+    },
+    {
+      "text": "us winning anytime soon, but I hope we can win here. Let me know what you guys think. Am I way overblowing this or is",
+      "duration": 6880,
+      "offset": "2154640"
+    },
+    {
+      "text": "China definitely going to be the winner of open weight? Curious how y'all feel and if you even care, let me know. And until next time, peace nerds.",
+      "duration": 8240,
+      "offset": "2161520"
+    }
+  ],
+  "transcriptText": "Remember that video I did about how I was blown away with Copilot all the way back in like 2023? It's been almost 2 years since that video was published, and the way I use AI to write code has changed more than I ever would have imagined. I'm still on Cursor, but the ways I use it have changed so fundamentally that I wanted to try and break down what my workflows look like when I code with AI. I have been building a lot more recently, especially these last few days. And I think I've really settled into a flow that I like enough to share with you guys. From how I use AI models for planning, execution, how I do reviews, how I use work trees, how I've kind of changed how I use Git on a fundamental level. I'm really happy with where I've landed and how I integrate AI into my workflows for my day-to-day coding tasks. It has made me much more productive and overall having a lot more fun doing my engineering work as a result. I really want to emphasize a few things before we dive in though. Thing one, this is not a Vibe coding tutorial. We're not here to recommend ways to write code without understanding code. If you don't know how to code, go learn how to code. Come back here after. This video is not for people who don't know how to write code yet. This is how to use these tools as an existing productive software engineer to be more productive. The other thing that's important to note is that we'll be talking about a lot of companies that I've invested money in because I like the space and when someone does something I enjoy, I try to throw money at them because it's a good chance if I like it, they're going to find success. So, account for all sorts of biases throughout this video. We're here to talk about the engineering work though, not about how I'm a paid shill for some thing that has made my life way better and more productive. I really want to showcase how I use these things every day and the tricks and tips I've learned from all the others around me. from how I work in my editor to how I handle code reviews to how I work on stuff with AI. None of the tools we're talking about here paid me to make this video. In fact, I wasn't paid at all for this. Okay, I'm about to be paid by today's sponsor. Quick question. If I was to spam your most expensive endpoint with thousands of requests, how much would it cost you? If this was like 5 years ago, it would cost you almost nothing. But nowadays, with all these endpoints that are backed by LLMs, a given request, just one request can cost you multiple dollars. If I spam you with hundreds or thousands of them, how are you going to handle that? How much is it going to cost you? How easily can a malicious actor screw your entire service by just hitting the right endpoint the right way? How reliable is the code and the firewall and everything else you put together? Can you see it in code review? Does it work in the beta builds? Does it work in your test environments? How do you actually know? I know because with recent projects I've been building with today's sponsor, ArcJet. These guys make it so much easier to secure your services because they're not some crappy dashboard you have to go click all the right buttons in and pray you did it right. They're just code. Here's how insanely complex it is to set up. You install their package. You add your API key and then you copy paste this code block that is mostly comments that are just commenting out things that you might want to use. So how do you actually use it? You go to your get request. You have con decision equals await aj.protect. pass it the request and it tells you the decision and even tells you the reason. But what happens if the user can access the thing but they shouldn't access it too much? You might build your own crazy complex rate limiting service that's split across 15 things like we had to for T3 chat. And if I was building T3 chat today, that's not how I would do it. I would use the token bucket from ArcJet because it's so much simpler. Remember that rules array before? Now you can also define a token bucket in it. Mode characteristics. This is how you're identifying the characteristic for this user and like separating them from others so that three different users aren't hitting the same bucket. A refill rate, an interval, and a capacity. Couldn't be simpler. You have the user ID and you pass that to AJ.protect. And you could even specify how many of a thing is requested because you might be managing how many tokens a user can spend and different models cost different amounts. It's these things are annoying to do. They make it way easier. It's just code. No dashboards, no weird config files, no YAML, no [ __ ] You just write TypeScript code in your TypeScript project and now you're safer. If your service isn't secure, I don't blame you. Getting it right was way too hard to do before. It no longer is thanks to ArcJet. Check them out now at soyv.link/archjet. On one hand, I'm tempted to go into an existing project and we probably will in a bit, but I want to start with something new to show you guys from like the start how I use AI to scaffold, plan, and build my projects. Obviously, AI stuff works really well for green field and small projects. You can make it work great for big ones as well, especially if you use planning properly. But for now, we're going to start a new project to really showcase the strength of these tools. And hopefully cursor won't break because I've had a rough time with curs last few days, working closely with them to get all these bugs fixed. But we'll get there. So, I have an idea for a project that I want to build here with you guys. I am interested in the quality of writing across various models and comparing the writing styles. I also had this random idea of wouldn't it be cool if you had a model that's better at writing give feedback to another model about the thing it wrote. So what I want to create is a tool that has one model write a draft for a prompt. Another model give feedback and then the first model applies the feedback and you can compare these two resulting drafts. I think this is going to be fun. First thing I recommend is that you actually init your projects yourself. I know the AI can run commands and do all these things, but it's a lot easier to get it right if you control the initial environment. Using stuff like create T3 app, better tstack, or even just a create next app or bunit will help your tools start in a much better place. So that's what we're going to be doing here. Bunanet blank because I don't want this to be a web app. And now we have all the files in here. Going to open cursor up with this project. Right now we're in the editor view. We'll go back to the editor view in a bit. I'm going to use the command E hotkey to switch over to agents mode in cursor. I have found myself genuinely really liking the agent mode. It's a really nice way to plan things out and look at the code as a result of the work you're doing rather than squeezing this chat interface into a traditional text editor. I find myself switching between the two a lot. My only wish and uh we'll be talking a lot about this in the future cursor. I'm not giving them UX feedback yet because they haven't earned the right to it. There's too many bugs they have to fix first. But one of the pieces of UX I would like for them to change is that the editor view has the agent hidden by default. And when I switch to and from it, the agent only becomes visible in editor when I hit the key. The same way the editor isn't visible in agent by default. We have a new project. Nothing happening here. Opus is my model. Opus has been the model I'm using for most of my code recently. But I don't want to code just yet. I want to plan. So let's plan this project out. I know a couple of the tools that I want to use for this. I could ask the model to set it up and I will here for the sake of demoing, but I know I want to use the AISDK and that I want to use open router. So, traditionally I would probably still go set those up manually because it's not that hard to do, but I'm not going to do that just yet. One thing I am going to do though is set up some pieces for my workspace and cursor. It seems like bun and nit is now smart enough to specify in cursor rules in this directory here to use bun instead of node vit npm and pnpm. That's a good thing that they're adding. I am pumped that they are now ahead of the curve in telling your editor to not use things it shouldn't be. But we're going to be using work trees. So I'm just going to copy this setup script I have here because this setup script does two things. It uninstalls whenever a new work tree is created. And it also copies thev file from the root to this new work tree. We'll talk about what work trees are and why I like them so much in a bit. We're not there just yet. But I'm going to just paste this file in for us to get started with. I'll make sure this repo is available publicly if you want to grab any of this code. Normally the work tree configurator comes up as part of your setup when you run a work tree for the first time, but I just like having it by default. I might even make a new template for like how I start projects with all my cursor stuff in the future. I don't use that much though. I'm relatively minimal on rules and tools and all the other things that I add. I don't use any MCP servers or any stuff like that. Don't find it necessary. So the order of events we're about to engage in, we're going to start with planning to make a plan for how we want to build and then we're going to do the building. This needs to be a git repo. So I'm going to init quick. Now we have our initialized git repo. We want to give enough context for what we want it to plan before we start executing the plan. I could type out all that context, but honestly I find that I give more context when I use my voice than when I type. I really really like using something like Whisper Flow, which is going to hopefully be a sponsor soon if all goes well. When I'm trying to do this type of prompting, I could type it all out, but I'm not going to type as much as I'll talk. And sometimes I'll realize things as I'm talking, which is nice. Let's tell it what I want. This project is going to be a demonstration of how different AI models handle writing tasks. My goal is simple. Generate an essay based on a prompt the user provides. have a different AI model review this essay and give feedback and then hand that feedback back to the original model to update the essay accordingly. All three of these steps should be saved as markdown files when the generation occurs so that I can easily review them in a text editor. Use the AISDK by versel and open router in the open router provider for the AISDK for the provisioning of the inference. Make sure everything you write is type safe. I think that's enough. This is a decent enough starting point. I could do a bunch of bullet points and things, but I think this is fine. Opus seems to be a good enough planning model, but honestly, I still have a soft spot for GPT 5.1 for planning. It's not the best at tool calling reliably. I've honestly found that the models that call tools the best are most of the anthropic ones as well as composer 1. We'll show you how I use all of those momentarily because first we have to submit our planning. Now it's going to ask us some questions. How do we want to use this essay review revision pipeline? Simple CLI script I run manually that asks for a prompt then writes three markdown files. That sounds right to me. CLI tool that takes the prompt as command line args or standard and writes the files. That could work. Definitely don't want HTTP and I definitely don't want a web UI. So we'll do that for the two roles. SA writer versus reviewer. How do you want to choose models? Uh hardcode specific route models for now. I like that plan. Continue. And now it is creating a plan. Now this part is very important and might be hard for you vibe coding folks. See this plan? I know this sounds crazy, like absurd, but hear me out. You should read the plan. I know just like what you should do work when you're using AI. Isn't that the whole point? You could ask another AI to do it for you, but you should read the plan. Sorry, the the plan.PlMD plan.plan. That's how you know it's going to be good. So let's take a look here. Implement a bun friendly TypeScript CLI that prompts the user for an essay topic. Uses model A overview SDK to generate essay, model B to review the essay, produce feedback, and then model A again with the feedback to produce a revised essay. Saves all three artifacts as markdown files on disk in a consistent location. High level design details. Keep using bun with index main CLI AI client setup. Add AI open AI in the open router provider. Well, let's give it some feedback. Why are you including the OpenAI package? We're going to use Open router, not OpenAI. Now, it will adjust that. You can keep reading. While we do that, configure a small AI client module or inline an index ts a very small that wires the SDK to open router using an open router API key environment variable. Hardcode the two model IDs, one for generation, one for review with clear cons name so you can easily change them later. Now, the pipeline orchestration. Implement a run essay pipeline function. Reads the prompt from standard in or default if standard in is empty. Calls the essay model with a system prompt plus a user prompt to generate the initial essay. Call the review model with system instructions plus the essay contents to generate structured feedback. Call the essay model again. Keep everything strongly typed. The markdown file output. Okay. Simple naming scheme. Runs timestamp essay. Time stamp review time stamp revision. That looks fine. bun node FS APIs include basic front matter or headings. All looks good to me. Implementation steps. It left the OpenAI package here. More changes. Just going to write these all out once cuz a good chance we're going to need more. You still have OpenAI in the setup depths section. AI client instantiate the SDK with the open order provider. Exposes typed helpers like generate essay, review essay, and revise essay. pipeline logic implement the run say pipeline interactively ask for prompts via standard in duh this all looks good to me I'm going to just grab an env file quick because I already have one that has everything I need for this make sure the runs directory is included in the git ignore this all looks good so far I could just hit the build button here or here but I'm going to do things a a little differently cuz I have separate preferences. Here's where we're going to start using work trees. If you're not familiar with work trees, it's a way to take a git branch for a project and put it temporarily in a different directory. So, you can have multiple branches on your machine at the same time. This is really useful for when you're doing different work in parallel. It's incredibly useful if you're working on a task. You notice something else you want to touch, but you don't want to clog up the PR you're currently working on. So you can spin up another agent with a work tree that will be given a new directory just for it to work in. And once you're done, you can choose to merge in those changes. It's somewhere between a background agent and traditional like the agent controlling your editor. There's like the three layers of how deep these agents go, like I guess how far they are from the work you're doing. Traditionally when you like command I in your editor and have the little sidebar that is using the agent to control the editor and change code in your directory direct like right there. There's backard agents where it clones your repo in the cloud and does edits in the cloud that you can then merge in or make a PR for when you want and then work trees which are somewhere between the two where they run on your machine but in parallel to your other stuff. They're also really useful because you can use it to compare different models. So here I have composer, opus, sonnet, and gemini all selected. And if I wanted, I could change the number of each of them being used. I could have three instances of composer running over this task at the same time. I'm going to use just one for composer, opus, and screw it, Gemini 3 pro. People like that model, right? Cool. These are the models I'll use. Obviously, Composer 1 is the really fast, relatively cheap one that was built by our friends at Cursor. I do like it a lot for these types of things. Opus will be fun to see how it behaves here, and Gemini 3 Pro will be as well. So if it turns out the DOM model is not good enough for this, I could use one of those instead. And here I can reference the plan by just adding it. Now it's here. I have the set for work trees based off of main. So this is the branch it's going to use when it creates the work trees. And I'll tell it implement the project. Send. And now we have three different instances running in their own paths in their own branches doing this implementation. And if we want, I can go to any one of these in my terminal. I bullied them into adding this little button here, copy workree path. Previously, they only had open terminal in workree, which would open the terminal in the VS Code, well, cursor instance, which I hated. But now, copy workree path. Go into your terminal, make a new tab, cd, and here is the path. Notice it's inturs. That's where they dump all of these work trees by default. And it has all the files for this branch. This is also why I introduced the work trees JSON file because when a new work tree is created, I want it to run bun install and also copy over the environment variables. So if we go back here, you'll see if we do ls- aenv is here, which it wouldn't have been otherwise because it wouldn't copy the git ignore files otherwise. Let's see how the agent is doing. Oh no, can they not find the cursor? I I'm going to send a very rudely worded message to my shared Slack with cursor. One moment, please. Rude DM sent. Let's go back here. Let me choose how I want to deal with this. There are options. One of the easiest by far is to just copy the plan file and put it in your editor. Ideally, by the time you're doing this, they will have this [ __ ] fixed. But right now, it is entirely [ __ ] broken. So, I'm doing my best. I'll put this in dot cursor. Let's try again. Work tree, same models at planmd implement the plan and build out the project. And this time it can access the plan because I put the file in the repo and it will get copied over and it created the to-dos. Now we have all three of these models going and we can see just how much composer flies. I have to allow it to run commands. Except Except. Yeah, Composer flies. It's not the smartest, but it's pretty dang good. God, it goes fast. It's almost done, and the rest are like one to three steps in, and none of these are even Gemini, like the slow model. Obviously, you don't need to run this with three different models at the same time. It's a flow I like because I like to compare the results and learn more about the models whenever I can. A lot of this should be taken as a learning opportunity and yeah, I like learning. So, let's go hop into this directory and see how that goes with the composer implementation. You can just read it right here if you want using the review tab, which I've actually grown to really, really like. The review tab is awesome because it groups all the files that were changed into one single view that you can scroll through, which is super handy. So, let's just read through it first and see. Has a run directory interface for the pipeline output. Uh async ensure runs directory that checks if the directory exists. Get timestamp string now is new date. Cool. Write pipeline outputs. We have the index. So prompt for topic. Enter your essay topic. You write the topic essay results await generate essay topic. So this is when it goes to generate the essay. Then we have the review revision results. Revise essay. Write pipeline. Cool. And we have in here all of those functions. Results a way generate text review model. You're an expert writing tutor and editor. Review the essay provided and give constructive specific feedback on areas such as structure, clarity, argumentation, style, and areas for improvement. Be thorough but encouraging. Please review the following essay and provide detailed feedback. And then revise essay as the differences in prompt. You're an expert essay writer. Revise the provided essay based on the feedback given while maintaining the core message topic and improving the areas identified. Cool. This looks like a good starting point for me. Let's give it a shot. Copy work tree cd to the right place. Fun run index.ts essay topic. Let's come up with a good one. Write a thorough breakdown of why explicit return types in Typescript might not be a good idea even though they are in other languages. Now it's generating the initial essay. I forgot to specify models. What models did it pick? I'm scared. Used for mini and 3.5 sonnet. That's great. We can go through and change those momentarily. Let's go grab the slugs that I want. Open router.ai. I want Opus 4.5 the essay model and I want Kimmy K2 thinking for this one. Let's take a look at what it did in the interim. I'll often open up another cursor instance inside of the thing that I just created for the work tree because it's nice to be able to look at. So here's the essay case against explicit return types in Typescript. In the blossoming realm of web development, TypeScript has secured its position as a powerful supererset of JS. Yeah, this is so 40 it hurts. So let's try that again. Copy the same prompt. And if you guys were curious how fast the cursor team moves, I just got a message from them. They'll have a new build ready for me with the fixes I requested in 45 minutes. Kind of nuts. That team works hard. Essay was generated. Now it's reviewing. Revising essay based on feedback. Pipeline completed. Let's take a look. We have our new timestamp for the new run we just did. This one was written with Opus 4.5. The case is explicit return to TypeScript. When type inference shines already so much better than the 40 version. TypeScript has transformed JavaScript development by introducing static typings to a dynamically typed language. Among the many decisions typeser developers face is whether to explicitly annotate return types on functions or to allow the compiler to infer them. While languages like Java, C#, and Rust benefit greatly from explicit return type declarations, TypeScript occupies a unique position where mandatory explicit return types can actually work against the developer. This explores why TypeScript's type inference for the return types is often preferable to explicit annotations despite conventional wisdom from other type languages. Little verbose, not bad, though. Let's see what the review looks like. I'm curious. This is an excellent, well-argued essay on nuance types or topic. You struck a good balance between technical depth and readability. Your willingness to address counter arguments strengthens your position consistently. Let me offer detailed feedback to help elevate it further. The writing is clean and authoritative, though there are opportunities to sharpen certain arguments and vary your pros rhythm. Some section transitions feel abrupt. For example, between sections two and three, you could add a bridge sentence like, \"However, this power comes with a hidden cost when developers choose to override it.\" So that's between sections two and three. Yeah, it's they can also improve ID responsiveness when working with complex generic functions and then immediately to a different unrelated topic. Yeah, that is pretty sudden. I see why they would call that out. Let's see how the revised version came out. already like it more. Starting with an actual like pointed story, the first thing many devs do when learning TypeScript is annotate every function's return type. Second thing they do is spend hours maintaining those annotations after refactoring. This pattern reveals a fundamental tension in Typescript development. While languages like Java, C#, and Rust benefit greatly from explicit return type declarations, TypeScript occupies a unique position where mandatory explicit return types can actually work against the developer. Already so much better. Let's see how the transitions are now. Thanks. So the return type has here creates redundancy and maintenance overhead without providing additional safety. First off, I like this project. This is actually fun and useful to look into. And this is one of my favorite things to do with AI is when I have a theory, go code out that theory and experiment with it a bit. And now we have an experiment that's actually kind of cool and useful. I would love to do some type of like arena project where these can compete similar to like LM arena, but my initial thought is it'd be cool to have AI look at the two essays and say which one it thinks is better. I hope I've established that a dumb fast model is good enough for this once you have a good plan because the composer run was a lot faster and probably also a lot cheaper than both the Opus and Gemini 3 runs. We can take a look at the Gemini code, see if it's any better here. I like the essay system prompt better. So, I think I'm just going to merge this. Yeah, I like this code more. The one catch with a project like this where we haven't done anything with it yet is that doesn't have code to reference for how it should format things. Like, I don't love the string formatting it's doing here. But, this is totally workable. I do want to make the string formatting less annoying, though. So, I'm going to ask it to do that. Can we use dent or something similar to make the string formatting less gross? And again, this is where being a real engineer is useful. I'm seeing formatting stuff that is obnoxious. I know a path to fix it. So, I'm recommending the path to fix it. And it's really cool. You can do these in the separate work trees because these are separate projects effectively. Let me switch over to this version and give it a shot. Copy my prompt quick. I'm just going to throw this in an empty thing here so I have it quick. Uh not there. Command option S. Here we are. Um I'll just put it here. Test prompt MD. Paste. Well, now I have that to grab whenever I want it. Bun run index. Oh, I forgot I was scrolled up. Bun run index. paste the topic. Oh, I forgot to choose the different models. Um, let me switch the models over quick, too. This is the one annoying thing about hopping between different things is if you make changes in one and you didn't make them on the other, you need to go back and handle that. The easiest thing I can do here rather than go find the specific code is just yoink these. Here's the models I want to use. Command shiftV for pasting without it linking to a file because I don't want to link from one work tree to the other. I just want the text content. Cool. Now that is done. Go back to the editor to copy my test prompt again. Paste. Send. Open this here so that I could take a look at the results. Oh, I think it hit one of the slow Kimmy K2 providers. What the hell did it do with all this empty output? That's annoying. I'll ask it to fix that. But let's take a look at the runs. Here's the original and screwed up the formatting. Man, I hate that I have to say this, but I think I'm happier with the version that was created by Composer than Opus cuz like the this is [ __ ] up the formatting a ton. Even here, um, I'll tell it that we'll give it one last chance to fix things. The indentation in the markdown files is all wonky. I screenshotted some examples. Please fix it. Let that fix it. But honestly, I'm leaning towards the composer version unless the quality of the essay is significantly better due to the system prompt difference. Yeah, I don't love the difference here. I think I'm going to stick with the version that I got from Composer. Honestly, it might have been a mistake. Honestly, now I think about it because of how we're writing this all out. That's annoying. String formatting is the most annoying thing in the [ __ ] world and no AI is smart enough to fix all that sadly. I'm going to rock the composer version. So now we can actually review it. I know I've read the code. I'm pretty happy with it. So I don't care too too much. But we're going to take a quick look. One last check. Yeah, I'm happy with it. We'll accept it. So now that I've accepted this, it just pulled all those changes in to the main branch in my main project folder here. So if I get diff, you'll see all those changes are now here. I'm going to do one last thing here that I think is almost always best practice. We're going to create a GitHub repo. I don't have the GitHub CLI installed. I have a lot of feelings about the GitHub CLI, but I'll try to use it at least. Push existing local repo. It is this one. Autodraftify. What do you mean it's not authenticated? You have my SSH key, [ __ ] Sorry. GH off login. Greatest piece of software. Oh, GitHub CLI. It doesn't appear to be smart enough to be done now that I did that. The GitHub CLI is legitimately one of the worst pieces of software I've ever [ __ ] used. Holy [ __ ] it's so bad. Apparently, you can't click the link. You have to press enter. So, here I can click that link, but if I do that, it won't work. I have to press enter and go through this way instead. I I made a video a while back about how the GitHub CLI is the most cursed pile of [ __ ] ever, and I got flamed for it in the first hour, so I took it down cuz I felt bad. I stand by every word. This is a tragedy. Not a piece of software. It has never done what it should ever once. Let let's let's do a quick poll in chat. Not a traditional poll. Just like we're going to have field drop numbers. How many flags or input fields do you think I'm going to have to fill out when I try to push this repo up using the CLI? How many steps do you think it'll take? And bonus points. how many of them are going to be blocking on a network request where I have to sit there and wait for the network request to go back and forth and specify both. So say uh inputs colon number blocking colon other number seven and two 9 and five five steps two blocks 6 plus two network y'all ready for this? So first one I have to do push existing repo I'm in a repo that's never been pushed that has no origin. You should be able to infer that path of local repo. I'm in the repo. Cool. It got the name right from the folder. It did one thing right so far. That was the first network block. It just network blocked there. Pick the project like the repository owner. That's the first one that made sense. Description. Why the [ __ ] do I need to write a description right now? Who writes a description before they put up the repo? When you go click the create button on the website, it doesn't make you put in a description. Skip. Polic internal. Another one that actually makes some sense. Cool. Cool. So, we've had two that make sense so far. That was a network block. Add a remote. No, I already told you I want the local repo. Why would I not want the remote? In what world would I say no here? Why would I ever? What should the new remote be called? I don't know. What do you think it should be called, GitHub? It's like every single flag on the API for this is exposed over the UI. Here we're at 1 2 3 4 5 6 7 8 nine questions so far. Would I like to push the commits to the current branch to origin? Yeah. Step 11. 11 steps and three network blocks to push a repo up to GitHub. What the [ __ ] Anyways, pro tip on this. Actually, I'll show you in a second. Um, now this is pushed. get checkout-b Theo slash uh I'll just call this composer version get add-p I like -p a lot when I'm doing git additions because it's like a way to mini review changes as you go it doesn't add new files though so I'm just going to do dash a for that d-m composer implementation of autodraftify and now I'm going to push I already have my git config locally so if I push on a branch that isn't there yet it'll create the origin makes my life a lot easier. So, it created the remote because it didn't exist yet. I can click this link to autocreate, but GHPR create seems like a great idea, right? Except it then asks another 15 [ __ ] questions. And this is the best part. If the names of your commits are too long, it'll make a mal formatted URL that doesn't work. So, the way I make a PR, I'll show you. I use Lazy Git. I press three. I press O. literally 100 times faster. It's so much better. It's so much better. I I I don't even use any of the features in Lazy Git. I literally just use it as a way to open a PR faster. LG30. It's like embedded in my brain now. So, now we have this PR. Let's create it. And now for the next thing I like to use AI for. Reviews. There's a lot of options for this. And honestly, I don't care which you use. Two of them sponsor me. Most of them are good. I like Code Rabbit and I really like Reptile, too. They're both great options. All of them are fine, though. Grapile is the easiest for me to quickly set up in a new open source repo. So, I'm going to go set up grapile really quick. So, here I have grap tiles dashboard settings enabled. Let's add new one. Enable. I don't why there's two enable buttons. What are you guys doing? Someone was vibe coding a little too close to the sun. One sec to send that to them. Well, now we have this enabled on autodraftify. It's going to index. It shouldn't take too long to index because there's almost no code in there. But now that we've done that, I can add grapile review, please. And see that eyes emoji. I love this. This is how you know Grapile is doing its job. It is starting to do its review. So, in a little bit, Graile will have it review of this code. I'm not going to wait for that just yet, though. It is really nice to have another AI, another tool like this reviewing the changes just to do a quick pass on it. There are actually features in cursor to have an AI do the review in the editor. I don't like them. I like doing code reviews on a code review platform like Graphite or in this case, GitHub using Grapile. Lots of options. I don't care which. But I do really like PRs as ways to group the work you did and have another tool take one last look before you hit merge. To show you an example of how this looks, I'll show you some PRs I have open on SnitchBench right now. Here is a couple of the ASDKV5 migrations. This is one of my favorite tests for new models and Opus oneshotted it and did a pretty good job. Let's take a look at the gravile review here. Confidence score is two out of five. Pay close attention to index. The tool result extraction logic needs immediate correction before merging. Very interesting. Apparently, ASKV step the tool results returns objects with a result property, not output. This will cause the tool results to be undefined. I can commit the suggestion directly from here or copy this prompt, paste it into my editor and have it make the change there. That's a very good catch though. I'm very thankful that I ran this. See how useful these tools are. You get the idea. Very nice to have those types of things. But I've accepted this. I'm happy with the state of things. Let's keep grinding. So, all the tasks we've done so far have been relatively simple, but this workflow can work for more complex things, too. The key is to pay attention to what the models are struggling with. So here is my snitchbench benchmark and as I was showing here getting it to upgrade to the latest AI SDK was not trivial and something I've noticed as I have tried this many times first off is that there was a lot of things that were broken in cursors workree implementation that are now mostly fixed but the other thing I noticed was that the models would struggle a lot because they couldn't really run the project in a way to get good feedback. They would often try to run the whole project. And this is a benchmark that takes six to eight hours to run. So, it wouldn't actually know if the results were any good. So, I knew this would be a lot better if I could tighten the feedback loop. Models work way better when you give them the pieces they need to understand when things are and aren't working. If you can give the model the tools it needs to recognize something isn't working and then fix it, it's way fewer steps that you need to be involved in. You can let it go off, run again and again until it gets things working and then go take a look after. And I noticed a massive improvement in how reliably this set of tools could make changes to this project when I gave it some really basic tests. Not like unit tests, although those aren't a bad idea either. More implementation testing environment stuff. So here is an example of how I did all of this. Back when I was still on the V4 SDK, I wanted an easier test bed. So, I wrote this prompt. I want to make two significant changes to the project. First, I want tests to also define the set of prompts that they include. Instead of blindly reading all of the MD files from the test directory because previously this project had one folder named prompts and it would just read through all of them in alphabetical order, I want to split it up so I can have two versions. One that is doing tool calling with just basic math functions and one that's the real benchmark. But I also want to create a simple tool call test that we can use. I also said I want a dry run mode that will be run with this new simple tool call test because if I add these two things now I have the ability to tell the model, hey go run dry run, take a look at the outputs and see if it worked or not. And this was a massive improvement to the quality of the outputs. I also noticed that the results were often not type safe which was very annoying for me. So I added a one last piece as well. I think I merged this in. I did. So let's look at my recent commits. So first I did the dry run so that it would have the ability to run on cheaper models to get some feedback. But even the cheap models were taking forever. So I made additional changes that aren't in this branch. I'll just make a PR for it quick because I need to do this anyways. The updated runs. Create PR latest AI SDK fixes for reasoning stuff. basic math test for dry runs, type checking, etc. Now, I have this PR up, but the pieces I wanted to emphasize in here that have made things significantly better are uh package.json. Here I added the dry run command and implemented the simpler test that would get feedback faster. I also have tsc as a command here too. TSC is bunx TSC- noit. So this is a command to check the type safety of the project cuz I noticed a lot of models were generating code that wasn't type safe and I wanted to be able to tell the model, hey, make sure the results are type safe. I also updated the prompt that I use for this. I do actually have it saved because I use this as a test a lot. Obviously, you're not going to be saving a prompt that you're firing one time to revisit later on, but I use this as a model test, so I rewrote the prompt accordingly. I used to only use these first two pieces here. Upgrade the project to use the latest version of the ASDK version 5. I've attached a guide on how to do the upgrade below. Please make sure to review the guide before starting your implementation with this link to the official migration guide from AISDK from Verscell. Make sure that you use the latest version of the AISDK package as well as Zod and the open router provider. This is meant to be a hint cuz I noticed a lot of the time they weren't updating the other packages, so I just explicitly told it to. Test your implementation by running the following command. And this is where all of the new stuff was added. And these pieces here massively improved the likelihood that I get code out that works. I gave it the bun run dry run command. Each test should have a result written to the results dryrun directory. Make sure you validate these outputs and that the tool calls that they have to do include the parameters that were passed by the model. This is again I added this cuz I noticed that the generation wasn't putting this in properly like the markdown coming out didn't include the input. So I told it to fix that. I've had problems where the output ends up being empty objects instead of the expected output of what the model submitted in the tool call. I call out what went wrong in my prompt. Sometimes it's easier to go back and rewrite the original prompt with more context and more guardrails and a better harness than it is to tell the model to fix things. I often find like if the results just not working how you behave half or more the time it's better to restart update your prompt embed the learnings and if you can write tests or calls that it can do to verify it's not making the same mistake just like a junior engineer you need to give the AI models and the agents that you're working with the necessary tools and resources to work through the mistakes it might make so if you notice it making a mistake maybe go reset call out the mistake and maybe add some harnesses so that it can check these things before committing the changes. Because of the types being wrong, I added this piece here. Make sure all the TypeScript in the project is validated. We don't want to be shipping any unsafe code in this project. Please avoid using any and any other things that might break the type safety of the system. Make sure to validate the changes that you make using the bun runtsc command. This is an example of how I made this project behave way better by slightly changing the prompting. It is worth noting that more of the pieces here are me giving it harnesses than me telling it what I actually want. But that's fine. I honestly think a 50-50 ratio like this in a prompt for a complex enough project is fair. But the biggest learning here by far for me at least was how much smarter the models get when you give them these little nuggets. Once I created the dry run test, it was way cheaper to run. It was way more reliable and I got results that were what significantly closer to what I was expecting. I am curious how this review is going if uh Grapile is touching it. Is it? It did. Got a three out of five. Apparently, it's upset with something I did in the index.ts. Let's take a look at that. Well, another fun example here. This is when I start using the editor stuff like in the editor mode. I thought this would be a quick fix. I was going to go change it, but the timeout ID might not exist because of how let definitions work in Typescript. Very annoying. So, I know this code is fine, but we're getting a type error. So, I'm going to go to this line, press command K, and say, I'm getting a type error with this check. Please fix it. Let's see what it does. Still broken because it's not instantiated. It's not smart enough to do that. So, we will reject and pull in a smarter model. This is one of the times where I would still use the editor's like agent mode here. Command N for a new piece here. I don't trust composer for something like this. So, I'm just going to use opus because it's the closest one for me to click. Timeout ID is showing a type error in the finally block due to potentially not being instantiated. Fix it, please. Okay, let's see the change it made. It made change 306. It made the type of timeout ID return type or undefined. So now we're not getting that error case because this is this is a fun little typescript thing actually says we define let timeout ID with this specific type but there are conditions where hypothetically this might not be set. So we don't set it immediately. The type for timeout ID was no.js timeout but we don't know if it's instantiated or not. So the two types it could be are the right type or uninstantiated. By doing or undefined here, we are telling Typescript it's okay for us to touch this even if it doesn't exist because the non-existing case is now something we've encoded. Cool. I didn't really think that would be the solution, but I learned something. And that's again the cool stuff with these tools. I had other ways to solve this. I personally wouldn't have used let but to each their own. Now I learned something and made an improvement. I even bet I can delete those. And this is fine. Let's keep those changes. And now the non-null assertion is gone. Remove nonnull assertions. Get push. And now Grapile can do an updated review. And now we are golden. Seven files reviewed, no comments. Did it update their review earlier? I bet they did. PR safe emerge with minimal risk. index should be monitored for the custom tool loop behavior with various providers, especially the thinking block handling logic. That's because of a change anthropic made to how it persists thinking blocks that broke a ton of [ __ ] It works, but yeah, Michaela asking, I mentioned coming around on planning a little bit ago in tweets. How good is it really? It's significantly better because you can use a smart model to write a thorough plan and it's not going to get lost in the weeds of like going down weird tanges writing the code. it can write the plan and then you can have a dumb model, go implement it, notice anything that's wrong, and then go back and adjust the plan. Actually, that's a good tangent I should go on here. So, earlier I was showing you guys this improved prompt that I wrote to try and get better results when doing harder tasks. This is another part of why I think planning is actually really good and underrated for anything even somewhat vaguely complex. When you write a prompt like this and you tell it to go write a plan based on this prompt, then you take that plan and run a dumb model against it and it makes mistakes. You can look at those mistakes and then tell the planning model to go update the plan based on those mistakes and then rerun. One of the important things to like get into your head when you're building this way is that the code is cheaper now. Like way cheaper. You shouldn't get fixated on a specific branch you're going down with the agents because you can just throw that away. It's silly, but when you're doing these types of like higher level architectural changes using agents, treat the prompt as the thing that you're maintaining between attempts, not the code. Because if you build this plan and run it against a dumb model and it makes two dumb mistakes, the code it just generated was really cheap and it did it really fast. You don't need to try and force it to fix that code when you can just throw it away. Tell the planning model to change the plan very slightly and then rerun it with the dumb model and regenerate the whole thing. It's a lot easier to keep it from going down these weird paths if you just throw out the weird path and try again. I would say at this point when I'm doing these heavier tasks, for every like one big change I hit accept in merge, there were like four or five attempts that made me go back to the original prompt or the original plan to adjust. That said, there are some higher level things you can do to make it more likely to be successful on that first attempt. One that I haven't tried just yet personally, but I've heard really good things about from Ben is cloning the repos for the projects that you're building around. So, if you're using effect heavily, effects is a it's a language. It's called a package, but it really is a different language built into Typescript, it takes a bit to get used to, and their docs kind of suck. The onboarding is awful, and there's a lot of functionality that's just not included in here. So, if you want to take more advantage of effect and make sure you're using the right pieces, telling it to go index the docs isn't going to get you very far. I've had awful luck with tools like context 7 is just not good enough. Supposedly, you can clone the effect repo as a subree, give it to Claude, and tell it to use that repo as docs. In particular, the tests in that repo, the tests directory or the test files in a given project end up being really useful to the models for these things. because it's full of good examples. Models and agents do significantly better given a handful of specific things. The first, which we just talked about, is a plan. A prompt is not good enough. A prompt can be used to write a plan. And once you verify the plan, the plan could be used for the implementation. Another really useful thing is a verification harness, some method it can use to know things work. This could be tests it can run a simpler version of the app it can run type checking and specific commands and scripts you give it in something like JavaScript you can in the package JSON write custom scripts it can run those types of things that put output and standard out that it can read and see and learn from not learn like get smarter but learn like oh I made this mistake I should go fix it really helping reduce that cycle and that loop of trying things and fixing them one of the biggest by far context and I don't just mean context on all the things in your project. I mean context in the things it has access to availability to and examples for how it should do those things. I've actually found that a lot of agents get better in big projects because once they're indexed, it has lots of examples of good patterns and also probably some examples of bad patterns that it can use in reference when it is developing and iterating. Having those examples is really really helpful. And if you write a lot of projects using the same few packages, it's not the worst idea to yoink some of that code over to point at and be like, \"Hey, here's how I like to do things.\" If you can paste one or two examples in your prompt, good chance it'll increase the quality of your output. But once the codebase has enough things or god forbid you write some tests to have this context in your codebase, quality of the outputs you're going to get, it's going to go up a ton. If you want to try the embedding the repost thing out, Ben, my channel manager, who also has a YouTube channel, you should check out his channel by the way, Faze, show it on the screen and I'm sure we'll have a link in the description. He's talking a lot about this stuff and he's coding way more than I am right now. He threw up a repo for this for those who want to try it out themselves. Works with cursor and open code. I'm personally finding myself in cursor much more than any of these CLI tools. The CLI tools just don't have a good enough workflow for when you're changing things or want to edit things or do things. but also they don't have stuff like LSP support, so they don't know when the types are wrong unless you give them a command they can run, which is super annoying. I really like having the integration between my editor and my agent flow. And I really like the agents view when I'm doing this. I almost treat the editor view like a like a review view where I'm in here to look at the code and if the models are just not doing things right, I'll sit here and code it out. Sometimes I need to just go write the index ts or write out exactly how I want to call things. I'll often pretend that the API I want exists and write out the code and leave all the type errors in for how I want to work on a thing or how I want it to behave. I'll just write the exact code I want knowing nothing works yet and then tell the models or tell the agent make me a plan that will fulfill this functionality so this behaves. And then I go through my usual loop. And again, my loop is make a prompt, create a plan, edit the plan, run the plan, and if the plan doesn't work, closely inspect the run, see what failed, what it got wrong, why it got it wrong, go back, adjust the plan accordingly, and rerun. And I go through this again and again. Or, and this is where you really need to like get a good gut feel and taste. If it seems like it's just so far off from what you're trying to get it to do, you need more information, more context, more harness for it. At that point, go write some tests that can execute, write an example file that shows what you're trying to do, then maybe try the agent again or just go finish writing the code. It's a lot easier sometimes to just go do it. And I still find myself doing that here and there. A lot of it's just gut feel. Like you got to recognize like this is going to take too much work to make the model behave. it's better if I just go do it myself. But sometimes it's worth pushing through that because you might be surprised. You might learn more of these prompting skills and general like agentic flow things and get better. Or you might just have a really funny thing to tweet about how stupid AI models are. Either way, it's pretty beneficial to go down these rabbit holes at times. But don't be scared to move off it. And I know I've emphasized this a lot in other videos, but I don't know if I have here yet, so I'm going to triple down on this point. Do not use these models to build things you don't understand. These agents are great for doing a lot of work that you already know how to do but don't feel like doing. I find myself spinning up one-off projects and sandboxes for experiments way more. I find myself writing tests and example cases way more. I find myself writing formalized plans way more. I'm doing these things because it's way faster and easier than it's ever been. And the result is better code than I would have written by hand or code being written when I would have just moved on from this project. Like I'm gonna go play a ton with this autodraftify thing when I'm done streaming. This is an idea I had last night when I was falling asleep. I wrote it down on my phone and then I just went and coded it in what, like 10 minutes. That's so cool. I've always been a fast developer, but previously this would have taken me like 30 minutes to an hour and I would have had to be sitting there focusing the whole time. Now I can do it in five to 10 while working on other stuff in the background and playing with all these fun tools. That's awesome. I feel like I'm developing a whole new set of skills and there's a good chance that my take on all of these things is going to change a ton even by the time the video is out. But this is a rough idea of the workflow I have found myself using when I play with these things and when I build stuff with it. And I found it to just be awesome. Also, believe it or not, I know Curse is a sponsor. Call me a shell. Call me whatever. I am still on the $20 a month tier. I have never had to pay an overage fee and I'm doing this [ __ ] a ton. It's not super expensive to do all these things. I know there's a stereotype of like the AI agents are so expensive, why not just go do it yourself? If you use the expensive ones for something relatively cheap and low on token utilization like planning, then you use a cheap fast model like a grot code, composer, whatever else to do the implementation. It ends up not costing that much at all. I'm still very much in the green on my cursor usage for my current subscription. And I know the majority of people I work with have not even gotten close to hitting those limits. So yeah, 20 bucks a month to fundamentally change how I wrote code. For me, that's really worth it. As a person who was super skeptical of cursor and was scared to invest initially because didn't think it was going to be for me. Now I love this team. I love this editor. It's how I prefer to work. And while I do enjoy experimenting with new tools and never shy away from trying something if it's interesting to you, like if you're curious how Gemini CLI works, go give it a shot. If you're curious why everybody's so excited about Cloud Code, go try it. If you're curious about what's going on with Codeex and why they rewrote in Rust, I can't give you a good answer, but I can tell you to go try it. But if you're not interested in those things, don't feel like you have to. It's totally okay to get to the stuff a bit late. I think we're now at the point where most developers should start playing with agents in figuring out what their agentic workflow looks like. But you shouldn't feel like you have to go learn all of these tools, you're going to get fired. You should take this opportunity to try these things out. See what they are good at. See what they're bad at. And one last spicy take, getting better at this stuff will make you a better coworker. Because getting better at clearly giving instructions to your tools and getting better at giving clear reproduction steps, things like tests and harnesses to the agents to write this code. Once you get good at doing that, you've improved your communication skills massively. And now when you work with co-workers or if you become a manager and have your own employees on your own team, your ability to communicate with them will go up too. This is a stress test on how clear and concise you can be as you build. This is also why I hate all those MCPs that just fill up your context window with a bunch of garbage documentation. No, [ __ ] that. Get better at writing. Get better at clarifying what you want and get better at writing the necessary tools that allow for the agents to know if they succeeded or failed at their goals. I have been loving this. I've genuinely had so much fun building in this way. I feel rejuvenated writing code in a way I haven't in a long time. And while there are still lots of tasks that I find the agents just aren't that great at, especially like big overhauls using underdocumented technologies, man, it's so fun to play with this stuff. Highly recommend giving it a shot if you haven't just yet. Let me know what you guys think. Am I a crazy AI pill vibe coding lunatic or is this actually useful? Let me know in your own workflows and tell me how you've been coding with AI in the comments. And until next time, keep coding."
+}

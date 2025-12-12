@@ -1,0 +1,3771 @@
+{
+  "channel": {
+    "id": "UCbRP3c757lWg9M-U7TyEkXA",
+    "name": "Theo Browne",
+    "description": "Theo is a software dev, AI nerd, TypeScript sympathizer, creator of T3 Chat and the T3 Stack."
+  },
+  "videoId": "CtMk0GuQ7cc",
+  "title": "GPT-5.2 is the best model ever made",
+  "url": "https://www.youtube.com/watch?v=CtMk0GuQ7cc",
+  "publishedAt": "2025-12-12T09:29:35.082Z",
+  "description": "Time for another new best model ever made!\n\nThank you Clerk for sponsoring! Check them out at: https://soydev.link/clerk\n\nUse code 5-POINT-2 for 1 month of T3 Chat for just $1: https://soydev.link/...",
+  "thumbnailUrl": "https://i.ytimg.com/vi/CtMk0GuQ7cc/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDHE2xGFq76E3grhYO1Osd3kzMiKQ",
+  "transcript": [
+    {
+      "text": "Where's the guy with the counter?",
+      "duration": 1200,
+      "offset": "80"
+    },
+    {
+      "text": "Because there's a new best new model.",
+      "duration": 1599,
+      "offset": "1280"
+    },
+    {
+      "text": "Yes, really. GPT 5.2 just dropped and it",
+      "duration": 3041,
+      "offset": "2879"
+    },
+    {
+      "text": "is really, really good. Which is why it",
+      "duration": 2400,
+      "offset": "5920"
+    },
+    {
+      "text": "is uh Wait, what? Skatebench shows it as",
+      "duration": 4239,
+      "offset": "8320"
+    },
+    {
+      "text": "a huge regression. What's going on? I",
+      "duration": 2721,
+      "offset": "12559"
+    },
+    {
+      "text": "thought this was the best new model.",
+      "duration": 1440,
+      "offset": "15280"
+    },
+    {
+      "text": "Well, in many ways it is, but in a",
+      "duration": 1680,
+      "offset": "16720"
+    },
+    {
+      "text": "handful of important ones, it isn't. And",
+      "duration": 1920,
+      "offset": "18400"
+    },
+    {
+      "text": "I haven't seen many covering this in",
+      "duration": 2000,
+      "offset": "20320"
+    },
+    {
+      "text": "detail. Sure, it's better at code and",
+      "duration": 2000,
+      "offset": "22320"
+    },
+    {
+      "text": "tool calls, and yeah, it's crushing ARC",
+      "duration": 1760,
+      "offset": "24320"
+    },
+    {
+      "text": "AGI, but there is a depth to using these",
+      "duration": 2560,
+      "offset": "26080"
+    },
+    {
+      "text": "models that isn't really being shown in",
+      "duration": 1840,
+      "offset": "28640"
+    },
+    {
+      "text": "a lot of the coverage I'm seeing. And I",
+      "duration": 1680,
+      "offset": "30480"
+    },
+    {
+      "text": "want to break down what it's actually",
+      "duration": 1040,
+      "offset": "32160"
+    },
+    {
+      "text": "like to use because I've been lucky",
+      "duration": 1519,
+      "offset": "33200"
+    },
+    {
+      "text": "enough to be using it for the last week",
+      "duration": 1360,
+      "offset": "34719"
+    },
+    {
+      "text": "or so. Very thankful to OpenAI for",
+      "duration": 1841,
+      "offset": "36079"
+    },
+    {
+      "text": "giving me early access. That said, no",
+      "duration": 2000,
+      "offset": "37920"
+    },
+    {
+      "text": "money has exchanged hands. The only",
+      "duration": 1440,
+      "offset": "39920"
+    },
+    {
+      "text": "person paying me is today's sponsor. We",
+      "duration": 1680,
+      "offset": "41360"
+    },
+    {
+      "text": "need to be realistic about how much",
+      "duration": 1280,
+      "offset": "43040"
+    },
+    {
+      "text": "easier our jobs are now. AI has made",
+      "duration": 2079,
+      "offset": "44320"
+    },
+    {
+      "text": "everything from feature additions to bug",
+      "duration": 1601,
+      "offset": "46399"
+    },
+    {
+      "text": "fixes simpler than it's ever been.",
+      "duration": 1840,
+      "offset": "48000"
+    },
+    {
+      "text": "Navigating your codebase, finding the",
+      "duration": 1360,
+      "offset": "49840"
+    },
+    {
+      "text": "right file, and making the changes you",
+      "duration": 1359,
+      "offset": "51200"
+    },
+    {
+      "text": "need is really easy, but there are a few",
+      "duration": 1840,
+      "offset": "52559"
+    },
+    {
+      "text": "things that are still hard and also",
+      "duration": 1601,
+      "offset": "54399"
+    },
+    {
+      "text": "really scary if you get them wrong. The",
+      "duration": 2079,
+      "offset": "56000"
+    },
+    {
+      "text": "two that I think of the most are",
+      "duration": 1361,
+      "offset": "58079"
+    },
+    {
+      "text": "authentication and authorization of",
+      "duration": 1520,
+      "offset": "59440"
+    },
+    {
+      "text": "users and payment processing. Getting",
+      "duration": 2560,
+      "offset": "60960"
+    },
+    {
+      "text": "these things wrong can be disastrous.",
+      "duration": 1678,
+      "offset": "63520"
+    },
+    {
+      "text": "And even if you think you got them",
+      "duration": 1201,
+      "offset": "65199"
+    },
+    {
+      "text": "right, something might prop up later on",
+      "duration": 1759,
+      "offset": "66400"
+    },
+    {
+      "text": "that makes you regret building it",
+      "duration": 1521,
+      "offset": "68159"
+    },
+    {
+      "text": "yourself entirely. Not only have I done",
+      "duration": 2160,
+      "offset": "69680"
+    },
+    {
+      "text": "this myself incorrectly, I've even",
+      "duration": 1599,
+      "offset": "71840"
+    },
+    {
+      "text": "written detailed documentation on how to",
+      "duration": 2000,
+      "offset": "73439"
+    },
+    {
+      "text": "do it right, that barely feels necessary",
+      "duration": 2641,
+      "offset": "75439"
+    },
+    {
+      "text": "anymore because of today's sponsor,",
+      "duration": 1840,
+      "offset": "78080"
+    },
+    {
+      "text": "Clerk. If I was building a new app",
+      "duration": 1839,
+      "offset": "79920"
+    },
+    {
+      "text": "today, this is what I would choose both",
+      "duration": 1761,
+      "offset": "81759"
+    },
+    {
+      "text": "for authentication and authorization of",
+      "duration": 1599,
+      "offset": "83520"
+    },
+    {
+      "text": "my users and for payment processing",
+      "duration": 2081,
+      "offset": "85119"
+    },
+    {
+      "text": "because it is the best and simplest way",
+      "duration": 1919,
+      "offset": "87200"
+    },
+    {
+      "text": "to do both. Period. And I've used every",
+      "duration": 2640,
+      "offset": "89119"
+    },
+    {
+      "text": "single option. They aren't paying me to",
+      "duration": 1521,
+      "offset": "91759"
+    },
+    {
+      "text": "say that. They're paying me to mention",
+      "duration": 1199,
+      "offset": "93280"
+    },
+    {
+      "text": "them. I'm telling you, as a person who's",
+      "duration": 1600,
+      "offset": "94479"
+    },
+    {
+      "text": "went through all of the options,",
+      "duration": 1201,
+      "offset": "96079"
+    },
+    {
+      "text": "especially on the payment side, Clerk",
+      "duration": 2159,
+      "offset": "97280"
+    },
+    {
+      "text": "has found this perfect integration of",
+      "duration": 2000,
+      "offset": "99439"
+    },
+    {
+      "text": "things as well as developer experience",
+      "duration": 1921,
+      "offset": "101439"
+    },
+    {
+      "text": "that makes it easy to build a secure,",
+      "duration": 1759,
+      "offset": "103360"
+    },
+    {
+      "text": "reliable application for everything from",
+      "duration": 2000,
+      "offset": "105119"
+    },
+    {
+      "text": "signing in to signing up. There's",
+      "duration": 1761,
+      "offset": "107119"
+    },
+    {
+      "text": "something beautiful about seeing a",
+      "duration": 1680,
+      "offset": "108880"
+    },
+    {
+      "text": "component like this for something as",
+      "duration": 1760,
+      "offset": "110560"
+    },
+    {
+      "text": "annoying as payment processing and",
+      "duration": 2240,
+      "offset": "112320"
+    },
+    {
+      "text": "managing what users access to what",
+      "duration": 2000,
+      "offset": "114560"
+    },
+    {
+      "text": "features. You want to protect a feature",
+      "duration": 1760,
+      "offset": "116560"
+    },
+    {
+      "text": "so that you only have access if you're",
+      "duration": 1439,
+      "offset": "118320"
+    },
+    {
+      "text": "paying for the team plan. It's this",
+      "duration": 1761,
+      "offset": "119759"
+    },
+    {
+      "text": "easy. protect feature equals team",
+      "duration": 2720,
+      "offset": "121520"
+    },
+    {
+      "text": "access. And now, as long as you have",
+      "duration": 1440,
+      "offset": "124240"
+    },
+    {
+      "text": "that set on the server side when you",
+      "duration": 2160,
+      "offset": "125680"
+    },
+    {
+      "text": "define these things in their dashboard,",
+      "duration": 1360,
+      "offset": "127840"
+    },
+    {
+      "text": "you're good to go. You could even check",
+      "duration": 1759,
+      "offset": "129200"
+    },
+    {
+      "text": "if they have a thing like the bronze",
+      "duration": 2401,
+      "offset": "130959"
+    },
+    {
+      "text": "plan. And if they don't, you can return",
+      "duration": 1760,
+      "offset": "133360"
+    },
+    {
+      "text": "an error. Do you understand how annoying",
+      "duration": 2400,
+      "offset": "135120"
+    },
+    {
+      "text": "these things are to do traditionally and",
+      "duration": 2160,
+      "offset": "137520"
+    },
+    {
+      "text": "how hilariously easy they are to do with",
+      "duration": 2000,
+      "offset": "139680"
+    },
+    {
+      "text": "Clerk? They even have a pricing table",
+      "duration": 1919,
+      "offset": "141680"
+    },
+    {
+      "text": "component. you know, the fancy like",
+      "duration": 1841,
+      "offset": "143599"
+    },
+    {
+      "text": "comparison of the different tiers that",
+      "duration": 1920,
+      "offset": "145440"
+    },
+    {
+      "text": "is fully integrated, has the Stripe pop",
+      "duration": 2400,
+      "offset": "147360"
+    },
+    {
+      "text": "overview built into it, and once they",
+      "duration": 2320,
+      "offset": "149760"
+    },
+    {
+      "text": "subscribe, it's immediately linked to",
+      "duration": 1600,
+      "offset": "152080"
+    },
+    {
+      "text": "that user's account. It's so much easier",
+      "duration": 2639,
+      "offset": "153680"
+    },
+    {
+      "text": "than the other solutions. I genuinely",
+      "duration": 1920,
+      "offset": "156319"
+    },
+    {
+      "text": "wish this existed when I started T3",
+      "duration": 1601,
+      "offset": "158239"
+    },
+    {
+      "text": "Chat. It would have made our lives so",
+      "duration": 1520,
+      "offset": "159840"
+    },
+    {
+      "text": "much easier. Like, I'm talking not",
+      "duration": 1920,
+      "offset": "161360"
+    },
+    {
+      "text": "weeks, but months of work. If you're",
+      "duration": 1760,
+      "offset": "163280"
+    },
+    {
+      "text": "ready to have real users and make real",
+      "duration": 1600,
+      "offset": "165040"
+    },
+    {
+      "text": "money, look no further. Check them out",
+      "duration": 1679,
+      "offset": "166640"
+    },
+    {
+      "text": "now at soyb.link/clerk.",
+      "duration": 2241,
+      "offset": "168319"
+    },
+    {
+      "text": "There's a lot to talk about with this",
+      "duration": 1280,
+      "offset": "170560"
+    },
+    {
+      "text": "new model, but I want to resolve the",
+      "duration": 1759,
+      "offset": "171840"
+    },
+    {
+      "text": "click baiting I just did with that whole",
+      "duration": 2000,
+      "offset": "173599"
+    },
+    {
+      "text": "benchmark thing. There are a lot of",
+      "duration": 1761,
+      "offset": "175599"
+    },
+    {
+      "text": "layers to this that we'll get to later,",
+      "duration": 1360,
+      "offset": "177360"
+    },
+    {
+      "text": "but I want to just show the raw numbers",
+      "duration": 1760,
+      "offset": "178720"
+    },
+    {
+      "text": "that I just ran. And I've spent a lot of",
+      "duration": 2080,
+      "offset": "180480"
+    },
+    {
+      "text": "money running this test over and over",
+      "duration": 1440,
+      "offset": "182560"
+    },
+    {
+      "text": "again to be sure of my results. I even",
+      "duration": 1760,
+      "offset": "184000"
+    },
+    {
+      "text": "went back and forth with some of the",
+      "duration": 1119,
+      "offset": "185760"
+    },
+    {
+      "text": "people on the research side trying to",
+      "duration": 1360,
+      "offset": "186879"
+    },
+    {
+      "text": "figure out what caused this regression.",
+      "duration": 2241,
+      "offset": "188239"
+    },
+    {
+      "text": "My current theory is that the new model",
+      "duration": 1839,
+      "offset": "190480"
+    },
+    {
+      "text": "is not as good at three-dimensional",
+      "duration": 1601,
+      "offset": "192319"
+    },
+    {
+      "text": "reasoning because my benchmark is about",
+      "duration": 1520,
+      "offset": "193920"
+    },
+    {
+      "text": "skateboard tricks. I give a description",
+      "duration": 1680,
+      "offset": "195440"
+    },
+    {
+      "text": "of a trick and I expect the model to",
+      "duration": 1920,
+      "offset": "197120"
+    },
+    {
+      "text": "tell me what the name of that trick is.",
+      "duration": 2000,
+      "offset": "199040"
+    },
+    {
+      "text": "And previously the highest score I ever",
+      "duration": 1600,
+      "offset": "201040"
+    },
+    {
+      "text": "got was with GBT5. Not even high. The",
+      "duration": 2560,
+      "offset": "202640"
+    },
+    {
+      "text": "default setting would get 97% on this",
+      "duration": 2399,
+      "offset": "205200"
+    },
+    {
+      "text": "benchmark. 03 Pro would get 96%. So like",
+      "duration": 3681,
+      "offset": "207599"
+    },
+    {
+      "text": "GBT5 was incredible at the spatial",
+      "duration": 2400,
+      "offset": "211280"
+    },
+    {
+      "text": "reasoning necessary to describe a",
+      "duration": 1760,
+      "offset": "213680"
+    },
+    {
+      "text": "skateboard trick accurately. When I",
+      "duration": 1760,
+      "offset": "215440"
+    },
+    {
+      "text": "first ran this benchmark with the new",
+      "duration": 1280,
+      "offset": "217200"
+    },
+    {
+      "text": "GPT 5.2 model, I got this 4% number and",
+      "duration": 3039,
+      "offset": "218480"
+    },
+    {
+      "text": "I was like, \"What the [ __ ] went wrong",
+      "duration": 2080,
+      "offset": "221519"
+    },
+    {
+      "text": "here?\" I did a lot of back and forth",
+      "duration": 1521,
+      "offset": "223599"
+    },
+    {
+      "text": "with the team and we realized that my",
+      "duration": 1759,
+      "offset": "225120"
+    },
+    {
+      "text": "harness due to some changes in how the",
+      "duration": 1920,
+      "offset": "226879"
+    },
+    {
+      "text": "GPT 5.2 model defaults, which is it",
+      "duration": 2321,
+      "offset": "228799"
+    },
+    {
+      "text": "defaults to no reasoning, the results",
+      "duration": 1759,
+      "offset": "231120"
+    },
+    {
+      "text": "ended up being lower. So like, okay,",
+      "duration": 1440,
+      "offset": "232879"
+    },
+    {
+      "text": "cool. I'll run it on high and on the new",
+      "duration": 2401,
+      "offset": "234319"
+    },
+    {
+      "text": "extra high reasoning options, which",
+      "duration": 2079,
+      "offset": "236720"
+    },
+    {
+      "text": "ended up being comically more expensive",
+      "duration": 2241,
+      "offset": "238799"
+    },
+    {
+      "text": "to run this bench on. Again, compared to",
+      "duration": 2000,
+      "offset": "241040"
+    },
+    {
+      "text": "GPD5 default, it was about6 cents per",
+      "duration": 3119,
+      "offset": "243040"
+    },
+    {
+      "text": "request. And GBT 5.2x high was about 2.5",
+      "duration": 4160,
+      "offset": "246159"
+    },
+    {
+      "text": "cents per request. Yes, it was about",
+      "duration": 2401,
+      "offset": "250319"
+    },
+    {
+      "text": "five times more expensive. And the",
+      "duration": 1920,
+      "offset": "252720"
+    },
+    {
+      "text": "reward for that is a 20% regression in",
+      "duration": 2640,
+      "offset": "254640"
+    },
+    {
+      "text": "performance. Is naming skateboard tricks",
+      "duration": 2079,
+      "offset": "257280"
+    },
+    {
+      "text": "the best use case for LLMs? Probably",
+      "duration": 2241,
+      "offset": "259359"
+    },
+    {
+      "text": "not. But I was so pumped to see GPT5",
+      "duration": 3280,
+      "offset": "261600"
+    },
+    {
+      "text": "understand spatial reasoning well enough",
+      "duration": 1840,
+      "offset": "264880"
+    },
+    {
+      "text": "to do this. And this is a massive",
+      "duration": 2320,
+      "offset": "266720"
+    },
+    {
+      "text": "regression. Like absurdly so. It's now",
+      "duration": 2640,
+      "offset": "269040"
+    },
+    {
+      "text": "tied with models like Grock 4. What what",
+      "duration": 3519,
+      "offset": "271680"
+    },
+    {
+      "text": "went wrong there? But it seems like my",
+      "duration": 2321,
+      "offset": "275199"
+    },
+    {
+      "text": "benchmark is novel in this case because",
+      "duration": 2160,
+      "offset": "277520"
+    },
+    {
+      "text": "almost every other bench is showing a",
+      "duration": 1920,
+      "offset": "279680"
+    },
+    {
+      "text": "very different story like GBT 5.2",
+      "duration": 2560,
+      "offset": "281600"
+    },
+    {
+      "text": "thinking getting a 70.9% on GDP val",
+      "duration": 3599,
+      "offset": "284160"
+    },
+    {
+      "text": "versus 5.1 thinking and five getting a",
+      "duration": 3121,
+      "offset": "287759"
+    },
+    {
+      "text": "38.8%.",
+      "duration": 1680,
+      "offset": "290880"
+    },
+    {
+      "text": "SW Bench saw a big bump at 55.6%. SWB",
+      "duration": 3680,
+      "offset": "292560"
+    },
+    {
+      "text": "verified saw a first time score for the",
+      "duration": 2399,
+      "offset": "296240"
+    },
+    {
+      "text": "OpenAI team of an 80%. GBQA Diamond was",
+      "duration": 3361,
+      "offset": "298639"
+    },
+    {
+      "text": "a nice boost. AME was now 100% with no",
+      "duration": 2800,
+      "offset": "302000"
+    },
+    {
+      "text": "tools which is really good. It means it",
+      "duration": 1440,
+      "offset": "304800"
+    },
+    {
+      "text": "can solve math problems without using",
+      "duration": 1360,
+      "offset": "306240"
+    },
+    {
+      "text": "math tools. Impressive, but there's a",
+      "duration": 2319,
+      "offset": "307600"
+    },
+    {
+      "text": "lot more to these stories. That all",
+      "duration": 1921,
+      "offset": "309919"
+    },
+    {
+      "text": "said, the Arc AGI scores are actually",
+      "duration": 2880,
+      "offset": "311840"
+    },
+    {
+      "text": "absurd. From ARC prize themselves, a",
+      "duration": 2800,
+      "offset": "314720"
+    },
+    {
+      "text": "year ago, we verified a preview of an",
+      "duration": 1679,
+      "offset": "317520"
+    },
+    {
+      "text": "unreleased version of OpenAI's 03 high",
+      "duration": 2321,
+      "offset": "319199"
+    },
+    {
+      "text": "that scored an 88% on ARC AGI1 at an",
+      "duration": 2880,
+      "offset": "321520"
+    },
+    {
+      "text": "estimated $4.5,000",
+      "duration": 2079,
+      "offset": "324400"
+    },
+    {
+      "text": "per task. Pretty absurd how expensive it",
+      "duration": 2881,
+      "offset": "326479"
+    },
+    {
+      "text": "was for them to run that special version",
+      "duration": 1520,
+      "offset": "329360"
+    },
+    {
+      "text": "of 03 for this, but uh it was able to",
+      "duration": 2480,
+      "offset": "330880"
+    },
+    {
+      "text": "get a high score. And now the extra high",
+      "duration": 2399,
+      "offset": "333360"
+    },
+    {
+      "text": "option on GBT 5.2 Pro, which is also",
+      "duration": 2641,
+      "offset": "335759"
+    },
+    {
+      "text": "notably not GBT 5.2, scores a 90.5% and",
+      "duration": 4160,
+      "offset": "338400"
+    },
+    {
+      "text": "it's only $1164",
+      "duration": 2240,
+      "offset": "342560"
+    },
+    {
+      "text": "per task. That's a 390x efficiency",
+      "duration": 2560,
+      "offset": "344800"
+    },
+    {
+      "text": "improvement in one year. ArcGI is a wild",
+      "duration": 2720,
+      "offset": "347360"
+    },
+    {
+      "text": "benchmark. I have covered it many",
+      "duration": 1520,
+      "offset": "350080"
+    },
+    {
+      "text": "different times. If you're not familiar,",
+      "duration": 1280,
+      "offset": "351600"
+    },
+    {
+      "text": "go to their website and try it yourself",
+      "duration": 2159,
+      "offset": "352880"
+    },
+    {
+      "text": "because it's a thing that's easy for",
+      "duration": 1521,
+      "offset": "355039"
+    },
+    {
+      "text": "humans and nearly impossible for LLMs.",
+      "duration": 2079,
+      "offset": "356560"
+    },
+    {
+      "text": "It is no longer nearly impossible for",
+      "duration": 1441,
+      "offset": "358639"
+    },
+    {
+      "text": "these LLMs. It's actually really, really",
+      "duration": 1679,
+      "offset": "360080"
+    },
+    {
+      "text": "impressive. They made a V2 of this",
+      "duration": 1841,
+      "offset": "361759"
+    },
+    {
+      "text": "leaderboard that was meant to be",
+      "duration": 1520,
+      "offset": "363600"
+    },
+    {
+      "text": "actually impossible for LLMs to solve,",
+      "duration": 2000,
+      "offset": "365120"
+    },
+    {
+      "text": "thinking it would be like the final",
+      "duration": 1120,
+      "offset": "367120"
+    },
+    {
+      "text": "benchmark ever. Yet, here we are with",
+      "duration": 2079,
+      "offset": "368240"
+    },
+    {
+      "text": "more and more models getting high scores",
+      "duration": 2720,
+      "offset": "370319"
+    },
+    {
+      "text": "on it. We just had Gemini 3 Pro have a",
+      "duration": 2561,
+      "offset": "373039"
+    },
+    {
+      "text": "groundbreaking 30% and then the Gemini 3",
+      "duration": 3280,
+      "offset": "375600"
+    },
+    {
+      "text": "Pro deep research, whatever the hell",
+      "duration": 2400,
+      "offset": "378880"
+    },
+    {
+      "text": "they call their like heavy version",
+      "duration": 1759,
+      "offset": "381280"
+    },
+    {
+      "text": "getting all the way into the 40s. And",
+      "duration": 1761,
+      "offset": "383039"
+    },
+    {
+      "text": "now GBD 5.2 Pro High is scoring way, way",
+      "duration": 3760,
+      "offset": "384800"
+    },
+    {
+      "text": "higher here. 54.2% 2% for $15.72",
+      "duration": 4639,
+      "offset": "388560"
+    },
+    {
+      "text": "per task. But then my favorite part, due",
+      "duration": 2241,
+      "offset": "393199"
+    },
+    {
+      "text": "to API timeouts, we were unable to",
+      "duration": 2400,
+      "offset": "395440"
+    },
+    {
+      "text": "reliably verify GBT 5.2 Pro XH high on",
+      "duration": 3520,
+      "offset": "397840"
+    },
+    {
+      "text": "RKGI2. Turns out these models are still",
+      "duration": 2959,
+      "offset": "401360"
+    },
+    {
+      "text": "timing out all over the place. It's kind",
+      "duration": 1841,
+      "offset": "404319"
+    },
+    {
+      "text": "of insane how long 5.2 Pro will run for.",
+      "duration": 3200,
+      "offset": "406160"
+    },
+    {
+      "text": "I didn't even put it in my most recent",
+      "duration": 1600,
+      "offset": "409360"
+    },
+    {
+      "text": "run of Skate Bench because it took like",
+      "duration": 1920,
+      "offset": "410960"
+    },
+    {
+      "text": "up to 10 minutes per request at times",
+      "duration": 2400,
+      "offset": "412880"
+    },
+    {
+      "text": "for naming a skate trick that I can do",
+      "duration": 1600,
+      "offset": "415280"
+    },
+    {
+      "text": "in 5 seconds, not even. It's kind of",
+      "duration": 2400,
+      "offset": "416880"
+    },
+    {
+      "text": "absurd how hard the new models will go.",
+      "duration": 1919,
+      "offset": "419280"
+    },
+    {
+      "text": "And even 5.2 extra high was able to take",
+      "duration": 2720,
+      "offset": "421199"
+    },
+    {
+      "text": "240 seconds per request. That's 4",
+      "duration": 3120,
+      "offset": "423919"
+    },
+    {
+      "text": "minutes per request sometimes for naming",
+      "duration": 2401,
+      "offset": "427039"
+    },
+    {
+      "text": "a skate trick. The first example they",
+      "duration": 1759,
+      "offset": "429440"
+    },
+    {
+      "text": "open with is the economically valuable",
+      "duration": 1761,
+      "offset": "431199"
+    },
+    {
+      "text": "tasks section which includes GDP val",
+      "duration": 2720,
+      "offset": "432960"
+    },
+    {
+      "text": "which is a benchmark they made for",
+      "duration": 1280,
+      "offset": "435680"
+    },
+    {
+      "text": "evaluating how well different models",
+      "duration": 1840,
+      "offset": "436960"
+    },
+    {
+      "text": "behave against known knowledge work",
+      "duration": 2480,
+      "offset": "438800"
+    },
+    {
+      "text": "tasks that you have to have like a",
+      "duration": 1440,
+      "offset": "441280"
+    },
+    {
+      "text": "degree or something for. They take",
+      "duration": 1520,
+      "offset": "442720"
+    },
+    {
+      "text": "actual examples of work and ask the",
+      "duration": 1920,
+      "offset": "444240"
+    },
+    {
+      "text": "model to perform against it and see if",
+      "duration": 2400,
+      "offset": "446160"
+    },
+    {
+      "text": "it performs at or above a human expert",
+      "duration": 1840,
+      "offset": "448560"
+    },
+    {
+      "text": "level. And 5.2 thinking beats or ties",
+      "duration": 2639,
+      "offset": "450400"
+    },
+    {
+      "text": "the top industry professionals on 70.9%",
+      "duration": 2720,
+      "offset": "453039"
+    },
+    {
+      "text": "of the comparisons on the GDP file",
+      "duration": 2241,
+      "offset": "455759"
+    },
+    {
+      "text": "knowledge work tasks according to expert",
+      "duration": 1919,
+      "offset": "458000"
+    },
+    {
+      "text": "human judges. That's the other",
+      "duration": 1441,
+      "offset": "459919"
+    },
+    {
+      "text": "interesting piece here is this benchmark",
+      "duration": 1279,
+      "offset": "461360"
+    },
+    {
+      "text": "needs to be judged by humans. So I can't",
+      "duration": 1521,
+      "offset": "462639"
+    },
+    {
+      "text": "just run it on my laptop. And it's a",
+      "duration": 1920,
+      "offset": "464160"
+    },
+    {
+      "text": "massive jump from GPT5 which was a 38.8%",
+      "duration": 3360,
+      "offset": "466080"
+    },
+    {
+      "text": "to 70.9 for 5.2 thinking and 74.1 for",
+      "duration": 3440,
+      "offset": "469440"
+    },
+    {
+      "text": "5.2. 2 Pro. And there's no chart crimes",
+      "duration": 2719,
+      "offset": "472880"
+    },
+    {
+      "text": "happening here either, which is nice.",
+      "duration": 1361,
+      "offset": "475599"
+    },
+    {
+      "text": "Don't worry, we'll have plenty of chart",
+      "duration": 1120,
+      "offset": "476960"
+    },
+    {
+      "text": "crimes later. While reviewing one",
+      "duration": 1760,
+      "offset": "478080"
+    },
+    {
+      "text": "especially good output, one GDP Val",
+      "duration": 2079,
+      "offset": "479840"
+    },
+    {
+      "text": "judge commented, \"It is an exciting and",
+      "duration": 2000,
+      "offset": "481919"
+    },
+    {
+      "text": "noticeable leap in output quality. It",
+      "duration": 2161,
+      "offset": "483919"
+    },
+    {
+      "text": "appears to have been done by a",
+      "duration": 1440,
+      "offset": "486080"
+    },
+    {
+      "text": "professional company with staff and has",
+      "duration": 1840,
+      "offset": "487520"
+    },
+    {
+      "text": "a surprisingly well-designed layout and",
+      "duration": 2080,
+      "offset": "489360"
+    },
+    {
+      "text": "advice on both deliverables, though with",
+      "duration": 2159,
+      "offset": "491440"
+    },
+    {
+      "text": "one we still have some minor errors to",
+      "duration": 2241,
+      "offset": "493599"
+    },
+    {
+      "text": "correct. Yeah, apparently very",
+      "duration": 2160,
+      "offset": "495840"
+    },
+    {
+      "text": "impressive. But on the topic of design,",
+      "duration": 2400,
+      "offset": "498000"
+    },
+    {
+      "text": "we should see how it handles design",
+      "duration": 1600,
+      "offset": "500400"
+    },
+    {
+      "text": "work. I have a stock Dex.js project that",
+      "duration": 3039,
+      "offset": "502000"
+    },
+    {
+      "text": "I haven't made any changes to. We're",
+      "duration": 1361,
+      "offset": "505039"
+    },
+    {
+      "text": "gonna do my favorite, the image gen",
+      "duration": 1519,
+      "offset": "506400"
+    },
+    {
+      "text": "bench where I tell it to make an image",
+      "duration": 1521,
+      "offset": "507919"
+    },
+    {
+      "text": "generation studio mock and uh apparently",
+      "duration": 3279,
+      "offset": "509440"
+    },
+    {
+      "text": "cursor is breaking and I am now past my",
+      "duration": 3680,
+      "offset": "512719"
+    },
+    {
+      "text": "usage. I'm on the $20 plan so the fact",
+      "duration": 1921,
+      "offset": "516399"
+    },
+    {
+      "text": "that I'm just hitting that now is really",
+      "duration": 2159,
+      "offset": "518320"
+    },
+    {
+      "text": "cool. Obvious bias. I am an investor in",
+      "duration": 1920,
+      "offset": "520479"
+    },
+    {
+      "text": "cursor so account for that. This is also",
+      "duration": 1841,
+      "offset": "522399"
+    },
+    {
+      "text": "one of my first times using 5.2 incursor",
+      "duration": 1920,
+      "offset": "524240"
+    },
+    {
+      "text": "because I didn't do the thing where I",
+      "duration": 1280,
+      "offset": "526160"
+    },
+    {
+      "text": "set up the open AI like API manually",
+      "duration": 2959,
+      "offset": "527440"
+    },
+    {
+      "text": "incursor. I have told this to the team",
+      "duration": 1841,
+      "offset": "530399"
+    },
+    {
+      "text": "many times and I will tell them again",
+      "duration": 1920,
+      "offset": "532240"
+    },
+    {
+      "text": "right now. Hi friends at cursor. I",
+      "duration": 2160,
+      "offset": "534160"
+    },
+    {
+      "text": "should be able to set a custom OpenAI",
+      "duration": 1920,
+      "offset": "536320"
+    },
+    {
+      "text": "API endpoint without having it break",
+      "duration": 2000,
+      "offset": "538240"
+    },
+    {
+      "text": "every other model in your app. It's very",
+      "duration": 1920,
+      "offset": "540240"
+    },
+    {
+      "text": "annoying that if I go set an OpenAI API",
+      "duration": 2480,
+      "offset": "542160"
+    },
+    {
+      "text": "endpoint that I can no longer use Opus",
+      "duration": 2000,
+      "offset": "544640"
+    },
+    {
+      "text": "or Composer or any of the other models",
+      "duration": 1600,
+      "offset": "546640"
+    },
+    {
+      "text": "that I like to use in Cursor. It's quite",
+      "duration": 1920,
+      "offset": "548240"
+    },
+    {
+      "text": "obnoxious. I know I'm unique that I get",
+      "duration": 1840,
+      "offset": "550160"
+    },
+    {
+      "text": "early access and I have a need to test",
+      "duration": 1519,
+      "offset": "552000"
+    },
+    {
+      "text": "these things. But it basically makes the",
+      "duration": 2081,
+      "offset": "553519"
+    },
+    {
+      "text": "feature of the checkbox to put in a",
+      "duration": 1760,
+      "offset": "555600"
+    },
+    {
+      "text": "custom API endpoint entirely useless to",
+      "duration": 2479,
+      "offset": "557360"
+    },
+    {
+      "text": "me. The majority of that was uncut, but",
+      "duration": 1921,
+      "offset": "559839"
+    },
+    {
+      "text": "I'll let you know roughly how much time",
+      "duration": 1600,
+      "offset": "561760"
+    },
+    {
+      "text": "this generation takes. It isn't very",
+      "duration": 2080,
+      "offset": "563360"
+    },
+    {
+      "text": "fast. These models are still not very",
+      "duration": 2079,
+      "offset": "565440"
+    },
+    {
+      "text": "fast. It's the one big pain point I have",
+      "duration": 2401,
+      "offset": "567519"
+    },
+    {
+      "text": "had with the GPT5 series now that I'm",
+      "duration": 1840,
+      "offset": "569920"
+    },
+    {
+      "text": "experiencing Opus 4.5 and especially the",
+      "duration": 2400,
+      "offset": "571760"
+    },
+    {
+      "text": "composer model and cursor way more. It",
+      "duration": 2560,
+      "offset": "574160"
+    },
+    {
+      "text": "is obnoxious how slow the GPT5 series",
+      "duration": 3440,
+      "offset": "576720"
+    },
+    {
+      "text": "is, especially if you take advantage of",
+      "duration": 2160,
+      "offset": "580160"
+    },
+    {
+      "text": "some of the fancy pro model stuff, which",
+      "duration": 2160,
+      "offset": "582320"
+    },
+    {
+      "text": "like I've had the Pro models take 30 to",
+      "duration": 2560,
+      "offset": "584480"
+    },
+    {
+      "text": "50 minutes to respond to things. It's",
+      "duration": 2160,
+      "offset": "587040"
+    },
+    {
+      "text": "awesome that they can go out and do work",
+      "duration": 1680,
+      "offset": "589200"
+    },
+    {
+      "text": "and come back with a correct answer so",
+      "duration": 1760,
+      "offset": "590880"
+    },
+    {
+      "text": "reliably, but god damn, those models are",
+      "duration": 2480,
+      "offset": "592640"
+    },
+    {
+      "text": "slow. I thought this was going to be",
+      "duration": 1440,
+      "offset": "595120"
+    },
+    {
+      "text": "fast enough that I could talk over it",
+      "duration": 1440,
+      "offset": "596560"
+    },
+    {
+      "text": "and give you guys like a realistic",
+      "duration": 1839,
+      "offset": "598000"
+    },
+    {
+      "text": "feeling for how long it would take. I",
+      "duration": 1841,
+      "offset": "599839"
+    },
+    {
+      "text": "overestimated just how fast it could be.",
+      "duration": 2480,
+      "offset": "601680"
+    },
+    {
+      "text": "So, we'll come back to GBT 5.2 and",
+      "duration": 1920,
+      "offset": "604160"
+    },
+    {
+      "text": "cursor in a moment. Almost forgot to",
+      "duration": 1759,
+      "offset": "606080"
+    },
+    {
+      "text": "mention, as y'all probably expect, we",
+      "duration": 1601,
+      "offset": "607839"
+    },
+    {
+      "text": "threw all of the new models in T3 chat.",
+      "duration": 1760,
+      "offset": "609440"
+    },
+    {
+      "text": "So, if you want access to all of the",
+      "duration": 1520,
+      "offset": "611200"
+    },
+    {
+      "text": "versions, including the new reasoning",
+      "duration": 1440,
+      "offset": "612720"
+    },
+    {
+      "text": "one that's a little restricted on the",
+      "duration": 1440,
+      "offset": "614160"
+    },
+    {
+      "text": "free tier on chat GPT, for eight bucks a",
+      "duration": 2239,
+      "offset": "615600"
+    },
+    {
+      "text": "month, you can use all these here. If",
+      "duration": 1361,
+      "offset": "617839"
+    },
+    {
+      "text": "you want your first month for only $1,",
+      "duration": 2079,
+      "offset": "619200"
+    },
+    {
+      "text": "use code 5.2 at checkout. Anyways, back",
+      "duration": 2641,
+      "offset": "621279"
+    },
+    {
+      "text": "to whatever the heck I was just talking",
+      "duration": 1359,
+      "offset": "623920"
+    },
+    {
+      "text": "about. GBD 5.2 Thinking sets a new",
+      "duration": 2321,
+      "offset": "625279"
+    },
+    {
+      "text": "state-of-the-art of 55.6% on SWEBench",
+      "duration": 3200,
+      "offset": "627600"
+    },
+    {
+      "text": "Pro, a rigorous evaluation of real world",
+      "duration": 2719,
+      "offset": "630800"
+    },
+    {
+      "text": "software engineering. Also note, this is",
+      "duration": 1760,
+      "offset": "633519"
+    },
+    {
+      "text": "GPT 5.2 thinking, not GPT 5.2 to codeex",
+      "duration": 3841,
+      "offset": "635279"
+    },
+    {
+      "text": "which will probably come in the near",
+      "duration": 1440,
+      "offset": "639120"
+    },
+    {
+      "text": "future. It does seem like they're",
+      "duration": 1600,
+      "offset": "640560"
+    },
+    {
+      "text": "finally realizing how bad the",
+      "duration": 1520,
+      "offset": "642160"
+    },
+    {
+      "text": "terminology for the models is and they",
+      "duration": 1920,
+      "offset": "643680"
+    },
+    {
+      "text": "might not do the whole codeex thing",
+      "duration": 2640,
+      "offset": "645600"
+    },
+    {
+      "text": "again. I I hope that they drop the",
+      "duration": 1599,
+      "offset": "648240"
+    },
+    {
+      "text": "overuse of that word. It just they",
+      "duration": 1761,
+      "offset": "649839"
+    },
+    {
+      "text": "should have called codec cli GP",
+      "duration": 1760,
+      "offset": "651600"
+    },
+    {
+      "text": "terminal. They should have had the model",
+      "duration": 2000,
+      "offset": "653360"
+    },
+    {
+      "text": "be the code edition or something, but",
+      "duration": 1680,
+      "offset": "655360"
+    },
+    {
+      "text": "just calling everything codeex is",
+      "duration": 1039,
+      "offset": "657040"
+    },
+    {
+      "text": "obnoxious. Regardless, this SWB verified",
+      "duration": 3521,
+      "offset": "658079"
+    },
+    {
+      "text": "bench only tests Python, and SBench Pro",
+      "duration": 2160,
+      "offset": "661600"
+    },
+    {
+      "text": "tests four languages and aims to be more",
+      "duration": 2079,
+      "offset": "663760"
+    },
+    {
+      "text": "contamination resistant, challenging,",
+      "duration": 1841,
+      "offset": "665839"
+    },
+    {
+      "text": "diverse, and industrially relevant. In",
+      "duration": 2159,
+      "offset": "667680"
+    },
+    {
+      "text": "the Pro version, they got the new",
+      "duration": 1281,
+      "offset": "669839"
+    },
+    {
+      "text": "highest score on the extra high version",
+      "duration": 2159,
+      "offset": "671120"
+    },
+    {
+      "text": "of 56%. But very interestingly, the 5.1",
+      "duration": 4000,
+      "offset": "673279"
+    },
+    {
+      "text": "Codeex version when given max extra",
+      "duration": 2240,
+      "offset": "677279"
+    },
+    {
+      "text": "high, so like allowed to just use as",
+      "duration": 1521,
+      "offset": "679519"
+    },
+    {
+      "text": "much context as it wants, it actually",
+      "duration": 1440,
+      "offset": "681040"
+    },
+    {
+      "text": "performed slightly worse than the normal",
+      "duration": 2799,
+      "offset": "682480"
+    },
+    {
+      "text": "high version does. the the way rein are",
+      "duration": 2240,
+      "offset": "685279"
+    },
+    {
+      "text": "being used is increasingly weird,",
+      "duration": 2481,
+      "offset": "687519"
+    },
+    {
+      "text": "especially with the new defaults and the",
+      "duration": 2079,
+      "offset": "690000"
+    },
+    {
+      "text": "behaviors we're seeing here. Like GPT5",
+      "duration": 2880,
+      "offset": "692079"
+    },
+    {
+      "text": "on my benchmark got a 97% doing 600",
+      "duration": 3120,
+      "offset": "694959"
+    },
+    {
+      "text": "tokens per request average. GBD5.2 extra",
+      "duration": 3440,
+      "offset": "698079"
+    },
+    {
+      "text": "high got a 79% an 18 point regression",
+      "duration": 3681,
+      "offset": "701519"
+    },
+    {
+      "text": "while using over three times the number",
+      "duration": 2480,
+      "offset": "705200"
+    },
+    {
+      "text": "of tokens.",
+      "duration": 1760,
+      "offset": "707680"
+    },
+    {
+      "text": "Interesting. For everyday professional",
+      "duration": 1600,
+      "offset": "709440"
+    },
+    {
+      "text": "use, this translates into a model that",
+      "duration": 1359,
+      "offset": "711040"
+    },
+    {
+      "text": "can more reliably debug production code,",
+      "duration": 2081,
+      "offset": "712399"
+    },
+    {
+      "text": "implement feature requests, refactor",
+      "duration": 1520,
+      "offset": "714480"
+    },
+    {
+      "text": "large code bases, and ship fixes end to",
+      "duration": 1839,
+      "offset": "716000"
+    },
+    {
+      "text": "end with less manual intervention. They",
+      "duration": 1841,
+      "offset": "717839"
+    },
+    {
+      "text": "also said it's better at front end. So,",
+      "duration": 1360,
+      "offset": "719680"
+    },
+    {
+      "text": "we'll look at that in a sec cuz the",
+      "duration": 1520,
+      "offset": "721040"
+    },
+    {
+      "text": "generation did finish. But, I want to",
+      "duration": 1680,
+      "offset": "722560"
+    },
+    {
+      "text": "first talk a little bit about my",
+      "duration": 1599,
+      "offset": "724240"
+    },
+    {
+      "text": "experience using this to generate my own",
+      "duration": 2961,
+      "offset": "725839"
+    },
+    {
+      "text": "tests. I maintain a handful of different",
+      "duration": 2240,
+      "offset": "728800"
+    },
+    {
+      "text": "benchmarks and evaluate",
+      "duration": 3560,
+      "offset": "731040"
+    },
+    {
+      "text": "bench in particular. had some changes I",
+      "duration": 1841,
+      "offset": "734959"
+    },
+    {
+      "text": "wanted to make around how the caching",
+      "duration": 1599,
+      "offset": "736800"
+    },
+    {
+      "text": "worked because some of these new models",
+      "duration": 1921,
+      "offset": "738399"
+    },
+    {
+      "text": "would hit errors and I would need to",
+      "duration": 1840,
+      "offset": "740320"
+    },
+    {
+      "text": "rerun it, but the cached errors would",
+      "duration": 1840,
+      "offset": "742160"
+    },
+    {
+      "text": "keep the model from rerunning. That plus",
+      "duration": 2639,
+      "offset": "744000"
+    },
+    {
+      "text": "all the weird things about usage and I",
+      "duration": 1760,
+      "offset": "746639"
+    },
+    {
+      "text": "really really wanted to start tracking",
+      "duration": 1201,
+      "offset": "748399"
+    },
+    {
+      "text": "token utilization so I could include",
+      "duration": 1600,
+      "offset": "749600"
+    },
+    {
+      "text": "that in my coverage here as well as",
+      "duration": 2079,
+      "offset": "751200"
+    },
+    {
+      "text": "these awful run times. So I had to make",
+      "duration": 2161,
+      "offset": "753279"
+    },
+    {
+      "text": "some changes for that. So I wrote a",
+      "duration": 1440,
+      "offset": "755440"
+    },
+    {
+      "text": "prompt make the following changes to",
+      "duration": 2160,
+      "offset": "756880"
+    },
+    {
+      "text": "this project. One, cache should also",
+      "duration": 2160,
+      "offset": "759040"
+    },
+    {
+      "text": "include token counts and durations. Two,",
+      "duration": 2720,
+      "offset": "761200"
+    },
+    {
+      "text": "errors should not be cached. So a rerun",
+      "duration": 1919,
+      "offset": "763920"
+    },
+    {
+      "text": "should re-trigger any jobs that errored",
+      "duration": 1680,
+      "offset": "765839"
+    },
+    {
+      "text": "out. And three, you should show the",
+      "duration": 2081,
+      "offset": "767519"
+    },
+    {
+      "text": "average token usage in the table in the",
+      "duration": 1919,
+      "offset": "769600"
+    },
+    {
+      "text": "CLI view. Think this is a pretty clear",
+      "duration": 3281,
+      "offset": "771519"
+    },
+    {
+      "text": "set of things to do. I had this come",
+      "duration": 2159,
+      "offset": "774800"
+    },
+    {
+      "text": "through with composer, with Opus, and",
+      "duration": 1841,
+      "offset": "776959"
+    },
+    {
+      "text": "with GPT 5.2. The composer version came",
+      "duration": 2719,
+      "offset": "778800"
+    },
+    {
+      "text": "back almost instantaneously with changes",
+      "duration": 2320,
+      "offset": "781519"
+    },
+    {
+      "text": "that were mostly good. I didn't like how",
+      "duration": 1680,
+      "offset": "783839"
+    },
+    {
+      "text": "it was doing the cost calculation and",
+      "duration": 1681,
+      "offset": "785519"
+    },
+    {
+      "text": "the token calculation though. It was",
+      "duration": 1360,
+      "offset": "787200"
+    },
+    {
+      "text": "relying on a weird sub field instead of",
+      "duration": 1360,
+      "offset": "788560"
+    },
+    {
+      "text": "just using what the SDK gave me. So I",
+      "duration": 2159,
+      "offset": "789920"
+    },
+    {
+      "text": "rejected that. I don't know why it has a",
+      "duration": 1200,
+      "offset": "792079"
+    },
+    {
+      "text": "thumb there cuz I picked opus, not",
+      "duration": 1441,
+      "offset": "793279"
+    },
+    {
+      "text": "composer. The opus version seemed like",
+      "duration": 2160,
+      "offset": "794720"
+    },
+    {
+      "text": "it was really good and it was half as",
+      "duration": 1280,
+      "offset": "796880"
+    },
+    {
+      "text": "much code as the others until I looked",
+      "duration": 1600,
+      "offset": "798160"
+    },
+    {
+      "text": "at it more closely and realized that it",
+      "duration": 2319,
+      "offset": "799760"
+    },
+    {
+      "text": "wasn't actually using the cache for the",
+      "duration": 2161,
+      "offset": "802079"
+    },
+    {
+      "text": "token counts or for the times like it",
+      "duration": 2399,
+      "offset": "804240"
+    },
+    {
+      "text": "was expected to. So that was incredibly",
+      "duration": 2161,
+      "offset": "806639"
+    },
+    {
+      "text": "frustrating. So I told it to start",
+      "duration": 1200,
+      "offset": "808800"
+    },
+    {
+      "text": "caching these things and it did, but it",
+      "duration": 1760,
+      "offset": "810000"
+    },
+    {
+      "text": "didn't use the cache results for [ __ ]",
+      "duration": 1600,
+      "offset": "811760"
+    },
+    {
+      "text": "anything. But I had to remind it later",
+      "duration": 2159,
+      "offset": "813360"
+    },
+    {
+      "text": "on with a follow-up message because I I",
+      "duration": 2801,
+      "offset": "815519"
+    },
+    {
+      "text": "didn't notice this mistake until I",
+      "duration": 1120,
+      "offset": "818320"
+    },
+    {
+      "text": "reran. was like, \"Wait, you just screwed",
+      "duration": 2480,
+      "offset": "819440"
+    },
+    {
+      "text": "this up.\" Also, it was tracing input",
+      "duration": 1840,
+      "offset": "821920"
+    },
+    {
+      "text": "tokens, which is the same for every",
+      "duration": 1280,
+      "offset": "823760"
+    },
+    {
+      "text": "single run, so it doesn't matter. So, I",
+      "duration": 1200,
+      "offset": "825040"
+    },
+    {
+      "text": "told it to drop that, but it still",
+      "duration": 1520,
+      "offset": "826240"
+    },
+    {
+      "text": "entirely forgot to restore durations",
+      "duration": 1360,
+      "offset": "827760"
+    },
+    {
+      "text": "when loading from cache. So, I had to do",
+      "duration": 2080,
+      "offset": "829120"
+    },
+    {
+      "text": "two follow-up prompts with Opus 4.5 to",
+      "duration": 2240,
+      "offset": "831200"
+    },
+    {
+      "text": "get it working how I expected. That all",
+      "duration": 2079,
+      "offset": "833440"
+    },
+    {
+      "text": "said, I have not actually tried the",
+      "duration": 1601,
+      "offset": "835519"
+    },
+    {
+      "text": "chatbt 3.2 version. I gave the code a",
+      "duration": 2159,
+      "offset": "837120"
+    },
+    {
+      "text": "quick look and it seemed fine, but",
+      "duration": 2321,
+      "offset": "839279"
+    },
+    {
+      "text": "that's not like me. I want to actually",
+      "duration": 1760,
+      "offset": "841600"
+    },
+    {
+      "text": "test it. Let's do that. Copy work path.",
+      "duration": 3360,
+      "offset": "843360"
+    },
+    {
+      "text": "Hey uh friends at cursor who are",
+      "duration": 1919,
+      "offset": "846720"
+    },
+    {
+      "text": "probably watching this. At no point did",
+      "duration": 2961,
+      "offset": "848639"
+    },
+    {
+      "text": "I do anything that would result in these",
+      "duration": 2239,
+      "offset": "851600"
+    },
+    {
+      "text": "changes from happening. In fact, the",
+      "duration": 1921,
+      "offset": "853839"
+    },
+    {
+      "text": "thing that is being deleted here is the",
+      "duration": 2400,
+      "offset": "855760"
+    },
+    {
+      "text": "correct version that works. And the",
+      "duration": 1600,
+      "offset": "858160"
+    },
+    {
+      "text": "thing that's here, the green, the",
+      "duration": 1280,
+      "offset": "859760"
+    },
+    {
+      "text": "proposal, is entirely wrong and",
+      "duration": 1680,
+      "offset": "861040"
+    },
+    {
+      "text": "incorrect. There's no review anything",
+      "duration": 1919,
+      "offset": "862720"
+    },
+    {
+      "text": "here. I have no idea why this is here at",
+      "duration": 1681,
+      "offset": "864639"
+    },
+    {
+      "text": "all. It's wrong and bad and broken. It's",
+      "duration": 2879,
+      "offset": "866320"
+    },
+    {
+      "text": "a reversion of something that hasn't",
+      "duration": 1440,
+      "offset": "869199"
+    },
+    {
+      "text": "existed in this codebase forever, if",
+      "duration": 1440,
+      "offset": "870639"
+    },
+    {
+      "text": "ever. Why is this here? What the [ __ ]",
+      "duration": 2641,
+      "offset": "872079"
+    },
+    {
+      "text": "wrong with the UI? I don't know what's",
+      "duration": 1760,
+      "offset": "874720"
+    },
+    {
+      "text": "went wrong with the review mode, but",
+      "duration": 1440,
+      "offset": "876480"
+    },
+    {
+      "text": "it's getting really, really egregious",
+      "duration": 1680,
+      "offset": "877920"
+    },
+    {
+      "text": "lately. But now that I have fixed the",
+      "duration": 2000,
+      "offset": "879600"
+    },
+    {
+      "text": "package JSON, to be very clear, this is",
+      "duration": 2479,
+      "offset": "881600"
+    },
+    {
+      "text": "not broken because of GBT 5.2. This is",
+      "duration": 1440,
+      "offset": "884079"
+    },
+    {
+      "text": "broken because of cursor.",
+      "duration": 2320,
+      "offset": "885519"
+    },
+    {
+      "text": "Let's run the test. And look at that.",
+      "duration": 3120,
+      "offset": "887839"
+    },
+    {
+      "text": "The one from GPT 5.2 did everything",
+      "duration": 2081,
+      "offset": "890959"
+    },
+    {
+      "text": "right first shot. So the the reason I",
+      "duration": 2479,
+      "offset": "893040"
+    },
+    {
+      "text": "just tested all of that is I really",
+      "duration": 1440,
+      "offset": "895519"
+    },
+    {
+      "text": "wanted to emphasize the difference in I",
+      "duration": 2481,
+      "offset": "896959"
+    },
+    {
+      "text": "guess vibe when I'm using GPT models,",
+      "duration": 2399,
+      "offset": "899440"
+    },
+    {
+      "text": "especially 5.2,",
+      "duration": 1281,
+      "offset": "901839"
+    },
+    {
+      "text": "Compared to models like Opus and",
+      "duration": 1519,
+      "offset": "903120"
+    },
+    {
+      "text": "Composer, GPT5 is just the series that",
+      "duration": 3041,
+      "offset": "904639"
+    },
+    {
+      "text": "follows instructions the best. That's",
+      "duration": 1599,
+      "offset": "907680"
+    },
+    {
+      "text": "the best I can put it. The Opus models",
+      "duration": 2240,
+      "offset": "909279"
+    },
+    {
+      "text": "will roughly finish the task you give",
+      "duration": 1921,
+      "offset": "911519"
+    },
+    {
+      "text": "them, and they're very smart. Their",
+      "duration": 1519,
+      "offset": "913440"
+    },
+    {
+      "text": "ability to figure out what's wrong,",
+      "duration": 1521,
+      "offset": "914959"
+    },
+    {
+      "text": "debug, and push is incredible. Opus",
+      "duration": 2719,
+      "offset": "916480"
+    },
+    {
+      "text": "models can turn through insane tasks for",
+      "duration": 2080,
+      "offset": "919199"
+    },
+    {
+      "text": "long amounts of time and actually",
+      "duration": 1281,
+      "offset": "921279"
+    },
+    {
+      "text": "generate something that works. But the",
+      "duration": 1519,
+      "offset": "922560"
+    },
+    {
+      "text": "GPT models will do what you [ __ ] tell",
+      "duration": 1681,
+      "offset": "924079"
+    },
+    {
+      "text": "them to do. I had to do two follow-ups",
+      "duration": 2400,
+      "offset": "925760"
+    },
+    {
+      "text": "with Opus to get it to behave. It wrote",
+      "duration": 2239,
+      "offset": "928160"
+    },
+    {
+      "text": "slightly better code that is closer to",
+      "duration": 1841,
+      "offset": "930399"
+    },
+    {
+      "text": "what I would have written, but I had to",
+      "duration": 2000,
+      "offset": "932240"
+    },
+    {
+      "text": "tell it what to do with multiple",
+      "duration": 1520,
+      "offset": "934240"
+    },
+    {
+      "text": "follow-ups. GPT5 just did it first shot.",
+      "duration": 4480,
+      "offset": "935760"
+    },
+    {
+      "text": "That's the difference. I have had a much",
+      "duration": 1920,
+      "offset": "940240"
+    },
+    {
+      "text": "better time with the GPT models for",
+      "duration": 1440,
+      "offset": "942160"
+    },
+    {
+      "text": "that. But what's extra funny is GPD 5.2",
+      "duration": 3200,
+      "offset": "943600"
+    },
+    {
+      "text": "still took longer than me running Opus,",
+      "duration": 2640,
+      "offset": "946800"
+    },
+    {
+      "text": "testing the results, realizing there",
+      "duration": 1519,
+      "offset": "949440"
+    },
+    {
+      "text": "were things wrong, reprompting it, and",
+      "duration": 1680,
+      "offset": "950959"
+    },
+    {
+      "text": "getting a new result. So, if you want a",
+      "duration": 1921,
+      "offset": "952639"
+    },
+    {
+      "text": "model that does what you say and you're",
+      "duration": 1600,
+      "offset": "954560"
+    },
+    {
+      "text": "willing to wait, 5.2 is incredible. If",
+      "duration": 2479,
+      "offset": "956160"
+    },
+    {
+      "text": "you want a model that is really really",
+      "duration": 1681,
+      "offset": "958639"
+    },
+    {
+      "text": "smart, possibly even smarter than you",
+      "duration": 1600,
+      "offset": "960320"
+    },
+    {
+      "text": "for the things that you do, but loves to",
+      "duration": 2080,
+      "offset": "961920"
+    },
+    {
+      "text": "just go off on its own little tangents",
+      "duration": 1519,
+      "offset": "964000"
+    },
+    {
+      "text": "that you have to like grab your like",
+      "duration": 2240,
+      "offset": "965519"
+    },
+    {
+      "text": "harness and pull it back in. Opus is",
+      "duration": 2401,
+      "offset": "967759"
+    },
+    {
+      "text": "great for that. And even then, Opus 4.5",
+      "duration": 2320,
+      "offset": "970160"
+    },
+    {
+      "text": "is a significant improvement in",
+      "duration": 1440,
+      "offset": "972480"
+    },
+    {
+      "text": "instruction following in my opinion from",
+      "duration": 1919,
+      "offset": "973920"
+    },
+    {
+      "text": "how I've experienced previous enthropic",
+      "duration": 1920,
+      "offset": "975839"
+    },
+    {
+      "text": "models. They seem too happy to go change",
+      "duration": 2320,
+      "offset": "977759"
+    },
+    {
+      "text": "code and not happy enough to do what you",
+      "duration": 1521,
+      "offset": "980079"
+    },
+    {
+      "text": "tell them to. Enough of all this. I want",
+      "duration": 1840,
+      "offset": "981600"
+    },
+    {
+      "text": "to see my image generation studio. So,",
+      "duration": 2240,
+      "offset": "983440"
+    },
+    {
+      "text": "let's see how this one came out.",
+      "duration": 3599,
+      "offset": "985680"
+    },
+    {
+      "text": "Not bad at all. They've tuned the",
+      "duration": 2401,
+      "offset": "989279"
+    },
+    {
+      "text": "gradient stuff a little bit more, which",
+      "duration": 1839,
+      "offset": "991680"
+    },
+    {
+      "text": "is cool to see. It looks really solid. I",
+      "duration": 3440,
+      "offset": "993519"
+    },
+    {
+      "text": "have been impressed with Opus' frontend",
+      "duration": 1601,
+      "offset": "996959"
+    },
+    {
+      "text": "abilities. Gemini 3 Pro is still also",
+      "duration": 2320,
+      "offset": "998560"
+    },
+    {
+      "text": "really, really good at it. I know a lot",
+      "duration": 1519,
+      "offset": "1000880"
+    },
+    {
+      "text": "of people that hate the Gemini 3 Pro",
+      "duration": 1521,
+      "offset": "1002399"
+    },
+    {
+      "text": "model for everything other than",
+      "duration": 1200,
+      "offset": "1003920"
+    },
+    {
+      "text": "Tailwind. Funny enough, one of those",
+      "duration": 1920,
+      "offset": "1005120"
+    },
+    {
+      "text": "people is my channel manager, Ben Davis.",
+      "duration": 1840,
+      "offset": "1007040"
+    },
+    {
+      "text": "He wrote his thoughts on 5.2. Since it",
+      "duration": 2480,
+      "offset": "1008880"
+    },
+    {
+      "text": "reasons less, it feels way faster than",
+      "duration": 1919,
+      "offset": "1011360"
+    },
+    {
+      "text": "GPD 5 and 5.1 did. So, if the speed of",
+      "duration": 2161,
+      "offset": "1013279"
+    },
+    {
+      "text": "five and 5.1 is bad for you, but not",
+      "duration": 2000,
+      "offset": "1015440"
+    },
+    {
+      "text": "terrible, it's worth giving 5.2 a shot",
+      "duration": 2639,
+      "offset": "1017440"
+    },
+    {
+      "text": "because the difference here simply in",
+      "duration": 1760,
+      "offset": "1020079"
+    },
+    {
+      "text": "how much fewer reasoning tokens it uses",
+      "duration": 2081,
+      "offset": "1021839"
+    },
+    {
+      "text": "might be enough of a jump. Here's",
+      "duration": 1440,
+      "offset": "1023920"
+    },
+    {
+      "text": "another example somebody posted of a 5.2",
+      "duration": 3198,
+      "offset": "1025360"
+    },
+    {
+      "text": "UI gen, and it looks really good. I love",
+      "duration": 2400,
+      "offset": "1028559"
+    },
+    {
+      "text": "how it did the gradient for this section",
+      "duration": 1681,
+      "offset": "1030959"
+    },
+    {
+      "text": "here. It really loves this grid pattern",
+      "duration": 2158,
+      "offset": "1032640"
+    },
+    {
+      "text": "like that it puts behind everything. But",
+      "duration": 1999,
+      "offset": "1034799"
+    },
+    {
+      "text": "honestly, this is a great UI for a model",
+      "duration": 2801,
+      "offset": "1036799"
+    },
+    {
+      "text": "to [ __ ] out. I'm impressed.",
+      "duration": 2000,
+      "offset": "1039600"
+    },
+    {
+      "text": "The models all generate UI looking the",
+      "duration": 2078,
+      "offset": "1041600"
+    },
+    {
+      "text": "same thing is mostly over. They use",
+      "duration": 2160,
+      "offset": "1043679"
+    },
+    {
+      "text": "gradients in a similarish way now, but",
+      "duration": 1681,
+      "offset": "1045839"
+    },
+    {
+      "text": "man, the quality of the UIs these models",
+      "duration": 1840,
+      "offset": "1047520"
+    },
+    {
+      "text": "are generating compared to even just",
+      "duration": 1360,
+      "offset": "1049360"
+    },
+    {
+      "text": "like 6 months ago is hilarious. So yeah,",
+      "duration": 3760,
+      "offset": "1050720"
+    },
+    {
+      "text": "pretty cool to see. They also claim it's",
+      "duration": 1920,
+      "offset": "1054480"
+    },
+    {
+      "text": "way better at 3D visualization stuff. So",
+      "duration": 2720,
+      "offset": "1056400"
+    },
+    {
+      "text": "like if you're using React 3 Fiber or",
+      "duration": 1919,
+      "offset": "1059120"
+    },
+    {
+      "text": "3JS, even stuff like Phaser, they they",
+      "duration": 3121,
+      "offset": "1061039"
+    },
+    {
+      "text": "have suggested it'll handle those things",
+      "duration": 1680,
+      "offset": "1064160"
+    },
+    {
+      "text": "better. Apparently it generated this and",
+      "duration": 2000,
+      "offset": "1065840"
+    },
+    {
+      "text": "it does look really really nice. Like",
+      "duration": 1920,
+      "offset": "1067840"
+    },
+    {
+      "text": "this is a cool little visualizer they",
+      "duration": 1360,
+      "offset": "1069760"
+    },
+    {
+      "text": "made. Had it make a holiday card builder",
+      "duration": 2320,
+      "offset": "1071120"
+    },
+    {
+      "text": "with way too much animation. And you can",
+      "duration": 1520,
+      "offset": "1073440"
+    },
+    {
+      "text": "see that gradient pattern, the pink in",
+      "duration": 1680,
+      "offset": "1074960"
+    },
+    {
+      "text": "the top left and the blue in the bottom",
+      "duration": 1440,
+      "offset": "1076640"
+    },
+    {
+      "text": "right. Pink top left, blue bottom right.",
+      "duration": 3520,
+      "offset": "1078080"
+    },
+    {
+      "text": "That's the new gradient pattern all of",
+      "duration": 2319,
+      "offset": "1081600"
+    },
+    {
+      "text": "these AI things love to use. This looks",
+      "duration": 3760,
+      "offset": "1083919"
+    },
+    {
+      "text": "solid as well. Typeer.",
+      "duration": 4521,
+      "offset": "1087679"
+    },
+    {
+      "text": "This is kind of fun. Look at that. It",
+      "duration": 1441,
+      "offset": "1094559"
+    },
+    {
+      "text": "made an actual decent game. Who would",
+      "duration": 2160,
+      "offset": "1096000"
+    },
+    {
+      "text": "have thought?",
+      "duration": 2000,
+      "offset": "1098160"
+    },
+    {
+      "text": "Yeah, I still personally have found for",
+      "duration": 2160,
+      "offset": "1100160"
+    },
+    {
+      "text": "3D stuff in particular, Gemini 3 Pro",
+      "duration": 2640,
+      "offset": "1102320"
+    },
+    {
+      "text": "feels a decent bit ahead, which on my",
+      "duration": 2400,
+      "offset": "1104960"
+    },
+    {
+      "text": "bench here, Gemini 3 Pro placed",
+      "duration": 2640,
+      "offset": "1107360"
+    },
+    {
+      "text": "relatively high at 86%.",
+      "duration": 2559,
+      "offset": "1110000"
+    },
+    {
+      "text": "Which is worse than GPT5 did, around the",
+      "duration": 3601,
+      "offset": "1112559"
+    },
+    {
+      "text": "same as 5.1 and worse than 5.2. I don't",
+      "duration": 3840,
+      "offset": "1116160"
+    },
+    {
+      "text": "know what happened where it's a",
+      "duration": 960,
+      "offset": "1120000"
+    },
+    {
+      "text": "regression in 3D stuff, but I'm not the",
+      "duration": 1520,
+      "offset": "1120960"
+    },
+    {
+      "text": "only one saying it. I've talked to a few",
+      "duration": 1280,
+      "offset": "1122480"
+    },
+    {
+      "text": "friends who are using it heavily for 3D",
+      "duration": 2080,
+      "offset": "1123760"
+    },
+    {
+      "text": "like 3JS type stuff and they've also",
+      "duration": 1839,
+      "offset": "1125840"
+    },
+    {
+      "text": "noticed the regression. But if it's",
+      "duration": 2321,
+      "offset": "1127679"
+    },
+    {
+      "text": "doing 3D in a more 2D way, like a really",
+      "duration": 3600,
+      "offset": "1130000"
+    },
+    {
+      "text": "really fancy version of the hexagon ball",
+      "duration": 2000,
+      "offset": "1133600"
+    },
+    {
+      "text": "test, it looks beautiful. Its ability to",
+      "duration": 2800,
+      "offset": "1135600"
+    },
+    {
+      "text": "make good-looking things in 3D space",
+      "duration": 1920,
+      "offset": "1138400"
+    },
+    {
+      "text": "seems on point, but its ability to",
+      "duration": 1599,
+      "offset": "1140320"
+    },
+    {
+      "text": "understand 3D space for my experience",
+      "duration": 2000,
+      "offset": "1141919"
+    },
+    {
+      "text": "has not been that great. It almost seems",
+      "duration": 2081,
+      "offset": "1143919"
+    },
+    {
+      "text": "like they overindexed on 2D space",
+      "duration": 1840,
+      "offset": "1146000"
+    },
+    {
+      "text": "because of ArcGI and through doing that",
+      "duration": 2320,
+      "offset": "1147840"
+    },
+    {
+      "text": "kind of broke their 3D understanding.",
+      "duration": 2720,
+      "offset": "1150160"
+    },
+    {
+      "text": "Even though again, Flavio disagrees and",
+      "duration": 1840,
+      "offset": "1152880"
+    },
+    {
+      "text": "says it's surprisingly good at 3D and",
+      "duration": 1360,
+      "offset": "1154720"
+    },
+    {
+      "text": "physics. I just realized I almost forgot",
+      "duration": 2000,
+      "offset": "1156080"
+    },
+    {
+      "text": "about one of the most important changes",
+      "duration": 1280,
+      "offset": "1158080"
+    },
+    {
+      "text": "with GBT 5.2. They up the price. This is",
+      "duration": 3199,
+      "offset": "1159360"
+    },
+    {
+      "text": "the first price increase we've had for",
+      "duration": 1281,
+      "offset": "1162559"
+    },
+    {
+      "text": "models in a minute because they had",
+      "duration": 1440,
+      "offset": "1163840"
+    },
+    {
+      "text": "dropped the price recently. It was 125",
+      "duration": 2480,
+      "offset": "1165280"
+    },
+    {
+      "text": "in and 10 out for GBT 5 and 5.1, which",
+      "duration": 2960,
+      "offset": "1167760"
+    },
+    {
+      "text": "really surprised me. Now it's up a bit",
+      "duration": 1760,
+      "offset": "1170720"
+    },
+    {
+      "text": "to 175 in and 14 out. The theory I'm",
+      "duration": 3040,
+      "offset": "1172480"
+    },
+    {
+      "text": "seeing many say is that they were",
+      "duration": 1519,
+      "offset": "1175520"
+    },
+    {
+      "text": "intentionally releasing smaller",
+      "duration": 1361,
+      "offset": "1177039"
+    },
+    {
+      "text": "distilled versions of the model before,",
+      "duration": 1360,
+      "offset": "1178400"
+    },
+    {
+      "text": "and 5.2 to is their like coming back",
+      "duration": 2720,
+      "offset": "1179760"
+    },
+    {
+      "text": "home type move where they're finally",
+      "duration": 1760,
+      "offset": "1182480"
+    },
+    {
+      "text": "putting out the full size real version",
+      "duration": 2640,
+      "offset": "1184240"
+    },
+    {
+      "text": "which again I have proven is very",
+      "duration": 1840,
+      "offset": "1186880"
+    },
+    {
+      "text": "unlikely with skate bench as silly as",
+      "duration": 1839,
+      "offset": "1188720"
+    },
+    {
+      "text": "this bench is these types of gaps mean",
+      "duration": 2240,
+      "offset": "1190559"
+    },
+    {
+      "text": "something it means that this model is",
+      "duration": 1601,
+      "offset": "1192799"
+    },
+    {
+      "text": "actually worse at some things than the",
+      "duration": 1680,
+      "offset": "1194400"
+    },
+    {
+      "text": "previous versions were which is a very",
+      "duration": 1599,
+      "offset": "1196080"
+    },
+    {
+      "text": "hard thing to do if GBD5 is a",
+      "duration": 1921,
+      "offset": "1197679"
+    },
+    {
+      "text": "distillation of this version it is also",
+      "duration": 2079,
+      "offset": "1199600"
+    },
+    {
+      "text": "worth noting that for many tasks the",
+      "duration": 1441,
+      "offset": "1201679"
+    },
+    {
+      "text": "model ends up being cheaper because it's",
+      "duration": 1520,
+      "offset": "1203120"
+    },
+    {
+      "text": "so much more efficient with its",
+      "duration": 1120,
+      "offset": "1204640"
+    },
+    {
+      "text": "reasoning tokens according to openai on",
+      "duration": 2320,
+      "offset": "1205760"
+    },
+    {
+      "text": "multiple aentic evals we found that",
+      "duration": 1599,
+      "offset": "1208080"
+    },
+    {
+      "text": "despite GPD 5.2's greater cost per",
+      "duration": 1841,
+      "offset": "1209679"
+    },
+    {
+      "text": "token. The cost of attaining a given",
+      "duration": 1600,
+      "offset": "1211520"
+    },
+    {
+      "text": "level of quality ended up less expensive",
+      "duration": 2080,
+      "offset": "1213120"
+    },
+    {
+      "text": "due to GBT 5.2's greater token",
+      "duration": 1839,
+      "offset": "1215200"
+    },
+    {
+      "text": "efficiency. To be fair, it says cost of",
+      "duration": 2481,
+      "offset": "1217039"
+    },
+    {
+      "text": "attaining a given level of quality. So",
+      "duration": 2399,
+      "offset": "1219520"
+    },
+    {
+      "text": "that means to get a certain score, it's",
+      "duration": 2000,
+      "offset": "1221919"
+    },
+    {
+      "text": "cheaper, but if you want the best score,",
+      "duration": 1441,
+      "offset": "1223919"
+    },
+    {
+      "text": "it's still more expensive. Yeah. And",
+      "duration": 3040,
+      "offset": "1225360"
+    },
+    {
+      "text": "then there's the 5.2 Pro pricing, which",
+      "duration": 1759,
+      "offset": "1228400"
+    },
+    {
+      "text": "makes me feel sick. $21 per mill in and",
+      "duration": 3441,
+      "offset": "1230159"
+    },
+    {
+      "text": "168 per mill out. A new groundbreakingly",
+      "duration": 3120,
+      "offset": "1233600"
+    },
+    {
+      "text": "high price for a model. bit more of the",
+      "duration": 2720,
+      "offset": "1236720"
+    },
+    {
+      "text": "facts from OpenAI. It's way better at",
+      "duration": 1840,
+      "offset": "1239440"
+    },
+    {
+      "text": "not hallucinating, which is if you've",
+      "duration": 2080,
+      "offset": "1241280"
+    },
+    {
+      "text": "been using Gemini 3 Pro, you're back in",
+      "duration": 2160,
+      "offset": "1243360"
+    },
+    {
+      "text": "like the 2024 era of hallucinations. I'm",
+      "duration": 3200,
+      "offset": "1245520"
+    },
+    {
+      "text": "going to do a whole video about the",
+      "duration": 1040,
+      "offset": "1248720"
+    },
+    {
+      "text": "weird quirks of Gemini 3 Pro soon, but",
+      "duration": 2240,
+      "offset": "1249760"
+    },
+    {
+      "text": "going back to a GPT model and feeling",
+      "duration": 2000,
+      "offset": "1252000"
+    },
+    {
+      "text": "the difference of how much less likely",
+      "duration": 1679,
+      "offset": "1254000"
+    },
+    {
+      "text": "it is to hallucinate is insane. It's",
+      "duration": 1601,
+      "offset": "1255679"
+    },
+    {
+      "text": "just it doesn't lie anywhere near as",
+      "duration": 1920,
+      "offset": "1257280"
+    },
+    {
+      "text": "badly. And it's also way better at",
+      "duration": 1520,
+      "offset": "1259200"
+    },
+    {
+      "text": "handling really long context reasoning",
+      "duration": 1680,
+      "offset": "1260720"
+    },
+    {
+      "text": "when you're doing long benchmarks and",
+      "duration": 2000,
+      "offset": "1262400"
+    },
+    {
+      "text": "finding things in the like the needle",
+      "duration": 2080,
+      "offset": "1264400"
+    },
+    {
+      "text": "and the haystack tests. This is an",
+      "duration": 1920,
+      "offset": "1266480"
+    },
+    {
+      "text": "insane benchmark. To still have really",
+      "duration": 2480,
+      "offset": "1268400"
+    },
+    {
+      "text": "high recall, 98% accuracy at 256k tokens",
+      "duration": 4240,
+      "offset": "1270880"
+    },
+    {
+      "text": "is a massive achievement. Massive",
+      "duration": 2160,
+      "offset": "1275120"
+    },
+    {
+      "text": "achievement. Gro 4 on this same",
+      "duration": 2240,
+      "offset": "1277280"
+    },
+    {
+      "text": "benchmark and 4.1 fast as well was in",
+      "duration": 2639,
+      "offset": "1279520"
+    },
+    {
+      "text": "the like 30 percentile. Huge, huge win.",
+      "duration": 3841,
+      "offset": "1282159"
+    },
+    {
+      "text": "With eight needles, it still drops down",
+      "duration": 1520,
+      "offset": "1286000"
+    },
+    {
+      "text": "to like 70%. But that's way better than",
+      "duration": 2880,
+      "offset": "1287520"
+    },
+    {
+      "text": "before in the 30s. They've also had",
+      "duration": 1840,
+      "offset": "1290400"
+    },
+    {
+      "text": "massive improvements on vision, massive",
+      "duration": 1840,
+      "offset": "1292240"
+    },
+    {
+      "text": "improvements on tool calling. Okay, not",
+      "duration": 1760,
+      "offset": "1294080"
+    },
+    {
+      "text": "that massive from 5.1, but it's getting",
+      "duration": 1920,
+      "offset": "1295840"
+    },
+    {
+      "text": "higher and higher, hitting like the 98",
+      "duration": 2080,
+      "offset": "1297760"
+    },
+    {
+      "text": "99% range for a lot of the different",
+      "duration": 2800,
+      "offset": "1299840"
+    },
+    {
+      "text": "benches we have for how accurately you",
+      "duration": 1440,
+      "offset": "1302640"
+    },
+    {
+      "text": "can call tools. And I haven't seen it do",
+      "duration": 1599,
+      "offset": "1304080"
+    },
+    {
+      "text": "a single malformed tool call in cursor",
+      "duration": 1681,
+      "offset": "1305679"
+    },
+    {
+      "text": "yet, which is a a huge win considering",
+      "duration": 1920,
+      "offset": "1307360"
+    },
+    {
+      "text": "how aggressively it used to do that.",
+      "duration": 1759,
+      "offset": "1309280"
+    },
+    {
+      "text": "Better at science and math. It crushed",
+      "duration": 2640,
+      "offset": "1311039"
+    },
+    {
+      "text": "dark AGI. And one other important piece",
+      "duration": 3041,
+      "offset": "1313679"
+    },
+    {
+      "text": "because like the model range is getting",
+      "duration": 1680,
+      "offset": "1316720"
+    },
+    {
+      "text": "complex where we have 5.2 thinking that",
+      "duration": 1920,
+      "offset": "1318400"
+    },
+    {
+      "text": "has different reasoning levels between",
+      "duration": 2000,
+      "offset": "1320320"
+    },
+    {
+      "text": "minimal, low, medium, high, and the new",
+      "duration": 2000,
+      "offset": "1322320"
+    },
+    {
+      "text": "extra high as well as 5.2 Pro",
+      "duration": 2400,
+      "offset": "1324320"
+    },
+    {
+      "text": "separately. And then 5.2 instant. 5.2",
+      "duration": 2800,
+      "offset": "1326720"
+    },
+    {
+      "text": "instant isn't actually a separate model.",
+      "duration": 2560,
+      "offset": "1329520"
+    },
+    {
+      "text": "It is the no reasoning version of 5.2",
+      "duration": 2400,
+      "offset": "1332080"
+    },
+    {
+      "text": "thinking where you set reasoning to",
+      "duration": 1120,
+      "offset": "1334480"
+    },
+    {
+      "text": "none. And it actually is much much",
+      "duration": 2240,
+      "offset": "1335600"
+    },
+    {
+      "text": "better. They've been pushing this",
+      "duration": 1120,
+      "offset": "1337840"
+    },
+    {
+      "text": "weirdly hard. It seems like they're",
+      "duration": 1760,
+      "offset": "1338960"
+    },
+    {
+      "text": "really hyped on 5.2 without reasoning.",
+      "duration": 2400,
+      "offset": "1340720"
+    },
+    {
+      "text": "And a couple of my friends, including of",
+      "duration": 1280,
+      "offset": "1343120"
+    },
+    {
+      "text": "course Ben, have been saying it's a huge",
+      "duration": 1759,
+      "offset": "1344400"
+    },
+    {
+      "text": "improvement as well. Early testers",
+      "duration": 1441,
+      "offset": "1346159"
+    },
+    {
+      "text": "particularly noted clear explanations",
+      "duration": 1600,
+      "offset": "1347600"
+    },
+    {
+      "text": "that surface key information up front.",
+      "duration": 1839,
+      "offset": "1349200"
+    },
+    {
+      "text": "Cool. I haven't experienced that yet,",
+      "duration": 1201,
+      "offset": "1351039"
+    },
+    {
+      "text": "but it sounds likely. They continue",
+      "duration": 1360,
+      "offset": "1352240"
+    },
+    {
+      "text": "working on the mental health problems",
+      "duration": 1520,
+      "offset": "1353600"
+    },
+    {
+      "text": "that these models can cause. Good to see",
+      "duration": 2000,
+      "offset": "1355120"
+    },
+    {
+      "text": "improvements here. Awesome. And I have",
+      "duration": 2400,
+      "offset": "1357120"
+    },
+    {
+      "text": "two last pieces I want to dive in on.",
+      "duration": 2480,
+      "offset": "1359520"
+    },
+    {
+      "text": "Matt Schumer posts awesome reviews of",
+      "duration": 2080,
+      "offset": "1362000"
+    },
+    {
+      "text": "the new models. He's similar to me where",
+      "duration": 1680,
+      "offset": "1364080"
+    },
+    {
+      "text": "he gets early access. We're in a lot of",
+      "duration": 1680,
+      "offset": "1365760"
+    },
+    {
+      "text": "those early calls and groups together",
+      "duration": 2560,
+      "offset": "1367440"
+    },
+    {
+      "text": "and his thoughts are really good. Both",
+      "duration": 1840,
+      "offset": "1370000"
+    },
+    {
+      "text": "of these will be linked in the",
+      "duration": 880,
+      "offset": "1371840"
+    },
+    {
+      "text": "description, but I just want to go over",
+      "duration": 959,
+      "offset": "1372720"
+    },
+    {
+      "text": "the TLDDRs because it's very aligned",
+      "duration": 1761,
+      "offset": "1373679"
+    },
+    {
+      "text": "with my experience. By which way to",
+      "duration": 1680,
+      "offset": "1375440"
+    },
+    {
+      "text": "thinking is a meaningful step forward in",
+      "duration": 1600,
+      "offset": "1377120"
+    },
+    {
+      "text": "instruction following and willingness to",
+      "duration": 1439,
+      "offset": "1378720"
+    },
+    {
+      "text": "attempt hard tasks. Code generation is a",
+      "duration": 2400,
+      "offset": "1380159"
+    },
+    {
+      "text": "lot better than 5.1. It's more capable,",
+      "duration": 2000,
+      "offset": "1382559"
+    },
+    {
+      "text": "more autonomous, more careful, and",
+      "duration": 1360,
+      "offset": "1384559"
+    },
+    {
+      "text": "willing to write a lot more code. Yes,",
+      "duration": 2401,
+      "offset": "1385919"
+    },
+    {
+      "text": "vision and long context are much",
+      "duration": 1359,
+      "offset": "1388320"
+    },
+    {
+      "text": "improved, especially understanding",
+      "duration": 1521,
+      "offset": "1389679"
+    },
+    {
+      "text": "position and images and working with",
+      "duration": 1359,
+      "offset": "1391200"
+    },
+    {
+      "text": "huge code bases. Haven't played with",
+      "duration": 2641,
+      "offset": "1392559"
+    },
+    {
+      "text": "this enough yet, but I trust him. Speed",
+      "duration": 1839,
+      "offset": "1395200"
+    },
+    {
+      "text": "is the main downside. Yes, yes, yes.",
+      "duration": 2081,
+      "offset": "1397039"
+    },
+    {
+      "text": "Couldn't agree more. In my experience,",
+      "duration": 1919,
+      "offset": "1399120"
+    },
+    {
+      "text": "the thinking mode is very slow for most",
+      "duration": 2000,
+      "offset": "1401039"
+    },
+    {
+      "text": "questions, though other testers reported",
+      "duration": 1841,
+      "offset": "1403039"
+    },
+    {
+      "text": "mixed results. I almost never use",
+      "duration": 1760,
+      "offset": "1404880"
+    },
+    {
+      "text": "instant. Yeah. And 5.2 Pro is insanely",
+      "duration": 3039,
+      "offset": "1406640"
+    },
+    {
+      "text": "better for deep reasoning, but it's even",
+      "duration": 1521,
+      "offset": "1409679"
+    },
+    {
+      "text": "slower. And every so often it will think",
+      "duration": 2000,
+      "offset": "1411200"
+    },
+    {
+      "text": "forever and still fail. Had that a",
+      "duration": 1920,
+      "offset": "1413200"
+    },
+    {
+      "text": "couple times, too, where it's like 30",
+      "duration": 1120,
+      "offset": "1415120"
+    },
+    {
+      "text": "minutes in it just stops. It It feels",
+      "duration": 2000,
+      "offset": "1416240"
+    },
+    {
+      "text": "like a bug. I don't know if it's going",
+      "duration": 960,
+      "offset": "1418240"
+    },
+    {
+      "text": "to do that over the API or not, cuz they",
+      "duration": 1359,
+      "offset": "1419200"
+    },
+    {
+      "text": "finally give us pro over API. According",
+      "duration": 1921,
+      "offset": "1420559"
+    },
+    {
+      "text": "to Matt, in the CODC CLI, 5.2 Pro is the",
+      "duration": 2559,
+      "offset": "1422480"
+    },
+    {
+      "text": "closest thing he's felt to a proquality",
+      "duration": 1841,
+      "offset": "1425039"
+    },
+    {
+      "text": "coding model in a CLI. But the extra",
+      "duration": 1919,
+      "offset": "1426880"
+    },
+    {
+      "text": "high reasoning mode that gets it there",
+      "duration": 1441,
+      "offset": "1428799"
+    },
+    {
+      "text": "makes it take forever. He's been pushing",
+      "duration": 1679,
+      "offset": "1430240"
+    },
+    {
+      "text": "over there to get the pro models into",
+      "duration": 1361,
+      "offset": "1431919"
+    },
+    {
+      "text": "his editors for a while. So, I'm very",
+      "duration": 2480,
+      "offset": "1433280"
+    },
+    {
+      "text": "happy for him. He bitched about this a",
+      "duration": 1520,
+      "offset": "1435760"
+    },
+    {
+      "text": "lot with his 5.1 Pro review, and I feel",
+      "duration": 2480,
+      "offset": "1437280"
+    },
+    {
+      "text": "him because the Pro models are",
+      "duration": 1440,
+      "offset": "1439760"
+    },
+    {
+      "text": "exceptional. They're just really, really",
+      "duration": 1839,
+      "offset": "1441200"
+    },
+    {
+      "text": "slow. So, what does he have to say about",
+      "duration": 1681,
+      "offset": "1443039"
+    },
+    {
+      "text": "5.2 Pro? Undoubtedly the world's best",
+      "duration": 2720,
+      "offset": "1444720"
+    },
+    {
+      "text": "model. I can't live without it. That's a",
+      "duration": 2160,
+      "offset": "1447440"
+    },
+    {
+      "text": "lot nicer than what he said about 5.2.",
+      "duration": 1679,
+      "offset": "1449600"
+    },
+    {
+      "text": "The most capable model available today,",
+      "duration": 1520,
+      "offset": "1451279"
+    },
+    {
+      "text": "but it's slow, so it's not for",
+      "duration": 1201,
+      "offset": "1452799"
+    },
+    {
+      "text": "everything. It only exists inside of",
+      "duration": 1440,
+      "offset": "1454000"
+    },
+    {
+      "text": "chat GPT, not codecs nor the API, which",
+      "duration": 2320,
+      "offset": "1455440"
+    },
+    {
+      "text": "is so frustrating. It is now on the API,",
+      "duration": 2240,
+      "offset": "1457760"
+    },
+    {
+      "text": "so thank them for that. Expect extremely",
+      "duration": 2480,
+      "offset": "1460000"
+    },
+    {
+      "text": "long thinking times on hard tasks. It's",
+      "duration": 1760,
+      "offset": "1462480"
+    },
+    {
+      "text": "willing to think for longer than",
+      "duration": 1439,
+      "offset": "1464240"
+    },
+    {
+      "text": "previous models, which makes a huge",
+      "duration": 1761,
+      "offset": "1465679"
+    },
+    {
+      "text": "difference for the hardest ones. And it",
+      "duration": 1359,
+      "offset": "1467440"
+    },
+    {
+      "text": "improves reliability for everything",
+      "duration": 1360,
+      "offset": "1468799"
+    },
+    {
+      "text": "else. It has an uncanny ability to infer",
+      "duration": 2721,
+      "offset": "1470159"
+    },
+    {
+      "text": "missing context that I didn't provide in",
+      "duration": 1760,
+      "offset": "1472880"
+    },
+    {
+      "text": "the prompt. Not just obvious things, but",
+      "duration": 2000,
+      "offset": "1474640"
+    },
+    {
+      "text": "constraints I hadn't even realized were",
+      "duration": 1600,
+      "offset": "1476640"
+    },
+    {
+      "text": "important myself until it pointed them",
+      "duration": 1760,
+      "offset": "1478240"
+    },
+    {
+      "text": "out. I have even felt this a bit with",
+      "duration": 1600,
+      "offset": "1480000"
+    },
+    {
+      "text": "5.1 Pro. So for him to call it out here,",
+      "duration": 2400,
+      "offset": "1481600"
+    },
+    {
+      "text": "that's real. Every so often, it will",
+      "duration": 1840,
+      "offset": "1484000"
+    },
+    {
+      "text": "think for a long time and still make a",
+      "duration": 1199,
+      "offset": "1485840"
+    },
+    {
+      "text": "big mistake, wasting a lot of my time.",
+      "duration": 1601,
+      "offset": "1487039"
+    },
+    {
+      "text": "Yeah, that that's because it takes 30",
+      "duration": 1600,
+      "offset": "1488640"
+    },
+    {
+      "text": "minutes to an hour. When it does fail,",
+      "duration": 1679,
+      "offset": "1490240"
+    },
+    {
+      "text": "it feels so much worse. Prompting",
+      "duration": 2161,
+      "offset": "1491919"
+    },
+    {
+      "text": "matters more than ever, so be explicit.",
+      "duration": 1599,
+      "offset": "1494080"
+    },
+    {
+      "text": "Add constraints and refine prompts",
+      "duration": 1521,
+      "offset": "1495679"
+    },
+    {
+      "text": "before you send them. After using Pro",
+      "duration": 1920,
+      "offset": "1497200"
+    },
+    {
+      "text": "for 2 weeks, I can't live without it.",
+      "duration": 1600,
+      "offset": "1499120"
+    },
+    {
+      "text": "It's my go-to for everything I do that",
+      "duration": 1760,
+      "offset": "1500720"
+    },
+    {
+      "text": "requires deep thinking, research, or",
+      "duration": 1520,
+      "offset": "1502480"
+    },
+    {
+      "text": "coding, or almost any prompt I run that",
+      "duration": 2000,
+      "offset": "1504000"
+    },
+    {
+      "text": "doesn't require an instant answer. Yeah.",
+      "duration": 2480,
+      "offset": "1506000"
+    },
+    {
+      "text": "And this is somebody who was just",
+      "duration": 1600,
+      "offset": "1508480"
+    },
+    {
+      "text": "really, really hyped on Opus 4.5 a few",
+      "duration": 3360,
+      "offset": "1510080"
+    },
+    {
+      "text": "weeks ago. So again, I trust Matt",
+      "duration": 1920,
+      "offset": "1513440"
+    },
+    {
+      "text": "dearly. Very good reviews. Highly",
+      "duration": 1760,
+      "offset": "1515360"
+    },
+    {
+      "text": "recommend reading those in detail if you",
+      "duration": 1280,
+      "offset": "1517120"
+    },
+    {
+      "text": "want more information. But I think I've",
+      "duration": 1600,
+      "offset": "1518400"
+    },
+    {
+      "text": "said all I have to say here. Seems like",
+      "duration": 1679,
+      "offset": "1520000"
+    },
+    {
+      "text": "a very good model. I want to play with",
+      "duration": 1281,
+      "offset": "1521679"
+    },
+    {
+      "text": "it more myself. I'm curious how y'all",
+      "duration": 1599,
+      "offset": "1522960"
+    },
+    {
+      "text": "feel though. Is 5.2 overhyped or is it",
+      "duration": 2000,
+      "offset": "1524559"
+    },
+    {
+      "text": "too slow or is it actually incredible?",
+      "duration": 2000,
+      "offset": "1526559"
+    },
+    {
+      "text": "I'm curious how y'all feel. And until",
+      "duration": 1600,
+      "offset": "1528559"
+    },
+    {
+      "text": "next time, peace nerds.",
+      "duration": 3361,
+      "offset": "1530159"
+    }
+  ],
+  "transcriptText": "Where's the guy with the counter? Because there's a new best new model. Yes, really. GPT 5.2 just dropped and it is really, really good. Which is why it is uh Wait, what? Skatebench shows it as a huge regression. What's going on? I thought this was the best new model. Well, in many ways it is, but in a handful of important ones, it isn't. And I haven't seen many covering this in detail. Sure, it's better at code and tool calls, and yeah, it's crushing ARC AGI, but there is a depth to using these models that isn't really being shown in a lot of the coverage I'm seeing. And I want to break down what it's actually like to use because I've been lucky enough to be using it for the last week or so. Very thankful to OpenAI for giving me early access. That said, no money has exchanged hands. The only person paying me is today's sponsor. We need to be realistic about how much easier our jobs are now. AI has made everything from feature additions to bug fixes simpler than it's ever been. Navigating your codebase, finding the right file, and making the changes you need is really easy, but there are a few things that are still hard and also really scary if you get them wrong. The two that I think of the most are authentication and authorization of users and payment processing. Getting these things wrong can be disastrous. And even if you think you got them right, something might prop up later on that makes you regret building it yourself entirely. Not only have I done this myself incorrectly, I've even written detailed documentation on how to do it right, that barely feels necessary anymore because of today's sponsor, Clerk. If I was building a new app today, this is what I would choose both for authentication and authorization of my users and for payment processing because it is the best and simplest way to do both. Period. And I've used every single option. They aren't paying me to say that. They're paying me to mention them. I'm telling you, as a person who's went through all of the options, especially on the payment side, Clerk has found this perfect integration of things as well as developer experience that makes it easy to build a secure, reliable application for everything from signing in to signing up. There's something beautiful about seeing a component like this for something as annoying as payment processing and managing what users access to what features. You want to protect a feature so that you only have access if you're paying for the team plan. It's this easy. protect feature equals team access. And now, as long as you have that set on the server side when you define these things in their dashboard, you're good to go. You could even check if they have a thing like the bronze plan. And if they don't, you can return an error. Do you understand how annoying these things are to do traditionally and how hilariously easy they are to do with Clerk? They even have a pricing table component. you know, the fancy like comparison of the different tiers that is fully integrated, has the Stripe pop overview built into it, and once they subscribe, it's immediately linked to that user's account. It's so much easier than the other solutions. I genuinely wish this existed when I started T3 Chat. It would have made our lives so much easier. Like, I'm talking not weeks, but months of work. If you're ready to have real users and make real money, look no further. Check them out now at soyb.link/clerk. There's a lot to talk about with this new model, but I want to resolve the click baiting I just did with that whole benchmark thing. There are a lot of layers to this that we'll get to later, but I want to just show the raw numbers that I just ran. And I've spent a lot of money running this test over and over again to be sure of my results. I even went back and forth with some of the people on the research side trying to figure out what caused this regression. My current theory is that the new model is not as good at three-dimensional reasoning because my benchmark is about skateboard tricks. I give a description of a trick and I expect the model to tell me what the name of that trick is. And previously the highest score I ever got was with GBT5. Not even high. The default setting would get 97% on this benchmark. 03 Pro would get 96%. So like GBT5 was incredible at the spatial reasoning necessary to describe a skateboard trick accurately. When I first ran this benchmark with the new GPT 5.2 model, I got this 4% number and I was like, \"What the [ __ ] went wrong here?\" I did a lot of back and forth with the team and we realized that my harness due to some changes in how the GPT 5.2 model defaults, which is it defaults to no reasoning, the results ended up being lower. So like, okay, cool. I'll run it on high and on the new extra high reasoning options, which ended up being comically more expensive to run this bench on. Again, compared to GPD5 default, it was about6 cents per request. And GBT 5.2x high was about 2.5 cents per request. Yes, it was about five times more expensive. And the reward for that is a 20% regression in performance. Is naming skateboard tricks the best use case for LLMs? Probably not. But I was so pumped to see GPT5 understand spatial reasoning well enough to do this. And this is a massive regression. Like absurdly so. It's now tied with models like Grock 4. What what went wrong there? But it seems like my benchmark is novel in this case because almost every other bench is showing a very different story like GBT 5.2 thinking getting a 70.9% on GDP val versus 5.1 thinking and five getting a 38.8%. SW Bench saw a big bump at 55.6%. SWB verified saw a first time score for the OpenAI team of an 80%. GBQA Diamond was a nice boost. AME was now 100% with no tools which is really good. It means it can solve math problems without using math tools. Impressive, but there's a lot more to these stories. That all said, the Arc AGI scores are actually absurd. From ARC prize themselves, a year ago, we verified a preview of an unreleased version of OpenAI's 03 high that scored an 88% on ARC AGI1 at an estimated $4.5,000 per task. Pretty absurd how expensive it was for them to run that special version of 03 for this, but uh it was able to get a high score. And now the extra high option on GBT 5.2 Pro, which is also notably not GBT 5.2, scores a 90.5% and it's only $1164 per task. That's a 390x efficiency improvement in one year. ArcGI is a wild benchmark. I have covered it many different times. If you're not familiar, go to their website and try it yourself because it's a thing that's easy for humans and nearly impossible for LLMs. It is no longer nearly impossible for these LLMs. It's actually really, really impressive. They made a V2 of this leaderboard that was meant to be actually impossible for LLMs to solve, thinking it would be like the final benchmark ever. Yet, here we are with more and more models getting high scores on it. We just had Gemini 3 Pro have a groundbreaking 30% and then the Gemini 3 Pro deep research, whatever the hell they call their like heavy version getting all the way into the 40s. And now GBD 5.2 Pro High is scoring way, way higher here. 54.2% 2% for $15.72 per task. But then my favorite part, due to API timeouts, we were unable to reliably verify GBT 5.2 Pro XH high on RKGI2. Turns out these models are still timing out all over the place. It's kind of insane how long 5.2 Pro will run for. I didn't even put it in my most recent run of Skate Bench because it took like up to 10 minutes per request at times for naming a skate trick that I can do in 5 seconds, not even. It's kind of absurd how hard the new models will go. And even 5.2 extra high was able to take 240 seconds per request. That's 4 minutes per request sometimes for naming a skate trick. The first example they open with is the economically valuable tasks section which includes GDP val which is a benchmark they made for evaluating how well different models behave against known knowledge work tasks that you have to have like a degree or something for. They take actual examples of work and ask the model to perform against it and see if it performs at or above a human expert level. And 5.2 thinking beats or ties the top industry professionals on 70.9% of the comparisons on the GDP file knowledge work tasks according to expert human judges. That's the other interesting piece here is this benchmark needs to be judged by humans. So I can't just run it on my laptop. And it's a massive jump from GPT5 which was a 38.8% to 70.9 for 5.2 thinking and 74.1 for 5.2. 2 Pro. And there's no chart crimes happening here either, which is nice. Don't worry, we'll have plenty of chart crimes later. While reviewing one especially good output, one GDP Val judge commented, \"It is an exciting and noticeable leap in output quality. It appears to have been done by a professional company with staff and has a surprisingly well-designed layout and advice on both deliverables, though with one we still have some minor errors to correct. Yeah, apparently very impressive. But on the topic of design, we should see how it handles design work. I have a stock Dex.js project that I haven't made any changes to. We're gonna do my favorite, the image gen bench where I tell it to make an image generation studio mock and uh apparently cursor is breaking and I am now past my usage. I'm on the $20 plan so the fact that I'm just hitting that now is really cool. Obvious bias. I am an investor in cursor so account for that. This is also one of my first times using 5.2 incursor because I didn't do the thing where I set up the open AI like API manually incursor. I have told this to the team many times and I will tell them again right now. Hi friends at cursor. I should be able to set a custom OpenAI API endpoint without having it break every other model in your app. It's very annoying that if I go set an OpenAI API endpoint that I can no longer use Opus or Composer or any of the other models that I like to use in Cursor. It's quite obnoxious. I know I'm unique that I get early access and I have a need to test these things. But it basically makes the feature of the checkbox to put in a custom API endpoint entirely useless to me. The majority of that was uncut, but I'll let you know roughly how much time this generation takes. It isn't very fast. These models are still not very fast. It's the one big pain point I have had with the GPT5 series now that I'm experiencing Opus 4.5 and especially the composer model and cursor way more. It is obnoxious how slow the GPT5 series is, especially if you take advantage of some of the fancy pro model stuff, which like I've had the Pro models take 30 to 50 minutes to respond to things. It's awesome that they can go out and do work and come back with a correct answer so reliably, but god damn, those models are slow. I thought this was going to be fast enough that I could talk over it and give you guys like a realistic feeling for how long it would take. I overestimated just how fast it could be. So, we'll come back to GBT 5.2 and cursor in a moment. Almost forgot to mention, as y'all probably expect, we threw all of the new models in T3 chat. So, if you want access to all of the versions, including the new reasoning one that's a little restricted on the free tier on chat GPT, for eight bucks a month, you can use all these here. If you want your first month for only $1, use code 5.2 at checkout. Anyways, back to whatever the heck I was just talking about. GBD 5.2 Thinking sets a new state-of-the-art of 55.6% on SWEBench Pro, a rigorous evaluation of real world software engineering. Also note, this is GPT 5.2 thinking, not GPT 5.2 to codeex which will probably come in the near future. It does seem like they're finally realizing how bad the terminology for the models is and they might not do the whole codeex thing again. I I hope that they drop the overuse of that word. It just they should have called codec cli GP terminal. They should have had the model be the code edition or something, but just calling everything codeex is obnoxious. Regardless, this SWB verified bench only tests Python, and SBench Pro tests four languages and aims to be more contamination resistant, challenging, diverse, and industrially relevant. In the Pro version, they got the new highest score on the extra high version of 56%. But very interestingly, the 5.1 Codeex version when given max extra high, so like allowed to just use as much context as it wants, it actually performed slightly worse than the normal high version does. the the way rein are being used is increasingly weird, especially with the new defaults and the behaviors we're seeing here. Like GPT5 on my benchmark got a 97% doing 600 tokens per request average. GBD5.2 extra high got a 79% an 18 point regression while using over three times the number of tokens. Interesting. For everyday professional use, this translates into a model that can more reliably debug production code, implement feature requests, refactor large code bases, and ship fixes end to end with less manual intervention. They also said it's better at front end. So, we'll look at that in a sec cuz the generation did finish. But, I want to first talk a little bit about my experience using this to generate my own tests. I maintain a handful of different benchmarks and evaluate bench in particular. had some changes I wanted to make around how the caching worked because some of these new models would hit errors and I would need to rerun it, but the cached errors would keep the model from rerunning. That plus all the weird things about usage and I really really wanted to start tracking token utilization so I could include that in my coverage here as well as these awful run times. So I had to make some changes for that. So I wrote a prompt make the following changes to this project. One, cache should also include token counts and durations. Two, errors should not be cached. So a rerun should re-trigger any jobs that errored out. And three, you should show the average token usage in the table in the CLI view. Think this is a pretty clear set of things to do. I had this come through with composer, with Opus, and with GPT 5.2. The composer version came back almost instantaneously with changes that were mostly good. I didn't like how it was doing the cost calculation and the token calculation though. It was relying on a weird sub field instead of just using what the SDK gave me. So I rejected that. I don't know why it has a thumb there cuz I picked opus, not composer. The opus version seemed like it was really good and it was half as much code as the others until I looked at it more closely and realized that it wasn't actually using the cache for the token counts or for the times like it was expected to. So that was incredibly frustrating. So I told it to start caching these things and it did, but it didn't use the cache results for [ __ ] anything. But I had to remind it later on with a follow-up message because I I didn't notice this mistake until I reran. was like, \"Wait, you just screwed this up.\" Also, it was tracing input tokens, which is the same for every single run, so it doesn't matter. So, I told it to drop that, but it still entirely forgot to restore durations when loading from cache. So, I had to do two follow-up prompts with Opus 4.5 to get it working how I expected. That all said, I have not actually tried the chatbt 3.2 version. I gave the code a quick look and it seemed fine, but that's not like me. I want to actually test it. Let's do that. Copy work path. Hey uh friends at cursor who are probably watching this. At no point did I do anything that would result in these changes from happening. In fact, the thing that is being deleted here is the correct version that works. And the thing that's here, the green, the proposal, is entirely wrong and incorrect. There's no review anything here. I have no idea why this is here at all. It's wrong and bad and broken. It's a reversion of something that hasn't existed in this codebase forever, if ever. Why is this here? What the [ __ ] wrong with the UI? I don't know what's went wrong with the review mode, but it's getting really, really egregious lately. But now that I have fixed the package JSON, to be very clear, this is not broken because of GBT 5.2. This is broken because of cursor. Let's run the test. And look at that. The one from GPT 5.2 did everything right first shot. So the the reason I just tested all of that is I really wanted to emphasize the difference in I guess vibe when I'm using GPT models, especially 5.2, Compared to models like Opus and Composer, GPT5 is just the series that follows instructions the best. That's the best I can put it. The Opus models will roughly finish the task you give them, and they're very smart. Their ability to figure out what's wrong, debug, and push is incredible. Opus models can turn through insane tasks for long amounts of time and actually generate something that works. But the GPT models will do what you [ __ ] tell them to do. I had to do two follow-ups with Opus to get it to behave. It wrote slightly better code that is closer to what I would have written, but I had to tell it what to do with multiple follow-ups. GPT5 just did it first shot. That's the difference. I have had a much better time with the GPT models for that. But what's extra funny is GPD 5.2 still took longer than me running Opus, testing the results, realizing there were things wrong, reprompting it, and getting a new result. So, if you want a model that does what you say and you're willing to wait, 5.2 is incredible. If you want a model that is really really smart, possibly even smarter than you for the things that you do, but loves to just go off on its own little tangents that you have to like grab your like harness and pull it back in. Opus is great for that. And even then, Opus 4.5 is a significant improvement in instruction following in my opinion from how I've experienced previous enthropic models. They seem too happy to go change code and not happy enough to do what you tell them to. Enough of all this. I want to see my image generation studio. So, let's see how this one came out. Not bad at all. They've tuned the gradient stuff a little bit more, which is cool to see. It looks really solid. I have been impressed with Opus' frontend abilities. Gemini 3 Pro is still also really, really good at it. I know a lot of people that hate the Gemini 3 Pro model for everything other than Tailwind. Funny enough, one of those people is my channel manager, Ben Davis. He wrote his thoughts on 5.2. Since it reasons less, it feels way faster than GPD 5 and 5.1 did. So, if the speed of five and 5.1 is bad for you, but not terrible, it's worth giving 5.2 a shot because the difference here simply in how much fewer reasoning tokens it uses might be enough of a jump. Here's another example somebody posted of a 5.2 UI gen, and it looks really good. I love how it did the gradient for this section here. It really loves this grid pattern like that it puts behind everything. But honestly, this is a great UI for a model to [ __ ] out. I'm impressed. The models all generate UI looking the same thing is mostly over. They use gradients in a similarish way now, but man, the quality of the UIs these models are generating compared to even just like 6 months ago is hilarious. So yeah, pretty cool to see. They also claim it's way better at 3D visualization stuff. So like if you're using React 3 Fiber or 3JS, even stuff like Phaser, they they have suggested it'll handle those things better. Apparently it generated this and it does look really really nice. Like this is a cool little visualizer they made. Had it make a holiday card builder with way too much animation. And you can see that gradient pattern, the pink in the top left and the blue in the bottom right. Pink top left, blue bottom right. That's the new gradient pattern all of these AI things love to use. This looks solid as well. Typeer. This is kind of fun. Look at that. It made an actual decent game. Who would have thought? Yeah, I still personally have found for 3D stuff in particular, Gemini 3 Pro feels a decent bit ahead, which on my bench here, Gemini 3 Pro placed relatively high at 86%. Which is worse than GPT5 did, around the same as 5.1 and worse than 5.2. I don't know what happened where it's a regression in 3D stuff, but I'm not the only one saying it. I've talked to a few friends who are using it heavily for 3D like 3JS type stuff and they've also noticed the regression. But if it's doing 3D in a more 2D way, like a really really fancy version of the hexagon ball test, it looks beautiful. Its ability to make good-looking things in 3D space seems on point, but its ability to understand 3D space for my experience has not been that great. It almost seems like they overindexed on 2D space because of ArcGI and through doing that kind of broke their 3D understanding. Even though again, Flavio disagrees and says it's surprisingly good at 3D and physics. I just realized I almost forgot about one of the most important changes with GBT 5.2. They up the price. This is the first price increase we've had for models in a minute because they had dropped the price recently. It was 125 in and 10 out for GBT 5 and 5.1, which really surprised me. Now it's up a bit to 175 in and 14 out. The theory I'm seeing many say is that they were intentionally releasing smaller distilled versions of the model before, and 5.2 to is their like coming back home type move where they're finally putting out the full size real version which again I have proven is very unlikely with skate bench as silly as this bench is these types of gaps mean something it means that this model is actually worse at some things than the previous versions were which is a very hard thing to do if GBD5 is a distillation of this version it is also worth noting that for many tasks the model ends up being cheaper because it's so much more efficient with its reasoning tokens according to openai on multiple aentic evals we found that despite GPD 5.2's greater cost per token. The cost of attaining a given level of quality ended up less expensive due to GBT 5.2's greater token efficiency. To be fair, it says cost of attaining a given level of quality. So that means to get a certain score, it's cheaper, but if you want the best score, it's still more expensive. Yeah. And then there's the 5.2 Pro pricing, which makes me feel sick. $21 per mill in and 168 per mill out. A new groundbreakingly high price for a model. bit more of the facts from OpenAI. It's way better at not hallucinating, which is if you've been using Gemini 3 Pro, you're back in like the 2024 era of hallucinations. I'm going to do a whole video about the weird quirks of Gemini 3 Pro soon, but going back to a GPT model and feeling the difference of how much less likely it is to hallucinate is insane. It's just it doesn't lie anywhere near as badly. And it's also way better at handling really long context reasoning when you're doing long benchmarks and finding things in the like the needle and the haystack tests. This is an insane benchmark. To still have really high recall, 98% accuracy at 256k tokens is a massive achievement. Massive achievement. Gro 4 on this same benchmark and 4.1 fast as well was in the like 30 percentile. Huge, huge win. With eight needles, it still drops down to like 70%. But that's way better than before in the 30s. They've also had massive improvements on vision, massive improvements on tool calling. Okay, not that massive from 5.1, but it's getting higher and higher, hitting like the 98 99% range for a lot of the different benches we have for how accurately you can call tools. And I haven't seen it do a single malformed tool call in cursor yet, which is a a huge win considering how aggressively it used to do that. Better at science and math. It crushed dark AGI. And one other important piece because like the model range is getting complex where we have 5.2 thinking that has different reasoning levels between minimal, low, medium, high, and the new extra high as well as 5.2 Pro separately. And then 5.2 instant. 5.2 instant isn't actually a separate model. It is the no reasoning version of 5.2 thinking where you set reasoning to none. And it actually is much much better. They've been pushing this weirdly hard. It seems like they're really hyped on 5.2 without reasoning. And a couple of my friends, including of course Ben, have been saying it's a huge improvement as well. Early testers particularly noted clear explanations that surface key information up front. Cool. I haven't experienced that yet, but it sounds likely. They continue working on the mental health problems that these models can cause. Good to see improvements here. Awesome. And I have two last pieces I want to dive in on. Matt Schumer posts awesome reviews of the new models. He's similar to me where he gets early access. We're in a lot of those early calls and groups together and his thoughts are really good. Both of these will be linked in the description, but I just want to go over the TLDDRs because it's very aligned with my experience. By which way to thinking is a meaningful step forward in instruction following and willingness to attempt hard tasks. Code generation is a lot better than 5.1. It's more capable, more autonomous, more careful, and willing to write a lot more code. Yes, vision and long context are much improved, especially understanding position and images and working with huge code bases. Haven't played with this enough yet, but I trust him. Speed is the main downside. Yes, yes, yes. Couldn't agree more. In my experience, the thinking mode is very slow for most questions, though other testers reported mixed results. I almost never use instant. Yeah. And 5.2 Pro is insanely better for deep reasoning, but it's even slower. And every so often it will think forever and still fail. Had that a couple times, too, where it's like 30 minutes in it just stops. It It feels like a bug. I don't know if it's going to do that over the API or not, cuz they finally give us pro over API. According to Matt, in the CODC CLI, 5.2 Pro is the closest thing he's felt to a proquality coding model in a CLI. But the extra high reasoning mode that gets it there makes it take forever. He's been pushing over there to get the pro models into his editors for a while. So, I'm very happy for him. He bitched about this a lot with his 5.1 Pro review, and I feel him because the Pro models are exceptional. They're just really, really slow. So, what does he have to say about 5.2 Pro? Undoubtedly the world's best model. I can't live without it. That's a lot nicer than what he said about 5.2. The most capable model available today, but it's slow, so it's not for everything. It only exists inside of chat GPT, not codecs nor the API, which is so frustrating. It is now on the API, so thank them for that. Expect extremely long thinking times on hard tasks. It's willing to think for longer than previous models, which makes a huge difference for the hardest ones. And it improves reliability for everything else. It has an uncanny ability to infer missing context that I didn't provide in the prompt. Not just obvious things, but constraints I hadn't even realized were important myself until it pointed them out. I have even felt this a bit with 5.1 Pro. So for him to call it out here, that's real. Every so often, it will think for a long time and still make a big mistake, wasting a lot of my time. Yeah, that that's because it takes 30 minutes to an hour. When it does fail, it feels so much worse. Prompting matters more than ever, so be explicit. Add constraints and refine prompts before you send them. After using Pro for 2 weeks, I can't live without it. It's my go-to for everything I do that requires deep thinking, research, or coding, or almost any prompt I run that doesn't require an instant answer. Yeah. And this is somebody who was just really, really hyped on Opus 4.5 a few weeks ago. So again, I trust Matt dearly. Very good reviews. Highly recommend reading those in detail if you want more information. But I think I've said all I have to say here. Seems like a very good model. I want to play with it more myself. I'm curious how y'all feel though. Is 5.2 overhyped or is it too slow or is it actually incredible? I'm curious how y'all feel. And until next time, peace nerds."
+}
