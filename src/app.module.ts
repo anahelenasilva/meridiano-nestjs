@@ -1,15 +1,16 @@
 import { Module } from '@nestjs/common';
+import { AiModule } from './ai/ai.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ArticlesModule } from './articles/articles.module';
+import { BriefingModule } from './briefing/briefing.module';
+import { BriefingsModule } from './briefings/briefings.module';
 import { ConfigModule } from './config/config.module';
 import { DatabaseModule } from './database/database.module';
-import { AiModule } from './ai/ai.module';
-import { ArticlesModule } from './articles/articles.module';
-import { BriefingsModule } from './briefings/briefings.module';
-import { ProfilesModule } from './profiles/profiles.module';
-import { ScraperModule } from './scraper/scraper.module';
 import { ProcessorModule } from './processor/processor.module';
-import { BriefingModule } from './briefing/briefing.module';
+import { ProfilesModule } from './profiles/profiles.module';
+import { QueueModule } from './queue/queue.module';
+import { ScraperModule } from './scraper/scraper.module';
 import { TechModule } from './tech/tech.module';
 import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-transcriptions.module';
 
@@ -26,8 +27,9 @@ import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-tr
     BriefingModule,
     TechModule,
     YoutubeTranscriptionsModule,
+    QueueModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

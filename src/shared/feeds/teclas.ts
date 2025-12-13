@@ -1,4 +1,4 @@
-import { FeedConfiguration, RSSFeed } from '../types/feed';
+import { FeedConfiguration, FeedProfile, RSSFeed } from '../types/feed';
 
 export const teclasRSSFeeds: RSSFeed[] = [
   {
@@ -73,7 +73,7 @@ Qual é o evento ou tópico principal discutido? Resuma os principais desenvolvi
 };
 
 export const teclasFeedConfig: FeedConfiguration = {
-  profile: 'teclas',
+  profile: FeedProfile.TECLAS,
   rssFeeds: teclasRSSFeeds,
   prompts: teclasPrompts,
   settings: {

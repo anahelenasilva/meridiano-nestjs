@@ -31,7 +31,7 @@ interface CountRow {
 
 @Injectable()
 export class ArticlesService {
-  constructor(private readonly databaseService: DatabaseService) {}
+  constructor(private readonly databaseService: DatabaseService) { }
 
   async addArticle(
     url: string,
@@ -626,6 +626,106 @@ export class ArticlesService {
             resolve(articles || []);
           },
         );
+      });
+    });
+  }
+
+  async getUnprocessedArticleById(
+    articleId: number,
+  ): Promise<DBArticle | null> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      const query = `
+        SELECT * FROM articles
+        WHERE id = ? AND processed_content IS NULL
+      `;
+
+      db.get(query, [articleId], (err, row: ArticleRow | undefined) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        if (row) {
+          const article: DBArticle = {
+            ...row,
+            published_date: new Date(row.published_date),
+            created_at: new Date(row.created_at),
+            categories: row.categories
+              ? (JSON.parse(row.categories) as ArticleCategory[])
+              : undefined,
+          };
+          resolve(article);
+        } else {
+          resolve(null);
+        }
+      });
+    });
+  }
+
+  async getUnratedArticleById(articleId: number): Promise<DBArticle | null> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      const query = `
+        SELECT * FROM articles
+        WHERE id = ? AND processed_content IS NOT NULL AND impact_rating IS NULL
+      `;
+
+      db.get(query, [articleId], (err, row: ArticleRow | undefined) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        if (row) {
+          const article: DBArticle = {
+            ...row,
+            published_date: new Date(row.published_date),
+            created_at: new Date(row.created_at),
+            categories: row.categories
+              ? (JSON.parse(row.categories) as ArticleCategory[])
+              : undefined,
+          };
+          resolve(article);
+        } else {
+          resolve(null);
+        }
+      });
+    });
+  }
+
+  async getUncategorizedArticleById(
+    articleId: number,
+  ): Promise<DBArticle | null> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      const query = `
+        SELECT * FROM articles
+        WHERE id = ? AND processed_content IS NOT NULL AND categories IS NULL
+      `;
+
+      db.get(query, [articleId], (err, row: ArticleRow | undefined) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        if (row) {
+          const article: DBArticle = {
+            ...row,
+            published_date: new Date(row.published_date),
+            created_at: new Date(row.created_at),
+            categories: row.categories
+              ? (JSON.parse(row.categories) as ArticleCategory[])
+              : undefined,
+          };
+          resolve(article);
+        } else {
+          resolve(null);
+        }
       });
     });
   }

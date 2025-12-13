@@ -1,12 +1,12 @@
-import { Module } from '@nestjs/common';
-import { ScraperService } from './scraper.service';
+import { Module, forwardRef } from '@nestjs/common';
 import { ArticlesModule } from '../articles/articles.module';
-import { ProfilesModule } from '../profiles/profiles.module';
 import { ConfigModule } from '../config/config.module';
+import { ProfilesModule } from '../profiles/profiles.module';
+import { ScraperService } from './scraper.service';
 
 @Module({
-  imports: [ArticlesModule, ProfilesModule, ConfigModule],
+  imports: [forwardRef(() => ArticlesModule), ProfilesModule, ConfigModule],
   providers: [ScraperService],
   exports: [ScraperService],
 })
-export class ScraperModule {}
+export class ScraperModule { }
