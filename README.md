@@ -124,6 +124,6 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 - [ ] Convert cli commands to use usecase so it's more decoupled and easy to reuse
 - [ ] Isolate prompts configs from config.service.ts to separate files, so it's easier to mantain; also do this for the other configs
 - [x] Add articles manually
-- [ ] Star/bookmark an article
-- [ ] See stars/bookmarks in a special view
+- [ ] Star/bookmark/save for later an article
+- [ ] See stars/bookmarks/saved in a special view
 - [ ] See starred articles in the briefing
