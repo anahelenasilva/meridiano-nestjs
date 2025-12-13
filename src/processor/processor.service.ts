@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AiService } from '../ai/ai.service';
-import { ArticleCategory } from '../articles/article.entity';
+import { ArticleCategory, DBArticle } from '../articles/article.entity';
 import { ArticlesService } from '../articles/articles.service';
 import { ConfigService } from '../config/config.service';
 import { ProfilesService } from '../profiles/profiles.service';
@@ -21,7 +21,7 @@ export class ProcessorService {
     limit: number = 1000,
     articleId?: number,
   ): Promise<ProcessingStats> {
-    console.log('\n--- Starting Article Processing ---');
+    // console.log('\n--- Starting Article Processing ---');
 
     const stats: ProcessingStats = {
       feedProfile,
@@ -32,7 +32,7 @@ export class ProcessorService {
       startTime: new Date(),
     };
 
-    let unprocessedArticles;
+    let unprocessedArticles: DBArticle[] = [];
     if (articleId) {
       const article =
         await this.articlesService.getUnprocessedArticleById(articleId);
@@ -55,7 +55,7 @@ export class ProcessorService {
 
     for (const article of unprocessedArticles) {
       console.log(
-        `Processing article ID: ${article.id} - ${article.url.substring(0, 50)}...`,
+        `Processing article ID: ${article.id} - ${article.title}...`,
       );
 
       try {
@@ -78,9 +78,9 @@ export class ProcessorService {
         }
 
         const finalSummary = `${summary}\n\nSource: [${article.title}](${article.url})`;
-        console.log(
-          `Article summary generated: ${summary.substring(0, 100)}...`,
-        );
+        // console.log(
+        //   `Article summary generated: ${article.title}...`,
+        // );
 
         const embedding = await this.aiService.getEmbedding(finalSummary);
 
@@ -118,7 +118,7 @@ export class ProcessorService {
     limit: number = 1000,
     articleId?: number,
   ): Promise<ProcessingStats> {
-    console.log('\n--- Starting Article Impact Rating ---');
+    // console.log('\n--- Starting Article Impact Rating ---');
 
     const stats: ProcessingStats = {
       feedProfile,
@@ -129,7 +129,7 @@ export class ProcessorService {
       startTime: new Date(),
     };
 
-    let unratedArticles;
+    let unratedArticles: DBArticle[] = [];
     if (articleId) {
       const article =
         await this.articlesService.getUnratedArticleById(articleId);
@@ -182,7 +182,7 @@ export class ProcessorService {
                   score,
                 );
                 stats.articlesRated++;
-                console.log(`  Article ID ${article.id} rated as: ${score}`);
+                // console.log(`  Article ID ${article.id} rated as: ${score}`);
               } else {
                 console.log(
                   `  Warning: Rating ${score} for article ${article.id} is out of range (1-10).`,
@@ -229,7 +229,7 @@ export class ProcessorService {
     limit: number = 1000,
     articleId?: number,
   ): Promise<ProcessingStats> {
-    console.log('\n--- Starting Article Categorization ---');
+    // console.log('\n--- Starting Article Categorization ---');
 
     const stats: ProcessingStats = {
       feedProfile,
@@ -240,7 +240,7 @@ export class ProcessorService {
       startTime: new Date(),
     };
 
-    let uncategorizedArticles;
+    let uncategorizedArticles: DBArticle[] = [];
     if (articleId) {
       const article =
         await this.articlesService.getUncategorizedArticleById(articleId);
@@ -261,9 +261,9 @@ export class ProcessorService {
     );
 
     for (const article of uncategorizedArticles) {
-      console.log(
-        `Categorizing article ID: ${article.id}: ${article.title}...`,
-      );
+      // console.log(
+      //   `Categorizing article ID: ${article.id}: ${article.title}...`,
+      // );
 
       if (!article.processed_content) {
         console.log(
@@ -299,9 +299,9 @@ export class ProcessorService {
                   validCategories,
                 );
                 stats.articlesCategorized++;
-                console.log(
-                  `  Article ID ${article.id} categorized as: ${validCategories.join(', ')}`,
-                );
+                // console.log(
+                //   `  Article ID ${article.id} categorized as: ${validCategories.join(', ')}`,
+                // );
               } else {
                 console.log(
                   `  Warning: No valid categories found in response for article ${article.id}.`,

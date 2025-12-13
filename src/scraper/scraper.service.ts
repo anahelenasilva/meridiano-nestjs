@@ -151,7 +151,7 @@ export class ScraperService {
     url: string,
     feedProfile: FeedProfile,
   ): Promise<number | null> {
-    console.log(`\n--- Scraping single article: ${url} ---`);
+    // console.log(`\n--- Scraping single article: ${url} ---`);
 
     // Check if article already exists
     if (await this.articlesService.articleExists(url)) {
@@ -200,7 +200,7 @@ export class ScraperService {
     const publishedDate = new Date();
     const feedSource = 'Manual';
 
-    console.log(`Adding article: ${title}`);
+    // console.log(`Adding article: ${title}`);
     const articleId = await this.articlesService.addArticle(
       url,
       title,
@@ -222,7 +222,7 @@ export class ScraperService {
     feedProfile: FeedProfile,
     rssFeeds?: string[],
   ): Promise<ScrapingStats> {
-    console.log(`\n--- Starting Article Scraping [${feedProfile}] ---`);
+    // console.log(`\n--- Starting Article Scraping [${feedProfile}] ---`);
 
     const stats: ScrapingStats = {
       feedProfile,
@@ -249,7 +249,7 @@ export class ScraperService {
     stats.totalFeeds = feeds.length;
 
     for (const feedUrl of feeds) {
-      console.log(`Fetching feed: ${feedUrl}`);
+      // console.log(`Fetching feed: ${feedUrl}`);
 
       try {
         const feed = await rssParser.parseURL(feedUrl);
@@ -258,11 +258,11 @@ export class ScraperService {
         const maxArticlesForScrapping = appConfig.maxArticlesForScrapping || 15;
         const items = feed.items.slice(0, maxArticlesForScrapping);
 
-        console.log('Processing items', {
-          totalItemsInFeed: feed.items.length,
-          itemsToProcess: items.length,
-          maxArticlesForScrapping,
-        });
+        // console.log('Processing items', {
+        //   totalItemsInFeed: feed.items.length,
+        //   itemsToProcess: items.length,
+        //   maxArticlesForScrapping,
+        // });
 
         for (const entry of items) {
           const url = entry.link;
@@ -289,7 +289,7 @@ export class ScraperService {
             );
           }
 
-          console.log(`  Fetching article content and OG image...`);
+          // console.log(`  Fetching article content and OG image...`);
           const { content: rawContent, ogImage: ogImageUrl } =
             await this.fetchArticleContentAndOgImage(url);
 
@@ -302,13 +302,13 @@ export class ScraperService {
           }
 
           const finalImageUrl = rssImageUrl || ogImageUrl;
-          if (finalImageUrl) {
-            console.log(
-              `  Using image URL: ${finalImageUrl.substring(0, 60)}...`,
-            );
-          } else {
-            console.log('  No image found in RSS or OG tags.');
-          }
+          // if (finalImageUrl) {
+          //   console.log(
+          //     `  Using image URL: ${finalImageUrl.substring(0, 60)}...`,
+          //   );
+          // } else {
+          //   console.log('  No image found in RSS or OG tags.');
+          // }
 
           const articleId = await this.articlesService.addArticle(
             url,

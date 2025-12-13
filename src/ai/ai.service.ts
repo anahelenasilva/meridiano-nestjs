@@ -8,7 +8,7 @@ export class AiService implements OnModuleInit {
   private deepseekClient: OpenAI | null = null;
   private embeddingClient: OpenAI | null = null;
 
-  constructor(private readonly configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) { }
 
   onModuleInit() {
     this.initializeClients();
@@ -83,9 +83,9 @@ export class AiService implements OnModuleInit {
       );
     }
 
-    console.log(
-      `INFO: Getting embedding for text snippet: '${text.substring(0, 50)}...'`,
-    );
+    // console.log(
+    //   `INFO: Getting embedding for text snippet: '${text.substring(0, 50)}...'`,
+    // );
 
     try {
       const modelName =

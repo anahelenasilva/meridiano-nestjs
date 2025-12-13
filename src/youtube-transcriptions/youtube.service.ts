@@ -9,7 +9,7 @@ import { parseRelativeTime } from './helpers/parse-relative-time';
 export class YouTubeService {
   private youtube: Innertube | null = null;
 
-  constructor() {}
+  constructor() { }
 
   /**
    * Initialize the YouTube client
@@ -38,7 +38,7 @@ export class YouTubeService {
         channelConfig;
 
       console.log(
-        `Fetching videos from channel: ${channelId}: ${channelDescription}`,
+        `Fetching videos from channel ${channelName}`,
       );
 
       const channelData = await this.youtube.getChannel(channelId);
@@ -73,7 +73,7 @@ export class YouTubeService {
       }
 
       console.log(
-        `Found ${videoMetadataList.length} videos from channel ${channelId}: ${channelName}`,
+        `Found ${videoMetadataList.length} videos from channel ${channelName}`,
       );
       return videoMetadataList;
     } catch (error) {

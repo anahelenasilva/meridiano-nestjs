@@ -31,10 +31,10 @@ export class YoutubeTranscriptionsService {
    */
   async extractChannelTranscripts(channel: ChannelConfig) {
     console.log(`\n========================================`);
-    console.log(`Processing channel: ${channel.channelName}`);
-    console.log(`Channel ID: ${channel.channelId}`);
-    console.log(`Max videos: ${channel.maxVideos}`);
-    console.log(`========================================\n`);
+    console.log(`Processing channel: `, {
+      channelName: channel.channelName,
+      maxVideos: channel.maxVideos
+    });
 
     try {
       const videos = await this.youtubeService.getChannelVideos(channel);
@@ -80,9 +80,11 @@ export class YoutubeTranscriptionsService {
       }
 
       console.log(`\n========================================`);
-      console.log(`Channel processing complete: ${channel.channelName}`);
-      console.log(`Success: ${successCount} | Failed: ${failureCount}`);
-      console.log(`========================================\n`);
+      console.log(`Channel processing complete: `, {
+        channelName: channel.channelName,
+        success: successCount,
+        failed: failureCount
+      });
 
       if (successCount === 0) {
         throw new Error(

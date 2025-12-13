@@ -17,7 +17,7 @@ export class DatabaseService extends AbstractDatabaseService {
       console.log('Using PostgreSQL database');
     } else {
       this.implementation = new SQLiteDatabaseService();
-      console.log('Using SQLite database (default)');
+      // console.log('Using SQLite database (default)');
     }
   }
 
