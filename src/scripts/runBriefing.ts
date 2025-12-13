@@ -2,14 +2,16 @@ import { INestApplicationContext } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { Command } from 'commander';
 import * as dotenv from 'dotenv';
-import { AiService } from '../ai/ai.service';
 import { AppModule } from '../app.module';
-import { BriefingService } from '../briefing/briefing.service';
-import { ConfigService } from '../config/config.service';
-import { ProcessorService } from '../processor/processor.service';
 import { ProfilesService } from '../profiles/profiles.service';
-import { ScraperService } from '../scraper/scraper.service';
 import { FeedProfile } from '../shared/types/feed';
+import { CategorizeArticlesUseCase } from '../usecases/briefing/categorize-articles.usecase';
+import { GenerateBriefUseCase } from '../usecases/briefing/generate-brief.usecase';
+import { GenerateSimpleBriefUseCase } from '../usecases/briefing/generate-simple-brief.usecase';
+import { ProcessArticlesUseCase } from '../usecases/briefing/process-articles.usecase';
+import { RateArticlesUseCase } from '../usecases/briefing/rate-articles.usecase';
+import { RunBriefingUseCase } from '../usecases/briefing/run-briefing.usecase';
+import { ScrapeArticlesUseCase } from '../usecases/briefing/scrape-articles.usecase';
 
 dotenv.config();
 
@@ -17,101 +19,29 @@ const program = new Command();
 
 interface Services {
   app: INestApplicationContext;
-  scraperService: ScraperService;
-  processorService: ProcessorService;
-  briefingService: BriefingService;
+  runBriefingUseCase: RunBriefingUseCase;
+  scrapeArticlesUseCase: ScrapeArticlesUseCase;
+  processArticlesUseCase: ProcessArticlesUseCase;
+  rateArticlesUseCase: RateArticlesUseCase;
+  categorizeArticlesUseCase: CategorizeArticlesUseCase;
+  generateBriefUseCase: GenerateBriefUseCase;
+  generateSimpleBriefUseCase: GenerateSimpleBriefUseCase;
   profilesService: ProfilesService;
-  aiService: AiService;
-  configService: ConfigService;
 }
 
 async function initialize(): Promise<Services> {
   const app = await NestFactory.createApplicationContext(AppModule);
   return {
     app,
-    scraperService: app.get(ScraperService),
-    processorService: app.get(ProcessorService),
-    briefingService: app.get(BriefingService),
+    runBriefingUseCase: app.get(RunBriefingUseCase),
+    scrapeArticlesUseCase: app.get(ScrapeArticlesUseCase),
+    processArticlesUseCase: app.get(ProcessArticlesUseCase),
+    rateArticlesUseCase: app.get(RateArticlesUseCase),
+    categorizeArticlesUseCase: app.get(CategorizeArticlesUseCase),
+    generateBriefUseCase: app.get(GenerateBriefUseCase),
+    generateSimpleBriefUseCase: app.get(GenerateSimpleBriefUseCase),
     profilesService: app.get(ProfilesService),
-    aiService: app.get(AiService),
-    configService: app.get(ConfigService),
   };
-}
-
-async function runAll(
-  services: Services,
-  feedProfile: FeedProfile,
-): Promise<void> {
-  console.log(`\n>>> Running ALL stages for [${feedProfile}] <<<`);
-
-  const startTime = new Date();
-
-  try {
-    const enabledFeeds =
-      services.profilesService.getEnabledFeedsForProfile(feedProfile);
-    if (enabledFeeds.length === 0) {
-      console.log(
-        `Warning: No enabled feeds found for profile '${feedProfile}'.`,
-      );
-      return;
-    }
-
-    const feedUrls = enabledFeeds.map((f) => f.url);
-
-    console.log('\n--- Stage 1: Scraping Articles ---');
-    const scrapingStats = await services.scraperService.scrapeArticles(
-      feedProfile,
-      feedUrls,
-    );
-    console.log(
-      `Scraping completed. New articles: ${scrapingStats.newArticles}, Errors: ${scrapingStats.errors}`,
-    );
-
-    console.log('\n--- Stage 2: Processing Articles ---');
-    const processingStats =
-      await services.processorService.processArticles(feedProfile);
-    console.log(
-      `Processing completed. Processed: ${processingStats.articlesProcessed}, Errors: ${processingStats.errors}`,
-    );
-
-    console.log('\n--- Stage 3: Rating Articles ---');
-    const ratingStats =
-      await services.processorService.rateArticles(feedProfile);
-    console.log(
-      `Rating completed. Rated: ${ratingStats.articlesRated}, Errors: ${ratingStats.errors}`,
-    );
-
-    console.log('\n--- Stage 4: Categorizing Articles ---');
-    const categorizationStats =
-      await services.processorService.categorizeArticles(feedProfile);
-    console.log(
-      `Categorization completed. Categorized: ${categorizationStats.articlesCategorized}, Errors: ${categorizationStats.errors}`,
-    );
-
-    console.log('\n--- Stage 5: Generating Brief ---');
-    const briefResult =
-      await services.briefingService.generateBrief(feedProfile);
-
-    if (briefResult.success) {
-      console.log(
-        `Brief generated successfully. ID: ${briefResult.briefingId}`,
-      );
-      if (briefResult.stats) {
-        console.log(
-          `Stats: ${briefResult.stats.articlesAnalyzed} articles, ${briefResult.stats.clustersUsed} clusters`,
-        );
-      }
-    } else {
-      console.error(`Brief generation failed: ${briefResult.error}`);
-    }
-
-    const endTime = new Date();
-    const duration = (endTime.getTime() - startTime.getTime()) / 1000;
-    console.log(`\n✓ All stages completed in ${duration.toFixed(1)} seconds`);
-  } catch (error) {
-    console.error('Error during execution:', error);
-    process.exit(1);
-  }
 }
 
 program
@@ -176,8 +106,9 @@ async function main(): Promise<void> {
 
     if (options.simpleBrief) {
       console.log('\n>>> Generating Simple Brief <<<');
-      const result =
-        await services.briefingService.generateSimpleBrief(feedProfile);
+      const result = await services.generateSimpleBriefUseCase.execute({
+        feedProfile,
+      });
       if (result.success) {
         console.log(
           `Simple brief generated successfully. ID: ${result.briefingId}`,
@@ -186,47 +117,94 @@ async function main(): Promise<void> {
         console.error(`Simple brief generation failed: ${result.error}`);
       }
     } else if (shouldRunAll) {
-      await runAll(services, feedProfile);
+      console.log(`\n>>> Running ALL stages for [${feedProfile}] <<<`);
+      const startTime = new Date();
+
+      try {
+        const result = await services.runBriefingUseCase.execute({
+          feedProfile,
+        });
+
+        console.log(
+          `\nScraping completed. New articles: ${result.stages.scraping.newArticles}, Errors: ${result.stages.scraping.errors}`,
+        );
+        console.log(
+          `Processing completed. Processed: ${result.stages.processing.articlesProcessed}, Errors: ${result.stages.processing.errors}`,
+        );
+        console.log(
+          `Rating completed. Rated: ${result.stages.rating.articlesRated}, Errors: ${result.stages.rating.errors}`,
+        );
+        console.log(
+          `Categorization completed. Categorized: ${result.stages.categorization.articlesCategorized}, Errors: ${result.stages.categorization.errors}`,
+        );
+
+        if (result.stages.briefGeneration.success) {
+          console.log(
+            `Brief generated successfully. ID: ${result.stages.briefGeneration.briefingId}`,
+          );
+          if (result.stages.briefGeneration.stats) {
+            console.log(
+              `Stats: ${result.stages.briefGeneration.stats.articlesAnalyzed} articles, ${result.stages.briefGeneration.stats.clustersUsed} clusters`,
+            );
+          }
+        } else {
+          console.error(
+            `Brief generation failed: ${result.stages.briefGeneration.error}`,
+          );
+        }
+
+        console.log(
+          `\n✓ All stages completed in ${result.duration.toFixed(1)} seconds`,
+        );
+      } catch (error) {
+        console.error('Error during execution:', error);
+        process.exit(1);
+      }
     } else {
       if (options.scrape) {
         const enabledFeeds =
           services.profilesService.getEnabledFeedsForProfile(feedProfile);
         const feedUrls = enabledFeeds.map((f) => f.url);
-        const stats = await services.scraperService.scrapeArticles(
+        const result = await services.scrapeArticlesUseCase.execute({
           feedProfile,
           feedUrls,
-        );
+        });
         console.log(
-          `Scraping completed. New articles: ${stats.newArticles}, Errors: ${stats.errors}`,
+          `Scraping completed. New articles: ${result.newArticles}, Errors: ${result.errors}`,
         );
       }
 
       if (options.process) {
-        const stats =
-          await services.processorService.processArticles(feedProfile);
+        const result = await services.processArticlesUseCase.execute({
+          feedProfile,
+        });
         console.log(
-          `Processing completed. Processed: ${stats.articlesProcessed}, Errors: ${stats.errors}`,
+          `Processing completed. Processed: ${result.articlesProcessed}, Errors: ${result.errors}`,
         );
       }
 
       if (options.rate) {
-        const stats = await services.processorService.rateArticles(feedProfile);
+        const result = await services.rateArticlesUseCase.execute({
+          feedProfile,
+        });
         console.log(
-          `Rating completed. Rated: ${stats.articlesRated}, Errors: ${stats.errors}`,
+          `Rating completed. Rated: ${result.articlesRated}, Errors: ${result.errors}`,
         );
       }
 
       if (options.categorize) {
-        const stats =
-          await services.processorService.categorizeArticles(feedProfile);
+        const result = await services.categorizeArticlesUseCase.execute({
+          feedProfile,
+        });
         console.log(
-          `Categorization completed. Categorized: ${stats.articlesCategorized}, Errors: ${stats.errors}`,
+          `Categorization completed. Categorized: ${result.articlesCategorized}, Errors: ${result.errors}`,
         );
       }
 
       if (options.generate) {
-        const result =
-          await services.briefingService.generateBrief(feedProfile);
+        const result = await services.generateBriefUseCase.execute({
+          feedProfile,
+        });
         if (result.success) {
           console.log(`Brief generated successfully. ID: ${result.briefingId}`);
         } else {

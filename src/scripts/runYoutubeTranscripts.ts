@@ -4,7 +4,7 @@ import * as dotenv from 'dotenv';
 import { AppModule } from '../app.module';
 import { ConfigService } from '../config/config.service';
 import { ChannelConfig } from '../shared/types/channel';
-import { YoutubeTranscriptionsService } from '../youtube-transcriptions/youtube-transcriptions.service';
+import { ExtractYoutubeTranscriptsUseCase } from '../usecases/youtube-transcriptions/extract-youtube-transcripts.usecase';
 
 dotenv.config();
 
@@ -12,7 +12,7 @@ async function initialize() {
   const app = await NestFactory.createApplicationContext(AppModule);
   return {
     app,
-    youtubeTranscriptionsService: app.get(YoutubeTranscriptionsService),
+    extractYoutubeTranscriptsUseCase: app.get(ExtractYoutubeTranscriptsUseCase),
     configService: app.get(ConfigService),
   };
 }
@@ -28,7 +28,10 @@ async function main() {
 
     // Convert config channels to ChannelConfig array, filtering out disabled channels
     const channels: ChannelConfig[] = Object.entries(ytConfig.channels)
-      .filter(([channelId, channelData]) => channelId !== undefined && channelData.enabled !== false)
+      .filter(
+        ([channelId, channelData]) =>
+          channelId !== undefined && channelData.enabled !== false,
+      )
       .map(([channelId, channelData]) => ({
         channelId,
         channelName: channelData.name,
@@ -60,8 +63,18 @@ async function main() {
 
     console.log();
 
-    // Extract transcripts from all channels
-    await services.youtubeTranscriptionsService.extractAll(channels);
+    // Extract transcripts using the usecase
+    const result = await services.extractYoutubeTranscriptsUseCase.execute({
+      channels,
+    });
+
+    if (result.success) {
+      console.log(
+        `\n✓ Successfully processed ${result.channelsProcessed} channel(s)`,
+      );
+    } else {
+      console.error(`\n❌ Error: ${result.message}`);
+    }
 
     console.log(`\n✓ Script finished - ${new Date().toISOString()}\n`);
 
