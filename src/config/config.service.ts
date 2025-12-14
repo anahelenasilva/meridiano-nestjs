@@ -3,118 +3,29 @@ import { BriefingOptions } from '../briefing/briefing.entity';
 import { ImpactRating, PromptVariables } from '../shared/types/ai';
 import { FeedProfile } from '../shared/types/feed';
 import { Config } from './config.entity';
+import {
+  articleSummaryPrompt,
+  briefSynthesisPrompt,
+  categoryClassificationPrompt,
+  clusterAnalysisPrompt,
+  impactRatingPrompt,
+  transcriptionAnalysisPrompt,
+  transcriptionClassificationPrompt,
+  transcriptionSummaryPrompt,
+} from './prompts';
 
 @Injectable()
 export class ConfigService {
   private readonly CONFIGS: Config = {
     prompts: {
-      articleSummary: `
-Summarize the key points of this news article objectively in 2-4 sentences.
-Identify the main topics covered.
-
-Article:
-{article_content}
-`,
-
-      impactRating: `
-Analyze the following news summary and estimate its overall impact. Consider factors like geographic scope (local vs global), number of people affected, severity, and potential long-term consequences.
-
-Rate the impact on a scale of 1 to 10, where:
-1-2: Minor, niche, or local interest.
-3-4: Notable event for a specific region or community.
-5-6: Significant event with broader regional or moderate international implications.
-7-8: Major event with significant international importance or wide-reaching effects.
-9-10: Critical global event with severe, widespread, or potentially historic implications.
-
-Summary:
-"{summary}"
-
-Output ONLY the integer number representing your rating (1-10).
-`,
-
-      categoryClassification: `
-Analyze the following article title and content to classify it into appropriate categories.
-
-Available categories:
-- news: General news articles
-- blog: Blog posts or opinion pieces
-- research: Research papers or technical studies
-- nodejs: Node.js related content
-- typescript: TypeScript related content
-- tutorial: Tutorials or how-to guides
-- other: Content that doesn't fit other categories
-
-Article Title: "{title}"
-Article Content: "{content}"
-
-Analyze the content and return ONLY a JSON array of relevant categories. For example:
-["news", "nodejs"] or ["tutorial", "typescript"] or ["research"]
-
-Choose 1-3 most relevant categories. Return only the JSON array, no other text.
-`,
-
-      clusterAnalysis: `
-These are summaries of potentially related news articles from a '{feed_profile}' context:
-
-{cluster_summaries_text}
-
-What is the core event or topic discussed? Summarize the key developments and significance in 3-5 sentences based *only* on the provided text. If the articles seem unrelated, state that clearly.
-`,
-
-      briefSynthesis: `
-You are an AI assistant writing a Presidential-style daily intelligence briefing using Markdown, specifically for the '{feed_profile}' category.
-Synthesize the following analyzed news clusters into a coherent, high-level executive summary.
-Start with the 2-3 most critical overarching themes globally or within this category based *only* on these inputs.
-Then, provide concise bullet points summarizing key developments within the most significant clusters (roughly 3-5 clusters).
-Maintain an objective, analytical tone relevant to the '{feed_profile}' context. Avoid speculation.
-
-Analyzed News Clusters (Most significant first):
-{cluster_analyses_text}
-`,
-
-      transcriptionSummary: `
-You are an expert summarizer and critical reader.
-
-I will paste a youtube video transcription. Your job is to:
-- Extract the core ideas and arguments.
-- Translate complex points into clear, simple language.
-- Organize the summary so it is easy to scan.
-
-Output on the {article_content} property:
-1) 3-5 sentence overview in plain English.
-2) 3-5 sentence summary in technical terms.
-3) Key takeaways as concise bullet points and/or short sections, as appropriate.
-4) Notable data, trends, or memorable quotes called out clearly.
-5) Brief critique: any bias, outdated information, gaps, or missing context.
-
-Transcription:
-{article_content}
-`,
-      transcriptionClassification: `Analyze the following youtube video transcription title and content to classify it into appropriate categories.
-
-Available categories:
-- ai: AI related content
-- news: General news youtube video
-- blog: Blog posts or opinion pieces
-- research: Research youtube video or technical studies
-- nodejs: Node.js related content
-- typescript: TypeScript related content
-- tutorial: Tutorials or how-to guides
-- other: Content that doesn't fit other categories
-
-Transcription Title: "{title}"
-Transcription Content: "{content}"
-
-Analyze the content and return ONLY a JSON array of relevant categories. For example:
-["news", "nodejs"] or ["tutorial", "typescript"] or ["research"]
-
-Choose 1-3 most relevant categories. Return only the JSON array, no other text.`,
-      transcriptionAnalysis: `These are summaries of potentially related youtube video transcription from a '{feed_profile}' context:
-
-{cluster_summaries_text}
-
-What is the core event or topic discussed? Summarize the key developments and significance in 3-5 sentences based *only* on the provided text. If the youtube video transcription seem unrelated, state that clearly.
-`,
+      articleSummary: articleSummaryPrompt,
+      impactRating: impactRatingPrompt,
+      categoryClassification: categoryClassificationPrompt,
+      clusterAnalysis: clusterAnalysisPrompt,
+      briefSynthesis: briefSynthesisPrompt,
+      transcriptionSummary: transcriptionSummaryPrompt,
+      transcriptionClassification: transcriptionClassificationPrompt,
+      transcriptionAnalysis: transcriptionAnalysisPrompt,
     },
 
     processing: {
