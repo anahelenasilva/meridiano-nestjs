@@ -128,3 +128,4 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 - [ ] See stars/bookmarks/saved in a special view
 - [ ] See starred articles in the briefing
 - [ ] Add youtube video manually
+- [ ] Refactor all tests to use jest-mock-extended
