@@ -1,11 +1,13 @@
 import {
   Controller,
+  Delete,
   Get,
   NotFoundException,
   Param,
   ParseIntPipe,
   Query,
 } from '@nestjs/common';
+import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
 import type { PaginatedYoutubeTranscriptionInput } from './entities/youtube-transcription.entity';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListYoutubeTranscriptionsQuery } from './queries/list-youtube-transcriptions.query';
@@ -15,6 +17,7 @@ export class YoutubeTranscriptionsController {
   constructor(
     private readonly listYoutubeTranscriptionsQuery: ListYoutubeTranscriptionsQuery,
     private readonly getYoutubeTranscriptionByIdQuery: GetYoutubeTranscriptionByIdQuery,
+    private readonly deleteYoutubeTranscriptionCommand: DeleteYoutubeTranscriptionCommand
   ) { }
 
   @Get()
@@ -30,6 +33,12 @@ export class YoutubeTranscriptionsController {
       throw new NotFoundException('YouTube transcription not found');
     }
 
+    return data;
+  }
+
+  @Delete(':id')
+  async delete(@Param('id', ParseIntPipe) id: number) {
+    const data = await this.deleteYoutubeTranscriptionCommand.execute(id);
     return data;
   }
 }

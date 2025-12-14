@@ -552,4 +552,22 @@ export class YoutubeTranscriptionsService {
       );
     });
   }
+
+  async delete(id: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+      const stmt = db.prepare(`DELETE FROM youtube_transcriptions WHERE id = ?`);
+
+      stmt.run([id], function (err) {
+        if (err) {
+          console.error('Error deleting youtube_transcriptions:', err);
+          reject(err);
+        } else {
+          resolve();
+        }
+
+        stmt.finalize();
+      });
+    });
+  }
 }

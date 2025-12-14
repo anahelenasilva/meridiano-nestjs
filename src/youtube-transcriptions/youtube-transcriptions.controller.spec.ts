@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListYoutubeTranscriptionsQuery } from './queries/list-youtube-transcriptions.query';
 import { YoutubeTranscriptionsController } from './youtube-transcriptions.controller';
@@ -14,6 +15,10 @@ describe('YoutubeTranscriptionsController', () => {
     execute: jest.fn(),
   };
 
+  const mockDeleteYoutubeTranscriptionCommand = {
+    execute: jest.fn(),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [YoutubeTranscriptionsController],
@@ -25,6 +30,10 @@ describe('YoutubeTranscriptionsController', () => {
         {
           provide: GetYoutubeTranscriptionByIdQuery,
           useValue: mockGetYoutubeTranscriptionByIdQuery,
+        },
+        {
+          provide: DeleteYoutubeTranscriptionCommand,
+          useValue: mockDeleteYoutubeTranscriptionCommand,
         },
       ],
     }).compile();
