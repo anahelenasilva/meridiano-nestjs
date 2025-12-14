@@ -118,7 +118,7 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
-# To-dos
+# To-dos (not necessarily in order)
 - [x] Check if youtube transcription already exists in database before adding it and process it
 - [ ] Send email with articles briefings; use my `personal-sendmail-api`
 - [x] Convert cli commands to use usecase so it's more decoupled and easy to reuse
@@ -127,3 +127,4 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 - [ ] Star/bookmark/save for later an article
 - [ ] See stars/bookmarks/saved in a special view
 - [ ] See starred articles in the briefing
+- [ ] Add youtube video manually
