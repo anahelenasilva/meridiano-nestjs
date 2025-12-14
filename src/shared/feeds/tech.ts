@@ -92,7 +92,7 @@ export const techRSSFeeds: RSSFeed[] = [
     name: 'SCMP Startups',
     category: 'startup',
     description: 'SCMP - Startups',
-    enabled: true,
+    enabled: false,
   },
   {
     url: 'https://www.scmp.com/rss/318221/feed',
