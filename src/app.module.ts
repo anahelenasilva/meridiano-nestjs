@@ -12,6 +12,7 @@ import { ProfilesModule } from './profiles/profiles.module';
 import { QueueModule } from './queue/queue.module';
 import { ScraperModule } from './scraper/scraper.module';
 import { TechModule } from './tech/tech.module';
+import { UsecasesModule } from './usecases/usecases.module';
 import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-transcriptions.module';
 
 @Module({
@@ -28,6 +29,7 @@ import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-tr
     TechModule,
     YoutubeTranscriptionsModule,
     QueueModule,
+    UsecasesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
