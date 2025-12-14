@@ -1,9 +1,8 @@
-// Mock the services before importing them
-jest.mock('./youtube.service');
-jest.mock('./transcript.service');
-jest.mock('./storage.service');
-
 import { Test, TestingModule } from '@nestjs/testing';
+import { mock, mockReset } from 'jest-mock-extended';
+
+import { INestApplication } from '@nestjs/common';
+import { VideoMetadata } from 'src/shared/types/video';
 import { AiService } from '../ai/ai.service';
 import { ConfigService } from '../config/config.service';
 import { DatabaseService } from '../database/database.service';
@@ -14,35 +13,17 @@ import { YouTubeService } from './youtube.service';
 
 describe('YoutubeTranscriptionsService', () => {
   let service: YoutubeTranscriptionsService;
+  let app: INestApplication;
 
   // Mock implementations
-  const mockYouTubeService = {
-    getChannelVideos: jest.fn(),
-  };
+  const mockYouTubeService = mock<YouTubeService>();
+  const mockTranscriptService = mock<TranscriptService>();
+  const mockStorageService = mock<StorageService>();
+  const mockDatabaseService = mock<DatabaseService>();
+  const mockAiService = mock<AiService>();
+  const mockConfigService = mock<ConfigService>();
 
-  const mockTranscriptService = {
-    getTranscript: jest.fn(),
-    transcriptToText: jest.fn(),
-  };
-
-  const mockStorageService = {
-    saveTranscript: jest.fn(),
-    saveTranscripts: jest.fn(),
-  };
-
-  const mockDatabaseService = {
-    saveTranscriptionToDatabase: jest.fn(),
-  };
-
-  const mockAiService = {
-    callDeepseekChat: jest.fn(),
-  };
-
-  const mockConfigService = {
-    getTranscriptionSummaryPrompt: jest.fn(),
-  };
-
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         YoutubeTranscriptionsService,
@@ -71,14 +52,32 @@ describe('YoutubeTranscriptionsService', () => {
           useValue: mockConfigService,
         },
       ],
-    }).compile();
+    })
+      .overrideProvider(YoutubeTranscriptionsService) // override the dependency with the mocked version
+      .useValue(service)
+      .compile();
 
-    service = module.get<YoutubeTranscriptionsService>(
-      YoutubeTranscriptionsService,
-    );
+    app = module.createNestApplication();
+    await app.init();
 
-    // Clear all mocks before each test
+    service = module.get<YoutubeTranscriptionsService>(YoutubeTranscriptionsService);
+  });
+
+  beforeEach(() => {
+    mockReset(mockYouTubeService);
+    mockReset(mockTranscriptService);
+    mockReset(mockStorageService);
+    mockReset(mockDatabaseService);
+    mockReset(mockAiService);
+    mockReset(mockConfigService);
+  });
+
+  afterEach(() => {
     jest.clearAllMocks();
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 
   it('should be defined', () => {
@@ -95,14 +94,24 @@ describe('YoutubeTranscriptionsService', () => {
         maxVideos: 2,
       };
 
-      const mockVideos = [
+      const mockVideos: VideoMetadata[] = [
         {
+          channel: {
+            id: 'UC123',
+            name: 'Test Channel',
+            description: 'Test Description',
+          },
           videoId: 'video1',
           title: 'Video 1',
           url: 'https://youtube.com/watch?v=video1',
           publishedAt: '2025-01-01',
         },
         {
+          channel: {
+            id: 'UC123',
+            name: 'Test Channel',
+            description: 'Test Description',
+          },
           videoId: 'video2',
           title: 'Video 2',
           url: 'https://youtube.com/watch?v=video2',
@@ -124,9 +133,7 @@ describe('YoutubeTranscriptionsService', () => {
       await service.extractChannelTranscripts(mockChannel);
 
       // Assert
-      expect(mockYouTubeService.getChannelVideos).toHaveBeenCalledWith(
-        mockChannel,
-      );
+      expect(mockYouTubeService.getChannelVideos).toHaveBeenNthCalledWith(1, mockChannel);
       expect(mockTranscriptService.getTranscript).toHaveBeenCalledTimes(2);
       expect(mockStorageService.saveTranscript).toHaveBeenCalledTimes(2);
     });
@@ -140,8 +147,13 @@ describe('YoutubeTranscriptionsService', () => {
         maxVideos: 1,
       };
 
-      const mockVideos = [
+      const mockVideos: VideoMetadata[] = [
         {
+          channel: {
+            id: 'UC123',
+            name: 'Test Channel',
+            description: 'Test Description',
+          },
           videoId: 'video1',
           title: 'Video 1',
           url: 'https://youtube.com/watch?v=video1',
@@ -171,14 +183,24 @@ describe('YoutubeTranscriptionsService', () => {
         maxVideos: 2,
       };
 
-      const mockVideos = [
+      const mockVideos: VideoMetadata[] = [
         {
+          channel: {
+            id: 'UC123',
+            name: 'Test Channel',
+            description: 'Test Description',
+          },
           videoId: 'video1',
           title: 'Video 1',
           url: 'https://youtube.com/watch?v=video1',
           publishedAt: '2025-01-01',
         },
         {
+          channel: {
+            id: 'UC123',
+            name: 'Test Channel',
+            description: 'Test Description',
+          },
           videoId: 'video2',
           title: 'Video 2',
           url: 'https://youtube.com/watch?v=video2',
@@ -222,8 +244,13 @@ describe('YoutubeTranscriptionsService', () => {
         },
       ];
 
-      const mockVideos = [
+      const mockVideos: VideoMetadata[] = [
         {
+          channel: {
+            id: 'UC123',
+            name: 'Test Channel',
+            description: 'Test Description',
+          },
           videoId: 'video1',
           title: 'Video 1',
           url: 'https://youtube.com/watch?v=video1',
@@ -266,6 +293,11 @@ describe('YoutubeTranscriptionsService', () => {
         .mockRejectedValueOnce(new Error('Channel not found'))
         .mockResolvedValueOnce([
           {
+            channel: {
+              id: 'UC123',
+              name: 'Test Channel',
+              description: 'Test Description',
+            },
             videoId: 'video1',
             title: 'Video 1',
             url: 'https://youtube.com/watch?v=video1',
