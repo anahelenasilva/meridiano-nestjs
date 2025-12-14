@@ -99,7 +99,7 @@ export const techRSSFeeds: RSSFeed[] = [
     name: 'SCMP Apps & Gaming',
     category: 'gaming',
     description: 'SCMP - Apps and Gaming',
-    enabled: true,
+    enabled: false,
   },
   {
     url: 'https://www.scmp.com/rss/318224/feed',
