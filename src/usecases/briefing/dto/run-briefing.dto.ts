@@ -9,7 +9,8 @@ export class RunBriefingInputDto {
 export interface RunBriefingOutputDto {
   success: boolean;
   duration: number;
-  stages: {
+  error?: string;
+  stages?: {
     scraping: {
       newArticles: number;
       errors: number;

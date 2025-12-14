@@ -30,9 +30,13 @@ export class RunBriefingUseCase {
     );
 
     if (enabledFeeds.length === 0) {
-      throw new Error(
-        `No enabled feeds found for profile '${input.feedProfile}'.`,
-      );
+      console.log(`No enabled feeds found for profile '${input.feedProfile}'.`);
+
+      return {
+        success: false,
+        duration: 0,
+        error: `No enabled feeds found for profile '${input.feedProfile}'.`
+      };
     }
 
     const feedUrls = enabledFeeds.map((f) => f.url);
