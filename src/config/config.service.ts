@@ -82,9 +82,10 @@ I will paste a youtube video transcription. Your job is to:
 
 Output on the {article_content} property:
 1) 3-5 sentence overview in plain English.
-2) Key takeaways as concise bullet points and/or short sections, as appropriate.
-3) Notable data, trends, or memorable quotes called out clearly.
-4) Brief critique: any bias, outdated information, gaps, or missing context.
+2) 3-5 sentence summary in technical terms.
+3) Key takeaways as concise bullet points and/or short sections, as appropriate.
+4) Notable data, trends, or memorable quotes called out clearly.
+5) Brief critique: any bias, outdated information, gaps, or missing context.
 
 Transcription:
 {article_content}
