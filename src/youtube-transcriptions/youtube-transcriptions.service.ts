@@ -254,6 +254,14 @@ export class YoutubeTranscriptionsService {
         };
       }
 
+      const transcriptAlreadyExists = await this.getTranscriptionByVideoUrl(videoData.url);
+      if (transcriptAlreadyExists) {
+        return {
+          success: false,
+          error: `Transcription already exists for video: ${videoData.title}`,
+        };
+      }
+
       console.log(`  Summarizing transcription for: ${videoData.title} by ${videoData.channel.name}`);
 
       const summaryPrompt = this.configService.getTranscriptionSummaryPrompt(
@@ -335,6 +343,19 @@ export class YoutubeTranscriptionsService {
           }
         },
       );
+    });
+  }
+
+  async getTranscriptionByVideoUrl(videoUrl: string): Promise<YoutubeTranscription | null> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+      db.get('SELECT * FROM youtube_transcriptions WHERE video_url = ?', [videoUrl], (err: Error | null, row: YoutubeTranscription | undefined) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(row || null);
+        }
+      });
     });
   }
 
