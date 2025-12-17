@@ -4,7 +4,9 @@ import { AiService } from '../ai/ai.service';
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
 import { DatabaseModule } from '../database/database.module';
+import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
+import { GetYoutubeChannelsQuery } from './queries/get-youtube-channels.query';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListYoutubeTranscriptionsQuery } from './queries/list-youtube-transcriptions.query';
 import { StorageService } from './storage.service';
@@ -25,6 +27,8 @@ import { YouTubeService } from './youtube.service';
     ListYoutubeTranscriptionsQuery,
     GetYoutubeTranscriptionByIdQuery,
     DeleteYoutubeTranscriptionCommand,
+    GetYoutubeChannelsQuery,
+    CreateYoutubeTranscriptionCommand,
   ],
   exports: [YoutubeTranscriptionsService],
   controllers: [YoutubeTranscriptionsController],

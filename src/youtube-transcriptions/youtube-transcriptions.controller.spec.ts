@@ -1,7 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
 
+import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
+import { GetYoutubeChannelsQuery } from './queries/get-youtube-channels.query';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListYoutubeTranscriptionsQuery } from './queries/list-youtube-transcriptions.query';
 import { YoutubeTranscriptionsController } from './youtube-transcriptions.controller';
@@ -12,6 +14,8 @@ describe('YoutubeTranscriptionsController', () => {
   const mockListYoutubeTranscriptionsQuery = mock<ListYoutubeTranscriptionsQuery>();
   const mockGetYoutubeTranscriptionByIdQuery = mock<GetYoutubeTranscriptionByIdQuery>();
   const mockDeleteYoutubeTranscriptionCommand = mock<DeleteYoutubeTranscriptionCommand>();
+  const mockGetYoutubeChannelsQuery = mock<GetYoutubeChannelsQuery>();
+  const mockCreateYoutubeTranscriptionCommand = mock<CreateYoutubeTranscriptionCommand>();
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -28,6 +32,14 @@ describe('YoutubeTranscriptionsController', () => {
         {
           provide: DeleteYoutubeTranscriptionCommand,
           useValue: mockDeleteYoutubeTranscriptionCommand,
+        },
+        {
+          provide: GetYoutubeChannelsQuery,
+          useValue: mockGetYoutubeChannelsQuery,
+        },
+        {
+          provide: CreateYoutubeTranscriptionCommand,
+          useValue: mockCreateYoutubeTranscriptionCommand,
         },
       ],
     }).compile();

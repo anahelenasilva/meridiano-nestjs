@@ -21,6 +21,56 @@ export class YouTubeService {
   }
 
   /**
+   * Get video metadata from a video ID
+   * @param videoId - The YouTube video ID
+   * @param channelId - The channel ID
+   * @param channelName - The channel name
+   * @param channelDescription - The channel description
+   * @returns Video metadata
+   */
+  async getVideoMetadata(
+    videoId: string,
+    channelId: string,
+    channelName: string,
+    channelDescription: string,
+  ): Promise<VideoMetadata> {
+    try {
+      await this.initialize();
+
+      if (!this.youtube) {
+        throw new Error('Failed to initialize YouTube client');
+      }
+
+      console.log(`Fetching metadata for video: ${videoId}`);
+
+      const info = await this.youtube.getInfo(videoId);
+      const basicInfo = info.basic_info;
+
+      const metadata: VideoMetadata = {
+        channel: {
+          id: channelId,
+          name: channelName,
+          description: channelDescription,
+        },
+        videoId: videoId,
+        title: basicInfo.title || 'No title',
+        url: `https://www.youtube.com/watch?v=${videoId}`,
+        publishedAt: basicInfo.start_timestamp
+          ? new Date(basicInfo.start_timestamp).toISOString()
+          : new Date().toISOString(),
+        description: basicInfo.short_description || undefined,
+        thumbnailUrl: basicInfo.thumbnail?.[0]?.url || undefined,
+      };
+
+      console.log(`Successfully fetched metadata for video: ${metadata.title}`);
+      return metadata;
+    } catch (error) {
+      console.error(`Error fetching metadata for video ${videoId}:`, error);
+      throw error;
+    }
+  }
+
+  /**
    * Fetch videos from a YouTube channel
    * @param channelConfig - The channel configuration
    * @param maxVideos - Maximum number of videos to fetch

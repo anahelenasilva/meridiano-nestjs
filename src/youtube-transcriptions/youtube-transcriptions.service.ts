@@ -134,6 +134,84 @@ export class YoutubeTranscriptionsService {
   }
 
   /**
+   * Process a single video URL and save its transcription
+   * @param videoUrl - The YouTube video URL
+   * @param channelId - The channel ID from config
+   * @returns The transcription ID or null if video already exists
+   */
+  async processSingleVideoUrl(
+    videoUrl: string,
+    channelId: string,
+  ): Promise<number | null> {
+    try {
+      console.log(`\n========================================`);
+      console.log(`Processing single video: ${videoUrl}`);
+
+      // Get channel config
+      const ytConfig = this.configService.getYoutubeChannelsConfig();
+      const channelConfig = ytConfig.channels[channelId];
+
+      if (!channelConfig) {
+        throw new Error(`Channel ${channelId} not found in configuration`);
+      }
+
+      if (channelConfig.enabled === false) {
+        throw new Error(`Channel ${channelId} is disabled`);
+      }
+
+      // Extract video ID from URL
+      const { extractVideoId } = await import('./helpers/extract-video-id.js');
+      const videoId = extractVideoId(videoUrl);
+
+      if (!videoId) {
+        throw new Error('Invalid YouTube URL or unable to extract video ID');
+      }
+
+      // Get video metadata
+      const videoMetadata = await this.youtubeService.getVideoMetadata(
+        videoId,
+        channelId,
+        channelConfig.name,
+        channelConfig.description,
+      );
+
+      // Get transcript
+      const transcript = await this.transcriptService.getTranscript(videoId);
+
+      if (!transcript || transcript.length === 0) {
+        throw new Error('No transcript available for this video');
+      }
+
+      const transcriptText =
+        this.transcriptService.transcriptToText(transcript);
+
+      const videoWithTranscript: VideoWithTranscript = {
+        ...videoMetadata,
+        transcript,
+        transcriptText,
+      };
+
+      // Save to database
+      const transcriptionId = await this.addTranscription(videoWithTranscript);
+
+      if (transcriptionId === null) {
+        console.log('Video already exists in database');
+        return null;
+      }
+
+      console.log(
+        `✓ Successfully processed video: ${videoMetadata.title} (ID: ${transcriptionId})`,
+      );
+      console.log(`========================================\n`);
+
+      return transcriptionId;
+    } catch (error) {
+      console.error(`Error processing video URL ${videoUrl}:`, error);
+      throw error;
+    }
+  }
+
+  /**
    * Save a transcription to the database
    * @param videoData - The video with transcript data
    * @param transcriptionSummary - Optional summary of the transcription
