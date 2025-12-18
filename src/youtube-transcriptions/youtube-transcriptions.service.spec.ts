@@ -2,10 +2,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { mock, mockReset } from 'jest-mock-extended';
 
 import { INestApplication } from '@nestjs/common';
-import { VideoMetadata } from 'src/shared/types/video';
 import { AiService } from '../ai/ai.service';
 import { ConfigService } from '../config/config.service';
 import { DatabaseService } from '../database/database.service';
+import { QueueService } from '../queue/queue.service';
+import { VideoMetadata } from '../shared/types/video';
 import { StorageService } from './storage.service';
 import { TranscriptService } from './transcript.service';
 import { YoutubeTranscriptionsService } from './youtube-transcriptions.service';
@@ -22,6 +23,7 @@ describe('YoutubeTranscriptionsService', () => {
   const mockDatabaseService = mock<DatabaseService>();
   const mockAiService = mock<AiService>();
   const mockConfigService = mock<ConfigService>();
+  const mockQueueService = mock<QueueService>();
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -50,6 +52,10 @@ describe('YoutubeTranscriptionsService', () => {
         {
           provide: ConfigService,
           useValue: mockConfigService,
+        },
+        {
+          provide: QueueService,
+          useValue: mockQueueService,
         },
       ],
     })

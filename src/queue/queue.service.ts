@@ -4,8 +4,11 @@ import { FeedProfile } from '../shared/types/feed';
 import {
   ARTICLE_PROCESSING_QUEUE,
   PROCESS_ARTICLE_JOB,
+  PROCESS_TRANSCRIPTION_SUMMARY_JOB,
+  YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from '../shared/types/queue.constants';
 import type { ProcessArticleJobData } from './interfaces/article-job.interface';
+import type { ProcessTranscriptionSummaryJobData } from './interfaces/youtube-transcription-job.interface';
 
 export interface JobInfo {
   success: boolean;
@@ -28,6 +31,8 @@ export class QueueService {
   constructor(
     @Inject(ARTICLE_PROCESSING_QUEUE)
     private readonly articleQueue: Queue,
+    @Inject(YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE)
+    private readonly transcriptionSummaryQueue: Queue,
   ) { }
 
   /**
@@ -52,6 +57,37 @@ export class QueueService {
       articleId,
       jobId: job.id as string,
       message: 'Article queued for processing',
+    };
+  }
+
+  /**
+   * Add a transcription summary job to the queue
+   * @param transcriptionId - The ID of the transcription
+   * @param transcriptText - The transcript text to summarize
+   * @param videoTitle - The video title (for logging)
+   * @returns Job information including job ID
+   */
+  async addTranscriptionSummaryJob(
+    transcriptionId: number,
+    transcriptText: string,
+    videoTitle: string,
+  ): Promise<JobInfo> {
+    const jobData: ProcessTranscriptionSummaryJobData = {
+      transcriptionId,
+      transcriptText,
+      videoTitle,
+    };
+
+    const job = await this.transcriptionSummaryQueue.add(
+      PROCESS_TRANSCRIPTION_SUMMARY_JOB,
+      jobData,
+    );
+
+    return {
+      success: true,
+      articleId: transcriptionId,
+      jobId: job.id as string,
+      message: 'Transcription summary queued for processing',
     };
   }
 

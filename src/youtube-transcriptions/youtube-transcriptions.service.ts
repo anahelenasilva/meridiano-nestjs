@@ -2,8 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { AiService } from '../ai/ai.service';
 import { ConfigService } from '../config/config.service';
 import { DatabaseService } from '../database/database.service';
+import { QueueService } from '../queue/queue.service';
 import { ChannelConfig } from '../shared/types/channel';
-import { VideoWithTranscript } from '../shared/types/video';
+import { TranscriptItem, VideoWithTranscript } from '../shared/types/video';
 import {
   CountTotalTranscriptionsInput,
   DBYoutubeTranscription,
@@ -12,7 +13,41 @@ import {
 } from './entities/youtube-transcription.entity';
 import { StorageService } from './storage.service';
 import { TranscriptService } from './transcript.service';
+import { fetchTranscriptViaInnertube } from './youtube-transcriptions-innertube.service';
 import { YouTubeService } from './youtube.service';
+
+/**
+ * YouTube transcript segment format (matching youtubei.js structure)
+ */
+type YouTubeTranscriptSegment = {
+  end_ms: string;
+  snippet: {
+    text: string;
+  };
+  start_ms: string;
+  start_time_text: {
+    text: string;
+  };
+};
+
+/**
+ * Convert YouTube transcript segments to TranscriptItem format
+ * @param segments - Array of YouTube transcript segments
+ * @returns Array of TranscriptItem
+ */
+const convertYouTubeSegmentsToTranscriptItems = (
+  segments: YouTubeTranscriptSegment[],
+): TranscriptItem[] => {
+  return segments.map((segment) => {
+    const startMs = Number(segment.start_ms);
+    const endMs = Number(segment.end_ms);
+    return {
+      text: segment.snippet.text,
+      duration: endMs - startMs,
+      offset: startMs,
+    };
+  });
+};
 
 @Injectable()
 export class YoutubeTranscriptionsService {
@@ -23,6 +58,7 @@ export class YoutubeTranscriptionsService {
     private readonly databaseService: DatabaseService,
     private readonly aiService: AiService,
     private readonly configService: ConfigService,
+    private readonly queueService: QueueService,
   ) { }
 
   /**
@@ -137,11 +173,13 @@ export class YoutubeTranscriptionsService {
    * Process a single video URL and save its transcription
    * @param videoUrl - The YouTube video URL
    * @param channelId - The channel ID from config
+   * @param proxyUrl - Optional proxy URL for transcript fetching
    * @returns The transcription ID or null if video already exists
    */
   async processSingleVideoUrl(
     videoUrl: string,
     channelId: string,
+    proxyUrl?: string,
   ): Promise<number | null> {
     try {
       console.log(`\n========================================`);
@@ -175,11 +213,45 @@ export class YoutubeTranscriptionsService {
         channelConfig.description,
       );
 
-      // Get transcript
-      const transcript = await this.transcriptService.getTranscript(videoId);
+      // Get transcript with fallback mechanism
+      let transcript: TranscriptItem[] = [];
 
-      if (!transcript || transcript.length === 0) {
-        throw new Error('No transcript available for this video');
+      try {
+        // Try primary method first (getInfo)
+        console.log('Attempting to fetch transcript using primary method...');
+        transcript = await this.transcriptService.getTranscript(videoId);
+
+        if (!transcript || transcript.length === 0) {
+          throw new Error('Primary method returned empty transcript');
+        }
+
+        console.log(`✓ Successfully fetched transcript using primary method (${transcript.length} items)`);
+      } catch (primaryError) {
+        // Fallback to alternative method (getBasicInfo + direct XML fetch)
+        console.log('Primary method failed, attempting fallback method...');
+        const primaryErrorMessage = primaryError instanceof Error ? primaryError.message : String(primaryError);
+        console.log(`  Primary error: ${primaryErrorMessage}`);
+
+        try {
+          const alternativeSegments = await fetchTranscriptViaInnertube(videoId, proxyUrl);
+          transcript = convertYouTubeSegmentsToTranscriptItems(alternativeSegments);
+
+          if (!transcript || transcript.length === 0) {
+            throw new Error('Alternative method returned empty transcript');
+          }
+
+          console.log(`✓ Successfully fetched transcript using alternative method (${transcript.length} items)`);
+        } catch (alternativeError) {
+          // Both methods failed
+          const alternativeErrorMessage = alternativeError instanceof Error ? alternativeError.message : String(alternativeError);
+          console.error('Both transcript methods failed:');
+          console.error(`  Primary: ${primaryErrorMessage}`);
+          console.error(`  Alternative: ${alternativeErrorMessage}`);
+
+          throw new Error(
+            `Failed to fetch transcript using both methods. Primary: ${primaryErrorMessage}. Alternative: ${alternativeErrorMessage}`
+          );
+        }
       }
 
       const transcriptText =
@@ -191,13 +263,26 @@ export class YoutubeTranscriptionsService {
         transcriptText,
       };
 
-      // Save to database
+      await this.storageService.saveTranscript(
+        channelId,
+        videoWithTranscript,
+      );
+
+      // Save transcription to database first without summary
       const transcriptionId = await this.addTranscription(videoWithTranscript);
 
       if (transcriptionId === null) {
         console.log('Video already exists in database');
         return null;
       }
+
+      // Enqueue summary generation job
+      console.log(`Enqueueing summary generation for transcription ID ${transcriptionId}...`);
+      await this.queueService.addTranscriptionSummaryJob(
+        transcriptionId,
+        transcriptText.substring(0, 8000), // Limit text length
+        videoWithTranscript.title,
+      );
 
       console.log(
         `✓ Successfully processed video: ${videoMetadata.title} (ID: ${transcriptionId})`,
@@ -264,6 +349,36 @@ export class YoutubeTranscriptionsService {
           stmt.finalize();
         },
       );
+    });
+  }
+
+  /**
+   * Update transcription summary in the database
+   * @param transcriptionId - The transcription ID
+   * @param summary - The summary text to save
+   * @returns Promise that resolves when update is complete
+   */
+  async updateTranscriptionSummary(
+    transcriptionId: number,
+    summary: string,
+  ): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      const stmt = db.prepare(`
+        UPDATE youtube_transcriptions
+        SET transcription_summary = ?
+        WHERE id = ?
+      `);
+
+      stmt.run([summary, transcriptionId], function (err: Error | null) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+        stmt.finalize();
+      });
     });
   }
 
@@ -340,22 +455,10 @@ export class YoutubeTranscriptionsService {
         };
       }
 
-      console.log(`  Summarizing transcription for: ${videoData.title} by ${videoData.channel.name}`);
+      console.log(`  Processing transcription for: ${videoData.title} by ${videoData.channel.name}`);
 
-      const summaryPrompt = this.configService.getTranscriptionSummaryPrompt(
-        videoData.transcriptText.substring(0, 8000), // Limit text length
-      );
-
-      const summary = await this.aiService.callDeepseekChat(summaryPrompt);
-
-      if (!summary) {
-        console.log(`  Warning: Failed to generate summary for ${videoData.title}. Saving without summary.`);
-      }
-
-      const insertedId = await this.addTranscription(
-        videoData,
-        summary || undefined,
-      );
+      // Save transcription to database first without summary
+      const insertedId = await this.addTranscription(videoData);
 
       if (insertedId === null) {
         return {
@@ -363,6 +466,14 @@ export class YoutubeTranscriptionsService {
           error: 'Transcription already exists or failed to insert',
         };
       }
+
+      // Enqueue summary generation job
+      console.log(`  Enqueueing summary generation for transcription ID ${insertedId}...`);
+      await this.queueService.addTranscriptionSummaryJob(
+        insertedId,
+        videoData.transcriptText.substring(0, 8000), // Limit text length
+        videoData.title,
+      );
 
       console.log(`  ✓ Successfully processed and saved transcription (ID: ${insertedId})`);
       return { success: true };
