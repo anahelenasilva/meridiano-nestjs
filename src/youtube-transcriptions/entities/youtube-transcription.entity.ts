@@ -8,6 +8,7 @@ export interface DBYoutubeTranscription {
   processedAt: Date;
   transcriptionText: string;
   transcriptionSummary?: string;
+  thumbnailUrl?: string;
 }
 
 export interface YoutubeTranscription {
@@ -20,6 +21,7 @@ export interface YoutubeTranscription {
   processedAt: Date;
   transcriptionText: string;
   transcriptionSummary?: string;
+  thumbnailUrl?: string;
 }
 
 export interface PaginatedYoutubeTranscriptionInput {

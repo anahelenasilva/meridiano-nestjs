@@ -78,7 +78,8 @@ export class SQLiteDatabaseService extends AbstractDatabaseService {
           transcription_text TEXT NOT NULL,
           transcription_summary TEXT NULL,
           transcription_analysis TEXT NULL,
-          transcription_cassification TEXT NULL
+          transcription_cassification TEXT NULL,
+          thumbnail_url TEXT NULL
         )
       `;
 
@@ -100,9 +101,43 @@ export class SQLiteDatabaseService extends AbstractDatabaseService {
         this.db!.run(createYoutubeTranscriptionsTable, (err) => {
           if (err) {
             reject(err);
-          } else {
-            resolve();
+            return;
           }
+
+          // Migration: Add thumbnail_url column if it doesn't exist
+          this.db!.all(
+            "PRAGMA table_info(youtube_transcriptions)",
+            [],
+            (err, columns: any[]) => {
+              if (err) {
+                console.error('Error checking table columns:', err);
+                reject(err);
+                return;
+              }
+
+              const hasThumbnailUrl = columns.some(
+                (col) => col.name === 'thumbnail_url'
+              );
+
+              if (!hasThumbnailUrl) {
+                console.log('Adding thumbnail_url column to youtube_transcriptions table...');
+                this.db!.run(
+                  'ALTER TABLE youtube_transcriptions ADD COLUMN thumbnail_url TEXT NULL',
+                  (err) => {
+                    if (err) {
+                      console.error('Error adding thumbnail_url column:', err);
+                      reject(err);
+                    } else {
+                      console.log('Successfully added thumbnail_url column');
+                      resolve();
+                    }
+                  }
+                );
+              } else {
+                resolve();
+              }
+            }
+          );
         });
       });
     });

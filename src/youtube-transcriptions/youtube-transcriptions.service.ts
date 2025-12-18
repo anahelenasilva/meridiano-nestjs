@@ -312,9 +312,9 @@ export class YoutubeTranscriptionsService {
       const stmt = db.prepare(`
         INSERT INTO youtube_transcriptions (
           channel_id, channel_name, video_title, posted_at, video_url,
-          processed_at, transcription_text, transcription_summary
+          processed_at, transcription_text, transcription_summary, thumbnail_url
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
 
       stmt.run(
@@ -327,6 +327,7 @@ export class YoutubeTranscriptionsService {
           new Date().toISOString(),
           videoData.transcriptText,
           transcriptionSummary || null,
+          videoData.thumbnailUrl || null,
         ],
         function (this: { lastID?: number }, err: Error | null) {
           if (err) {
@@ -400,7 +401,8 @@ export class YoutubeTranscriptionsService {
            video_url AS videoUrl,
            processed_at AS processedAt,
            transcription_text AS transcriptionText,
-           transcription_summary AS transcriptionSummary
+           transcription_summary AS transcriptionSummary,
+           thumbnail_url AS thumbnailUrl
            FROM youtube_transcriptions
            ORDER BY processed_at DESC`,
         [],
@@ -506,7 +508,8 @@ export class YoutubeTranscriptionsService {
           video_url AS videoUrl,
           processed_at AS processedAt,
           transcription_text AS transcriptionText,
-          transcription_summary AS transcriptionSummary
+          transcription_summary AS transcriptionSummary,
+          thumbnail_url AS thumbnailUrl
         FROM youtube_transcriptions
         WHERE id = ?
       `;
@@ -612,7 +615,8 @@ export class YoutubeTranscriptionsService {
           video_url AS videoUrl,
           processed_at AS processedAt,
           transcription_text AS transcriptionText,
-          transcription_summary AS transcriptionSummary
+          transcription_summary AS transcriptionSummary,
+          thumbnail_url AS thumbnailUrl
         FROM youtube_transcriptions
         WHERE 1=1
       `;

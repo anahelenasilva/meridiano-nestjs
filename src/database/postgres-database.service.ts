@@ -226,7 +226,8 @@ export class PostgresDatabaseService extends AbstractDatabaseService {
         transcription_text TEXT NOT NULL,
         transcription_summary TEXT NULL,
         transcription_analysis TEXT NULL,
-        transcription_cassification TEXT NULL
+        transcription_cassification TEXT NULL,
+        thumbnail_url TEXT NULL
       )
     `;
 
@@ -235,6 +236,24 @@ export class PostgresDatabaseService extends AbstractDatabaseService {
       await this.pool.query(createBriefingsTable);
       await this.pool.query(createYoutubeTranscriptionsTable);
       console.log('PostgreSQL tables created/verified');
+
+      // Migration: Add thumbnail_url column if it doesn't exist
+      const checkColumnQuery = `
+        SELECT column_name
+        FROM information_schema.columns
+        WHERE table_name = 'youtube_transcriptions'
+        AND column_name = 'thumbnail_url'
+      `;
+
+      const result = await this.pool.query(checkColumnQuery);
+
+      if (result.rows.length === 0) {
+        console.log('Adding thumbnail_url column to youtube_transcriptions table...');
+        await this.pool.query(
+          'ALTER TABLE youtube_transcriptions ADD COLUMN thumbnail_url TEXT NULL'
+        );
+        console.log('Successfully added thumbnail_url column');
+      }
     } catch (err) {
       console.error('Error creating tables:', err);
       throw err;
