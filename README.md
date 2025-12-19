@@ -126,6 +126,6 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 - [x] Add articles manually
 - [ ] Star/bookmark/save for later an article
 - [ ] See stars/bookmarks/saved in a special view
-- [ ] See starred articles in the briefing
-- [ ] Add youtube video manually
+- [ ] See starred articles differently in the briefing
+- [x] Add youtube video manually
 - [ ] Refactor all tests to use jest-mock-extended
