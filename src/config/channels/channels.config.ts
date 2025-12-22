@@ -18,6 +18,6 @@ export const youtubeChannelsConfig = {
     name: 'JavaScript Conferences by GitNation',
     description:
       'Channel of the JavaScript-related family of conferences from GitNation. We organize JavaScript events for a bigger cause — we want the modern tech community to become a better place for developers and enthusiasts alike by encouraging professional growth opportunities, skills evolution, and nurturing the passion for the craft.',
-    enabled: true,
+    enabled: false,
   },
 };
