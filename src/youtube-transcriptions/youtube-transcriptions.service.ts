@@ -87,9 +87,47 @@ export class YoutubeTranscriptionsService {
         try {
           console.log(`\nProcessing: ${video.title}`);
 
-          const transcript = await this.transcriptService.getTranscript(
-            video.videoId,
-          );
+          // Get transcript with fallback mechanism
+          let transcript: TranscriptItem[] = [];
+
+          try {
+            // Try primary method first (getInfo)
+            console.log('Attempting to fetch transcript using primary method...');
+            transcript = await this.transcriptService.getTranscript(video.videoId);
+
+            if (!transcript || transcript.length === 0) {
+              throw new Error('Primary method returned empty transcript');
+            }
+
+            console.log(`✓ Successfully fetched transcript using primary method (${transcript.length} items)`);
+          } catch (primaryError) {
+            // Fallback to alternative method (getBasicInfo + direct XML fetch)
+            console.log('Primary method failed, attempting fallback method...');
+            const primaryErrorMessage = primaryError instanceof Error ? primaryError.message : String(primaryError);
+            console.log(`  Primary error: ${primaryErrorMessage}`);
+
+            try {
+              const alternativeSegments = await fetchTranscriptViaInnertube(video.videoId);
+              transcript = convertYouTubeSegmentsToTranscriptItems(alternativeSegments);
+
+              if (!transcript || transcript.length === 0) {
+                throw new Error('Alternative method returned empty transcript');
+              }
+
+              console.log(`✓ Successfully fetched transcript using alternative method (${transcript.length} items)`);
+            } catch (alternativeError) {
+              // Both methods failed
+              const alternativeErrorMessage = alternativeError instanceof Error ? alternativeError.message : String(alternativeError);
+              console.error('Both transcript methods failed:');
+              console.error(`  Primary: ${primaryErrorMessage}`);
+              console.error(`  Alternative: ${alternativeErrorMessage}`);
+
+              throw new Error(
+                `Failed to fetch transcript using both methods. Primary: ${primaryErrorMessage}. Alternative: ${alternativeErrorMessage}`
+              );
+            }
+          }
+
           const transcriptText =
             this.transcriptService.transcriptToText(transcript);
 
