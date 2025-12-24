@@ -168,10 +168,24 @@ export const techRSSFeeds: RSSFeed[] = [
 ];
 
 export const techPrompts = {
-  articleSummary: `Summarize the key points of this news article objectively in 2-4 sentences. Identify the main topics covered. Do not include any promotional articles or calls to action.
+  articleSummary: `
+  You are an expert summarizer and critical reader.
 
-Article:
-{article_content}`,
+  I will paste an article (news or technical article). Your job is to:
+  - Extract the core ideas and arguments from the article.
+  - Translate complex points into clear, simple language.
+  - Organize the summary so it is easy to scan.
+
+  Output on the {article_content} property:
+  1) 3-5 sentence overview in plain English.
+  2) 3-5 sentence summary in technical terms.
+  3) Key takeaways as concise bullet points and/or short sections, as appropriate.
+  4) Notable data, trends, or memorable quotes called out clearly.
+  5) Brief critique: any bias, outdated information, gaps, or missing context.
+
+  Transcription:
+  {article_content}
+  `,
 
   impactRating: `Analyze the following article summary and estimate its overall impact. Consider factors like newsworthiness, originality, geographic scope (local vs global), number of people affected, severity, and potential long-term consequences. Be extremely critical and conservative when assigning scores—higher scores should reflect truly exceptional or rare events.
 
