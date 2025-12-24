@@ -1,0 +1,3386 @@
+{
+  "channel": {
+    "id": "UCQM428Hwrvxla8DCgjGONSQ",
+    "name": "JavaScript Conferences by GitNation",
+    "description": "Channel of the JavaScript-related family of conferences from GitNation. We organize JavaScript events for a bigger cause — we want the modern tech community to become a better place for developers and enthusiasts alike by encouraging professional growth opportunities, skills evolution, and nurturing the passion for the craft."
+  },
+  "videoId": "FoXHScf1mjA",
+  "title": "The AI-Native Software Engineer | Addy Osmani",
+  "url": "https://www.youtube.com/watch?v=FoXHScf1mjA",
+  "publishedAt": "2025-12-23T17:27:38.287Z",
+  "description": "Why are we coding faster, but shipping slower? Here is a “practical playbook” for AI-assisted software engineering in 2025.\n\nAddy Osmani, Engineering Leader at Google, architect of Chrome DevTools and JS Patterns, reveals how to actually integrate AI into engineering teams. This isn't about hype — it's about fixing the broken \"vibe coding\" process that threatens to degrade code quality and create technical debt.\n\nYou’ll learn:\n🟡 Escaping the \"70% trap\": why AI writes code fast but breaks production—and how to close the \"Last mile\" gap without rewriting everything yourself;\n🟡 Context engineering: stop wasting time on \"prompt engineering\". Learn to architect agent memory so LLMs actually understand your legacy codebase;\n🟡 Fixing the code review crisis: Google's data shows PR review times exploded by 91%. Discover workflows (like Trio Programming) to reverse this trend and stop skill erosion.\n\nIn this talk, we explore the shift to AI-Native Engineering. Whether you use Cursor, GitHub Copilot, or Gemini, this guide helps Senior Developers and Tech Leads navigate the risks of automation and move from writing code to orchestrating agents.\n\n🔗 Follow the link to watch the full version of all the conference talks, Q&A’s with speakers and hands-on workshop recordings: \nhttps://gitnation.com/events/jsnation-us-2025?utm_source=youtube&utm_medium=AddyOsmaniTalk-JS-US-2025 \n\n⏱️ Video Navigation:\n00:00 - 01:34 | Intro: from \"Will I be replaced?\" to AI-Native Engineer \n01:34 - 04:23 | The shift: evolution from Implementer to \"Orchestrator of agents\" \n04:23 - 04:57 | The spectrum: \"Vibe coding\" vs. Managed engineering \n04:57 - 05:42 | A few words about JS Nation 2026 in Amsterdam\n05:42 - 07:39 | Mapping AI to the developer lifecycle (Inner vs. Outer Loop)\n07:39 - 08:09 | Google’s internal data: measuring real velocity gains \n08:09 - 10:44 | Why prompt engineering is dead (enter context engineering) \n10:44 - 14:27 | Practical pattern: Spec-driven development and \"learnings\" files \n14:27 - 15:39 | The trust gap: why 46% of devs distrust AI output \n15:39 - 17:15 | Tool reveal: Chrome DevTools MCP (AI seeing the browser) \n17:15 - 20:20 | The code review crisis: why PR times exploded by 91% \n20:20 - 21:44 | The \"70% Problem\": why the Last Mile is hardest for Seniors \n21:44 - 23:06 | Skill erosion and the threat to Junior hiring \n23:06 - 25:24 | Solution: \"Trio programming\" and No-AI challenges\n\nTalk: The AI-Native Software Engineer,  JSNation US website: https://reactsummit.us/?utm_source=youtube&utm_medium=AddyOsmaniTalk-JS-US-2025 \nConference 2025 #JSNationUS #GitNation\n\n📌Ready to implement these workflows? See how AI transforms software development in practice: join AI Coding Summit (Feb 26-27):\n🔗https://aicodingsummit.com/?utm_source=youtube&utm_medium=AddyOsmaniTalk-JS-US-2025 \n\n📌 Network with the global community at the next edition of the largest JavaScript conference (July 2026, Amsterdam). Get your Early-bird tickets:\n🔗 https://jsnation.com/?utm_source=youtube&utm_medium=AddyOsmaniTalk-JS-US-2025",
+  "thumbnailUrl": "https://i.ytimg.com/vi/FoXHScf1mjA/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBZq0XMfHRQZSoaeBGFkQ8wG1lS_w",
+  "transcript": [
+    {
+      "text": "So we are going through a pretty brief",
+      "duration": 4081,
+      "offset": 6879
+    },
+    {
+      "text": "change in software engineering at the",
+      "duration": 4641,
+      "offset": 8639
+    },
+    {
+      "text": "moment. Uh AI and vibe coding are",
+      "duration": 4879,
+      "offset": 10960
+    },
+    {
+      "text": "fundamentally reshaping our work and",
+      "duration": 5680,
+      "offset": 13280
+    },
+    {
+      "text": "there is a lot of hype to sift through.",
+      "duration": 5520,
+      "offset": 15839
+    },
+    {
+      "text": "So today I'm going to share some battle",
+      "duration": 4960,
+      "offset": 18960
+    },
+    {
+      "text": "tested insights from the trenches um for",
+      "duration": 4561,
+      "offset": 21359
+    },
+    {
+      "text": "making that transition successfully with",
+      "duration": 5279,
+      "offset": 23920
+    },
+    {
+      "text": "some fun learnings along the way. But um",
+      "duration": 4800,
+      "offset": 25920
+    },
+    {
+      "text": "before we get started, I do have",
+      "duration": 3841,
+      "offset": 29199
+    },
+    {
+      "text": "something I have to share. Uh we've all",
+      "duration": 4800,
+      "offset": 30720
+    },
+    {
+      "text": "been replaced by AI. We can finally",
+      "duration": 5120,
+      "offset": 33040
+    },
+    {
+      "text": "retire to the woods before they're cut",
+      "duration": 5280,
+      "offset": 35520
+    },
+    {
+      "text": "down for more data centers. As you can",
+      "duration": 4320,
+      "offset": 38160
+    },
+    {
+      "text": "guess, this hasn't really happened just",
+      "duration": 3599,
+      "offset": 40800
+    },
+    {
+      "text": "yet, but the future could look uh a",
+      "duration": 3919,
+      "offset": 42480
+    },
+    {
+      "text": "little bit different.",
+      "duration": 4000,
+      "offset": 44399
+    },
+    {
+      "text": "I've been coding with AI for a few",
+      "duration": 4320,
+      "offset": 46399
+    },
+    {
+      "text": "years, and I think the direction we're",
+      "duration": 4401,
+      "offset": 48399
+    },
+    {
+      "text": "going in is sort of an AI native",
+      "duration": 4160,
+      "offset": 50719
+    },
+    {
+      "text": "engineer. Instead of thinking, you know,",
+      "duration": 4320,
+      "offset": 52800
+    },
+    {
+      "text": "AI might replace me, an AI native",
+      "duration": 4641,
+      "offset": 54879
+    },
+    {
+      "text": "engineer might ask for every task. Could",
+      "duration": 5200,
+      "offset": 57120
+    },
+    {
+      "text": "AI help me do this faster, better, or",
+      "duration": 5039,
+      "offset": 59520
+    },
+    {
+      "text": "differently in some way? And I think",
+      "duration": 3520,
+      "offset": 62320
+    },
+    {
+      "text": "that the future really belongs to",
+      "duration": 2961,
+      "offset": 64559
+    },
+    {
+      "text": "engineers. So you can embrace that",
+      "duration": 4319,
+      "offset": 65840
+    },
+    {
+      "text": "collaborative mindset. Now, if you zoom",
+      "duration": 4800,
+      "offset": 67520
+    },
+    {
+      "text": "all the way out, uh this chart is really",
+      "duration": 4801,
+      "offset": 70159
+    },
+    {
+      "text": "the road map for the next few years. Um",
+      "duration": 4240,
+      "offset": 72320
+    },
+    {
+      "text": "on one side you have the classic",
+      "duration": 3440,
+      "offset": 74960
+    },
+    {
+      "text": "developer journeys where most of our",
+      "duration": 4879,
+      "offset": 76560
+    },
+    {
+      "text": "value came from purely human effort and",
+      "duration": 5440,
+      "offset": 78400
+    },
+    {
+      "text": "then we hit this AI augmented phase",
+      "duration": 5201,
+      "offset": 81439
+    },
+    {
+      "text": "where many of us are in right now and as",
+      "duration": 4639,
+      "offset": 83840
+    },
+    {
+      "text": "we continue shifting we go from",
+      "duration": 4799,
+      "offset": 86640
+    },
+    {
+      "text": "augmented to AI first and eventually AI",
+      "duration": 5441,
+      "offset": 88479
+    },
+    {
+      "text": "native developer experiences.",
+      "duration": 4961,
+      "offset": 91439
+    },
+    {
+      "text": "Now AI first journeys ask a different",
+      "duration": 4080,
+      "offset": 93920
+    },
+    {
+      "text": "question. They ask that how would this",
+      "duration": 4240,
+      "offset": 96400
+    },
+    {
+      "text": "journey look if AI were assumed from the",
+      "duration": 4960,
+      "offset": 98000
+    },
+    {
+      "text": "start and not sprinkled at the end. And",
+      "duration": 4479,
+      "offset": 100640
+    },
+    {
+      "text": "then AI native DX is where the unit of",
+      "duration": 4320,
+      "offset": 102960
+    },
+    {
+      "text": "work itself ends up shifting to agentic",
+      "duration": 4881,
+      "offset": 105119
+    },
+    {
+      "text": "workflows. Now in the future some say",
+      "duration": 4960,
+      "offset": 107280
+    },
+    {
+      "text": "that every engineer is going to evolve",
+      "duration": 5280,
+      "offset": 110000
+    },
+    {
+      "text": "from a pure implement to an orchestrator",
+      "duration": 5919,
+      "offset": 112240
+    },
+    {
+      "text": "of agents. Maybe we'll all be managers",
+      "duration": 5040,
+      "offset": 115280
+    },
+    {
+      "text": "where human judgment and critical",
+      "duration": 4240,
+      "offset": 118159
+    },
+    {
+      "text": "thinking is going to help guide AI",
+      "duration": 3759,
+      "offset": 120320
+    },
+    {
+      "text": "towards fixing code towards the right",
+      "duration": 3760,
+      "offset": 122399
+    },
+    {
+      "text": "outcomes. Some people are very much",
+      "duration": 4160,
+      "offset": 124079
+    },
+    {
+      "text": "already doing this and maybe we're going",
+      "duration": 4001,
+      "offset": 126159
+    },
+    {
+      "text": "to move from how do I code this to how",
+      "duration": 4481,
+      "offset": 128239
+    },
+    {
+      "text": "do I get the right code built. There are",
+      "duration": 4640,
+      "offset": 130160
+    },
+    {
+      "text": "a lot of solutions already available for",
+      "duration": 3920,
+      "offset": 132720
+    },
+    {
+      "text": "this. There's cursors background agent",
+      "duration": 3600,
+      "offset": 134800
+    },
+    {
+      "text": "which can hand tasks off to the",
+      "duration": 3920,
+      "offset": 136640
+    },
+    {
+      "text": "background. Can be used by engineers",
+      "duration": 4400,
+      "offset": 138400
+    },
+    {
+      "text": "PMs. You can monitor progress on",
+      "duration": 4240,
+      "offset": 140560
+    },
+    {
+      "text": "multiple tasks in real time. You can be",
+      "duration": 4560,
+      "offset": 142800
+    },
+    {
+      "text": "notified if the agent needs input. Um",
+      "duration": 4960,
+      "offset": 144800
+    },
+    {
+      "text": "there's cloud code for the web. I've",
+      "duration": 4080,
+      "offset": 147360
+    },
+    {
+      "text": "been enjoying orchestrating multiple",
+      "duration": 5040,
+      "offset": 149760
+    },
+    {
+      "text": "tasks using jewels from Google Labs. Um,",
+      "duration": 5840,
+      "offset": 151440
+    },
+    {
+      "text": "there's also GitHub's C-pilot agent. I",
+      "duration": 4719,
+      "offset": 154800
+    },
+    {
+      "text": "use this both on desktop and on mobile.",
+      "duration": 3920,
+      "offset": 157280
+    },
+    {
+      "text": "Like if I'm on a hike, I love being able",
+      "duration": 3440,
+      "offset": 159519
+    },
+    {
+      "text": "to pull out my phone and just spin up a",
+      "duration": 3600,
+      "offset": 161200
+    },
+    {
+      "text": "bunch of tasks on side projects. It's",
+      "duration": 4481,
+      "offset": 162959
+    },
+    {
+      "text": "kind of cool. Uh, there's also Conductor",
+      "duration": 4960,
+      "offset": 164800
+    },
+    {
+      "text": "for map, which uh supports multiple",
+      "duration": 4560,
+      "offset": 167440
+    },
+    {
+      "text": "agents, but I do have to ground",
+      "duration": 4000,
+      "offset": 169760
+    },
+    {
+      "text": "ourselves in reality. It's sort of",
+      "duration": 3519,
+      "offset": 172000
+    },
+    {
+      "text": "unsurprising that startups or people",
+      "duration": 3920,
+      "offset": 173760
+    },
+    {
+      "text": "with evergreen code bases are already",
+      "duration": 3521,
+      "offset": 175519
+    },
+    {
+      "text": "starting to play with some of these",
+      "duration": 4080,
+      "offset": 177680
+    },
+    {
+      "text": "ideas like orchestration. Enterprise is",
+      "duration": 4479,
+      "offset": 179040
+    },
+    {
+      "text": "a little bit different. Um, what I hear",
+      "duration": 4000,
+      "offset": 181760
+    },
+    {
+      "text": "when I talk to enterprise companies is a",
+      "duration": 4161,
+      "offset": 183519
+    },
+    {
+      "text": "lot of skepticism around the readiness",
+      "duration": 4320,
+      "offset": 185760
+    },
+    {
+      "text": "of these patterns for large decade old",
+      "duration": 4720,
+      "offset": 187680
+    },
+    {
+      "text": "code bases. And I'm excited there are",
+      "duration": 3840,
+      "offset": 190080
+    },
+    {
+      "text": "folks poking at these problems. I think",
+      "duration": 3040,
+      "offset": 192400
+    },
+    {
+      "text": "eventually the tooling will get to a",
+      "duration": 4480,
+      "offset": 193920
+    },
+    {
+      "text": "good place. But just to talk about these",
+      "duration": 4560,
+      "offset": 195440
+    },
+    {
+      "text": "pattern changes a little bit more today,",
+      "duration": 4160,
+      "offset": 198400
+    },
+    {
+      "text": "most of us act as conductors. We are",
+      "duration": 5120,
+      "offset": 200000
+    },
+    {
+      "text": "effectively guiding one agent through a",
+      "duration": 4880,
+      "offset": 202560
+    },
+    {
+      "text": "single task. And tomorrow we might be",
+      "duration": 4320,
+      "offset": 205120
+    },
+    {
+      "text": "those orchestrators directing a fleet of",
+      "duration": 4159,
+      "offset": 207440
+    },
+    {
+      "text": "agents working in harmony towards a",
+      "duration": 4240,
+      "offset": 209440
+    },
+    {
+      "text": "shared goal.",
+      "duration": 4401,
+      "offset": 211599
+    },
+    {
+      "text": "If you think of an orchestra, you know,",
+      "duration": 4559,
+      "offset": 213680
+    },
+    {
+      "text": "maybe you picture something like this.",
+      "duration": 4239,
+      "offset": 216000
+    },
+    {
+      "text": "Um maybe you picture yourself leading an",
+      "duration": 3841,
+      "offset": 218239
+    },
+    {
+      "text": "orchestra of agents and it looks a",
+      "duration": 3441,
+      "offset": 220239
+    },
+    {
+      "text": "little bit like this. Reality whoever is",
+      "duration": 4480,
+      "offset": 222080
+    },
+    {
+      "text": "very different. Uh things are evolving",
+      "duration": 5440,
+      "offset": 223680
+    },
+    {
+      "text": "fast, but best practices for teams and",
+      "duration": 4399,
+      "offset": 226560
+    },
+    {
+      "text": "organizations are still in flux. So",
+      "duration": 3199,
+      "offset": 229120
+    },
+    {
+      "text": "we're going to talk just a little bit",
+      "duration": 3761,
+      "offset": 230959
+    },
+    {
+      "text": "about that today. Now, multiple",
+      "duration": 4721,
+      "offset": 232319
+    },
+    {
+      "text": "developer surveys, including Dora and",
+      "duration": 4239,
+      "offset": 234720
+    },
+    {
+      "text": "Stack Overflow, showed that a majority",
+      "duration": 4479,
+      "offset": 237040
+    },
+    {
+      "text": "of us are using AI for coding at work.",
+      "duration": 4321,
+      "offset": 238959
+    },
+    {
+      "text": "And what this data tells us is that it's",
+      "duration": 4000,
+      "offset": 241519
+    },
+    {
+      "text": "no longer a novelty or an edge case, but",
+      "duration": 3840,
+      "offset": 243280
+    },
+    {
+      "text": "it's rapidly become just a standard part",
+      "duration": 3920,
+      "offset": 245519
+    },
+    {
+      "text": "of the software development toolkit. And",
+      "duration": 4319,
+      "offset": 247120
+    },
+    {
+      "text": "what I'd like to say is, you know,",
+      "duration": 3360,
+      "offset": 249439
+    },
+    {
+      "text": "there's one thing you need to remember.",
+      "duration": 3921,
+      "offset": 251439
+    },
+    {
+      "text": "AI is really not about writing more code",
+      "duration": 5041,
+      "offset": 252799
+    },
+    {
+      "text": "faster. It's about building um better",
+      "duration": 4159,
+      "offset": 255360
+    },
+    {
+      "text": "software at the end of the day. So,",
+      "duration": 2639,
+      "offset": 257840
+    },
+    {
+      "text": "throughout this talk, we're going to",
+      "duration": 2641,
+      "offset": 259519
+    },
+    {
+      "text": "explore what better could potentially",
+      "duration": 4720,
+      "offset": 260479
+    },
+    {
+      "text": "mean. Um now coding with AI is a little",
+      "duration": 6160,
+      "offset": 262160
+    },
+    {
+      "text": "bit of a spectrum. Um vibe coding is",
+      "duration": 5681,
+      "offset": 265199
+    },
+    {
+      "text": "fast and exploratory. It prioritizes",
+      "duration": 4640,
+      "offset": 268320
+    },
+    {
+      "text": "speed and experimentation over deep",
+      "duration": 4560,
+      "offset": 270880
+    },
+    {
+      "text": "review and engineering rigor. And then",
+      "duration": 4640,
+      "offset": 272960
+    },
+    {
+      "text": "we have AI assisted engineering. It's at",
+      "duration": 3920,
+      "offset": 275440
+    },
+    {
+      "text": "the opposite end of that spectrum. And",
+      "duration": 3120,
+      "offset": 277600
+    },
+    {
+      "text": "this is sort of the methodical",
+      "duration": 3279,
+      "offset": 279360
+    },
+    {
+      "text": "integration of AI into a mature",
+      "duration": 4080,
+      "offset": 280720
+    },
+    {
+      "text": "development life cycle. So that human",
+      "duration": 4481,
+      "offset": 282639
+    },
+    {
+      "text": "engineer us like we stay very much in",
+      "duration": 4640,
+      "offset": 284800
+    },
+    {
+      "text": "control and we use AI as a collaborator",
+      "duration": 5519,
+      "offset": 287120
+    },
+    {
+      "text": "to augment um a more structured process.",
+      "duration": 5120,
+      "offset": 289440
+    },
+    {
+      "text": "And the challenge for us as builders is",
+      "duration": 4000,
+      "offset": 292639
+    },
+    {
+      "text": "really just skillfony navigating this",
+      "duration": 3760,
+      "offset": 294560
+    },
+    {
+      "text": "spectrum.",
+      "duration": 3361,
+      "offset": 296639
+    },
+    {
+      "text": "Just to get on the same page, let's",
+      "duration": 3360,
+      "offset": 298320
+    },
+    {
+      "text": "quickly just take a look at developer",
+      "duration": 3680,
+      "offset": 300000
+    },
+    {
+      "text": "experience and where AI can help across",
+      "duration": 4079,
+      "offset": 301680
+    },
+    {
+      "text": "this life cycle. This is kind of the",
+      "duration": 4480,
+      "offset": 303680
+    },
+    {
+      "text": "baseline um loop without any AI",
+      "duration": 4160,
+      "offset": 305759
+    },
+    {
+      "text": "interventions. It's useful as a",
+      "duration": 3440,
+      "offset": 308160
+    },
+    {
+      "text": "reference to compare where automation",
+      "duration": 3441,
+      "offset": 309919
+    },
+    {
+      "text": "and intelligence can be added to",
+      "duration": 3840,
+      "offset": 311600
+    },
+    {
+      "text": "accelerate velocity. So typically we're",
+      "duration": 3440,
+      "offset": 313360
+    },
+    {
+      "text": "thinking about things like design,",
+      "duration": 5120,
+      "offset": 315440
+    },
+    {
+      "text": "coding, testing, building, deploying. So",
+      "duration": 5440,
+      "offset": 316800
+    },
+    {
+      "text": "this highlights where AI is most useful",
+      "duration": 3760,
+      "offset": 320560
+    },
+    {
+      "text": "during the early design phases. So think",
+      "duration": 4000,
+      "offset": 322240
+    },
+    {
+      "text": "about chat bots in your editor for",
+      "duration": 4960,
+      "offset": 324320
+    },
+    {
+      "text": "asking questions, iterating um and AI",
+      "duration": 4640,
+      "offset": 326240
+    },
+    {
+      "text": "triage tools that can streamline",
+      "duration": 4000,
+      "offset": 329280
+    },
+    {
+      "text": "planning and investigation. Then we have",
+      "duration": 3840,
+      "offset": 330880
+    },
+    {
+      "text": "the inner development loop where we",
+      "duration": 3280,
+      "offset": 333280
+    },
+    {
+      "text": "spend a lot of our time. So coding,",
+      "duration": 4160,
+      "offset": 334720
+    },
+    {
+      "text": "testing, debugging. And this can help",
+      "duration": 4240,
+      "offset": 336560
+    },
+    {
+      "text": "with like just faster code generation,",
+      "duration": 4000,
+      "offset": 338880
+    },
+    {
+      "text": "automating tests, catching errors,",
+      "duration": 4080,
+      "offset": 340800
+    },
+    {
+      "text": "ideally before they go to production and",
+      "duration": 4000,
+      "offset": 342880
+    },
+    {
+      "text": "definitely before you end up on hacker",
+      "duration": 4879,
+      "offset": 344880
+    },
+    {
+      "text": "news. Uh here's the full overview of",
+      "duration": 4400,
+      "offset": 346880
+    },
+    {
+      "text": "where AI can help with the developer",
+      "duration": 3361,
+      "offset": 349759
+    },
+    {
+      "text": "experience. This is all of those loops.",
+      "duration": 4160,
+      "offset": 351280
+    },
+    {
+      "text": "Uh design, inner, submit, outer, and it",
+      "duration": 4160,
+      "offset": 353120
+    },
+    {
+      "text": "highlights just every point where AI can",
+      "duration": 5039,
+      "offset": 355440
+    },
+    {
+      "text": "meaningfully reduce toil. AI coding",
+      "duration": 6080,
+      "offset": 357280
+    },
+    {
+      "text": "tools are also a spectrum. Um my team",
+      "duration": 4321,
+      "offset": 360479
+    },
+    {
+      "text": "and I have been using a few of these.",
+      "duration": 3440,
+      "offset": 363360
+    },
+    {
+      "text": "You've got plenty of options these days,",
+      "duration": 3679,
+      "offset": 364800
+    },
+    {
+      "text": "whether you are prototyping,",
+      "duration": 3760,
+      "offset": 366800
+    },
+    {
+      "text": "non-technical, or you're building for",
+      "duration": 4961,
+      "offset": 368479
+    },
+    {
+      "text": "production. We've of course also vibe",
+      "duration": 5359,
+      "offset": 370560
+    },
+    {
+      "text": "coded a lot. And the real genius of VIP",
+      "duration": 4160,
+      "offset": 373440
+    },
+    {
+      "text": "coding is never have to confront the",
+      "duration": 3601,
+      "offset": 375919
+    },
+    {
+      "text": "technical debt because you have no idea",
+      "duration": 4319,
+      "offset": 377600
+    },
+    {
+      "text": "who or what created it in the first",
+      "duration": 4880,
+      "offset": 379520
+    },
+    {
+      "text": "place.",
+      "duration": 4000,
+      "offset": 381919
+    },
+    {
+      "text": "Um, as your team go through this",
+      "duration": 3040,
+      "offset": 384400
+    },
+    {
+      "text": "journey, you're going to run into spec",
+      "duration": 3681,
+      "offset": 385919
+    },
+    {
+      "text": "skeptics. You really want to turn these",
+      "duration": 3680,
+      "offset": 387440
+    },
+    {
+      "text": "eventually into people who can be",
+      "duration": 3520,
+      "offset": 389600
+    },
+    {
+      "text": "technical evangelists, people who can",
+      "duration": 4400,
+      "offset": 391120
+    },
+    {
+      "text": "have a very grounded perspective on what",
+      "duration": 4079,
+      "offset": 393120
+    },
+    {
+      "text": "are AI's weaknesses, what are its",
+      "duration": 3360,
+      "offset": 395520
+    },
+    {
+      "text": "strengths, and can we have a very",
+      "duration": 4241,
+      "offset": 397199
+    },
+    {
+      "text": "balanced way of how we think about it.",
+      "duration": 4240,
+      "offset": 398880
+    },
+    {
+      "text": "Um, we had a few big learnings on my",
+      "duration": 3680,
+      "offset": 401440
+    },
+    {
+      "text": "teams. things like, you know, AI tools",
+      "duration": 4079,
+      "offset": 403120
+    },
+    {
+      "text": "don't necessarily replace expertise, but",
+      "duration": 4320,
+      "offset": 405120
+    },
+    {
+      "text": "they amplify it. And the more skill that",
+      "duration": 4161,
+      "offset": 407199
+    },
+    {
+      "text": "you can bring to this as an engineer,",
+      "duration": 3599,
+      "offset": 409440
+    },
+    {
+      "text": "the more powerful the results you're",
+      "duration": 5200,
+      "offset": 411360
+    },
+    {
+      "text": "ultimately going to get.",
+      "duration": 5681,
+      "offset": 413039
+    },
+    {
+      "text": "Um, what about the impact of AI on",
+      "duration": 3840,
+      "offset": 416560
+    },
+    {
+      "text": "coding at Google where I work? Well,",
+      "duration": 3039,
+      "offset": 418720
+    },
+    {
+      "text": "across the board, it's already been",
+      "duration": 3120,
+      "offset": 420400
+    },
+    {
+      "text": "moving the needle on real productivity.",
+      "duration": 3521,
+      "offset": 421759
+    },
+    {
+      "text": "We're seeing pretty measurable velocity",
+      "duration": 3840,
+      "offset": 423520
+    },
+    {
+      "text": "gains and faster coding speeds across",
+      "duration": 4319,
+      "offset": 425280
+    },
+    {
+      "text": "multiple studies. Whether that is using",
+      "duration": 5600,
+      "offset": 427360
+    },
+    {
+      "text": "it as an autocomplete for full code gen",
+      "duration": 5440,
+      "offset": 429599
+    },
+    {
+      "text": "for documentation for testing for code",
+      "duration": 3920,
+      "offset": 432960
+    },
+    {
+      "text": "review um we've generally found that",
+      "duration": 3440,
+      "offset": 435039
+    },
+    {
+      "text": "it's able to help us in a lot of ways.",
+      "duration": 3200,
+      "offset": 436880
+    },
+    {
+      "text": "We have many teams successfully using",
+      "duration": 4321,
+      "offset": 438479
+    },
+    {
+      "text": "things like Gemini CLI um to build the",
+      "duration": 4160,
+      "offset": 440080
+    },
+    {
+      "text": "next generation of applications and",
+      "duration": 3600,
+      "offset": 442800
+    },
+    {
+      "text": "we're enjoying it.",
+      "duration": 4720,
+      "offset": 444240
+    },
+    {
+      "text": "Um you might remember probably like 3 to",
+      "duration": 4400,
+      "offset": 446400
+    },
+    {
+      "text": "6 months ago which feels like a very",
+      "duration": 4079,
+      "offset": 448960
+    },
+    {
+      "text": "long time ago in AI um when we had",
+      "duration": 4480,
+      "offset": 450800
+    },
+    {
+      "text": "prompt engineers. I love this title.",
+      "duration": 3761,
+      "offset": 453039
+    },
+    {
+      "text": "might have well has been called AI code",
+      "duration": 3919,
+      "offset": 455280
+    },
+    {
+      "text": "whisperer. Folks would test, evaluate,",
+      "duration": 4080,
+      "offset": 456800
+    },
+    {
+      "text": "and iterate on prompts to improve the",
+      "duration": 3120,
+      "offset": 459199
+    },
+    {
+      "text": "chances of getting a high quality",
+      "duration": 3360,
+      "offset": 460880
+    },
+    {
+      "text": "output. But a smart prompt doesn't",
+      "duration": 4720,
+      "offset": 462319
+    },
+    {
+      "text": "really guarantee you great outcomes.",
+      "duration": 4720,
+      "offset": 464240
+    },
+    {
+      "text": "Many of us tried prompt engineering. We",
+      "duration": 4560,
+      "offset": 467039
+    },
+    {
+      "text": "tried tweaking words endlessly. But as",
+      "duration": 4720,
+      "offset": 468960
+    },
+    {
+      "text": "this iceberg shows, the real issues are",
+      "duration": 4641,
+      "offset": 471599
+    },
+    {
+      "text": "often below the surface with mismanaged",
+      "duration": 4720,
+      "offset": 473680
+    },
+    {
+      "text": "context. A limited window means that the",
+      "duration": 4560,
+      "offset": 476240
+    },
+    {
+      "text": "AI can forget key details. Um",
+      "duration": 4320,
+      "offset": 478400
+    },
+    {
+      "text": "unstructured content can lead to",
+      "duration": 4320,
+      "offset": 480800
+    },
+    {
+      "text": "confusion. competing information can",
+      "duration": 4640,
+      "offset": 482720
+    },
+    {
+      "text": "distract it and overloading it can also",
+      "duration": 4720,
+      "offset": 485120
+    },
+    {
+      "text": "overwhelm the model. So context mis",
+      "duration": 4880,
+      "offset": 487360
+    },
+    {
+      "text": "management is often the big issue here.",
+      "duration": 5919,
+      "offset": 489840
+    },
+    {
+      "text": "Context is king in this moment. Um so if",
+      "duration": 4639,
+      "offset": 492240
+    },
+    {
+      "text": "you haven't come across things like",
+      "duration": 3120,
+      "offset": 495759
+    },
+    {
+      "text": "context engineering effectively it means",
+      "duration": 3760,
+      "offset": 496879
+    },
+    {
+      "text": "equipping an AI agent with everything",
+      "duration": 3361,
+      "offset": 498879
+    },
+    {
+      "text": "that it needs to tackle a task",
+      "duration": 3041,
+      "offset": 500639
+    },
+    {
+      "text": "effectively. We're talking about the",
+      "duration": 4320,
+      "offset": 502240
+    },
+    {
+      "text": "right files, examples, history, tools,",
+      "duration": 4720,
+      "offset": 503680
+    },
+    {
+      "text": "constraints and the quality of your",
+      "duration": 3120,
+      "offset": 506560
+    },
+    {
+      "text": "output is going to be proportional to",
+      "duration": 3440,
+      "offset": 508400
+    },
+    {
+      "text": "the quality and relevance of the context",
+      "duration": 4479,
+      "offset": 509680
+    },
+    {
+      "text": "that you provide. many of the tools that",
+      "duration": 4480,
+      "offset": 511840
+    },
+    {
+      "text": "we use, whether you're using cursor or",
+      "duration": 4081,
+      "offset": 514159
+    },
+    {
+      "text": "client, they make it much easier these",
+      "duration": 3920,
+      "offset": 516320
+    },
+    {
+      "text": "days for us to include files, folders,",
+      "duration": 5120,
+      "offset": 518240
+    },
+    {
+      "text": "problems, URLs, more docs, um, into your",
+      "duration": 5120,
+      "offset": 520240
+    },
+    {
+      "text": "workflows to help with that context that",
+      "duration": 4159,
+      "offset": 523360
+    },
+    {
+      "text": "we're missing. And increasingly, you",
+      "duration": 3760,
+      "offset": 525360
+    },
+    {
+      "text": "also have other ways like visual ways,",
+      "duration": 3760,
+      "offset": 527519
+    },
+    {
+      "text": "multimodality, being able to pull more",
+      "duration": 4159,
+      "offset": 529120
+    },
+    {
+      "text": "context that can be useful. We're also",
+      "duration": 3841,
+      "offset": 531279
+    },
+    {
+      "text": "seeing our tools evolve a little bit",
+      "duration": 3441,
+      "offset": 533279
+    },
+    {
+      "text": "because again, those context window",
+      "duration": 3680,
+      "offset": 535120
+    },
+    {
+      "text": "sizes can be pretty finite. So some",
+      "duration": 4320,
+      "offset": 536720
+    },
+    {
+      "text": "tools, this is Klein, um do smart things",
+      "duration": 4800,
+      "offset": 538800
+    },
+    {
+      "text": "like automatic context summarization. So",
+      "duration": 4320,
+      "offset": 541040
+    },
+    {
+      "text": "when your conversation approaches the",
+      "duration": 3760,
+      "offset": 543600
+    },
+    {
+      "text": "context window size, it can actually",
+      "duration": 4000,
+      "offset": 545360
+    },
+    {
+      "text": "start to summarize previous sessions so",
+      "duration": 3680,
+      "offset": 547360
+    },
+    {
+      "text": "you can free up space and continue",
+      "duration": 3440,
+      "offset": 549360
+    },
+    {
+      "text": "working with still the important parts,",
+      "duration": 4479,
+      "offset": 551040
+    },
+    {
+      "text": "the important details um preserved.",
+      "duration": 4640,
+      "offset": 552800
+    },
+    {
+      "text": "There are also other ideas like a memory",
+      "duration": 3440,
+      "offset": 555519
+    },
+    {
+      "text": "bank which is kind of a structured",
+      "duration": 3600,
+      "offset": 557440
+    },
+    {
+      "text": "documentation system which allows you to",
+      "duration": 3841,
+      "offset": 558959
+    },
+    {
+      "text": "maintain context across multiple",
+      "duration": 3680,
+      "offset": 561040
+    },
+    {
+      "text": "sessions. So client, for example, can",
+      "duration": 4320,
+      "offset": 562800
+    },
+    {
+      "text": "read memory bank files and rebuild its",
+      "duration": 3920,
+      "offset": 564720
+    },
+    {
+      "text": "understanding of your project without",
+      "duration": 3279,
+      "offset": 567120
+    },
+    {
+      "text": "you necessarily having to do a lot of",
+      "duration": 4240,
+      "offset": 568640
+    },
+    {
+      "text": "manual work there yourself. Uh here's a",
+      "duration": 4161,
+      "offset": 570399
+    },
+    {
+      "text": "great template for context engineering",
+      "duration": 4000,
+      "offset": 572880
+    },
+    {
+      "text": "from anthropic. It's got ideas like",
+      "duration": 4719,
+      "offset": 574560
+    },
+    {
+      "text": "background data, examples, conversation",
+      "duration": 4560,
+      "offset": 576880
+    },
+    {
+      "text": "history. This type of thing makes for a",
+      "duration": 4000,
+      "offset": 579279
+    },
+    {
+      "text": "really great tweet that you will",
+      "duration": 4720,
+      "offset": 581440
+    },
+    {
+      "text": "completely forget. Um I forget this all",
+      "duration": 5201,
+      "offset": 583279
+    },
+    {
+      "text": "the time. I decided to um vibe code this",
+      "duration": 4239,
+      "offset": 586160
+    },
+    {
+      "text": "into a quick web app uh that you can",
+      "duration": 3840,
+      "offset": 588480
+    },
+    {
+      "text": "also check out. I've also completely",
+      "duration": 4081,
+      "offset": 590399
+    },
+    {
+      "text": "forgotten to use this. Um, we just",
+      "duration": 3840,
+      "offset": 592320
+    },
+    {
+      "text": "generally need better tooling to handle",
+      "duration": 3280,
+      "offset": 594480
+    },
+    {
+      "text": "this automatically for us and I'm",
+      "duration": 3440,
+      "offset": 596160
+    },
+    {
+      "text": "looking forward to our tools evolving in",
+      "duration": 4400,
+      "offset": 597760
+    },
+    {
+      "text": "this direction too. Um, spec driven",
+      "duration": 4160,
+      "offset": 599600
+    },
+    {
+      "text": "development has become more popular.",
+      "duration": 2960,
+      "offset": 602160
+    },
+    {
+      "text": "This is the practice of really just",
+      "duration": 3600,
+      "offset": 603760
+    },
+    {
+      "text": "planning before you prompt and it's pro",
+      "duration": 4719,
+      "offset": 605120
+    },
+    {
+      "text": "providing that clear context that the AI",
+      "duration": 4000,
+      "offset": 607360
+    },
+    {
+      "text": "needs to succeed rather than expecting",
+      "duration": 3921,
+      "offset": 609839
+    },
+    {
+      "text": "it to read your mind. Um, there are a",
+      "duration": 4000,
+      "offset": 611360
+    },
+    {
+      "text": "few other patterns that drop out of",
+      "duration": 3759,
+      "offset": 613760
+    },
+    {
+      "text": "this. Uh recently um I've seen a few",
+      "duration": 4000,
+      "offset": 615360
+    },
+    {
+      "text": "folks using like a learnings markdown",
+      "duration": 3841,
+      "offset": 617519
+    },
+    {
+      "text": "file. And this is kind of about creating",
+      "duration": 4159,
+      "offset": 619360
+    },
+    {
+      "text": "a powerful self-improving cycle where",
+      "duration": 4320,
+      "offset": 621360
+    },
+    {
+      "text": "the agents performance gets better with",
+      "duration": 4320,
+      "offset": 623519
+    },
+    {
+      "text": "every single task. So at the end of a",
+      "duration": 3440,
+      "offset": 625680
+    },
+    {
+      "text": "task, so imagine that you've been",
+      "duration": 3041,
+      "offset": 627839
+    },
+    {
+      "text": "prompting it to maybe write a component",
+      "duration": 4159,
+      "offset": 629120
+    },
+    {
+      "text": "or make some additions to uh an app that",
+      "duration": 4560,
+      "offset": 630880
+    },
+    {
+      "text": "you've already got. Um you can ask it to",
+      "duration": 4401,
+      "offset": 633279
+    },
+    {
+      "text": "store key insights in a simple text file",
+      "duration": 4480,
+      "offset": 635440
+    },
+    {
+      "text": "and that acts as long-term memory. So it",
+      "duration": 3920,
+      "offset": 637680
+    },
+    {
+      "text": "becomes sort of an external brain that",
+      "duration": 3200,
+      "offset": 639920
+    },
+    {
+      "text": "just keeps getting better and helps",
+      "duration": 3440,
+      "offset": 641600
+    },
+    {
+      "text": "steer the agents performance over time.",
+      "duration": 4719,
+      "offset": 643120
+    },
+    {
+      "text": "Other things that we learned, uh, never",
+      "duration": 4479,
+      "offset": 645040
+    },
+    {
+      "text": "commit code that you can't explain to",
+      "duration": 4321,
+      "offset": 647839
+    },
+    {
+      "text": "other people, um, or even to yourself.",
+      "duration": 4560,
+      "offset": 649519
+    },
+    {
+      "text": "This is a golden rule for production AI",
+      "duration": 3679,
+      "offset": 652160
+    },
+    {
+      "text": "coding. Um, you have to assume that you",
+      "duration": 3121,
+      "offset": 654079
+    },
+    {
+      "text": "and your team are going to have to",
+      "duration": 3601,
+      "offset": 655839
+    },
+    {
+      "text": "manually change things at some point.",
+      "duration": 5199,
+      "offset": 657200
+    },
+    {
+      "text": "Um, and so again, human in the loop,",
+      "duration": 4399,
+      "offset": 659440
+    },
+    {
+      "text": "human reviewing the code is going to",
+      "duration": 3521,
+      "offset": 662399
+    },
+    {
+      "text": "continue becoming important. I think",
+      "duration": 4161,
+      "offset": 663839
+    },
+    {
+      "text": "that reading the code is going to become",
+      "duration": 3919,
+      "offset": 665920
+    },
+    {
+      "text": "an even bigger part of the job in the",
+      "duration": 3440,
+      "offset": 668000
+    },
+    {
+      "text": "future. we can expect to be spending",
+      "duration": 4240,
+      "offset": 669839
+    },
+    {
+      "text": "more time reviewing, testing, explaining",
+      "duration": 4880,
+      "offset": 671440
+    },
+    {
+      "text": "than necessarily just typing. So, we're",
+      "duration": 3521,
+      "offset": 674079
+    },
+    {
+      "text": "going to have to continue building over",
+      "duration": 3280,
+      "offset": 676320
+    },
+    {
+      "text": "this muscle. Um, over a program's",
+      "duration": 3919,
+      "offset": 677600
+    },
+    {
+      "text": "lifetime, it usually ends up getting",
+      "duration": 4160,
+      "offset": 679600
+    },
+    {
+      "text": "written once, maybe edited number of",
+      "duration": 4481,
+      "offset": 681519
+    },
+    {
+      "text": "times, but it ends up getting debugged,",
+      "duration": 4319,
+      "offset": 683760
+    },
+    {
+      "text": "maintained, and enhanced a number of",
+      "duration": 3920,
+      "offset": 686000
+    },
+    {
+      "text": "more times and gets it read quite a lot",
+      "duration": 4081,
+      "offset": 688079
+    },
+    {
+      "text": "over its lifetime.",
+      "duration": 4000,
+      "offset": 689920
+    },
+    {
+      "text": "Um, VIP coding is a gift for",
+      "duration": 3280,
+      "offset": 692160
+    },
+    {
+      "text": "prototyping. I think that static",
+      "duration": 3200,
+      "offset": 693920
+    },
+    {
+      "text": "mock-ups often look good, but they're",
+      "duration": 4000,
+      "offset": 695440
+    },
+    {
+      "text": "not really interactive and that has",
+      "duration": 4159,
+      "offset": 697120
+    },
+    {
+      "text": "limited feedback that you can get from",
+      "duration": 4079,
+      "offset": 699440
+    },
+    {
+      "text": "the true user experience. So, I we've",
+      "duration": 3361,
+      "offset": 701279
+    },
+    {
+      "text": "really enjoyed using this for",
+      "duration": 2801,
+      "offset": 703519
+    },
+    {
+      "text": "prototyping. You can quickly knock out",
+      "duration": 3199,
+      "offset": 704640
+    },
+    {
+      "text": "something that has a clearer version of",
+      "duration": 2959,
+      "offset": 706320
+    },
+    {
+      "text": "the vision that you're offering to",
+      "duration": 3041,
+      "offset": 707839
+    },
+    {
+      "text": "people and it just elevates the",
+      "duration": 3680,
+      "offset": 709279
+    },
+    {
+      "text": "discussion. Um, there are some companies",
+      "duration": 3840,
+      "offset": 710880
+    },
+    {
+      "text": "that have really really leaned into this",
+      "duration": 4801,
+      "offset": 712959
+    },
+    {
+      "text": "idea like Shopify. Um so Shopify had",
+      "duration": 4960,
+      "offset": 714720
+    },
+    {
+      "text": "sort of companywide change management",
+      "duration": 3680,
+      "offset": 717760
+    },
+    {
+      "text": "around their use of AI across",
+      "duration": 4240,
+      "offset": 719680
+    },
+    {
+      "text": "engineering, product, UX from the top",
+      "duration": 5040,
+      "offset": 721440
+    },
+    {
+      "text": "and um what they now have is design dev",
+      "duration": 3680,
+      "offset": 723920
+    },
+    {
+      "text": "handoffs that are a little bit",
+      "duration": 3039,
+      "offset": 726480
+    },
+    {
+      "text": "different. Um designers can now just",
+      "duration": 4400,
+      "offset": 727600
+    },
+    {
+      "text": "vibe code prototypes and they can work",
+      "duration": 4560,
+      "offset": 729519
+    },
+    {
+      "text": "directly with engineering to land these",
+      "duration": 3760,
+      "offset": 732000
+    },
+    {
+      "text": "as artifacts. Now that means that there",
+      "duration": 3521,
+      "offset": 734079
+    },
+    {
+      "text": "is code review, there is iteration,",
+      "duration": 3680,
+      "offset": 735760
+    },
+    {
+      "text": "there is work on quality, but we're",
+      "duration": 3679,
+      "offset": 737600
+    },
+    {
+      "text": "starting to see sort of blending in some",
+      "duration": 3280,
+      "offset": 739440
+    },
+    {
+      "text": "cases of the roles which is very",
+      "duration": 3601,
+      "offset": 741279
+    },
+    {
+      "text": "interesting to see.",
+      "duration": 4880,
+      "offset": 742720
+    },
+    {
+      "text": "Um, voice dictation also changes the way",
+      "duration": 5199,
+      "offset": 744880
+    },
+    {
+      "text": "that you can vibe code. Um, because you",
+      "duration": 4239,
+      "offset": 747600
+    },
+    {
+      "text": "can use your voice much much faster than",
+      "duration": 3041,
+      "offset": 750079
+    },
+    {
+      "text": "you can type. Anywhere up to three to",
+      "duration": 3201,
+      "offset": 751839
+    },
+    {
+      "text": "five times faster. When I first started",
+      "duration": 3920,
+      "offset": 753120
+    },
+    {
+      "text": "hearing about this idea, I thought this",
+      "duration": 5120,
+      "offset": 755040
+    },
+    {
+      "text": "works great if you are working remotely",
+      "duration": 5599,
+      "offset": 757040
+    },
+    {
+      "text": "in your own office and terribly if you",
+      "duration": 3840,
+      "offset": 760160
+    },
+    {
+      "text": "were in any sort of open office",
+      "duration": 3921,
+      "offset": 762639
+    },
+    {
+      "text": "situation. But of course, they now have",
+      "duration": 5279,
+      "offset": 764000
+    },
+    {
+      "text": "VIP coding by whispering which is also",
+      "duration": 5279,
+      "offset": 766560
+    },
+    {
+      "text": "uh available. So you can just whisper",
+      "duration": 4800,
+      "offset": 769279
+    },
+    {
+      "text": "your way to your MVPs. it actually works",
+      "duration": 5440,
+      "offset": 771839
+    },
+    {
+      "text": "pretty well. Um, AI is a multiplier. So,",
+      "duration": 5121,
+      "offset": 774079
+    },
+    {
+      "text": "what helps the human can help the AI.",
+      "duration": 4560,
+      "offset": 777279
+    },
+    {
+      "text": "So, um, invest in tests, CI, clear",
+      "duration": 4800,
+      "offset": 779200
+    },
+    {
+      "text": "documentation before you really expect",
+      "duration": 5120,
+      "offset": 781839
+    },
+    {
+      "text": "um, very big gains. Um, tests are",
+      "duration": 5200,
+      "offset": 784000
+    },
+    {
+      "text": "ultimately a huge safety net in this",
+      "duration": 4401,
+      "offset": 786959
+    },
+    {
+      "text": "moment. They really derisk your use of",
+      "duration": 4879,
+      "offset": 789200
+    },
+    {
+      "text": "AI for coding. So, if things start going",
+      "duration": 4560,
+      "offset": 791360
+    },
+    {
+      "text": "off the rails for any reason, you're",
+      "duration": 4721,
+      "offset": 794079
+    },
+    {
+      "text": "going to know sooner. Um, and if you're,",
+      "duration": 4400,
+      "offset": 795920
+    },
+    {
+      "text": "you know, I I talked to a lot of teams",
+      "duration": 3440,
+      "offset": 798800
+    },
+    {
+      "text": "who will say, &quot;This is all great if you",
+      "duration": 4639,
+      "offset": 800320
+    },
+    {
+      "text": "have end-to-end tests already. What if",
+      "duration": 5039,
+      "offset": 802240
+    },
+    {
+      "text": "we don't have those tests? Do we just",
+      "duration": 5761,
+      "offset": 804959
+    },
+    {
+      "text": "use AI to write them?&quot; And you can, you",
+      "duration": 4881,
+      "offset": 807279
+    },
+    {
+      "text": "just, again, you need to make sure that",
+      "duration": 3119,
+      "offset": 810720
+    },
+    {
+      "text": "you are keeping humans in the loop to",
+      "duration": 3280,
+      "offset": 812160
+    },
+    {
+      "text": "understand like what tests are being",
+      "duration": 4161,
+      "offset": 813839
+    },
+    {
+      "text": "generated. Are they sufficient?",
+      "duration": 4079,
+      "offset": 815440
+    },
+    {
+      "text": "Uh, by the way, this looks like a mother",
+      "duration": 3920,
+      "offset": 818000
+    },
+    {
+      "text": "mocking their child for some reason, but",
+      "duration": 4961,
+      "offset": 819519
+    },
+    {
+      "text": "at least they're safe.",
+      "duration": 4960,
+      "offset": 821920
+    },
+    {
+      "text": "So the promise with AI was sort of this",
+      "duration": 4880,
+      "offset": 824480
+    },
+    {
+      "text": "step change in productivity and what",
+      "duration": 4399,
+      "offset": 826880
+    },
+    {
+      "text": "data I love reading white papers. I love",
+      "duration": 3520,
+      "offset": 829360
+    },
+    {
+      "text": "reading research. What the data shows is",
+      "duration": 3761,
+      "offset": 831279
+    },
+    {
+      "text": "a little bit more nuanced of a reality.",
+      "duration": 3680,
+      "offset": 832880
+    },
+    {
+      "text": "Um and so let's take a look at some",
+      "duration": 3120,
+      "offset": 835040
+    },
+    {
+      "text": "studies and some concrete actions that",
+      "duration": 3519,
+      "offset": 836560
+    },
+    {
+      "text": "we can maybe take to lock in gains and",
+      "duration": 4799,
+      "offset": 838160
+    },
+    {
+      "text": "and manage risk. So what the latest data",
+      "duration": 4961,
+      "offset": 840079
+    },
+    {
+      "text": "shows is that usage is high. It",
+      "duration": 5201,
+      "offset": 842959
+    },
+    {
+      "text": "continues to go up but trust is sliding.",
+      "duration": 5280,
+      "offset": 845040
+    },
+    {
+      "text": "um favorable views about AI for coding",
+      "duration": 5039,
+      "offset": 848160
+    },
+    {
+      "text": "dropped from 70 to 60% in the last two",
+      "duration": 6160,
+      "offset": 850320
+    },
+    {
+      "text": "years and 46% of people actively",
+      "duration": 6080,
+      "offset": 853199
+    },
+    {
+      "text": "distrust AI accuracy. Um this chart",
+      "duration": 5039,
+      "offset": 856480
+    },
+    {
+      "text": "shows that about 30% of the developers",
+      "duration": 4881,
+      "offset": 859279
+    },
+    {
+      "text": "surveyed here had little to no trust in",
+      "duration": 5281,
+      "offset": 861519
+    },
+    {
+      "text": "AI generated code. And this skepticism",
+      "duration": 4960,
+      "offset": 864160
+    },
+    {
+      "text": "is not necessarily a bad thing. It's a",
+      "duration": 5279,
+      "offset": 866800
+    },
+    {
+      "text": "sign of you know this area maturing. It",
+      "duration": 4320,
+      "offset": 869120
+    },
+    {
+      "text": "explains some of the friction we're",
+      "duration": 2641,
+      "offset": 872079
+    },
+    {
+      "text": "going to see in some of the other things",
+      "duration": 3440,
+      "offset": 873440
+    },
+    {
+      "text": "I'm going to talk about.",
+      "duration": 4640,
+      "offset": 874720
+    },
+    {
+      "text": "But models continue to improve, agents",
+      "duration": 6000,
+      "offset": 876880
+    },
+    {
+      "text": "continue to improve. Um, however, we we",
+      "duration": 5760,
+      "offset": 879360
+    },
+    {
+      "text": "do start to to learn about um where",
+      "duration": 4319,
+      "offset": 882880
+    },
+    {
+      "text": "things can go wrong. So, when things go",
+      "duration": 4240,
+      "offset": 885120
+    },
+    {
+      "text": "wrong with Vibe coding, you have Vibe",
+      "duration": 4880,
+      "offset": 887199
+    },
+    {
+      "text": "debugging. Um, where you have no idea",
+      "duration": 5039,
+      "offset": 889360
+    },
+    {
+      "text": "how the code works or really how to fix",
+      "duration": 4320,
+      "offset": 892079
+    },
+    {
+      "text": "it, um, I thought I'd give a shout out.",
+      "duration": 3841,
+      "offset": 894399
+    },
+    {
+      "text": "Um, on my team, we very recently",
+      "duration": 4880,
+      "offset": 896399
+    },
+    {
+      "text": "released Chrome DevTools MCP. Um, and",
+      "duration": 4959,
+      "offset": 898240
+    },
+    {
+      "text": "this is to help your AI coding assistant",
+      "duration": 4560,
+      "offset": 901279
+    },
+    {
+      "text": "sort of see and interact with a live",
+      "duration": 5200,
+      "offset": 903199
+    },
+    {
+      "text": "browser. And that means that your agent",
+      "duration": 4481,
+      "offset": 905839
+    },
+    {
+      "text": "can see what's rendered. It can look at",
+      "duration": 3680,
+      "offset": 908399
+    },
+    {
+      "text": "the console logs. It can look at network",
+      "duration": 4639,
+      "offset": 910320
+    },
+    {
+      "text": "logs, automate performance optimization.",
+      "duration": 4801,
+      "offset": 912079
+    },
+    {
+      "text": "It can find issues with any broken",
+      "duration": 3521,
+      "offset": 914959
+    },
+    {
+      "text": "layouts. There's a lot of power that",
+      "duration": 4240,
+      "offset": 916880
+    },
+    {
+      "text": "this unlocks. Um, if you're, you know,",
+      "duration": 4400,
+      "offset": 918480
+    },
+    {
+      "text": "coding with AI, maybe check it out.",
+      "duration": 4480,
+      "offset": 921120
+    },
+    {
+      "text": "Might be useful. But back to the data.",
+      "duration": 5440,
+      "offset": 922880
+    },
+    {
+      "text": "So at the individual level, the lift",
+      "duration": 5280,
+      "offset": 925600
+    },
+    {
+      "text": "from AI productivity is real. Um",
+      "duration": 4240,
+      "offset": 928320
+    },
+    {
+      "text": "developers using it, you know, can see",
+      "duration": 4880,
+      "offset": 930880
+    },
+    {
+      "text": "anywhere up to 21% more tasks completed.",
+      "duration": 5600,
+      "offset": 932560
+    },
+    {
+      "text": "Um people are emerging on the on the",
+      "duration": 5199,
+      "offset": 935760
+    },
+    {
+      "text": "edges anywhere up to 98% more pull",
+      "duration": 4479,
+      "offset": 938160
+    },
+    {
+      "text": "requests. We'll talk about pull requests",
+      "duration": 4000,
+      "offset": 940959
+    },
+    {
+      "text": "more in just a second. Um but a very",
+      "duration": 3760,
+      "offset": 942639
+    },
+    {
+      "text": "significant number of developers will",
+      "duration": 3281,
+      "offset": 944959
+    },
+    {
+      "text": "say that AI has a positive impact on",
+      "duration": 3841,
+      "offset": 946399
+    },
+    {
+      "text": "their personal productivity. Some will",
+      "duration": 3519,
+      "offset": 948240
+    },
+    {
+      "text": "even say that, you know, when we're",
+      "duration": 3760,
+      "offset": 950240
+    },
+    {
+      "text": "talking about positive impact that it",
+      "duration": 4401,
+      "offset": 951759
+    },
+    {
+      "text": "can feel that the AI writes better code",
+      "duration": 5040,
+      "offset": 954000
+    },
+    {
+      "text": "than they do in some cases. Now, when",
+      "duration": 4720,
+      "offset": 956160
+    },
+    {
+      "text": "we're especially talking about, you",
+      "duration": 4799,
+      "offset": 959040
+    },
+    {
+      "text": "know, common problems, average problems,",
+      "duration": 6000,
+      "offset": 960880
+    },
+    {
+      "text": "I could certainly see that being true.",
+      "duration": 4961,
+      "offset": 963839
+    },
+    {
+      "text": "And there are people um who will say",
+      "duration": 4000,
+      "offset": 966880
+    },
+    {
+      "text": "that it is extremely increased their",
+      "duration": 3760,
+      "offset": 968800
+    },
+    {
+      "text": "productivity. You know, this this shows",
+      "duration": 4319,
+      "offset": 970880
+    },
+    {
+      "text": "maybe it's about 10 to 13%. Um and there",
+      "duration": 3839,
+      "offset": 972560
+    },
+    {
+      "text": "will be people who say it's slightly",
+      "duration": 2560,
+      "offset": 975199
+    },
+    {
+      "text": "increased their productivity, so closer",
+      "duration": 3921,
+      "offset": 976399
+    },
+    {
+      "text": "to 41%. And that last largest group",
+      "duration": 4640,
+      "offset": 977759
+    },
+    {
+      "text": "really suggests incremental benefit from",
+      "duration": 4959,
+      "offset": 980320
+    },
+    {
+      "text": "AI across the workforce. Now we get to",
+      "duration": 5360,
+      "offset": 982399
+    },
+    {
+      "text": "the fun stuff. Here's the paradox. We",
+      "duration": 4401,
+      "offset": 985279
+    },
+    {
+      "text": "sped up code generation, but human",
+      "duration": 5041,
+      "offset": 987759
+    },
+    {
+      "text": "verification did not scale with that.",
+      "duration": 5599,
+      "offset": 989680
+    },
+    {
+      "text": "Pull request times have increased in",
+      "duration": 6959,
+      "offset": 992800
+    },
+    {
+      "text": "some cases by anywhere up to 91%.",
+      "duration": 7761,
+      "offset": 995279
+    },
+    {
+      "text": "PR sizes are also exploding. If you have",
+      "duration": 6000,
+      "offset": 999759
+    },
+    {
+      "text": "reviewed a completely AI generated pull",
+      "duration": 4640,
+      "offset": 1003040
+    },
+    {
+      "text": "request, maybe you've seen that there",
+      "duration": 3361,
+      "offset": 1005759
+    },
+    {
+      "text": "are cases where people will be making",
+      "duration": 3360,
+      "offset": 1007680
+    },
+    {
+      "text": "all kinds of changes that are not needed",
+      "duration": 4079,
+      "offset": 1009120
+    },
+    {
+      "text": "to many many more files than are",
+      "duration": 4479,
+      "offset": 1011040
+    },
+    {
+      "text": "required. So PR sizes have exploded",
+      "duration": 5841,
+      "offset": 1013199
+    },
+    {
+      "text": "anywhere up to 154%. This is soaking up",
+      "duration": 6240,
+      "offset": 1015519
+    },
+    {
+      "text": "a lot of those individual gains that we",
+      "duration": 4640,
+      "offset": 1019040
+    },
+    {
+      "text": "were just talking about. The system",
+      "duration": 3841,
+      "offset": 1021759
+    },
+    {
+      "text": "moves at the speed of the slowest step",
+      "duration": 4159,
+      "offset": 1023680
+    },
+    {
+      "text": "and today that step is review and",
+      "duration": 4079,
+      "offset": 1025600
+    },
+    {
+      "text": "validation.",
+      "duration": 4080,
+      "offset": 1027839
+    },
+    {
+      "text": "So developers are describing this common",
+      "duration": 4801,
+      "offset": 1029679
+    },
+    {
+      "text": "pattern. AI suggestions are often",
+      "duration": 4640,
+      "offset": 1031919
+    },
+    {
+      "text": "plausible, but they're not always",
+      "duration": 5040,
+      "offset": 1034480
+    },
+    {
+      "text": "correct. And 66% of people call this",
+      "duration": 5760,
+      "offset": 1036559
+    },
+    {
+      "text": "their biggest time sync. 45% say that",
+      "duration": 5679,
+      "offset": 1039520
+    },
+    {
+      "text": "debugging AI output is more work than it",
+      "duration": 5281,
+      "offset": 1042319
+    },
+    {
+      "text": "is worth. And this connects directly to",
+      "duration": 4401,
+      "offset": 1045199
+    },
+    {
+      "text": "those longer reviews that I was just",
+      "duration": 3920,
+      "offset": 1047600
+    },
+    {
+      "text": "talking about. The conclusion is kind of",
+      "duration": 5040,
+      "offset": 1049600
+    },
+    {
+      "text": "simple. Quality gates and validation are",
+      "duration": 6320,
+      "offset": 1051520
+    },
+    {
+      "text": "now the critical path. So we're as an",
+      "duration": 4399,
+      "offset": 1054640
+    },
+    {
+      "text": "industry, we're going to need to start",
+      "duration": 3440,
+      "offset": 1057840
+    },
+    {
+      "text": "evolving how we think about code review",
+      "duration": 4321,
+      "offset": 1059039
+    },
+    {
+      "text": "in order to avoid just putting all of",
+      "duration": 3759,
+      "offset": 1061280
+    },
+    {
+      "text": "this extra strain on the senior",
+      "duration": 3840,
+      "offset": 1063360
+    },
+    {
+      "text": "engineers.",
+      "duration": 4081,
+      "offset": 1065039
+    },
+    {
+      "text": "So what we found in general is that AI",
+      "duration": 5200,
+      "offset": 1067200
+    },
+    {
+      "text": "shines in low context situations. If you",
+      "duration": 5360,
+      "offset": 1069120
+    },
+    {
+      "text": "are starting fresh, if you are handling",
+      "duration": 4080,
+      "offset": 1072400
+    },
+    {
+      "text": "predictable patterns, writing generic",
+      "duration": 3760,
+      "offset": 1074480
+    },
+    {
+      "text": "functions, you know, if you're treating",
+      "duration": 4559,
+      "offset": 1076480
+    },
+    {
+      "text": "AI as a junior engineer, um, where tasks",
+      "duration": 5200,
+      "offset": 1078240
+    },
+    {
+      "text": "are maybe well defined and context is",
+      "duration": 4880,
+      "offset": 1081039
+    },
+    {
+      "text": "low, it can do pretty well, especially",
+      "duration": 4239,
+      "offset": 1083440
+    },
+    {
+      "text": "with green field code, especially with",
+      "duration": 3681,
+      "offset": 1085919
+    },
+    {
+      "text": "boilerplate generating unit tests,",
+      "duration": 4321,
+      "offset": 1087679
+    },
+    {
+      "text": "generating docs, again, prototypes,",
+      "duration": 5680,
+      "offset": 1089600
+    },
+    {
+      "text": "MVPs. I think that this can free up",
+      "duration": 5760,
+      "offset": 1092000
+    },
+    {
+      "text": "experts to be able to focus time on more",
+      "duration": 4720,
+      "offset": 1095280
+    },
+    {
+      "text": "design work, integration, tricky edge",
+      "duration": 4240,
+      "offset": 1097760
+    },
+    {
+      "text": "cases, just building more polished",
+      "duration": 3520,
+      "offset": 1100000
+    },
+    {
+      "text": "experiences.",
+      "duration": 4320,
+      "offset": 1102000
+    },
+    {
+      "text": "Where it struggles right now is high",
+      "duration": 5200,
+      "offset": 1103520
+    },
+    {
+      "text": "context novel problems. And this is",
+      "duration": 5120,
+      "offset": 1106320
+    },
+    {
+      "text": "where deep context is really required.",
+      "duration": 4880,
+      "offset": 1108720
+    },
+    {
+      "text": "Um, and if you are a team building",
+      "duration": 3920,
+      "offset": 1111440
+    },
+    {
+      "text": "anything non-trivial, this is going to",
+      "duration": 4560,
+      "offset": 1113600
+    },
+    {
+      "text": "require strong supervision. So it can't",
+      "duration": 4800,
+      "offset": 1115360
+    },
+    {
+      "text": "necessarily hold a decade of",
+      "duration": 4639,
+      "offset": 1118160
+    },
+    {
+      "text": "architectural decisions or informal",
+      "duration": 5120,
+      "offset": 1120160
+    },
+    {
+      "text": "business logic in its head without",
+      "duration": 4081,
+      "offset": 1122799
+    },
+    {
+      "text": "studying your code bases, without",
+      "duration": 3279,
+      "offset": 1125280
+    },
+    {
+      "text": "studying your docs and how your team",
+      "duration": 4159,
+      "offset": 1126880
+    },
+    {
+      "text": "have been working over time. In security",
+      "duration": 4081,
+      "offset": 1128559
+    },
+    {
+      "text": "sensitive areas, you know, the risk of",
+      "duration": 3201,
+      "offset": 1131039
+    },
+    {
+      "text": "subtle mistakes continue to rise with",
+      "duration": 3919,
+      "offset": 1132640
+    },
+    {
+      "text": "this. And anytime that your requirements",
+      "duration": 5120,
+      "offset": 1134240
+    },
+    {
+      "text": "are ambiguous or logic spans multiple",
+      "duration": 4961,
+      "offset": 1136559
+    },
+    {
+      "text": "systems, again, humans have to lead and",
+      "duration": 4880,
+      "offset": 1139360
+    },
+    {
+      "text": "AI should be assisting.",
+      "duration": 4560,
+      "offset": 1141520
+    },
+    {
+      "text": "Now, some may say that it doesn't matter",
+      "duration": 3600,
+      "offset": 1144240
+    },
+    {
+      "text": "what you're vibe coding, no matter how",
+      "duration": 3200,
+      "offset": 1146080
+    },
+    {
+      "text": "brittle it might be, you can always fix",
+      "duration": 3360,
+      "offset": 1147840
+    },
+    {
+      "text": "it later. But for those of us that",
+      "duration": 4399,
+      "offset": 1149280
+    },
+    {
+      "text": "aren't comfortable um yoloing it, uh",
+      "duration": 4640,
+      "offset": 1151200
+    },
+    {
+      "text": "there's a few things that you can do.",
+      "duration": 4401,
+      "offset": 1153679
+    },
+    {
+      "text": "Our first priority is really mitigating",
+      "duration": 5120,
+      "offset": 1155840
+    },
+    {
+      "text": "skill erosion. Um we have to use AI to",
+      "duration": 4640,
+      "offset": 1158080
+    },
+    {
+      "text": "accelerate learning in our teams, but",
+      "duration": 4079,
+      "offset": 1160960
+    },
+    {
+      "text": "not necessarily replace it. And this",
+      "duration": 4720,
+      "offset": 1162720
+    },
+    {
+      "text": "requires rethinking our core teaching",
+      "duration": 4961,
+      "offset": 1165039
+    },
+    {
+      "text": "and mentoring processes to ensure that",
+      "duration": 4880,
+      "offset": 1167440
+    },
+    {
+      "text": "engineers at all levels are developing",
+      "duration": 4400,
+      "offset": 1170000
+    },
+    {
+      "text": "and maintaining fundamental problem",
+      "duration": 5040,
+      "offset": 1172320
+    },
+    {
+      "text": "solving capabilities.",
+      "duration": 4800,
+      "offset": 1174400
+    },
+    {
+      "text": "This leads to something that I call the",
+      "duration": 6480,
+      "offset": 1177360
+    },
+    {
+      "text": "70% problem. Um AI can get you about 70%",
+      "duration": 6880,
+      "offset": 1179200
+    },
+    {
+      "text": "of the way towards solving a problem",
+      "duration": 3920,
+      "offset": 1183840
+    },
+    {
+      "text": "whether it's generating, you know, a",
+      "duration": 4160,
+      "offset": 1186080
+    },
+    {
+      "text": "full application, generating an MVP. Um,",
+      "duration": 5840,
+      "offset": 1187760
+    },
+    {
+      "text": "but that last 30%, that final mile, um,",
+      "duration": 5600,
+      "offset": 1190240
+    },
+    {
+      "text": "is the hardest part. Uh, your assistant",
+      "duration": 3920,
+      "offset": 1193600
+    },
+    {
+      "text": "might help you with scaffolding out a",
+      "duration": 3600,
+      "offset": 1195840
+    },
+    {
+      "text": "feature, but production readiness means",
+      "duration": 3680,
+      "offset": 1197520
+    },
+    {
+      "text": "that those edge cases, those",
+      "duration": 4400,
+      "offset": 1199440
+    },
+    {
+      "text": "architecture, um, issues, those tests,",
+      "duration": 4640,
+      "offset": 1201200
+    },
+    {
+      "text": "those cleanups, all of those things",
+      "duration": 5360,
+      "offset": 1203840
+    },
+    {
+      "text": "require work from us. Um, for juniors,",
+      "duration": 5120,
+      "offset": 1205840
+    },
+    {
+      "text": "like for if you're somebody that's new",
+      "duration": 4479,
+      "offset": 1209200
+    },
+    {
+      "text": "to tech, if you're a junior, that 70% is",
+      "duration": 4560,
+      "offset": 1210960
+    },
+    {
+      "text": "still very magical. It can feel very",
+      "duration": 4401,
+      "offset": 1213679
+    },
+    {
+      "text": "magical, but for seniors, that last 30%",
+      "duration": 5120,
+      "offset": 1215520
+    },
+    {
+      "text": "is often slower than writing the code",
+      "duration": 4880,
+      "offset": 1218080
+    },
+    {
+      "text": "from scratch yourself.",
+      "duration": 4720,
+      "offset": 1220640
+    },
+    {
+      "text": "So AI can help us close the demo gap",
+      "duration": 3920,
+      "offset": 1222960
+    },
+    {
+      "text": "quickly, but shipping to production, I",
+      "duration": 4319,
+      "offset": 1225360
+    },
+    {
+      "text": "think, still belongs to humans.",
+      "duration": 5760,
+      "offset": 1226880
+    },
+    {
+      "text": "Sometimes that last 30% is something",
+      "duration": 5281,
+      "offset": 1229679
+    },
+    {
+      "text": "that the seniors see and the juniors",
+      "duration": 4080,
+      "offset": 1232640
+    },
+    {
+      "text": "don't just because they don't know what",
+      "duration": 4320,
+      "offset": 1234960
+    },
+    {
+      "text": "to necessarily look for. Um, in other",
+      "duration": 4720,
+      "offset": 1236720
+    },
+    {
+      "text": "words, the juniors can spend can send",
+      "duration": 5360,
+      "offset": 1239280
+    },
+    {
+      "text": "that 70% off as a pull request as if",
+      "duration": 5359,
+      "offset": 1241440
+    },
+    {
+      "text": "they were done. Um, and it then means",
+      "duration": 4240,
+      "offset": 1244640
+    },
+    {
+      "text": "that the actual hard part can end up",
+      "duration": 4321,
+      "offset": 1246799
+    },
+    {
+      "text": "falling into the code review. Um,",
+      "duration": 4320,
+      "offset": 1248880
+    },
+    {
+      "text": "largely being done by seniors cleaning",
+      "duration": 4000,
+      "offset": 1251120
+    },
+    {
+      "text": "up mistakes that no human would have",
+      "duration": 3760,
+      "offset": 1253200
+    },
+    {
+      "text": "necessarily made. sometimes humans would",
+      "duration": 3919,
+      "offset": 1255120
+    },
+    {
+      "text": "make them but um it is meaning that",
+      "duration": 3520,
+      "offset": 1256960
+    },
+    {
+      "text": "again we have to rethink how we're",
+      "duration": 3760,
+      "offset": 1259039
+    },
+    {
+      "text": "approaching code reviews.",
+      "duration": 4720,
+      "offset": 1260480
+    },
+    {
+      "text": "Um we don't like talking about AI's",
+      "duration": 4561,
+      "offset": 1262799
+    },
+    {
+      "text": "impact on the job market but it I think",
+      "duration": 4080,
+      "offset": 1265200
+    },
+    {
+      "text": "it it is going to impact us in some way.",
+      "duration": 5840,
+      "offset": 1267360
+    },
+    {
+      "text": "Um 54% of leaders expect AI to reduce",
+      "duration": 6000,
+      "offset": 1269280
+    },
+    {
+      "text": "junior hiring in some way over the next",
+      "duration": 4719,
+      "offset": 1273200
+    },
+    {
+      "text": "couple of years. It is commoditizing the",
+      "duration": 5440,
+      "offset": 1275280
+    },
+    {
+      "text": "easy parts forcing us to you know think",
+      "duration": 5201,
+      "offset": 1277919
+    },
+    {
+      "text": "about how the value chain is evolving to",
+      "duration": 4400,
+      "offset": 1280720
+    },
+    {
+      "text": "more meaningful work. This could mean",
+      "duration": 5039,
+      "offset": 1283120
+    },
+    {
+      "text": "potentially um fewer entrylevel roles or",
+      "duration": 4960,
+      "offset": 1285120
+    },
+    {
+      "text": "that junior roles evolve to focus on",
+      "duration": 4081,
+      "offset": 1288159
+    },
+    {
+      "text": "things that AI couldn't do quite as",
+      "duration": 4880,
+      "offset": 1290080
+    },
+    {
+      "text": "well. And if you're a tech lead, a",
+      "duration": 4880,
+      "offset": 1292240
+    },
+    {
+      "text": "manager, a leader, um I think we're",
+      "duration": 3440,
+      "offset": 1294960
+    },
+    {
+      "text": "going to have to continue thinking about",
+      "duration": 3200,
+      "offset": 1297120
+    },
+    {
+      "text": "how we develop talent to make sure that",
+      "duration": 4159,
+      "offset": 1298400
+    },
+    {
+      "text": "we don't inadvertedly dry up our talent",
+      "duration": 4080,
+      "offset": 1300320
+    },
+    {
+      "text": "pipeline because we are going to need",
+      "duration": 3600,
+      "offset": 1302559
+    },
+    {
+      "text": "those juniors to become seniors at some",
+      "duration": 2880,
+      "offset": 1304400
+    },
+    {
+      "text": "point. I still think we're going to need",
+      "duration": 3921,
+      "offset": 1306159
+    },
+    {
+      "text": "a lot of senior engineers. Um so one of",
+      "duration": 4080,
+      "offset": 1307280
+    },
+    {
+      "text": "the first things we can do is try to",
+      "duration": 3200,
+      "offset": 1310080
+    },
+    {
+      "text": "evolve code reviews into more learning",
+      "duration": 3920,
+      "offset": 1311360
+    },
+    {
+      "text": "moments. Um, I've heard of senior",
+      "duration": 3840,
+      "offset": 1313280
+    },
+    {
+      "text": "engineers sending back pull requests",
+      "duration": 4000,
+      "offset": 1315280
+    },
+    {
+      "text": "where it's clear that AI was used, but",
+      "duration": 4400,
+      "offset": 1317120
+    },
+    {
+      "text": "the person didn't really understand what",
+      "duration": 4399,
+      "offset": 1319280
+    },
+    {
+      "text": "they were doing. And when a junior",
+      "duration": 4639,
+      "offset": 1321520
+    },
+    {
+      "text": "submits an AI generated PR, the review",
+      "duration": 4240,
+      "offset": 1323679
+    },
+    {
+      "text": "kind of becomes one of your primary",
+      "duration": 4880,
+      "offset": 1326159
+    },
+    {
+      "text": "venues for mentorship. You can ask them",
+      "duration": 4961,
+      "offset": 1327919
+    },
+    {
+      "text": "Socratic questions that force them to",
+      "duration": 4321,
+      "offset": 1331039
+    },
+    {
+      "text": "explain the AI's output. You can help",
+      "duration": 4880,
+      "offset": 1332880
+    },
+    {
+      "text": "ensure a level of understanding and not",
+      "duration": 4400,
+      "offset": 1335360
+    },
+    {
+      "text": "just functionality. So those reviews",
+      "duration": 3600,
+      "offset": 1337760
+    },
+    {
+      "text": "become more about comprehension rather",
+      "duration": 3760,
+      "offset": 1339760
+    },
+    {
+      "text": "than just correctness.",
+      "duration": 4000,
+      "offset": 1341360
+    },
+    {
+      "text": "I've suggest that maybe we evolve pair",
+      "duration": 4480,
+      "offset": 1343520
+    },
+    {
+      "text": "programming into trio programming. It",
+      "duration": 4480,
+      "offset": 1345360
+    },
+    {
+      "text": "keeps the senior expert sort of in the",
+      "duration": 3679,
+      "offset": 1348000
+    },
+    {
+      "text": "loop, but it ensures and assumes that",
+      "duration": 3280,
+      "offset": 1349840
+    },
+    {
+      "text": "you you know the junior is going to be",
+      "duration": 4401,
+      "offset": 1351679
+    },
+    {
+      "text": "using AI in some way to leverage speed.",
+      "duration": 5200,
+      "offset": 1353120
+    },
+    {
+      "text": "So everybody's learning quality ideally",
+      "duration": 4079,
+      "offset": 1356080
+    },
+    {
+      "text": "stays high and we avoid sort of",
+      "duration": 3920,
+      "offset": 1358320
+    },
+    {
+      "text": "isolation problems that pure AI system",
+      "duration": 3681,
+      "offset": 1360159
+    },
+    {
+      "text": "work can create. It's still",
+      "duration": 4960,
+      "offset": 1362240
+    },
+    {
+      "text": "collaborative human AI teamwork. Um I've",
+      "duration": 5199,
+      "offset": 1363840
+    },
+    {
+      "text": "been suggesting in my teams that we try",
+      "duration": 4160,
+      "offset": 1367200
+    },
+    {
+      "text": "out regular no AI challenges. This is",
+      "duration": 3921,
+      "offset": 1369039
+    },
+    {
+      "text": "another thing you can do to ensure",
+      "duration": 3040,
+      "offset": 1371360
+    },
+    {
+      "text": "critical thinking skills don't",
+      "duration": 4240,
+      "offset": 1372960
+    },
+    {
+      "text": "evaporate. Um, so you can help keep your",
+      "duration": 4480,
+      "offset": 1374400
+    },
+    {
+      "text": "team's skills sharp by just, you know,",
+      "duration": 3520,
+      "offset": 1377200
+    },
+    {
+      "text": "designating a day of the week or even a",
+      "duration": 3919,
+      "offset": 1378880
+    },
+    {
+      "text": "certain type of task on your backlog",
+      "duration": 3600,
+      "offset": 1380720
+    },
+    {
+      "text": "where you just say, well, hey, maybe we",
+      "duration": 3360,
+      "offset": 1382799
+    },
+    {
+      "text": "don't use AI for that. And it just",
+      "duration": 3920,
+      "offset": 1384320
+    },
+    {
+      "text": "reinforces that it is an assistant. It",
+      "duration": 4321,
+      "offset": 1386159
+    },
+    {
+      "text": "is a tool, but it is not a replacement",
+      "duration": 4319,
+      "offset": 1388240
+    },
+    {
+      "text": "for thinking. And this is essential for",
+      "duration": 4079,
+      "offset": 1390480
+    },
+    {
+      "text": "building resilience when AI fails or is",
+      "duration": 5041,
+      "offset": 1392559
+    },
+    {
+      "text": "not necessarily available.",
+      "duration": 6000,
+      "offset": 1394559
+    },
+    {
+      "text": "AI often produces code that passes basic",
+      "duration": 5199,
+      "offset": 1397600
+    },
+    {
+      "text": "tests but may lack robustness. Its",
+      "duration": 5761,
+      "offset": 1400559
+    },
+    {
+      "text": "baseline is usually well it works I",
+      "duration": 6081,
+      "offset": 1402799
+    },
+    {
+      "text": "guess it kind of renders in the browser",
+      "duration": 5599,
+      "offset": 1406320
+    },
+    {
+      "text": "I guess. But again those code reviews",
+      "duration": 5120,
+      "offset": 1408880
+    },
+    {
+      "text": "are important for checking edge cases",
+      "duration": 4321,
+      "offset": 1411919
+    },
+    {
+      "text": "performance security correctness whether",
+      "duration": 4240,
+      "offset": 1414000
+    },
+    {
+      "text": "it is still matching your team's best",
+      "duration": 4640,
+      "offset": 1416240
+    },
+    {
+      "text": "practices and patterns. And our human",
+      "duration": 4400,
+      "offset": 1418240
+    },
+    {
+      "text": "role is really about ensuring production",
+      "duration": 5200,
+      "offset": 1420880
+    },
+    {
+      "text": "readiness and standards. Um, speaking of",
+      "duration": 5120,
+      "offset": 1422640
+    },
+    {
+      "text": "standards, this is what safety standards",
+      "duration": 4160,
+      "offset": 1426080
+    },
+    {
+      "text": "looked like back in the 80s. Um, no",
+      "duration": 4880,
+      "offset": 1427760
+    },
+    {
+      "text": "belts were fine. We just had vibes,",
+      "duration": 3600,
+      "offset": 1430240
+    },
+    {
+      "text": "which is not completely different to",
+      "duration": 3680,
+      "offset": 1432640
+    },
+    {
+      "text": "what we have today. Um, so I covered a",
+      "duration": 3920,
+      "offset": 1433840
+    },
+    {
+      "text": "lot today. Uh, if that's how you're",
+      "duration": 4080,
+      "offset": 1436320
+    },
+    {
+      "text": "feeling, you are absolutely right. Uh,",
+      "duration": 4399,
+      "offset": 1437760
+    },
+    {
+      "text": "the important thing about all of this is",
+      "duration": 4720,
+      "offset": 1440400
+    },
+    {
+      "text": "just stay proactive in helping yourself",
+      "duration": 6000,
+      "offset": 1442159
+    },
+    {
+      "text": "and your teams along this journey.",
+      "duration": 5360,
+      "offset": 1445120
+    },
+    {
+      "text": "Our job is to strike the right balance.",
+      "duration": 4400,
+      "offset": 1448159
+    },
+    {
+      "text": "At the end of the day, it is to harness",
+      "duration": 4640,
+      "offset": 1450480
+    },
+    {
+      "text": "AI speed and capabilities to deliver",
+      "duration": 5201,
+      "offset": 1452559
+    },
+    {
+      "text": "value faster, but to keep the human",
+      "duration": 4799,
+      "offset": 1455120
+    },
+    {
+      "text": "element in charge. I think that our",
+      "duration": 4080,
+      "offset": 1457760
+    },
+    {
+      "text": "creativity, our judgment, and our",
+      "duration": 4640,
+      "offset": 1459919
+    },
+    {
+      "text": "understanding of user needs is going to",
+      "duration": 5680,
+      "offset": 1461840
+    },
+    {
+      "text": "really guide how AI is used. So, I hope",
+      "duration": 4401,
+      "offset": 1464559
+    },
+    {
+      "text": "that you found something in this talk",
+      "duration": 4281,
+      "offset": 1467520
+    },
+    {
+      "text": "helpful. Thank you.",
+      "duration": 4861,
+      "offset": 1468960
+    },
+    {
+      "text": "[applause]",
+      "duration": 2020,
+      "offset": 1471801
+    }
+  ],
+  "transcriptText": "So we are going through a pretty brief change in software engineering at the moment. Uh AI and vibe coding are fundamentally reshaping our work and there is a lot of hype to sift through. So today I'm going to share some battle tested insights from the trenches um for making that transition successfully with some fun learnings along the way. But um before we get started, I do have something I have to share. Uh we've all been replaced by AI. We can finally retire to the woods before they're cut down for more data centers. As you can guess, this hasn't really happened just yet, but the future could look uh a little bit different. I've been coding with AI for a few years, and I think the direction we're going in is sort of an AI native engineer. Instead of thinking, you know, AI might replace me, an AI native engineer might ask for every task. Could AI help me do this faster, better, or differently in some way? And I think that the future really belongs to engineers. So you can embrace that collaborative mindset. Now, if you zoom all the way out, uh this chart is really the road map for the next few years. Um on one side you have the classic developer journeys where most of our value came from purely human effort and then we hit this AI augmented phase where many of us are in right now and as we continue shifting we go from augmented to AI first and eventually AI native developer experiences. Now AI first journeys ask a different question. They ask that how would this journey look if AI were assumed from the start and not sprinkled at the end. And then AI native DX is where the unit of work itself ends up shifting to agentic workflows. Now in the future some say that every engineer is going to evolve from a pure implement to an orchestrator of agents. Maybe we'll all be managers where human judgment and critical thinking is going to help guide AI towards fixing code towards the right outcomes. Some people are very much already doing this and maybe we're going to move from how do I code this to how do I get the right code built. There are a lot of solutions already available for this. There's cursors background agent which can hand tasks off to the background. Can be used by engineers PMs. You can monitor progress on multiple tasks in real time. You can be notified if the agent needs input. Um there's cloud code for the web. I've been enjoying orchestrating multiple tasks using jewels from Google Labs. Um, there's also GitHub's C-pilot agent. I use this both on desktop and on mobile. Like if I'm on a hike, I love being able to pull out my phone and just spin up a bunch of tasks on side projects. It's kind of cool. Uh, there's also Conductor for map, which uh supports multiple agents, but I do have to ground ourselves in reality. It's sort of unsurprising that startups or people with evergreen code bases are already starting to play with some of these ideas like orchestration. Enterprise is a little bit different. Um, what I hear when I talk to enterprise companies is a lot of skepticism around the readiness of these patterns for large decade old code bases. And I'm excited there are folks poking at these problems. I think eventually the tooling will get to a good place. But just to talk about these pattern changes a little bit more today, most of us act as conductors. We are effectively guiding one agent through a single task. And tomorrow we might be those orchestrators directing a fleet of agents working in harmony towards a shared goal. If you think of an orchestra, you know, maybe you picture something like this. Um maybe you picture yourself leading an orchestra of agents and it looks a little bit like this. Reality whoever is very different. Uh things are evolving fast, but best practices for teams and organizations are still in flux. So we're going to talk just a little bit about that today. Now, multiple developer surveys, including Dora and Stack Overflow, showed that a majority of us are using AI for coding at work. And what this data tells us is that it's no longer a novelty or an edge case, but it's rapidly become just a standard part of the software development toolkit. And what I'd like to say is, you know, there's one thing you need to remember. AI is really not about writing more code faster. It's about building um better software at the end of the day. So, throughout this talk, we're going to explore what better could potentially mean. Um now coding with AI is a little bit of a spectrum. Um vibe coding is fast and exploratory. It prioritizes speed and experimentation over deep review and engineering rigor. And then we have AI assisted engineering. It's at the opposite end of that spectrum. And this is sort of the methodical integration of AI into a mature development life cycle. So that human engineer us like we stay very much in control and we use AI as a collaborator to augment um a more structured process. And the challenge for us as builders is really just skillfony navigating this spectrum. Just to get on the same page, let's quickly just take a look at developer experience and where AI can help across this life cycle. This is kind of the baseline um loop without any AI interventions. It's useful as a reference to compare where automation and intelligence can be added to accelerate velocity. So typically we're thinking about things like design, coding, testing, building, deploying. So this highlights where AI is most useful during the early design phases. So think about chat bots in your editor for asking questions, iterating um and AI triage tools that can streamline planning and investigation. Then we have the inner development loop where we spend a lot of our time. So coding, testing, debugging. And this can help with like just faster code generation, automating tests, catching errors, ideally before they go to production and definitely before you end up on hacker news. Uh here's the full overview of where AI can help with the developer experience. This is all of those loops. Uh design, inner, submit, outer, and it highlights just every point where AI can meaningfully reduce toil. AI coding tools are also a spectrum. Um my team and I have been using a few of these. You've got plenty of options these days, whether you are prototyping, non-technical, or you're building for production. We've of course also vibe coded a lot. And the real genius of VIP coding is never have to confront the technical debt because you have no idea who or what created it in the first place. Um, as your team go through this journey, you're going to run into spec skeptics. You really want to turn these eventually into people who can be technical evangelists, people who can have a very grounded perspective on what are AI's weaknesses, what are its strengths, and can we have a very balanced way of how we think about it. Um, we had a few big learnings on my teams. things like, you know, AI tools don't necessarily replace expertise, but they amplify it. And the more skill that you can bring to this as an engineer, the more powerful the results you're ultimately going to get. Um, what about the impact of AI on coding at Google where I work? Well, across the board, it's already been moving the needle on real productivity. We're seeing pretty measurable velocity gains and faster coding speeds across multiple studies. Whether that is using it as an autocomplete for full code gen for documentation for testing for code review um we've generally found that it's able to help us in a lot of ways. We have many teams successfully using things like Gemini CLI um to build the next generation of applications and we're enjoying it. Um you might remember probably like 3 to 6 months ago which feels like a very long time ago in AI um when we had prompt engineers. I love this title. might have well has been called AI code whisperer. Folks would test, evaluate, and iterate on prompts to improve the chances of getting a high quality output. But a smart prompt doesn't really guarantee you great outcomes. Many of us tried prompt engineering. We tried tweaking words endlessly. But as this iceberg shows, the real issues are often below the surface with mismanaged context. A limited window means that the AI can forget key details. Um unstructured content can lead to confusion. competing information can distract it and overloading it can also overwhelm the model. So context mis management is often the big issue here. Context is king in this moment. Um so if you haven't come across things like context engineering effectively it means equipping an AI agent with everything that it needs to tackle a task effectively. We're talking about the right files, examples, history, tools, constraints and the quality of your output is going to be proportional to the quality and relevance of the context that you provide. many of the tools that we use, whether you're using cursor or client, they make it much easier these days for us to include files, folders, problems, URLs, more docs, um, into your workflows to help with that context that we're missing. And increasingly, you also have other ways like visual ways, multimodality, being able to pull more context that can be useful. We're also seeing our tools evolve a little bit because again, those context window sizes can be pretty finite. So some tools, this is Klein, um do smart things like automatic context summarization. So when your conversation approaches the context window size, it can actually start to summarize previous sessions so you can free up space and continue working with still the important parts, the important details um preserved. There are also other ideas like a memory bank which is kind of a structured documentation system which allows you to maintain context across multiple sessions. So client, for example, can read memory bank files and rebuild its understanding of your project without you necessarily having to do a lot of manual work there yourself. Uh here's a great template for context engineering from anthropic. It's got ideas like background data, examples, conversation history. This type of thing makes for a really great tweet that you will completely forget. Um I forget this all the time. I decided to um vibe code this into a quick web app uh that you can also check out. I've also completely forgotten to use this. Um, we just generally need better tooling to handle this automatically for us and I'm looking forward to our tools evolving in this direction too. Um, spec driven development has become more popular. This is the practice of really just planning before you prompt and it's pro providing that clear context that the AI needs to succeed rather than expecting it to read your mind. Um, there are a few other patterns that drop out of this. Uh recently um I've seen a few folks using like a learnings markdown file. And this is kind of about creating a powerful self-improving cycle where the agents performance gets better with every single task. So at the end of a task, so imagine that you've been prompting it to maybe write a component or make some additions to uh an app that you've already got. Um you can ask it to store key insights in a simple text file and that acts as long-term memory. So it becomes sort of an external brain that just keeps getting better and helps steer the agents performance over time. Other things that we learned, uh, never commit code that you can't explain to other people, um, or even to yourself. This is a golden rule for production AI coding. Um, you have to assume that you and your team are going to have to manually change things at some point. Um, and so again, human in the loop, human reviewing the code is going to continue becoming important. I think that reading the code is going to become an even bigger part of the job in the future. we can expect to be spending more time reviewing, testing, explaining than necessarily just typing. So, we're going to have to continue building over this muscle. Um, over a program's lifetime, it usually ends up getting written once, maybe edited number of times, but it ends up getting debugged, maintained, and enhanced a number of more times and gets it read quite a lot over its lifetime. Um, VIP coding is a gift for prototyping. I think that static mock-ups often look good, but they're not really interactive and that has limited feedback that you can get from the true user experience. So, I we've really enjoyed using this for prototyping. You can quickly knock out something that has a clearer version of the vision that you're offering to people and it just elevates the discussion. Um, there are some companies that have really really leaned into this idea like Shopify. Um so Shopify had sort of companywide change management around their use of AI across engineering, product, UX from the top and um what they now have is design dev handoffs that are a little bit different. Um designers can now just vibe code prototypes and they can work directly with engineering to land these as artifacts. Now that means that there is code review, there is iteration, there is work on quality, but we're starting to see sort of blending in some cases of the roles which is very interesting to see. Um, voice dictation also changes the way that you can vibe code. Um, because you can use your voice much much faster than you can type. Anywhere up to three to five times faster. When I first started hearing about this idea, I thought this works great if you are working remotely in your own office and terribly if you were in any sort of open office situation. But of course, they now have VIP coding by whispering which is also uh available. So you can just whisper your way to your MVPs. it actually works pretty well. Um, AI is a multiplier. So, what helps the human can help the AI. So, um, invest in tests, CI, clear documentation before you really expect um, very big gains. Um, tests are ultimately a huge safety net in this moment. They really derisk your use of AI for coding. So, if things start going off the rails for any reason, you're going to know sooner. Um, and if you're, you know, I I talked to a lot of teams who will say, &quot;This is all great if you have end-to-end tests already. What if we don't have those tests? Do we just use AI to write them?&quot; And you can, you just, again, you need to make sure that you are keeping humans in the loop to understand like what tests are being generated. Are they sufficient? Uh, by the way, this looks like a mother mocking their child for some reason, but at least they're safe. So the promise with AI was sort of this step change in productivity and what data I love reading white papers. I love reading research. What the data shows is a little bit more nuanced of a reality. Um and so let's take a look at some studies and some concrete actions that we can maybe take to lock in gains and and manage risk. So what the latest data shows is that usage is high. It continues to go up but trust is sliding. um favorable views about AI for coding dropped from 70 to 60% in the last two years and 46% of people actively distrust AI accuracy. Um this chart shows that about 30% of the developers surveyed here had little to no trust in AI generated code. And this skepticism is not necessarily a bad thing. It's a sign of you know this area maturing. It explains some of the friction we're going to see in some of the other things I'm going to talk about. But models continue to improve, agents continue to improve. Um, however, we we do start to to learn about um where things can go wrong. So, when things go wrong with Vibe coding, you have Vibe debugging. Um, where you have no idea how the code works or really how to fix it, um, I thought I'd give a shout out. Um, on my team, we very recently released Chrome DevTools MCP. Um, and this is to help your AI coding assistant sort of see and interact with a live browser. And that means that your agent can see what's rendered. It can look at the console logs. It can look at network logs, automate performance optimization. It can find issues with any broken layouts. There's a lot of power that this unlocks. Um, if you're, you know, coding with AI, maybe check it out. Might be useful. But back to the data. So at the individual level, the lift from AI productivity is real. Um developers using it, you know, can see anywhere up to 21% more tasks completed. Um people are emerging on the on the edges anywhere up to 98% more pull requests. We'll talk about pull requests more in just a second. Um but a very significant number of developers will say that AI has a positive impact on their personal productivity. Some will even say that, you know, when we're talking about positive impact that it can feel that the AI writes better code than they do in some cases. Now, when we're especially talking about, you know, common problems, average problems, I could certainly see that being true. And there are people um who will say that it is extremely increased their productivity. You know, this this shows maybe it's about 10 to 13%. Um and there will be people who say it's slightly increased their productivity, so closer to 41%. And that last largest group really suggests incremental benefit from AI across the workforce. Now we get to the fun stuff. Here's the paradox. We sped up code generation, but human verification did not scale with that. Pull request times have increased in some cases by anywhere up to 91%. PR sizes are also exploding. If you have reviewed a completely AI generated pull request, maybe you've seen that there are cases where people will be making all kinds of changes that are not needed to many many more files than are required. So PR sizes have exploded anywhere up to 154%. This is soaking up a lot of those individual gains that we were just talking about. The system moves at the speed of the slowest step and today that step is review and validation. So developers are describing this common pattern. AI suggestions are often plausible, but they're not always correct. And 66% of people call this their biggest time sync. 45% say that debugging AI output is more work than it is worth. And this connects directly to those longer reviews that I was just talking about. The conclusion is kind of simple. Quality gates and validation are now the critical path. So we're as an industry, we're going to need to start evolving how we think about code review in order to avoid just putting all of this extra strain on the senior engineers. So what we found in general is that AI shines in low context situations. If you are starting fresh, if you are handling predictable patterns, writing generic functions, you know, if you're treating AI as a junior engineer, um, where tasks are maybe well defined and context is low, it can do pretty well, especially with green field code, especially with boilerplate generating unit tests, generating docs, again, prototypes, MVPs. I think that this can free up experts to be able to focus time on more design work, integration, tricky edge cases, just building more polished experiences. Where it struggles right now is high context novel problems. And this is where deep context is really required. Um, and if you are a team building anything non-trivial, this is going to require strong supervision. So it can't necessarily hold a decade of architectural decisions or informal business logic in its head without studying your code bases, without studying your docs and how your team have been working over time. In security sensitive areas, you know, the risk of subtle mistakes continue to rise with this. And anytime that your requirements are ambiguous or logic spans multiple systems, again, humans have to lead and AI should be assisting. Now, some may say that it doesn't matter what you're vibe coding, no matter how brittle it might be, you can always fix it later. But for those of us that aren't comfortable um yoloing it, uh there's a few things that you can do. Our first priority is really mitigating skill erosion. Um we have to use AI to accelerate learning in our teams, but not necessarily replace it. And this requires rethinking our core teaching and mentoring processes to ensure that engineers at all levels are developing and maintaining fundamental problem solving capabilities. This leads to something that I call the 70% problem. Um AI can get you about 70% of the way towards solving a problem whether it's generating, you know, a full application, generating an MVP. Um, but that last 30%, that final mile, um, is the hardest part. Uh, your assistant might help you with scaffolding out a feature, but production readiness means that those edge cases, those architecture, um, issues, those tests, those cleanups, all of those things require work from us. Um, for juniors, like for if you're somebody that's new to tech, if you're a junior, that 70% is still very magical. It can feel very magical, but for seniors, that last 30% is often slower than writing the code from scratch yourself. So AI can help us close the demo gap quickly, but shipping to production, I think, still belongs to humans. Sometimes that last 30% is something that the seniors see and the juniors don't just because they don't know what to necessarily look for. Um, in other words, the juniors can spend can send that 70% off as a pull request as if they were done. Um, and it then means that the actual hard part can end up falling into the code review. Um, largely being done by seniors cleaning up mistakes that no human would have necessarily made. sometimes humans would make them but um it is meaning that again we have to rethink how we're approaching code reviews. Um we don't like talking about AI's impact on the job market but it I think it it is going to impact us in some way. Um 54% of leaders expect AI to reduce junior hiring in some way over the next couple of years. It is commoditizing the easy parts forcing us to you know think about how the value chain is evolving to more meaningful work. This could mean potentially um fewer entrylevel roles or that junior roles evolve to focus on things that AI couldn't do quite as well. And if you're a tech lead, a manager, a leader, um I think we're going to have to continue thinking about how we develop talent to make sure that we don't inadvertedly dry up our talent pipeline because we are going to need those juniors to become seniors at some point. I still think we're going to need a lot of senior engineers. Um so one of the first things we can do is try to evolve code reviews into more learning moments. Um, I've heard of senior engineers sending back pull requests where it's clear that AI was used, but the person didn't really understand what they were doing. And when a junior submits an AI generated PR, the review kind of becomes one of your primary venues for mentorship. You can ask them Socratic questions that force them to explain the AI's output. You can help ensure a level of understanding and not just functionality. So those reviews become more about comprehension rather than just correctness. I've suggest that maybe we evolve pair programming into trio programming. It keeps the senior expert sort of in the loop, but it ensures and assumes that you you know the junior is going to be using AI in some way to leverage speed. So everybody's learning quality ideally stays high and we avoid sort of isolation problems that pure AI system work can create. It's still collaborative human AI teamwork. Um I've been suggesting in my teams that we try out regular no AI challenges. This is another thing you can do to ensure critical thinking skills don't evaporate. Um, so you can help keep your team's skills sharp by just, you know, designating a day of the week or even a certain type of task on your backlog where you just say, well, hey, maybe we don't use AI for that. And it just reinforces that it is an assistant. It is a tool, but it is not a replacement for thinking. And this is essential for building resilience when AI fails or is not necessarily available. AI often produces code that passes basic tests but may lack robustness. Its baseline is usually well it works I guess it kind of renders in the browser I guess. But again those code reviews are important for checking edge cases performance security correctness whether it is still matching your team's best practices and patterns. And our human role is really about ensuring production readiness and standards. Um, speaking of standards, this is what safety standards looked like back in the 80s. Um, no belts were fine. We just had vibes, which is not completely different to what we have today. Um, so I covered a lot today. Uh, if that's how you're feeling, you are absolutely right. Uh, the important thing about all of this is just stay proactive in helping yourself and your teams along this journey. Our job is to strike the right balance. At the end of the day, it is to harness AI speed and capabilities to deliver value faster, but to keep the human element in charge. I think that our creativity, our judgment, and our understanding of user needs is going to really guide how AI is used. So, I hope that you found something in this talk helpful. Thank you. [applause]"
+}
