@@ -123,11 +123,6 @@ This will start both PostgreSQL and Redis containers in the background.
 $ pnpm run build
 ```
 
-4. Build the project (this compiles the TypeScript migration files to JavaScript):
-```bash
-$ pnpm install
-```
-
 5. Run migrations - You have two options:
 Option A: Run migrations manually (recommended for first time):
 ```bash
