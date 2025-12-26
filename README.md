@@ -31,6 +31,178 @@
 $ pnpm install
 ```
 
+## Database Setup with Docker
+
+This project uses PostgreSQL as the primary database with TypeORM for migrations. You can run the database using Docker.
+
+### Prerequisites
+
+- Docker and Docker Compose installed
+- pnpm package manager
+
+### Environment Configuration
+
+Create a `.env` file in the root directory with your database configuration:
+
+```bash
+# Database Configuration
+DATABASE_TYPE=postgres
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/meridian
+
+# Or use individual variables
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=meridian
+
+# Docker Compose Profile
+COMPOSE_PROFILE=local
+
+# Redis Configuration
+REDIS_HOST=localhost
+REDIS_PORT=6379
+```
+
+### Starting the Database
+
+```bash
+# Start PostgreSQL and Redis containers (local environment)
+$ pnpm run docker:up
+
+# View database logs
+$ pnpm run docker:logs
+
+# Stop containers
+$ pnpm run docker:down
+```
+
+### Database Migrations
+
+The project uses TypeORM migrations to manage database schema changes. Migrations run automatically when the application starts.
+
+```bash
+# Create a new migration file
+$ pnpm run migration:create src/database/migrations/AddNewColumn
+
+# Generate a migration from entity changes (when using TypeORM entities)
+$ pnpm run migration:generate src/database/migrations/UpdateSchema
+
+# Run pending migrations manually
+$ pnpm run migration:run
+
+# Revert the last migration
+$ pnpm run migration:revert
+```
+
+### Create tables in the local database
+1. Install dependencies (if you haven't already):
+```bash
+$ pnpm install
+```
+
+2. Create a .env file in the project root with your database configuration:
+```env
+DATABASE_TYPE=postgres
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=meridian
+```
+
+3. Start the PostgreSQL database using Docker:
+```bash
+$ pnpm run docker:up
+```
+
+This will start both PostgreSQL and Redis containers in the background.
+
+4. Build the project (this compiles the TypeScript migration files to JavaScript):
+```bash
+$ pnpm run build
+```
+
+5. Run migrations - You have two options:
+Option A: Run migrations manually (recommended for first time):
+```bash
+pnpm run migration:run
+```
+
+Option B: Let migrations run automatically on app startup:
+```bash
+pnpm run start:dev
+```
+The migrations will run automatically because we configured the DatabaseModule to execute them on startup.
+
+### Verification
+
+To verify your tables were created successfully:
+
+1. **Connect to your PostgreSQL database:**
+```bash
+docker exec -it meridiano-postgres-local psql -U postgres -d meridian
+```
+
+2. **List all tables:**
+```sql
+\dt
+```
+
+You should see:
+- `articles`
+- `briefings`
+- `youtube_transcriptions`
+- `typeorm_migrations` (tracks which migrations have run)
+
+3. **View a table structure:**
+```sql
+\d articles
+```
+
+4. **Exit psql:**
+```sql
+\q
+```
+
+### Environment-Specific Setup
+
+**Local Development:**
+```bash
+# Uses docker-compose with 'local' profile
+COMPOSE_PROFILE=local
+pnpm run docker:up
+pnpm run start:dev
+```
+
+**Staging:**
+```bash
+# Uses docker-compose with 'staging' profile
+COMPOSE_PROFILE=staging
+docker-compose --profile staging up -d
+pnpm run start
+```
+
+**Production:**
+```bash
+# Uses docker-compose with 'production' profile
+COMPOSE_PROFILE=production
+docker-compose --profile production up -d
+pnpm run start:prod
+```
+
+### Using SQLite (Alternative)
+
+For quick local development without Docker, you can use SQLite:
+
+```bash
+# In your .env file:
+DATABASE_TYPE=sqlite
+DATABASE_FILE=meridian.db
+```
+
+Note: Migrations are only used with PostgreSQL. SQLite uses the legacy schema creation method.
+
 ## Compile and run the project
 
 ```bash
@@ -84,7 +256,10 @@ Check out a few resources that may come in handy when working with NestJS:
 - Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
 ## How to run Redis
-Install Redis using Homebrew:
+
+Redis is included in the Docker Compose setup and will start automatically with `pnpm run docker:up`.
+
+Alternatively, install Redis using Homebrew:
 
 **Install Redis:**
 

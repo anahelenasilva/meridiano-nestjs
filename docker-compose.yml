@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: meridiano-postgres-${COMPOSE_PROFILE:-local}
+    restart: unless-stopped
+    profiles:
+      - local
+      - staging
+      - production
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME:-meridian}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME:-meridian}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - meridiano-network
+
+  # Redis for BullMQ (already in use in the project)
+  redis:
+    image: redis:7-alpine
+    container_name: meridiano-redis-${COMPOSE_PROFILE:-local}
+    restart: unless-stopped
+    profiles:
+      - local
+      - staging
+      - production
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes ${REDIS_PASSWORD:+--requirepass "$REDIS_PASSWORD"}
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ${REDIS_PASSWORD:+-a \"$REDIS_PASSWORD\"} ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - meridiano-network
+
+volumes:
+  postgres_data:
+    name: meridiano-postgres-data-${COMPOSE_PROFILE:-local}
+  redis_data:
+    name: meridiano-redis-data-${COMPOSE_PROFILE:-local}
+
+networks:
+  meridiano-network:
+    name: meridiano-network-${COMPOSE_PROFILE:-local}
+    driver: bridge
+
