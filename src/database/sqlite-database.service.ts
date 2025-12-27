@@ -1,12 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import * as sqlite3 from 'sqlite3';
 import { AbstractDatabaseService } from './abstract-database.service';
 import { DatabaseConnection } from './database.interface';
 
+// Lazy load sqlite3 to avoid import errors when using PostgreSQL
+type SQLite3 = import('sqlite3').sqlite3;
+type Database = import('sqlite3').Database;
+
 @Injectable()
 export class SQLiteDatabaseService extends AbstractDatabaseService {
-  private db: sqlite3.Database | null = null;
+  private db: Database | null = null;
   private readonly databaseFile: string;
+  private sqlite3Module: SQLite3 | null = null;
 
   constructor() {
     super();
@@ -15,8 +19,19 @@ export class SQLiteDatabaseService extends AbstractDatabaseService {
   }
 
   async initDb(): Promise<void> {
+    // Lazy load sqlite3 module only when actually needed
+    if (!this.sqlite3Module) {
+      try {
+        this.sqlite3Module = (await import('sqlite3')).default as SQLite3;
+      } catch {
+        throw new Error(
+          'SQLite3 module not found. Please install it with: pnpm add sqlite3'
+        );
+      }
+    }
+
     return new Promise((resolve, reject) => {
-      this.db = new sqlite3.Database(this.databaseFile, (err) => {
+      this.db = new this.sqlite3Module!.Database(this.databaseFile, (err) => {
         if (err) {
           reject(err);
           return;
