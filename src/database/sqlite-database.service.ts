@@ -3,7 +3,7 @@ import { AbstractDatabaseService } from './abstract-database.service';
 import { DatabaseConnection } from './database.interface';
 
 // Lazy load sqlite3 to avoid import errors when using PostgreSQL
-type SQLite3 = import('sqlite3').sqlite3;
+type SQLite3 = typeof import('sqlite3');
 type Database = import('sqlite3').Database;
 
 @Injectable()
@@ -22,7 +22,7 @@ export class SQLiteDatabaseService extends AbstractDatabaseService {
     // Lazy load sqlite3 module only when actually needed
     if (!this.sqlite3Module) {
       try {
-        this.sqlite3Module = (await import('sqlite3')).default as SQLite3;
+        this.sqlite3Module = await import('sqlite3');
       } catch {
         throw new Error(
           'SQLite3 module not found. Please install it with: pnpm add sqlite3'
