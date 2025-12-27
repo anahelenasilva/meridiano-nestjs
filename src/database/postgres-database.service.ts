@@ -9,6 +9,15 @@ import {
   RunResult,
 } from './database.interface';
 
+// Helper function to convert SQLite-style ? placeholders to PostgreSQL-style $1, $2, etc.
+function convertPlaceholders(sql: string): string {
+  let index = 0;
+  return sql.replace(/\?/g, () => {
+    index++;
+    return `$${index}`;
+  });
+}
+
 class PostgresConnection implements DatabaseConnection {
   constructor(private pool: Pool) { }
 
@@ -25,6 +34,9 @@ class PostgresConnection implements DatabaseConnection {
     if (isInsert && !/RETURNING/i.test(sql)) {
       querySql = sql.replace(/;?\s*$/, '') + ' RETURNING id';
     }
+
+    // Convert SQLite-style ? placeholders to PostgreSQL-style $1, $2, etc.
+    querySql = convertPlaceholders(querySql);
 
     this.pool.query(
       querySql,
@@ -55,8 +67,11 @@ class PostgresConnection implements DatabaseConnection {
     params?: any[],
     callback?: (err: Error | null, rows?: any[]) => void,
   ): void {
+    // Convert SQLite-style ? placeholders to PostgreSQL-style $1, $2, etc.
+    const querySql = convertPlaceholders(sql);
+
     this.pool.query(
-      sql,
+      querySql,
       params || [],
       (err: Error | null, res?: QueryResult) => {
         if (callback) {
@@ -71,8 +86,11 @@ class PostgresConnection implements DatabaseConnection {
     params?: any[],
     callback?: (err: Error | null, row?: any) => void,
   ): void {
+    // Convert SQLite-style ? placeholders to PostgreSQL-style $1, $2, etc.
+    const querySql = convertPlaceholders(sql);
+
     this.pool.query(
-      sql,
+      querySql,
       params || [],
       (err: Error | null, res?: QueryResult) => {
         if (callback) {
@@ -110,6 +128,9 @@ class PostgresPreparedStatement implements PreparedStatement {
     if (isInsert && !/RETURNING/i.test(this.sql)) {
       querySql = this.sql.replace(/;?\s*$/, '') + ' RETURNING id';
     }
+
+    // Convert SQLite-style ? placeholders to PostgreSQL-style $1, $2, etc.
+    querySql = convertPlaceholders(querySql);
 
     this.pool.query(
       querySql,
