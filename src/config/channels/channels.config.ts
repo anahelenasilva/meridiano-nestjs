@@ -25,6 +25,6 @@ export const youtubeChannelsConfig = {
     name: 'Augusto Galego',
     description:
       'Augusto Galego channel',
-    enabled: true,
+    enabled: false,
   },
 };
