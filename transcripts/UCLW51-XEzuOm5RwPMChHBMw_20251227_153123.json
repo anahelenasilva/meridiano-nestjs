@@ -1,0 +1,1611 @@
+{
+  "channel": {
+    "id": "UCLW51-XEzuOm5RwPMChHBMw",
+    "name": "Augusto Galego",
+    "description": "Augusto Galego channel"
+  },
+  "videoId": "jpeUKuCexGc",
+  "title": "DTOs, o que é e porque usar",
+  "url": "https://www.youtube.com/watch?v=jpeUKuCexGc",
+  "publishedAt": "2025-12-22T18:31:22.945Z",
+  "description": "🤖 Use a abacus IA, AppLLM, ChatLLM, CodeLLM e o Deep Agent por apenas $10: https://chatllm.abacus.ai/agd\n\n👉 Curso \"O Roadmap pro seu Próximo Emprego\": https://pay.hub.la/hrZKmxeXzeLN8AvObjVJ...",
+  "thumbnailUrl": "https://i.ytimg.com/vi/jpeUKuCexGc/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAAngLVFNYbqarbztpvN94klhG4lw",
+  "transcript": [
+    {
+      "text": "Pô, eu vou ser bem sincero aqui com",
+      "duration": 3040,
+      "offset": 40
+    },
+    {
+      "text": "vocês, que o vídeo de hoje é bastante",
+      "duration": 3080,
+      "offset": 1480
+    },
+    {
+      "text": "simples, tá? A gente vai falar sobre",
+      "duration": 4359,
+      "offset": 3080
+    },
+    {
+      "text": "DTO, Data Transfer Object, que é um nome",
+      "duration": 5680,
+      "offset": 4560
+    },
+    {
+      "text": "complexo para algo que quase todos nós",
+      "duration": 5200,
+      "offset": 7439
+    },
+    {
+      "text": "fazemos em alguma forma ou outra, né?",
+      "duration": 5080,
+      "offset": 10240
+    },
+    {
+      "text": "Isso aqui nada passa de que uma",
+      "duration": 4961,
+      "offset": 12639
+    },
+    {
+      "text": "validação, a criação de um objeto, né? A",
+      "duration": 3959,
+      "offset": 15320
+    },
+    {
+      "text": "criação e validação de um objeto para",
+      "duration": 3360,
+      "offset": 17600
+    },
+    {
+      "text": "transmitir informações de um lado pro",
+      "duration": 3721,
+      "offset": 19279
+    },
+    {
+      "text": "outro ou pro input da sua aplicação ou",
+      "duration": 3840,
+      "offset": 20960
+    },
+    {
+      "text": "output da sua aplicação ou entre",
+      "duration": 3599,
+      "offset": 23000
+    },
+    {
+      "text": "serviços dentro da sua aplicação. Não",
+      "duration": 3160,
+      "offset": 24800
+    },
+    {
+      "text": "passa disso. A gente vai explicar o que",
+      "duration": 2561,
+      "offset": 26599
+    },
+    {
+      "text": "que é uma DTO. Vamos mostrar uns",
+      "duration": 3479,
+      "offset": 27960
+    },
+    {
+      "text": "exemplos práticos e é super simples.",
+      "duration": 3720,
+      "offset": 29160
+    },
+    {
+      "text": "Outra coisa que é super simples é a",
+      "duration": 3161,
+      "offset": 31439
+    },
+    {
+      "text": "patrocinadora do vídeo de hoje, que é a",
+      "duration": 4560,
+      "offset": 32880
+    },
+    {
+      "text": "abai. Com apenas $10 por mês, você tem",
+      "duration": 6439,
+      "offset": 34600
+    },
+    {
+      "text": "acesso ao chat com LLMs. Com todas as",
+      "duration": 6080,
+      "offset": 37440
+    },
+    {
+      "text": "LLMs. Você pode usar o chat GPT 5.1, que",
+      "duration": 4401,
+      "offset": 41039
+    },
+    {
+      "text": "geralmente é pago e caro na Open AI, o",
+      "duration": 4920,
+      "offset": 43520
+    },
+    {
+      "text": "Gemini 2.5 Pro, o Grock 4, né? Modelos",
+      "duration": 5880,
+      "offset": 45440
+    },
+    {
+      "text": "que geralmente o GPT5 com Codex, né? Bem",
+      "duration": 4639,
+      "offset": 48440
+    },
+    {
+      "text": "bacana. Modelos que são geralmente",
+      "duration": 4360,
+      "offset": 51320
+    },
+    {
+      "text": "pagos, né? E caros ali ficam escondid",
+      "duration": 4721,
+      "offset": 53079
+    },
+    {
+      "text": "escondidos atrás de subscriptions ou",
+      "duration": 3640,
+      "offset": 55680
+    },
+    {
+      "text": "então, né? via API. E você pode usar",
+      "duration": 3040,
+      "offset": 57800
+    },
+    {
+      "text": "eles para gerar PowerPoint, para gerar",
+      "duration": 3600,
+      "offset": 59320
+    },
+    {
+      "text": "imagens, para gerar código, para usar o",
+      "duration": 4120,
+      "offset": 60840
+    },
+    {
+      "text": "deep Research, né, que faz pesquisas na",
+      "duration": 4040,
+      "offset": 62920
+    },
+    {
+      "text": "internet e tal. É bem bacana. A Bocus te",
+      "duration": 4400,
+      "offset": 64960
+    },
+    {
+      "text": "dá isso daí, tá? O chat com todas as I",
+      "duration": 4880,
+      "offset": 66960
+    },
+    {
+      "text": "te dá a ideia deles que tem IA",
+      "duration": 4200,
+      "offset": 69360
+    },
+    {
+      "text": "integrada, tem agentes de A que você",
+      "duration": 3720,
+      "offset": 71840
+    },
+    {
+      "text": "pode pedir paraa gente fazer implementa",
+      "duration": 3879,
+      "offset": 73560
+    },
+    {
+      "text": "implementações no seu código, te dá",
+      "duration": 4360,
+      "offset": 75560
+    },
+    {
+      "text": "também uma CLI, né, uma command line",
+      "duration": 4680,
+      "offset": 77439
+    },
+    {
+      "text": "interface para pedir paraa fazer coisas.",
+      "duration": 4320,
+      "offset": 79920
+    },
+    {
+      "text": "É parecido com o cloud code e te dá o",
+      "duration": 3921,
+      "offset": 82119
+    },
+    {
+      "text": "Patient, que é um agente super poderoso",
+      "duration": 3800,
+      "offset": 84240
+    },
+    {
+      "text": "no seu browser que faz várias coisas,",
+      "duration": 3920,
+      "offset": 86040
+    },
+    {
+      "text": "inclusive MVPs. Esse aqui é o caso de",
+      "duration": 3920,
+      "offset": 88040
+    },
+    {
+      "text": "MVP que eu fiz carinho, um único prompt,",
+      "duration": 3760,
+      "offset": 89960
+    },
+    {
+      "text": "pedi para fazer um dashboard aqui de RH,",
+      "duration": 3000,
+      "offset": 91960
+    },
+    {
+      "text": "ele fez aqui para mim, né? Eu posso",
+      "duration": 3200,
+      "offset": 93720
+    },
+    {
+      "text": "solicitar time off, eu posso dizer: &quot;Pô,",
+      "duration": 4320,
+      "offset": 94960
+    },
+    {
+      "text": "tô doente de tal dia até tal dia.&quot; A",
+      "duration": 4199,
+      "offset": 96920
+    },
+    {
+      "text": "ideia aqui é fazer um um MVP, né, de",
+      "duration": 3400,
+      "offset": 99280
+    },
+    {
+      "text": "algo que as empresas poderiam usar.",
+      "duration": 3640,
+      "offset": 101119
+    },
+    {
+      "text": "Nesse caso aqui foi um portalzinho de RG",
+      "duration": 4039,
+      "offset": 102680
+    },
+    {
+      "text": "super simples. Ó, ele até negou meu",
+      "duration": 4680,
+      "offset": 104759
+    },
+    {
+      "text": "request porque tá insuficiente aqui o",
+      "duration": 4321,
+      "offset": 106719
+    },
+    {
+      "text": "balanço de dias. Eu não posso ficar",
+      "duration": 3320,
+      "offset": 109439
+    },
+    {
+      "text": "tantos dias doente. Então tá. Então vou",
+      "duration": 3679,
+      "offset": 111040
+    },
+    {
+      "text": "ficar menos dias doente. Agora foi, ó.",
+      "duration": 3801,
+      "offset": 112759
+    },
+    {
+      "text": "Agora tá certo. Essa é a abacus. Clica",
+      "duration": 3400,
+      "offset": 114719
+    },
+    {
+      "text": "no link na descrição. Vem para abbacos",
+      "duration": 3960,
+      "offset": 116560
+    },
+    {
+      "text": "por apenas por mês, né? Hoje em dia tá",
+      "duration": 4561,
+      "offset": 118119
+    },
+    {
+      "text": "custando uns R$ 52, acredito. Vamos lá,",
+      "duration": 4760,
+      "offset": 120520
+    },
+    {
+      "text": "cara. O que que é uma dó? DTO e data",
+      "duration": 5320,
+      "offset": 122680
+    },
+    {
+      "text": "transport object, tá? Eh, um objeto por",
+      "duration": 4599,
+      "offset": 125280
+    },
+    {
+      "text": "assim, eh, eu aprendi o que que é DTO",
+      "duration": 3959,
+      "offset": 128000
+    },
+    {
+      "text": "recentemente, mas eu já usava DTO, eu só",
+      "duration": 3761,
+      "offset": 129879
+    },
+    {
+      "text": "não conhecia esse nome. E o conhecer o",
+      "duration": 4000,
+      "offset": 131959
+    },
+    {
+      "text": "nome percante você entender o por que tá",
+      "duration": 3800,
+      "offset": 133640
+    },
+    {
+      "text": "aqui, né? O por que a gente usa isso,",
+      "duration": 2920,
+      "offset": 135959
+    },
+    {
+      "text": "qual que é a ideia de uma DTO. As",
+      "duration": 3040,
+      "offset": 137440
+    },
+    {
+      "text": "características de uma DTO são",
+      "duration": 2961,
+      "offset": 138879
+    },
+    {
+      "text": "geralmente o seguinte: você não vai",
+      "duration": 3080,
+      "offset": 140480
+    },
+    {
+      "text": "concentrar a lógica do negócio na sua",
+      "duration": 3840,
+      "offset": 141840
+    },
+    {
+      "text": "DTO. Não é o intuito de uma DTO",
+      "duration": 3720,
+      "offset": 143560
+    },
+    {
+      "text": "concentrar a lógica do seu negócio.",
+      "duration": 3720,
+      "offset": 145680
+    },
+    {
+      "text": "Geralmente ela é imutável, costuma ser",
+      "duration": 4800,
+      "offset": 147280
+    },
+    {
+      "text": "uma boa prática fazer DTO imutáveis. Ah,",
+      "duration": 4600,
+      "offset": 149400
+    },
+    {
+      "text": "galego, mas eu vou receber um usuário,",
+      "duration": 3920,
+      "offset": 152080
+    },
+    {
+      "text": "esse usuário não vai ter ID. Aí eu vou",
+      "duration": 3319,
+      "offset": 154000
+    },
+    {
+      "text": "criar o usuário no meu banco de dados.",
+      "duration": 3159,
+      "offset": 156000
+    },
+    {
+      "text": "Quando eu criar ele no banco, ele vai",
+      "duration": 4000,
+      "offset": 157319
+    },
+    {
+      "text": "receber um ID. Aí você faz duas DTOs",
+      "duration": 3921,
+      "offset": 159159
+    },
+    {
+      "text": "diferentes, tá? Uma sem o ID e uma com o",
+      "duration": 3601,
+      "offset": 161319
+    },
+    {
+      "text": "ID para você criar o objeto de novo. É",
+      "duration": 3159,
+      "offset": 163080
+    },
+    {
+      "text": "uma prática um pouco melhor, na minha",
+      "duration": 3360,
+      "offset": 164920
+    },
+    {
+      "text": "opinião. Doo é uma espécie de contrato,",
+      "duration": 3601,
+      "offset": 166239
+    },
+    {
+      "text": "é um acordo do que que vai ser",
+      "duration": 3039,
+      "offset": 168280
+    },
+    {
+      "text": "transportado. É interessante a gente",
+      "duration": 3479,
+      "offset": 169840
+    },
+    {
+      "text": "pensar no DTO no da seguinte forma, tá?",
+      "duration": 3761,
+      "offset": 171319
+    },
+    {
+      "text": "Se você tem o seu front end aqui, né? Se",
+      "duration": 3601,
+      "offset": 173319
+    },
+    {
+      "text": "o front end faz um request pro seu back",
+      "duration": 5159,
+      "offset": 175080
+    },
+    {
+      "text": "end, esse request aqui vai ser um tipo",
+      "duration": 5080,
+      "offset": 176920
+    },
+    {
+      "text": "um post, né? Vou criar um usuário aqui",
+      "duration": 3761,
+      "offset": 180239
+    },
+    {
+      "text": "com um post e embaixo desse post eu vou",
+      "duration": 4680,
+      "offset": 182000
+    },
+    {
+      "text": "ter um JSON. O JSON ele não é uma DTO,",
+      "duration": 4519,
+      "offset": 184000
+    },
+    {
+      "text": "ele não é um objeto, ele é um Jon. Esse",
+      "duration": 3279,
+      "offset": 186680
+    },
+    {
+      "text": "Jason eu posso mandar o que eu quiser,",
+      "duration": 2921,
+      "offset": 188519
+    },
+    {
+      "text": "tá? Eu posso mandar qualquer coisa. O",
+      "duration": 3000,
+      "offset": 189959
+    },
+    {
+      "text": "backend vai validar se essa qualquer",
+      "duration": 2760,
+      "offset": 191440
+    },
+    {
+      "text": "coisa faz sentido ou não. Então eu posso",
+      "duration": 4161,
+      "offset": 192959
+    },
+    {
+      "text": "ter aqui ID 1 2 3 e eu posso ter e-mail",
+      "duration": 5080,
+      "offset": 194200
+    },
+    {
+      "text": "abc. Momento que esse post chega no meu",
+      "duration": 4240,
+      "offset": 197120
+    },
+    {
+      "text": "backend, eu vou ter uma classe aqui, uma",
+      "duration": 3959,
+      "offset": 199280
+    },
+    {
+      "text": "um objeto, uma stru, alguma coisa nesse",
+      "duration": 3720,
+      "offset": 201360
+    },
+    {
+      "text": "sentido, uma data class. No canal eu",
+      "duration": 3360,
+      "offset": 203239
+    },
+    {
+      "text": "sempre falo isso, tá? O importante não é",
+      "duration": 3120,
+      "offset": 205080
+    },
+    {
+      "text": "qual estrutura você vai usar, é você",
+      "duration": 3081,
+      "offset": 206599
+    },
+    {
+      "text": "entender a lógica por trás. E tanto faz,",
+      "duration": 3319,
+      "offset": 208200
+    },
+    {
+      "text": "cara. Não faço o menor pô, faz a menor",
+      "duration": 3279,
+      "offset": 209680
+    },
+    {
+      "text": "diferença é uma classe, se é uma data",
+      "duration": 3681,
+      "offset": 211519
+    },
+    {
+      "text": "classe, se é um tipo, se é um struct. Se",
+      "duration": 3840,
+      "offset": 212959
+    },
+    {
+      "text": "você entender o propósito do negócio, dá",
+      "duration": 2880,
+      "offset": 215200
+    },
+    {
+      "text": "tudo no mesmo. Então você vai ter aqui,",
+      "duration": 2841,
+      "offset": 216799
+    },
+    {
+      "text": "né, class, dentro da sua class, você vai",
+      "duration": 3239,
+      "offset": 218080
+    },
+    {
+      "text": "ter o ID, que é de um tipo, você vai ter",
+      "duration": 3239,
+      "offset": 219640
+    },
+    {
+      "text": "o e-mail, que é de um tipo e você vai",
+      "duration": 4041,
+      "offset": 221319
+    },
+    {
+      "text": "instanciar esse objeto através dos dados",
+      "duration": 5201,
+      "offset": 222879
+    },
+    {
+      "text": "que vieram no request. Aí, cara, um",
+      "duration": 3959,
+      "offset": 225360
+    },
+    {
+      "text": "negócio interessante que é o seguinte,",
+      "duration": 3159,
+      "offset": 228080
+    },
+    {
+      "text": "né? Pode ser que aquelas não tem ID e a",
+      "duration": 3401,
+      "offset": 229319
+    },
+    {
+      "text": "gente tem uma validação falando: &quot;Pô,",
+      "duration": 3481,
+      "offset": 231239
+    },
+    {
+      "text": "você mandou um ID, é, não é para ter,",
+      "duration": 3359,
+      "offset": 232720
+    },
+    {
+      "text": "então a gente pode negar esse request&quot;.",
+      "duration": 3280,
+      "offset": 234720
+    },
+    {
+      "text": "Ou então o e-mail aqui, né? Percebe, um",
+      "duration": 3321,
+      "offset": 236079
+    },
+    {
+      "text": "e-mail ABC. Isso aqui não é um e-mail",
+      "duration": 2799,
+      "offset": 238000
+    },
+    {
+      "text": "válido. A gente pode ter uma validação",
+      "duration": 3320,
+      "offset": 239400
+    },
+    {
+      "text": "nesse e-mail também para falar: &quot;Cara, o",
+      "duration": 3640,
+      "offset": 240799
+    },
+    {
+      "text": "e-mail não é válido, não deu para criar",
+      "duration": 3840,
+      "offset": 242720
+    },
+    {
+      "text": "dto request volta&quot;. Dá aí um erro, dá um",
+      "duration": 3841,
+      "offset": 244439
+    },
+    {
+      "text": "400, um erro que você quiser. Isso",
+      "duration": 3599,
+      "offset": 246560
+    },
+    {
+      "text": "também pode existir entre serviços",
+      "duration": 3480,
+      "offset": 248280
+    },
+    {
+      "text": "dentro do seu próprio backend, né? Se",
+      "duration": 3640,
+      "offset": 250159
+    },
+    {
+      "text": "você tiver um serviço aqui de users e",
+      "duration": 3800,
+      "offset": 251760
+    },
+    {
+      "text": "você tiver um outro serviço aqui de, sei",
+      "duration": 3801,
+      "offset": 253799
+    },
+    {
+      "text": "lá, cars, né? Carros, esses dois",
+      "duration": 5359,
+      "offset": 255560
+    },
+    {
+      "text": "serviços vão se comunicar através de DTO",
+      "duration": 4920,
+      "offset": 257600
+    },
+    {
+      "text": "ou algo que se assemele uma DTO. Você",
+      "duration": 3041,
+      "offset": 260919
+    },
+    {
+      "text": "pode falar: &quot;Pô, eu trabalho numa",
+      "duration": 3000,
+      "offset": 262520
+    },
+    {
+      "text": "linguagem funcional. A linguagem",
+      "duration": 3799,
+      "offset": 263960
+    },
+    {
+      "text": "funcional não é orientada objetos, né?",
+      "duration": 4399,
+      "offset": 265520
+    },
+    {
+      "text": "Data transport Object. A minha linguagem",
+      "duration": 4000,
+      "offset": 267759
+    },
+    {
+      "text": "não é orientada a objetos novamente. Não",
+      "duration": 4280,
+      "offset": 269919
+    },
+    {
+      "text": "importa. É um namespace que vai validar",
+      "duration": 4961,
+      "offset": 271759
+    },
+    {
+      "text": "dados. É isso. É, é um namees, tipo, uma",
+      "duration": 5201,
+      "offset": 274199
+    },
+    {
+      "text": "coisa que tem atributos e nomes e",
+      "duration": 4479,
+      "offset": 276720
+    },
+    {
+      "text": "possivelmente validação. Talvez algumas",
+      "duration": 3200,
+      "offset": 279400
+    },
+    {
+      "text": "regras para fazer transformação,",
+      "duration": 3801,
+      "offset": 281199
+    },
+    {
+      "text": "seralização e tal para facilitar ali.",
+      "duration": 4560,
+      "offset": 282600
+    },
+    {
+      "text": "Mas é isso, cara. É a coisa mais simples",
+      "duration": 4000,
+      "offset": 285000
+    },
+    {
+      "text": "do mundo, tá? Por que que uma DTO é",
+      "duration": 2960,
+      "offset": 287160
+    },
+    {
+      "text": "importante então, né? Por que que a",
+      "duration": 2320,
+      "offset": 289000
+    },
+    {
+      "text": "gente fala de DTO? Por que que a gente",
+      "duration": 3200,
+      "offset": 290120
+    },
+    {
+      "text": "tá explicando isso daqui? que cara, se",
+      "duration": 4400,
+      "offset": 291320
+    },
+    {
+      "text": "eu pegar e eu simplesmente aceitar o que",
+      "duration": 4439,
+      "offset": 293320
+    },
+    {
+      "text": "vem nesse post aqui e eu criar essa",
+      "duration": 3800,
+      "offset": 295720
+    },
+    {
+      "text": "entidade no meu banco de dados, pô, pode",
+      "duration": 3000,
+      "offset": 297759
+    },
+    {
+      "text": "dar um erro, pode ter uma",
+      "duration": 3440,
+      "offset": 299520
+    },
+    {
+      "text": "inconsistência, né? E se eu não fizer a",
+      "duration": 4241,
+      "offset": 300759
+    },
+    {
+      "text": "comunicação entre os meus serviços",
+      "duration": 4600,
+      "offset": 302960
+    },
+    {
+      "text": "através de algum tipo de contrato ou",
+      "duration": 5000,
+      "offset": 305000
+    },
+    {
+      "text": "interface ou algum padrão, eles vão",
+      "duration": 4400,
+      "offset": 307560
+    },
+    {
+      "text": "ficar o que a gente chama de fortemente",
+      "duration": 4160,
+      "offset": 310000
+    },
+    {
+      "text": "acoplados. Se você não transportar os",
+      "duration": 3360,
+      "offset": 311960
+    },
+    {
+      "text": "seus dados de um lado para outro, de uma",
+      "duration": 2960,
+      "offset": 314160
+    },
+    {
+      "text": "maneira coesa, eles vão cada vez mais",
+      "duration": 3360,
+      "offset": 315320
+    },
+    {
+      "text": "próximos um do outro. Vai ficar uma",
+      "duration": 3519,
+      "offset": 317120
+    },
+    {
+      "text": "maçaroca, tá? você vai ter o usuário",
+      "duration": 3480,
+      "offset": 318680
+    },
+    {
+      "text": "chamando o método lá do carro e",
+      "duration": 3000,
+      "offset": 320639
+    },
+    {
+      "text": "passando, enfim, não vai ficar legal. E",
+      "duration": 2879,
+      "offset": 322160
+    },
+    {
+      "text": "se você é um programador com bastante",
+      "duration": 3120,
+      "offset": 323639
+    },
+    {
+      "text": "experiência, você provavelmente faz isso",
+      "duration": 3521,
+      "offset": 325039
+    },
+    {
+      "text": "de maneira intuitiva já, tá? Você pode",
+      "duration": 3241,
+      "offset": 326759
+    },
+    {
+      "text": "nem saber o que que é uma DTO e você",
+      "duration": 3160,
+      "offset": 328560
+    },
+    {
+      "text": "talvez já faça. Isso, era o meu caso,",
+      "duration": 3039,
+      "offset": 330000
+    },
+    {
+      "text": "tá? Eu não sabia o que que era uma DTO,",
+      "duration": 3120,
+      "offset": 331720
+    },
+    {
+      "text": "eu já usava. É bom também para uma certa",
+      "duration": 3481,
+      "offset": 333039
+    },
+    {
+      "text": "validação. É, pô, a gente já falou de",
+      "duration": 2639,
+      "offset": 334840
+    },
+    {
+      "text": "validação, né? Para uma certa",
+      "duration": 2720,
+      "offset": 336520
+    },
+    {
+      "text": "consistência, eu quero dizer nos dados.",
+      "duration": 3720,
+      "offset": 337479
+    },
+    {
+      "text": "Imagina que você vai fazer um post, né?",
+      "duration": 3920,
+      "offset": 339240
+    },
+    {
+      "text": "Você vai criar um usuário. Ao criar um",
+      "duration": 4000,
+      "offset": 341199
+    },
+    {
+      "text": "usuário, é enviado então um password.",
+      "duration": 3280,
+      "offset": 343160
+    },
+    {
+      "text": "Geralmente, né? Você vai ter o password",
+      "duration": 3840,
+      "offset": 345199
+    },
+    {
+      "text": "aqui, 1 2 3. Esse password vai lá pro",
+      "duration": 4640,
+      "offset": 346440
+    },
+    {
+      "text": "banco de dados, certo? Eu vou criar o",
+      "duration": 3521,
+      "offset": 349039
+    },
+    {
+      "text": "usuário com esse password. Cria aqui,",
+      "duration": 3600,
+      "offset": 351080
+    },
+    {
+      "text": "né? Você vai fazer um uma criptografia,",
+      "duration": 3880,
+      "offset": 352560
+    },
+    {
+      "text": "vai criptografar esse usuário, mas",
+      "duration": 3600,
+      "offset": 354680
+    },
+    {
+      "text": "eventualmente ele volta pro banco de",
+      "duration": 3759,
+      "offset": 356440
+    },
+    {
+      "text": "dados, ele volta com o password, ele",
+      "duration": 3440,
+      "offset": 358280
+    },
+    {
+      "text": "provavelmente volta com o password.",
+      "duration": 3521,
+      "offset": 360199
+    },
+    {
+      "text": "Então você vai ter uma classe aqui que",
+      "duration": 3840,
+      "offset": 361720
+    },
+    {
+      "text": "não vai deixar transparecer esse",
+      "duration": 3759,
+      "offset": 363720
+    },
+    {
+      "text": "usuário, esse password, né, para todo",
+      "duration": 3600,
+      "offset": 365560
+    },
+    {
+      "text": "mundo. Você vai fazer uma classe que é,",
+      "duration": 4921,
+      "offset": 367479
+    },
+    {
+      "text": "pô, sei lá, create user response, algo",
+      "duration": 5560,
+      "offset": 369160
+    },
+    {
+      "text": "nesse sentido que vai passar o ID, né?",
+      "duration": 3519,
+      "offset": 372400
+    },
+    {
+      "text": "geralmente é o mais importante que a",
+      "duration": 2520,
+      "offset": 374720
+    },
+    {
+      "text": "gente quer saber, porque quando a gente",
+      "duration": 2881,
+      "offset": 375919
+    },
+    {
+      "text": "cria uma entidade, a gente quer saber o",
+      "duration": 3920,
+      "offset": 377240
+    },
+    {
+      "text": "ID, o e-mail, talvez o nome assim, tá? E",
+      "duration": 5040,
+      "offset": 378800
+    },
+    {
+      "text": "tá bom. E ao instanciar isso daqui, né,",
+      "duration": 4920,
+      "offset": 381160
+    },
+    {
+      "text": "essa classe create user response com os",
+      "duration": 4639,
+      "offset": 383840
+    },
+    {
+      "text": "dados que voltaram do banco de dados,",
+      "duration": 4600,
+      "offset": 386080
+    },
+    {
+      "text": "mesmo que eu tente criar a response com",
+      "duration": 4280,
+      "offset": 388479
+    },
+    {
+      "text": "o password, ele não vai ser criado",
+      "duration": 4799,
+      "offset": 390680
+    },
+    {
+      "text": "porque esse objeto aqui não tem espaço",
+      "duration": 4681,
+      "offset": 392759
+    },
+    {
+      "text": "para ter, né? Não tem o atributo",
+      "duration": 3761,
+      "offset": 395479
+    },
+    {
+      "text": "password. Isso vai proteger, que a gente",
+      "duration": 4199,
+      "offset": 397440
+    },
+    {
+      "text": "vaza informações desnecessárias. também",
+      "duration": 4280,
+      "offset": 399240
+    },
+    {
+      "text": "vai ser um pouco mais fácil testar as",
+      "duration": 3241,
+      "offset": 401639
+    },
+    {
+      "text": "coisas, porque eu sei exatamente o que",
+      "duration": 3119,
+      "offset": 403520
+    },
+    {
+      "text": "que é esperado na na entrada e na saída",
+      "duration": 3640,
+      "offset": 404880
+    },
+    {
+      "text": "dos meus sistemas, tá? Na prática, como",
+      "duration": 3280,
+      "offset": 406639
+    },
+    {
+      "text": "que isso aqui se parece? Trazendo do",
+      "duration": 2959,
+      "offset": 408520
+    },
+    {
+      "text": "Python, tá? Python é uma das linguagens",
+      "duration": 3921,
+      "offset": 409919
+    },
+    {
+      "text": "que é bastante vantajoso falar disso por",
+      "duration": 4481,
+      "offset": 411479
+    },
+    {
+      "text": "causa da tipagem de Python, né? Como",
+      "duration": 4280,
+      "offset": 413840
+    },
+    {
+      "text": "Python não vai te obrigar a definir",
+      "duration": 4000,
+      "offset": 415960
+    },
+    {
+      "text": "muito bem os tipos, a gente pode",
+      "duration": 3280,
+      "offset": 418120
+    },
+    {
+      "text": "proativamente fazer isso e geralmente é",
+      "duration": 3040,
+      "offset": 419960
+    },
+    {
+      "text": "uma prática legal. Então, na entrada",
+      "duration": 4000,
+      "offset": 421400
+    },
+    {
+      "text": "você pode validar aqui usando PIDIC. É",
+      "duration": 4560,
+      "offset": 423000
+    },
+    {
+      "text": "uma das libs mais populares para se",
+      "duration": 4239,
+      "offset": 425400
+    },
+    {
+      "text": "fazer isso, tá? Inclusive, se você usar",
+      "duration": 4199,
+      "offset": 427560
+    },
+    {
+      "text": "fast JPI, você consegue validar o input",
+      "duration": 4361,
+      "offset": 429639
+    },
+    {
+      "text": "com o Pentic ali. Fica bem legal, tá? O",
+      "duration": 4241,
+      "offset": 431759
+    },
+    {
+      "text": "formato bem bacana. E o Pentic já te dá",
+      "duration": 3560,
+      "offset": 434000
+    },
+    {
+      "text": "até aqui, por exemplo, e-mail string,",
+      "duration": 3400,
+      "offset": 436000
+    },
+    {
+      "text": "né? Que vai fazer aquilo que eu falei de",
+      "duration": 4000,
+      "offset": 437560
+    },
+    {
+      "text": "falar: &quot;Pô, esse e-mail aqui ABC não é",
+      "duration": 4600,
+      "offset": 439400
+    },
+    {
+      "text": "válido. Pent já pode te dar isso daí&quot;.",
+      "duration": 3520,
+      "offset": 441560
+    },
+    {
+      "text": "Percebe, né? Que aqui a gente tem a",
+      "duration": 3280,
+      "offset": 444000
+    },
+    {
+      "text": "criação do usuário com um password, sem",
+      "duration": 3760,
+      "offset": 445080
+    },
+    {
+      "text": "um ID, porque quando o front change cria",
+      "duration": 2919,
+      "offset": 447280
+    },
+    {
+      "text": "um usuário, ele não manda o ID pro",
+      "duration": 3560,
+      "offset": 448840
+    },
+    {
+      "text": "backend, ele não sabe o ID do backend. E",
+      "duration": 4720,
+      "offset": 450199
+    },
+    {
+      "text": "na volta, sem o password, mas com o ID.",
+      "duration": 4000,
+      "offset": 452400
+    },
+    {
+      "text": "São duas classes diferentes, dois",
+      "duration": 3280,
+      "offset": 454919
+    },
+    {
+      "text": "objetos de transporte de dados",
+      "duration": 3799,
+      "offset": 456400
+    },
+    {
+      "text": "diferentes. Uma maneira errada de se",
+      "duration": 4081,
+      "offset": 458199
+    },
+    {
+      "text": "fazer isso seria eu fazer a validação no",
+      "duration": 4761,
+      "offset": 460199
+    },
+    {
+      "text": "fronte, enviar um JSON e utilizar disso",
+      "duration": 3919,
+      "offset": 462280
+    },
+    {
+      "text": "aqui, ó. Isso aqui é jangle, tá?",
+      "duration": 2840,
+      "offset": 464960
+    },
+    {
+      "text": "User.obobs.create.",
+      "duration": 3761,
+      "offset": 466199
+    },
+    {
+      "text": "Cria aí com o que tiver no bar do post.",
+      "duration": 4040,
+      "offset": 467800
+    },
+    {
+      "text": "Não fica legal. Você não sabe",
+      "duration": 3600,
+      "offset": 469960
+    },
+    {
+      "text": "necessariamente se você não validou no",
+      "duration": 2880,
+      "offset": 471840
+    },
+    {
+      "text": "backend o que que foi enviado naquele",
+      "duration": 2199,
+      "offset": 473560
+    },
+    {
+      "text": "post. Pode ter um monte de coisa",
+      "duration": 2720,
+      "offset": 474720
+    },
+    {
+      "text": "maliciosa aí no meio, tá? Ou um monte de",
+      "duration": 2761,
+      "offset": 475759
+    },
+    {
+      "text": "coisa que não faz sentido, que não foi",
+      "duration": 3000,
+      "offset": 477440
+    },
+    {
+      "text": "validada. A gente tá se expondo aqui a",
+      "duration": 3920,
+      "offset": 478520
+    },
+    {
+      "text": "riscos desnecessários em termos de",
+      "duration": 3960,
+      "offset": 480440
+    },
+    {
+      "text": "validação, em termos de consistência.",
+      "duration": 3360,
+      "offset": 482440
+    },
+    {
+      "text": "Você pode até pensar, né, pô galego, mas",
+      "duration": 3600,
+      "offset": 484400
+    },
+    {
+      "text": "o jungle vai me prevenir de um SK",
+      "duration": 3880,
+      "offset": 485800
+    },
+    {
+      "text": "injection, né? Vai, ele vai te prevenir",
+      "duration": 3919,
+      "offset": 488000
+    },
+    {
+      "text": "de um SK injection, mas, pô, de repente,",
+      "duration": 4120,
+      "offset": 489680
+    },
+    {
+      "text": "se eu só mandar no meu no meu request,",
+      "duration": 3400,
+      "offset": 491919
+    },
+    {
+      "text": "né, eu tenho ali o meu Jason, eu criei o",
+      "duration": 3040,
+      "offset": 493800
+    },
+    {
+      "text": "meu usuário, eu vou mandar aqui só de",
+      "duration": 3560,
+      "offset": 495319
+    },
+    {
+      "text": "zoeira, campo is admin igual a true.",
+      "duration": 3319,
+      "offset": 496840
+    },
+    {
+      "text": "Cara, se no seu banco de dados tiver um",
+      "duration": 3481,
+      "offset": 498879
+    },
+    {
+      "text": "campo is admin e eu pudesse setar ele",
+      "duration": 4160,
+      "offset": 500159
+    },
+    {
+      "text": "como true, esse código aqui embaixo vai",
+      "duration": 3760,
+      "offset": 502360
+    },
+    {
+      "text": "setar o meu usuário como admin. Se eu",
+      "duration": 2921,
+      "offset": 504319
+    },
+    {
+      "text": "não fiz nenhuma validação antes, isso",
+      "duration": 2799,
+      "offset": 506120
+    },
+    {
+      "text": "que vai passar, vai rodar. Então, né,",
+      "duration": 3679,
+      "offset": 507240
+    },
+    {
+      "text": "Dtozinho aqui, exemplozinho aqui em",
+      "duration": 3920,
+      "offset": 508919
+    },
+    {
+      "text": "jungle, não, não estamos mais no F shape",
+      "duration": 3441,
+      "offset": 510919
+    },
+    {
+      "text": "com Pentic. Agora a gente tá em jungle",
+      "duration": 5361,
+      "offset": 512839
+    },
+    {
+      "text": "utilizando uma data class,",
+      "duration": 5599,
+      "offset": 514360
+    },
+    {
+      "text": "né? O que acontece se eu alguém tentar",
+      "duration": 3639,
+      "offset": 518200
+    },
+    {
+      "text": "mandar o is admin true. Quando eu",
+      "duration": 4000,
+      "offset": 519959
+    },
+    {
+      "text": "instanciar essa classe, como ela não tem",
+      "duration": 5321,
+      "offset": 521839
+    },
+    {
+      "text": "o atributo is admin, né? Ele não vai ser",
+      "duration": 5320,
+      "offset": 523959
+    },
+    {
+      "text": "criado, ele não vai, tipo, não vai. Você",
+      "duration": 3520,
+      "offset": 527160
+    },
+    {
+      "text": "pode fazer o DTO aqui com go leng",
+      "duration": 3481,
+      "offset": 529279
+    },
+    {
+      "text": "também, tá? Utilizando um struct. Isso",
+      "duration": 3920,
+      "offset": 530680
+    },
+    {
+      "text": "aqui é só para te mostrar que, cara, não",
+      "duration": 5079,
+      "offset": 532760
+    },
+    {
+      "text": "é nada demais. É um struct, é uma data",
+      "duration": 5560,
+      "offset": 534600
+    },
+    {
+      "text": "class, é uma classe do pent. É o que",
+      "duration": 4041,
+      "offset": 537839
+    },
+    {
+      "text": "você quiser que seja. Você pode fazer",
+      "duration": 4160,
+      "offset": 540160
+    },
+    {
+      "text": "um, como é que chama aquele da tupla?",
+      "duration": 4399,
+      "offset": 541880
+    },
+    {
+      "text": "Named tuple. Nameed tuple. Você não vai",
+      "duration": 4280,
+      "offset": 544320
+    },
+    {
+      "text": "conseguir fazer a validação nela per, eu",
+      "duration": 4921,
+      "offset": 546279
+    },
+    {
+      "text": "acho. Mas sinceramente doo é o conceito",
+      "duration": 4200,
+      "offset": 548600
+    },
+    {
+      "text": "mais simples que tem, tá? Mantém ela",
+      "duration": 3759,
+      "offset": 551200
+    },
+    {
+      "text": "simples. Não coloca lógica de negócio na",
+      "duration": 4120,
+      "offset": 552800
+    },
+    {
+      "text": "DTO, não é bom. Você pode fazer versões",
+      "duration": 4241,
+      "offset": 554959
+    },
+    {
+      "text": "diferentes de DTO, tá? Conforme a API",
+      "duration": 3919,
+      "offset": 556920
+    },
+    {
+      "text": "vai evoluindo, você vai ter geralmente a",
+      "duration": 3879,
+      "offset": 559200
+    },
+    {
+      "text": "V1, V2, AV3. Você pode ter também a V1,",
+      "duration": 5161,
+      "offset": 560839
+    },
+    {
+      "text": "V2, V3 dos inputs e outputs, tá? E é bom",
+      "duration": 5440,
+      "offset": 563079
+    },
+    {
+      "text": "lembrar que ela é para ser sobre",
+      "duration": 4560,
+      "offset": 566000
+    },
+    {
+      "text": "transporte de dados. ela não",
+      "duration": 3880,
+      "offset": 568519
+    },
+    {
+      "text": "necessariamente é o modelo interno da",
+      "duration": 3279,
+      "offset": 570560
+    },
+    {
+      "text": "sua aplicação, tá? São coisas",
+      "duration": 3841,
+      "offset": 572399
+    },
+    {
+      "text": "diferentes. Se eu começar a conflitar as",
+      "duration": 4721,
+      "offset": 573839
+    },
+    {
+      "text": "minhas DTOs com a lógica do negócio, com",
+      "duration": 4800,
+      "offset": 576240
+    },
+    {
+      "text": "o modelo interno da aplicação, eu começo",
+      "duration": 5600,
+      "offset": 578560
+    },
+    {
+      "text": "a perder a minha modularidade. Eu não tô",
+      "duration": 5160,
+      "offset": 581040
+    },
+    {
+      "text": "mais isolando o que aquilo que é",
+      "duration": 4359,
+      "offset": 584160
+    },
+    {
+      "text": "isolado, né? Eu vou est, por exemplo,",
+      "duration": 5480,
+      "offset": 586200
+    },
+    {
+      "text": "vazando o modelo de negócio aqui do do",
+      "duration": 5560,
+      "offset": 588519
+    },
+    {
+      "text": "carro, eu vou est vazando isso para cá e",
+      "duration": 3440,
+      "offset": 591680
+    },
+    {
+      "text": "eu vou estar vazando isso,",
+      "duration": 2481,
+      "offset": 594079
+    },
+    {
+      "text": "provavelmente, né, pro banco de dados",
+      "duration": 3719,
+      "offset": 595120
+    },
+    {
+      "text": "também. De modo que se algo for mudado",
+      "duration": 4000,
+      "offset": 596560
+    },
+    {
+      "text": "aqui dentro, eu vou quebrar tudo em",
+      "duration": 3680,
+      "offset": 598839
+    },
+    {
+      "text": "todos os lados. Você quer ter geralmente",
+      "duration": 4360,
+      "offset": 600560
+    },
+    {
+      "text": "essas barreiras de contrato aqui que vão",
+      "duration": 3760,
+      "offset": 602519
+    },
+    {
+      "text": "te dar a modularidade, né? Vão te dar",
+      "duration": 3120,
+      "offset": 604920
+    },
+    {
+      "text": "ali o Legozinho que você vai conseguir",
+      "duration": 3921,
+      "offset": 606279
+    },
+    {
+      "text": "trocar uma única peça sem quebrar todo o",
+      "duration": 3919,
+      "offset": 608040
+    },
+    {
+      "text": "resto. Essa é a ideia por trás do T, tá?",
+      "duration": 4360,
+      "offset": 610200
+    },
+    {
+      "text": "Não passa de nada além da gente querer",
+      "duration": 4880,
+      "offset": 611959
+    },
+    {
+      "text": "desacoplar as coisas e combinar num",
+      "duration": 3519,
+      "offset": 614560
+    },
+    {
+      "text": "contrato ali do que que vai de um lado",
+      "duration": 4321,
+      "offset": 616839
+    },
+    {
+      "text": "pro outro. Super simples.",
+      "duration": 3081,
+      "offset": 618079
+    }
+  ],
+  "transcriptText": "Pô, eu vou ser bem sincero aqui com vocês, que o vídeo de hoje é bastante simples, tá? A gente vai falar sobre DTO, Data Transfer Object, que é um nome complexo para algo que quase todos nós fazemos em alguma forma ou outra, né? Isso aqui nada passa de que uma validação, a criação de um objeto, né? A criação e validação de um objeto para transmitir informações de um lado pro outro ou pro input da sua aplicação ou output da sua aplicação ou entre serviços dentro da sua aplicação. Não passa disso. A gente vai explicar o que que é uma DTO. Vamos mostrar uns exemplos práticos e é super simples. Outra coisa que é super simples é a patrocinadora do vídeo de hoje, que é a abai. Com apenas $10 por mês, você tem acesso ao chat com LLMs. Com todas as LLMs. Você pode usar o chat GPT 5.1, que geralmente é pago e caro na Open AI, o Gemini 2.5 Pro, o Grock 4, né? Modelos que geralmente o GPT5 com Codex, né? Bem bacana. Modelos que são geralmente pagos, né? E caros ali ficam escondid escondidos atrás de subscriptions ou então, né? via API. E você pode usar eles para gerar PowerPoint, para gerar imagens, para gerar código, para usar o deep Research, né, que faz pesquisas na internet e tal. É bem bacana. A Bocus te dá isso daí, tá? O chat com todas as I te dá a ideia deles que tem IA integrada, tem agentes de A que você pode pedir paraa gente fazer implementa implementações no seu código, te dá também uma CLI, né, uma command line interface para pedir paraa fazer coisas. É parecido com o cloud code e te dá o Patient, que é um agente super poderoso no seu browser que faz várias coisas, inclusive MVPs. Esse aqui é o caso de MVP que eu fiz carinho, um único prompt, pedi para fazer um dashboard aqui de RH, ele fez aqui para mim, né? Eu posso solicitar time off, eu posso dizer: &quot;Pô, tô doente de tal dia até tal dia.&quot; A ideia aqui é fazer um um MVP, né, de algo que as empresas poderiam usar. Nesse caso aqui foi um portalzinho de RG super simples. Ó, ele até negou meu request porque tá insuficiente aqui o balanço de dias. Eu não posso ficar tantos dias doente. Então tá. Então vou ficar menos dias doente. Agora foi, ó. Agora tá certo. Essa é a abacus. Clica no link na descrição. Vem para abbacos por apenas por mês, né? Hoje em dia tá custando uns R$ 52, acredito. Vamos lá, cara. O que que é uma dó? DTO e data transport object, tá? Eh, um objeto por assim, eh, eu aprendi o que que é DTO recentemente, mas eu já usava DTO, eu só não conhecia esse nome. E o conhecer o nome percante você entender o por que tá aqui, né? O por que a gente usa isso, qual que é a ideia de uma DTO. As características de uma DTO são geralmente o seguinte: você não vai concentrar a lógica do negócio na sua DTO. Não é o intuito de uma DTO concentrar a lógica do seu negócio. Geralmente ela é imutável, costuma ser uma boa prática fazer DTO imutáveis. Ah, galego, mas eu vou receber um usuário, esse usuário não vai ter ID. Aí eu vou criar o usuário no meu banco de dados. Quando eu criar ele no banco, ele vai receber um ID. Aí você faz duas DTOs diferentes, tá? Uma sem o ID e uma com o ID para você criar o objeto de novo. É uma prática um pouco melhor, na minha opinião. Doo é uma espécie de contrato, é um acordo do que que vai ser transportado. É interessante a gente pensar no DTO no da seguinte forma, tá? Se você tem o seu front end aqui, né? Se o front end faz um request pro seu back end, esse request aqui vai ser um tipo um post, né? Vou criar um usuário aqui com um post e embaixo desse post eu vou ter um JSON. O JSON ele não é uma DTO, ele não é um objeto, ele é um Jon. Esse Jason eu posso mandar o que eu quiser, tá? Eu posso mandar qualquer coisa. O backend vai validar se essa qualquer coisa faz sentido ou não. Então eu posso ter aqui ID 1 2 3 e eu posso ter e-mail abc. Momento que esse post chega no meu backend, eu vou ter uma classe aqui, uma um objeto, uma stru, alguma coisa nesse sentido, uma data class. No canal eu sempre falo isso, tá? O importante não é qual estrutura você vai usar, é você entender a lógica por trás. E tanto faz, cara. Não faço o menor pô, faz a menor diferença é uma classe, se é uma data classe, se é um tipo, se é um struct. Se você entender o propósito do negócio, dá tudo no mesmo. Então você vai ter aqui, né, class, dentro da sua class, você vai ter o ID, que é de um tipo, você vai ter o e-mail, que é de um tipo e você vai instanciar esse objeto através dos dados que vieram no request. Aí, cara, um negócio interessante que é o seguinte, né? Pode ser que aquelas não tem ID e a gente tem uma validação falando: &quot;Pô, você mandou um ID, é, não é para ter, então a gente pode negar esse request&quot;. Ou então o e-mail aqui, né? Percebe, um e-mail ABC. Isso aqui não é um e-mail válido. A gente pode ter uma validação nesse e-mail também para falar: &quot;Cara, o e-mail não é válido, não deu para criar dto request volta&quot;. Dá aí um erro, dá um 400, um erro que você quiser. Isso também pode existir entre serviços dentro do seu próprio backend, né? Se você tiver um serviço aqui de users e você tiver um outro serviço aqui de, sei lá, cars, né? Carros, esses dois serviços vão se comunicar através de DTO ou algo que se assemele uma DTO. Você pode falar: &quot;Pô, eu trabalho numa linguagem funcional. A linguagem funcional não é orientada objetos, né? Data transport Object. A minha linguagem não é orientada a objetos novamente. Não importa. É um namespace que vai validar dados. É isso. É, é um namees, tipo, uma coisa que tem atributos e nomes e possivelmente validação. Talvez algumas regras para fazer transformação, seralização e tal para facilitar ali. Mas é isso, cara. É a coisa mais simples do mundo, tá? Por que que uma DTO é importante então, né? Por que que a gente fala de DTO? Por que que a gente tá explicando isso daqui? que cara, se eu pegar e eu simplesmente aceitar o que vem nesse post aqui e eu criar essa entidade no meu banco de dados, pô, pode dar um erro, pode ter uma inconsistência, né? E se eu não fizer a comunicação entre os meus serviços através de algum tipo de contrato ou interface ou algum padrão, eles vão ficar o que a gente chama de fortemente acoplados. Se você não transportar os seus dados de um lado para outro, de uma maneira coesa, eles vão cada vez mais próximos um do outro. Vai ficar uma maçaroca, tá? você vai ter o usuário chamando o método lá do carro e passando, enfim, não vai ficar legal. E se você é um programador com bastante experiência, você provavelmente faz isso de maneira intuitiva já, tá? Você pode nem saber o que que é uma DTO e você talvez já faça. Isso, era o meu caso, tá? Eu não sabia o que que era uma DTO, eu já usava. É bom também para uma certa validação. É, pô, a gente já falou de validação, né? Para uma certa consistência, eu quero dizer nos dados. Imagina que você vai fazer um post, né? Você vai criar um usuário. Ao criar um usuário, é enviado então um password. Geralmente, né? Você vai ter o password aqui, 1 2 3. Esse password vai lá pro banco de dados, certo? Eu vou criar o usuário com esse password. Cria aqui, né? Você vai fazer um uma criptografia, vai criptografar esse usuário, mas eventualmente ele volta pro banco de dados, ele volta com o password, ele provavelmente volta com o password. Então você vai ter uma classe aqui que não vai deixar transparecer esse usuário, esse password, né, para todo mundo. Você vai fazer uma classe que é, pô, sei lá, create user response, algo nesse sentido que vai passar o ID, né? geralmente é o mais importante que a gente quer saber, porque quando a gente cria uma entidade, a gente quer saber o ID, o e-mail, talvez o nome assim, tá? E tá bom. E ao instanciar isso daqui, né, essa classe create user response com os dados que voltaram do banco de dados, mesmo que eu tente criar a response com o password, ele não vai ser criado porque esse objeto aqui não tem espaço para ter, né? Não tem o atributo password. Isso vai proteger, que a gente vaza informações desnecessárias. também vai ser um pouco mais fácil testar as coisas, porque eu sei exatamente o que que é esperado na na entrada e na saída dos meus sistemas, tá? Na prática, como que isso aqui se parece? Trazendo do Python, tá? Python é uma das linguagens que é bastante vantajoso falar disso por causa da tipagem de Python, né? Como Python não vai te obrigar a definir muito bem os tipos, a gente pode proativamente fazer isso e geralmente é uma prática legal. Então, na entrada você pode validar aqui usando PIDIC. É uma das libs mais populares para se fazer isso, tá? Inclusive, se você usar fast JPI, você consegue validar o input com o Pentic ali. Fica bem legal, tá? O formato bem bacana. E o Pentic já te dá até aqui, por exemplo, e-mail string, né? Que vai fazer aquilo que eu falei de falar: &quot;Pô, esse e-mail aqui ABC não é válido. Pent já pode te dar isso daí&quot;. Percebe, né? Que aqui a gente tem a criação do usuário com um password, sem um ID, porque quando o front change cria um usuário, ele não manda o ID pro backend, ele não sabe o ID do backend. E na volta, sem o password, mas com o ID. São duas classes diferentes, dois objetos de transporte de dados diferentes. Uma maneira errada de se fazer isso seria eu fazer a validação no fronte, enviar um JSON e utilizar disso aqui, ó. Isso aqui é jangle, tá? User.obobs.create. Cria aí com o que tiver no bar do post. Não fica legal. Você não sabe necessariamente se você não validou no backend o que que foi enviado naquele post. Pode ter um monte de coisa maliciosa aí no meio, tá? Ou um monte de coisa que não faz sentido, que não foi validada. A gente tá se expondo aqui a riscos desnecessários em termos de validação, em termos de consistência. Você pode até pensar, né, pô galego, mas o jungle vai me prevenir de um SK injection, né? Vai, ele vai te prevenir de um SK injection, mas, pô, de repente, se eu só mandar no meu no meu request, né, eu tenho ali o meu Jason, eu criei o meu usuário, eu vou mandar aqui só de zoeira, campo is admin igual a true. Cara, se no seu banco de dados tiver um campo is admin e eu pudesse setar ele como true, esse código aqui embaixo vai setar o meu usuário como admin. Se eu não fiz nenhuma validação antes, isso que vai passar, vai rodar. Então, né, Dtozinho aqui, exemplozinho aqui em jungle, não, não estamos mais no F shape com Pentic. Agora a gente tá em jungle utilizando uma data class, né? O que acontece se eu alguém tentar mandar o is admin true. Quando eu instanciar essa classe, como ela não tem o atributo is admin, né? Ele não vai ser criado, ele não vai, tipo, não vai. Você pode fazer o DTO aqui com go leng também, tá? Utilizando um struct. Isso aqui é só para te mostrar que, cara, não é nada demais. É um struct, é uma data class, é uma classe do pent. É o que você quiser que seja. Você pode fazer um, como é que chama aquele da tupla? Named tuple. Nameed tuple. Você não vai conseguir fazer a validação nela per, eu acho. Mas sinceramente doo é o conceito mais simples que tem, tá? Mantém ela simples. Não coloca lógica de negócio na DTO, não é bom. Você pode fazer versões diferentes de DTO, tá? Conforme a API vai evoluindo, você vai ter geralmente a V1, V2, AV3. Você pode ter também a V1, V2, V3 dos inputs e outputs, tá? E é bom lembrar que ela é para ser sobre transporte de dados. ela não necessariamente é o modelo interno da sua aplicação, tá? São coisas diferentes. Se eu começar a conflitar as minhas DTOs com a lógica do negócio, com o modelo interno da aplicação, eu começo a perder a minha modularidade. Eu não tô mais isolando o que aquilo que é isolado, né? Eu vou est, por exemplo, vazando o modelo de negócio aqui do do carro, eu vou est vazando isso para cá e eu vou estar vazando isso, provavelmente, né, pro banco de dados também. De modo que se algo for mudado aqui dentro, eu vou quebrar tudo em todos os lados. Você quer ter geralmente essas barreiras de contrato aqui que vão te dar a modularidade, né? Vão te dar ali o Legozinho que você vai conseguir trocar uma única peça sem quebrar todo o resto. Essa é a ideia por trás do T, tá? Não passa de nada além da gente querer desacoplar as coisas e combinar num contrato ali do que que vai de um lado pro outro. Super simples."
+}
