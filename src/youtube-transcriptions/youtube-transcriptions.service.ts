@@ -432,15 +432,15 @@ export class YoutubeTranscriptionsService {
       db.all(
         `SELECT
            id,
-           channel_id AS channelId,
-           channel_name AS channelName,
-           video_title AS videoTitle,
-           posted_at AS postedAt,
-           video_url AS videoUrl,
-           processed_at AS processedAt,
-           transcription_text AS transcriptionText,
-           transcription_summary AS transcriptionSummary,
-           thumbnail_url AS thumbnailUrl
+           channel_id AS "channelId",
+           channel_name AS "channelName",
+           video_title AS "videoTitle",
+           posted_at AS "postedAt",
+           video_url AS "videoUrl",
+           processed_at AS "processedAt",
+           transcription_text AS "transcriptionText",
+           transcription_summary AS "transcriptionSummary",
+           thumbnail_url AS "thumbnailUrl"
            FROM youtube_transcriptions
            ORDER BY processed_at DESC`,
         [],
@@ -539,15 +539,15 @@ export class YoutubeTranscriptionsService {
       const query = `
         SELECT
           id,
-          channel_id AS channelId,
-          channel_name AS channelName,
-          video_title AS videoTitle,
-          posted_at AS postedAt,
-          video_url AS videoUrl,
-          processed_at AS processedAt,
-          transcription_text AS transcriptionText,
-          transcription_summary AS transcriptionSummary,
-          thumbnail_url AS thumbnailUrl
+          channel_id AS "channelId",
+          channel_name AS "channelName",
+          video_title AS "videoTitle",
+          posted_at AS "postedAt",
+          video_url AS "videoUrl",
+          processed_at AS "processedAt",
+          transcription_text AS "transcriptionText",
+          transcription_summary AS "transcriptionSummary",
+          thumbnail_url AS "thumbnailUrl"
         FROM youtube_transcriptions
         WHERE id = ?
       `;
@@ -646,15 +646,15 @@ export class YoutubeTranscriptionsService {
       let query = `
         SELECT
           id,
-          channel_id AS channelId,
-          channel_name AS channelName,
-          video_title AS videoTitle,
-          posted_at AS postedAt,
-          video_url AS videoUrl,
-          processed_at AS processedAt,
-          transcription_text AS transcriptionText,
-          transcription_summary AS transcriptionSummary,
-          thumbnail_url AS thumbnailUrl
+          channel_id AS "channelId",
+          channel_name AS "channelName",
+          video_title AS "videoTitle",
+          posted_at AS "postedAt",
+          video_url AS "videoUrl",
+          processed_at AS "processedAt",
+          transcription_text AS "transcriptionText",
+          transcription_summary AS "transcriptionSummary",
+          thumbnail_url AS "thumbnailUrl"
         FROM youtube_transcriptions
         WHERE 1=1
       `;
