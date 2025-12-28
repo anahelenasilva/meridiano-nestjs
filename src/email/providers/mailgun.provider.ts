@@ -12,10 +12,10 @@ export class MailgunProvider implements EmailProvider {
 
   constructor() {
     const mailgun = new Mailgun(FormData);
-    const apiKey = process.env.MAILGUN_API_KEY || process.env.API_KEY;
+    const apiKey = process.env.MAILGUN_API_KEY;
 
     if (!apiKey) {
-      throw new Error('MAILGUN_API_KEY or API_KEY environment variable is required');
+      throw new Error('MAILGUN_API_KEY environment variable is required');
     }
 
     const domain = process.env.MAILGUN_DOMAIN;
@@ -49,11 +49,8 @@ export class MailgunProvider implements EmailProvider {
         from: options.from,
         to,
         subject: options.subject,
+        text: options.text
       };
-
-      if (options.text) {
-        mailgunOptions.text = options.text;
-      }
 
       if (cc && cc.length > 0) {
         mailgunOptions.cc = cc;
