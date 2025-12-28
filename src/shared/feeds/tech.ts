@@ -163,6 +163,14 @@ export const techRSSFeeds: RSSFeed[] = [
     category: 'tech',
     description:
       'InfoQ is a technology news website that covers the latest news and trends in the technology industry.',
+    enabled: false,
+  },
+  {
+    url: 'https://simonwillison.net/atom/everything/',
+    name: "Simon Willison's Weblog",
+    category: 'tech',
+    description:
+      'Simon Willison is a co-creator of the Django Web Framework, and has been blogging about web development and programming since 2002 at simonwillison.net',
     enabled: true,
   },
 ];
