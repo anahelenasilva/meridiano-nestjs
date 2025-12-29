@@ -6,21 +6,19 @@ import {
   NotFoundException,
   Param,
   ParseIntPipe,
-  Post,
-  Query,
+  Post
 } from '@nestjs/common';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
 import { CreateYoutubeTranscriptionDto } from './dto/create-youtube-transcription.dto';
-import type { PaginatedYoutubeTranscriptionInput } from './entities/youtube-transcription.entity';
 import { GetYoutubeChannelsQuery } from './queries/get-youtube-channels.query';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
-import { ListYoutubeTranscriptionsQuery } from './queries/list-youtube-transcriptions.query';
+import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
 
 @Controller('api/youtube')
 export class YoutubeTranscriptionsController {
   constructor(
-    private readonly listYoutubeTranscriptionsQuery: ListYoutubeTranscriptionsQuery,
+    private readonly listAllYoutubeTranscriptionsQuery: ListAllYoutubeTranscriptionsQuery,
     private readonly getYoutubeTranscriptionByIdQuery: GetYoutubeTranscriptionByIdQuery,
     private readonly deleteYoutubeTranscriptionCommand: DeleteYoutubeTranscriptionCommand,
     private readonly getYoutubeChannelsQuery: GetYoutubeChannelsQuery,
@@ -33,8 +31,8 @@ export class YoutubeTranscriptionsController {
   }
 
   @Get('transcriptions')
-  async listTranscriptions(@Query() input: PaginatedYoutubeTranscriptionInput) {
-    return await this.listYoutubeTranscriptionsQuery.execute(input);
+  async listTranscriptions() {
+    return await this.listAllYoutubeTranscriptionsQuery.execute();
   }
 
   @Post('transcriptions')

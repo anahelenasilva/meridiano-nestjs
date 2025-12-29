@@ -9,6 +9,7 @@ import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-tra
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
 import { GetYoutubeChannelsQuery } from './queries/get-youtube-channels.query';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
+import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
 import { ListYoutubeTranscriptionsQuery } from './queries/list-youtube-transcriptions.query';
 import { StorageService } from './storage.service';
 import { TranscriptService } from './transcript.service';
@@ -26,6 +27,7 @@ import { YouTubeService } from './youtube.service';
     AiService,
     ConfigService,
     ListYoutubeTranscriptionsQuery,
+    ListAllYoutubeTranscriptionsQuery,
     GetYoutubeTranscriptionByIdQuery,
     DeleteYoutubeTranscriptionCommand,
     GetYoutubeChannelsQuery,

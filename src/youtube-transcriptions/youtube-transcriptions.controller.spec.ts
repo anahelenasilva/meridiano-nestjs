@@ -5,13 +5,13 @@ import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-tra
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
 import { GetYoutubeChannelsQuery } from './queries/get-youtube-channels.query';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
-import { ListYoutubeTranscriptionsQuery } from './queries/list-youtube-transcriptions.query';
+import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
 import { YoutubeTranscriptionsController } from './youtube-transcriptions.controller';
 
 describe('YoutubeTranscriptionsController', () => {
   let controller: YoutubeTranscriptionsController;
 
-  const mockListYoutubeTranscriptionsQuery = mock<ListYoutubeTranscriptionsQuery>();
+  const mockListAllYoutubeTranscriptionsQuery = mock<ListAllYoutubeTranscriptionsQuery>();
   const mockGetYoutubeTranscriptionByIdQuery = mock<GetYoutubeTranscriptionByIdQuery>();
   const mockDeleteYoutubeTranscriptionCommand = mock<DeleteYoutubeTranscriptionCommand>();
   const mockGetYoutubeChannelsQuery = mock<GetYoutubeChannelsQuery>();
@@ -22,8 +22,8 @@ describe('YoutubeTranscriptionsController', () => {
       controllers: [YoutubeTranscriptionsController],
       providers: [
         {
-          provide: ListYoutubeTranscriptionsQuery,
-          useValue: mockListYoutubeTranscriptionsQuery,
+          provide: ListAllYoutubeTranscriptionsQuery,
+          useValue: mockListAllYoutubeTranscriptionsQuery,
         },
         {
           provide: GetYoutubeTranscriptionByIdQuery,
