@@ -596,7 +596,7 @@ export class ArticlesService {
           FROM articles
           WHERE feed_profile = ?
           AND id != ?
-          ORDER BY ABS(julianday(published_date) - julianday(?)) ASC
+          ORDER BY ABS(EXTRACT(epoch FROM (published_date - ?::timestamp))) ASC
           LIMIT ?
         `;
 
