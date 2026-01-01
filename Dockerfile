@@ -1,5 +1,5 @@
 # Backend Dockerfile for NestJS
-FROM node:18-alpine AS base
+FROM node:20-alpine AS builder
 
 # Install pnpm
 RUN npm install -g pnpm
@@ -27,7 +27,7 @@ RUN echo "=== Build output structure ===" && \
   test -f dist/src/main.js || test -f dist/main.js || (echo "ERROR: No main.js found in dist/src/ or dist/!" && exit 1)
 
 # Production stage
-FROM node:18-alpine AS production
+FROM node:20-alpine AS production
 
 # Install pnpm
 RUN npm install -g pnpm
@@ -40,8 +40,8 @@ COPY package.json pnpm-lock.yaml ./
 # Install only production dependencies
 RUN pnpm install --prod --frozen-lockfile
 
-# Copy built application from base stage
-COPY --from=base /app-meridian/dist ./dist
+# Copy built application from builder stage
+COPY --from=builder /app-meridian/dist ./dist
 
 # Verify dist was copied correctly and show structure
 RUN echo "=== Production stage dist contents ===" && \
@@ -59,5 +59,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
   CMD node -e "require('http').get('http://127.0.0.1:3005/api/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
 
 # Start the application
-CMD ["node", "dist/main.js"]
-
+CMD ["node", "dist/src/main.js"]
