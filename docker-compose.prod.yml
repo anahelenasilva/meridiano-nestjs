@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  meridian-postgres:
+    image: postgres:16-alpine
+    container_name: meridian-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - meridian_postgres_data:/var/lib/postgresql/data
+    networks:
+      - meridian-network
+
+  meridian-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: meridian-backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3005
+      DATABASE_HOST: meridian-postgres
+      DATABASE_PORT: 5432
+      DATABASE_USER: ${DB_USER}
+      DATABASE_PASSWORD: ${DB_PASSWORD}
+      DATABASE_NAME: ${DB_NAME}
+      CORS_ORIGINS: http://89.116.214.113
+    depends_on:
+      meridian-postgres:
+        condition: service_healthy
+    networks:
+      - meridian-network
+      - goal-tracker-network  # Share network with main nginx
+    healthcheck:
+      test: ['CMD', 'wget', '--quiet', '--tries=1', '--spider', 'http://127.0.0.1:3005/api/health']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  meridian-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: http://89.116.214.113/meridian-api
+    container_name: meridian-frontend
+    restart: unless-stopped
+    depends_on:
+      - meridian-backend
+    networks:
+      - meridian-network
+      - goal-tracker-network
+
+volumes:
+  meridian_postgres_data:
+
+networks:
+  meridian-network:
+    driver: bridge
+  goal-tracker-network:
+    external: true  # Use existing network from goal-tracker
