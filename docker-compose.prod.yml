@@ -55,13 +55,17 @@ services:
         NEXT_PUBLIC_API_BASE_URL: http://89.116.214.113/meridian-api
     container_name: meridian-frontend
     restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3006
+      NEXT_PUBLIC_API_BASE_URL: http://89.116.214.113/meridian-api
     depends_on:
       - meridian-backend
     networks:
       - meridian-network
       - goal-tracker-network
     healthcheck:
-      test: ['CMD', 'wget', '--quiet', '--tries=1', '--spider', 'http://127.0.0.1/meridian/']
+      test: ['CMD', 'wget', '--quiet', '--tries=1', '--spider', 'http://127.0.0.1:3006/meridian/']
       interval: 30s
       timeout: 3s
       retries: 3
