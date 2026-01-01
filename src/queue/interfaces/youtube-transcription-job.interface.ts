@@ -1,5 +1,5 @@
 export interface ProcessTranscriptionSummaryJobData {
-  transcriptionId: number;
+  transcriptionId: string;
   transcriptText: string;
   videoTitle: string;
 }

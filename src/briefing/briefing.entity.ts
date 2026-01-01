@@ -23,13 +23,13 @@ export interface BriefGenerationOptions {
 
 export interface SimpleBriefResult {
   success: boolean;
-  briefingId?: number;
+  briefingId?: string;
   content?: string;
   error?: string;
 }
 
 export interface RecentBriefingResult {
-  id: number;
+  id: string;
   content: string;
   articleCount: number;
   createdAt: Date;
@@ -48,7 +48,7 @@ export interface BriefingsPerDay {
 
 export interface GenerateBriefResult {
   success: boolean;
-  briefingId?: number;
+  briefingId?: string;
   content?: string;
   error?: string;
   stats?: {
@@ -59,7 +59,7 @@ export interface GenerateBriefResult {
 }
 
 export interface GetBriefByIdResult {
-  id: number;
+  id: string;
   brief_markdown: string;
   generated_at: Date;
   feed_profile: string;
@@ -75,7 +75,7 @@ export interface ProcessingStatsResult {
 }
 
 export interface BriefsMetadata {
-  id: number;
+  id: string;
   generated_at: Date;
   feed_profile: string;
 }

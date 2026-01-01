@@ -12,7 +12,7 @@ export class GenerateBriefInputDto {
 
 export interface GenerateBriefOutputDto {
   success: boolean;
-  briefingId?: number;
+  briefingId?: string;
   stats?: {
     articlesAnalyzed: number;
     clustersUsed: number;

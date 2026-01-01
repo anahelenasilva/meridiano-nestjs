@@ -9,7 +9,7 @@ import {
 } from './article.entity';
 
 interface ArticleRow {
-  id: number;
+  id: string;
   url: string;
   title: string;
   published_date: string;
@@ -42,7 +42,7 @@ export class ArticlesService {
     feedProfile: FeedProfile,
     imageUrl?: string,
     categories?: ArticleCategory[],
-  ): Promise<number | null> {
+  ): Promise<string | null> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
@@ -62,7 +62,7 @@ export class ArticlesService {
           imageUrl,
           categories ? JSON.stringify(categories) : null,
         ],
-        function (this: { lastID?: number }, err: Error | null) {
+        function (this: { lastID?: string }, err: Error | null) {
           if (err) {
             // Handle both SQLite and PostgreSQL unique constraint errors
             const errorWithCode = err as Error & { code?: string };
@@ -117,7 +117,7 @@ export class ArticlesService {
   }
 
   async updateArticleProcessing(
-    articleId: number,
+    articleId: string,
     processedContent: string,
     embedding: number[],
   ): Promise<void> {
@@ -209,7 +209,7 @@ export class ArticlesService {
   }
 
   async updateArticleRating(
-    articleId: number,
+    articleId: string,
     impactRating: number,
   ): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -233,7 +233,7 @@ export class ArticlesService {
   }
 
   async updateArticleCategories(
-    articleId: number,
+    articleId: string,
     categories: ArticleCategory[],
   ): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -296,7 +296,7 @@ export class ArticlesService {
     });
   }
 
-  async deleteArticleById(articleId: number): Promise<void> {
+  async deleteArticleById(articleId: string): Promise<void> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
       const stmt = db.prepare(`DELETE FROM articles WHERE id = ?`);
@@ -313,7 +313,7 @@ export class ArticlesService {
     });
   }
 
-  async getArticleById(articleId: number): Promise<DBArticle | null> {
+  async getArticleById(articleId: string): Promise<DBArticle | null> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
@@ -565,7 +565,7 @@ export class ArticlesService {
   }
 
   async getRelatedArticles(
-    articleId: number,
+    articleId: string,
     limit: number = 5,
   ): Promise<DBArticle[]> {
     return new Promise((resolve, reject) => {
@@ -631,7 +631,7 @@ export class ArticlesService {
   }
 
   async getUnprocessedArticleById(
-    articleId: number,
+    articleId: string,
   ): Promise<DBArticle | null> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
@@ -664,7 +664,7 @@ export class ArticlesService {
     });
   }
 
-  async getUnratedArticleById(articleId: number): Promise<DBArticle | null> {
+  async getUnratedArticleById(articleId: string): Promise<DBArticle | null> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
@@ -697,7 +697,7 @@ export class ArticlesService {
   }
 
   async getUncategorizedArticleById(
-    articleId: number,
+    articleId: string,
   ): Promise<DBArticle | null> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();

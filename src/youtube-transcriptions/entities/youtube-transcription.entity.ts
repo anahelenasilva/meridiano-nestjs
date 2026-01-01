@@ -1,5 +1,5 @@
 export interface DBYoutubeTranscription {
-  id: number;
+  id: string;
   channelId: string;
   channelName: string;
   videoTitle: string;
@@ -12,7 +12,7 @@ export interface DBYoutubeTranscription {
 }
 
 export interface YoutubeTranscription {
-  id: number;
+  id: string;
   channelId: string;
   channelName: string;
   videoTitle: string;

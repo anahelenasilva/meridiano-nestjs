@@ -11,7 +11,7 @@ export class GetYoutubeTranscriptionByIdQuery {
   constructor(private readonly service: YoutubeTranscriptionsService) {}
 
   async execute(
-    id: number,
+    id: string,
   ): Promise<GetYoutubeTranscriptionByIdResponse | null> {
     const transcription = await this.service.getTranscriptionById(id);
 

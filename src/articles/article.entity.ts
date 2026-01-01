@@ -40,7 +40,7 @@ export interface NewsCluster {
 }
 
 export interface DBArticle {
-  id: number;
+  id: string;
   url: string;
   title: string;
   published_date: Date;

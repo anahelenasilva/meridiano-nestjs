@@ -19,7 +19,7 @@ export class ProcessorService {
   async processArticles(
     feedProfile: FeedProfile,
     limit: number = 1000,
-    articleId?: number,
+    articleId?: string,
   ): Promise<ProcessingStats> {
     // console.log('\n--- Starting Article Processing ---');
 
@@ -116,7 +116,7 @@ export class ProcessorService {
   async rateArticles(
     feedProfile: FeedProfile,
     limit: number = 1000,
-    articleId?: number,
+    articleId?: string,
   ): Promise<ProcessingStats> {
     // console.log('\n--- Starting Article Impact Rating ---');
 
@@ -227,7 +227,7 @@ export class ProcessorService {
   async categorizeArticles(
     feedProfile: FeedProfile,
     limit: number = 1000,
-    articleId?: number,
+    articleId?: string,
   ): Promise<ProcessingStats> {
     // console.log('\n--- Starting Article Categorization ---');
 

@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
+import { Controller, Get, Param, ParseUUIDPipe, Query } from '@nestjs/common';
 import type { FeedProfile } from '../shared/types/feed';
 import { BriefingsService } from './briefings.service';
 import { ListBriefingsQuery } from './queries/list-briefings.query';
@@ -20,7 +20,7 @@ export class BriefingsController {
   }
 
   @Get(':id')
-  async getBriefing(@Param('id', ParseIntPipe) id: number) {
+  async getBriefing(@Param('id', ParseUUIDPipe) id: string) {
     const briefing = await this.briefingsService.getBriefById(id);
     if (!briefing) {
       return { error: 'Briefing not found' };

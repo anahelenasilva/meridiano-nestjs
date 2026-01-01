@@ -11,7 +11,7 @@ export class DeleteYoutubeTranscriptionCommand {
   constructor(private readonly service: YoutubeTranscriptionsService) { }
 
   async execute(
-    id: number,
+    id: string,
   ): Promise<DeleteYoutubeTranscriptionCommandResponse | null> {
     try {
       await this.service.delete(id);

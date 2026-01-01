@@ -8,7 +8,7 @@ export type CreateYoutubeTranscriptionCommandInput = {
 
 export type CreateYoutubeTranscriptionCommandResponse = {
   success: boolean;
-  transcriptionId?: number;
+  transcriptionId?: string;
   message: string;
 }
 

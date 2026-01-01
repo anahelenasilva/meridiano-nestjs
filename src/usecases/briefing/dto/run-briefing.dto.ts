@@ -29,7 +29,7 @@ export interface RunBriefingOutputDto {
     };
     briefGeneration: {
       success: boolean;
-      briefingId?: number;
+      briefingId?: string;
       stats?: {
         articlesAnalyzed: number;
         clustersUsed: number;
