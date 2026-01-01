@@ -59,4 +59,5 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
   CMD node -e "require('http').get('http://127.0.0.1:3005/api/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
 
 # Start the application
-CMD ["node", "dist/src/main.js"]
+# Try dist/src/main.js first (if sourceRoot is "src"), then dist/main.js
+CMD ["sh", "-c", "if [ -f dist/src/main.js ]; then node dist/src/main.js; elif [ -f dist/main.js ]; then node dist/main.js; else echo 'ERROR: main.js not found!' && ls -la dist/ && exit 1; fi"]
