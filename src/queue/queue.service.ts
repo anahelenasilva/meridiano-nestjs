@@ -13,7 +13,7 @@ import type { ProcessTranscriptionSummaryJobData } from './interfaces/youtube-tr
 export interface JobInfo {
   success: boolean;
   jobId: string;
-  articleId: number;
+  articleId: string;
   message: string;
 }
 
@@ -42,7 +42,7 @@ export class QueueService {
    * @returns Job information including job ID
    */
   async addArticleProcessingJob(
-    articleId: number,
+    articleId: string,
     feedProfile: FeedProfile,
   ): Promise<JobInfo> {
     const jobData: ProcessArticleJobData = {
@@ -68,7 +68,7 @@ export class QueueService {
    * @returns Job information including job ID
    */
   async addTranscriptionSummaryJob(
-    transcriptionId: number,
+    transcriptionId: string,
     transcriptText: string,
     videoTitle: string,
   ): Promise<JobInfo> {

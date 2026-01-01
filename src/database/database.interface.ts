@@ -1,6 +1,6 @@
 // Database connection interface that mimics SQLite API for compatibility
 export interface RunCallbackContext {
-  lastID?: number;
+  lastID?: string | number;
   changes?: number;
 }
 
@@ -29,6 +29,6 @@ export interface PreparedStatement {
 }
 
 export interface RunResult {
-  lastID?: number;
+  lastID?: string | number;
   changes?: number;
 }

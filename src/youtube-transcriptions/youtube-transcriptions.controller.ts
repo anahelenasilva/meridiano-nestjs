@@ -5,7 +5,7 @@ import {
   Get,
   NotFoundException,
   Param,
-  ParseIntPipe,
+  ParseUUIDPipe,
   Post
 } from '@nestjs/common';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
@@ -44,7 +44,7 @@ export class YoutubeTranscriptionsController {
   }
 
   @Get('transcriptions/:id')
-  async getTranscription(@Param('id', ParseIntPipe) id: number) {
+  async getTranscription(@Param('id', ParseUUIDPipe) id: string) {
     const data = await this.getYoutubeTranscriptionByIdQuery.execute(id);
 
     if (!data || !data.transcription) {
@@ -55,7 +55,7 @@ export class YoutubeTranscriptionsController {
   }
 
   @Delete('transcriptions/:id')
-  async delete(@Param('id', ParseIntPipe) id: number) {
+  async delete(@Param('id', ParseUUIDPipe) id: string) {
     const data = await this.deleteYoutubeTranscriptionCommand.execute(id);
     return data;
   }

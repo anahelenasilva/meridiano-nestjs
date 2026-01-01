@@ -45,7 +45,8 @@ class PostgresConnection implements DatabaseConnection {
         if (res) {
           // For INSERT with RETURNING, get the id from the first row
           if (isInsert && res.rows[0]?.id) {
-            result.lastID = Number(res.rows[0].id);
+            // Keep UUID as string, don't convert to number
+            result.lastID = String(res.rows[0].id);
           }
           result.changes = res.rowCount || 0;
         }
@@ -139,7 +140,8 @@ class PostgresPreparedStatement implements PreparedStatement {
         if (res) {
           // For INSERT with RETURNING, get the id from the first row
           if (isInsert && res.rows[0]?.id) {
-            result.lastID = Number(res.rows[0].id);
+            // Keep UUID as string, don't convert to number
+            result.lastID = String(res.rows[0].id);
           }
           result.changes = res.rowCount || 0;
         }

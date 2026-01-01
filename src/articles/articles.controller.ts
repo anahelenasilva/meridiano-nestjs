@@ -6,7 +6,7 @@ import {
   Get,
   NotFoundException,
   Param,
-  ParseIntPipe,
+  ParseUUIDPipe,
   Post,
   Query,
 } from '@nestjs/common';
@@ -86,7 +86,7 @@ export class ArticlesController {
   }
 
   @Get(':id')
-  async getArticle(@Param('id', ParseIntPipe) id: number) {
+  async getArticle(@Param('id', ParseUUIDPipe) id: string) {
     const data = await this.getArticleByIdQuery.execute(id);
 
     if (!data || !data.article) {
@@ -97,7 +97,7 @@ export class ArticlesController {
   }
 
   @Delete(':id')
-  async deleteArticle(@Param('id', ParseIntPipe) id: number) {
+  async deleteArticle(@Param('id', ParseUUIDPipe) id: string) {
     await this.articlesService.deleteArticleById(id);
     return { success: true };
   }

@@ -6,7 +6,7 @@ import { prepareArticleContent } from '../helpers/prepareArticleContent';
 export class GetArticleByIdQuery {
   constructor(private readonly service: ArticlesService) {}
 
-  async execute(articleId: number) {
+  async execute(articleId: string) {
     const article = await this.service.getArticleById(articleId);
 
     if (!article) {

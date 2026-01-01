@@ -8,7 +8,7 @@ import {
 } from '../briefing/briefing.entity';
 
 interface BriefingRow {
-  id: number;
+  id: string;
   generated_at: string;
   feed_profile: string;
   brief_markdown?: string;
@@ -28,9 +28,9 @@ export class BriefingsService {
 
   async saveBrief(
     content: string,
-    articleIds: number[],
+    articleIds: string[],
     feedProfile: FeedProfile,
-  ): Promise<number> {
+  ): Promise<string> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
@@ -41,11 +41,11 @@ export class BriefingsService {
 
       stmt.run(
         [content, JSON.stringify(articleIds), feedProfile],
-        function (this: { lastID?: number }, err: Error | null) {
+        function (this: { lastID?: string }, err: Error | null) {
           if (err) {
             reject(err);
           } else {
-            resolve(this.lastID ?? 0);
+            resolve(this.lastID ?? '');
           }
           stmt.finalize();
         },
@@ -85,7 +85,7 @@ export class BriefingsService {
     });
   }
 
-  async getBriefById(briefId: number): Promise<GetBriefByIdResult | null> {
+  async getBriefById(briefId: string): Promise<GetBriefByIdResult | null> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 

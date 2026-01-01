@@ -218,7 +218,7 @@ export class YoutubeTranscriptionsService {
     videoUrl: string,
     channelId: string,
     proxyUrl?: string,
-  ): Promise<number | null> {
+  ): Promise<string | null> {
     try {
       console.log(`\n========================================`);
       console.log(`Processing single video: ${videoUrl}`);
@@ -343,7 +343,7 @@ export class YoutubeTranscriptionsService {
   async addTranscription(
     videoData: VideoWithTranscript,
     transcriptionSummary?: string,
-  ): Promise<number | null> {
+  ): Promise<string | null> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
@@ -367,7 +367,7 @@ export class YoutubeTranscriptionsService {
           transcriptionSummary || null,
           videoData.thumbnailUrl || null,
         ],
-        function (this: { lastID?: number }, err: Error | null) {
+        function (this: { lastID?: string }, err: Error | null) {
           if (err) {
             const errorWithCode = err as Error & { code?: string };
             if (
@@ -398,7 +398,7 @@ export class YoutubeTranscriptionsService {
    * @returns Promise that resolves when update is complete
    */
   async updateTranscriptionSummary(
-    transcriptionId: number,
+    transcriptionId: string,
     summary: string,
   ): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -532,7 +532,7 @@ export class YoutubeTranscriptionsService {
    * @param id - The transcription ID
    * @returns The transcription or null if not found
    */
-  async getTranscriptionById(id: number): Promise<YoutubeTranscription | null> {
+  async getTranscriptionById(id: string): Promise<YoutubeTranscription | null> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
@@ -784,7 +784,7 @@ export class YoutubeTranscriptionsService {
     });
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: string): Promise<void> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
       const stmt = db.prepare(`DELETE FROM youtube_transcriptions WHERE id = ?`);

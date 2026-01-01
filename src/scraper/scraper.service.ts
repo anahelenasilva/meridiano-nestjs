@@ -150,7 +150,7 @@ export class ScraperService {
   async scrapeSingleArticle(
     url: string,
     feedProfile: FeedProfile,
-  ): Promise<number | null> {
+  ): Promise<string | null> {
     // console.log(`\n--- Scraping single article: ${url} ---`);
 
     // Check if article already exists
