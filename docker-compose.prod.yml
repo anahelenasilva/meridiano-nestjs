@@ -29,14 +29,11 @@ services:
     environment:
       NODE_ENV: production
       PORT: 3005
-      # Use 'postgres' service name and internal port 5432 when connecting from Docker
-      # The goal-tracker postgres service is named 'postgres' on the goal-tracker-network
-      DATABASE_HOST: postgres
+      DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_PORT: 5432
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_NAME: ${DATABASE_NAME}
-      # Use 'redis' service name for Docker network communication (not localhost)
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_PASSWORD: ${REDIS_PASSWORD}
@@ -82,4 +79,5 @@ networks:
     name: meridian-network
     driver: bridge
   goal-tracker-network:
+    name: goal-tracker-network
     external: true
