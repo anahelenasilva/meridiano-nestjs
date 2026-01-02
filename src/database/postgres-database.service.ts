@@ -175,11 +175,11 @@ export class PostgresDatabaseService extends AbstractDatabaseService {
   }
 
   async initDb(): Promise<void> {
-    const dbUser = process.env.DB_USER || 'postgres';
-    const dbPassword = process.env.DB_PASSWORD || '';
-    const dbHost = process.env.DB_HOST || 'localhost';
-    const dbPort = process.env.DB_PORT || '5432';
-    const dbName = process.env.DB_NAME || 'meridian';
+    const dbUser = process.env.DATABASE_USER || 'postgres';
+    const dbPassword = process.env.DATABASE_PASSWORD || '';
+    const dbHost = process.env.DATABASE_HOST || 'localhost';
+    const dbPort = process.env.DATABASE_PORT || '5432';
+    const dbName = process.env.DATABASE_NAME || 'meridian';
     const builtDbUrl = `postgresql://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbName}`;
 
     const connectionString = process.env.DATABASE_URL || builtDbUrl;

@@ -10,16 +10,16 @@ services:
       - staging
       - production
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME:-meridian}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME:-meridian}
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
-      - "${DB_PORT:-5432}:5432"
+      - "${DATABASE_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME:-meridian}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME:-meridian}"]
       interval: 10s
       timeout: 5s
       retries: 5

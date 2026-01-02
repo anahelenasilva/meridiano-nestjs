@@ -50,11 +50,11 @@ DATABASE_TYPE=postgres
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/meridian
 
 # Or use individual variables
-DB_USER=postgres
-DB_PASSWORD=postgres
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=meridian
+DATABASE_USER=postgres
+DATABASE_PASSWORD=postgres
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_NAME=meridian
 
 # Docker Compose Profile
 COMPOSE_PROFILE=local
@@ -104,11 +104,11 @@ $ pnpm install
 2. Create a .env file in the project root with your database configuration:
 ```env
 DATABASE_TYPE=postgres
-DB_USER=postgres
-DB_PASSWORD=postgres
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=meridian
+DATABASE_USER=postgres
+DATABASE_PASSWORD=postgres
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_NAME=meridian
 ```
 
 3. Start the PostgreSQL database using Docker:
