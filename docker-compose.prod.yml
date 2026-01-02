@@ -16,9 +16,6 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_NAME: meridian
       CORS_ORIGINS: http://89.116.214.113
-    depends_on:
-      goal-tracker-postgres:
-        condition: service_healthy
     networks:
       - meridian-network
       - goal-tracker-network
