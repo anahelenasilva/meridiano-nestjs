@@ -11,7 +11,12 @@ const dbHost = process.env.DATABASE_HOST || 'localhost';
 const dbPort = process.env.DATABASE_PORT || '5432';
 const dbName = process.env.DATABASE_NAME || 'meridian';
 
-console.log(`[TypeORM] Connecting to database at ${dbHost}:${dbPort}/${dbName} (user: ${dbUser})`);
+console.log(`[TypeORM] Environment check:`);
+console.log(`  DATABASE_HOST from env: ${process.env.DATABASE_HOST || 'NOT SET'}`);
+console.log(`  DATABASE_PORT from env: ${process.env.DATABASE_PORT || 'NOT SET'}`);
+console.log(`  DATABASE_USER from env: ${process.env.DATABASE_USER || 'NOT SET'}`);
+console.log(`  DATABASE_NAME from env: ${process.env.DATABASE_NAME || 'NOT SET'}`);
+console.log(`  Connecting to database at ${dbHost}:${dbPort}/${dbName} (user: ${dbUser})`);
 
 // URL-encode username and password to handle special characters
 const encodedUser = encodeURIComponent(dbUser);

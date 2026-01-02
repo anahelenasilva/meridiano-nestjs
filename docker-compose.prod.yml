@@ -6,7 +6,7 @@ services:
     container_name: meridiano-redis-prod
     restart: unless-stopped
     ports:
-      - "${REDIS_PORT}:6379"
+      - "${REDIS_PORT:-6379}:6379"
     volumes:
       - redis_data:/data
     command: redis-server --appendonly yes ${REDIS_PASSWORD:+--requirepass "$REDIS_PASSWORD"}
@@ -29,13 +29,16 @@ services:
     environment:
       NODE_ENV: production
       PORT: 3005
-      DATABASE_HOST: ${DATABASE_HOST}
-      DATABASE_PORT: ${DATABASE_PORT}
+      # Use 'postgres' service name and internal port 5432 when connecting from Docker
+      # The goal-tracker postgres service is named 'postgres' on the goal-tracker-network
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_NAME: ${DATABASE_NAME}
+      # Use 'redis' service name for Docker network communication (not localhost)
       REDIS_HOST: redis
-      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PORT: 6379
       REDIS_PASSWORD: ${REDIS_PASSWORD}
       CORS_ORIGINS: http://89.116.214.113
     networks:
