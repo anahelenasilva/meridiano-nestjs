@@ -1,20 +1,42 @@
 version: '3.8'
 
 services:
+  redis:
+    image: redis:7-alpine
+    container_name: meridiano-redis-prod
+    restart: unless-stopped
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes ${REDIS_PASSWORD:+--requirepass "$REDIS_PASSWORD"}
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ${REDIS_PASSWORD:+-a \"$REDIS_PASSWORD\"} ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - meridian-network
+
   meridian-backend:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: meridian-backend
     restart: unless-stopped
+    depends_on:
+      - redis
     environment:
       NODE_ENV: production
       PORT: 3005
-      DATABASE_HOST: goal-tracker-postgres
-      DATABASE_PORT: 5432
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      DATABASE_NAME: meridian
+      DATABASE_NAME: ${DATABASE_NAME}
+      REDIS_HOST: redis
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
       CORS_ORIGINS: http://89.116.214.113
     networks:
       - meridian-network
@@ -47,6 +69,10 @@ services:
       interval: 30s
       timeout: 3s
       retries: 3
+
+volumes:
+  redis_data:
+    name: meridiano-redis-data-prod
 
 networks:
   meridian-network:
