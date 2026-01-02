@@ -1,13 +1,18 @@
 import * as dotenv from 'dotenv';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
-dotenv.config();
+// Load environment variables from .env file (only if not already set)
+// This ensures Docker Compose environment variables take precedence
+dotenv.config({ override: false });
 
 const dbUser = process.env.DATABASE_USER || 'postgres';
 const dbPassword = process.env.DATABASE_PASSWORD || 'postgres';
 const dbHost = process.env.DATABASE_HOST || 'localhost';
 const dbPort = process.env.DATABASE_PORT || '5432';
 const dbName = process.env.DATABASE_NAME || 'meridian';
+
+console.log(`[TypeORM] Connecting to database at ${dbHost}:${dbPort}/${dbName} (user: ${dbUser})`);
+
 // URL-encode username and password to handle special characters
 const encodedUser = encodeURIComponent(dbUser);
 const encodedPassword = encodeURIComponent(dbPassword);

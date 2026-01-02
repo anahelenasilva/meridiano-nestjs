@@ -2,8 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import * as dotenv from 'dotenv';
 import { AppModule } from './app.module';
 
-// Load environment variables from .env file
-dotenv.config();
+// Load environment variables from .env file (only if not already set)
+// This ensures Docker Compose environment variables take precedence
+dotenv.config({ override: false });
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

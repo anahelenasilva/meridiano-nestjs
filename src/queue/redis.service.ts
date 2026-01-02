@@ -10,6 +10,8 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
     const redisPort = parseInt(process.env.REDIS_PORT || '6379', 10);
     const redisPassword = process.env.REDIS_PASSWORD || undefined;
 
+    console.log(`[RedisService] Connecting to Redis at ${redisHost}:${redisPort}`);
+
     this.client = new Redis({
       host: redisHost,
       port: redisPort,
