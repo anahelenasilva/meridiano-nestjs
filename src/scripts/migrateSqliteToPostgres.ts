@@ -48,7 +48,10 @@ class MigrationService {
     const dbHost = process.env.DATABASE_HOST || 'localhost';
     const dbPort = process.env.DATABASE_PORT || '5432';
     const dbName = process.env.DATABASE_NAME || 'meridian';
-    const builtDbUrl = `postgresql://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbName}`;
+    // URL-encode username and password to handle special characters
+    const encodedUser = encodeURIComponent(dbUser);
+    const encodedPassword = encodeURIComponent(dbPassword);
+    const builtDbUrl = `postgresql://${encodedUser}:${encodedPassword}@${dbHost}:${dbPort}/${dbName}`;
 
     const connectionString = process.env.DATABASE_URL || builtDbUrl;
 
