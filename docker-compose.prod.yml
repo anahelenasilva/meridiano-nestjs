@@ -79,6 +79,7 @@ volumes:
 
 networks:
   meridian-network:
+    name: meridian-network
     driver: bridge
   goal-tracker-network:
     external: true
