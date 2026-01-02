@@ -19,28 +19,24 @@ export class DatabaseModule implements OnModuleInit, OnModuleDestroy {
   constructor(
     private readonly databaseService: DatabaseService,
     private readonly dataSource: DataSource,
-  ) {}
+  ) { }
 
   async onModuleInit() {
     // Run migrations automatically on startup for PostgreSQL
-    const databaseType = (process.env.DATABASE_TYPE || 'sqlite').toLowerCase();
-    
-    if (databaseType === 'postgres' || databaseType === 'postgresql') {
-      try {
-        console.log('Running pending migrations...');
-        await this.dataSource.runMigrations({
-          transaction: 'all',
-        });
-        console.log('Migrations completed successfully');
-      } catch (error) {
-        console.error('Error running migrations:', error);
-        // Don't throw - allow app to start even if migrations fail
-        // This is useful for development when tables might already exist
-      }
+    try {
+      console.log('Running pending migrations...');
+      await this.dataSource.runMigrations({
+        transaction: 'all',
+      });
+      console.log('Migrations completed successfully');
+    } catch (error) {
+      console.error('Error running migrations:', error);
+      // Don't throw - allow app to start even if migrations fail
+      // This is useful for development when tables might already exist
     }
 
     // Initialize the legacy database service for backward compatibility
-    await this.databaseService.initDb();
+    // await this.databaseService.initDb();
   }
 
   async onModuleDestroy() {
