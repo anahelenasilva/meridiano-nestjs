@@ -37,6 +37,12 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_PASSWORD: ${REDIS_PASSWORD}
+      # AI API Keys
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY}
+      EMBEDDING_API_KEY: ${EMBEDDING_API_KEY}
+      # Mailgun API Keys
+      MAILGUN_API_KEY: ${MAILGUN_API_KEY}
+      MAILGUN_DOMAIN: ${MAILGUN_DOMAIN}
       CORS_ORIGINS: http://89.116.214.113
     networks:
       - meridian-network
