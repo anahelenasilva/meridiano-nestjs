@@ -2,11 +2,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { mock, mockReset } from 'jest-mock-extended';
 
 import { INestApplication } from '@nestjs/common';
-import { AiService } from '../ai/ai.service';
-import { ConfigService } from '../config/config.service';
 import { DatabaseService } from '../database/database.service';
 import { QueueService } from '../queue/queue.service';
+import { ChannelConfig } from '../shared/types/channel';
 import { VideoMetadata } from '../shared/types/video';
+import { YoutubeChannel } from '../youtube-channels/domain/youtube-channel';
+import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
 import { StorageService } from './storage.service';
 import { TranscriptService } from './transcript.service';
 import { YoutubeTranscriptionsService } from './youtube-transcriptions.service';
@@ -21,9 +22,8 @@ describe('YoutubeTranscriptionsService', () => {
   const mockTranscriptService = mock<TranscriptService>();
   const mockStorageService = mock<StorageService>();
   const mockDatabaseService = mock<DatabaseService>();
-  const mockAiService = mock<AiService>();
-  const mockConfigService = mock<ConfigService>();
   const mockQueueService = mock<QueueService>();
+  const mockYoutubeChannelsService = mock<YoutubeChannelsService>();
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -46,16 +46,12 @@ describe('YoutubeTranscriptionsService', () => {
           useValue: mockDatabaseService,
         },
         {
-          provide: AiService,
-          useValue: mockAiService,
-        },
-        {
-          provide: ConfigService,
-          useValue: mockConfigService,
-        },
-        {
           provide: QueueService,
           useValue: mockQueueService,
+        },
+        {
+          provide: YoutubeChannelsService,
+          useValue: mockYoutubeChannelsService,
         },
       ],
     })
@@ -74,8 +70,8 @@ describe('YoutubeTranscriptionsService', () => {
     mockReset(mockTranscriptService);
     mockReset(mockStorageService);
     mockReset(mockDatabaseService);
-    mockReset(mockAiService);
-    mockReset(mockConfigService);
+    mockReset(mockQueueService);
+    mockReset(mockYoutubeChannelsService);
   });
 
   afterEach(() => {
@@ -93,12 +89,24 @@ describe('YoutubeTranscriptionsService', () => {
   describe('extractChannelTranscripts', () => {
     it('should extract transcripts from a channel successfully', async () => {
       // Arrange
-      const mockChannel = {
+      const mockChannel: YoutubeChannel = {
+        id: '123',
+        channelId: 'UC123',
+        name: 'Test Channel',
+        description: 'Test Description',
+        maxVideos: 2,
+        enabled: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        url: 'https://youtube.com/channel/UC123',
+      };
+
+      const mockChannelConfig: ChannelConfig = {
         channelId: 'UC123',
         channelName: 'Test Channel',
         channelDescription: 'Test Description',
         maxVideos: 2,
-      };
+      }
 
       const mockVideos: VideoMetadata[] = [
         {
@@ -134,24 +142,25 @@ describe('YoutubeTranscriptionsService', () => {
       mockTranscriptService.getTranscript.mockResolvedValue(mockTranscript);
       mockTranscriptService.transcriptToText.mockReturnValue('Hello World');
       mockStorageService.saveTranscript.mockResolvedValue(undefined);
+      mockYoutubeChannelsService.getChannelById.mockResolvedValue(mockChannel);
 
       // Act
-      await service.extractChannelTranscripts(mockChannel);
+      await service.extractChannelTranscripts(mockChannelConfig);
 
       // Assert
-      expect(mockYouTubeService.getChannelVideos).toHaveBeenNthCalledWith(1, mockChannel);
+      expect(mockYouTubeService.getChannelVideos).toHaveBeenNthCalledWith(1, mockChannelConfig);
       expect(mockTranscriptService.getTranscript).toHaveBeenCalledTimes(2);
       expect(mockStorageService.saveTranscript).toHaveBeenCalledTimes(2);
     });
 
     it('should throw error when no transcripts are successfully extracted', async () => {
       // Arrange
-      const mockChannel = {
+      const mockChannelConfig: ChannelConfig = {
         channelId: 'UC123',
         channelName: 'Test Channel',
         channelDescription: 'Test Description',
-        maxVideos: 1,
-      };
+        maxVideos: 2,
+      }
 
       const mockVideos: VideoMetadata[] = [
         {
@@ -174,7 +183,7 @@ describe('YoutubeTranscriptionsService', () => {
 
       // Act & Assert
       await expect(
-        service.extractChannelTranscripts(mockChannel),
+        service.extractChannelTranscripts(mockChannelConfig),
       ).rejects.toThrow(
         'Failed to extract any transcripts from channel Test Channel',
       );
@@ -182,12 +191,12 @@ describe('YoutubeTranscriptionsService', () => {
 
     it('should continue processing when some videos fail', async () => {
       // Arrange
-      const mockChannel = {
+      const mockChannelConfig: ChannelConfig = {
         channelId: 'UC123',
         channelName: 'Test Channel',
         channelDescription: 'Test Description',
         maxVideos: 2,
-      };
+      }
 
       const mockVideos: VideoMetadata[] = [
         {
@@ -224,7 +233,7 @@ describe('YoutubeTranscriptionsService', () => {
       mockStorageService.saveTranscript.mockResolvedValue(undefined);
 
       // Act
-      await service.extractChannelTranscripts(mockChannel);
+      await service.extractChannelTranscripts(mockChannelConfig);
 
       // Assert
       expect(mockTranscriptService.getTranscript).toHaveBeenCalledTimes(2);
@@ -280,7 +289,7 @@ describe('YoutubeTranscriptionsService', () => {
 
     it('should continue when some channels fail', async () => {
       // Arrange
-      const mockChannels = [
+      const mockChannels: ChannelConfig[] = [
         {
           channelId: 'UC123',
           channelName: 'Channel 1',

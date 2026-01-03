@@ -4,6 +4,7 @@ import { ConfigModule } from '../config/config.module';
 import { ProcessorModule } from '../processor/processor.module';
 import { ProfilesModule } from '../profiles/profiles.module';
 import { ScraperModule } from '../scraper/scraper.module';
+import { YoutubeChannelsModule } from '../youtube-channels/youtube-channels.module';
 import { YoutubeTranscriptionsModule } from '../youtube-transcriptions/youtube-transcriptions.module';
 import { CategorizeArticlesUseCase } from './briefing/categorize-articles.usecase';
 import { GenerateBriefUseCase } from './briefing/generate-brief.usecase';
@@ -22,6 +23,7 @@ import { ProcessTranscriptionFilesUseCase } from './youtube-transcriptions/proce
     ProcessorModule,
     BriefingModule,
     ProfilesModule,
+    YoutubeChannelsModule,
     YoutubeTranscriptionsModule,
     ConfigModule,
   ],

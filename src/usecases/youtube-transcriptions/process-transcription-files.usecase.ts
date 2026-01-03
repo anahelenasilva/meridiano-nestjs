@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import { ConfigService } from '../../config/config.service';
 import { VideoWithTranscript } from '../../shared/types/video';
+import { YoutubeChannelsService } from '../../youtube-channels/youtube-channels.service';
 import { YoutubeTranscriptionsService } from '../../youtube-transcriptions/youtube-transcriptions.service';
 import {
   ProcessTranscriptionFilesInputDto,
@@ -13,7 +13,7 @@ import {
 export class ProcessTranscriptionFilesUseCase {
   constructor(
     private readonly youtubeTranscriptionsService: YoutubeTranscriptionsService,
-    private readonly configService: ConfigService,
+    private readonly youtubeChannelsService: YoutubeChannelsService,
   ) { }
 
   async execute(
@@ -35,7 +35,6 @@ export class ProcessTranscriptionFilesUseCase {
       return stats;
     }
 
-    const ytConfig = this.configService.getYoutubeChannelsConfig();
     const files = await fs.readdir(transcriptsDir);
     const jsonFiles = files.filter((file) => file.endsWith('.json') && !file.startsWith('.'));
 
@@ -52,7 +51,7 @@ export class ProcessTranscriptionFilesUseCase {
           continue;
         }
 
-        const channelData = ytConfig.channels[videoData.channel.id];
+        const channelData = await this.youtubeChannelsService.getChannelById(videoData.channel.id);
 
         if (!channelData || channelData.enabled === false) {
           stats.skipped++;

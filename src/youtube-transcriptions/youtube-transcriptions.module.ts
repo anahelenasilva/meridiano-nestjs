@@ -5,9 +5,9 @@ import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
 import { DatabaseModule } from '../database/database.module';
 import { QueueModule } from '../queue/queue.module';
+import { YoutubeChannelsModule } from '../youtube-channels/youtube-channels.module';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
-import { GetYoutubeChannelsQuery } from './queries/get-youtube-channels.query';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
 import { ListYoutubeTranscriptionsQuery } from './queries/list-youtube-transcriptions.query';
@@ -18,7 +18,13 @@ import { YoutubeTranscriptionsService } from './youtube-transcriptions.service';
 import { YouTubeService } from './youtube.service';
 
 @Module({
-  imports: [DatabaseModule, AiModule, ConfigModule, forwardRef(() => QueueModule)],
+  imports: [
+    DatabaseModule,
+    AiModule,
+    ConfigModule,
+    YoutubeChannelsModule,
+    forwardRef(() => QueueModule),
+  ],
   providers: [
     YoutubeTranscriptionsService,
     YouTubeService,
@@ -30,7 +36,6 @@ import { YouTubeService } from './youtube.service';
     ListAllYoutubeTranscriptionsQuery,
     GetYoutubeTranscriptionByIdQuery,
     DeleteYoutubeTranscriptionCommand,
-    GetYoutubeChannelsQuery,
     CreateYoutubeTranscriptionCommand,
   ],
   exports: [YoutubeTranscriptionsService],

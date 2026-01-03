@@ -9,15 +9,9 @@ export class DatabaseService extends AbstractDatabaseService {
 
   constructor() {
     super();
-    // const databaseType = (process.env.DATABASE_TYPE || 'sqlite').toLowerCase();
 
-    // if (databaseType === 'postgres' || databaseType === 'postgresql') {
     this.implementation = new PostgresDatabaseService();
     console.log('Using PostgreSQL database');
-    // } else {
-    //   this.implementation = new SQLiteDatabaseService();
-    //   // console.log('Using SQLite database (default)');
-    // }
   }
 
   async initDb(): Promise<void> {

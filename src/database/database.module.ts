@@ -35,8 +35,7 @@ export class DatabaseModule implements OnModuleInit, OnModuleDestroy {
       // This is useful for development when tables might already exist
     }
 
-    // Initialize the legacy database service for backward compatibility
-    // await this.databaseService.initDb();
+    await this.databaseService.initDb();
   }
 
   async onModuleDestroy() {
