@@ -64,10 +64,8 @@ export class ArticlesService {
         ],
         function (this: { lastID?: string }, err: Error | null) {
           if (err) {
-            // Handle both SQLite and PostgreSQL unique constraint errors
             const errorWithCode = err as Error & { code?: string };
             if (
-              err.message.includes('UNIQUE constraint failed') ||
               err.message.includes('duplicate key value') ||
               errorWithCode.code === '23505' // PostgreSQL unique violation error code
             ) {

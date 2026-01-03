@@ -191,18 +191,6 @@ docker-compose --profile production up -d
 pnpm run start:prod
 ```
 
-### Using SQLite (Alternative)
-
-For quick local development without Docker, you can use SQLite:
-
-```bash
-# In your .env file:
-DATABASE_TYPE=sqlite
-DATABASE_FILE=meridian.db
-```
-
-Note: Migrations are only used with PostgreSQL. SQLite uses the legacy schema creation method.
-
 ## Compile and run the project
 
 ```bash
@@ -304,4 +292,4 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 - [ ] See starred articles differently in the briefing
 - [x] Add youtube video manually
 - [ ] Refactor all tests to use jest-mock-extended
-- [ ] Remove sqlite code
+- [x] Remove sqlite code
