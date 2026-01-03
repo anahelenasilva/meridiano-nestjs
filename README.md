@@ -293,3 +293,4 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 - [x] Add youtube video manually
 - [ ] Refactor all tests to use jest-mock-extended
 - [x] Remove sqlite code
+- [ ] Create a docs folder on the root of the project with all available endpoints ready to import to Bruno
