@@ -42,7 +42,6 @@ export class CreateYoutubeTranscriptionCommand {
       const errorMessage =
         error instanceof Error ? error.message : 'Unknown error occurred';
 
-      // Handle specific error cases
       if (errorMessage.includes('not found in configuration')) {
         throw new NotFoundException('Channel not found in configuration');
       }

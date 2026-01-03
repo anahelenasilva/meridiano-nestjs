@@ -153,13 +153,11 @@ export class ScraperService {
   ): Promise<string | null> {
     // console.log(`\n--- Scraping single article: ${url} ---`);
 
-    // Check if article already exists
     if (await this.articlesService.articleExists(url)) {
       console.log('Article already exists in database');
       return null;
     }
 
-    // Fetch article content and OG image
     console.log('Fetching article content and OG image...');
     const { content: rawContent, ogImage: ogImageUrl } =
       await this.fetchArticleContentAndOgImage(url);
@@ -168,7 +166,6 @@ export class ScraperService {
       throw new Error('Failed to extract article content');
     }
 
-    // Extract title from HTML
     let title = 'Untitled Article';
     try {
       const response = await axios.get(url, {

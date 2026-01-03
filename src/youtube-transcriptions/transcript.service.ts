@@ -6,11 +6,8 @@ import { TranscriptItem } from '../shared/types/video';
 export class TranscriptService {
   private youtube: Innertube | null = null;
 
-  constructor() {}
+  constructor() { }
 
-  /**
-   * Initialize the YouTube client
-   */
   private async initialize() {
     if (!this.youtube) {
       this.youtube = await Innertube.create();
@@ -32,10 +29,7 @@ export class TranscriptService {
         throw new Error('Failed to initialize YouTube client');
       }
 
-      // Get video info which includes transcript data
       const info = await this.youtube.getInfo(videoId);
-
-      // Get the transcript
       const transcriptData = await info.getTranscript();
 
       if (

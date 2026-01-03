@@ -214,7 +214,6 @@ class MigrationService {
               ? new Date(briefing.created_at).toISOString()
               : new Date().toISOString();
 
-            // Check if this exact briefing already exists
             // Since there's no unique constraint, we check by content + feed_profile + created_at
             const existingResult = await client.query(
               `

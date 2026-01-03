@@ -24,7 +24,6 @@ export class RunBriefingUseCase {
   async execute(input: RunBriefingInputDto): Promise<RunBriefingOutputDto> {
     const startTime = new Date();
 
-    // Get enabled feeds for the profile
     const enabledFeeds = this.profilesService.getEnabledFeedsForProfile(
       input.feedProfile,
     );

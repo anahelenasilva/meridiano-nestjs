@@ -21,22 +21,18 @@ export class ReplaceIdWithUuid1767142059182 implements MigrationInterface {
     `);
 
     // ARTICLES TABLE
-    // Drop primary key constraint
     await queryRunner.query(`
       ALTER TABLE articles DROP CONSTRAINT articles_pkey
     `);
 
-    // Drop old id column
     await queryRunner.query(`
       ALTER TABLE articles DROP COLUMN id
     `);
 
-    // Rename id_uuid to id
     await queryRunner.query(`
       ALTER TABLE articles RENAME COLUMN id_uuid TO id
     `);
 
-    // Add primary key constraint on new id
     await queryRunner.query(`
       ALTER TABLE articles ADD PRIMARY KEY (id)
     `);
@@ -47,22 +43,18 @@ export class ReplaceIdWithUuid1767142059182 implements MigrationInterface {
     `);
 
     // BRIEFINGS TABLE
-    // Drop primary key constraint
     await queryRunner.query(`
       ALTER TABLE briefings DROP CONSTRAINT briefings_pkey
     `);
 
-    // Drop old id column
     await queryRunner.query(`
       ALTER TABLE briefings DROP COLUMN id
     `);
 
-    // Rename id_uuid to id
     await queryRunner.query(`
       ALTER TABLE briefings RENAME COLUMN id_uuid TO id
     `);
 
-    // Add primary key constraint on new id
     await queryRunner.query(`
       ALTER TABLE briefings ADD PRIMARY KEY (id)
     `);
@@ -78,22 +70,18 @@ export class ReplaceIdWithUuid1767142059182 implements MigrationInterface {
     `);
 
     // YOUTUBE_TRANSCRIPTIONS TABLE
-    // Drop primary key constraint
     await queryRunner.query(`
       ALTER TABLE youtube_transcriptions DROP CONSTRAINT youtube_transcriptions_pkey
     `);
 
-    // Drop old id column
     await queryRunner.query(`
       ALTER TABLE youtube_transcriptions DROP COLUMN id
     `);
 
-    // Rename id_uuid to id
     await queryRunner.query(`
       ALTER TABLE youtube_transcriptions RENAME COLUMN id_uuid TO id
     `);
 
-    // Add primary key constraint on new id
     await queryRunner.query(`
       ALTER TABLE youtube_transcriptions ADD PRIMARY KEY (id)
     `);
@@ -109,7 +97,6 @@ export class ReplaceIdWithUuid1767142059182 implements MigrationInterface {
     // It attempts to restore the old integer IDs from backup tables
 
     // ARTICLES TABLE
-    // Rename id back to id_uuid
     await queryRunner.query(`
       ALTER TABLE articles DROP CONSTRAINT articles_pkey
     `);
@@ -118,7 +105,6 @@ export class ReplaceIdWithUuid1767142059182 implements MigrationInterface {
       ALTER TABLE articles RENAME COLUMN id TO id_uuid
     `);
 
-    // Restore old id column from backup
     await queryRunner.query(`
       ALTER TABLE articles ADD COLUMN id SERIAL
     `);

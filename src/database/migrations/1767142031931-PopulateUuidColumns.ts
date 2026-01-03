@@ -4,21 +4,18 @@ export class PopulateUuidColumns1767142031931 implements MigrationInterface {
   name = 'PopulateUuidColumns1767142031931';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
-    // Generate UUIDs for all existing records in articles table
     await queryRunner.query(`
       UPDATE articles
       SET id_uuid = gen_random_uuid()
       WHERE id_uuid IS NULL
     `);
 
-    // Generate UUIDs for all existing records in briefings table
     await queryRunner.query(`
       UPDATE briefings
       SET id_uuid = gen_random_uuid()
       WHERE id_uuid IS NULL
     `);
 
-    // Generate UUIDs for all existing records in youtube_transcriptions table
     await queryRunner.query(`
       UPDATE youtube_transcriptions
       SET id_uuid = gen_random_uuid()

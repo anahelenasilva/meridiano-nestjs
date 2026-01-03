@@ -11,9 +11,6 @@ export class YouTubeService {
 
   constructor() { }
 
-  /**
-   * Initialize the YouTube client
-   */
   private async initialize() {
     if (!this.youtube) {
       this.youtube = await Innertube.create();

@@ -22,7 +22,6 @@ async function main() {
   try {
     const services = await initialize();
 
-    // Execute the usecase
     const result = await services.listTranscriptionsUseCase.execute({});
 
     if (result.statistics.total === 0) {

@@ -42,7 +42,6 @@ export class ArticlesController {
         throw new BadRequestException('Article already exists in database');
       }
 
-      // Add job to queue for async processing
       const jobInfo = await this.queueService.addArticleProcessingJob(
         articleId,
         feedProfile,

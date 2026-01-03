@@ -10,7 +10,6 @@ export class MigrateBriefingArticleIds1767142045058 implements MigrationInterfac
       ADD COLUMN article_ids_old TEXT
     `);
 
-    // Backup the old article_ids
     await queryRunner.query(`
       UPDATE briefings
       SET article_ids_old = article_ids
@@ -37,14 +36,12 @@ export class MigrateBriefingArticleIds1767142045058 implements MigrationInterfac
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    // Restore the old article_ids from backup
     await queryRunner.query(`
       UPDATE briefings
       SET article_ids = article_ids_old
       WHERE article_ids_old IS NOT NULL
     `);
 
-    // Drop the backup column
     await queryRunner.query(`
       ALTER TABLE briefings
       DROP COLUMN article_ids_old

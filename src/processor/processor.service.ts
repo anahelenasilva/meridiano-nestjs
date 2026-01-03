@@ -78,9 +78,6 @@ export class ProcessorService {
         }
 
         const finalSummary = `${summary}\n\nSource: [${article.title}](${article.url})`;
-        // console.log(
-        //   `Article summary generated: ${article.title}...`,
-        // );
 
         const embedding = await this.aiService.getEmbedding(finalSummary);
 
@@ -118,8 +115,6 @@ export class ProcessorService {
     limit: number = 1000,
     articleId?: string,
   ): Promise<ProcessingStats> {
-    // console.log('\n--- Starting Article Impact Rating ---');
-
     const stats: ProcessingStats = {
       feedProfile,
       articlesProcessed: 0,
@@ -182,7 +177,6 @@ export class ProcessorService {
                   score,
                 );
                 stats.articlesRated++;
-                // console.log(`  Article ID ${article.id} rated as: ${score}`);
               } else {
                 console.log(
                   `  Warning: Rating ${score} for article ${article.id} is out of range (1-10).`,
@@ -229,8 +223,6 @@ export class ProcessorService {
     limit: number = 1000,
     articleId?: string,
   ): Promise<ProcessingStats> {
-    // console.log('\n--- Starting Article Categorization ---');
-
     const stats: ProcessingStats = {
       feedProfile,
       articlesProcessed: 0,
@@ -261,10 +253,6 @@ export class ProcessorService {
     );
 
     for (const article of uncategorizedArticles) {
-      // console.log(
-      //   `Categorizing article ID: ${article.id}: ${article.title}...`,
-      // );
-
       if (!article.processed_content) {
         console.log(
           `  Skipping article ${article.id} - no processed content found.`,
@@ -299,9 +287,6 @@ export class ProcessorService {
                   validCategories,
                 );
                 stats.articlesCategorized++;
-                // console.log(
-                //   `  Article ID ${article.id} categorized as: ${validCategories.join(', ')}`,
-                // );
               } else {
                 console.log(
                   `  Warning: No valid categories found in response for article ${article.id}.`,
