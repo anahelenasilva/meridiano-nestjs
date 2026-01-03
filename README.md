@@ -304,3 +304,4 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 - [ ] See starred articles differently in the briefing
 - [x] Add youtube video manually
 - [ ] Refactor all tests to use jest-mock-extended
+- [ ] Remove sqlite code
