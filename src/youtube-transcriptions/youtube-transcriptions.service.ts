@@ -218,7 +218,6 @@ export class YoutubeTranscriptionsService {
       console.log(`\n========================================`);
       console.log(`Processing single video: ${videoUrl}`);
 
-      // Get channel from database
       const channelConfig = await this.youtubeChannelsService.getChannelById(channelId);
 
       if (!channelConfig) {
@@ -229,7 +228,6 @@ export class YoutubeTranscriptionsService {
         throw new Error(`Channel ${channelId} is disabled`);
       }
 
-      // Extract video ID from URL
       const { extractVideoId } = await import('./helpers/extract-video-id.js');
       const videoId = extractVideoId(videoUrl);
 
@@ -237,7 +235,6 @@ export class YoutubeTranscriptionsService {
         throw new Error('Invalid YouTube URL or unable to extract video ID');
       }
 
-      // Get video metadata
       const videoMetadata = await this.youtubeService.getVideoMetadata(
         videoId,
         channelId,
@@ -308,7 +305,6 @@ export class YoutubeTranscriptionsService {
         return null;
       }
 
-      // Enqueue summary generation job
       console.log(`Enqueueing summary generation for transcription ID ${transcriptionId}...`);
       await this.queueService.addTranscriptionSummaryJob(
         transcriptionId,
@@ -501,7 +497,6 @@ export class YoutubeTranscriptionsService {
         };
       }
 
-      // Enqueue summary generation job
       console.log(`  Enqueueing summary generation for transcription ID ${insertedId}...`);
       await this.queueService.addTranscriptionSummaryJob(
         insertedId,

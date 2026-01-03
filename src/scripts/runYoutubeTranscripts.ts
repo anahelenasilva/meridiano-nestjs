@@ -26,7 +26,6 @@ async function main() {
     const services = await initialize();
     const enabledChannels = await services.youtubeChannelsService.getEnabledChannels();
 
-    // Convert database channels to ChannelConfig array
     const channels: ChannelConfig[] = enabledChannels.map((channel) => ({
       channelId: channel.channelId,
       channelName: channel.name,
@@ -55,7 +54,6 @@ async function main() {
 
     console.log();
 
-    // Extract transcripts using the usecase
     const result = await services.extractYoutubeTranscriptsUseCase.execute({
       channels,
     });

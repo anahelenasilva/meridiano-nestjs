@@ -11,7 +11,6 @@ export class DatabaseService extends AbstractDatabaseService {
     super();
 
     this.implementation = new PostgresDatabaseService();
-    console.log('Using PostgreSQL database');
   }
 
   async initDb(): Promise<void> {

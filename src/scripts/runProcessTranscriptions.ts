@@ -25,7 +25,6 @@ async function main() {
   try {
     const services = await initialize();
 
-    // Execute the usecase
     const stats = await services.processTranscriptionFilesUseCase.execute({});
 
     if (stats.totalFiles === 0) {

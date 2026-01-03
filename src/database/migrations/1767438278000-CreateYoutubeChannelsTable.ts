@@ -4,7 +4,6 @@ export class CreateYoutubeChannelsTable1767438278000 implements MigrationInterfa
   name = 'CreateYoutubeChannelsTable1767438278000';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
-    // Create youtube_channels table
     await queryRunner.query(`
       CREATE TABLE IF NOT EXISTS youtube_channels (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

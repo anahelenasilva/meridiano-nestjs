@@ -12,10 +12,6 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
     const redisPort = parseInt(process.env.REDIS_PORT || '6379', 10);
     const redisPassword = process.env.REDIS_PASSWORD || undefined;
 
-    console.log(`[RedisService] Constructor - Environment check:`);
-    console.log(`  REDIS_HOST from env: ${process.env.REDIS_HOST || 'NOT SET (will default to localhost)'}`);
-    console.log(`  REDIS_PORT from env: ${process.env.REDIS_PORT || 'NOT SET (will default to 6379)'}`);
-    console.log(`  REDIS_PASSWORD from env: ${process.env.REDIS_PASSWORD ? 'SET' : 'NOT SET'}`);
     console.log(`[RedisService] Initializing Redis client - Connecting to ${redisHost}:${redisPort}`);
 
     this.client = new Redis({

@@ -70,7 +70,6 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
         };
       }
 
-      // Update the transcription with the generated summary
       console.log(`Updating transcription ${transcriptionId} with summary...`);
       await this.youtubeTranscriptionsService.updateTranscriptionSummary(
         transcriptionId,

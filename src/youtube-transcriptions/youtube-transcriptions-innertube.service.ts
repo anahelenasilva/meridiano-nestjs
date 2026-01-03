@@ -54,7 +54,6 @@ const fetchTimedTextXml = async (
       timeout: 10000,
     };
 
-    // Add proxy if provided
     if (proxyUrl) {
       const proxyMatch = proxyUrl.match(/^(https?):\/\/([^:]+):(\d+)$/);
       if (proxyMatch) {
