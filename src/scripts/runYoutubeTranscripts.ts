@@ -2,8 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import * as dotenv from 'dotenv';
 
 import { AppModule } from '../app.module';
-import { ConfigService } from '../config/config.service';
 import { ChannelConfig } from '../shared/types/channel';
+import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
 import { ExtractYoutubeTranscriptsUseCase } from '../usecases/youtube-transcriptions/extract-youtube-transcripts.usecase';
 
 dotenv.config();
@@ -13,7 +13,7 @@ async function initialize() {
   return {
     app,
     extractYoutubeTranscriptsUseCase: app.get(ExtractYoutubeTranscriptsUseCase),
-    configService: app.get(ConfigService),
+    youtubeChannelsService: app.get(YoutubeChannelsService),
   };
 }
 
@@ -24,23 +24,15 @@ async function main() {
 
   try {
     const services = await initialize();
-    const ytConfig = services.configService.getYoutubeChannelsConfig();
+    const enabledChannels = await services.youtubeChannelsService.getEnabledChannels();
 
-    // Convert config channels to ChannelConfig array, filtering out disabled channels
-    const channels: ChannelConfig[] = Object.entries(ytConfig.channels)
-      .filter(
-        ([channelId, channelData]) =>
-          channelId !== undefined && channelData.enabled !== false,
-      )
-      .map(([channelId, channelData]) => ({
-        channelId,
-        channelName: channelData.name,
-        channelDescription: channelData.description,
-        maxVideos:
-          channelData.maxVideos && channelData.maxVideos > 0
-            ? channelData.maxVideos
-            : ytConfig.maxVideosPerChannel,
-      }));
+    // Convert database channels to ChannelConfig array
+    const channels: ChannelConfig[] = enabledChannels.map((channel) => ({
+      channelId: channel.channelId,
+      channelName: channel.name,
+      channelDescription: channel.description || '',
+      maxVideos: channel.maxVideos || 1, // Default to 1 if not specified
+    }));
 
     if (channels.length === 0) {
       console.log(

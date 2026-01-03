@@ -13,6 +13,7 @@ import { QueueModule } from './queue/queue.module';
 import { ScraperModule } from './scraper/scraper.module';
 import { TechModule } from './tech/tech.module';
 import { UsecasesModule } from './usecases/usecases.module';
+import { YoutubeChannelsModule } from './youtube-channels/youtube-channels.module';
 import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-transcriptions.module';
 
 @Module({
@@ -27,6 +28,7 @@ import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-tr
     ProcessorModule,
     BriefingModule,
     TechModule,
+    YoutubeChannelsModule,
     YoutubeTranscriptionsModule,
     QueueModule,
     UsecasesModule,

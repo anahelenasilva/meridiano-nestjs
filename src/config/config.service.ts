@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { BriefingOptions } from '../briefing/briefing.entity';
 import { ImpactRating, PromptVariables } from '../shared/types/ai';
 import { FeedProfile } from '../shared/types/feed';
-import { youtubeChannelsConfig } from './channels';
+import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
 import { Config } from './config.entity';
 import {
   articleSummaryPrompt,
@@ -17,6 +17,8 @@ import {
 
 @Injectable()
 export class ConfigService {
+  constructor(private readonly youtubeChannelsService: YoutubeChannelsService) { }
+
   private readonly CONFIGS: Config = {
     prompts: {
       articleSummary: articleSummaryPrompt,
@@ -48,7 +50,7 @@ export class ConfigService {
     },
 
     youtubeTranscriptions: {
-      channels: youtubeChannelsConfig,
+      channels: {}, // Now loaded from database
       maxVideosPerChannel: 1,
     },
   };
@@ -146,8 +148,33 @@ export class ConfigService {
     return { ...this.CONFIGS.app };
   }
 
-  getYoutubeChannelsConfig() {
-    return { ...this.CONFIGS.youtubeTranscriptions };
+  async getYoutubeChannelsConfig() {
+    // Delegate to YoutubeChannelsService for backward compatibility
+    const channels = await this.youtubeChannelsService.getAllChannels();
+
+    // Convert to old format for backward compatibility
+    const channelsObj: Record<string, {
+      name: string;
+      url: string;
+      description: string;
+      enabled: boolean;
+      maxVideos?: number;
+    }> = {};
+
+    channels.forEach((channel) => {
+      channelsObj[channel.channelId] = {
+        name: channel.name,
+        url: channel.url,
+        description: channel.description || '',
+        enabled: channel.enabled,
+        ...(channel.maxVideos ? { maxVideos: channel.maxVideos } : {}),
+      };
+    });
+
+    return {
+      channels: channelsObj,
+      maxVideosPerChannel: this.CONFIGS.youtubeTranscriptions.maxVideosPerChannel,
+    };
   }
 
   getRedisConfig() {

@@ -11,7 +11,6 @@ import {
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
 import { CreateYoutubeTranscriptionDto } from './dto/create-youtube-transcription.dto';
-import { GetYoutubeChannelsQuery } from './queries/get-youtube-channels.query';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
 
@@ -21,14 +20,8 @@ export class YoutubeTranscriptionsController {
     private readonly listAllYoutubeTranscriptionsQuery: ListAllYoutubeTranscriptionsQuery,
     private readonly getYoutubeTranscriptionByIdQuery: GetYoutubeTranscriptionByIdQuery,
     private readonly deleteYoutubeTranscriptionCommand: DeleteYoutubeTranscriptionCommand,
-    private readonly getYoutubeChannelsQuery: GetYoutubeChannelsQuery,
     private readonly createYoutubeTranscriptionCommand: CreateYoutubeTranscriptionCommand
   ) { }
-
-  @Get('channels')
-  async getChannels() {
-    return await this.getYoutubeChannelsQuery.execute();
-  }
 
   @Get('transcriptions')
   async listTranscriptions() {

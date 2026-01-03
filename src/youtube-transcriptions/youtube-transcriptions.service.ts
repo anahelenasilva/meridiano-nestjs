@@ -1,14 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { AiService } from '../ai/ai.service';
-import { ConfigService } from '../config/config.service';
 import { DatabaseService } from '../database/database.service';
 import { QueueService } from '../queue/queue.service';
 import { ChannelConfig } from '../shared/types/channel';
 import { TranscriptItem, VideoWithTranscript } from '../shared/types/video';
+import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
+import { CountTotalTranscriptionsInput } from './dto/count-total-transcriptionsinput.dto';
+import { PaginatedYoutubeTranscriptionInput } from "./dto/paginated-youtub-transcription-input.dto";
 import {
-  CountTotalTranscriptionsInput,
   DBYoutubeTranscription,
-  PaginatedYoutubeTranscriptionInput,
   YoutubeTranscription,
 } from './entities/youtube-transcription.entity';
 import { StorageService } from './storage.service';
@@ -16,9 +15,6 @@ import { TranscriptService } from './transcript.service';
 import { fetchTranscriptViaInnertube } from './youtube-transcriptions-innertube.service';
 import { YouTubeService } from './youtube.service';
 
-/**
- * YouTube transcript segment format (matching youtubei.js structure)
- */
 type YouTubeTranscriptSegment = {
   end_ms: string;
   snippet: {
@@ -56,9 +52,8 @@ export class YoutubeTranscriptionsService {
     private readonly transcriptService: TranscriptService,
     private readonly storageService: StorageService,
     private readonly databaseService: DatabaseService,
-    private readonly aiService: AiService,
-    private readonly configService: ConfigService,
     private readonly queueService: QueueService,
+    private readonly youtubeChannelsService: YoutubeChannelsService,
   ) { }
 
   /**
@@ -223,9 +218,8 @@ export class YoutubeTranscriptionsService {
       console.log(`\n========================================`);
       console.log(`Processing single video: ${videoUrl}`);
 
-      // Get channel config
-      const ytConfig = this.configService.getYoutubeChannelsConfig();
-      const channelConfig = ytConfig.channels[channelId];
+      // Get channel from database
+      const channelConfig = await this.youtubeChannelsService.getChannelById(channelId);
 
       if (!channelConfig) {
         throw new Error(`Channel ${channelId} not found in configuration`);
@@ -248,7 +242,7 @@ export class YoutubeTranscriptionsService {
         videoId,
         channelId,
         channelConfig.name,
-        channelConfig.description,
+        channelConfig.description || '',
       );
 
       // Get transcript with fallback mechanism
