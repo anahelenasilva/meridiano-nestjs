@@ -33,7 +33,6 @@
     "migration:create": "typeorm-ts-node-commonjs migration:create",
     "migration:run": "typeorm-ts-node-commonjs migration:run -d src/database/typeorm.config.ts",
     "migration:revert": "typeorm-ts-node-commonjs migration:revert -d src/database/typeorm.config.ts",
-    "migrate:sqlite-to-postgres": "ts-node -r tsconfig-paths/register src/scripts/migrateSqliteToPostgres.ts",
     "docker:up": "docker-compose --profile local up -d",
     "docker:down": "docker-compose down",
     "docker:logs": "docker-compose logs -f postgres"
@@ -64,7 +63,6 @@
     "reflect-metadata": "0.2.2",
     "rss-parser": "3.13.0",
     "rxjs": "7.8.1",
-    "sqlite3": "5.1.7",
     "typeorm": "0.3.20",
     "youtubei.js": "16.0.1"
   },
@@ -82,7 +80,6 @@
     "@types/marked": "6.0.0",
     "@types/node": "22.10.7",
     "@types/pg": "8.10.9",
-    "@types/sqlite3": "3.1.11",
     "@types/supertest": "6.0.2",
     "eslint": "9.18.0",
     "eslint-config-prettier": "10.0.1",

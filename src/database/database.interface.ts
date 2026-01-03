@@ -1,4 +1,4 @@
-// Database connection interface that mimics SQLite API for compatibility
+// Database connection interface for PostgreSQL compatibility
 export interface RunCallbackContext {
   lastID?: string | number;
   changes?: number;

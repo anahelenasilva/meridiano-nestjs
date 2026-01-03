@@ -42,7 +42,7 @@ Add a method `saveTranscriptionToDatabase()` that:
 - Inserts into `youtube_transcriptions` table with fields:
   - `channel_id`, `channel_name`, `video_title`, `posted_at`, `video_url`, `processed_at`, `transcription_text`
 - Returns the inserted ID or null on error
-- Handles both SQLite and PostgreSQL (via DatabaseService abstraction)
+- Handles PostgreSQL (via DatabaseService abstraction)
 
 ### 2. Create Transcription Processing Service Method
 
@@ -96,7 +96,7 @@ Add a new script entry:
 ## Key Implementation Notes
 
 - **Error Handling**: Wrap each file processing in try-catch, log errors with file path, continue processing
-- **Database Compatibility**: Use `DatabaseService` abstraction to work with both SQLite and PostgreSQL
+- **Database Compatibility**: Use `DatabaseService` abstraction to work with PostgreSQL
 - **Channel Mapping**: Extract channel ID from filename and look up channel name from config
 - **Date Parsing**: Parse `publishedAt` from JSON (currently "1 day ago" format) - may need to handle relative dates or use current date as fallback
 - **Duplicate Prevention**: Check if transcription already exists (by `video_url` or `video_id`) before inserting

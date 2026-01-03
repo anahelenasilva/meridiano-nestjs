@@ -9,7 +9,7 @@ import {
   RunResult,
 } from './database.interface';
 
-// Helper function to convert SQLite-style ? placeholders to PostgreSQL-style $1, $2, etc.
+// Helper function to convert ? placeholders to PostgreSQL-style $1, $2, etc.
 function convertPlaceholders(sql: string): string {
   let index = 0;
   return sql.replace(/\?/g, () => {
@@ -28,14 +28,12 @@ class PostgresConnection implements DatabaseConnection {
   run(sql: string, params?: any[], callback?: RunCallback): RunResult {
     const result: RunResult = {};
 
-    // Modify SQL to include RETURNING id for INSERT statements
     let querySql = sql;
     const isInsert = /^\s*INSERT\s+/i.test(sql.trim());
     if (isInsert && !/RETURNING/i.test(sql)) {
       querySql = sql.replace(/;?\s*$/, '') + ' RETURNING id';
     }
 
-    // Convert SQLite-style ? placeholders to PostgreSQL-style $1, $2, etc.
     querySql = convertPlaceholders(querySql);
 
     this.pool.query(
@@ -43,15 +41,13 @@ class PostgresConnection implements DatabaseConnection {
       params || [],
       (err: Error | null, res?: QueryResult) => {
         if (res) {
-          // For INSERT with RETURNING, get the id from the first row
           if (isInsert && res.rows[0]?.id) {
-            // Keep UUID as string, don't convert to number
             result.lastID = String(res.rows[0].id);
           }
+
           result.changes = res.rowCount || 0;
         }
         if (callback) {
-          // Set this.lastID and this.changes for callback context (like SQLite does)
           const callbackContext: RunCallbackContext = {
             lastID: result.lastID,
             changes: result.changes,
@@ -68,7 +64,6 @@ class PostgresConnection implements DatabaseConnection {
     params?: any[],
     callback?: (err: Error | null, rows?: any[]) => void,
   ): void {
-    // Convert SQLite-style ? placeholders to PostgreSQL-style $1, $2, etc.
     const querySql = convertPlaceholders(sql);
 
     this.pool.query(
@@ -87,7 +82,6 @@ class PostgresConnection implements DatabaseConnection {
     params?: any[],
     callback?: (err: Error | null, row?: any) => void,
   ): void {
-    // Convert SQLite-style ? placeholders to PostgreSQL-style $1, $2, etc.
     const querySql = convertPlaceholders(sql);
 
     this.pool.query(
@@ -130,7 +124,6 @@ class PostgresPreparedStatement implements PreparedStatement {
       querySql = this.sql.replace(/;?\s*$/, '') + ' RETURNING id';
     }
 
-    // Convert SQLite-style ? placeholders to PostgreSQL-style $1, $2, etc.
     querySql = convertPlaceholders(querySql);
 
     this.pool.query(
@@ -138,16 +131,13 @@ class PostgresPreparedStatement implements PreparedStatement {
       params,
       (err: Error | null, res?: QueryResult) => {
         if (res) {
-          // For INSERT with RETURNING, get the id from the first row
           if (isInsert && res.rows[0]?.id) {
-            // Keep UUID as string, don't convert to number
             result.lastID = String(res.rows[0].id);
           }
           result.changes = res.rowCount || 0;
         }
 
         if (callback) {
-          // Set this.lastID and this.changes for callback context (like SQLite does)
           const callbackContext: RunCallbackContext = {
             lastID: result.lastID,
             changes: result.changes,
@@ -180,7 +170,6 @@ export class PostgresDatabaseService extends AbstractDatabaseService {
     const dbHost = process.env.DATABASE_HOST || 'localhost';
     const dbPort = process.env.DATABASE_PORT || '5432';
     const dbName = process.env.DATABASE_NAME || 'meridian';
-    // URL-encode username and password to handle special characters
     const encodedUser = encodeURIComponent(dbUser);
     const encodedPassword = encodeURIComponent(dbPassword);
     const builtDbUrl = `postgresql://${encodedUser}:${encodedPassword}@${dbHost}:${dbPort}/${dbName}`;
