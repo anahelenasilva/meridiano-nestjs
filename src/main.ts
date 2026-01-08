@@ -13,9 +13,9 @@ async function bootstrap() {
   app.enableCors();
 
   const port = process.env.PORT || 3001;
-  await app.listen(port);
+  await app.listen(port, '0.0.0.0');
 
-  console.log(`🚀 Meridiano API server running on http://localhost:${port}`);
+  console.log(`🚀 Meridiano API server running on http://0.0.0.0:${port}`);
   console.log(`📊 API endpoints:`);
   console.log(`   GET /api/briefings - List briefings`);
   console.log(`   GET /api/briefings/:id - Get briefing details`);
