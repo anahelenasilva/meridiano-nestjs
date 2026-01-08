@@ -9,8 +9,22 @@ dotenv.config({ override: false });
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Enable CORS
-  app.enableCors();
+  // Configure CORS
+  // If CORS_ORIGINS is set, use it; otherwise allow all origins (for Tailscale/local flexibility)
+  const corsOrigins = process.env.CORS_ORIGINS;
+  const corsConfig = corsOrigins
+    ? {
+      origin: corsOrigins.split(',').map((origin) => origin.trim()),
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+    }
+    : {
+      origin: true, // Allow all origins (useful for Tailscale/local network access)
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+    };
+
+  app.enableCors(corsConfig);
 
   const port = process.env.PORT || 3001;
   await app.listen(port, '0.0.0.0');
