@@ -73,7 +73,7 @@ export class YoutubeChannelsService {
       const db = this.databaseService.getDbConnection();
 
       db.all(
-        'SELECT id, channel_id, name, url, description, enabled, max_videos, created_at, updated_at FROM youtube_channels WHERE channel_id = ?',
+        'SELECT id, channel_id, name, url, description, enabled, max_videos, created_at, updated_at FROM youtube_channels WHERE id = ?',
         [channelId],
         (err: Error | null, rows: any[]) => {
           if (err) {
@@ -113,7 +113,7 @@ export class YoutubeChannelsService {
       const db = this.databaseService.getDbConnection();
 
       db.run(
-        'UPDATE youtube_channels SET enabled = ?, updated_at = CURRENT_TIMESTAMP WHERE channel_id = ?',
+        'UPDATE youtube_channels SET enabled = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?',
         [enabled, channelId],
         function (err: Error | null) {
           if (err) {
