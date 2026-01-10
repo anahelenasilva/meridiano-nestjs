@@ -53,10 +53,9 @@ export class BookmarksController {
 
       return new BookmarkResponseDto(bookmark);
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : 'Unknown error occurred';
+      console.error('Error adding bookmark:', error);
 
-      throw new BadRequestException(`Failed to add bookmark: ${errorMessage}`);
+      throw new BadRequestException('Failed to add bookmark');
     }
   }
 
