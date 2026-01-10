@@ -1,0 +1,36 @@
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  ParseUUIDPipe,
+  Post
+} from '@nestjs/common';
+import { CreateUserDto, UserResponseDto } from './user.entity';
+import { UsersService } from './users.service';
+
+@Controller('api/users')
+export class UsersController {
+  constructor(private readonly usersService: UsersService) { }
+
+  @Post()
+  async createUser(@Body() createUserDto: CreateUserDto) {
+    const user = await this.usersService.createUser(
+      createUserDto.email,
+      createUserDto.username,
+    );
+    return new UserResponseDto(user);
+  }
+
+  @Get(':id')
+  async getUserById(@Param('id', ParseUUIDPipe) id: string) {
+    const user = await this.usersService.getUserById(id);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return new UserResponseDto(user);
+  }
+}

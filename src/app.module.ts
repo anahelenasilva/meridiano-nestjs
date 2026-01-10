@@ -3,6 +3,7 @@ import { AiModule } from './ai/ai.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ArticlesModule } from './articles/articles.module';
+import { BookmarksModule } from './bookmarks/bookmarks.module';
 import { BriefingModule } from './briefing/briefing.module';
 import { BriefingsModule } from './briefings/briefings.module';
 import { ConfigModule } from './config/config.module';
@@ -13,6 +14,7 @@ import { QueueModule } from './queue/queue.module';
 import { ScraperModule } from './scraper/scraper.module';
 import { TechModule } from './tech/tech.module';
 import { UsecasesModule } from './usecases/usecases.module';
+import { UsersModule } from './users/users.module';
 import { YoutubeChannelsModule } from './youtube-channels/youtube-channels.module';
 import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-transcriptions.module';
 
@@ -32,6 +34,8 @@ import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-tr
     YoutubeTranscriptionsModule,
     QueueModule,
     UsecasesModule,
+    UsersModule,
+    BookmarksModule,
   ],
   controllers: [AppController],
   providers: [AppService],

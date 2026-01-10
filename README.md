@@ -287,10 +287,15 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 - [x] Convert cli commands to use usecase so it's more decoupled and easy to reuse
 - [x] Isolate prompts configs from config.service.ts to separate files, so it's easier to mantain; also do this for the other configs
 - [x] Add articles manually
-- [ ] Star/bookmark/save for later an article
-- [ ] See stars/bookmarks/saved in a special view
-- [ ] See starred articles differently in the briefing
+- [x] Star/bookmark/save for later an article
+- [x] See stars/bookmarks/saved in a special view
 - [x] Add youtube video manually
 - [ ] Refactor all tests to use jest-mock-extended
 - [x] Remove sqlite code
-- [ ] Create a docs folder on the root of the project with all available endpoints ready to import to Bruno
+- [x] Create a docs folder on the root of the project with all available endpoints ready to import to Bruno
+
+## API Documentation
+
+For detailed API documentation, see:
+- [Bookmarks API Documentation](docs/bookmarks/BOOKMARKS_API.md) - Complete guide for users and bookmarks endpoints
+- [ ] Add auth
