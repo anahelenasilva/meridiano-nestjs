@@ -53,9 +53,7 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
     );
 
     try {
-      // Generate summary prompt (limit to 8000 chars)
-      const limitedText = transcriptText.substring(0, 8000);
-      const summaryPrompt = this.configService.getTranscriptionSummaryPrompt(limitedText);
+      const summaryPrompt = this.configService.getTranscriptionSummaryPrompt(transcriptText);
 
       console.log(`Generating summary for transcription ${transcriptionId}...`);
       const summary = await this.aiService.callDeepseekChat(summaryPrompt);
