@@ -51,8 +51,26 @@ export class BookmarksService {
               err.message.includes('duplicate key value') ||
               errorWithCode.code === '23505' // PostgreSQL unique violation error code
             ) {
-              // Bookmark already exists
-              resolve(null);
+              // Bookmark already exists - fetch and return the existing bookmark
+              db.get(
+                `SELECT id, user_id, article_id, created_at FROM bookmarks WHERE user_id = ? AND article_id = ?`,
+                [userId, articleId],
+                (getErr: Error | null, row?: BookmarkRow) => {
+                  if (getErr) {
+                    reject(getErr);
+                  } else if (!row) {
+                    // This should not happen, but handle gracefully
+                    reject(new Error('Duplicate bookmark detected but bookmark not found'));
+                  } else {
+                    resolve({
+                      id: row.id,
+                      user_id: row.user_id,
+                      article_id: row.article_id,
+                      created_at: new Date(row.created_at),
+                    });
+                  }
+                },
+              );
             } else {
               reject(err);
             }
