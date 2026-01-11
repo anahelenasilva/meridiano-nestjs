@@ -15,17 +15,19 @@ interface UserRow {
 export class UsersService {
   constructor(private readonly databaseService: DatabaseService) { }
 
-  async createUser(email: string, username: string): Promise<User> {
+  async createUser(email: string, username: string, password: string): Promise<User> {
+    const hashedPassword = await this.hashPassword(password);
+
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
       db.run(
         `
-        INSERT INTO users (email, username)
-        VALUES (?, ?)
+        INSERT INTO users (email, username, password)
+        VALUES (?, ?, ?)
         RETURNING id, email, username, created_at
       `,
-        [email, username],
+        [email, username, hashedPassword],
         (err: Error | null) => {
           if (err) {
             const errorWithCode = err as Error & { code?: string; detail?: string };

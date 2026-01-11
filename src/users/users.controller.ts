@@ -19,7 +19,9 @@ export class UsersController {
     const user = await this.usersService.createUser(
       createUserDto.email,
       createUserDto.username,
+      createUserDto.password,
     );
+
     return new UserResponseDto(user);
   }
 
