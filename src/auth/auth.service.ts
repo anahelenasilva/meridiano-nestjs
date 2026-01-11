@@ -15,17 +15,17 @@ export class AuthService {
     const user = await this.usersService.getUserByEmail(email, true);
 
     if (!user) {
-      throw new UnauthorizedException('Invalid email or password');
+      throw new UnauthorizedException('Failed to login');
     }
 
     if (!user.password) {
-      throw new UnauthorizedException('Invalid email or password');
+      throw new UnauthorizedException('Failed to login');
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid email or password');
+      throw new UnauthorizedException('Failed to login');
     }
 
     const payload = { sub: user.id, email: user.email };
