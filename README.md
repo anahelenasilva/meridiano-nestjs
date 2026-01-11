@@ -293,6 +293,7 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 - [ ] Refactor all tests to use jest-mock-extended
 - [x] Remove sqlite code
 - [x] Create a docs folder on the root of the project with all available endpoints ready to import to Bruno
+- [ ] Migrate feeds configs to a table
 
 ## API Documentation
 
