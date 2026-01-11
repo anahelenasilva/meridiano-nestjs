@@ -1,5 +1,6 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { DatabaseModule } from '../database/database.module';
+import { ProfilesModule } from '../profiles/profiles.module';
 import { QueueModule } from '../queue/queue.module';
 import { ScraperModule } from '../scraper/scraper.module';
 import { ArticlesController } from './articles.controller';
@@ -10,6 +11,7 @@ import { ListArticlesQuery } from './queries/list-articles.query';
 @Module({
   imports: [
     DatabaseModule,
+    ProfilesModule,
     forwardRef(() => ScraperModule),
     forwardRef(() => QueueModule),
   ],

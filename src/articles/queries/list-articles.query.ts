@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import moment from 'moment';
+import { ProfilesService } from '../../profiles/profiles.service';
 import { ArticlesService } from '../articles.service';
 import { prepareArticleContent } from '../helpers/prepareArticleContent';
 
@@ -40,7 +41,10 @@ export type ListArticlesResponse = {
 
 @Injectable()
 export class ListArticlesQuery {
-  constructor(private readonly service: ArticlesService) {}
+  constructor(
+    private readonly service: ArticlesService,
+    private readonly profilesService: ProfilesService
+  ) { }
 
   async execute(
     request: ListArticlesRequest,
@@ -72,7 +76,7 @@ export class ListArticlesQuery {
       }
     }
 
-    const availableProfiles = await this.service.getDistinctFeedProfiles();
+    const availableProfiles = this.profilesService.getAvailableProfiles();
     const availableCategories = await this.service.getDistinctCategories();
 
     const totalArticles = await this.service.countTotalArticles({
