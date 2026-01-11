@@ -1,104 +1,85 @@
 import { FeedConfiguration, FeedProfile, RSSFeed } from '../types/feed';
 
-export const techRSSFeeds: RSSFeed[] = [
+export const politicsRSSFeeds: RSSFeed[] = [
   {
-    url: 'https://nodejs.org/en/feed/blog.xml',
-    name: 'NodeJs Blog',
-    category: 'technical',
-    description: 'Official Node.js project blog',
+    url: 'https://www.scmp.com/rss/322265/feed/',
+    name: 'SCMP Americas',
+    category: 'asia-news',
+    description: 'South China Morning Post - Americas',
     enabled: true,
   },
   {
-    url: 'https://techcrunch.com/feed/',
-    name: 'TechCrunch',
-    category: 'startup',
-    description: 'Technology startup news and venture capital',
+    url: 'https://www.scmp.com/rss/322264/feed/',
+    name: 'SCMP Middle East',
+    category: 'asia-news',
+    description: 'South China Morning Post - Middle East',
     enabled: true,
   },
   {
-    url: 'https://www.tabnews.com.br/recentes/rss',
-    name: 'TabNews',
-    category: 'technical',
-    description:
-      "Technology articles and news; it's also a Brazilian platform and community",
+    url: 'https://www.scmp.com/rss/5/feed/',
+    name: 'SCMP World',
+    category: 'asia-news',
+    description: 'South China Morning Post - World',
     enabled: true,
   },
   {
-    url: 'https://leaddev.com/feed',
-    name: 'LeadDev',
-    category: 'technical',
-    description:
-      'Hosts thousands of free articles and videos that can help you improve your performance and that of your entire engineering org.',
+    url: 'https://www.scmp.com/rss/36/feed',
+    name: 'SCMP Tech',
+    category: 'asia-news',
+    description: 'South China Morning Post - Technology',
     enabled: true,
   },
   {
-    url: 'https://www.theverge.com/rss/index.xml',
-    name: 'The Verge',
-    category: 'consumer-tech',
-    description: 'Consumer technology and culture',
+    url: 'https://www.scmp.com/rss/320663/feed',
+    name: 'SCMP China Tech',
+    category: 'china-news',
+    description: 'SCMP - China Technology',
+    enabled: true,
+  },
+  {
+    url: 'https://www.scmp.com/rss/318220/feed',
+    name: 'SCMP Startups',
+    category: 'china-news',
+    description: 'SCMP - Startups',
     enabled: false,
   },
   {
-    url: 'https://arstechnica.com/feed/',
-    name: 'Ars Technica',
-    category: 'technical',
-    description: 'In-depth technology analysis and science',
+    url: 'https://www.scmp.com/rss/318221/feed',
+    name: 'SCMP Apps & Gaming',
+    category: 'china-tech',
+    description: 'SCMP - Apps and Gaming',
     enabled: false,
   },
   {
-    url: 'https://krebsonsecurity.com/feed/',
-    name: 'Krebs on Security',
-    category: 'cybersecurity',
-    description: 'Cybersecurity news and investigative reporting',
+    url: 'https://www.scmp.com/rss/318224/feed',
+    name: 'SCMP Science & Research',
+    category: 'china-science',
+    description: 'SCMP - Science and Research',
+    enabled: true,
+  },
+  {
+    url: 'https://www.scmp.com/rss/318222/feed',
+    name: 'SCMP Innovation',
+    category: 'china-news',
+    description: 'SCMP - Innovation',
     enabled: false,
-  },
-  {
-    url: 'https://feeds.feedburner.com/TheHackersNews',
-    name: 'The Hacker News',
-    category: 'cybersecurity',
-    description: 'Cybersecurity and hacking news',
-    enabled: true,
-  },
-  {
-    url: 'https://raw.githubusercontent.com/theworkitem/feeds/master/xml/theworkitem-itunes.xml',
-    name: 'The Work Item Podcast',
-    category: 'tech-culture',
-    description: "Podcast on Real Talk on Tech's Toughest Career Choices",
-    enabled: true,
-  },
-  {
-    url: 'https://feed.infoq.com/',
-    name: "InfoQ",
-    category: 'tech',
-    description:
-      'InfoQ is a technology news website that covers the latest news and trends in the technology industry.',
-    enabled: false,
-  },
-  {
-    url: 'https://simonwillison.net/atom/everything/',
-    name: "Simon Willison's Weblog",
-    category: 'tech',
-    description:
-      'Simon Willison is a co-creator of the Django Web Framework, and has been blogging about web development and programming since 2002 at simonwillison.net',
-    enabled: true,
   },
 ];
 
-export const techPrompts = {
+export const politicsPrompts = {
   articleSummary: `
   You are an expert summarizer and critical reader.
 
-  I will paste an article (news or technical article). Your job is to:
+  I will paste a politics article. Your job is to:
   - Extract the core ideas and arguments from the article.
   - Translate complex points into clear, simple language.
   - Organize the summary so it is easy to scan.
 
   Output on the {article_content} property:
   1) 3-5 sentence overview in plain English.
-  2) 3-5 sentence summary in technical terms.
-  3) Key takeaways as concise bullet points and/or short sections, as appropriate.
-  4) Notable data, trends, or memorable quotes called out clearly.
-  5) Brief critique: any bias, outdated information, gaps, or missing context.
+  2) Key takeaways as concise bullet points and/or short sections, as appropriate.
+  3) Notable data, trends, or memorable quotes called out clearly.
+  4) Brief critique: any bias, outdated information, gaps, or missing context.
 
   Transcription:
   {article_content}
@@ -131,12 +112,8 @@ Analyzed News Clusters (Most significant first):
 {cluster_analyses_text}`,
 };
 
-export const techFeedConfig: FeedConfiguration = {
-  profile: FeedProfile.TECHNOLOGY,
-  rssFeeds: techRSSFeeds,
-  prompts: techPrompts,
-  settings: {
-    priority: 1,
-    enabled: true,
-  },
+export const politicsFeedConfig: FeedConfiguration = {
+  profile: FeedProfile.POLITICS,
+  rssFeeds: politicsRSSFeeds,
+  prompts: politicsPrompts,
 };

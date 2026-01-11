@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { brasilFeedConfig } from '../shared/feeds/brasil';
+import { politicsFeedConfig } from '../shared/feeds/politics';
 import { techFeedConfig } from '../shared/feeds/tech';
 import { teclasFeedConfig } from '../shared/feeds/teclas';
 import { FeedConfiguration, FeedProfile, RSSFeed } from '../shared/types/feed';
@@ -12,6 +13,7 @@ export class ProfilesService {
     this.registerFeedConfig(techFeedConfig);
     this.registerFeedConfig(brasilFeedConfig);
     this.registerFeedConfig(teclasFeedConfig);
+    this.registerFeedConfig(politicsFeedConfig);
   }
 
   registerFeedConfig(config: FeedConfiguration): void {
