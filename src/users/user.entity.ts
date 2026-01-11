@@ -4,6 +4,7 @@ export interface User {
   id: string;
   email: string;
   username: string;
+  password?: string; // Optional: should not be returned in responses
   created_at: Date;
 }
 

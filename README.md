@@ -62,6 +62,9 @@ COMPOSE_PROFILE=local
 # Redis Configuration
 REDIS_HOST=localhost
 REDIS_PORT=6379
+
+# JWT Authentication
+JWT_SECRET=your-secret-key-change-in-production
 ```
 
 ### Starting the Database

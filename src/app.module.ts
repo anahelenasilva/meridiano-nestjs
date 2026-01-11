@@ -1,8 +1,11 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { AiModule } from './ai/ai.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ArticlesModule } from './articles/articles.module';
+import { AuthModule } from './auth/auth.module';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { BookmarksModule } from './bookmarks/bookmarks.module';
 import { BriefingModule } from './briefing/briefing.module';
 import { BriefingsModule } from './briefings/briefings.module';
@@ -22,6 +25,7 @@ import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-tr
   imports: [
     ConfigModule,
     DatabaseModule,
+    AuthModule,
     AiModule,
     ArticlesModule,
     BriefingsModule,
@@ -38,6 +42,12 @@ import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-tr
     BookmarksModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
 })
 export class AppModule { }

@@ -1,4 +1,5 @@
 import { ConflictException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 import { DatabaseService } from '../database/database.service';
 import { User } from './user.entity';
 
@@ -6,6 +7,7 @@ interface UserRow {
   id: string;
   email: string;
   username: string;
+  password?: string;
   created_at: string;
 }
 
@@ -98,12 +100,16 @@ export class UsersService {
     });
   }
 
-  async getUserByEmail(email: string): Promise<User | null> {
+  async getUserByEmail(email: string, includePassword = false): Promise<User | null> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
+      const fields = includePassword
+        ? 'id, email, username, password, created_at'
+        : 'id, email, username, created_at';
+
       db.get(
-        `SELECT id, email, username, created_at FROM users WHERE email = ?`,
+        `SELECT ${fields} FROM users WHERE email = ?`,
         [email],
         (err: Error | null, row?: UserRow) => {
           if (err) {
@@ -116,6 +122,7 @@ export class UsersService {
               id: row.id,
               email: row.email,
               username: row.username,
+              ...(includePassword && row.password ? { password: row.password } : {}),
               created_at: new Date(row.created_at),
             });
           }
@@ -144,6 +151,36 @@ export class UsersService {
               username: row.username,
               created_at: new Date(row.created_at),
             });
+          }
+        },
+      );
+    });
+  }
+
+  async hashPassword(password: string): Promise<string> {
+    const saltRounds = 10;
+    return bcrypt.hash(password, saltRounds);
+  }
+
+  async comparePassword(password: string, hash: string): Promise<boolean> {
+    return bcrypt.compare(password, hash);
+  }
+
+  async updateUserPassword(userId: string, password: string): Promise<void> {
+    const hashedPassword = await this.hashPassword(password);
+
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      db.run(
+        `UPDATE users SET password = ? WHERE id = ?`,
+        [hashedPassword, userId],
+        (err: Error | null) => {
+          if (err) {
+            console.error('Error updating user password:', err);
+            reject(new InternalServerErrorException('Failed to update password'));
+          } else {
+            resolve();
           }
         },
       );
