@@ -28,7 +28,7 @@ export class UsersController {
     const user = await this.usersService.getUserById(id);
 
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('Invalid user');
     }
 
     return new UserResponseDto(user);
