@@ -1,0 +1,259 @@
+# Cursor Rules for Meridiano NestJS Project
+
+## Project Overview
+This is a NestJS application for processing and aggregating news articles, YouTube transcriptions, and generating AI-powered briefings. It uses TypeORM with PostgreSQL, BullMQ for job queues, Redis for caching, and follows a modular architecture with CQRS-like patterns.
+
+## Tech Stack
+- **Runtime**: Node.js with TypeScript (ES2023 target)
+- **Framework**: NestJS 11.x
+- **Database**: PostgreSQL with TypeORM
+- **Queue**: BullMQ with Redis
+- **Auth**: JWT with Passport
+- **AI**: OpenAI API (via `openai` package)
+- **Testing**: Jest with jest-mock-extended
+- **Package Manager**: pnpm
+
+## Architecture Patterns
+
+### Module Structure
+Each domain feature is organized as a NestJS module:
+```
+feature/
+├── feature.module.ts       # Module definition
+├── feature.service.ts      # Business logic
+├── feature.controller.ts   # HTTP endpoints
+├── feature.entity.ts       # Types and interfaces
+├── dto/                    # Data Transfer Objects
+├── commands/               # Write operations (CQRS)
+├── queries/                # Read operations (CQRS)
+└── helpers/                # Utility functions
+```
+
+### CQRS Pattern
+- **Commands**: Write operations that modify state (`commands/*.command.ts`)
+- **Queries**: Read operations that retrieve data (`queries/*.query.ts`)
+- **Usecases**: Complex business logic orchestration (`src/usecases/`)
+- All should be `@Injectable()` classes with an `execute()` method
+
+### File Naming Conventions
+| Type | File Pattern | Class Pattern |
+|------|--------------|---------------|
+| Service | `*.service.ts` | `*Service` |
+| Controller | `*.controller.ts` | `*Controller` |
+| Module | `*.module.ts` | `*Module` |
+| Entity/Types | `*.entity.ts` | Interfaces/Types |
+| DTO | `*.dto.ts` | `*Dto` |
+| Command | `*.command.ts` | `*Command` |
+| Query | `*.query.ts` | `*Query` |
+| Usecase | `*.usecase.ts` | `*UseCase` |
+| Test | `*.spec.ts` | - |
+| Migration | `{timestamp}-{PascalCase}.ts` | - |
+| Prompt | `*.prompt.ts` | - |
+
+## Code Style
+
+### TypeScript
+- Use interfaces for data structures and DTOs
+- Use enums for fixed value sets (e.g., `ArticleCategory`, `FeedProfile`)
+- Prefer `async/await` over raw Promises
+- Use explicit return types for public methods
+- Database interfaces use snake_case for column names (e.g., `published_date`)
+- TypeScript config uses `nodenext` module resolution
+
+### NestJS Patterns
+```typescript
+// Constructor injection
+constructor(private readonly serviceName: ServiceType) {}
+
+// Controller routes with API prefix
+@Controller('api/feature-name')
+
+// Param validation with pipes
+@Param('id', ParseUUIDPipe) id: string
+
+// Error handling
+throw new BadRequestException('Message');
+throw new NotFoundException('Resource not found');
+throw new UnauthorizedException('Failed to login');
+```
+
+### Authentication
+- Global JWT auth guard is applied via `APP_GUARD`
+- Use `@Public()` decorator from `src/auth/decorators/public.decorator.ts` for public routes
+- User context available via `@CurrentUser()` decorator
+
+### Database Patterns
+- TypeORM with PostgreSQL (not SQLite)
+- Raw SQL with prepared statements for complex queries
+- Parse JSON columns when reading from DB
+- Convert date strings to Date objects in service layer
+- Return `null` from insert when duplicate key (code `23505`)
+
+### Error Handling
+```typescript
+// Services return null for not found
+async getById(id: string): Promise<Entity | null>
+
+// Controllers throw HTTP exceptions
+if (!result) {
+  throw new NotFoundException('Entity not found');
+}
+
+// Commands wrap errors appropriately
+try {
+  // operation
+} catch (error) {
+  const message = error instanceof Error ? error.message : 'Unknown error';
+  throw new BadRequestException(`Failed: ${message}`);
+}
+```
+
+## Configuration
+
+### Prompts
+- Located in `src/config/prompts/` as individual files
+- Use `{variable_name}` placeholder syntax
+- Export as named constants: `export const featurePrompt = \`...\``
+
+### Environment Variables
+```env
+# Database
+DATABASE_TYPE=postgres
+DATABASE_USER=postgres
+DATABASE_PASSWORD=postgres
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_NAME=meridian
+
+# Redis
+REDIS_HOST=localhost
+REDIS_PORT=6379
+
+# Auth
+JWT_SECRET=your-secret-key
+```
+
+## Testing
+
+### Test Structure
+```typescript
+import { Test, TestingModule } from '@nestjs/testing';
+import { mock } from 'jest-mock-extended';
+
+describe('ServiceName', () => {
+  let service: ServiceName;
+  const mockDependency = mock<DependencyType>();
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        ServiceName,
+        { provide: DependencyType, useValue: mockDependency },
+      ],
+    }).compile();
+
+    service = module.get<ServiceName>(ServiceName);
+  });
+
+  it('should be defined', () => {
+    expect(service).toBeDefined();
+  });
+});
+```
+
+### Mocking
+- Use `jest-mock-extended` for type-safe mocks
+- Mocks for external libs in `src/__mocks__/`
+- Clear mocks in `beforeEach` and `afterAll` (or `afterEach`) when needed
+
+## Migrations
+
+### Commands
+```bash
+# Generate from entity changes
+pnpm run migration:generate src/database/migrations/DescriptionName
+
+# Create empty migration
+pnpm run migration:create src/database/migrations/DescriptionName
+
+# Run pending
+pnpm run migration:run
+
+# Revert last
+pnpm run migration:revert
+```
+
+### Naming
+- Timestamp prefix + PascalCase description
+- Examples: `1768063500376-CreateUsersAndBookmarks.ts`
+
+## API Response Patterns
+
+### Paginated Response
+```typescript
+{
+  items: T[];
+  pagination: {
+    page: number;
+    per_page: number;
+    total_pages: number;
+    total_items: number;
+  };
+  filters: { ... };
+}
+```
+
+### Command Response
+```typescript
+{
+  success: boolean;
+  message: string;
+  entityId?: string;
+}
+```
+
+### Job Response
+```typescript
+{
+  jobId: string;
+  message: string;
+}
+```
+
+## Scripts
+- CLI scripts in `src/scripts/`, run via `ts-node`
+- Use `commander` for argument parsing
+- Naming: `run*.ts` (e.g., `runBriefing.ts`)
+
+## Common Patterns to Follow
+
+### Creating a New Feature
+1. Create module directory under `src/`
+2. Define entity interfaces in `*.entity.ts`
+3. Create service with `@Injectable()`
+4. Create controller with `@Controller('api/feature')`
+5. Create module importing/exporting service
+6. Add module to `AppModule` imports
+7. Create migration if DB tables needed
+
+### Adding an API Endpoint
+1. Add DTO in `dto/` directory with validation decorators
+2. For reads: create Query class in `queries/`
+3. For writes: create Command class in `commands/`
+4. Add controller method delegating to Query/Command
+5. Add appropriate HTTP exceptions for error cases
+
+### Database Operations
+1. Inject `DatabaseService` in constructor
+2. Get connection: `this.databaseService.getDbConnection()`
+3. Use prepared statements: `db.prepare(sql)`
+4. Handle errors and convert to appropriate exceptions
+
+## Don't
+- Don't use SQLite (project migrated to PostgreSQL)
+- Don't add unnecessary abstractions or over-engineer
+- Don't add unnecessary comments in the code for obvious things
+- Don't create new files for single-use helpers
+- Don't skip error handling in async operations
+- Don't use `any` type when a proper interface exists
+- Don't hardcode configuration values (use ConfigService or env vars)
