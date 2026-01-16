@@ -298,9 +298,10 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 - [x] Create a docs folder on the root of the project with all available endpoints ready to import to Bruno
 - [ ] Migrate feeds configs to a table
 - [x] Endpoint to create channel
+- [x] Add auth
+- [ ] Make it possible to upload a markdown file to S3 with an article and send an event to the queue to process this md file
 
 ## API Documentation
 
 For detailed API documentation, see:
 - [Bookmarks API Documentation](docs/bookmarks/BOOKMARKS_API.md) - Complete guide for users and bookmarks endpoints
-- [ ] Add auth
