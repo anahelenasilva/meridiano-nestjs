@@ -15,11 +15,11 @@ services:
       POSTGRES_DB: ${DATABASE_NAME:-meridian}
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
-      - "${DATABASE_PORT:-5432}:5432"
+      - "5435:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME:-meridian}"]
+      test: [ "CMD-SHELL", "pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME:-meridian}" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -42,7 +42,7 @@ services:
       - redis_data:/data
     command: redis-server --appendonly yes ${REDIS_PASSWORD:+--requirepass "$REDIS_PASSWORD"}
     healthcheck:
-      test: ["CMD-SHELL", "redis-cli ${REDIS_PASSWORD:+-a \"$REDIS_PASSWORD\"} ping"]
+      test: [ "CMD-SHELL", "redis-cli ${REDIS_PASSWORD:+-a \"$REDIS_PASSWORD\"} ping" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -59,4 +59,3 @@ networks:
   meridiano-network:
     name: meridiano-network-${COMPOSE_PROFILE:-local}
     driver: bridge
-
