@@ -30,6 +30,7 @@ export class YouTubeService {
     channelId: string,
     channelName: string,
     channelDescription: string,
+    channelDatabaseId: string,
   ): Promise<VideoMetadata> {
     try {
       await this.initialize();
@@ -46,6 +47,7 @@ export class YouTubeService {
       const metadata: VideoMetadata = {
         channel: {
           id: channelId,
+          databaseId: channelDatabaseId,
           name: channelName,
           description: channelDescription,
         },
@@ -81,7 +83,7 @@ export class YouTubeService {
         throw new Error('Failed to initialize YouTube client');
       }
 
-      const { channelId, channelName, channelDescription, maxVideos } =
+      const { channelId, channelName, channelDescription, maxVideos, databaseId } =
         channelConfig;
 
       console.log(
@@ -103,6 +105,7 @@ export class YouTubeService {
           const metadata: VideoMetadata = {
             channel: {
               id: channelId,
+              databaseId,
               name: channelName,
               description: channelDescription,
             },

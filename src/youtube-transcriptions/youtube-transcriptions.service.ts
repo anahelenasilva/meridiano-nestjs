@@ -240,6 +240,7 @@ export class YoutubeTranscriptionsService {
         channelId,
         channelConfig.name,
         channelConfig.description || '',
+        channelConfig.id
       );
 
       // Get transcript with fallback mechanism

@@ -106,12 +106,14 @@ describe('YoutubeTranscriptionsService', () => {
         channelName: 'Test Channel',
         channelDescription: 'Test Description',
         maxVideos: 2,
+        databaseId: '123',
       }
 
       const mockVideos: VideoMetadata[] = [
         {
           channel: {
             id: 'UC123',
+            databaseId: '123',
             name: 'Test Channel',
             description: 'Test Description',
           },
@@ -123,6 +125,7 @@ describe('YoutubeTranscriptionsService', () => {
         {
           channel: {
             id: 'UC123',
+            databaseId: '123',
             name: 'Test Channel',
             description: 'Test Description',
           },
@@ -157,6 +160,7 @@ describe('YoutubeTranscriptionsService', () => {
       // Arrange
       const mockChannelConfig: ChannelConfig = {
         channelId: 'UC123',
+        databaseId: '123',
         channelName: 'Test Channel',
         channelDescription: 'Test Description',
         maxVideos: 2,
@@ -166,6 +170,7 @@ describe('YoutubeTranscriptionsService', () => {
         {
           channel: {
             id: 'UC123',
+            databaseId: '123',
             name: 'Test Channel',
             description: 'Test Description',
           },
@@ -196,12 +201,14 @@ describe('YoutubeTranscriptionsService', () => {
         channelName: 'Test Channel',
         channelDescription: 'Test Description',
         maxVideos: 2,
+        databaseId: '123',
       }
 
       const mockVideos: VideoMetadata[] = [
         {
           channel: {
             id: 'UC123',
+            databaseId: '123',
             name: 'Test Channel',
             description: 'Test Description',
           },
@@ -213,10 +220,11 @@ describe('YoutubeTranscriptionsService', () => {
         {
           channel: {
             id: 'UC123',
+            databaseId: '123',
             name: 'Test Channel',
             description: 'Test Description',
           },
-          videoId: 'video2',
+          videoId: 'video`2',
           title: 'Video 2',
           url: 'https://youtube.com/watch?v=video2',
           publishedAt: '2025-01-02',
@@ -247,12 +255,14 @@ describe('YoutubeTranscriptionsService', () => {
       const mockChannels = [
         {
           channelId: 'UC123',
+          databaseId: '123',
           channelName: 'Channel 1',
           channelDescription: 'Test Description',
           maxVideos: 1,
         },
         {
           channelId: 'UC456',
+          databaseId: '456',
           channelName: 'Channel 2',
           channelDescription: 'Test Description',
           maxVideos: 1,
@@ -263,6 +273,7 @@ describe('YoutubeTranscriptionsService', () => {
         {
           channel: {
             id: 'UC123',
+            databaseId: '123',
             name: 'Test Channel',
             description: 'Test Description',
           },
@@ -292,12 +303,14 @@ describe('YoutubeTranscriptionsService', () => {
       const mockChannels: ChannelConfig[] = [
         {
           channelId: 'UC123',
+          databaseId: '123',
           channelName: 'Channel 1',
           channelDescription: 'Test Description',
           maxVideos: 1,
         },
         {
           channelId: 'UC456',
+          databaseId: '456',
           channelName: 'Channel 2',
           channelDescription: 'Test Description',
           maxVideos: 1,
@@ -310,6 +323,7 @@ describe('YoutubeTranscriptionsService', () => {
           {
             channel: {
               id: 'UC123',
+              databaseId: '123',
               name: 'Test Channel',
               description: 'Test Description',
             },

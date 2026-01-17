@@ -1,6 +1,7 @@
 export interface VideoMetadata {
   channel: {
     id: string;
+    databaseId: string;
     name: string;
     description: string;
   };

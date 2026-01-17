@@ -286,20 +286,20 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
 # To-dos (not necessarily in order)
 - [x] Check if youtube transcription already exists in database before adding it and process it
-- [ ] Send email with articles briefings; use my `personal-sendmail-api` (create validation on aws SES for meridiano)
 - [x] Convert cli commands to use usecase so it's more decoupled and easy to reuse
 - [x] Isolate prompts configs from config.service.ts to separate files, so it's easier to mantain; also do this for the other configs
 - [x] Add articles manually
 - [x] Star/bookmark/save for later an article
 - [x] See stars/bookmarks/saved in a special view
 - [x] Add youtube video manually
-- [ ] Refactor all tests to use jest-mock-extended
 - [x] Remove sqlite code
 - [x] Create a docs folder on the root of the project with all available endpoints ready to import to Bruno
-- [ ] Migrate feeds configs to a table
 - [x] Endpoint to create channel
 - [x] Add auth
 - [ ] Make it possible to upload a markdown file to S3 with an article and send an event to the queue to process this md file
+- [ ] Migrate feeds configs to a table
+- [ ] Refactor all tests to use jest-mock-extended
+- [ ] Send email with articles briefings; use my `personal-sendmail-api` (create validation on aws SES for meridiano)
 
 ## API Documentation
 

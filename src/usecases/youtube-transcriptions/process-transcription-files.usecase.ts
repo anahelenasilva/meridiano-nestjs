@@ -51,7 +51,7 @@ export class ProcessTranscriptionFilesUseCase {
           continue;
         }
 
-        const channelData = await this.youtubeChannelsService.getChannelById(videoData.channel.id);
+        const channelData = await this.youtubeChannelsService.getChannelById(videoData.channel.databaseId);
 
         if (!channelData || channelData.enabled === false) {
           stats.skipped++;
