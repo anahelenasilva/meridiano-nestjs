@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Innertube } from 'youtubei.js';
 
-import { ChannelConfig } from '../shared/types/channel';
-import { VideoMetadata } from '../shared/types/video';
-import { parseRelativeTime } from './helpers/parse-relative-time';
+import { ChannelConfig } from '../../shared/types/channel';
+import { VideoMetadata } from '../../shared/types/video';
+import { parseRelativeTime } from '../helpers/parse-relative-time';
 
 @Injectable()
 export class YouTubeService {

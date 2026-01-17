@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { DatabaseService } from '../database/database.service';
-import { QueueService } from '../queue/queue.service';
-import { ChannelConfig } from '../shared/types/channel';
-import { TranscriptItem, VideoWithTranscript } from '../shared/types/video';
-import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
-import { CountTotalTranscriptionsInput } from './dto/count-total-transcriptionsinput.dto';
-import { PaginatedYoutubeTranscriptionInput } from "./dto/paginated-youtub-transcription-input.dto";
+import { DatabaseService } from '../../database/database.service';
+import { QueueService } from '../../queue/queue.service';
+import { ChannelConfig } from '../../shared/types/channel';
+import { TranscriptItem, VideoWithTranscript } from '../../shared/types/video';
+import { YoutubeChannelsService } from '../../youtube-channels/youtube-channels.service';
+import { CountTotalTranscriptionsInput } from '../dto/count-total-transcriptionsinput.dto';
+import { PaginatedYoutubeTranscriptionInput } from "../dto/paginated-youtub-transcription-input.dto";
 import {
   DBYoutubeTranscription,
   YoutubeTranscription,
-} from './entities/youtube-transcription.entity';
-import { StorageService } from './storage.service';
-import { TranscriptService } from './transcript.service';
+} from '../entities/youtube-transcription.entity';
+import { StorageService } from '../services/storage.service';
+import { TranscriptService } from '../services/transcript.service';
 import { fetchTranscriptViaInnertube } from './youtube-transcriptions-innertube.service';
 import { YouTubeService } from './youtube.service';
 
@@ -228,7 +228,7 @@ export class YoutubeTranscriptionsService {
         throw new Error(`Channel ${channelId} is disabled`);
       }
 
-      const { extractVideoId } = await import('./helpers/extract-video-id.js');
+      const { extractVideoId } = await import('../helpers/extract-video-id.js');
       const videoId = extractVideoId(videoUrl);
 
       if (!videoId) {

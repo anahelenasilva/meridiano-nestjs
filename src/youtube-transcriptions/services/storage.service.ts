@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import { VideoWithTranscript } from '../shared/types/video';
+import { VideoWithTranscript } from '../../shared/types/video';
 
 @Injectable()
 export class StorageService {

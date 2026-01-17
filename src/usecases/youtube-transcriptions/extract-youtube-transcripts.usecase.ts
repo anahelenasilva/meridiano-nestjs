@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { YoutubeTranscriptionsService } from '../../youtube-transcriptions/youtube-transcriptions.service';
+import { YoutubeTranscriptionsService } from '../../youtube-transcriptions/services/youtube-transcriptions.service';
 import {
   ExtractYoutubeTranscriptsInputDto,
   ExtractYoutubeTranscriptsOutputDto,

@@ -5,7 +5,7 @@ import { ConfigService } from '../../config/config.service';
 import {
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from '../../shared/types/queue.constants';
-import { YoutubeTranscriptionsService } from '../../youtube-transcriptions/youtube-transcriptions.service';
+import { YoutubeTranscriptionsService } from '../../youtube-transcriptions/services/youtube-transcriptions.service';
 import { ProcessTranscriptionSummaryJobData } from '../interfaces/youtube-transcription-job.interface';
 import { RedisService } from '../redis.service';
 

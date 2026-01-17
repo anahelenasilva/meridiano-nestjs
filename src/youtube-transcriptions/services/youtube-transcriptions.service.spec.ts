@@ -2,14 +2,14 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { mock, mockReset } from 'jest-mock-extended';
 
 import { INestApplication } from '@nestjs/common';
-import { DatabaseService } from '../database/database.service';
-import { QueueService } from '../queue/queue.service';
-import { ChannelConfig } from '../shared/types/channel';
-import { VideoMetadata } from '../shared/types/video';
-import { YoutubeChannel } from '../youtube-channels/domain/youtube-channel';
-import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
-import { StorageService } from './storage.service';
-import { TranscriptService } from './transcript.service';
+import { DatabaseService } from '../../database/database.service';
+import { QueueService } from '../../queue/queue.service';
+import { ChannelConfig } from '../../shared/types/channel';
+import { VideoMetadata } from '../../shared/types/video';
+import { YoutubeChannel } from '../../youtube-channels/domain/youtube-channel';
+import { YoutubeChannelsService } from '../../youtube-channels/youtube-channels.service';
+import { StorageService } from '../services/storage.service';
+import { TranscriptService } from '../services/transcript.service';
 import { YoutubeTranscriptionsService } from './youtube-transcriptions.service';
 import { YouTubeService } from './youtube.service';
 

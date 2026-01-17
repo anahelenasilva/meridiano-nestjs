@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Innertube } from 'youtubei.js';
-import { TranscriptItem } from '../shared/types/video';
+import { TranscriptItem } from '../../shared/types/video';
 
 @Injectable()
 export class TranscriptService {

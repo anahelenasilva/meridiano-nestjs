@@ -7,7 +7,7 @@ import {
   InnertubeNoValidCaptionUrlError,
   InnertubeTimedTextFetchError,
   InnertubeTranscriptParseError,
-} from './errors/innertube-errors';
+} from '../errors/innertube-errors';
 
 /**
  * Parsed transcript segment from timedtext XML

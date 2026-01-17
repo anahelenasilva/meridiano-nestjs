@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { YoutubeTranscriptionsService } from '../youtube-transcriptions.service';
+import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 
 export type DeleteYoutubeTranscriptionCommandResponse = {
   sucess: boolean;

@@ -3,7 +3,7 @@ import * as fs from 'fs/promises';
 import * as path from 'path';
 import { VideoWithTranscript } from '../../shared/types/video';
 import { YoutubeChannelsService } from '../../youtube-channels/youtube-channels.service';
-import { YoutubeTranscriptionsService } from '../../youtube-transcriptions/youtube-transcriptions.service';
+import { YoutubeTranscriptionsService } from '../../youtube-transcriptions/services/youtube-transcriptions.service';
 import {
   ProcessTranscriptionFilesInputDto,
   ProcessTranscriptionFilesOutputDto,

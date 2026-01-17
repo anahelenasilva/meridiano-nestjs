@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { YoutubeTranscription } from '../entities/youtube-transcription.entity';
-import { YoutubeTranscriptionsService } from '../youtube-transcriptions.service';
+import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 
 export type GetYoutubeTranscriptionByIdResponse = {
   transcription: YoutubeTranscription;
@@ -8,7 +8,7 @@ export type GetYoutubeTranscriptionByIdResponse = {
 
 @Injectable()
 export class GetYoutubeTranscriptionByIdQuery {
-  constructor(private readonly service: YoutubeTranscriptionsService) {}
+  constructor(private readonly service: YoutubeTranscriptionsService) { }
 
   async execute(
     id: string,

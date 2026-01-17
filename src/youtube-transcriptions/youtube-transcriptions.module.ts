@@ -11,11 +11,11 @@ import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-tra
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
 import { ListYoutubeTranscriptionsQuery } from './queries/list-youtube-transcriptions.query';
-import { StorageService } from './storage.service';
-import { TranscriptService } from './transcript.service';
+import { StorageService } from './services/storage.service';
+import { TranscriptService } from './services/transcript.service';
+import { YoutubeTranscriptionsService } from './services/youtube-transcriptions.service';
+import { YouTubeService } from './services/youtube.service';
 import { YoutubeTranscriptionsController } from './youtube-transcriptions.controller';
-import { YoutubeTranscriptionsService } from './youtube-transcriptions.service';
-import { YouTubeService } from './youtube.service';
 
 @Module({
   imports: [

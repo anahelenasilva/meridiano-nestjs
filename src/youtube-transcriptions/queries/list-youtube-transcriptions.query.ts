@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import moment from 'moment';
 import { PaginatedYoutubeTranscriptionInput } from "../dto/paginated-youtub-transcription-input.dto";
-import { YoutubeTranscriptionsService } from '../youtube-transcriptions.service';
+import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 
 export type ListYoutubeTranscriptionsRequest =
   PaginatedYoutubeTranscriptionInput;
