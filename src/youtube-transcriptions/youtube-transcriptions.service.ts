@@ -348,7 +348,7 @@ export class YoutubeTranscriptionsService {
 
       stmt.run(
         [
-          videoData.channel.id,
+          videoData.channel.databaseId,
           videoData.channel.name,
           videoData.title,
           videoData.publishedAt !== 'Unknown' ? videoData.publishedAt : null,
