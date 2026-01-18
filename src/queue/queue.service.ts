@@ -34,6 +34,7 @@ export interface JobStatus {
 @Injectable()
 export class QueueService implements OnModuleInit, OnModuleDestroy {
   private markdownQueueEvents: QueueEvents;
+  private failureHandler: (({ jobId, failedReason }: { jobId: string; failedReason: string }) => void) | null = null;
 
   constructor(
     @Inject(ARTICLE_PROCESSING_QUEUE)
@@ -58,13 +59,18 @@ export class QueueService implements OnModuleInit, OnModuleDestroy {
   }
 
   async onModuleDestroy() {
+    if (this.failureHandler) {
+      this.markdownQueueEvents.off('failed', this.failureHandler);
+      this.failureHandler = null;
+    }
     await this.markdownQueueEvents.close();
   }
 
   private setupMarkdownArticleFailureHandler() {
-    this.markdownQueueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
+    this.failureHandler = ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
       void this.handleMarkdownArticleFailure(jobId, failedReason);
-    });
+    };
+    this.markdownQueueEvents.on('failed', this.failureHandler);
   }
 
   private async handleMarkdownArticleFailure(jobId: string, failedReason: string): Promise<void> {
