@@ -1,7 +1,11 @@
 # compiled output
 /dist
 /node_modules
+/infrastructure/node_modules
 /build
+
+# CDK
+**/cdk.out
 
 # Logs
 logs
