@@ -15,6 +15,7 @@ import { ScraperService } from '../scraper/scraper.service';
 import type { PaginatedArticleInput } from './article.entity';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
+import { ProcessMarkdownArticleDto } from './dto/process-markdown-article.dto';
 import { GetArticleByIdQuery } from './queries/get-article-by-id.query';
 import { ListArticlesQuery } from './queries/list-articles.query';
 
@@ -62,6 +63,44 @@ export class ArticlesController {
 
       throw new BadRequestException(
         `Failed to scrape article: ${errorMessage}`,
+      );
+    }
+  }
+
+  @Post('markdown')
+  async processMarkdownArticle(@Body() dto: ProcessMarkdownArticleDto) {
+    const { s3Key, feedProfile, s3Bucket } = dto;
+
+    try {
+      const bucketName = s3Bucket || process.env.S3_ARTICLES_BUCKET_NAME;
+
+      if (!bucketName) {
+        throw new BadRequestException(
+          'S3 bucket name not provided and S3_ARTICLES_BUCKET_NAME environment variable is not set',
+        );
+      }
+
+      const jobInfo = await this.queueService.addMarkdownArticleProcessingJob(
+        bucketName,
+        s3Key,
+        feedProfile,
+      );
+
+      return {
+        ...jobInfo,
+        message: 'Markdown article queued for processing',
+      };
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      const errorMessage = error instanceof Error ?
+        error.message :
+        'Unknown error occurred';
+
+      throw new BadRequestException(
+        `Failed to queue markdown article: ${errorMessage}`,
       );
     }
   }

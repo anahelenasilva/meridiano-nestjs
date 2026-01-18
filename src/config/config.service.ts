@@ -184,4 +184,8 @@ export class ConfigService {
       password: process.env.REDIS_PASSWORD || undefined,
     };
   }
+
+  getArticleFailureNotificationEmail(): string {
+    return process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL || '';
+  }
 }
