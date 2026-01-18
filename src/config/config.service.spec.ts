@@ -24,4 +24,42 @@ describe('ConfigService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  describe('getArticleFailureNotificationEmail', () => {
+    it('should return email from environment variable when set', () => {
+      process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL = 'test@example.com';
+
+      const result = service.getArticleFailureNotificationEmail();
+
+      expect(result).toBe('test@example.com');
+
+      delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL;
+    });
+
+    it('should return empty string when environment variable is not set', () => {
+      delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL;
+
+      const result = service.getArticleFailureNotificationEmail();
+
+      expect(result).toBe('');
+    });
+
+    it('should return empty string when environment variable is undefined', () => {
+      delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL;
+
+      const result = service.getArticleFailureNotificationEmail();
+
+      expect(result).toBe('');
+    });
+
+    it('should return empty string when environment variable is empty', () => {
+      process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL = '';
+
+      const result = service.getArticleFailureNotificationEmail();
+
+      expect(result).toBe('');
+
+      delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL;
+    });
+  });
 });
