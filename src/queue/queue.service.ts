@@ -1,5 +1,5 @@
 import { Inject, Injectable, NotFoundException, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
-import { Job, Queue, QueueEvents } from 'bullmq';
+import { Queue, QueueEvents } from 'bullmq';
 import { ConfigService } from '../config/config.service';
 import { EmailService } from '../email/email.service';
 import { FeedProfile } from '../shared/types/feed';
@@ -18,7 +18,7 @@ import type { ProcessTranscriptionSummaryJobData } from './interfaces/youtube-tr
 export interface JobInfo {
   success: boolean;
   jobId: string;
-  articleId: string;
+  articleFileKey: string;
   message: string;
 }
 
@@ -62,30 +62,35 @@ export class QueueService implements OnModuleInit, OnModuleDestroy {
   }
 
   private setupMarkdownArticleFailureHandler() {
-    this.markdownQueueEvents.on('failed', async ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
-      try {
-        const job = await this.markdownArticleQueue.getJob(jobId);
-        
-        if (!job) {
-          return;
-        }
+    this.markdownQueueEvents.on('failed', ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
+      void this.handleMarkdownArticleFailure(jobId, failedReason);
+    });
+  }
 
-        const attemptsMade = job.attemptsMade;
+  private async handleMarkdownArticleFailure(jobId: string, failedReason: string): Promise<void> {
+    try {
+      const job = await this.markdownArticleQueue.getJob(jobId);
 
-        if (attemptsMade >= 3) {
-          const notificationEmail = this.configService.getArticleFailureNotificationEmail();
+      if (!job) {
+        return;
+      }
 
-          if (notificationEmail) {
-            const { s3Bucket, s3Key } = job.data as ProcessMarkdownArticleJobData;
-            const errorMessage = failedReason || 'Unknown error';
-            const timestamp = new Date().toISOString();
+      const attemptsMade = job.attemptsMade;
 
-            try {
-              await this.emailService.sendEmail({
-                from: 'noreply@meridiano.com',
-                to: notificationEmail,
-                subject: 'Article Processing Failed',
-                text: `Article processing failed after 3 attempts.
+      if (attemptsMade >= 3) {
+        const notificationEmail = this.configService.getArticleFailureNotificationEmail();
+
+        if (notificationEmail) {
+          const { s3Bucket, s3Key } = job.data as ProcessMarkdownArticleJobData;
+          const errorMessage = failedReason || 'Unknown error';
+          const timestamp = new Date().toISOString();
+
+          try {
+            await this.emailService.sendEmail({
+              from: 'noreply@meridiano.com',
+              to: notificationEmail,
+              subject: 'Article Processing Failed',
+              text: `Article processing failed after 3 attempts.
 
 Details:
 - S3 Bucket: ${s3Bucket}
@@ -95,20 +100,19 @@ Details:
 - Timestamp: ${timestamp}
 
 Please investigate the issue.`,
-              });
+            });
 
-              console.log(`Failure notification email sent to ${notificationEmail} for job ${job.id}`);
-            } catch (emailError) {
-              console.error(`Failed to send notification email for job ${job.id}:`, emailError);
-            }
-          } else {
-            console.warn(`Job ${job.id} failed after 3 attempts, but no notification email is configured`);
+            console.log(`Failure notification email sent to ${notificationEmail} for job ${job.id}`);
+          } catch (emailError) {
+            console.error(`Failed to send notification email for job ${job.id}:`, emailError);
           }
+        } else {
+          console.warn(`Job ${job.id} failed after 3 attempts, but no notification email is configured`);
         }
-      } catch (error) {
-        console.error('Error in markdown article failure handler:', error);
       }
-    });
+    } catch (error) {
+      console.error('Error in markdown article failure handler:', error);
+    }
   }
 
   /**
@@ -130,7 +134,7 @@ Please investigate the issue.`,
 
     return {
       success: true,
-      articleId,
+      articleFileKey: articleId,
       jobId: job.id as string,
       message: 'Article queued for processing',
     };
@@ -168,7 +172,7 @@ Please investigate the issue.`,
 
     return {
       success: true,
-      articleId: s3Key,
+      articleFileKey: s3Key,
       jobId: job.id as string,
       message: 'Markdown article queued for processing',
     };
@@ -199,7 +203,7 @@ Please investigate the issue.`,
 
     return {
       success: true,
-      articleId: transcriptionId,
+      articleFileKey: transcriptionId,
       jobId: job.id as string,
       message: 'Transcription summary queued for processing',
     };
