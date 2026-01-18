@@ -82,6 +82,14 @@ export const techRSSFeeds: RSSFeed[] = [
       'Simon Willison is a co-creator of the Django Web Framework, and has been blogging about web development and programming since 2002 at simonwillison.net',
     enabled: true,
   },
+  {
+    url: 'https://www.404media.co/rss/',
+    name: "404 Media",
+    category: 'tech',
+    description:
+      '404 Media is a journalist-founded digital media company exploring the ways technology is shaping-and is shaped by-our world.',
+    enabled: true,
+  },
 ];
 
 export const techPrompts = {
