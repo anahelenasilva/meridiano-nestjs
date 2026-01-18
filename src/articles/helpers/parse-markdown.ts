@@ -11,7 +11,7 @@ export function parseMarkdownArticle(
     throw new Error('Markdown content cannot be empty');
   }
 
-  const h1Match = markdownContent.match(/^#[ \t]+(.+?)[ \t]*$/m);
+  const h1Match = markdownContent.match(/^#[ \t]+([^\r\n]*)/m);
 
   if (!h1Match) {
     throw new Error('No H1 heading found in markdown content');

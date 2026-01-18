@@ -284,6 +284,21 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
+# Parse Markdown Article Function Regex
+
+The regex pattern to parse an article markdown is:
+```
+/^#[ \t]+([^\r\n]*)/m
+```
+
+Breaking down this regex parttern:
+
+- `^#` - matches # at the start of a line
+- `[ \t]+` - matches one or more spaces/tabs (required whitespace after # in markdown)
+- `([^\r\n]*)` - captures zero or more non-newline characters (everything else on the line)
+- `m` flag - enables multiline mode
+
+
 # To-dos (not necessarily in order)
 - [x] Check if youtube transcription already exists in database before adding it and process it
 - [x] Convert cli commands to use usecase so it's more decoupled and easy to reuse
@@ -300,6 +315,7 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 - [ ] Migrate feeds configs to a table
 - [ ] Refactor all tests to use jest-mock-extended
 - [ ] Send email with articles briefings; use my `personal-sendmail-api` (create validation on aws SES for meridiano)
+- [ ] Move the S3, email, auth, database, and queue modules to a libs structure inside this project
 
 ## API Documentation
 
