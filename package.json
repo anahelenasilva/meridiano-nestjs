@@ -39,6 +39,7 @@
     "docker:logs": "docker-compose logs -f postgres"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.709.0",
     "@mozilla/readability": "0.5.0",
     "@nestjs/common": "11.0.1",
     "@nestjs/core": "11.0.1",

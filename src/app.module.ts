@@ -14,6 +14,7 @@ import { DatabaseModule } from './database/database.module';
 import { ProcessorModule } from './processor/processor.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import { QueueModule } from './queue/queue.module';
+import { S3Module } from './s3/s3.module';
 import { ScraperModule } from './scraper/scraper.module';
 import { TechModule } from './tech/tech.module';
 import { UsecasesModule } from './usecases/usecases.module';
@@ -40,6 +41,7 @@ import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-tr
     UsecasesModule,
     UsersModule,
     BookmarksModule,
+    S3Module,
   ],
   controllers: [AppController],
   providers: [
