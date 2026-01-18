@@ -25,41 +25,47 @@ describe('ConfigService', () => {
     expect(service).toBeDefined();
   });
 
-  describe('getArticleFailureNotificationEmail', () => {
+  describe('getArticleEmailsNotifications', () => {
     it('should return email from environment variable when set', () => {
       process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL = 'test@example.com';
+      process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM = 'test@example.com';
 
-      const result = service.getArticleFailureNotificationEmail();
+      const result = service.getArticleEmailsNotifications();
 
-      expect(result).toBe('test@example.com');
+      expect(result).toEqual({
+        failureNotificationEmail: 'test@example.com',
+        failureNotificationEmailFrom: 'test@example.com',
+      });
 
       delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL;
+      delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM;
     });
 
     it('should return empty string when environment variable is not set', () => {
       delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL;
+      delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM;
 
-      const result = service.getArticleFailureNotificationEmail();
+      const result = service.getArticleEmailsNotifications();
 
-      expect(result).toBe('');
-    });
-
-    it('should return empty string when environment variable is undefined', () => {
-      delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL;
-
-      const result = service.getArticleFailureNotificationEmail();
-
-      expect(result).toBe('');
+      expect(result).toEqual({
+        failureNotificationEmail: '',
+        failureNotificationEmailFrom: '',
+      });
     });
 
     it('should return empty string when environment variable is empty', () => {
       process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL = '';
+      process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM = '';
 
-      const result = service.getArticleFailureNotificationEmail();
+      const result = service.getArticleEmailsNotifications();
 
-      expect(result).toBe('');
+      expect(result).toEqual({
+        failureNotificationEmail: '',
+        failureNotificationEmailFrom: '',
+      });
 
       delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL;
+      delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM;
     });
   });
 });

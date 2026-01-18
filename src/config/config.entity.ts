@@ -1,5 +1,10 @@
 import { FeedProfile } from '../shared/types/feed';
 
+export type ArticleEmailsNotifications = {
+  failureNotificationEmail: string;
+  failureNotificationEmailFrom: string;
+};
+
 export type Config = {
   prompts: {
     articleSummary: string;

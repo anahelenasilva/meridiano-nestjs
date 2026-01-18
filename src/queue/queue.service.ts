@@ -95,26 +95,30 @@ export class QueueService implements OnModuleInit, OnModuleDestroy {
       const attemptsMade = job.attemptsMade;
 
       if (attemptsMade >= 3) {
-        const notificationEmail = this.configService.getArticleFailureNotificationEmail();
+        const { failureNotificationEmail, failureNotificationEmailFrom } = this.configService.getArticleEmailsNotifications();
 
-        if (notificationEmail) {
-          const jobData = job.data;
+        if (!failureNotificationEmail || !failureNotificationEmailFrom) {
+          console.warn(`Job ${job.id} failed after 3 attempts, but no notification email is configured failureNotificationEmail or failureNotificationEmailFrom`);
+          return;
+        }
 
-          if (!this.isValidMarkdownArticleJobData(jobData)) {
-            console.error(`Job ${job.id} has invalid data structure. Expected ProcessMarkdownArticleJobData but got:`, jobData);
-            return;
-          }
+        const jobData = job.data;
 
-          const { s3Bucket, s3Key } = jobData;
-          const errorMessage = failedReason || 'Unknown error';
-          const timestamp = new Date().toISOString();
+        if (!this.isValidMarkdownArticleJobData(jobData)) {
+          console.error(`Job ${job.id} has invalid data structure. Expected ProcessMarkdownArticleJobData but got:`, jobData);
+          return;
+        }
 
-          try {
-            await this.emailService.sendEmail({
-              from: 'noreply@meridiano.com',
-              to: notificationEmail,
-              subject: 'Article Processing Failed',
-              text: `Article processing failed after 3 attempts.
+        const { s3Bucket, s3Key } = jobData;
+        const errorMessage = failedReason || 'Unknown error';
+        const timestamp = new Date().toISOString();
+
+        try {
+          await this.emailService.sendEmail({
+            from: failureNotificationEmailFrom,
+            to: failureNotificationEmail,
+            subject: 'Article Processing Failed',
+            text: `Article processing failed after 3 attempts.
 
 Details:
 - S3 Bucket: ${s3Bucket}
@@ -124,15 +128,13 @@ Details:
 - Timestamp: ${timestamp}
 
 Please investigate the issue.`,
-            });
+          });
 
-            console.log(`Failure notification email sent to ${notificationEmail} for job ${job.id}`);
-          } catch (emailError) {
-            console.error(`Failed to send notification email for job ${job.id}:`, emailError);
-          }
-        } else {
-          console.warn(`Job ${job.id} failed after 3 attempts, but no notification email is configured`);
+          console.log(`Failure notification email sent to ${failureNotificationEmail} for job ${job.id}`);
+        } catch (emailError) {
+          console.error(`Failed to send notification email for job ${job.id}:`, emailError);
         }
+
       }
     } catch (error) {
       console.error('Error in markdown article failure handler:', error);

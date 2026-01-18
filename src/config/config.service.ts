@@ -3,7 +3,7 @@ import { BriefingOptions } from '../briefing/briefing.entity';
 import { ImpactRating, PromptVariables } from '../shared/types/ai';
 import { FeedProfile } from '../shared/types/feed';
 import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
-import { Config } from './config.entity';
+import { ArticleEmailsNotifications, Config } from './config.entity';
 import {
   articleSummaryPrompt,
   briefSynthesisPrompt,
@@ -185,7 +185,10 @@ export class ConfigService {
     };
   }
 
-  getArticleFailureNotificationEmail(): string {
-    return process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL || '';
+  getArticleEmailsNotifications(): ArticleEmailsNotifications {
+    return {
+      failureNotificationEmail: process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL || '',
+      failureNotificationEmailFrom: process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM || '',
+    }
   }
 }

@@ -23,7 +23,7 @@ import { RedisService } from './redis.service';
     forwardRef(() => YoutubeTranscriptionsModule),
     ProcessorModule,
     ConfigModule,
-    EmailModule,
+    EmailModule.forRoot(),
     S3Module,
   ],
   providers: [
