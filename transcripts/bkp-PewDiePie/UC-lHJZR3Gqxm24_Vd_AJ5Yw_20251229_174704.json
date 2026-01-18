@@ -1,0 +1,2906 @@
+{
+  "channel": {
+    "id": "UC-lHJZR3Gqxm24_Vd_AJ5Yw",
+    "name": "PewDiePie",
+    "description": "PewDiePie is a Swedish YouTuber who is known for his comedic videos and gaming content."
+  },
+  "videoId": "pVI_smLgTY0",
+  "title": "I installed Linux (so should you)",
+  "url": "https://www.youtube.com/watch?v=pVI_smLgTY0",
+  "publishedAt": "2025-12-29T20:46:59.942Z",
+  "description": "#ad - Shop Gfuel sale: https://creator.gfuel.com/pewdiepie \n\n🧎#Subscribe🧎\n\n🌎 Get an exclusive 15% discount on Saily data plans! Use code pewdiepie at checkout. Download Saily app or go to https://saily.com/pewdiepie ⛵\n\n📰 Get \"The Kjellberg Mail\" (family newsletter w Mertz): https://the-kjellberg-mail.beehiiv.com/p/july\n\nStock Up On ➡️🥤Gfuel (affiliate): https://affiliateshop.gfuel.com/pewdiepie\n#Code #Pewdiepie\n\nGet exclusive NordVPN deal here ➵ https://NordVPN.com/pewdiepie It’s risk free with Nord’s 30 day money-back guarantee!✌\n\nOfficial ƿ૯ωძɿ૯ƿɿ૯ TikTok: https://www.tiktok.com/@pewdiepie\n\n∞ Official ƿ૯ωძɿ૯ƿɿ૯ Infinity Stream: https://www.twitch.tv/pewdiepie\n\n⚙️ My Setup (affiliate links)⚙️\n🖥️  PC: https://howl.me/clHcdRoIePi\n🎧 Headphones: https://www.anrdoezrs.net/click-100814745-14330447\n🪑 Chair: https://tinyurl.com/clutchpdp\n⌨️ 🖱️ Keyboard & Mouse: https://tinyurl.com/ghostpdp",
+  "thumbnailUrl": "https://i.ytimg.com/vi/pVI_smLgTY0/maxresdefault.jpg",
+  "transcript": [
+    {
+      "text": "Oh, you little",
+      "duration": 3800,
+      "offset": 4240
+    },
+    {
+      "text": "K.",
+      "duration": 4641,
+      "offset": 6279
+    },
+    {
+      "text": "Oh. Oh, you",
+      "duration": 6400,
+      "offset": 8040
+    },
+    {
+      "text": "po. You disgusting little",
+      "duration": 6240,
+      "offset": 10920
+    },
+    {
+      "text": "thing. Oh, what happened to",
+      "duration": 5120,
+      "offset": 14440
+    },
+    {
+      "text": "you? Oh, look at",
+      "duration": 5800,
+      "offset": 17160
+    },
+    {
+      "text": "yourself. You're the blob from I have no",
+      "duration": 6520,
+      "offset": 19560
+    },
+    {
+      "text": "mouth, but I must scream. What? Who did",
+      "duration": 8759,
+      "offset": 22960
+    },
+    {
+      "text": "this to you? Was it Windows? Oh, Mac OS.",
+      "duration": 11960,
+      "offset": 26080
+    },
+    {
+      "text": "Oh, don't worry. I can save you. Install",
+      "duration": 8840,
+      "offset": 31719
+    },
+    {
+      "text": "Linux. What if I told you you can look",
+      "duration": 5400,
+      "offset": 38040
+    },
+    {
+      "text": "like this? Anyway, let me start this off",
+      "duration": 5601,
+      "offset": 40559
+    },
+    {
+      "text": "by saying I am not a tech guy. You saw",
+      "duration": 4840,
+      "offset": 43440
+    },
+    {
+      "text": "my PC building",
+      "duration": 5200,
+      "offset": 46160
+    },
+    {
+      "text": "video. Looks all bent. I'm surprised the",
+      "duration": 5480,
+      "offset": 48280
+    },
+    {
+      "text": "whole thing hasn't exploded. It's like",
+      "duration": 4320,
+      "offset": 51360
+    },
+    {
+      "text": "sitting next to a bomb every day. But",
+      "duration": 4959,
+      "offset": 53760
+    },
+    {
+      "text": "what you did see was 0.5 seconds of the",
+      "duration": 4640,
+      "offset": 55680
+    },
+    {
+      "text": "video where I installed Linux on the",
+      "duration": 3121,
+      "offset": 58719
+    },
+    {
+      "text": "thing and a lot of people just went,",
+      "duration": 2600,
+      "offset": 60320
+    },
+    {
+      "text": "&quot;What?",
+      "duration": 4080,
+      "offset": 61840
+    },
+    {
+      "text": "What?&quot; Some people seem surprised and",
+      "duration": 5320,
+      "offset": 62920
+    },
+    {
+      "text": "confused. Something possessed him to put",
+      "duration": 4720,
+      "offset": 65920
+    },
+    {
+      "text": "Linux on it. Some people were excited.",
+      "duration": 4000,
+      "offset": 68240
+    },
+    {
+      "text": "At the time, I didn't know the power",
+      "duration": 3519,
+      "offset": 70640
+    },
+    {
+      "text": "that I had. I was like a baby with a",
+      "duration": 4720,
+      "offset": 72240
+    },
+    {
+      "text": "rocket launcher. For years, I have been",
+      "duration": 6881,
+      "offset": 74159
+    },
+    {
+      "text": "tortured by window. But now, alas, I am",
+      "duration": 7360,
+      "offset": 76960
+    },
+    {
+      "text": "finally free. I escaped the Windowscape.",
+      "duration": 6399,
+      "offset": 81040
+    },
+    {
+      "text": "I saw the sun. The shadows are gone. It",
+      "duration": 5439,
+      "offset": 84320
+    },
+    {
+      "text": "blinded me for a moment and now I'm",
+      "duration": 4961,
+      "offset": 87439
+    },
+    {
+      "text": "speaking to you in the cave. Enough",
+      "duration": 4400,
+      "offset": 89759
+    },
+    {
+      "text": "reference. Okay, so I'm going to yap",
+      "duration": 3759,
+      "offset": 92400
+    },
+    {
+      "text": "about Linux for as long as this video is",
+      "duration": 3761,
+      "offset": 94159
+    },
+    {
+      "text": "and you're going to listen. I want to",
+      "duration": 3041,
+      "offset": 96159
+    },
+    {
+      "text": "start off by going through the reasons",
+      "duration": 3360,
+      "offset": 97920
+    },
+    {
+      "text": "why I switched to Linux. It's different",
+      "duration": 4959,
+      "offset": 99200
+    },
+    {
+      "text": "for everybody. Number one is how backlit",
+      "duration": 6640,
+      "offset": 101280
+    },
+    {
+      "text": "this shot is. Number one, Windows talks",
+      "duration": 6320,
+      "offset": 104159
+    },
+    {
+      "text": "to me like I'm a baby. Now mentally I",
+      "duration": 4879,
+      "offset": 107920
+    },
+    {
+      "text": "might be, but that does not warrant. You",
+      "duration": 5041,
+      "offset": 110479
+    },
+    {
+      "text": "want Candy Crush? You want Candy Crush",
+      "duration": 6920,
+      "offset": 112799
+    },
+    {
+      "text": "on your computer? You want to use Bing?",
+      "duration": 6720,
+      "offset": 115520
+    },
+    {
+      "text": "Yes. Are you sure you want to delete",
+      "duration": 5400,
+      "offset": 119719
+    },
+    {
+      "text": "that file? Are you super duper sure you",
+      "duration": 5760,
+      "offset": 122240
+    },
+    {
+      "text": "want to delete the file? That's how the",
+      "duration": 5161,
+      "offset": 125119
+    },
+    {
+      "text": "talks to me and I don't like",
+      "duration": 5200,
+      "offset": 128000
+    },
+    {
+      "text": "it. Linux, on the other hand, literally",
+      "duration": 6560,
+      "offset": 130280
+    },
+    {
+      "text": "puts a gun in your hand and says, &quot;Do",
+      "duration": 8399,
+      "offset": 133200
+    },
+    {
+      "text": "it. You're got your now.&quot; My first sort",
+      "duration": 7320,
+      "offset": 136840
+    },
+    {
+      "text": "of aha moment when I installed Linux or",
+      "duration": 5280,
+      "offset": 141599
+    },
+    {
+      "text": "started using it was wait a minute it",
+      "duration": 4960,
+      "offset": 144160
+    },
+    {
+      "text": "does exactly what I wanted to do. And",
+      "duration": 3921,
+      "offset": 146879
+    },
+    {
+      "text": "this is a really powerful feeling about",
+      "duration": 3119,
+      "offset": 149120
+    },
+    {
+      "text": "that. I do want to show you guys my",
+      "duration": 3439,
+      "offset": 150800
+    },
+    {
+      "text": "setup as well. I will get into that. But",
+      "duration": 4401,
+      "offset": 152239
+    },
+    {
+      "text": "first, reason number two. As an epic",
+      "duration": 5521,
+      "offset": 154239
+    },
+    {
+      "text": "minimalist, the bloat the bloat is real.",
+      "duration": 5440,
+      "offset": 156640
+    },
+    {
+      "text": "It always bothered me. Anytime I install",
+      "duration": 4559,
+      "offset": 159760
+    },
+    {
+      "text": "a new Windows, I spent like an hour",
+      "duration": 4480,
+      "offset": 162080
+    },
+    {
+      "text": "trying to uninstall all the prepackaged",
+      "duration": 4721,
+      "offset": 164319
+    },
+    {
+      "text": "BS that I don't want. Windows is like,",
+      "duration": 5039,
+      "offset": 166560
+    },
+    {
+      "text": "&quot;I know you paid $100 or whatever for",
+      "duration": 4720,
+      "offset": 169040
+    },
+    {
+      "text": "me, but uh I'm still going to put ads in",
+      "duration": 4801,
+      "offset": 171599
+    },
+    {
+      "text": "here.&quot; Yay. Put a little AI in here. You",
+      "duration": 4160,
+      "offset": 173760
+    },
+    {
+      "text": "want that, right? That doesn't benefit",
+      "duration": 4880,
+      "offset": 176400
+    },
+    {
+      "text": "me. It's for you, the consumer. Bing. It",
+      "duration": 5679,
+      "offset": 177920
+    },
+    {
+      "text": "doesn't benefit me that you use Bing,",
+      "duration": 6000,
+      "offset": 181280
+    },
+    {
+      "text": "but please use Bing. Microsoft is an",
+      "duration": 5761,
+      "offset": 183599
+    },
+    {
+      "text": "annoying suite apparently. With Linux,",
+      "duration": 5360,
+      "offset": 187280
+    },
+    {
+      "text": "nothing. Serenity, please. Don't even",
+      "duration": 5599,
+      "offset": 189360
+    },
+    {
+      "text": "get me started on the Windows taskbar.",
+      "duration": 5120,
+      "offset": 192640
+    },
+    {
+      "text": "You control what's on your computer.",
+      "duration": 5601,
+      "offset": 194959
+    },
+    {
+      "text": "Duh. It's obvious. How is this not a",
+      "duration": 5240,
+      "offset": 197760
+    },
+    {
+      "text": "thing? Reason number three,",
+      "duration": 4599,
+      "offset": 200560
+    },
+    {
+      "text": "customization. I discovered this",
+      "duration": 5800,
+      "offset": 203000
+    },
+    {
+      "text": "afterwards. Customizing on Linux is a",
+      "duration": 6041,
+      "offset": 205159
+    },
+    {
+      "text": "beautiful thing. On Windows, you can",
+      "duration": 4560,
+      "offset": 208800
+    },
+    {
+      "text": "maybe change your wallpaper, change a",
+      "duration": 4720,
+      "offset": 211200
+    },
+    {
+      "text": "little bit of colors. Whoopitydoo. On",
+      "duration": 5280,
+      "offset": 213360
+    },
+    {
+      "text": "Linux, you can change reality itself.",
+      "duration": 5360,
+      "offset": 215920
+    },
+    {
+      "text": "Since Linux is built modular, you can",
+      "duration": 5360,
+      "offset": 218640
+    },
+    {
+      "text": "swap out your GUI entirely. You don't",
+      "duration": 4560,
+      "offset": 221280
+    },
+    {
+      "text": "even have to use one. You can cut off",
+      "duration": 3120,
+      "offset": 224000
+    },
+    {
+      "text": "the head of Linux and it'll still be",
+      "duration": 2720,
+      "offset": 225840
+    },
+    {
+      "text": "like, &quot;Hey, I'm here. What's up?&quot;",
+      "duration": 3280,
+      "offset": 227120
+    },
+    {
+      "text": "Customizing on Linux is called rising.",
+      "duration": 4319,
+      "offset": 228560
+    },
+    {
+      "text": "And I got I got way too into I got way",
+      "duration": 7280,
+      "offset": 230400
+    },
+    {
+      "text": "too into it. I cooked hard. I I I can't",
+      "duration": 6881,
+      "offset": 232879
+    },
+    {
+      "text": "wait to show you guys. Now, reason",
+      "duration": 5119,
+      "offset": 237680
+    },
+    {
+      "text": "number four, gaming. Gaming on Linux is",
+      "duration": 5520,
+      "offset": 239760
+    },
+    {
+      "text": "finally real. I actually installed Linux",
+      "duration": 4720,
+      "offset": 242799
+    },
+    {
+      "text": "15 years ago. That's right. I'm old. And",
+      "duration": 4000,
+      "offset": 245280
+    },
+    {
+      "text": "I uninstalled it after like a couple",
+      "duration": 3920,
+      "offset": 247519
+    },
+    {
+      "text": "days as a lot of people do when they",
+      "duration": 4480,
+      "offset": 249280
+    },
+    {
+      "text": "realize, oh, I can't use the things I",
+      "duration": 4640,
+      "offset": 251439
+    },
+    {
+      "text": "need on Linux. And for me, that was",
+      "duration": 4960,
+      "offset": 253760
+    },
+    {
+      "text": "gaming back then because it's like,",
+      "duration": 4361,
+      "offset": 256079
+    },
+    {
+      "text": "well, then what's the",
+      "duration": 5280,
+      "offset": 258720
+    },
+    {
+      "text": "point? But now gaming on Linux is real",
+      "duration": 6600,
+      "offset": 260440
+    },
+    {
+      "text": "at last. So Valve came in like Gandals",
+      "duration": 5600,
+      "offset": 264000
+    },
+    {
+      "text": "in Hell's Deep riding a Steam Deck with",
+      "duration": 4800,
+      "offset": 267040
+    },
+    {
+      "text": "Proton. So I think this is a perfect",
+      "duration": 5039,
+      "offset": 269600
+    },
+    {
+      "text": "example how Linux benefits everyone. the",
+      "duration": 5280,
+      "offset": 271840
+    },
+    {
+      "text": "fact that Valve as a company recognized",
+      "duration": 5521,
+      "offset": 274639
+    },
+    {
+      "text": "maybe Microsoft has a bit too much power",
+      "duration": 4560,
+      "offset": 277120
+    },
+    {
+      "text": "if they wanted to and started being",
+      "duration": 4400,
+      "offset": 280160
+    },
+    {
+      "text": "shady locking things down taking cuts",
+      "duration": 4400,
+      "offset": 281680
+    },
+    {
+      "text": "they absolutely could and it's not like",
+      "duration": 3280,
+      "offset": 284560
+    },
+    {
+      "text": "it would be uncharacteristics for them",
+      "duration": 3600,
+      "offset": 286080
+    },
+    {
+      "text": "to do so Valve started improving gaming",
+      "duration": 4240,
+      "offset": 287840
+    },
+    {
+      "text": "on Linux boost and driver support and",
+      "duration": 4079,
+      "offset": 289680
+    },
+    {
+      "text": "they built on what was already there",
+      "duration": 4320,
+      "offset": 292080
+    },
+    {
+      "text": "from open- source software like Wine by",
+      "duration": 5321,
+      "offset": 293759
+    },
+    {
+      "text": "doing this Valve benefits consumer",
+      "duration": 5960,
+      "offset": 296400
+    },
+    {
+      "text": "benefits ecosystem grows",
+      "duration": 7399,
+      "offset": 299080
+    },
+    {
+      "text": "win it really feels like uh an alternate",
+      "duration": 5640,
+      "offset": 302360
+    },
+    {
+      "text": "reality. This totally could not have",
+      "duration": 2801,
+      "offset": 306479
+    },
+    {
+      "text": "been a thing. And it also makes me",
+      "duration": 2560,
+      "offset": 308000
+    },
+    {
+      "text": "realize just how many things can be",
+      "duration": 3440,
+      "offset": 309280
+    },
+    {
+      "text": "better if people just weren't so greedy.",
+      "duration": 4560,
+      "offset": 310560
+    },
+    {
+      "text": "Can we just fix them? So, thank you",
+      "duration": 4880,
+      "offset": 312720
+    },
+    {
+      "text": "Linux and thank you uh base Gabin. Now,",
+      "duration": 4079,
+      "offset": 315120
+    },
+    {
+      "text": "I've gone through the reasons why I",
+      "duration": 3599,
+      "offset": 317600
+    },
+    {
+      "text": "switched to Linux. Let me just explain",
+      "duration": 4961,
+      "offset": 319199
+    },
+    {
+      "text": "why maybe not switching is a good idea.",
+      "duration": 7481,
+      "offset": 321199
+    },
+    {
+      "text": "Because everything good comes with a",
+      "duration": 6879,
+      "offset": 324160
+    },
+    {
+      "text": "sacrifice. If you're swapping to Linux,",
+      "duration": 4600,
+      "offset": 328680
+    },
+    {
+      "text": "you'll likely have to give something up.",
+      "duration": 4801,
+      "offset": 331039
+    },
+    {
+      "text": "I don't know what that is, but for me it",
+      "duration": 5040,
+      "offset": 333280
+    },
+    {
+      "text": "was Photoshop. I used Photoshop again",
+      "duration": 4880,
+      "offset": 335840
+    },
+    {
+      "text": "for 15 years. All the shortcuts, all my",
+      "duration": 4159,
+      "offset": 338320
+    },
+    {
+      "text": "workflow, it's all baked into my brain.",
+      "duration": 3600,
+      "offset": 340720
+    },
+    {
+      "text": "The way I use Photoshop, it's I don't",
+      "duration": 4041,
+      "offset": 342479
+    },
+    {
+      "text": "think about it. It's just here's the",
+      "duration": 4480,
+      "offset": 344320
+    },
+    {
+      "text": "thumbnail. It's not beautiful, but I get",
+      "duration": 4760,
+      "offset": 346520
+    },
+    {
+      "text": "the job done. Unfortunately, Adobe is a",
+      "duration": 5280,
+      "offset": 348800
+    },
+    {
+      "text": "garbage company and their software just",
+      "duration": 5040,
+      "offset": 351280
+    },
+    {
+      "text": "won't run on Linux. A lot of artists are",
+      "duration": 3600,
+      "offset": 354080
+    },
+    {
+      "text": "jumping ship. They don't want to use",
+      "duration": 3040,
+      "offset": 356320
+    },
+    {
+      "text": "Adobe anymore because they realize it's",
+      "duration": 4160,
+      "offset": 357680
+    },
+    {
+      "text": "a terrible company. me as well. I",
+      "duration": 5040,
+      "offset": 359360
+    },
+    {
+      "text": "thought, you know what, it's time. I'll",
+      "duration": 4240,
+      "offset": 361840
+    },
+    {
+      "text": "swap over. I know the open source",
+      "duration": 3440,
+      "offset": 364400
+    },
+    {
+      "text": "alternative is I've heard about",
+      "duration": 4320,
+      "offset": 366080
+    },
+    {
+      "text": "this forever. And I thought, you know,",
+      "duration": 4799,
+      "offset": 367840
+    },
+    {
+      "text": "it'll feel good. I'll feel good leaving",
+      "duration": 5280,
+      "offset": 370400
+    },
+    {
+      "text": "Adobe. So, I I'm ready. I go to their",
+      "duration": 5481,
+      "offset": 372639
+    },
+    {
+      "text": "website. I click through this thousand",
+      "duration": 5359,
+      "offset": 375680
+    },
+    {
+      "text": "pages. I crawl through the bushes just",
+      "duration": 5240,
+      "offset": 378120
+    },
+    {
+      "text": "to find the goddamn unsubscribe button.",
+      "duration": 4321,
+      "offset": 381039
+    },
+    {
+      "text": "And I was so ready. I was going to be",
+      "duration": 4480,
+      "offset": 383360
+    },
+    {
+      "text": "like, &quot;Fuck you, Adobe. Just",
+      "duration": 4320,
+      "offset": 385360
+    },
+    {
+      "text": "unsubscribe.&quot;",
+      "duration": 3440,
+      "offset": 387840
+    },
+    {
+      "text": "You know what happens? You know what",
+      "duration": 3680,
+      "offset": 389680
+    },
+    {
+      "text": "happens? They hit me with an",
+      "duration": 4199,
+      "offset": 391280
+    },
+    {
+      "text": "unsubscription",
+      "duration": 6559,
+      "offset": 393360
+    },
+    {
+      "text": "fee. Yes.",
+      "duration": 4440,
+      "offset": 395479
+    },
+    {
+      "text": "Those I'm sorry, what? I have to pay to",
+      "duration": 7960,
+      "offset": 400280
+    },
+    {
+      "text": "not use your",
+      "duration": 3041,
+      "offset": 405199
+    },
+    {
+      "text": "software. It was like 65 bucks or some",
+      "duration": 5441,
+      "offset": 410919
+    },
+    {
+      "text": "insane. What",
+      "duration": 4720,
+      "offset": 414240
+    },
+    {
+      "text": "the? If anything, it just made me",
+      "duration": 5399,
+      "offset": 416360
+    },
+    {
+      "text": "realize, okay, it's over. I'm never",
+      "duration": 4639,
+      "offset": 418960
+    },
+    {
+      "text": "going back. So, like I said, the open",
+      "duration": 5201,
+      "offset": 421759
+    },
+    {
+      "text": "source alternative is And",
+      "duration": 6000,
+      "offset": 423599
+    },
+    {
+      "text": "since this is Linux open source, you can",
+      "duration": 5200,
+      "offset": 426960
+    },
+    {
+      "text": "do whatever you want. I downloaded this",
+      "duration": 5521,
+      "offset": 429599
+    },
+    {
+      "text": "uh icon pack, then change the icon so",
+      "duration": 5039,
+      "offset": 432160
+    },
+    {
+      "text": "they look like the Photoshop icons. That",
+      "duration": 3919,
+      "offset": 435120
+    },
+    {
+      "text": "helped a little bit. Then I downloaded a",
+      "duration": 4321,
+      "offset": 437199
+    },
+    {
+      "text": "shortcut command list that matches the",
+      "duration": 4801,
+      "offset": 439039
+    },
+    {
+      "text": "one on Photoshop. Boom. Made it a little",
+      "duration": 4079,
+      "offset": 441520
+    },
+    {
+      "text": "easier. You know, I'm still not 100%",
+      "duration": 3199,
+      "offset": 443840
+    },
+    {
+      "text": "used to it, but the fact that I can do",
+      "duration": 3521,
+      "offset": 445599
+    },
+    {
+      "text": "stuff like this really helps for me",
+      "duration": 4801,
+      "offset": 447039
+    },
+    {
+      "text": "personally, a worthy sacrifice. I hope",
+      "duration": 4639,
+      "offset": 449120
+    },
+    {
+      "text": "this doesn't sound like copium, but",
+      "duration": 3840,
+      "offset": 451840
+    },
+    {
+      "text": "genuinely, it feels good that I was able",
+      "duration": 3921,
+      "offset": 453759
+    },
+    {
+      "text": "to move on. At the end of the day, some",
+      "duration": 4239,
+      "offset": 455680
+    },
+    {
+      "text": "tools are only going to work on Windows",
+      "duration": 4239,
+      "offset": 457680
+    },
+    {
+      "text": "and only going to work on Mac, but what",
+      "duration": 5801,
+      "offset": 459919
+    },
+    {
+      "text": "you gain on Linux is so much more",
+      "duration": 6881,
+      "offset": 461919
+    },
+    {
+      "text": "freedom. Join us. I'm just praying that",
+      "duration": 5000,
+      "offset": 465720
+    },
+    {
+      "text": "Adobe is not just going to show up one",
+      "duration": 4000,
+      "offset": 468800
+    },
+    {
+      "text": "day and be like, &quot;There's another fee.",
+      "duration": 3680,
+      "offset": 470720
+    },
+    {
+      "text": "I'll meet them in a dark alleyway.",
+      "duration": 2839,
+      "offset": 472800
+    },
+    {
+      "text": "They'll be",
+      "duration": 4400,
+      "offset": 474400
+    },
+    {
+      "text": "like, that's a little fee. Now that I've",
+      "duration": 5400,
+      "offset": 475639
+    },
+    {
+      "text": "convinced you to swap to Linux, you have",
+      "duration": 5280,
+      "offset": 478800
+    },
+    {
+      "text": "the wonderful choice of picking a dro.",
+      "duration": 5041,
+      "offset": 481039
+    },
+    {
+      "text": "Yay. So many of them. I hear people",
+      "duration": 3440,
+      "offset": 484080
+    },
+    {
+      "text": "going like, I don't know which one to",
+      "duration": 3600,
+      "offset": 486080
+    },
+    {
+      "text": "pick. What do I do? There's so many.",
+      "duration": 4320,
+      "offset": 487520
+    },
+    {
+      "text": "Just pick one. It It's a wonderful thing",
+      "duration": 3840,
+      "offset": 489680
+    },
+    {
+      "text": "that you can choose. Don't you",
+      "duration": 3680,
+      "offset": 491840
+    },
+    {
+      "text": "understand? The world is your flavor.",
+      "duration": 4480,
+      "offset": 493520
+    },
+    {
+      "text": "Look at all these spices. I went with",
+      "duration": 4640,
+      "offset": 495520
+    },
+    {
+      "text": "Mint because it's the same one that I",
+      "duration": 4240,
+      "offset": 498000
+    },
+    {
+      "text": "installed 15 years ago and I knew that",
+      "duration": 4080,
+      "offset": 500160
+    },
+    {
+      "text": "it was a beginner friendly and that it",
+      "duration": 4000,
+      "offset": 502240
+    },
+    {
+      "text": "still holds up. It very much feels like",
+      "duration": 4160,
+      "offset": 504240
+    },
+    {
+      "text": "Windows just better. Okay, you don't",
+      "duration": 4000,
+      "offset": 506240
+    },
+    {
+      "text": "even need to touch the scary terminal.",
+      "duration": 3759,
+      "offset": 508400
+    },
+    {
+      "text": "If you don't want to, you don't have to.",
+      "duration": 4640,
+      "offset": 510240
+    },
+    {
+      "text": "It's okay. You should though. Now, let's",
+      "duration": 5440,
+      "offset": 512159
+    },
+    {
+      "text": "jump into my computer really quick. Oh,",
+      "duration": 5200,
+      "offset": 514880
+    },
+    {
+      "text": "look at that. I'm recording with OBS.",
+      "duration": 6081,
+      "offset": 517599
+    },
+    {
+      "text": "Open source is always the best source.",
+      "duration": 6400,
+      "offset": 520080
+    },
+    {
+      "text": "Couldn't get bandicked.",
+      "duration": 3960,
+      "offset": 523680
+    },
+    {
+      "text": "They didn't have a",
+      "duration": 4240,
+      "offset": 526480
+    },
+    {
+      "text": "bed. I can't believe I paid for that.",
+      "duration": 4840,
+      "offset": 527640
+    },
+    {
+      "text": "There's like free versions everywhere.",
+      "duration": 3760,
+      "offset": 530720
+    },
+    {
+      "text": "That's so much better. Okay. All right.",
+      "duration": 3840,
+      "offset": 532480
+    },
+    {
+      "text": "So, this is the terminal. You probably",
+      "duration": 3440,
+      "offset": 534480
+    },
+    {
+      "text": "heard about it in Linux. Feels a bit",
+      "duration": 2959,
+      "offset": 536320
+    },
+    {
+      "text": "strange in the beginning. Let me just",
+      "duration": 3680,
+      "offset": 537920
+    },
+    {
+      "text": "show you how it works. But first, wait.",
+      "duration": 4680,
+      "offset": 539279
+    },
+    {
+      "text": "Oh, yes. Today's",
+      "duration": 7960,
+      "offset": 541600
+    },
+    {
+      "text": "sponsor. 3 2 1 Wrong",
+      "duration": 9560,
+      "offset": 543959
+    },
+    {
+      "text": "Chief. Wow. Oh, look at ASI art every I",
+      "duration": 6760,
+      "offset": 549560
+    },
+    {
+      "text": "love it. Beautiful PewDiePie tub. Right",
+      "duration": 5281,
+      "offset": 553519
+    },
+    {
+      "text": "now, you get a free PewDiePie shaker",
+      "duration": 5280,
+      "offset": 556320
+    },
+    {
+      "text": "cup, which is amazing deal. If you order",
+      "duration": 5039,
+      "offset": 558800
+    },
+    {
+      "text": "$50 or more, highly recommend. It's a",
+      "duration": 3760,
+      "offset": 561600
+    },
+    {
+      "text": "great deal. This is probably the best",
+      "duration": 2961,
+      "offset": 563839
+    },
+    {
+      "text": "deal you're ever going to get with",
+      "duration": 3280,
+      "offset": 565360
+    },
+    {
+      "text": "G-Fuel. Please take advantage. I",
+      "duration": 3520,
+      "offset": 566800
+    },
+    {
+      "text": "generally mean that. You get the booty",
+      "duration": 6160,
+      "offset": 568640
+    },
+    {
+      "text": "shaker free and 33% off all PewDiePie",
+      "duration": 7040,
+      "offset": 570320
+    },
+    {
+      "text": "products if you use the code PewDiePie.",
+      "duration": 4719,
+      "offset": 574800
+    },
+    {
+      "text": "This is your final chance. only get this",
+      "duration": 4159,
+      "offset": 577360
+    },
+    {
+      "text": "deal for seven days. So, take the chance",
+      "duration": 5481,
+      "offset": 579519
+    },
+    {
+      "text": "now. Don't wait, please. Uh,",
+      "duration": 7081,
+      "offset": 581519
+    },
+    {
+      "text": "Brofish, thank you. Go to",
+      "duration": 6360,
+      "offset": 585000
+    },
+    {
+      "text": "gfuel.com/piepie. Enter code pewdie. 33%",
+      "duration": 4760,
+      "offset": 588600
+    },
+    {
+      "text": "off. Thank you, Gil for sponsoring this",
+      "duration": 4720,
+      "offset": 591360
+    },
+    {
+      "text": "video. Okay, so this is my desktop. I",
+      "duration": 4240,
+      "offset": 593360
+    },
+    {
+      "text": "called it Apollo. And then I have my",
+      "duration": 3600,
+      "offset": 596080
+    },
+    {
+      "text": "laptop, which I called Dianus cuz I",
+      "duration": 4080,
+      "offset": 597600
+    },
+    {
+      "text": "wanted to mess around with it. I Dianis",
+      "duration": 3760,
+      "offset": 599680
+    },
+    {
+      "text": "is the one I really, really went hard on",
+      "duration": 3599,
+      "offset": 601680
+    },
+    {
+      "text": "the rising. Uh, but I just wanted to",
+      "duration": 3760,
+      "offset": 603440
+    },
+    {
+      "text": "show some terminal commands really quick",
+      "duration": 3921,
+      "offset": 605279
+    },
+    {
+      "text": "just so you get an idea how it works. I",
+      "duration": 3759,
+      "offset": 607200
+    },
+    {
+      "text": "talked about this in my last video, but",
+      "duration": 3199,
+      "offset": 609200
+    },
+    {
+      "text": "the first thing that really blew my mind",
+      "duration": 3521,
+      "offset": 610959
+    },
+    {
+      "text": "with the Linux. I just noticed my",
+      "duration": 4321,
+      "offset": 612399
+    },
+    {
+      "text": "computer was booting kind of slowly. So,",
+      "duration": 3760,
+      "offset": 614480
+    },
+    {
+      "text": "I found this command called system",
+      "duration": 3600,
+      "offset": 616720
+    },
+    {
+      "text": "deanalyze and it tells you exactly how",
+      "duration": 3839,
+      "offset": 618240
+    },
+    {
+      "text": "long it takes for your computer to",
+      "duration": 4639,
+      "offset": 620320
+    },
+    {
+      "text": "actually load and what part takes a",
+      "duration": 4481,
+      "offset": 622079
+    },
+    {
+      "text": "certain amount of time. And it used to",
+      "duration": 3921,
+      "offset": 624959
+    },
+    {
+      "text": "be like 45 seconds. I was like, dude,",
+      "duration": 4080,
+      "offset": 626560
+    },
+    {
+      "text": "this is terrible. So, then I found",
+      "duration": 3760,
+      "offset": 628880
+    },
+    {
+      "text": "another command called blame. And then",
+      "duration": 4720,
+      "offset": 630640
+    },
+    {
+      "text": "you can see exactly what part is kind of",
+      "duration": 4240,
+      "offset": 632640
+    },
+    {
+      "text": "slowing down your system which got me",
+      "duration": 3680,
+      "offset": 635360
+    },
+    {
+      "text": "into like really optimizing it. And I",
+      "duration": 3840,
+      "offset": 636880
+    },
+    {
+      "text": "had so much fun doing that. And it just",
+      "duration": 4239,
+      "offset": 639040
+    },
+    {
+      "text": "made me realize just like on Windows if",
+      "duration": 4480,
+      "offset": 640720
+    },
+    {
+      "text": "my computer is kind of slow you just",
+      "duration": 4081,
+      "offset": 643279
+    },
+    {
+      "text": "kind of deal with it. It's like oh okay",
+      "duration": 5120,
+      "offset": 645200
+    },
+    {
+      "text": "well what can you do on Linux it's like",
+      "duration": 4640,
+      "offset": 647360
+    },
+    {
+      "text": "the world is your oyster. You can fix",
+      "duration": 3280,
+      "offset": 650320
+    },
+    {
+      "text": "it. Personally I like that kind of",
+      "duration": 2959,
+      "offset": 652000
+    },
+    {
+      "text": "stuff. The second thing that blew my",
+      "duration": 3520,
+      "offset": 653600
+    },
+    {
+      "text": "mind with the Linux terminal was uh just",
+      "duration": 4401,
+      "offset": 654959
+    },
+    {
+      "text": "how fast it is at searching. Searching",
+      "duration": 5719,
+      "offset": 657120
+    },
+    {
+      "text": "on Windows is so annoying. It takes",
+      "duration": 6159,
+      "offset": 659360
+    },
+    {
+      "text": "forever. Sometimes it doesn't even find",
+      "duration": 4761,
+      "offset": 662839
+    },
+    {
+      "text": "the file even though you type the name",
+      "duration": 4241,
+      "offset": 665519
+    },
+    {
+      "text": "of it perfectly. And a lot of times they",
+      "duration": 3359,
+      "offset": 667600
+    },
+    {
+      "text": "just bing it. They're like, &quot;Oh, you",
+      "duration": 2800,
+      "offset": 669760
+    },
+    {
+      "text": "want to search for your file? Oh, maybe",
+      "duration": 3281,
+      "offset": 670959
+    },
+    {
+      "text": "no. Actually, you you want to you want",
+      "duration": 3440,
+      "offset": 672560
+    },
+    {
+      "text": "to look it online. You that's what you",
+      "duration": 4159,
+      "offset": 674240
+    },
+    {
+      "text": "want to do.&quot; It's like, &quot;No, Linux, you",
+      "duration": 4880,
+      "offset": 676000
+    },
+    {
+      "text": "can find any file, whatever you want.",
+      "duration": 4560,
+      "offset": 678399
+    },
+    {
+      "text": "This is searching all JPEGs on my",
+      "duration": 3680,
+      "offset": 680880
+    },
+    {
+      "text": "computer.&quot; That's a bad example,",
+      "duration": 3120,
+      "offset": 682959
+    },
+    {
+      "text": "actually. The other thing that I love",
+      "duration": 2880,
+      "offset": 684560
+    },
+    {
+      "text": "about it is that you don't have to just",
+      "duration": 3200,
+      "offset": 686079
+    },
+    {
+      "text": "search the file. You can also search",
+      "duration": 4320,
+      "offset": 687440
+    },
+    {
+      "text": "text inside the file. So let's say you",
+      "duration": 4000,
+      "offset": 689279
+    },
+    {
+      "text": "forgot what the file is called, but you",
+      "duration": 4400,
+      "offset": 691760
+    },
+    {
+      "text": "remember roughly some stuff inside it.",
+      "duration": 5361,
+      "offset": 693279
+    },
+    {
+      "text": "You can grap it and bada bing, bada",
+      "duration": 5119,
+      "offset": 696160
+    },
+    {
+      "text": "boom. What the hell is this Spotify",
+      "duration": 6600,
+      "offset": 698640
+    },
+    {
+      "text": "password text balls deep? I did not do",
+      "duration": 7680,
+      "offset": 701279
+    },
+    {
+      "text": "that. What? Searching files on Linux is",
+      "duration": 5719,
+      "offset": 705240
+    },
+    {
+      "text": "super fast. It made me realize just how",
+      "duration": 3921,
+      "offset": 708959
+    },
+    {
+      "text": "it should be on a computer. Again, the",
+      "duration": 4320,
+      "offset": 710959
+    },
+    {
+      "text": "most obvious thing with the terminal is",
+      "duration": 4880,
+      "offset": 712880
+    },
+    {
+      "text": "that let's say you install the operating",
+      "duration": 5761,
+      "offset": 715279
+    },
+    {
+      "text": "system and you need to also put all the",
+      "duration": 5199,
+      "offset": 717760
+    },
+    {
+      "text": "programs that you want to use on it.",
+      "duration": 3520,
+      "offset": 721040
+    },
+    {
+      "text": "Usually, you have to go on the browser,",
+      "duration": 3601,
+      "offset": 722959
+    },
+    {
+      "text": "Google it, look up their page, go to",
+      "duration": 5200,
+      "offset": 724560
+    },
+    {
+      "text": "their download page, dodge all the fake",
+      "duration": 5920,
+      "offset": 726560
+    },
+    {
+      "text": "fake ads and all that crap and do that",
+      "duration": 5519,
+      "offset": 729760
+    },
+    {
+      "text": "and install and run each one, wait for",
+      "duration": 4400,
+      "offset": 732480
+    },
+    {
+      "text": "it to install, yada yada. It takes",
+      "duration": 4641,
+      "offset": 735279
+    },
+    {
+      "text": "forever. On Linux, you just go pseudo",
+      "duration": 5519,
+      "offset": 736880
+    },
+    {
+      "text": "amp install. Uh, what do we want? We",
+      "duration": 7680,
+      "offset": 739920
+    },
+    {
+      "text": "want VCE, Firefox, uh, OBS Studio. Boom.",
+      "duration": 7680,
+      "offset": 742399
+    },
+    {
+      "text": "Thank you. And now I can sit and look at",
+      "duration": 4160,
+      "offset": 747600
+    },
+    {
+      "text": "the screen and feel like I'm a hacker.",
+      "duration": 4081,
+      "offset": 750079
+    },
+    {
+      "text": "Yes, I know what all of this means.",
+      "duration": 5440,
+      "offset": 751760
+    },
+    {
+      "text": "Every single letter I'm soaking in with",
+      "duration": 4720,
+      "offset": 754160
+    },
+    {
+      "text": "my brain. There's so much you can do",
+      "duration": 3360,
+      "offset": 757200
+    },
+    {
+      "text": "with the terminal. It's insanely",
+      "duration": 3199,
+      "offset": 758880
+    },
+    {
+      "text": "powerful. I can make a whole video about",
+      "duration": 3279,
+      "offset": 760560
+    },
+    {
+      "text": "it, but I don't want to keep this too",
+      "duration": 3361,
+      "offset": 762079
+    },
+    {
+      "text": "longwinding. And in reality, I just want",
+      "duration": 3440,
+      "offset": 763839
+    },
+    {
+      "text": "to show you my rise on my laptop. To be",
+      "duration": 2959,
+      "offset": 765440
+    },
+    {
+      "text": "honest, that's the whole reason I'm",
+      "duration": 3441,
+      "offset": 767279
+    },
+    {
+      "text": "making this video. I had this old",
+      "duration": 4240,
+      "offset": 768399
+    },
+    {
+      "text": "laptop. I mean, it's not that old, but I",
+      "duration": 4239,
+      "offset": 770720
+    },
+    {
+      "text": "just never used it because I didn't",
+      "duration": 5041,
+      "offset": 772639
+    },
+    {
+      "text": "really like using it. I mentioned before",
+      "duration": 5841,
+      "offset": 774959
+    },
+    {
+      "text": "there's many distros of Linux, and uh I",
+      "duration": 5599,
+      "offset": 777680
+    },
+    {
+      "text": "wanted to try one called Arch partially",
+      "duration": 4000,
+      "offset": 780800
+    },
+    {
+      "text": "because of the meme. It's kind of become",
+      "duration": 3041,
+      "offset": 783279
+    },
+    {
+      "text": "a meme because it's a little difficult",
+      "duration": 3599,
+      "offset": 784800
+    },
+    {
+      "text": "to install Arch. So, it's like a flex to",
+      "duration": 4000,
+      "offset": 786320
+    },
+    {
+      "text": "use it. For some reason, I went on a god",
+      "duration": 4081,
+      "offset": 788399
+    },
+    {
+      "text": "run and I had no issue. I always get",
+      "duration": 4240,
+      "offset": 790320
+    },
+    {
+      "text": "stuck on the dumbest ever for like 12",
+      "duration": 3200,
+      "offset": 792480
+    },
+    {
+      "text": "hours. So, I don't know what happened",
+      "duration": 3040,
+      "offset": 794560
+    },
+    {
+      "text": "that time, but I also wanted to download",
+      "duration": 4240,
+      "offset": 795680
+    },
+    {
+      "text": "Arch because it's a minimalist DRO.",
+      "duration": 4799,
+      "offset": 797600
+    },
+    {
+      "text": "Whatever you put, or at least 90% of it",
+      "duration": 4320,
+      "offset": 799920
+    },
+    {
+      "text": "is there because you decided to put it",
+      "duration": 3281,
+      "offset": 802399
+    },
+    {
+      "text": "there. And it's also very highly",
+      "duration": 3440,
+      "offset": 804240
+    },
+    {
+      "text": "customizable, which are two elements",
+      "duration": 3920,
+      "offset": 805680
+    },
+    {
+      "text": "that I love. So, I knew I was going to",
+      "duration": 4159,
+      "offset": 807680
+    },
+    {
+      "text": "love it. All right, let's go into my",
+      "duration": 4320,
+      "offset": 809600
+    },
+    {
+      "text": "laptop. I think it makes sense for me to",
+      "duration": 4081,
+      "offset": 811839
+    },
+    {
+      "text": "show it without any customization first",
+      "duration": 4560,
+      "offset": 813920
+    },
+    {
+      "text": "because it just be confusing and I need",
+      "duration": 4880,
+      "offset": 815920
+    },
+    {
+      "text": "to talk to people that aren't haven't",
+      "duration": 4159,
+      "offset": 818480
+    },
+    {
+      "text": "used Linux. My first favorite thing",
+      "duration": 3520,
+      "offset": 820800
+    },
+    {
+      "text": "which I have on Mint as well is just",
+      "duration": 3601,
+      "offset": 822639
+    },
+    {
+      "text": "shortcuts on my keyboard to open",
+      "duration": 4959,
+      "offset": 824320
+    },
+    {
+      "text": "programs, open terminal, open file",
+      "duration": 5839,
+      "offset": 826240
+    },
+    {
+      "text": "manager, open browser, close it,",
+      "duration": 4800,
+      "offset": 829279
+    },
+    {
+      "text": "whatever. It's all there. It's such a",
+      "duration": 3760,
+      "offset": 832079
+    },
+    {
+      "text": "nice workflow and have a more keyboard",
+      "duration": 3440,
+      "offset": 834079
+    },
+    {
+      "text": "ccentric way of using your computer,",
+      "duration": 3841,
+      "offset": 835839
+    },
+    {
+      "text": "especially on a laptop. But even in",
+      "duration": 3921,
+      "offset": 837519
+    },
+    {
+      "text": "general, you know, the whole like, okay,",
+      "duration": 4320,
+      "offset": 839680
+    },
+    {
+      "text": "let me click on the start menu and just",
+      "duration": 4160,
+      "offset": 841440
+    },
+    {
+      "text": "find the thing. If I don't have it",
+      "duration": 5279,
+      "offset": 844000
+    },
+    {
+      "text": "keybind, I can open roy uh and just",
+      "duration": 5599,
+      "offset": 845600
+    },
+    {
+      "text": "search for it and open it. I don't want",
+      "duration": 3920,
+      "offset": 849279
+    },
+    {
+      "text": "to overexlain things as well, but yeah,",
+      "duration": 4640,
+      "offset": 851199
+    },
+    {
+      "text": "this is my terminal on uh this setup.",
+      "duration": 5521,
+      "offset": 853199
+    },
+    {
+      "text": "I'm using elacrity and this is Neoetch,",
+      "duration": 5601,
+      "offset": 855839
+    },
+    {
+      "text": "which shows my specs and usually people",
+      "duration": 4559,
+      "offset": 858720
+    },
+    {
+      "text": "have an ASI art. It sounds like I'm",
+      "duration": 4639,
+      "offset": 861440
+    },
+    {
+      "text": "saying as a Ashley, I'll call it Ashie",
+      "duration": 5281,
+      "offset": 863279
+    },
+    {
+      "text": "uh of their dro. And if you saw my mint",
+      "duration": 4081,
+      "offset": 866079
+    },
+    {
+      "text": "one earlier, I was like, &quot;Oh, it",
+      "duration": 3040,
+      "offset": 868560
+    },
+    {
+      "text": "wouldn't be cool if I do like my own",
+      "duration": 3679,
+      "offset": 870160
+    },
+    {
+      "text": "custom ashy.&quot; And then I thought, &quot;Oh,",
+      "duration": 3440,
+      "offset": 871600
+    },
+    {
+      "text": "wouldn't it be cool if I do my own",
+      "duration": 3360,
+      "offset": 873839
+    },
+    {
+      "text": "animated ashy?&quot; So, I figured out how to",
+      "duration": 3840,
+      "offset": 875040
+    },
+    {
+      "text": "do that. It took a little bit of",
+      "duration": 3921,
+      "offset": 877199
+    },
+    {
+      "text": "tinkering and shinkering, but it's just",
+      "duration": 4560,
+      "offset": 878880
+    },
+    {
+      "text": "so nice to look at. I love it. So, I'm",
+      "duration": 4959,
+      "offset": 881120
+    },
+    {
+      "text": "running Hyperland, which is uh this uh",
+      "duration": 5440,
+      "offset": 883440
+    },
+    {
+      "text": "beautiful tile manager. It automatically",
+      "duration": 4801,
+      "offset": 886079
+    },
+    {
+      "text": "sorts it for me whenever I open",
+      "duration": 4720,
+      "offset": 888880
+    },
+    {
+      "text": "something. This is such a nice workflow.",
+      "duration": 4800,
+      "offset": 890880
+    },
+    {
+      "text": "And I can close it all as well. Uh you",
+      "duration": 4599,
+      "offset": 893600
+    },
+    {
+      "text": "can literally open these until",
+      "duration": 4959,
+      "offset": 895680
+    },
+    {
+      "text": "infinite. When you're on a laptop, when",
+      "duration": 4521,
+      "offset": 898199
+    },
+    {
+      "text": "you have limited screen space, it's such",
+      "duration": 4081,
+      "offset": 900639
+    },
+    {
+      "text": "a great way to work with it. The fact",
+      "duration": 3760,
+      "offset": 902720
+    },
+    {
+      "text": "that they're always there means I never",
+      "duration": 3280,
+      "offset": 904720
+    },
+    {
+      "text": "have to look for them because I know",
+      "duration": 3919,
+      "offset": 906480
+    },
+    {
+      "text": "they're there. And if my workspace is",
+      "duration": 5120,
+      "offset": 908000
+    },
+    {
+      "text": "full, I can get look at this. Swap to",
+      "duration": 4800,
+      "offset": 910399
+    },
+    {
+      "text": "another one. This is workspace number",
+      "duration": 4240,
+      "offset": 913120
+    },
+    {
+      "text": "two and workspace number four. I've been",
+      "duration": 4721,
+      "offset": 915199
+    },
+    {
+      "text": "recording OBS from here. Let's say I'm",
+      "duration": 5120,
+      "offset": 917360
+    },
+    {
+      "text": "working on a project on workspace one. I",
+      "duration": 3919,
+      "offset": 919920
+    },
+    {
+      "text": "can then work on another thing on",
+      "duration": 3919,
+      "offset": 922480
+    },
+    {
+      "text": "workspace 2 and go back and forth vice",
+      "duration": 4800,
+      "offset": 923839
+    },
+    {
+      "text": "versa instantly. I love this way of",
+      "duration": 4401,
+      "offset": 926399
+    },
+    {
+      "text": "using a computer. It's so sick. The",
+      "duration": 4401,
+      "offset": 928639
+    },
+    {
+      "text": "first thing I really loved about this RH",
+      "duration": 4399,
+      "offset": 930800
+    },
+    {
+      "text": "Hyperland setup was just how quick and",
+      "duration": 4239,
+      "offset": 933040
+    },
+    {
+      "text": "smooth it looks at least, you know, like",
+      "duration": 4401,
+      "offset": 935199
+    },
+    {
+      "text": "boom. Oh, open. It's so nice. Uh, but",
+      "duration": 4521,
+      "offset": 937279
+    },
+    {
+      "text": "then I open my browser and it's",
+      "duration": 7479,
+      "offset": 939600
+    },
+    {
+      "text": "like, oh, you see that? Ew.",
+      "duration": 8039,
+      "offset": 941800
+    },
+    {
+      "text": "Again. Oh, that took forever and it",
+      "duration": 5241,
+      "offset": 947079
+    },
+    {
+      "text": "loads so ugly. So, my first thought,",
+      "duration": 4881,
+      "offset": 949839
+    },
+    {
+      "text": "okay, well, maybe I can upgrade my SSD",
+      "duration": 4319,
+      "offset": 952320
+    },
+    {
+      "text": "to make it snappier and quicker. But",
+      "duration": 4080,
+      "offset": 954720
+    },
+    {
+      "text": "then I thought, I'm on Linux. I can do",
+      "duration": 4241,
+      "offset": 956639
+    },
+    {
+      "text": "whatever I want. So, let's run a time",
+      "duration": 4959,
+      "offset": 958800
+    },
+    {
+      "text": "here. Firefox. Let's ignore the CSS",
+      "duration": 4800,
+      "offset": 960880
+    },
+    {
+      "text": "errors. I tinkered a bit too much. Don't",
+      "duration": 5481,
+      "offset": 963759
+    },
+    {
+      "text": "worry about it. What was that? Two",
+      "duration": 6399,
+      "offset": 965680
+    },
+    {
+      "text": "seconds. Not good enough. So, I figured",
+      "duration": 5080,
+      "offset": 969240
+    },
+    {
+      "text": "out a way. And it's so dumb. I won't",
+      "duration": 3760,
+      "offset": 972079
+    },
+    {
+      "text": "explain how I did it, but the fact that",
+      "duration": 4560,
+      "offset": 974320
+    },
+    {
+      "text": "I was able to do it. Boom. Instant.",
+      "duration": 7440,
+      "offset": 975839
+    },
+    {
+      "text": "Boom. Boom. Boom. Boom. I love it. I",
+      "duration": 6879,
+      "offset": 978880
+    },
+    {
+      "text": "love it so much. It's these small things",
+      "duration": 3761,
+      "offset": 983279
+    },
+    {
+      "text": "that makes you really fall in love with",
+      "duration": 3601,
+      "offset": 985759
+    },
+    {
+      "text": "using Linux. Uh anyway, the first thing",
+      "duration": 5599,
+      "offset": 987040
+    },
+    {
+      "text": "I customized was a way bar. Oh, I forgot",
+      "duration": 4960,
+      "offset": 989360
+    },
+    {
+      "text": "to say I can move around as well if I",
+      "duration": 3281,
+      "offset": 992639
+    },
+    {
+      "text": "want to. Anyway, and move them to a",
+      "duration": 3280,
+      "offset": 994320
+    },
+    {
+      "text": "different workspace. Uh so yeah, this is",
+      "duration": 3440,
+      "offset": 995920
+    },
+    {
+      "text": "my taskbar. It's like the Windows",
+      "duration": 3919,
+      "offset": 997600
+    },
+    {
+      "text": "taskbar except you decide exactly what's",
+      "duration": 3919,
+      "offset": 999360
+    },
+    {
+      "text": "on it and customizing it. I put",
+      "duration": 4560,
+      "offset": 1001519
+    },
+    {
+      "text": "calendar, turn it on and off, internet,",
+      "duration": 4800,
+      "offset": 1003279
+    },
+    {
+      "text": "Bluetooth, quick access to all these",
+      "duration": 3921,
+      "offset": 1006079
+    },
+    {
+      "text": "things. You know, I really enjoy this as",
+      "duration": 3841,
+      "offset": 1008079
+    },
+    {
+      "text": "well. It's basically just tells me if",
+      "duration": 3920,
+      "offset": 1010000
+    },
+    {
+      "text": "I'm connected to NordVPN or not and I",
+      "duration": 3919,
+      "offset": 1011920
+    },
+    {
+      "text": "can toggle by clicking on it and it",
+      "duration": 3839,
+      "offset": 1013920
+    },
+    {
+      "text": "tells me which country I'm connected to.",
+      "duration": 4000,
+      "offset": 1015839
+    },
+    {
+      "text": "Uh up here it shows which workspace I'm",
+      "duration": 4401,
+      "offset": 1017759
+    },
+    {
+      "text": "using. Since I'm have these reactor in",
+      "duration": 3601,
+      "offset": 1019839
+    },
+    {
+      "text": "the background, I thought it'd be cool",
+      "duration": 4799,
+      "offset": 1022160
+    },
+    {
+      "text": "to like LAR as if each workspace was",
+      "duration": 6320,
+      "offset": 1023440
+    },
+    {
+      "text": "each reactor. I'm on reactor A. Uh",
+      "duration": 7281,
+      "offset": 1026959
+    },
+    {
+      "text": "there's reactor B and C and then D where",
+      "duration": 6960,
+      "offset": 1029760
+    },
+    {
+      "text": "it's recording OBS. Then I have my",
+      "duration": 5199,
+      "offset": 1034240
+    },
+    {
+      "text": "battery bar which is ASI. I keep call",
+      "duration": 5959,
+      "offset": 1036720
+    },
+    {
+      "text": "saying ashy versus ashy art. I got the",
+      "duration": 5841,
+      "offset": 1039439
+    },
+    {
+      "text": "volume and you know look look if my",
+      "duration": 6880,
+      "offset": 1042679
+    },
+    {
+      "text": "volume goes too low it gets red. It's",
+      "duration": 6960,
+      "offset": 1045280
+    },
+    {
+      "text": "critical just to really lar the whole",
+      "duration": 6041,
+      "offset": 1049559
+    },
+    {
+      "text": "nuclear reactor UI. To me it's cool. I",
+      "duration": 6480,
+      "offset": 1052240
+    },
+    {
+      "text": "like it. All right. The second thing I",
+      "duration": 6800,
+      "offset": 1055600
+    },
+    {
+      "text": "did was making widgets with Ew. Ew was a",
+      "duration": 5720,
+      "offset": 1058720
+    },
+    {
+      "text": "nightmare. I'm not going to lie. Here we",
+      "duration": 4399,
+      "offset": 1062400
+    },
+    {
+      "text": "go. Let me also change the wallpaper",
+      "duration": 4599,
+      "offset": 1064440
+    },
+    {
+      "text": "really quick. Was I? All right. So, this",
+      "duration": 4481,
+      "offset": 1066799
+    },
+    {
+      "text": "is my desktop. Let me play some music",
+      "duration": 5241,
+      "offset": 1069039
+    },
+    {
+      "text": "actually.",
+      "duration": 3000,
+      "offset": 1071280
+    },
+    {
+      "text": "So, first I added this visualizer cuz I",
+      "duration": 4399,
+      "offset": 1075280
+    },
+    {
+      "text": "just saw a lot of people doing it. It's",
+      "duration": 4360,
+      "offset": 1077840
+    },
+    {
+      "text": "using Cava, but I changed it again with",
+      "duration": 5120,
+      "offset": 1079679
+    },
+    {
+      "text": "Ashie. Uh, so it looks a little more",
+      "duration": 6359,
+      "offset": 1082200
+    },
+    {
+      "text": "matrix than Here we have my up time.",
+      "duration": 5841,
+      "offset": 1084799
+    },
+    {
+      "text": "Just how long it's been running and how",
+      "duration": 4561,
+      "offset": 1088559
+    },
+    {
+      "text": "much until my battery is out. I should",
+      "duration": 4640,
+      "offset": 1090640
+    },
+    {
+      "text": "probably charge my laptop. Uh, CPU temp.",
+      "duration": 4720,
+      "offset": 1093120
+    },
+    {
+      "text": "I should probably uh change",
+      "duration": 5360,
+      "offset": 1095280
+    },
+    {
+      "text": "cool it down a bit. All of this is uh it",
+      "duration": 4880,
+      "offset": 1097840
+    },
+    {
+      "text": "changes uh it's not just like visual",
+      "duration": 4560,
+      "offset": 1100640
+    },
+    {
+      "text": "flare. Well, it is, but CPU load, which",
+      "duration": 5440,
+      "offset": 1102720
+    },
+    {
+      "text": "changes, RAM usage, storage. This tells",
+      "duration": 5440,
+      "offset": 1105200
+    },
+    {
+      "text": "me which uh works base I'm on. Right",
+      "duration": 5600,
+      "offset": 1108160
+    },
+    {
+      "text": "now, I'm on reactor B. Power consumption",
+      "duration": 5440,
+      "offset": 1110640
+    },
+    {
+      "text": "completely useless, but I needed it to",
+      "duration": 4960,
+      "offset": 1113760
+    },
+    {
+      "text": "look cool. And then we have my two fans",
+      "duration": 4880,
+      "offset": 1116080
+    },
+    {
+      "text": "for CPU and GPU, and then this little",
+      "duration": 4800,
+      "offset": 1118720
+    },
+    {
+      "text": "spinny fan thing to show it. uh upload",
+      "duration": 5280,
+      "offset": 1120960
+    },
+    {
+      "text": "and download latency and then just",
+      "duration": 4159,
+      "offset": 1123520
+    },
+    {
+      "text": "another VPN thing. It's kind of",
+      "duration": 4319,
+      "offset": 1126240
+    },
+    {
+      "text": "pointless. And then uh basic weather.",
+      "duration": 4961,
+      "offset": 1127679
+    },
+    {
+      "text": "And then finally, to make it sort of all",
+      "duration": 4161,
+      "offset": 1130559
+    },
+    {
+      "text": "work together, I added a script that",
+      "duration": 4480,
+      "offset": 1132640
+    },
+    {
+      "text": "basically scans if I'm using a window.",
+      "duration": 4640,
+      "offset": 1134720
+    },
+    {
+      "text": "So if I open or close, it sort of",
+      "duration": 4320,
+      "offset": 1137120
+    },
+    {
+      "text": "transitions in and out of way bar",
+      "duration": 3520,
+      "offset": 1139360
+    },
+    {
+      "text": "because I don't need it on both. That",
+      "duration": 3200,
+      "offset": 1141440
+    },
+    {
+      "text": "it's just like too much information in",
+      "duration": 3679,
+      "offset": 1142880
+    },
+    {
+      "text": "my opinion. So this is on my desktop.",
+      "duration": 4000,
+      "offset": 1144640
+    },
+    {
+      "text": "It's a nice vibe here. We just chill",
+      "duration": 4000,
+      "offset": 1146559
+    },
+    {
+      "text": "over here and then when I'm in workflow,",
+      "duration": 4640,
+      "offset": 1148640
+    },
+    {
+      "text": "it blackens it all out. And I can just",
+      "duration": 5681,
+      "offset": 1150559
+    },
+    {
+      "text": "get going on my shingy thingy. Oh, and",
+      "duration": 6080,
+      "offset": 1153280
+    },
+    {
+      "text": "and in the middle here, my I forgot to",
+      "duration": 5600,
+      "offset": 1156240
+    },
+    {
+      "text": "say my it has power profiles my laptop.",
+      "duration": 3760,
+      "offset": 1159360
+    },
+    {
+      "text": "So, I thought it'd be cool to change",
+      "duration": 4000,
+      "offset": 1161840
+    },
+    {
+      "text": "them. It's silenced, balanced, or uh",
+      "duration": 6720,
+      "offset": 1163120
+    },
+    {
+      "text": "power mode, but I changed it to Rason,",
+      "duration": 6000,
+      "offset": 1165840
+    },
+    {
+      "text": "which means overclock. You see my fans",
+      "duration": 4000,
+      "offset": 1169840
+    },
+    {
+      "text": "are spinning. And these are faster as",
+      "duration": 4000,
+      "offset": 1171840
+    },
+    {
+      "text": "well because uh the fans are spinning",
+      "duration": 4079,
+      "offset": 1173840
+    },
+    {
+      "text": "more. This is so sick to me because I'm",
+      "duration": 3760,
+      "offset": 1175840
+    },
+    {
+      "text": "remembering what this laptop used to be",
+      "duration": 3921,
+      "offset": 1177919
+    },
+    {
+      "text": "running Windows. I never wanted to use",
+      "duration": 4640,
+      "offset": 1179600
+    },
+    {
+      "text": "it. I hated it. Now it went from a",
+      "duration": 4079,
+      "offset": 1181840
+    },
+    {
+      "text": "hardware that I never used to my",
+      "duration": 3200,
+      "offset": 1184240
+    },
+    {
+      "text": "favorite piece of hardware because it",
+      "duration": 4561,
+      "offset": 1185919
+    },
+    {
+      "text": "not just looks great, it runs great. I",
+      "duration": 6000,
+      "offset": 1187440
+    },
+    {
+      "text": "love it. It's so sick. I had so much fun",
+      "duration": 5280,
+      "offset": 1190480
+    },
+    {
+      "text": "customizing this. It was just a blast.",
+      "duration": 4160,
+      "offset": 1193440
+    },
+    {
+      "text": "Yeah, I hope you guys appreciate it as",
+      "duration": 5440,
+      "offset": 1195760
+    },
+    {
+      "text": "well. I've been doing so much more. I",
+      "duration": 5520,
+      "offset": 1197600
+    },
+    {
+      "text": "built this camera as well. Like I",
+      "duration": 3280,
+      "offset": 1201200
+    },
+    {
+      "text": "mentioned earlier, you can communicate",
+      "duration": 4080,
+      "offset": 1203120
+    },
+    {
+      "text": "with Linux even without a graphical user",
+      "duration": 4880,
+      "offset": 1204480
+    },
+    {
+      "text": "interface GUI. That made me so excited",
+      "duration": 3680,
+      "offset": 1207200
+    },
+    {
+      "text": "cuz I'm like, wait, that means I can use",
+      "duration": 4400,
+      "offset": 1209360
+    },
+    {
+      "text": "other computers at my disposal. For some",
+      "duration": 4480,
+      "offset": 1210880
+    },
+    {
+      "text": "reason, to me, that's just like really",
+      "duration": 3200,
+      "offset": 1213760
+    },
+    {
+      "text": "cool and I wanted to try what I could do",
+      "duration": 3120,
+      "offset": 1215360
+    },
+    {
+      "text": "with it. I want to show this in another",
+      "duration": 3520,
+      "offset": 1216960
+    },
+    {
+      "text": "video maybe cuz I feel like uh it's too",
+      "duration": 4480,
+      "offset": 1218480
+    },
+    {
+      "text": "much yapping. But my point is I've been",
+      "duration": 5199,
+      "offset": 1220480
+    },
+    {
+      "text": "having so much fun just tinkering,",
+      "duration": 5560,
+      "offset": 1222960
+    },
+    {
+      "text": "messing around, feeling like a",
+      "duration": 5841,
+      "offset": 1225679
+    },
+    {
+      "text": "hacker. But I got to be real as well.",
+      "duration": 5399,
+      "offset": 1228520
+    },
+    {
+      "text": "Linux is not perfect. There's a lot of",
+      "duration": 5920,
+      "offset": 1231520
+    },
+    {
+      "text": "issues. A good example is again my",
+      "duration": 6961,
+      "offset": 1233919
+    },
+    {
+      "text": "laptop. When I first installed Arch,",
+      "duration": 6400,
+      "offset": 1237440
+    },
+    {
+      "text": "none of my F keys worked. Actually,",
+      "duration": 5279,
+      "offset": 1240880
+    },
+    {
+      "text": "sorry. Three out of 12 worked out of the",
+      "duration": 4959,
+      "offset": 1243840
+    },
+    {
+      "text": "box. So, I had spent a long time",
+      "duration": 5520,
+      "offset": 1246159
+    },
+    {
+      "text": "bringing them back to life. For me, it",
+      "duration": 5521,
+      "offset": 1248799
+    },
+    {
+      "text": "was kind of fun. I was like, &quot;Oh, got",
+      "duration": 4321,
+      "offset": 1251679
+    },
+    {
+      "text": "another one working.&quot; Like, &quot;Okay, let's",
+      "duration": 3359,
+      "offset": 1254320
+    },
+    {
+      "text": "move on to the next one.&quot; But I can",
+      "duration": 3440,
+      "offset": 1256000
+    },
+    {
+      "text": "imagine for a lot of people that just",
+      "duration": 3681,
+      "offset": 1257679
+    },
+    {
+      "text": "want things to work, you know, maybe",
+      "duration": 4000,
+      "offset": 1259440
+    },
+    {
+      "text": "this is not for you. And maybe it should",
+      "duration": 4720,
+      "offset": 1261360
+    },
+    {
+      "text": "work. You know, I think since Linux is",
+      "duration": 5040,
+      "offset": 1263440
+    },
+    {
+      "text": "not as popular on desktop as Windows or",
+      "duration": 4320,
+      "offset": 1266080
+    },
+    {
+      "text": "Mac, this is just the reality. There's",
+      "duration": 3760,
+      "offset": 1268480
+    },
+    {
+      "text": "just not enough support for it. On",
+      "duration": 3759,
+      "offset": 1270400
+    },
+    {
+      "text": "Linux, if something doesn't work, it's",
+      "duration": 4000,
+      "offset": 1272240
+    },
+    {
+      "text": "kind of up to you to fix it. And uh and",
+      "duration": 3520,
+      "offset": 1274159
+    },
+    {
+      "text": "yeah, that's just how it is. I was",
+      "duration": 4480,
+      "offset": 1276240
+    },
+    {
+      "text": "trying to update my drivers for my GPU,",
+      "duration": 5681,
+      "offset": 1277679
+    },
+    {
+      "text": "and I got a black screen six times and",
+      "duration": 4480,
+      "offset": 1280720
+    },
+    {
+      "text": "had to do a hard restore every time.",
+      "duration": 3679,
+      "offset": 1283360
+    },
+    {
+      "text": "It's, you know, not the most fun thing",
+      "duration": 3280,
+      "offset": 1285200
+    },
+    {
+      "text": "in the world. There are other things I",
+      "duration": 3520,
+      "offset": 1287039
+    },
+    {
+      "text": "could rather be doing, which is why I",
+      "duration": 4160,
+      "offset": 1288480
+    },
+    {
+      "text": "need you to install Linux. So the more",
+      "duration": 5041,
+      "offset": 1290559
+    },
+    {
+      "text": "people we can get together, the better",
+      "duration": 5519,
+      "offset": 1292640
+    },
+    {
+      "text": "Linux becomes. And I get it now. Like",
+      "duration": 4319,
+      "offset": 1295600
+    },
+    {
+      "text": "that's why people were so excited about",
+      "duration": 4161,
+      "offset": 1298159
+    },
+    {
+      "text": "me using Linux because Linux is not a",
+      "duration": 4640,
+      "offset": 1299919
+    },
+    {
+      "text": "product. It's it's a platform. And it",
+      "duration": 5280,
+      "offset": 1302320
+    },
+    {
+      "text": "also already exists everywhere. NASA,",
+      "duration": 6041,
+      "offset": 1304559
+    },
+    {
+      "text": "SpaceX, it runs on Linux. All the",
+      "duration": 6240,
+      "offset": 1307600
+    },
+    {
+      "text": "supercomputers, your TV, your smart",
+      "duration": 5880,
+      "offset": 1310600
+    },
+    {
+      "text": "fridge, your phone if it's Android, it's",
+      "duration": 5120,
+      "offset": 1313840
+    },
+    {
+      "text": "all Linux, baby. I think it's just so",
+      "duration": 4559,
+      "offset": 1316480
+    },
+    {
+      "text": "cool the fact that this all happened",
+      "duration": 4240,
+      "offset": 1318960
+    },
+    {
+      "text": "because one Finnish guy in like the n",
+      "duration": 4561,
+      "offset": 1321039
+    },
+    {
+      "text": "what was it the '90s just decided, hey,",
+      "duration": 4320,
+      "offset": 1323200
+    },
+    {
+      "text": "I can write a better kernel. Finnish",
+      "duration": 4400,
+      "offset": 1325600
+    },
+    {
+      "text": "naivity. Typical Finnish behavior. They",
+      "duration": 4399,
+      "offset": 1327520
+    },
+    {
+      "text": "think they can do anything. But without",
+      "duration": 3360,
+      "offset": 1330000
+    },
+    {
+      "text": "that, you know, things would have been",
+      "duration": 2721,
+      "offset": 1331919
+    },
+    {
+      "text": "very different. At least there wouldn't",
+      "duration": 3280,
+      "offset": 1333360
+    },
+    {
+      "text": "been alternative. And I I just think",
+      "duration": 3519,
+      "offset": 1334640
+    },
+    {
+      "text": "it's so cool that people saw what it",
+      "duration": 4000,
+      "offset": 1336640
+    },
+    {
+      "text": "did, got excited, and wanted to join in.",
+      "duration": 4961,
+      "offset": 1338159
+    },
+    {
+      "text": "So, please consider joining in. Now, if",
+      "duration": 4320,
+      "offset": 1340640
+    },
+    {
+      "text": "you're even just a little bit curious, I",
+      "duration": 4160,
+      "offset": 1343120
+    },
+    {
+      "text": "recommend trying Linux. Maybe try dual",
+      "duration": 3920,
+      "offset": 1344960
+    },
+    {
+      "text": "booting it if you're not sure. You can",
+      "duration": 3840,
+      "offset": 1347280
+    },
+    {
+      "text": "still keep your Windows or whatever.",
+      "duration": 3840,
+      "offset": 1348880
+    },
+    {
+      "text": "You're going to kill it later. You might",
+      "duration": 4400,
+      "offset": 1351120
+    },
+    {
+      "text": "as well kill it now. Test it out. Break",
+      "duration": 4360,
+      "offset": 1352720
+    },
+    {
+      "text": "it. Get",
+      "duration": 5120,
+      "offset": 1355520
+    },
+    {
+      "text": "upset on Linux. I feel alive at last. At",
+      "duration": 6200,
+      "offset": 1357080
+    },
+    {
+      "text": "long last. Thank you for watching. Let",
+      "duration": 5410,
+      "offset": 1360640
+    },
+    {
+      "text": "me just type out my",
+      "duration": 5560,
+      "offset": 1363280
+    },
+    {
+      "text": "[Music]",
+      "duration": 6790,
+      "offset": 1366050
+    },
+    {
+      "text": "goodbyes. No.",
+      "duration": 4000,
+      "offset": 1368840
+    }
+  ],
+  "transcriptText": "Oh, you little K. Oh. Oh, you po. You disgusting little thing. Oh, what happened to you? Oh, look at yourself. You're the blob from I have no mouth, but I must scream. What? Who did this to you? Was it Windows? Oh, Mac OS. Oh, don't worry. I can save you. Install Linux. What if I told you you can look like this? Anyway, let me start this off by saying I am not a tech guy. You saw my PC building video. Looks all bent. I'm surprised the whole thing hasn't exploded. It's like sitting next to a bomb every day. But what you did see was 0.5 seconds of the video where I installed Linux on the thing and a lot of people just went, &quot;What? What?&quot; Some people seem surprised and confused. Something possessed him to put Linux on it. Some people were excited. At the time, I didn't know the power that I had. I was like a baby with a rocket launcher. For years, I have been tortured by window. But now, alas, I am finally free. I escaped the Windowscape. I saw the sun. The shadows are gone. It blinded me for a moment and now I'm speaking to you in the cave. Enough reference. Okay, so I'm going to yap about Linux for as long as this video is and you're going to listen. I want to start off by going through the reasons why I switched to Linux. It's different for everybody. Number one is how backlit this shot is. Number one, Windows talks to me like I'm a baby. Now mentally I might be, but that does not warrant. You want Candy Crush? You want Candy Crush on your computer? You want to use Bing? Yes. Are you sure you want to delete that file? Are you super duper sure you want to delete the file? That's how the talks to me and I don't like it. Linux, on the other hand, literally puts a gun in your hand and says, &quot;Do it. You're got your now.&quot; My first sort of aha moment when I installed Linux or started using it was wait a minute it does exactly what I wanted to do. And this is a really powerful feeling about that. I do want to show you guys my setup as well. I will get into that. But first, reason number two. As an epic minimalist, the bloat the bloat is real. It always bothered me. Anytime I install a new Windows, I spent like an hour trying to uninstall all the prepackaged BS that I don't want. Windows is like, &quot;I know you paid $100 or whatever for me, but uh I'm still going to put ads in here.&quot; Yay. Put a little AI in here. You want that, right? That doesn't benefit me. It's for you, the consumer. Bing. It doesn't benefit me that you use Bing, but please use Bing. Microsoft is an annoying suite apparently. With Linux, nothing. Serenity, please. Don't even get me started on the Windows taskbar. You control what's on your computer. Duh. It's obvious. How is this not a thing? Reason number three, customization. I discovered this afterwards. Customizing on Linux is a beautiful thing. On Windows, you can maybe change your wallpaper, change a little bit of colors. Whoopitydoo. On Linux, you can change reality itself. Since Linux is built modular, you can swap out your GUI entirely. You don't even have to use one. You can cut off the head of Linux and it'll still be like, &quot;Hey, I'm here. What's up?&quot; Customizing on Linux is called rising. And I got I got way too into I got way too into it. I cooked hard. I I I can't wait to show you guys. Now, reason number four, gaming. Gaming on Linux is finally real. I actually installed Linux 15 years ago. That's right. I'm old. And I uninstalled it after like a couple days as a lot of people do when they realize, oh, I can't use the things I need on Linux. And for me, that was gaming back then because it's like, well, then what's the point? But now gaming on Linux is real at last. So Valve came in like Gandals in Hell's Deep riding a Steam Deck with Proton. So I think this is a perfect example how Linux benefits everyone. the fact that Valve as a company recognized maybe Microsoft has a bit too much power if they wanted to and started being shady locking things down taking cuts they absolutely could and it's not like it would be uncharacteristics for them to do so Valve started improving gaming on Linux boost and driver support and they built on what was already there from open- source software like Wine by doing this Valve benefits consumer benefits ecosystem grows win it really feels like uh an alternate reality. This totally could not have been a thing. And it also makes me realize just how many things can be better if people just weren't so greedy. Can we just fix them? So, thank you Linux and thank you uh base Gabin. Now, I've gone through the reasons why I switched to Linux. Let me just explain why maybe not switching is a good idea. Because everything good comes with a sacrifice. If you're swapping to Linux, you'll likely have to give something up. I don't know what that is, but for me it was Photoshop. I used Photoshop again for 15 years. All the shortcuts, all my workflow, it's all baked into my brain. The way I use Photoshop, it's I don't think about it. It's just here's the thumbnail. It's not beautiful, but I get the job done. Unfortunately, Adobe is a garbage company and their software just won't run on Linux. A lot of artists are jumping ship. They don't want to use Adobe anymore because they realize it's a terrible company. me as well. I thought, you know what, it's time. I'll swap over. I know the open source alternative is I've heard about this forever. And I thought, you know, it'll feel good. I'll feel good leaving Adobe. So, I I'm ready. I go to their website. I click through this thousand pages. I crawl through the bushes just to find the goddamn unsubscribe button. And I was so ready. I was going to be like, &quot;Fuck you, Adobe. Just unsubscribe.&quot; You know what happens? You know what happens? They hit me with an unsubscription fee. Yes. Those I'm sorry, what? I have to pay to not use your software. It was like 65 bucks or some insane. What the? If anything, it just made me realize, okay, it's over. I'm never going back. So, like I said, the open source alternative is And since this is Linux open source, you can do whatever you want. I downloaded this uh icon pack, then change the icon so they look like the Photoshop icons. That helped a little bit. Then I downloaded a shortcut command list that matches the one on Photoshop. Boom. Made it a little easier. You know, I'm still not 100% used to it, but the fact that I can do stuff like this really helps for me personally, a worthy sacrifice. I hope this doesn't sound like copium, but genuinely, it feels good that I was able to move on. At the end of the day, some tools are only going to work on Windows and only going to work on Mac, but what you gain on Linux is so much more freedom. Join us. I'm just praying that Adobe is not just going to show up one day and be like, &quot;There's another fee. I'll meet them in a dark alleyway. They'll be like, that's a little fee. Now that I've convinced you to swap to Linux, you have the wonderful choice of picking a dro. Yay. So many of them. I hear people going like, I don't know which one to pick. What do I do? There's so many. Just pick one. It It's a wonderful thing that you can choose. Don't you understand? The world is your flavor. Look at all these spices. I went with Mint because it's the same one that I installed 15 years ago and I knew that it was a beginner friendly and that it still holds up. It very much feels like Windows just better. Okay, you don't even need to touch the scary terminal. If you don't want to, you don't have to. It's okay. You should though. Now, let's jump into my computer really quick. Oh, look at that. I'm recording with OBS. Open source is always the best source. Couldn't get bandicked. They didn't have a bed. I can't believe I paid for that. There's like free versions everywhere. That's so much better. Okay. All right. So, this is the terminal. You probably heard about it in Linux. Feels a bit strange in the beginning. Let me just show you how it works. But first, wait. Oh, yes. Today's sponsor. 3 2 1 Wrong Chief. Wow. Oh, look at ASI art every I love it. Beautiful PewDiePie tub. Right now, you get a free PewDiePie shaker cup, which is amazing deal. If you order $50 or more, highly recommend. It's a great deal. This is probably the best deal you're ever going to get with G-Fuel. Please take advantage. I generally mean that. You get the booty shaker free and 33% off all PewDiePie products if you use the code PewDiePie. This is your final chance. only get this deal for seven days. So, take the chance now. Don't wait, please. Uh, Brofish, thank you. Go to gfuel.com/piepie. Enter code pewdie. 33% off. Thank you, Gil for sponsoring this video. Okay, so this is my desktop. I called it Apollo. And then I have my laptop, which I called Dianus cuz I wanted to mess around with it. I Dianis is the one I really, really went hard on the rising. Uh, but I just wanted to show some terminal commands really quick just so you get an idea how it works. I talked about this in my last video, but the first thing that really blew my mind with the Linux. I just noticed my computer was booting kind of slowly. So, I found this command called system deanalyze and it tells you exactly how long it takes for your computer to actually load and what part takes a certain amount of time. And it used to be like 45 seconds. I was like, dude, this is terrible. So, then I found another command called blame. And then you can see exactly what part is kind of slowing down your system which got me into like really optimizing it. And I had so much fun doing that. And it just made me realize just like on Windows if my computer is kind of slow you just kind of deal with it. It's like oh okay well what can you do on Linux it's like the world is your oyster. You can fix it. Personally I like that kind of stuff. The second thing that blew my mind with the Linux terminal was uh just how fast it is at searching. Searching on Windows is so annoying. It takes forever. Sometimes it doesn't even find the file even though you type the name of it perfectly. And a lot of times they just bing it. They're like, &quot;Oh, you want to search for your file? Oh, maybe no. Actually, you you want to you want to look it online. You that's what you want to do.&quot; It's like, &quot;No, Linux, you can find any file, whatever you want. This is searching all JPEGs on my computer.&quot; That's a bad example, actually. The other thing that I love about it is that you don't have to just search the file. You can also search text inside the file. So let's say you forgot what the file is called, but you remember roughly some stuff inside it. You can grap it and bada bing, bada boom. What the hell is this Spotify password text balls deep? I did not do that. What? Searching files on Linux is super fast. It made me realize just how it should be on a computer. Again, the most obvious thing with the terminal is that let's say you install the operating system and you need to also put all the programs that you want to use on it. Usually, you have to go on the browser, Google it, look up their page, go to their download page, dodge all the fake fake ads and all that crap and do that and install and run each one, wait for it to install, yada yada. It takes forever. On Linux, you just go pseudo amp install. Uh, what do we want? We want VCE, Firefox, uh, OBS Studio. Boom. Thank you. And now I can sit and look at the screen and feel like I'm a hacker. Yes, I know what all of this means. Every single letter I'm soaking in with my brain. There's so much you can do with the terminal. It's insanely powerful. I can make a whole video about it, but I don't want to keep this too longwinding. And in reality, I just want to show you my rise on my laptop. To be honest, that's the whole reason I'm making this video. I had this old laptop. I mean, it's not that old, but I just never used it because I didn't really like using it. I mentioned before there's many distros of Linux, and uh I wanted to try one called Arch partially because of the meme. It's kind of become a meme because it's a little difficult to install Arch. So, it's like a flex to use it. For some reason, I went on a god run and I had no issue. I always get stuck on the dumbest ever for like 12 hours. So, I don't know what happened that time, but I also wanted to download Arch because it's a minimalist DRO. Whatever you put, or at least 90% of it is there because you decided to put it there. And it's also very highly customizable, which are two elements that I love. So, I knew I was going to love it. All right, let's go into my laptop. I think it makes sense for me to show it without any customization first because it just be confusing and I need to talk to people that aren't haven't used Linux. My first favorite thing which I have on Mint as well is just shortcuts on my keyboard to open programs, open terminal, open file manager, open browser, close it, whatever. It's all there. It's such a nice workflow and have a more keyboard ccentric way of using your computer, especially on a laptop. But even in general, you know, the whole like, okay, let me click on the start menu and just find the thing. If I don't have it keybind, I can open roy uh and just search for it and open it. I don't want to overexlain things as well, but yeah, this is my terminal on uh this setup. I'm using elacrity and this is Neoetch, which shows my specs and usually people have an ASI art. It sounds like I'm saying as a Ashley, I'll call it Ashie uh of their dro. And if you saw my mint one earlier, I was like, &quot;Oh, it wouldn't be cool if I do like my own custom ashy.&quot; And then I thought, &quot;Oh, wouldn't it be cool if I do my own animated ashy?&quot; So, I figured out how to do that. It took a little bit of tinkering and shinkering, but it's just so nice to look at. I love it. So, I'm running Hyperland, which is uh this uh beautiful tile manager. It automatically sorts it for me whenever I open something. This is such a nice workflow. And I can close it all as well. Uh you can literally open these until infinite. When you're on a laptop, when you have limited screen space, it's such a great way to work with it. The fact that they're always there means I never have to look for them because I know they're there. And if my workspace is full, I can get look at this. Swap to another one. This is workspace number two and workspace number four. I've been recording OBS from here. Let's say I'm working on a project on workspace one. I can then work on another thing on workspace 2 and go back and forth vice versa instantly. I love this way of using a computer. It's so sick. The first thing I really loved about this RH Hyperland setup was just how quick and smooth it looks at least, you know, like boom. Oh, open. It's so nice. Uh, but then I open my browser and it's like, oh, you see that? Ew. Again. Oh, that took forever and it loads so ugly. So, my first thought, okay, well, maybe I can upgrade my SSD to make it snappier and quicker. But then I thought, I'm on Linux. I can do whatever I want. So, let's run a time here. Firefox. Let's ignore the CSS errors. I tinkered a bit too much. Don't worry about it. What was that? Two seconds. Not good enough. So, I figured out a way. And it's so dumb. I won't explain how I did it, but the fact that I was able to do it. Boom. Instant. Boom. Boom. Boom. Boom. I love it. I love it so much. It's these small things that makes you really fall in love with using Linux. Uh anyway, the first thing I customized was a way bar. Oh, I forgot to say I can move around as well if I want to. Anyway, and move them to a different workspace. Uh so yeah, this is my taskbar. It's like the Windows taskbar except you decide exactly what's on it and customizing it. I put calendar, turn it on and off, internet, Bluetooth, quick access to all these things. You know, I really enjoy this as well. It's basically just tells me if I'm connected to NordVPN or not and I can toggle by clicking on it and it tells me which country I'm connected to. Uh up here it shows which workspace I'm using. Since I'm have these reactor in the background, I thought it'd be cool to like LAR as if each workspace was each reactor. I'm on reactor A. Uh there's reactor B and C and then D where it's recording OBS. Then I have my battery bar which is ASI. I keep call saying ashy versus ashy art. I got the volume and you know look look if my volume goes too low it gets red. It's critical just to really lar the whole nuclear reactor UI. To me it's cool. I like it. All right. The second thing I did was making widgets with Ew. Ew was a nightmare. I'm not going to lie. Here we go. Let me also change the wallpaper really quick. Was I? All right. So, this is my desktop. Let me play some music actually. So, first I added this visualizer cuz I just saw a lot of people doing it. It's using Cava, but I changed it again with Ashie. Uh, so it looks a little more matrix than Here we have my up time. Just how long it's been running and how much until my battery is out. I should probably charge my laptop. Uh, CPU temp. I should probably uh change cool it down a bit. All of this is uh it changes uh it's not just like visual flare. Well, it is, but CPU load, which changes, RAM usage, storage. This tells me which uh works base I'm on. Right now, I'm on reactor B. Power consumption completely useless, but I needed it to look cool. And then we have my two fans for CPU and GPU, and then this little spinny fan thing to show it. uh upload and download latency and then just another VPN thing. It's kind of pointless. And then uh basic weather. And then finally, to make it sort of all work together, I added a script that basically scans if I'm using a window. So if I open or close, it sort of transitions in and out of way bar because I don't need it on both. That it's just like too much information in my opinion. So this is on my desktop. It's a nice vibe here. We just chill over here and then when I'm in workflow, it blackens it all out. And I can just get going on my shingy thingy. Oh, and and in the middle here, my I forgot to say my it has power profiles my laptop. So, I thought it'd be cool to change them. It's silenced, balanced, or uh power mode, but I changed it to Rason, which means overclock. You see my fans are spinning. And these are faster as well because uh the fans are spinning more. This is so sick to me because I'm remembering what this laptop used to be running Windows. I never wanted to use it. I hated it. Now it went from a hardware that I never used to my favorite piece of hardware because it not just looks great, it runs great. I love it. It's so sick. I had so much fun customizing this. It was just a blast. Yeah, I hope you guys appreciate it as well. I've been doing so much more. I built this camera as well. Like I mentioned earlier, you can communicate with Linux even without a graphical user interface GUI. That made me so excited cuz I'm like, wait, that means I can use other computers at my disposal. For some reason, to me, that's just like really cool and I wanted to try what I could do with it. I want to show this in another video maybe cuz I feel like uh it's too much yapping. But my point is I've been having so much fun just tinkering, messing around, feeling like a hacker. But I got to be real as well. Linux is not perfect. There's a lot of issues. A good example is again my laptop. When I first installed Arch, none of my F keys worked. Actually, sorry. Three out of 12 worked out of the box. So, I had spent a long time bringing them back to life. For me, it was kind of fun. I was like, &quot;Oh, got another one working.&quot; Like, &quot;Okay, let's move on to the next one.&quot; But I can imagine for a lot of people that just want things to work, you know, maybe this is not for you. And maybe it should work. You know, I think since Linux is not as popular on desktop as Windows or Mac, this is just the reality. There's just not enough support for it. On Linux, if something doesn't work, it's kind of up to you to fix it. And uh and yeah, that's just how it is. I was trying to update my drivers for my GPU, and I got a black screen six times and had to do a hard restore every time. It's, you know, not the most fun thing in the world. There are other things I could rather be doing, which is why I need you to install Linux. So the more people we can get together, the better Linux becomes. And I get it now. Like that's why people were so excited about me using Linux because Linux is not a product. It's it's a platform. And it also already exists everywhere. NASA, SpaceX, it runs on Linux. All the supercomputers, your TV, your smart fridge, your phone if it's Android, it's all Linux, baby. I think it's just so cool the fact that this all happened because one Finnish guy in like the n what was it the '90s just decided, hey, I can write a better kernel. Finnish naivity. Typical Finnish behavior. They think they can do anything. But without that, you know, things would have been very different. At least there wouldn't been alternative. And I I just think it's so cool that people saw what it did, got excited, and wanted to join in. So, please consider joining in. Now, if you're even just a little bit curious, I recommend trying Linux. Maybe try dual booting it if you're not sure. You can still keep your Windows or whatever. You're going to kill it later. You might as well kill it now. Test it out. Break it. Get upset on Linux. I feel alive at last. At long last. Thank you for watching. Let me just type out my [Music] goodbyes. No."
+}

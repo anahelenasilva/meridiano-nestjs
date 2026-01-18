@@ -1,0 +1,4236 @@
+{
+  "channel": {
+    "id": "UCbRP3c757lWg9M-U7TyEkXA",
+    "name": "Theo Browne",
+    "description": "Theo is a software dev, AI nerd, TypeScript sympathizer, creator of T3 Chat and the T3 Stack."
+  },
+  "videoId": "vcfISXg--R0",
+  "title": "How I parsed billions of rows for every user in 2 seconds",
+  "url": "https://www.youtube.com/watch?v=vcfISXg--R0",
+  "publishedAt": "2026-01-03T10:42:44.813Z",
+  "description": "I put way too much time into figuring out how to use Convex and Posthog to make the T3 Chat wrapped. Trust me, it was a lot harder then you think...\n\nThank you WorkOS for sponsoring! Check them out at: https://soydev.link/workos\n\nOh and use code WRAPPED for 1 month of T3 Chat for just $1: https://soydev.link/chat\n\nWant to sponsor a video? Learn more here: https://soydev.link/sponsor-me\n\nCheck out my Twitch, Twitter, Discord more at https://t3.gg\n\nS/O Ph4se0n3 for the awesome edit 🙏",
+  "thumbnailUrl": "https://i.ytimg.com/vi_webp/vcfISXg--R0/maxresdefault.webp",
+  "transcript": [
+    {
+      "text": "If you're interested in unnecessarily",
+      "duration": 4239,
+      "offset": 80
+    },
+    {
+      "text": "deep dives in real programming problems,",
+      "duration": 4640,
+      "offset": 2080
+    },
+    {
+      "text": "you'll probably like this video a lot.",
+      "duration": 3681,
+      "offset": 4319
+    },
+    {
+      "text": "If you haven't kept up, we just put out",
+      "duration": 3600,
+      "offset": 6720
+    },
+    {
+      "text": "the T3 chat rewind. T3 Chat's the only",
+      "duration": 4320,
+      "offset": 8000
+    },
+    {
+      "text": "AI chat that doesn't suck to use, and we",
+      "duration": 3760,
+      "offset": 10320
+    },
+    {
+      "text": "made our rewind for our hundreds of",
+      "duration": 3760,
+      "offset": 12320
+    },
+    {
+      "text": "thousands of users to go through and",
+      "duration": 4560,
+      "offset": 14080
+    },
+    {
+      "text": "learn how many messages they sent, what",
+      "duration": 4959,
+      "offset": 16080
+    },
+    {
+      "text": "percentage of users they fit within,",
+      "duration": 4399,
+      "offset": 18640
+    },
+    {
+      "text": "what models they use the most, how they",
+      "duration": 4240,
+      "offset": 21039
+    },
+    {
+      "text": "use them, all of these other things that",
+      "duration": 4000,
+      "offset": 23039
+    },
+    {
+      "text": "don't quite fit on my screen at this",
+      "duration": 4160,
+      "offset": 25279
+    },
+    {
+      "text": "size. You get the idea, though. We put a",
+      "duration": 4560,
+      "offset": 27039
+    },
+    {
+      "text": "lot of work into making a really cool,",
+      "duration": 4001,
+      "offset": 29439
+    },
+    {
+      "text": "beautiful wrapped feature, especially",
+      "duration": 4640,
+      "offset": 31599
+    },
+    {
+      "text": "after looking at the OpenAI one.",
+      "duration": 3840,
+      "offset": 33440
+    },
+    {
+      "text": "This seems like the type of thing that'd",
+      "duration": 3361,
+      "offset": 36239
+    },
+    {
+      "text": "be pretty easy to build, and I get that.",
+      "duration": 3920,
+      "offset": 37280
+    },
+    {
+      "text": "We thought the same. And in a lot of",
+      "duration": 4080,
+      "offset": 39600
+    },
+    {
+      "text": "ways, it was, but in a lot of very",
+      "duration": 5519,
+      "offset": 41200
+    },
+    {
+      "text": "interesting ways, it wasn't. Not just",
+      "duration": 5359,
+      "offset": 43680
+    },
+    {
+      "text": "because the analysis of topics is hard.",
+      "duration": 4081,
+      "offset": 46719
+    },
+    {
+      "text": "Joking, we obviously didn't do that.",
+      "duration": 4241,
+      "offset": 49039
+    },
+    {
+      "text": "It's hard because we have billions of",
+      "duration": 4640,
+      "offset": 50800
+    },
+    {
+      "text": "rows in the table that we have to parse",
+      "duration": 4080,
+      "offset": 53280
+    },
+    {
+      "text": "here. Our application database is",
+      "duration": 3599,
+      "offset": 55440
+    },
+    {
+      "text": "convex, which is great, but it's not",
+      "duration": 3600,
+      "offset": 57360
+    },
+    {
+      "text": "built for this type of analytical work.",
+      "duration": 4081,
+      "offset": 59039
+    },
+    {
+      "text": "It's not built for you to go query every",
+      "duration": 4720,
+      "offset": 60960
+    },
+    {
+      "text": "single row in the database. And also, if",
+      "duration": 4800,
+      "offset": 63120
+    },
+    {
+      "text": "a user deleted a message or a thread,",
+      "duration": 4240,
+      "offset": 65680
+    },
+    {
+      "text": "that's now gone from their history and",
+      "duration": 4400,
+      "offset": 67920
+    },
+    {
+      "text": "won't count in their usage. Thankfully,",
+      "duration": 3519,
+      "offset": 69920
+    },
+    {
+      "text": "we have another database we've been",
+      "duration": 3600,
+      "offset": 72320
+    },
+    {
+      "text": "using a lot, Post Hog, which is built",
+      "duration": 4961,
+      "offset": 73439
+    },
+    {
+      "text": "almost entirely for doing analytics",
+      "duration": 4239,
+      "offset": 75920
+    },
+    {
+      "text": "work, which is great when I want to go",
+      "duration": 3759,
+      "offset": 78400
+    },
+    {
+      "text": "figure out how much money our users cost",
+      "duration": 4640,
+      "offset": 80159
+    },
+    {
+      "text": "us or how popular a feature is, but it's",
+      "duration": 4640,
+      "offset": 82159
+    },
+    {
+      "text": "not built to expose data to users",
+      "duration": 4000,
+      "offset": 84799
+    },
+    {
+      "text": "directly, which I spent a lot of time",
+      "duration": 4081,
+      "offset": 86799
+    },
+    {
+      "text": "working around. We [snorts] managed to",
+      "duration": 3521,
+      "offset": 88799
+    },
+    {
+      "text": "do it, and I'm really proud, but the",
+      "duration": 4640,
+      "offset": 90880
+    },
+    {
+      "text": "initial version took about 10 to 20",
+      "duration": 5200,
+      "offset": 92320
+    },
+    {
+      "text": "minutes to run per user, could only be",
+      "duration": 4160,
+      "offset": 95520
+    },
+    {
+      "text": "run concurrently with three instances at",
+      "duration": 4160,
+      "offset": 97520
+    },
+    {
+      "text": "a time. And by the time I woke up the",
+      "duration": 4880,
+      "offset": 99680
+    },
+    {
+      "text": "next day, we had literally 3,000",
+      "duration": 5200,
+      "offset": 101680
+    },
+    {
+      "text": "generations cued that were taking hours",
+      "duration": 4400,
+      "offset": 104560
+    },
+    {
+      "text": "each because of how slow this was all",
+      "duration": 4239,
+      "offset": 106880
+    },
+    {
+      "text": "going. And then I got it down to under 2",
+      "duration": 4159,
+      "offset": 108960
+    },
+    {
+      "text": "seconds. This is a deep dive on",
+      "duration": 3680,
+      "offset": 111119
+    },
+    {
+      "text": "everything from how to architect your",
+      "duration": 3360,
+      "offset": 113119
+    },
+    {
+      "text": "applications to how to do weird",
+      "duration": 3841,
+      "offset": 114799
+    },
+    {
+      "text": "optimizations with tools like Post Hog",
+      "duration": 4401,
+      "offset": 116479
+    },
+    {
+      "text": "to squeeze query times down to the best",
+      "duration": 4560,
+      "offset": 118640
+    },
+    {
+      "text": "possible results for something stupid",
+      "duration": 4320,
+      "offset": 120880
+    },
+    {
+      "text": "that involves billions of rows. None of",
+      "duration": 3519,
+      "offset": 123200
+    },
+    {
+      "text": "these companies paid us anything to do",
+      "duration": 2960,
+      "offset": 125200
+    },
+    {
+      "text": "this. In fact, we're paying them quite a",
+      "duration": 2960,
+      "offset": 126719
+    },
+    {
+      "text": "bit of money to use all of this stuff.",
+      "duration": 3120,
+      "offset": 128160
+    },
+    {
+      "text": "So, you're getting as honest of honest",
+      "duration": 3441,
+      "offset": 129679
+    },
+    {
+      "text": "takes as you possibly can here. All of",
+      "duration": 3520,
+      "offset": 131280
+    },
+    {
+      "text": "that said, there is somebody paying us",
+      "duration": 2960,
+      "offset": 133120
+    },
+    {
+      "text": "and they're today's sponsor. Today's",
+      "duration": 2480,
+      "offset": 134800
+    },
+    {
+      "text": "sponsor is Work OS. You've almost",
+      "duration": 2480,
+      "offset": 136080
+    },
+    {
+      "text": "certainly heard about them by now. So,",
+      "duration": 2400,
+      "offset": 137280
+    },
+    {
+      "text": "I'm going to do something a little bit",
+      "duration": 2720,
+      "offset": 138560
+    },
+    {
+      "text": "different. I'm going to combat all of",
+      "duration": 3120,
+      "offset": 139680
+    },
+    {
+      "text": "the things I hear when people say they",
+      "duration": 3039,
+      "offset": 141280
+    },
+    {
+      "text": "should roll their own O. What if you",
+      "duration": 3600,
+      "offset": 142800
+    },
+    {
+      "text": "need to customize it? Well, uh, you",
+      "duration": 3280,
+      "offset": 144319
+    },
+    {
+      "text": "going to do all this customization",
+      "duration": 3199,
+      "offset": 146400
+    },
+    {
+      "text": "yourself? Sure, you can go implement",
+      "duration": 3601,
+      "offset": 147599
+    },
+    {
+      "text": "whichever of these identity providers",
+      "duration": 3521,
+      "offset": 149599
+    },
+    {
+      "text": "you want to yourself. Or you can not",
+      "duration": 3920,
+      "offset": 151200
+    },
+    {
+      "text": "waste your engineers time and risk",
+      "duration": 4000,
+      "offset": 153120
+    },
+    {
+      "text": "security issues and use a platform that",
+      "duration": 3920,
+      "offset": 155120
+    },
+    {
+      "text": "already figured it out. a platform that,",
+      "duration": 3839,
+      "offset": 157120
+    },
+    {
+      "text": "mind you, big companies are using.",
+      "duration": 3440,
+      "offset": 159040
+    },
+    {
+      "text": "Speaking of which, this is response",
+      "duration": 3201,
+      "offset": 160959
+    },
+    {
+      "text": "number two. All real companies roll",
+      "duration": 4399,
+      "offset": 162480
+    },
+    {
+      "text": "their own off. No, I know more companies",
+      "duration": 4799,
+      "offset": 164160
+    },
+    {
+      "text": "moving off of self-rolled off than onto",
+      "duration": 4481,
+      "offset": 166879
+    },
+    {
+      "text": "it. It's just insane how annoying it is",
+      "duration": 4081,
+      "offset": 168959
+    },
+    {
+      "text": "to manage all the details. Do you know",
+      "duration": 4640,
+      "offset": 171360
+    },
+    {
+      "text": "what OpenAI, Enthropic, Versell, T3",
+      "duration": 4800,
+      "offset": 173040
+    },
+    {
+      "text": "chat, Carta, and more all have in",
+      "duration": 4239,
+      "offset": 176000
+    },
+    {
+      "text": "common? We're all using work OS. Yes, we",
+      "duration": 3920,
+      "offset": 177840
+    },
+    {
+      "text": "made the move ourselves, too. I want to",
+      "duration": 2961,
+      "offset": 180239
+    },
+    {
+      "text": "highlight one quote on the site because",
+      "duration": 3199,
+      "offset": 181760
+    },
+    {
+      "text": "it's very funny. GMO is known for",
+      "duration": 3200,
+      "offset": 183200
+    },
+    {
+      "text": "wanting to self-roll basically",
+      "duration": 3761,
+      "offset": 184959
+    },
+    {
+      "text": "everything he can and even then he",
+      "duration": 4160,
+      "offset": 186400
+    },
+    {
+      "text": "regrets doing their own self-rolled off",
+      "duration": 3760,
+      "offset": 188720
+    },
+    {
+      "text": "and made the move to work OS. I think we",
+      "duration": 3599,
+      "offset": 190560
+    },
+    {
+      "text": "could have done even more business if we",
+      "duration": 3440,
+      "offset": 192480
+    },
+    {
+      "text": "had partnered with work OS earlier. It's",
+      "duration": 3360,
+      "offset": 194159
+    },
+    {
+      "text": "been incredibly wellreceived. Stop",
+      "duration": 2880,
+      "offset": 195920
+    },
+    {
+      "text": "wasting time when you could be getting",
+      "duration": 3681,
+      "offset": 197519
+    },
+    {
+      "text": "users at soyv.link/workos.",
+      "duration": 4960,
+      "offset": 198800
+    },
+    {
+      "text": "Where to start? So here I have my T3",
+      "duration": 5360,
+      "offset": 201200
+    },
+    {
+      "text": "chat rewind on localhost on the original",
+      "duration": 4559,
+      "offset": 203760
+    },
+    {
+      "text": "version that we shipped. I'm going to go",
+      "duration": 4080,
+      "offset": 206560
+    },
+    {
+      "text": "over to my database in convex where we",
+      "duration": 4241,
+      "offset": 208319
+    },
+    {
+      "text": "store the generated wrapped when it's",
+      "duration": 4959,
+      "offset": 210640
+    },
+    {
+      "text": "done and I'm going to delete it. And as",
+      "duration": 4959,
+      "offset": 212560
+    },
+    {
+      "text": "is the magic of Convex, when the data",
+      "duration": 4161,
+      "offset": 215599
+    },
+    {
+      "text": "disappears, the UI state changes",
+      "duration": 4161,
+      "offset": 217519
+    },
+    {
+      "text": "immediately. And I can now click the",
+      "duration": 3680,
+      "offset": 219760
+    },
+    {
+      "text": "generate my wrap button to start the",
+      "duration": 3520,
+      "offset": 221680
+    },
+    {
+      "text": "generation. And we see here we now have",
+      "duration": 3359,
+      "offset": 223440
+    },
+    {
+      "text": "this. It doesn't have a computed act.",
+      "duration": 2800,
+      "offset": 225200
+    },
+    {
+      "text": "It's not done. It doesn't have stats",
+      "duration": 3201,
+      "offset": 226799
+    },
+    {
+      "text": "because it's not done. If we hop over to",
+      "duration": 5120,
+      "offset": 228000
+    },
+    {
+      "text": "the logs and search for workflow, we can",
+      "duration": 5440,
+      "offset": 230000
+    },
+    {
+      "text": "see all of the stages as it goes. Here",
+      "duration": 5360,
+      "offset": 233120
+    },
+    {
+      "text": "is the code for those stages near the",
+      "duration": 5920,
+      "offset": 235440
+    },
+    {
+      "text": "bottom here in our workflow with Convex",
+      "duration": 4319,
+      "offset": 238480
+    },
+    {
+      "text": "because not only is Convex a data",
+      "duration": 3439,
+      "offset": 241360
+    },
+    {
+      "text": "platform, it also is a runtime for your",
+      "duration": 3601,
+      "offset": 242799
+    },
+    {
+      "text": "backend code that connects directly to",
+      "duration": 3520,
+      "offset": 244799
+    },
+    {
+      "text": "your database and it can do really cool",
+      "duration": 4479,
+      "offset": 246400
+    },
+    {
+      "text": "things like workflows. This workflow is",
+      "duration": 4640,
+      "offset": 248319
+    },
+    {
+      "text": "defined above as having a",
+      "duration": 4241,
+      "offset": 250879
+    },
+    {
+      "text": "parallelization limit. Well, it doesn't.",
+      "duration": 4321,
+      "offset": 252959
+    },
+    {
+      "text": "This initial version didn't because we",
+      "duration": 3519,
+      "offset": 255120
+    },
+    {
+      "text": "didn't know how strict it was on postto.",
+      "duration": 2639,
+      "offset": 257280
+    },
+    {
+      "text": "We know it was a limit of three. But",
+      "duration": 3120,
+      "offset": 258639
+    },
+    {
+      "text": "what it should have here is max",
+      "duration": 4321,
+      "offset": 259919
+    },
+    {
+      "text": "parallelism three. This is the first",
+      "duration": 4481,
+      "offset": 261759
+    },
+    {
+      "text": "change that we had to make. So this can",
+      "duration": 5519,
+      "offset": 264240
+    },
+    {
+      "text": "now run this workflow three times at a",
+      "duration": 5840,
+      "offset": 266240
+    },
+    {
+      "text": "time. So three tasks can be going at",
+      "duration": 3841,
+      "offset": 269759
+    },
+    {
+      "text": "once.",
+      "duration": 3760,
+      "offset": 272080
+    },
+    {
+      "text": "We have the trigger check not important",
+      "duration": 4319,
+      "offset": 273600
+    },
+    {
+      "text": "here. The piece that matters is the",
+      "duration": 3359,
+      "offset": 275840
+    },
+    {
+      "text": "compute wrapped workflow. This is the",
+      "duration": 2560,
+      "offset": 277919
+    },
+    {
+      "text": "workflow that does everything. It has",
+      "duration": 3521,
+      "offset": 279199
+    },
+    {
+      "text": "multiple action steps which is really",
+      "duration": 4000,
+      "offset": 280479
+    },
+    {
+      "text": "cool because if one of these actions",
+      "duration": 4000,
+      "offset": 282720
+    },
+    {
+      "text": "fails, it can retry it up to three tries",
+      "duration": 4241,
+      "offset": 284479
+    },
+    {
+      "text": "without losing the context of where it",
+      "duration": 5120,
+      "offset": 286720
+    },
+    {
+      "text": "got that far. So here we have the model",
+      "duration": 6240,
+      "offset": 288720
+    },
+    {
+      "text": "usage. We run the action, the internal",
+      "duration": 5120,
+      "offset": 291840
+    },
+    {
+      "text": "workflow wrapped fetch model usage",
+      "duration": 4799,
+      "offset": 294960
+    },
+    {
+      "text": "action. Awesome. When this call happens,",
+      "duration": 4799,
+      "offset": 296960
+    },
+    {
+      "text": "this gets thrown onto the queue. And if",
+      "duration": 3761,
+      "offset": 299759
+    },
+    {
+      "text": "there is a runner available and you're",
+      "duration": 3281,
+      "offset": 301759
+    },
+    {
+      "text": "at the bottom of the queue, you get",
+      "duration": 4480,
+      "offset": 303520
+    },
+    {
+      "text": "bumped to go run. So now this is running",
+      "duration": 4560,
+      "offset": 305040
+    },
+    {
+      "text": "this one. If we command click, you can",
+      "duration": 3680,
+      "offset": 308000
+    },
+    {
+      "text": "see the SQL that we are now running",
+      "duration": 4159,
+      "offset": 309600
+    },
+    {
+      "text": "against Postto. Post hog is open source",
+      "duration": 4160,
+      "offset": 311680
+    },
+    {
+      "text": "and it's built on top of click DB, which",
+      "duration": 4561,
+      "offset": 313759
+    },
+    {
+      "text": "is a SQL dialect meant for analytics",
+      "duration": 4639,
+      "offset": 315840
+    },
+    {
+      "text": "data to handle these really large",
+      "duration": 4159,
+      "offset": 318320
+    },
+    {
+      "text": "numbers of things. It is not meant to",
+      "duration": 4160,
+      "offset": 320479
+    },
+    {
+      "text": "respond in milliseconds. It's meant to",
+      "duration": 4241,
+      "offset": 322479
+    },
+    {
+      "text": "take a ton of data and respond in a few",
+      "duration": 4000,
+      "offset": 324639
+    },
+    {
+      "text": "seconds to a few minutes, which is not",
+      "duration": 3199,
+      "offset": 326720
+    },
+    {
+      "text": "something you're supposed to bake into",
+      "duration": 2241,
+      "offset": 328639
+    },
+    {
+      "text": "your app. It's something you're supposed",
+      "duration": 2881,
+      "offset": 329919
+    },
+    {
+      "text": "to write to from your app for analytics",
+      "duration": 4080,
+      "offset": 330880
+    },
+    {
+      "text": "purposes and then read in a dashboard",
+      "duration": 3440,
+      "offset": 332800
+    },
+    {
+      "text": "because some data scientist has",
+      "duration": 2400,
+      "offset": 334960
+    },
+    {
+      "text": "something they want to know about the",
+      "duration": 2640,
+      "offset": 336240
+    },
+    {
+      "text": "product. So, we're selecting all the",
+      "duration": 3920,
+      "offset": 337360
+    },
+    {
+      "text": "events that are of type AI generation",
+      "duration": 4159,
+      "offset": 338880
+    },
+    {
+      "text": "that are in this specific timestamp",
+      "duration": 4000,
+      "offset": 341280
+    },
+    {
+      "text": "range with a specific distinct ID. I'm",
+      "duration": 4481,
+      "offset": 343039
+    },
+    {
+      "text": "also abusing pre-wear in order to only",
+      "duration": 4880,
+      "offset": 345280
+    },
+    {
+      "text": "check timestamp, event name, and user ID",
+      "duration": 4160,
+      "offset": 347520
+    },
+    {
+      "text": "before we start running the rest of the",
+      "duration": 3759,
+      "offset": 350160
+    },
+    {
+      "text": "queries so that the first read is",
+      "duration": 4160,
+      "offset": 351680
+    },
+    {
+      "text": "reading a very small set of columns.",
+      "duration": 3681,
+      "offset": 353919
+    },
+    {
+      "text": "This helped the performance quite a bit.",
+      "duration": 3760,
+      "offset": 355840
+    },
+    {
+      "text": "I have this where one equals 1 just to",
+      "duration": 3520,
+      "offset": 357600
+    },
+    {
+      "text": "make the syntax of passing these",
+      "duration": 3920,
+      "offset": 359600
+    },
+    {
+      "text": "programmatic filters a little easier.",
+      "duration": 3919,
+      "offset": 361120
+    },
+    {
+      "text": "Properties AR messages null. This is",
+      "duration": 2880,
+      "offset": 363520
+    },
+    {
+      "text": "because some models, specifically",
+      "duration": 3761,
+      "offset": 365039
+    },
+    {
+      "text": "DeepCar 1 via Open Router, some",
+      "duration": 4000,
+      "offset": 366400
+    },
+    {
+      "text": "providers had a bug where when it got in",
+      "duration": 4239,
+      "offset": 368800
+    },
+    {
+      "text": "an error state, it would log thousands",
+      "duration": 4880,
+      "offset": 370400
+    },
+    {
+      "text": "of things to the database. So if we",
+      "duration": 4000,
+      "offset": 373039
+    },
+    {
+      "text": "include the error messages, the data",
+      "duration": 3840,
+      "offset": 375280
+    },
+    {
+      "text": "just goes mad. We kill that. And we",
+      "duration": 3521,
+      "offset": 377039
+    },
+    {
+      "text": "coales the model identifier with",
+      "duration": 3199,
+      "offset": 379120
+    },
+    {
+      "text": "properties. Because some of the old",
+      "duration": 3280,
+      "offset": 380560
+    },
+    {
+      "text": "versions before I use Post Hog's",
+      "duration": 3841,
+      "offset": 382319
+    },
+    {
+      "text": "official SDK had a different term for",
+      "duration": 4320,
+      "offset": 383840
+    },
+    {
+      "text": "the model and this just forces them into",
+      "duration": 4560,
+      "offset": 386160
+    },
+    {
+      "text": "a single field. Cool. So this is how we",
+      "duration": 5120,
+      "offset": 388160
+    },
+    {
+      "text": "select all of the instances of you using",
+      "duration": 5680,
+      "offset": 390720
+    },
+    {
+      "text": "each model. fetch model usage grabs all",
+      "duration": 6080,
+      "offset": 393280
+    },
+    {
+      "text": "of the things for your user ID groups by",
+      "duration": 5440,
+      "offset": 396400
+    },
+    {
+      "text": "the model. So now they are condensed",
+      "duration": 4640,
+      "offset": 399360
+    },
+    {
+      "text": "into each model identifier. So this",
+      "duration": 6560,
+      "offset": 401840
+    },
+    {
+      "text": "spits out like Gemini 3 flash 2.500",
+      "duration": 7840,
+      "offset": 404000
+    },
+    {
+      "text": "GPT5 400 to get each of the values for",
+      "duration": 5359,
+      "offset": 408400
+    },
+    {
+      "text": "each of the models for this given user.",
+      "duration": 3520,
+      "offset": 411840
+    },
+    {
+      "text": "After we do that, we fetch the feature",
+      "duration": 3280,
+      "offset": 413759
+    },
+    {
+      "text": "usage for the slide where we tell you",
+      "duration": 3520,
+      "offset": 415360
+    },
+    {
+      "text": "about how many times did you use the",
+      "duration": 4000,
+      "offset": 417039
+    },
+    {
+      "text": "edit feature or the branch feature where",
+      "duration": 4719,
+      "offset": 418880
+    },
+    {
+      "text": "we select a bunch of fields. This is",
+      "duration": 3841,
+      "offset": 421039
+    },
+    {
+      "text": "bring your own key usage which is still",
+      "duration": 3681,
+      "offset": 423599
+    },
+    {
+      "text": "based on the actual model usage. So I",
+      "duration": 3599,
+      "offset": 424880
+    },
+    {
+      "text": "have to go through generations and see",
+      "duration": 3280,
+      "offset": 427280
+    },
+    {
+      "text": "how many of those brought your own key.",
+      "duration": 3921,
+      "offset": 428479
+    },
+    {
+      "text": "Then edit we have to look for edit",
+      "duration": 3520,
+      "offset": 430560
+    },
+    {
+      "text": "message events. Retries we have to look",
+      "duration": 3359,
+      "offset": 432400
+    },
+    {
+      "text": "for retry message events. Branches we",
+      "duration": 4480,
+      "offset": 434080
+    },
+    {
+      "text": "look for branch events etc. Then we do",
+      "duration": 4880,
+      "offset": 435759
+    },
+    {
+      "text": "the dates. This one is a bit brutal",
+      "duration": 4400,
+      "offset": 438560
+    },
+    {
+      "text": "because we're selecting across all AI",
+      "duration": 6241,
+      "offset": 440639
+    },
+    {
+      "text": "generations all instances to timestamp",
+      "duration": 6639,
+      "offset": 442960
+    },
+    {
+      "text": "date as date. that is to group them into",
+      "duration": 5520,
+      "offset": 446880
+    },
+    {
+      "text": "individual dates so that each day has a",
+      "duration": 5440,
+      "offset": 449599
+    },
+    {
+      "text": "count on it. So we do that for dates and",
+      "duration": 4799,
+      "offset": 452400
+    },
+    {
+      "text": "then we immediately do it again for",
+      "duration": 4160,
+      "offset": 455039
+    },
+    {
+      "text": "weekdays. So like which day of the week",
+      "duration": 3440,
+      "offset": 457199
+    },
+    {
+      "text": "and then we do it again for hour which",
+      "duration": 3361,
+      "offset": 459199
+    },
+    {
+      "text": "hour of the day. This is all to generate",
+      "duration": 5041,
+      "offset": 460639
+    },
+    {
+      "text": "this slide. Yeah, we just did a full",
+      "duration": 5840,
+      "offset": 462560
+    },
+    {
+      "text": "table scan for AI generation events",
+      "duration": 5440,
+      "offset": 465680
+    },
+    {
+      "text": "three times for one section. Three",
+      "duration": 4239,
+      "offset": 468400
+    },
+    {
+      "text": "separate queries doing full scans",
+      "duration": 3440,
+      "offset": 471120
+    },
+    {
+      "text": "already pretty bad. And then the user",
+      "duration": 3361,
+      "offset": 472639
+    },
+    {
+      "text": "percentile. This is when things started",
+      "duration": 3359,
+      "offset": 474560
+    },
+    {
+      "text": "to fall apart. I added this cuz I wanted",
+      "duration": 4240,
+      "offset": 476000
+    },
+    {
+      "text": "to have percentiles for where you fell",
+      "duration": 4960,
+      "offset": 477919
+    },
+    {
+      "text": "in usage. And this one has to go across",
+      "duration": 5120,
+      "offset": 480240
+    },
+    {
+      "text": "not just the events that you generated,",
+      "duration": 4961,
+      "offset": 482879
+    },
+    {
+      "text": "but all of them total and group them by",
+      "duration": 4720,
+      "offset": 485360
+    },
+    {
+      "text": "the user ID and then figure out how many",
+      "duration": 4400,
+      "offset": 487840
+    },
+    {
+      "text": "used more than you did. This one was",
+      "duration": 4080,
+      "offset": 490080
+    },
+    {
+      "text": "bad. And then the same one for where you",
+      "duration": 4480,
+      "offset": 492240
+    },
+    {
+      "text": "rank in the model usage was even worse.",
+      "duration": 5200,
+      "offset": 494160
+    },
+    {
+      "text": "All of these resulted in a not great run",
+      "duration": 4560,
+      "offset": 496720
+    },
+    {
+      "text": "times. We can see here that generation I",
+      "duration": 3760,
+      "offset": 499360
+    },
+    {
+      "text": "was doing before. The first step took",
+      "duration": 4720,
+      "offset": 501280
+    },
+    {
+      "text": "340 milliseconds. Fetch model usage took",
+      "duration": 6079,
+      "offset": 503120
+    },
+    {
+      "text": "15.5 seconds. Feature usage took 20.",
+      "duration": 5840,
+      "offset": 506000
+    },
+    {
+      "text": "Fetch date stats took 10. And fetch user",
+      "duration": 5280,
+      "offset": 509199
+    },
+    {
+      "text": "percentiles took 30. That's not good.",
+      "duration": 4240,
+      "offset": 511840
+    },
+    {
+      "text": "Where it gets even worse is Post Hog's",
+      "duration": 2800,
+      "offset": 514479
+    },
+    {
+      "text": "rate limits, which we didn't know about",
+      "duration": 3519,
+      "offset": 516080
+    },
+    {
+      "text": "until we launched. Pro tip, when you're",
+      "duration": 3680,
+      "offset": 517279
+    },
+    {
+      "text": "using a database for something is not",
+      "duration": 2961,
+      "offset": 519599
+    },
+    {
+      "text": "meant to be used for, go check its",
+      "duration": 3761,
+      "offset": 520959
+    },
+    {
+      "text": "limitations.",
+      "duration": 3600,
+      "offset": 522560
+    },
+    {
+      "text": "My mistake. I should have pushed this on",
+      "duration": 3280,
+      "offset": 524720
+    },
+    {
+      "text": "the team more, but we didn't. And as a",
+      "duration": 3679,
+      "offset": 526160
+    },
+    {
+      "text": "result, we quickly hit the rate limits,",
+      "duration": 3839,
+      "offset": 528000
+    },
+    {
+      "text": "which are three queries running",
+      "duration": 4641,
+      "offset": 529839
+    },
+    {
+      "text": "concurrently, 240 queries per minute,",
+      "duration": 6000,
+      "offset": 531839
+    },
+    {
+      "text": "and 2400 per hour. We do 10 queries per",
+      "duration": 5680,
+      "offset": 534480
+    },
+    {
+      "text": "user with this implementation. Not good",
+      "duration": 5921,
+      "offset": 537839
+    },
+    {
+      "text": "at all. Not good at all. So, we",
+      "duration": 5119,
+      "offset": 540160
+    },
+    {
+      "text": "immediately go into panic mode, start",
+      "duration": 3120,
+      "offset": 543760
+    },
+    {
+      "text": "trying to clean more of these things up.",
+      "duration": 3281,
+      "offset": 545279
+    },
+    {
+      "text": "Also work with Post Hog, who was very,",
+      "duration": 3680,
+      "offset": 546880
+    },
+    {
+      "text": "very generous. And let me find this in",
+      "duration": 4160,
+      "offset": 548560
+    },
+    {
+      "text": "Slack quick. As I mentioned before, Post",
+      "duration": 3839,
+      "offset": 550560
+    },
+    {
+      "text": "Hog is open source. So when I went to",
+      "duration": 3280,
+      "offset": 552720
+    },
+    {
+      "text": "them and said, &quot;Hey, we're going to hit",
+      "duration": 3281,
+      "offset": 554399
+    },
+    {
+      "text": "this limit really aggressively. Can we",
+      "duration": 3519,
+      "offset": 556000
+    },
+    {
+      "text": "do anything about it?&quot; They gave us some",
+      "duration": 3760,
+      "offset": 557680
+    },
+    {
+      "text": "really good help, but they also made the",
+      "duration": 4801,
+      "offset": 559519
+    },
+    {
+      "text": "craziest bro move ever where they",
+      "duration": 4800,
+      "offset": 561440
+    },
+    {
+      "text": "shipped a change to the actual",
+      "duration": 4720,
+      "offset": 564320
+    },
+    {
+      "text": "open-source project that hard-coded our",
+      "duration": 5680,
+      "offset": 566240
+    },
+    {
+      "text": "team ID and gave us a higher rate limit.",
+      "duration": 5680,
+      "offset": 569040
+    },
+    {
+      "text": "Absolute browse. To be clear, this",
+      "duration": 4160,
+      "offset": 571920
+    },
+    {
+      "text": "should not have been necessary because",
+      "duration": 2799,
+      "offset": 574720
+    },
+    {
+      "text": "of things that they taught us about",
+      "duration": 3040,
+      "offset": 576080
+    },
+    {
+      "text": "after. And that's part of why I'm making",
+      "duration": 3521,
+      "offset": 577519
+    },
+    {
+      "text": "this video, because I want to showcase",
+      "duration": 4320,
+      "offset": 579120
+    },
+    {
+      "text": "that this wasn't actually necessary. If",
+      "duration": 4239,
+      "offset": 581040
+    },
+    {
+      "text": "I had just known about a handful of",
+      "duration": 3200,
+      "offset": 583440
+    },
+    {
+      "text": "other things that you could do with both",
+      "duration": 2961,
+      "offset": 585279
+    },
+    {
+      "text": "Click House and with Post Hog",
+      "duration": 3040,
+      "offset": 586640
+    },
+    {
+      "text": "themselves, as well as some beta",
+      "duration": 3120,
+      "offset": 588240
+    },
+    {
+      "text": "features that they haven't fully shipped",
+      "duration": 3599,
+      "offset": 589680
+    },
+    {
+      "text": "yet, that made this all significantly",
+      "duration": 4320,
+      "offset": 591360
+    },
+    {
+      "text": "easier, but also absolutely based of",
+      "duration": 4801,
+      "offset": 593279
+    },
+    {
+      "text": "them to do this last minute on like the",
+      "duration": 4000,
+      "offset": 595680
+    },
+    {
+      "text": "weekend before Christmas, just a few",
+      "duration": 3759,
+      "offset": 598080
+    },
+    {
+      "text": "days before. They were awesome to work",
+      "duration": 4080,
+      "offset": 599680
+    },
+    {
+      "text": "with. I am so thankful for the Post Hog",
+      "duration": 3120,
+      "offset": 601839
+    },
+    {
+      "text": "team. If you're still trying to pick",
+      "duration": 3040,
+      "offset": 603760
+    },
+    {
+      "text": "your analytics provider, sure, they've",
+      "duration": 2801,
+      "offset": 604959
+    },
+    {
+      "text": "sponsored in the past. They probably",
+      "duration": 4159,
+      "offset": 606800
+    },
+    {
+      "text": "will again pick them for this. They care",
+      "duration": 5519,
+      "offset": 607760
+    },
+    {
+      "text": "a lot. They're really nice to work with.",
+      "duration": 3841,
+      "offset": 610959
+    },
+    {
+      "text": "If you're currently jealous that you",
+      "duration": 2800,
+      "offset": 613279
+    },
+    {
+      "text": "didn't get this cool of a wrapped",
+      "duration": 2880,
+      "offset": 614800
+    },
+    {
+      "text": "because you're using a much worse AI",
+      "duration": 4561,
+      "offset": 616079
+    },
+    {
+      "text": "chat app like, you know, chat GPT,",
+      "duration": 5520,
+      "offset": 617680
+    },
+    {
+      "text": "Gemini, Claude, or any of the others,",
+      "duration": 5199,
+      "offset": 620640
+    },
+    {
+      "text": "you can get your first month for just $1",
+      "duration": 5280,
+      "offset": 623200
+    },
+    {
+      "text": "with the code wrapped at checkout. Yes,",
+      "duration": 4801,
+      "offset": 625839
+    },
+    {
+      "text": "$1 for access to every single model in a",
+      "duration": 4479,
+      "offset": 628480
+    },
+    {
+      "text": "chat app that doesn't hurt to use. Crazy",
+      "duration": 3759,
+      "offset": 630640
+    },
+    {
+      "text": "deal. And every other month's just going",
+      "duration": 3041,
+      "offset": 632959
+    },
+    {
+      "text": "to be eight bucks anyways. pretty good",
+      "duration": 4321,
+      "offset": 634399
+    },
+    {
+      "text": "deal if I say so myself. So yeah, that",
+      "duration": 5519,
+      "offset": 636000
+    },
+    {
+      "text": "aside, how did we fix this? Well, the",
+      "duration": 4239,
+      "offset": 638720
+    },
+    {
+      "text": "first things we did were put under a",
+      "duration": 3361,
+      "offset": 641519
+    },
+    {
+      "text": "feature flag to slow the roll out and",
+      "duration": 4481,
+      "offset": 642959
+    },
+    {
+      "text": "also bump the parallelism to be a more",
+      "duration": 4399,
+      "offset": 644880
+    },
+    {
+      "text": "reasonable limit. I then added all of",
+      "duration": 3760,
+      "offset": 647440
+    },
+    {
+      "text": "the logs to make it easier to see which",
+      "duration": 5361,
+      "offset": 649279
+    },
+    {
+      "text": "steps took so long and saw how slow some",
+      "duration": 5440,
+      "offset": 651200
+    },
+    {
+      "text": "of those steps were. We also had a bug",
+      "duration": 3759,
+      "offset": 654640
+    },
+    {
+      "text": "where we were only selecting 100 days",
+      "duration": 3840,
+      "offset": 656640
+    },
+    {
+      "text": "because the default limit in Post Hog is",
+      "duration": 3761,
+      "offset": 658399
+    },
+    {
+      "text": "100. So we had to go add some limit",
+      "duration": 3840,
+      "offset": 660480
+    },
+    {
+      "text": "overrides to fix that. Then I started",
+      "duration": 4320,
+      "offset": 662160
+    },
+    {
+      "text": "doing my optimizations. At some point",
+      "duration": 3680,
+      "offset": 664320
+    },
+    {
+      "text": "here, there was a bug in the Rust",
+      "duration": 3120,
+      "offset": 666480
+    },
+    {
+      "text": "package we were using to generate the",
+      "duration": 3360,
+      "offset": 668000
+    },
+    {
+      "text": "image. And I was just so tired of",
+      "duration": 2880,
+      "offset": 669600
+    },
+    {
+      "text": "dealing with those types of things that",
+      "duration": 2960,
+      "offset": 671360
+    },
+    {
+      "text": "I rewrote the whole thing in browser",
+      "duration": 4080,
+      "offset": 672480
+    },
+    {
+      "text": "myself.",
+      "duration": 5040,
+      "offset": 674320
+    },
+    {
+      "text": "It worked out, but it was obnoxious. Let",
+      "duration": 6080,
+      "offset": 676560
+    },
+    {
+      "text": "me go kill the data again. We are now",
+      "duration": 5680,
+      "offset": 679360
+    },
+    {
+      "text": "regenerating and we'll see how much",
+      "duration": 4639,
+      "offset": 682640
+    },
+    {
+      "text": "faster it is.",
+      "duration": 4239,
+      "offset": 685040
+    },
+    {
+      "text": "Spoiler, this version is still kind of",
+      "duration": 3841,
+      "offset": 687279
+    },
+    {
+      "text": "slow, but I made a bunch of changes to",
+      "duration": 4881,
+      "offset": 689279
+    },
+    {
+      "text": "help with the just hammering of Post Hog",
+      "duration": 6240,
+      "offset": 691120
+    },
+    {
+      "text": "we were doing. The big one is both I and",
+      "duration": 6239,
+      "offset": 694160
+    },
+    {
+      "text": "Opus took our time rewriting some of",
+      "duration": 5440,
+      "offset": 697360
+    },
+    {
+      "text": "these queries to just be a single query",
+      "duration": 4961,
+      "offset": 700399
+    },
+    {
+      "text": "with a bunch of union alls. This doesn't",
+      "duration": 4240,
+      "offset": 702800
+    },
+    {
+      "text": "directly help with speed in the",
+      "duration": 3760,
+      "offset": 705360
+    },
+    {
+      "text": "traditional sense, but it does help us",
+      "duration": 3680,
+      "offset": 707040
+    },
+    {
+      "text": "stay under those rate limits, which was",
+      "duration": 2959,
+      "offset": 709120
+    },
+    {
+      "text": "the biggest thing killing us at the",
+      "duration": 3840,
+      "offset": 710720
+    },
+    {
+      "text": "moment because we were doing literally",
+      "duration": 5121,
+      "offset": 712079
+    },
+    {
+      "text": "10 queries per user, the rate limits",
+      "duration": 4640,
+      "offset": 714560
+    },
+    {
+      "text": "were not realistic for us. But if I",
+      "duration": 3840,
+      "offset": 717200
+    },
+    {
+      "text": "could knock a bunch of those down to one",
+      "duration": 4879,
+      "offset": 719200
+    },
+    {
+      "text": "by just unioning everywhere in it, it",
+      "duration": 5599,
+      "offset": 721040
+    },
+    {
+      "text": "got less bad. It got significantly less",
+      "duration": 5041,
+      "offset": 724079
+    },
+    {
+      "text": "bad. So, we did that. We now don't have",
+      "duration": 4721,
+      "offset": 726639
+    },
+    {
+      "text": "to worry as much about the rate limits",
+      "duration": 4959,
+      "offset": 729120
+    },
+    {
+      "text": "directly, but it's still slow. The model",
+      "duration": 5599,
+      "offset": 731360
+    },
+    {
+      "text": "usage call just took 41.7",
+      "duration": 5521,
+      "offset": 734079
+    },
+    {
+      "text": "seconds. The feature usage took 51",
+      "duration": 4481,
+      "offset": 736959
+    },
+    {
+      "text": "seconds. We're now over a minute and a",
+      "duration": 4000,
+      "offset": 739600
+    },
+    {
+      "text": "half for just two of the steps. Fetch",
+      "duration": 3680,
+      "offset": 741440
+    },
+    {
+      "text": "date stats was a lot faster when I",
+      "duration": 3679,
+      "offset": 743600
+    },
+    {
+      "text": "compressed it all down to 6 seconds.",
+      "duration": 4959,
+      "offset": 745120
+    },
+    {
+      "text": "Cool. And then the message percentile.",
+      "duration": 5041,
+      "offset": 747279
+    },
+    {
+      "text": "This one's rough. Funny enough, I",
+      "duration": 4481,
+      "offset": 750079
+    },
+    {
+      "text": "actually broke this one up into two",
+      "duration": 5199,
+      "offset": 752320
+    },
+    {
+      "text": "steps because I saw in the logs that a",
+      "duration": 5440,
+      "offset": 754560
+    },
+    {
+      "text": "lot of the time this query would pass,",
+      "duration": 4161,
+      "offset": 757519
+    },
+    {
+      "text": "but then the one right after, which is",
+      "duration": 3680,
+      "offset": 760000
+    },
+    {
+      "text": "the model percentage, had a pretty high",
+      "duration": 3760,
+      "offset": 761680
+    },
+    {
+      "text": "chance of timing out. So, I'd have to",
+      "duration": 3680,
+      "offset": 763680
+    },
+    {
+      "text": "redo both queries if they were the same",
+      "duration": 3440,
+      "offset": 765440
+    },
+    {
+      "text": "step. But by breaking them into separate",
+      "duration": 3680,
+      "offset": 767360
+    },
+    {
+      "text": "steps, now if the message percentile",
+      "duration": 4160,
+      "offset": 768880
+    },
+    {
+      "text": "fails and the model succeeds or vice",
+      "duration": 3760,
+      "offset": 771040
+    },
+    {
+      "text": "versa, it can just retry the one that",
+      "duration": 3919,
+      "offset": 773040
+    },
+    {
+      "text": "failed, which is great. It helped lower",
+      "duration": 4560,
+      "offset": 774800
+    },
+    {
+      "text": "the error rates significantly. But we're",
+      "duration": 4320,
+      "offset": 776959
+    },
+    {
+      "text": "still getting [ __ ] performance here.",
+      "duration": 3680,
+      "offset": 779360
+    },
+    {
+      "text": "Let's be real. And for those who think",
+      "duration": 3441,
+      "offset": 781279
+    },
+    {
+      "text": "this is like terrible, terrible",
+      "duration": 3280,
+      "offset": 783040
+    },
+    {
+      "text": "performance, you're insane for even",
+      "duration": 3520,
+      "offset": 784720
+    },
+    {
+      "text": "thinking this is okay. People who have",
+      "duration": 4880,
+      "offset": 786320
+    },
+    {
+      "text": "done actual crazy reports in stuff like",
+      "duration": 5360,
+      "offset": 788240
+    },
+    {
+      "text": "Click House understand. As Evelyn Lily",
+      "duration": 4720,
+      "offset": 791200
+    },
+    {
+      "text": "said here, some of her reports take 13",
+      "duration": 4720,
+      "offset": 793600
+    },
+    {
+      "text": "plus minutes to generate. I've seen mode",
+      "duration": 4719,
+      "offset": 795920
+    },
+    {
+      "text": "analytics requests that take 1 to 3",
+      "duration": 5040,
+      "offset": 798320
+    },
+    {
+      "text": "hours. We had one that we accidentally",
+      "duration": 5521,
+      "offset": 800639
+    },
+    {
+      "text": "set to autogen every 10 minutes and it",
+      "duration": 5680,
+      "offset": 803360
+    },
+    {
+      "text": "cost like $200,000 after being left on",
+      "duration": 5520,
+      "offset": 806160
+    },
+    {
+      "text": "for a day accidentally. This type of",
+      "duration": 5039,
+      "offset": 809040
+    },
+    {
+      "text": "giant pile of data compute is just",
+      "duration": 5279,
+      "offset": 811680
+    },
+    {
+      "text": "expensive and slow. Yeah, as we're",
+      "duration": 4000,
+      "offset": 814079
+    },
+    {
+      "text": "experiencing here, this one might",
+      "duration": 4081,
+      "offset": 816959
+    },
+    {
+      "text": "actually time out. Yeah, it failed. It",
+      "duration": 6000,
+      "offset": 818079
+    },
+    {
+      "text": "timed out after 141 seconds. Sometimes",
+      "duration": 4320,
+      "offset": 821040
+    },
+    {
+      "text": "it passes, sometimes it doesn't. Depends",
+      "duration": 3281,
+      "offset": 824079
+    },
+    {
+      "text": "on how much load Post Hog is under as",
+      "duration": 4479,
+      "offset": 825360
+    },
+    {
+      "text": "well. This isn't great. Still better.",
+      "duration": 5919,
+      "offset": 827360
+    },
+    {
+      "text": "Still less errors but still very slow.",
+      "duration": 5841,
+      "offset": 829839
+    },
+    {
+      "text": "So at this point I go deep into hunting",
+      "duration": 4161,
+      "offset": 833279
+    },
+    {
+      "text": "and I'm also talking with the Post Hog",
+      "duration": 4399,
+      "offset": 835680
+    },
+    {
+      "text": "team. They mention this new beta",
+      "duration": 5120,
+      "offset": 837440
+    },
+    {
+      "text": "feature. It's also here under the rate",
+      "duration": 4000,
+      "offset": 840079
+    },
+    {
+      "text": "limits where they specify they're not",
+      "duration": 2800,
+      "offset": 842560
+    },
+    {
+      "text": "offering higher rate limits, but they",
+      "duration": 3120,
+      "offset": 844079
+    },
+    {
+      "text": "are working on an upcoming endpoints",
+      "duration": 3360,
+      "offset": 845360
+    },
+    {
+      "text": "product with query customization and",
+      "duration": 4000,
+      "offset": 847199
+    },
+    {
+      "text": "higher limits. We'll get there in a bit",
+      "duration": 4720,
+      "offset": 848720
+    },
+    {
+      "text": "because there's one other thing that",
+      "duration": 4961,
+      "offset": 851199
+    },
+    {
+      "text": "made life significantly easier.",
+      "duration": 6480,
+      "offset": 853440
+    },
+    {
+      "text": "Materialized views. Materialized views",
+      "duration": 7520,
+      "offset": 856160
+    },
+    {
+      "text": "are effectively a cache of a sub query",
+      "duration": 6960,
+      "offset": 859920
+    },
+    {
+      "text": "inside of a SQL database. So you can",
+      "duration": 6159,
+      "offset": 863680
+    },
+    {
+      "text": "take a select call that you made and",
+      "duration": 5759,
+      "offset": 866880
+    },
+    {
+      "text": "store the results as a fake table. So",
+      "duration": 5680,
+      "offset": 869839
+    },
+    {
+      "text": "here we have one of these materialized",
+      "duration": 5601,
+      "offset": 872639
+    },
+    {
+      "text": "views. This is one of those subqueries.",
+      "duration": 4801,
+      "offset": 875519
+    },
+    {
+      "text": "In this case it's usage by user. So this",
+      "duration": 4800,
+      "offset": 878240
+    },
+    {
+      "text": "is how many messages did each user send.",
+      "duration": 6079,
+      "offset": 880320
+    },
+    {
+      "text": "I select their person ID and their count",
+      "duration": 5599,
+      "offset": 883040
+    },
+    {
+      "text": "as the total messages they sent from",
+      "duration": 4161,
+      "offset": 886399
+    },
+    {
+      "text": "events. I do my pre-ware on AI",
+      "duration": 4000,
+      "offset": 888639
+    },
+    {
+      "text": "generations timestamp range for the",
+      "duration": 4639,
+      "offset": 890560
+    },
+    {
+      "text": "range that we're doing this in. And then",
+      "duration": 5760,
+      "offset": 892639
+    },
+    {
+      "text": "this creates a materialized result. That",
+      "duration": 5361,
+      "offset": 895199
+    },
+    {
+      "text": "means that what this prints out is now",
+      "duration": 4481,
+      "offset": 898399
+    },
+    {
+      "text": "effectively saved and cached. In this",
+      "duration": 6240,
+      "offset": 900560
+    },
+    {
+      "text": "case, it's 107,000 rows for the user IDs",
+      "duration": 5519,
+      "offset": 902880
+    },
+    {
+      "text": "that match this pattern. It's not all of",
+      "duration": 4159,
+      "offset": 906800
+    },
+    {
+      "text": "our users, but it's a lot of them. good",
+      "duration": 4161,
+      "offset": 908399
+    },
+    {
+      "text": "enough for the thing that we're doing",
+      "duration": 4320,
+      "offset": 910959
+    },
+    {
+      "text": "here. We now have this gigantic pile of",
+      "duration": 4480,
+      "offset": 912560
+    },
+    {
+      "text": "data which is how many messages every",
+      "duration": 4481,
+      "offset": 915279
+    },
+    {
+      "text": "single signed in user has sent. And this",
+      "duration": 6080,
+      "offset": 917040
+    },
+    {
+      "text": "is now saved in S3. Now when I make",
+      "duration": 6560,
+      "offset": 919760
+    },
+    {
+      "text": "queries, I can call this usage by user",
+      "duration": 6320,
+      "offset": 923120
+    },
+    {
+      "text": "2025 as though it is a table. And",
+      "duration": 5680,
+      "offset": 926320
+    },
+    {
+      "text": "instead of having to compute this whole",
+      "duration": 5360,
+      "offset": 929440
+    },
+    {
+      "text": "query on the fly, it can just pull the",
+      "duration": 5760,
+      "offset": 932000
+    },
+    {
+      "text": "dump of data out of S3 and then query",
+      "duration": 4960,
+      "offset": 934800
+    },
+    {
+      "text": "against that instead. I'm effectively",
+      "duration": 6560,
+      "offset": 937760
+    },
+    {
+      "text": "making a fake sub table in my database",
+      "duration": 7439,
+      "offset": 939760
+    },
+    {
+      "text": "just for this use case. So I ended up",
+      "duration": 4319,
+      "offset": 944320
+    },
+    {
+      "text": "making a bunch of these materialized",
+      "duration": 3281,
+      "offset": 947199
+    },
+    {
+      "text": "views. The main two that mattered were",
+      "duration": 4241,
+      "offset": 948639
+    },
+    {
+      "text": "usage by user and model usage by user,",
+      "duration": 4080,
+      "offset": 950480
+    },
+    {
+      "text": "but I added more for the other stuff as",
+      "duration": 3280,
+      "offset": 952880
+    },
+    {
+      "text": "well as I realized how abusable this",
+      "duration": 4320,
+      "offset": 954560
+    },
+    {
+      "text": "feature was.",
+      "duration": 4880,
+      "offset": 956160
+    },
+    {
+      "text": "And you can see how much more complex my",
+      "duration": 3759,
+      "offset": 958880
+    },
+    {
+      "text": "queries got. They didn't. They're way",
+      "duration": 3760,
+      "offset": 961040
+    },
+    {
+      "text": "simpler. Now my queries for something",
+      "duration": 4481,
+      "offset": 962639
+    },
+    {
+      "text": "like the combined getting all of the",
+      "duration": 5200,
+      "offset": 964800
+    },
+    {
+      "text": "features is three lines. I select the",
+      "duration": 5839,
+      "offset": 967120
+    },
+    {
+      "text": "values I want from feature usage by user",
+      "duration": 5120,
+      "offset": 970000
+    },
+    {
+      "text": "2025 where the distinct ID is this ID.",
+      "duration": 4240,
+      "offset": 972959
+    },
+    {
+      "text": "Now I can just grab from this",
+      "duration": 5760,
+      "offset": 975120
+    },
+    {
+      "text": "materialized view. I do the same for the",
+      "duration": 6000,
+      "offset": 977199
+    },
+    {
+      "text": "date stats where I have a table now that",
+      "duration": 5199,
+      "offset": 980880
+    },
+    {
+      "text": "has all of your time stats dumped and I",
+      "duration": 4880,
+      "offset": 983199
+    },
+    {
+      "text": "grab that. Same with the message",
+      "duration": 3281,
+      "offset": 986079
+    },
+    {
+      "text": "percentile. This is the one that was the",
+      "duration": 3760,
+      "offset": 988079
+    },
+    {
+      "text": "biggest save. I select the count of all",
+      "duration": 4960,
+      "offset": 989360
+    },
+    {
+      "text": "users who used more messages than you",
+      "duration": 5041,
+      "offset": 991839
+    },
+    {
+      "text": "against the count of users total from",
+      "duration": 4480,
+      "offset": 994320
+    },
+    {
+      "text": "this table. And now I know where your",
+      "duration": 5440,
+      "offset": 996880
+    },
+    {
+      "text": "percentile is. So nice, so simple, so",
+      "duration": 6080,
+      "offset": 998800
+    },
+    {
+      "text": "much faster. How much faster? Good",
+      "duration": 4800,
+      "offset": 1002320
+    },
+    {
+      "text": "question. So that run that we just did",
+      "duration": 4399,
+      "offset": 1004880
+    },
+    {
+      "text": "before with the old version started at",
+      "duration": 5760,
+      "offset": 1007120
+    },
+    {
+      "text": "6:07 p.m. and finished at 6:131 p.m. It",
+      "duration": 6000,
+      "offset": 1009279
+    },
+    {
+      "text": "took over 6 minutes with just me on the",
+      "duration": 4800,
+      "offset": 1012880
+    },
+    {
+      "text": "dev instance. in prod with a queue with",
+      "duration": 4560,
+      "offset": 1015279
+    },
+    {
+      "text": "a limit of three things running. This",
+      "duration": 5440,
+      "offset": 1017680
+    },
+    {
+      "text": "gets really, really bad. So, let's see",
+      "duration": 6161,
+      "offset": 1019839
+    },
+    {
+      "text": "how slow it is now. I just deleted,",
+      "duration": 5520,
+      "offset": 1023120
+    },
+    {
+      "text": "which means this will re-trigger",
+      "duration": 4959,
+      "offset": 1026000
+    },
+    {
+      "text": "now that it is triggered. It fetched",
+      "duration": 5120,
+      "offset": 1028640
+    },
+    {
+      "text": "model usage in 700 milliseconds. It",
+      "duration": 5041,
+      "offset": 1030959
+    },
+    {
+      "text": "fetched feature usage in 670",
+      "duration": 4720,
+      "offset": 1033760
+    },
+    {
+      "text": "milliseconds, date stats in 700",
+      "duration": 4640,
+      "offset": 1036000
+    },
+    {
+      "text": "milliseconds, message percentile in 400,",
+      "duration": 4800,
+      "offset": 1038480
+    },
+    {
+      "text": "and model percentile in 470. Every",
+      "duration": 4720,
+      "offset": 1040640
+    },
+    {
+      "text": "request is under a second now. Some of",
+      "duration": 4159,
+      "offset": 1043280
+    },
+    {
+      "text": "them are under half a second. It's crazy",
+      "duration": 3360,
+      "offset": 1045360
+    },
+    {
+      "text": "what happens when you don't have to scan",
+      "duration": 4161,
+      "offset": 1047439
+    },
+    {
+      "text": "billions of rows per query. I know",
+      "duration": 4560,
+      "offset": 1048720
+    },
+    {
+      "text": "obvious in retrospect, but how cool is",
+      "duration": 3199,
+      "offset": 1051600
+    },
+    {
+      "text": "that that this is just a feature built",
+      "duration": 3519,
+      "offset": 1053280
+    },
+    {
+      "text": "into Post Hog that costs you nothing.",
+      "duration": 3521,
+      "offset": 1054799
+    },
+    {
+      "text": "You're only paying for the events you",
+      "duration": 2880,
+      "offset": 1056799
+    },
+    {
+      "text": "send them. Everything else is",
+      "duration": 3440,
+      "offset": 1058320
+    },
+    {
+      "text": "effectively free. Like they don't bill",
+      "duration": 4000,
+      "offset": 1059679
+    },
+    {
+      "text": "on how much I query against. So they",
+      "duration": 3279,
+      "offset": 1061760
+    },
+    {
+      "text": "don't bill on how many materialized",
+      "duration": 3201,
+      "offset": 1063679
+    },
+    {
+      "text": "views I create. They just let me do",
+      "duration": 3841,
+      "offset": 1065039
+    },
+    {
+      "text": "this. So now that I've created a bunch",
+      "duration": 4480,
+      "offset": 1066880
+    },
+    {
+      "text": "of these materialized views just to keep",
+      "duration": 4720,
+      "offset": 1068880
+    },
+    {
+      "text": "track of this data and have it in a much",
+      "duration": 5760,
+      "offset": 1071360
+    },
+    {
+      "text": "easier to query way, I'm able to get a",
+      "duration": 6079,
+      "offset": 1073600
+    },
+    {
+      "text": "massive performance win. Honestly, this",
+      "duration": 4480,
+      "offset": 1077120
+    },
+    {
+      "text": "could have shipped like that with the",
+      "duration": 4641,
+      "offset": 1079679
+    },
+    {
+      "text": "previous limit of three and been fine.",
+      "duration": 3680,
+      "offset": 1081600
+    },
+    {
+      "text": "I'm going to do something I shouldn't",
+      "duration": 2000,
+      "offset": 1084320
+    },
+    {
+      "text": "do. I'm going to open up the production",
+      "duration": 3200,
+      "offset": 1085280
+    },
+    {
+      "text": "database. Here's the actual production",
+      "duration": 3840,
+      "offset": 1086320
+    },
+    {
+      "text": "instance. You can see the creation times",
+      "duration": 3680,
+      "offset": 1088480
+    },
+    {
+      "text": "and completion times here. We've done",
+      "duration": 4639,
+      "offset": 1090160
+    },
+    {
+      "text": "this 16,700",
+      "duration": 5120,
+      "offset": 1092160
+    },
+    {
+      "text": "times now. And the most recent handful",
+      "duration": 6801,
+      "offset": 1094799
+    },
+    {
+      "text": "here started at 1625, ended at 1633,",
+      "duration": 7680,
+      "offset": 1097280
+    },
+    {
+      "text": "under 10 seconds. 1340 to 1350, exactly",
+      "duration": 6640,
+      "offset": 1101600
+    },
+    {
+      "text": "10 seconds. 11:25 to 1134, under 10",
+      "duration": 6079,
+      "offset": 1104960
+    },
+    {
+      "text": "seconds. These genens are now under 10",
+      "duration": 5040,
+      "offset": 1108240
+    },
+    {
+      "text": "seconds each, which means when you go to",
+      "duration": 3841,
+      "offset": 1111039
+    },
+    {
+      "text": "the page, it comes up immediately. Look,",
+      "duration": 2880,
+      "offset": 1113280
+    },
+    {
+      "text": "somebody's jenning right now. Everything",
+      "duration": 3039,
+      "offset": 1114880
+    },
+    {
+      "text": "in Convex Live updates. So, we have a",
+      "duration": 3680,
+      "offset": 1116160
+    },
+    {
+      "text": "gen here. It just got created. It isn't",
+      "duration": 3681,
+      "offset": 1117919
+    },
+    {
+      "text": "done yet. And in just a moment, you'll",
+      "duration": 3680,
+      "offset": 1119840
+    },
+    {
+      "text": "see it auto update when it completed.",
+      "duration": 3920,
+      "offset": 1121600
+    },
+    {
+      "text": "That user just had their UI update with",
+      "duration": 3840,
+      "offset": 1123520
+    },
+    {
+      "text": "the new wrapped feature completed",
+      "duration": 3600,
+      "offset": 1125520
+    },
+    {
+      "text": "because their data got completed. If",
+      "duration": 3920,
+      "offset": 1127360
+    },
+    {
+      "text": "anybody in chat hasn't been to T3 chat",
+      "duration": 4480,
+      "offset": 1129120
+    },
+    {
+      "text": "since we started the wrapped feature and",
+      "duration": 4639,
+      "offset": 1131280
+    },
+    {
+      "text": "you go now, it'll appear in here as it",
+      "duration": 4560,
+      "offset": 1133600
+    },
+    {
+      "text": "auto creates the job, completes the job,",
+      "duration": 4321,
+      "offset": 1135919
+    },
+    {
+      "text": "and then updates the data as a result.",
+      "duration": 3840,
+      "offset": 1138160
+    },
+    {
+      "text": "Super cool. One of those took 11",
+      "duration": 3040,
+      "offset": 1140240
+    },
+    {
+      "text": "seconds, the other one took 9 seconds.",
+      "duration": 2880,
+      "offset": 1142000
+    },
+    {
+      "text": "We're still averaging that 10-second",
+      "duration": 4080,
+      "offset": 1143280
+    },
+    {
+      "text": "range. That said, there's a thing that",
+      "duration": 4159,
+      "offset": 1144880
+    },
+    {
+      "text": "happens to me when I get this deep on",
+      "duration": 5280,
+      "offset": 1147360
+    },
+    {
+      "text": "new stuff. I get excited. I decided to",
+      "duration": 6401,
+      "offset": 1149039
+    },
+    {
+      "text": "go a bit further. We still have five",
+      "duration": 6000,
+      "offset": 1152640
+    },
+    {
+      "text": "queries in this file. Can we knock down",
+      "duration": 5119,
+      "offset": 1155440
+    },
+    {
+      "text": "the number more? Here we have the",
+      "duration": 3840,
+      "offset": 1158640
+    },
+    {
+      "text": "overoptimize wrapped because of who I am",
+      "duration": 4961,
+      "offset": 1160559
+    },
+    {
+      "text": "as a person PR. This one is fun. Before",
+      "duration": 4319,
+      "offset": 1162480
+    },
+    {
+      "text": "I show you the code, I would like to",
+      "duration": 4080,
+      "offset": 1165520
+    },
+    {
+      "text": "show you the results.",
+      "duration": 5120,
+      "offset": 1166799
+    },
+    {
+      "text": "It's computing.",
+      "duration": 3360,
+      "offset": 1169600
+    },
+    {
+      "text": "I'm just going to leave it here because",
+      "duration": 3281,
+      "offset": 1171919
+    },
+    {
+      "text": "it's done already.",
+      "duration": 6480,
+      "offset": 1172960
+    },
+    {
+      "text": "It computed in 3 seconds. 3 seconds.",
+      "duration": 6560,
+      "offset": 1175200
+    },
+    {
+      "text": "Remember, there were users who this took",
+      "duration": 4800,
+      "offset": 1179440
+    },
+    {
+      "text": "3 to 5 hours for, probably longer if we",
+      "duration": 3840,
+      "offset": 1181760
+    },
+    {
+      "text": "had let the whole queue burn out with",
+      "duration": 3120,
+      "offset": 1184240
+    },
+    {
+      "text": "the original implementation. Now the",
+      "duration": 4000,
+      "offset": 1185600
+    },
+    {
+      "text": "results are nearly instant. And here we",
+      "duration": 5280,
+      "offset": 1187360
+    },
+    {
+      "text": "see it's now one query fetch usage data",
+      "duration": 6240,
+      "offset": 1189600
+    },
+    {
+      "text": "for user. Well, one action that took 1.2",
+      "duration": 6480,
+      "offset": 1192640
+    },
+    {
+      "text": "seconds. Let's take a look at that code.",
+      "duration": 5120,
+      "offset": 1195840
+    },
+    {
+      "text": "Fetch usage data for user. This is the",
+      "duration": 4559,
+      "offset": 1199120
+    },
+    {
+      "text": "only action now. And in here we have two",
+      "duration": 4719,
+      "offset": 1200960
+    },
+    {
+      "text": "stages. I made these two stages one",
+      "duration": 3761,
+      "offset": 1203679
+    },
+    {
+      "text": "action because at this point the",
+      "duration": 4641,
+      "offset": 1205679
+    },
+    {
+      "text": "overhead of convex calling actions as",
+      "duration": 5520,
+      "offset": 1207440
+    },
+    {
+      "text": "different steps mattered like now we're",
+      "duration": 4400,
+      "offset": 1210320
+    },
+    {
+      "text": "in the like sub 100 millisecond range",
+      "duration": 4240,
+      "offset": 1212960
+    },
+    {
+      "text": "for those things but I wanted to squeeze",
+      "duration": 4240,
+      "offset": 1214720
+    },
+    {
+      "text": "every ounce out of this is who I am as a",
+      "duration": 4080,
+      "offset": 1217200
+    },
+    {
+      "text": "person. So, we ended up doing this all",
+      "duration": 4400,
+      "offset": 1218960
+    },
+    {
+      "text": "in one action with two stages because I",
+      "duration": 4080,
+      "offset": 1221280
+    },
+    {
+      "text": "needed results from stage one to use in",
+      "duration": 3679,
+      "offset": 1223360
+    },
+    {
+      "text": "stage two because I need to know how",
+      "duration": 3360,
+      "offset": 1225360
+    },
+    {
+      "text": "many messages you sent and what your top",
+      "duration": 3281,
+      "offset": 1227039
+    },
+    {
+      "text": "model was in order to query your",
+      "duration": 3760,
+      "offset": 1228720
+    },
+    {
+      "text": "percentile location and also in order to",
+      "duration": 5359,
+      "offset": 1230320
+    },
+    {
+      "text": "query what model you used how much. So,",
+      "duration": 6400,
+      "offset": 1232480
+    },
+    {
+      "text": "we do the first stage all unionuned to",
+      "duration": 5681,
+      "offset": 1235679
+    },
+    {
+      "text": "get all of the data in one call and a",
+      "duration": 4480,
+      "offset": 1238880
+    },
+    {
+      "text": "really brutal effect schema to dump",
+      "duration": 4960,
+      "offset": 1241360
+    },
+    {
+      "text": "things out of it. I parse a ton of [ __ ]",
+      "duration": 5920,
+      "offset": 1243360
+    },
+    {
+      "text": "from it and we do the same thing after",
+      "duration": 4880,
+      "offset": 1246320
+    },
+    {
+      "text": "all the parsing is done. God bless",
+      "duration": 3600,
+      "offset": 1249280
+    },
+    {
+      "text": "Claude for writing all of this junk for",
+      "duration": 4000,
+      "offset": 1251200
+    },
+    {
+      "text": "me. Once I had working SQL, I could just",
+      "duration": 5279,
+      "offset": 1252880
+    },
+    {
+      "text": "tell Opus like squash this in a union,",
+      "duration": 4560,
+      "offset": 1255200
+    },
+    {
+      "text": "see what the errors were with the query",
+      "duration": 3121,
+      "offset": 1258159
+    },
+    {
+      "text": "and then tell it to go fix those errors",
+      "duration": 3680,
+      "offset": 1259760
+    },
+    {
+      "text": "and it worked relatively well. Now we",
+      "duration": 3680,
+      "offset": 1261280
+    },
+    {
+      "text": "have stage two where if you do have a",
+      "duration": 4400,
+      "offset": 1263440
+    },
+    {
+      "text": "top model, I query your usage for this",
+      "duration": 4959,
+      "offset": 1264960
+    },
+    {
+      "text": "particular model. I also query the",
+      "duration": 3600,
+      "offset": 1267840
+    },
+    {
+      "text": "percentile for where you fall in the",
+      "duration": 3601,
+      "offset": 1269919
+    },
+    {
+      "text": "messages. So now you have the two stages",
+      "duration": 4160,
+      "offset": 1271440
+    },
+    {
+      "text": "and all of these are heavily using those",
+      "duration": 4320,
+      "offset": 1273520
+    },
+    {
+      "text": "same materialized views from before. No",
+      "duration": 4079,
+      "offset": 1275600
+    },
+    {
+      "text": "changes to the materialized views. And",
+      "duration": 3440,
+      "offset": 1277840
+    },
+    {
+      "text": "it's silly, but something that helped a",
+      "duration": 3521,
+      "offset": 1279679
+    },
+    {
+      "text": "lot with getting the model to behave",
+      "duration": 4240,
+      "offset": 1281280
+    },
+    {
+      "text": "since all of this data lives outside of",
+      "duration": 4080,
+      "offset": 1283200
+    },
+    {
+      "text": "the codebase because the materialized",
+      "duration": 3840,
+      "offset": 1285520
+    },
+    {
+      "text": "view is a dashboard setting that you go",
+      "duration": 4560,
+      "offset": 1287280
+    },
+    {
+      "text": "configure in post hog. The model and",
+      "duration": 5360,
+      "offset": 1289360
+    },
+    {
+      "text": "your co-workers have no idea what usage",
+      "duration": 6000,
+      "offset": 1291840
+    },
+    {
+      "text": "by user 2025 is. So in order to",
+      "duration": 5920,
+      "offset": 1294720
+    },
+    {
+      "text": "halfsolve the problem, I just went and",
+      "duration": 5040,
+      "offset": 1297840
+    },
+    {
+      "text": "dumped all of the exact queries as",
+      "duration": 4320,
+      "offset": 1300640
+    },
+    {
+      "text": "comments at the top of the file so both",
+      "duration": 4400,
+      "offset": 1302880
+    },
+    {
+      "text": "my co-workers and my agents would",
+      "duration": 3839,
+      "offset": 1304960
+    },
+    {
+      "text": "actually know what's in these fake",
+      "duration": 3600,
+      "offset": 1307280
+    },
+    {
+      "text": "tables. I really wish I could have just",
+      "duration": 4321,
+      "offset": 1308799
+    },
+    {
+      "text": "had this as a file in the codebase that",
+      "duration": 3919,
+      "offset": 1310880
+    },
+    {
+      "text": "would go create the materialized views",
+      "duration": 4640,
+      "offset": 1313120
+    },
+    {
+      "text": "for me, but I can't. So I don't and I'm",
+      "duration": 4801,
+      "offset": 1314799
+    },
+    {
+      "text": "settling for this. I also had a lot of",
+      "duration": 3760,
+      "offset": 1317760
+    },
+    {
+      "text": "people asking why we're not doing live",
+      "duration": 3760,
+      "offset": 1319600
+    },
+    {
+      "text": "times because it makes everything",
+      "duration": 4240,
+      "offset": 1321520
+    },
+    {
+      "text": "harder. It takes a still target and",
+      "duration": 4559,
+      "offset": 1323360
+    },
+    {
+      "text": "makes it moving. Now we have to",
+      "duration": 4480,
+      "offset": 1325760
+    },
+    {
+      "text": "regenerate the general data source. Now",
+      "duration": 3760,
+      "offset": 1327919
+    },
+    {
+      "text": "what happens if you send a bunch of",
+      "duration": 3679,
+      "offset": 1330240
+    },
+    {
+      "text": "messages after the last generation?",
+      "duration": 4641,
+      "offset": 1331679
+    },
+    {
+      "text": "You're now ahead versus the data that we",
+      "duration": 4401,
+      "offset": 1333919
+    },
+    {
+      "text": "have cached. Do we bust the cache if you",
+      "duration": 4160,
+      "offset": 1336320
+    },
+    {
+      "text": "have a newer message? What if we just",
+      "duration": 4080,
+      "offset": 1338320
+    },
+    {
+      "text": "pick a random date that is around when",
+      "duration": 3840,
+      "offset": 1340480
+    },
+    {
+      "text": "we want to ship the feature and only",
+      "duration": 3759,
+      "offset": 1342400
+    },
+    {
+      "text": "calculate there? Now all of the data",
+      "duration": 3200,
+      "offset": 1344320
+    },
+    {
+      "text": "we're parsing against is effectively",
+      "duration": 3520,
+      "offset": 1346159
+    },
+    {
+      "text": "static. It makes everything way simpler.",
+      "duration": 3840,
+      "offset": 1347520
+    },
+    {
+      "text": "If we weren't doing it this way, I would",
+      "duration": 3441,
+      "offset": 1349679
+    },
+    {
+      "text": "set it on a rolling window of like an",
+      "duration": 4400,
+      "offset": 1351360
+    },
+    {
+      "text": "hour or a day. I would never parse this",
+      "duration": 4720,
+      "offset": 1353120
+    },
+    {
+      "text": "with live data because then you lose so",
+      "duration": 4399,
+      "offset": 1355760
+    },
+    {
+      "text": "much of the optimization. So, I have all",
+      "duration": 4240,
+      "offset": 1357840
+    },
+    {
+      "text": "of my materialized views here. Since",
+      "duration": 3361,
+      "offset": 1360159
+    },
+    {
+      "text": "they're all defined here, the model",
+      "duration": 3839,
+      "offset": 1362080
+    },
+    {
+      "text": "knows what stats and what fields exist",
+      "duration": 4320,
+      "offset": 1363520
+    },
+    {
+      "text": "for each of these materialized views,",
+      "duration": 4240,
+      "offset": 1365919
+    },
+    {
+      "text": "and it can make reasonable decisions",
+      "duration": 4560,
+      "offset": 1367840
+    },
+    {
+      "text": "trying to finagle them into queries that",
+      "duration": 4241,
+      "offset": 1370159
+    },
+    {
+      "text": "are performant. I still had to do a lot",
+      "duration": 3759,
+      "offset": 1372400
+    },
+    {
+      "text": "by hand here, most of it by hand,",
+      "duration": 2880,
+      "offset": 1374400
+    },
+    {
+      "text": "honestly, especially the materialized",
+      "duration": 2880,
+      "offset": 1376159
+    },
+    {
+      "text": "view stuff. But the model once it had",
+      "duration": 3279,
+      "offset": 1377280
+    },
+    {
+      "text": "the working queries could condense them",
+      "duration": 4000,
+      "offset": 1379039
+    },
+    {
+      "text": "relatively well. But we can do more.",
+      "duration": 4240,
+      "offset": 1380559
+    },
+    {
+      "text": "Remember earlier I mentioned there was a",
+      "duration": 4961,
+      "offset": 1383039
+    },
+    {
+      "text": "beta post hog feature endpoints. This is",
+      "duration": 6240,
+      "offset": 1384799
+    },
+    {
+      "text": "post hog building in my weird [ __ ]",
+      "duration": 5600,
+      "offset": 1388000
+    },
+    {
+      "text": "use case as a core part of the product.",
+      "duration": 5601,
+      "offset": 1391039
+    },
+    {
+      "text": "I am very excited about this. Endpoints",
+      "duration": 4959,
+      "offset": 1393600
+    },
+    {
+      "text": "let you take one of those queries or",
+      "duration": 3120,
+      "offset": 1396640
+    },
+    {
+      "text": "views that you have defined in the",
+      "duration": 3600,
+      "offset": 1398559
+    },
+    {
+      "text": "dashboard and expose them over an API",
+      "duration": 5440,
+      "offset": 1399760
+    },
+    {
+      "text": "endpoint. And as you guys can guess, I",
+      "duration": 5520,
+      "offset": 1402159
+    },
+    {
+      "text": "had to try them. So, I took those same",
+      "duration": 4080,
+      "offset": 1405200
+    },
+    {
+      "text": "queries, the stage one wrapped and the",
+      "duration": 3921,
+      "offset": 1407679
+    },
+    {
+      "text": "stage two wrapped, and I threw them in",
+      "duration": 3920,
+      "offset": 1409280
+    },
+    {
+      "text": "endpoints.",
+      "duration": 3600,
+      "offset": 1411600
+    },
+    {
+      "text": "Currently, as far as I understand, there",
+      "duration": 3520,
+      "offset": 1413200
+    },
+    {
+      "text": "are no rate limits on endpoints because",
+      "duration": 3040,
+      "offset": 1415200
+    },
+    {
+      "text": "it's an early access beta feature, and",
+      "duration": 2800,
+      "offset": 1416720
+    },
+    {
+      "text": "they want to get a better idea of how",
+      "duration": 2799,
+      "offset": 1418240
+    },
+    {
+      "text": "people are using it before they start",
+      "duration": 3279,
+      "offset": 1419520
+    },
+    {
+      "text": "limiting it. Early access to a beta",
+      "duration": 3520,
+      "offset": 1421039
+    },
+    {
+      "text": "feature with no rate limits is very much",
+      "duration": 3521,
+      "offset": 1422799
+    },
+    {
+      "text": "something that's up my alley. So, I made",
+      "duration": 3360,
+      "offset": 1424559
+    },
+    {
+      "text": "this last change where I started hitting",
+      "duration": 4640,
+      "offset": 1426320
+    },
+    {
+      "text": "the endpoints instead, calling run post",
+      "duration": 4000,
+      "offset": 1427919
+    },
+    {
+      "text": "endpoints with the name of this",
+      "duration": 3599,
+      "offset": 1430960
+    },
+    {
+      "text": "endpoint. This is just a basic effect",
+      "duration": 5120,
+      "offset": 1431919
+    },
+    {
+      "text": "function wrapper that handles the HTTP",
+      "duration": 4801,
+      "offset": 1434559
+    },
+    {
+      "text": "client with all of the custom fields",
+      "duration": 4481,
+      "offset": 1437039
+    },
+    {
+      "text": "like our variables as well as more",
+      "duration": 4480,
+      "offset": 1439360
+    },
+    {
+      "text": "importantly our API key. So this can be",
+      "duration": 5279,
+      "offset": 1441520
+    },
+    {
+      "text": "hit safely. This is hits our project ID/",
+      "duration": 5360,
+      "offset": 1443840
+    },
+    {
+      "text": "endpoint slash this endpoint name to get",
+      "duration": 4561,
+      "offset": 1446799
+    },
+    {
+      "text": "us results. It is literally the same",
+      "duration": 4079,
+      "offset": 1449200
+    },
+    {
+      "text": "thing as the query was doing before but",
+      "duration": 3760,
+      "offset": 1451360
+    },
+    {
+      "text": "hitting an endpoint instead which allows",
+      "duration": 3361,
+      "offset": 1453279
+    },
+    {
+      "text": "them to do cool caching and other",
+      "duration": 3360,
+      "offset": 1455120
+    },
+    {
+      "text": "things. They don't do it too too heavily",
+      "duration": 3200,
+      "offset": 1456640
+    },
+    {
+      "text": "by default, but they do do it some",
+      "duration": 3439,
+      "offset": 1458480
+    },
+    {
+      "text": "amount, which means we can see an",
+      "duration": 3680,
+      "offset": 1459840
+    },
+    {
+      "text": "improvement. Once again, deleting. The",
+      "duration": 3681,
+      "offset": 1461919
+    },
+    {
+      "text": "last time took three seconds. At this",
+      "duration": 4560,
+      "offset": 1463520
+    },
+    {
+      "text": "point, it's going to be so close that",
+      "duration": 4400,
+      "offset": 1465600
+    },
+    {
+      "text": "it's barely noticeable, but now it",
+      "duration": 3680,
+      "offset": 1468080
+    },
+    {
+      "text": "started computing.",
+      "duration": 3520,
+      "offset": 1470000
+    },
+    {
+      "text": "We're waiting in real time. Now it's",
+      "duration": 4720,
+      "offset": 1471760
+    },
+    {
+      "text": "done. That took 4 seconds. As I said,",
+      "duration": 5200,
+      "offset": 1473520
+    },
+    {
+      "text": "comes down to what happens when.",
+      "duration": 3840,
+      "offset": 1476480
+    },
+    {
+      "text": "Although here we can see the fetch usage",
+      "duration": 3360,
+      "offset": 1478720
+    },
+    {
+      "text": "data took 1.8 seconds when before it",
+      "duration": 4959,
+      "offset": 1480320
+    },
+    {
+      "text": "took 1.2. This is just luck of the draw",
+      "duration": 5760,
+      "offset": 1482080
+    },
+    {
+      "text": "type stuff. We're very very close, but",
+      "duration": 5041,
+      "offset": 1485279
+    },
+    {
+      "text": "we do have to do two round trips over",
+      "duration": 4640,
+      "offset": 1487840
+    },
+    {
+      "text": "HTTP now because we have to do stage one",
+      "duration": 4000,
+      "offset": 1490320
+    },
+    {
+      "text": "via hitting that endpoint thing. Get",
+      "duration": 3600,
+      "offset": 1492480
+    },
+    {
+      "text": "results, parse results, and then hit",
+      "duration": 4000,
+      "offset": 1494320
+    },
+    {
+      "text": "another endpoint to get the stage two.",
+      "duration": 5040,
+      "offset": 1496080
+    },
+    {
+      "text": "At this point, I know I can do better. I",
+      "duration": 4560,
+      "offset": 1498320
+    },
+    {
+      "text": "have been thinking far too much while I",
+      "duration": 3760,
+      "offset": 1501120
+    },
+    {
+      "text": "let the agent compress everything into",
+      "duration": 3919,
+      "offset": 1502880
+    },
+    {
+      "text": "these two queries and realize they could",
+      "duration": 4399,
+      "offset": 1504880
+    },
+    {
+      "text": "be one. At this point, I also feel bad",
+      "duration": 4321,
+      "offset": 1506799
+    },
+    {
+      "text": "bothering my team about all of this, so",
+      "duration": 4000,
+      "offset": 1509279
+    },
+    {
+      "text": "I don't force them all to review it. It",
+      "duration": 3520,
+      "offset": 1511120
+    },
+    {
+      "text": "also changed the structure of the data",
+      "duration": 2561,
+      "offset": 1513279
+    },
+    {
+      "text": "slightly which I didn't feel like",
+      "duration": 3279,
+      "offset": 1514640
+    },
+    {
+      "text": "finagling. This at this point is just me",
+      "duration": 4560,
+      "offset": 1515840
+    },
+    {
+      "text": "exploring for fun. This is the",
+      "duration": 4640,
+      "offset": 1517919
+    },
+    {
+      "text": "singleshot with percentiles version",
+      "duration": 4080,
+      "offset": 1520400
+    },
+    {
+      "text": "where I no longer am just calculating",
+      "duration": 5041,
+      "offset": 1522559
+    },
+    {
+      "text": "what the percentile is for a model. I'm",
+      "duration": 4799,
+      "offset": 1524480
+    },
+    {
+      "text": "calculating what percentile you fall in",
+      "duration": 3600,
+      "offset": 1527600
+    },
+    {
+      "text": "for all models because then I don't need",
+      "duration": 3921,
+      "offset": 1529279
+    },
+    {
+      "text": "to know ahead of time. Then I'm able to",
+      "duration": 3760,
+      "offset": 1531200
+    },
+    {
+      "text": "compress everything into a single query",
+      "duration": 4400,
+      "offset": 1533200
+    },
+    {
+      "text": "which I did here with user model data.",
+      "duration": 5680,
+      "offset": 1534960
+    },
+    {
+      "text": "So I start here to get this early data I",
+      "duration": 6400,
+      "offset": 1537600
+    },
+    {
+      "text": "need for other subqueries and then a",
+      "duration": 6320,
+      "offset": 1540640
+    },
+    {
+      "text": "very long query with a lot of unions and",
+      "duration": 4640,
+      "offset": 1544000
+    },
+    {
+      "text": "then a lot of parsing to get all the",
+      "duration": 4800,
+      "offset": 1546960
+    },
+    {
+      "text": "data out at the end. But now it is",
+      "duration": 5519,
+      "offset": 1548640
+    },
+    {
+      "text": "actually just one query. I could move",
+      "duration": 4000,
+      "offset": 1551760
+    },
+    {
+      "text": "this to endpoints but it's just one",
+      "duration": 3841,
+      "offset": 1554159
+    },
+    {
+      "text": "query. I barely [ __ ] care. This also",
+      "duration": 5120,
+      "offset": 1555760
+    },
+    {
+      "text": "is a different shape for the data",
+      "duration": 5360,
+      "offset": 1558000
+    },
+    {
+      "text": "which has a really funny problem where",
+      "duration": 4560,
+      "offset": 1560880
+    },
+    {
+      "text": "it's not able to deploy the changes",
+      "duration": 3919,
+      "offset": 1563360
+    },
+    {
+      "text": "right now because the schema validation",
+      "duration": 3520,
+      "offset": 1565440
+    },
+    {
+      "text": "failed because the shape of the data in",
+      "duration": 3441,
+      "offset": 1567279
+    },
+    {
+      "text": "the database is different. If I delete",
+      "duration": 4880,
+      "offset": 1568960
+    },
+    {
+      "text": "this, it will auto redeploy but it also",
+      "duration": 5680,
+      "offset": 1570720
+    },
+    {
+      "text": "will trigger the job again which is so",
+      "duration": 4719,
+      "offset": 1573840
+    },
+    {
+      "text": "fast that it never gets the redeployment",
+      "duration": 4320,
+      "offset": 1576400
+    },
+    {
+      "text": "out. So I have to close my local dev",
+      "duration": 6720,
+      "offset": 1578559
+    },
+    {
+      "text": "tab, kill this, then it can redeploy",
+      "duration": 7040,
+      "offset": 1580720
+    },
+    {
+      "text": "because there's no data conflicting. Now",
+      "duration": 4161,
+      "offset": 1585279
+    },
+    {
+      "text": "I can open up this tab and it will start",
+      "duration": 4320,
+      "offset": 1587760
+    },
+    {
+      "text": "generating.",
+      "duration": 5200,
+      "offset": 1589440
+    },
+    {
+      "text": "And in just a second it is now done. I'm",
+      "duration": 4640,
+      "offset": 1592080
+    },
+    {
+      "text": "happy chat understands. Suffering from",
+      "duration": 3760,
+      "offset": 1594640
+    },
+    {
+      "text": "success literally. Yeah, it's so fast",
+      "duration": 3600,
+      "offset": 1596720
+    },
+    {
+      "text": "and ConX is so good at syncing that it",
+      "duration": 4960,
+      "offset": 1598400
+    },
+    {
+      "text": "can't deploy. Hilarious, but fixed.",
+      "duration": 6160,
+      "offset": 1600320
+    },
+    {
+      "text": "Cool. Now we see that took 2.1 seconds.",
+      "duration": 4799,
+      "offset": 1603360
+    },
+    {
+      "text": "This is another luck of the draw thing.",
+      "duration": 4960,
+      "offset": 1606480
+    },
+    {
+      "text": "Delete it. Rerun. Oh, that time it took",
+      "duration": 6000,
+      "offset": 1608159
+    },
+    {
+      "text": "185 milliseconds because it can cache",
+      "duration": 4960,
+      "offset": 1611440
+    },
+    {
+      "text": "and have warm data. And once it figures",
+      "duration": 3681,
+      "offset": 1614159
+    },
+    {
+      "text": "out the shape of a query and it gets hit",
+      "duration": 3360,
+      "offset": 1616400
+    },
+    {
+      "text": "enough, it starts to cache some details",
+      "duration": 5760,
+      "offset": 1617840
+    },
+    {
+      "text": "here. But now reruns are under 200",
+      "duration": 6640,
+      "offset": 1619760
+    },
+    {
+      "text": "milliseconds.",
+      "duration": 4559,
+      "offset": 1623600
+    },
+    {
+      "text": "It basically is instant. When you go to",
+      "duration": 5440,
+      "offset": 1626400
+    },
+    {
+      "text": "the page, it appears 157 milliseconds.",
+      "duration": 6400,
+      "offset": 1628159
+    },
+    {
+      "text": "The job started at 62921 and it ended at",
+      "duration": 5920,
+      "offset": 1631840
+    },
+    {
+      "text": "62922. That is insane. And if I go and",
+      "duration": 4720,
+      "offset": 1634559
+    },
+    {
+      "text": "throw this in an endpoint, I now",
+      "duration": 3760,
+      "offset": 1637760
+    },
+    {
+      "text": "effectively have an unlimited rate limit",
+      "duration": 5121,
+      "offset": 1639279
+    },
+    {
+      "text": "to hit this that takes at worst 2 to 3",
+      "duration": 5279,
+      "offset": 1641520
+    },
+    {
+      "text": "seconds, but at best 2 to 300",
+      "duration": 5360,
+      "offset": 1644400
+    },
+    {
+      "text": "milliseconds. Insane. And now I see chat",
+      "duration": 4961,
+      "offset": 1646799
+    },
+    {
+      "text": "asking a really good logical question.",
+      "duration": 3760,
+      "offset": 1649760
+    },
+    {
+      "text": "How come I kept the 10-second version as",
+      "duration": 4320,
+      "offset": 1651760
+    },
+    {
+      "text": "the version in prod?",
+      "duration": 4320,
+      "offset": 1653520
+    },
+    {
+      "text": "Because 10 seconds was [ __ ] fast",
+      "duration": 4240,
+      "offset": 1656080
+    },
+    {
+      "text": "enough. Like, let's be really clear. If",
+      "duration": 3760,
+      "offset": 1657840
+    },
+    {
+      "text": "we had started with the 10-second",
+      "duration": 2479,
+      "offset": 1660320
+    },
+    {
+      "text": "version, I would not have done any of",
+      "duration": 2319,
+      "offset": 1661600
+    },
+    {
+      "text": "this. I would never have even touched",
+      "duration": 3521,
+      "offset": 1662799
+    },
+    {
+      "text": "the code. But when I saw how bad it was,",
+      "duration": 4240,
+      "offset": 1663919
+    },
+    {
+      "text": "I saw how horrible the queue was and how",
+      "duration": 3760,
+      "offset": 1666320
+    },
+    {
+      "text": "disappointed our users were that their",
+      "duration": 3601,
+      "offset": 1668159
+    },
+    {
+      "text": "generations weren't happening and had",
+      "duration": 2959,
+      "offset": 1670080
+    },
+    {
+      "text": "Ben and Ree and all these other people",
+      "duration": 3120,
+      "offset": 1671760
+    },
+    {
+      "text": "in the community texting me saying like,",
+      "duration": 4401,
+      "offset": 1673039
+    },
+    {
+      "text": "&quot;Where is my wrapped?&quot; And Post Hog",
+      "duration": 4480,
+      "offset": 1674880
+    },
+    {
+      "text": "upset about all the damage we were doing",
+      "duration": 3280,
+      "offset": 1677440
+    },
+    {
+      "text": "to a production instance of their",
+      "duration": 3439,
+      "offset": 1679360
+    },
+    {
+      "text": "database. It was clear it had to be",
+      "duration": 4720,
+      "offset": 1680720
+    },
+    {
+      "text": "faster. I really wanted it to be faster.",
+      "duration": 5041,
+      "offset": 1682799
+    },
+    {
+      "text": "So, I made it fast enough. got the team",
+      "duration": 5440,
+      "offset": 1685440
+    },
+    {
+      "text": "to approve it, ship it, saw the quality",
+      "duration": 5839,
+      "offset": 1687840
+    },
+    {
+      "text": "go up, saw the speeds go up a ton, was",
+      "duration": 4960,
+      "offset": 1690880
+    },
+    {
+      "text": "happy with it, and then poor Mark, who",
+      "duration": 4961,
+      "offset": 1693679
+    },
+    {
+      "text": "got four hours of sleep, went on a walk.",
+      "duration": 4719,
+      "offset": 1695840
+    },
+    {
+      "text": "I did not want to bother Mark after all",
+      "duration": 4480,
+      "offset": 1698640
+    },
+    {
+      "text": "of the bothering I had just done. To",
+      "duration": 5360,
+      "offset": 1700559
+    },
+    {
+      "text": "review the three PRs I had just made",
+      "duration": 6240,
+      "offset": 1703120
+    },
+    {
+      "text": "over overtimizing this. I'm not joking.",
+      "duration": 5841,
+      "offset": 1705919
+    },
+    {
+      "text": "I had the overoptimized rap because of",
+      "duration": 4319,
+      "offset": 1709360
+    },
+    {
+      "text": "who I am as a person, misspelled because",
+      "duration": 4320,
+      "offset": 1711760
+    },
+    {
+      "text": "that's the point I was at in my day. I",
+      "duration": 4801,
+      "offset": 1713679
+    },
+    {
+      "text": "then had the over over optimize wrapped",
+      "duration": 3680,
+      "offset": 1716080
+    },
+    {
+      "text": "using the new post hog endpoints",
+      "duration": 4559,
+      "offset": 1718480
+    },
+    {
+      "text": "feature. And then the final version that",
+      "duration": 4560,
+      "offset": 1719760
+    },
+    {
+      "text": "I would have been okay with merging if",
+      "duration": 2961,
+      "offset": 1723039
+    },
+    {
+      "text": "we had done a few more things. This is",
+      "duration": 3599,
+      "offset": 1724320
+    },
+    {
+      "text": "the all queries fired single shot more",
+      "duration": 3600,
+      "offset": 1726000
+    },
+    {
+      "text": "percentile information in UI. I actually",
+      "duration": 3681,
+      "offset": 1727919
+    },
+    {
+      "text": "forgot to showcase that. Now it shows",
+      "duration": 4079,
+      "offset": 1729600
+    },
+    {
+      "text": "with this version what percentile you're",
+      "duration": 3840,
+      "offset": 1731600
+    },
+    {
+      "text": "in for every model because it's easier",
+      "duration": 4081,
+      "offset": 1733679
+    },
+    {
+      "text": "to just calculate all of them than it is",
+      "duration": 4080,
+      "offset": 1735440
+    },
+    {
+      "text": "to do multiple queries once I figure out",
+      "duration": 3440,
+      "offset": 1737760
+    },
+    {
+      "text": "what your top model was. I think this is",
+      "duration": 3120,
+      "offset": 1739520
+    },
+    {
+      "text": "really cool. There are parts of this I",
+      "duration": 2880,
+      "offset": 1741200
+    },
+    {
+      "text": "want to ship. So, I'm going to tidy it",
+      "duration": 3360,
+      "offset": 1742640
+    },
+    {
+      "text": "up a little bit and bug the team. Good",
+      "duration": 3440,
+      "offset": 1744080
+    },
+    {
+      "text": "chance by the time the video comes out,",
+      "duration": 2720,
+      "offset": 1746000
+    },
+    {
+      "text": "we have shipped some of these",
+      "duration": 4560,
+      "offset": 1747520
+    },
+    {
+      "text": "optimizations. We shall see. Regardless,",
+      "duration": 5839,
+      "offset": 1748720
+    },
+    {
+      "text": "this was a lot of fun. It's been a while",
+      "duration": 4959,
+      "offset": 1752080
+    },
+    {
+      "text": "since I was this deep in the weeds on a",
+      "duration": 4881,
+      "offset": 1754559
+    },
+    {
+      "text": "performance thing. Certainly a long time",
+      "duration": 3681,
+      "offset": 1757039
+    },
+    {
+      "text": "since I was this deep in the weeds on",
+      "duration": 3359,
+      "offset": 1759440
+    },
+    {
+      "text": "some weird SQL [ __ ] and I had a",
+      "duration": 4559,
+      "offset": 1760720
+    },
+    {
+      "text": "blast. This wasn't even the thing that",
+      "duration": 4321,
+      "offset": 1762799
+    },
+    {
+      "text": "was hardest or most annoying about this",
+      "duration": 4081,
+      "offset": 1765279
+    },
+    {
+      "text": "project. This was more a fun deep dive",
+      "duration": 4240,
+      "offset": 1767120
+    },
+    {
+      "text": "in performance things. Shout out to the",
+      "duration": 3520,
+      "offset": 1769360
+    },
+    {
+      "text": "rest of the team for building the",
+      "duration": 3199,
+      "offset": 1771360
+    },
+    {
+      "text": "coolest rap feature ever. The speed",
+      "duration": 4080,
+      "offset": 1772880
+    },
+    {
+      "text": "isn't why it's cool, it's the feature.",
+      "duration": 4240,
+      "offset": 1774559
+    },
+    {
+      "text": "Mark for leading the whole thing, Julius",
+      "duration": 3280,
+      "offset": 1776960
+    },
+    {
+      "text": "for getting the first working version",
+      "duration": 4961,
+      "offset": 1778799
+    },
+    {
+      "text": "out, and Dom and Lucia for spamming us",
+      "duration": 5280,
+      "offset": 1780240
+    },
+    {
+      "text": "with feedback and changes to make it as",
+      "duration": 3840,
+      "offset": 1783760
+    },
+    {
+      "text": "stunning as it is now. Those two in the",
+      "duration": 3600,
+      "offset": 1785520
+    },
+    {
+      "text": "end actually are the ones that made it",
+      "duration": 4160,
+      "offset": 1787600
+    },
+    {
+      "text": "as beautiful as it is. I'm so pumped",
+      "duration": 4000,
+      "offset": 1789120
+    },
+    {
+      "text": "about the team we have. We built",
+      "duration": 3360,
+      "offset": 1791760
+    },
+    {
+      "text": "something incredible. I just came in to",
+      "duration": 3760,
+      "offset": 1793120
+    },
+    {
+      "text": "write some [ __ ] sequel with Claude",
+      "duration": 4000,
+      "offset": 1795120
+    },
+    {
+      "text": "to make it fast enough. I can't believe",
+      "duration": 3519,
+      "offset": 1796880
+    },
+    {
+      "text": "you're still watching this, but I'm",
+      "duration": 2480,
+      "offset": 1799120
+    },
+    {
+      "text": "thankful you are. I know a lot of you",
+      "duration": 2481,
+      "offset": 1800399
+    },
+    {
+      "text": "are here for this type of thing and not",
+      "duration": 3040,
+      "offset": 1801600
+    },
+    {
+      "text": "the rants about new AI models. So, let",
+      "duration": 3200,
+      "offset": 1802880
+    },
+    {
+      "text": "me know how you feel about this video.",
+      "duration": 2560,
+      "offset": 1804640
+    },
+    {
+      "text": "And remember, if you haven't signed up",
+      "duration": 3040,
+      "offset": 1806080
+    },
+    {
+      "text": "for T3 Chat yet, your first month can be",
+      "duration": 4400,
+      "offset": 1807200
+    },
+    {
+      "text": "$1 if you use code wrapped. Go give it a",
+      "duration": 3679,
+      "offset": 1809120
+    },
+    {
+      "text": "shot. We've been putting a lot of time",
+      "duration": 2880,
+      "offset": 1811600
+    },
+    {
+      "text": "into this product, and we have some very",
+      "duration": 3041,
+      "offset": 1812799
+    },
+    {
+      "text": "fun things coming at the start of next",
+      "duration": 2960,
+      "offset": 1814480
+    },
+    {
+      "text": "year. Thank you as always and until next",
+      "duration": 4800,
+      "offset": 1815840
+    },
+    {
+      "text": "time, peace nerds.",
+      "duration": 3200,
+      "offset": 1817440
+    }
+  ],
+  "transcriptText": "If you're interested in unnecessarily deep dives in real programming problems, you'll probably like this video a lot. If you haven't kept up, we just put out the T3 chat rewind. T3 Chat's the only AI chat that doesn't suck to use, and we made our rewind for our hundreds of thousands of users to go through and learn how many messages they sent, what percentage of users they fit within, what models they use the most, how they use them, all of these other things that don't quite fit on my screen at this size. You get the idea, though. We put a lot of work into making a really cool, beautiful wrapped feature, especially after looking at the OpenAI one. This seems like the type of thing that'd be pretty easy to build, and I get that. We thought the same. And in a lot of ways, it was, but in a lot of very interesting ways, it wasn't. Not just because the analysis of topics is hard. Joking, we obviously didn't do that. It's hard because we have billions of rows in the table that we have to parse here. Our application database is convex, which is great, but it's not built for this type of analytical work. It's not built for you to go query every single row in the database. And also, if a user deleted a message or a thread, that's now gone from their history and won't count in their usage. Thankfully, we have another database we've been using a lot, Post Hog, which is built almost entirely for doing analytics work, which is great when I want to go figure out how much money our users cost us or how popular a feature is, but it's not built to expose data to users directly, which I spent a lot of time working around. We [snorts] managed to do it, and I'm really proud, but the initial version took about 10 to 20 minutes to run per user, could only be run concurrently with three instances at a time. And by the time I woke up the next day, we had literally 3,000 generations cued that were taking hours each because of how slow this was all going. And then I got it down to under 2 seconds. This is a deep dive on everything from how to architect your applications to how to do weird optimizations with tools like Post Hog to squeeze query times down to the best possible results for something stupid that involves billions of rows. None of these companies paid us anything to do this. In fact, we're paying them quite a bit of money to use all of this stuff. So, you're getting as honest of honest takes as you possibly can here. All of that said, there is somebody paying us and they're today's sponsor. Today's sponsor is Work OS. You've almost certainly heard about them by now. So, I'm going to do something a little bit different. I'm going to combat all of the things I hear when people say they should roll their own O. What if you need to customize it? Well, uh, you going to do all this customization yourself? Sure, you can go implement whichever of these identity providers you want to yourself. Or you can not waste your engineers time and risk security issues and use a platform that already figured it out. a platform that, mind you, big companies are using. Speaking of which, this is response number two. All real companies roll their own off. No, I know more companies moving off of self-rolled off than onto it. It's just insane how annoying it is to manage all the details. Do you know what OpenAI, Enthropic, Versell, T3 chat, Carta, and more all have in common? We're all using work OS. Yes, we made the move ourselves, too. I want to highlight one quote on the site because it's very funny. GMO is known for wanting to self-roll basically everything he can and even then he regrets doing their own self-rolled off and made the move to work OS. I think we could have done even more business if we had partnered with work OS earlier. It's been incredibly wellreceived. Stop wasting time when you could be getting users at soyv.link/workos. Where to start? So here I have my T3 chat rewind on localhost on the original version that we shipped. I'm going to go over to my database in convex where we store the generated wrapped when it's done and I'm going to delete it. And as is the magic of Convex, when the data disappears, the UI state changes immediately. And I can now click the generate my wrap button to start the generation. And we see here we now have this. It doesn't have a computed act. It's not done. It doesn't have stats because it's not done. If we hop over to the logs and search for workflow, we can see all of the stages as it goes. Here is the code for those stages near the bottom here in our workflow with Convex because not only is Convex a data platform, it also is a runtime for your backend code that connects directly to your database and it can do really cool things like workflows. This workflow is defined above as having a parallelization limit. Well, it doesn't. This initial version didn't because we didn't know how strict it was on postto. We know it was a limit of three. But what it should have here is max parallelism three. This is the first change that we had to make. So this can now run this workflow three times at a time. So three tasks can be going at once. We have the trigger check not important here. The piece that matters is the compute wrapped workflow. This is the workflow that does everything. It has multiple action steps which is really cool because if one of these actions fails, it can retry it up to three tries without losing the context of where it got that far. So here we have the model usage. We run the action, the internal workflow wrapped fetch model usage action. Awesome. When this call happens, this gets thrown onto the queue. And if there is a runner available and you're at the bottom of the queue, you get bumped to go run. So now this is running this one. If we command click, you can see the SQL that we are now running against Postto. Post hog is open source and it's built on top of click DB, which is a SQL dialect meant for analytics data to handle these really large numbers of things. It is not meant to respond in milliseconds. It's meant to take a ton of data and respond in a few seconds to a few minutes, which is not something you're supposed to bake into your app. It's something you're supposed to write to from your app for analytics purposes and then read in a dashboard because some data scientist has something they want to know about the product. So, we're selecting all the events that are of type AI generation that are in this specific timestamp range with a specific distinct ID. I'm also abusing pre-wear in order to only check timestamp, event name, and user ID before we start running the rest of the queries so that the first read is reading a very small set of columns. This helped the performance quite a bit. I have this where one equals 1 just to make the syntax of passing these programmatic filters a little easier. Properties AR messages null. This is because some models, specifically DeepCar 1 via Open Router, some providers had a bug where when it got in an error state, it would log thousands of things to the database. So if we include the error messages, the data just goes mad. We kill that. And we coales the model identifier with properties. Because some of the old versions before I use Post Hog's official SDK had a different term for the model and this just forces them into a single field. Cool. So this is how we select all of the instances of you using each model. fetch model usage grabs all of the things for your user ID groups by the model. So now they are condensed into each model identifier. So this spits out like Gemini 3 flash 2.500 GPT5 400 to get each of the values for each of the models for this given user. After we do that, we fetch the feature usage for the slide where we tell you about how many times did you use the edit feature or the branch feature where we select a bunch of fields. This is bring your own key usage which is still based on the actual model usage. So I have to go through generations and see how many of those brought your own key. Then edit we have to look for edit message events. Retries we have to look for retry message events. Branches we look for branch events etc. Then we do the dates. This one is a bit brutal because we're selecting across all AI generations all instances to timestamp date as date. that is to group them into individual dates so that each day has a count on it. So we do that for dates and then we immediately do it again for weekdays. So like which day of the week and then we do it again for hour which hour of the day. This is all to generate this slide. Yeah, we just did a full table scan for AI generation events three times for one section. Three separate queries doing full scans already pretty bad. And then the user percentile. This is when things started to fall apart. I added this cuz I wanted to have percentiles for where you fell in usage. And this one has to go across not just the events that you generated, but all of them total and group them by the user ID and then figure out how many used more than you did. This one was bad. And then the same one for where you rank in the model usage was even worse. All of these resulted in a not great run times. We can see here that generation I was doing before. The first step took 340 milliseconds. Fetch model usage took 15.5 seconds. Feature usage took 20. Fetch date stats took 10. And fetch user percentiles took 30. That's not good. Where it gets even worse is Post Hog's rate limits, which we didn't know about until we launched. Pro tip, when you're using a database for something is not meant to be used for, go check its limitations. My mistake. I should have pushed this on the team more, but we didn't. And as a result, we quickly hit the rate limits, which are three queries running concurrently, 240 queries per minute, and 2400 per hour. We do 10 queries per user with this implementation. Not good at all. Not good at all. So, we immediately go into panic mode, start trying to clean more of these things up. Also work with Post Hog, who was very, very generous. And let me find this in Slack quick. As I mentioned before, Post Hog is open source. So when I went to them and said, &quot;Hey, we're going to hit this limit really aggressively. Can we do anything about it?&quot; They gave us some really good help, but they also made the craziest bro move ever where they shipped a change to the actual open-source project that hard-coded our team ID and gave us a higher rate limit. Absolute browse. To be clear, this should not have been necessary because of things that they taught us about after. And that's part of why I'm making this video, because I want to showcase that this wasn't actually necessary. If I had just known about a handful of other things that you could do with both Click House and with Post Hog themselves, as well as some beta features that they haven't fully shipped yet, that made this all significantly easier, but also absolutely based of them to do this last minute on like the weekend before Christmas, just a few days before. They were awesome to work with. I am so thankful for the Post Hog team. If you're still trying to pick your analytics provider, sure, they've sponsored in the past. They probably will again pick them for this. They care a lot. They're really nice to work with. If you're currently jealous that you didn't get this cool of a wrapped because you're using a much worse AI chat app like, you know, chat GPT, Gemini, Claude, or any of the others, you can get your first month for just $1 with the code wrapped at checkout. Yes, $1 for access to every single model in a chat app that doesn't hurt to use. Crazy deal. And every other month's just going to be eight bucks anyways. pretty good deal if I say so myself. So yeah, that aside, how did we fix this? Well, the first things we did were put under a feature flag to slow the roll out and also bump the parallelism to be a more reasonable limit. I then added all of the logs to make it easier to see which steps took so long and saw how slow some of those steps were. We also had a bug where we were only selecting 100 days because the default limit in Post Hog is 100. So we had to go add some limit overrides to fix that. Then I started doing my optimizations. At some point here, there was a bug in the Rust package we were using to generate the image. And I was just so tired of dealing with those types of things that I rewrote the whole thing in browser myself. It worked out, but it was obnoxious. Let me go kill the data again. We are now regenerating and we'll see how much faster it is. Spoiler, this version is still kind of slow, but I made a bunch of changes to help with the just hammering of Post Hog we were doing. The big one is both I and Opus took our time rewriting some of these queries to just be a single query with a bunch of union alls. This doesn't directly help with speed in the traditional sense, but it does help us stay under those rate limits, which was the biggest thing killing us at the moment because we were doing literally 10 queries per user, the rate limits were not realistic for us. But if I could knock a bunch of those down to one by just unioning everywhere in it, it got less bad. It got significantly less bad. So, we did that. We now don't have to worry as much about the rate limits directly, but it's still slow. The model usage call just took 41.7 seconds. The feature usage took 51 seconds. We're now over a minute and a half for just two of the steps. Fetch date stats was a lot faster when I compressed it all down to 6 seconds. Cool. And then the message percentile. This one's rough. Funny enough, I actually broke this one up into two steps because I saw in the logs that a lot of the time this query would pass, but then the one right after, which is the model percentage, had a pretty high chance of timing out. So, I'd have to redo both queries if they were the same step. But by breaking them into separate steps, now if the message percentile fails and the model succeeds or vice versa, it can just retry the one that failed, which is great. It helped lower the error rates significantly. But we're still getting [ __ ] performance here. Let's be real. And for those who think this is like terrible, terrible performance, you're insane for even thinking this is okay. People who have done actual crazy reports in stuff like Click House understand. As Evelyn Lily said here, some of her reports take 13 plus minutes to generate. I've seen mode analytics requests that take 1 to 3 hours. We had one that we accidentally set to autogen every 10 minutes and it cost like $200,000 after being left on for a day accidentally. This type of giant pile of data compute is just expensive and slow. Yeah, as we're experiencing here, this one might actually time out. Yeah, it failed. It timed out after 141 seconds. Sometimes it passes, sometimes it doesn't. Depends on how much load Post Hog is under as well. This isn't great. Still better. Still less errors but still very slow. So at this point I go deep into hunting and I'm also talking with the Post Hog team. They mention this new beta feature. It's also here under the rate limits where they specify they're not offering higher rate limits, but they are working on an upcoming endpoints product with query customization and higher limits. We'll get there in a bit because there's one other thing that made life significantly easier. Materialized views. Materialized views are effectively a cache of a sub query inside of a SQL database. So you can take a select call that you made and store the results as a fake table. So here we have one of these materialized views. This is one of those subqueries. In this case it's usage by user. So this is how many messages did each user send. I select their person ID and their count as the total messages they sent from events. I do my pre-ware on AI generations timestamp range for the range that we're doing this in. And then this creates a materialized result. That means that what this prints out is now effectively saved and cached. In this case, it's 107,000 rows for the user IDs that match this pattern. It's not all of our users, but it's a lot of them. good enough for the thing that we're doing here. We now have this gigantic pile of data which is how many messages every single signed in user has sent. And this is now saved in S3. Now when I make queries, I can call this usage by user 2025 as though it is a table. And instead of having to compute this whole query on the fly, it can just pull the dump of data out of S3 and then query against that instead. I'm effectively making a fake sub table in my database just for this use case. So I ended up making a bunch of these materialized views. The main two that mattered were usage by user and model usage by user, but I added more for the other stuff as well as I realized how abusable this feature was. And you can see how much more complex my queries got. They didn't. They're way simpler. Now my queries for something like the combined getting all of the features is three lines. I select the values I want from feature usage by user 2025 where the distinct ID is this ID. Now I can just grab from this materialized view. I do the same for the date stats where I have a table now that has all of your time stats dumped and I grab that. Same with the message percentile. This is the one that was the biggest save. I select the count of all users who used more messages than you against the count of users total from this table. And now I know where your percentile is. So nice, so simple, so much faster. How much faster? Good question. So that run that we just did before with the old version started at 6:07 p.m. and finished at 6:131 p.m. It took over 6 minutes with just me on the dev instance. in prod with a queue with a limit of three things running. This gets really, really bad. So, let's see how slow it is now. I just deleted, which means this will re-trigger now that it is triggered. It fetched model usage in 700 milliseconds. It fetched feature usage in 670 milliseconds, date stats in 700 milliseconds, message percentile in 400, and model percentile in 470. Every request is under a second now. Some of them are under half a second. It's crazy what happens when you don't have to scan billions of rows per query. I know obvious in retrospect, but how cool is that that this is just a feature built into Post Hog that costs you nothing. You're only paying for the events you send them. Everything else is effectively free. Like they don't bill on how much I query against. So they don't bill on how many materialized views I create. They just let me do this. So now that I've created a bunch of these materialized views just to keep track of this data and have it in a much easier to query way, I'm able to get a massive performance win. Honestly, this could have shipped like that with the previous limit of three and been fine. I'm going to do something I shouldn't do. I'm going to open up the production database. Here's the actual production instance. You can see the creation times and completion times here. We've done this 16,700 times now. And the most recent handful here started at 1625, ended at 1633, under 10 seconds. 1340 to 1350, exactly 10 seconds. 11:25 to 1134, under 10 seconds. These genens are now under 10 seconds each, which means when you go to the page, it comes up immediately. Look, somebody's jenning right now. Everything in Convex Live updates. So, we have a gen here. It just got created. It isn't done yet. And in just a moment, you'll see it auto update when it completed. That user just had their UI update with the new wrapped feature completed because their data got completed. If anybody in chat hasn't been to T3 chat since we started the wrapped feature and you go now, it'll appear in here as it auto creates the job, completes the job, and then updates the data as a result. Super cool. One of those took 11 seconds, the other one took 9 seconds. We're still averaging that 10-second range. That said, there's a thing that happens to me when I get this deep on new stuff. I get excited. I decided to go a bit further. We still have five queries in this file. Can we knock down the number more? Here we have the overoptimize wrapped because of who I am as a person PR. This one is fun. Before I show you the code, I would like to show you the results. It's computing. I'm just going to leave it here because it's done already. It computed in 3 seconds. 3 seconds. Remember, there were users who this took 3 to 5 hours for, probably longer if we had let the whole queue burn out with the original implementation. Now the results are nearly instant. And here we see it's now one query fetch usage data for user. Well, one action that took 1.2 seconds. Let's take a look at that code. Fetch usage data for user. This is the only action now. And in here we have two stages. I made these two stages one action because at this point the overhead of convex calling actions as different steps mattered like now we're in the like sub 100 millisecond range for those things but I wanted to squeeze every ounce out of this is who I am as a person. So, we ended up doing this all in one action with two stages because I needed results from stage one to use in stage two because I need to know how many messages you sent and what your top model was in order to query your percentile location and also in order to query what model you used how much. So, we do the first stage all unionuned to get all of the data in one call and a really brutal effect schema to dump things out of it. I parse a ton of [ __ ] from it and we do the same thing after all the parsing is done. God bless Claude for writing all of this junk for me. Once I had working SQL, I could just tell Opus like squash this in a union, see what the errors were with the query and then tell it to go fix those errors and it worked relatively well. Now we have stage two where if you do have a top model, I query your usage for this particular model. I also query the percentile for where you fall in the messages. So now you have the two stages and all of these are heavily using those same materialized views from before. No changes to the materialized views. And it's silly, but something that helped a lot with getting the model to behave since all of this data lives outside of the codebase because the materialized view is a dashboard setting that you go configure in post hog. The model and your co-workers have no idea what usage by user 2025 is. So in order to halfsolve the problem, I just went and dumped all of the exact queries as comments at the top of the file so both my co-workers and my agents would actually know what's in these fake tables. I really wish I could have just had this as a file in the codebase that would go create the materialized views for me, but I can't. So I don't and I'm settling for this. I also had a lot of people asking why we're not doing live times because it makes everything harder. It takes a still target and makes it moving. Now we have to regenerate the general data source. Now what happens if you send a bunch of messages after the last generation? You're now ahead versus the data that we have cached. Do we bust the cache if you have a newer message? What if we just pick a random date that is around when we want to ship the feature and only calculate there? Now all of the data we're parsing against is effectively static. It makes everything way simpler. If we weren't doing it this way, I would set it on a rolling window of like an hour or a day. I would never parse this with live data because then you lose so much of the optimization. So, I have all of my materialized views here. Since they're all defined here, the model knows what stats and what fields exist for each of these materialized views, and it can make reasonable decisions trying to finagle them into queries that are performant. I still had to do a lot by hand here, most of it by hand, honestly, especially the materialized view stuff. But the model once it had the working queries could condense them relatively well. But we can do more. Remember earlier I mentioned there was a beta post hog feature endpoints. This is post hog building in my weird [ __ ] use case as a core part of the product. I am very excited about this. Endpoints let you take one of those queries or views that you have defined in the dashboard and expose them over an API endpoint. And as you guys can guess, I had to try them. So, I took those same queries, the stage one wrapped and the stage two wrapped, and I threw them in endpoints. Currently, as far as I understand, there are no rate limits on endpoints because it's an early access beta feature, and they want to get a better idea of how people are using it before they start limiting it. Early access to a beta feature with no rate limits is very much something that's up my alley. So, I made this last change where I started hitting the endpoints instead, calling run post endpoints with the name of this endpoint. This is just a basic effect function wrapper that handles the HTTP client with all of the custom fields like our variables as well as more importantly our API key. So this can be hit safely. This is hits our project ID/ endpoint slash this endpoint name to get us results. It is literally the same thing as the query was doing before but hitting an endpoint instead which allows them to do cool caching and other things. They don't do it too too heavily by default, but they do do it some amount, which means we can see an improvement. Once again, deleting. The last time took three seconds. At this point, it's going to be so close that it's barely noticeable, but now it started computing. We're waiting in real time. Now it's done. That took 4 seconds. As I said, comes down to what happens when. Although here we can see the fetch usage data took 1.8 seconds when before it took 1.2. This is just luck of the draw type stuff. We're very very close, but we do have to do two round trips over HTTP now because we have to do stage one via hitting that endpoint thing. Get results, parse results, and then hit another endpoint to get the stage two. At this point, I know I can do better. I have been thinking far too much while I let the agent compress everything into these two queries and realize they could be one. At this point, I also feel bad bothering my team about all of this, so I don't force them all to review it. It also changed the structure of the data slightly which I didn't feel like finagling. This at this point is just me exploring for fun. This is the singleshot with percentiles version where I no longer am just calculating what the percentile is for a model. I'm calculating what percentile you fall in for all models because then I don't need to know ahead of time. Then I'm able to compress everything into a single query which I did here with user model data. So I start here to get this early data I need for other subqueries and then a very long query with a lot of unions and then a lot of parsing to get all the data out at the end. But now it is actually just one query. I could move this to endpoints but it's just one query. I barely [ __ ] care. This also is a different shape for the data which has a really funny problem where it's not able to deploy the changes right now because the schema validation failed because the shape of the data in the database is different. If I delete this, it will auto redeploy but it also will trigger the job again which is so fast that it never gets the redeployment out. So I have to close my local dev tab, kill this, then it can redeploy because there's no data conflicting. Now I can open up this tab and it will start generating. And in just a second it is now done. I'm happy chat understands. Suffering from success literally. Yeah, it's so fast and ConX is so good at syncing that it can't deploy. Hilarious, but fixed. Cool. Now we see that took 2.1 seconds. This is another luck of the draw thing. Delete it. Rerun. Oh, that time it took 185 milliseconds because it can cache and have warm data. And once it figures out the shape of a query and it gets hit enough, it starts to cache some details here. But now reruns are under 200 milliseconds. It basically is instant. When you go to the page, it appears 157 milliseconds. The job started at 62921 and it ended at 62922. That is insane. And if I go and throw this in an endpoint, I now effectively have an unlimited rate limit to hit this that takes at worst 2 to 3 seconds, but at best 2 to 300 milliseconds. Insane. And now I see chat asking a really good logical question. How come I kept the 10-second version as the version in prod? Because 10 seconds was [ __ ] fast enough. Like, let's be really clear. If we had started with the 10-second version, I would not have done any of this. I would never have even touched the code. But when I saw how bad it was, I saw how horrible the queue was and how disappointed our users were that their generations weren't happening and had Ben and Ree and all these other people in the community texting me saying like, &quot;Where is my wrapped?&quot; And Post Hog upset about all the damage we were doing to a production instance of their database. It was clear it had to be faster. I really wanted it to be faster. So, I made it fast enough. got the team to approve it, ship it, saw the quality go up, saw the speeds go up a ton, was happy with it, and then poor Mark, who got four hours of sleep, went on a walk. I did not want to bother Mark after all of the bothering I had just done. To review the three PRs I had just made over overtimizing this. I'm not joking. I had the overoptimized rap because of who I am as a person, misspelled because that's the point I was at in my day. I then had the over over optimize wrapped using the new post hog endpoints feature. And then the final version that I would have been okay with merging if we had done a few more things. This is the all queries fired single shot more percentile information in UI. I actually forgot to showcase that. Now it shows with this version what percentile you're in for every model because it's easier to just calculate all of them than it is to do multiple queries once I figure out what your top model was. I think this is really cool. There are parts of this I want to ship. So, I'm going to tidy it up a little bit and bug the team. Good chance by the time the video comes out, we have shipped some of these optimizations. We shall see. Regardless, this was a lot of fun. It's been a while since I was this deep in the weeds on a performance thing. Certainly a long time since I was this deep in the weeds on some weird SQL [ __ ] and I had a blast. This wasn't even the thing that was hardest or most annoying about this project. This was more a fun deep dive in performance things. Shout out to the rest of the team for building the coolest rap feature ever. The speed isn't why it's cool, it's the feature. Mark for leading the whole thing, Julius for getting the first working version out, and Dom and Lucia for spamming us with feedback and changes to make it as stunning as it is now. Those two in the end actually are the ones that made it as beautiful as it is. I'm so pumped about the team we have. We built something incredible. I just came in to write some [ __ ] sequel with Claude to make it fast enough. I can't believe you're still watching this, but I'm thankful you are. I know a lot of you are here for this type of thing and not the rants about new AI models. So, let me know how you feel about this video. And remember, if you haven't signed up for T3 Chat yet, your first month can be $1 if you use code wrapped. Go give it a shot. We've been putting a lot of time into this product, and we have some very fun things coming at the start of next year. Thank you as always and until next time, peace nerds."
+}

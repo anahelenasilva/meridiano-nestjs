@@ -1,0 +1,5701 @@
+{
+  "channel": {
+    "id": "a51c1705-882c-4be5-b706-055eceb039f8",
+    "name": "Theo Browne",
+    "description": "Theo is a software dev, AI nerd, TypeScript sympathizer, creator of T3 Chat and the T3 Stack."
+  },
+  "videoId": "B6C-MWCFfAg",
+  "title": "It’s time to change your database",
+  "url": "https://www.youtube.com/watch?v=B6C-MWCFfAg",
+  "publishedAt": "2026-01-14T10:15:18.486Z",
+  "description": "There's a reason everyone's moving from Firebase, Supabase, and all the other dbs, straight to Convex\n\nThank you Tuple for sponsoring! Check them out at: https://soydev.link/tuple\n\nSOURCES\nhttps://x.com/steipete/status/2008417546677219828\nhttps://www.youtube.com/watch?v=h6ffyfabfa8\n\nWant to sponsor a video? Learn more here: https://soydev.link/sponsor-me\n\nCheck out my Twitch, Twitter, Discord more at https://t3.gg\n\nS/O Ph4se0n3 for the awesome edit 🙏",
+  "thumbnailUrl": "https://i.ytimg.com/vi_webp/B6C-MWCFfAg/maxresdefault.webp",
+  "transcript": [
+    {
+      "text": "If you watched my videos over the last 6",
+      "duration": 3120,
+      "offset": 0
+    },
+    {
+      "text": "months, you probably know about how much",
+      "duration": 3600,
+      "offset": 1600
+    },
+    {
+      "text": "I love Convex. If you've somehow missed",
+      "duration": 3600,
+      "offset": 3120
+    },
+    {
+      "text": "that, don't worry. We'll go in detail,",
+      "duration": 3280,
+      "offset": 5200
+    },
+    {
+      "text": "but we're not necessarily here just to",
+      "duration": 3440,
+      "offset": 6720
+    },
+    {
+      "text": "talk about Convex. We're here to talk",
+      "duration": 3360,
+      "offset": 8480
+    },
+    {
+      "text": "about the state of databases and how we",
+      "duration": 3680,
+      "offset": 10160
+    },
+    {
+      "text": "build things with databases, especially",
+      "duration": 4320,
+      "offset": 11840
+    },
+    {
+      "text": "if we're using AI to do it. I'm talking",
+      "duration": 4240,
+      "offset": 13840
+    },
+    {
+      "text": "about this for a handful of reasons. The",
+      "duration": 3600,
+      "offset": 16160
+    },
+    {
+      "text": "big ones are some stuff I've been seeing",
+      "duration": 4240,
+      "offset": 18080
+    },
+    {
+      "text": "on Twitter. What a surprise. Peter here",
+      "duration": 5279,
+      "offset": 19760
+    },
+    {
+      "text": "has been building a ton of stuff with AI",
+      "duration": 5360,
+      "offset": 22320
+    },
+    {
+      "text": "recently. And when I say a ton, I can't",
+      "duration": 4480,
+      "offset": 25039
+    },
+    {
+      "text": "properly explain it without just showing",
+      "duration": 6000,
+      "offset": 27680
+    },
+    {
+      "text": "you his GitHub. It's a little absurd how",
+      "duration": 6481,
+      "offset": 29519
+    },
+    {
+      "text": "much stuff he has been building. And",
+      "duration": 4719,
+      "offset": 33680
+    },
+    {
+      "text": "he's recently gotten convex build. He",
+      "duration": 4160,
+      "offset": 36000
+    },
+    {
+      "text": "just migrated a ton of things over.",
+      "duration": 3680,
+      "offset": 38399
+    },
+    {
+      "text": "Everything worked immediately and he's",
+      "duration": 4079,
+      "offset": 40160
+    },
+    {
+      "text": "super impressed. The main reason I'm",
+      "duration": 4081,
+      "offset": 42079
+    },
+    {
+      "text": "doing this though is another video by",
+      "duration": 4000,
+      "offset": 44239
+    },
+    {
+      "text": "another creator. Robin just published",
+      "duration": 4079,
+      "offset": 46160
+    },
+    {
+      "text": "this video, but why he stopped using",
+      "duration": 3921,
+      "offset": 48239
+    },
+    {
+      "text": "Superbase. And I have a confession to",
+      "duration": 3681,
+      "offset": 50239
+    },
+    {
+      "text": "make. I've never built anything serious",
+      "duration": 4160,
+      "offset": 52160
+    },
+    {
+      "text": "with Superbase. So, watching this video,",
+      "duration": 4479,
+      "offset": 53920
+    },
+    {
+      "text": "I learned a lot about building with",
+      "duration": 5600,
+      "offset": 56320
+    },
+    {
+      "text": "Superbase. And yeah, it's time to get",
+      "duration": 6241,
+      "offset": 58399
+    },
+    {
+      "text": "off Superbase. I want to be very clear.",
+      "duration": 4879,
+      "offset": 61920
+    },
+    {
+      "text": "This video is not being paid for or even",
+      "duration": 4880,
+      "offset": 64640
+    },
+    {
+      "text": "approved by Convex or anybody else in",
+      "duration": 4801,
+      "offset": 66799
+    },
+    {
+      "text": "the database space. I am filming this",
+      "duration": 4480,
+      "offset": 69520
+    },
+    {
+      "text": "not because I want Convex to like me or",
+      "duration": 4000,
+      "offset": 71600
+    },
+    {
+      "text": "because I want to get some money from",
+      "duration": 3280,
+      "offset": 74000
+    },
+    {
+      "text": "somebody. I'm filming this because I",
+      "duration": 2960,
+      "offset": 75600
+    },
+    {
+      "text": "want to make sure you don't trap",
+      "duration": 2560,
+      "offset": 77280
+    },
+    {
+      "text": "yourself as you're building more and",
+      "duration": 2720,
+      "offset": 78560
+    },
+    {
+      "text": "more applications and that you build on",
+      "duration": 2880,
+      "offset": 79840
+    },
+    {
+      "text": "things that I actually like and",
+      "duration": 3280,
+      "offset": 81280
+    },
+    {
+      "text": "recommend. And just to be very very",
+      "duration": 3200,
+      "offset": 82720
+    },
+    {
+      "text": "clear, the only people paying for",
+      "duration": 3280,
+      "offset": 84560
+    },
+    {
+      "text": "today's video are this sponsor. I'm",
+      "duration": 3040,
+      "offset": 85920
+    },
+    {
+      "text": "going to show you guys a quick magic",
+      "duration": 3520,
+      "offset": 87840
+    },
+    {
+      "text": "trick. This is my cat, Miles. I'm going",
+      "duration": 4560,
+      "offset": 88960
+    },
+    {
+      "text": "to pet him while also vibe coding. Here",
+      "duration": 4079,
+      "offset": 91360
+    },
+    {
+      "text": "we see uh Oh, you weren't supposed to",
+      "duration": 4239,
+      "offset": 93520
+    },
+    {
+      "text": "see that part. I'm uh getting a call",
+      "duration": 4481,
+      "offset": 95439
+    },
+    {
+      "text": "from Tupal. I'm going to port this app",
+      "duration": 6400,
+      "offset": 97759
+    },
+    {
+      "text": "over to Swift while uh petting my cat.",
+      "duration": 6080,
+      "offset": 99920
+    },
+    {
+      "text": "Watch this. I just need to think about",
+      "duration": 3441,
+      "offset": 104159
+    },
+    {
+      "text": "it when I look at my computer. Totally",
+      "duration": 3119,
+      "offset": 106000
+    },
+    {
+      "text": "don't have to click this share screen",
+      "duration": 2799,
+      "offset": 107600
+    },
+    {
+      "text": "button hidden in the corner. Why would I",
+      "duration": 2960,
+      "offset": 109119
+    },
+    {
+      "text": "do that?",
+      "duration": 3121,
+      "offset": 110399
+    },
+    {
+      "text": "This demo would be a lot more compelling",
+      "duration": 5761,
+      "offset": 112079
+    },
+    {
+      "text": "if my channel manager knew how to type.",
+      "duration": 6400,
+      "offset": 113520
+    },
+    {
+      "text": "This is with Opus. Do you know how",
+      "duration": 3599,
+      "offset": 117840
+    },
+    {
+      "text": "expensive that is? It's probably more",
+      "duration": 3440,
+      "offset": 119920
+    },
+    {
+      "text": "money than the Tupal subscription. If",
+      "duration": 3040,
+      "offset": 121439
+    },
+    {
+      "text": "you couldn't tell, what we're actually",
+      "duration": 3439,
+      "offset": 123360
+    },
+    {
+      "text": "demoing here is Tupil. It's by far the",
+      "duration": 4241,
+      "offset": 124479
+    },
+    {
+      "text": "best way to do pair programming. Even if",
+      "duration": 3680,
+      "offset": 126799
+    },
+    {
+      "text": "you're both in the same room, I have Ben",
+      "duration": 3200,
+      "offset": 128720
+    },
+    {
+      "text": "right there. And when I want him to take",
+      "duration": 3361,
+      "offset": 130479
+    },
+    {
+      "text": "over my machine, we still use Tupil",
+      "duration": 3360,
+      "offset": 131920
+    },
+    {
+      "text": "because it's easier than handing him my",
+      "duration": 3280,
+      "offset": 133840
+    },
+    {
+      "text": "laptop. It's actually genuinely really",
+      "duration": 3679,
+      "offset": 135280
+    },
+    {
+      "text": "cool what you can do with Tupel. It's",
+      "duration": 3360,
+      "offset": 137120
+    },
+    {
+      "text": "silly, but it's actually really nice.",
+      "duration": 2640,
+      "offset": 138959
+    },
+    {
+      "text": "So, you can get a bunch of people in a",
+      "duration": 2560,
+      "offset": 140480
+    },
+    {
+      "text": "call together. You can review code",
+      "duration": 2881,
+      "offset": 141599
+    },
+    {
+      "text": "together. You can even have different",
+      "duration": 3360,
+      "offset": 143040
+    },
+    {
+      "text": "people on your team writing code and",
+      "duration": 3440,
+      "offset": 144480
+    },
+    {
+      "text": "making changes on your machine when",
+      "duration": 3040,
+      "offset": 146400
+    },
+    {
+      "text": "you're distracted petting your cat. I",
+      "duration": 3280,
+      "offset": 147920
+    },
+    {
+      "text": "was super skeptical of a dedicated",
+      "duration": 3280,
+      "offset": 149440
+    },
+    {
+      "text": "product like this before cuz like you",
+      "duration": 3119,
+      "offset": 151200
+    },
+    {
+      "text": "already have Zoom, right? I haven't used",
+      "duration": 3840,
+      "offset": 152720
+    },
+    {
+      "text": "Zoom since I got this because it's so",
+      "duration": 4241,
+      "offset": 154319
+    },
+    {
+      "text": "much better for working with your team,",
+      "duration": 3759,
+      "offset": 156560
+    },
+    {
+      "text": "for actually reviewing code together,",
+      "duration": 2959,
+      "offset": 158560
+    },
+    {
+      "text": "for actually using each other's",
+      "duration": 3521,
+      "offset": 160319
+    },
+    {
+      "text": "computers because they can do things on",
+      "duration": 4561,
+      "offset": 161519
+    },
+    {
+      "text": "my machine. No longer do you have to",
+      "duration": 4479,
+      "offset": 163840
+    },
+    {
+      "text": "like be back and forth in a call saying,",
+      "duration": 3840,
+      "offset": 166080
+    },
+    {
+      "text": "&quot;Hey, can you go change this line? No,",
+      "duration": 3521,
+      "offset": 168319
+    },
+    {
+      "text": "not that one. That one below. No, you're",
+      "duration": 4080,
+      "offset": 169920
+    },
+    {
+      "text": "on the wrong line. You just click on it",
+      "duration": 4560,
+      "offset": 171840
+    },
+    {
+      "text": "using the UI, using the cursor on your",
+      "duration": 4319,
+      "offset": 174000
+    },
+    {
+      "text": "computer. You can just select the text",
+      "duration": 3360,
+      "offset": 176400
+    },
+    {
+      "text": "you want. You can delete things. You can",
+      "duration": 3681,
+      "offset": 178319
+    },
+    {
+      "text": "add things. You can do things. It's like",
+      "duration": 4160,
+      "offset": 179760
+    },
+    {
+      "text": "if Zoom was for people who were actually",
+      "duration": 3519,
+      "offset": 182000
+    },
+    {
+      "text": "productive on their computers instead of",
+      "duration": 3039,
+      "offset": 183920
+    },
+    {
+      "text": "people sitting around yelling at each",
+      "duration": 2640,
+      "offset": 185519
+    },
+    {
+      "text": "other in meetings and not getting",
+      "duration": 3121,
+      "offset": 186959
+    },
+    {
+      "text": "anything done. If you're tired of",
+      "duration": 3921,
+      "offset": 188159
+    },
+    {
+      "text": "pairing being miserable on Zoom, Google",
+      "duration": 3439,
+      "offset": 190080
+    },
+    {
+      "text": "Meet, or whatever else, and you want to",
+      "duration": 3360,
+      "offset": 192080
+    },
+    {
+      "text": "be more productive with your team, there",
+      "duration": 3440,
+      "offset": 193519
+    },
+    {
+      "text": "is no better app than Tupal for",
+      "duration": 3040,
+      "offset": 195440
+    },
+    {
+      "text": "torturing your co-workers. I mean uh",
+      "duration": 3920,
+      "offset": 196959
+    },
+    {
+      "text": "being a good parenting engineer is",
+      "duration": 6479,
+      "offset": 198480
+    },
+    {
+      "text": "actually really nice. Miles agrees.",
+      "duration": 5921,
+      "offset": 200879
+    },
+    {
+      "text": "Good boy.",
+      "duration": 3200,
+      "offset": 204959
+    },
+    {
+      "text": "What are you waiting for? Try it now at",
+      "duration": 4320,
+      "offset": 206800
+    },
+    {
+      "text": "soyv.link/tupil.",
+      "duration": 4720,
+      "offset": 208159
+    },
+    {
+      "text": "As I said before, Robin's video is",
+      "duration": 3119,
+      "offset": 211120
+    },
+    {
+      "text": "awesome. It's linked in the description.",
+      "duration": 2881,
+      "offset": 212879
+    },
+    {
+      "text": "I highly recommend watching it. But I",
+      "duration": 3121,
+      "offset": 214239
+    },
+    {
+      "text": "want to highlight one particular point",
+      "duration": 2960,
+      "offset": 215760
+    },
+    {
+      "text": "from it before we go through all of the",
+      "duration": 2799,
+      "offset": 217360
+    },
+    {
+      "text": "reasons why I think you should stop",
+      "duration": 3439,
+      "offset": 218720
+    },
+    {
+      "text": "using Superbase and use something super",
+      "duration": 4401,
+      "offset": 220159
+    },
+    {
+      "text": "useful like Convex. And trust me, this",
+      "duration": 4160,
+      "offset": 222159
+    },
+    {
+      "text": "matters even if you're like me and you",
+      "duration": 3360,
+      "offset": 224560
+    },
+    {
+      "text": "don't mind paying for things that are",
+      "duration": 4000,
+      "offset": 226319
+    },
+    {
+      "text": "actually worth it because Superbase",
+      "duration": 5039,
+      "offset": 227920
+    },
+    {
+      "text": "punishes you for having ideas. Their",
+      "duration": 5041,
+      "offset": 230319
+    },
+    {
+      "text": "free plan limits you to two active",
+      "duration": 4081,
+      "offset": 232959
+    },
+    {
+      "text": "projects. And if you want to test a",
+      "duration": 3840,
+      "offset": 235360
+    },
+    {
+      "text": "third one, a fourth one, or a fifth one,",
+      "duration": 4640,
+      "offset": 237040
+    },
+    {
+      "text": "you have to delete or at least pause one",
+      "duration": 3920,
+      "offset": 239200
+    },
+    {
+      "text": "of the old projects, making them",
+      "duration": 4479,
+      "offset": 241680
+    },
+    {
+      "text": "temporarily inaccessible. But the real",
+      "duration": 4880,
+      "offset": 243120
+    },
+    {
+      "text": "kick in the nuts happens when you do",
+      "duration": 4401,
+      "offset": 246159
+    },
+    {
+      "text": "decide to give Superbase money. Because",
+      "duration": 5439,
+      "offset": 248000
+    },
+    {
+      "text": "their billing is organizationbased and",
+      "duration": 5039,
+      "offset": 250560
+    },
+    {
+      "text": "the moment you upgrade an organization,",
+      "duration": 4241,
+      "offset": 253439
+    },
+    {
+      "text": "which you can think of as a group of",
+      "duration": 5121,
+      "offset": 255599
+    },
+    {
+      "text": "projects to the pro plan, you lose the",
+      "duration": 5519,
+      "offset": 257680
+    },
+    {
+      "text": "rights to have any free projects in that",
+      "duration": 4720,
+      "offset": 260720
+    },
+    {
+      "text": "organization. Think about it like this.",
+      "duration": 4720,
+      "offset": 263199
+    },
+    {
+      "text": "If you have five hobby projects and you",
+      "duration": 4400,
+      "offset": 265440
+    },
+    {
+      "text": "decide to upgrade one of them to the pro",
+      "duration": 4481,
+      "offset": 267919
+    },
+    {
+      "text": "plan, they will all automatically be",
+      "duration": 5520,
+      "offset": 269840
+    },
+    {
+      "text": "converted into paid instances. each.",
+      "duration": 6239,
+      "offset": 272400
+    },
+    {
+      "text": "Here's the kicker. To a minimum of $10 a",
+      "duration": 4960,
+      "offset": 275360
+    },
+    {
+      "text": "month. So if you have 10 ideas you're",
+      "duration": 2801,
+      "offset": 278639
+    },
+    {
+      "text": "playing with.",
+      "duration": 4640,
+      "offset": 280320
+    },
+    {
+      "text": ">> Yeah, I did not know this was a thing. I",
+      "duration": 5680,
+      "offset": 281440
+    },
+    {
+      "text": "had no idea at all. And just for",
+      "duration": 4480,
+      "offset": 284960
+    },
+    {
+      "text": "contrast, here is my dashboard on",
+      "duration": 4720,
+      "offset": 287120
+    },
+    {
+      "text": "Convex. Want to guess how much money",
+      "duration": 4640,
+      "offset": 289440
+    },
+    {
+      "text": "this account costs me? This is my",
+      "duration": 4000,
+      "offset": 291840
+    },
+    {
+      "text": "personal account. Jamie, is this a",
+      "duration": 3520,
+      "offset": 294080
+    },
+    {
+      "text": "comped account? Are you comping my",
+      "duration": 4480,
+      "offset": 295840
+    },
+    {
+      "text": "personal? Okay. I did not know that, but",
+      "duration": 5120,
+      "offset": 297600
+    },
+    {
+      "text": "I am almost positive it would have been",
+      "duration": 6080,
+      "offset": 300320
+    },
+    {
+      "text": "free otherwise because of how cheap they",
+      "duration": 5680,
+      "offset": 302720
+    },
+    {
+      "text": "are for things that aren't getting much",
+      "duration": 5840,
+      "offset": 306400
+    },
+    {
+      "text": "traffic. You can have 40 deployments for",
+      "duration": 7040,
+      "offset": 308400
+    },
+    {
+      "text": "free and up to six people on the team as",
+      "duration": 6480,
+      "offset": 312240
+    },
+    {
+      "text": "well. That is absurdly generous. Like",
+      "duration": 5199,
+      "offset": 315440
+    },
+    {
+      "text": "absolutely absurdly generous. And even",
+      "duration": 4880,
+      "offset": 318720
+    },
+    {
+      "text": "though I was wrong and technically I am",
+      "duration": 5201,
+      "offset": 320639
+    },
+    {
+      "text": "comped on just my personal by the way",
+      "duration": 3520,
+      "offset": 323600
+    },
+    {
+      "text": "I'm paying quite a bit of money on the",
+      "duration": 2880,
+      "offset": 325840
+    },
+    {
+      "text": "paid tier because it's important to me.",
+      "duration": 4639,
+      "offset": 327120
+    },
+    {
+      "text": "Yeah, I have 25 projects here. This",
+      "duration": 6640,
+      "offset": 328720
+    },
+    {
+      "text": "would cost $0. This would be free. That",
+      "duration": 6081,
+      "offset": 331759
+    },
+    {
+      "text": "is insane. That's just one of the",
+      "duration": 4399,
+      "offset": 335360
+    },
+    {
+      "text": "aspects though. There's a handful of",
+      "duration": 3760,
+      "offset": 337840
+    },
+    {
+      "text": "aspects I want to talk about here. So",
+      "duration": 4321,
+      "offset": 339759
+    },
+    {
+      "text": "why convex and not superbase? The first",
+      "duration": 5039,
+      "offset": 341600
+    },
+    {
+      "text": "piece was the pricing which I can go a",
+      "duration": 4080,
+      "offset": 344080
+    },
+    {
+      "text": "lot more in detail on and we will in a",
+      "duration": 4801,
+      "offset": 346639
+    },
+    {
+      "text": "second. Next piece is the capability of",
+      "duration": 4960,
+      "offset": 348160
+    },
+    {
+      "text": "the platform. There's so much cool stuff",
+      "duration": 3199,
+      "offset": 351440
+    },
+    {
+      "text": "that we'll talk about here, but one of",
+      "duration": 4560,
+      "offset": 353120
+    },
+    {
+      "text": "the most important is agent development.",
+      "duration": 5201,
+      "offset": 354639
+    },
+    {
+      "text": "So, let's finish up pricing really quick",
+      "duration": 3680,
+      "offset": 357680
+    },
+    {
+      "text": "because there's a lot to think about",
+      "duration": 3440,
+      "offset": 359840
+    },
+    {
+      "text": "here. It's important to understand with",
+      "duration": 4160,
+      "offset": 361360
+    },
+    {
+      "text": "these platforms that they aren't just",
+      "duration": 4639,
+      "offset": 363280
+    },
+    {
+      "text": "databases. Neither Convex nor Superbase",
+      "duration": 4399,
+      "offset": 365520
+    },
+    {
+      "text": "are just a place to store data. They are",
+      "duration": 3840,
+      "offset": 367919
+    },
+    {
+      "text": "both open- source and they're both built",
+      "duration": 4641,
+      "offset": 369919
+    },
+    {
+      "text": "on top of SQL. Superbase is much more",
+      "duration": 5201,
+      "offset": 371759
+    },
+    {
+      "text": "leaning into it being Postgress and you",
+      "duration": 4639,
+      "offset": 374560
+    },
+    {
+      "text": "can just query the Postgress with SQL",
+      "duration": 4079,
+      "offset": 376960
+    },
+    {
+      "text": "traditionally whenever you want. They",
+      "duration": 4161,
+      "offset": 379199
+    },
+    {
+      "text": "also have their SDKs and platform on top",
+      "duration": 4961,
+      "offset": 381039
+    },
+    {
+      "text": "where you can use them as a rowle",
+      "duration": 5600,
+      "offset": 383360
+    },
+    {
+      "text": "security handling system to choose what",
+      "duration": 5280,
+      "offset": 386000
+    },
+    {
+      "text": "users see what and then connect a user",
+      "duration": 4160,
+      "offset": 388960
+    },
+    {
+      "text": "directly to the database through",
+      "duration": 4160,
+      "offset": 391280
+    },
+    {
+      "text": "Superbase's compute plane in order to",
+      "duration": 3919,
+      "offset": 393120
+    },
+    {
+      "text": "sync data up and down when things",
+      "duration": 4160,
+      "offset": 395440
+    },
+    {
+      "text": "change. Convex is a much heavier",
+      "duration": 4321,
+      "offset": 397039
+    },
+    {
+      "text": "abstraction. Like the fact that convex",
+      "duration": 3280,
+      "offset": 399600
+    },
+    {
+      "text": "uses SQL under the hood is not something",
+      "duration": 2880,
+      "offset": 401360
+    },
+    {
+      "text": "you should think about or be concerned",
+      "duration": 2879,
+      "offset": 402880
+    },
+    {
+      "text": "about because you'll never touch it.",
+      "duration": 3200,
+      "offset": 404240
+    },
+    {
+      "text": "Superbase is a different way of doing",
+      "duration": 3521,
+      "offset": 405759
+    },
+    {
+      "text": "Postgress. Convex is a different way",
+      "duration": 4080,
+      "offset": 407440
+    },
+    {
+      "text": "about doing application data. So they're",
+      "duration": 4080,
+      "offset": 409280
+    },
+    {
+      "text": "very different in that regard. But in",
+      "duration": 4560,
+      "offset": 411520
+    },
+    {
+      "text": "terms of what they offer, at least seem",
+      "duration": 4559,
+      "offset": 413360
+    },
+    {
+      "text": "similar. Both have object storage for",
+      "duration": 4000,
+      "offset": 416080
+    },
+    {
+      "text": "files and things. Both store your data.",
+      "duration": 4400,
+      "offset": 417919
+    },
+    {
+      "text": "Both have sync in real time where data",
+      "duration": 4000,
+      "offset": 420080
+    },
+    {
+      "text": "changes and immediately appears on the",
+      "duration": 3761,
+      "offset": 422319
+    },
+    {
+      "text": "client. Both have the ability to run",
+      "duration": 4640,
+      "offset": 424080
+    },
+    {
+      "text": "some compute on their platform. Both",
+      "duration": 4720,
+      "offset": 426080
+    },
+    {
+      "text": "have O, but the way they work around",
+      "duration": 4479,
+      "offset": 428720
+    },
+    {
+      "text": "that varies. Both have SDKs for",
+      "duration": 4160,
+      "offset": 430800
+    },
+    {
+      "text": "everything. But there's a huge",
+      "duration": 4081,
+      "offset": 433199
+    },
+    {
+      "text": "difference in how they think about",
+      "duration": 4400,
+      "offset": 434960
+    },
+    {
+      "text": "stuff. With Convex, you write queries",
+      "duration": 4800,
+      "offset": 437280
+    },
+    {
+      "text": "and mutations. With Superbase, you model",
+      "duration": 4959,
+      "offset": 439360
+    },
+    {
+      "text": "the data and then access it directly.",
+      "duration": 4720,
+      "offset": 442080
+    },
+    {
+      "text": "Convex has you write real code to choose",
+      "duration": 5041,
+      "offset": 444319
+    },
+    {
+      "text": "what data goes to users. Superbase has",
+      "duration": 4640,
+      "offset": 446800
+    },
+    {
+      "text": "you architect the database to expose",
+      "duration": 4160,
+      "offset": 449360
+    },
+    {
+      "text": "certain data to users. If that sounds",
+      "duration": 4159,
+      "offset": 451440
+    },
+    {
+      "text": "scary to you, it's because it is. And",
+      "duration": 3360,
+      "offset": 453520
+    },
+    {
+      "text": "the few people I know who are still",
+      "duration": 3121,
+      "offset": 455599
+    },
+    {
+      "text": "using Superbase, I highly highly",
+      "duration": 4159,
+      "offset": 456880
+    },
+    {
+      "text": "recommend that they don't use Superbase",
+      "duration": 5120,
+      "offset": 458720
+    },
+    {
+      "text": "as a sync layer and instead they focus",
+      "duration": 5280,
+      "offset": 461039
+    },
+    {
+      "text": "on Superbase as a place to store and",
+      "duration": 4560,
+      "offset": 463840
+    },
+    {
+      "text": "handle Postgress. But let's go more into",
+      "duration": 3600,
+      "offset": 466319
+    },
+    {
+      "text": "the pricing now that we understand this",
+      "duration": 2880,
+      "offset": 468400
+    },
+    {
+      "text": "because they both offer compute, they",
+      "duration": 3120,
+      "offset": 469919
+    },
+    {
+      "text": "both offer off, they both offer file",
+      "duration": 3680,
+      "offset": 471280
+    },
+    {
+      "text": "storage and all these other things. The",
+      "duration": 3600,
+      "offset": 473039
+    },
+    {
+      "text": "free tier on Zubase gives you up to",
+      "duration": 4320,
+      "offset": 474960
+    },
+    {
+      "text": "50,000 monthly active users, a 500",
+      "duration": 4960,
+      "offset": 476639
+    },
+    {
+      "text": "megabyte of storage database and 500",
+      "duration": 5199,
+      "offset": 479280
+    },
+    {
+      "text": "megs of RAM on that shared CPU, 5 gigs",
+      "duration": 5361,
+      "offset": 481599
+    },
+    {
+      "text": "of egress, 5 gigs of cacheed egress, a",
+      "duration": 4961,
+      "offset": 484479
+    },
+    {
+      "text": "gig of file storage and support. Once",
+      "duration": 5040,
+      "offset": 486960
+    },
+    {
+      "text": "you bump up to the $25 a month plan,",
+      "duration": 4319,
+      "offset": 489440
+    },
+    {
+      "text": "which you have to pay for separate from",
+      "duration": 4479,
+      "offset": 492000
+    },
+    {
+      "text": "the $10 a month per project, 100k of",
+      "duration": 5201,
+      "offset": 493759
+    },
+    {
+      "text": "monthly active users, 8 gigs of disk",
+      "duration": 3761,
+      "offset": 496479
+    },
+    {
+      "text": "size because you have to think about",
+      "duration": 2560,
+      "offset": 498960
+    },
+    {
+      "text": "these things as they're a traditional",
+      "duration": 3840,
+      "offset": 500240
+    },
+    {
+      "text": "compute platform, 250 gigs of egress,",
+      "duration": 5119,
+      "offset": 501520
+    },
+    {
+      "text": "250 gigs of cached egress, 100 gigs of",
+      "duration": 5200,
+      "offset": 504080
+    },
+    {
+      "text": "file storage, yada yada. But this is the",
+      "duration": 4240,
+      "offset": 506639
+    },
+    {
+      "text": "big thing. You have to think about the",
+      "duration": 4800,
+      "offset": 509280
+    },
+    {
+      "text": "box it's running on because Superbase is",
+      "duration": 5921,
+      "offset": 510879
+    },
+    {
+      "text": "running a real database and compute on",
+      "duration": 5120,
+      "offset": 514080
+    },
+    {
+      "text": "it that users connect to. So getting",
+      "duration": 5440,
+      "offset": 516800
+    },
+    {
+      "text": "this all right, obnoxious. Convex does",
+      "duration": 4399,
+      "offset": 519200
+    },
+    {
+      "text": "things a little bit differently because",
+      "duration": 3039,
+      "offset": 522240
+    },
+    {
+      "text": "their compute works differently too. You",
+      "duration": 2800,
+      "offset": 523599
+    },
+    {
+      "text": "see my videos covering the difference",
+      "duration": 3041,
+      "offset": 525279
+    },
+    {
+      "text": "between Verscell and Cloudflare where I",
+      "duration": 3281,
+      "offset": 526399
+    },
+    {
+      "text": "talk about how their computes",
+      "duration": 3360,
+      "offset": 528320
+    },
+    {
+      "text": "abstractions at a different level.",
+      "duration": 4320,
+      "offset": 529680
+    },
+    {
+      "text": "Convex is similar in this regard. They",
+      "duration": 4719,
+      "offset": 531680
+    },
+    {
+      "text": "built their own compute layer similar to",
+      "duration": 5519,
+      "offset": 534000
+    },
+    {
+      "text": "Cloudflare's that runs isolates that",
+      "duration": 5761,
+      "offset": 536399
+    },
+    {
+      "text": "allow you to connect to this code you",
+      "duration": 4721,
+      "offset": 539519
+    },
+    {
+      "text": "write that is on the same box as the",
+      "duration": 4400,
+      "offset": 542160
+    },
+    {
+      "text": "database. So everything is way faster",
+      "duration": 4400,
+      "offset": 544240
+    },
+    {
+      "text": "and it also can be way more dynamic. You",
+      "duration": 3600,
+      "offset": 546560
+    },
+    {
+      "text": "never have to worry about your database",
+      "duration": 4080,
+      "offset": 548640
+    },
+    {
+      "text": "sleeping on convex because it costs them",
+      "duration": 4400,
+      "offset": 550160
+    },
+    {
+      "text": "a lot less money to run it. Your compute",
+      "duration": 3280,
+      "offset": 552720
+    },
+    {
+      "text": "isn't running unless somebody's",
+      "duration": 4000,
+      "offset": 554560
+    },
+    {
+      "text": "connecting. All of these things are just",
+      "duration": 4560,
+      "offset": 556000
+    },
+    {
+      "text": "differences in the architecture that",
+      "duration": 3839,
+      "offset": 558560
+    },
+    {
+      "text": "came from the Convex team having a ton",
+      "duration": 3680,
+      "offset": 560560
+    },
+    {
+      "text": "of experience with this when they built",
+      "duration": 4641,
+      "offset": 562399
+    },
+    {
+      "text": "up the data platforms at Dropbox. They",
+      "duration": 4640,
+      "offset": 564240
+    },
+    {
+      "text": "know databases and scaling them really",
+      "duration": 4400,
+      "offset": 567040
+    },
+    {
+      "text": "well and they scale up and down",
+      "duration": 4720,
+      "offset": 568880
+    },
+    {
+      "text": "wonderfully for this reason. A database",
+      "duration": 4240,
+      "offset": 571440
+    },
+    {
+      "text": "on Superbase costs the same amount of",
+      "duration": 3760,
+      "offset": 573600
+    },
+    {
+      "text": "money whether or not there's any traffic",
+      "duration": 4159,
+      "offset": 575680
+    },
+    {
+      "text": "on it. A database on convex costs them a",
+      "duration": 4000,
+      "offset": 577360
+    },
+    {
+      "text": "lot less when it's not in use and it",
+      "duration": 3601,
+      "offset": 579839
+    },
+    {
+      "text": "costs them more when it is. Which means",
+      "duration": 4479,
+      "offset": 581360
+    },
+    {
+      "text": "that the costs reflect the usage much",
+      "duration": 4399,
+      "offset": 583440
+    },
+    {
+      "text": "better and it feels a lot less bad as a",
+      "duration": 3680,
+      "offset": 585839
+    },
+    {
+      "text": "result. And you can see that as we",
+      "duration": 3361,
+      "offset": 587839
+    },
+    {
+      "text": "scroll.",
+      "duration": 4081,
+      "offset": 589519
+    },
+    {
+      "text": "You get a million function calls a month",
+      "duration": 5360,
+      "offset": 591200
+    },
+    {
+      "text": "for free and then it's $2.20 for the",
+      "duration": 5600,
+      "offset": 593600
+    },
+    {
+      "text": "next million. You get 20 GB hours of",
+      "duration": 4080,
+      "offset": 596560
+    },
+    {
+      "text": "compute and this is measured by how many",
+      "duration": 4160,
+      "offset": 599200
+    },
+    {
+      "text": "gigs of RAM over how many hours. That's",
+      "duration": 3840,
+      "offset": 600640
+    },
+    {
+      "text": "a lot of compute because you're probably",
+      "duration": 2560,
+      "offset": 603360
+    },
+    {
+      "text": "not doing much compute on action",
+      "duration": 2880,
+      "offset": 604480
+    },
+    {
+      "text": "depending on what you're doing with",
+      "duration": 4080,
+      "offset": 605920
+    },
+    {
+      "text": "convex database storage still not a lot",
+      "duration": 4000,
+      "offset": 607360
+    },
+    {
+      "text": "of storage 500 I think that's actually",
+      "duration": 4480,
+      "offset": 610000
+    },
+    {
+      "text": "the exact same as with uh superbase but",
+      "duration": 5599,
+      "offset": 611360
+    },
+    {
+      "text": "it's 50 gigs of storage on the pro tier",
+      "duration": 4880,
+      "offset": 614480
+    },
+    {
+      "text": "and then 20 cents per gig when you go",
+      "duration": 5841,
+      "offset": 616959
+    },
+    {
+      "text": "over and that's also still the $25 and",
+      "duration": 4960,
+      "offset": 619360
+    },
+    {
+      "text": "we'll talk about the per developer month",
+      "duration": 3200,
+      "offset": 622800
+    },
+    {
+      "text": "piece in a little bit because it isn't",
+      "duration": 4160,
+      "offset": 624320
+    },
+    {
+      "text": "as important as you think file storage",
+      "duration": 5200,
+      "offset": 626000
+    },
+    {
+      "text": "yada yada all these numbers are fair the",
+      "duration": 4400,
+      "offset": 628480
+    },
+    {
+      "text": "only one I would argue is slightly",
+      "duration": 3840,
+      "offset": 631200
+    },
+    {
+      "text": "expensive is file bandwidth where they",
+      "duration": 5280,
+      "offset": 632880
+    },
+    {
+      "text": "charge you 30 cents per gig of file read",
+      "duration": 5120,
+      "offset": 635040
+    },
+    {
+      "text": "out but they've also been building",
+      "duration": 4320,
+      "offset": 638160
+    },
+    {
+      "text": "things to let you put that on a CDN so",
+      "duration": 3600,
+      "offset": 640160
+    },
+    {
+      "text": "that you don't have to pay it in fact",
+      "duration": 3280,
+      "offset": 642480
+    },
+    {
+      "text": "the CEO is in chat and before I even",
+      "duration": 3680,
+      "offset": 643760
+    },
+    {
+      "text": "said this said the same the file",
+      "duration": 3920,
+      "offset": 645760
+    },
+    {
+      "text": "bandwidth costs are too high but he's",
+      "duration": 4480,
+      "offset": 647440
+    },
+    {
+      "text": "also building things to fix this in",
+      "duration": 4960,
+      "offset": 649680
+    },
+    {
+      "text": "particular he is building a new convex",
+      "duration": 4640,
+      "offset": 651920
+    },
+    {
+      "text": "component which a whole thing we'll get",
+      "duration": 4400,
+      "offset": 654640
+    },
+    {
+      "text": "into for convex file storage to put it",
+      "duration": 4959,
+      "offset": 656560
+    },
+    {
+      "text": "on a CDN like Bunny super super cool",
+      "duration": 4880,
+      "offset": 659040
+    },
+    {
+      "text": "stuff yeah You also can pay for usage on",
+      "duration": 4161,
+      "offset": 661519
+    },
+    {
+      "text": "the pro plan on Convex without having to",
+      "duration": 4159,
+      "offset": 663920
+    },
+    {
+      "text": "bump to the pro tier. They're just good.",
+      "duration": 3839,
+      "offset": 665680
+    },
+    {
+      "text": "Like I don't know how to put it other",
+      "duration": 2880,
+      "offset": 668079
+    },
+    {
+      "text": "than that. Like these are guys who",
+      "duration": 3921,
+      "offset": 669519
+    },
+    {
+      "text": "deeply understand us as developers,",
+      "duration": 5120,
+      "offset": 670959
+    },
+    {
+      "text": "especially in the TypeScript world, that",
+      "duration": 5040,
+      "offset": 673440
+    },
+    {
+      "text": "deeply care about us and DX and pricing",
+      "duration": 4161,
+      "offset": 676079
+    },
+    {
+      "text": "and all these things. Anytime something",
+      "duration": 4240,
+      "offset": 678480
+    },
+    {
+      "text": "feels unfair, they know it first and",
+      "duration": 4640,
+      "offset": 680240
+    },
+    {
+      "text": "they're already on it. Like, how telling",
+      "duration": 4320,
+      "offset": 682720
+    },
+    {
+      "text": "is it that I got sniped out as I was",
+      "duration": 4000,
+      "offset": 684880
+    },
+    {
+      "text": "about to say, &quot;This is too expensive.&quot;",
+      "duration": 3680,
+      "offset": 687040
+    },
+    {
+      "text": "Jaime's typing it in chat at the exact",
+      "duration": 3440,
+      "offset": 688880
+    },
+    {
+      "text": "same time. We've never talked about this",
+      "duration": 3119,
+      "offset": 690720
+    },
+    {
+      "text": "before. We just both know it because",
+      "duration": 3600,
+      "offset": 692320
+    },
+    {
+      "text": "we're both realistic and they are so",
+      "duration": 3921,
+      "offset": 693839
+    },
+    {
+      "text": "realistic about these things. So",
+      "duration": 3840,
+      "offset": 695920
+    },
+    {
+      "text": "pricing, they are slaughtering. It is",
+      "duration": 5199,
+      "offset": 697760
+    },
+    {
+      "text": "very fair, very good, scales great. I am",
+      "duration": 5040,
+      "offset": 699760
+    },
+    {
+      "text": "spending a decent bit of money on convex",
+      "duration": 3440,
+      "offset": 702959
+    },
+    {
+      "text": "and I know all of the ways I can cut the",
+      "duration": 3279,
+      "offset": 704800
+    },
+    {
+      "text": "bill, but I also have no interest in",
+      "duration": 3361,
+      "offset": 706399
+    },
+    {
+      "text": "doing it because the things I'm doing",
+      "duration": 3841,
+      "offset": 708079
+    },
+    {
+      "text": "that cost more money specifically, we",
+      "duration": 3840,
+      "offset": 709760
+    },
+    {
+      "text": "are doing just insane amounts of",
+      "duration": 4080,
+      "offset": 711920
+    },
+    {
+      "text": "database bandwidth because I generously",
+      "duration": 4320,
+      "offset": 713600
+    },
+    {
+      "text": "read from the database to cache data on",
+      "duration": 3680,
+      "offset": 716000
+    },
+    {
+      "text": "the client. If I was to tone that down",
+      "duration": 3120,
+      "offset": 717920
+    },
+    {
+      "text": "at all, we could cut our bill in half,",
+      "duration": 3040,
+      "offset": 719680
+    },
+    {
+      "text": "but I don't care because it's still",
+      "duration": 4080,
+      "offset": 721040
+    },
+    {
+      "text": "cheap enough. I just don't. And on our",
+      "duration": 4640,
+      "offset": 722720
+    },
+    {
+      "text": "main account, 4T3 chat, we are spending",
+      "duration": 4480,
+      "offset": 725120
+    },
+    {
+      "text": "thousands of dollars a month on Convex",
+      "duration": 4640,
+      "offset": 727360
+    },
+    {
+      "text": "because we want to because it's great",
+      "duration": 4239,
+      "offset": 729600
+    },
+    {
+      "text": "and I wouldn't change a thing. I am",
+      "duration": 3279,
+      "offset": 732000
+    },
+    {
+      "text": "very, very happy with what we're",
+      "duration": 3201,
+      "offset": 733839
+    },
+    {
+      "text": "spending. It is not much more than we",
+      "duration": 3281,
+      "offset": 735279
+    },
+    {
+      "text": "were spending on planet scale before.",
+      "duration": 3359,
+      "offset": 737040
+    },
+    {
+      "text": "So, that's enough about pricing. I want",
+      "duration": 3519,
+      "offset": 738560
+    },
+    {
+      "text": "to go into this first. We're going to",
+      "duration": 2880,
+      "offset": 740399
+    },
+    {
+      "text": "change the order a little bit because",
+      "duration": 3121,
+      "offset": 742079
+    },
+    {
+      "text": "the capabilities will become clearer",
+      "duration": 4560,
+      "offset": 743279
+    },
+    {
+      "text": "after we talk about how building with",
+      "duration": 5280,
+      "offset": 745200
+    },
+    {
+      "text": "convex works. The biggest difference",
+      "duration": 4721,
+      "offset": 747839
+    },
+    {
+      "text": "between how convex building works and",
+      "duration": 4960,
+      "offset": 750480
+    },
+    {
+      "text": "something like superbase is that all of",
+      "duration": 5120,
+      "offset": 752560
+    },
+    {
+      "text": "the state is kept inside of the folder",
+      "duration": 4399,
+      "offset": 755440
+    },
+    {
+      "text": "in your project. I have a bunch of",
+      "duration": 4399,
+      "offset": 757680
+    },
+    {
+      "text": "different projects using convex heavily.",
+      "duration": 4881,
+      "offset": 759839
+    },
+    {
+      "text": "This is T3 chat like the actual T3 chat",
+      "duration": 4721,
+      "offset": 762079
+    },
+    {
+      "text": "codebase. And you'll see convex is a",
+      "duration": 4720,
+      "offset": 764720
+    },
+    {
+      "text": "folder here in the project. There's the",
+      "duration": 4240,
+      "offset": 766800
+    },
+    {
+      "text": "source folder for all of the front-end",
+      "duration": 3040,
+      "offset": 769440
+    },
+    {
+      "text": "code using tanstack star, but there's",
+      "duration": 2960,
+      "offset": 771040
+    },
+    {
+      "text": "this other folder next to it named",
+      "duration": 4560,
+      "offset": 772480
+    },
+    {
+      "text": "convex that handles all of how convex",
+      "duration": 5680,
+      "offset": 774000
+    },
+    {
+      "text": "works. You have a schema.ts file that",
+      "duration": 4239,
+      "offset": 777040
+    },
+    {
+      "text": "describes all of the things that your",
+      "duration": 3520,
+      "offset": 779680
+    },
+    {
+      "text": "database has in it. Ours for this is",
+      "duration": 3921,
+      "offset": 781279
+    },
+    {
+      "text": "complex because this is a very complex",
+      "duration": 4319,
+      "offset": 783200
+    },
+    {
+      "text": "app. But if I go to a simpler app like",
+      "duration": 4000,
+      "offset": 785200
+    },
+    {
+      "text": "my new image studio thing I've been",
+      "duration": 4081,
+      "offset": 787519
+    },
+    {
+      "text": "working on, you will see in here the",
+      "duration": 6079,
+      "offset": 789200
+    },
+    {
+      "text": "schema is quite a bit simpler",
+      "duration": 5200,
+      "offset": 791600
+    },
+    {
+      "text": "comically.",
+      "duration": 3841,
+      "offset": 795279
+    },
+    {
+      "text": "We export the default defined schema. It",
+      "duration": 4000,
+      "offset": 796800
+    },
+    {
+      "text": "has generations which is a table that",
+      "duration": 4080,
+      "offset": 799120
+    },
+    {
+      "text": "includes user ids, prompts, the mode,",
+      "duration": 4400,
+      "offset": 800800
+    },
+    {
+      "text": "the status, created at completed at and",
+      "duration": 4079,
+      "offset": 803200
+    },
+    {
+      "text": "indexes. Generation output which is a",
+      "duration": 3920,
+      "offset": 805200
+    },
+    {
+      "text": "table has user ID, generation, model,",
+      "duration": 4560,
+      "offset": 807279
+    },
+    {
+      "text": "model uh display name, etc. for all of",
+      "duration": 4240,
+      "offset": 809120
+    },
+    {
+      "text": "the things that we want to show in the",
+      "duration": 4721,
+      "offset": 811839
+    },
+    {
+      "text": "UI. Editing threads for the",
+      "duration": 4320,
+      "offset": 813360
+    },
+    {
+      "text": "conversations where you're editing",
+      "duration": 2560,
+      "offset": 816560
+    },
+    {
+      "text": "things. This is a cool feature I added.",
+      "duration": 3680,
+      "offset": 817680
+    },
+    {
+      "text": "But all of this is tables that are",
+      "duration": 5760,
+      "offset": 819120
+    },
+    {
+      "text": "defined in the project as a file in the",
+      "duration": 5919,
+      "offset": 821360
+    },
+    {
+      "text": "convex folder. Normally you would need",
+      "duration": 4480,
+      "offset": 824880
+    },
+    {
+      "text": "some abstraction for this like an OM of",
+      "duration": 4881,
+      "offset": 827279
+    },
+    {
+      "text": "some form or a bunch of craziness around",
+      "duration": 4640,
+      "offset": 829360
+    },
+    {
+      "text": "migrations and management to keep track",
+      "duration": 3840,
+      "offset": 832160
+    },
+    {
+      "text": "of what the state of the database is",
+      "duration": 4079,
+      "offset": 834000
+    },
+    {
+      "text": "between the server and whatever you're",
+      "duration": 4079,
+      "offset": 836000
+    },
+    {
+      "text": "consuming it from. The database and the",
+      "duration": 3921,
+      "offset": 838079
+    },
+    {
+      "text": "server and the client being kept in sync",
+      "duration": 3841,
+      "offset": 840079
+    },
+    {
+      "text": "is obnoxious. This is a big part of why",
+      "duration": 3680,
+      "offset": 842000
+    },
+    {
+      "text": "I originally built create T3 app in the",
+      "duration": 4159,
+      "offset": 843920
+    },
+    {
+      "text": "T3 stack to try and streamline how you",
+      "duration": 4000,
+      "offset": 845680
+    },
+    {
+      "text": "build the relationship between these",
+      "duration": 4000,
+      "offset": 848079
+    },
+    {
+      "text": "things. Where things become magical",
+      "duration": 4640,
+      "offset": 849680
+    },
+    {
+      "text": "though is how you consume this stuff. If",
+      "duration": 5361,
+      "offset": 852079
+    },
+    {
+      "text": "I want to expose generations to users to",
+      "duration": 5600,
+      "offset": 854320
+    },
+    {
+      "text": "access them, I have to define a function",
+      "duration": 4880,
+      "offset": 857440
+    },
+    {
+      "text": "for that. So if I want to list all of my",
+      "duration": 5200,
+      "offset": 859920
+    },
+    {
+      "text": "generations, here is how I do it. I have",
+      "duration": 4959,
+      "offset": 862320
+    },
+    {
+      "text": "a query which is imported from their",
+      "duration": 4399,
+      "offset": 865120
+    },
+    {
+      "text": "library. It has a limit as one of the",
+      "duration": 4481,
+      "offset": 867279
+    },
+    {
+      "text": "arguments. So you can optionally limit",
+      "duration": 5120,
+      "offset": 869519
+    },
+    {
+      "text": "how many things you get back. And then",
+      "duration": 5280,
+      "offset": 871760
+    },
+    {
+      "text": "you write TypeScript. I have this get",
+      "duration": 4481,
+      "offset": 874639
+    },
+    {
+      "text": "off user ID function that checks and",
+      "duration": 4080,
+      "offset": 877040
+    },
+    {
+      "text": "gets a user ID. And if there is no user",
+      "duration": 3200,
+      "offset": 879120
+    },
+    {
+      "text": "ID, I return nothing cuz you're not",
+      "duration": 3760,
+      "offset": 881120
+    },
+    {
+      "text": "signed in. Then I have a limit. I either",
+      "duration": 4160,
+      "offset": 882320
+    },
+    {
+      "text": "use 50 as the default or I take the",
+      "duration": 3440,
+      "offset": 884880
+    },
+    {
+      "text": "limit you passed me. And then I get the",
+      "duration": 5760,
+      "offset": 886480
+    },
+    {
+      "text": "data context. DB.query generations with",
+      "duration": 5680,
+      "offset": 888320
+    },
+    {
+      "text": "index using one of those indexes. And",
+      "duration": 3039,
+      "offset": 892240
+    },
+    {
+      "text": "here's where some of the magic starts.",
+      "duration": 2240,
+      "offset": 894000
+    },
+    {
+      "text": "Watch what happens if I delete",
+      "duration": 3281,
+      "offset": 895279
+    },
+    {
+      "text": "characters. Oh, that's a type error",
+      "duration": 3920,
+      "offset": 896240
+    },
+    {
+      "text": "because it knows exactly what the",
+      "duration": 3680,
+      "offset": 898560
+    },
+    {
+      "text": "database has in it. What if I hit a",
+      "duration": 3840,
+      "offset": 900160
+    },
+    {
+      "text": "different table that doesn't exist? Oh,",
+      "duration": 3360,
+      "offset": 902240
+    },
+    {
+      "text": "all type errors because it doesn't",
+      "duration": 4959,
+      "offset": 904000
+    },
+    {
+      "text": "exist. This is awesome. It makes it way",
+      "duration": 6160,
+      "offset": 905600
+    },
+    {
+      "text": "easier to know when your code is broken",
+      "duration": 4401,
+      "offset": 908959
+    },
+    {
+      "text": "because you'll get errors in your",
+      "duration": 4079,
+      "offset": 911760
+    },
+    {
+      "text": "editor, in your LSP, and your agents can",
+      "duration": 4159,
+      "offset": 913360
+    },
+    {
+      "text": "get those errors, too. Starting to see",
+      "duration": 4161,
+      "offset": 915839
+    },
+    {
+      "text": "where this gets helpful. Also of note,",
+      "duration": 4721,
+      "offset": 917519
+    },
+    {
+      "text": "nothing has to be done in order to get",
+      "duration": 5199,
+      "offset": 920000
+    },
+    {
+      "text": "this code to work on your account. You",
+      "duration": 4480,
+      "offset": 922240
+    },
+    {
+      "text": "don't have to go configure anything in",
+      "duration": 4401,
+      "offset": 925199
+    },
+    {
+      "text": "any dashboards. You just run it. If I",
+      "duration": 5440,
+      "offset": 926720
+    },
+    {
+      "text": "want to change what data is exposed,",
+      "duration": 4720,
+      "offset": 929600
+    },
+    {
+      "text": "like I want to limit access to",
+      "duration": 4160,
+      "offset": 932160
+    },
+    {
+      "text": "generations here. I want to make it so",
+      "duration": 3840,
+      "offset": 934320
+    },
+    {
+      "text": "only certain whitelisted users can see",
+      "duration": 3600,
+      "offset": 936320
+    },
+    {
+      "text": "it or something. I don't go to a",
+      "duration": 3919,
+      "offset": 938160
+    },
+    {
+      "text": "dashboard and configure some You",
+      "duration": 4560,
+      "offset": 939920
+    },
+    {
+      "text": "can't do it that way. You make changes",
+      "duration": 4961,
+      "offset": 942079
+    },
+    {
+      "text": "to your convex deployment by editing the",
+      "duration": 4560,
+      "offset": 944480
+    },
+    {
+      "text": "code for your convex deployment.",
+      "duration": 3840,
+      "offset": 947040
+    },
+    {
+      "text": "Everything you can do on convex can be",
+      "duration": 4080,
+      "offset": 949040
+    },
+    {
+      "text": "done in this folder. That's the magic.",
+      "duration": 4480,
+      "offset": 950880
+    },
+    {
+      "text": "AI is really bad at state. It's really",
+      "duration": 4320,
+      "offset": 953120
+    },
+    {
+      "text": "bad at remembering what things are set",
+      "duration": 4320,
+      "offset": 955360
+    },
+    {
+      "text": "up as in the database versus how they're",
+      "duration": 3920,
+      "offset": 957440
+    },
+    {
+      "text": "set up in your editor versus how they",
+      "duration": 3599,
+      "offset": 959680
+    },
+    {
+      "text": "are in prod versus dev versus what",
+      "duration": 3599,
+      "offset": 961360
+    },
+    {
+      "text": "you're working on right now versus the",
+      "duration": 3441,
+      "offset": 963279
+    },
+    {
+      "text": "pull request that you're referencing.",
+      "duration": 4401,
+      "offset": 964959
+    },
+    {
+      "text": "None of that works that way in convex",
+      "duration": 5280,
+      "offset": 966720
+    },
+    {
+      "text": "because it's all just a folder with",
+      "duration": 5279,
+      "offset": 969360
+    },
+    {
+      "text": "files that describe the infra. It's so",
+      "duration": 5360,
+      "offset": 972000
+    },
+    {
+      "text": "nice. Everything is just described here.",
+      "duration": 4401,
+      "offset": 974639
+    },
+    {
+      "text": "Everything that my convex deployment",
+      "duration": 4560,
+      "offset": 977360
+    },
+    {
+      "text": "does for image studio and for T3 chat is",
+      "duration": 5200,
+      "offset": 979040
+    },
+    {
+      "text": "just defined in this folder. So if an",
+      "duration": 4479,
+      "offset": 981920
+    },
+    {
+      "text": "agent wants to make changes, it can just",
+      "duration": 4080,
+      "offset": 984240
+    },
+    {
+      "text": "edit the files. And now when I make",
+      "duration": 3521,
+      "offset": 986399
+    },
+    {
+      "text": "changes, as long as you're running the",
+      "duration": 3519,
+      "offset": 988320
+    },
+    {
+      "text": "convex dev command, those changes will",
+      "duration": 4960,
+      "offset": 989920
+    },
+    {
+      "text": "ship up to my dev instance immediately.",
+      "duration": 7440,
+      "offset": 991839
+    },
+    {
+      "text": "Let's say I stop including some field in",
+      "duration": 7759,
+      "offset": 994880
+    },
+    {
+      "text": "here, like I remove streaming as an",
+      "duration": 6401,
+      "offset": 999279
+    },
+    {
+      "text": "optional status here. It deployed. I can",
+      "duration": 5521,
+      "offset": 1002639
+    },
+    {
+      "text": "read it. It deployed. Let's kill",
+      "duration": 4880,
+      "offset": 1005680
+    },
+    {
+      "text": "completed this time. Oh, it can't",
+      "duration": 4000,
+      "offset": 1008160
+    },
+    {
+      "text": "because there's a bunch of things in the",
+      "duration": 4719,
+      "offset": 1010560
+    },
+    {
+      "text": "database that match that field. That's",
+      "duration": 5599,
+      "offset": 1012160
+    },
+    {
+      "text": "really annoying. Let's go fix that. So,",
+      "duration": 5120,
+      "offset": 1015279
+    },
+    {
+      "text": "this is image cloud code. I believe I",
+      "duration": 4721,
+      "offset": 1017759
+    },
+    {
+      "text": "have all of my data in this database and",
+      "duration": 4001,
+      "offset": 1020399
+    },
+    {
+      "text": "it has all of these things that are",
+      "duration": 4079,
+      "offset": 1022480
+    },
+    {
+      "text": "status completed. Here is one of those",
+      "duration": 4399,
+      "offset": 1024400
+    },
+    {
+      "text": "oh moments I have with Convex. I'm",
+      "duration": 4640,
+      "offset": 1026559
+    },
+    {
+      "text": "going to manually delete this data.",
+      "duration": 4561,
+      "offset": 1028799
+    },
+    {
+      "text": "Confirmed. I switch back to my terminal.",
+      "duration": 4480,
+      "offset": 1031199
+    },
+    {
+      "text": "As soon as the data was deleted, it",
+      "duration": 4880,
+      "offset": 1033360
+    },
+    {
+      "text": "redeployed by itself. I didn't have to",
+      "duration": 5120,
+      "offset": 1035679
+    },
+    {
+      "text": "tell it you can deploy now. It knows it",
+      "duration": 4480,
+      "offset": 1038240
+    },
+    {
+      "text": "can't deploy because of that data. So",
+      "duration": 3681,
+      "offset": 1040799
+    },
+    {
+      "text": "when the data is gone, it knows it can",
+      "duration": 4160,
+      "offset": 1042720
+    },
+    {
+      "text": "now push because everything is synced by",
+      "duration": 5280,
+      "offset": 1044480
+    },
+    {
+      "text": "default. It's magic. And do you know how",
+      "duration": 5360,
+      "offset": 1046880
+    },
+    {
+      "text": "good this is for unblocking your agents?",
+      "duration": 4560,
+      "offset": 1049760
+    },
+    {
+      "text": "This is so good. There are so many weird",
+      "duration": 3840,
+      "offset": 1052240
+    },
+    {
+      "text": "edge cases that I used to deal with all",
+      "duration": 3120,
+      "offset": 1054320
+    },
+    {
+      "text": "the time because my data was in",
+      "duration": 3599,
+      "offset": 1056080
+    },
+    {
+      "text": "different states in prod, in dev, on one",
+      "duration": 3840,
+      "offset": 1057440
+    },
+    {
+      "text": "machine, on another machine, and in my",
+      "duration": 3921,
+      "offset": 1059679
+    },
+    {
+      "text": "codebase. They're all just gone. Now,",
+      "duration": 4320,
+      "offset": 1061280
+    },
+    {
+      "text": "it's very clear when something's broken,",
+      "duration": 3760,
+      "offset": 1063600
+    },
+    {
+      "text": "and it's even clearer how to fix it.",
+      "duration": 4000,
+      "offset": 1065600
+    },
+    {
+      "text": "Also, when I had that there, notice that",
+      "duration": 4240,
+      "offset": 1067360
+    },
+    {
+      "text": "there's now a type error in generations",
+      "duration": 4079,
+      "offset": 1069600
+    },
+    {
+      "text": "because here I set the statuses of",
+      "duration": 4160,
+      "offset": 1071600
+    },
+    {
+      "text": "failed or complete, but complete not a",
+      "duration": 4240,
+      "offset": 1073679
+    },
+    {
+      "text": "valid status. Save that. Now, we're",
+      "duration": 4880,
+      "offset": 1075760
+    },
+    {
+      "text": "good. It's that easy. And your agents",
+      "duration": 4561,
+      "offset": 1077919
+    },
+    {
+      "text": "are so much smarter with it, too. This",
+      "duration": 3919,
+      "offset": 1080640
+    },
+    {
+      "text": "is my first time ever reading any of",
+      "duration": 4000,
+      "offset": 1082480
+    },
+    {
+      "text": "this code. This whole project was built",
+      "duration": 4721,
+      "offset": 1084559
+    },
+    {
+      "text": "by Claude Code. and Claude Code, Codeex,",
+      "duration": 5600,
+      "offset": 1086480
+    },
+    {
+      "text": "Cursor, all of these tools love Convex",
+      "duration": 4639,
+      "offset": 1089280
+    },
+    {
+      "text": "because they don't have to do some weird",
+      "duration": 4479,
+      "offset": 1092080
+    },
+    {
+      "text": "MCP jiu-jitsu in order to",
+      "duration": 4561,
+      "offset": 1093919
+    },
+    {
+      "text": "change the way your database works. With",
+      "duration": 3601,
+      "offset": 1096559
+    },
+    {
+      "text": "Superbase, you have to connect to the",
+      "duration": 4240,
+      "offset": 1098480
+    },
+    {
+      "text": "database, make changes there, edit the",
+      "duration": 4399,
+      "offset": 1100160
+    },
+    {
+      "text": "code to mirror the way the database",
+      "duration": 3280,
+      "offset": 1102720
+    },
+    {
+      "text": "should be working. And just",
+      "duration": 3521,
+      "offset": 1104559
+    },
+    {
+      "text": "orchestrating all of that is obnoxious.",
+      "duration": 3760,
+      "offset": 1106000
+    },
+    {
+      "text": "Nothing is necessary here. You just",
+      "duration": 3680,
+      "offset": 1108080
+    },
+    {
+      "text": "write the code and then it deploys. And",
+      "duration": 3440,
+      "offset": 1109760
+    },
+    {
+      "text": "the sync, by the way, which is one of",
+      "duration": 3120,
+      "offset": 1111760
+    },
+    {
+      "text": "the coolest parts, you have to do",
+      "duration": 3839,
+      "offset": 1113200
+    },
+    {
+      "text": "anything for it. Here I have the list",
+      "duration": 4640,
+      "offset": 1114880
+    },
+    {
+      "text": "query that lists all of the things that",
+      "duration": 4801,
+      "offset": 1117039
+    },
+    {
+      "text": "you've generated for your user. We index",
+      "duration": 4240,
+      "offset": 1119520
+    },
+    {
+      "text": "by user ID so we can only select things",
+      "duration": 4880,
+      "offset": 1121840
+    },
+    {
+      "text": "for you as a user. And then you render",
+      "duration": 5360,
+      "offset": 1123760
+    },
+    {
+      "text": "the results and then you return them.",
+      "duration": 4959,
+      "offset": 1126720
+    },
+    {
+      "text": "That's it. And now whenever a change",
+      "duration": 4480,
+      "offset": 1129120
+    },
+    {
+      "text": "happens, it updates the client",
+      "duration": 4401,
+      "offset": 1131679
+    },
+    {
+      "text": "accordingly because there's no other way",
+      "duration": 5280,
+      "offset": 1133600
+    },
+    {
+      "text": "to access this data. You can't mutate it",
+      "duration": 4479,
+      "offset": 1136080
+    },
+    {
+      "text": "by sneaking behind the scenes and",
+      "duration": 3360,
+      "offset": 1138880
+    },
+    {
+      "text": "editing the SQL or calling that",
+      "duration": 4561,
+      "offset": 1140559
+    },
+    {
+      "text": "directly. The only way this data changes",
+      "duration": 4799,
+      "offset": 1142240
+    },
+    {
+      "text": "is by hitting a mutation that is running",
+      "duration": 3439,
+      "offset": 1145120
+    },
+    {
+      "text": "on the same compute layer in front of",
+      "duration": 3201,
+      "offset": 1147039
+    },
+    {
+      "text": "the database. So when a mutation",
+      "duration": 3681,
+      "offset": 1148559
+    },
+    {
+      "text": "happens, it knows what rows are hit and",
+      "duration": 4160,
+      "offset": 1150240
+    },
+    {
+      "text": "it invalidates the cache that it has for",
+      "duration": 3920,
+      "offset": 1152240
+    },
+    {
+      "text": "all of the queries that hit that data.",
+      "duration": 3440,
+      "offset": 1154400
+    },
+    {
+      "text": "And when the cache gets invalidated, it",
+      "duration": 4160,
+      "offset": 1156160
+    },
+    {
+      "text": "sends the update. It's so good. And it",
+      "duration": 4000,
+      "offset": 1157840
+    },
+    {
+      "text": "also means the vast majority of your",
+      "duration": 3680,
+      "offset": 1160320
+    },
+    {
+      "text": "queries are just hitting the cache. More",
+      "duration": 4240,
+      "offset": 1161840
+    },
+    {
+      "text": "cool things here. By the way, there is",
+      "duration": 4080,
+      "offset": 1164000
+    },
+    {
+      "text": "no join syntax. There is no weird",
+      "duration": 4400,
+      "offset": 1166080
+    },
+    {
+      "text": "special way to do things. You just write",
+      "duration": 5200,
+      "offset": 1168080
+    },
+    {
+      "text": "TypeScript. If you want to link the",
+      "duration": 4160,
+      "offset": 1170480
+    },
+    {
+      "text": "results to generations, because a",
+      "duration": 3600,
+      "offset": 1173280
+    },
+    {
+      "text": "generation is a request a user made to",
+      "duration": 5279,
+      "offset": 1174640
+    },
+    {
+      "text": "generate something, a generation has",
+      "duration": 5200,
+      "offset": 1176880
+    },
+    {
+      "text": "different results that exist for it",
+      "duration": 3601,
+      "offset": 1179919
+    },
+    {
+      "text": "because one generation might produce",
+      "duration": 4160,
+      "offset": 1182080
+    },
+    {
+      "text": "four images and you link the two like",
+      "duration": 5039,
+      "offset": 1183520
+    },
+    {
+      "text": "this. You just take the output, you do",
+      "duration": 4480,
+      "offset": 1186240
+    },
+    {
+      "text": "map on it, and then you additionally",
+      "duration": 4161,
+      "offset": 1188559
+    },
+    {
+      "text": "query for every additional thing. This",
+      "duration": 5040,
+      "offset": 1190720
+    },
+    {
+      "text": "seems terrifying. Doing a map on some",
+      "duration": 5760,
+      "offset": 1192720
+    },
+    {
+      "text": "other DB call that awaits. That's going",
+      "duration": 5600,
+      "offset": 1195760
+    },
+    {
+      "text": "to be 50 to 500 awaits. That can't be",
+      "duration": 5600,
+      "offset": 1198480
+    },
+    {
+      "text": "right. It's totally fine and blessed.",
+      "duration": 4480,
+      "offset": 1201360
+    },
+    {
+      "text": "And this is just TypeScript. We're not",
+      "duration": 3920,
+      "offset": 1204080
+    },
+    {
+      "text": "doing some weird syntax for joins to try",
+      "duration": 3760,
+      "offset": 1205840
+    },
+    {
+      "text": "and streamline how the query gets",
+      "duration": 3679,
+      "offset": 1208000
+    },
+    {
+      "text": "managed. We trust Convex in their query",
+      "duration": 3840,
+      "offset": 1209600
+    },
+    {
+      "text": "planner to handle all of this for us.",
+      "duration": 4401,
+      "offset": 1211679
+    },
+    {
+      "text": "And we just do a map with an await and",
+      "duration": 5359,
+      "offset": 1213440
+    },
+    {
+      "text": "it works. Couldn't be easier. And we're",
+      "duration": 4800,
+      "offset": 1216080
+    },
+    {
+      "text": "still just in the basic queries here.",
+      "duration": 4481,
+      "offset": 1218799
+    },
+    {
+      "text": "Mutations are just as simple. You define",
+      "duration": 4880,
+      "offset": 1220880
+    },
+    {
+      "text": "a mutation like delete output. It has an",
+      "duration": 4639,
+      "offset": 1223280
+    },
+    {
+      "text": "ID. You get the user ID. You get the",
+      "duration": 4159,
+      "offset": 1225760
+    },
+    {
+      "text": "output. If no output, we throw an error.",
+      "duration": 3760,
+      "offset": 1227919
+    },
+    {
+      "text": "we get the generations and if the",
+      "duration": 3361,
+      "offset": 1229919
+    },
+    {
+      "text": "generation's user ID is not the same as",
+      "duration": 3841,
+      "offset": 1231679
+    },
+    {
+      "text": "your user ID, we throw an error. This is",
+      "duration": 3840,
+      "offset": 1233280
+    },
+    {
+      "text": "actually one of the biggest problems",
+      "duration": 3840,
+      "offset": 1235520
+    },
+    {
+      "text": "with platforms like Superbase is the",
+      "duration": 4160,
+      "offset": 1237120
+    },
+    {
+      "text": "relationship between the data and who",
+      "duration": 4720,
+      "offset": 1239360
+    },
+    {
+      "text": "can control it is defined almost",
+      "duration": 5200,
+      "offset": 1241280
+    },
+    {
+      "text": "arbitrarily within the database itself",
+      "duration": 5599,
+      "offset": 1244080
+    },
+    {
+      "text": "as RLS that is not codified in your",
+      "duration": 5199,
+      "offset": 1246480
+    },
+    {
+      "text": "codebase. There is no definitive",
+      "duration": 4641,
+      "offset": 1249679
+    },
+    {
+      "text": "document that shows who can access what.",
+      "duration": 4961,
+      "offset": 1251679
+    },
+    {
+      "text": "In convex, you have to write queries and",
+      "duration": 3839,
+      "offset": 1254320
+    },
+    {
+      "text": "mutations. You cannot change the data",
+      "duration": 3440,
+      "offset": 1256640
+    },
+    {
+      "text": "without one of these functions, which",
+      "duration": 3601,
+      "offset": 1258159
+    },
+    {
+      "text": "means you have to write it, which means",
+      "duration": 3520,
+      "offset": 1260080
+    },
+    {
+      "text": "it's very obvious when you're not doing",
+      "duration": 3200,
+      "offset": 1261760
+    },
+    {
+      "text": "things right with permissions because",
+      "duration": 3600,
+      "offset": 1263600
+    },
+    {
+      "text": "it's source code that can be read.",
+      "duration": 4240,
+      "offset": 1264960
+    },
+    {
+      "text": "Couldn't be better. And again, this is",
+      "duration": 3839,
+      "offset": 1267200
+    },
+    {
+      "text": "all stuff your agents can control. I",
+      "duration": 3440,
+      "offset": 1269200
+    },
+    {
+      "text": "don't want to just go into glaze mode,",
+      "duration": 3281,
+      "offset": 1271039
+    },
+    {
+      "text": "and I saw Yash complaining about a thing",
+      "duration": 3919,
+      "offset": 1272640
+    },
+    {
+      "text": "I have feelings about, too. The only",
+      "duration": 4400,
+      "offset": 1274320
+    },
+    {
+      "text": "exception to the you never have to go to",
+      "duration": 4321,
+      "offset": 1276559
+    },
+    {
+      "text": "the dashboard rule is environment",
+      "duration": 4319,
+      "offset": 1278720
+    },
+    {
+      "text": "variables, which are still quite",
+      "duration": 4080,
+      "offset": 1280880
+    },
+    {
+      "text": "annoying to manage. It'd be really nice",
+      "duration": 4081,
+      "offset": 1283039
+    },
+    {
+      "text": "to have something like T3 env where I",
+      "duration": 3360,
+      "offset": 1284960
+    },
+    {
+      "text": "can define all of the environment",
+      "duration": 3919,
+      "offset": 1287120
+    },
+    {
+      "text": "variables I need access to in code and",
+      "duration": 5040,
+      "offset": 1288320
+    },
+    {
+      "text": "if I put them in this project like I",
+      "duration": 4561,
+      "offset": 1291039
+    },
+    {
+      "text": "have an env file here it will",
+      "duration": 4880,
+      "offset": 1293360
+    },
+    {
+      "text": "automatically sync those up. I know the",
+      "duration": 5520,
+      "offset": 1295600
+    },
+    {
+      "text": "CLI can do environment variables Jamie",
+      "duration": 4799,
+      "offset": 1298240
+    },
+    {
+      "text": "but I want to go further. I want the",
+      "duration": 3120,
+      "offset": 1301120
+    },
+    {
+      "text": "same experience I have for everything",
+      "duration": 3681,
+      "offset": 1303039
+    },
+    {
+      "text": "else in convex for that. If I have a",
+      "duration": 5200,
+      "offset": 1304240
+    },
+    {
+      "text": "file in the codebase that is environment",
+      "duration": 4800,
+      "offset": 1306720
+    },
+    {
+      "text": "that lists all the environment variables",
+      "duration": 3520,
+      "offset": 1309440
+    },
+    {
+      "text": "and it sees those environment variables",
+      "duration": 3039,
+      "offset": 1311520
+    },
+    {
+      "text": "in my local dev environment, it will",
+      "duration": 3280,
+      "offset": 1312960
+    },
+    {
+      "text": "autosync those the same way it syncs up",
+      "duration": 3681,
+      "offset": 1314559
+    },
+    {
+      "text": "the code. Yeah, this comment from Zach's",
+      "duration": 3679,
+      "offset": 1316240
+    },
+    {
+      "text": "actually very telling. Suabase was",
+      "duration": 3200,
+      "offset": 1318240
+    },
+    {
+      "text": "largely built to be an alternative to",
+      "duration": 3120,
+      "offset": 1319919
+    },
+    {
+      "text": "Firebase that was open source and",
+      "duration": 3280,
+      "offset": 1321440
+    },
+    {
+      "text": "actually well-maintained. And in",
+      "duration": 4000,
+      "offset": 1323039
+    },
+    {
+      "text": "Firebase, all of the rules were files",
+      "duration": 4319,
+      "offset": 1324720
+    },
+    {
+      "text": "that were JavaScript. Suabase tried to",
+      "duration": 4321,
+      "offset": 1327039
+    },
+    {
+      "text": "copy that behavior with RLS. It was a",
+      "duration": 3921,
+      "offset": 1329039
+    },
+    {
+      "text": "design decision that made sense for app",
+      "duration": 4400,
+      "offset": 1331360
+    },
+    {
+      "text": "devs in 2010 to 2015 because they hated",
+      "duration": 4560,
+      "offset": 1332960
+    },
+    {
+      "text": "building servers, web service layers,",
+      "duration": 2640,
+      "offset": 1335760
+    },
+    {
+      "text": "all of those things, and they just",
+      "duration": 2880,
+      "offset": 1337520
+    },
+    {
+      "text": "wanted to rapidly build apps. Firebase",
+      "duration": 3519,
+      "offset": 1338400
+    },
+    {
+      "text": "didn't even add web support until much",
+      "duration": 3840,
+      "offset": 1340400
+    },
+    {
+      "text": "later. Yep, we are all dealing with the",
+      "duration": 4081,
+      "offset": 1341919
+    },
+    {
+      "text": "tech debt of people who were too scared",
+      "duration": 3280,
+      "offset": 1344240
+    },
+    {
+      "text": "to deal with servers and write server",
+      "duration": 3280,
+      "offset": 1346000
+    },
+    {
+      "text": "code. And this is the funniest part with",
+      "duration": 4000,
+      "offset": 1347520
+    },
+    {
+      "text": "Convex. They've effectively tricked you",
+      "duration": 4800,
+      "offset": 1349280
+    },
+    {
+      "text": "into writing server code. Most of the",
+      "duration": 3840,
+      "offset": 1351520
+    },
+    {
+      "text": "apps I'm building, especially the ones",
+      "duration": 3200,
+      "offset": 1354080
+    },
+    {
+      "text": "I'm vibe coding now, they're not using",
+      "duration": 3760,
+      "offset": 1355360
+    },
+    {
+      "text": "Versel's backend at all. They're using",
+      "duration": 5040,
+      "offset": 1357280
+    },
+    {
+      "text": "Versell almost exclusively as a CDN and",
+      "duration": 5520,
+      "offset": 1359120
+    },
+    {
+      "text": "convex is the back end and I'm just",
+      "duration": 3839,
+      "offset": 1362320
+    },
+    {
+      "text": "writing functions and I'm calling them",
+      "duration": 3039,
+      "offset": 1364640
+    },
+    {
+      "text": "on client and not thinking about it and",
+      "duration": 3361,
+      "offset": 1366159
+    },
+    {
+      "text": "it just works. And if you do want to",
+      "duration": 3681,
+      "offset": 1367679
+    },
+    {
+      "text": "access outside services, you can do that",
+      "duration": 4399,
+      "offset": 1369520
+    },
+    {
+      "text": "as well with actions. So queries and",
+      "duration": 4080,
+      "offset": 1371360
+    },
+    {
+      "text": "mutations are for when you're just",
+      "duration": 3120,
+      "offset": 1373919
+    },
+    {
+      "text": "hitting the database and nothing else.",
+      "duration": 2960,
+      "offset": 1375440
+    },
+    {
+      "text": "You're not fetching, you're not touching",
+      "duration": 3201,
+      "offset": 1377039
+    },
+    {
+      "text": "external stuff because they have to be",
+      "duration": 3840,
+      "offset": 1378400
+    },
+    {
+      "text": "deterministic in order for them to work",
+      "duration": 3280,
+      "offset": 1380240
+    },
+    {
+      "text": "because of how the caching and",
+      "duration": 3679,
+      "offset": 1382240
+    },
+    {
+      "text": "everything works. Actions can touch",
+      "duration": 4320,
+      "offset": 1383520
+    },
+    {
+      "text": "external stuff. So here's a fun example.",
+      "duration": 4081,
+      "offset": 1385919
+    },
+    {
+      "text": "Again, I'm learning this codebase as we",
+      "duration": 5040,
+      "offset": 1387840
+    },
+    {
+      "text": "go because AI agents can write this all",
+      "duration": 4240,
+      "offset": 1390000
+    },
+    {
+      "text": "so well. I haven't had to even look at",
+      "duration": 3440,
+      "offset": 1392880
+    },
+    {
+      "text": "the code. Start thread with prompt is",
+      "duration": 4799,
+      "offset": 1394240
+    },
+    {
+      "text": "how you create a new generation. And in",
+      "duration": 5680,
+      "offset": 1396320
+    },
+    {
+      "text": "here, we have an action call where we",
+      "duration": 4880,
+      "offset": 1399039
+    },
+    {
+      "text": "schedule a new action to run when this",
+      "duration": 3440,
+      "offset": 1402000
+    },
+    {
+      "text": "mutation is done because everything's",
+      "duration": 3601,
+      "offset": 1403919
+    },
+    {
+      "text": "been added to the database. And then we",
+      "duration": 4560,
+      "offset": 1405440
+    },
+    {
+      "text": "want to run this action to do a",
+      "duration": 4000,
+      "offset": 1407520
+    },
+    {
+      "text": "generation. We pass all of these inputs.",
+      "duration": 2960,
+      "offset": 1410000
+    },
+    {
+      "text": "And you can commandclick as you can",
+      "duration": 3600,
+      "offset": 1411520
+    },
+    {
+      "text": "everywhere in Convex to get to this",
+      "duration": 4560,
+      "offset": 1412960
+    },
+    {
+      "text": "action. Here are all of its arguments.",
+      "duration": 4000,
+      "offset": 1415120
+    },
+    {
+      "text": "might look like Zod because it very much",
+      "duration": 4159,
+      "offset": 1417520
+    },
+    {
+      "text": "is like Zod. And we have the handler",
+      "duration": 4799,
+      "offset": 1419120
+    },
+    {
+      "text": "here. We run a mutation to update the",
+      "duration": 3761,
+      "offset": 1421679
+    },
+    {
+      "text": "status of streaming so that we know that",
+      "duration": 3921,
+      "offset": 1423919
+    },
+    {
+      "text": "this result is being done. I grab my",
+      "duration": 5520,
+      "offset": 1425440
+    },
+    {
+      "text": "foul key. I configure it. I then run the",
+      "duration": 5360,
+      "offset": 1427840
+    },
+    {
+      "text": "generation request. I have the inputs",
+      "duration": 3599,
+      "offset": 1430960
+    },
+    {
+      "text": "that I'm transforming for the specific",
+      "duration": 3359,
+      "offset": 1433200
+    },
+    {
+      "text": "model that we're using. I then make the",
+      "duration": 3841,
+      "offset": 1434559
+    },
+    {
+      "text": "request to file. And here I'm doing some",
+      "duration": 3041,
+      "offset": 1436559
+    },
+    {
+      "text": "crazy stuff with the stream because I",
+      "duration": 4240,
+      "offset": 1438400
+    },
+    {
+      "text": "want to long story there. Get the",
+      "duration": 5600,
+      "offset": 1439600
+    },
+    {
+      "text": "results. Get the data. Get the URL. This",
+      "duration": 4000,
+      "offset": 1442640
+    },
+    {
+      "text": "is all NES because this is coming from",
+      "duration": 3520,
+      "offset": 1445200
+    },
+    {
+      "text": "Fowl's SDK which is a lot less type-",
+      "duration": 4720,
+      "offset": 1446640
+    },
+    {
+      "text": "safe than what they have over at Convex.",
+      "duration": 4319,
+      "offset": 1448720
+    },
+    {
+      "text": "And then I just run another mutation",
+      "duration": 4080,
+      "offset": 1451360
+    },
+    {
+      "text": "with the output when I'm done. But this",
+      "duration": 5201,
+      "offset": 1453039
+    },
+    {
+      "text": "is how I interface externally. You have",
+      "duration": 4400,
+      "offset": 1455440
+    },
+    {
+      "text": "to define the mutation separately",
+      "duration": 3600,
+      "offset": 1458240
+    },
+    {
+      "text": "because again mutations and queries have",
+      "duration": 3760,
+      "offset": 1459840
+    },
+    {
+      "text": "to be pure. They have to just interface",
+      "duration": 3360,
+      "offset": 1461840
+    },
+    {
+      "text": "with the database. But once you've",
+      "duration": 3679,
+      "offset": 1463600
+    },
+    {
+      "text": "defined those, an action can call them",
+      "duration": 3920,
+      "offset": 1465200
+    },
+    {
+      "text": "willy-nilly. And you see what that looks",
+      "duration": 3441,
+      "offset": 1467279
+    },
+    {
+      "text": "like here. It's super convenient. And an",
+      "duration": 4000,
+      "offset": 1469120
+    },
+    {
+      "text": "action is an actual server function that",
+      "duration": 4319,
+      "offset": 1470720
+    },
+    {
+      "text": "you're running that can do real compute.",
+      "duration": 3439,
+      "offset": 1473120
+    },
+    {
+      "text": "You could even run it on node if you",
+      "duration": 4081,
+      "offset": 1475039
+    },
+    {
+      "text": "want, which is as simple as use node at",
+      "duration": 4321,
+      "offset": 1476559
+    },
+    {
+      "text": "the top of the file. Now, this is using",
+      "duration": 3919,
+      "offset": 1479120
+    },
+    {
+      "text": "node instead of their compute layer.",
+      "duration": 3919,
+      "offset": 1480880
+    },
+    {
+      "text": "Pretty cool, right? None of this is",
+      "duration": 4321,
+      "offset": 1483039
+    },
+    {
+      "text": "possible on something like superbase. So",
+      "duration": 4081,
+      "offset": 1484799
+    },
+    {
+      "text": "hopefully this helps emphasize why",
+      "duration": 3120,
+      "offset": 1487360
+    },
+    {
+      "text": "agents are so good at this because they",
+      "duration": 3520,
+      "offset": 1488880
+    },
+    {
+      "text": "just write TypeScript. None of this is",
+      "duration": 4720,
+      "offset": 1490480
+    },
+    {
+      "text": "really special syntax that's specific to",
+      "duration": 4960,
+      "offset": 1492400
+    },
+    {
+      "text": "convex. They're not making you define",
+      "duration": 4959,
+      "offset": 1495200
+    },
+    {
+      "text": "something in a special Prisma file or",
+      "duration": 6160,
+      "offset": 1497360
+    },
+    {
+      "text": "writing some crazy join syntax. Almost",
+      "duration": 5520,
+      "offset": 1500159
+    },
+    {
+      "text": "all of the syntax is just TypeScript.",
+      "duration": 3519,
+      "offset": 1503520
+    },
+    {
+      "text": "But I promised I would talk more about",
+      "duration": 3201,
+      "offset": 1505679
+    },
+    {
+      "text": "capabilities and I really want to do",
+      "duration": 3601,
+      "offset": 1507039
+    },
+    {
+      "text": "that because there are some things that",
+      "duration": 4240,
+      "offset": 1508880
+    },
+    {
+      "text": "Convex does that just nothing else comes",
+      "duration": 5360,
+      "offset": 1510640
+    },
+    {
+      "text": "close that are really really cool.",
+      "duration": 4559,
+      "offset": 1513120
+    },
+    {
+      "text": "Components are one of my favorite.",
+      "duration": 3760,
+      "offset": 1516000
+    },
+    {
+      "text": "Components aren't what they mean in the",
+      "duration": 5600,
+      "offset": 1517679
+    },
+    {
+      "text": "React world. Components are a set of",
+      "duration": 6080,
+      "offset": 1519760
+    },
+    {
+      "text": "capabilities that you can bundle up and",
+      "duration": 4880,
+      "offset": 1523279
+    },
+    {
+      "text": "add to your convex deployment. All of",
+      "duration": 3760,
+      "offset": 1525840
+    },
+    {
+      "text": "these are things you could build",
+      "duration": 3760,
+      "offset": 1528159
+    },
+    {
+      "text": "yourself, but they have instead built",
+      "duration": 4800,
+      "offset": 1529600
+    },
+    {
+      "text": "for us. The Stripe one I harassed poor",
+      "duration": 4000,
+      "offset": 1531919
+    },
+    {
+      "text": "Mickey into building for us. I'm so",
+      "duration": 3759,
+      "offset": 1534400
+    },
+    {
+      "text": "happy that that exists now. The AI agent",
+      "duration": 4081,
+      "offset": 1535919
+    },
+    {
+      "text": "one is great for just giving you the",
+      "duration": 3361,
+      "offset": 1538159
+    },
+    {
+      "text": "pieces you need to do agent",
+      "duration": 3919,
+      "offset": 1540000
+    },
+    {
+      "text": "orchestration. One of my personal",
+      "duration": 5120,
+      "offset": 1541520
+    },
+    {
+      "text": "favorites though, oh L is really cool.",
+      "duration": 4081,
+      "offset": 1543919
+    },
+    {
+      "text": "My favorite that I'm looking for in",
+      "duration": 5519,
+      "offset": 1546640
+    },
+    {
+      "text": "here, the work pools. Work pools are so",
+      "duration": 6240,
+      "offset": 1548000
+    },
+    {
+      "text": "cool. If you want to make sure some",
+      "duration": 3681,
+      "offset": 1552159
+    },
+    {
+      "text": "external API is only being hit",
+      "duration": 4000,
+      "offset": 1554240
+    },
+    {
+      "text": "concurrently up to five times, you can",
+      "duration": 4079,
+      "offset": 1555840
+    },
+    {
+      "text": "spin up a work pool that has a",
+      "duration": 4480,
+      "offset": 1558240
+    },
+    {
+      "text": "parallelism limit of five. And now when",
+      "duration": 5601,
+      "offset": 1559919
+    },
+    {
+      "text": "you call things within this workpool,",
+      "duration": 4720,
+      "offset": 1562720
+    },
+    {
+      "text": "you can incue an action and it's now",
+      "duration": 4320,
+      "offset": 1565520
+    },
+    {
+      "text": "parallelized with limits and it will",
+      "duration": 4080,
+      "offset": 1567440
+    },
+    {
+      "text": "handle the queuing and everything else",
+      "duration": 3839,
+      "offset": 1569840
+    },
+    {
+      "text": "by itself. This is code that they wrote",
+      "duration": 4960,
+      "offset": 1571520
+    },
+    {
+      "text": "for us that you can install in your app",
+      "duration": 5120,
+      "offset": 1573679
+    },
+    {
+      "text": "and use. Normally, this is something",
+      "duration": 4640,
+      "offset": 1576480
+    },
+    {
+      "text": "you'd bring another service in for. And",
+      "duration": 4081,
+      "offset": 1578799
+    },
+    {
+      "text": "that's what's so cool with Convex",
+      "duration": 3679,
+      "offset": 1581120
+    },
+    {
+      "text": "components is it feels like you're",
+      "duration": 4480,
+      "offset": 1582880
+    },
+    {
+      "text": "installing an external service provider",
+      "duration": 4401,
+      "offset": 1584799
+    },
+    {
+      "text": "without having to leave the Convex",
+      "duration": 4240,
+      "offset": 1587360
+    },
+    {
+      "text": "folder in your codebase. And again, this",
+      "duration": 4880,
+      "offset": 1589200
+    },
+    {
+      "text": "is really powerful for agents, too. They",
+      "duration": 3679,
+      "offset": 1591600
+    },
+    {
+      "text": "don't all know about all of the",
+      "duration": 2560,
+      "offset": 1594080
+    },
+    {
+      "text": "components or that they can go find them",
+      "duration": 3361,
+      "offset": 1595279
+    },
+    {
+      "text": "yet. But if you quickly browse through",
+      "duration": 3360,
+      "offset": 1596640
+    },
+    {
+      "text": "the available ones and find one that",
+      "duration": 2880,
+      "offset": 1598640
+    },
+    {
+      "text": "solves a problem, you can tell your",
+      "duration": 3279,
+      "offset": 1600000
+    },
+    {
+      "text": "agent about it. It will go find all of",
+      "duration": 2720,
+      "offset": 1601520
+    },
+    {
+      "text": "the docs and everything, especially if",
+      "duration": 2321,
+      "offset": 1603279
+    },
+    {
+      "text": "you give it a link and it will implement",
+      "duration": 3679,
+      "offset": 1604240
+    },
+    {
+      "text": "it totally fine. We have been using",
+      "duration": 4400,
+      "offset": 1605600
+    },
+    {
+      "text": "workpools heavily for features in T3",
+      "duration": 4081,
+      "offset": 1607919
+    },
+    {
+      "text": "chat. And it has made life so much",
+      "duration": 4400,
+      "offset": 1610000
+    },
+    {
+      "text": "easier. Even has things like retry",
+      "duration": 4320,
+      "offset": 1612000
+    },
+    {
+      "text": "management, completion handling, and all",
+      "duration": 3279,
+      "offset": 1614400
+    },
+    {
+      "text": "the other annoying things you have to do",
+      "duration": 2880,
+      "offset": 1616320
+    },
+    {
+      "text": "when you're managing workloads like",
+      "duration": 3281,
+      "offset": 1617679
+    },
+    {
+      "text": "this. If you want to see this in depth,",
+      "duration": 3359,
+      "offset": 1619200
+    },
+    {
+      "text": "you should check out my video about",
+      "duration": 3680,
+      "offset": 1620960
+    },
+    {
+      "text": "reading billions of rows. The one about",
+      "duration": 4321,
+      "offset": 1622559
+    },
+    {
+      "text": "the T3 wrapped stuff because I showcase",
+      "duration": 4080,
+      "offset": 1624640
+    },
+    {
+      "text": "this in that. We used it heavily. It's",
+      "duration": 3520,
+      "offset": 1626880
+    },
+    {
+      "text": "so good. Just like one of the many",
+      "duration": 3360,
+      "offset": 1628720
+    },
+    {
+      "text": "examples. They have one for crons, too.",
+      "duration": 3279,
+      "offset": 1630400
+    },
+    {
+      "text": "If you want to have like things that run",
+      "duration": 3360,
+      "offset": 1632080
+    },
+    {
+      "text": "on certain time frames, they have",
+      "duration": 3120,
+      "offset": 1633679
+    },
+    {
+      "text": "integrations with other services as",
+      "duration": 2640,
+      "offset": 1635440
+    },
+    {
+      "text": "well. Like if you want to serve and",
+      "duration": 3041,
+      "offset": 1636799
+    },
+    {
+      "text": "store files from R2 instead of using",
+      "duration": 3280,
+      "offset": 1638080
+    },
+    {
+      "text": "their storage, there's a component for",
+      "duration": 3199,
+      "offset": 1639840
+    },
+    {
+      "text": "that. If you want to use resend for",
+      "duration": 3280,
+      "offset": 1641360
+    },
+    {
+      "text": "sending transactional emails, there's a",
+      "duration": 3601,
+      "offset": 1643039
+    },
+    {
+      "text": "component for that. If you want to build",
+      "duration": 3840,
+      "offset": 1644640
+    },
+    {
+      "text": "a collaborative text editor, multiple",
+      "duration": 3279,
+      "offset": 1646640
+    },
+    {
+      "text": "people can edit text at the same time",
+      "duration": 2880,
+      "offset": 1648480
+    },
+    {
+      "text": "and have that all handled for you in",
+      "duration": 3041,
+      "offset": 1649919
+    },
+    {
+      "text": "your database. There's a component for",
+      "duration": 3919,
+      "offset": 1651360
+    },
+    {
+      "text": "that. It's so cool. They even have",
+      "duration": 3599,
+      "offset": 1652960
+    },
+    {
+      "text": "components for different off providers",
+      "duration": 3121,
+      "offset": 1655279
+    },
+    {
+      "text": "like Better Off. I was going to mention",
+      "duration": 3921,
+      "offset": 1656559
+    },
+    {
+      "text": "Autumn. Autumn's another platform for",
+      "duration": 4080,
+      "offset": 1658400
+    },
+    {
+      "text": "managing your Stripe like payment stuff.",
+      "duration": 3520,
+      "offset": 1660480
+    },
+    {
+      "text": "And Autumn's getting almost as much use",
+      "duration": 3280,
+      "offset": 1662480
+    },
+    {
+      "text": "out of their component as the Stripe one",
+      "duration": 4240,
+      "offset": 1664000
+    },
+    {
+      "text": "is. Good work, Autumn. They're also just",
+      "duration": 5360,
+      "offset": 1665760
+    },
+    {
+      "text": "barely ekking out Polar right now. So",
+      "duration": 5760,
+      "offset": 1668240
+    },
+    {
+      "text": "cool. Meanwhile, with our friends over",
+      "duration": 5279,
+      "offset": 1671120
+    },
+    {
+      "text": "at Superbase, you kind of just have to",
+      "duration": 4159,
+      "offset": 1674000
+    },
+    {
+      "text": "hope and pray somebody there cares",
+      "duration": 3121,
+      "offset": 1676399
+    },
+    {
+      "text": "enough about the problem you have to",
+      "duration": 3441,
+      "offset": 1678159
+    },
+    {
+      "text": "deal with it. I just was looking for an",
+      "duration": 3759,
+      "offset": 1679520
+    },
+    {
+      "text": "example of what the workpool equivalent",
+      "duration": 3600,
+      "offset": 1681600
+    },
+    {
+      "text": "is on Superbase. How do you handle",
+      "duration": 3681,
+      "offset": 1683279
+    },
+    {
+      "text": "longunning or execution heavy backend",
+      "duration": 3280,
+      "offset": 1685200
+    },
+    {
+      "text": "tasks where edge functions aren't",
+      "duration": 4880,
+      "offset": 1686960
+    },
+    {
+      "text": "enough? First reply, Cloudflare worker.",
+      "duration": 5840,
+      "offset": 1688480
+    },
+    {
+      "text": "Yep. Oh, and branching. We should talk",
+      "duration": 3920,
+      "offset": 1691840
+    },
+    {
+      "text": "about this a little bit cuz one of the",
+      "duration": 3280,
+      "offset": 1694320
+    },
+    {
+      "text": "coolest parts with convex that I saw",
+      "duration": 3360,
+      "offset": 1695760
+    },
+    {
+      "text": "them talking about in chat but haven't",
+      "duration": 3679,
+      "offset": 1697600
+    },
+    {
+      "text": "brought up is the way they think about",
+      "duration": 5360,
+      "offset": 1699120
+    },
+    {
+      "text": "dev and like preview environments. Every",
+      "duration": 5120,
+      "offset": 1701279
+    },
+    {
+      "text": "dev gets their own environment. Remember",
+      "duration": 3919,
+      "offset": 1704480
+    },
+    {
+      "text": "earlier when I said that this per",
+      "duration": 3520,
+      "offset": 1706399
+    },
+    {
+      "text": "developer month thing doesn't really",
+      "duration": 3280,
+      "offset": 1708399
+    },
+    {
+      "text": "matter that much. I still vividly",
+      "duration": 3201,
+      "offset": 1709919
+    },
+    {
+      "text": "remember this conversation I had with",
+      "duration": 3841,
+      "offset": 1711679
+    },
+    {
+      "text": "Mark when we had Yash, our first intern,",
+      "duration": 4880,
+      "offset": 1713120
+    },
+    {
+      "text": "join. He was very happy with Convex but",
+      "duration": 3840,
+      "offset": 1715520
+    },
+    {
+      "text": "was surprised that they were going to",
+      "duration": 3440,
+      "offset": 1718000
+    },
+    {
+      "text": "charge us more money to add Yosh to our",
+      "duration": 4960,
+      "offset": 1719360
+    },
+    {
+      "text": "Convex service. I asked him, &quot;Why would",
+      "duration": 5680,
+      "offset": 1721440
+    },
+    {
+      "text": "we have to add Yosh?&quot; He said, &quot;Of",
+      "duration": 4239,
+      "offset": 1724320
+    },
+    {
+      "text": "course we have to add him. We have to",
+      "duration": 2640,
+      "offset": 1727120
+    },
+    {
+      "text": "add him to everything if he's going to",
+      "duration": 3201,
+      "offset": 1728559
+    },
+    {
+      "text": "be working with us.&quot; No, we don't.",
+      "duration": 3519,
+      "offset": 1729760
+    },
+    {
+      "text": "Remember what I said earlier about how",
+      "duration": 4720,
+      "offset": 1731760
+    },
+    {
+      "text": "using Convex works? You just run npx",
+      "duration": 5120,
+      "offset": 1733279
+    },
+    {
+      "text": "convex dev. And if you're not on our",
+      "duration": 4240,
+      "offset": 1736480
+    },
+    {
+      "text": "team account, who cares? It just deploys",
+      "duration": 4561,
+      "offset": 1738399
+    },
+    {
+      "text": "in your personal dev account. That's it.",
+      "duration": 4400,
+      "offset": 1740720
+    },
+    {
+      "text": "It's so easy. You just run the dev",
+      "duration": 4719,
+      "offset": 1742960
+    },
+    {
+      "text": "command. It spins up in your environment",
+      "duration": 4159,
+      "offset": 1745120
+    },
+    {
+      "text": "on your dev account, and all you have to",
+      "duration": 2801,
+      "offset": 1747679
+    },
+    {
+      "text": "do is copy over the environment",
+      "duration": 3681,
+      "offset": 1749279
+    },
+    {
+      "text": "variables. That's it. And if I succeed",
+      "duration": 4480,
+      "offset": 1750480
+    },
+    {
+      "text": "in my hazing of Convex, that'll be",
+      "duration": 3839,
+      "offset": 1752960
+    },
+    {
+      "text": "included, too. If somebody wants to",
+      "duration": 3360,
+      "offset": 1754960
+    },
+    {
+      "text": "contribute to one of my projects, they",
+      "duration": 3041,
+      "offset": 1756799
+    },
+    {
+      "text": "don't have to be part of my Convex",
+      "duration": 3920,
+      "offset": 1758320
+    },
+    {
+      "text": "account. They can just clone the repo,",
+      "duration": 4640,
+      "offset": 1759840
+    },
+    {
+      "text": "run the dev command, get a little URL",
+      "duration": 4240,
+      "offset": 1762240
+    },
+    {
+      "text": "they click to off with Convex for the",
+      "duration": 3439,
+      "offset": 1764480
+    },
+    {
+      "text": "first time, and they're done. That's all",
+      "duration": 3919,
+      "offset": 1766480
+    },
+    {
+      "text": "it takes. It is so easy to onboard onto",
+      "duration": 4561,
+      "offset": 1767919
+    },
+    {
+      "text": "a project using Convex. It's almost like",
+      "duration": 3760,
+      "offset": 1770399
+    },
+    {
+      "text": "annoying because then when I have to use",
+      "duration": 3040,
+      "offset": 1772480
+    },
+    {
+      "text": "anything else and collab with other",
+      "duration": 3441,
+      "offset": 1774159
+    },
+    {
+      "text": "people, it is the worst. But it's so",
+      "duration": 4560,
+      "offset": 1775520
+    },
+    {
+      "text": "easy to spin up. And this is the thing.",
+      "duration": 4000,
+      "offset": 1777600
+    },
+    {
+      "text": "Everything with convex is somewhere",
+      "duration": 3520,
+      "offset": 1780080
+    },
+    {
+      "text": "between zero and two steps. With a",
+      "duration": 3920,
+      "offset": 1781600
+    },
+    {
+      "text": "platform like Superbase, your options",
+      "duration": 3840,
+      "offset": 1783600
+    },
+    {
+      "text": "are either they already built it for you",
+      "duration": 4000,
+      "offset": 1785520
+    },
+    {
+      "text": "or you're going somewhere else. They",
+      "duration": 4000,
+      "offset": 1787440
+    },
+    {
+      "text": "provided this alternative set of",
+      "duration": 3600,
+      "offset": 1789520
+    },
+    {
+      "text": "primitives like with things like",
+      "duration": 3760,
+      "offset": 1791440
+    },
+    {
+      "text": "queries, mutations, and actions with",
+      "duration": 4159,
+      "offset": 1793120
+    },
+    {
+      "text": "things like the convex folder in the",
+      "duration": 4479,
+      "offset": 1795200
+    },
+    {
+      "text": "codebase with things like components and",
+      "duration": 3921,
+      "offset": 1797279
+    },
+    {
+      "text": "all the stuff you can do with them.",
+      "duration": 3841,
+      "offset": 1799679
+    },
+    {
+      "text": "They're providing us a better set of",
+      "duration": 4640,
+      "offset": 1801200
+    },
+    {
+      "text": "tools to build with. And those tools",
+      "duration": 4320,
+      "offset": 1803520
+    },
+    {
+      "text": "might be a smaller set than we're used",
+      "duration": 4400,
+      "offset": 1805840
+    },
+    {
+      "text": "to having, but it's a smaller set that",
+      "duration": 4800,
+      "offset": 1807840
+    },
+    {
+      "text": "works much better, scales much better,",
+      "duration": 5520,
+      "offset": 1810240
+    },
+    {
+      "text": "and just makes so many problems go away.",
+      "duration": 6320,
+      "offset": 1812640
+    },
+    {
+      "text": "And it feels really weird. I had about 4",
+      "duration": 6240,
+      "offset": 1815760
+    },
+    {
+      "text": "years of being very unsure of Convex. I",
+      "duration": 4079,
+      "offset": 1818960
+    },
+    {
+      "text": "just didn't think this type of thing",
+      "duration": 2880,
+      "offset": 1822000
+    },
+    {
+      "text": "would ever be for me. And now I can't",
+      "duration": 3601,
+      "offset": 1823039
+    },
+    {
+      "text": "imagine building without it. And that's",
+      "duration": 3440,
+      "offset": 1824880
+    },
+    {
+      "text": "why we're seeing so many devs moving",
+      "duration": 4080,
+      "offset": 1826640
+    },
+    {
+      "text": "over. People like Peter, who probably",
+      "duration": 3520,
+      "offset": 1828320
+    },
+    {
+      "text": "could never have cared less about",
+      "duration": 2880,
+      "offset": 1830720
+    },
+    {
+      "text": "something like Convex before, suddenly",
+      "duration": 3839,
+      "offset": 1831840
+    },
+    {
+      "text": "getting hyped. Peter was able to build",
+      "duration": 4319,
+      "offset": 1833600
+    },
+    {
+      "text": "in three hours a full site with GitHub",
+      "duration": 4161,
+      "offset": 1835679
+    },
+    {
+      "text": "login, admin module, file storage, and",
+      "duration": 4240,
+      "offset": 1837919
+    },
+    {
+      "text": "npm packages that sync skills on disk",
+      "duration": 4400,
+      "offset": 1839840
+    },
+    {
+      "text": "and versioning and moderation, all with",
+      "duration": 5520,
+      "offset": 1842159
+    },
+    {
+      "text": "Convex for syncing his Twitter off for",
+      "duration": 6000,
+      "offset": 1844240
+    },
+    {
+      "text": "Claudebot. That's so cool. I was able to",
+      "duration": 4561,
+      "offset": 1847679
+    },
+    {
+      "text": "build the first pass on image studio.",
+      "duration": 3439,
+      "offset": 1850240
+    },
+    {
+      "text": "Similarly, you can do this with",
+      "duration": 2400,
+      "offset": 1852240
+    },
+    {
+      "text": "Superbase, but you're going to be",
+      "duration": 1841,
+      "offset": 1853679
+    },
+    {
+      "text": "spending a lot more time in the",
+      "duration": 2639,
+      "offset": 1854640
+    },
+    {
+      "text": "dashboard configuring MCPs and trying to",
+      "duration": 4159,
+      "offset": 1855520
+    },
+    {
+      "text": "get everything linked. Not with Convex.",
+      "duration": 4561,
+      "offset": 1857279
+    },
+    {
+      "text": "So, Jamie's in my chat as he often is.",
+      "duration": 4480,
+      "offset": 1859679
+    },
+    {
+      "text": "He hangs out because again, they're like",
+      "duration": 3760,
+      "offset": 1861840
+    },
+    {
+      "text": "us. I don't know how to emphasize this",
+      "duration": 3760,
+      "offset": 1864159
+    },
+    {
+      "text": "properly. Jaime's just a guy who hangs",
+      "duration": 3679,
+      "offset": 1865600
+    },
+    {
+      "text": "out in the same circles as us, watches",
+      "duration": 3201,
+      "offset": 1867919
+    },
+    {
+      "text": "the same things as us, just a fellow",
+      "duration": 4241,
+      "offset": 1869279
+    },
+    {
+      "text": "nerd. And Shamu summarized perfectly.",
+      "duration": 3360,
+      "offset": 1871120
+    },
+    {
+      "text": "The people that work there are really",
+      "duration": 3440,
+      "offset": 1873520
+    },
+    {
+      "text": "cool. The Convex team is awesome. Are",
+      "duration": 3760,
+      "offset": 1874480
+    },
+    {
+      "text": "there downsides? We can talk about",
+      "duration": 4719,
+      "offset": 1876960
+    },
+    {
+      "text": "downsides quick. Uh the biggest one is",
+      "duration": 4640,
+      "offset": 1878240
+    },
+    {
+      "text": "the same thing I think is one of the",
+      "duration": 3041,
+      "offset": 1881679
+    },
+    {
+      "text": "biggest benefits which is you have to",
+      "duration": 4240,
+      "offset": 1882880
+    },
+    {
+      "text": "access things through the queries and",
+      "duration": 3600,
+      "offset": 1884720
+    },
+    {
+      "text": "mutations that you define in the",
+      "duration": 3679,
+      "offset": 1887120
+    },
+    {
+      "text": "codebase. If you have some data analyst",
+      "duration": 4239,
+      "offset": 1888320
+    },
+    {
+      "text": "that wants to run something against all",
+      "duration": 3841,
+      "offset": 1890799
+    },
+    {
+      "text": "of the data in your database, Convex",
+      "duration": 4081,
+      "offset": 1892559
+    },
+    {
+      "text": "isn't for that. Convex is an application",
+      "duration": 3759,
+      "offset": 1894640
+    },
+    {
+      "text": "database for building apps. As long as",
+      "duration": 3279,
+      "offset": 1896640
+    },
+    {
+      "text": "the database is only accessed through",
+      "duration": 3120,
+      "offset": 1898399
+    },
+    {
+      "text": "the apps, you're going to have an",
+      "duration": 3760,
+      "offset": 1899919
+    },
+    {
+      "text": "incredible time, especially if they use",
+      "duration": 4561,
+      "offset": 1901519
+    },
+    {
+      "text": "TypeScript. I would argue that if you're",
+      "duration": 4000,
+      "offset": 1903679
+    },
+    {
+      "text": "not using TypeScript for your clients",
+      "duration": 3920,
+      "offset": 1906080
+    },
+    {
+      "text": "anywhere that Convex is probably not",
+      "duration": 5761,
+      "offset": 1907679
+    },
+    {
+      "text": "worth it because it's very very very",
+      "duration": 4960,
+      "offset": 1910000
+    },
+    {
+      "text": "strong within the TypeScript world. All",
+      "duration": 2959,
+      "offset": 1913440
+    },
+    {
+      "text": "their SDKs and everything are great.",
+      "duration": 2959,
+      "offset": 1914960
+    },
+    {
+      "text": "They have packages for other stuff, but",
+      "duration": 3841,
+      "offset": 1916399
+    },
+    {
+      "text": "they're definitely not the same quality",
+      "duration": 4480,
+      "offset": 1917919
+    },
+    {
+      "text": "tier as the TypeScript stuff right now.",
+      "duration": 3840,
+      "offset": 1920240
+    },
+    {
+      "text": "I can see that changing in the future,",
+      "duration": 2961,
+      "offset": 1922399
+    },
+    {
+      "text": "but I also don't care. I'm just going to",
+      "duration": 2479,
+      "offset": 1924080
+    },
+    {
+      "text": "write TypeScript. Like if I'm building",
+      "duration": 2799,
+      "offset": 1925360
+    },
+    {
+      "text": "an application experience shipping to",
+      "duration": 4000,
+      "offset": 1926559
+    },
+    {
+      "text": "users, that should be in Typescript.",
+      "duration": 4400,
+      "offset": 1928159
+    },
+    {
+      "text": "They also just generally aren't",
+      "duration": 4000,
+      "offset": 1930559
+    },
+    {
+      "text": "structured for gigantic queries,",
+      "duration": 3600,
+      "offset": 1932559
+    },
+    {
+      "text": "mutations, there's a limit to how many",
+      "duration": 3120,
+      "offset": 1934559
+    },
+    {
+      "text": "rows you can hit and how much data you",
+      "duration": 3281,
+      "offset": 1936159
+    },
+    {
+      "text": "can hit in a given query. So if you want",
+      "duration": 4801,
+      "offset": 1937679
+    },
+    {
+      "text": "to do a query that is get every single",
+      "duration": 4800,
+      "offset": 1939440
+    },
+    {
+      "text": "row out of my giant database with",
+      "duration": 4480,
+      "offset": 1942480
+    },
+    {
+      "text": "hundreds of billions of rows and then",
+      "duration": 5120,
+      "offset": 1944240
+    },
+    {
+      "text": "count like which ones have the longest",
+      "duration": 4000,
+      "offset": 1946960
+    },
+    {
+      "text": "message length or something, you're",
+      "duration": 2960,
+      "offset": 1949360
+    },
+    {
+      "text": "going to have a rough time. It's not",
+      "duration": 3040,
+      "offset": 1950960
+    },
+    {
+      "text": "built for those types of things, those",
+      "duration": 4320,
+      "offset": 1952320
+    },
+    {
+      "text": "like select everything queries. A lot of",
+      "duration": 4960,
+      "offset": 1954000
+    },
+    {
+      "text": "that's because they architected it to",
+      "duration": 4639,
+      "offset": 1956640
+    },
+    {
+      "text": "not lead you down those paths. A lot of",
+      "duration": 4640,
+      "offset": 1958960
+    },
+    {
+      "text": "the way Convex is designed is around",
+      "duration": 3841,
+      "offset": 1961279
+    },
+    {
+      "text": "leading you and the developers",
+      "duration": 3199,
+      "offset": 1963600
+    },
+    {
+      "text": "contributing towards things that are",
+      "duration": 3919,
+      "offset": 1965120
+    },
+    {
+      "text": "actually performant. They make it hard",
+      "duration": 4240,
+      "offset": 1966799
+    },
+    {
+      "text": "to write code that isn't performant and",
+      "duration": 3921,
+      "offset": 1969039
+    },
+    {
+      "text": "you'll feel really gross and bad as you",
+      "duration": 3760,
+      "offset": 1971039
+    },
+    {
+      "text": "do it because you're not supposed to do",
+      "duration": 3520,
+      "offset": 1972960
+    },
+    {
+      "text": "things that way. Especially on like the",
+      "duration": 3360,
+      "offset": 1974799
+    },
+    {
+      "text": "analytic side, they have solutions for a",
+      "duration": 3199,
+      "offset": 1976480
+    },
+    {
+      "text": "lot of that. like they have a component",
+      "duration": 4801,
+      "offset": 1978159
+    },
+    {
+      "text": "for uh aggregates and a sharded counter",
+      "duration": 5120,
+      "offset": 1979679
+    },
+    {
+      "text": "for having things that like count and go",
+      "duration": 3760,
+      "offset": 1982960
+    },
+    {
+      "text": "up and down and tracking that. Like we",
+      "duration": 3921,
+      "offset": 1984799
+    },
+    {
+      "text": "should have implemented this for the T3",
+      "duration": 4640,
+      "offset": 1986720
+    },
+    {
+      "text": "chat history thing. We didn't but we",
+      "duration": 3439,
+      "offset": 1988720
+    },
+    {
+      "text": "probably should have especially the",
+      "duration": 2640,
+      "offset": 1991360
+    },
+    {
+      "text": "aggregate stuff seems really cool. That",
+      "duration": 4000,
+      "offset": 1992159
+    },
+    {
+      "text": "said, you can just fire hose it out",
+      "duration": 3840,
+      "offset": 1994000
+    },
+    {
+      "text": "somewhere else. They have a whole",
+      "duration": 3360,
+      "offset": 1996159
+    },
+    {
+      "text": "streaming data in and out of convex",
+      "duration": 4160,
+      "offset": 1997840
+    },
+    {
+      "text": "section that explains in detail how to",
+      "duration": 4400,
+      "offset": 1999519
+    },
+    {
+      "text": "set up the exports to automatically",
+      "duration": 3919,
+      "offset": 2002000
+    },
+    {
+      "text": "stream data out to stuff like data",
+      "duration": 3841,
+      "offset": 2003919
+    },
+    {
+      "text": "bricks or snowflake so that if you want",
+      "duration": 4000,
+      "offset": 2005919
+    },
+    {
+      "text": "to do analytics on that data you can.",
+      "duration": 4080,
+      "offset": 2007760
+    },
+    {
+      "text": "They say right convex isn't optimized",
+      "duration": 3600,
+      "offset": 2009919
+    },
+    {
+      "text": "for queries that load huge amounts of",
+      "duration": 3360,
+      "offset": 2011840
+    },
+    {
+      "text": "data. They're transparent about it and",
+      "duration": 3040,
+      "offset": 2013519
+    },
+    {
+      "text": "they give you solutions. And this is the",
+      "duration": 3120,
+      "offset": 2015200
+    },
+    {
+      "text": "difference. Convex knows what they're",
+      "duration": 4240,
+      "offset": 2016559
+    },
+    {
+      "text": "bad at and are very quick to explain to",
+      "duration": 4479,
+      "offset": 2018320
+    },
+    {
+      "text": "you how to handle the things they're bad",
+      "duration": 4081,
+      "offset": 2020799
+    },
+    {
+      "text": "at if you want to do them. This has",
+      "duration": 3120,
+      "offset": 2022799
+    },
+    {
+      "text": "actually been a problem I've had with",
+      "duration": 2960,
+      "offset": 2024880
+    },
+    {
+      "text": "almost every other database provider.",
+      "duration": 3441,
+      "offset": 2025919
+    },
+    {
+      "text": "They try to convince me that my problem",
+      "duration": 3520,
+      "offset": 2027840
+    },
+    {
+      "text": "is wrong or that I'm stupid for thinking",
+      "duration": 4080,
+      "offset": 2029360
+    },
+    {
+      "text": "I need to solve things this way. Convex",
+      "duration": 3520,
+      "offset": 2031360
+    },
+    {
+      "text": "is very quick to put up their hands and",
+      "duration": 3440,
+      "offset": 2033440
+    },
+    {
+      "text": "say, &quot;Nope, we don't do that. Here's",
+      "duration": 3840,
+      "offset": 2034880
+    },
+    {
+      "text": "what we recommend.&quot; It's a huge",
+      "duration": 4000,
+      "offset": 2036880
+    },
+    {
+      "text": "difference. That said, if the majority",
+      "duration": 4000,
+      "offset": 2038720
+    },
+    {
+      "text": "of what you need your database for is",
+      "duration": 4080,
+      "offset": 2040880
+    },
+    {
+      "text": "analytics, if you have people that want",
+      "duration": 4720,
+      "offset": 2042720
+    },
+    {
+      "text": "to do very flexible queries on the",
+      "duration": 4560,
+      "offset": 2044960
+    },
+    {
+      "text": "servers directly, this is not the",
+      "duration": 4320,
+      "offset": 2047440
+    },
+    {
+      "text": "database for you. If you want to have a",
+      "duration": 4800,
+      "offset": 2049520
+    },
+    {
+      "text": "good experience building applications",
+      "duration": 4960,
+      "offset": 2051760
+    },
+    {
+      "text": "that are userfacing, that's what Convex",
+      "duration": 4319,
+      "offset": 2054320
+    },
+    {
+      "text": "is for. It is the best database platform",
+      "duration": 4959,
+      "offset": 2056720
+    },
+    {
+      "text": "ever made for application development.",
+      "duration": 4480,
+      "offset": 2058639
+    },
+    {
+      "text": "So if you're building apps and",
+      "duration": 3281,
+      "offset": 2061679
+    },
+    {
+      "text": "TypeScript, they're for you. If you're",
+      "duration": 3841,
+      "offset": 2063119
+    },
+    {
+      "text": "not using TypeScript anywhere or you're",
+      "duration": 3919,
+      "offset": 2064960
+    },
+    {
+      "text": "not building apps, you're just building",
+      "duration": 4159,
+      "offset": 2066960
+    },
+    {
+      "text": "data analytics type stuff, go use",
+      "duration": 3681,
+      "offset": 2068879
+    },
+    {
+      "text": "something else. This is not the solution",
+      "duration": 3201,
+      "offset": 2071119
+    },
+    {
+      "text": "for you. Try to think of other",
+      "duration": 4160,
+      "offset": 2072560
+    },
+    {
+      "text": "downsides. You'll never want to use",
+      "duration": 4640,
+      "offset": 2074320
+    },
+    {
+      "text": "anything else. That's a very real one.",
+      "duration": 4240,
+      "offset": 2076720
+    },
+    {
+      "text": "It's like a very real one. Actually",
+      "duration": 3760,
+      "offset": 2078960
+    },
+    {
+      "text": "going to do one more demo for fun just",
+      "duration": 4480,
+      "offset": 2080960
+    },
+    {
+      "text": "to emphasize how good this stuff is. I'm",
+      "duration": 5040,
+      "offset": 2082720
+    },
+    {
+      "text": "going to rebuild the image generation",
+      "duration": 5040,
+      "offset": 2085440
+    },
+    {
+      "text": "studio. I want to build an image gen",
+      "duration": 4960,
+      "offset": 2087760
+    },
+    {
+      "text": "studio. Use your front-end design skill",
+      "duration": 6320,
+      "offset": 2090480
+    },
+    {
+      "text": "to make it beautiful. Use vit react bun",
+      "duration": 6399,
+      "offset": 2092720
+    },
+    {
+      "text": "and for the image generation do it",
+      "duration": 4480,
+      "offset": 2096800
+    },
+    {
+      "text": "through foul. I want to generate images",
+      "duration": 5041,
+      "offset": 2099119
+    },
+    {
+      "text": "using nanobanana pro. Use convex as the",
+      "duration": 5600,
+      "offset": 2101280
+    },
+    {
+      "text": "database. Don't worry about off. All",
+      "duration": 4400,
+      "offset": 2104160
+    },
+    {
+      "text": "backend functions should be done through",
+      "duration": 4560,
+      "offset": 2106880
+    },
+    {
+      "text": "convex research and use whatever docs",
+      "duration": 4799,
+      "offset": 2108560
+    },
+    {
+      "text": "you think are necessary to build this.",
+      "duration": 3840,
+      "offset": 2111440
+    },
+    {
+      "text": "I'm going to let Cloud Code just build",
+      "duration": 4240,
+      "offset": 2113359
+    },
+    {
+      "text": "this for us. We'll do a plan, then we'll",
+      "duration": 4720,
+      "offset": 2115280
+    },
+    {
+      "text": "build. And thank you to my friends at",
+      "duration": 4000,
+      "offset": 2117599
+    },
+    {
+      "text": "Whisperflow for making it so easy to",
+      "duration": 3280,
+      "offset": 2120000
+    },
+    {
+      "text": "just speak that to my computer. The fact",
+      "duration": 3441,
+      "offset": 2121599
+    },
+    {
+      "text": "that it knows the proper capitalizations",
+      "duration": 2960,
+      "offset": 2123280
+    },
+    {
+      "text": "and everything for all the stuff I",
+      "duration": 2720,
+      "offset": 2125040
+    },
+    {
+      "text": "mentioned there is so nice. Okay,",
+      "duration": 3839,
+      "offset": 2126240
+    },
+    {
+      "text": "figured out that foul fowl was meant to",
+      "duration": 5200,
+      "offset": 2127760
+    },
+    {
+      "text": "be foul f. Cool. Only typo it had. I",
+      "duration": 5280,
+      "offset": 2130079
+    },
+    {
+      "text": "have given it no prior context. I have",
+      "duration": 4399,
+      "offset": 2132960
+    },
+    {
+      "text": "not included anything in any markdown",
+      "duration": 4961,
+      "offset": 2135359
+    },
+    {
+      "text": "files anywhere. I don't have some MCP or",
+      "duration": 5201,
+      "offset": 2137359
+    },
+    {
+      "text": "LLM's text or anything hidden on a very",
+      "duration": 4640,
+      "offset": 2140320
+    },
+    {
+      "text": "boring stock Cloud Code install here.",
+      "duration": 4960,
+      "offset": 2142560
+    },
+    {
+      "text": "The frontend skill is something I added,",
+      "duration": 5040,
+      "offset": 2144960
+    },
+    {
+      "text": "but it's just one. It's a markdown file",
+      "duration": 4240,
+      "offset": 2147520
+    },
+    {
+      "text": "that tells it to not suck at front end.",
+      "duration": 3760,
+      "offset": 2150000
+    },
+    {
+      "text": "It's not my frontend skill. It's theirs.",
+      "duration": 4480,
+      "offset": 2151760
+    },
+    {
+      "text": "It is literally just this markdown file",
+      "duration": 4640,
+      "offset": 2153760
+    },
+    {
+      "text": "that is telling it to not do slop. It",
+      "duration": 4720,
+      "offset": 2156240
+    },
+    {
+      "text": "asks questions. Uh, gallery of past",
+      "duration": 6000,
+      "offset": 2158400
+    },
+    {
+      "text": "images, dark mode, store and convex.",
+      "duration": 6560,
+      "offset": 2160960
+    },
+    {
+      "text": "Submit. Cool. Remember, cloud code is",
+      "duration": 5120,
+      "offset": 2164400
+    },
+    {
+      "text": "capable of extraordinary creative work.",
+      "duration": 4160,
+      "offset": 2167520
+    },
+    {
+      "text": "Don't hold back. Show what can truly be",
+      "duration": 3839,
+      "offset": 2169520
+    },
+    {
+      "text": "created when thinking outside the box",
+      "duration": 3360,
+      "offset": 2171680
+    },
+    {
+      "text": "and committing fully to a distinctive",
+      "duration": 5361,
+      "offset": 2173359
+    },
+    {
+      "text": "vision. Oh. Oh, Claude. So, I just had",
+      "duration": 7039,
+      "offset": 2175040
+    },
+    {
+      "text": "Claude code from scratch build the image",
+      "duration": 6879,
+      "offset": 2178720
+    },
+    {
+      "text": "studio app again with Convex. Let's",
+      "duration": 6000,
+      "offset": 2182079
+    },
+    {
+      "text": "create a new project. Personal account",
+      "duration": 4321,
+      "offset": 2185599
+    },
+    {
+      "text": "again. Like I've already offed to",
+      "duration": 3121,
+      "offset": 2188079
+    },
+    {
+      "text": "Convex. If I didn't, I would have had to",
+      "duration": 2720,
+      "offset": 2189920
+    },
+    {
+      "text": "click one link, sign in with GitHub. But",
+      "duration": 3440,
+      "offset": 2191200
+    },
+    {
+      "text": "since I have it, just links, choose a",
+      "duration": 4640,
+      "offset": 2192640
+    },
+    {
+      "text": "team, give it a name, some name.",
+      "duration": 4080,
+      "offset": 2194640
+    },
+    {
+      "text": "Actually like the default. So we'll go",
+      "duration": 3440,
+      "offset": 2197280
+    },
+    {
+      "text": "with the default convex cloud code demo.",
+      "duration": 3440,
+      "offset": 2198720
+    },
+    {
+      "text": "You can choose if you want to use the",
+      "duration": 3200,
+      "offset": 2200720
+    },
+    {
+      "text": "cloud or local deployment if you want to",
+      "duration": 3360,
+      "offset": 2202160
+    },
+    {
+      "text": "just run it on your machine. I've never",
+      "duration": 2800,
+      "offset": 2203920
+    },
+    {
+      "text": "actually bothered because I like the",
+      "duration": 2960,
+      "offset": 2205520
+    },
+    {
+      "text": "cloud stuff so much. It's really",
+      "duration": 3520,
+      "offset": 2206720
+    },
+    {
+      "text": "convenient. So we'll do cloud. Now I've",
+      "duration": 3119,
+      "offset": 2208480
+    },
+    {
+      "text": "linked to it in the dashboard, which I",
+      "duration": 3440,
+      "offset": 2210240
+    },
+    {
+      "text": "do actually need to do because I have to",
+      "duration": 5841,
+      "offset": 2211599
+    },
+    {
+      "text": "go grab the foul key. Oh, I have to sign",
+      "duration": 6399,
+      "offset": 2213680
+    },
+    {
+      "text": "in. What an inconvenience. Now we're in",
+      "duration": 7760,
+      "offset": 2217440
+    },
+    {
+      "text": "on this dash settings env",
+      "duration": 7681,
+      "offset": 2220079
+    },
+    {
+      "text": "key. Now give me a sec to go grab that.",
+      "duration": 5840,
+      "offset": 2225200
+    },
+    {
+      "text": "It has one or two type errors because",
+      "duration": 5839,
+      "offset": 2227760
+    },
+    {
+      "text": "there still is no LSP support by default",
+      "duration": 4000,
+      "offset": 2231040
+    },
+    {
+      "text": "in cloud code. It's super broken. It",
+      "duration": 3041,
+      "offset": 2233599
+    },
+    {
+      "text": "would have found those otherwise. It",
+      "duration": 3120,
+      "offset": 2235040
+    },
+    {
+      "text": "just thinks these things are strings,",
+      "duration": 2959,
+      "offset": 2236640
+    },
+    {
+      "text": "but they're more specific in the",
+      "duration": 3919,
+      "offset": 2238160
+    },
+    {
+      "text": "database definition. Whatever. It still",
+      "duration": 5361,
+      "offset": 2239599
+    },
+    {
+      "text": "is going to deploy, I think. Let me new",
+      "duration": 6561,
+      "offset": 2242079
+    },
+    {
+      "text": "tab it. npxtsc to see. Nope. It is not",
+      "duration": 5840,
+      "offset": 2244960
+    },
+    {
+      "text": "seeing the same type error as convex is.",
+      "duration": 5520,
+      "offset": 2248640
+    },
+    {
+      "text": "I will tell it that if you npxtsc",
+      "duration": 6799,
+      "offset": 2250800
+    },
+    {
+      "text": "in the convextor, you will see some type",
+      "duration": 5760,
+      "offset": 2254160
+    },
+    {
+      "text": "errors. Fix them. Okay, cool. All of",
+      "duration": 3921,
+      "offset": 2257599
+    },
+    {
+      "text": "those are fixed and it auto deployed",
+      "duration": 4400,
+      "offset": 2259920
+    },
+    {
+      "text": "when they were fixed. Let's see if it",
+      "duration": 6319,
+      "offset": 2261520
+    },
+    {
+      "text": "worked. Image studio. Two corgis riding",
+      "duration": 7519,
+      "offset": 2264320
+    },
+    {
+      "text": "a bike. 2K generate. It auto appeared in",
+      "duration": 5921,
+      "offset": 2267839
+    },
+    {
+      "text": "the UI. Here it is running on the",
+      "duration": 4481,
+      "offset": 2271839
+    },
+    {
+      "text": "server. And if all went well, then in",
+      "duration": 4400,
+      "offset": 2273760
+    },
+    {
+      "text": "just a moment we will see two corgis",
+      "duration": 3600,
+      "offset": 2276320
+    },
+    {
+      "text": "riding a bike without me writing a",
+      "duration": 4000,
+      "offset": 2278160
+    },
+    {
+      "text": "single line of code. All in about 20",
+      "duration": 4720,
+      "offset": 2279920
+    },
+    {
+      "text": "minutes just running cloud code. Oh no,",
+      "duration": 5600,
+      "offset": 2282160
+    },
+    {
+      "text": "an argument validation error. We can",
+      "duration": 6959,
+      "offset": 2284640
+    },
+    {
+      "text": "copy that, paste it to cloud. Also of",
+      "duration": 6079,
+      "offset": 2287760
+    },
+    {
+      "text": "note, one of my favorite things about",
+      "duration": 4721,
+      "offset": 2291599
+    },
+    {
+      "text": "convex, since this is all happening on",
+      "duration": 4801,
+      "offset": 2293839
+    },
+    {
+      "text": "the cloud, you have the convex logs",
+      "duration": 3759,
+      "offset": 2296320
+    },
+    {
+      "text": "where you can see all of these things",
+      "duration": 3280,
+      "offset": 2298640
+    },
+    {
+      "text": "going wrong here as well. It shows it to",
+      "duration": 3760,
+      "offset": 2300079
+    },
+    {
+      "text": "you in the terminal as well because it's",
+      "duration": 3439,
+      "offset": 2301920
+    },
+    {
+      "text": "happening with that code that you put",
+      "duration": 3441,
+      "offset": 2303839
+    },
+    {
+      "text": "there. Valley pay returns null for width",
+      "duration": 3601,
+      "offset": 2305359
+    },
+    {
+      "text": "height. Added a nullish colesence to",
+      "duration": 4720,
+      "offset": 2307280
+    },
+    {
+      "text": "handle that. Cool. Do corgis riding a",
+      "duration": 5200,
+      "offset": 2308960
+    },
+    {
+      "text": "bike. I'll knock down the res so it's",
+      "duration": 3920,
+      "offset": 2312000
+    },
+    {
+      "text": "faster.",
+      "duration": 4480,
+      "offset": 2314160
+    },
+    {
+      "text": "And there we go. One shot, two errors",
+      "duration": 5600,
+      "offset": 2315920
+    },
+    {
+      "text": "copy pasted into cloud code. Zero code",
+      "duration": 5920,
+      "offset": 2318640
+    },
+    {
+      "text": "looked at or written. Full stack image",
+      "duration": 6480,
+      "offset": 2321520
+    },
+    {
+      "text": "gen synced across web and server. All",
+      "duration": 5279,
+      "offset": 2324560
+    },
+    {
+      "text": "handled in the database directly. and",
+      "duration": 4000,
+      "offset": 2328000
+    },
+    {
+      "text": "ready just for one last piece of magic.",
+      "duration": 4881,
+      "offset": 2329839
+    },
+    {
+      "text": "We have these two creations here. One",
+      "duration": 6720,
+      "offset": 2332000
+    },
+    {
+      "text": "failed, one didn't. Select, delete, and",
+      "duration": 5920,
+      "offset": 2334720
+    },
+    {
+      "text": "it vanishes from the UI. Are you",
+      "duration": 4720,
+      "offset": 2338720
+    },
+    {
+      "text": "kidding? Magic. It is unbelievable what",
+      "duration": 4479,
+      "offset": 2340640
+    },
+    {
+      "text": "the Convex team has cooked here. If you",
+      "duration": 3520,
+      "offset": 2343440
+    },
+    {
+      "text": "haven't tried it yet, you have no idea",
+      "duration": 3601,
+      "offset": 2345119
+    },
+    {
+      "text": "how much you're missing out. Convex has",
+      "duration": 3600,
+      "offset": 2346960
+    },
+    {
+      "text": "made my life building applications not",
+      "duration": 4960,
+      "offset": 2348720
+    },
+    {
+      "text": "just easier, but absurdly more fun. And",
+      "duration": 5120,
+      "offset": 2350560
+    },
+    {
+      "text": "I highly recommend you check it out",
+      "duration": 4080,
+      "offset": 2353680
+    },
+    {
+      "text": "yourself. Sorry, Superbase. I just want",
+      "duration": 3760,
+      "offset": 2355680
+    },
+    {
+      "text": "to set my audience up for the best",
+      "duration": 3440,
+      "offset": 2357760
+    },
+    {
+      "text": "possible tools in modern times. And it",
+      "duration": 3600,
+      "offset": 2359440
+    },
+    {
+      "text": "really feels like Convex is that tool.",
+      "duration": 3280,
+      "offset": 2361200
+    },
+    {
+      "text": "They're not paying me to shell at this",
+      "duration": 3039,
+      "offset": 2363040
+    },
+    {
+      "text": "point. I did invest because I like them",
+      "duration": 3920,
+      "offset": 2364480
+    },
+    {
+      "text": "that much. But I just Yeah. I hope you",
+      "duration": 4000,
+      "offset": 2366079
+    },
+    {
+      "text": "understand how genuine my love of Convex",
+      "duration": 3120,
+      "offset": 2368400
+    },
+    {
+      "text": "is and how long it took for me to get",
+      "duration": 3361,
+      "offset": 2370079
+    },
+    {
+      "text": "here. I hope that these videos help you",
+      "duration": 3440,
+      "offset": 2371520
+    },
+    {
+      "text": "skip some steps and fall in love with it",
+      "duration": 2960,
+      "offset": 2373440
+    },
+    {
+      "text": "yourself. Thank you to everybody for",
+      "duration": 2879,
+      "offset": 2374960
+    },
+    {
+      "text": "watching and thank you to Convex for",
+      "duration": 2959,
+      "offset": 2376400
+    },
+    {
+      "text": "taking the time to convince me. I hope",
+      "duration": 2641,
+      "offset": 2377839
+    },
+    {
+      "text": "I'm doing a good job paying that",
+      "duration": 2720,
+      "offset": 2379359
+    },
+    {
+      "text": "forward. Go build something fun. And",
+      "duration": 5200,
+      "offset": 2380480
+    },
+    {
+      "text": "until next time, peace nerds.",
+      "duration": 3601,
+      "offset": 2382079
+    }
+  ],
+  "transcriptText": "If you watched my videos over the last 6 months, you probably know about how much I love Convex. If you've somehow missed that, don't worry. We'll go in detail, but we're not necessarily here just to talk about Convex. We're here to talk about the state of databases and how we build things with databases, especially if we're using AI to do it. I'm talking about this for a handful of reasons. The big ones are some stuff I've been seeing on Twitter. What a surprise. Peter here has been building a ton of stuff with AI recently. And when I say a ton, I can't properly explain it without just showing you his GitHub. It's a little absurd how much stuff he has been building. And he's recently gotten convex build. He just migrated a ton of things over. Everything worked immediately and he's super impressed. The main reason I'm doing this though is another video by another creator. Robin just published this video, but why he stopped using Superbase. And I have a confession to make. I've never built anything serious with Superbase. So, watching this video, I learned a lot about building with Superbase. And yeah, it's time to get off Superbase. I want to be very clear. This video is not being paid for or even approved by Convex or anybody else in the database space. I am filming this not because I want Convex to like me or because I want to get some money from somebody. I'm filming this because I want to make sure you don't trap yourself as you're building more and more applications and that you build on things that I actually like and recommend. And just to be very very clear, the only people paying for today's video are this sponsor. I'm going to show you guys a quick magic trick. This is my cat, Miles. I'm going to pet him while also vibe coding. Here we see uh Oh, you weren't supposed to see that part. I'm uh getting a call from Tupal. I'm going to port this app over to Swift while uh petting my cat. Watch this. I just need to think about it when I look at my computer. Totally don't have to click this share screen button hidden in the corner. Why would I do that? This demo would be a lot more compelling if my channel manager knew how to type. This is with Opus. Do you know how expensive that is? It's probably more money than the Tupal subscription. If you couldn't tell, what we're actually demoing here is Tupil. It's by far the best way to do pair programming. Even if you're both in the same room, I have Ben right there. And when I want him to take over my machine, we still use Tupil because it's easier than handing him my laptop. It's actually genuinely really cool what you can do with Tupel. It's silly, but it's actually really nice. So, you can get a bunch of people in a call together. You can review code together. You can even have different people on your team writing code and making changes on your machine when you're distracted petting your cat. I was super skeptical of a dedicated product like this before cuz like you already have Zoom, right? I haven't used Zoom since I got this because it's so much better for working with your team, for actually reviewing code together, for actually using each other's computers because they can do things on my machine. No longer do you have to like be back and forth in a call saying, &quot;Hey, can you go change this line? No, not that one. That one below. No, you're on the wrong line. You just click on it using the UI, using the cursor on your computer. You can just select the text you want. You can delete things. You can add things. You can do things. It's like if Zoom was for people who were actually productive on their computers instead of people sitting around yelling at each other in meetings and not getting anything done. If you're tired of pairing being miserable on Zoom, Google Meet, or whatever else, and you want to be more productive with your team, there is no better app than Tupal for torturing your co-workers. I mean uh being a good parenting engineer is actually really nice. Miles agrees. Good boy. What are you waiting for? Try it now at soyv.link/tupil. As I said before, Robin's video is awesome. It's linked in the description. I highly recommend watching it. But I want to highlight one particular point from it before we go through all of the reasons why I think you should stop using Superbase and use something super useful like Convex. And trust me, this matters even if you're like me and you don't mind paying for things that are actually worth it because Superbase punishes you for having ideas. Their free plan limits you to two active projects. And if you want to test a third one, a fourth one, or a fifth one, you have to delete or at least pause one of the old projects, making them temporarily inaccessible. But the real kick in the nuts happens when you do decide to give Superbase money. Because their billing is organizationbased and the moment you upgrade an organization, which you can think of as a group of projects to the pro plan, you lose the rights to have any free projects in that organization. Think about it like this. If you have five hobby projects and you decide to upgrade one of them to the pro plan, they will all automatically be converted into paid instances. each. Here's the kicker. To a minimum of $10 a month. So if you have 10 ideas you're playing with. >> Yeah, I did not know this was a thing. I had no idea at all. And just for contrast, here is my dashboard on Convex. Want to guess how much money this account costs me? This is my personal account. Jamie, is this a comped account? Are you comping my personal? Okay. I did not know that, but I am almost positive it would have been free otherwise because of how cheap they are for things that aren't getting much traffic. You can have 40 deployments for free and up to six people on the team as well. That is absurdly generous. Like absolutely absurdly generous. And even though I was wrong and technically I am comped on just my personal by the way I'm paying quite a bit of money on the paid tier because it's important to me. Yeah, I have 25 projects here. This would cost $0. This would be free. That is insane. That's just one of the aspects though. There's a handful of aspects I want to talk about here. So why convex and not superbase? The first piece was the pricing which I can go a lot more in detail on and we will in a second. Next piece is the capability of the platform. There's so much cool stuff that we'll talk about here, but one of the most important is agent development. So, let's finish up pricing really quick because there's a lot to think about here. It's important to understand with these platforms that they aren't just databases. Neither Convex nor Superbase are just a place to store data. They are both open- source and they're both built on top of SQL. Superbase is much more leaning into it being Postgress and you can just query the Postgress with SQL traditionally whenever you want. They also have their SDKs and platform on top where you can use them as a rowle security handling system to choose what users see what and then connect a user directly to the database through Superbase's compute plane in order to sync data up and down when things change. Convex is a much heavier abstraction. Like the fact that convex uses SQL under the hood is not something you should think about or be concerned about because you'll never touch it. Superbase is a different way of doing Postgress. Convex is a different way about doing application data. So they're very different in that regard. But in terms of what they offer, at least seem similar. Both have object storage for files and things. Both store your data. Both have sync in real time where data changes and immediately appears on the client. Both have the ability to run some compute on their platform. Both have O, but the way they work around that varies. Both have SDKs for everything. But there's a huge difference in how they think about stuff. With Convex, you write queries and mutations. With Superbase, you model the data and then access it directly. Convex has you write real code to choose what data goes to users. Superbase has you architect the database to expose certain data to users. If that sounds scary to you, it's because it is. And the few people I know who are still using Superbase, I highly highly recommend that they don't use Superbase as a sync layer and instead they focus on Superbase as a place to store and handle Postgress. But let's go more into the pricing now that we understand this because they both offer compute, they both offer off, they both offer file storage and all these other things. The free tier on Zubase gives you up to 50,000 monthly active users, a 500 megabyte of storage database and 500 megs of RAM on that shared CPU, 5 gigs of egress, 5 gigs of cacheed egress, a gig of file storage and support. Once you bump up to the $25 a month plan, which you have to pay for separate from the $10 a month per project, 100k of monthly active users, 8 gigs of disk size because you have to think about these things as they're a traditional compute platform, 250 gigs of egress, 250 gigs of cached egress, 100 gigs of file storage, yada yada. But this is the big thing. You have to think about the box it's running on because Superbase is running a real database and compute on it that users connect to. So getting this all right, obnoxious. Convex does things a little bit differently because their compute works differently too. You see my videos covering the difference between Verscell and Cloudflare where I talk about how their computes abstractions at a different level. Convex is similar in this regard. They built their own compute layer similar to Cloudflare's that runs isolates that allow you to connect to this code you write that is on the same box as the database. So everything is way faster and it also can be way more dynamic. You never have to worry about your database sleeping on convex because it costs them a lot less money to run it. Your compute isn't running unless somebody's connecting. All of these things are just differences in the architecture that came from the Convex team having a ton of experience with this when they built up the data platforms at Dropbox. They know databases and scaling them really well and they scale up and down wonderfully for this reason. A database on Superbase costs the same amount of money whether or not there's any traffic on it. A database on convex costs them a lot less when it's not in use and it costs them more when it is. Which means that the costs reflect the usage much better and it feels a lot less bad as a result. And you can see that as we scroll. You get a million function calls a month for free and then it's $2.20 for the next million. You get 20 GB hours of compute and this is measured by how many gigs of RAM over how many hours. That's a lot of compute because you're probably not doing much compute on action depending on what you're doing with convex database storage still not a lot of storage 500 I think that's actually the exact same as with uh superbase but it's 50 gigs of storage on the pro tier and then 20 cents per gig when you go over and that's also still the $25 and we'll talk about the per developer month piece in a little bit because it isn't as important as you think file storage yada yada all these numbers are fair the only one I would argue is slightly expensive is file bandwidth where they charge you 30 cents per gig of file read out but they've also been building things to let you put that on a CDN so that you don't have to pay it in fact the CEO is in chat and before I even said this said the same the file bandwidth costs are too high but he's also building things to fix this in particular he is building a new convex component which a whole thing we'll get into for convex file storage to put it on a CDN like Bunny super super cool stuff yeah You also can pay for usage on the pro plan on Convex without having to bump to the pro tier. They're just good. Like I don't know how to put it other than that. Like these are guys who deeply understand us as developers, especially in the TypeScript world, that deeply care about us and DX and pricing and all these things. Anytime something feels unfair, they know it first and they're already on it. Like, how telling is it that I got sniped out as I was about to say, &quot;This is too expensive.&quot; Jaime's typing it in chat at the exact same time. We've never talked about this before. We just both know it because we're both realistic and they are so realistic about these things. So pricing, they are slaughtering. It is very fair, very good, scales great. I am spending a decent bit of money on convex and I know all of the ways I can cut the bill, but I also have no interest in doing it because the things I'm doing that cost more money specifically, we are doing just insane amounts of database bandwidth because I generously read from the database to cache data on the client. If I was to tone that down at all, we could cut our bill in half, but I don't care because it's still cheap enough. I just don't. And on our main account, 4T3 chat, we are spending thousands of dollars a month on Convex because we want to because it's great and I wouldn't change a thing. I am very, very happy with what we're spending. It is not much more than we were spending on planet scale before. So, that's enough about pricing. I want to go into this first. We're going to change the order a little bit because the capabilities will become clearer after we talk about how building with convex works. The biggest difference between how convex building works and something like superbase is that all of the state is kept inside of the folder in your project. I have a bunch of different projects using convex heavily. This is T3 chat like the actual T3 chat codebase. And you'll see convex is a folder here in the project. There's the source folder for all of the front-end code using tanstack star, but there's this other folder next to it named convex that handles all of how convex works. You have a schema.ts file that describes all of the things that your database has in it. Ours for this is complex because this is a very complex app. But if I go to a simpler app like my new image studio thing I've been working on, you will see in here the schema is quite a bit simpler comically. We export the default defined schema. It has generations which is a table that includes user ids, prompts, the mode, the status, created at completed at and indexes. Generation output which is a table has user ID, generation, model, model uh display name, etc. for all of the things that we want to show in the UI. Editing threads for the conversations where you're editing things. This is a cool feature I added. But all of this is tables that are defined in the project as a file in the convex folder. Normally you would need some abstraction for this like an OM of some form or a bunch of craziness around migrations and management to keep track of what the state of the database is between the server and whatever you're consuming it from. The database and the server and the client being kept in sync is obnoxious. This is a big part of why I originally built create T3 app in the T3 stack to try and streamline how you build the relationship between these things. Where things become magical though is how you consume this stuff. If I want to expose generations to users to access them, I have to define a function for that. So if I want to list all of my generations, here is how I do it. I have a query which is imported from their library. It has a limit as one of the arguments. So you can optionally limit how many things you get back. And then you write TypeScript. I have this get off user ID function that checks and gets a user ID. And if there is no user ID, I return nothing cuz you're not signed in. Then I have a limit. I either use 50 as the default or I take the limit you passed me. And then I get the data context. DB.query generations with index using one of those indexes. And here's where some of the magic starts. Watch what happens if I delete characters. Oh, that's a type error because it knows exactly what the database has in it. What if I hit a different table that doesn't exist? Oh, all type errors because it doesn't exist. This is awesome. It makes it way easier to know when your code is broken because you'll get errors in your editor, in your LSP, and your agents can get those errors, too. Starting to see where this gets helpful. Also of note, nothing has to be done in order to get this code to work on your account. You don't have to go configure anything in any dashboards. You just run it. If I want to change what data is exposed, like I want to limit access to generations here. I want to make it so only certain whitelisted users can see it or something. I don't go to a dashboard and configure some You can't do it that way. You make changes to your convex deployment by editing the code for your convex deployment. Everything you can do on convex can be done in this folder. That's the magic. AI is really bad at state. It's really bad at remembering what things are set up as in the database versus how they're set up in your editor versus how they are in prod versus dev versus what you're working on right now versus the pull request that you're referencing. None of that works that way in convex because it's all just a folder with files that describe the infra. It's so nice. Everything is just described here. Everything that my convex deployment does for image studio and for T3 chat is just defined in this folder. So if an agent wants to make changes, it can just edit the files. And now when I make changes, as long as you're running the convex dev command, those changes will ship up to my dev instance immediately. Let's say I stop including some field in here, like I remove streaming as an optional status here. It deployed. I can read it. It deployed. Let's kill completed this time. Oh, it can't because there's a bunch of things in the database that match that field. That's really annoying. Let's go fix that. So, this is image cloud code. I believe I have all of my data in this database and it has all of these things that are status completed. Here is one of those oh moments I have with Convex. I'm going to manually delete this data. Confirmed. I switch back to my terminal. As soon as the data was deleted, it redeployed by itself. I didn't have to tell it you can deploy now. It knows it can't deploy because of that data. So when the data is gone, it knows it can now push because everything is synced by default. It's magic. And do you know how good this is for unblocking your agents? This is so good. There are so many weird edge cases that I used to deal with all the time because my data was in different states in prod, in dev, on one machine, on another machine, and in my codebase. They're all just gone. Now, it's very clear when something's broken, and it's even clearer how to fix it. Also, when I had that there, notice that there's now a type error in generations because here I set the statuses of failed or complete, but complete not a valid status. Save that. Now, we're good. It's that easy. And your agents are so much smarter with it, too. This is my first time ever reading any of this code. This whole project was built by Claude Code. and Claude Code, Codeex, Cursor, all of these tools love Convex because they don't have to do some weird MCP jiu-jitsu in order to change the way your database works. With Superbase, you have to connect to the database, make changes there, edit the code to mirror the way the database should be working. And just orchestrating all of that is obnoxious. Nothing is necessary here. You just write the code and then it deploys. And the sync, by the way, which is one of the coolest parts, you have to do anything for it. Here I have the list query that lists all of the things that you've generated for your user. We index by user ID so we can only select things for you as a user. And then you render the results and then you return them. That's it. And now whenever a change happens, it updates the client accordingly because there's no other way to access this data. You can't mutate it by sneaking behind the scenes and editing the SQL or calling that directly. The only way this data changes is by hitting a mutation that is running on the same compute layer in front of the database. So when a mutation happens, it knows what rows are hit and it invalidates the cache that it has for all of the queries that hit that data. And when the cache gets invalidated, it sends the update. It's so good. And it also means the vast majority of your queries are just hitting the cache. More cool things here. By the way, there is no join syntax. There is no weird special way to do things. You just write TypeScript. If you want to link the results to generations, because a generation is a request a user made to generate something, a generation has different results that exist for it because one generation might produce four images and you link the two like this. You just take the output, you do map on it, and then you additionally query for every additional thing. This seems terrifying. Doing a map on some other DB call that awaits. That's going to be 50 to 500 awaits. That can't be right. It's totally fine and blessed. And this is just TypeScript. We're not doing some weird syntax for joins to try and streamline how the query gets managed. We trust Convex in their query planner to handle all of this for us. And we just do a map with an await and it works. Couldn't be easier. And we're still just in the basic queries here. Mutations are just as simple. You define a mutation like delete output. It has an ID. You get the user ID. You get the output. If no output, we throw an error. we get the generations and if the generation's user ID is not the same as your user ID, we throw an error. This is actually one of the biggest problems with platforms like Superbase is the relationship between the data and who can control it is defined almost arbitrarily within the database itself as RLS that is not codified in your codebase. There is no definitive document that shows who can access what. In convex, you have to write queries and mutations. You cannot change the data without one of these functions, which means you have to write it, which means it's very obvious when you're not doing things right with permissions because it's source code that can be read. Couldn't be better. And again, this is all stuff your agents can control. I don't want to just go into glaze mode, and I saw Yash complaining about a thing I have feelings about, too. The only exception to the you never have to go to the dashboard rule is environment variables, which are still quite annoying to manage. It'd be really nice to have something like T3 env where I can define all of the environment variables I need access to in code and if I put them in this project like I have an env file here it will automatically sync those up. I know the CLI can do environment variables Jamie but I want to go further. I want the same experience I have for everything else in convex for that. If I have a file in the codebase that is environment that lists all the environment variables and it sees those environment variables in my local dev environment, it will autosync those the same way it syncs up the code. Yeah, this comment from Zach's actually very telling. Suabase was largely built to be an alternative to Firebase that was open source and actually well-maintained. And in Firebase, all of the rules were files that were JavaScript. Suabase tried to copy that behavior with RLS. It was a design decision that made sense for app devs in 2010 to 2015 because they hated building servers, web service layers, all of those things, and they just wanted to rapidly build apps. Firebase didn't even add web support until much later. Yep, we are all dealing with the tech debt of people who were too scared to deal with servers and write server code. And this is the funniest part with Convex. They've effectively tricked you into writing server code. Most of the apps I'm building, especially the ones I'm vibe coding now, they're not using Versel's backend at all. They're using Versell almost exclusively as a CDN and convex is the back end and I'm just writing functions and I'm calling them on client and not thinking about it and it just works. And if you do want to access outside services, you can do that as well with actions. So queries and mutations are for when you're just hitting the database and nothing else. You're not fetching, you're not touching external stuff because they have to be deterministic in order for them to work because of how the caching and everything works. Actions can touch external stuff. So here's a fun example. Again, I'm learning this codebase as we go because AI agents can write this all so well. I haven't had to even look at the code. Start thread with prompt is how you create a new generation. And in here, we have an action call where we schedule a new action to run when this mutation is done because everything's been added to the database. And then we want to run this action to do a generation. We pass all of these inputs. And you can commandclick as you can everywhere in Convex to get to this action. Here are all of its arguments. might look like Zod because it very much is like Zod. And we have the handler here. We run a mutation to update the status of streaming so that we know that this result is being done. I grab my foul key. I configure it. I then run the generation request. I have the inputs that I'm transforming for the specific model that we're using. I then make the request to file. And here I'm doing some crazy stuff with the stream because I want to long story there. Get the results. Get the data. Get the URL. This is all NES because this is coming from Fowl's SDK which is a lot less type- safe than what they have over at Convex. And then I just run another mutation with the output when I'm done. But this is how I interface externally. You have to define the mutation separately because again mutations and queries have to be pure. They have to just interface with the database. But once you've defined those, an action can call them willy-nilly. And you see what that looks like here. It's super convenient. And an action is an actual server function that you're running that can do real compute. You could even run it on node if you want, which is as simple as use node at the top of the file. Now, this is using node instead of their compute layer. Pretty cool, right? None of this is possible on something like superbase. So hopefully this helps emphasize why agents are so good at this because they just write TypeScript. None of this is really special syntax that's specific to convex. They're not making you define something in a special Prisma file or writing some crazy join syntax. Almost all of the syntax is just TypeScript. But I promised I would talk more about capabilities and I really want to do that because there are some things that Convex does that just nothing else comes close that are really really cool. Components are one of my favorite. Components aren't what they mean in the React world. Components are a set of capabilities that you can bundle up and add to your convex deployment. All of these are things you could build yourself, but they have instead built for us. The Stripe one I harassed poor Mickey into building for us. I'm so happy that that exists now. The AI agent one is great for just giving you the pieces you need to do agent orchestration. One of my personal favorites though, oh L is really cool. My favorite that I'm looking for in here, the work pools. Work pools are so cool. If you want to make sure some external API is only being hit concurrently up to five times, you can spin up a work pool that has a parallelism limit of five. And now when you call things within this workpool, you can incue an action and it's now parallelized with limits and it will handle the queuing and everything else by itself. This is code that they wrote for us that you can install in your app and use. Normally, this is something you'd bring another service in for. And that's what's so cool with Convex components is it feels like you're installing an external service provider without having to leave the Convex folder in your codebase. And again, this is really powerful for agents, too. They don't all know about all of the components or that they can go find them yet. But if you quickly browse through the available ones and find one that solves a problem, you can tell your agent about it. It will go find all of the docs and everything, especially if you give it a link and it will implement it totally fine. We have been using workpools heavily for features in T3 chat. And it has made life so much easier. Even has things like retry management, completion handling, and all the other annoying things you have to do when you're managing workloads like this. If you want to see this in depth, you should check out my video about reading billions of rows. The one about the T3 wrapped stuff because I showcase this in that. We used it heavily. It's so good. Just like one of the many examples. They have one for crons, too. If you want to have like things that run on certain time frames, they have integrations with other services as well. Like if you want to serve and store files from R2 instead of using their storage, there's a component for that. If you want to use resend for sending transactional emails, there's a component for that. If you want to build a collaborative text editor, multiple people can edit text at the same time and have that all handled for you in your database. There's a component for that. It's so cool. They even have components for different off providers like Better Off. I was going to mention Autumn. Autumn's another platform for managing your Stripe like payment stuff. And Autumn's getting almost as much use out of their component as the Stripe one is. Good work, Autumn. They're also just barely ekking out Polar right now. So cool. Meanwhile, with our friends over at Superbase, you kind of just have to hope and pray somebody there cares enough about the problem you have to deal with it. I just was looking for an example of what the workpool equivalent is on Superbase. How do you handle longunning or execution heavy backend tasks where edge functions aren't enough? First reply, Cloudflare worker. Yep. Oh, and branching. We should talk about this a little bit cuz one of the coolest parts with convex that I saw them talking about in chat but haven't brought up is the way they think about dev and like preview environments. Every dev gets their own environment. Remember earlier when I said that this per developer month thing doesn't really matter that much. I still vividly remember this conversation I had with Mark when we had Yash, our first intern, join. He was very happy with Convex but was surprised that they were going to charge us more money to add Yosh to our Convex service. I asked him, &quot;Why would we have to add Yosh?&quot; He said, &quot;Of course we have to add him. We have to add him to everything if he's going to be working with us.&quot; No, we don't. Remember what I said earlier about how using Convex works? You just run npx convex dev. And if you're not on our team account, who cares? It just deploys in your personal dev account. That's it. It's so easy. You just run the dev command. It spins up in your environment on your dev account, and all you have to do is copy over the environment variables. That's it. And if I succeed in my hazing of Convex, that'll be included, too. If somebody wants to contribute to one of my projects, they don't have to be part of my Convex account. They can just clone the repo, run the dev command, get a little URL they click to off with Convex for the first time, and they're done. That's all it takes. It is so easy to onboard onto a project using Convex. It's almost like annoying because then when I have to use anything else and collab with other people, it is the worst. But it's so easy to spin up. And this is the thing. Everything with convex is somewhere between zero and two steps. With a platform like Superbase, your options are either they already built it for you or you're going somewhere else. They provided this alternative set of primitives like with things like queries, mutations, and actions with things like the convex folder in the codebase with things like components and all the stuff you can do with them. They're providing us a better set of tools to build with. And those tools might be a smaller set than we're used to having, but it's a smaller set that works much better, scales much better, and just makes so many problems go away. And it feels really weird. I had about 4 years of being very unsure of Convex. I just didn't think this type of thing would ever be for me. And now I can't imagine building without it. And that's why we're seeing so many devs moving over. People like Peter, who probably could never have cared less about something like Convex before, suddenly getting hyped. Peter was able to build in three hours a full site with GitHub login, admin module, file storage, and npm packages that sync skills on disk and versioning and moderation, all with Convex for syncing his Twitter off for Claudebot. That's so cool. I was able to build the first pass on image studio. Similarly, you can do this with Superbase, but you're going to be spending a lot more time in the dashboard configuring MCPs and trying to get everything linked. Not with Convex. So, Jamie's in my chat as he often is. He hangs out because again, they're like us. I don't know how to emphasize this properly. Jaime's just a guy who hangs out in the same circles as us, watches the same things as us, just a fellow nerd. And Shamu summarized perfectly. The people that work there are really cool. The Convex team is awesome. Are there downsides? We can talk about downsides quick. Uh the biggest one is the same thing I think is one of the biggest benefits which is you have to access things through the queries and mutations that you define in the codebase. If you have some data analyst that wants to run something against all of the data in your database, Convex isn't for that. Convex is an application database for building apps. As long as the database is only accessed through the apps, you're going to have an incredible time, especially if they use TypeScript. I would argue that if you're not using TypeScript for your clients anywhere that Convex is probably not worth it because it's very very very strong within the TypeScript world. All their SDKs and everything are great. They have packages for other stuff, but they're definitely not the same quality tier as the TypeScript stuff right now. I can see that changing in the future, but I also don't care. I'm just going to write TypeScript. Like if I'm building an application experience shipping to users, that should be in Typescript. They also just generally aren't structured for gigantic queries, mutations, there's a limit to how many rows you can hit and how much data you can hit in a given query. So if you want to do a query that is get every single row out of my giant database with hundreds of billions of rows and then count like which ones have the longest message length or something, you're going to have a rough time. It's not built for those types of things, those like select everything queries. A lot of that's because they architected it to not lead you down those paths. A lot of the way Convex is designed is around leading you and the developers contributing towards things that are actually performant. They make it hard to write code that isn't performant and you'll feel really gross and bad as you do it because you're not supposed to do things that way. Especially on like the analytic side, they have solutions for a lot of that. like they have a component for uh aggregates and a sharded counter for having things that like count and go up and down and tracking that. Like we should have implemented this for the T3 chat history thing. We didn't but we probably should have especially the aggregate stuff seems really cool. That said, you can just fire hose it out somewhere else. They have a whole streaming data in and out of convex section that explains in detail how to set up the exports to automatically stream data out to stuff like data bricks or snowflake so that if you want to do analytics on that data you can. They say right convex isn't optimized for queries that load huge amounts of data. They're transparent about it and they give you solutions. And this is the difference. Convex knows what they're bad at and are very quick to explain to you how to handle the things they're bad at if you want to do them. This has actually been a problem I've had with almost every other database provider. They try to convince me that my problem is wrong or that I'm stupid for thinking I need to solve things this way. Convex is very quick to put up their hands and say, &quot;Nope, we don't do that. Here's what we recommend.&quot; It's a huge difference. That said, if the majority of what you need your database for is analytics, if you have people that want to do very flexible queries on the servers directly, this is not the database for you. If you want to have a good experience building applications that are userfacing, that's what Convex is for. It is the best database platform ever made for application development. So if you're building apps and TypeScript, they're for you. If you're not using TypeScript anywhere or you're not building apps, you're just building data analytics type stuff, go use something else. This is not the solution for you. Try to think of other downsides. You'll never want to use anything else. That's a very real one. It's like a very real one. Actually going to do one more demo for fun just to emphasize how good this stuff is. I'm going to rebuild the image generation studio. I want to build an image gen studio. Use your front-end design skill to make it beautiful. Use vit react bun and for the image generation do it through foul. I want to generate images using nanobanana pro. Use convex as the database. Don't worry about off. All backend functions should be done through convex research and use whatever docs you think are necessary to build this. I'm going to let Cloud Code just build this for us. We'll do a plan, then we'll build. And thank you to my friends at Whisperflow for making it so easy to just speak that to my computer. The fact that it knows the proper capitalizations and everything for all the stuff I mentioned there is so nice. Okay, figured out that foul fowl was meant to be foul f. Cool. Only typo it had. I have given it no prior context. I have not included anything in any markdown files anywhere. I don't have some MCP or LLM's text or anything hidden on a very boring stock Cloud Code install here. The frontend skill is something I added, but it's just one. It's a markdown file that tells it to not suck at front end. It's not my frontend skill. It's theirs. It is literally just this markdown file that is telling it to not do slop. It asks questions. Uh, gallery of past images, dark mode, store and convex. Submit. Cool. Remember, cloud code is capable of extraordinary creative work. Don't hold back. Show what can truly be created when thinking outside the box and committing fully to a distinctive vision. Oh. Oh, Claude. So, I just had Claude code from scratch build the image studio app again with Convex. Let's create a new project. Personal account again. Like I've already offed to Convex. If I didn't, I would have had to click one link, sign in with GitHub. But since I have it, just links, choose a team, give it a name, some name. Actually like the default. So we'll go with the default convex cloud code demo. You can choose if you want to use the cloud or local deployment if you want to just run it on your machine. I've never actually bothered because I like the cloud stuff so much. It's really convenient. So we'll do cloud. Now I've linked to it in the dashboard, which I do actually need to do because I have to go grab the foul key. Oh, I have to sign in. What an inconvenience. Now we're in on this dash settings env key. Now give me a sec to go grab that. It has one or two type errors because there still is no LSP support by default in cloud code. It's super broken. It would have found those otherwise. It just thinks these things are strings, but they're more specific in the database definition. Whatever. It still is going to deploy, I think. Let me new tab it. npxtsc to see. Nope. It is not seeing the same type error as convex is. I will tell it that if you npxtsc in the convextor, you will see some type errors. Fix them. Okay, cool. All of those are fixed and it auto deployed when they were fixed. Let's see if it worked. Image studio. Two corgis riding a bike. 2K generate. It auto appeared in the UI. Here it is running on the server. And if all went well, then in just a moment we will see two corgis riding a bike without me writing a single line of code. All in about 20 minutes just running cloud code. Oh no, an argument validation error. We can copy that, paste it to cloud. Also of note, one of my favorite things about convex, since this is all happening on the cloud, you have the convex logs where you can see all of these things going wrong here as well. It shows it to you in the terminal as well because it's happening with that code that you put there. Valley pay returns null for width height. Added a nullish colesence to handle that. Cool. Do corgis riding a bike. I'll knock down the res so it's faster. And there we go. One shot, two errors copy pasted into cloud code. Zero code looked at or written. Full stack image gen synced across web and server. All handled in the database directly. and ready just for one last piece of magic. We have these two creations here. One failed, one didn't. Select, delete, and it vanishes from the UI. Are you kidding? Magic. It is unbelievable what the Convex team has cooked here. If you haven't tried it yet, you have no idea how much you're missing out. Convex has made my life building applications not just easier, but absurdly more fun. And I highly recommend you check it out yourself. Sorry, Superbase. I just want to set my audience up for the best possible tools in modern times. And it really feels like Convex is that tool. They're not paying me to shell at this point. I did invest because I like them that much. But I just Yeah. I hope you understand how genuine my love of Convex is and how long it took for me to get here. I hope that these videos help you skip some steps and fall in love with it yourself. Thank you to everybody for watching and thank you to Convex for taking the time to convince me. I hope I'm doing a good job paying that forward. Go build something fun. And until next time, peace nerds."
+}

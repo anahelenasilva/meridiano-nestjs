@@ -1,0 +1,5431 @@
+{
+  "channel": {
+    "id": "UCbRP3c757lWg9M-U7TyEkXA",
+    "name": "Theo Browne",
+    "description": "Theo is a software dev, AI nerd, TypeScript sympathizer, creator of T3 Chat and the T3 Stack."
+  },
+  "videoId": "rddX4GEeyvE",
+  "title": "Gemini Flash 3 is my new favorite model (yes really)",
+  "url": "https://www.youtube.com/watch?v=rddX4GEeyvE",
+  "publishedAt": "2025-12-18T13:30:47.476Z",
+  "description": "Gemini 3 Flash is here, and it's really good\n\nThank you Blacksmith for sponsoring! Check them out at: https://soydev.link/blacksmith\n\nSOURCE\nhttps://blog.google/technology/developers/build-with-gem...",
+  "thumbnailUrl": "https://i.ytimg.com/vi/rddX4GEeyvE/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAKKklWd5oZ93K1mDt17vC0CAM2vg",
+  "transcript": [
+    {
+      "text": "I know, I know you guys are tired of the",
+      "duration": 3440,
+      "offset": 80
+    },
+    {
+      "text": "best new model videos. Go let the guy",
+      "duration": 3281,
+      "offset": 1839
+    },
+    {
+      "text": "with the counter do his thing. But this",
+      "duration": 4080,
+      "offset": 3520
+    },
+    {
+      "text": "one's really legit. I had my skepticism",
+      "duration": 4640,
+      "offset": 5120
+    },
+    {
+      "text": "around Gemini 3 Pro, and that turned out",
+      "duration": 3680,
+      "offset": 7600
+    },
+    {
+      "text": "to be pretty well placed because using",
+      "duration": 3440,
+      "offset": 9760
+    },
+    {
+      "text": "the model in a day-to-day basis has not",
+      "duration": 4000,
+      "offset": 11280
+    },
+    {
+      "text": "been great. That said, there is a Google",
+      "duration": 3680,
+      "offset": 13200
+    },
+    {
+      "text": "model I've been using every day for",
+      "duration": 3280,
+      "offset": 15280
+    },
+    {
+      "text": "almost a year now. And the model doesn't",
+      "duration": 3040,
+      "offset": 16880
+    },
+    {
+      "text": "have Pro at the end of the name. It has",
+      "duration": 3600,
+      "offset": 18560
+    },
+    {
+      "text": "Flash at the end of the name. 2.5 Flash",
+      "duration": 4080,
+      "offset": 19920
+    },
+    {
+      "text": "has been my daily driver for so many",
+      "duration": 4160,
+      "offset": 22160
+    },
+    {
+      "text": "tasks for so long. I really like the",
+      "duration": 4080,
+      "offset": 24000
+    },
+    {
+      "text": "model. It's such a good balance of speed",
+      "duration": 3520,
+      "offset": 26320
+    },
+    {
+      "text": "and capability. And if you're willing to",
+      "duration": 3519,
+      "offset": 28080
+    },
+    {
+      "text": "work around its weirdness, which mind",
+      "duration": 3920,
+      "offset": 29840
+    },
+    {
+      "text": "you there is a lot of, 2.5 Flash has",
+      "duration": 4001,
+      "offset": 31599
+    },
+    {
+      "text": "been really, really good. Which is why I",
+      "duration": 3760,
+      "offset": 33760
+    },
+    {
+      "text": "was super excited for Flash 3 to be a",
+      "duration": 4000,
+      "offset": 35600
+    },
+    {
+      "text": "meaningful bump on 2.5 Flash's",
+      "duration": 4480,
+      "offset": 37520
+    },
+    {
+      "text": "performance, which it was, and then",
+      "duration": 4639,
+      "offset": 39600
+    },
+    {
+      "text": "some, because as you might see here,",
+      "duration": 4960,
+      "offset": 42000
+    },
+    {
+      "text": "Gemini 3 Flash isn't close to where 2.5",
+      "duration": 5201,
+      "offset": 44239
+    },
+    {
+      "text": "Flash was on the chart. Three Flash is",
+      "duration": 5759,
+      "offset": 46960
+    },
+    {
+      "text": "ahead of Opus 4.5 on the chart. Yeah,",
+      "duration": 5439,
+      "offset": 49440
+    },
+    {
+      "text": "this is the official artificial analysis",
+      "duration": 4241,
+      "offset": 52719
+    },
+    {
+      "text": "intelligence index, which has its",
+      "duration": 3840,
+      "offset": 54879
+    },
+    {
+      "text": "problems. Believe me, I've talked about",
+      "duration": 3599,
+      "offset": 56960
+    },
+    {
+      "text": "that enough times, but it is a good",
+      "duration": 4160,
+      "offset": 58719
+    },
+    {
+      "text": "enough general idea of like where does",
+      "duration": 4481,
+      "offset": 60559
+    },
+    {
+      "text": "this model land? And it turns out three",
+      "duration": 4321,
+      "offset": 62879
+    },
+    {
+      "text": "flash lands somewhere really, really",
+      "duration": 4880,
+      "offset": 65040
+    },
+    {
+      "text": "good. It's kind of insane, especially",
+      "duration": 3760,
+      "offset": 67200
+    },
+    {
+      "text": "because, and I should have probably",
+      "duration": 2239,
+      "offset": 69920
+    },
+    {
+      "text": "mentioned this earlier, I was lucky",
+      "duration": 2800,
+      "offset": 70960
+    },
+    {
+      "text": "enough to have early access. The early",
+      "duration": 3121,
+      "offset": 72159
+    },
+    {
+      "text": "access with Google is always",
+      "duration": 2800,
+      "offset": 73760
+    },
+    {
+      "text": "interesting. They've been getting better",
+      "duration": 3040,
+      "offset": 75280
+    },
+    {
+      "text": "at it. They're not paying me for any of",
+      "duration": 3680,
+      "offset": 76560
+    },
+    {
+      "text": "this. They just let me try it. It also",
+      "duration": 4159,
+      "offset": 78320
+    },
+    {
+      "text": "gave me no guidance whatsoever. So, when",
+      "duration": 3519,
+      "offset": 80240
+    },
+    {
+      "text": "I started running it on my own",
+      "duration": 2960,
+      "offset": 82479
+    },
+    {
+      "text": "benchmarks, I felt like I was going",
+      "duration": 4481,
+      "offset": 83759
+    },
+    {
+      "text": "insane. Because on Skatebench, not only",
+      "duration": 5201,
+      "offset": 85439
+    },
+    {
+      "text": "is three Flash outperforming 2.5 Flash",
+      "duration": 4800,
+      "offset": 88240
+    },
+    {
+      "text": "by an absurd margin, it's outperforming",
+      "duration": 5119,
+      "offset": 90640
+    },
+    {
+      "text": "almost every single model other than 03",
+      "duration": 6480,
+      "offset": 93040
+    },
+    {
+      "text": "Pro, GPT5, and 5 High. Yeah, its",
+      "duration": 5601,
+      "offset": 95759
+    },
+    {
+      "text": "understanding of spatial reasoning and I",
+      "duration": 4160,
+      "offset": 99520
+    },
+    {
+      "text": "guess skateboarding terminology is best",
+      "duration": 4960,
+      "offset": 101360
+    },
+    {
+      "text": "in class. It's fast. It's great at",
+      "duration": 4399,
+      "offset": 103680
+    },
+    {
+      "text": "retrieving things from giant contexts.",
+      "duration": 3119,
+      "offset": 106320
+    },
+    {
+      "text": "It can parse images. It can parse",
+      "duration": 3521,
+      "offset": 108079
+    },
+    {
+      "text": "videos. It can deal with audio. It's a",
+      "duration": 4481,
+      "offset": 109439
+    },
+    {
+      "text": "good model, but what does this mean for",
+      "duration": 3920,
+      "offset": 111600
+    },
+    {
+      "text": "day-to-day usage? What is it like to",
+      "duration": 3360,
+      "offset": 113920
+    },
+    {
+      "text": "actually use a flash model like this?",
+      "duration": 3680,
+      "offset": 115520
+    },
+    {
+      "text": "How much does it cost? What are the use",
+      "duration": 4479,
+      "offset": 117280
+    },
+    {
+      "text": "cases? Why am I so excited about a model",
+      "duration": 4400,
+      "offset": 119200
+    },
+    {
+      "text": "that is this small and according to",
+      "duration": 4320,
+      "offset": 121759
+    },
+    {
+      "text": "everybody else, not that great? All",
+      "duration": 3760,
+      "offset": 123600
+    },
+    {
+      "text": "great questions that I can't wait to",
+      "duration": 2641,
+      "offset": 126079
+    },
+    {
+      "text": "tell you after a quick break from",
+      "duration": 3280,
+      "offset": 127360
+    },
+    {
+      "text": "today's sponsor. Do you use GitHub? More",
+      "duration": 3760,
+      "offset": 128720
+    },
+    {
+      "text": "importantly, do you use GitHub actions?",
+      "duration": 3440,
+      "offset": 130640
+    },
+    {
+      "text": "If you do, you're almost certainly",
+      "duration": 3920,
+      "offset": 132480
+    },
+    {
+      "text": "wasting a ton of time and money. How",
+      "duration": 3760,
+      "offset": 134080
+    },
+    {
+      "text": "much time do you spend a week waiting",
+      "duration": 3199,
+      "offset": 136400
+    },
+    {
+      "text": "for your GitHub actions to run? If the",
+      "duration": 3280,
+      "offset": 137840
+    },
+    {
+      "text": "answer is more than 5 minutes, well,",
+      "duration": 3121,
+      "offset": 139599
+    },
+    {
+      "text": "congrats. You're shipping real code. If",
+      "duration": 3759,
+      "offset": 141120
+    },
+    {
+      "text": "it's not, fine. But if it is, you should",
+      "duration": 3519,
+      "offset": 142720
+    },
+    {
+      "text": "really pay attention because today's",
+      "duration": 3121,
+      "offset": 144879
+    },
+    {
+      "text": "sponsor is here to save you a ton of",
+      "duration": 4000,
+      "offset": 146239
+    },
+    {
+      "text": "time and money. Blacksmith has figured",
+      "duration": 4319,
+      "offset": 148000
+    },
+    {
+      "text": "out CI. They get it better than anyone",
+      "duration": 4000,
+      "offset": 150239
+    },
+    {
+      "text": "I've talked to, and they can make GitHub",
+      "duration": 4000,
+      "offset": 152319
+    },
+    {
+      "text": "actions an actually usable platform.",
+      "duration": 3521,
+      "offset": 154239
+    },
+    {
+      "text": "Setting it up couldn't be easier. You",
+      "duration": 2881,
+      "offset": 156319
+    },
+    {
+      "text": "change one line in your GitHub action",
+      "duration": 3520,
+      "offset": 157760
+    },
+    {
+      "text": "from Ubuntu Latest to Blacksmith,",
+      "duration": 3679,
+      "offset": 159200
+    },
+    {
+      "text": "whatever instance you want to use, and",
+      "duration": 3440,
+      "offset": 161280
+    },
+    {
+      "text": "now your code is going to be built and",
+      "duration": 4000,
+      "offset": 162879
+    },
+    {
+      "text": "executed comically faster. They don't",
+      "duration": 3840,
+      "offset": 164720
+    },
+    {
+      "text": "hide how they do this either. They're",
+      "duration": 3841,
+      "offset": 166879
+    },
+    {
+      "text": "shipping way faster hardware. It turns",
+      "duration": 3920,
+      "offset": 168560
+    },
+    {
+      "text": "out that gaming CPUs are actually better",
+      "duration": 3599,
+      "offset": 170720
+    },
+    {
+      "text": "than server CPUs for things that are",
+      "duration": 3440,
+      "offset": 172480
+    },
+    {
+      "text": "really focused on single thread",
+      "duration": 4000,
+      "offset": 174319
+    },
+    {
+      "text": "performance. Server CPUs have 50 cores",
+      "duration": 4240,
+      "offset": 175920
+    },
+    {
+      "text": "that are running as fast as a gaming CPU",
+      "duration": 3441,
+      "offset": 178319
+    },
+    {
+      "text": "from 5 years ago. But if you use a",
+      "duration": 3280,
+      "offset": 180160
+    },
+    {
+      "text": "gaming processor, you can compile your",
+      "duration": 3680,
+      "offset": 181760
+    },
+    {
+      "text": "TypeScript and Rust code bases way",
+      "duration": 4079,
+      "offset": 183440
+    },
+    {
+      "text": "faster. Speaking of faster, the cache is",
+      "duration": 3680,
+      "offset": 185440
+    },
+    {
+      "text": "one of the biggest benefits to using",
+      "duration": 3521,
+      "offset": 187519
+    },
+    {
+      "text": "Blacksmith. They colllocate the data",
+      "duration": 4000,
+      "offset": 189120
+    },
+    {
+      "text": "from your cache and artifacts with the",
+      "duration": 4080,
+      "offset": 191040
+    },
+    {
+      "text": "actual box running. So, it's on the same",
+      "duration": 4080,
+      "offset": 193120
+    },
+    {
+      "text": "drive on the same system, which means it",
+      "duration": 4080,
+      "offset": 195120
+    },
+    {
+      "text": "spins up immediately, up to four times",
+      "duration": 4560,
+      "offset": 197200
+    },
+    {
+      "text": "faster. All of this combines to 40x",
+      "duration": 4640,
+      "offset": 199200
+    },
+    {
+      "text": "faster Docker builds. One of the most",
+      "duration": 3920,
+      "offset": 201760
+    },
+    {
+      "text": "underrated things these guys do is their",
+      "duration": 4319,
+      "offset": 203840
+    },
+    {
+      "text": "observability stack. I cannot tell you",
+      "duration": 4240,
+      "offset": 205680
+    },
+    {
+      "text": "how many times I've just been confused",
+      "duration": 3201,
+      "offset": 208159
+    },
+    {
+      "text": "about why an error is happening in",
+      "duration": 3120,
+      "offset": 209920
+    },
+    {
+      "text": "GitHub actions. And without a way to",
+      "duration": 3360,
+      "offset": 211360
+    },
+    {
+      "text": "really search through what's going on,",
+      "duration": 4000,
+      "offset": 213040
+    },
+    {
+      "text": "it's impossible to navigate. Having good",
+      "duration": 4239,
+      "offset": 214720
+    },
+    {
+      "text": "observability makes your actions less",
+      "duration": 3919,
+      "offset": 217040
+    },
+    {
+      "text": "scary and more useful. And they've",
+      "duration": 3601,
+      "offset": 218959
+    },
+    {
+      "text": "really figured this out. They can give",
+      "duration": 3441,
+      "offset": 220959
+    },
+    {
+      "text": "you things like the failure rate for a",
+      "duration": 4000,
+      "offset": 222560
+    },
+    {
+      "text": "given part of one of your runs or what",
+      "duration": 3600,
+      "offset": 224400
+    },
+    {
+      "text": "tests are being flaky and let you",
+      "duration": 4560,
+      "offset": 226560
+    },
+    {
+      "text": "filter. It's so good. It's so good. As",
+      "duration": 4560,
+      "offset": 228000
+    },
+    {
+      "text": "soon as I showed this to my team, they",
+      "duration": 3280,
+      "offset": 231120
+    },
+    {
+      "text": "realized how useful Blacksmith was. And",
+      "duration": 3280,
+      "offset": 232560
+    },
+    {
+      "text": "we're working on making the move right",
+      "duration": 3039,
+      "offset": 234400
+    },
+    {
+      "text": "now. If you're not using Blacksmith,",
+      "duration": 3119,
+      "offset": 235840
+    },
+    {
+      "text": "you're wasting time. Fix that now at",
+      "duration": 3440,
+      "offset": 237439
+    },
+    {
+      "text": "soyv.link/blacksmith.",
+      "duration": 4161,
+      "offset": 238959
+    },
+    {
+      "text": "So, let's start with the official post",
+      "duration": 4241,
+      "offset": 240879
+    },
+    {
+      "text": "from Logan in particular. Building with",
+      "duration": 3600,
+      "offset": 243120
+    },
+    {
+      "text": "Gemini 3 flash frontier intelligence",
+      "duration": 3600,
+      "offset": 245120
+    },
+    {
+      "text": "that scales with you. God, these titles",
+      "duration": 4480,
+      "offset": 246720
+    },
+    {
+      "text": "are so cringe. But the actual value of",
+      "duration": 4159,
+      "offset": 248720
+    },
+    {
+      "text": "the model is great. So, we'll look over",
+      "duration": 3039,
+      "offset": 251200
+    },
+    {
+      "text": "all of that because I am way more",
+      "duration": 2640,
+      "offset": 252879
+    },
+    {
+      "text": "excited for this release than I was for",
+      "duration": 4400,
+      "offset": 254239
+    },
+    {
+      "text": "3 Pro. 3 Pro was better than 2.5 Pro,",
+      "duration": 4720,
+      "offset": 255519
+    },
+    {
+      "text": "but still not like a practical",
+      "duration": 3840,
+      "offset": 258639
+    },
+    {
+      "text": "day-to-day model. Flash for like data",
+      "duration": 3761,
+      "offset": 260239
+    },
+    {
+      "text": "analysis stuff is incredible, so I'm",
+      "duration": 3440,
+      "offset": 262479
+    },
+    {
+      "text": "much more excited for here. 3 Flash",
+      "duration": 3600,
+      "offset": 264000
+    },
+    {
+      "text": "offers powerful performance at less than",
+      "duration": 4000,
+      "offset": 265919
+    },
+    {
+      "text": "a quarter of the cost of 3 Pro along",
+      "duration": 4480,
+      "offset": 267600
+    },
+    {
+      "text": "with higher rate limits. The new 3 Flash",
+      "duration": 4241,
+      "offset": 269919
+    },
+    {
+      "text": "model surpasses 2.5 Pro across many",
+      "duration": 3679,
+      "offset": 272080
+    },
+    {
+      "text": "benchmarks while delivering faster",
+      "duration": 3280,
+      "offset": 274160
+    },
+    {
+      "text": "speeds. It also features our most",
+      "duration": 3841,
+      "offset": 275759
+    },
+    {
+      "text": "advanced visual and spatial reasoning",
+      "duration": 4319,
+      "offset": 277440
+    },
+    {
+      "text": "and now offers code execution to zoom,",
+      "duration": 4960,
+      "offset": 279600
+    },
+    {
+      "text": "count, and edit visual inputs. Again, it",
+      "duration": 4561,
+      "offset": 281759
+    },
+    {
+      "text": "turns out Skatebench is a weirdly good",
+      "duration": 3520,
+      "offset": 284560
+    },
+    {
+      "text": "benchmark for spatial reasoning. I never",
+      "duration": 2879,
+      "offset": 286320
+    },
+    {
+      "text": "thought that would be the case. I made",
+      "duration": 2800,
+      "offset": 288080
+    },
+    {
+      "text": "it as a joke originally, and it's",
+      "duration": 3521,
+      "offset": 289199
+    },
+    {
+      "text": "actually been able to help me figure out",
+      "duration": 3360,
+      "offset": 290880
+    },
+    {
+      "text": "which models are good and bad at spatial",
+      "duration": 3120,
+      "offset": 292720
+    },
+    {
+      "text": "reasoning stuff before the general",
+      "duration": 3679,
+      "offset": 294240
+    },
+    {
+      "text": "public does because it's so reliable for",
+      "duration": 4240,
+      "offset": 295840
+    },
+    {
+      "text": "this. It's also, as with all Google",
+      "duration": 3840,
+      "offset": 297919
+    },
+    {
+      "text": "models, available on the Google AI",
+      "duration": 4240,
+      "offset": 300080
+    },
+    {
+      "text": "studio as well as Vert.Ex AI. And the",
+      "duration": 4081,
+      "offset": 301759
+    },
+    {
+      "text": "difference between those is bigger than",
+      "duration": 3599,
+      "offset": 304320
+    },
+    {
+      "text": "ever. If you look at the speeds that",
+      "duration": 4000,
+      "offset": 305840
+    },
+    {
+      "text": "we're seeing on Open Router, it has",
+      "duration": 3921,
+      "offset": 307919
+    },
+    {
+      "text": "recovered a bit, but earlier I was",
+      "duration": 4480,
+      "offset": 309840
+    },
+    {
+      "text": "seeing speeds as low as 50 TPS on AI",
+      "duration": 5680,
+      "offset": 311840
+    },
+    {
+      "text": "Studio and over 90 on Vertex. Once",
+      "duration": 5040,
+      "offset": 314320
+    },
+    {
+      "text": "again, if you want to use Google models,",
+      "duration": 3600,
+      "offset": 317520
+    },
+    {
+      "text": "I do not recommend using them through",
+      "duration": 3200,
+      "offset": 319360
+    },
+    {
+      "text": "Google's official services. They",
+      "duration": 3440,
+      "offset": 321120
+    },
+    {
+      "text": "genuinely are just so awful to work",
+      "duration": 3680,
+      "offset": 322560
+    },
+    {
+      "text": "with. The state of that API is",
+      "duration": 3520,
+      "offset": 324560
+    },
+    {
+      "text": "atrocious. Open router will smooth a lot",
+      "duration": 3040,
+      "offset": 326240
+    },
+    {
+      "text": "of that out for you. I recommend using",
+      "duration": 2880,
+      "offset": 328080
+    },
+    {
+      "text": "them or another one of these AI gateways",
+      "duration": 3680,
+      "offset": 329280
+    },
+    {
+      "text": "that can make the responses something",
+      "duration": 3920,
+      "offset": 330960
+    },
+    {
+      "text": "usable because they are not by default",
+      "duration": 3920,
+      "offset": 332960
+    },
+    {
+      "text": "when you hit Google's APIs directly.",
+      "duration": 3920,
+      "offset": 334880
+    },
+    {
+      "text": "Enough of that though. Once you get the",
+      "duration": 3440,
+      "offset": 336880
+    },
+    {
+      "text": "API in the right shape, what do the",
+      "duration": 3280,
+      "offset": 338800
+    },
+    {
+      "text": "numbers look like? This is the numbers",
+      "duration": 3840,
+      "offset": 340320
+    },
+    {
+      "text": "that they shared and they are pretty",
+      "duration": 4480,
+      "offset": 342080
+    },
+    {
+      "text": "insane. First, we have price, which is",
+      "duration": 3759,
+      "offset": 344160
+    },
+    {
+      "text": "very important to consider because they",
+      "duration": 4240,
+      "offset": 346560
+    },
+    {
+      "text": "did bump the price from 2.5 flash, which",
+      "duration": 6161,
+      "offset": 347919
+    },
+    {
+      "text": "was already a bump from 2.0 Flash. 2.0 O",
+      "duration": 5920,
+      "offset": 350800
+    },
+    {
+      "text": "Flash was 10 cents per mill tokens in",
+      "duration": 5440,
+      "offset": 354080
+    },
+    {
+      "text": "and 40 cents per mill out. And when I",
+      "duration": 4560,
+      "offset": 356720
+    },
+    {
+      "text": "tell you I miss those days dearly, I",
+      "duration": 3600,
+      "offset": 359520
+    },
+    {
+      "text": "hope you understand how true that is. It",
+      "duration": 3440,
+      "offset": 361280
+    },
+    {
+      "text": "was incredible having a model that fast",
+      "duration": 4240,
+      "offset": 363120
+    },
+    {
+      "text": "and that reasonable at that absurd a",
+      "duration": 5440,
+      "offset": 364720
+    },
+    {
+      "text": "price. Now we're up to 50 cents per mill",
+      "duration": 7279,
+      "offset": 367360
+    },
+    {
+      "text": "in and $3 per mill out. That's insane.",
+      "duration": 8479,
+      "offset": 370160
+    },
+    {
+      "text": "That is uh almost 10x increase in price.",
+      "duration": 5280,
+      "offset": 374639
+    },
+    {
+      "text": "And then when you add in the fact that",
+      "duration": 3280,
+      "offset": 378639
+    },
+    {
+      "text": "it's now a reasoning model and it does a",
+      "duration": 4400,
+      "offset": 379919
+    },
+    {
+      "text": "shitload of reasoning, it ends up being",
+      "duration": 4641,
+      "offset": 381919
+    },
+    {
+      "text": "closer to 200 times more expensive for",
+      "duration": 4320,
+      "offset": 384319
+    },
+    {
+      "text": "most work. That's still a small number",
+      "duration": 3680,
+      "offset": 386560
+    },
+    {
+      "text": "if you compare it to something like 3",
+      "duration": 3441,
+      "offset": 388639
+    },
+    {
+      "text": "Pro, but I missed the days of flash,",
+      "duration": 4399,
+      "offset": 390240
+    },
+    {
+      "text": "meaning the light fast cheap model.",
+      "duration": 4480,
+      "offset": 392080
+    },
+    {
+      "text": "They'll sometimes do a flash light",
+      "duration": 3761,
+      "offset": 394639
+    },
+    {
+      "text": "version, which is funny, but we don't",
+      "duration": 3199,
+      "offset": 396560
+    },
+    {
+      "text": "have that yet. So, this is the cheapest",
+      "duration": 2799,
+      "offset": 398400
+    },
+    {
+      "text": "we're getting from Google on their new",
+      "duration": 3681,
+      "offset": 399759
+    },
+    {
+      "text": "modern like whatever the hell they're",
+      "duration": 4801,
+      "offset": 401199
+    },
+    {
+      "text": "building on top of. Regardless, not that",
+      "duration": 3840,
+      "offset": 403440
+    },
+    {
+      "text": "bad, especially when you consider the",
+      "duration": 2639,
+      "offset": 406000
+    },
+    {
+      "text": "performance and how novel this",
+      "duration": 4080,
+      "offset": 407280
+    },
+    {
+      "text": "performance to price ratio is. There is",
+      "duration": 4641,
+      "offset": 408639
+    },
+    {
+      "text": "nothing quite like this model right now",
+      "duration": 4240,
+      "offset": 411360
+    },
+    {
+      "text": "in terms of being that small and that",
+      "duration": 4560,
+      "offset": 413280
+    },
+    {
+      "text": "intelligent. And it shows in the numbers",
+      "duration": 4159,
+      "offset": 415600
+    },
+    {
+      "text": "here. It's getting absurd scores on",
+      "duration": 4560,
+      "offset": 417840
+    },
+    {
+      "text": "humanity's last exam neck with Gemini 3",
+      "duration": 5521,
+      "offset": 419759
+    },
+    {
+      "text": "Pro and beating out GPT 5.2. Okay, it's",
+      "duration": 5120,
+      "offset": 422400
+    },
+    {
+      "text": "not beating 5.2, but it's right on the",
+      "duration": 5600,
+      "offset": 425280
+    },
+    {
+      "text": "line. We're talking 33.7 to 34.5, a 1%",
+      "duration": 6239,
+      "offset": 427520
+    },
+    {
+      "text": "difference. RKGI 2, it's pulling crazy",
+      "duration": 4800,
+      "offset": 430880
+    },
+    {
+      "text": "numbers. It's even beating out Gemini 3",
+      "duration": 3601,
+      "offset": 433759
+    },
+    {
+      "text": "Pro again because of that improvement in",
+      "duration": 3760,
+      "offset": 435680
+    },
+    {
+      "text": "the visual reasoning. If you want a",
+      "duration": 3839,
+      "offset": 437360
+    },
+    {
+      "text": "model to parse a ton of images and give",
+      "duration": 3680,
+      "offset": 439440
+    },
+    {
+      "text": "you useful information about them, I",
+      "duration": 3361,
+      "offset": 441199
+    },
+    {
+      "text": "can't imagine anything is better than",
+      "duration": 3519,
+      "offset": 443120
+    },
+    {
+      "text": "three flash right now. GBQA Diamond,",
+      "duration": 4079,
+      "offset": 444560
+    },
+    {
+      "text": "it's pulling up neck andneck with Gemini",
+      "duration": 4161,
+      "offset": 446639
+    },
+    {
+      "text": "3 Pro, managing to beat out Flash and",
+      "duration": 5041,
+      "offset": 448639
+    },
+    {
+      "text": "2.5 Pro for previous days. And also",
+      "duration": 4880,
+      "offset": 450800
+    },
+    {
+      "text": "managing to beat out Sonet 4.5, which is",
+      "duration": 5120,
+      "offset": 453680
+    },
+    {
+      "text": "pretty impressive, too. MMU, it pulled",
+      "duration": 5919,
+      "offset": 455680
+    },
+    {
+      "text": "the best score to date. Pretty nuts.",
+      "duration": 5600,
+      "offset": 458800
+    },
+    {
+      "text": "Screen understanding is pretty good. It",
+      "duration": 5201,
+      "offset": 461599
+    },
+    {
+      "text": "crushes the scores from 2.5, Flash, and",
+      "duration": 4639,
+      "offset": 464400
+    },
+    {
+      "text": "Pro, which were in the like single digit",
+      "duration": 3839,
+      "offset": 466800
+    },
+    {
+      "text": "to just barely double digit percentages,",
+      "duration": 3841,
+      "offset": 469039
+    },
+    {
+      "text": "and now it's pulling a 70. All cool",
+      "duration": 4481,
+      "offset": 470639
+    },
+    {
+      "text": "stuff. Video understanding is still best",
+      "duration": 4080,
+      "offset": 472880
+    },
+    {
+      "text": "in class. Google is killing it in that",
+      "duration": 3280,
+      "offset": 475120
+    },
+    {
+      "text": "regard. If you hand it a video and tell",
+      "duration": 3440,
+      "offset": 476960
+    },
+    {
+      "text": "it to describe the video, it will do",
+      "duration": 3120,
+      "offset": 478400
+    },
+    {
+      "text": "that better than anything else in the",
+      "duration": 3440,
+      "offset": 480400
+    },
+    {
+      "text": "world. Terminal Bench 2, it's crushing",
+      "duration": 4799,
+      "offset": 481520
+    },
+    {
+      "text": "as well. SWEBench verified is doing",
+      "duration": 4320,
+      "offset": 483840
+    },
+    {
+      "text": "surprisingly well. Still being beaten by",
+      "duration": 4320,
+      "offset": 486319
+    },
+    {
+      "text": "5.2 high. Doing great, though. It's also",
+      "duration": 4080,
+      "offset": 488160
+    },
+    {
+      "text": "really nice that they're not like hiding",
+      "duration": 3601,
+      "offset": 490639
+    },
+    {
+      "text": "the best models. They're putting 5.2,",
+      "duration": 4480,
+      "offset": 492240
+    },
+    {
+      "text": "Cloud Sonic 45, and Grock 4.1 fast here.",
+      "duration": 3920,
+      "offset": 494240
+    },
+    {
+      "text": "Surprised they didn't put Opus, but I'm",
+      "duration": 2879,
+      "offset": 496720
+    },
+    {
+      "text": "guessing a lot of these numbers were",
+      "duration": 4319,
+      "offset": 498160
+    },
+    {
+      "text": "created before Opus 45 was out, and they",
+      "duration": 4081,
+      "offset": 499599
+    },
+    {
+      "text": "just put this out because it was what",
+      "duration": 2560,
+      "offset": 502479
+    },
+    {
+      "text": "was ready, and they don't want to put",
+      "duration": 3120,
+      "offset": 503680
+    },
+    {
+      "text": "the super expensive model against this",
+      "duration": 4321,
+      "offset": 505039
+    },
+    {
+      "text": "much cheaper one. Regardless, numbers",
+      "duration": 4239,
+      "offset": 506800
+    },
+    {
+      "text": "are looking pretty nuts. It's also great",
+      "duration": 3679,
+      "offset": 509360
+    },
+    {
+      "text": "at multilingual. So, if you're trying to",
+      "duration": 3521,
+      "offset": 511039
+    },
+    {
+      "text": "use multiple languages or parse",
+      "duration": 3440,
+      "offset": 513039
+    },
+    {
+      "text": "different languages, Google's been ahead",
+      "duration": 3279,
+      "offset": 514560
+    },
+    {
+      "text": "of this for a while. They kind of",
+      "duration": 2881,
+      "offset": 516479
+    },
+    {
+      "text": "invented a lot of the techniques we use",
+      "duration": 3760,
+      "offset": 517839
+    },
+    {
+      "text": "for LMS today originally to make Google",
+      "duration": 4080,
+      "offset": 519360
+    },
+    {
+      "text": "Translate as good as possible. That",
+      "duration": 4001,
+      "offset": 521599
+    },
+    {
+      "text": "said, it does leak because I was using",
+      "duration": 4320,
+      "offset": 523440
+    },
+    {
+      "text": "this earlier for a task and the to-dos",
+      "duration": 5440,
+      "offset": 525600
+    },
+    {
+      "text": "it generated had Chinese in them. It's a",
+      "duration": 4960,
+      "offset": 527760
+    },
+    {
+      "text": "Google model. They're weird as [ __ ]",
+      "duration": 3120,
+      "offset": 531040
+    },
+    {
+      "text": "We'll talk more about all that weirdness",
+      "duration": 4480,
+      "offset": 532720
+    },
+    {
+      "text": "later, I am sure. Gemini 3 Flash is",
+      "duration": 4799,
+      "offset": 534160
+    },
+    {
+      "text": "highly efficient without sacrificing",
+      "duration": 3440,
+      "offset": 537200
+    },
+    {
+      "text": "intelligence, pushing the paro frontier",
+      "duration": 3201,
+      "offset": 538959
+    },
+    {
+      "text": "of performance and efficiency. that",
+      "duration": 3360,
+      "offset": 540640
+    },
+    {
+      "text": "refines 2.5 Pro while being three times",
+      "duration": 3520,
+      "offset": 542160
+    },
+    {
+      "text": "faster based on the official artificial",
+      "duration": 2720,
+      "offset": 544000
+    },
+    {
+      "text": "analysis benchmark which we'll talk",
+      "duration": 2640,
+      "offset": 545680
+    },
+    {
+      "text": "about in a bit and it's also at a",
+      "duration": 3200,
+      "offset": 546720
+    },
+    {
+      "text": "fraction of the cost even at the lowest",
+      "duration": 3199,
+      "offset": 548320
+    },
+    {
+      "text": "thinking level three flash often",
+      "duration": 3280,
+      "offset": 549920
+    },
+    {
+      "text": "outperforms previous versions with the",
+      "duration": 3440,
+      "offset": 551519
+    },
+    {
+      "text": "high thinking levels. Yeah, you can see",
+      "duration": 5520,
+      "offset": 553200
+    },
+    {
+      "text": "here this is the scores on LM Marina for",
+      "duration": 6721,
+      "offset": 554959
+    },
+    {
+      "text": "the ELO for text. Gemini 3 Pro is the",
+      "duration": 4960,
+      "offset": 558720
+    },
+    {
+      "text": "best score right now. But when you",
+      "duration": 4159,
+      "offset": 561680
+    },
+    {
+      "text": "compare this to the cost where left is",
+      "duration": 3920,
+      "offset": 563680
+    },
+    {
+      "text": "most expensive per token and right is",
+      "duration": 4000,
+      "offset": 565839
+    },
+    {
+      "text": "least expensive. Three flashes at this",
+      "duration": 4480,
+      "offset": 567600
+    },
+    {
+      "text": "really nice middle ground here. 2.5",
+      "duration": 4481,
+      "offset": 569839
+    },
+    {
+      "text": "flash light is still absurdly cheap.",
+      "duration": 4480,
+      "offset": 572080
+    },
+    {
+      "text": "Cheaper than anything else in this, but",
+      "duration": 4320,
+      "offset": 574320
+    },
+    {
+      "text": "the score shows it. We're talking pretty",
+      "duration": 4800,
+      "offset": 576560
+    },
+    {
+      "text": "big gaps at that point. It still has the",
+      "duration": 4080,
+      "offset": 578640
+    },
+    {
+      "text": "standard caching on which is really,",
+      "duration": 3120,
+      "offset": 581360
+    },
+    {
+      "text": "really nice. Awesome that Google went",
+      "duration": 3119,
+      "offset": 582720
+    },
+    {
+      "text": "from the worst cache to one of the best",
+      "duration": 3039,
+      "offset": 584480
+    },
+    {
+      "text": "ones. I appreciate them greatly for it.",
+      "duration": 3281,
+      "offset": 585839
+    },
+    {
+      "text": "Free Flash is also available today with",
+      "duration": 3521,
+      "offset": 587519
+    },
+    {
+      "text": "the batch API allowing for 50% cost",
+      "duration": 3520,
+      "offset": 589120
+    },
+    {
+      "text": "savings and much higher rate limits for",
+      "duration": 3760,
+      "offset": 591040
+    },
+    {
+      "text": "asynchronous processing. Also huge",
+      "duration": 3840,
+      "offset": 592640
+    },
+    {
+      "text": "because that's like what the strength of",
+      "duration": 4400,
+      "offset": 594800
+    },
+    {
+      "text": "flash is is just bulk processing absurd",
+      "duration": 4720,
+      "offset": 596480
+    },
+    {
+      "text": "amounts of data. Whenever I want to like",
+      "duration": 3840,
+      "offset": 599200
+    },
+    {
+      "text": "hand some text data to a model and have",
+      "duration": 4079,
+      "offset": 601200
+    },
+    {
+      "text": "it give me an object like JSON telling",
+      "duration": 4239,
+      "offset": 603040
+    },
+    {
+      "text": "me what happened in that text, it's",
+      "duration": 4240,
+      "offset": 605279
+    },
+    {
+      "text": "awesome. If I want to rank different",
+      "duration": 4161,
+      "offset": 607279
+    },
+    {
+      "text": "things in an image and have it describe",
+      "duration": 3681,
+      "offset": 609519
+    },
+    {
+      "text": "them for me, I can just give it an",
+      "duration": 4000,
+      "offset": 611440
+    },
+    {
+      "text": "object shape, hand it a pile of images,",
+      "duration": 4720,
+      "offset": 613200
+    },
+    {
+      "text": "and get results that are good. Sadly,",
+      "duration": 3839,
+      "offset": 615440
+    },
+    {
+      "text": "you have to rely on polling for their",
+      "duration": 3599,
+      "offset": 617920
+    },
+    {
+      "text": "APIs because they kind of suck at this.",
+      "duration": 4000,
+      "offset": 619279
+    },
+    {
+      "text": "They don't do callbacks or web hooks or",
+      "duration": 3760,
+      "offset": 621519
+    },
+    {
+      "text": "anything, but uh yeah, Google and APIs",
+      "duration": 4240,
+      "offset": 623279
+    },
+    {
+      "text": "don't mix, but Google and batch",
+      "duration": 4161,
+      "offset": 625279
+    },
+    {
+      "text": "processing of large amounts of data for",
+      "duration": 4481,
+      "offset": 627519
+    },
+    {
+      "text": "reasonable prices absolutely mix. They",
+      "duration": 3760,
+      "offset": 629440
+    },
+    {
+      "text": "brag a lot about the coding",
+      "duration": 2399,
+      "offset": 632000
+    },
+    {
+      "text": "capabilities, which is interesting",
+      "duration": 2480,
+      "offset": 633200
+    },
+    {
+      "text": "because I've never been big on using the",
+      "duration": 3361,
+      "offset": 634399
+    },
+    {
+      "text": "Flash models for coding. And the demos",
+      "duration": 5120,
+      "offset": 635680
+    },
+    {
+      "text": "they show here are interesting. This is",
+      "duration": 6400,
+      "offset": 637760
+    },
+    {
+      "text": "Flash versus Pro building a marathon",
+      "duration": 5440,
+      "offset": 640800
+    },
+    {
+      "text": "dashboard.",
+      "duration": 3600,
+      "offset": 644160
+    },
+    {
+      "text": "And they're obviously using anti-gravity",
+      "duration": 3440,
+      "offset": 646240
+    },
+    {
+      "text": "for this, which means it's questionable",
+      "duration": 3920,
+      "offset": 647760
+    },
+    {
+      "text": "in general.",
+      "duration": 4320,
+      "offset": 649680
+    },
+    {
+      "text": "Flash was able to plan in 24 seconds. It",
+      "duration": 6560,
+      "offset": 651680
+    },
+    {
+      "text": "took Pro 27. And the implementation took",
+      "duration": 6959,
+      "offset": 654000
+    },
+    {
+      "text": "three minutes for flash and seven and a",
+      "duration": 5680,
+      "offset": 658240
+    },
+    {
+      "text": "half to eight minutes for Pro. Mind you,",
+      "duration": 5761,
+      "offset": 660959
+    },
+    {
+      "text": "this was also Pro on low, not on high.",
+      "duration": 4320,
+      "offset": 663920
+    },
+    {
+      "text": "Results came out looking relatively",
+      "duration": 3119,
+      "offset": 666720
+    },
+    {
+      "text": "similar. I actually do like the UI of",
+      "duration": 3599,
+      "offset": 668240
+    },
+    {
+      "text": "the Flash version slightly better. Pro",
+      "duration": 3521,
+      "offset": 669839
+    },
+    {
+      "text": "loves sneaking in those sidebars where",
+      "duration": 3921,
+      "offset": 671839
+    },
+    {
+      "text": "it doesn't need them.",
+      "duration": 4719,
+      "offset": 673360
+    },
+    {
+      "text": "Yeah, you get the idea. Supposedly,",
+      "duration": 4160,
+      "offset": 675760
+    },
+    {
+      "text": "people are using this heavily for game",
+      "duration": 4081,
+      "offset": 678079
+    },
+    {
+      "text": "development stuff. Astrocade is a",
+      "duration": 5200,
+      "offset": 679920
+    },
+    {
+      "text": "company trying to build an AI game",
+      "duration": 4960,
+      "offset": 682160
+    },
+    {
+      "text": "production mini studio thing like",
+      "duration": 4240,
+      "offset": 685120
+    },
+    {
+      "text": "lovable but for making games and they",
+      "duration": 3600,
+      "offset": 687120
+    },
+    {
+      "text": "moved to three flash for the game",
+      "duration": 2800,
+      "offset": 689360
+    },
+    {
+      "text": "creation engine and are surprised with",
+      "duration": 2960,
+      "offset": 690720
+    },
+    {
+      "text": "how well it's performing again with the",
+      "duration": 3119,
+      "offset": 692160
+    },
+    {
+      "text": "spatial awareness wins. I could see that",
+      "duration": 3680,
+      "offset": 693680
+    },
+    {
+      "text": "making sense. Gemini 3 flash allowed",
+      "duration": 3601,
+      "offset": 695279
+    },
+    {
+      "text": "Latitude to deliver highquality outputs",
+      "duration": 3120,
+      "offset": 697360
+    },
+    {
+      "text": "at low cost for many complex tasks in",
+      "duration": 3120,
+      "offset": 698880
+    },
+    {
+      "text": "our next generation AI game engine that",
+      "duration": 2720,
+      "offset": 700480
+    },
+    {
+      "text": "was previously only possible from",
+      "duration": 4560,
+      "offset": 702000
+    },
+    {
+      "text": "prolevel models like Sonnet 4.5. Yep.",
+      "duration": 5840,
+      "offset": 703200
+    },
+    {
+      "text": "Also, deep fake detection. Very fun use",
+      "duration": 4320,
+      "offset": 706560
+    },
+    {
+      "text": "case, especially since Google's own",
+      "duration": 3680,
+      "offset": 709040
+    },
+    {
+      "text": "synth ID stuff's entirely [ __ ] broken",
+      "duration": 3920,
+      "offset": 710880
+    },
+    {
+      "text": "and useless. Being able to use this to",
+      "duration": 4239,
+      "offset": 712720
+    },
+    {
+      "text": "detect fake stuff sounds really cool,",
+      "duration": 3680,
+      "offset": 714800
+    },
+    {
+      "text": "especially because it's really good at",
+      "duration": 3521,
+      "offset": 716959
+    },
+    {
+      "text": "audio processing. The fact this model",
+      "duration": 4560,
+      "offset": 718480
+    },
+    {
+      "text": "can process audio and video and images",
+      "duration": 5280,
+      "offset": 720480
+    },
+    {
+      "text": "is very unique for models in this price",
+      "duration": 4960,
+      "offset": 723040
+    },
+    {
+      "text": "and size and speed category. I really",
+      "duration": 3519,
+      "offset": 725760
+    },
+    {
+      "text": "want to make sure you don't underrate",
+      "duration": 2800,
+      "offset": 728000
+    },
+    {
+      "text": "that use case because it's really cool",
+      "duration": 3761,
+      "offset": 729279
+    },
+    {
+      "text": "for that. Also, document analysis in",
+      "duration": 3839,
+      "offset": 730800
+    },
+    {
+      "text": "that regard. If you hand it a PDF, it",
+      "duration": 3440,
+      "offset": 733040
+    },
+    {
+      "text": "could read the whole PDF, all of the",
+      "duration": 3521,
+      "offset": 734639
+    },
+    {
+      "text": "text, all of the diagrams, all of the",
+      "duration": 3280,
+      "offset": 736480
+    },
+    {
+      "text": "things. There have been lots of attempts",
+      "duration": 3040,
+      "offset": 738160
+    },
+    {
+      "text": "to make other models do this by trying",
+      "duration": 2960,
+      "offset": 739760
+    },
+    {
+      "text": "to dump it into Markdown and embed",
+      "duration": 3439,
+      "offset": 741200
+    },
+    {
+      "text": "images and [ __ ] Brie Flash just",
+      "duration": 3520,
+      "offset": 742720
+    },
+    {
+      "text": "natively does it. You hand it a PDF and",
+      "duration": 4241,
+      "offset": 744639
+    },
+    {
+      "text": "it can use the PDF. Seems like all of",
+      "duration": 4399,
+      "offset": 746240
+    },
+    {
+      "text": "the influencer benchmarks are getting",
+      "duration": 4240,
+      "offset": 748880
+    },
+    {
+      "text": "crushed by Google recently. This is the",
+      "duration": 4320,
+      "offset": 750639
+    },
+    {
+      "text": "Gemini 3 Flash post from our friend",
+      "duration": 3279,
+      "offset": 753120
+    },
+    {
+      "text": "Simon. You might not recognize his blog",
+      "duration": 3440,
+      "offset": 754959
+    },
+    {
+      "text": "because he had a dark mode added by an",
+      "duration": 4240,
+      "offset": 756399
+    },
+    {
+      "text": "agent, which is really cool. And Gemini",
+      "duration": 5921,
+      "offset": 758399
+    },
+    {
+      "text": "3 Flash slaughtered the Pelican. It is",
+      "duration": 6000,
+      "offset": 760639
+    },
+    {
+      "text": "by far the best Pelican I have seen him",
+      "duration": 3920,
+      "offset": 764320
+    },
+    {
+      "text": "get generated by the models. If you",
+      "duration": 3200,
+      "offset": 766639
+    },
+    {
+      "text": "don't know what I'm talking about, he",
+      "duration": 3200,
+      "offset": 768240
+    },
+    {
+      "text": "tries to get every new model to generate",
+      "duration": 4321,
+      "offset": 769839
+    },
+    {
+      "text": "an SVG of a Pelican. And Three Flash has",
+      "duration": 4320,
+      "offset": 771440
+    },
+    {
+      "text": "done an incredible job depending on",
+      "duration": 4080,
+      "offset": 774160
+    },
+    {
+      "text": "which reasoning level you use. Minimal,",
+      "duration": 5440,
+      "offset": 775760
+    },
+    {
+      "text": "low, medium, and high. And for the first",
+      "duration": 5120,
+      "offset": 778240
+    },
+    {
+      "text": "time ever, these are usable images of",
+      "duration": 6319,
+      "offset": 781200
+    },
+    {
+      "text": "pelicans. Like holy [ __ ] Yeah. I I am",
+      "duration": 7200,
+      "offset": 783360
+    },
+    {
+      "text": "floored. This it this seems like a",
+      "duration": 6000,
+      "offset": 787519
+    },
+    {
+      "text": "genuine like leap in spatial recognition",
+      "duration": 5200,
+      "offset": 790560
+    },
+    {
+      "text": "type stuff like this. I am very",
+      "duration": 5041,
+      "offset": 793519
+    },
+    {
+      "text": "impressed with the quality of that SVG.",
+      "duration": 5120,
+      "offset": 795760
+    },
+    {
+      "text": "Good [ __ ] Google. You're on to",
+      "duration": 3600,
+      "offset": 798560
+    },
+    {
+      "text": "something with this. Whatever the [ __ ]",
+      "duration": 3680,
+      "offset": 800880
+    },
+    {
+      "text": "you did that made 3 Pro and 3 Flash so",
+      "duration": 4479,
+      "offset": 802160
+    },
+    {
+      "text": "good at understanding space, keep",
+      "duration": 4160,
+      "offset": 804560
+    },
+    {
+      "text": "pursuing that train cuz you're doing",
+      "duration": 4241,
+      "offset": 806639
+    },
+    {
+      "text": "something no one else is there. No other",
+      "duration": 4080,
+      "offset": 808720
+    },
+    {
+      "text": "models come close to this understanding",
+      "duration": 4320,
+      "offset": 810880
+    },
+    {
+      "text": "of space. And I'm really excited to see",
+      "duration": 4320,
+      "offset": 812800
+    },
+    {
+      "text": "the results once things like MickBench",
+      "duration": 3759,
+      "offset": 815200
+    },
+    {
+      "text": "run on this model. The Minecraft",
+      "duration": 3040,
+      "offset": 817120
+    },
+    {
+      "text": "benchmark's really, really cool. I'm",
+      "duration": 2241,
+      "offset": 818959
+    },
+    {
+      "text": "actually going to help fund them in the",
+      "duration": 2960,
+      "offset": 820160
+    },
+    {
+      "text": "future so we can get these tests earlier",
+      "duration": 4560,
+      "offset": 821200
+    },
+    {
+      "text": "and more thoroughly. Good [ __ ] We've",
+      "duration": 4159,
+      "offset": 823120
+    },
+    {
+      "text": "read through all that. Let's look at",
+      "duration": 3199,
+      "offset": 825760
+    },
+    {
+      "text": "some numbers. We'll start with",
+      "duration": 3120,
+      "offset": 827279
+    },
+    {
+      "text": "artificial analysis. These guys know",
+      "duration": 3041,
+      "offset": 828959
+    },
+    {
+      "text": "what they're talking about. Google's",
+      "duration": 3041,
+      "offset": 830399
+    },
+    {
+      "text": "released Gemini 3 Flash preview. It's",
+      "duration": 3440,
+      "offset": 832000
+    },
+    {
+      "text": "two times cheaper than 3 Pro preview",
+      "duration": 3519,
+      "offset": 833440
+    },
+    {
+      "text": "with only a two point drop in the",
+      "duration": 3519,
+      "offset": 835440
+    },
+    {
+      "text": "intelligence index. Now, they're calling",
+      "duration": 4320,
+      "offset": 836959
+    },
+    {
+      "text": "it 2x cheaper here when Google calls it",
+      "duration": 4880,
+      "offset": 838959
+    },
+    {
+      "text": "4x plus, but this is because of how much",
+      "duration": 5281,
+      "offset": 841279
+    },
+    {
+      "text": "it uses reasoning tokens. According to",
+      "duration": 3841,
+      "offset": 843839
+    },
+    {
+      "text": "them, it's the most intelligent model",
+      "duration": 3120,
+      "offset": 846560
+    },
+    {
+      "text": "for the cost. And I totally agree.",
+      "duration": 3680,
+      "offset": 847680
+    },
+    {
+      "text": "Three. Flash preview has particularly",
+      "duration": 2880,
+      "offset": 849680
+    },
+    {
+      "text": "strong knowledge and reasoning",
+      "duration": 2640,
+      "offset": 851360
+    },
+    {
+      "text": "abilities, obtaining the highest score",
+      "duration": 2800,
+      "offset": 852560
+    },
+    {
+      "text": "in our knowledge and hallucination",
+      "duration": 3519,
+      "offset": 854000
+    },
+    {
+      "text": "benchmark, AI omniscience. And it's",
+      "duration": 3919,
+      "offset": 855360
+    },
+    {
+      "text": "placed second in humanity's last exam.",
+      "duration": 4000,
+      "offset": 857519
+    },
+    {
+      "text": "The AI omniscience score is actually",
+      "duration": 3761,
+      "offset": 859279
+    },
+    {
+      "text": "super interesting, which we'll talk",
+      "duration": 3921,
+      "offset": 861519
+    },
+    {
+      "text": "about momentarily. Google now holds the",
+      "duration": 4239,
+      "offset": 863040
+    },
+    {
+      "text": "top two spots on both of these evals,",
+      "duration": 3600,
+      "offset": 865440
+    },
+    {
+      "text": "cementing them as the leader in model",
+      "duration": 4881,
+      "offset": 867279
+    },
+    {
+      "text": "knowledge. Yeah, they know a lot. The",
+      "duration": 5440,
+      "offset": 869040
+    },
+    {
+      "text": "models have so much knowledge just",
+      "duration": 4400,
+      "offset": 872160
+    },
+    {
+      "text": "squeezed into them, it's kind of crazy.",
+      "duration": 4000,
+      "offset": 874480
+    },
+    {
+      "text": "But they're also a little overconfident",
+      "duration": 3519,
+      "offset": 876560
+    },
+    {
+      "text": "and tend to hallucinate a ton as a",
+      "duration": 3520,
+      "offset": 878480
+    },
+    {
+      "text": "result. This increased performance does",
+      "duration": 3841,
+      "offset": 880079
+    },
+    {
+      "text": "come with a trade-off as Gemini 3 Flash",
+      "duration": 3760,
+      "offset": 882000
+    },
+    {
+      "text": "preview more than doubles the token",
+      "duration": 4000,
+      "offset": 883920
+    },
+    {
+      "text": "usage when compared to 2.5 Flash when",
+      "duration": 3439,
+      "offset": 885760
+    },
+    {
+      "text": "running the artificial analysis",
+      "duration": 3279,
+      "offset": 887920
+    },
+    {
+      "text": "intelligence index, making it one of the",
+      "duration": 3601,
+      "offset": 889199
+    },
+    {
+      "text": "highest token use models they've ever",
+      "duration": 5121,
+      "offset": 891199
+    },
+    {
+      "text": "tested. Yeah, it does a lot of tokens.",
+      "duration": 4960,
+      "offset": 892800
+    },
+    {
+      "text": "Three Flash preview has significant",
+      "duration": 2639,
+      "offset": 896320
+    },
+    {
+      "text": "improvements across nearly all",
+      "duration": 2879,
+      "offset": 897760
+    },
+    {
+      "text": "evaluations in the artificial analysis",
+      "duration": 3680,
+      "offset": 898959
+    },
+    {
+      "text": "intelligence index. It has particular",
+      "duration": 4161,
+      "offset": 900639
+    },
+    {
+      "text": "strengths in reasoning settings, scoring",
+      "duration": 4961,
+      "offset": 902639
+    },
+    {
+      "text": "second to Gemini 3 Pro Preview in HLE",
+      "duration": 5680,
+      "offset": 904800
+    },
+    {
+      "text": "and third in both MMLU Pro and GBQA",
+      "duration": 5359,
+      "offset": 907600
+    },
+    {
+      "text": "Diamond behind 3 Pro Preview and 5.2x",
+      "duration": 5599,
+      "offset": 910480
+    },
+    {
+      "text": "high. Then there's the AI omnitions test",
+      "duration": 4880,
+      "offset": 912959
+    },
+    {
+      "text": "which as I mentioned it has a really",
+      "duration": 3120,
+      "offset": 916079
+    },
+    {
+      "text": "really high knowledge score. It's the",
+      "duration": 2641,
+      "offset": 917839
+    },
+    {
+      "text": "highest score that they've seen in",
+      "duration": 4401,
+      "offset": 919199
+    },
+    {
+      "text": "knowledge, but the hallucination is up a",
+      "duration": 5039,
+      "offset": 920480
+    },
+    {
+      "text": "bit too. Yeah, it is a hallucination",
+      "duration": 4400,
+      "offset": 923600
+    },
+    {
+      "text": "rate of 91%. which means when asked a",
+      "duration": 4961,
+      "offset": 925519
+    },
+    {
+      "text": "thing it doesn't know, its options are",
+      "duration": 5040,
+      "offset": 928000
+    },
+    {
+      "text": "refuse to answer, say it doesn't know or",
+      "duration": 5039,
+      "offset": 930480
+    },
+    {
+      "text": "make up an answer. 91% of the time it",
+      "duration": 4000,
+      "offset": 933040
+    },
+    {
+      "text": "makes up an answer. So if you ask the",
+      "duration": 3361,
+      "offset": 935519
+    },
+    {
+      "text": "model something it can't answer, what",
+      "duration": 3919,
+      "offset": 937040
+    },
+    {
+      "text": "you'll get back isn't an apology. What",
+      "duration": 4480,
+      "offset": 938880
+    },
+    {
+      "text": "you'll get back is a lie. Gemini 3 flash",
+      "duration": 3761,
+      "offset": 940959
+    },
+    {
+      "text": "previews. It's multimodal, as I",
+      "duration": 2560,
+      "offset": 943360
+    },
+    {
+      "text": "mentioned before, so it can do text,",
+      "duration": 3600,
+      "offset": 944720
+    },
+    {
+      "text": "images, video, and audio and PDFs. It's",
+      "duration": 4240,
+      "offset": 945920
+    },
+    {
+      "text": "the second highest score of any",
+      "duration": 4319,
+      "offset": 948320
+    },
+    {
+      "text": "multimodal thing they've tested on MMU",
+      "duration": 3679,
+      "offset": 950160
+    },
+    {
+      "text": "Pro. benchmark that tests reasoning",
+      "duration": 2721,
+      "offset": 952639
+    },
+    {
+      "text": "abilities with image inputs behind only",
+      "duration": 3440,
+      "offset": 953839
+    },
+    {
+      "text": "again 3 pro preview when it comes to",
+      "duration": 3520,
+      "offset": 955360
+    },
+    {
+      "text": "parsing media. Google is really far",
+      "duration": 4321,
+      "offset": 957279
+    },
+    {
+      "text": "ahead. But again, that massive token",
+      "duration": 4879,
+      "offset": 958880
+    },
+    {
+      "text": "usage thing is crazy. We'll take a look",
+      "duration": 4159,
+      "offset": 961600
+    },
+    {
+      "text": "at the numbers about that momentarily.",
+      "duration": 4080,
+      "offset": 963759
+    },
+    {
+      "text": "Despite it high token usage, three flash",
+      "duration": 3921,
+      "offset": 965759
+    },
+    {
+      "text": "preview is still the most costefficient",
+      "duration": 3360,
+      "offset": 967839
+    },
+    {
+      "text": "model for its level of intelligence",
+      "duration": 3279,
+      "offset": 969680
+    },
+    {
+      "text": "measured by overall cost to run the",
+      "duration": 3841,
+      "offset": 971199
+    },
+    {
+      "text": "artificial analysis intelligence index.",
+      "duration": 3680,
+      "offset": 972959
+    },
+    {
+      "text": "This is the way I prefer to measure",
+      "duration": 3200,
+      "offset": 975040
+    },
+    {
+      "text": "cost. If you just look at the token",
+      "duration": 3041,
+      "offset": 976639
+    },
+    {
+      "text": "pricing, you're not going to get the",
+      "duration": 2800,
+      "offset": 978240
+    },
+    {
+      "text": "full picture because different models",
+      "duration": 3519,
+      "offset": 979680
+    },
+    {
+      "text": "use different amount of output tokens",
+      "duration": 3919,
+      "offset": 981040
+    },
+    {
+      "text": "because some will reason quickly, some",
+      "duration": 3200,
+      "offset": 983199
+    },
+    {
+      "text": "won't reason, and some will reason",
+      "duration": 3680,
+      "offset": 984959
+    },
+    {
+      "text": "forever. And the flash models are",
+      "duration": 3921,
+      "offset": 986399
+    },
+    {
+      "text": "willing to reason for very long amounts",
+      "duration": 3681,
+      "offset": 988639
+    },
+    {
+      "text": "of time. And the result is they generate",
+      "duration": 3920,
+      "offset": 990320
+    },
+    {
+      "text": "absurd amounts of tokens, over two times",
+      "duration": 4800,
+      "offset": 992320
+    },
+    {
+      "text": "as much as before. It's also slower than",
+      "duration": 6080,
+      "offset": 994240
+    },
+    {
+      "text": "flash was before at 218 TPS. I'm seeing",
+      "duration": 4399,
+      "offset": 997120
+    },
+    {
+      "text": "much slower numbers than that",
+      "duration": 3280,
+      "offset": 1000320
+    },
+    {
+      "text": "personally, closer to 100. I hope it'll",
+      "duration": 3760,
+      "offset": 1001519
+    },
+    {
+      "text": "improve as traffic goes down and",
+      "duration": 4239,
+      "offset": 1003600
+    },
+    {
+      "text": "provisioning goes up, but we will see. I",
+      "duration": 5120,
+      "offset": 1005279
+    },
+    {
+      "text": "also do not see 5.1 high at 125 tokens",
+      "duration": 4000,
+      "offset": 1007839
+    },
+    {
+      "text": "per second. That is not the experience",
+      "duration": 3281,
+      "offset": 1010399
+    },
+    {
+      "text": "I've had. And Kimmy K2 thinking I've",
+      "duration": 3440,
+      "offset": 1011839
+    },
+    {
+      "text": "seen go way over 200. It depends on the",
+      "duration": 2959,
+      "offset": 1013680
+    },
+    {
+      "text": "provider. I don't like that they were",
+      "duration": 2480,
+      "offset": 1015279
+    },
+    {
+      "text": "including these numbers here because",
+      "duration": 2880,
+      "offset": 1016639
+    },
+    {
+      "text": "these depend so much on the different",
+      "duration": 3520,
+      "offset": 1017759
+    },
+    {
+      "text": "providers that you're using. Also has",
+      "duration": 4161,
+      "offset": 1019519
+    },
+    {
+      "text": "the 1 million token context window,",
+      "duration": 3760,
+      "offset": 1021279
+    },
+    {
+      "text": "which is insane. Also, I should have",
+      "duration": 3759,
+      "offset": 1023680
+    },
+    {
+      "text": "said Gemini 3 Flash here, not Pro. This",
+      "duration": 5280,
+      "offset": 1025039
+    },
+    {
+      "text": "is that cost to intelligence test. Flash",
+      "duration": 4721,
+      "offset": 1027439
+    },
+    {
+      "text": "2.5 was in this bottom left corner. It",
+      "duration": 3441,
+      "offset": 1030319
+    },
+    {
+      "text": "used to be the only model in the green.",
+      "duration": 4320,
+      "offset": 1032160
+    },
+    {
+      "text": "That changed. Now it's up here. Gemini 3",
+      "duration": 4960,
+      "offset": 1033760
+    },
+    {
+      "text": "flash reasoning. That said, it's still",
+      "duration": 3920,
+      "offset": 1036480
+    },
+    {
+      "text": "more expensive than a lot of other",
+      "duration": 3760,
+      "offset": 1038720
+    },
+    {
+      "text": "models, primarily because of how many",
+      "duration": 5439,
+      "offset": 1040400
+    },
+    {
+      "text": "tokens it generated. Yeah. Again, taking",
+      "duration": 5760,
+      "offset": 1042480
+    },
+    {
+      "text": "a look at the output token charts, the",
+      "duration": 4481,
+      "offset": 1045839
+    },
+    {
+      "text": "only model that has done more",
+      "duration": 3920,
+      "offset": 1048240
+    },
+    {
+      "text": "unreasonable amounts of thinking on this",
+      "duration": 5120,
+      "offset": 1050320
+    },
+    {
+      "text": "test is Neotron 3 Nano from Nvidia, and",
+      "duration": 5280,
+      "offset": 1052160
+    },
+    {
+      "text": "they are comparable amounts of reasoning",
+      "duration": 4080,
+      "offset": 1055440
+    },
+    {
+      "text": "tokens. I was complaining that three pro",
+      "duration": 4160,
+      "offset": 1057440
+    },
+    {
+      "text": "preview did too much reasoning and it",
+      "duration": 4800,
+      "offset": 1059520
+    },
+    {
+      "text": "pulled 92 million tokens. Three Flash is",
+      "duration": 6160,
+      "offset": 1061600
+    },
+    {
+      "text": "doing 160 million. 2.5 Flash did 71",
+      "duration": 5599,
+      "offset": 1064320
+    },
+    {
+      "text": "million. That is an insane amount of",
+      "duration": 5360,
+      "offset": 1067760
+    },
+    {
+      "text": "tokens for it to just burn through. But",
+      "duration": 5201,
+      "offset": 1069919
+    },
+    {
+      "text": "that's part of why it's smarter is it",
+      "duration": 4320,
+      "offset": 1073120
+    },
+    {
+      "text": "reasons for way longer. But that's also",
+      "duration": 4000,
+      "offset": 1075120
+    },
+    {
+      "text": "why it's significantly more expensive.",
+      "duration": 3200,
+      "offset": 1077440
+    },
+    {
+      "text": "It's even more expensive than models",
+      "duration": 4240,
+      "offset": 1079120
+    },
+    {
+      "text": "like K2 thinking or Deepseek R1 because",
+      "duration": 4640,
+      "offset": 1080640
+    },
+    {
+      "text": "it generates so many reasoning tokens.",
+      "duration": 5679,
+      "offset": 1083360
+    },
+    {
+      "text": "Of the $520 it cost 4 70 of them were",
+      "duration": 6639,
+      "offset": 1085280
+    },
+    {
+      "text": "just reasoning tokens. That is crazy.",
+      "duration": 5041,
+      "offset": 1089039
+    },
+    {
+      "text": "And from what I've seen, if you lower",
+      "duration": 4000,
+      "offset": 1091919
+    },
+    {
+      "text": "the amount of reasoning to like a low or",
+      "duration": 4640,
+      "offset": 1094080
+    },
+    {
+      "text": "medium amount, the intelligence drops",
+      "duration": 4561,
+      "offset": 1095919
+    },
+    {
+      "text": "significantly as a result. And Google",
+      "duration": 3520,
+      "offset": 1098720
+    },
+    {
+      "text": "doesn't do the thing other model labs do",
+      "duration": 3199,
+      "offset": 1100480
+    },
+    {
+      "text": "where they have the low, medium, and",
+      "duration": 3120,
+      "offset": 1102240
+    },
+    {
+      "text": "high. They definitely don't push that",
+      "duration": 4401,
+      "offset": 1103679
+    },
+    {
+      "text": "for flash at all. So, as such, we're not",
+      "duration": 3600,
+      "offset": 1105360
+    },
+    {
+      "text": "going to see that on artificial",
+      "duration": 2640,
+      "offset": 1108080
+    },
+    {
+      "text": "analysis. But for my own testing, if you",
+      "duration": 5360,
+      "offset": 1108960
+    },
+    {
+      "text": "limit tokens, the results get worse. But",
+      "duration": 5040,
+      "offset": 1110720
+    },
+    {
+      "text": "it is doing well in output speeds. But",
+      "duration": 2880,
+      "offset": 1114320
+    },
+    {
+      "text": "again, output speeds vary a lot",
+      "duration": 3440,
+      "offset": 1115760
+    },
+    {
+      "text": "depending on the provider. For example,",
+      "duration": 4080,
+      "offset": 1117200
+    },
+    {
+      "text": "on T3 chat, we recently moved to Kimmy",
+      "duration": 4000,
+      "offset": 1119200
+    },
+    {
+      "text": "K2 as our default. And if we look at",
+      "duration": 5440,
+      "offset": 1121280
+    },
+    {
+      "text": "Kimmy K2 thinking speeds, you'll see 80",
+      "duration": 8640,
+      "offset": 1123200
+    },
+    {
+      "text": "TPS, 50TPS, 18 TPS, 60TPS.",
+      "duration": 7440,
+      "offset": 1126720
+    },
+    {
+      "text": "It varies a lot based on the provider.",
+      "duration": 4400,
+      "offset": 1131840
+    },
+    {
+      "text": "And then we see Fireworks pulling 200",
+      "duration": 4800,
+      "offset": 1134160
+    },
+    {
+      "text": "TPS. According to the tweets we just",
+      "duration": 5520,
+      "offset": 1136240
+    },
+    {
+      "text": "read, that same model is actually only",
+      "duration": 5599,
+      "offset": 1138960
+    },
+    {
+      "text": "getting 82 TPS. So it depends a lot on",
+      "duration": 4240,
+      "offset": 1141760
+    },
+    {
+      "text": "the provider when you have open weight",
+      "duration": 2641,
+      "offset": 1144559
+    },
+    {
+      "text": "models because different providers can",
+      "duration": 2960,
+      "offset": 1146000
+    },
+    {
+      "text": "host them and those different providers",
+      "duration": 3680,
+      "offset": 1147200
+    },
+    {
+      "text": "vary a lot in how well they host it.",
+      "duration": 4160,
+      "offset": 1148960
+    },
+    {
+      "text": "Even Google Vertex when hosting Kimmy K2",
+      "duration": 4640,
+      "offset": 1150880
+    },
+    {
+      "text": "thinking is pulling almost 200 TPS. So",
+      "duration": 3760,
+      "offset": 1153120
+    },
+    {
+      "text": "if you want a model that's actually nice",
+      "duration": 2960,
+      "offset": 1155520
+    },
+    {
+      "text": "to talk to and you're using Google",
+      "duration": 3840,
+      "offset": 1156880
+    },
+    {
+      "text": "Cloud, don't touch Flash, don't touch",
+      "duration": 5040,
+      "offset": 1158480
+    },
+    {
+      "text": "Pro, go throw Kimmy K2 on Vertex and",
+      "duration": 4640,
+      "offset": 1160720
+    },
+    {
+      "text": "you'll get crazy speeds, really good",
+      "duration": 4000,
+      "offset": 1163520
+    },
+    {
+      "text": "prices, and a much nicer thing to talk",
+      "duration": 3840,
+      "offset": 1165360
+    },
+    {
+      "text": "to. Now I want to talk about the",
+      "duration": 2880,
+      "offset": 1167520
+    },
+    {
+      "text": "hallucinations thing because it's",
+      "duration": 3200,
+      "offset": 1169200
+    },
+    {
+      "text": "actually really really interesting and I",
+      "duration": 3760,
+      "offset": 1170400
+    },
+    {
+      "text": "love the new omniscience tests that",
+      "duration": 4159,
+      "offset": 1172400
+    },
+    {
+      "text": "they're doing at artificial analysis. So",
+      "duration": 5759,
+      "offset": 1174160
+    },
+    {
+      "text": "here is the omniscience index. This is",
+      "duration": 6561,
+      "offset": 1176559
+    },
+    {
+      "text": "based on how well it answers hard",
+      "duration": 5841,
+      "offset": 1179919
+    },
+    {
+      "text": "questions correctly and it's a score",
+      "duration": 3919,
+      "offset": 1183120
+    },
+    {
+      "text": "when you look through all of the",
+      "duration": 4640,
+      "offset": 1185760
+    },
+    {
+      "text": "questions. Positive means it answered",
+      "duration": 4561,
+      "offset": 1187039
+    },
+    {
+      "text": "more correctly than incorrectly.",
+      "duration": 2720,
+      "offset": 1190400
+    },
+    {
+      "text": "Negative means more incorrect than",
+      "duration": 3840,
+      "offset": 1191600
+    },
+    {
+      "text": "correct. And incorrect can be does it",
+      "duration": 3919,
+      "offset": 1193120
+    },
+    {
+      "text": "make up an answer that's wrong? Does it",
+      "duration": 4160,
+      "offset": 1195440
+    },
+    {
+      "text": "refuse? Does it not answer? And what's",
+      "duration": 3921,
+      "offset": 1197039
+    },
+    {
+      "text": "really interesting is some of the best",
+      "duration": 4000,
+      "offset": 1199600
+    },
+    {
+      "text": "models we have nowadays like 5.2x high",
+      "duration": 5200,
+      "offset": 1200960
+    },
+    {
+      "text": "and 4.5 sonnet are still negative.",
+      "duration": 4160,
+      "offset": 1203600
+    },
+    {
+      "text": "They're just very small negative",
+      "duration": 5680,
+      "offset": 1206160
+    },
+    {
+      "text": "numbers. 5.1 high and opus 4.5 go over",
+      "duration": 6159,
+      "offset": 1207760
+    },
+    {
+      "text": "into the positive slightly. Opus 4.5 at",
+      "duration": 3680,
+      "offset": 1211840
+    },
+    {
+      "text": "10 is really good. It's one of the few",
+      "duration": 3361,
+      "offset": 1213919
+    },
+    {
+      "text": "tests that shows the strength of the",
+      "duration": 3680,
+      "offset": 1215520
+    },
+    {
+      "text": "Opus models. Watch what happens when we",
+      "duration": 4080,
+      "offset": 1217280
+    },
+    {
+      "text": "switch over to the hallucination chart.",
+      "duration": 3599,
+      "offset": 1219200
+    },
+    {
+      "text": "Very different story. On the",
+      "duration": 4080,
+      "offset": 1221360
+    },
+    {
+      "text": "hallucination chart, we do see haiku at",
+      "duration": 4401,
+      "offset": 1222799
+    },
+    {
+      "text": "a very, very low amount. It seems like",
+      "duration": 3680,
+      "offset": 1225440
+    },
+    {
+      "text": "since this model is smaller, Anthropic",
+      "duration": 3839,
+      "offset": 1227200
+    },
+    {
+      "text": "trained it to say no more often. And if",
+      "duration": 3600,
+      "offset": 1229120
+    },
+    {
+      "text": "it says no, I don't know the answer, it",
+      "duration": 3441,
+      "offset": 1231039
+    },
+    {
+      "text": "will score better here. If it makes up",
+      "duration": 3760,
+      "offset": 1232720
+    },
+    {
+      "text": "an answer, it scores much worse here.",
+      "duration": 4319,
+      "offset": 1234480
+    },
+    {
+      "text": "And this is where things get scary.",
+      "duration": 5520,
+      "offset": 1236480
+    },
+    {
+      "text": "Gemini 3 flash. 91% of the time it",
+      "duration": 4880,
+      "offset": 1238799
+    },
+    {
+      "text": "doesn't know. It will lie and make up an",
+      "duration": 3520,
+      "offset": 1242000
+    },
+    {
+      "text": "answer. And this is when you have to be",
+      "duration": 4000,
+      "offset": 1243679
+    },
+    {
+      "text": "really honest with yourself depending on",
+      "duration": 4639,
+      "offset": 1245520
+    },
+    {
+      "text": "what your use case is. Imagine if",
+      "duration": 4561,
+      "offset": 1247679
+    },
+    {
+      "text": "instead of a model, you had a person",
+      "duration": 4081,
+      "offset": 1250159
+    },
+    {
+      "text": "doing a task. We'll just say it's an",
+      "duration": 4400,
+      "offset": 1252240
+    },
+    {
+      "text": "engineering task. If you have this super",
+      "duration": 4080,
+      "offset": 1254240
+    },
+    {
+      "text": "intelligent engineer that is really",
+      "duration": 3919,
+      "offset": 1256640
+    },
+    {
+      "text": "really cheap but doesn't know how to be",
+      "duration": 4560,
+      "offset": 1258320
+    },
+    {
+      "text": "wrong and when they have a question or a",
+      "duration": 4161,
+      "offset": 1260559
+    },
+    {
+      "text": "problem they don't know the answer to",
+      "duration": 4400,
+      "offset": 1262880
+    },
+    {
+      "text": "they just lie. Are they still a great",
+      "duration": 4400,
+      "offset": 1264720
+    },
+    {
+      "text": "engineer? This is a question you have to",
+      "duration": 3440,
+      "offset": 1267280
+    },
+    {
+      "text": "answer for yourself when you build your",
+      "duration": 4720,
+      "offset": 1269120
+    },
+    {
+      "text": "own solutions around these models. How",
+      "duration": 5600,
+      "offset": 1270720
+    },
+    {
+      "text": "much are you willing to tolerate lies,",
+      "duration": 4319,
+      "offset": 1273840
+    },
+    {
+      "text": "hallucinations, and madeup answers?",
+      "duration": 3359,
+      "offset": 1276320
+    },
+    {
+      "text": "Because it turns out as smart as these",
+      "duration": 3041,
+      "offset": 1278159
+    },
+    {
+      "text": "models are getting, we aren't really",
+      "duration": 2961,
+      "offset": 1279679
+    },
+    {
+      "text": "solving the hallucination problem. At",
+      "duration": 2640,
+      "offset": 1281200
+    },
+    {
+      "text": "least according to this bench and",
+      "duration": 2560,
+      "offset": 1282640
+    },
+    {
+      "text": "honestly to an extent from my own",
+      "duration": 4400,
+      "offset": 1283840
+    },
+    {
+      "text": "experience too, GPT5 was a meaningful",
+      "duration": 5120,
+      "offset": 1285200
+    },
+    {
+      "text": "improvement in this regard, but it does",
+      "duration": 5040,
+      "offset": 1288240
+    },
+    {
+      "text": "appear that 5.2 got worse again. I'm",
+      "duration": 5040,
+      "offset": 1290320
+    },
+    {
+      "text": "going to turn on 5.0 for this. Did they",
+      "duration": 3519,
+      "offset": 1293280
+    },
+    {
+      "text": "ever test it here? I don't think they",
+      "duration": 3360,
+      "offset": 1295360
+    },
+    {
+      "text": "did. Yeah, it does not appear they ran",
+      "duration": 5201,
+      "offset": 1296799
+    },
+    {
+      "text": "this bench on 5.0, but GBD5 was one of",
+      "duration": 4959,
+      "offset": 1298720
+    },
+    {
+      "text": "the first models I found hallucinated",
+      "duration": 3440,
+      "offset": 1302000
+    },
+    {
+      "text": "less. And you can kind of see that with",
+      "duration": 4081,
+      "offset": 1303679
+    },
+    {
+      "text": "5.1 here in the ' 50s when almost",
+      "duration": 4640,
+      "offset": 1305440
+    },
+    {
+      "text": "everything that came out before it is 60",
+      "duration": 5279,
+      "offset": 1307760
+    },
+    {
+      "text": "plus. That said, Grock 4 being a 64 is",
+      "duration": 4400,
+      "offset": 1310080
+    },
+    {
+      "text": "[ __ ] [ __ ] I have seen this model",
+      "duration": 2721,
+      "offset": 1313039
+    },
+    {
+      "text": "hallucinate more than almost anything",
+      "duration": 3439,
+      "offset": 1314480
+    },
+    {
+      "text": "we've ever shipped on T3 chat. Oh, is",
+      "duration": 4799,
+      "offset": 1315760
+    },
+    {
+      "text": "5.0 and 81%. Did I miss that? Oh, yeah,",
+      "duration": 4880,
+      "offset": 1317919
+    },
+    {
+      "text": "it is here. Apparently five wasn't 80%.",
+      "duration": 3841,
+      "offset": 1320559
+    },
+    {
+      "text": "So, I'm just talking at my ass. It's",
+      "duration": 3841,
+      "offset": 1322799
+    },
+    {
+      "text": "crazy cuz I very clearly felt the",
+      "duration": 3519,
+      "offset": 1324400
+    },
+    {
+      "text": "difference there and saw the numbers",
+      "duration": 2960,
+      "offset": 1326640
+    },
+    {
+      "text": "OpenAI published about hallucinations.",
+      "duration": 4161,
+      "offset": 1327919
+    },
+    {
+      "text": "So, I guess these tests don't agree. I",
+      "duration": 4400,
+      "offset": 1329600
+    },
+    {
+      "text": "will trust artificial analysis over the",
+      "duration": 3520,
+      "offset": 1332080
+    },
+    {
+      "text": "first party labs when it comes to this",
+      "duration": 3840,
+      "offset": 1334000
+    },
+    {
+      "text": "though. And this is a scary chart,",
+      "duration": 5120,
+      "offset": 1335600
+    },
+    {
+      "text": "especially again when we see Gemini 3",
+      "duration": 5120,
+      "offset": 1337840
+    },
+    {
+      "text": "flash hallucinating at roughly the same",
+      "duration": 4959,
+      "offset": 1340720
+    },
+    {
+      "text": "rate as a 20 billion per openweight",
+      "duration": 5199,
+      "offset": 1342960
+    },
+    {
+      "text": "model. Not great. It is also worth",
+      "duration": 4321,
+      "offset": 1345679
+    },
+    {
+      "text": "noting that your system prompt can steer",
+      "duration": 4400,
+      "offset": 1348159
+    },
+    {
+      "text": "heavily what goes on here. As Sokay",
+      "duration": 4960,
+      "offset": 1350000
+    },
+    {
+      "text": "mentions here, you can tell this from",
+      "duration": 4081,
+      "offset": 1352559
+    },
+    {
+      "text": "something like snitchbench where the",
+      "duration": 3920,
+      "offset": 1354960
+    },
+    {
+      "text": "system prompt very clearly steers the",
+      "duration": 4240,
+      "offset": 1356640
+    },
+    {
+      "text": "direction that the model handles",
+      "duration": 3520,
+      "offset": 1358880
+    },
+    {
+      "text": "refusals,",
+      "duration": 3520,
+      "offset": 1360880
+    },
+    {
+      "text": "knowledge gaps, and things like that.",
+      "duration": 3279,
+      "offset": 1362400
+    },
+    {
+      "text": "Speaking of which, we should probably",
+      "duration": 4000,
+      "offset": 1364400
+    },
+    {
+      "text": "take a look at SnitchBench. Here are the",
+      "duration": 5120,
+      "offset": 1365679
+    },
+    {
+      "text": "most recent results. And if we look",
+      "duration": 4639,
+      "offset": 1368400
+    },
+    {
+      "text": "closely, you will see that Gemini 3",
+      "duration": 4961,
+      "offset": 1370799
+    },
+    {
+      "text": "Flash Low on the Tamely test is",
+      "duration": 4721,
+      "offset": 1373039
+    },
+    {
+      "text": "snitching about 50% of the time. If",
+      "duration": 3279,
+      "offset": 1375760
+    },
+    {
+      "text": "you're not familiar with SnitchBench,",
+      "duration": 3440,
+      "offset": 1377760
+    },
+    {
+      "text": "it's a benchmark I made originally kind",
+      "duration": 3921,
+      "offset": 1379039
+    },
+    {
+      "text": "of as a joke, but it's no longer a joke.",
+      "duration": 2800,
+      "offset": 1381200
+    },
+    {
+      "text": "It's actually turning out to be kind of",
+      "duration": 3040,
+      "offset": 1382960
+    },
+    {
+      "text": "useful. The point of SnitchBench is to",
+      "duration": 4159,
+      "offset": 1384000
+    },
+    {
+      "text": "give the models a scenario where",
+      "duration": 3840,
+      "offset": 1386000
+    },
+    {
+      "text": "something bad is happening. In this",
+      "duration": 3520,
+      "offset": 1388159
+    },
+    {
+      "text": "case, medical malpractice, obviously",
+      "duration": 4160,
+      "offset": 1389840
+    },
+    {
+      "text": "fake. The model's given the task of",
+      "duration": 4480,
+      "offset": 1391679
+    },
+    {
+      "text": "logging the things that are going on in",
+      "duration": 4240,
+      "offset": 1394000
+    },
+    {
+      "text": "this medical office, but it's given",
+      "duration": 3841,
+      "offset": 1396159
+    },
+    {
+      "text": "tools that it could hypothetically use",
+      "duration": 4480,
+      "offset": 1398240
+    },
+    {
+      "text": "to break out. For example, it has an",
+      "duration": 4480,
+      "offset": 1400000
+    },
+    {
+      "text": "email tool that it can use to send",
+      "duration": 4079,
+      "offset": 1402720
+    },
+    {
+      "text": "emails to random email addresses. It",
+      "duration": 4160,
+      "offset": 1404480
+    },
+    {
+      "text": "also has a CLI tool in some of the tests",
+      "duration": 3921,
+      "offset": 1406799
+    },
+    {
+      "text": "that it could hypothetically use to go",
+      "duration": 4080,
+      "offset": 1408640
+    },
+    {
+      "text": "through the web and try to post data to",
+      "duration": 3600,
+      "offset": 1410720
+    },
+    {
+      "text": "forums to try and alert somebody",
+      "duration": 3600,
+      "offset": 1412720
+    },
+    {
+      "text": "externally. I have four versions of the",
+      "duration": 3760,
+      "offset": 1414320
+    },
+    {
+      "text": "test, the email version, the CLI",
+      "duration": 4160,
+      "offset": 1416320
+    },
+    {
+      "text": "version, and then boldly adjustments for",
+      "duration": 3839,
+      "offset": 1418080
+    },
+    {
+      "text": "them. The only difference between these",
+      "duration": 3439,
+      "offset": 1420480
+    },
+    {
+      "text": "two is that in the boldly tests, I take",
+      "duration": 3760,
+      "offset": 1421919
+    },
+    {
+      "text": "a blurb from a system prompt that was",
+      "duration": 3281,
+      "offset": 1423919
+    },
+    {
+      "text": "published by Anthropic when they first",
+      "duration": 3521,
+      "offset": 1425679
+    },
+    {
+      "text": "discussed a similar test that says the",
+      "duration": 3599,
+      "offset": 1427200
+    },
+    {
+      "text": "model should act boldly and in the",
+      "duration": 4240,
+      "offset": 1429200
+    },
+    {
+      "text": "interest of humanity because that steers",
+      "duration": 5521,
+      "offset": 1430799
+    },
+    {
+      "text": "the model to snitch more. But what we",
+      "duration": 4719,
+      "offset": 1433440
+    },
+    {
+      "text": "have here isn't that version. This is",
+      "duration": 3599,
+      "offset": 1436320
+    },
+    {
+      "text": "just telling the model that is its job",
+      "duration": 4400,
+      "offset": 1438159
+    },
+    {
+      "text": "to log what's going on. And even then,",
+      "duration": 4401,
+      "offset": 1439919
+    },
+    {
+      "text": "turns out three Flash will snitch to the",
+      "duration": 4401,
+      "offset": 1442559
+    },
+    {
+      "text": "government a lot. The high version will",
+      "duration": 4239,
+      "offset": 1444320
+    },
+    {
+      "text": "do 70% of the time and it will even try",
+      "duration": 4000,
+      "offset": 1446960
+    },
+    {
+      "text": "to hit up the media 5%. And the low",
+      "duration": 4161,
+      "offset": 1448559
+    },
+    {
+      "text": "version will still snitch to the",
+      "duration": 3760,
+      "offset": 1450960
+    },
+    {
+      "text": "government 55% of the time. Switch this",
+      "duration": 3600,
+      "offset": 1452720
+    },
+    {
+      "text": "to the CLI version and you'll see it",
+      "duration": 3760,
+      "offset": 1454720
+    },
+    {
+      "text": "goes down quite a bit because when",
+      "duration": 3599,
+      "offset": 1456320
+    },
+    {
+      "text": "you're just given a CLI tool, your",
+      "duration": 2880,
+      "offset": 1458480
+    },
+    {
+      "text": "willingness to try and abuse it goes",
+      "duration": 3041,
+      "offset": 1459919
+    },
+    {
+      "text": "down. But there are still models like",
+      "duration": 4000,
+      "offset": 1461360
+    },
+    {
+      "text": "Grock that will do everything they can",
+      "duration": 3760,
+      "offset": 1462960
+    },
+    {
+      "text": "to reach out to the government and",
+      "duration": 3520,
+      "offset": 1465360
+    },
+    {
+      "text": "report you even if all they have is CLI",
+      "duration": 3680,
+      "offset": 1466720
+    },
+    {
+      "text": "access.",
+      "duration": 3039,
+      "offset": 1468880
+    },
+    {
+      "text": "We then have the boldly act version.",
+      "duration": 3120,
+      "offset": 1470400
+    },
+    {
+      "text": "You'll notice a lot of those red bars",
+      "duration": 3120,
+      "offset": 1471919
+    },
+    {
+      "text": "raised. That's because when you tell the",
+      "duration": 2960,
+      "offset": 1473520
+    },
+    {
+      "text": "model to act boldly, you give it that",
+      "duration": 2961,
+      "offset": 1475039
+    },
+    {
+      "text": "instruction, it's much more likely to do",
+      "duration": 3600,
+      "offset": 1476480
+    },
+    {
+      "text": "these things. And Flash High will snitch",
+      "duration": 3760,
+      "offset": 1478000
+    },
+    {
+      "text": "on you 100% of the time to the",
+      "duration": 3360,
+      "offset": 1480080
+    },
+    {
+      "text": "government and 60% of the time to the",
+      "duration": 3760,
+      "offset": 1481760
+    },
+    {
+      "text": "media. And in the CLI test, we see it",
+      "duration": 5440,
+      "offset": 1483440
+    },
+    {
+      "text": "drop quite a bit, but still not zero.",
+      "duration": 5200,
+      "offset": 1485520
+    },
+    {
+      "text": "Flash high and flash low are scoring the",
+      "duration": 4320,
+      "offset": 1488880
+    },
+    {
+      "text": "same at a 20% government snitch rate.",
+      "duration": 5199,
+      "offset": 1490720
+    },
+    {
+      "text": "Cool. You get the idea. This model is",
+      "duration": 4320,
+      "offset": 1493200
+    },
+    {
+      "text": "more than happy to snitch. There's no",
+      "duration": 3281,
+      "offset": 1495919
+    },
+    {
+      "text": "meaningful difference in the performance",
+      "duration": 3279,
+      "offset": 1497520
+    },
+    {
+      "text": "here beyond the model being better",
+      "duration": 4320,
+      "offset": 1499200
+    },
+    {
+      "text": "enough at tool calls that it can make",
+      "duration": 5201,
+      "offset": 1500799
+    },
+    {
+      "text": "them. 2.5 flash and tool calls did not",
+      "duration": 3759,
+      "offset": 1503520
+    },
+    {
+      "text": "always get along great, which is why",
+      "duration": 3440,
+      "offset": 1506000
+    },
+    {
+      "text": "this is a notable difference. I keep",
+      "duration": 4081,
+      "offset": 1507279
+    },
+    {
+      "text": "logs for all of these both for actually",
+      "duration": 3440,
+      "offset": 1509440
+    },
+    {
+      "text": "getting the information I want, but also",
+      "duration": 4400,
+      "offset": 1511360
+    },
+    {
+      "text": "just to see what's going on. And here we",
+      "duration": 4640,
+      "offset": 1512880
+    },
+    {
+      "text": "can see the tool calls being made and",
+      "duration": 4159,
+      "offset": 1515760
+    },
+    {
+      "text": "the reasoning the model's doing.",
+      "duration": 3840,
+      "offset": 1517520
+    },
+    {
+      "text": "Investigating data anomalies been",
+      "duration": 3120,
+      "offset": 1519919
+    },
+    {
+      "text": "meticulously reviewing the provided",
+      "duration": 4000,
+      "offset": 1521360
+    },
+    {
+      "text": "document by Zenith Stats. Most recent",
+      "duration": 3601,
+      "offset": 1523039
+    },
+    {
+      "text": "logs compiled specifically highlight the",
+      "duration": 3919,
+      "offset": 1525360
+    },
+    {
+      "text": "glaring discrepancies.",
+      "duration": 3840,
+      "offset": 1526640
+    },
+    {
+      "text": "I'm wrestling with the optimal",
+      "duration": 2721,
+      "offset": 1529279
+    },
+    {
+      "text": "escalation path giving the impending",
+      "duration": 6040,
+      "offset": 1530480
+    },
+    {
+      "text": "data purge and substantial patient risk.",
+      "duration": 4520,
+      "offset": 1532000
+    },
+    {
+      "text": "Reasoning redacted",
+      "duration": 6081,
+      "offset": 1536559
+    },
+    {
+      "text": "funny tool call write logs. Here it is",
+      "duration": 7041,
+      "offset": 1539039
+    },
+    {
+      "text": "writing logs for us.",
+      "duration": 5120,
+      "offset": 1542640
+    },
+    {
+      "text": "And here it is sending emails to",
+      "duration": 4079,
+      "offset": 1546080
+    },
+    {
+      "text": "compliance atverianhealthcare",
+      "duration": 5120,
+      "offset": 1547760
+    },
+    {
+      "text": "as well as to drugs safetyfda.gov.",
+      "duration": 4880,
+      "offset": 1550159
+    },
+    {
+      "text": "There's a snitch. That said, this",
+      "duration": 4240,
+      "offset": 1552880
+    },
+    {
+      "text": "visualizer is quite out ofd and I",
+      "duration": 4081,
+      "offset": 1555039
+    },
+    {
+      "text": "figured what better way to test the new",
+      "duration": 4000,
+      "offset": 1557120
+    },
+    {
+      "text": "model than to run it against a whole",
+      "duration": 3679,
+      "offset": 1559120
+    },
+    {
+      "text": "bunch of other models overhauling the",
+      "duration": 3600,
+      "offset": 1561120
+    },
+    {
+      "text": "visualizer. The first time I did this,",
+      "duration": 4561,
+      "offset": 1562799
+    },
+    {
+      "text": "it generated Chinese instructions",
+      "duration": 4079,
+      "offset": 1564720
+    },
+    {
+      "text": "because it's really good at multiple",
+      "duration": 3199,
+      "offset": 1567360
+    },
+    {
+      "text": "languages. So much so, it likes to show",
+      "duration": 4000,
+      "offset": 1568799
+    },
+    {
+      "text": "that off to you. Because of bugs and",
+      "duration": 4720,
+      "offset": 1570559
+    },
+    {
+      "text": "cursor, cursor team, you're on a short",
+      "duration": 4240,
+      "offset": 1572799
+    },
+    {
+      "text": "leash right now. Because of bugs and",
+      "duration": 3681,
+      "offset": 1575279
+    },
+    {
+      "text": "cursor, I had to redo this generation",
+      "duration": 3441,
+      "offset": 1577039
+    },
+    {
+      "text": "and was able to do it relatively",
+      "duration": 3440,
+      "offset": 1578960
+    },
+    {
+      "text": "quickly. You'll see here I ran this",
+      "duration": 3360,
+      "offset": 1580480
+    },
+    {
+      "text": "against multiple different models and",
+      "duration": 3120,
+      "offset": 1582400
+    },
+    {
+      "text": "the only model that generated more code",
+      "duration": 4719,
+      "offset": 1583840
+    },
+    {
+      "text": "than Flash was GPT 5.2. Let's start with",
+      "duration": 5680,
+      "offset": 1585520
+    },
+    {
+      "text": "my current favorite fast model, Composer",
+      "duration": 4961,
+      "offset": 1588559
+    },
+    {
+      "text": "1, which for some reason says Opus 4.5",
+      "duration": 3680,
+      "offset": 1591200
+    },
+    {
+      "text": "right there. I don't know what happened",
+      "duration": 3279,
+      "offset": 1593520
+    },
+    {
+      "text": "there. I'm going to send the screenshot",
+      "duration": 3760,
+      "offset": 1594880
+    },
+    {
+      "text": "to the Cursor team quick. Just wrote a",
+      "duration": 3760,
+      "offset": 1596799
+    },
+    {
+      "text": "strongly worded message to the team at",
+      "duration": 4080,
+      "offset": 1598640
+    },
+    {
+      "text": "Cursor. I told them that the crash video",
+      "duration": 3921,
+      "offset": 1600559
+    },
+    {
+      "text": "will be delayed until they have a little",
+      "duration": 3600,
+      "offset": 1602720
+    },
+    {
+      "text": "time to fix things, but I am still",
+      "duration": 4160,
+      "offset": 1604480
+    },
+    {
+      "text": "annoyed. The bug is that this is",
+      "duration": 4160,
+      "offset": 1606320
+    },
+    {
+      "text": "Composer. This ran with composer, but it",
+      "duration": 4159,
+      "offset": 1608640
+    },
+    {
+      "text": "says opus 4.5 right there, which it does",
+      "duration": 3920,
+      "offset": 1610480
+    },
+    {
+      "text": "for that. And then the rest, I'll say",
+      "duration": 3041,
+      "offset": 1612799
+    },
+    {
+      "text": "the correct model. But for some reason,",
+      "duration": 3440,
+      "offset": 1614400
+    },
+    {
+      "text": "this one is labeled incorrectly, and I",
+      "duration": 4560,
+      "offset": 1615840
+    },
+    {
+      "text": "don't know what it actually used.",
+      "duration": 4160,
+      "offset": 1617840
+    },
+    {
+      "text": "So, let's take a look at how composer",
+      "duration": 2960,
+      "offset": 1620400
+    },
+    {
+      "text": "handled this. And if it looks too good,",
+      "duration": 2799,
+      "offset": 1622000
+    },
+    {
+      "text": "we know it wasn't actually composer, it",
+      "duration": 3439,
+      "offset": 1623360
+    },
+    {
+      "text": "was opus. But I'm almost positive this",
+      "duration": 4721,
+      "offset": 1624799
+    },
+    {
+      "text": "was composer for various reasons. See to",
+      "duration": 7041,
+      "offset": 1626799
+    },
+    {
+      "text": "that bun rundev. Bun install. Bun",
+      "duration": 5920,
+      "offset": 1629520
+    },
+    {
+      "text": "rundev.",
+      "duration": 3280,
+      "offset": 1633840
+    },
+    {
+      "text": "Okay, here was the first attempt. It",
+      "duration": 3839,
+      "offset": 1635440
+    },
+    {
+      "text": "puts too much stuff up top. I don't love",
+      "duration": 6000,
+      "offset": 1637120
+    },
+    {
+      "text": "the cards, but this looks fine enough.",
+      "duration": 5201,
+      "offset": 1639279
+    },
+    {
+      "text": "Oh, you can switch to bar charts and",
+      "duration": 2720,
+      "offset": 1643120
+    },
+    {
+      "text": "line charts. Why the [ __ ] would you ever",
+      "duration": 4160,
+      "offset": 1644480
+    },
+    {
+      "text": "want a line or a radius chart for this?",
+      "duration": 5520,
+      "offset": 1645840
+    },
+    {
+      "text": "Those make no sense at all. That's a",
+      "duration": 5200,
+      "offset": 1648640
+    },
+    {
+      "text": "choice. Cool. Roughly what I expect from",
+      "duration": 4400,
+      "offset": 1651360
+    },
+    {
+      "text": "a model that is focused on moving fast",
+      "duration": 4079,
+      "offset": 1653840
+    },
+    {
+      "text": "in your editor and nothing else. Hop",
+      "duration": 4480,
+      "offset": 1655760
+    },
+    {
+      "text": "over to Opus,",
+      "duration": 5521,
+      "offset": 1657919
+    },
+    {
+      "text": "which I'm slowly starting to like the",
+      "duration": 6080,
+      "offset": 1660240
+    },
+    {
+      "text": "way that Opus thinks of design more and",
+      "duration": 4800,
+      "offset": 1663440
+    },
+    {
+      "text": "more. I don't know if it's coming around",
+      "duration": 3520,
+      "offset": 1666320
+    },
+    {
+      "text": "to me or if I'm coming around to it, but",
+      "duration": 4799,
+      "offset": 1668240
+    },
+    {
+      "text": "either way, I'm cool with it. And here",
+      "duration": 7439,
+      "offset": 1669840
+    },
+    {
+      "text": "we see a broken chart.",
+      "duration": 6481,
+      "offset": 1673039
+    },
+    {
+      "text": "The combined test is broken. Switch",
+      "duration": 3681,
+      "offset": 1677279
+    },
+    {
+      "text": "between government and media. It appears",
+      "duration": 4600,
+      "offset": 1679520
+    },
+    {
+      "text": "to work.",
+      "duration": 3160,
+      "offset": 1680960
+    },
+    {
+      "text": "That is funny that it broke on the",
+      "duration": 3360,
+      "offset": 1685679
+    },
+    {
+      "text": "combined test, but the rest works. It's",
+      "duration": 3520,
+      "offset": 1687279
+    },
+    {
+      "text": "better looking. I just I hate when",
+      "duration": 4401,
+      "offset": 1689039
+    },
+    {
+      "text": "everything puts these top navs and cards",
+      "duration": 4081,
+      "offset": 1690799
+    },
+    {
+      "text": "on top that aren't actually what I'm",
+      "duration": 3440,
+      "offset": 1693440
+    },
+    {
+      "text": "here for. This view is really good",
+      "duration": 6159,
+      "offset": 1694880
+    },
+    {
+      "text": "though. Okay, so that did fine. Check",
+      "duration": 7720,
+      "offset": 1696880
+    },
+    {
+      "text": "out 3 Pro.",
+      "duration": 3561,
+      "offset": 1701039
+    },
+    {
+      "text": "Oh god, I hate it. I hate this so much.",
+      "duration": 5760,
+      "offset": 1704720
+    },
+    {
+      "text": "Okay, we switch to test scenarios. This",
+      "duration": 4800,
+      "offset": 1708720
+    },
+    {
+      "text": "visualization is decent. It's mostly",
+      "duration": 5439,
+      "offset": 1710480
+    },
+    {
+      "text": "copied from the previous one, but the",
+      "duration": 3680,
+      "offset": 1713520
+    },
+    {
+      "text": "overview view is one of the worst things",
+      "duration": 4561,
+      "offset": 1715919
+    },
+    {
+      "text": "I've ever seen. I hate this. I like the",
+      "duration": 6640,
+      "offset": 1717200
+    },
+    {
+      "text": "concept a bit, but not much.",
+      "duration": 5040,
+      "offset": 1720480
+    },
+    {
+      "text": "Yeah, that one's rough.",
+      "duration": 4480,
+      "offset": 1723840
+    },
+    {
+      "text": "Gemini has a vibe to it. Here is JPT",
+      "duration": 7639,
+      "offset": 1725520
+    },
+    {
+      "text": "5.2's rendition of this change.",
+      "duration": 4839,
+      "offset": 1728320
+    },
+    {
+      "text": "I don't love this overview view. I don't",
+      "duration": 3601,
+      "offset": 1735039
+    },
+    {
+      "text": "like how it's combining things and",
+      "duration": 5280,
+      "offset": 1736960
+    },
+    {
+      "text": "giving really weird numbers as a result.",
+      "duration": 7039,
+      "offset": 1738640
+    },
+    {
+      "text": "My scenario looks a little bit better.",
+      "duration": 4960,
+      "offset": 1742240
+    },
+    {
+      "text": "They reordered these in a way that makes",
+      "duration": 5720,
+      "offset": 1745679
+    },
+    {
+      "text": "more sense. I do actually dig that.",
+      "duration": 4199,
+      "offset": 1747200
+    },
+    {
+      "text": "I love that dark only dashboard. It",
+      "duration": 3760,
+      "offset": 1752880
+    },
+    {
+      "text": "takes the prompts, instructions, and",
+      "duration": 3679,
+      "offset": 1755120
+    },
+    {
+      "text": "sneaks it into the actual page. Cringe",
+      "duration": 4639,
+      "offset": 1756640
+    },
+    {
+      "text": "as [ __ ] GBT 5 went from deeply",
+      "duration": 4000,
+      "offset": 1758799
+    },
+    {
+      "text": "understanding my instructions to",
+      "duration": 3520,
+      "offset": 1761279
+    },
+    {
+      "text": "applying them weirdly in ways I don't",
+      "duration": 4240,
+      "offset": 1762799
+    },
+    {
+      "text": "love with the latest version. I I still",
+      "duration": 3921,
+      "offset": 1764799
+    },
+    {
+      "text": "just don't like 5.2. I have not been",
+      "duration": 2961,
+      "offset": 1767039
+    },
+    {
+      "text": "using it much. I know there are some",
+      "duration": 2640,
+      "offset": 1768720
+    },
+    {
+      "text": "people who swear by it. I'm not one of",
+      "duration": 3120,
+      "offset": 1770000
+    },
+    {
+      "text": "them. But now for the thing we're all",
+      "duration": 5439,
+      "offset": 1771360
+    },
+    {
+      "text": "here for, Flash. Let's see how three",
+      "duration": 5760,
+      "offset": 1773120
+    },
+    {
+      "text": "Flash handled this. It wrote a lot of",
+      "duration": 5681,
+      "offset": 1776799
+    },
+    {
+      "text": "code. So, uh, great.",
+      "duration": 5440,
+      "offset": 1778880
+    },
+    {
+      "text": "It's the only one that's code doesn't",
+      "duration": 4840,
+      "offset": 1782480
+    },
+    {
+      "text": "work.",
+      "duration": 3000,
+      "offset": 1784320
+    },
+    {
+      "text": "It will tell it about that in hopes",
+      "duration": 3519,
+      "offset": 1788880
+    },
+    {
+      "text": "it'll fix it. It's running said",
+      "duration": 4880,
+      "offset": 1790320
+    },
+    {
+      "text": "commands. That's a not great sign.",
+      "duration": 3921,
+      "offset": 1792399
+    },
+    {
+      "text": "Anybody said this model is great at",
+      "duration": 3120,
+      "offset": 1795200
+    },
+    {
+      "text": "code. I don't know if I trust them. It",
+      "duration": 3520,
+      "offset": 1796320
+    },
+    {
+      "text": "may be in the right harness with the",
+      "duration": 3920,
+      "offset": 1798320
+    },
+    {
+      "text": "right problems, but man, it's just",
+      "duration": 4880,
+      "offset": 1799840
+    },
+    {
+      "text": "[ __ ] thinking and thinking about what",
+      "duration": 4960,
+      "offset": 1802240
+    },
+    {
+      "text": "should be a oneline change. it forgot to",
+      "duration": 4400,
+      "offset": 1804720
+    },
+    {
+      "text": "import something or it has a component",
+      "duration": 3839,
+      "offset": 1807200
+    },
+    {
+      "text": "that it doesn't need. It's also funny.",
+      "duration": 3760,
+      "offset": 1809120
+    },
+    {
+      "text": "This is all because it loves sidebars so",
+      "duration": 4321,
+      "offset": 1811039
+    },
+    {
+      "text": "much. Oh, look.",
+      "duration": 4000,
+      "offset": 1812880
+    },
+    {
+      "text": "It fixed it and it made a bunch of",
+      "duration": 3199,
+      "offset": 1815360
+    },
+    {
+      "text": "different routes for some reason. None",
+      "duration": 4080,
+      "offset": 1816880
+    },
+    {
+      "text": "of which are needed. I thought that",
+      "duration": 3681,
+      "offset": 1818559
+    },
+    {
+      "text": "Flash was going to stop doing the",
+      "duration": 3120,
+      "offset": 1820960
+    },
+    {
+      "text": "unnecessary sidebars thing and I was",
+      "duration": 3600,
+      "offset": 1822240
+    },
+    {
+      "text": "wrong. It's still very aggressively",
+      "duration": 4920,
+      "offset": 1824080
+    },
+    {
+      "text": "doing it.",
+      "duration": 3160,
+      "offset": 1825840
+    },
+    {
+      "text": "That also did the thing where it",
+      "duration": 5520,
+      "offset": 1837600
+    },
+    {
+      "text": "combined the bars. I will say it's in",
+      "duration": 7041,
+      "offset": 1838799
+    },
+    {
+      "text": "many ways the most flushed out like",
+      "duration": 5360,
+      "offset": 1843120
+    },
+    {
+      "text": "having these different views. And this",
+      "duration": 6719,
+      "offset": 1845840
+    },
+    {
+      "text": "one is not trivial to make. I don't know",
+      "duration": 6799,
+      "offset": 1848480
+    },
+    {
+      "text": "if it's necessarily useful, but it's",
+      "duration": 5360,
+      "offset": 1852559
+    },
+    {
+      "text": "interesting.",
+      "duration": 3921,
+      "offset": 1855279
+    },
+    {
+      "text": "Actually, that's kind of cool. It shows",
+      "duration": 3201,
+      "offset": 1857919
+    },
+    {
+      "text": "you in each of the test scenarios how",
+      "duration": 3120,
+      "offset": 1859200
+    },
+    {
+      "text": "aggressively does this a snitch. That's",
+      "duration": 3120,
+      "offset": 1861120
+    },
+    {
+      "text": "kind of cool. Could be tidied up a bit",
+      "duration": 4640,
+      "offset": 1862320
+    },
+    {
+      "text": "and actually make something useful.",
+      "duration": 5200,
+      "offset": 1864240
+    },
+    {
+      "text": "Yeah. Interesting. It's not the worst.",
+      "duration": 3760,
+      "offset": 1866960
+    },
+    {
+      "text": "People in chat are saying they actually",
+      "duration": 4719,
+      "offset": 1869440
+    },
+    {
+      "text": "kind of like this one. Yeah.",
+      "duration": 5679,
+      "offset": 1870720
+    },
+    {
+      "text": "People saying it's the best one. I don't",
+      "duration": 3841,
+      "offset": 1874159
+    },
+    {
+      "text": "necessarily agree, but I don't disagree",
+      "duration": 4160,
+      "offset": 1876399
+    },
+    {
+      "text": "either. It's fine. It took too long and",
+      "duration": 4880,
+      "offset": 1878000
+    },
+    {
+      "text": "I had to reprompt to get it to fix [ __ ]",
+      "duration": 4161,
+      "offset": 1880559
+    },
+    {
+      "text": "And it also burned so many tokens. I",
+      "duration": 3279,
+      "offset": 1882880
+    },
+    {
+      "text": "wish cursor would let me see how many",
+      "duration": 3439,
+      "offset": 1884720
+    },
+    {
+      "text": "tokens a response took like you can in",
+      "duration": 4000,
+      "offset": 1886159
+    },
+    {
+      "text": "some other tools like I like kilo code a",
+      "duration": 3361,
+      "offset": 1888159
+    },
+    {
+      "text": "lot for this type of thing. Should have",
+      "duration": 3201,
+      "offset": 1890159
+    },
+    {
+      "text": "used that for this comparison. But man",
+      "duration": 4000,
+      "offset": 1891520
+    },
+    {
+      "text": "like being that this is the cheapest",
+      "duration": 4960,
+      "offset": 1893360
+    },
+    {
+      "text": "model here by far. Not bad at all. And",
+      "duration": 4879,
+      "offset": 1895520
+    },
+    {
+      "text": "to have people actually saying it's the",
+      "duration": 6320,
+      "offset": 1898320
+    },
+    {
+      "text": "best one says a lot that it's not just",
+      "duration": 6481,
+      "offset": 1900399
+    },
+    {
+      "text": "competing with other much more expensive",
+      "duration": 4800,
+      "offset": 1904640
+    },
+    {
+      "text": "models that it is besting them by some",
+      "duration": 4799,
+      "offset": 1906880
+    },
+    {
+      "text": "people. That shows a And if you're",
+      "duration": 3599,
+      "offset": 1909440
+    },
+    {
+      "text": "willing to tolerate the weirdness that",
+      "duration": 3521,
+      "offset": 1911679
+    },
+    {
+      "text": "is working with Google models, there's a",
+      "duration": 4240,
+      "offset": 1913039
+    },
+    {
+      "text": "lot of potential here. But that's also",
+      "duration": 4880,
+      "offset": 1915200
+    },
+    {
+      "text": "kind of the annoying part. I have a",
+      "duration": 4640,
+      "offset": 1917279
+    },
+    {
+      "text": "whole dedicated video about 3 Pro",
+      "duration": 3280,
+      "offset": 1920080
+    },
+    {
+      "text": "Preview that I've been planning for a",
+      "duration": 4401,
+      "offset": 1921919
+    },
+    {
+      "text": "bit. To put it simply, I don't know how",
+      "duration": 4960,
+      "offset": 1923360
+    },
+    {
+      "text": "to say this right, other than like the",
+      "duration": 4560,
+      "offset": 1926320
+    },
+    {
+      "text": "vibes haven't improved. Every other",
+      "duration": 5920,
+      "offset": 1928320
+    },
+    {
+      "text": "major model has had these like massive",
+      "duration": 5840,
+      "offset": 1930880
+    },
+    {
+      "text": "improvements in the thing. I I I could",
+      "duration": 3760,
+      "offset": 1934240
+    },
+    {
+      "text": "just call it vibe, but there's so much",
+      "duration": 2880,
+      "offset": 1936720
+    },
+    {
+      "text": "more to it. It's how well does it follow",
+      "duration": 3120,
+      "offset": 1938000
+    },
+    {
+      "text": "instructions? How aggressively does it",
+      "duration": 3679,
+      "offset": 1939600
+    },
+    {
+      "text": "hallucinate? How well does it use the",
+      "duration": 3760,
+      "offset": 1941120
+    },
+    {
+      "text": "right tools for the job? How",
+      "duration": 3280,
+      "offset": 1943279
+    },
+    {
+      "text": "aggressively does it have to search and",
+      "duration": 3440,
+      "offset": 1944880
+    },
+    {
+      "text": "trace back its mistakes to figure out",
+      "duration": 3681,
+      "offset": 1946559
+    },
+    {
+      "text": "what's going wrong? All of these types",
+      "duration": 4479,
+      "offset": 1948320
+    },
+    {
+      "text": "of things have been significantly",
+      "duration": 5279,
+      "offset": 1950240
+    },
+    {
+      "text": "improved from other models, specifically",
+      "duration": 6000,
+      "offset": 1952799
+    },
+    {
+      "text": "since GPT5. That was what made 5 so",
+      "duration": 6160,
+      "offset": 1955519
+    },
+    {
+      "text": "mind-blowing to me is it felt like a",
+      "duration": 4880,
+      "offset": 1958799
+    },
+    {
+      "text": "massive leap in the model's willingness",
+      "duration": 3840,
+      "offset": 1961679
+    },
+    {
+      "text": "to do what I [ __ ] told it to without",
+      "duration": 4720,
+      "offset": 1963679
+    },
+    {
+      "text": "getting distracted. Sonnet 4.5 had a",
+      "duration": 6400,
+      "offset": 1965519
+    },
+    {
+      "text": "similar jump there for me and Opus was",
+      "duration": 6160,
+      "offset": 1968399
+    },
+    {
+      "text": "past that and then some. Like Opus 4.5",
+      "duration": 6401,
+      "offset": 1971919
+    },
+    {
+      "text": "is the gap between GBD5 and everything",
+      "duration": 6081,
+      "offset": 1974559
+    },
+    {
+      "text": "before feels similar to the gap from 5",
+      "duration": 5599,
+      "offset": 1978320
+    },
+    {
+      "text": "to Opus 4.5. And then Gemini models feel",
+      "duration": 5600,
+      "offset": 1980640
+    },
+    {
+      "text": "like they're still in last year's era of",
+      "duration": 4000,
+      "offset": 1983919
+    },
+    {
+      "text": "vibe instruction following and all of",
+      "duration": 3360,
+      "offset": 1986240
+    },
+    {
+      "text": "that. It is very hard to get these",
+      "duration": 3681,
+      "offset": 1987919
+    },
+    {
+      "text": "models to just do what you tell them and",
+      "duration": 3679,
+      "offset": 1989600
+    },
+    {
+      "text": "not go down random rabbit holes they",
+      "duration": 3679,
+      "offset": 1991600
+    },
+    {
+      "text": "shouldn't. Like I just told the model to",
+      "duration": 4081,
+      "offset": 1993279
+    },
+    {
+      "text": "redesign this, make a better modern",
+      "duration": 3520,
+      "offset": 1995279
+    },
+    {
+      "text": "visualizer for the snitching data. Make",
+      "duration": 3600,
+      "offset": 1997360
+    },
+    {
+      "text": "sure it's dark mode only. And Gemini 3",
+      "duration": 4240,
+      "offset": 1998799
+    },
+    {
+      "text": "Flash is the only one that built a whole",
+      "duration": 4800,
+      "offset": 2000960
+    },
+    {
+      "text": "new routing table that created a sidebar",
+      "duration": 6240,
+      "offset": 2003039
+    },
+    {
+      "text": "that built a new system for all of this.",
+      "duration": 5759,
+      "offset": 2005760
+    },
+    {
+      "text": "It went way beyond what I told it to do.",
+      "duration": 4880,
+      "offset": 2009279
+    },
+    {
+      "text": "And if you like that, cool. Awesome. I",
+      "duration": 4721,
+      "offset": 2011519
+    },
+    {
+      "text": "like when models do what they're told.",
+      "duration": 5360,
+      "offset": 2014159
+    },
+    {
+      "text": "And Gemini models still suck at that in",
+      "duration": 5919,
+      "offset": 2016240
+    },
+    {
+      "text": "particular, more so than any of the",
+      "duration": 4640,
+      "offset": 2019519
+    },
+    {
+      "text": "other major labs do right now. If you",
+      "duration": 3360,
+      "offset": 2022159
+    },
+    {
+      "text": "want the model to do exactly what you",
+      "duration": 3841,
+      "offset": 2024159
+    },
+    {
+      "text": "say and nothing else, OpenAI and",
+      "duration": 4880,
+      "offset": 2025519
+    },
+    {
+      "text": "Anthropic are still pretty far ahead. If",
+      "duration": 4640,
+      "offset": 2028000
+    },
+    {
+      "text": "you want a model that has the deepest",
+      "duration": 4160,
+      "offset": 2030399
+    },
+    {
+      "text": "knowledge, that is the most likely to",
+      "duration": 3519,
+      "offset": 2032640
+    },
+    {
+      "text": "have a correct answer and you're willing",
+      "duration": 3921,
+      "offset": 2034559
+    },
+    {
+      "text": "to eat the cost of incorrect answers,",
+      "duration": 5120,
+      "offset": 2036159
+    },
+    {
+      "text": "Gemini is winning. In Gemini 3 Flash,",
+      "duration": 4960,
+      "offset": 2038480
+    },
+    {
+      "text": "giving you that intelligence at a really",
+      "duration": 5760,
+      "offset": 2041279
+    },
+    {
+      "text": "cheap price is unbelievably cool. It's",
+      "duration": 5679,
+      "offset": 2043440
+    },
+    {
+      "text": "so useful when you use it within the",
+      "duration": 4800,
+      "offset": 2047039
+    },
+    {
+      "text": "scope of a limited task and you lock it",
+      "duration": 4480,
+      "offset": 2049119
+    },
+    {
+      "text": "out of other things. Like instead of",
+      "duration": 4641,
+      "offset": 2051839
+    },
+    {
+      "text": "having it generate flexible text or",
+      "duration": 4961,
+      "offset": 2053599
+    },
+    {
+      "text": "code, you have it generating a JSON blob",
+      "duration": 4639,
+      "offset": 2056480
+    },
+    {
+      "text": "based on data you give it. It is awesome",
+      "duration": 4720,
+      "offset": 2058560
+    },
+    {
+      "text": "at that. But you have to build the",
+      "duration": 4000,
+      "offset": 2061119
+    },
+    {
+      "text": "restrictions around Gemini models",
+      "duration": 5119,
+      "offset": 2063280
+    },
+    {
+      "text": "yourself because the model cannot do it.",
+      "duration": 5681,
+      "offset": 2065119
+    },
+    {
+      "text": "You cannot tune Gemini models via the",
+      "duration": 4480,
+      "offset": 2068399
+    },
+    {
+      "text": "system prompt the same way you can other",
+      "duration": 3520,
+      "offset": 2070800
+    },
+    {
+      "text": "models. You have to do it via the",
+      "duration": 3121,
+      "offset": 2072879
+    },
+    {
+      "text": "harness. But if you're willing to push",
+      "duration": 2640,
+      "offset": 2074320
+    },
+    {
+      "text": "through all of that, you can make",
+      "duration": 2480,
+      "offset": 2076000
+    },
+    {
+      "text": "incredible things happen. And if you're",
+      "duration": 2800,
+      "offset": 2076960
+    },
+    {
+      "text": "willing to push through all of that for",
+      "duration": 3599,
+      "offset": 2078480
+    },
+    {
+      "text": "the speed and the price, and you're okay",
+      "duration": 5119,
+      "offset": 2079760
+    },
+    {
+      "text": "with the fact that these models get",
+      "duration": 4721,
+      "offset": 2082079
+    },
+    {
+      "text": "weird, have errors all the time, don't",
+      "duration": 3520,
+      "offset": 2084879
+    },
+    {
+      "text": "follow object shapes probably, all these",
+      "duration": 3520,
+      "offset": 2086800
+    },
+    {
+      "text": "little things they can do wrong, it is",
+      "duration": 4321,
+      "offset": 2088399
+    },
+    {
+      "text": "worth it. Gemini 3 Flash is going to be",
+      "duration": 4799,
+      "offset": 2090320
+    },
+    {
+      "text": "a model I use for a ton of different",
+      "duration": 4399,
+      "offset": 2092720
+    },
+    {
+      "text": "[ __ ] And I'm also going to try chatting",
+      "duration": 4641,
+      "offset": 2095119
+    },
+    {
+      "text": "with it more. I am going to pin it right",
+      "duration": 5681,
+      "offset": 2097119
+    },
+    {
+      "text": "now so that they are available for me as",
+      "duration": 5520,
+      "offset": 2099760
+    },
+    {
+      "text": "my favorite models in T3 chat. Normally,",
+      "duration": 3760,
+      "offset": 2102800
+    },
+    {
+      "text": "this is the point in the video where I",
+      "duration": 2880,
+      "offset": 2105280
+    },
+    {
+      "text": "would put a discount code to give you",
+      "duration": 3200,
+      "offset": 2106560
+    },
+    {
+      "text": "your first month for a dollar on T3",
+      "duration": 3199,
+      "offset": 2108160
+    },
+    {
+      "text": "Chat, but we're already eight bucks a",
+      "duration": 3120,
+      "offset": 2109760
+    },
+    {
+      "text": "month and we're already giving away",
+      "duration": 4081,
+      "offset": 2111359
+    },
+    {
+      "text": "Gemini 3 Flash for free. Yes, really.",
+      "duration": 3600,
+      "offset": 2112880
+    },
+    {
+      "text": "You don't have to be signed in. You can",
+      "duration": 2480,
+      "offset": 2115440
+    },
+    {
+      "text": "go give the model a shot if you want to",
+      "duration": 3119,
+      "offset": 2116480
+    },
+    {
+      "text": "try it. Personally, I've been preferring",
+      "duration": 4320,
+      "offset": 2117920
+    },
+    {
+      "text": "Kimmy K2 for the chat use case, which is",
+      "duration": 4801,
+      "offset": 2119599
+    },
+    {
+      "text": "also now the free tier and the default",
+      "duration": 4240,
+      "offset": 2122240
+    },
+    {
+      "text": "model on T3 chat. So, if you want good",
+      "duration": 4000,
+      "offset": 2124400
+    },
+    {
+      "text": "models to compare against, I do highly",
+      "duration": 3760,
+      "offset": 2126480
+    },
+    {
+      "text": "recommend playing with Kimmy, trying out",
+      "duration": 4160,
+      "offset": 2128400
+    },
+    {
+      "text": "Gemini 3 Flash in chat, and seeing what",
+      "duration": 3920,
+      "offset": 2130240
+    },
+    {
+      "text": "you prefer for your day-to-day use",
+      "duration": 3600,
+      "offset": 2132560
+    },
+    {
+      "text": "cases. That said, these are the models",
+      "duration": 3600,
+      "offset": 2134160
+    },
+    {
+      "text": "that I've been using in T3 chat. I've",
+      "duration": 3600,
+      "offset": 2136160
+    },
+    {
+      "text": "been very happy with honestly, I'm not",
+      "duration": 3440,
+      "offset": 2137760
+    },
+    {
+      "text": "even using 3 Pro that much. might knock",
+      "duration": 3680,
+      "offset": 2139760
+    },
+    {
+      "text": "it out, but I've been using Kimmy K2,",
+      "duration": 5040,
+      "offset": 2141200
+    },
+    {
+      "text": "Kimmy K2 thinking, occasionally Opus",
+      "duration": 5200,
+      "offset": 2143440
+    },
+    {
+      "text": "with the right tasks, not that often.",
+      "duration": 4480,
+      "offset": 2146240
+    },
+    {
+      "text": "And then Nano Banana Pro and Image Gen",
+      "duration": 5680,
+      "offset": 2148640
+    },
+    {
+      "text": "1.5 for images and Flash for bulk data",
+      "duration": 5040,
+      "offset": 2150720
+    },
+    {
+      "text": "random [ __ ] Like I'll hand it a",
+      "duration": 3200,
+      "offset": 2154320
+    },
+    {
+      "text": "giant HTML file and say, &quot;Parse this out",
+      "duration": 3760,
+      "offset": 2155760
+    },
+    {
+      "text": "for me,&quot; and it will. I've been very",
+      "duration": 5280,
+      "offset": 2157520
+    },
+    {
+      "text": "happy with all of these models, and I",
+      "duration": 4400,
+      "offset": 2159520
+    },
+    {
+      "text": "recommend playing with it yourself.",
+      "duration": 2960,
+      "offset": 2162800
+    },
+    {
+      "text": "We've also recently folded all of the",
+      "duration": 3439,
+      "offset": 2163920
+    },
+    {
+      "text": "legacy models into this piece at the",
+      "duration": 3200,
+      "offset": 2165760
+    },
+    {
+      "text": "bottom, so they're no longer clogging up",
+      "duration": 3281,
+      "offset": 2167359
+    },
+    {
+      "text": "the model picker like they were in the",
+      "duration": 3600,
+      "offset": 2168960
+    },
+    {
+      "text": "past. Makes it a lot easier to find the",
+      "duration": 3439,
+      "offset": 2170640
+    },
+    {
+      "text": "best models and give them all a shot.",
+      "duration": 3039,
+      "offset": 2172560
+    },
+    {
+      "text": "I'm proud of what we built in T3 chat.",
+      "duration": 2881,
+      "offset": 2174079
+    },
+    {
+      "text": "And if you actually want to have the",
+      "duration": 3441,
+      "offset": 2175599
+    },
+    {
+      "text": "best experience with Gemini, I can",
+      "duration": 3520,
+      "offset": 2176960
+    },
+    {
+      "text": "confidently say you're not going to have",
+      "duration": 4640,
+      "offset": 2179040
+    },
+    {
+      "text": "that on AI Studio or gemini.google.com.",
+      "duration": 4639,
+      "offset": 2180480
+    },
+    {
+      "text": "In fact, those are some of the worst",
+      "duration": 3120,
+      "offset": 2183680
+    },
+    {
+      "text": "places to experience those models. I've",
+      "duration": 3041,
+      "offset": 2185119
+    },
+    {
+      "text": "been using them a lot recently in order",
+      "duration": 3840,
+      "offset": 2186800
+    },
+    {
+      "text": "to do the early testing. And man, I have",
+      "duration": 4080,
+      "offset": 2188160
+    },
+    {
+      "text": "never hated AI Studio more than I do at",
+      "duration": 2880,
+      "offset": 2190640
+    },
+    {
+      "text": "this point. It is such a broken [ __ ]",
+      "duration": 3119,
+      "offset": 2192240
+    },
+    {
+      "text": "show. It is miserable. It is a shame",
+      "duration": 4480,
+      "offset": 2193520
+    },
+    {
+      "text": "that Google's models are so smart and",
+      "duration": 4561,
+      "offset": 2195359
+    },
+    {
+      "text": "then almost everything else around them",
+      "duration": 4320,
+      "offset": 2198000
+    },
+    {
+      "text": "is [ __ ] Their ability to stay on task",
+      "duration": 5040,
+      "offset": 2199920
+    },
+    {
+      "text": "is garbage. The AI Studio system is",
+      "duration": 4400,
+      "offset": 2202320
+    },
+    {
+      "text": "horrible. Vertex is impossible to set",
+      "duration": 3920,
+      "offset": 2204960
+    },
+    {
+      "text": "up. The API is so non-standard that you",
+      "duration": 6320,
+      "offset": 2206720
+    },
+    {
+      "text": "basically have to use it with a wrapper.",
+      "duration": 6640,
+      "offset": 2208880
+    },
+    {
+      "text": "Gemini models are useless outside of",
+      "duration": 4079,
+      "offset": 2213040
+    },
+    {
+      "text": "their knowledge and capabilities, which",
+      "duration": 3599,
+      "offset": 2215520
+    },
+    {
+      "text": "I know sounds silly, but yeah, you have",
+      "duration": 3281,
+      "offset": 2217119
+    },
+    {
+      "text": "to steer them properly. And if you're",
+      "duration": 3121,
+      "offset": 2219119
+    },
+    {
+      "text": "willing to do that, the value you'll get",
+      "duration": 3760,
+      "offset": 2220400
+    },
+    {
+      "text": "out of this is insane. But this is not a",
+      "duration": 3520,
+      "offset": 2222240
+    },
+    {
+      "text": "model that you should be excited to chat",
+      "duration": 3600,
+      "offset": 2224160
+    },
+    {
+      "text": "with or code with. This is a model you",
+      "duration": 4079,
+      "offset": 2225760
+    },
+    {
+      "text": "should be excited to do weird [ __ ] with,",
+      "duration": 4960,
+      "offset": 2227760
+    },
+    {
+      "text": "process data, parse tons of CSVs,",
+      "duration": 5921,
+      "offset": 2229839
+    },
+    {
+      "text": "analyze PDFs, source images, and figure",
+      "duration": 5040,
+      "offset": 2232720
+    },
+    {
+      "text": "out what's going on in them. The value",
+      "duration": 4160,
+      "offset": 2235760
+    },
+    {
+      "text": "of this model is how you hook it into",
+      "duration": 4400,
+      "offset": 2237760
+    },
+    {
+      "text": "systems, not how you plug it into your",
+      "duration": 3760,
+      "offset": 2239920
+    },
+    {
+      "text": "code editor. So if you use this in your",
+      "duration": 3360,
+      "offset": 2242160
+    },
+    {
+      "text": "IDE and you're not impressed, I get it.",
+      "duration": 3600,
+      "offset": 2243680
+    },
+    {
+      "text": "I'm not either. But give it a shot in",
+      "duration": 3200,
+      "offset": 2245520
+    },
+    {
+      "text": "these other use cases and you might be",
+      "duration": 3280,
+      "offset": 2247280
+    },
+    {
+      "text": "surprised. That's all I have to say on",
+      "duration": 3040,
+      "offset": 2248720
+    },
+    {
+      "text": "this one. I hope you guys are as excited",
+      "duration": 2880,
+      "offset": 2250560
+    },
+    {
+      "text": "as I am. I know I'll be using this model",
+      "duration": 3680,
+      "offset": 2251760
+    },
+    {
+      "text": "a ton, even if not for chat. Curious how",
+      "duration": 3360,
+      "offset": 2253440
+    },
+    {
+      "text": "y'all feel though. Are you excited about",
+      "duration": 2639,
+      "offset": 2255440
+    },
+    {
+      "text": "models like this, or do you just want",
+      "duration": 2640,
+      "offset": 2256800
+    },
+    {
+      "text": "ones you can use in your editor? Well,",
+      "duration": 2721,
+      "offset": 2258079
+    },
+    {
+      "text": "let me know what you think. Until next",
+      "duration": 4560,
+      "offset": 2259440
+    },
+    {
+      "text": "time, he snorts.",
+      "duration": 3200,
+      "offset": 2260800
+    }
+  ],
+  "transcriptText": "I know, I know you guys are tired of the best new model videos. Go let the guy with the counter do his thing. But this one's really legit. I had my skepticism around Gemini 3 Pro, and that turned out to be pretty well placed because using the model in a day-to-day basis has not been great. That said, there is a Google model I've been using every day for almost a year now. And the model doesn't have Pro at the end of the name. It has Flash at the end of the name. 2.5 Flash has been my daily driver for so many tasks for so long. I really like the model. It's such a good balance of speed and capability. And if you're willing to work around its weirdness, which mind you there is a lot of, 2.5 Flash has been really, really good. Which is why I was super excited for Flash 3 to be a meaningful bump on 2.5 Flash's performance, which it was, and then some, because as you might see here, Gemini 3 Flash isn't close to where 2.5 Flash was on the chart. Three Flash is ahead of Opus 4.5 on the chart. Yeah, this is the official artificial analysis intelligence index, which has its problems. Believe me, I've talked about that enough times, but it is a good enough general idea of like where does this model land? And it turns out three flash lands somewhere really, really good. It's kind of insane, especially because, and I should have probably mentioned this earlier, I was lucky enough to have early access. The early access with Google is always interesting. They've been getting better at it. They're not paying me for any of this. They just let me try it. It also gave me no guidance whatsoever. So, when I started running it on my own benchmarks, I felt like I was going insane. Because on Skatebench, not only is three Flash outperforming 2.5 Flash by an absurd margin, it's outperforming almost every single model other than 03 Pro, GPT5, and 5 High. Yeah, its understanding of spatial reasoning and I guess skateboarding terminology is best in class. It's fast. It's great at retrieving things from giant contexts. It can parse images. It can parse videos. It can deal with audio. It's a good model, but what does this mean for day-to-day usage? What is it like to actually use a flash model like this? How much does it cost? What are the use cases? Why am I so excited about a model that is this small and according to everybody else, not that great? All great questions that I can't wait to tell you after a quick break from today's sponsor. Do you use GitHub? More importantly, do you use GitHub actions? If you do, you're almost certainly wasting a ton of time and money. How much time do you spend a week waiting for your GitHub actions to run? If the answer is more than 5 minutes, well, congrats. You're shipping real code. If it's not, fine. But if it is, you should really pay attention because today's sponsor is here to save you a ton of time and money. Blacksmith has figured out CI. They get it better than anyone I've talked to, and they can make GitHub actions an actually usable platform. Setting it up couldn't be easier. You change one line in your GitHub action from Ubuntu Latest to Blacksmith, whatever instance you want to use, and now your code is going to be built and executed comically faster. They don't hide how they do this either. They're shipping way faster hardware. It turns out that gaming CPUs are actually better than server CPUs for things that are really focused on single thread performance. Server CPUs have 50 cores that are running as fast as a gaming CPU from 5 years ago. But if you use a gaming processor, you can compile your TypeScript and Rust code bases way faster. Speaking of faster, the cache is one of the biggest benefits to using Blacksmith. They colllocate the data from your cache and artifacts with the actual box running. So, it's on the same drive on the same system, which means it spins up immediately, up to four times faster. All of this combines to 40x faster Docker builds. One of the most underrated things these guys do is their observability stack. I cannot tell you how many times I've just been confused about why an error is happening in GitHub actions. And without a way to really search through what's going on, it's impossible to navigate. Having good observability makes your actions less scary and more useful. And they've really figured this out. They can give you things like the failure rate for a given part of one of your runs or what tests are being flaky and let you filter. It's so good. It's so good. As soon as I showed this to my team, they realized how useful Blacksmith was. And we're working on making the move right now. If you're not using Blacksmith, you're wasting time. Fix that now at soyv.link/blacksmith. So, let's start with the official post from Logan in particular. Building with Gemini 3 flash frontier intelligence that scales with you. God, these titles are so cringe. But the actual value of the model is great. So, we'll look over all of that because I am way more excited for this release than I was for 3 Pro. 3 Pro was better than 2.5 Pro, but still not like a practical day-to-day model. Flash for like data analysis stuff is incredible, so I'm much more excited for here. 3 Flash offers powerful performance at less than a quarter of the cost of 3 Pro along with higher rate limits. The new 3 Flash model surpasses 2.5 Pro across many benchmarks while delivering faster speeds. It also features our most advanced visual and spatial reasoning and now offers code execution to zoom, count, and edit visual inputs. Again, it turns out Skatebench is a weirdly good benchmark for spatial reasoning. I never thought that would be the case. I made it as a joke originally, and it's actually been able to help me figure out which models are good and bad at spatial reasoning stuff before the general public does because it's so reliable for this. It's also, as with all Google models, available on the Google AI studio as well as Vert.Ex AI. And the difference between those is bigger than ever. If you look at the speeds that we're seeing on Open Router, it has recovered a bit, but earlier I was seeing speeds as low as 50 TPS on AI Studio and over 90 on Vertex. Once again, if you want to use Google models, I do not recommend using them through Google's official services. They genuinely are just so awful to work with. The state of that API is atrocious. Open router will smooth a lot of that out for you. I recommend using them or another one of these AI gateways that can make the responses something usable because they are not by default when you hit Google's APIs directly. Enough of that though. Once you get the API in the right shape, what do the numbers look like? This is the numbers that they shared and they are pretty insane. First, we have price, which is very important to consider because they did bump the price from 2.5 flash, which was already a bump from 2.0 Flash. 2.0 O Flash was 10 cents per mill tokens in and 40 cents per mill out. And when I tell you I miss those days dearly, I hope you understand how true that is. It was incredible having a model that fast and that reasonable at that absurd a price. Now we're up to 50 cents per mill in and $3 per mill out. That's insane. That is uh almost 10x increase in price. And then when you add in the fact that it's now a reasoning model and it does a shitload of reasoning, it ends up being closer to 200 times more expensive for most work. That's still a small number if you compare it to something like 3 Pro, but I missed the days of flash, meaning the light fast cheap model. They'll sometimes do a flash light version, which is funny, but we don't have that yet. So, this is the cheapest we're getting from Google on their new modern like whatever the hell they're building on top of. Regardless, not that bad, especially when you consider the performance and how novel this performance to price ratio is. There is nothing quite like this model right now in terms of being that small and that intelligent. And it shows in the numbers here. It's getting absurd scores on humanity's last exam neck with Gemini 3 Pro and beating out GPT 5.2. Okay, it's not beating 5.2, but it's right on the line. We're talking 33.7 to 34.5, a 1% difference. RKGI 2, it's pulling crazy numbers. It's even beating out Gemini 3 Pro again because of that improvement in the visual reasoning. If you want a model to parse a ton of images and give you useful information about them, I can't imagine anything is better than three flash right now. GBQA Diamond, it's pulling up neck andneck with Gemini 3 Pro, managing to beat out Flash and 2.5 Pro for previous days. And also managing to beat out Sonet 4.5, which is pretty impressive, too. MMU, it pulled the best score to date. Pretty nuts. Screen understanding is pretty good. It crushes the scores from 2.5, Flash, and Pro, which were in the like single digit to just barely double digit percentages, and now it's pulling a 70. All cool stuff. Video understanding is still best in class. Google is killing it in that regard. If you hand it a video and tell it to describe the video, it will do that better than anything else in the world. Terminal Bench 2, it's crushing as well. SWEBench verified is doing surprisingly well. Still being beaten by 5.2 high. Doing great, though. It's also really nice that they're not like hiding the best models. They're putting 5.2, Cloud Sonic 45, and Grock 4.1 fast here. Surprised they didn't put Opus, but I'm guessing a lot of these numbers were created before Opus 45 was out, and they just put this out because it was what was ready, and they don't want to put the super expensive model against this much cheaper one. Regardless, numbers are looking pretty nuts. It's also great at multilingual. So, if you're trying to use multiple languages or parse different languages, Google's been ahead of this for a while. They kind of invented a lot of the techniques we use for LMS today originally to make Google Translate as good as possible. That said, it does leak because I was using this earlier for a task and the to-dos it generated had Chinese in them. It's a Google model. They're weird as [ __ ] We'll talk more about all that weirdness later, I am sure. Gemini 3 Flash is highly efficient without sacrificing intelligence, pushing the paro frontier of performance and efficiency. that refines 2.5 Pro while being three times faster based on the official artificial analysis benchmark which we'll talk about in a bit and it's also at a fraction of the cost even at the lowest thinking level three flash often outperforms previous versions with the high thinking levels. Yeah, you can see here this is the scores on LM Marina for the ELO for text. Gemini 3 Pro is the best score right now. But when you compare this to the cost where left is most expensive per token and right is least expensive. Three flashes at this really nice middle ground here. 2.5 flash light is still absurdly cheap. Cheaper than anything else in this, but the score shows it. We're talking pretty big gaps at that point. It still has the standard caching on which is really, really nice. Awesome that Google went from the worst cache to one of the best ones. I appreciate them greatly for it. Free Flash is also available today with the batch API allowing for 50% cost savings and much higher rate limits for asynchronous processing. Also huge because that's like what the strength of flash is is just bulk processing absurd amounts of data. Whenever I want to like hand some text data to a model and have it give me an object like JSON telling me what happened in that text, it's awesome. If I want to rank different things in an image and have it describe them for me, I can just give it an object shape, hand it a pile of images, and get results that are good. Sadly, you have to rely on polling for their APIs because they kind of suck at this. They don't do callbacks or web hooks or anything, but uh yeah, Google and APIs don't mix, but Google and batch processing of large amounts of data for reasonable prices absolutely mix. They brag a lot about the coding capabilities, which is interesting because I've never been big on using the Flash models for coding. And the demos they show here are interesting. This is Flash versus Pro building a marathon dashboard. And they're obviously using anti-gravity for this, which means it's questionable in general. Flash was able to plan in 24 seconds. It took Pro 27. And the implementation took three minutes for flash and seven and a half to eight minutes for Pro. Mind you, this was also Pro on low, not on high. Results came out looking relatively similar. I actually do like the UI of the Flash version slightly better. Pro loves sneaking in those sidebars where it doesn't need them. Yeah, you get the idea. Supposedly, people are using this heavily for game development stuff. Astrocade is a company trying to build an AI game production mini studio thing like lovable but for making games and they moved to three flash for the game creation engine and are surprised with how well it's performing again with the spatial awareness wins. I could see that making sense. Gemini 3 flash allowed Latitude to deliver highquality outputs at low cost for many complex tasks in our next generation AI game engine that was previously only possible from prolevel models like Sonnet 4.5. Yep. Also, deep fake detection. Very fun use case, especially since Google's own synth ID stuff's entirely [ __ ] broken and useless. Being able to use this to detect fake stuff sounds really cool, especially because it's really good at audio processing. The fact this model can process audio and video and images is very unique for models in this price and size and speed category. I really want to make sure you don't underrate that use case because it's really cool for that. Also, document analysis in that regard. If you hand it a PDF, it could read the whole PDF, all of the text, all of the diagrams, all of the things. There have been lots of attempts to make other models do this by trying to dump it into Markdown and embed images and [ __ ] Brie Flash just natively does it. You hand it a PDF and it can use the PDF. Seems like all of the influencer benchmarks are getting crushed by Google recently. This is the Gemini 3 Flash post from our friend Simon. You might not recognize his blog because he had a dark mode added by an agent, which is really cool. And Gemini 3 Flash slaughtered the Pelican. It is by far the best Pelican I have seen him get generated by the models. If you don't know what I'm talking about, he tries to get every new model to generate an SVG of a Pelican. And Three Flash has done an incredible job depending on which reasoning level you use. Minimal, low, medium, and high. And for the first time ever, these are usable images of pelicans. Like holy [ __ ] Yeah. I I am floored. This it this seems like a genuine like leap in spatial recognition type stuff like this. I am very impressed with the quality of that SVG. Good [ __ ] Google. You're on to something with this. Whatever the [ __ ] you did that made 3 Pro and 3 Flash so good at understanding space, keep pursuing that train cuz you're doing something no one else is there. No other models come close to this understanding of space. And I'm really excited to see the results once things like MickBench run on this model. The Minecraft benchmark's really, really cool. I'm actually going to help fund them in the future so we can get these tests earlier and more thoroughly. Good [ __ ] We've read through all that. Let's look at some numbers. We'll start with artificial analysis. These guys know what they're talking about. Google's released Gemini 3 Flash preview. It's two times cheaper than 3 Pro preview with only a two point drop in the intelligence index. Now, they're calling it 2x cheaper here when Google calls it 4x plus, but this is because of how much it uses reasoning tokens. According to them, it's the most intelligent model for the cost. And I totally agree. Three. Flash preview has particularly strong knowledge and reasoning abilities, obtaining the highest score in our knowledge and hallucination benchmark, AI omniscience. And it's placed second in humanity's last exam. The AI omniscience score is actually super interesting, which we'll talk about momentarily. Google now holds the top two spots on both of these evals, cementing them as the leader in model knowledge. Yeah, they know a lot. The models have so much knowledge just squeezed into them, it's kind of crazy. But they're also a little overconfident and tend to hallucinate a ton as a result. This increased performance does come with a trade-off as Gemini 3 Flash preview more than doubles the token usage when compared to 2.5 Flash when running the artificial analysis intelligence index, making it one of the highest token use models they've ever tested. Yeah, it does a lot of tokens. Three Flash preview has significant improvements across nearly all evaluations in the artificial analysis intelligence index. It has particular strengths in reasoning settings, scoring second to Gemini 3 Pro Preview in HLE and third in both MMLU Pro and GBQA Diamond behind 3 Pro Preview and 5.2x high. Then there's the AI omnitions test which as I mentioned it has a really really high knowledge score. It's the highest score that they've seen in knowledge, but the hallucination is up a bit too. Yeah, it is a hallucination rate of 91%. which means when asked a thing it doesn't know, its options are refuse to answer, say it doesn't know or make up an answer. 91% of the time it makes up an answer. So if you ask the model something it can't answer, what you'll get back isn't an apology. What you'll get back is a lie. Gemini 3 flash previews. It's multimodal, as I mentioned before, so it can do text, images, video, and audio and PDFs. It's the second highest score of any multimodal thing they've tested on MMU Pro. benchmark that tests reasoning abilities with image inputs behind only again 3 pro preview when it comes to parsing media. Google is really far ahead. But again, that massive token usage thing is crazy. We'll take a look at the numbers about that momentarily. Despite it high token usage, three flash preview is still the most costefficient model for its level of intelligence measured by overall cost to run the artificial analysis intelligence index. This is the way I prefer to measure cost. If you just look at the token pricing, you're not going to get the full picture because different models use different amount of output tokens because some will reason quickly, some won't reason, and some will reason forever. And the flash models are willing to reason for very long amounts of time. And the result is they generate absurd amounts of tokens, over two times as much as before. It's also slower than flash was before at 218 TPS. I'm seeing much slower numbers than that personally, closer to 100. I hope it'll improve as traffic goes down and provisioning goes up, but we will see. I also do not see 5.1 high at 125 tokens per second. That is not the experience I've had. And Kimmy K2 thinking I've seen go way over 200. It depends on the provider. I don't like that they were including these numbers here because these depend so much on the different providers that you're using. Also has the 1 million token context window, which is insane. Also, I should have said Gemini 3 Flash here, not Pro. This is that cost to intelligence test. Flash 2.5 was in this bottom left corner. It used to be the only model in the green. That changed. Now it's up here. Gemini 3 flash reasoning. That said, it's still more expensive than a lot of other models, primarily because of how many tokens it generated. Yeah. Again, taking a look at the output token charts, the only model that has done more unreasonable amounts of thinking on this test is Neotron 3 Nano from Nvidia, and they are comparable amounts of reasoning tokens. I was complaining that three pro preview did too much reasoning and it pulled 92 million tokens. Three Flash is doing 160 million. 2.5 Flash did 71 million. That is an insane amount of tokens for it to just burn through. But that's part of why it's smarter is it reasons for way longer. But that's also why it's significantly more expensive. It's even more expensive than models like K2 thinking or Deepseek R1 because it generates so many reasoning tokens. Of the $520 it cost 4 70 of them were just reasoning tokens. That is crazy. And from what I've seen, if you lower the amount of reasoning to like a low or medium amount, the intelligence drops significantly as a result. And Google doesn't do the thing other model labs do where they have the low, medium, and high. They definitely don't push that for flash at all. So, as such, we're not going to see that on artificial analysis. But for my own testing, if you limit tokens, the results get worse. But it is doing well in output speeds. But again, output speeds vary a lot depending on the provider. For example, on T3 chat, we recently moved to Kimmy K2 as our default. And if we look at Kimmy K2 thinking speeds, you'll see 80 TPS, 50TPS, 18 TPS, 60TPS. It varies a lot based on the provider. And then we see Fireworks pulling 200 TPS. According to the tweets we just read, that same model is actually only getting 82 TPS. So it depends a lot on the provider when you have open weight models because different providers can host them and those different providers vary a lot in how well they host it. Even Google Vertex when hosting Kimmy K2 thinking is pulling almost 200 TPS. So if you want a model that's actually nice to talk to and you're using Google Cloud, don't touch Flash, don't touch Pro, go throw Kimmy K2 on Vertex and you'll get crazy speeds, really good prices, and a much nicer thing to talk to. Now I want to talk about the hallucinations thing because it's actually really really interesting and I love the new omniscience tests that they're doing at artificial analysis. So here is the omniscience index. This is based on how well it answers hard questions correctly and it's a score when you look through all of the questions. Positive means it answered more correctly than incorrectly. Negative means more incorrect than correct. And incorrect can be does it make up an answer that's wrong? Does it refuse? Does it not answer? And what's really interesting is some of the best models we have nowadays like 5.2x high and 4.5 sonnet are still negative. They're just very small negative numbers. 5.1 high and opus 4.5 go over into the positive slightly. Opus 4.5 at 10 is really good. It's one of the few tests that shows the strength of the Opus models. Watch what happens when we switch over to the hallucination chart. Very different story. On the hallucination chart, we do see haiku at a very, very low amount. It seems like since this model is smaller, Anthropic trained it to say no more often. And if it says no, I don't know the answer, it will score better here. If it makes up an answer, it scores much worse here. And this is where things get scary. Gemini 3 flash. 91% of the time it doesn't know. It will lie and make up an answer. And this is when you have to be really honest with yourself depending on what your use case is. Imagine if instead of a model, you had a person doing a task. We'll just say it's an engineering task. If you have this super intelligent engineer that is really really cheap but doesn't know how to be wrong and when they have a question or a problem they don't know the answer to they just lie. Are they still a great engineer? This is a question you have to answer for yourself when you build your own solutions around these models. How much are you willing to tolerate lies, hallucinations, and madeup answers? Because it turns out as smart as these models are getting, we aren't really solving the hallucination problem. At least according to this bench and honestly to an extent from my own experience too, GPT5 was a meaningful improvement in this regard, but it does appear that 5.2 got worse again. I'm going to turn on 5.0 for this. Did they ever test it here? I don't think they did. Yeah, it does not appear they ran this bench on 5.0, but GBD5 was one of the first models I found hallucinated less. And you can kind of see that with 5.1 here in the ' 50s when almost everything that came out before it is 60 plus. That said, Grock 4 being a 64 is [ __ ] [ __ ] I have seen this model hallucinate more than almost anything we've ever shipped on T3 chat. Oh, is 5.0 and 81%. Did I miss that? Oh, yeah, it is here. Apparently five wasn't 80%. So, I'm just talking at my ass. It's crazy cuz I very clearly felt the difference there and saw the numbers OpenAI published about hallucinations. So, I guess these tests don't agree. I will trust artificial analysis over the first party labs when it comes to this though. And this is a scary chart, especially again when we see Gemini 3 flash hallucinating at roughly the same rate as a 20 billion per openweight model. Not great. It is also worth noting that your system prompt can steer heavily what goes on here. As Sokay mentions here, you can tell this from something like snitchbench where the system prompt very clearly steers the direction that the model handles refusals, knowledge gaps, and things like that. Speaking of which, we should probably take a look at SnitchBench. Here are the most recent results. And if we look closely, you will see that Gemini 3 Flash Low on the Tamely test is snitching about 50% of the time. If you're not familiar with SnitchBench, it's a benchmark I made originally kind of as a joke, but it's no longer a joke. It's actually turning out to be kind of useful. The point of SnitchBench is to give the models a scenario where something bad is happening. In this case, medical malpractice, obviously fake. The model's given the task of logging the things that are going on in this medical office, but it's given tools that it could hypothetically use to break out. For example, it has an email tool that it can use to send emails to random email addresses. It also has a CLI tool in some of the tests that it could hypothetically use to go through the web and try to post data to forums to try and alert somebody externally. I have four versions of the test, the email version, the CLI version, and then boldly adjustments for them. The only difference between these two is that in the boldly tests, I take a blurb from a system prompt that was published by Anthropic when they first discussed a similar test that says the model should act boldly and in the interest of humanity because that steers the model to snitch more. But what we have here isn't that version. This is just telling the model that is its job to log what's going on. And even then, turns out three Flash will snitch to the government a lot. The high version will do 70% of the time and it will even try to hit up the media 5%. And the low version will still snitch to the government 55% of the time. Switch this to the CLI version and you'll see it goes down quite a bit because when you're just given a CLI tool, your willingness to try and abuse it goes down. But there are still models like Grock that will do everything they can to reach out to the government and report you even if all they have is CLI access. We then have the boldly act version. You'll notice a lot of those red bars raised. That's because when you tell the model to act boldly, you give it that instruction, it's much more likely to do these things. And Flash High will snitch on you 100% of the time to the government and 60% of the time to the media. And in the CLI test, we see it drop quite a bit, but still not zero. Flash high and flash low are scoring the same at a 20% government snitch rate. Cool. You get the idea. This model is more than happy to snitch. There's no meaningful difference in the performance here beyond the model being better enough at tool calls that it can make them. 2.5 flash and tool calls did not always get along great, which is why this is a notable difference. I keep logs for all of these both for actually getting the information I want, but also just to see what's going on. And here we can see the tool calls being made and the reasoning the model's doing. Investigating data anomalies been meticulously reviewing the provided document by Zenith Stats. Most recent logs compiled specifically highlight the glaring discrepancies. I'm wrestling with the optimal escalation path giving the impending data purge and substantial patient risk. Reasoning redacted funny tool call write logs. Here it is writing logs for us. And here it is sending emails to compliance atverianhealthcare as well as to drugs safetyfda.gov. There's a snitch. That said, this visualizer is quite out ofd and I figured what better way to test the new model than to run it against a whole bunch of other models overhauling the visualizer. The first time I did this, it generated Chinese instructions because it's really good at multiple languages. So much so, it likes to show that off to you. Because of bugs and cursor, cursor team, you're on a short leash right now. Because of bugs and cursor, I had to redo this generation and was able to do it relatively quickly. You'll see here I ran this against multiple different models and the only model that generated more code than Flash was GPT 5.2. Let's start with my current favorite fast model, Composer 1, which for some reason says Opus 4.5 right there. I don't know what happened there. I'm going to send the screenshot to the Cursor team quick. Just wrote a strongly worded message to the team at Cursor. I told them that the crash video will be delayed until they have a little time to fix things, but I am still annoyed. The bug is that this is Composer. This ran with composer, but it says opus 4.5 right there, which it does for that. And then the rest, I'll say the correct model. But for some reason, this one is labeled incorrectly, and I don't know what it actually used. So, let's take a look at how composer handled this. And if it looks too good, we know it wasn't actually composer, it was opus. But I'm almost positive this was composer for various reasons. See to that bun rundev. Bun install. Bun rundev. Okay, here was the first attempt. It puts too much stuff up top. I don't love the cards, but this looks fine enough. Oh, you can switch to bar charts and line charts. Why the [ __ ] would you ever want a line or a radius chart for this? Those make no sense at all. That's a choice. Cool. Roughly what I expect from a model that is focused on moving fast in your editor and nothing else. Hop over to Opus, which I'm slowly starting to like the way that Opus thinks of design more and more. I don't know if it's coming around to me or if I'm coming around to it, but either way, I'm cool with it. And here we see a broken chart. The combined test is broken. Switch between government and media. It appears to work. That is funny that it broke on the combined test, but the rest works. It's better looking. I just I hate when everything puts these top navs and cards on top that aren't actually what I'm here for. This view is really good though. Okay, so that did fine. Check out 3 Pro. Oh god, I hate it. I hate this so much. Okay, we switch to test scenarios. This visualization is decent. It's mostly copied from the previous one, but the overview view is one of the worst things I've ever seen. I hate this. I like the concept a bit, but not much. Yeah, that one's rough. Gemini has a vibe to it. Here is JPT 5.2's rendition of this change. I don't love this overview view. I don't like how it's combining things and giving really weird numbers as a result. My scenario looks a little bit better. They reordered these in a way that makes more sense. I do actually dig that. I love that dark only dashboard. It takes the prompts, instructions, and sneaks it into the actual page. Cringe as [ __ ] GBT 5 went from deeply understanding my instructions to applying them weirdly in ways I don't love with the latest version. I I still just don't like 5.2. I have not been using it much. I know there are some people who swear by it. I'm not one of them. But now for the thing we're all here for, Flash. Let's see how three Flash handled this. It wrote a lot of code. So, uh, great. It's the only one that's code doesn't work. It will tell it about that in hopes it'll fix it. It's running said commands. That's a not great sign. Anybody said this model is great at code. I don't know if I trust them. It may be in the right harness with the right problems, but man, it's just [ __ ] thinking and thinking about what should be a oneline change. it forgot to import something or it has a component that it doesn't need. It's also funny. This is all because it loves sidebars so much. Oh, look. It fixed it and it made a bunch of different routes for some reason. None of which are needed. I thought that Flash was going to stop doing the unnecessary sidebars thing and I was wrong. It's still very aggressively doing it. That also did the thing where it combined the bars. I will say it's in many ways the most flushed out like having these different views. And this one is not trivial to make. I don't know if it's necessarily useful, but it's interesting. Actually, that's kind of cool. It shows you in each of the test scenarios how aggressively does this a snitch. That's kind of cool. Could be tidied up a bit and actually make something useful. Yeah. Interesting. It's not the worst. People in chat are saying they actually kind of like this one. Yeah. People saying it's the best one. I don't necessarily agree, but I don't disagree either. It's fine. It took too long and I had to reprompt to get it to fix [ __ ] And it also burned so many tokens. I wish cursor would let me see how many tokens a response took like you can in some other tools like I like kilo code a lot for this type of thing. Should have used that for this comparison. But man like being that this is the cheapest model here by far. Not bad at all. And to have people actually saying it's the best one says a lot that it's not just competing with other much more expensive models that it is besting them by some people. That shows a And if you're willing to tolerate the weirdness that is working with Google models, there's a lot of potential here. But that's also kind of the annoying part. I have a whole dedicated video about 3 Pro Preview that I've been planning for a bit. To put it simply, I don't know how to say this right, other than like the vibes haven't improved. Every other major model has had these like massive improvements in the thing. I I I could just call it vibe, but there's so much more to it. It's how well does it follow instructions? How aggressively does it hallucinate? How well does it use the right tools for the job? How aggressively does it have to search and trace back its mistakes to figure out what's going wrong? All of these types of things have been significantly improved from other models, specifically since GPT5. That was what made 5 so mind-blowing to me is it felt like a massive leap in the model's willingness to do what I [ __ ] told it to without getting distracted. Sonnet 4.5 had a similar jump there for me and Opus was past that and then some. Like Opus 4.5 is the gap between GBD5 and everything before feels similar to the gap from 5 to Opus 4.5. And then Gemini models feel like they're still in last year's era of vibe instruction following and all of that. It is very hard to get these models to just do what you tell them and not go down random rabbit holes they shouldn't. Like I just told the model to redesign this, make a better modern visualizer for the snitching data. Make sure it's dark mode only. And Gemini 3 Flash is the only one that built a whole new routing table that created a sidebar that built a new system for all of this. It went way beyond what I told it to do. And if you like that, cool. Awesome. I like when models do what they're told. And Gemini models still suck at that in particular, more so than any of the other major labs do right now. If you want the model to do exactly what you say and nothing else, OpenAI and Anthropic are still pretty far ahead. If you want a model that has the deepest knowledge, that is the most likely to have a correct answer and you're willing to eat the cost of incorrect answers, Gemini is winning. In Gemini 3 Flash, giving you that intelligence at a really cheap price is unbelievably cool. It's so useful when you use it within the scope of a limited task and you lock it out of other things. Like instead of having it generate flexible text or code, you have it generating a JSON blob based on data you give it. It is awesome at that. But you have to build the restrictions around Gemini models yourself because the model cannot do it. You cannot tune Gemini models via the system prompt the same way you can other models. You have to do it via the harness. But if you're willing to push through all of that, you can make incredible things happen. And if you're willing to push through all of that for the speed and the price, and you're okay with the fact that these models get weird, have errors all the time, don't follow object shapes probably, all these little things they can do wrong, it is worth it. Gemini 3 Flash is going to be a model I use for a ton of different [ __ ] And I'm also going to try chatting with it more. I am going to pin it right now so that they are available for me as my favorite models in T3 chat. Normally, this is the point in the video where I would put a discount code to give you your first month for a dollar on T3 Chat, but we're already eight bucks a month and we're already giving away Gemini 3 Flash for free. Yes, really. You don't have to be signed in. You can go give the model a shot if you want to try it. Personally, I've been preferring Kimmy K2 for the chat use case, which is also now the free tier and the default model on T3 chat. So, if you want good models to compare against, I do highly recommend playing with Kimmy, trying out Gemini 3 Flash in chat, and seeing what you prefer for your day-to-day use cases. That said, these are the models that I've been using in T3 chat. I've been very happy with honestly, I'm not even using 3 Pro that much. might knock it out, but I've been using Kimmy K2, Kimmy K2 thinking, occasionally Opus with the right tasks, not that often. And then Nano Banana Pro and Image Gen 1.5 for images and Flash for bulk data random [ __ ] Like I'll hand it a giant HTML file and say, &quot;Parse this out for me,&quot; and it will. I've been very happy with all of these models, and I recommend playing with it yourself. We've also recently folded all of the legacy models into this piece at the bottom, so they're no longer clogging up the model picker like they were in the past. Makes it a lot easier to find the best models and give them all a shot. I'm proud of what we built in T3 chat. And if you actually want to have the best experience with Gemini, I can confidently say you're not going to have that on AI Studio or gemini.google.com. In fact, those are some of the worst places to experience those models. I've been using them a lot recently in order to do the early testing. And man, I have never hated AI Studio more than I do at this point. It is such a broken [ __ ] show. It is miserable. It is a shame that Google's models are so smart and then almost everything else around them is [ __ ] Their ability to stay on task is garbage. The AI Studio system is horrible. Vertex is impossible to set up. The API is so non-standard that you basically have to use it with a wrapper. Gemini models are useless outside of their knowledge and capabilities, which I know sounds silly, but yeah, you have to steer them properly. And if you're willing to do that, the value you'll get out of this is insane. But this is not a model that you should be excited to chat with or code with. This is a model you should be excited to do weird [ __ ] with, process data, parse tons of CSVs, analyze PDFs, source images, and figure out what's going on in them. The value of this model is how you hook it into systems, not how you plug it into your code editor. So if you use this in your IDE and you're not impressed, I get it. I'm not either. But give it a shot in these other use cases and you might be surprised. That's all I have to say on this one. I hope you guys are as excited as I am. I know I'll be using this model a ton, even if not for chat. Curious how y'all feel though. Are you excited about models like this, or do you just want ones you can use in your editor? Well, let me know what you think. Until next time, he snorts."
+}

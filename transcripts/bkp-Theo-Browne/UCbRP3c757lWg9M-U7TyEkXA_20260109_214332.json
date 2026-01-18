@@ -1,0 +1,4001 @@
+{
+  "channel": {
+    "id": "UCbRP3c757lWg9M-U7TyEkXA",
+    "name": "Theo Browne",
+    "description": "Theo is a software dev, AI nerd, TypeScript sympathizer, creator of T3 Chat and the T3 Stack."
+  },
+  "videoId": "xBM307YwVRw",
+  "title": "I can't believe he was right.",
+  "url": "https://www.youtube.com/watch?v=xBM307YwVRw",
+  "publishedAt": "2026-01-06T00:43:24.223Z",
+  "description": "6 months ago we all laughed when the Anthropic CEO said that 90% of code would be written by AI. Turns out he might have been right...\n\nThank you Depot for sponsoring! Check them out at: https://so...",
+  "thumbnailUrl": "https://i.ytimg.com/vi/xBM307YwVRw/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB-jpLevHxUgdu3re_5XnTPFbxKSA",
+  "transcript": [
+    {
+      "text": "Remember back in March when Daario said",
+      "duration": 2639,
+      "offset": 0
+    },
+    {
+      "text": "this",
+      "duration": 3120,
+      "offset": 2000
+    },
+    {
+      "text": ">> if I look at coding programming which is",
+      "duration": 4640,
+      "offset": 2639
+    },
+    {
+      "text": "one area where AI is making the most",
+      "duration": 4800,
+      "offset": 5120
+    },
+    {
+      "text": "progress um what we are finding is we",
+      "duration": 4001,
+      "offset": 7279
+    },
+    {
+      "text": "are not far from a world I think we'll",
+      "duration": 3839,
+      "offset": 9920
+    },
+    {
+      "text": "be there in 3 to 6 months where AI is",
+      "duration": 5839,
+      "offset": 11280
+    },
+    {
+      "text": "writing 90% of the code at the time I",
+      "duration": 4961,
+      "offset": 13759
+    },
+    {
+      "text": "thought this was one of the most absurd",
+      "duration": 3761,
+      "offset": 17119
+    },
+    {
+      "text": "statements I'd heard any tech CEO make",
+      "duration": 5600,
+      "offset": 18720
+    },
+    {
+      "text": "in history and it was and to be fair he",
+      "duration": 6239,
+      "offset": 20880
+    },
+    {
+      "text": "was wrong it actually took nine months",
+      "duration": 4640,
+      "offset": 24320
+    },
+    {
+      "text": "Boris is the developer in charge of",
+      "duration": 4160,
+      "offset": 27119
+    },
+    {
+      "text": "claude code. He did an update a few days",
+      "duration": 5040,
+      "offset": 28960
+    },
+    {
+      "text": "ago talking about how originally cloud",
+      "duration": 4481,
+      "offset": 31279
+    },
+    {
+      "text": "code was a side project and now it has",
+      "duration": 4239,
+      "offset": 34000
+    },
+    {
+      "text": "changed how he writes code and now he",
+      "duration": 4959,
+      "offset": 35760
+    },
+    {
+      "text": "barely ever opens an editor. Every",
+      "duration": 4401,
+      "offset": 38239
+    },
+    {
+      "text": "single line that he has done in the last",
+      "duration": 5601,
+      "offset": 40719
+    },
+    {
+      "text": "30 days across 259 PRs, all of it was",
+      "duration": 6399,
+      "offset": 42640
+    },
+    {
+      "text": "done in cloud code and opus. Literally",
+      "duration": 5520,
+      "offset": 46320
+    },
+    {
+      "text": "100% of his contributions to cloud code",
+      "duration": 4881,
+      "offset": 49039
+    },
+    {
+      "text": "were written by cloud code. Even here",
+      "duration": 3840,
+      "offset": 51840
+    },
+    {
+      "text": "like yeah he's an employee at the",
+      "duration": 3360,
+      "offset": 53920
+    },
+    {
+      "text": "company. Of course he's going to say",
+      "duration": 3359,
+      "offset": 55680
+    },
+    {
+      "text": "that. But then I started using cloud",
+      "duration": 3759,
+      "offset": 57280
+    },
+    {
+      "text": "code with Opus more. I built the Chrome",
+      "duration": 3281,
+      "offset": 59039
+    },
+    {
+      "text": "extension to lock me out of Twitter when",
+      "duration": 2721,
+      "offset": 61039
+    },
+    {
+      "text": "I don't have Cloud Code running to",
+      "duration": 3199,
+      "offset": 62320
+    },
+    {
+      "text": "incentivize me to use it more. And then",
+      "duration": 3600,
+      "offset": 63760
+    },
+    {
+      "text": "I built a whole new image generation",
+      "duration": 4241,
+      "offset": 65519
+    },
+    {
+      "text": "studio with a separate conversation view",
+      "duration": 4000,
+      "offset": 67360
+    },
+    {
+      "text": "where you can pick the photo you like",
+      "duration": 4160,
+      "offset": 69760
+    },
+    {
+      "text": "and do follow-ups with it with a more",
+      "duration": 4799,
+      "offset": 71360
+    },
+    {
+      "text": "dynamic editing experience. And then I",
+      "duration": 4239,
+      "offset": 73920
+    },
+    {
+      "text": "made it a mobile app, too. If you want",
+      "duration": 3600,
+      "offset": 76159
+    },
+    {
+      "text": "the details on all of that, a whole",
+      "duration": 3041,
+      "offset": 78159
+    },
+    {
+      "text": "separate video about how I use Cloud",
+      "duration": 3040,
+      "offset": 79759
+    },
+    {
+      "text": "Code is coming very soon. Make sure you",
+      "duration": 3200,
+      "offset": 81200
+    },
+    {
+      "text": "subscribe so you see that. But that's",
+      "duration": 3521,
+      "offset": 82799
+    },
+    {
+      "text": "not what I'm here to talk about today. I",
+      "duration": 3039,
+      "offset": 84400
+    },
+    {
+      "text": "want to talk about what Daario said on",
+      "duration": 2799,
+      "offset": 86320
+    },
+    {
+      "text": "this panel as well as the part right",
+      "duration": 4320,
+      "offset": 87439
+    },
+    {
+      "text": "after that I feel like is often skipped",
+      "duration": 5121,
+      "offset": 89119
+    },
+    {
+      "text": "when this conversation happens and what",
+      "duration": 5441,
+      "offset": 91759
+    },
+    {
+      "text": "this means for us as developers because",
+      "duration": 5680,
+      "offset": 94240
+    },
+    {
+      "text": "even if his timeline was slightly off,",
+      "duration": 5360,
+      "offset": 97200
+    },
+    {
+      "text": "Daria was absolutely correct. And since",
+      "duration": 4000,
+      "offset": 99920
+    },
+    {
+      "text": "I might not get paid for writing code",
+      "duration": 3199,
+      "offset": 102560
+    },
+    {
+      "text": "anymore, let's do a quick sponsor break",
+      "duration": 3680,
+      "offset": 103920
+    },
+    {
+      "text": "instead. There aren't many companies",
+      "duration": 3601,
+      "offset": 105759
+    },
+    {
+      "text": "that can proudly state that GitHub is",
+      "duration": 3360,
+      "offset": 107600
+    },
+    {
+      "text": "scared of them, but today's sponsor is",
+      "duration": 3759,
+      "offset": 109360
+    },
+    {
+      "text": "one of them. Depot is so much better at",
+      "duration": 3600,
+      "offset": 110960
+    },
+    {
+      "text": "running your GitHub actions that",
+      "duration": 3521,
+      "offset": 113119
+    },
+    {
+      "text": "Microsoft nuked the whole GitHub brand",
+      "duration": 4239,
+      "offset": 114560
+    },
+    {
+      "text": "just a few weeks ago trying to tax you",
+      "duration": 4000,
+      "offset": 116640
+    },
+    {
+      "text": "for using it. They have since delayed",
+      "duration": 3121,
+      "offset": 118799
+    },
+    {
+      "text": "those changes and even if they made",
+      "duration": 2640,
+      "offset": 120640
+    },
+    {
+      "text": "them, it would still be worth it because",
+      "duration": 3199,
+      "offset": 121920
+    },
+    {
+      "text": "Depot is that much better. We're talking",
+      "duration": 3600,
+      "offset": 123280
+    },
+    {
+      "text": "about realworld performance improvements",
+      "duration": 4640,
+      "offset": 125119
+    },
+    {
+      "text": "in the range of 37x for a project like",
+      "duration": 4880,
+      "offset": 126880
+    },
+    {
+      "text": "Post Hog. And remember, Post Hog's open",
+      "duration": 3601,
+      "offset": 129759
+    },
+    {
+      "text": "source. There's no magic tricks here.",
+      "duration": 3280,
+      "offset": 131760
+    },
+    {
+      "text": "You can go look at the code yourself and",
+      "duration": 3280,
+      "offset": 133360
+    },
+    {
+      "text": "see when the action suddenly started",
+      "duration": 3520,
+      "offset": 135040
+    },
+    {
+      "text": "taking this much less time. We're",
+      "duration": 4400,
+      "offset": 136640
+    },
+    {
+      "text": "talking a difference of over 2 hours",
+      "duration": 4720,
+      "offset": 138560
+    },
+    {
+      "text": "from a minute and 50 seconds to 4",
+      "duration": 4559,
+      "offset": 141040
+    },
+    {
+      "text": "minutes. Let's be real super quick. How",
+      "duration": 3679,
+      "offset": 143280
+    },
+    {
+      "text": "much of your time are you wasting",
+      "duration": 3121,
+      "offset": 145599
+    },
+    {
+      "text": "chasing down failing builds that are",
+      "duration": 3521,
+      "offset": 146959
+    },
+    {
+      "text": "failing for no reason? How much time are",
+      "duration": 3200,
+      "offset": 148720
+    },
+    {
+      "text": "you spending waiting for your builds to",
+      "duration": 2960,
+      "offset": 150480
+    },
+    {
+      "text": "complete so you can actually merge the",
+      "duration": 2959,
+      "offset": 151920
+    },
+    {
+      "text": "code that you're changing? How much",
+      "duration": 3280,
+      "offset": 153440
+    },
+    {
+      "text": "hesitation do you feel to push up a new",
+      "duration": 3440,
+      "offset": 154879
+    },
+    {
+      "text": "change because you know the CI is going",
+      "duration": 2879,
+      "offset": 156720
+    },
+    {
+      "text": "to take another hour or two to run",
+      "duration": 3521,
+      "offset": 158319
+    },
+    {
+      "text": "before you can do anything? Imagine life",
+      "duration": 4081,
+      "offset": 159599
+    },
+    {
+      "text": "without any of those problems. Imagine",
+      "duration": 3759,
+      "offset": 161840
+    },
+    {
+      "text": "you put up a PR and the build just",
+      "duration": 4240,
+      "offset": 163680
+    },
+    {
+      "text": "works. There's no random errors or fail",
+      "duration": 4241,
+      "offset": 165599
+    },
+    {
+      "text": "cases that you hit because GitHub",
+      "duration": 3840,
+      "offset": 167920
+    },
+    {
+      "text": "actions are unstable. Imagine they're",
+      "duration": 4320,
+      "offset": 169840
+    },
+    {
+      "text": "happening in seconds instead of hours.",
+      "duration": 4320,
+      "offset": 171760
+    },
+    {
+      "text": "Imagine life without the hell that is",
+      "duration": 3920,
+      "offset": 174160
+    },
+    {
+      "text": "waiting on CI. If you haven't tried them",
+      "duration": 3439,
+      "offset": 176080
+    },
+    {
+      "text": "yet, you're wasting your time. Fix that",
+      "duration": 3600,
+      "offset": 178080
+    },
+    {
+      "text": "now at soyv.link/depo.",
+      "duration": 4561,
+      "offset": 179519
+    },
+    {
+      "text": "So, first and foremost, I want to go",
+      "duration": 5279,
+      "offset": 181680
+    },
+    {
+      "text": "through Daario's whole statement with",
+      "duration": 3840,
+      "offset": 184080
+    },
+    {
+      "text": "you guys.",
+      "duration": 2961,
+      "offset": 186959
+    },
+    {
+      "text": ">> I do have a fair amount of concern about",
+      "duration": 5039,
+      "offset": 187920
+    },
+    {
+      "text": "this. Um, on one hand, I think",
+      "duration": 5039,
+      "offset": 189920
+    },
+    {
+      "text": "comparative advantage is a very powerful",
+      "duration": 4961,
+      "offset": 192959
+    },
+    {
+      "text": "tool. If I look at coding programming",
+      "duration": 5200,
+      "offset": 194959
+    },
+    {
+      "text": "which is one area where AI is making the",
+      "duration": 4880,
+      "offset": 197920
+    },
+    {
+      "text": "most progress um what we are finding is",
+      "duration": 4080,
+      "offset": 200159
+    },
+    {
+      "text": "we are not far from a world I think",
+      "duration": 3840,
+      "offset": 202800
+    },
+    {
+      "text": "we'll be there in 3 to 6 months where AI",
+      "duration": 6080,
+      "offset": 204239
+    },
+    {
+      "text": "is writing 90% of the code and then in",
+      "duration": 6239,
+      "offset": 206640
+    },
+    {
+      "text": "12 months we may be in a world where AI",
+      "duration": 5280,
+      "offset": 210319
+    },
+    {
+      "text": "is writing essentially all of the code.",
+      "duration": 4801,
+      "offset": 212879
+    },
+    {
+      "text": "When he first made this statement I did",
+      "duration": 4560,
+      "offset": 215599
+    },
+    {
+      "text": "a response because the way this is",
+      "duration": 4000,
+      "offset": 217680
+    },
+    {
+      "text": "measured is going to be really really",
+      "duration": 3761,
+      "offset": 220159
+    },
+    {
+      "text": "tough. First we have to define what the",
+      "duration": 6080,
+      "offset": 221680
+    },
+    {
+      "text": "code is. What is 90% of the code? Are we",
+      "duration": 5760,
+      "offset": 223920
+    },
+    {
+      "text": "talking about the code people are paid",
+      "duration": 3759,
+      "offset": 227760
+    },
+    {
+      "text": "to ship to production? Are we talking",
+      "duration": 3279,
+      "offset": 229680
+    },
+    {
+      "text": "about the code being written at",
+      "duration": 3121,
+      "offset": 231519
+    },
+    {
+      "text": "companies like Google and Microsoft and",
+      "duration": 4081,
+      "offset": 232959
+    },
+    {
+      "text": "Enthropic? Or are we talking about all",
+      "duration": 5040,
+      "offset": 234640
+    },
+    {
+      "text": "of code created from all of places?",
+      "duration": 4320,
+      "offset": 237040
+    },
+    {
+      "text": "Because I would imagine that the amount",
+      "duration": 3520,
+      "offset": 239680
+    },
+    {
+      "text": "of repos being instantiated and the",
+      "duration": 3439,
+      "offset": 241360
+    },
+    {
+      "text": "amount of code being written by tools",
+      "duration": 4800,
+      "offset": 243200
+    },
+    {
+      "text": "like lovable and vzero and bolt and all",
+      "duration": 5601,
+      "offset": 244799
+    },
+    {
+      "text": "of these types of things just by sheer",
+      "duration": 5120,
+      "offset": 248000
+    },
+    {
+      "text": "number of lines has changed the amount",
+      "duration": 4880,
+      "offset": 250400
+    },
+    {
+      "text": "of code being written year-over-year a",
+      "duration": 4079,
+      "offset": 253120
+    },
+    {
+      "text": "meaningful amount. I would be really",
+      "duration": 4720,
+      "offset": 255280
+    },
+    {
+      "text": "surprised if we had less than 2x the",
+      "duration": 4801,
+      "offset": 257199
+    },
+    {
+      "text": "amount of code written this year from",
+      "duration": 4639,
+      "offset": 260000
+    },
+    {
+      "text": "the year prior as in 2025 to 2024. I",
+      "duration": 4240,
+      "offset": 262000
+    },
+    {
+      "text": "know it's 2026 now. I'm sorry guys, but",
+      "duration": 4401,
+      "offset": 264639
+    },
+    {
+      "text": "you get the idea. 2025 probably had 2x",
+      "duration": 5120,
+      "offset": 266240
+    },
+    {
+      "text": "the amount of code or more written and",
+      "duration": 4719,
+      "offset": 269040
+    },
+    {
+      "text": "produced than in 2024. Does most of it",
+      "duration": 4640,
+      "offset": 271360
+    },
+    {
+      "text": "go in a garbage can? Sure. But way more",
+      "duration": 3761,
+      "offset": 273759
+    },
+    {
+      "text": "code came out. We can't disagree with",
+      "duration": 3520,
+      "offset": 276000
+    },
+    {
+      "text": "that. Like that's just table sakes. We",
+      "duration": 4000,
+      "offset": 277520
+    },
+    {
+      "text": "have to agree no matter what side we're",
+      "duration": 4480,
+      "offset": 279520
+    },
+    {
+      "text": "on that way more code happened last",
+      "duration": 6080,
+      "offset": 281520
+    },
+    {
+      "text": "year. That said, actual studies have",
+      "duration": 5280,
+      "offset": 284000
+    },
+    {
+      "text": "been done on the numbers for real",
+      "duration": 4159,
+      "offset": 287600
+    },
+    {
+      "text": "businesses. And according to Google's",
+      "duration": 4960,
+      "offset": 289280
+    },
+    {
+      "text": "little AI summary thing, from real",
+      "duration": 4160,
+      "offset": 291759
+    },
+    {
+      "text": "studies,",
+      "duration": 3760,
+      "offset": 294240
+    },
+    {
+      "text": "industrywide, the number is a little bit",
+      "duration": 4401,
+      "offset": 295919
+    },
+    {
+      "text": "lower. Apparently, 30% of code at",
+      "duration": 5759,
+      "offset": 298000
+    },
+    {
+      "text": "Microsoft is AI. Sundar said over 25%",
+      "duration": 5680,
+      "offset": 300320
+    },
+    {
+      "text": "was written by AI as of late 2024. I",
+      "duration": 3361,
+      "offset": 303759
+    },
+    {
+      "text": "don't know if we've gotten an update",
+      "duration": 2960,
+      "offset": 306000
+    },
+    {
+      "text": "since. Here's where things start to get",
+      "duration": 3600,
+      "offset": 307120
+    },
+    {
+      "text": "crazy, though. For senior devs, in",
+      "duration": 4560,
+      "offset": 308960
+    },
+    {
+      "text": "recent surveys, 32% report that at least",
+      "duration": 5280,
+      "offset": 310720
+    },
+    {
+      "text": "half their code is coming from AI. More",
+      "duration": 4239,
+      "offset": 313520
+    },
+    {
+      "text": "and more senior devs are the ones saying",
+      "duration": 3120,
+      "offset": 316000
+    },
+    {
+      "text": "that lots of their code is coming from",
+      "duration": 2961,
+      "offset": 317759
+    },
+    {
+      "text": "AI. This is one of the biggest shifts",
+      "duration": 4880,
+      "offset": 319120
+    },
+    {
+      "text": "that happened in 2025. It's no longer",
+      "duration": 5520,
+      "offset": 320720
+    },
+    {
+      "text": "just devs who are autocompleting some of",
+      "duration": 4000,
+      "offset": 324000
+    },
+    {
+      "text": "their code. It's no longer just",
+      "duration": 4080,
+      "offset": 326240
+    },
+    {
+      "text": "beginners who don't have the skills that",
+      "duration": 5120,
+      "offset": 328000
+    },
+    {
+      "text": "are using AI to make up for a skill gap.",
+      "duration": 4640,
+      "offset": 330320
+    },
+    {
+      "text": "It's now experienced developers using",
+      "duration": 4400,
+      "offset": 333120
+    },
+    {
+      "text": "these tools to make up for a time gap.",
+      "duration": 4400,
+      "offset": 334960
+    },
+    {
+      "text": "And I found myself doing the same. There",
+      "duration": 3840,
+      "offset": 337520
+    },
+    {
+      "text": "are so many random ideas I have for",
+      "duration": 3920,
+      "offset": 339360
+    },
+    {
+      "text": "systems, projects, features, and just",
+      "duration": 4160,
+      "offset": 341360
+    },
+    {
+      "text": "stuff I want to fix in my codebase. And",
+      "duration": 4000,
+      "offset": 343280
+    },
+    {
+      "text": "as the tools get better, the harnesses",
+      "duration": 3440,
+      "offset": 345520
+    },
+    {
+      "text": "get better, and of course the models get",
+      "duration": 4160,
+      "offset": 347280
+    },
+    {
+      "text": "better, the idea that this random thing",
+      "duration": 4160,
+      "offset": 348960
+    },
+    {
+      "text": "that maybe I would have previously cut a",
+      "duration": 3440,
+      "offset": 351440
+    },
+    {
+      "text": "Jira ticket for that would have sat in a",
+      "duration": 4960,
+      "offset": 353120
+    },
+    {
+      "text": "pit of backlog forever, now I can just",
+      "duration": 6319,
+      "offset": 354880
+    },
+    {
+      "text": "throw it at Opus, get some code, review",
+      "duration": 5440,
+      "offset": 358080
+    },
+    {
+      "text": "it on GitHub, and merge it. There's also",
+      "duration": 5681,
+      "offset": 361199
+    },
+    {
+      "text": "a problem here around what our jobs are.",
+      "duration": 5840,
+      "offset": 363520
+    },
+    {
+      "text": "Running a quick poll to see how much",
+      "duration": 5200,
+      "offset": 366880
+    },
+    {
+      "text": "people like code review. And as we see",
+      "duration": 6000,
+      "offset": 369360
+    },
+    {
+      "text": "with the initial results, 50% say hate",
+      "duration": 6480,
+      "offset": 372080
+    },
+    {
+      "text": "it. Even though there are four options",
+      "duration": 5600,
+      "offset": 375360
+    },
+    {
+      "text": "that are neutral or better. Now that the",
+      "duration": 4400,
+      "offset": 378560
+    },
+    {
+      "text": "polls continued going, it's fine but",
+      "duration": 5040,
+      "offset": 380960
+    },
+    {
+      "text": "tiring is going up. But we still have",
+      "duration": 5920,
+      "offset": 382960
+    },
+    {
+      "text": "26% saying hate it, 10% saying neutral,",
+      "duration": 4800,
+      "offset": 386000
+    },
+    {
+      "text": "and 45% saying it's fine but it's",
+      "duration": 4879,
+      "offset": 388880
+    },
+    {
+      "text": "tiring. Very small percentage of devs",
+      "duration": 5280,
+      "offset": 390800
+    },
+    {
+      "text": "like or love code review. I'm in this",
+      "duration": 4801,
+      "offset": 393759
+    },
+    {
+      "text": "section. I would argue I'm in the like",
+      "duration": 4720,
+      "offset": 396080
+    },
+    {
+      "text": "it section. I do enjoy code review. I",
+      "duration": 3840,
+      "offset": 398560
+    },
+    {
+      "text": "wish I could justify doing more of it,",
+      "duration": 4320,
+      "offset": 400800
+    },
+    {
+      "text": "but my schedule is utter chaos, but I",
+      "duration": 4639,
+      "offset": 402400
+    },
+    {
+      "text": "like code review. I also think this is",
+      "duration": 3840,
+      "offset": 405120
+    },
+    {
+      "text": "just one of those things that you have",
+      "duration": 4561,
+      "offset": 407039
+    },
+    {
+      "text": "to get over over time as you become a",
+      "duration": 4720,
+      "offset": 408960
+    },
+    {
+      "text": "more experienced developer. Not that you",
+      "duration": 4400,
+      "offset": 411600
+    },
+    {
+      "text": "have to get over using AI tools, you",
+      "duration": 5040,
+      "offset": 413680
+    },
+    {
+      "text": "have to get over your own time spent",
+      "duration": 4800,
+      "offset": 416000
+    },
+    {
+      "text": "writing code. I actually had a long chat",
+      "duration": 3759,
+      "offset": 418720
+    },
+    {
+      "text": "with Mark not too long ago. If you don't",
+      "duration": 3920,
+      "offset": 420800
+    },
+    {
+      "text": "know, Mark is my CTO for T3 and all the",
+      "duration": 4481,
+      "offset": 422479
+    },
+    {
+      "text": "fun things that we built. Mark, now that",
+      "duration": 4879,
+      "offset": 424720
+    },
+    {
+      "text": "we have more staff, as in Julius is here",
+      "duration": 4480,
+      "offset": 426960
+    },
+    {
+      "text": "full-time in the US and Yosh still",
+      "duration": 3521,
+      "offset": 429599
+    },
+    {
+      "text": "contributes throughout his week when he",
+      "duration": 4000,
+      "offset": 431440
+    },
+    {
+      "text": "can, Mark's time isn't best spent",
+      "duration": 4160,
+      "offset": 433120
+    },
+    {
+      "text": "writing code anymore. Previously, the",
+      "duration": 4000,
+      "offset": 435440
+    },
+    {
+      "text": "flow was Mark would write most of the",
+      "duration": 3840,
+      "offset": 437280
+    },
+    {
+      "text": "code. Julius would go off and figure out",
+      "duration": 3120,
+      "offset": 439440
+    },
+    {
+      "text": "whatever weird problems, and I would",
+      "duration": 3199,
+      "offset": 441120
+    },
+    {
+      "text": "come in to do some steering and general",
+      "duration": 4000,
+      "offset": 442560
+    },
+    {
+      "text": "code review stuff. Now, I'm more removed",
+      "duration": 3600,
+      "offset": 444319
+    },
+    {
+      "text": "because there's too much [ __ ] going on.",
+      "duration": 2960,
+      "offset": 446560
+    },
+    {
+      "text": "Running the company is a lot of work,",
+      "duration": 4081,
+      "offset": 447919
+    },
+    {
+      "text": "and also not doing the best job as CEO.",
+      "duration": 3440,
+      "offset": 449520
+    },
+    {
+      "text": "trying to get more involved in the",
+      "duration": 2639,
+      "offset": 452000
+    },
+    {
+      "text": "codebase again, but it's not the best",
+      "duration": 3600,
+      "offset": 452960
+    },
+    {
+      "text": "use of my time, which means Mark has had",
+      "duration": 4241,
+      "offset": 454639
+    },
+    {
+      "text": "to bump out a little bit too to do more",
+      "duration": 3840,
+      "offset": 456560
+    },
+    {
+      "text": "of the orchestration and code review,",
+      "duration": 2719,
+      "offset": 458880
+    },
+    {
+      "text": "especially with the mobile app in",
+      "duration": 2880,
+      "offset": 460400
+    },
+    {
+      "text": "flight, too. Managing the team, building",
+      "duration": 2961,
+      "offset": 461599
+    },
+    {
+      "text": "the mobile app, managing the team,",
+      "duration": 2639,
+      "offset": 463280
+    },
+    {
+      "text": "building and maintaining the web app and",
+      "duration": 3199,
+      "offset": 464560
+    },
+    {
+      "text": "the servers and the back end, managing",
+      "duration": 3441,
+      "offset": 465919
+    },
+    {
+      "text": "upload thing, managing all the other",
+      "duration": 3521,
+      "offset": 467759
+    },
+    {
+      "text": "services that we maintain. He's not",
+      "duration": 4239,
+      "offset": 469360
+    },
+    {
+      "text": "writing code as much anymore. And as",
+      "duration": 4080,
+      "offset": 471280
+    },
+    {
+      "text": "most people will experience when this",
+      "duration": 4081,
+      "offset": 473599
+    },
+    {
+      "text": "happens in their career, that [ __ ]",
+      "duration": 4640,
+      "offset": 475360
+    },
+    {
+      "text": "sucks. You suddenly stop feeling",
+      "duration": 4480,
+      "offset": 477680
+    },
+    {
+      "text": "productive when you're not writing code",
+      "duration": 3840,
+      "offset": 480000
+    },
+    {
+      "text": "anymore. And previously, you would",
+      "duration": 4159,
+      "offset": 482160
+    },
+    {
+      "text": "measure your success in a day by how",
+      "duration": 4000,
+      "offset": 483840
+    },
+    {
+      "text": "much code you had written, how much time",
+      "duration": 2801,
+      "offset": 486319
+    },
+    {
+      "text": "you spent in your editor, and how many",
+      "duration": 3039,
+      "offset": 487840
+    },
+    {
+      "text": "problems you had solved. If you're",
+      "duration": 3519,
+      "offset": 489120
+    },
+    {
+      "text": "spending your time in the GitHub PR tab",
+      "duration": 3281,
+      "offset": 490879
+    },
+    {
+      "text": "and not in your editor, you feel like",
+      "duration": 3280,
+      "offset": 492639
+    },
+    {
+      "text": "you're not getting anything done. And",
+      "duration": 3360,
+      "offset": 494160
+    },
+    {
+      "text": "the amount of times Mark would have a",
+      "duration": 3280,
+      "offset": 495919
+    },
+    {
+      "text": "crazy day where he did a ton of code",
+      "duration": 3519,
+      "offset": 497520
+    },
+    {
+      "text": "review, got a ton of stuff shipped,",
+      "duration": 3201,
+      "offset": 499199
+    },
+    {
+      "text": "handled a ton of support cases, all",
+      "duration": 3280,
+      "offset": 501039
+    },
+    {
+      "text": "those things, but felt like he didn't",
+      "duration": 3919,
+      "offset": 502400
+    },
+    {
+      "text": "get anything done simply because he",
+      "duration": 4481,
+      "offset": 504319
+    },
+    {
+      "text": "wasn't in his editor at all. It's it",
+      "duration": 4481,
+      "offset": 506319
+    },
+    {
+      "text": "became like an everyday occurrence and",
+      "duration": 4400,
+      "offset": 508800
+    },
+    {
+      "text": "he was not loving that feeling because",
+      "duration": 4479,
+      "offset": 510800
+    },
+    {
+      "text": "it sucks and I've seen this happen to a",
+      "duration": 3759,
+      "offset": 513200
+    },
+    {
+      "text": "lot of developers as they move towards",
+      "duration": 3841,
+      "offset": 515279
+    },
+    {
+      "text": "management towards tech leads towards",
+      "duration": 4880,
+      "offset": 516959
+    },
+    {
+      "text": "roles where their job becomes less",
+      "duration": 4960,
+      "offset": 519120
+    },
+    {
+      "text": "writing code and more orchestrating",
+      "duration": 4161,
+      "offset": 521839
+    },
+    {
+      "text": "code. This is part of what makes a",
+      "duration": 4319,
+      "offset": 524080
+    },
+    {
+      "text": "senior engineer. This is the biggest",
+      "duration": 4880,
+      "offset": 526000
+    },
+    {
+      "text": "reason I think we are seeing that shift",
+      "duration": 5281,
+      "offset": 528399
+    },
+    {
+      "text": "where more and more senior plus devs are",
+      "duration": 4320,
+      "offset": 530880
+    },
+    {
+      "text": "reporting that a majority of their code",
+      "duration": 3680,
+      "offset": 533680
+    },
+    {
+      "text": "is coming from AI. We are more used to",
+      "duration": 4800,
+      "offset": 535200
+    },
+    {
+      "text": "reviewing code constantly. The average",
+      "duration": 5120,
+      "offset": 537360
+    },
+    {
+      "text": "dev still probably writes more code than",
+      "duration": 4640,
+      "offset": 540000
+    },
+    {
+      "text": "they review. The devs that have gotten",
+      "duration": 3680,
+      "offset": 542480
+    },
+    {
+      "text": "over that already, the ones who are",
+      "duration": 3120,
+      "offset": 544640
+    },
+    {
+      "text": "maintaining big open source projects,",
+      "duration": 2960,
+      "offset": 546160
+    },
+    {
+      "text": "the ones who are running teams with a",
+      "duration": 2720,
+      "offset": 547760
+    },
+    {
+      "text": "lot of engineers, the ones who are",
+      "duration": 3440,
+      "offset": 549120
+    },
+    {
+      "text": "building systems that require lots of",
+      "duration": 4000,
+      "offset": 550480
+    },
+    {
+      "text": "people doing lots of disciplined work.",
+      "duration": 3520,
+      "offset": 552560
+    },
+    {
+      "text": "Those are the people I've seen falling",
+      "duration": 3520,
+      "offset": 554480
+    },
+    {
+      "text": "the hardest in love with these AI tools",
+      "duration": 3759,
+      "offset": 556080
+    },
+    {
+      "text": "over the last few months. The people who",
+      "duration": 3279,
+      "offset": 558000
+    },
+    {
+      "text": "are already over that hump and are used",
+      "duration": 3361,
+      "offset": 559839
+    },
+    {
+      "text": "to that are the ones who are getting the",
+      "duration": 3921,
+      "offset": 561279
+    },
+    {
+      "text": "biggest benefits right now. There are",
+      "duration": 4000,
+      "offset": 563200
+    },
+    {
+      "text": "days where I'll file like 20 pull",
+      "duration": 3840,
+      "offset": 565200
+    },
+    {
+      "text": "requests and go through them all on",
+      "duration": 3840,
+      "offset": 567200
+    },
+    {
+      "text": "GitHub. I spend more time generating",
+      "duration": 3760,
+      "offset": 569040
+    },
+    {
+      "text": "code and then putting it on GitHub than",
+      "duration": 3359,
+      "offset": 571040
+    },
+    {
+      "text": "actually reading it in my editor at this",
+      "duration": 4080,
+      "offset": 572800
+    },
+    {
+      "text": "point. It's crazy. But that also sucks",
+      "duration": 4401,
+      "offset": 574399
+    },
+    {
+      "text": "for a lot of people. I know many",
+      "duration": 3760,
+      "offset": 576880
+    },
+    {
+      "text": "engineers, myself included, prefer",
+      "duration": 3840,
+      "offset": 578800
+    },
+    {
+      "text": "writing code to reviewing it. In fact,",
+      "duration": 3360,
+      "offset": 580640
+    },
+    {
+      "text": "from this poll, it seems like the vast",
+      "duration": 3680,
+      "offset": 582640
+    },
+    {
+      "text": "majority of developers very much prefer",
+      "duration": 4320,
+      "offset": 584000
+    },
+    {
+      "text": "writing code to reading it. I",
+      "duration": 4320,
+      "offset": 586320
+    },
+    {
+      "text": "understand. But that's a thing that will",
+      "duration": 4240,
+      "offset": 588320
+    },
+    {
+      "text": "suck about our jobs going forward. more",
+      "duration": 3280,
+      "offset": 590640
+    },
+    {
+      "text": "and more of our job is going to be",
+      "duration": 3360,
+      "offset": 592560
+    },
+    {
+      "text": "reviewing decisions and work that is",
+      "duration": 4240,
+      "offset": 593920
+    },
+    {
+      "text": "being done by these tools, not doing the",
+      "duration": 4320,
+      "offset": 595920
+    },
+    {
+      "text": "work ourselves. Sucks, but it is what it",
+      "duration": 3359,
+      "offset": 598160
+    },
+    {
+      "text": "is. And those who are willing to make",
+      "duration": 3120,
+      "offset": 600240
+    },
+    {
+      "text": "that jump are going to see crazy",
+      "duration": 3841,
+      "offset": 601519
+    },
+    {
+      "text": "success. Sucks when you started writing",
+      "duration": 4159,
+      "offset": 603360
+    },
+    {
+      "text": "code as a hobby. TBH, it feels horrible",
+      "duration": 4400,
+      "offset": 605360
+    },
+    {
+      "text": "having your hobby be automated. On one",
+      "duration": 4801,
+      "offset": 607519
+    },
+    {
+      "text": "hand, totally feel this. It has been",
+      "duration": 5519,
+      "offset": 609760
+    },
+    {
+      "text": "weird moving away. On the other, I have",
+      "duration": 4639,
+      "offset": 612320
+    },
+    {
+      "text": "two points. The first is this is the",
+      "duration": 3201,
+      "offset": 615279
+    },
+    {
+      "text": "natural progression of an engineer as",
+      "duration": 3361,
+      "offset": 616959
+    },
+    {
+      "text": "they get better. You need to learn to",
+      "duration": 3919,
+      "offset": 618480
+    },
+    {
+      "text": "delegate and do more talking and",
+      "duration": 4480,
+      "offset": 620320
+    },
+    {
+      "text": "orchestration and long-term planning and",
+      "duration": 4000,
+      "offset": 622399
+    },
+    {
+      "text": "managing of your team and the",
+      "duration": 3279,
+      "offset": 624800
+    },
+    {
+      "text": "development velocity and the changes",
+      "duration": 2880,
+      "offset": 626399
+    },
+    {
+      "text": "going in and how they're going in and",
+      "duration": 2880,
+      "offset": 628079
+    },
+    {
+      "text": "all of that. Like that is growth as an",
+      "duration": 3041,
+      "offset": 629279
+    },
+    {
+      "text": "engineer. Once you are good enough at",
+      "duration": 2880,
+      "offset": 630959
+    },
+    {
+      "text": "the code writing part, you have to get",
+      "duration": 2800,
+      "offset": 632320
+    },
+    {
+      "text": "better at those other things to keep",
+      "duration": 3120,
+      "offset": 633839
+    },
+    {
+      "text": "leveling up. There's a cap at how much",
+      "duration": 3839,
+      "offset": 635120
+    },
+    {
+      "text": "the code writing actually benefits you.",
+      "duration": 4081,
+      "offset": 636959
+    },
+    {
+      "text": "The other part of this side is that this",
+      "duration": 3521,
+      "offset": 638959
+    },
+    {
+      "text": "is what we've been doing as engineers",
+      "duration": 3440,
+      "offset": 641040
+    },
+    {
+      "text": "forever. We've been writing code to",
+      "duration": 3760,
+      "offset": 642480
+    },
+    {
+      "text": "automate things that were hobbies for",
+      "duration": 3919,
+      "offset": 644480
+    },
+    {
+      "text": "other people. We have already destroyed",
+      "duration": 4320,
+      "offset": 646240
+    },
+    {
+      "text": "so many fields with code. It was only",
+      "duration": 3921,
+      "offset": 648399
+    },
+    {
+      "text": "time that the fun parts of our field",
+      "duration": 3600,
+      "offset": 650560
+    },
+    {
+      "text": "started to erode. But I will counter",
+      "duration": 3600,
+      "offset": 652320
+    },
+    {
+      "text": "this by saying I'm having a lot more fun",
+      "duration": 3840,
+      "offset": 654160
+    },
+    {
+      "text": "coding overall lately. It's much more",
+      "duration": 4320,
+      "offset": 655920
+    },
+    {
+      "text": "fun seeing how far you can push these",
+      "duration": 4320,
+      "offset": 658000
+    },
+    {
+      "text": "agents and the crazy things they can do",
+      "duration": 4000,
+      "offset": 660240
+    },
+    {
+      "text": "and not feeling bad when you throw away",
+      "duration": 4240,
+      "offset": 662320
+    },
+    {
+      "text": "the code cuz it sucks. The worst feeling",
+      "duration": 4080,
+      "offset": 664240
+    },
+    {
+      "text": "ever is when one of your employees or",
+      "duration": 3680,
+      "offset": 666560
+    },
+    {
+      "text": "teammates or somebody you care about",
+      "duration": 4800,
+      "offset": 668320
+    },
+    {
+      "text": "goes off on a crazy tangent, deep dives",
+      "duration": 5680,
+      "offset": 670240
+    },
+    {
+      "text": "on something, builds a crazy solution,",
+      "duration": 4560,
+      "offset": 673120
+    },
+    {
+      "text": "and then for any of many reasons, it",
+      "duration": 3200,
+      "offset": 675920
+    },
+    {
+      "text": "just doesn't work. It doesn't fit the",
+      "duration": 3120,
+      "offset": 677680
+    },
+    {
+      "text": "project, you can't merge it, and you",
+      "duration": 4399,
+      "offset": 679120
+    },
+    {
+      "text": "have to close the PR. It hurts. It",
+      "duration": 5200,
+      "offset": 680800
+    },
+    {
+      "text": "sucks. It feels so bad to throw away",
+      "duration": 4641,
+      "offset": 683519
+    },
+    {
+      "text": "hard work that one of your co-workers or",
+      "duration": 4079,
+      "offset": 686000
+    },
+    {
+      "text": "peers or friends did. But if it was an",
+      "duration": 2960,
+      "offset": 688160
+    },
+    {
+      "text": "agent, I don't give a [ __ ] I just",
+      "duration": 2801,
+      "offset": 690079
+    },
+    {
+      "text": "closed the PR. So, I'm having a lot more",
+      "duration": 3760,
+      "offset": 691120
+    },
+    {
+      "text": "fun with experiments. I'm having a lot",
+      "duration": 4160,
+      "offset": 692880
+    },
+    {
+      "text": "more fun trying things out, playing with",
+      "duration": 4800,
+      "offset": 694880
+    },
+    {
+      "text": "new languages, overhauling code bases,",
+      "duration": 4880,
+      "offset": 697040
+    },
+    {
+      "text": "experimenting with new stuff. It's I'm",
+      "duration": 3920,
+      "offset": 699680
+    },
+    {
+      "text": "writing comically more code than I've",
+      "duration": 3520,
+      "offset": 701920
+    },
+    {
+      "text": "ever written. I threw together a 12,000",
+      "duration": 4960,
+      "offset": 703600
+    },
+    {
+      "text": "line of code project in a day. What?",
+      "duration": 5920,
+      "offset": 705440
+    },
+    {
+      "text": "12,000 lines of code in a day. According",
+      "duration": 4800,
+      "offset": 708560
+    },
+    {
+      "text": "to various surveys, the average",
+      "duration": 4400,
+      "offset": 711360
+    },
+    {
+      "text": "developer on the average day writes",
+      "duration": 4560,
+      "offset": 713360
+    },
+    {
+      "text": "between 10 and 40 lines of thoroughly",
+      "duration": 4319,
+      "offset": 715760
+    },
+    {
+      "text": "tested and debugged code. Opus and I",
+      "duration": 4720,
+      "offset": 717920
+    },
+    {
+      "text": "wrote 12,000. This might seem like cap,",
+      "duration": 4561,
+      "offset": 720079
+    },
+    {
+      "text": "but when you average it out, this is",
+      "duration": 3840,
+      "offset": 722640
+    },
+    {
+      "text": "very real. I know everybody in chat's",
+      "duration": 3120,
+      "offset": 724640
+    },
+    {
+      "text": "like, &quot;No, that's stupid. That's",
+      "duration": 4799,
+      "offset": 726480
+    },
+    {
+      "text": "insane.&quot; Now, if you do a PR with 250",
+      "duration": 5440,
+      "offset": 727760
+    },
+    {
+      "text": "lines of code, you start working on it",
+      "duration": 4560,
+      "offset": 731279
+    },
+    {
+      "text": "on Monday, you put up the PR Tuesday, it",
+      "duration": 4560,
+      "offset": 733200
+    },
+    {
+      "text": "takes two days to get thorough reviews.",
+      "duration": 3601,
+      "offset": 735839
+    },
+    {
+      "text": "On Thursday, you finally have a good",
+      "duration": 2960,
+      "offset": 737760
+    },
+    {
+      "text": "enough review and have to go make",
+      "duration": 2880,
+      "offset": 739440
+    },
+    {
+      "text": "changes. So, you make changes, and then",
+      "duration": 3840,
+      "offset": 740720
+    },
+    {
+      "text": "on Friday, it ships. That was 5 days for",
+      "duration": 5440,
+      "offset": 742320
+    },
+    {
+      "text": "240 lines of code. That is That is about",
+      "duration": 6399,
+      "offset": 744560
+    },
+    {
+      "text": "right. And that's hilarious. That is",
+      "duration": 6160,
+      "offset": 747760
+    },
+    {
+      "text": "absurd. This is the 10 to 100x people",
+      "duration": 4961,
+      "offset": 750959
+    },
+    {
+      "text": "keep talking about is when it is",
+      "duration": 4159,
+      "offset": 753920
+    },
+    {
+      "text": "significantly easier to not just write",
+      "duration": 4000,
+      "offset": 755920
+    },
+    {
+      "text": "the code, but write the tests to",
+      "duration": 3361,
+      "offset": 758079
+    },
+    {
+      "text": "automate the testing process to set up",
+      "duration": 3760,
+      "offset": 759920
+    },
+    {
+      "text": "endto-end testing. GMO just posted about",
+      "duration": 3360,
+      "offset": 761440
+    },
+    {
+      "text": "this and the more I've thought about it,",
+      "duration": 2880,
+      "offset": 763680
+    },
+    {
+      "text": "the more I think he might be right. AI",
+      "duration": 3039,
+      "offset": 764800
+    },
+    {
+      "text": "coding will result in the most",
+      "duration": 2880,
+      "offset": 766560
+    },
+    {
+      "text": "rigorously tested, type checked, and",
+      "duration": 3201,
+      "offset": 767839
+    },
+    {
+      "text": "provably correct code in the world.",
+      "duration": 2959,
+      "offset": 769440
+    },
+    {
+      "text": "First, the testing and verification",
+      "duration": 2799,
+      "offset": 771040
+    },
+    {
+      "text": "feedback loop helps agents and prevent",
+      "duration": 3841,
+      "offset": 772399
+    },
+    {
+      "text": "slop. Yep. God, cloud code got so much",
+      "duration": 3921,
+      "offset": 773839
+    },
+    {
+      "text": "more usable when the LSP was added. It's",
+      "duration": 3360,
+      "offset": 776240
+    },
+    {
+      "text": "kind of broken, but it helps so much.",
+      "duration": 3600,
+      "offset": 777760
+    },
+    {
+      "text": "But the second part, tests have always",
+      "duration": 3440,
+      "offset": 779600
+    },
+    {
+      "text": "been a chore, but who doesn't love the",
+      "duration": 3360,
+      "offset": 781360
+    },
+    {
+      "text": "pile of check marks that a high test",
+      "duration": 3680,
+      "offset": 783040
+    },
+    {
+      "text": "count gives you? Agents are glad to",
+      "duration": 4320,
+      "offset": 784720
+    },
+    {
+      "text": "write as many tests as we want. Yep, the",
+      "duration": 3679,
+      "offset": 786720
+    },
+    {
+      "text": "pain of writing and maintaining test has",
+      "duration": 2560,
+      "offset": 789040
+    },
+    {
+      "text": "gone down a ton, and I'm starting to",
+      "duration": 2801,
+      "offset": 790399
+    },
+    {
+      "text": "rethink my own relationship with testing",
+      "duration": 4479,
+      "offset": 791600
+    },
+    {
+      "text": "for my projects. This is one of the",
+      "duration": 4560,
+      "offset": 793200
+    },
+    {
+      "text": "coolest parts. It would take me way more",
+      "duration": 3041,
+      "offset": 796079
+    },
+    {
+      "text": "time to write testing code than the",
+      "duration": 2879,
+      "offset": 797760
+    },
+    {
+      "text": "actual code because getting the test",
+      "duration": 3600,
+      "offset": 799120
+    },
+    {
+      "text": "right is hard and tedious and slow and",
+      "duration": 3760,
+      "offset": 800639
+    },
+    {
+      "text": "annoying and not actually the thing that",
+      "duration": 3840,
+      "offset": 802720
+    },
+    {
+      "text": "we like doing. Now the agent can do that",
+      "duration": 4161,
+      "offset": 804399
+    },
+    {
+      "text": "part and then do the implementation and",
+      "duration": 3519,
+      "offset": 806560
+    },
+    {
+      "text": "then put up the code and then do the",
+      "duration": 3040,
+      "offset": 808560
+    },
+    {
+      "text": "first pass on the code review and catch",
+      "duration": 3200,
+      "offset": 810079
+    },
+    {
+      "text": "any mistakes and then you go and look",
+      "duration": 3520,
+      "offset": 811600
+    },
+    {
+      "text": "over the like final pieces and give it a",
+      "duration": 3201,
+      "offset": 813279
+    },
+    {
+      "text": "thumbs up or down. It's a whole",
+      "duration": 2800,
+      "offset": 815120
+    },
+    {
+      "text": "different way of building and it is",
+      "duration": 3440,
+      "offset": 816480
+    },
+    {
+      "text": "changing how I think about software.",
+      "duration": 3919,
+      "offset": 817920
+    },
+    {
+      "text": "Back to the rest of the quote because",
+      "duration": 3359,
+      "offset": 819920
+    },
+    {
+      "text": "this is what I think a lot of people",
+      "duration": 2401,
+      "offset": 821839
+    },
+    {
+      "text": "have missed.",
+      "duration": 2721,
+      "offset": 823279
+    },
+    {
+      "text": ">> But the programmer still needs to",
+      "duration": 5680,
+      "offset": 824240
+    },
+    {
+      "text": "specify you know what what what are what",
+      "duration": 5839,
+      "offset": 826000
+    },
+    {
+      "text": "what are what are the conditions of what",
+      "duration": 3280,
+      "offset": 829920
+    },
+    {
+      "text": "you're doing? what you know what what",
+      "duration": 3201,
+      "offset": 831839
+    },
+    {
+      "text": "what what what is the overall app you're",
+      "duration": 3759,
+      "offset": 833200
+    },
+    {
+      "text": "trying to make? What's the overall",
+      "duration": 4720,
+      "offset": 835040
+    },
+    {
+      "text": "design decision? How do we collaborate",
+      "duration": 5521,
+      "offset": 836959
+    },
+    {
+      "text": "with other code that's been written? Um",
+      "duration": 4720,
+      "offset": 839760
+    },
+    {
+      "text": "you know, how do we have some common",
+      "duration": 4080,
+      "offset": 842480
+    },
+    {
+      "text": "sense on whether this is a secure design",
+      "duration": 4479,
+      "offset": 844480
+    },
+    {
+      "text": "or an insecure design? So, as long as",
+      "duration": 5279,
+      "offset": 846560
+    },
+    {
+      "text": "there are these small pieces that a",
+      "duration": 4961,
+      "offset": 848959
+    },
+    {
+      "text": "programmer, a human programmer needs to",
+      "duration": 5601,
+      "offset": 851839
+    },
+    {
+      "text": "do that the AI isn't good at, I think",
+      "duration": 5200,
+      "offset": 853920
+    },
+    {
+      "text": "human productivity will actually be",
+      "duration": 3440,
+      "offset": 857440
+    },
+    {
+      "text": "enhanced. I really want to emphasize",
+      "duration": 3839,
+      "offset": 859120
+    },
+    {
+      "text": "that part because it's a huge part of",
+      "duration": 4639,
+      "offset": 860880
+    },
+    {
+      "text": "what I love about coding. It's not just",
+      "duration": 4641,
+      "offset": 862959
+    },
+    {
+      "text": "the process of writing the beautiful",
+      "duration": 4081,
+      "offset": 865519
+    },
+    {
+      "text": "lines in my editor that I could stare at",
+      "duration": 4560,
+      "offset": 867600
+    },
+    {
+      "text": "and smile and screenshot and tweet. It's",
+      "duration": 4320,
+      "offset": 869600
+    },
+    {
+      "text": "the way I think about the system, the",
+      "duration": 3520,
+      "offset": 872160
+    },
+    {
+      "text": "way the parts come together, when the",
+      "duration": 3440,
+      "offset": 873920
+    },
+    {
+      "text": "right abstraction works in the right",
+      "duration": 3360,
+      "offset": 875680
+    },
+    {
+      "text": "place the right way and it all comes",
+      "duration": 4000,
+      "offset": 877360
+    },
+    {
+      "text": "together well. When you pull together",
+      "duration": 4000,
+      "offset": 879040
+    },
+    {
+      "text": "the set of tools you want to use and",
+      "duration": 3440,
+      "offset": 881360
+    },
+    {
+      "text": "they come together the right way or one",
+      "duration": 3440,
+      "offset": 883040
+    },
+    {
+      "text": "of them doesn't quite work how you need,",
+      "duration": 2880,
+      "offset": 884800
+    },
+    {
+      "text": "so you swap it out for something else",
+      "duration": 3680,
+      "offset": 886480
+    },
+    {
+      "text": "and it does work. And that feeling of",
+      "duration": 4800,
+      "offset": 887680
+    },
+    {
+      "text": "cohesion when you get the right parts to",
+      "duration": 4320,
+      "offset": 890160
+    },
+    {
+      "text": "work together. That's my favorite thing",
+      "duration": 3919,
+      "offset": 892480
+    },
+    {
+      "text": "when I'm writing code. When all of the",
+      "duration": 4400,
+      "offset": 894480
+    },
+    {
+      "text": "pieces come together and the result is",
+      "duration": 4240,
+      "offset": 896399
+    },
+    {
+      "text": "something awesome. Both a thing that",
+      "duration": 3120,
+      "offset": 898880
+    },
+    {
+      "text": "you're confident in your ability to",
+      "duration": 3121,
+      "offset": 900639
+    },
+    {
+      "text": "maintain and also a thing that is",
+      "duration": 3600,
+      "offset": 902000
+    },
+    {
+      "text": "actually pleasant to use for the product",
+      "duration": 3840,
+      "offset": 903760
+    },
+    {
+      "text": "that you're actually putting together.",
+      "duration": 5760,
+      "offset": 905600
+    },
+    {
+      "text": "This is awesome. I find this so fun. It",
+      "duration": 5679,
+      "offset": 907600
+    },
+    {
+      "text": "is different. It is strange. It's a",
+      "duration": 4400,
+      "offset": 911360
+    },
+    {
+      "text": "fundamental change in how we write code",
+      "duration": 4401,
+      "offset": 913279
+    },
+    {
+      "text": "every day. What does this mean about our",
+      "duration": 3840,
+      "offset": 915760
+    },
+    {
+      "text": "day-to-day work, about our careers,",
+      "duration": 3920,
+      "offset": 917680
+    },
+    {
+      "text": "about the people that we hire? About the",
+      "duration": 3919,
+      "offset": 919600
+    },
+    {
+      "text": "people we might have to fire? How is our",
+      "duration": 3760,
+      "offset": 921600
+    },
+    {
+      "text": "workforce going to change? A lot of",
+      "duration": 3281,
+      "offset": 923519
+    },
+    {
+      "text": "people said this prediction obviously",
+      "duration": 4159,
+      "offset": 925360
+    },
+    {
+      "text": "wasn't true because Anthropic not only",
+      "duration": 5120,
+      "offset": 926800
+    },
+    {
+      "text": "didn't fire 90% of their engineers,",
+      "duration": 4081,
+      "offset": 929519
+    },
+    {
+      "text": "they're actually still trying to hire",
+      "duration": 4159,
+      "offset": 931920
+    },
+    {
+      "text": "more, but they also have been doing a",
+      "duration": 5039,
+      "offset": 933600
+    },
+    {
+      "text": "lot more coding. In fact, Daario",
+      "duration": 4641,
+      "offset": 936079
+    },
+    {
+      "text": "actually mentioned this in a follow-up",
+      "duration": 3760,
+      "offset": 938639
+    },
+    {
+      "text": "when people were questioning his take",
+      "duration": 3600,
+      "offset": 940720
+    },
+    {
+      "text": "here. Thank you to FaZe for fixing the",
+      "duration": 3361,
+      "offset": 942399
+    },
+    {
+      "text": "audio in this clip so we can actually",
+      "duration": 2079,
+      "offset": 944320
+    },
+    {
+      "text": "listen to it.",
+      "duration": 3920,
+      "offset": 945760
+    },
+    {
+      "text": ">> I would say maybe 70 80 90% of the code",
+      "duration": 4880,
+      "offset": 946399
+    },
+    {
+      "text": "written in Enthropic is written by",
+      "duration": 2800,
+      "offset": 949680
+    },
+    {
+      "text": "Claude. You know, I said something like",
+      "duration": 3281,
+      "offset": 951279
+    },
+    {
+      "text": "this 3 or 6 months ago. People think of",
+      "duration": 3760,
+      "offset": 952480
+    },
+    {
+      "text": "it as falsified because they think of it",
+      "duration": 4320,
+      "offset": 954560
+    },
+    {
+      "text": "as like we're going to fire 70 80 or 90%",
+      "duration": 4399,
+      "offset": 956240
+    },
+    {
+      "text": "of the software engineers. But what",
+      "duration": 4399,
+      "offset": 958880
+    },
+    {
+      "text": "really happens is that the 10 the 10%",
+      "duration": 4721,
+      "offset": 960639
+    },
+    {
+      "text": "we're still writing, you know, humans",
+      "duration": 4321,
+      "offset": 963279
+    },
+    {
+      "text": "become managers of AI systems. There's a",
+      "duration": 3520,
+      "offset": 965360
+    },
+    {
+      "text": "shift because of the principle of",
+      "duration": 2799,
+      "offset": 967600
+    },
+    {
+      "text": "comparative advantage. So it looks more",
+      "duration": 3360,
+      "offset": 968880
+    },
+    {
+      "text": "normal than you think. I think",
+      "duration": 4401,
+      "offset": 970399
+    },
+    {
+      "text": "eventually it all, you know, kind of",
+      "duration": 5279,
+      "offset": 972240
+    },
+    {
+      "text": "eventually that logic may not hold, but",
+      "duration": 5120,
+      "offset": 974800
+    },
+    {
+      "text": "but there's a sort of sci-fi sheen to",
+      "duration": 4240,
+      "offset": 977519
+    },
+    {
+      "text": "these predictions to looking at the",
+      "duration": 3919,
+      "offset": 979920
+    },
+    {
+      "text": "future that it's going to be weird that",
+      "duration": 3601,
+      "offset": 981759
+    },
+    {
+      "text": "you'll be looking through different",
+      "duration": 3601,
+      "offset": 983839
+    },
+    {
+      "text": "colored glasses that there will be, you",
+      "duration": 3839,
+      "offset": 985360
+    },
+    {
+      "text": "know, that it'll look like Star Wars or",
+      "duration": 3920,
+      "offset": 987440
+    },
+    {
+      "text": "something. Um the often when these",
+      "duration": 4241,
+      "offset": 989199
+    },
+    {
+      "text": "predictions come true, it's wild, but",
+      "duration": 4399,
+      "offset": 991360
+    },
+    {
+      "text": "it's also in a way ordinary. Yeah,",
+      "duration": 4000,
+      "offset": 993440
+    },
+    {
+      "text": "they're just building more and that",
+      "duration": 3601,
+      "offset": 995759
+    },
+    {
+      "text": "makes a lot of sense. And you get used",
+      "duration": 4079,
+      "offset": 997440
+    },
+    {
+      "text": "to it and it no longer feels as crazy.",
+      "duration": 3839,
+      "offset": 999360
+    },
+    {
+      "text": "And I'm even feeling that a bit too.",
+      "duration": 3601,
+      "offset": 1001519
+    },
+    {
+      "text": "Like when I'm just [ __ ] around in",
+      "duration": 4560,
+      "offset": 1003199
+    },
+    {
+      "text": "cloud code, I don't necessarily feel",
+      "duration": 4000,
+      "offset": 1005120
+    },
+    {
+      "text": "like, oh, this all happened at once.",
+      "duration": 3440,
+      "offset": 1007759
+    },
+    {
+      "text": "It's when I left my computer and was",
+      "duration": 3519,
+      "offset": 1009120
+    },
+    {
+      "text": "talking about it with friends that it",
+      "duration": 3681,
+      "offset": 1011199
+    },
+    {
+      "text": "hit me just how absurd it is that I",
+      "duration": 3841,
+      "offset": 1012639
+    },
+    {
+      "text": "built two projects without ever opening",
+      "duration": 4720,
+      "offset": 1014880
+    },
+    {
+      "text": "an IDE. Like, that's just crazy. That's",
+      "duration": 6080,
+      "offset": 1016480
+    },
+    {
+      "text": "absurd. So absurd that now Boris is",
+      "duration": 5280,
+      "offset": 1019600
+    },
+    {
+      "text": "again doing all of his day-to-day work",
+      "duration": 4720,
+      "offset": 1022560
+    },
+    {
+      "text": "in Claude Code 2. And Darren made a post",
+      "duration": 4640,
+      "offset": 1024880
+    },
+    {
+      "text": "a few days ago about how you should",
+      "duration": 4320,
+      "offset": 1027280
+    },
+    {
+      "text": "totally now be able to have one highly",
+      "duration": 4080,
+      "offset": 1029520
+    },
+    {
+      "text": "skilled person doing the equivalent of",
+      "duration": 4319,
+      "offset": 1031600
+    },
+    {
+      "text": "10 engineers of work. Does this mean",
+      "duration": 3680,
+      "offset": 1033600
+    },
+    {
+      "text": "that the industry will be slashed to",
+      "duration": 3280,
+      "offset": 1035919
+    },
+    {
+      "text": "only the top 10% of engineers if that's",
+      "duration": 3600,
+      "offset": 1037280
+    },
+    {
+      "text": "all that's needed? Shouldn't we be",
+      "duration": 3600,
+      "offset": 1039199
+    },
+    {
+      "text": "concerned? I really like Simon's",
+      "duration": 3760,
+      "offset": 1040880
+    },
+    {
+      "text": "response here. If code gets 10 times",
+      "duration": 4000,
+      "offset": 1042799
+    },
+    {
+      "text": "cheaper, the demand for code will go up",
+      "duration": 4320,
+      "offset": 1044640
+    },
+    {
+      "text": "by more than 10x. A whole bunch of",
+      "duration": 3521,
+      "offset": 1046799
+    },
+    {
+      "text": "companies that previously couldn't",
+      "duration": 3280,
+      "offset": 1048960
+    },
+    {
+      "text": "afford custom software will suddenly be",
+      "duration": 3840,
+      "offset": 1050320
+    },
+    {
+      "text": "in the market for it. And existing",
+      "duration": 3600,
+      "offset": 1052240
+    },
+    {
+      "text": "companies with multi-year road mapaps",
+      "duration": 3360,
+      "offset": 1054160
+    },
+    {
+      "text": "will hire more to help get them through",
+      "duration": 4320,
+      "offset": 1055840
+    },
+    {
+      "text": "it. This is known as Jevans paradox. The",
+      "duration": 4560,
+      "offset": 1057520
+    },
+    {
+      "text": "Jeans paradox is a thing that occurs",
+      "duration": 3680,
+      "offset": 1060160
+    },
+    {
+      "text": "when technological advancements make a",
+      "duration": 3839,
+      "offset": 1062080
+    },
+    {
+      "text": "resource more efficient to use, thereby",
+      "duration": 3920,
+      "offset": 1063840
+    },
+    {
+      "text": "reducing the amount needed for a single",
+      "duration": 3921,
+      "offset": 1065919
+    },
+    {
+      "text": "application. But if the cost goes down",
+      "duration": 4240,
+      "offset": 1067760
+    },
+    {
+      "text": "and the demand is price elastic, this",
+      "duration": 5199,
+      "offset": 1069840
+    },
+    {
+      "text": "can result in demand increasing instead",
+      "duration": 4559,
+      "offset": 1072000
+    },
+    {
+      "text": "causing the total resource consumption",
+      "duration": 2880,
+      "offset": 1075039
+    },
+    {
+      "text": "to rise. And I think we're already",
+      "duration": 2961,
+      "offset": 1076559
+    },
+    {
+      "text": "seeing this. There is definitely more",
+      "duration": 3521,
+      "offset": 1077919
+    },
+    {
+      "text": "code happening. There are definitely",
+      "duration": 3920,
+      "offset": 1079520
+    },
+    {
+      "text": "more companies more interested in",
+      "duration": 3680,
+      "offset": 1081440
+    },
+    {
+      "text": "building their own internal tools than",
+      "duration": 4160,
+      "offset": 1083440
+    },
+    {
+      "text": "I've ever seen. For example, at RAMP,",
+      "duration": 4559,
+      "offset": 1085120
+    },
+    {
+      "text": "the finance management company for",
+      "duration": 4079,
+      "offset": 1087600
+    },
+    {
+      "text": "startups, they have been building their",
+      "duration": 6161,
+      "offset": 1089679
+    },
+    {
+      "text": "own internal tool that uses open code to",
+      "duration": 6721,
+      "offset": 1091679
+    },
+    {
+      "text": "take some plain text description of work",
+      "duration": 4719,
+      "offset": 1095840
+    },
+    {
+      "text": "and go do it. Here is one where they",
+      "duration": 3760,
+      "offset": 1098400
+    },
+    {
+      "text": "asked, &quot;What are the 20 most common",
+      "duration": 3921,
+      "offset": 1100559
+    },
+    {
+      "text": "sensory issues in core? Spin up child",
+      "duration": 4080,
+      "offset": 1102160
+    },
+    {
+      "text": "sessions fixing all of them.&quot; And",
+      "duration": 3439,
+      "offset": 1104480
+    },
+    {
+      "text": "apparently it just worked. They looked",
+      "duration": 3600,
+      "offset": 1106240
+    },
+    {
+      "text": "at the sentry issues and then spun up 20",
+      "duration": 4241,
+      "offset": 1107919
+    },
+    {
+      "text": "agents to go fix all of them and then",
+      "duration": 4719,
+      "offset": 1109840
+    },
+    {
+      "text": "filed 20 poll requests. That's kind of",
+      "duration": 3840,
+      "offset": 1112160
+    },
+    {
+      "text": "crazy. This does mean you're spending a",
+      "duration": 3281,
+      "offset": 1114559
+    },
+    {
+      "text": "lot more time reviewing code, but also",
+      "duration": 3600,
+      "offset": 1116000
+    },
+    {
+      "text": "the process of linking these things all",
+      "duration": 4719,
+      "offset": 1117840
+    },
+    {
+      "text": "up like this. And I'm certain that 90",
+      "duration": 4640,
+      "offset": 1119600
+    },
+    {
+      "text": "plus% of the code in this inspect tool",
+      "duration": 4161,
+      "offset": 1122559
+    },
+    {
+      "text": "that they made is probably vibe coded,",
+      "duration": 4640,
+      "offset": 1124240
+    },
+    {
+      "text": "too. This is the thing that is changing",
+      "duration": 4480,
+      "offset": 1126720
+    },
+    {
+      "text": "that is crazy. And the more you dive in",
+      "duration": 4400,
+      "offset": 1128880
+    },
+    {
+      "text": "and play with it yourself, you'll find",
+      "duration": 3680,
+      "offset": 1131200
+    },
+    {
+      "text": "the way you think about these things",
+      "duration": 3440,
+      "offset": 1133280
+    },
+    {
+      "text": "changes. When you realize you can go",
+      "duration": 4000,
+      "offset": 1134880
+    },
+    {
+      "text": "just spin up the tool and it's not that",
+      "duration": 3600,
+      "offset": 1136720
+    },
+    {
+      "text": "much work, you'll try things you",
+      "duration": 2880,
+      "offset": 1138880
+    },
+    {
+      "text": "wouldn't have tried. I'm considering",
+      "duration": 3359,
+      "offset": 1140320
+    },
+    {
+      "text": "going as far as setting a minimum",
+      "duration": 4159,
+      "offset": 1141760
+    },
+    {
+      "text": "inference spend for my team. I might",
+      "duration": 4481,
+      "offset": 1143679
+    },
+    {
+      "text": "make it so everybody at T3 Chat is",
+      "duration": 5201,
+      "offset": 1145919
+    },
+    {
+      "text": "expected to spend at least $200 a month",
+      "duration": 5120,
+      "offset": 1148160
+    },
+    {
+      "text": "on inference so that they're going to go",
+      "duration": 4720,
+      "offset": 1151120
+    },
+    {
+      "text": "out and try new strange [ __ ] I want to",
+      "duration": 3840,
+      "offset": 1153280
+    },
+    {
+      "text": "see what they do when I put some",
+      "duration": 3199,
+      "offset": 1155840
+    },
+    {
+      "text": "pressure on them to spend more money",
+      "duration": 3919,
+      "offset": 1157120
+    },
+    {
+      "text": "rather than less because then they might",
+      "duration": 3361,
+      "offset": 1159039
+    },
+    {
+      "text": "experiment a bit more and do some",
+      "duration": 3601,
+      "offset": 1161039
+    },
+    {
+      "text": "crazier stuff. I'm probably going to do",
+      "duration": 3200,
+      "offset": 1162400
+    },
+    {
+      "text": "that at this point. I've been thinking",
+      "duration": 2399,
+      "offset": 1164640
+    },
+    {
+      "text": "about it too much. I want to I'm",
+      "duration": 3439,
+      "offset": 1165600
+    },
+    {
+      "text": "probably going to. This fun report just",
+      "duration": 3281,
+      "offset": 1167039
+    },
+    {
+      "text": "got linked while I was filming and I",
+      "duration": 2801,
+      "offset": 1169039
+    },
+    {
+      "text": "wanted to include it because it's",
+      "duration": 2800,
+      "offset": 1170320
+    },
+    {
+      "text": "another one of the reasons we have to",
+      "duration": 3600,
+      "offset": 1171840
+    },
+    {
+      "text": "review the code that the AI is writing.",
+      "duration": 6240,
+      "offset": 1173120
+    },
+    {
+      "text": "AI code creates 1.7 times more problems.",
+      "duration": 6160,
+      "offset": 1175440
+    },
+    {
+      "text": "My initial question was when was this",
+      "duration": 4000,
+      "offset": 1179360
+    },
+    {
+      "text": "published? because that will change how",
+      "duration": 4400,
+      "offset": 1181600
+    },
+    {
+      "text": "I think about this report a lot. And I",
+      "duration": 4240,
+      "offset": 1183360
+    },
+    {
+      "text": "couldn't figure it out, but everybody in",
+      "duration": 3440,
+      "offset": 1186000
+    },
+    {
+      "text": "chat was saying they could see it. Check",
+      "duration": 4160,
+      "offset": 1187600
+    },
+    {
+      "text": "this out. When I squash it down to",
+      "duration": 4320,
+      "offset": 1189440
+    },
+    {
+      "text": "mobile size, it shows the date, December",
+      "duration": 4799,
+      "offset": 1191760
+    },
+    {
+      "text": "17th. And when I zoom out, we get this",
+      "duration": 5039,
+      "offset": 1193760
+    },
+    {
+      "text": "sidebar that shows December 17th, 7",
+      "duration": 4081,
+      "offset": 1196559
+    },
+    {
+      "text": "minute read. But if you're zoomed in too",
+      "duration": 4000,
+      "offset": 1198799
+    },
+    {
+      "text": "much for the sidebars to fit, but not",
+      "duration": 4480,
+      "offset": 1200640
+    },
+    {
+      "text": "enough for it to trigger the mobile",
+      "duration": 4801,
+      "offset": 1202799
+    },
+    {
+      "text": "mode, you don't get to see the values",
+      "duration": 5919,
+      "offset": 1205120
+    },
+    {
+      "text": "there. Just one example of a bug that",
+      "duration": 6880,
+      "offset": 1207600
+    },
+    {
+      "text": "occurs when you vibe code your UIs. Just",
+      "duration": 5601,
+      "offset": 1211039
+    },
+    {
+      "text": "funny to see one of these bugs in the",
+      "duration": 5360,
+      "offset": 1214480
+    },
+    {
+      "text": "article about how you find up to 70%",
+      "duration": 5680,
+      "offset": 1216640
+    },
+    {
+      "text": "more of these in AI code than human",
+      "duration": 5760,
+      "offset": 1219840
+    },
+    {
+      "text": "written code. This report was across 470",
+      "duration": 6080,
+      "offset": 1222320
+    },
+    {
+      "text": "PRs, including 320 that AI co-authored",
+      "duration": 5360,
+      "offset": 1225600
+    },
+    {
+      "text": "and 150 that were human only using code",
+      "duration": 4880,
+      "offset": 1228400
+    },
+    {
+      "text": "rabbit's structured issue system across",
+      "duration": 4079,
+      "offset": 1230960
+    },
+    {
+      "text": "a bunch of open source projects. And",
+      "duration": 3519,
+      "offset": 1233280
+    },
+    {
+      "text": "yeah, AI does accelerate the output, but",
+      "duration": 3441,
+      "offset": 1235039
+    },
+    {
+      "text": "it also amplifies certain categories of",
+      "duration": 4081,
+      "offset": 1236799
+    },
+    {
+      "text": "mistakes. Surprise, surprise, you get",
+      "duration": 4400,
+      "offset": 1238480
+    },
+    {
+      "text": "the idea. One interesting piece is that",
+      "duration": 4720,
+      "offset": 1240880
+    },
+    {
+      "text": "they only measured as per PR. They",
+      "duration": 5760,
+      "offset": 1242880
+    },
+    {
+      "text": "didn't do per line of code. Also, high",
+      "duration": 5199,
+      "offset": 1245600
+    },
+    {
+      "text": "issue outliers were more common in",
+      "duration": 5039,
+      "offset": 1248640
+    },
+    {
+      "text": "AIPRs. So, you would randomly have a PR",
+      "duration": 7120,
+      "offset": 1250799
+    },
+    {
+      "text": "that had way more issues. 1.7x at the",
+      "duration": 7521,
+      "offset": 1253679
+    },
+    {
+      "text": "like average, but it's 2x at that 90th",
+      "duration": 4961,
+      "offset": 1257919
+    },
+    {
+      "text": "percentile. So, when it does bad, it",
+      "duration": 3920,
+      "offset": 1261200
+    },
+    {
+      "text": "does way worse. Cool information and",
+      "duration": 4480,
+      "offset": 1262880
+    },
+    {
+      "text": "again more reason you need to be doing",
+      "duration": 5120,
+      "offset": 1265120
+    },
+    {
+      "text": "the code review part. But this leaves us",
+      "duration": 6160,
+      "offset": 1267360
+    },
+    {
+      "text": "with my biggest concern, the junior dev.",
+      "duration": 5439,
+      "offset": 1270240
+    },
+    {
+      "text": "And I'll be honest, I don't know what we",
+      "duration": 4240,
+      "offset": 1273520
+    },
+    {
+      "text": "can do about that. I built up these",
+      "duration": 4321,
+      "offset": 1275679
+    },
+    {
+      "text": "skills by writing code for almost 20",
+      "duration": 4640,
+      "offset": 1277760
+    },
+    {
+      "text": "years. And those skills are still",
+      "duration": 4320,
+      "offset": 1280000
+    },
+    {
+      "text": "essential in my day-to-day use of these",
+      "duration": 4320,
+      "offset": 1282400
+    },
+    {
+      "text": "tools. Just knowing weirdness about how",
+      "duration": 4479,
+      "offset": 1284320
+    },
+    {
+      "text": "CSS works and scroll containers being",
+      "duration": 3760,
+      "offset": 1286720
+    },
+    {
+      "text": "strange in the browser. the amount of",
+      "duration": 3921,
+      "offset": 1288799
+    },
+    {
+      "text": "times I've had to remind Claude Code",
+      "duration": 4160,
+      "offset": 1290480
+    },
+    {
+      "text": "that it doesn't have the ability to have",
+      "duration": 4480,
+      "offset": 1292720
+    },
+    {
+      "text": "a tool tip come out of a box when it has",
+      "duration": 4880,
+      "offset": 1294640
+    },
+    {
+      "text": "any overflow rule set on it. I don't",
+      "duration": 3599,
+      "offset": 1297200
+    },
+    {
+      "text": "know if you know this, but if you set an",
+      "duration": 4000,
+      "offset": 1299520
+    },
+    {
+      "text": "overflow X rule on a box, you can't go",
+      "duration": 5360,
+      "offset": 1300799
+    },
+    {
+      "text": "out of it Y direction. So, if you have",
+      "duration": 4480,
+      "offset": 1303520
+    },
+    {
+      "text": "some behavior where it has a border",
+      "duration": 3760,
+      "offset": 1306159
+    },
+    {
+      "text": "color when you hover over it, that will",
+      "duration": 3679,
+      "offset": 1308000
+    },
+    {
+      "text": "get cut off. Or you have a little X",
+      "duration": 3361,
+      "offset": 1309919
+    },
+    {
+      "text": "button in the corner of the square,",
+      "duration": 3921,
+      "offset": 1311679
+    },
+    {
+      "text": "that'll get cut off. And I've had to",
+      "duration": 4720,
+      "offset": 1313280
+    },
+    {
+      "text": "remind Opus about this so many times",
+      "duration": 4480,
+      "offset": 1315600
+    },
+    {
+      "text": "that it suggested adding it for me to my",
+      "duration": 5280,
+      "offset": 1318000
+    },
+    {
+      "text": "global quad MD file. Like you need to",
+      "duration": 4959,
+      "offset": 1320080
+    },
+    {
+      "text": "know these things to be successful with",
+      "duration": 4320,
+      "offset": 1323280
+    },
+    {
+      "text": "these tools. But these tools existing",
+      "duration": 4321,
+      "offset": 1325039
+    },
+    {
+      "text": "drastically lowers the incentive to",
+      "duration": 4160,
+      "offset": 1327600
+    },
+    {
+      "text": "learn these things because the cost of",
+      "duration": 4960,
+      "offset": 1329360
+    },
+    {
+      "text": "doing it wrong used to be really high.",
+      "duration": 4799,
+      "offset": 1331760
+    },
+    {
+      "text": "And the cost of figuring it out also was",
+      "duration": 4080,
+      "offset": 1334320
+    },
+    {
+      "text": "really high. You would spend the time to",
+      "duration": 4321,
+      "offset": 1336559
+    },
+    {
+      "text": "do it. Now, if you don't know the reason",
+      "duration": 4240,
+      "offset": 1338400
+    },
+    {
+      "text": "these things happen, you can screenshot",
+      "duration": 3200,
+      "offset": 1340880
+    },
+    {
+      "text": "the problem, show it to the model, and",
+      "duration": 2960,
+      "offset": 1342640
+    },
+    {
+      "text": "say, &quot;Hey, fix this.&quot; And there's a one",
+      "duration": 3280,
+      "offset": 1344080
+    },
+    {
+      "text": "in three chance it does it right, and",
+      "duration": 3520,
+      "offset": 1345600
+    },
+    {
+      "text": "then you keep doing that over and over",
+      "duration": 4080,
+      "offset": 1347360
+    },
+    {
+      "text": "again forever. The amount of these types",
+      "duration": 4559,
+      "offset": 1349120
+    },
+    {
+      "text": "of issues will go down constantly. But",
+      "duration": 4000,
+      "offset": 1351440
+    },
+    {
+      "text": "also, the amount of work we have these",
+      "duration": 4321,
+      "offset": 1353679
+    },
+    {
+      "text": "tools doing is going up constantly. If",
+      "duration": 4080,
+      "offset": 1355440
+    },
+    {
+      "text": "it used to make one of these mistakes",
+      "duration": 4080,
+      "offset": 1358000
+    },
+    {
+      "text": "every 100 lines of code, then it was",
+      "duration": 4639,
+      "offset": 1359520
+    },
+    {
+      "text": "kind of useful. Now, it's every thousand",
+      "duration": 4079,
+      "offset": 1362080
+    },
+    {
+      "text": "lines of code. Maybe they'll get to",
+      "duration": 4161,
+      "offset": 1364159
+    },
+    {
+      "text": "every 10,000 lines, but it doesn't make",
+      "duration": 4721,
+      "offset": 1366159
+    },
+    {
+      "text": "that bug any easier to solve with the",
+      "duration": 4320,
+      "offset": 1368320
+    },
+    {
+      "text": "AI. And I don't know how you get that",
+      "duration": 3360,
+      "offset": 1370880
+    },
+    {
+      "text": "experience now. I really don't. I've",
+      "duration": 2800,
+      "offset": 1372640
+    },
+    {
+      "text": "been thinking a lot about this. I kind",
+      "duration": 2559,
+      "offset": 1374240
+    },
+    {
+      "text": "of want to do a follow-up on my like",
+      "duration": 3599,
+      "offset": 1375440
+    },
+    {
+      "text": "junior dev videos, like how do I think",
+      "duration": 4240,
+      "offset": 1376799
+    },
+    {
+      "text": "about this for early career engineers",
+      "duration": 5361,
+      "offset": 1379039
+    },
+    {
+      "text": "now. And I don't know what to say or",
+      "duration": 5681,
+      "offset": 1381039
+    },
+    {
+      "text": "recommend. I still think it's really",
+      "duration": 4080,
+      "offset": 1384400
+    },
+    {
+      "text": "important that you try to use these",
+      "duration": 4800,
+      "offset": 1386720
+    },
+    {
+      "text": "tools not as a way to do work you don't",
+      "duration": 6559,
+      "offset": 1388480
+    },
+    {
+      "text": "know how, rather to break apart and",
+      "duration": 4800,
+      "offset": 1391520
+    },
+    {
+      "text": "delegate work that you don't have the",
+      "duration": 2801,
+      "offset": 1395039
+    },
+    {
+      "text": "time to do. That's when they're",
+      "duration": 3120,
+      "offset": 1396320
+    },
+    {
+      "text": "strongest. When you're using these tools",
+      "duration": 4480,
+      "offset": 1397840
+    },
+    {
+      "text": "to multiply your own capabilities, not",
+      "duration": 4479,
+      "offset": 1399440
+    },
+    {
+      "text": "to work around your lack of",
+      "duration": 3440,
+      "offset": 1402320
+    },
+    {
+      "text": "capabilities. But I don't know how you",
+      "duration": 4321,
+      "offset": 1403919
+    },
+    {
+      "text": "get those capabilities anymore. At the",
+      "duration": 4000,
+      "offset": 1405760
+    },
+    {
+      "text": "absolute least, you need to read the",
+      "duration": 3040,
+      "offset": 1408240
+    },
+    {
+      "text": "code that you're generating, especially",
+      "duration": 3120,
+      "offset": 1409760
+    },
+    {
+      "text": "when you're early and you're spinning up",
+      "duration": 3759,
+      "offset": 1411280
+    },
+    {
+      "text": "things that are actual projects you want",
+      "duration": 3919,
+      "offset": 1412880
+    },
+    {
+      "text": "to maintain over time. Writing code",
+      "duration": 4000,
+      "offset": 1415039
+    },
+    {
+      "text": "manually is still a very good way to",
+      "duration": 5360,
+      "offset": 1416799
+    },
+    {
+      "text": "learn, but honestly,",
+      "duration": 5520,
+      "offset": 1419039
+    },
+    {
+      "text": "I still think until you have gotten",
+      "duration": 5281,
+      "offset": 1422159
+    },
+    {
+      "text": "relatively deep and are like multiple",
+      "duration": 5441,
+      "offset": 1424559
+    },
+    {
+      "text": "projects in building things that real",
+      "duration": 4800,
+      "offset": 1427440
+    },
+    {
+      "text": "people use, you should probably",
+      "duration": 4799,
+      "offset": 1430000
+    },
+    {
+      "text": "prioritize using a chat app to ask",
+      "duration": 5280,
+      "offset": 1432240
+    },
+    {
+      "text": "questions. Or maybe you can shortcut",
+      "duration": 4401,
+      "offset": 1434799
+    },
+    {
+      "text": "this and use something like cursor and",
+      "duration": 3680,
+      "offset": 1437520
+    },
+    {
+      "text": "use the ask mode where it doesn't change",
+      "duration": 4640,
+      "offset": 1439200
+    },
+    {
+      "text": "code, it just answers questions to learn",
+      "duration": 5680,
+      "offset": 1441200
+    },
+    {
+      "text": "more. Combine that with tab complete and",
+      "duration": 5680,
+      "offset": 1443840
+    },
+    {
+      "text": "you can keep leveling up your",
+      "duration": 5520,
+      "offset": 1446880
+    },
+    {
+      "text": "understanding. But man, this this",
+      "duration": 5440,
+      "offset": 1449520
+    },
+    {
+      "text": "stuff's changing fast. And the thing I",
+      "duration": 4800,
+      "offset": 1452400
+    },
+    {
+      "text": "never would have expected is that my",
+      "duration": 4800,
+      "offset": 1454960
+    },
+    {
+      "text": "skills as a senior dev, which are mostly",
+      "duration": 4719,
+      "offset": 1457200
+    },
+    {
+      "text": "orchestration and planning and",
+      "duration": 4240,
+      "offset": 1459760
+    },
+    {
+      "text": "management of people doing things in",
+      "duration": 4401,
+      "offset": 1461919
+    },
+    {
+      "text": "parallel. That part matters now more",
+      "duration": 4159,
+      "offset": 1464000
+    },
+    {
+      "text": "than ever, which is cool on one hand",
+      "duration": 2959,
+      "offset": 1466320
+    },
+    {
+      "text": "because now a lot of devs are going to",
+      "duration": 2801,
+      "offset": 1468159
+    },
+    {
+      "text": "skill up on their talking skills. Like",
+      "duration": 3520,
+      "offset": 1469279
+    },
+    {
+      "text": "prompting is more a comm skill than an",
+      "duration": 5040,
+      "offset": 1470960
+    },
+    {
+      "text": "end skill in so many ways, but also like",
+      "duration": 4880,
+      "offset": 1472799
+    },
+    {
+      "text": "you might not learn the ins and outs the",
+      "duration": 4000,
+      "offset": 1476000
+    },
+    {
+      "text": "same way. This is tough. I don't really",
+      "duration": 4561,
+      "offset": 1477679
+    },
+    {
+      "text": "know what I want to what my point here",
+      "duration": 4960,
+      "offset": 1480000
+    },
+    {
+      "text": "is other than to express how confused I",
+      "duration": 5520,
+      "offset": 1482240
+    },
+    {
+      "text": "am still. Oh [ __ ] Lero's here. Yeah,",
+      "duration": 4480,
+      "offset": 1484960
+    },
+    {
+      "text": "apparently they're adding a teacher mode",
+      "duration": 3279,
+      "offset": 1487760
+    },
+    {
+      "text": "to cursor, which is actually really",
+      "duration": 3359,
+      "offset": 1489440
+    },
+    {
+      "text": "really really exciting, especially if",
+      "duration": 3201,
+      "offset": 1491039
+    },
+    {
+      "text": "they let people do this on like a",
+      "duration": 2721,
+      "offset": 1492799
+    },
+    {
+      "text": "student tier. Like if they're in school,",
+      "duration": 3360,
+      "offset": 1494240
+    },
+    {
+      "text": "they get it for free. Oh. Oh, that'll be",
+      "duration": 4320,
+      "offset": 1495520
+    },
+    {
+      "text": "so good. Also, tools like code crafters",
+      "duration": 4559,
+      "offset": 1497600
+    },
+    {
+      "text": "are more useful than ever in my opinion.",
+      "duration": 4240,
+      "offset": 1499840
+    },
+    {
+      "text": "Code crafters, bootupdev, stuff like",
+      "duration": 4081,
+      "offset": 1502159
+    },
+    {
+      "text": "that that actually encourages real",
+      "duration": 4640,
+      "offset": 1504080
+    },
+    {
+      "text": "project building. This is how you have",
+      "duration": 4240,
+      "offset": 1506240
+    },
+    {
+      "text": "to learn now. And the AI will make it so",
+      "duration": 4160,
+      "offset": 1508720
+    },
+    {
+      "text": "you're less likely to get blocked and",
+      "duration": 4319,
+      "offset": 1510480
+    },
+    {
+      "text": "less likely to need somebody to help",
+      "duration": 3679,
+      "offset": 1512880
+    },
+    {
+      "text": "carry you through the hard parts. Yeah,",
+      "duration": 4321,
+      "offset": 1514799
+    },
+    {
+      "text": "know this is going too deep. I probably",
+      "duration": 3841,
+      "offset": 1516559
+    },
+    {
+      "text": "need to think this through, like sit",
+      "duration": 3039,
+      "offset": 1519120
+    },
+    {
+      "text": "down and really think about what works",
+      "duration": 3759,
+      "offset": 1520400
+    },
+    {
+      "text": "and talk to some recent people who just",
+      "duration": 3760,
+      "offset": 1522159
+    },
+    {
+      "text": "got into the industry and then maybe",
+      "duration": 3281,
+      "offset": 1524159
+    },
+    {
+      "text": "I'll make a dedicated video on this. But",
+      "duration": 3041,
+      "offset": 1525919
+    },
+    {
+      "text": "right now, I don't even know how to like",
+      "duration": 3839,
+      "offset": 1527440
+    },
+    {
+      "text": "organize my thoughts on it. One more",
+      "duration": 4640,
+      "offset": 1528960
+    },
+    {
+      "text": "question for you as a viewer of this",
+      "duration": 5041,
+      "offset": 1531279
+    },
+    {
+      "text": "video. If I was to ask you, where do you",
+      "duration": 5120,
+      "offset": 1533600
+    },
+    {
+      "text": "think you fit in terms of intelligence",
+      "duration": 3839,
+      "offset": 1536320
+    },
+    {
+      "text": "and capability writing code against",
+      "duration": 2959,
+      "offset": 1538720
+    },
+    {
+      "text": "Opus? Would you consider yourself a",
+      "duration": 4561,
+      "offset": 1540159
+    },
+    {
+      "text": "better engineer, same tier roughly, or a",
+      "duration": 5360,
+      "offset": 1541679
+    },
+    {
+      "text": "worse engineer? Where do you think you",
+      "duration": 5120,
+      "offset": 1544720
+    },
+    {
+      "text": "fit? And what answers do you think my",
+      "duration": 4640,
+      "offset": 1547039
+    },
+    {
+      "text": "chat would give? How do you think the",
+      "duration": 4079,
+      "offset": 1549840
+    },
+    {
+      "text": "split would be of those? Think about it",
+      "duration": 4240,
+      "offset": 1551679
+    },
+    {
+      "text": "for a sec. Get your idea of where you",
+      "duration": 3681,
+      "offset": 1553919
+    },
+    {
+      "text": "would put yourself and where you think",
+      "duration": 4081,
+      "offset": 1555919
+    },
+    {
+      "text": "the splits are for my own audience.",
+      "duration": 4480,
+      "offset": 1557600
+    },
+    {
+      "text": "Ready for the results?",
+      "duration": 5039,
+      "offset": 1560000
+    },
+    {
+      "text": "61% of my viewers think that Opus 4.5 is",
+      "duration": 6240,
+      "offset": 1562080
+    },
+    {
+      "text": "a better death than them. 16% did the",
+      "duration": 6081,
+      "offset": 1565039
+    },
+    {
+      "text": "bailout answer. 13% said roughly as good",
+      "duration": 5120,
+      "offset": 1568320
+    },
+    {
+      "text": "as me. And 10% said worse. That's where",
+      "duration": 4480,
+      "offset": 1571120
+    },
+    {
+      "text": "we're at. These things are moving",
+      "duration": 5920,
+      "offset": 1573440
+    },
+    {
+      "text": "absurdly fast. The way we code now is so",
+      "duration": 5280,
+      "offset": 1575600
+    },
+    {
+      "text": "different from the way at the very least",
+      "duration": 4400,
+      "offset": 1579360
+    },
+    {
+      "text": "I coded 3 to 4 months ago, which is way",
+      "duration": 4080,
+      "offset": 1580880
+    },
+    {
+      "text": "different from how it was at the",
+      "duration": 2640,
+      "offset": 1583760
+    },
+    {
+      "text": "beginning of the year, which is way",
+      "duration": 2480,
+      "offset": 1584960
+    },
+    {
+      "text": "different from how it was the year",
+      "duration": 3200,
+      "offset": 1586400
+    },
+    {
+      "text": "before. But the speed at which these",
+      "duration": 4239,
+      "offset": 1587440
+    },
+    {
+      "text": "changes in my workflow are happening is",
+      "duration": 4079,
+      "offset": 1589600
+    },
+    {
+      "text": "condensing. It's like every three months",
+      "duration": 4081,
+      "offset": 1591679
+    },
+    {
+      "text": "now massive change happens. Previously",
+      "duration": 3360,
+      "offset": 1593679
+    },
+    {
+      "text": "it was every six months. Then it was",
+      "duration": 4399,
+      "offset": 1595760
+    },
+    {
+      "text": "every year. Then it was every few years.",
+      "duration": 6321,
+      "offset": 1597039
+    },
+    {
+      "text": "It's crazy. Don't fall behind. I'm going",
+      "duration": 4801,
+      "offset": 1600159
+    },
+    {
+      "text": "to do a whole dedicated video on how to",
+      "duration": 2799,
+      "offset": 1603360
+    },
+    {
+      "text": "keep up on all of this in the near",
+      "duration": 2480,
+      "offset": 1604960
+    },
+    {
+      "text": "future. I also have a video about my own",
+      "duration": 2640,
+      "offset": 1606159
+    },
+    {
+      "text": "usage of cloud code that's coming very",
+      "duration": 2719,
+      "offset": 1607440
+    },
+    {
+      "text": "soon. Keep an eye out for that. I'm very",
+      "duration": 3760,
+      "offset": 1608799
+    },
+    {
+      "text": "excited about that one. So yeah, keep",
+      "duration": 4081,
+      "offset": 1610159
+    },
+    {
+      "text": "playing with this stuff. Keep trying new",
+      "duration": 3681,
+      "offset": 1612559
+    },
+    {
+      "text": "things and keep doing your best to build",
+      "duration": 3520,
+      "offset": 1614240
+    },
+    {
+      "text": "the best possible things and take",
+      "duration": 2960,
+      "offset": 1616240
+    },
+    {
+      "text": "advantage of the tools that exist around",
+      "duration": 3360,
+      "offset": 1617760
+    },
+    {
+      "text": "you. Don't write this stuff off because",
+      "duration": 3920,
+      "offset": 1619200
+    },
+    {
+      "text": "you're scared of grifters or people like",
+      "duration": 3600,
+      "offset": 1621120
+    },
+    {
+      "text": "me who happen to have invested in a few",
+      "duration": 3280,
+      "offset": 1623120
+    },
+    {
+      "text": "of these tools, almost none of which I",
+      "duration": 3839,
+      "offset": 1624720
+    },
+    {
+      "text": "talked about today. Just focus on",
+      "duration": 4000,
+      "offset": 1626400
+    },
+    {
+      "text": "building. That's what's going to get you",
+      "duration": 3521,
+      "offset": 1628559
+    },
+    {
+      "text": "the furthest always. And there is more",
+      "duration": 3279,
+      "offset": 1630400
+    },
+    {
+      "text": "to be built than ever. And there are",
+      "duration": 3520,
+      "offset": 1632080
+    },
+    {
+      "text": "more ways to build than ever, too. I've",
+      "duration": 3521,
+      "offset": 1633679
+    },
+    {
+      "text": "never loved code as much as I do today,",
+      "duration": 3199,
+      "offset": 1635600
+    },
+    {
+      "text": "even if my relationship with it is very",
+      "duration": 3280,
+      "offset": 1637200
+    },
+    {
+      "text": "different than it was a year ago. And I",
+      "duration": 3201,
+      "offset": 1638799
+    },
+    {
+      "text": "recommend that you reflect yourself and",
+      "duration": 2880,
+      "offset": 1640480
+    },
+    {
+      "text": "give these things a try. Let me know",
+      "duration": 2720,
+      "offset": 1642000
+    },
+    {
+      "text": "what y'all think and how you're using",
+      "duration": 4080,
+      "offset": 1643360
+    },
+    {
+      "text": "these tools today.",
+      "duration": 2720,
+      "offset": 1644720
+    }
+  ],
+  "transcriptText": "Remember back in March when Daario said this >> if I look at coding programming which is one area where AI is making the most progress um what we are finding is we are not far from a world I think we'll be there in 3 to 6 months where AI is writing 90% of the code at the time I thought this was one of the most absurd statements I'd heard any tech CEO make in history and it was and to be fair he was wrong it actually took nine months Boris is the developer in charge of claude code. He did an update a few days ago talking about how originally cloud code was a side project and now it has changed how he writes code and now he barely ever opens an editor. Every single line that he has done in the last 30 days across 259 PRs, all of it was done in cloud code and opus. Literally 100% of his contributions to cloud code were written by cloud code. Even here like yeah he's an employee at the company. Of course he's going to say that. But then I started using cloud code with Opus more. I built the Chrome extension to lock me out of Twitter when I don't have Cloud Code running to incentivize me to use it more. And then I built a whole new image generation studio with a separate conversation view where you can pick the photo you like and do follow-ups with it with a more dynamic editing experience. And then I made it a mobile app, too. If you want the details on all of that, a whole separate video about how I use Cloud Code is coming very soon. Make sure you subscribe so you see that. But that's not what I'm here to talk about today. I want to talk about what Daario said on this panel as well as the part right after that I feel like is often skipped when this conversation happens and what this means for us as developers because even if his timeline was slightly off, Daria was absolutely correct. And since I might not get paid for writing code anymore, let's do a quick sponsor break instead. There aren't many companies that can proudly state that GitHub is scared of them, but today's sponsor is one of them. Depot is so much better at running your GitHub actions that Microsoft nuked the whole GitHub brand just a few weeks ago trying to tax you for using it. They have since delayed those changes and even if they made them, it would still be worth it because Depot is that much better. We're talking about realworld performance improvements in the range of 37x for a project like Post Hog. And remember, Post Hog's open source. There's no magic tricks here. You can go look at the code yourself and see when the action suddenly started taking this much less time. We're talking a difference of over 2 hours from a minute and 50 seconds to 4 minutes. Let's be real super quick. How much of your time are you wasting chasing down failing builds that are failing for no reason? How much time are you spending waiting for your builds to complete so you can actually merge the code that you're changing? How much hesitation do you feel to push up a new change because you know the CI is going to take another hour or two to run before you can do anything? Imagine life without any of those problems. Imagine you put up a PR and the build just works. There's no random errors or fail cases that you hit because GitHub actions are unstable. Imagine they're happening in seconds instead of hours. Imagine life without the hell that is waiting on CI. If you haven't tried them yet, you're wasting your time. Fix that now at soyv.link/depo. So, first and foremost, I want to go through Daario's whole statement with you guys. >> I do have a fair amount of concern about this. Um, on one hand, I think comparative advantage is a very powerful tool. If I look at coding programming which is one area where AI is making the most progress um what we are finding is we are not far from a world I think we'll be there in 3 to 6 months where AI is writing 90% of the code and then in 12 months we may be in a world where AI is writing essentially all of the code. When he first made this statement I did a response because the way this is measured is going to be really really tough. First we have to define what the code is. What is 90% of the code? Are we talking about the code people are paid to ship to production? Are we talking about the code being written at companies like Google and Microsoft and Enthropic? Or are we talking about all of code created from all of places? Because I would imagine that the amount of repos being instantiated and the amount of code being written by tools like lovable and vzero and bolt and all of these types of things just by sheer number of lines has changed the amount of code being written year-over-year a meaningful amount. I would be really surprised if we had less than 2x the amount of code written this year from the year prior as in 2025 to 2024. I know it's 2026 now. I'm sorry guys, but you get the idea. 2025 probably had 2x the amount of code or more written and produced than in 2024. Does most of it go in a garbage can? Sure. But way more code came out. We can't disagree with that. Like that's just table sakes. We have to agree no matter what side we're on that way more code happened last year. That said, actual studies have been done on the numbers for real businesses. And according to Google's little AI summary thing, from real studies, industrywide, the number is a little bit lower. Apparently, 30% of code at Microsoft is AI. Sundar said over 25% was written by AI as of late 2024. I don't know if we've gotten an update since. Here's where things start to get crazy, though. For senior devs, in recent surveys, 32% report that at least half their code is coming from AI. More and more senior devs are the ones saying that lots of their code is coming from AI. This is one of the biggest shifts that happened in 2025. It's no longer just devs who are autocompleting some of their code. It's no longer just beginners who don't have the skills that are using AI to make up for a skill gap. It's now experienced developers using these tools to make up for a time gap. And I found myself doing the same. There are so many random ideas I have for systems, projects, features, and just stuff I want to fix in my codebase. And as the tools get better, the harnesses get better, and of course the models get better, the idea that this random thing that maybe I would have previously cut a Jira ticket for that would have sat in a pit of backlog forever, now I can just throw it at Opus, get some code, review it on GitHub, and merge it. There's also a problem here around what our jobs are. Running a quick poll to see how much people like code review. And as we see with the initial results, 50% say hate it. Even though there are four options that are neutral or better. Now that the polls continued going, it's fine but tiring is going up. But we still have 26% saying hate it, 10% saying neutral, and 45% saying it's fine but it's tiring. Very small percentage of devs like or love code review. I'm in this section. I would argue I'm in the like it section. I do enjoy code review. I wish I could justify doing more of it, but my schedule is utter chaos, but I like code review. I also think this is just one of those things that you have to get over over time as you become a more experienced developer. Not that you have to get over using AI tools, you have to get over your own time spent writing code. I actually had a long chat with Mark not too long ago. If you don't know, Mark is my CTO for T3 and all the fun things that we built. Mark, now that we have more staff, as in Julius is here full-time in the US and Yosh still contributes throughout his week when he can, Mark's time isn't best spent writing code anymore. Previously, the flow was Mark would write most of the code. Julius would go off and figure out whatever weird problems, and I would come in to do some steering and general code review stuff. Now, I'm more removed because there's too much [ __ ] going on. Running the company is a lot of work, and also not doing the best job as CEO. trying to get more involved in the codebase again, but it's not the best use of my time, which means Mark has had to bump out a little bit too to do more of the orchestration and code review, especially with the mobile app in flight, too. Managing the team, building the mobile app, managing the team, building and maintaining the web app and the servers and the back end, managing upload thing, managing all the other services that we maintain. He's not writing code as much anymore. And as most people will experience when this happens in their career, that [ __ ] sucks. You suddenly stop feeling productive when you're not writing code anymore. And previously, you would measure your success in a day by how much code you had written, how much time you spent in your editor, and how many problems you had solved. If you're spending your time in the GitHub PR tab and not in your editor, you feel like you're not getting anything done. And the amount of times Mark would have a crazy day where he did a ton of code review, got a ton of stuff shipped, handled a ton of support cases, all those things, but felt like he didn't get anything done simply because he wasn't in his editor at all. It's it became like an everyday occurrence and he was not loving that feeling because it sucks and I've seen this happen to a lot of developers as they move towards management towards tech leads towards roles where their job becomes less writing code and more orchestrating code. This is part of what makes a senior engineer. This is the biggest reason I think we are seeing that shift where more and more senior plus devs are reporting that a majority of their code is coming from AI. We are more used to reviewing code constantly. The average dev still probably writes more code than they review. The devs that have gotten over that already, the ones who are maintaining big open source projects, the ones who are running teams with a lot of engineers, the ones who are building systems that require lots of people doing lots of disciplined work. Those are the people I've seen falling the hardest in love with these AI tools over the last few months. The people who are already over that hump and are used to that are the ones who are getting the biggest benefits right now. There are days where I'll file like 20 pull requests and go through them all on GitHub. I spend more time generating code and then putting it on GitHub than actually reading it in my editor at this point. It's crazy. But that also sucks for a lot of people. I know many engineers, myself included, prefer writing code to reviewing it. In fact, from this poll, it seems like the vast majority of developers very much prefer writing code to reading it. I understand. But that's a thing that will suck about our jobs going forward. more and more of our job is going to be reviewing decisions and work that is being done by these tools, not doing the work ourselves. Sucks, but it is what it is. And those who are willing to make that jump are going to see crazy success. Sucks when you started writing code as a hobby. TBH, it feels horrible having your hobby be automated. On one hand, totally feel this. It has been weird moving away. On the other, I have two points. The first is this is the natural progression of an engineer as they get better. You need to learn to delegate and do more talking and orchestration and long-term planning and managing of your team and the development velocity and the changes going in and how they're going in and all of that. Like that is growth as an engineer. Once you are good enough at the code writing part, you have to get better at those other things to keep leveling up. There's a cap at how much the code writing actually benefits you. The other part of this side is that this is what we've been doing as engineers forever. We've been writing code to automate things that were hobbies for other people. We have already destroyed so many fields with code. It was only time that the fun parts of our field started to erode. But I will counter this by saying I'm having a lot more fun coding overall lately. It's much more fun seeing how far you can push these agents and the crazy things they can do and not feeling bad when you throw away the code cuz it sucks. The worst feeling ever is when one of your employees or teammates or somebody you care about goes off on a crazy tangent, deep dives on something, builds a crazy solution, and then for any of many reasons, it just doesn't work. It doesn't fit the project, you can't merge it, and you have to close the PR. It hurts. It sucks. It feels so bad to throw away hard work that one of your co-workers or peers or friends did. But if it was an agent, I don't give a [ __ ] I just closed the PR. So, I'm having a lot more fun with experiments. I'm having a lot more fun trying things out, playing with new languages, overhauling code bases, experimenting with new stuff. It's I'm writing comically more code than I've ever written. I threw together a 12,000 line of code project in a day. What? 12,000 lines of code in a day. According to various surveys, the average developer on the average day writes between 10 and 40 lines of thoroughly tested and debugged code. Opus and I wrote 12,000. This might seem like cap, but when you average it out, this is very real. I know everybody in chat's like, &quot;No, that's stupid. That's insane.&quot; Now, if you do a PR with 250 lines of code, you start working on it on Monday, you put up the PR Tuesday, it takes two days to get thorough reviews. On Thursday, you finally have a good enough review and have to go make changes. So, you make changes, and then on Friday, it ships. That was 5 days for 240 lines of code. That is That is about right. And that's hilarious. That is absurd. This is the 10 to 100x people keep talking about is when it is significantly easier to not just write the code, but write the tests to automate the testing process to set up endto-end testing. GMO just posted about this and the more I've thought about it, the more I think he might be right. AI coding will result in the most rigorously tested, type checked, and provably correct code in the world. First, the testing and verification feedback loop helps agents and prevent slop. Yep. God, cloud code got so much more usable when the LSP was added. It's kind of broken, but it helps so much. But the second part, tests have always been a chore, but who doesn't love the pile of check marks that a high test count gives you? Agents are glad to write as many tests as we want. Yep, the pain of writing and maintaining test has gone down a ton, and I'm starting to rethink my own relationship with testing for my projects. This is one of the coolest parts. It would take me way more time to write testing code than the actual code because getting the test right is hard and tedious and slow and annoying and not actually the thing that we like doing. Now the agent can do that part and then do the implementation and then put up the code and then do the first pass on the code review and catch any mistakes and then you go and look over the like final pieces and give it a thumbs up or down. It's a whole different way of building and it is changing how I think about software. Back to the rest of the quote because this is what I think a lot of people have missed. >> But the programmer still needs to specify you know what what what are what what are what are the conditions of what you're doing? what you know what what what what what is the overall app you're trying to make? What's the overall design decision? How do we collaborate with other code that's been written? Um you know, how do we have some common sense on whether this is a secure design or an insecure design? So, as long as there are these small pieces that a programmer, a human programmer needs to do that the AI isn't good at, I think human productivity will actually be enhanced. I really want to emphasize that part because it's a huge part of what I love about coding. It's not just the process of writing the beautiful lines in my editor that I could stare at and smile and screenshot and tweet. It's the way I think about the system, the way the parts come together, when the right abstraction works in the right place the right way and it all comes together well. When you pull together the set of tools you want to use and they come together the right way or one of them doesn't quite work how you need, so you swap it out for something else and it does work. And that feeling of cohesion when you get the right parts to work together. That's my favorite thing when I'm writing code. When all of the pieces come together and the result is something awesome. Both a thing that you're confident in your ability to maintain and also a thing that is actually pleasant to use for the product that you're actually putting together. This is awesome. I find this so fun. It is different. It is strange. It's a fundamental change in how we write code every day. What does this mean about our day-to-day work, about our careers, about the people that we hire? About the people we might have to fire? How is our workforce going to change? A lot of people said this prediction obviously wasn't true because Anthropic not only didn't fire 90% of their engineers, they're actually still trying to hire more, but they also have been doing a lot more coding. In fact, Daario actually mentioned this in a follow-up when people were questioning his take here. Thank you to FaZe for fixing the audio in this clip so we can actually listen to it. >> I would say maybe 70 80 90% of the code written in Enthropic is written by Claude. You know, I said something like this 3 or 6 months ago. People think of it as falsified because they think of it as like we're going to fire 70 80 or 90% of the software engineers. But what really happens is that the 10 the 10% we're still writing, you know, humans become managers of AI systems. There's a shift because of the principle of comparative advantage. So it looks more normal than you think. I think eventually it all, you know, kind of eventually that logic may not hold, but but there's a sort of sci-fi sheen to these predictions to looking at the future that it's going to be weird that you'll be looking through different colored glasses that there will be, you know, that it'll look like Star Wars or something. Um the often when these predictions come true, it's wild, but it's also in a way ordinary. Yeah, they're just building more and that makes a lot of sense. And you get used to it and it no longer feels as crazy. And I'm even feeling that a bit too. Like when I'm just [ __ ] around in cloud code, I don't necessarily feel like, oh, this all happened at once. It's when I left my computer and was talking about it with friends that it hit me just how absurd it is that I built two projects without ever opening an IDE. Like, that's just crazy. That's absurd. So absurd that now Boris is again doing all of his day-to-day work in Claude Code 2. And Darren made a post a few days ago about how you should totally now be able to have one highly skilled person doing the equivalent of 10 engineers of work. Does this mean that the industry will be slashed to only the top 10% of engineers if that's all that's needed? Shouldn't we be concerned? I really like Simon's response here. If code gets 10 times cheaper, the demand for code will go up by more than 10x. A whole bunch of companies that previously couldn't afford custom software will suddenly be in the market for it. And existing companies with multi-year road mapaps will hire more to help get them through it. This is known as Jevans paradox. The Jeans paradox is a thing that occurs when technological advancements make a resource more efficient to use, thereby reducing the amount needed for a single application. But if the cost goes down and the demand is price elastic, this can result in demand increasing instead causing the total resource consumption to rise. And I think we're already seeing this. There is definitely more code happening. There are definitely more companies more interested in building their own internal tools than I've ever seen. For example, at RAMP, the finance management company for startups, they have been building their own internal tool that uses open code to take some plain text description of work and go do it. Here is one where they asked, &quot;What are the 20 most common sensory issues in core? Spin up child sessions fixing all of them.&quot; And apparently it just worked. They looked at the sentry issues and then spun up 20 agents to go fix all of them and then filed 20 poll requests. That's kind of crazy. This does mean you're spending a lot more time reviewing code, but also the process of linking these things all up like this. And I'm certain that 90 plus% of the code in this inspect tool that they made is probably vibe coded, too. This is the thing that is changing that is crazy. And the more you dive in and play with it yourself, you'll find the way you think about these things changes. When you realize you can go just spin up the tool and it's not that much work, you'll try things you wouldn't have tried. I'm considering going as far as setting a minimum inference spend for my team. I might make it so everybody at T3 Chat is expected to spend at least $200 a month on inference so that they're going to go out and try new strange [ __ ] I want to see what they do when I put some pressure on them to spend more money rather than less because then they might experiment a bit more and do some crazier stuff. I'm probably going to do that at this point. I've been thinking about it too much. I want to I'm probably going to. This fun report just got linked while I was filming and I wanted to include it because it's another one of the reasons we have to review the code that the AI is writing. AI code creates 1.7 times more problems. My initial question was when was this published? because that will change how I think about this report a lot. And I couldn't figure it out, but everybody in chat was saying they could see it. Check this out. When I squash it down to mobile size, it shows the date, December 17th. And when I zoom out, we get this sidebar that shows December 17th, 7 minute read. But if you're zoomed in too much for the sidebars to fit, but not enough for it to trigger the mobile mode, you don't get to see the values there. Just one example of a bug that occurs when you vibe code your UIs. Just funny to see one of these bugs in the article about how you find up to 70% more of these in AI code than human written code. This report was across 470 PRs, including 320 that AI co-authored and 150 that were human only using code rabbit's structured issue system across a bunch of open source projects. And yeah, AI does accelerate the output, but it also amplifies certain categories of mistakes. Surprise, surprise, you get the idea. One interesting piece is that they only measured as per PR. They didn't do per line of code. Also, high issue outliers were more common in AIPRs. So, you would randomly have a PR that had way more issues. 1.7x at the like average, but it's 2x at that 90th percentile. So, when it does bad, it does way worse. Cool information and again more reason you need to be doing the code review part. But this leaves us with my biggest concern, the junior dev. And I'll be honest, I don't know what we can do about that. I built up these skills by writing code for almost 20 years. And those skills are still essential in my day-to-day use of these tools. Just knowing weirdness about how CSS works and scroll containers being strange in the browser. the amount of times I've had to remind Claude Code that it doesn't have the ability to have a tool tip come out of a box when it has any overflow rule set on it. I don't know if you know this, but if you set an overflow X rule on a box, you can't go out of it Y direction. So, if you have some behavior where it has a border color when you hover over it, that will get cut off. Or you have a little X button in the corner of the square, that'll get cut off. And I've had to remind Opus about this so many times that it suggested adding it for me to my global quad MD file. Like you need to know these things to be successful with these tools. But these tools existing drastically lowers the incentive to learn these things because the cost of doing it wrong used to be really high. And the cost of figuring it out also was really high. You would spend the time to do it. Now, if you don't know the reason these things happen, you can screenshot the problem, show it to the model, and say, &quot;Hey, fix this.&quot; And there's a one in three chance it does it right, and then you keep doing that over and over again forever. The amount of these types of issues will go down constantly. But also, the amount of work we have these tools doing is going up constantly. If it used to make one of these mistakes every 100 lines of code, then it was kind of useful. Now, it's every thousand lines of code. Maybe they'll get to every 10,000 lines, but it doesn't make that bug any easier to solve with the AI. And I don't know how you get that experience now. I really don't. I've been thinking a lot about this. I kind of want to do a follow-up on my like junior dev videos, like how do I think about this for early career engineers now. And I don't know what to say or recommend. I still think it's really important that you try to use these tools not as a way to do work you don't know how, rather to break apart and delegate work that you don't have the time to do. That's when they're strongest. When you're using these tools to multiply your own capabilities, not to work around your lack of capabilities. But I don't know how you get those capabilities anymore. At the absolute least, you need to read the code that you're generating, especially when you're early and you're spinning up things that are actual projects you want to maintain over time. Writing code manually is still a very good way to learn, but honestly, I still think until you have gotten relatively deep and are like multiple projects in building things that real people use, you should probably prioritize using a chat app to ask questions. Or maybe you can shortcut this and use something like cursor and use the ask mode where it doesn't change code, it just answers questions to learn more. Combine that with tab complete and you can keep leveling up your understanding. But man, this this stuff's changing fast. And the thing I never would have expected is that my skills as a senior dev, which are mostly orchestration and planning and management of people doing things in parallel. That part matters now more than ever, which is cool on one hand because now a lot of devs are going to skill up on their talking skills. Like prompting is more a comm skill than an end skill in so many ways, but also like you might not learn the ins and outs the same way. This is tough. I don't really know what I want to what my point here is other than to express how confused I am still. Oh [ __ ] Lero's here. Yeah, apparently they're adding a teacher mode to cursor, which is actually really really really exciting, especially if they let people do this on like a student tier. Like if they're in school, they get it for free. Oh. Oh, that'll be so good. Also, tools like code crafters are more useful than ever in my opinion. Code crafters, bootupdev, stuff like that that actually encourages real project building. This is how you have to learn now. And the AI will make it so you're less likely to get blocked and less likely to need somebody to help carry you through the hard parts. Yeah, know this is going too deep. I probably need to think this through, like sit down and really think about what works and talk to some recent people who just got into the industry and then maybe I'll make a dedicated video on this. But right now, I don't even know how to like organize my thoughts on it. One more question for you as a viewer of this video. If I was to ask you, where do you think you fit in terms of intelligence and capability writing code against Opus? Would you consider yourself a better engineer, same tier roughly, or a worse engineer? Where do you think you fit? And what answers do you think my chat would give? How do you think the split would be of those? Think about it for a sec. Get your idea of where you would put yourself and where you think the splits are for my own audience. Ready for the results? 61% of my viewers think that Opus 4.5 is a better death than them. 16% did the bailout answer. 13% said roughly as good as me. And 10% said worse. That's where we're at. These things are moving absurdly fast. The way we code now is so different from the way at the very least I coded 3 to 4 months ago, which is way different from how it was at the beginning of the year, which is way different from how it was the year before. But the speed at which these changes in my workflow are happening is condensing. It's like every three months now massive change happens. Previously it was every six months. Then it was every year. Then it was every few years. It's crazy. Don't fall behind. I'm going to do a whole dedicated video on how to keep up on all of this in the near future. I also have a video about my own usage of cloud code that's coming very soon. Keep an eye out for that. I'm very excited about that one. So yeah, keep playing with this stuff. Keep trying new things and keep doing your best to build the best possible things and take advantage of the tools that exist around you. Don't write this stuff off because you're scared of grifters or people like me who happen to have invested in a few of these tools, almost none of which I talked about today. Just focus on building. That's what's going to get you the furthest always. And there is more to be built than ever. And there are more ways to build than ever, too. I've never loved code as much as I do today, even if my relationship with it is very different than it was a year ago. And I recommend that you reflect yourself and give these things a try. Let me know what y'all think and how you're using these tools today."
+}

@@ -1,0 +1,591 @@
+{
+  "channel": {
+    "id": "50b94418-f587-4b26-9ed9-353d8d39e6d7",
+    "name": "Waldemar Neto - Dev Lab",
+    "description": "On this channel, you’ll find advanced content about software development, technical leadership, and software architecture, presented in a practical and accessible way."
+  },
+  "videoId": "0JpujRh8zaE",
+  "title": "Como usar as Regras de IA do Cursor para Guiar Sua Arquitetura sem Jogar Dinheiro Fora!",
+  "url": "https://www.youtube.com/watch?v=0JpujRh8zaE",
+  "publishedAt": "2026-01-11T12:05:08.067Z",
+  "description": "💎 Quer aprender mais sobre arquitetura e IA? Vem para a Tech Leads club com a gente https://tinyurl.com/mrx4jds7\n\nNeste vídeo, eu te mostro como uso o Cursor (editor com IA) para guiar decisões arquiteturais reais em projetos complexos de software sem desperdiçar tokens.\n\n⚠️ Spoiler: a maioria das pessoas usa IA de forma ineficiente, jogando regras genéricas e contexto demais nos prompts. Aqui eu explico como estruturar regras leves, linkar documentos de arquitetura, e treinar a IA para realmente entender seus princípios.\n\nEssa abordagem já me ajuda  muito no dia a dia, aqui eu mostro como aplicar os princípios do meu novo livro o “Os 10 Princípios da Arquitetura Modular” usando o Cursor.\n\nQuer aprender mais sobre arquitetura e IA? Vem para a Tech Leads club com a gente https://tinyurl.com/mrx4jds7\n\nConteúdo\n00:00 - Introdução e contexto do vídeo\n00:35 - O poder das regras no Cursor e o problema dos prompts grandes\n01:06 - Como otimizar tokens com regras curtas e links\n01:47 - Estratégia: usar regras com links para documentos maiores\n02:23 - Como a IA busca os detalhes certos na hora certa\n02:33 - IA explicando passo a passo (step by step analysis)\n02:53 - Estruturando o projeto para IA entender o contexto\n03:08 - O futuro do uso de IA em arquitetura de software\n03:17 - Meus princípios de arquitetura modular (base do novo livro)\n03:41 - Exemplo prático: bons e maus padrões aplicados pelo Cursor\n03:54 - Conclusão: por que essa abordagem é tão útil",
+  "thumbnailUrl": "https://i.ytimg.com/vi_webp/0JpujRh8zaE/maxresdefault.webp",
+  "transcript": [
+    {
+      "text": "Oi, nesse vídeo vou te mostrar como eu",
+      "duration": 3839,
+      "offset": 80
+    },
+    {
+      "text": "uso o cursor de forma eficiente para",
+      "duration": 4200,
+      "offset": 1920
+    },
+    {
+      "text": "guiar as minhas arquiteturas e eu tenho",
+      "duration": 3601,
+      "offset": 3919
+    },
+    {
+      "text": "certeza que depois esse vídeo vai",
+      "duration": 3599,
+      "offset": 6120
+    },
+    {
+      "text": "conseguir tirar um proveito muito melhor",
+      "duration": 4159,
+      "offset": 7520
+    },
+    {
+      "text": "do uso de regras e ferramentas de ar. E",
+      "duration": 3481,
+      "offset": 9719
+    },
+    {
+      "text": "eu sou o Valdemar Neto. Eu falo sobre",
+      "duration": 3241,
+      "offset": 11679
+    },
+    {
+      "text": "conteúdo avançado, sobre liderança e",
+      "duration": 3200,
+      "offset": 13200
+    },
+    {
+      "text": "desenvolvimento de software. Se tu não",
+      "duration": 3000,
+      "offset": 14920
+    },
+    {
+      "text": "me segue ainda, me segue aqui porque eu",
+      "duration": 3120,
+      "offset": 16400
+    },
+    {
+      "text": "tô sempre compartilhando um conteúdo e",
+      "duration": 3640,
+      "offset": 17920
+    },
+    {
+      "text": "outro sobre meu dia a dia. E antes da",
+      "duration": 4120,
+      "offset": 19520
+    },
+    {
+      "text": "gente começar, só um aviso, esse vídeo é",
+      "duration": 3920,
+      "offset": 21560
+    },
+    {
+      "text": "um corte de uma live minha na minha",
+      "duration": 3320,
+      "offset": 23640
+    },
+    {
+      "text": "comunidade, então ele não é uma super",
+      "duration": 3199,
+      "offset": 25480
+    },
+    {
+      "text": "produção, mas eu queria trazer para",
+      "duration": 3440,
+      "offset": 26960
+    },
+    {
+      "text": "vocês porque eu recebi muito feedback",
+      "duration": 3841,
+      "offset": 28679
+    },
+    {
+      "text": "sobre esse vídeo e eu acho que é muito",
+      "duration": 3400,
+      "offset": 30400
+    },
+    {
+      "text": "importante que outras pessoas tenham",
+      "duration": 2640,
+      "offset": 32520
+    },
+    {
+      "text": "acesso a esse conteúdo, porque ele é",
+      "duration": 4240,
+      "offset": 33800
+    },
+    {
+      "text": "muito útil e o o cursor, eu acho que ele",
+      "duration": 5079,
+      "offset": 35160
+    },
+    {
+      "text": "é o mais inteligente nessa parte das",
+      "duration": 4800,
+      "offset": 38040
+    },
+    {
+      "text": "regras, pelo menos dos do que eu testei,",
+      "duration": 4121,
+      "offset": 40239
+    },
+    {
+      "text": "para te ter umas regras que são",
+      "duration": 4359,
+      "offset": 42840
+    },
+    {
+      "text": "pequenas, mas ele ter contexto para ir e",
+      "duration": 4320,
+      "offset": 44360
+    },
+    {
+      "text": "pegar mais informação. O que que",
+      "duration": 3561,
+      "offset": 47199
+    },
+    {
+      "text": "acontece quando a gente bota uma regra?",
+      "duration": 4640,
+      "offset": 48680
+    },
+    {
+      "text": "Tipo, tipo essa daqui, ó. Vocês estão",
+      "duration": 4439,
+      "offset": 50760
+    },
+    {
+      "text": "vendo que em ponto cursor rules eu boto",
+      "duration": 3719,
+      "offset": 53320
+    },
+    {
+      "text": "uma regra. Que que é uma regra? É algo",
+      "duration": 3880,
+      "offset": 55199
+    },
+    {
+      "text": "que ele vai usar como contexto. Quando",
+      "duration": 4480,
+      "offset": 57039
+    },
+    {
+      "text": "eu digo sempre aplica, todo prompt que",
+      "duration": 5561,
+      "offset": 59079
+    },
+    {
+      "text": "eu der, ele vai injetar isso no contexto",
+      "duration": 5241,
+      "offset": 61519
+    },
+    {
+      "text": "por padrão. Então isso aumenta o tamanho",
+      "duration": 3760,
+      "offset": 64640
+    },
+    {
+      "text": "do contexto que eu tô passando e eu vou",
+      "duration": 3480,
+      "offset": 66760
+    },
+    {
+      "text": "gastar mais tokens. Então qual que é o",
+      "duration": 4240,
+      "offset": 68400
+    },
+    {
+      "text": "ideal? Tu ter regras muito link. Só que",
+      "duration": 4600,
+      "offset": 70240
+    },
+    {
+      "text": "quanto mais linha é a regra, menos",
+      "duration": 4360,
+      "offset": 72640
+    },
+    {
+      "text": "contexto vai ter e ele vai se perder.",
+      "duration": 3639,
+      "offset": 74840
+    },
+    {
+      "text": "Então essa minha regra aqui, ó, eu tenho",
+      "duration": 4079,
+      "offset": 77000
+    },
+    {
+      "text": "uma regra que é meus core architecture",
+      "duration": 6081,
+      "offset": 78479
+    },
+    {
+      "text": "principles aqui, que são os pad são os",
+      "duration": 5000,
+      "offset": 81079
+    },
+    {
+      "text": "princípios da minha arquitetura. Ah,",
+      "duration": 3360,
+      "offset": 84560
+    },
+    {
+      "text": "minha arquitetura deve deve ter essa",
+      "duration": 4040,
+      "offset": 86079
+    },
+    {
+      "text": "estrutura, deve seguir esses princípios.",
+      "duration": 4280,
+      "offset": 87920
+    },
+    {
+      "text": "Vocês vem que ela é bem link. E aqui eu",
+      "duration": 4601,
+      "offset": 90119
+    },
+    {
+      "text": "tenho um doc architecture guidelines,",
+      "duration": 5040,
+      "offset": 92200
+    },
+    {
+      "text": "que é um guideline grande aqui. Aí se",
+      "duration": 4000,
+      "offset": 94720
+    },
+    {
+      "text": "vocês forem ver, esse é o arquivo",
+      "duration": 3720,
+      "offset": 97240
+    },
+    {
+      "text": "grande. Se eu botasse todo esse arquivo",
+      "duration": 4200,
+      "offset": 98720
+    },
+    {
+      "text": "grande aqui como contexto para ele",
+      "duration": 3960,
+      "offset": 100960
+    },
+    {
+      "text": "sempre passar, eu ia estar no mínimo",
+      "duration": 4640,
+      "offset": 102920
+    },
+    {
+      "text": "botando 5.000 tokens a cada prompt.",
+      "duration": 4120,
+      "offset": 104920
+    },
+    {
+      "text": "Então isso é demais. Então o que que eu",
+      "duration": 5080,
+      "offset": 107560
+    },
+    {
+      "text": "fiz na minha regra? Eu vim aqui e eui,",
+      "duration": 5320,
+      "offset": 109040
+    },
+    {
+      "text": "ó, se vocês forem ver aqui no",
+      "duration": 3839,
+      "offset": 112640
+    },
+    {
+      "text": "architecture rules, eu tenho always",
+      "duration": 4560,
+      "offset": 114360
+    },
+    {
+      "text": "apply nessa minha regra aqui. E eu digo,",
+      "duration": 4680,
+      "offset": 116479
+    },
+    {
+      "text": "ó, full details, tá aqui. E por que que",
+      "duration": 5119,
+      "offset": 118920
+    },
+    {
+      "text": "isso é legal? Isso é legal porque eu",
+      "duration": 5121,
+      "offset": 121159
+    },
+    {
+      "text": "posso dizer para ele, eu posso pedir",
+      "duration": 5080,
+      "offset": 124039
+    },
+    {
+      "text": "para ele avaliar, por exemplo, e ele vai",
+      "duration": 4679,
+      "offset": 126280
+    },
+    {
+      "text": "entender que quando eu peço para ele",
+      "duration": 4361,
+      "offset": 129119
+    },
+    {
+      "text": "mais detalhes, ele sabe para onde ir,",
+      "duration": 4920,
+      "offset": 130959
+    },
+    {
+      "text": "porque como ele sempre aplica isso, ele",
+      "duration": 4520,
+      "offset": 133480
+    },
+    {
+      "text": "tem no contexto que, ah, se eu precisar",
+      "duration": 3801,
+      "offset": 135879
+    },
+    {
+      "text": "de mais informação, tem aquele outro",
+      "duration": 3760,
+      "offset": 138000
+    },
+    {
+      "text": "arquivo lá, mas ele não carrega ele",
+      "duration": 3720,
+      "offset": 139680
+    },
+    {
+      "text": "sempre. Então, se eu pedir aqui, por",
+      "duration": 5440,
+      "offset": 141760
+    },
+    {
+      "text": "exemplo, evaluate this code base against",
+      "duration": 7440,
+      "offset": 143400
+    },
+    {
+      "text": "the full architecture guidelines, ele",
+      "duration": 6360,
+      "offset": 147200
+    },
+    {
+      "text": "vai ir lá e vai entender. E claro, outra",
+      "duration": 3880,
+      "offset": 150840
+    },
+    {
+      "text": "coisa que eu acho bem massa dele, ele",
+      "duration": 2759,
+      "offset": 153560
+    },
+    {
+      "text": "vai mostrando step by step assim, olha",
+      "duration": 4239,
+      "offset": 154720
+    },
+    {
+      "text": "lá, viu? Ele já deu, ó, tá documentado",
+      "duration": 4000,
+      "offset": 156319
+    },
+    {
+      "text": "em tal lugar. Bom, passou rápido para",
+      "duration": 4441,
+      "offset": 158959
+    },
+    {
+      "text": "quem não viu, ó, leu o arquivo e aí ele",
+      "duration": 5761,
+      "offset": 160319
+    },
+    {
+      "text": "vai começar a passar. Então, tipo, isso",
+      "duration": 4720,
+      "offset": 163400
+    },
+    {
+      "text": "é muito massa assim, porque eu eu",
+      "duration": 3320,
+      "offset": 166080
+    },
+    {
+      "text": "realmente pessoalmente aqui, eu tô",
+      "duration": 2960,
+      "offset": 168120
+    },
+    {
+      "text": "falando bem de meus detalhes pessoais",
+      "duration": 3600,
+      "offset": 169400
+    },
+    {
+      "text": "assim, eu tô movendo cada vez mais para",
+      "duration": 3560,
+      "offset": 171080
+    },
+    {
+      "text": "botar todo o contexto dentro do projeto",
+      "duration": 4000,
+      "offset": 173000
+    },
+    {
+      "text": "e começar a link porque daí tu começa a",
+      "duration": 4319,
+      "offset": 174640
+    },
+    {
+      "text": "dizer: &quot;Olha, pega daqui, pega dali,",
+      "duration": 3959,
+      "offset": 177000
+    },
+    {
+      "text": "avalia isso, avalia aquilo&quot;. Então isso",
+      "duration": 3601,
+      "offset": 178959
+    },
+    {
+      "text": "eu acho bem massa. E a gente seguindo",
+      "duration": 3401,
+      "offset": 180959
+    },
+    {
+      "text": "essa experiência, essa experiência dele",
+      "duration": 3959,
+      "offset": 182560
+    },
+    {
+      "text": "ir mostrando o que tá fazendo, eu acho",
+      "duration": 4239,
+      "offset": 184360
+    },
+    {
+      "text": "que é meio que o caminho que a gente tá",
+      "duration": 4041,
+      "offset": 186519
+    },
+    {
+      "text": "indo com IA. Assim, ela faz várias",
+      "duration": 3401,
+      "offset": 188599
+    },
+    {
+      "text": "mudanças, mas ela diz: &quot;Ó, tô lendo",
+      "duration": 2959,
+      "offset": 190560
+    },
+    {
+      "text": "isso, tô olhando aquilo, li aquilo, li",
+      "duration": 3720,
+      "offset": 192000
+    },
+    {
+      "text": "aquilo&quot;. e te dá todo o contexto. E aí,",
+      "duration": 3961,
+      "offset": 193519
+    },
+    {
+      "text": "pô, eu tenho esses guidelines aqui que",
+      "duration": 4799,
+      "offset": 195720
+    },
+    {
+      "text": "eu que eu falei para vocês que são é uma",
+      "duration": 5640,
+      "offset": 197480
+    },
+    {
+      "text": "página gigantesca com os meus princípios",
+      "duration": 4000,
+      "offset": 200519
+    },
+    {
+      "text": "de arquitetura para esse projeto. Olha,",
+      "duration": 4119,
+      "offset": 203120
+    },
+    {
+      "text": "essa aqui é estrutura. Ah, e são esse",
+      "duration": 4360,
+      "offset": 204519
+    },
+    {
+      "text": "aqui faz parte do meu novo livro que eu",
+      "duration": 3000,
+      "offset": 207239
+    },
+    {
+      "text": "vou fazer, que é os 10 princípios de",
+      "duration": 3121,
+      "offset": 208879
+    },
+    {
+      "text": "arquitetura modular. Aí eu tenho cada um",
+      "duration": 3961,
+      "offset": 210239
+    },
+    {
+      "text": "dos princípios aqui, ó, módulos, eles",
+      "duration": 4519,
+      "offset": 212000
+    },
+    {
+      "text": "têm que ter boundaries bem definidas,",
+      "duration": 4080,
+      "offset": 214200
+    },
+    {
+      "text": "eles tem que ser eh tem que ter",
+      "duration": 3681,
+      "offset": 216519
+    },
+    {
+      "text": "composability, né, poder compor módulos",
+      "duration": 3679,
+      "offset": 218280
+    },
+    {
+      "text": "e tal. Então eu explico, eu dou um",
+      "duration": 3840,
+      "offset": 220200
+    },
+    {
+      "text": "exemplo, digo: &quot;Olha, isso aqui é, isso",
+      "duration": 5241,
+      "offset": 221959
+    },
+    {
+      "text": "aqui é bom e isso aqui é ruim, não faz&quot;.",
+      "duration": 5440,
+      "offset": 224040
+    },
+    {
+      "text": "E ele e agora ele leu isso aqui porque",
+      "duration": 5640,
+      "offset": 227200
+    },
+    {
+      "text": "ele sabe onde tá o o as guidelines e",
+      "duration": 4720,
+      "offset": 229480
+    },
+    {
+      "text": "aplicou em todo o meu código ali, me",
+      "duration": 2920,
+      "offset": 232840
+    },
+    {
+      "text": "explicou exatamente o que fez. Então,",
+      "duration": 3800,
+      "offset": 234200
+    },
+    {
+      "text": "esse tipo de coisa eu acho bem bem útil",
+      "duration": 5280,
+      "offset": 235760
+    },
+    {
+      "text": "assim no geral. Yeah.",
+      "duration": 3040,
+      "offset": 238000
+    }
+  ],
+  "transcriptText": "Oi, nesse vídeo vou te mostrar como eu uso o cursor de forma eficiente para guiar as minhas arquiteturas e eu tenho certeza que depois esse vídeo vai conseguir tirar um proveito muito melhor do uso de regras e ferramentas de ar. E eu sou o Valdemar Neto. Eu falo sobre conteúdo avançado, sobre liderança e desenvolvimento de software. Se tu não me segue ainda, me segue aqui porque eu tô sempre compartilhando um conteúdo e outro sobre meu dia a dia. E antes da gente começar, só um aviso, esse vídeo é um corte de uma live minha na minha comunidade, então ele não é uma super produção, mas eu queria trazer para vocês porque eu recebi muito feedback sobre esse vídeo e eu acho que é muito importante que outras pessoas tenham acesso a esse conteúdo, porque ele é muito útil e o o cursor, eu acho que ele é o mais inteligente nessa parte das regras, pelo menos dos do que eu testei, para te ter umas regras que são pequenas, mas ele ter contexto para ir e pegar mais informação. O que que acontece quando a gente bota uma regra? Tipo, tipo essa daqui, ó. Vocês estão vendo que em ponto cursor rules eu boto uma regra. Que que é uma regra? É algo que ele vai usar como contexto. Quando eu digo sempre aplica, todo prompt que eu der, ele vai injetar isso no contexto por padrão. Então isso aumenta o tamanho do contexto que eu tô passando e eu vou gastar mais tokens. Então qual que é o ideal? Tu ter regras muito link. Só que quanto mais linha é a regra, menos contexto vai ter e ele vai se perder. Então essa minha regra aqui, ó, eu tenho uma regra que é meus core architecture principles aqui, que são os pad são os princípios da minha arquitetura. Ah, minha arquitetura deve deve ter essa estrutura, deve seguir esses princípios. Vocês vem que ela é bem link. E aqui eu tenho um doc architecture guidelines, que é um guideline grande aqui. Aí se vocês forem ver, esse é o arquivo grande. Se eu botasse todo esse arquivo grande aqui como contexto para ele sempre passar, eu ia estar no mínimo botando 5.000 tokens a cada prompt. Então isso é demais. Então o que que eu fiz na minha regra? Eu vim aqui e eui, ó, se vocês forem ver aqui no architecture rules, eu tenho always apply nessa minha regra aqui. E eu digo, ó, full details, tá aqui. E por que que isso é legal? Isso é legal porque eu posso dizer para ele, eu posso pedir para ele avaliar, por exemplo, e ele vai entender que quando eu peço para ele mais detalhes, ele sabe para onde ir, porque como ele sempre aplica isso, ele tem no contexto que, ah, se eu precisar de mais informação, tem aquele outro arquivo lá, mas ele não carrega ele sempre. Então, se eu pedir aqui, por exemplo, evaluate this code base against the full architecture guidelines, ele vai ir lá e vai entender. E claro, outra coisa que eu acho bem massa dele, ele vai mostrando step by step assim, olha lá, viu? Ele já deu, ó, tá documentado em tal lugar. Bom, passou rápido para quem não viu, ó, leu o arquivo e aí ele vai começar a passar. Então, tipo, isso é muito massa assim, porque eu eu realmente pessoalmente aqui, eu tô falando bem de meus detalhes pessoais assim, eu tô movendo cada vez mais para botar todo o contexto dentro do projeto e começar a link porque daí tu começa a dizer: &quot;Olha, pega daqui, pega dali, avalia isso, avalia aquilo&quot;. Então isso eu acho bem massa. E a gente seguindo essa experiência, essa experiência dele ir mostrando o que tá fazendo, eu acho que é meio que o caminho que a gente tá indo com IA. Assim, ela faz várias mudanças, mas ela diz: &quot;Ó, tô lendo isso, tô olhando aquilo, li aquilo, li aquilo&quot;. e te dá todo o contexto. E aí, pô, eu tenho esses guidelines aqui que eu que eu falei para vocês que são é uma página gigantesca com os meus princípios de arquitetura para esse projeto. Olha, essa aqui é estrutura. Ah, e são esse aqui faz parte do meu novo livro que eu vou fazer, que é os 10 princípios de arquitetura modular. Aí eu tenho cada um dos princípios aqui, ó, módulos, eles têm que ter boundaries bem definidas, eles tem que ser eh tem que ter composability, né, poder compor módulos e tal. Então eu explico, eu dou um exemplo, digo: &quot;Olha, isso aqui é, isso aqui é bom e isso aqui é ruim, não faz&quot;. E ele e agora ele leu isso aqui porque ele sabe onde tá o o as guidelines e aplicou em todo o meu código ali, me explicou exatamente o que fez. Então, esse tipo de coisa eu acho bem bem útil assim no geral. Yeah."
+}

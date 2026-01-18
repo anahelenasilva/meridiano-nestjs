@@ -1,0 +1,3021 @@
+{
+  "channel": {
+    "id": "UCbRP3c757lWg9M-U7TyEkXA",
+    "name": "Theo Browne",
+    "description": "Theo is a software dev, AI nerd, TypeScript sympathizer, creator of T3 Chat and the T3 Stack."
+  },
+  "videoId": "6kZPt-AELVk",
+  "title": "I’m so tired.",
+  "url": "https://www.youtube.com/watch?v=6kZPt-AELVk",
+  "publishedAt": "2025-12-14T10:39:28.066Z",
+  "description": "Welp, React got hacked. Again.\n\nThank you Arcjet for sponsoring! Check them out at: https://soydev.link/arcjet\n\nSOURCES\nhttps://react.dev/blog/2025/12/11/denial-of-service-and-source-code-exposure-...",
+  "thumbnailUrl": "https://i.ytimg.com/vi/6kZPt-AELVk/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDYaiUMOh6Tn5yW7qJMXVqONj3uwQ",
+  "transcript": [
+    {
+      "text": "Man, that React hack last week was",
+      "duration": 1840,
+      "offset": "80"
+    },
+    {
+      "text": "really, really bad. I'm thankful we have",
+      "duration": 1840,
+      "offset": "1920"
+    },
+    {
+      "text": "so many security people looking at the",
+      "duration": 1599,
+      "offset": "3760"
+    },
+    {
+      "text": "React project and making sure there's",
+      "duration": 1520,
+      "offset": "5359"
+    },
+    {
+      "text": "nothing else like this. I'm sure going",
+      "duration": 1601,
+      "offset": "6879"
+    },
+    {
+      "text": "forward we're not going to find any",
+      "duration": 1119,
+      "offset": "8480"
+    },
+    {
+      "text": "other major uh Oh, two new exploits were",
+      "duration": 3681,
+      "offset": "9599"
+    },
+    {
+      "text": "just found in React.",
+      "duration": 2399,
+      "offset": "13280"
+    },
+    {
+      "text": "Great.",
+      "duration": 3000,
+      "offset": "15679"
+    },
+    {
+      "text": "I have a feeling this is going to be a",
+      "duration": 1361,
+      "offset": "19039"
+    },
+    {
+      "text": "long rant, especially because I'm seeing",
+      "duration": 1920,
+      "offset": "20400"
+    },
+    {
+      "text": "posts like this go around.",
+      "duration": 3840,
+      "offset": "22320"
+    },
+    {
+      "text": "Yeah, if you don't remember this",
+      "duration": 1359,
+      "offset": "26160"
+    },
+    {
+      "text": "snippet, it made a lot of people upset",
+      "duration": 3121,
+      "offset": "27519"
+    },
+    {
+      "text": "and concerned. Button form action use",
+      "duration": 2640,
+      "offset": "30640"
+    },
+    {
+      "text": "server await SQL insert into bookmarks.",
+      "duration": 2320,
+      "offset": "33280"
+    },
+    {
+      "text": "Slug value slug. Yeah. Yeah.",
+      "duration": 4720,
+      "offset": "35600"
+    },
+    {
+      "text": "Yeah.",
+      "duration": 1600,
+      "offset": "40320"
+    },
+    {
+      "text": "As someone who's defended this a lot in",
+      "duration": 1760,
+      "offset": "41920"
+    },
+    {
+      "text": "the past, I have things to say. I'm",
+      "duration": 2960,
+      "offset": "43680"
+    },
+    {
+      "text": "going to do my best to go over these",
+      "duration": 1439,
+      "offset": "46640"
+    },
+    {
+      "text": "exploits, what the problems with them",
+      "duration": 1441,
+      "offset": "48079"
+    },
+    {
+      "text": "are, as well as what caused this, and uh",
+      "duration": 2719,
+      "offset": "49520"
+    },
+    {
+      "text": "what I think about this being posted",
+      "duration": 1761,
+      "offset": "52239"
+    },
+    {
+      "text": "right now. Sadly, I couldn't find any",
+      "duration": 1840,
+      "offset": "54000"
+    },
+    {
+      "text": "banks that were on a new enough version",
+      "duration": 1280,
+      "offset": "55840"
+    },
+    {
+      "text": "of React for me to get free money using",
+      "duration": 1840,
+      "offset": "57120"
+    },
+    {
+      "text": "this exploit. So, uh, we'll do a quick",
+      "duration": 1919,
+      "offset": "58960"
+    },
+    {
+      "text": "word from today's sponsor instead. I",
+      "duration": 1680,
+      "offset": "60879"
+    },
+    {
+      "text": "have some bad news for you. Your service",
+      "duration": 1841,
+      "offset": "62559"
+    },
+    {
+      "text": "isn't secure. And that's not your fault.",
+      "duration": 2399,
+      "offset": "64400"
+    },
+    {
+      "text": "You're not like particularly horrible",
+      "duration": 1761,
+      "offset": "66799"
+    },
+    {
+      "text": "because you didn't hit the right button",
+      "duration": 1200,
+      "offset": "68560"
+    },
+    {
+      "text": "in the right dashboard at the right time",
+      "duration": 1440,
+      "offset": "69760"
+    },
+    {
+      "text": "and place. It's just too hard to get",
+      "duration": 2239,
+      "offset": "71200"
+    },
+    {
+      "text": "security right. It doesn't live where",
+      "duration": 2081,
+      "offset": "73439"
+    },
+    {
+      "text": "everything should. Your codebase",
+      "duration": 1680,
+      "offset": "75520"
+    },
+    {
+      "text": "security is spread across different",
+      "duration": 1440,
+      "offset": "77200"
+    },
+    {
+      "text": "databases, dashboards, permissions,",
+      "duration": 2000,
+      "offset": "78640"
+    },
+    {
+      "text": "systems, and processes that are really",
+      "duration": 2479,
+      "offset": "80640"
+    },
+    {
+      "text": "hard to get right. So much so that",
+      "duration": 2000,
+      "offset": "83119"
+    },
+    {
+      "text": "you're almost certainly getting it wrong",
+      "duration": 1680,
+      "offset": "85119"
+    },
+    {
+      "text": "right now. Unless you happen to already",
+      "duration": 1680,
+      "offset": "86799"
+    },
+    {
+      "text": "be using today's sponsor, Arkjet. This",
+      "duration": 2320,
+      "offset": "88479"
+    },
+    {
+      "text": "is the first time I've ever seen a",
+      "duration": 1441,
+      "offset": "90799"
+    },
+    {
+      "text": "service that truly gets security and",
+      "duration": 2400,
+      "offset": "92240"
+    },
+    {
+      "text": "developer experience. Normally, one is",
+      "duration": 2159,
+      "offset": "94640"
+    },
+    {
+      "text": "compromising on the other. You're using",
+      "duration": 1761,
+      "offset": "96799"
+    },
+    {
+      "text": "tools that make it really easy to build",
+      "duration": 1440,
+      "offset": "98560"
+    },
+    {
+      "text": "a good full stack service, it's almost",
+      "duration": 1759,
+      "offset": "100000"
+    },
+    {
+      "text": "certainly not secure. And if you're",
+      "duration": 1601,
+      "offset": "101759"
+    },
+    {
+      "text": "using tools that make it really easy to",
+      "duration": 1360,
+      "offset": "103360"
+    },
+    {
+      "text": "do security, there's a very good chance",
+      "duration": 1840,
+      "offset": "104720"
+    },
+    {
+      "text": "it sucks to work in. Unless you're using",
+      "duration": 2000,
+      "offset": "106560"
+    },
+    {
+      "text": "these guys. Want to see how hard it is",
+      "duration": 1440,
+      "offset": "108560"
+    },
+    {
+      "text": "to validate email with ArcJet? It's so",
+      "duration": 2479,
+      "offset": "110000"
+    },
+    {
+      "text": "obnoxious. You create the ArcJet client,",
+      "duration": 2640,
+      "offset": "112479"
+    },
+    {
+      "text": "which is a fully Types safe TypeScript",
+      "duration": 1680,
+      "offset": "115119"
+    },
+    {
+      "text": "SDK you can npm install. You pass it a",
+      "duration": 2320,
+      "offset": "116799"
+    },
+    {
+      "text": "key. Then you define a rule. In this",
+      "duration": 2000,
+      "offset": "119119"
+    },
+    {
+      "text": "case, the validate email rule that",
+      "duration": 1600,
+      "offset": "121119"
+    },
+    {
+      "text": "you're importing from their package. If",
+      "duration": 1760,
+      "offset": "122719"
+    },
+    {
+      "text": "you want to just insteny disposable or",
+      "duration": 1841,
+      "offset": "124479"
+    },
+    {
+      "text": "invalid email addresses, one line of",
+      "duration": 1840,
+      "offset": "126320"
+    },
+    {
+      "text": "code since it's all type safe cuz you",
+      "duration": 1760,
+      "offset": "128160"
+    },
+    {
+      "text": "know, TypeScript and good team. Once",
+      "duration": 2240,
+      "offset": "129920"
+    },
+    {
+      "text": "you've defined this ArcJet client, you",
+      "duration": 2240,
+      "offset": "132160"
+    },
+    {
+      "text": "call it. And if you don't pass an email,",
+      "duration": 1760,
+      "offset": "134400"
+    },
+    {
+      "text": "you get a type error. So, it's so easy",
+      "duration": 1920,
+      "offset": "136160"
+    },
+    {
+      "text": "to be sure at the request level in your",
+      "duration": 2320,
+      "offset": "138080"
+    },
+    {
+      "text": "actual source code that you're making",
+      "duration": 2000,
+      "offset": "140400"
+    },
+    {
+      "text": "things in a secure way. This means it's",
+      "duration": 2000,
+      "offset": "142400"
+    },
+    {
+      "text": "way easier for you to vibe code a secure",
+      "duration": 2160,
+      "offset": "144400"
+    },
+    {
+      "text": "service. Is way easier to check in code",
+      "duration": 2000,
+      "offset": "146560"
+    },
+    {
+      "text": "review if the thing's secured properly",
+      "duration": 1440,
+      "offset": "148560"
+    },
+    {
+      "text": "or not. You no longer have to have this",
+      "duration": 1840,
+      "offset": "150000"
+    },
+    {
+      "text": "crazy mental map of 15 different places",
+      "duration": 2399,
+      "offset": "151840"
+    },
+    {
+      "text": "to know if your stuff's secure. It just",
+      "duration": 1921,
+      "offset": "154239"
+    },
+    {
+      "text": "is because it's five lines of code. It's",
+      "duration": 2000,
+      "offset": "156160"
+    },
+    {
+      "text": "not your fault that your stuff's not",
+      "duration": 1280,
+      "offset": "158160"
+    },
+    {
+      "text": "secure. It's your fault that you haven't",
+      "duration": 1439,
+      "offset": "159440"
+    },
+    {
+      "text": "moved to arcjet yet. Fix that now at",
+      "duration": 1681,
+      "offset": "160879"
+    },
+    {
+      "text": "soy.link/archjet.",
+      "duration": 1759,
+      "offset": "162560"
+    },
+    {
+      "text": "Keep this example in your mind. We'll",
+      "duration": 2081,
+      "offset": "164319"
+    },
+    {
+      "text": "come back to it later, but first I want",
+      "duration": 2160,
+      "offset": "166400"
+    },
+    {
+      "text": "to talk about these exploits. You've",
+      "duration": 1920,
+      "offset": "168560"
+    },
+    {
+      "text": "probably already heard plenty about the",
+      "duration": 2080,
+      "offset": "170480"
+    },
+    {
+      "text": "exploit that was earlier this week or",
+      "duration": 1759,
+      "offset": "172560"
+    },
+    {
+      "text": "last week, the remote code execution bug",
+      "duration": 2481,
+      "offset": "174319"
+    },
+    {
+      "text": "that was an exploit of the flight",
+      "duration": 1360,
+      "offset": "176800"
+    },
+    {
+      "text": "protocol within React. Today's is a bit",
+      "duration": 2640,
+      "offset": "178160"
+    },
+    {
+      "text": "different though. These two new exploits",
+      "duration": 3120,
+      "offset": "180800"
+    },
+    {
+      "text": "are still very bad. I don't want to",
+      "duration": 2080,
+      "offset": "183920"
+    },
+    {
+      "text": "downplay how bad they are. They're a CV",
+      "duration": 2480,
+      "offset": "186000"
+    },
+    {
+      "text": "score of 7.5 and 5.3, respectively. The",
+      "duration": 3200,
+      "offset": "188480"
+    },
+    {
+      "text": "previous one was a 10, though. The worst",
+      "duration": 1760,
+      "offset": "191680"
+    },
+    {
+      "text": "it can be. These are still very very bad",
+      "duration": 1920,
+      "offset": "193440"
+    },
+    {
+      "text": "and should be addressed and I really",
+      "duration": 1760,
+      "offset": "195360"
+    },
+    {
+      "text": "like the public loud calling out that",
+      "duration": 2080,
+      "offset": "197120"
+    },
+    {
+      "text": "the React team is doing of this. The",
+      "duration": 1920,
+      "offset": "199200"
+    },
+    {
+      "text": "denial of service one is definitely high",
+      "duration": 1759,
+      "offset": "201120"
+    },
+    {
+      "text": "severity. There are two CVEes that go",
+      "duration": 2000,
+      "offset": "202879"
+    },
+    {
+      "text": "into it as well as the source code",
+      "duration": 1360,
+      "offset": "204879"
+    },
+    {
+      "text": "exposure. This one's more interesting",
+      "duration": 2241,
+      "offset": "206239"
+    },
+    {
+      "text": "because a lot of people expose their",
+      "duration": 1600,
+      "offset": "208480"
+    },
+    {
+      "text": "source code in various different ways.",
+      "duration": 1519,
+      "offset": "210080"
+    },
+    {
+      "text": "It is bad. If you're not trying to have",
+      "duration": 1441,
+      "offset": "211599"
+    },
+    {
+      "text": "an open source app, you shouldn't",
+      "duration": 2000,
+      "offset": "213040"
+    },
+    {
+      "text": "publish the source. I've seen a lot of",
+      "duration": 1520,
+      "offset": "215040"
+    },
+    {
+      "text": "people do this via source maps already",
+      "duration": 1440,
+      "offset": "216560"
+    },
+    {
+      "text": "anyways, but since you have this",
+      "duration": 1920,
+      "offset": "218000"
+    },
+    {
+      "text": "relationship between the server and",
+      "duration": 1200,
+      "offset": "219920"
+    },
+    {
+      "text": "client code, the capability of",
+      "duration": 1920,
+      "offset": "221120"
+    },
+    {
+      "text": "exploiting that is fascinating. I like",
+      "duration": 2479,
+      "offset": "223040"
+    },
+    {
+      "text": "their Twitter thread about this as a",
+      "duration": 2241,
+      "offset": "225519"
+    },
+    {
+      "text": "quick update. By the way, if you are",
+      "duration": 1759,
+      "offset": "227760"
+    },
+    {
+      "text": "using React and you're on version 19,",
+      "duration": 1761,
+      "offset": "229519"
+    },
+    {
+      "text": "make sure you're on 19.2.3 and you are",
+      "duration": 2239,
+      "offset": "231280"
+    },
+    {
+      "text": "safe. That's all you need to know. As",
+      "duration": 1761,
+      "offset": "233519"
+    },
+    {
+      "text": "long as you're on 1923, you're good. And",
+      "duration": 1599,
+      "offset": "235280"
+    },
+    {
+      "text": "if you're on Next.js, just be on the",
+      "duration": 1601,
+      "offset": "236879"
+    },
+    {
+      "text": "latest if you're on v6 of Next because",
+      "duration": 2720,
+      "offset": "238480"
+    },
+    {
+      "text": "uh the relationship between the next and",
+      "duration": 1440,
+      "offset": "241200"
+    },
+    {
+      "text": "the React package is a bit questionable.",
+      "duration": 2319,
+      "offset": "242640"
+    },
+    {
+      "text": "So, it's not as easy as just bumping",
+      "duration": 1441,
+      "offset": "244959"
+    },
+    {
+      "text": "React in a next project, bump the next",
+      "duration": 2080,
+      "offset": "246400"
+    },
+    {
+      "text": "version as well. So, they call out the",
+      "duration": 2479,
+      "offset": "248480"
+    },
+    {
+      "text": "CVE. They say it's common for critical",
+      "duration": 2081,
+      "offset": "250959"
+    },
+    {
+      "text": "CVEs to uncover follow-up",
+      "duration": 1680,
+      "offset": "253040"
+    },
+    {
+      "text": "vulnerabilities. When a critical",
+      "duration": 1280,
+      "offset": "254720"
+    },
+    {
+      "text": "vulnerability is disclosed, researchers",
+      "duration": 1600,
+      "offset": "256000"
+    },
+    {
+      "text": "scrutinize adjacent code paths looking",
+      "duration": 1759,
+      "offset": "257600"
+    },
+    {
+      "text": "for variant exploit techniques to test",
+      "duration": 1761,
+      "offset": "259359"
+    },
+    {
+      "text": "whether the initial mitigation can be",
+      "duration": 1920,
+      "offset": "261120"
+    },
+    {
+      "text": "bypassed. This is also happening with",
+      "duration": 1920,
+      "offset": "263040"
+    },
+    {
+      "text": "Nex.js and specifically Verscell. As I",
+      "duration": 2640,
+      "offset": "264960"
+    },
+    {
+      "text": "had mentioned before, Verscell put up a",
+      "duration": 1760,
+      "offset": "267600"
+    },
+    {
+      "text": "bounty for anybody who can find a",
+      "duration": 2240,
+      "offset": "269360"
+    },
+    {
+      "text": "workaround to their firewall level",
+      "duration": 2480,
+      "offset": "271600"
+    },
+    {
+      "text": "blocker because they wanted to make sure",
+      "duration": 1679,
+      "offset": "274080"
+    },
+    {
+      "text": "that if a project was still on an old",
+      "duration": 2160,
+      "offset": "275759"
+    },
+    {
+      "text": "version that to the best of their",
+      "duration": 1521,
+      "offset": "277919"
+    },
+    {
+      "text": "ability, Verscell could block the",
+      "duration": 1759,
+      "offset": "279440"
+    },
+    {
+      "text": "attempts to abuse it. So, they put up",
+      "duration": 2881,
+      "offset": "281199"
+    },
+    {
+      "text": "this bounty. If you find a bypass around",
+      "duration": 2399,
+      "offset": "284080"
+    },
+    {
+      "text": "their firewall, they'll give you a",
+      "duration": 1521,
+      "offset": "286479"
+    },
+    {
+      "text": "$50,000 payout. 25 if it's high",
+      "duration": 3280,
+      "offset": "288000"
+    },
+    {
+      "text": "severity, 50k for critical severity.",
+      "duration": 3040,
+      "offset": "291280"
+    },
+    {
+      "text": "15 unique issues were discovered and",
+      "duration": 1920,
+      "offset": "294320"
+    },
+    {
+      "text": "they paid out almost a million dollars.",
+      "duration": 2160,
+      "offset": "296240"
+    },
+    {
+      "text": "750K went to researchers who found ways",
+      "duration": 2720,
+      "offset": "298400"
+    },
+    {
+      "text": "to work around their firewall blockers",
+      "duration": 2160,
+      "offset": "301120"
+    },
+    {
+      "text": "for this exploit. So, they're all going",
+      "duration": 1919,
+      "offset": "303280"
+    },
+    {
+      "text": "really hard. Everybody is pushing at",
+      "duration": 1921,
+      "offset": "305199"
+    },
+    {
+      "text": "every edge to try and exploit the React",
+      "duration": 2720,
+      "offset": "307120"
+    },
+    {
+      "text": "ecosystem now, which is a good thing. I",
+      "duration": 2240,
+      "offset": "309840"
+    },
+    {
+      "text": "don't want to sit here and pretend it's",
+      "duration": 1440,
+      "offset": "312080"
+    },
+    {
+      "text": "not. Like, if you did this to almost any",
+      "duration": 2000,
+      "offset": "313520"
+    },
+    {
+      "text": "other set of tools in any other",
+      "duration": 1600,
+      "offset": "315520"
+    },
+    {
+      "text": "ecosystem, crazy shit's going to be",
+      "duration": 2560,
+      "offset": "317120"
+    },
+    {
+      "text": "found. Does React have its own weirdness",
+      "duration": 3040,
+      "offset": "319680"
+    },
+    {
+      "text": "that makes this more possible to find?",
+      "duration": 2640,
+      "offset": "322720"
+    },
+    {
+      "text": "Hold that thought. We'll be there later.",
+      "duration": 2160,
+      "offset": "325360"
+    },
+    {
+      "text": "The React team gives the example of when",
+      "duration": 1679,
+      "offset": "327520"
+    },
+    {
+      "text": "log for shell happened which resulted in",
+      "duration": 2720,
+      "offset": "329199"
+    },
+    {
+      "text": "lots of other CVEs being filed after the",
+      "duration": 2401,
+      "offset": "331919"
+    },
+    {
+      "text": "original fix. Additional disclosures can",
+      "duration": 2080,
+      "offset": "334320"
+    },
+    {
+      "text": "be frustrating, but they're generally a",
+      "duration": 1359,
+      "offset": "336400"
+    },
+    {
+      "text": "sign of a healthy response cycle. I",
+      "duration": 1841,
+      "offset": "337759"
+    },
+    {
+      "text": "couldn't agree more. These",
+      "duration": 1200,
+      "offset": "339600"
+    },
+    {
+      "text": "vulnerabilities are present in the",
+      "duration": 1200,
+      "offset": "340800"
+    },
+    {
+      "text": "patches published last week for React to",
+      "duration": 1600,
+      "offset": "342000"
+    },
+    {
+      "text": "Shell. Even though they do not allow for",
+      "duration": 1920,
+      "offset": "343600"
+    },
+    {
+      "text": "remote code execution, they are high",
+      "duration": 2000,
+      "offset": "345520"
+    },
+    {
+      "text": "severity and you should update again",
+      "duration": 1920,
+      "offset": "347520"
+    },
+    {
+      "text": "immediately. Their initial attempt to",
+      "duration": 1759,
+      "offset": "349440"
+    },
+    {
+      "text": "block the DOSs vulnerability denial of",
+      "duration": 2161,
+      "offset": "351199"
+    },
+    {
+      "text": "service was this CVE, but it didn't do",
+      "duration": 3440,
+      "offset": "353360"
+    },
+    {
+      "text": "well enough and another CV was filed",
+      "duration": 2480,
+      "offset": "356800"
+    },
+    {
+      "text": "right afterwards that showed that their",
+      "duration": 2400,
+      "offset": "359280"
+    },
+    {
+      "text": "attempt to protect it from it wasn't",
+      "duration": 1680,
+      "offset": "361680"
+    },
+    {
+      "text": "good enough. So, they had to do yet",
+      "duration": 1440,
+      "offset": "363360"
+    },
+    {
+      "text": "another update. That's why it was 19.2.2",
+      "duration": 2239,
+      "offset": "364800"
+    },
+    {
+      "text": "and now 19.2.3. They had to do two",
+      "duration": 1921,
+      "offset": "367039"
+    },
+    {
+      "text": "updates because the first one was not",
+      "duration": 1600,
+      "offset": "368960"
+    },
+    {
+      "text": "good enough. Let's take a look at these",
+      "duration": 2400,
+      "offset": "370560"
+    },
+    {
+      "text": "CVEes. I'm sure they will be fun. For",
+      "duration": 2880,
+      "offset": "372960"
+    },
+    {
+      "text": "the DOSS one, the security researchers",
+      "duration": 2000,
+      "offset": "375840"
+    },
+    {
+      "text": "have discovered that a malicious HTTP",
+      "duration": 1919,
+      "offset": "377840"
+    },
+    {
+      "text": "request can be crafted and sent to any",
+      "duration": 1841,
+      "offset": "379759"
+    },
+    {
+      "text": "server functions endpoint that when",
+      "duration": 1920,
+      "offset": "381600"
+    },
+    {
+      "text": "deserialized by React can cause an",
+      "duration": 2160,
+      "offset": "383520"
+    },
+    {
+      "text": "infinite loop that hangs the server",
+      "duration": 1440,
+      "offset": "385680"
+    },
+    {
+      "text": "process and consumes CPU. Even if your",
+      "duration": 1919,
+      "offset": "387120"
+    },
+    {
+      "text": "app does not implement any React server",
+      "duration": 1841,
+      "offset": "389039"
+    },
+    {
+      "text": "function endpoints, it may still be",
+      "duration": 1520,
+      "offset": "390880"
+    },
+    {
+      "text": "vulnerable if your app supports server",
+      "duration": 1840,
+      "offset": "392400"
+    },
+    {
+      "text": "components. This creates a vulnerability",
+      "duration": 1679,
+      "offset": "394240"
+    },
+    {
+      "text": "factor where an attacker may be able to",
+      "duration": 2321,
+      "offset": "395919"
+    },
+    {
+      "text": "deny users from accessing the product",
+      "duration": 1679,
+      "offset": "398240"
+    },
+    {
+      "text": "and potentially have a performance",
+      "duration": 1201,
+      "offset": "399919"
+    },
+    {
+      "text": "impact on the server environment. Doing",
+      "duration": 2000,
+      "offset": "401120"
+    },
+    {
+      "text": "this on fluid compute or like",
+      "duration": 2160,
+      "offset": "403120"
+    },
+    {
+      "text": "lambdabacked server experiences with",
+      "duration": 3039,
+      "offset": "405280"
+    },
+    {
+      "text": "react would be very expensive too. This",
+      "duration": 2241,
+      "offset": "408319"
+    },
+    {
+      "text": "is a denial of wallet attack as well.",
+      "duration": 1600,
+      "offset": "410560"
+    },
+    {
+      "text": "The patch today mitigates this by",
+      "duration": 2080,
+      "offset": "412160"
+    },
+    {
+      "text": "preventing the infinite loop. So funny",
+      "duration": 2720,
+      "offset": "414240"
+    },
+    {
+      "text": "if you think about it, but this is like",
+      "duration": 1679,
+      "offset": "416960"
+    },
+    {
+      "text": "a edge case that causes an infinite loop",
+      "duration": 2801,
+      "offset": "418639"
+    },
+    {
+      "text": "as a high severity exploit. This isn't",
+      "duration": 3039,
+      "offset": "421440"
+    },
+    {
+      "text": "React is vulnerable to a style of attack",
+      "duration": 3521,
+      "offset": "424479"
+    },
+    {
+      "text": "that gives somebody access to something",
+      "duration": 1360,
+      "offset": "428000"
+    },
+    {
+      "text": "they shouldn't have. This is a malicious",
+      "duration": 2880,
+      "offset": "429360"
+    },
+    {
+      "text": "actor can take your service down by",
+      "duration": 2959,
+      "offset": "432240"
+    },
+    {
+      "text": "destroying the server CPUs with an",
+      "duration": 2641,
+      "offset": "435199"
+    },
+    {
+      "text": "infinite loop that they can trigger with",
+      "duration": 1440,
+      "offset": "437840"
+    },
+    {
+      "text": "a malicious payload. This is still a 7.5",
+      "duration": 3120,
+      "offset": "439280"
+    },
+    {
+      "text": "severity score for a CVE. That's how",
+      "duration": 3519,
+      "offset": "442400"
+    },
+    {
+      "text": "serious they take the scoring system for",
+      "duration": 1601,
+      "offset": "445919"
+    },
+    {
+      "text": "this stuff. that something that doesn't",
+      "duration": 2399,
+      "offset": "447520"
+    },
+    {
+      "text": "risk user data is still put that high",
+      "duration": 3601,
+      "offset": "449919"
+    },
+    {
+      "text": "because it allows them to take a service",
+      "duration": 1760,
+      "offset": "453520"
+    },
+    {
+      "text": "down and is still being treated",
+      "duration": 1440,
+      "offset": "455280"
+    },
+    {
+      "text": "incredibly severely as it should. I just",
+      "duration": 2640,
+      "offset": "456720"
+    },
+    {
+      "text": "want to make sure it's incredibly clear",
+      "duration": 1839,
+      "offset": "459360"
+    },
+    {
+      "text": "that this is nowhere near as bad as the",
+      "duration": 2641,
+      "offset": "461199"
+    },
+    {
+      "text": "React to Shell exploit that was earlier",
+      "duration": 2000,
+      "offset": "463840"
+    },
+    {
+      "text": "this week. Should you update?",
+      "duration": 1440,
+      "offset": "465840"
+    },
+    {
+      "text": "Absolutely. Can somebody destroy your",
+      "duration": 1600,
+      "offset": "467280"
+    },
+    {
+      "text": "site with this? Absolutely. Is this",
+      "duration": 2000,
+      "offset": "468880"
+    },
+    {
+      "text": "putting your user's data directly at",
+      "duration": 1840,
+      "offset": "470880"
+    },
+    {
+      "text": "risk? Nowhere near as badly as the other",
+      "duration": 2400,
+      "offset": "472720"
+    },
+    {
+      "text": "exploit. And then there's the source",
+      "duration": 2000,
+      "offset": "475120"
+    },
+    {
+      "text": "code exposure. This one's only bad for",
+      "duration": 2160,
+      "offset": "477120"
+    },
+    {
+      "text": "your service if it's implemented in a",
+      "duration": 2160,
+      "offset": "479280"
+    },
+    {
+      "text": "way that is easy to exploit. If you have",
+      "duration": 1520,
+      "offset": "481440"
+    },
+    {
+      "text": "source code access, because I can find",
+      "duration": 2320,
+      "offset": "482960"
+    },
+    {
+      "text": "exploits in unminified source for server",
+      "duration": 2400,
+      "offset": "485280"
+    },
+    {
+      "text": "code much easier than by just probing at",
+      "duration": 2720,
+      "offset": "487680"
+    },
+    {
+      "text": "stuff directly. This is another",
+      "duration": 1600,
+      "offset": "490400"
+    },
+    {
+      "text": "malicious HTTP request. Seems like all",
+      "duration": 1680,
+      "offset": "492000"
+    },
+    {
+      "text": "of those are the causes of these bugs.",
+      "duration": 2320,
+      "offset": "493680"
+    },
+    {
+      "text": "This one may unsafeely return the source",
+      "duration": 1680,
+      "offset": "496000"
+    },
+    {
+      "text": "code of a given server function.",
+      "duration": 1600,
+      "offset": "497680"
+    },
+    {
+      "text": "Exploitation requires the existence of a",
+      "duration": 1520,
+      "offset": "499280"
+    },
+    {
+      "text": "server function which explicitly or",
+      "duration": 1600,
+      "offset": "500800"
+    },
+    {
+      "text": "implicitly exposes a stringified",
+      "duration": 1600,
+      "offset": "502400"
+    },
+    {
+      "text": "argument. So this one creates a",
+      "duration": 1680,
+      "offset": "504000"
+    },
+    {
+      "text": "connection with some secret key and then",
+      "duration": 2320,
+      "offset": "505680"
+    },
+    {
+      "text": "we await connection.create user",
+      "duration": 2240,
+      "offset": "508000"
+    },
+    {
+      "text": "implicitly stringified leaked in DB and",
+      "duration": 3039,
+      "offset": "510240"
+    },
+    {
+      "text": "now this source code is going to leak",
+      "duration": 3921,
+      "offset": "513279"
+    },
+    {
+      "text": "that be able to leak the following. So",
+      "duration": 1759,
+      "offset": "517200"
+    },
+    {
+      "text": "we have message hello async function",
+      "duration": 3041,
+      "offset": "518959"
+    },
+    {
+      "text": "server function.",
+      "duration": 3320,
+      "offset": "522000"
+    },
+    {
+      "text": "This is a minified version too.",
+      "duration": 3760,
+      "offset": "526000"
+    },
+    {
+      "text": "Inter very interesting that's able to",
+      "duration": 1920,
+      "offset": "529760"
+    },
+    {
+      "text": "leak minified source. I would not have",
+      "duration": 3200,
+      "offset": "531680"
+    },
+    {
+      "text": "predicted that. And only secrets in",
+      "duration": 2000,
+      "offset": "534880"
+    },
+    {
+      "text": "source code may be exposed. So if you're",
+      "duration": 1760,
+      "offset": "536880"
+    },
+    {
+      "text": "using runtime secrets like environment",
+      "duration": 1600,
+      "offset": "538640"
+    },
+    {
+      "text": "variables, those will not be affected.",
+      "duration": 1760,
+      "offset": "540240"
+    },
+    {
+      "text": "The source of the exposed code is",
+      "duration": 1680,
+      "offset": "542000"
+    },
+    {
+      "text": "limited to the code inside of the server",
+      "duration": 1839,
+      "offset": "543680"
+    },
+    {
+      "text": "function which may include other",
+      "duration": 1361,
+      "offset": "545519"
+    },
+    {
+      "text": "functions depending on the amount of",
+      "duration": 1040,
+      "offset": "546880"
+    },
+    {
+      "text": "inlining that your bundler is providing.",
+      "duration": 2560,
+      "offset": "547920"
+    },
+    {
+      "text": "Very interesting.",
+      "duration": 2240,
+      "offset": "550480"
+    },
+    {
+      "text": "Yeah, that's not too bad. So when you",
+      "duration": 3040,
+      "offset": "552720"
+    },
+    {
+      "text": "first see that React got three severe",
+      "duration": 2560,
+      "offset": "555760"
+    },
+    {
+      "text": "CVEEs in a week, your thought is that",
+      "duration": 2639,
+      "offset": "558320"
+    },
+    {
+      "text": "they must have done something terrible",
+      "duration": 1521,
+      "offset": "560959"
+    },
+    {
+      "text": "and React must be really really unsecure",
+      "duration": 2960,
+      "offset": "562480"
+    },
+    {
+      "text": "right now. And that's how you feel. I",
+      "duration": 1760,
+      "offset": "565440"
+    },
+    {
+      "text": "understand this is going to be a real",
+      "duration": 1600,
+      "offset": "567200"
+    },
+    {
+      "text": "reputation hit for the React project and",
+      "duration": 2159,
+      "offset": "568800"
+    },
+    {
+      "text": "team and people who are huge advocates",
+      "duration": 1521,
+      "offset": "570959"
+    },
+    {
+      "text": "of it like myself for a while. Similar",
+      "duration": 2560,
+      "offset": "572480"
+    },
+    {
+      "text": "to how Cloudflare's recent outages are a",
+      "duration": 2000,
+      "offset": "575040"
+    },
+    {
+      "text": "hit to their reputation. You just have",
+      "duration": 2000,
+      "offset": "577040"
+    },
+    {
+      "text": "to accept the fact that sometimes when",
+      "duration": 1840,
+      "offset": "579040"
+    },
+    {
+      "text": "things like this go wrong, it's going to",
+      "duration": 1519,
+      "offset": "580880"
+    },
+    {
+      "text": "be perceived differently for a while.",
+      "duration": 1521,
+      "offset": "582399"
+    },
+    {
+      "text": "And I would not be upset with anybody",
+      "duration": 2400,
+      "offset": "583920"
+    },
+    {
+      "text": "for perceiving React as less secure",
+      "duration": 2079,
+      "offset": "586320"
+    },
+    {
+      "text": "after this. But that's where we get here",
+      "duration": 3281,
+      "offset": "588399"
+    },
+    {
+      "text": "and where I have to crash out a little",
+      "duration": 2000,
+      "offset": "591680"
+    },
+    {
+      "text": "bit.",
+      "duration": 3000,
+      "offset": "593680"
+    },
+    {
+      "text": "There is nothing in this code that is",
+      "duration": 1760,
+      "offset": "596880"
+    },
+    {
+      "text": "unsafe. I want to be very clear for",
+      "duration": 2800,
+      "offset": "598640"
+    },
+    {
+      "text": "everybody looking at this. There is",
+      "duration": 2160,
+      "offset": "601440"
+    },
+    {
+      "text": "nothing in this code that is unsafe.",
+      "duration": 3040,
+      "offset": "603600"
+    },
+    {
+      "text": "Even if people in the replies are",
+      "duration": 2319,
+      "offset": "606640"
+    },
+    {
+      "text": "thinking that this code is fake because",
+      "duration": 2560,
+      "offset": "608959"
+    },
+    {
+      "text": "it's so obviously insecure, I've had to",
+      "duration": 2961,
+      "offset": "611519"
+    },
+    {
+      "text": "talk about this so many [ __ ] times",
+      "duration": 1840,
+      "offset": "614480"
+    },
+    {
+      "text": "and I'm so annoyed that I have to.",
+      "duration": 1680,
+      "offset": "616320"
+    },
+    {
+      "text": "Again, I will keep it brief because I'm",
+      "duration": 2640,
+      "offset": "618000"
+    },
+    {
+      "text": "sorry for the people who have had to",
+      "duration": 1360,
+      "offset": "620640"
+    },
+    {
+      "text": "hear me go on this rant so many times.",
+      "duration": 1920,
+      "offset": "622000"
+    },
+    {
+      "text": "This is not front-end code. This is",
+      "duration": 1280,
+      "offset": "623920"
+    },
+    {
+      "text": "backend code. This is the equivalent of",
+      "duration": 1759,
+      "offset": "625200"
+    },
+    {
+      "text": "defining an endpoint in a PHP file and",
+      "duration": 2641,
+      "offset": "626959"
+    },
+    {
+      "text": "nobody is looking at your PHP file and",
+      "duration": 2080,
+      "offset": "629600"
+    },
+    {
+      "text": "saying it's insecure unless you're",
+      "duration": 1760,
+      "offset": "631680"
+    },
+    {
+      "text": "inlining a SQL call with a string being",
+      "duration": 2639,
+      "offset": "633440"
+    },
+    {
+      "text": "passed and that's obviously insecure,",
+      "duration": 1760,
+      "offset": "636079"
+    },
+    {
+      "text": "right? No, it's not because that's not",
+      "duration": 2721,
+      "offset": "637839"
+    },
+    {
+      "text": "what's happening here. This is a",
+      "duration": 2320,
+      "offset": "640560"
+    },
+    {
+      "text": "template function in JavaScript. This is",
+      "duration": 3199,
+      "offset": "642880"
+    },
+    {
+      "text": "not just passing a string with a value",
+      "duration": 3601,
+      "offset": "646079"
+    },
+    {
+      "text": "in it. The combination of a template",
+      "duration": 2480,
+      "offset": "649680"
+    },
+    {
+      "text": "literal and a tag function is a cool",
+      "duration": 1840,
+      "offset": "652160"
+    },
+    {
+      "text": "thing you can do in JavaScript. You have",
+      "duration": 2240,
+      "offset": "654000"
+    },
+    {
+      "text": "a function named greet like this. You",
+      "duration": 1839,
+      "offset": "656240"
+    },
+    {
+      "text": "can call it using a back tick with a",
+      "duration": 1921,
+      "offset": "658079"
+    },
+    {
+      "text": "string. And it's not going to call this",
+      "duration": 2079,
+      "offset": "660000"
+    },
+    {
+      "text": "function with the one string that is",
+      "duration": 1760,
+      "offset": "662079"
+    },
+    {
+      "text": "resolved. It's going to call it with an",
+      "duration": 2801,
+      "offset": "663839"
+    },
+    {
+      "text": "array like this where it has each place",
+      "duration": 3439,
+      "offset": "666640"
+    },
+    {
+      "text": "before one of those templates occurs",
+      "duration": 2561,
+      "offset": "670079"
+    },
+    {
+      "text": "create a new entity in a string array",
+      "duration": 2480,
+      "offset": "672640"
+    },
+    {
+      "text": "and then pass all of the arguments in",
+      "duration": 2240,
+      "offset": "675120"
+    },
+    {
+      "text": "order after. So in this case, greet",
+      "duration": 2320,
+      "offset": "677360"
+    },
+    {
+      "text": "isn't being called with a string that",
+      "duration": 1440,
+      "offset": "679680"
+    },
+    {
+      "text": "says I'm Theo. I'm 30 years old. It's",
+      "duration": 2800,
+      "offset": "681120"
+    },
+    {
+      "text": "being called with an array that has I'm",
+      "duration": 3200,
+      "offset": "683920"
+    },
+    {
+      "text": "comma space I'm comma space years old.",
+      "duration": 4560,
+      "offset": "687120"
+    },
+    {
+      "text": "And then it takes the name and the age",
+      "duration": 1839,
+      "offset": "691680"
+    },
+    {
+      "text": "as additional arguments. That means that",
+      "duration": 2481,
+      "offset": "693519"
+    },
+    {
+      "text": "the only way that would be insecure is",
+      "duration": 1519,
+      "offset": "696000"
+    },
+    {
+      "text": "how you're implementing the function",
+      "duration": 1921,
+      "offset": "697519"
+    },
+    {
+      "text": "because you choose how you parse this",
+      "duration": 1839,
+      "offset": "699440"
+    },
+    {
+      "text": "data. The way this function is being",
+      "duration": 2000,
+      "offset": "701279"
+    },
+    {
+      "text": "called isn't by passing a completed",
+      "duration": 1841,
+      "offset": "703279"
+    },
+    {
+      "text": "string to SQL. It is by the SQL function",
+      "duration": 2640,
+      "offset": "705120"
+    },
+    {
+      "text": "being called with an array that has two",
+      "duration": 1600,
+      "offset": "707760"
+    },
+    {
+      "text": "things in it. Insert into bookmark slug",
+      "duration": 2560,
+      "offset": "709360"
+    },
+    {
+      "text": "values open PN first value over second",
+      "duration": 4640,
+      "offset": "711920"
+    },
+    {
+      "text": "value in the array close PN semicolon",
+      "duration": 3279,
+      "offset": "716560"
+    },
+    {
+      "text": "back tick. Well, it's not even the back",
+      "duration": 1440,
+      "offset": "719839"
+    },
+    {
+      "text": "tick. It's just the close PN semicolon.",
+      "duration": 2000,
+      "offset": "721279"
+    },
+    {
+      "text": "And then after the array, there's a new",
+      "duration": 2560,
+      "offset": "723279"
+    },
+    {
+      "text": "argument at the end which is whatever",
+      "duration": 1601,
+      "offset": "725839"
+    },
+    {
+      "text": "you passed for slug. So, as long as you",
+      "duration": 2240,
+      "offset": "727440"
+    },
+    {
+      "text": "do a basic check to make sure that",
+      "duration": 3120,
+      "offset": "729680"
+    },
+    {
+      "text": "you're passing safe values like any",
+      "duration": 3039,
+      "offset": "732800"
+    },
+    {
+      "text": "amount of input sanitization here at all",
+      "duration": 2641,
+      "offset": "735839"
+    },
+    {
+      "text": "and you're good and you're doing great.",
+      "duration": 2560,
+      "offset": "738480"
+    },
+    {
+      "text": "Somebody asked, does this cause you to",
+      "duration": 1520,
+      "offset": "741040"
+    },
+    {
+      "text": "lose order? No, absolutely not. It's in",
+      "duration": 2959,
+      "offset": "742560"
+    },
+    {
+      "text": "order. It's in the same order. Like,",
+      "duration": 2161,
+      "offset": "745519"
+    },
+    {
+      "text": "just look at the code. You have this",
+      "duration": 3360,
+      "offset": "747680"
+    },
+    {
+      "text": "first break point and you have a second",
+      "duration": 2239,
+      "offset": "751040"
+    },
+    {
+      "text": "break point. You can think of the",
+      "duration": 1761,
+      "offset": "753279"
+    },
+    {
+      "text": "template inserts here as break points",
+      "duration": 2239,
+      "offset": "755040"
+    },
+    {
+      "text": "for the string. And then at the end you",
+      "duration": 2321,
+      "offset": "757279"
+    },
+    {
+      "text": "pass the arguments in order. It's so",
+      "duration": 2880,
+      "offset": "759600"
+    },
+    {
+      "text": "annoying. It's like, and this sucks.",
+      "duration": 2400,
+      "offset": "762480"
+    },
+    {
+      "text": "This Ellie, who posted this, is great.",
+      "duration": 1680,
+      "offset": "764880"
+    },
+    {
+      "text": "She's a really good engineer and does",
+      "duration": 1680,
+      "offset": "766560"
+    },
+    {
+      "text": "incredible work on crazy database [ __ ]",
+      "duration": 2480,
+      "offset": "768240"
+    },
+    {
+      "text": "She knows better than this. Obviously,",
+      "duration": 2480,
+      "offset": "770720"
+    },
+    {
+      "text": "they're not posting an insecure code",
+      "duration": 1439,
+      "offset": "773200"
+    },
+    {
+      "text": "snip at a giant conference. This is",
+      "duration": 1760,
+      "offset": "774639"
+    },
+    {
+      "text": "meant to be a simple, concise demo of",
+      "duration": 2161,
+      "offset": "776399"
+    },
+    {
+      "text": "how useful these patterns compose",
+      "duration": 2959,
+      "offset": "778560"
+    },
+    {
+      "text": "together. The idea of a bookmark icon",
+      "duration": 2560,
+      "offset": "781519"
+    },
+    {
+      "text": "being a component the amount of on the",
+      "duration": 1361,
+      "offset": "784079"
+    },
+    {
+      "text": "server that you put in an element, you",
+      "duration": 2000,
+      "offset": "785440"
+    },
+    {
+      "text": "pass it a slug and now you click it and",
+      "duration": 1839,
+      "offset": "787440"
+    },
+    {
+      "text": "it's all handled is actually really",
+      "duration": 2081,
+      "offset": "789279"
+    },
+    {
+      "text": "really cool. That said, if you think",
+      "duration": 1919,
+      "offset": "791360"
+    },
+    {
+      "text": "this code is insecure, use an OM or a",
+      "duration": 3041,
+      "offset": "793279"
+    },
+    {
+      "text": "third party service like Convex. You",
+      "duration": 1680,
+      "offset": "796320"
+    },
+    {
+      "text": "probably shouldn't be using databases",
+      "duration": 1519,
+      "offset": "798000"
+    },
+    {
+      "text": "like this directly. You'll be doing a",
+      "duration": 1521,
+      "offset": "799519"
+    },
+    {
+      "text": "lot of stupid [ __ ] Man, I don't even",
+      "duration": 1599,
+      "offset": "801040"
+    },
+    {
+      "text": "want to talk about the exploits for some",
+      "duration": 1361,
+      "offset": "802639"
+    },
+    {
+      "text": "of these like database turned into API",
+      "duration": 2320,
+      "offset": "804000"
+    },
+    {
+      "text": "companies.",
+      "duration": 2000,
+      "offset": "806320"
+    },
+    {
+      "text": "Yeah. Yeah. And I guarantee some of the",
+      "duration": 1199,
+      "offset": "808320"
+    },
+    {
+      "text": "people talking [ __ ] on this are using",
+      "duration": 1201,
+      "offset": "809519"
+    },
+    {
+      "text": "Firebase with the default insecure",
+      "duration": 1440,
+      "offset": "810720"
+    },
+    {
+      "text": "configuration. I know how this goes.",
+      "duration": 2160,
+      "offset": "812160"
+    },
+    {
+      "text": "Yeah. This is why I'm angry cuz there's",
+      "duration": 2079,
+      "offset": "814320"
+    },
+    {
+      "text": "nothing about any of these exploits that",
+      "duration": 2481,
+      "offset": "816399"
+    },
+    {
+      "text": "has anything to do with the fact that",
+      "duration": 2240,
+      "offset": "818880"
+    },
+    {
+      "text": "you can write a action for a server",
+      "duration": 2560,
+      "offset": "821120"
+    },
+    {
+      "text": "function inside of a serveronly button",
+      "duration": 2240,
+      "offset": "823680"
+    },
+    {
+      "text": "component. All they're doing here is",
+      "duration": 2640,
+      "offset": "825920"
+    },
+    {
+      "text": "changing where the backend code lives.",
+      "duration": 2240,
+      "offset": "828560"
+    },
+    {
+      "text": "Normally you'd have to do a JavaScript",
+      "duration": 2000,
+      "offset": "830800"
+    },
+    {
+      "text": "fetch call here to an endpoint on the",
+      "duration": 2320,
+      "offset": "832800"
+    },
+    {
+      "text": "back end. But if this code doesn't have",
+      "duration": 1519,
+      "offset": "835120"
+    },
+    {
+      "text": "any other JavaScript it needs, just put",
+      "duration": 2081,
+      "offset": "836639"
+    },
+    {
+      "text": "the action in. This is a great pattern.",
+      "duration": 1760,
+      "offset": "838720"
+    },
+    {
+      "text": "I really like this. Good question from",
+      "duration": 1919,
+      "offset": "840480"
+    },
+    {
+      "text": "chat. What annoys me more, this picture",
+      "duration": 1440,
+      "offset": "842399"
+    },
+    {
+      "text": "or battery gate?",
+      "duration": 3041,
+      "offset": "843839"
+    },
+    {
+      "text": "They are so similar in the same way like",
+      "duration": 2160,
+      "offset": "846880"
+    },
+    {
+      "text": "like I love battery gate because when",
+      "duration": 2640,
+      "offset": "849040"
+    },
+    {
+      "text": "people bring it up, they disqualify all",
+      "duration": 2320,
+      "offset": "851680"
+    },
+    {
+      "text": "of their takes on anything Apple.",
+      "duration": 2399,
+      "offset": "854000"
+    },
+    {
+      "text": "Because most people think battery gate",
+      "duration": 1521,
+      "offset": "856399"
+    },
+    {
+      "text": "is Apple intentionally making old",
+      "duration": 1680,
+      "offset": "857920"
+    },
+    {
+      "text": "devices obsolete because they're making",
+      "duration": 2960,
+      "offset": "859600"
+    },
+    {
+      "text": "them slower. Then why is it called",
+      "duration": 1839,
+      "offset": "862560"
+    },
+    {
+      "text": "battery gate? It's they didn't even look",
+      "duration": 1841,
+      "offset": "864399"
+    },
+    {
+      "text": "into why it's named that. It's called",
+      "duration": 2640,
+      "offset": "866240"
+    },
+    {
+      "text": "battery gate because it's a feature",
+      "duration": 1600,
+      "offset": "868880"
+    },
+    {
+      "text": "where when your battery gets degraded",
+      "duration": 1599,
+      "offset": "870480"
+    },
+    {
+      "text": "enough on older iPhones because you live",
+      "duration": 1521,
+      "offset": "872079"
+    },
+    {
+      "text": "in a really hot or really cold",
+      "duration": 1200,
+      "offset": "873600"
+    },
+    {
+      "text": "environment. They would throttle how",
+      "duration": 2320,
+      "offset": "874800"
+    },
+    {
+      "text": "fast the phone goes to full speed. They",
+      "duration": 2800,
+      "offset": "877120"
+    },
+    {
+      "text": "wouldn't change what the full speed was.",
+      "duration": 1520,
+      "offset": "879920"
+    },
+    {
+      "text": "They weren't underclocking your phone.",
+      "duration": 1600,
+      "offset": "881440"
+    },
+    {
+      "text": "They were changing how quickly it got to",
+      "duration": 2000,
+      "offset": "883040"
+    },
+    {
+      "text": "the highest clock speed. The reason they",
+      "duration": 2159,
+      "offset": "885040"
+    },
+    {
+      "text": "did that is if your phone went from",
+      "duration": 1521,
+      "offset": "887199"
+    },
+    {
+      "text": "pulling a tenth of a watt to pulling 5",
+      "duration": 2880,
+      "offset": "888720"
+    },
+    {
+      "text": "to 10 watts because your processor went",
+      "duration": 2400,
+      "offset": "891600"
+    },
+    {
+      "text": "from barely running to running full",
+      "duration": 1760,
+      "offset": "894000"
+    },
+    {
+      "text": "speed, if your battery was degraded,",
+      "duration": 2000,
+      "offset": "895760"
+    },
+    {
+      "text": "your phone would shut off. Lowering the",
+      "duration": 2480,
+      "offset": "897760"
+    },
+    {
+      "text": "speed that the phone ramps up at,",
+      "duration": 2000,
+      "offset": "900240"
+    },
+    {
+      "text": "lowering the acceleration, not the",
+      "duration": 1440,
+      "offset": "902240"
+    },
+    {
+      "text": "velocity, just the acceleration to that",
+      "duration": 1599,
+      "offset": "903680"
+    },
+    {
+      "text": "max speed prevented the phones from",
+      "duration": 2000,
+      "offset": "905279"
+    },
+    {
+      "text": "shutting themselves down. That is a",
+      "duration": 1920,
+      "offset": "907279"
+    },
+    {
+      "text": "reasonable change. And the fact that",
+      "duration": 2000,
+      "offset": "909199"
+    },
+    {
+      "text": "people bring it up as Apple",
+      "duration": 1121,
+      "offset": "911199"
+    },
+    {
+      "text": "intentionally making old devices slow in",
+      "duration": 2160,
+      "offset": "912320"
+    },
+    {
+      "text": "order to make you buy a new one is",
+      "duration": 2640,
+      "offset": "914480"
+    },
+    {
+      "text": "similarly stupid and bad faith to this",
+      "duration": 2480,
+      "offset": "917120"
+    },
+    {
+      "text": "being posted when the React team is",
+      "duration": 1919,
+      "offset": "919600"
+    },
+    {
+      "text": "working really hard to address novel,",
+      "duration": 2641,
+      "offset": "921519"
+    },
+    {
+      "text": "incredibly hard to find exploits.",
+      "duration": 1919,
+      "offset": "924160"
+    },
+    {
+      "text": "There's a lot of overlap in these",
+      "duration": 1281,
+      "offset": "926079"
+    },
+    {
+      "text": "things. Like it's the same type of",
+      "duration": 2320,
+      "offset": "927360"
+    },
+    {
+      "text": "frustrating dishonesty where either you",
+      "duration": 2399,
+      "offset": "929680"
+    },
+    {
+      "text": "don't know enough about this to be",
+      "duration": 1200,
+      "offset": "932079"
+    },
+    {
+      "text": "talking about it or you do and you're",
+      "duration": 1680,
+      "offset": "933279"
+    },
+    {
+      "text": "doing it anyways because you're being",
+      "duration": 1201,
+      "offset": "934959"
+    },
+    {
+      "text": "bad faith. It has to be one of the two.",
+      "duration": 2799,
+      "offset": "936160"
+    },
+    {
+      "text": "Apple did notify users that their",
+      "duration": 1601,
+      "offset": "938959"
+    },
+    {
+      "text": "batteries were degraded and they have",
+      "duration": 2079,
+      "offset": "940560"
+    },
+    {
+      "text": "more transparency about battery health",
+      "duration": 1361,
+      "offset": "942639"
+    },
+    {
+      "text": "than any other company and they do",
+      "duration": 1680,
+      "offset": "944000"
+    },
+    {
+      "text": "cheaper battery replacements than any",
+      "duration": 1279,
+      "offset": "945680"
+    },
+    {
+      "text": "other company. I do have my complaints",
+      "duration": 2481,
+      "offset": "946959"
+    },
+    {
+      "text": "about this though. Let me say the things",
+      "duration": 2720,
+      "offset": "949440"
+    },
+    {
+      "text": "I'm frustrated about. Let me go to my",
+      "duration": 2799,
+      "offset": "952160"
+    },
+    {
+      "text": "versel deployments quick thing. One, I'm",
+      "duration": 2961,
+      "offset": "954959"
+    },
+    {
+      "text": "annoyed about this.",
+      "duration": 3279,
+      "offset": "957920"
+    },
+    {
+      "text": "I can't deploy projects that are on old",
+      "duration": 1921,
+      "offset": "961199"
+    },
+    {
+      "text": "versions. And I get why they did this,",
+      "duration": 1839,
+      "offset": "963120"
+    },
+    {
+      "text": "but the sheer number of things I have to",
+      "duration": 1921,
+      "offset": "964959"
+    },
+    {
+      "text": "go deal with is obnoxious. On top of",
+      "duration": 2800,
+      "offset": "966880"
+    },
+    {
+      "text": "that, some of them just had weird",
+      "duration": 2640,
+      "offset": "969680"
+    },
+    {
+      "text": "failures that were very annoying, like",
+      "duration": 2240,
+      "offset": "972320"
+    },
+    {
+      "text": "skate benches UI. If you're not familiar",
+      "duration": 1760,
+      "offset": "974560"
+    },
+    {
+      "text": "with skate bench, it's a benchmark I",
+      "duration": 1759,
+      "offset": "976320"
+    },
+    {
+      "text": "made to measure how smart models are at",
+      "duration": 2401,
+      "offset": "978079"
+    },
+    {
+      "text": "naming different skateboarding tricks. I",
+      "duration": 2640,
+      "offset": "980480"
+    },
+    {
+      "text": "built this cuz it's interesting to see",
+      "duration": 1600,
+      "offset": "983120"
+    },
+    {
+      "text": "how well models can handle the reasoning",
+      "duration": 2640,
+      "offset": "984720"
+    },
+    {
+      "text": "of like 3D space around how skateboard",
+      "duration": 2000,
+      "offset": "987360"
+    },
+    {
+      "text": "tricks are described and how deep their",
+      "duration": 1520,
+      "offset": "989360"
+    },
+    {
+      "text": "knowledge of skateboarding is. I did not",
+      "duration": 1840,
+      "offset": "990880"
+    },
+    {
+      "text": "make this UI. This UI was made entirely",
+      "duration": 2559,
+      "offset": "992720"
+    },
+    {
+      "text": "by Vzero. I wanted to deploy an update",
+      "duration": 3120,
+      "offset": "995279"
+    },
+    {
+      "text": "with new data and nothing else. I had",
+      "duration": 2321,
+      "offset": "998399"
+    },
+    {
+      "text": "not changed a single other thing in this",
+      "duration": 1840,
+      "offset": "1000720"
+    },
+    {
+      "text": "project. Deployment one failed because a",
+      "duration": 2639,
+      "offset": "1002560"
+    },
+    {
+      "text": "vulnerable version of Nex.js was",
+      "duration": 1760,
+      "offset": "1005199"
+    },
+    {
+      "text": "detected, which is funny because it",
+      "duration": 1841,
+      "offset": "1006959"
+    },
+    {
+      "text": "still did the whole build before then.",
+      "duration": 1760,
+      "offset": "1008800"
+    },
+    {
+      "text": "You'd think it would stop and not bill",
+      "duration": 1519,
+      "offset": "1010560"
+    },
+    {
+      "text": "me for the build time. What the [ __ ]",
+      "duration": 1841,
+      "offset": "1012079"
+    },
+    {
+      "text": "Verscell? You can read the package JSON",
+      "duration": 2000,
+      "offset": "1013920"
+    },
+    {
+      "text": "before doing the build. Don't charge me",
+      "duration": 1599,
+      "offset": "1015920"
+    },
+    {
+      "text": "for the build and then error after.",
+      "duration": 2000,
+      "offset": "1017519"
+    },
+    {
+      "text": "You're not gonna let me deploy it. Don't",
+      "duration": 1521,
+      "offset": "1019519"
+    },
+    {
+      "text": "let me build it. Second time I did this",
+      "duration": 2719,
+      "offset": "1021040"
+    },
+    {
+      "text": "vulnerable version still detected. I",
+      "duration": 1919,
+      "offset": "1023759"
+    },
+    {
+      "text": "thought I had changed at this point. I",
+      "duration": 1201,
+      "offset": "1025679"
+    },
+    {
+      "text": "guess I hadn't. No, I remember this one.",
+      "duration": 2640,
+      "offset": "1026880"
+    },
+    {
+      "text": "I still had the PNPM file, but I had",
+      "duration": 1840,
+      "offset": "1029520"
+    },
+    {
+      "text": "accidentally install a bun. So, fix",
+      "duration": 1599,
+      "offset": "1031360"
+    },
+    {
+      "text": "that. Third time it fails",
+      "duration": 2959,
+      "offset": "1032959"
+    },
+    {
+      "text": "because the build failed because with",
+      "duration": 2241,
+      "offset": "1035919"
+    },
+    {
+      "text": "this update from next 15 to 16 they",
+      "duration": 2560,
+      "offset": "1038160"
+    },
+    {
+      "text": "switched to Turopac and Turopac couldn't",
+      "duration": 2640,
+      "offset": "1040720"
+    },
+    {
+      "text": "build the CSS from Tailwind",
+      "duration": 3120,
+      "offset": "1043360"
+    },
+    {
+      "text": "because I used the template that",
+      "duration": 2400,
+      "offset": "1046480"
+    },
+    {
+      "text": "Verscell gave me from Vzero. So Versel's",
+      "duration": 2880,
+      "offset": "1048880"
+    },
+    {
+      "text": "own super minimal UI template for",
+      "duration": 1919,
+      "offset": "1051760"
+    },
+    {
+      "text": "next.js with Vzero and Tailwind of",
+      "duration": 2481,
+      "offset": "1053679"
+    },
+    {
+      "text": "course cannot be built on the new",
+      "duration": 2000,
+      "offset": "1056160"
+    },
+    {
+      "text": "version of Next.",
+      "duration": 3399,
+      "offset": "1058160"
+    },
+    {
+      "text": "I almost was interested enough to deep",
+      "duration": 1919,
+      "offset": "1062000"
+    },
+    {
+      "text": "dive and figure out what went wrong",
+      "duration": 1441,
+      "offset": "1063919"
+    },
+    {
+      "text": "here. Then I remembered I have other",
+      "duration": 2080,
+      "offset": "1065360"
+    },
+    {
+      "text": "things to do. So I fixed it with d-",
+      "duration": 2479,
+      "offset": "1067440"
+    },
+    {
+      "text": "Webpack. The reason this happened is",
+      "duration": 1681,
+      "offset": "1069919"
+    },
+    {
+      "text": "because they default to Turboac in the",
+      "duration": 1520,
+      "offset": "1071600"
+    },
+    {
+      "text": "latest version. It is so annoying that I",
+      "duration": 2000,
+      "offset": "1073120"
+    },
+    {
+      "text": "have to care about any of this. It is so",
+      "duration": 2080,
+      "offset": "1075120"
+    },
+    {
+      "text": "annoying. Like these are the things I'm",
+      "duration": 2800,
+      "offset": "1077200"
+    },
+    {
+      "text": "pissed off about. Like the fact that the",
+      "duration": 2160,
+      "offset": "1080000"
+    },
+    {
+      "text": "template that they use for Vzero wasn't",
+      "duration": 2800,
+      "offset": "1082160"
+    },
+    {
+      "text": "tested aggressively with TurboAC so that",
+      "duration": 2560,
+      "offset": "1084960"
+    },
+    {
+      "text": "the old version works. And it seems like",
+      "duration": 2000,
+      "offset": "1087520"
+    },
+    {
+      "text": "they're primarily testing this by like",
+      "duration": 2720,
+      "offset": "1089520"
+    },
+    {
+      "text": "using newer projects and scaffolds in",
+      "duration": 2400,
+      "offset": "1092240"
+    },
+    {
+      "text": "their giant internal Verscell project.",
+      "duration": 1919,
+      "offset": "1094640"
+    },
+    {
+      "text": "Like they are using Tropac with real",
+      "duration": 1441,
+      "offset": "1096559"
+    },
+    {
+      "text": "projects. They're using it with real",
+      "duration": 1679,
+      "offset": "1098000"
+    },
+    {
+      "text": "projects in new projects. They're not",
+      "duration": 1841,
+      "offset": "1099679"
+    },
+    {
+      "text": "using it with these in between projects",
+      "duration": 1519,
+      "offset": "1101520"
+    },
+    {
+      "text": "that came out of their own [ __ ] And",
+      "duration": 1681,
+      "offset": "1103039"
+    },
+    {
+      "text": "like I want to use Vzero for things",
+      "duration": 1760,
+      "offset": "1104720"
+    },
+    {
+      "text": "more. It's really convenient having a",
+      "duration": 1520,
+      "offset": "1106480"
+    },
+    {
+      "text": "decent like tool to make a UI for some",
+      "duration": 2480,
+      "offset": "1108000"
+    },
+    {
+      "text": "random [ __ ] whenever I need one. I",
+      "duration": 2079,
+      "offset": "1110480"
+    },
+    {
+      "text": "regret it. It has now cost me more time",
+      "duration": 1601,
+      "offset": "1112559"
+    },
+    {
+      "text": "than it saved me because of this",
+      "duration": 1040,
+      "offset": "1114160"
+    },
+    {
+      "text": "[ __ ] It's just annoying. And I will",
+      "duration": 2080,
+      "offset": "1115200"
+    },
+    {
+      "text": "be doing this myself with probably my",
+      "duration": 1920,
+      "offset": "1117280"
+    },
+    {
+      "text": "own template using shad CN and just",
+      "duration": 3200,
+      "offset": "1119200"
+    },
+    {
+      "text": "using cursor along with opus or Gemini 3",
+      "duration": 3600,
+      "offset": "1122400"
+    },
+    {
+      "text": "for doing this type of work in the",
+      "duration": 1440,
+      "offset": "1126000"
+    },
+    {
+      "text": "future. I'm just I'm annoyed.",
+      "duration": 2400,
+      "offset": "1127440"
+    },
+    {
+      "text": "I'm sure they'll fix it eventually.",
+      "duration": 1280,
+      "offset": "1129840"
+    },
+    {
+      "text": "Probably now cuz I'm complaining about",
+      "duration": 1040,
+      "offset": "1131120"
+    },
+    {
+      "text": "it. But that was just my experience",
+      "duration": 1680,
+      "offset": "1132160"
+    },
+    {
+      "text": "mitigating this has been dumb [ __ ]",
+      "duration": 1760,
+      "offset": "1133840"
+    },
+    {
+      "text": "all around. And that was just my",
+      "duration": 2480,
+      "offset": "1135600"
+    },
+    {
+      "text": "favorite example that like my CSS broke",
+      "duration": 2320,
+      "offset": "1138080"
+    },
+    {
+      "text": "because I was mitigating a CVE. What the",
+      "duration": 2000,
+      "offset": "1140400"
+    },
+    {
+      "text": "[ __ ]",
+      "duration": 1760,
+      "offset": "1142400"
+    },
+    {
+      "text": "I don't think I have anything else to",
+      "duration": 1040,
+      "offset": "1144160"
+    },
+    {
+      "text": "say on this one. update your React",
+      "duration": 1359,
+      "offset": "1145200"
+    },
+    {
+      "text": "versions. This isn't a big problem",
+      "duration": 2161,
+      "offset": "1146559"
+    },
+    {
+      "text": "anymore. This is security researchers",
+      "duration": 2319,
+      "offset": "1148720"
+    },
+    {
+      "text": "realizing there's a cool surface area to",
+      "duration": 1760,
+      "offset": "1151039"
+    },
+    {
+      "text": "look at. Most security researchers",
+      "duration": 1760,
+      "offset": "1152799"
+    },
+    {
+      "text": "aren't that locked in on what's going on",
+      "duration": 1360,
+      "offset": "1154559"
+    },
+    {
+      "text": "in the dev world. So, this is a huge big",
+      "duration": 3521,
+      "offset": "1155919"
+    },
+    {
+      "text": "spotlight put on React for them to say,",
+      "duration": 1760,
+      "offset": "1159440"
+    },
+    {
+      "text": "\"Oh, I have a rough area to go in here",
+      "duration": 1920,
+      "offset": "1161200"
+    },
+    {
+      "text": "to find things.\" And as long as you're",
+      "duration": 2160,
+      "offset": "1163120"
+    },
+    {
+      "text": "on the latest version, you're good. This",
+      "duration": 1200,
+      "offset": "1165280"
+    },
+    {
+      "text": "isn't because React is some inherently",
+      "duration": 1680,
+      "offset": "1166480"
+    },
+    {
+      "text": "insecure framework because it has a",
+      "duration": 1680,
+      "offset": "1168160"
+    },
+    {
+      "text": "serverside component. Everything else",
+      "duration": 2000,
+      "offset": "1169840"
+    },
+    {
+      "text": "has things like this. They're just not",
+      "duration": 2000,
+      "offset": "1171840"
+    },
+    {
+      "text": "known yet. The rce was really bad. It's",
+      "duration": 3440,
+      "offset": "1173840"
+    },
+    {
+      "text": "good that we got that addressed. These",
+      "duration": 1360,
+      "offset": "1177280"
+    },
+    {
+      "text": "are good things to have addressed, too.",
+      "duration": 1360,
+      "offset": "1178640"
+    },
+    {
+      "text": "And if you don't know what you're",
+      "duration": 1120,
+      "offset": "1180000"
+    },
+    {
+      "text": "talking about with the stuff, just shut",
+      "duration": 1200,
+      "offset": "1181120"
+    },
+    {
+      "text": "your [ __ ] mouth and go about your",
+      "duration": 1840,
+      "offset": "1182320"
+    },
+    {
+      "text": "day. It's fine to not have an opinion on",
+      "duration": 1840,
+      "offset": "1184160"
+    },
+    {
+      "text": "every single thing going on. There have",
+      "duration": 1679,
+      "offset": "1186000"
+    },
+    {
+      "text": "been so many things I have stayed out of",
+      "duration": 1681,
+      "offset": "1187679"
+    },
+    {
+      "text": "recently because I don't know my [ __ ]",
+      "duration": 1840,
+      "offset": "1189360"
+    },
+    {
+      "text": "This is one of the ones I know well, so",
+      "duration": 1680,
+      "offset": "1191200"
+    },
+    {
+      "text": "I have to come out here and crash out a",
+      "duration": 2000,
+      "offset": "1192880"
+    },
+    {
+      "text": "little bit because it's annoying. And",
+      "duration": 1600,
+      "offset": "1194880"
+    },
+    {
+      "text": "Versel, please test your own [ __ ] on",
+      "duration": 2559,
+      "offset": "1196480"
+    },
+    {
+      "text": "your own [ __ ] Why are your templates",
+      "duration": 2000,
+      "offset": "1199039"
+    },
+    {
+      "text": "failing on the latest versions of your",
+      "duration": 1681,
+      "offset": "1201039"
+    },
+    {
+      "text": "framework on your infrastructure? And",
+      "duration": 1920,
+      "offset": "1202720"
+    },
+    {
+      "text": "why are you billing me for build times",
+      "duration": 1520,
+      "offset": "1204640"
+    },
+    {
+      "text": "on things you know I can't deploy? What",
+      "duration": 1600,
+      "offset": "1206160"
+    },
+    {
+      "text": "the [ __ ] guys?",
+      "duration": 2240,
+      "offset": "1207760"
+    },
+    {
+      "text": "And speaking of which, I haven't had a",
+      "duration": 1440,
+      "offset": "1210000"
+    },
+    {
+      "text": "chance to complain about this.",
+      "duration": 1040,
+      "offset": "1211440"
+    },
+    {
+      "text": "Weathercrc, you're entirely on point.",
+      "duration": 1840,
+      "offset": "1212480"
+    },
+    {
+      "text": "Verscell logs aren't just buggy, they",
+      "duration": 2239,
+      "offset": "1214320"
+    },
+    {
+      "text": "are so unusable that it actively harms",
+      "duration": 2401,
+      "offset": "1216559"
+    },
+    {
+      "text": "our business. It is so [ __ ]",
+      "duration": 2240,
+      "offset": "1218960"
+    },
+    {
+      "text": "frustrating. The amount of times my team",
+      "duration": 1520,
+      "offset": "1221200"
+    },
+    {
+      "text": "complains to me every day that",
+      "duration": 1440,
+      "offset": "1222720"
+    },
+    {
+      "text": "Verscell's logs are super broken. You",
+      "duration": 2960,
+      "offset": "1224160"
+    },
+    {
+      "text": "all need to do a big overhaul of it.",
+      "duration": 1600,
+      "offset": "1227120"
+    },
+    {
+      "text": "That's all I got to say. You've got my",
+      "duration": 1600,
+      "offset": "1228720"
+    },
+    {
+      "text": "complaints about Verscell. You've got my",
+      "duration": 1359,
+      "offset": "1230320"
+    },
+    {
+      "text": "thoughts on this exploit. We've got my",
+      "duration": 1201,
+      "offset": "1231679"
+    },
+    {
+      "text": "bitching on this tweet. I think I have",
+      "duration": 2400,
+      "offset": "1232880"
+    },
+    {
+      "text": "said everything I need to. Please stop",
+      "duration": 1759,
+      "offset": "1235280"
+    },
+    {
+      "text": "bothering me about this. I hope this is",
+      "duration": 1601,
+      "offset": "1237039"
+    },
+    {
+      "text": "helpful. Keep your application secure.",
+      "duration": 1600,
+      "offset": "1238640"
+    },
+    {
+      "text": "Stay on the latest versions. And yeah,",
+      "duration": 2559,
+      "offset": "1240240"
+    },
+    {
+      "text": "you know what I feel about this. Let me",
+      "duration": 1521,
+      "offset": "1242799"
+    },
+    {
+      "text": "know what you think. And until next",
+      "duration": 1120,
+      "offset": "1244320"
+    },
+    {
+      "text": "time, peace and arts.",
+      "duration": 3040,
+      "offset": "1245440"
+    }
+  ],
+  "transcriptText": "Man, that React hack last week was really, really bad. I'm thankful we have so many security people looking at the React project and making sure there's nothing else like this. I'm sure going forward we're not going to find any other major uh Oh, two new exploits were just found in React. Great. I have a feeling this is going to be a long rant, especially because I'm seeing posts like this go around. Yeah, if you don't remember this snippet, it made a lot of people upset and concerned. Button form action use server await SQL insert into bookmarks. Slug value slug. Yeah. Yeah. Yeah. As someone who's defended this a lot in the past, I have things to say. I'm going to do my best to go over these exploits, what the problems with them are, as well as what caused this, and uh what I think about this being posted right now. Sadly, I couldn't find any banks that were on a new enough version of React for me to get free money using this exploit. So, uh, we'll do a quick word from today's sponsor instead. I have some bad news for you. Your service isn't secure. And that's not your fault. You're not like particularly horrible because you didn't hit the right button in the right dashboard at the right time and place. It's just too hard to get security right. It doesn't live where everything should. Your codebase security is spread across different databases, dashboards, permissions, systems, and processes that are really hard to get right. So much so that you're almost certainly getting it wrong right now. Unless you happen to already be using today's sponsor, Arkjet. This is the first time I've ever seen a service that truly gets security and developer experience. Normally, one is compromising on the other. You're using tools that make it really easy to build a good full stack service, it's almost certainly not secure. And if you're using tools that make it really easy to do security, there's a very good chance it sucks to work in. Unless you're using these guys. Want to see how hard it is to validate email with ArcJet? It's so obnoxious. You create the ArcJet client, which is a fully Types safe TypeScript SDK you can npm install. You pass it a key. Then you define a rule. In this case, the validate email rule that you're importing from their package. If you want to just insteny disposable or invalid email addresses, one line of code since it's all type safe cuz you know, TypeScript and good team. Once you've defined this ArcJet client, you call it. And if you don't pass an email, you get a type error. So, it's so easy to be sure at the request level in your actual source code that you're making things in a secure way. This means it's way easier for you to vibe code a secure service. Is way easier to check in code review if the thing's secured properly or not. You no longer have to have this crazy mental map of 15 different places to know if your stuff's secure. It just is because it's five lines of code. It's not your fault that your stuff's not secure. It's your fault that you haven't moved to arcjet yet. Fix that now at soy.link/archjet. Keep this example in your mind. We'll come back to it later, but first I want to talk about these exploits. You've probably already heard plenty about the exploit that was earlier this week or last week, the remote code execution bug that was an exploit of the flight protocol within React. Today's is a bit different though. These two new exploits are still very bad. I don't want to downplay how bad they are. They're a CV score of 7.5 and 5.3, respectively. The previous one was a 10, though. The worst it can be. These are still very very bad and should be addressed and I really like the public loud calling out that the React team is doing of this. The denial of service one is definitely high severity. There are two CVEes that go into it as well as the source code exposure. This one's more interesting because a lot of people expose their source code in various different ways. It is bad. If you're not trying to have an open source app, you shouldn't publish the source. I've seen a lot of people do this via source maps already anyways, but since you have this relationship between the server and client code, the capability of exploiting that is fascinating. I like their Twitter thread about this as a quick update. By the way, if you are using React and you're on version 19, make sure you're on 19.2.3 and you are safe. That's all you need to know. As long as you're on 1923, you're good. And if you're on Next.js, just be on the latest if you're on v6 of Next because uh the relationship between the next and the React package is a bit questionable. So, it's not as easy as just bumping React in a next project, bump the next version as well. So, they call out the CVE. They say it's common for critical CVEs to uncover follow-up vulnerabilities. When a critical vulnerability is disclosed, researchers scrutinize adjacent code paths looking for variant exploit techniques to test whether the initial mitigation can be bypassed. This is also happening with Nex.js and specifically Verscell. As I had mentioned before, Verscell put up a bounty for anybody who can find a workaround to their firewall level blocker because they wanted to make sure that if a project was still on an old version that to the best of their ability, Verscell could block the attempts to abuse it. So, they put up this bounty. If you find a bypass around their firewall, they'll give you a $50,000 payout. 25 if it's high severity, 50k for critical severity. 15 unique issues were discovered and they paid out almost a million dollars. 750K went to researchers who found ways to work around their firewall blockers for this exploit. So, they're all going really hard. Everybody is pushing at every edge to try and exploit the React ecosystem now, which is a good thing. I don't want to sit here and pretend it's not. Like, if you did this to almost any other set of tools in any other ecosystem, crazy shit's going to be found. Does React have its own weirdness that makes this more possible to find? Hold that thought. We'll be there later. The React team gives the example of when log for shell happened which resulted in lots of other CVEs being filed after the original fix. Additional disclosures can be frustrating, but they're generally a sign of a healthy response cycle. I couldn't agree more. These vulnerabilities are present in the patches published last week for React to Shell. Even though they do not allow for remote code execution, they are high severity and you should update again immediately. Their initial attempt to block the DOSs vulnerability denial of service was this CVE, but it didn't do well enough and another CV was filed right afterwards that showed that their attempt to protect it from it wasn't good enough. So, they had to do yet another update. That's why it was 19.2.2 and now 19.2.3. They had to do two updates because the first one was not good enough. Let's take a look at these CVEes. I'm sure they will be fun. For the DOSS one, the security researchers have discovered that a malicious HTTP request can be crafted and sent to any server functions endpoint that when deserialized by React can cause an infinite loop that hangs the server process and consumes CPU. Even if your app does not implement any React server function endpoints, it may still be vulnerable if your app supports server components. This creates a vulnerability factor where an attacker may be able to deny users from accessing the product and potentially have a performance impact on the server environment. Doing this on fluid compute or like lambdabacked server experiences with react would be very expensive too. This is a denial of wallet attack as well. The patch today mitigates this by preventing the infinite loop. So funny if you think about it, but this is like a edge case that causes an infinite loop as a high severity exploit. This isn't React is vulnerable to a style of attack that gives somebody access to something they shouldn't have. This is a malicious actor can take your service down by destroying the server CPUs with an infinite loop that they can trigger with a malicious payload. This is still a 7.5 severity score for a CVE. That's how serious they take the scoring system for this stuff. that something that doesn't risk user data is still put that high because it allows them to take a service down and is still being treated incredibly severely as it should. I just want to make sure it's incredibly clear that this is nowhere near as bad as the React to Shell exploit that was earlier this week. Should you update? Absolutely. Can somebody destroy your site with this? Absolutely. Is this putting your user's data directly at risk? Nowhere near as badly as the other exploit. And then there's the source code exposure. This one's only bad for your service if it's implemented in a way that is easy to exploit. If you have source code access, because I can find exploits in unminified source for server code much easier than by just probing at stuff directly. This is another malicious HTTP request. Seems like all of those are the causes of these bugs. This one may unsafeely return the source code of a given server function. Exploitation requires the existence of a server function which explicitly or implicitly exposes a stringified argument. So this one creates a connection with some secret key and then we await connection.create user implicitly stringified leaked in DB and now this source code is going to leak that be able to leak the following. So we have message hello async function server function. This is a minified version too. Inter very interesting that's able to leak minified source. I would not have predicted that. And only secrets in source code may be exposed. So if you're using runtime secrets like environment variables, those will not be affected. The source of the exposed code is limited to the code inside of the server function which may include other functions depending on the amount of inlining that your bundler is providing. Very interesting. Yeah, that's not too bad. So when you first see that React got three severe CVEEs in a week, your thought is that they must have done something terrible and React must be really really unsecure right now. And that's how you feel. I understand this is going to be a real reputation hit for the React project and team and people who are huge advocates of it like myself for a while. Similar to how Cloudflare's recent outages are a hit to their reputation. You just have to accept the fact that sometimes when things like this go wrong, it's going to be perceived differently for a while. And I would not be upset with anybody for perceiving React as less secure after this. But that's where we get here and where I have to crash out a little bit. There is nothing in this code that is unsafe. I want to be very clear for everybody looking at this. There is nothing in this code that is unsafe. Even if people in the replies are thinking that this code is fake because it's so obviously insecure, I've had to talk about this so many [ __ ] times and I'm so annoyed that I have to. Again, I will keep it brief because I'm sorry for the people who have had to hear me go on this rant so many times. This is not front-end code. This is backend code. This is the equivalent of defining an endpoint in a PHP file and nobody is looking at your PHP file and saying it's insecure unless you're inlining a SQL call with a string being passed and that's obviously insecure, right? No, it's not because that's not what's happening here. This is a template function in JavaScript. This is not just passing a string with a value in it. The combination of a template literal and a tag function is a cool thing you can do in JavaScript. You have a function named greet like this. You can call it using a back tick with a string. And it's not going to call this function with the one string that is resolved. It's going to call it with an array like this where it has each place before one of those templates occurs create a new entity in a string array and then pass all of the arguments in order after. So in this case, greet isn't being called with a string that says I'm Theo. I'm 30 years old. It's being called with an array that has I'm comma space I'm comma space years old. And then it takes the name and the age as additional arguments. That means that the only way that would be insecure is how you're implementing the function because you choose how you parse this data. The way this function is being called isn't by passing a completed string to SQL. It is by the SQL function being called with an array that has two things in it. Insert into bookmark slug values open PN first value over second value in the array close PN semicolon back tick. Well, it's not even the back tick. It's just the close PN semicolon. And then after the array, there's a new argument at the end which is whatever you passed for slug. So, as long as you do a basic check to make sure that you're passing safe values like any amount of input sanitization here at all and you're good and you're doing great. Somebody asked, does this cause you to lose order? No, absolutely not. It's in order. It's in the same order. Like, just look at the code. You have this first break point and you have a second break point. You can think of the template inserts here as break points for the string. And then at the end you pass the arguments in order. It's so annoying. It's like, and this sucks. This Ellie, who posted this, is great. She's a really good engineer and does incredible work on crazy database [ __ ] She knows better than this. Obviously, they're not posting an insecure code snip at a giant conference. This is meant to be a simple, concise demo of how useful these patterns compose together. The idea of a bookmark icon being a component the amount of on the server that you put in an element, you pass it a slug and now you click it and it's all handled is actually really really cool. That said, if you think this code is insecure, use an OM or a third party service like Convex. You probably shouldn't be using databases like this directly. You'll be doing a lot of stupid [ __ ] Man, I don't even want to talk about the exploits for some of these like database turned into API companies. Yeah. Yeah. And I guarantee some of the people talking [ __ ] on this are using Firebase with the default insecure configuration. I know how this goes. Yeah. This is why I'm angry cuz there's nothing about any of these exploits that has anything to do with the fact that you can write a action for a server function inside of a serveronly button component. All they're doing here is changing where the backend code lives. Normally you'd have to do a JavaScript fetch call here to an endpoint on the back end. But if this code doesn't have any other JavaScript it needs, just put the action in. This is a great pattern. I really like this. Good question from chat. What annoys me more, this picture or battery gate? They are so similar in the same way like like I love battery gate because when people bring it up, they disqualify all of their takes on anything Apple. Because most people think battery gate is Apple intentionally making old devices obsolete because they're making them slower. Then why is it called battery gate? It's they didn't even look into why it's named that. It's called battery gate because it's a feature where when your battery gets degraded enough on older iPhones because you live in a really hot or really cold environment. They would throttle how fast the phone goes to full speed. They wouldn't change what the full speed was. They weren't underclocking your phone. They were changing how quickly it got to the highest clock speed. The reason they did that is if your phone went from pulling a tenth of a watt to pulling 5 to 10 watts because your processor went from barely running to running full speed, if your battery was degraded, your phone would shut off. Lowering the speed that the phone ramps up at, lowering the acceleration, not the velocity, just the acceleration to that max speed prevented the phones from shutting themselves down. That is a reasonable change. And the fact that people bring it up as Apple intentionally making old devices slow in order to make you buy a new one is similarly stupid and bad faith to this being posted when the React team is working really hard to address novel, incredibly hard to find exploits. There's a lot of overlap in these things. Like it's the same type of frustrating dishonesty where either you don't know enough about this to be talking about it or you do and you're doing it anyways because you're being bad faith. It has to be one of the two. Apple did notify users that their batteries were degraded and they have more transparency about battery health than any other company and they do cheaper battery replacements than any other company. I do have my complaints about this though. Let me say the things I'm frustrated about. Let me go to my versel deployments quick thing. One, I'm annoyed about this. I can't deploy projects that are on old versions. And I get why they did this, but the sheer number of things I have to go deal with is obnoxious. On top of that, some of them just had weird failures that were very annoying, like skate benches UI. If you're not familiar with skate bench, it's a benchmark I made to measure how smart models are at naming different skateboarding tricks. I built this cuz it's interesting to see how well models can handle the reasoning of like 3D space around how skateboard tricks are described and how deep their knowledge of skateboarding is. I did not make this UI. This UI was made entirely by Vzero. I wanted to deploy an update with new data and nothing else. I had not changed a single other thing in this project. Deployment one failed because a vulnerable version of Nex.js was detected, which is funny because it still did the whole build before then. You'd think it would stop and not bill me for the build time. What the [ __ ] Verscell? You can read the package JSON before doing the build. Don't charge me for the build and then error after. You're not gonna let me deploy it. Don't let me build it. Second time I did this vulnerable version still detected. I thought I had changed at this point. I guess I hadn't. No, I remember this one. I still had the PNPM file, but I had accidentally install a bun. So, fix that. Third time it fails because the build failed because with this update from next 15 to 16 they switched to Turopac and Turopac couldn't build the CSS from Tailwind because I used the template that Verscell gave me from Vzero. So Versel's own super minimal UI template for next.js with Vzero and Tailwind of course cannot be built on the new version of Next. I almost was interested enough to deep dive and figure out what went wrong here. Then I remembered I have other things to do. So I fixed it with d- Webpack. The reason this happened is because they default to Turboac in the latest version. It is so annoying that I have to care about any of this. It is so annoying. Like these are the things I'm pissed off about. Like the fact that the template that they use for Vzero wasn't tested aggressively with TurboAC so that the old version works. And it seems like they're primarily testing this by like using newer projects and scaffolds in their giant internal Verscell project. Like they are using Tropac with real projects. They're using it with real projects in new projects. They're not using it with these in between projects that came out of their own [ __ ] And like I want to use Vzero for things more. It's really convenient having a decent like tool to make a UI for some random [ __ ] whenever I need one. I regret it. It has now cost me more time than it saved me because of this [ __ ] It's just annoying. And I will be doing this myself with probably my own template using shad CN and just using cursor along with opus or Gemini 3 for doing this type of work in the future. I'm just I'm annoyed. I'm sure they'll fix it eventually. Probably now cuz I'm complaining about it. But that was just my experience mitigating this has been dumb [ __ ] all around. And that was just my favorite example that like my CSS broke because I was mitigating a CVE. What the [ __ ] I don't think I have anything else to say on this one. update your React versions. This isn't a big problem anymore. This is security researchers realizing there's a cool surface area to look at. Most security researchers aren't that locked in on what's going on in the dev world. So, this is a huge big spotlight put on React for them to say, \"Oh, I have a rough area to go in here to find things.\" And as long as you're on the latest version, you're good. This isn't because React is some inherently insecure framework because it has a serverside component. Everything else has things like this. They're just not known yet. The rce was really bad. It's good that we got that addressed. These are good things to have addressed, too. And if you don't know what you're talking about with the stuff, just shut your [ __ ] mouth and go about your day. It's fine to not have an opinion on every single thing going on. There have been so many things I have stayed out of recently because I don't know my [ __ ] This is one of the ones I know well, so I have to come out here and crash out a little bit because it's annoying. And Versel, please test your own [ __ ] on your own [ __ ] Why are your templates failing on the latest versions of your framework on your infrastructure? And why are you billing me for build times on things you know I can't deploy? What the [ __ ] guys? And speaking of which, I haven't had a chance to complain about this. Weathercrc, you're entirely on point. Verscell logs aren't just buggy, they are so unusable that it actively harms our business. It is so [ __ ] frustrating. The amount of times my team complains to me every day that Verscell's logs are super broken. You all need to do a big overhaul of it. That's all I got to say. You've got my complaints about Verscell. You've got my thoughts on this exploit. We've got my bitching on this tweet. I think I have said everything I need to. Please stop bothering me about this. I hope this is helpful. Keep your application secure. Stay on the latest versions. And yeah, you know what I feel about this. Let me know what you think. And until next time, peace and arts."
+}

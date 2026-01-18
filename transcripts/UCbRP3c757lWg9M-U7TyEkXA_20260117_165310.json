@@ -1,0 +1,4797 @@
+{
+  "channel": {
+    "id": "UCbRP3c757lWg9M-U7TyEkXA",
+    "databaseId": "a51c1705-882c-4be5-b706-055eceb039f8",
+    "name": "Theo Browne",
+    "description": "Theo is a software dev, AI nerd, TypeScript sympathizer, creator of T3 Chat and the T3 Stack."
+  },
+  "videoId": "IcQEaopx90g",
+  "title": "Claude Cowork: a small taste of AGI",
+  "url": "https://www.youtube.com/watch?v=IcQEaopx90g",
+  "publishedAt": "2026-01-17T11:53:06.052Z",
+  "description": "They made another Claude Code, except this one's not for code...\n\nThank you G2i for sponsoring! Check them out at: https://soydev.link/g2i\n\nSOURCES\nhttps://x.com/claudeai/status/2010805682434666759...",
+  "thumbnailUrl": "https://i9.ytimg.com/vi/IcQEaopx90g/hqdefault_custom_1.jpg?sqp=COjPr8sG-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCUgh8JrUfPG62-_Zh03fqNreb-aw",
+  "transcript": [
+    {
+      "text": "I have a confession to make. I've been",
+      "duration": 3040,
+      "offset": 0
+    },
+    {
+      "text": "using Cloud Code a lot, like almost",
+      "duration": 3439,
+      "offset": 1360
+    },
+    {
+      "text": "every day. So, where are all of the",
+      "duration": 3120,
+      "offset": 3040
+    },
+    {
+      "text": "changes that I'm building? Where's all",
+      "duration": 3601,
+      "offset": 4799
+    },
+    {
+      "text": "the code that I'm making? I'm not. I",
+      "duration": 3439,
+      "offset": 6160
+    },
+    {
+      "text": "know that sounds crazy. What's the point",
+      "duration": 3440,
+      "offset": 8400
+    },
+    {
+      "text": "of cloud code if not to code? Well, I'm",
+      "duration": 4080,
+      "offset": 9599
+    },
+    {
+      "text": "using it for much more personal use",
+      "duration": 3600,
+      "offset": 11840
+    },
+    {
+      "text": "cases. It's kind of like a way that I",
+      "duration": 3680,
+      "offset": 13679
+    },
+    {
+      "text": "use the computer now. Whether I'm trying",
+      "duration": 3440,
+      "offset": 15440
+    },
+    {
+      "text": "to analyze my iMessage history through",
+      "duration": 3041,
+      "offset": 17359
+    },
+    {
+      "text": "the SQLite bindings, I'm trying to",
+      "duration": 3520,
+      "offset": 18880
+    },
+    {
+      "text": "organize files on my computer, try to",
+      "duration": 3760,
+      "offset": 20400
+    },
+    {
+      "text": "find that one picture of this one thing",
+      "duration": 4000,
+      "offset": 22400
+    },
+    {
+      "text": "that's in my giant non-stop growing",
+      "duration": 4400,
+      "offset": 24160
+    },
+    {
+      "text": "downloads folder. I find that cloud code",
+      "duration": 4160,
+      "offset": 26400
+    },
+    {
+      "text": "is incredible for doing things on my",
+      "duration": 3600,
+      "offset": 28560
+    },
+    {
+      "text": "computer just as much as it is for",
+      "duration": 3760,
+      "offset": 30560
+    },
+    {
+      "text": "changing code in a codebase which is why",
+      "duration": 3919,
+      "offset": 32160
+    },
+    {
+      "text": "I'm not at all surprised by the new",
+      "duration": 3280,
+      "offset": 34320
+    },
+    {
+      "text": "product that was just dropped by",
+      "duration": 3761,
+      "offset": 36079
+    },
+    {
+      "text": "anthropic co-work attempt to make these",
+      "duration": 4320,
+      "offset": 37600
+    },
+    {
+      "text": "use cases for cloud code accessible to",
+      "duration": 4480,
+      "offset": 39840
+    },
+    {
+      "text": "everyone making it easier to use with",
+      "duration": 4799,
+      "offset": 41920
+    },
+    {
+      "text": "your computer directly as a normal",
+      "duration": 4160,
+      "offset": 44320
+    },
+    {
+      "text": "person not somebody spending all their",
+      "duration": 3441,
+      "offset": 46719
+    },
+    {
+      "text": "time in the terminal. Let's watch their",
+      "duration": 3040,
+      "offset": 48480
+    },
+    {
+      "text": "little preview and hope they don't have",
+      "duration": 3200,
+      "offset": 50160
+    },
+    {
+      "text": "music that will DMCA me like they love",
+      "duration": 5480,
+      "offset": 51520
+    },
+    {
+      "text": "to do all the time.",
+      "duration": 3640,
+      "offset": 53360
+    },
+    {
+      "text": "Look at that. The question UI made its",
+      "duration": 4920,
+      "offset": 80960
+    },
+    {
+      "text": "way in.",
+      "duration": 3160,
+      "offset": 82720
+    },
+    {
+      "text": "The to-do list made it in.",
+      "duration": 4720,
+      "offset": 89680
+    },
+    {
+      "text": "You can follow up messages while it's",
+      "duration": 6200,
+      "offset": 92400
+    },
+    {
+      "text": "working and it handles all that.",
+      "duration": 4200,
+      "offset": 94400
+    },
+    {
+      "text": "And it can take over Chrome, which is",
+      "duration": 5160,
+      "offset": 101040
+    },
+    {
+      "text": "actually a really cool feature.",
+      "duration": 3640,
+      "offset": 102560
+    },
+    {
+      "text": "And it can generate a deck, which is",
+      "duration": 3361,
+      "offset": 110159
+    },
+    {
+      "text": "funny because Anthropic is the only",
+      "duration": 3680,
+      "offset": 112000
+    },
+    {
+      "text": "major lab that hasn't shipped an image",
+      "duration": 3840,
+      "offset": 113520
+    },
+    {
+      "text": "model of any form. So it can't actually",
+      "duration": 3119,
+      "offset": 115680
+    },
+    {
+      "text": "generate images. Has to do all of this",
+      "duration": 5799,
+      "offset": 117360
+    },
+    {
+      "text": "through code, which is hilarious.",
+      "duration": 4360,
+      "offset": 118799
+    },
+    {
+      "text": "Oh man, there's a lot of interesting",
+      "duration": 3760,
+      "offset": 128000
+    },
+    {
+      "text": "things happening here. I have opinions",
+      "duration": 4080,
+      "offset": 130080
+    },
+    {
+      "text": "on most of them. And I'll be frank, I do",
+      "duration": 3760,
+      "offset": 131760
+    },
+    {
+      "text": "actually think this is a good product",
+      "duration": 3360,
+      "offset": 134160
+    },
+    {
+      "text": "that makes a lot of sense. And in some",
+      "duration": 3920,
+      "offset": 135520
+    },
+    {
+      "text": "ways, it seems like our first taste of",
+      "duration": 4880,
+      "offset": 137520
+    },
+    {
+      "text": "AGI in a very real way. That said, I",
+      "duration": 4799,
+      "offset": 139440
+    },
+    {
+      "text": "also had a full-on crash out just trying",
+      "duration": 4320,
+      "offset": 142400
+    },
+    {
+      "text": "to install the app because Anthropic,",
+      "duration": 4161,
+      "offset": 144239
+    },
+    {
+      "text": "despite having one of the best models",
+      "duration": 4080,
+      "offset": 146720
+    },
+    {
+      "text": "for coding ever made, still doesn't know",
+      "duration": 4400,
+      "offset": 148400
+    },
+    {
+      "text": "how to write code themselves. Do you",
+      "duration": 3760,
+      "offset": 150800
+    },
+    {
+      "text": "know who does work reliably, though?",
+      "duration": 3280,
+      "offset": 152800
+    },
+    {
+      "text": "Today's sponsor. These guys are all",
+      "duration": 2959,
+      "offset": 154560
+    },
+    {
+      "text": "about saving time. So, if you're not",
+      "duration": 3280,
+      "offset": 156080
+    },
+    {
+      "text": "hiring anybody, you can skip this ad.",
+      "duration": 3440,
+      "offset": 157519
+    },
+    {
+      "text": "But if you are, you really should check",
+      "duration": 3680,
+      "offset": 159360
+    },
+    {
+      "text": "out today's sponsor because G2I will",
+      "duration": 4241,
+      "offset": 160959
+    },
+    {
+      "text": "make hiring so much easier, so much",
+      "duration": 3919,
+      "offset": 163040
+    },
+    {
+      "text": "faster, and probably bring you better",
+      "duration": 3200,
+      "offset": 165200
+    },
+    {
+      "text": "engineers than you would otherwise get",
+      "duration": 3201,
+      "offset": 166959
+    },
+    {
+      "text": "yourself. Their network of 8,000",
+      "duration": 3520,
+      "offset": 168400
+    },
+    {
+      "text": "engineers is unbelievable. They're not",
+      "duration": 3280,
+      "offset": 170160
+    },
+    {
+      "text": "just a bunch of fresh grads trying to",
+      "duration": 3120,
+      "offset": 171920
+    },
+    {
+      "text": "get their first gig. It's people who",
+      "duration": 3600,
+      "offset": 173440
+    },
+    {
+      "text": "have had years upon years of experience",
+      "duration": 4320,
+      "offset": 175040
+    },
+    {
+      "text": "doing real projects at real companies.",
+      "duration": 4080,
+      "offset": 177040
+    },
+    {
+      "text": "And their knowledge is up to date, too.",
+      "duration": 3440,
+      "offset": 179360
+    },
+    {
+      "text": "The vast majority of them are already on",
+      "duration": 3119,
+      "offset": 181120
+    },
+    {
+      "text": "board on the best AI tools. So, you're",
+      "duration": 2480,
+      "offset": 182800
+    },
+    {
+      "text": "not going to have to teach them how to",
+      "duration": 2561,
+      "offset": 184239
+    },
+    {
+      "text": "use cursor. You can just throw them at",
+      "duration": 3120,
+      "offset": 185280
+    },
+    {
+      "text": "your codebase and get them going. What's",
+      "duration": 3439,
+      "offset": 186800
+    },
+    {
+      "text": "even crazier is how fast they'll start",
+      "duration": 4160,
+      "offset": 188400
+    },
+    {
+      "text": "filing those PRs. It's GTI's goal to get",
+      "duration": 5121,
+      "offset": 190239
+    },
+    {
+      "text": "you from signed up to PR filed within 7",
+      "duration": 5520,
+      "offset": 192560
+    },
+    {
+      "text": "days. Yes, really. You sign up day one,",
+      "duration": 4480,
+      "offset": 195360
+    },
+    {
+      "text": "you meet with their team day two, they",
+      "duration": 3519,
+      "offset": 198080
+    },
+    {
+      "text": "set up the Slack day three, and they",
+      "duration": 3440,
+      "offset": 199840
+    },
+    {
+      "text": "have candidates ready to start on a",
+      "duration": 3360,
+      "offset": 201599
+    },
+    {
+      "text": "trial by the end of the week, and they",
+      "duration": 3280,
+      "offset": 203280
+    },
+    {
+      "text": "will have PRs filed by the end of that",
+      "duration": 3360,
+      "offset": 204959
+    },
+    {
+      "text": "day. It's kind of crazy, but I've seen",
+      "duration": 3599,
+      "offset": 206560
+    },
+    {
+      "text": "it happen enough times I do actually",
+      "duration": 3361,
+      "offset": 208319
+    },
+    {
+      "text": "believe it. If you're running a team,",
+      "duration": 2961,
+      "offset": 210159
+    },
+    {
+      "text": "you have way more important stuff to be",
+      "duration": 3520,
+      "offset": 211680
+    },
+    {
+      "text": "doing than chasing down recruiters. Use",
+      "duration": 4800,
+      "offset": 213120
+    },
+    {
+      "text": "the ones who get it at soy. /G2i. In",
+      "duration": 4480,
+      "offset": 215200
+    },
+    {
+      "text": "order to use this, I need to install it.",
+      "duration": 4879,
+      "offset": 217920
+    },
+    {
+      "text": "And a spoiler behind thescenes peer",
+      "duration": 5760,
+      "offset": 219680
+    },
+    {
+      "text": "moment thing here, I already did. And I",
+      "duration": 4160,
+      "offset": 222799
+    },
+    {
+      "text": "decided to record it because I was",
+      "duration": 3200,
+      "offset": 225440
+    },
+    {
+      "text": "having a rough time when I did. So,",
+      "duration": 3840,
+      "offset": 226959
+    },
+    {
+      "text": "we're going to just cut to that and take",
+      "duration": 4159,
+      "offset": 228640
+    },
+    {
+      "text": "over from there. It's time to get",
+      "duration": 4401,
+      "offset": 230799
+    },
+    {
+      "text": "started. Okay, that's fine. I'll",
+      "duration": 4401,
+      "offset": 232799
+    },
+    {
+      "text": "continue with Google. It's now asking to",
+      "duration": 4160,
+      "offset": 235200
+    },
+    {
+      "text": "open Safari, a browser that I would",
+      "duration": 4399,
+      "offset": 237200
+    },
+    {
+      "text": "uninstall if I could. I have multiple",
+      "duration": 4879,
+      "offset": 239360
+    },
+    {
+      "text": "other browsers including stock Chrome,",
+      "duration": 5840,
+      "offset": 241599
+    },
+    {
+      "text": "Chrome Beta, Helium, and my default Zen.",
+      "duration": 4720,
+      "offset": 244239
+    },
+    {
+      "text": "And it's not choosing to use any of",
+      "duration": 3041,
+      "offset": 247439
+    },
+    {
+      "text": "those. So, what happens when I click",
+      "duration": 3280,
+      "offset": 248959
+    },
+    {
+      "text": "here? It brings me to this embedded",
+      "duration": 5119,
+      "offset": 250480
+    },
+    {
+      "text": "claw.ai web view using a Safari web",
+      "duration": 4881,
+      "offset": 252239
+    },
+    {
+      "text": "view. And now I have to click continue",
+      "duration": 3521,
+      "offset": 255599
+    },
+    {
+      "text": "with Google again, which I just did, and",
+      "duration": 4320,
+      "offset": 257120
+    },
+    {
+      "text": "it opens up another web view. The first",
+      "duration": 4160,
+      "offset": 259120
+    },
+    {
+      "text": "time this happened, it froze, which is",
+      "duration": 4000,
+      "offset": 261440
+    },
+    {
+      "text": "why I wanted to show you guys. And the",
+      "duration": 4320,
+      "offset": 263280
+    },
+    {
+      "text": "best part is I can't use one password",
+      "duration": 4479,
+      "offset": 265440
+    },
+    {
+      "text": "for this and I can't use my pass keys",
+      "duration": 5360,
+      "offset": 267600
+    },
+    {
+      "text": "for this. I can't do this. This is going",
+      "duration": 6161,
+      "offset": 269919
+    },
+    {
+      "text": "to take me actual time to sign into",
+      "duration": 4640,
+      "offset": 272960
+    },
+    {
+      "text": "because they couldn't bother with a",
+      "duration": 4320,
+      "offset": 276080
+    },
+    {
+      "text": "basic redirect flow like they have in I",
+      "duration": 5280,
+      "offset": 277600
+    },
+    {
+      "text": "don't know claude code the other product",
+      "duration": 4400,
+      "offset": 280400
+    },
+    {
+      "text": "that I signed into recently through",
+      "duration": 3920,
+      "offset": 282880
+    },
+    {
+      "text": "anthropic. Can they go vibe code a",
+      "duration": 3679,
+      "offset": 284800
+    },
+    {
+      "text": "solution that actually works for [ __ ]",
+      "duration": 5280,
+      "offset": 286800
+    },
+    {
+      "text": "off? Like it it is claude code and opus",
+      "duration": 6160,
+      "offset": 288479
+    },
+    {
+      "text": "really good? Yes. Are engineers going to",
+      "duration": 4160,
+      "offset": 292080
+    },
+    {
+      "text": "lose jobs because of how good these",
+      "duration": 4161,
+      "offset": 294639
+    },
+    {
+      "text": "tools are? Maybe. Is Anthropic",
+      "duration": 4399,
+      "offset": 296240
+    },
+    {
+      "text": "demonstrating how capable they are at",
+      "duration": 3600,
+      "offset": 298800
+    },
+    {
+      "text": "engineering as a result of their tools?",
+      "duration": 4000,
+      "offset": 300639
+    },
+    {
+      "text": "Abso [ __ ] lutely not. It is hilarious",
+      "duration": 4400,
+      "offset": 302400
+    },
+    {
+      "text": "how much random [ __ ] is broken because",
+      "duration": 4161,
+      "offset": 304639
+    },
+    {
+      "text": "they don't care enough to fix it because",
+      "duration": 3920,
+      "offset": 306800
+    },
+    {
+      "text": "everybody at Anthropics already signed",
+      "duration": 4000,
+      "offset": 308800
+    },
+    {
+      "text": "in. They don't care. They don't check",
+      "duration": 3840,
+      "offset": 310720
+    },
+    {
+      "text": "it. They don't try it. And most of them",
+      "duration": 3440,
+      "offset": 312800
+    },
+    {
+      "text": "don't even use cloud.ai. They just use",
+      "duration": 3440,
+      "offset": 314560
+    },
+    {
+      "text": "cloud code to ask it questions. Like",
+      "duration": 4160,
+      "offset": 316240
+    },
+    {
+      "text": "it's cloud.ai AI is probably the worst",
+      "duration": 4479,
+      "offset": 318000
+    },
+    {
+      "text": "chat experience from a major lab. Unless",
+      "duration": 4239,
+      "offset": 320400
+    },
+    {
+      "text": "you count one of the five instances of",
+      "duration": 4160,
+      "offset": 322479
+    },
+    {
+      "text": "Gemini.",
+      "duration": 3441,
+      "offset": 324639
+    },
+    {
+      "text": "It's just there's so many of these",
+      "duration": 3041,
+      "offset": 326639
+    },
+    {
+      "text": "things that I experience every time I",
+      "duration": 4320,
+      "offset": 328080
+    },
+    {
+      "text": "try to just sign into Claude. I have to",
+      "duration": 5040,
+      "offset": 329680
+    },
+    {
+      "text": "scan the pass key on my phone because it",
+      "duration": 4639,
+      "offset": 332400
+    },
+    {
+      "text": "can't use the pass key on my computer",
+      "duration": 3759,
+      "offset": 334720
+    },
+    {
+      "text": "because they don't know how to [ __ ]",
+      "duration": 4081,
+      "offset": 337039
+    },
+    {
+      "text": "write code. Three separate modals just",
+      "duration": 5041,
+      "offset": 338479
+    },
+    {
+      "text": "popped up. One, two, three. the preview",
+      "duration": 4880,
+      "offset": 341120
+    },
+    {
+      "text": "for co-work which I'll X out of so you",
+      "duration": 4880,
+      "offset": 343520
+    },
+    {
+      "text": "can see the quickly chat to Claude in a",
+      "duration": 6240,
+      "offset": 346000
+    },
+    {
+      "text": "few taps that's underneath. Hide. Hide.",
+      "duration": 6560,
+      "offset": 348400
+    },
+    {
+      "text": "Continue. And now I can actually use it.",
+      "duration": 4880,
+      "offset": 352240
+    },
+    {
+      "text": "Oh god. The treatment on that little",
+      "duration": 4720,
+      "offset": 354960
+    },
+    {
+      "text": "blue icon there is clipping. It's",
+      "duration": 4639,
+      "offset": 357120
+    },
+    {
+      "text": "literally clipping.",
+      "duration": 5280,
+      "offset": 359680
+    },
+    {
+      "text": "Are you kidding? Oh my god. I I want to",
+      "duration": 5681,
+      "offset": 361759
+    },
+    {
+      "text": "like this. I want to see the value here.",
+      "duration": 4480,
+      "offset": 364960
+    },
+    {
+      "text": "But holy [ __ ] They do not know how to",
+      "duration": 4000,
+      "offset": 367440
+    },
+    {
+      "text": "build apps at all. Okay. Okay. I should",
+      "duration": 3759,
+      "offset": 369440
+    },
+    {
+      "text": "have shown that before cuz when I click",
+      "duration": 3840,
+      "offset": 371440
+    },
+    {
+      "text": "the co-work it lagged a whole bunch. The",
+      "duration": 5961,
+      "offset": 373199
+    },
+    {
+      "text": "second time it flashed in.",
+      "duration": 3880,
+      "offset": 375280
+    },
+    {
+      "text": "Are you kidding? Yeah. When you go to",
+      "duration": 4560,
+      "offset": 379919
+    },
+    {
+      "text": "co-work it reloads the whole page.",
+      "duration": 4480,
+      "offset": 382080
+    },
+    {
+      "text": "Someone asked how much of co-work did",
+      "duration": 4720,
+      "offset": 384479
+    },
+    {
+      "text": "Cloud Code write and Boris answered all",
+      "duration": 6320,
+      "offset": 386560
+    },
+    {
+      "text": "of it. Did Cloud Code also QA it? Like I",
+      "duration": 5440,
+      "offset": 389199
+    },
+    {
+      "text": "don't I I don't want to sit here and be",
+      "duration": 3920,
+      "offset": 392880
+    },
+    {
+      "text": "this mean. actually came in excited, but",
+      "duration": 4321,
+      "offset": 394639
+    },
+    {
+      "text": "just getting to the feature has resulted",
+      "duration": 4880,
+      "offset": 396800
+    },
+    {
+      "text": "in me seeing so many [ __ ] skeletons.",
+      "duration": 4079,
+      "offset": 398960
+    },
+    {
+      "text": "Like, I can't get over that. The whole",
+      "duration": 3760,
+      "offset": 401680
+    },
+    {
+      "text": "UI flickers out. They can't even get",
+      "duration": 4000,
+      "offset": 403039
+    },
+    {
+      "text": "Claude to work in the [ __ ] code base",
+      "duration": 4080,
+      "offset": 405440
+    },
+    {
+      "text": "for cloud.AI. Now, I'll be saying this a",
+      "duration": 4000,
+      "offset": 407039
+    },
+    {
+      "text": "lot throughout this video. I am sorry in",
+      "duration": 5360,
+      "offset": 409520
+    },
+    {
+      "text": "advance. Enthropic, we can lay down our",
+      "duration": 6880,
+      "offset": 411039
+    },
+    {
+      "text": "pitchforks. We can come together. We can",
+      "duration": 5439,
+      "offset": 414880
+    },
+    {
+      "text": "be purchased to come in and fix this.",
+      "duration": 4241,
+      "offset": 417919
+    },
+    {
+      "text": "You clearly don't have engineers that",
+      "duration": 3681,
+      "offset": 420319
+    },
+    {
+      "text": "care enough or understand enough about",
+      "duration": 3680,
+      "offset": 422160
+    },
+    {
+      "text": "user experience or they don't have the",
+      "duration": 3599,
+      "offset": 424000
+    },
+    {
+      "text": "right leadership or ownership or",
+      "duration": 3600,
+      "offset": 425840
+    },
+    {
+      "text": "opportunity to make an app that's",
+      "duration": 3921,
+      "offset": 427599
+    },
+    {
+      "text": "actually pleasant to use. I would be",
+      "duration": 4479,
+      "offset": 429440
+    },
+    {
+      "text": "down to get over my [ __ ] and bring",
+      "duration": 5200,
+      "offset": 431520
+    },
+    {
+      "text": "my team in to unfuck your [ __ ] but",
+      "duration": 4161,
+      "offset": 433919
+    },
+    {
+      "text": "I'm not doing it till you open source",
+      "duration": 3599,
+      "offset": 436720
+    },
+    {
+      "text": "cloud code. That is a hard line.",
+      "duration": 4160,
+      "offset": 438080
+    },
+    {
+      "text": "Anyways, let's figure out if co-works of",
+      "duration": 4720,
+      "offset": 440319
+    },
+    {
+      "text": "any use. Theoretically speaking, as long",
+      "duration": 5200,
+      "offset": 442240
+    },
+    {
+      "text": "as I never leave this tab, it shouldn't",
+      "duration": 6000,
+      "offset": 445039
+    },
+    {
+      "text": "be too too bad, right? Fingers crossed.",
+      "duration": 5280,
+      "offset": 447440
+    },
+    {
+      "text": "So, what are the use cases for something",
+      "duration": 4000,
+      "offset": 451039
+    },
+    {
+      "text": "like this? They put out some examples,",
+      "duration": 4160,
+      "offset": 452720
+    },
+    {
+      "text": "and honestly, I'm just thankful the",
+      "duration": 4081,
+      "offset": 455039
+    },
+    {
+      "text": "example they put out isn't yet another",
+      "duration": 4400,
+      "offset": 456880
+    },
+    {
+      "text": "travel planner. The next time somebody",
+      "duration": 4560,
+      "offset": 459120
+    },
+    {
+      "text": "shows that their AI can plan a trip for",
+      "duration": 4160,
+      "offset": 461280
+    },
+    {
+      "text": "them, I'm going to flip a [ __ ] because",
+      "duration": 3280,
+      "offset": 463680
+    },
+    {
+      "text": "first off, that's not a good use case.",
+      "duration": 3120,
+      "offset": 465440
+    },
+    {
+      "text": "And second off, no, it [ __ ] can't.",
+      "duration": 3120,
+      "offset": 466960
+    },
+    {
+      "text": "So, this use case I actually think is",
+      "duration": 3680,
+      "offset": 468560
+    },
+    {
+      "text": "really, really cool. This is a demo that",
+      "duration": 4320,
+      "offset": 470080
+    },
+    {
+      "text": "a lot of people in my life need to see.",
+      "duration": 3920,
+      "offset": 472240
+    },
+    {
+      "text": "Also, Josh, CEO of the browser company",
+      "duration": 3680,
+      "offset": 474400
+    },
+    {
+      "text": "in Arc, should definitely see this one.",
+      "duration": 3360,
+      "offset": 476160
+    },
+    {
+      "text": "and he has the most disgusting desktop",
+      "duration": 2959,
+      "offset": 478080
+    },
+    {
+      "text": "I've ever seen. And if he ever again",
+      "duration": 3200,
+      "offset": 479520
+    },
+    {
+      "text": "talks [ __ ] about my downloads folder, I",
+      "duration": 3761,
+      "offset": 481039
+    },
+    {
+      "text": "will ruin him. And here it is running a",
+      "duration": 4240,
+      "offset": 482720
+    },
+    {
+      "text": "command. It is noticing all the things",
+      "duration": 4399,
+      "offset": 484800
+    },
+    {
+      "text": "on the desktop and offering for a full",
+      "duration": 4239,
+      "offset": 486960
+    },
+    {
+      "text": "auto organize other options and it still",
+      "duration": 4720,
+      "offset": 489199
+    },
+    {
+      "text": "has the press number key thing to do",
+      "duration": 4801,
+      "offset": 491199
+    },
+    {
+      "text": "that stuff. This isn't my desktop to be",
+      "duration": 3521,
+      "offset": 493919
+    },
+    {
+      "text": "clear. I would never do this. My desktop",
+      "duration": 3520,
+      "offset": 496000
+    },
+    {
+      "text": "is mostly cleared. When I set up a new",
+      "duration": 4080,
+      "offset": 497440
+    },
+    {
+      "text": "Mac and forget to move the screenshots",
+      "duration": 3920,
+      "offset": 499520
+    },
+    {
+      "text": "like default directory over, I get a",
+      "duration": 3040,
+      "offset": 501520
+    },
+    {
+      "text": "couple there, but that's it. My",
+      "duration": 2960,
+      "offset": 503440
+    },
+    {
+      "text": "desktop's empty. And here it just moved",
+      "duration": 4079,
+      "offset": 504560
+    },
+    {
+      "text": "all these things over because you know",
+      "duration": 4000,
+      "offset": 506400
+    },
+    {
+      "text": "through a terminal these things aren't",
+      "duration": 3601,
+      "offset": 508639
+    },
+    {
+      "text": "that hard to do. At the same time",
+      "duration": 4319,
+      "offset": 510400
+    },
+    {
+      "text": "though, isn't it a little bit scary to",
+      "duration": 5679,
+      "offset": 512240
+    },
+    {
+      "text": "give a desktop app pseudo access to your",
+      "duration": 4800,
+      "offset": 514719
+    },
+    {
+      "text": "terminal when you don't even know what a",
+      "duration": 3441,
+      "offset": 517919
+    },
+    {
+      "text": "terminal is or what the risks are of",
+      "duration": 4481,
+      "offset": 519519
+    },
+    {
+      "text": "something like that? Yeah, it is scary.",
+      "duration": 4320,
+      "offset": 521360
+    },
+    {
+      "text": "Simon Willis's been experimenting with",
+      "duration": 3200,
+      "offset": 524000
+    },
+    {
+      "text": "this and we'll be sure to read his blog",
+      "duration": 2880,
+      "offset": 525680
+    },
+    {
+      "text": "post. But first, I wanted to call out",
+      "duration": 3440,
+      "offset": 527200
+    },
+    {
+      "text": "this interesting find. used cloud code",
+      "duration": 4000,
+      "offset": 528560
+    },
+    {
+      "text": "to reverse engineer the cloud Mac OS",
+      "duration": 4080,
+      "offset": 530640
+    },
+    {
+      "text": "Electron app and had co-work dig around",
+      "duration": 3920,
+      "offset": 532560
+    },
+    {
+      "text": "in its own environment. Now he has a",
+      "duration": 3520,
+      "offset": 534720
+    },
+    {
+      "text": "good idea of how the sandboxes work.",
+      "duration": 3440,
+      "offset": 536480
+    },
+    {
+      "text": "It's using Apple's virtualization",
+      "duration": 3680,
+      "offset": 538240
+    },
+    {
+      "text": "framework. Think like Docker but native",
+      "duration": 3760,
+      "offset": 539920
+    },
+    {
+      "text": "to Apple's platform. It's using an",
+      "duration": 3840,
+      "offset": 541920
+    },
+    {
+      "text": "Ubuntu VM through that which is very",
+      "duration": 3279,
+      "offset": 543680
+    },
+    {
+      "text": "interesting because that means when you",
+      "duration": 2880,
+      "offset": 545760
+    },
+    {
+      "text": "install the cloud app, you are now",
+      "duration": 4241,
+      "offset": 546959
+    },
+    {
+      "text": "downloading a full Ubuntu VM. Kernels on",
+      "duration": 5520,
+      "offset": 548640
+    },
+    {
+      "text": "kernels on kernels. Now every OS has",
+      "duration": 4960,
+      "offset": 551200
+    },
+    {
+      "text": "Ubuntu as part of it. Windows subsystem",
+      "duration": 4000,
+      "offset": 554160
+    },
+    {
+      "text": "for Linux is now turned on by default in",
+      "duration": 4880,
+      "offset": 556160
+    },
+    {
+      "text": "Windows. Ubuntu is now bundled alongside",
+      "duration": 5200,
+      "offset": 558160
+    },
+    {
+      "text": "Claude. We're in an interesting world,",
+      "duration": 3919,
+      "offset": 561040
+    },
+    {
+      "text": "aren't we? It really is the year of the",
+      "duration": 3360,
+      "offset": 563360
+    },
+    {
+      "text": "Linux desktop, isn't it? It's not even",
+      "duration": 5361,
+      "offset": 564959
+    },
+    {
+      "text": "using the latest LTS. It's on 2204.",
+      "duration": 5440,
+      "offset": 566720
+    },
+    {
+      "text": "You kidding? It has a separate network",
+      "duration": 3440,
+      "offset": 570320
+    },
+    {
+      "text": "name space, so it can't access devices",
+      "duration": 3359,
+      "offset": 572160
+    },
+    {
+      "text": "on your network. Has a separate pit",
+      "duration": 3440,
+      "offset": 573760
+    },
+    {
+      "text": "isolation, so it doesn't have access to",
+      "duration": 3521,
+      "offset": 575519
+    },
+    {
+      "text": "your other processes. These are good",
+      "duration": 4000,
+      "offset": 577200
+    },
+    {
+      "text": "things that it's doing. Cloud code",
+      "duration": 3359,
+      "offset": 579040
+    },
+    {
+      "text": "should probably do some of these, too.",
+      "duration": 2400,
+      "offset": 581200
+    },
+    {
+      "text": "Or at the very least, if you're using it",
+      "duration": 2641,
+      "offset": 582399
+    },
+    {
+      "text": "in unsafe mode, you should set something",
+      "duration": 4000,
+      "offset": 583600
+    },
+    {
+      "text": "up like this yourself. Cool to see. It's",
+      "duration": 4160,
+      "offset": 585040
+    },
+    {
+      "text": "very very good that they are isolating",
+      "duration": 3280,
+      "offset": 587600
+    },
+    {
+      "text": "it, but that is not stopping it from",
+      "duration": 3759,
+      "offset": 589200
+    },
+    {
+      "text": "having security issues. Cloud code is",
+      "duration": 3760,
+      "offset": 590880
+    },
+    {
+      "text": "vulnerable to file exfiltration attacks",
+      "duration": 3440,
+      "offset": 592959
+    },
+    {
+      "text": "via indirect prompt injection as a",
+      "duration": 3440,
+      "offset": 594640
+    },
+    {
+      "text": "result of known but unresolved isolation",
+      "duration": 3201,
+      "offset": 596399
+    },
+    {
+      "text": "flaws in Cloud Code's execution",
+      "duration": 2960,
+      "offset": 598080
+    },
+    {
+      "text": "environment. Well, in Claude's code",
+      "duration": 3040,
+      "offset": 599600
+    },
+    {
+      "text": "execution environment. This isn't Claude",
+      "duration": 3680,
+      "offset": 601040
+    },
+    {
+      "text": "Code. It's Claude the desktop apps code",
+      "duration": 4160,
+      "offset": 602640
+    },
+    {
+      "text": "execution environment. Naming is getting",
+      "duration": 3679,
+      "offset": 604720
+    },
+    {
+      "text": "really easy. I am just thankful they",
+      "duration": 3599,
+      "offset": 606800
+    },
+    {
+      "text": "didn't call this Claude Code for normies",
+      "duration": 3601,
+      "offset": 608399
+    },
+    {
+      "text": "or something or just name it Claude Code",
+      "duration": 3041,
+      "offset": 610399
+    },
+    {
+      "text": "again because they have Cloud Code and",
+      "duration": 3360,
+      "offset": 612000
+    },
+    {
+      "text": "Cloud Code for web and the Cloud Code",
+      "duration": 4160,
+      "offset": 613440
+    },
+    {
+      "text": "SDK that are all entirely different",
+      "duration": 4800,
+      "offset": 615360
+    },
+    {
+      "text": "basically unrelated products.",
+      "duration": 4720,
+      "offset": 617600
+    },
+    {
+      "text": "Yeah. What does Simon have to say before",
+      "duration": 4320,
+      "offset": 620160
+    },
+    {
+      "text": "we go play ourselves? New from Anthropic",
+      "duration": 3600,
+      "offset": 622320
+    },
+    {
+      "text": "today is Cloud Co-Work, a research",
+      "duration": 3120,
+      "offset": 624480
+    },
+    {
+      "text": "preview that they describe as Cloud Code",
+      "duration": 3280,
+      "offset": 625920
+    },
+    {
+      "text": "for the rest of your work. Currently",
+      "duration": 3520,
+      "offset": 627600
+    },
+    {
+      "text": "available only to max subs at the $100",
+      "duration": 5120,
+      "offset": 629200
+    },
+    {
+      "text": "and $200 per month plans. It was only",
+      "duration": 5279,
+      "offset": 631120
+    },
+    {
+      "text": "available to those. But since their post",
+      "duration": 5120,
+      "offset": 634320
+    },
+    {
+      "text": "went so viral with over 47 million views",
+      "duration": 4641,
+      "offset": 636399
+    },
+    {
+      "text": "on Twitter, not that this number",
+      "duration": 3280,
+      "offset": 639440
+    },
+    {
+      "text": "actually means anything, but regardless,",
+      "duration": 3280,
+      "offset": 641040
+    },
+    {
+      "text": "it seems to get a lot of attention.",
+      "duration": 3200,
+      "offset": 642720
+    },
+    {
+      "text": "People seem really hyped on it. They",
+      "duration": 3040,
+      "offset": 644320
+    },
+    {
+      "text": "made a big change, which is that it's",
+      "duration": 4000,
+      "offset": 645920
+    },
+    {
+      "text": "now also available to pro subscribers.",
+      "duration": 4479,
+      "offset": 647360
+    },
+    {
+      "text": "Yet more inference that I am subsidizing",
+      "duration": 4720,
+      "offset": 649920
+    },
+    {
+      "text": "as an external API user. Great. Simon's",
+      "duration": 4161,
+      "offset": 651839
+    },
+    {
+      "text": "been saying for a while now that cloud",
+      "duration": 3600,
+      "offset": 654640
+    },
+    {
+      "text": "code is a general agent disguised as a",
+      "duration": 4160,
+      "offset": 656000
+    },
+    {
+      "text": "developer tool. I totally agree. Cloud",
+      "duration": 4000,
+      "offset": 658240
+    },
+    {
+      "text": "Code is magical for doing things on your",
+      "duration": 5119,
+      "offset": 660160
+    },
+    {
+      "text": "computer, not just like editing code. I",
+      "duration": 4880,
+      "offset": 662240
+    },
+    {
+      "text": "use it for that type of thing all of the",
+      "duration": 3521,
+      "offset": 665279
+    },
+    {
+      "text": "time. It can help you with any computer",
+      "duration": 3440,
+      "offset": 667120
+    },
+    {
+      "text": "task that can be achieved by executing",
+      "duration": 3840,
+      "offset": 668800
+    },
+    {
+      "text": "code or running terminal commands, which",
+      "duration": 4000,
+      "offset": 670560
+    },
+    {
+      "text": "covers almost anything, provided that",
+      "duration": 3759,
+      "offset": 672640
+    },
+    {
+      "text": "you know what you're doing with it. Yep,",
+      "duration": 3760,
+      "offset": 674560
+    },
+    {
+      "text": "the majority of code that my cloud code",
+      "duration": 3921,
+      "offset": 676399
+    },
+    {
+      "text": "has written was written to be run one",
+      "duration": 3600,
+      "offset": 678320
+    },
+    {
+      "text": "time to do one thing and then thrown",
+      "duration": 3759,
+      "offset": 680320
+    },
+    {
+      "text": "away. What this really needs is a UI",
+      "duration": 3680,
+      "offset": 681920
+    },
+    {
+      "text": "that doesn't involve the terminal and a",
+      "duration": 3281,
+      "offset": 684079
+    },
+    {
+      "text": "name that doesn't scare away non-devs.",
+      "duration": 3280,
+      "offset": 685600
+    },
+    {
+      "text": "Co-work's a pretty solid choice on the",
+      "duration": 3360,
+      "offset": 687360
+    },
+    {
+      "text": "name front. So what does it look like?",
+      "duration": 3680,
+      "offset": 688880
+    },
+    {
+      "text": "The interface for co-work tab in the",
+      "duration": 3600,
+      "offset": 690720
+    },
+    {
+      "text": "cloud desktop app called co-work. It",
+      "duration": 3760,
+      "offset": 692560
+    },
+    {
+      "text": "sits next to the existing chat and code",
+      "duration": 4000,
+      "offset": 694320
+    },
+    {
+      "text": "tabs. It looks very similar to the",
+      "duration": 3519,
+      "offset": 696320
+    },
+    {
+      "text": "desktop interface for regular cloud",
+      "duration": 3440,
+      "offset": 698320
+    },
+    {
+      "text": "code. You start with a prompt optionally",
+      "duration": 3761,
+      "offset": 699839
+    },
+    {
+      "text": "attaching a folder of files and then it",
+      "duration": 3519,
+      "offset": 701760
+    },
+    {
+      "text": "starts to work. He tried it out against",
+      "duration": 3359,
+      "offset": 703600
+    },
+    {
+      "text": "his perpetually growing blog drafts",
+      "duration": 3441,
+      "offset": 705279
+    },
+    {
+      "text": "folder with the following prompt. Look",
+      "duration": 3281,
+      "offset": 706959
+    },
+    {
+      "text": "at my drafts that were started within",
+      "duration": 3040,
+      "offset": 708720
+    },
+    {
+      "text": "the last 3 months and check that I",
+      "duration": 3279,
+      "offset": 710240
+    },
+    {
+      "text": "didn't publish them on simonwilis.net",
+      "duration": 3519,
+      "offset": 711760
+    },
+    {
+      "text": "net using a search against content on",
+      "duration": 3760,
+      "offset": 713519
+    },
+    {
+      "text": "the site and then suggest ones that are",
+      "duration": 4081,
+      "offset": 715279
+    },
+    {
+      "text": "the most close to being ready. That's a",
+      "duration": 4000,
+      "offset": 717279
+    },
+    {
+      "text": "cool use case. He has this folder on his",
+      "duration": 3120,
+      "offset": 719360
+    },
+    {
+      "text": "computer that has all of this data in",
+      "duration": 2961,
+      "offset": 721279
+    },
+    {
+      "text": "it. He wants to reference an external",
+      "duration": 3680,
+      "offset": 722480
+    },
+    {
+      "text": "source, the web, and it can do all of",
+      "duration": 4000,
+      "offset": 724240
+    },
+    {
+      "text": "that safely through its VM that has file",
+      "duration": 3840,
+      "offset": 726160
+    },
+    {
+      "text": "access. Where this starts to break down",
+      "duration": 3440,
+      "offset": 728240
+    },
+    {
+      "text": "is when you're using things that you",
+      "duration": 3519,
+      "offset": 730000
+    },
+    {
+      "text": "can't access that way. There are some",
+      "duration": 3520,
+      "offset": 731680
+    },
+    {
+      "text": "things where you can surprisingly enough",
+      "duration": 3521,
+      "offset": 733519
+    },
+    {
+      "text": "do this. Again, I used the example with",
+      "duration": 3759,
+      "offset": 735200
+    },
+    {
+      "text": "iMessage earlier. Your iMessage on your",
+      "duration": 4799,
+      "offset": 737040
+    },
+    {
+      "text": "Mac is just a SQLite file on the",
+      "duration": 4880,
+      "offset": 738959
+    },
+    {
+      "text": "computer. So, a lot of things can access",
+      "duration": 4000,
+      "offset": 741839
+    },
+    {
+      "text": "that via commands. Historically,",
+      "duration": 4161,
+      "offset": 743839
+    },
+    {
+      "text": "Anthropic hasn't put out many products",
+      "duration": 4240,
+      "offset": 745839
+    },
+    {
+      "text": "for end users. They put out cool things",
+      "duration": 4240,
+      "offset": 748000
+    },
+    {
+      "text": "that their APIs can do, cool models that",
+      "duration": 3601,
+      "offset": 750079
+    },
+    {
+      "text": "are super powerful, and occasionally",
+      "duration": 3440,
+      "offset": 752240
+    },
+    {
+      "text": "developer stuff, but they don't have the",
+      "duration": 4240,
+      "offset": 753680
+    },
+    {
+      "text": "same grind on userfacing product that a",
+      "duration": 4640,
+      "offset": 755680
+    },
+    {
+      "text": "company like, I don't know, OpenAI does.",
+      "duration": 4960,
+      "offset": 757920
+    },
+    {
+      "text": "Last year, OpenAI put out so many things",
+      "duration": 5519,
+      "offset": 760320
+    },
+    {
+      "text": "for consumers, including a full Tik Tok",
+      "duration": 5040,
+      "offset": 762880
+    },
+    {
+      "text": "clone for AI generated video, an",
+      "duration": 5041,
+      "offset": 765839
+    },
+    {
+      "text": "alternative browser, and a whole apps",
+      "duration": 4960,
+      "offset": 767920
+    },
+    {
+      "text": "platform for users to use inside of",
+      "duration": 4560,
+      "offset": 770880
+    },
+    {
+      "text": "Shashbt directly. OpenAI clearly is",
+      "duration": 4320,
+      "offset": 772880
+    },
+    {
+      "text": "invested in building new things that are",
+      "duration": 3839,
+      "offset": 775440
+    },
+    {
+      "text": "userfacing constantly. And that's why",
+      "duration": 3520,
+      "offset": 777200
+    },
+    {
+      "text": "their subscription revenue is so much",
+      "duration": 3601,
+      "offset": 779279
+    },
+    {
+      "text": "higher than Anthropics. It's comical",
+      "duration": 3919,
+      "offset": 780720
+    },
+    {
+      "text": "difference. And this is why Anthropic",
+      "duration": 4000,
+      "offset": 782880
+    },
+    {
+      "text": "just introduced Labs. Labs is their",
+      "duration": 4081,
+      "offset": 784639
+    },
+    {
+      "text": "attempt to incubate products and",
+      "duration": 4160,
+      "offset": 786880
+    },
+    {
+      "text": "projects internally to build out these",
+      "duration": 4480,
+      "offset": 788720
+    },
+    {
+      "text": "types of experiences for users. And this",
+      "duration": 3919,
+      "offset": 791040
+    },
+    {
+      "text": "is a big part of why co-work happened.",
+      "duration": 3360,
+      "offset": 793200
+    },
+    {
+      "text": "They saw this success with cloud code",
+      "duration": 2880,
+      "offset": 794959
+    },
+    {
+      "text": "which basically happened cuz somebody",
+      "duration": 3360,
+      "offset": 796560
+    },
+    {
+      "text": "internally wanted it. So they built it",
+      "duration": 3440,
+      "offset": 797839
+    },
+    {
+      "text": "and before the company could shut it",
+      "duration": 3200,
+      "offset": 799920
+    },
+    {
+      "text": "down, it got too popular and they want",
+      "duration": 4961,
+      "offset": 801279
+    },
+    {
+      "text": "to introduce an internal program to make",
+      "duration": 5279,
+      "offset": 803120
+    },
+    {
+      "text": "more things like this happen. Incubators",
+      "duration": 3599,
+      "offset": 806240
+    },
+    {
+      "text": "like this are pretty common at big",
+      "duration": 3921,
+      "offset": 808399
+    },
+    {
+      "text": "companies. Enthropic doesn't have this",
+      "duration": 4560,
+      "offset": 809839
+    },
+    {
+      "text": "way of working yet. So, it's cool to see",
+      "duration": 4240,
+      "offset": 812320
+    },
+    {
+      "text": "them shifting towards it. And this is",
+      "duration": 4000,
+      "offset": 814399
+    },
+    {
+      "text": "why something like co-work could happen.",
+      "duration": 3680,
+      "offset": 816560
+    },
+    {
+      "text": "But what is it like to actually use?",
+      "duration": 5440,
+      "offset": 818399
+    },
+    {
+      "text": "Let's try it. How many iMessage messages",
+      "duration": 9039,
+      "offset": 820240
+    },
+    {
+      "text": "did I get in the last 30 days?",
+      "duration": 7281,
+      "offset": 823839
+    },
+    {
+      "text": "It can't figure it out. Let's switch",
+      "duration": 4641,
+      "offset": 829279
+    },
+    {
+      "text": "over to my terminal then. Cloud code.",
+      "duration": 5760,
+      "offset": 831120
+    },
+    {
+      "text": "Paste. Send. I'll query your iMessage",
+      "duration": 5440,
+      "offset": 833920
+    },
+    {
+      "text": "database to count for the last 30 days.",
+      "duration": 4959,
+      "offset": 836880
+    },
+    {
+      "text": "I received 4546",
+      "duration": 5279,
+      "offset": 839360
+    },
+    {
+      "text": "messages. co-work couldn't do that. You",
+      "duration": 5921,
+      "offset": 841839
+    },
+    {
+      "text": "have access to my file system and can",
+      "duration": 6640,
+      "offset": 844639
+    },
+    {
+      "text": "run commands. Why can't you figure this",
+      "duration": 5680,
+      "offset": 847760
+    },
+    {
+      "text": "out? You're right. I apologize for the",
+      "duration": 3680,
+      "offset": 851279
+    },
+    {
+      "text": "confusion. Let me look into this for",
+      "duration": 4399,
+      "offset": 853440
+    },
+    {
+      "text": "you. Great. A norm is not going to",
+      "duration": 4481,
+      "offset": 854959
+    },
+    {
+      "text": "understand that it can do that. They're",
+      "duration": 2800,
+      "offset": 857839
+    },
+    {
+      "text": "going to ask it. It's going to say it",
+      "duration": 2720,
+      "offset": 859440
+    },
+    {
+      "text": "can't and they're going to move on. I",
+      "duration": 3281,
+      "offset": 860639
+    },
+    {
+      "text": "just so happen to know. This is actually",
+      "duration": 3119,
+      "offset": 862160
+    },
+    {
+      "text": "the type of use case I was really",
+      "duration": 4000,
+      "offset": 863920
+    },
+    {
+      "text": "excited about. Oh, I'm running analytics",
+      "duration": 4240,
+      "offset": 865279
+    },
+    {
+      "text": "environment, not on your Mac directly.",
+      "duration": 3680,
+      "offset": 867920
+    },
+    {
+      "text": "The IMS database is stored locally on",
+      "duration": 4161,
+      "offset": 869519
+    },
+    {
+      "text": "the Mac. Do I have to give it access to",
+      "duration": 4160,
+      "offset": 871600
+    },
+    {
+      "text": "the folders? Interesting. I thought it",
+      "duration": 3360,
+      "offset": 873680
+    },
+    {
+      "text": "would be able to find those types of",
+      "duration": 3040,
+      "offset": 875760
+    },
+    {
+      "text": "things. Let me go back and watch that",
+      "duration": 3200,
+      "offset": 877040
+    },
+    {
+      "text": "example with the desktop. Do they",
+      "duration": 4399,
+      "offset": 878800
+    },
+    {
+      "text": "manually select the desktop in it? Oh,",
+      "duration": 4719,
+      "offset": 880240
+    },
+    {
+      "text": "no. They already have it selected. You",
+      "duration": 3281,
+      "offset": 883199
+    },
+    {
+      "text": "have to have the folder selected or it",
+      "duration": 3440,
+      "offset": 884959
+    },
+    {
+      "text": "can't do it. That's actually a good",
+      "duration": 5039,
+      "offset": 886480
+    },
+    {
+      "text": "thing overall, but it does take away a",
+      "duration": 5440,
+      "offset": 888399
+    },
+    {
+      "text": "lot of the magic because I don't think",
+      "duration": 4560,
+      "offset": 891519
+    },
+    {
+      "text": "normies have a lot of files on their",
+      "duration": 3761,
+      "offset": 893839
+    },
+    {
+      "text": "computers. There's actually a pretty",
+      "duration": 3760,
+      "offset": 896079
+    },
+    {
+      "text": "notorious problem going on right now",
+      "duration": 4960,
+      "offset": 897600
+    },
+    {
+      "text": "that normies don't know how to use file",
+      "duration": 5120,
+      "offset": 899839
+    },
+    {
+      "text": "systems on computers, especially younger",
+      "duration": 4240,
+      "offset": 902560
+    },
+    {
+      "text": "people who grew up primarily on",
+      "duration": 4560,
+      "offset": 904959
+    },
+    {
+      "text": "Chromebooks, iPads, and iPhones. None of",
+      "duration": 4080,
+      "offset": 906800
+    },
+    {
+      "text": "those things have a traditional file",
+      "duration": 2880,
+      "offset": 909519
+    },
+    {
+      "text": "system. And the result is that a lot of",
+      "duration": 3040,
+      "offset": 910880
+    },
+    {
+      "text": "these kids get into college, they get",
+      "duration": 3041,
+      "offset": 912399
+    },
+    {
+      "text": "their first real computer, and they have",
+      "duration": 3039,
+      "offset": 913920
+    },
+    {
+      "text": "no idea how to do anything on it other",
+      "duration": 3440,
+      "offset": 915440
+    },
+    {
+      "text": "than sign in and open Chrome. The idea",
+      "duration": 3921,
+      "offset": 916959
+    },
+    {
+      "text": "of files is fundamentally flawed. that I",
+      "duration": 3199,
+      "offset": 918880
+    },
+    {
+      "text": "could do a very long rant about why I",
+      "duration": 2480,
+      "offset": 920880
+    },
+    {
+      "text": "hate file systems, but at the very",
+      "duration": 2880,
+      "offset": 922079
+    },
+    {
+      "text": "least, you need to know how to use them",
+      "duration": 3440,
+      "offset": 923360
+    },
+    {
+      "text": "to use your computer effectively. I",
+      "duration": 3440,
+      "offset": 924959
+    },
+    {
+      "text": "think this starts to fall under the",
+      "duration": 5279,
+      "offset": 926800
+    },
+    {
+      "text": "tasks XKCD comic. I love this one. The",
+      "duration": 6161,
+      "offset": 928399
+    },
+    {
+      "text": "direct example in this comic is now",
+      "duration": 4641,
+      "offset": 932079
+    },
+    {
+      "text": "broken because of AI, funny enough, but",
+      "duration": 4320,
+      "offset": 934560
+    },
+    {
+      "text": "it's introducing more similar things. In",
+      "duration": 4400,
+      "offset": 936720
+    },
+    {
+      "text": "this example, somebody's describing an",
+      "duration": 4399,
+      "offset": 938880
+    },
+    {
+      "text": "app they want and the engineer is going",
+      "duration": 4240,
+      "offset": 941120
+    },
+    {
+      "text": "to build it. When a user takes a photo,",
+      "duration": 3521,
+      "offset": 943279
+    },
+    {
+      "text": "the app should check if they're in a",
+      "duration": 3599,
+      "offset": 945360
+    },
+    {
+      "text": "national park. And then the person",
+      "duration": 3760,
+      "offset": 946800
+    },
+    {
+      "text": "working on the app says, &quot;Sure, I just",
+      "duration": 3041,
+      "offset": 948959
+    },
+    {
+      "text": "use the global positioning system.",
+      "duration": 2639,
+      "offset": 950560
+    },
+    {
+      "text": "Should be easy to figure this out",
+      "duration": 2720,
+      "offset": 952000
+    },
+    {
+      "text": "through the metadata. Give me a few",
+      "duration": 3281,
+      "offset": 953199
+    },
+    {
+      "text": "hours.&quot; The person asking for the app",
+      "duration": 3679,
+      "offset": 954720
+    },
+    {
+      "text": "says, &quot;And check if the photos of a",
+      "duration": 3359,
+      "offset": 956480
+    },
+    {
+      "text": "bird.&quot; The developer immediately",
+      "duration": 3041,
+      "offset": 958399
+    },
+    {
+      "text": "responds, &quot;I'll need a research team in",
+      "duration": 3601,
+      "offset": 959839
+    },
+    {
+      "text": "5 years because that's what the it was",
+      "duration": 3839,
+      "offset": 961440
+    },
+    {
+      "text": "believed it would take in order to do",
+      "duration": 3600,
+      "offset": 963440
+    },
+    {
+      "text": "visual recognition.&quot; And it did. This",
+      "duration": 3841,
+      "offset": 965279
+    },
+    {
+      "text": "comic is more than 5 years old. Now,",
+      "duration": 3359,
+      "offset": 967040
+    },
+    {
+      "text": "these things are generic enough you can",
+      "duration": 3440,
+      "offset": 969120
+    },
+    {
+      "text": "do it, but at the time they weren't. And",
+      "duration": 4401,
+      "offset": 970399
+    },
+    {
+      "text": "trying to explain to a normal person why",
+      "duration": 3440,
+      "offset": 972560
+    },
+    {
+      "text": "figuring out if the photo is at a",
+      "duration": 3120,
+      "offset": 974800
+    },
+    {
+      "text": "national park is trivial and figuring",
+      "duration": 3279,
+      "offset": 976000
+    },
+    {
+      "text": "out if there's a bird in the photo is",
+      "duration": 3520,
+      "offset": 977920
+    },
+    {
+      "text": "nearly impossible is really hard to do",
+      "duration": 3841,
+      "offset": 979279
+    },
+    {
+      "text": "unless you do these things for a living.",
+      "duration": 3680,
+      "offset": 981440
+    },
+    {
+      "text": "Now we have another one of those.",
+      "duration": 3760,
+      "offset": 983120
+    },
+    {
+      "text": "Somebody will watch the demo that we",
+      "duration": 3519,
+      "offset": 985120
+    },
+    {
+      "text": "just saw or hear the things other people",
+      "duration": 4079,
+      "offset": 986880
+    },
+    {
+      "text": "are using this for and assume they can",
+      "duration": 4241,
+      "offset": 988639
+    },
+    {
+      "text": "do the same thing. And they'll ask it,",
+      "duration": 4401,
+      "offset": 990959
+    },
+    {
+      "text": "&quot;Hey, can you figure out which draft in",
+      "duration": 4560,
+      "offset": 992880
+    },
+    {
+      "text": "my notion or Google Drive is the most",
+      "duration": 4000,
+      "offset": 995360
+    },
+    {
+      "text": "recent that I should be using?&quot; and it",
+      "duration": 3280,
+      "offset": 997440
+    },
+    {
+      "text": "won't be able to do that because they're",
+      "duration": 4000,
+      "offset": 999360
+    },
+    {
+      "text": "not files on their computer and these",
+      "duration": 5200,
+      "offset": 1000720
+    },
+    {
+      "text": "users don't understand that. I don't",
+      "duration": 4640,
+      "offset": 1003360
+    },
+    {
+      "text": "know how useful this will be to those",
+      "duration": 4159,
+      "offset": 1005920
+    },
+    {
+      "text": "types of people. That said, I've already",
+      "duration": 3759,
+      "offset": 1008000
+    },
+    {
+      "text": "seen it be useful to people that I know",
+      "duration": 3361,
+      "offset": 1010079
+    },
+    {
+      "text": "and care about in my life. I have a good",
+      "duration": 3921,
+      "offset": 1011759
+    },
+    {
+      "text": "friend who had one of these really messy",
+      "duration": 3759,
+      "offset": 1013440
+    },
+    {
+      "text": "desktops and there was no world in which",
+      "duration": 3200,
+      "offset": 1015680
+    },
+    {
+      "text": "she would organize it herself. She has a",
+      "duration": 2721,
+      "offset": 1017199
+    },
+    {
+      "text": "little bit of programming experience.",
+      "duration": 2160,
+      "offset": 1018880
+    },
+    {
+      "text": "She used to work in Python here and",
+      "duration": 3039,
+      "offset": 1019920
+    },
+    {
+      "text": "there for data stuff. She reorganized",
+      "duration": 3919,
+      "offset": 1021040
+    },
+    {
+      "text": "her desktop and changed a bunch of [ __ ]",
+      "duration": 3761,
+      "offset": 1022959
+    },
+    {
+      "text": "about her environment on her Mac with",
+      "duration": 4801,
+      "offset": 1024959
+    },
+    {
+      "text": "this. On that note, only works on Mac",
+      "duration": 4400,
+      "offset": 1026720
+    },
+    {
+      "text": "right now. I doubt that'll change",
+      "duration": 3919,
+      "offset": 1029760
+    },
+    {
+      "text": "anytime soon, if ever. This seems like a",
+      "duration": 4079,
+      "offset": 1031120
+    },
+    {
+      "text": "thing they built because they wanted it",
+      "duration": 3441,
+      "offset": 1033679
+    },
+    {
+      "text": "and it went bigger than expected. How",
+      "duration": 3760,
+      "offset": 1035199
+    },
+    {
+      "text": "much they invest in it long term, we",
+      "duration": 4400,
+      "offset": 1037120
+    },
+    {
+      "text": "will see. And also to be clear, you can",
+      "duration": 4480,
+      "offset": 1038959
+    },
+    {
+      "text": "attach other sources through their",
+      "duration": 3439,
+      "offset": 1041520
+    },
+    {
+      "text": "integrations and things. They have",
+      "duration": 3760,
+      "offset": 1043439
+    },
+    {
+      "text": "connectors for things like Google Drive,",
+      "duration": 4401,
+      "offset": 1044959
+    },
+    {
+      "text": "their MCP registry, Claude and Chrome,",
+      "duration": 3441,
+      "offset": 1047199
+    },
+    {
+      "text": "which is really cool because it can now",
+      "duration": 3600,
+      "offset": 1049360
+    },
+    {
+      "text": "control your browser, stuff like that.",
+      "duration": 5440,
+      "offset": 1050640
+    },
+    {
+      "text": "Can I'll make a new thread. Can you give",
+      "duration": 6959,
+      "offset": 1052960
+    },
+    {
+      "text": "me feedback on my Twitter profile",
+      "duration": 5760,
+      "offset": 1056080
+    },
+    {
+      "text": "next.com/thea?",
+      "duration": 3441,
+      "offset": 1059919
+    },
+    {
+      "text": "Let's see if it uses my browser for",
+      "duration": 3440,
+      "offset": 1061840
+    },
+    {
+      "text": "this. I'm actually curious. Here it is.",
+      "duration": 4480,
+      "offset": 1063360
+    },
+    {
+      "text": "Opening a Claude and Chrome instance. I",
+      "duration": 4080,
+      "offset": 1065280
+    },
+    {
+      "text": "already signed into this. I used this",
+      "duration": 4000,
+      "offset": 1067840
+    },
+    {
+      "text": "just a few days ago. One second. Again,",
+      "duration": 4640,
+      "offset": 1069360
+    },
+    {
+      "text": "Anthropic is struggling with the basics",
+      "duration": 4400,
+      "offset": 1071840
+    },
+    {
+      "text": "of usable software. Okay, now that I've",
+      "duration": 3600,
+      "offset": 1074000
+    },
+    {
+      "text": "signed in, it has this permissions",
+      "duration": 2720,
+      "offset": 1076240
+    },
+    {
+      "text": "question. Do I want to allow it to",
+      "duration": 4160,
+      "offset": 1077600
+    },
+    {
+      "text": "navigate to X.com? Sure. And it did in",
+      "duration": 4400,
+      "offset": 1078960
+    },
+    {
+      "text": "that other tab. And now it's asking for",
+      "duration": 2880,
+      "offset": 1081760
+    },
+    {
+      "text": "permission to read it. This is the most",
+      "duration": 2880,
+      "offset": 1083360
+    },
+    {
+      "text": "annoying thing I've had to deal with in",
+      "duration": 3440,
+      "offset": 1084640
+    },
+    {
+      "text": "a minute. Allow all actions. Let it do",
+      "duration": 3679,
+      "offset": 1086240
+    },
+    {
+      "text": "its thing. And now you can see from the",
+      "duration": 3360,
+      "offset": 1088080
+    },
+    {
+      "text": "glow and the extension and all the",
+      "duration": 3760,
+      "offset": 1089919
+    },
+    {
+      "text": "annoying things in my browser that it is",
+      "duration": 3760,
+      "offset": 1091440
+    },
+    {
+      "text": "using the browser. And now I have a",
+      "duration": 2961,
+      "offset": 1093679
+    },
+    {
+      "text": "notification from Claude that it's done.",
+      "duration": 2800,
+      "offset": 1095200
+    },
+    {
+      "text": "I have to go manually hop back over.",
+      "duration": 2720,
+      "offset": 1096640
+    },
+    {
+      "text": "This is not a great single screen",
+      "duration": 3440,
+      "offset": 1098000
+    },
+    {
+      "text": "experience. I can see that this is",
+      "duration": 4800,
+      "offset": 1099360
+    },
+    {
+      "text": "actually Theo Brown's profile. T3 GGT T3",
+      "duration": 5119,
+      "offset": 1101440
+    },
+    {
+      "text": "Stack Creator with 268K followers, not",
+      "duration": 4639,
+      "offset": 1104160
+    },
+    {
+      "text": "yours. Could you share your actual",
+      "duration": 4721,
+      "offset": 1106559
+    },
+    {
+      "text": "Twitterx username? That handle at Theo",
+      "duration": 6161,
+      "offset": 1108799
+    },
+    {
+      "text": "belongs to someone else.",
+      "duration": 3680,
+      "offset": 1111280
+    },
+    {
+      "text": "God damn it. So, we're at 0 for two so",
+      "duration": 4880,
+      "offset": 1116240
+    },
+    {
+      "text": "far. Why are you so certain it isn't me?",
+      "duration": 4000,
+      "offset": 1118559
+    },
+    {
+      "text": "You're right. I apologize for that",
+      "duration": 2720,
+      "offset": 1121120
+    },
+    {
+      "text": "assumption. I shouldn't have presumed it",
+      "duration": 3120,
+      "offset": 1122559
+    },
+    {
+      "text": "wasn't your profile. The edit profile",
+      "duration": 3199,
+      "offset": 1123840
+    },
+    {
+      "text": "button is right there, which indicates",
+      "duration": 5401,
+      "offset": 1125679
+    },
+    {
+      "text": "you're logged into this account.",
+      "duration": 4041,
+      "offset": 1127039
+    },
+    {
+      "text": "I I",
+      "duration": 5520,
+      "offset": 1133760
+    },
+    {
+      "text": "feeling the AGI, guys. I'm trying so",
+      "duration": 5679,
+      "offset": 1136000
+    },
+    {
+      "text": "hard. I really am. I'm actually on much",
+      "duration": 3920,
+      "offset": 1139280
+    },
+    {
+      "text": "better terms with Anthropic right now,",
+      "duration": 3041,
+      "offset": 1141679
+    },
+    {
+      "text": "and I wanted to come in and show how",
+      "duration": 4560,
+      "offset": 1143200
+    },
+    {
+      "text": "cool this is.",
+      "duration": 5120,
+      "offset": 1144720
+    },
+    {
+      "text": "Let's give it something a little more",
+      "duration": 4560,
+      "offset": 1147760
+    },
+    {
+      "text": "realistic. As I mentioned many times",
+      "duration": 7040,
+      "offset": 1149840
+    },
+    {
+      "text": "before, my downloads folder is uh rough.",
+      "duration": 6800,
+      "offset": 1152320
+    },
+    {
+      "text": "If we go and take a look at it, and this",
+      "duration": 4400,
+      "offset": 1156880
+    },
+    {
+      "text": "is after a somewhat recent system wipe",
+      "duration": 3919,
+      "offset": 1159120
+    },
+    {
+      "text": "because I just got a new computer. Okay,",
+      "duration": 4480,
+      "offset": 1161280
+    },
+    {
+      "text": "cool. We're down to 28 gigs. It only has",
+      "duration": 4561,
+      "offset": 1163039
+    },
+    {
+      "text": "27,65",
+      "duration": 4640,
+      "offset": 1165760
+    },
+    {
+      "text": "files. That's not that bad. Previously,",
+      "duration": 4480,
+      "offset": 1167600
+    },
+    {
+      "text": "it was over a terabyte, so don't give me",
+      "duration": 4080,
+      "offset": 1170400
+    },
+    {
+      "text": "[ __ ] Let's ask it some things, though.",
+      "duration": 6000,
+      "offset": 1172080
+    },
+    {
+      "text": "Can you help me find any important files",
+      "duration": 7280,
+      "offset": 1174480
+    },
+    {
+      "text": "in this folder so I can organize them",
+      "duration": 5440,
+      "offset": 1178080
+    },
+    {
+      "text": "better? [ __ ] I just came up with a",
+      "duration": 3440,
+      "offset": 1181760
+    },
+    {
+      "text": "genuine use case for this. When I do a",
+      "duration": 3680,
+      "offset": 1183520
+    },
+    {
+      "text": "batch of investments at demo day with Y",
+      "duration": 5040,
+      "offset": 1185200
+    },
+    {
+      "text": "Combinator, I have a whole bunch of PDFs",
+      "duration": 4800,
+      "offset": 1187200
+    },
+    {
+      "text": "that I get for the information about",
+      "duration": 3840,
+      "offset": 1190240
+    },
+    {
+      "text": "those investments, the documents, those",
+      "duration": 4320,
+      "offset": 1192000
+    },
+    {
+      "text": "types of things. I get all of that as",
+      "duration": 4080,
+      "offset": 1194080
+    },
+    {
+      "text": "PDFs that go in my downloads folder and",
+      "duration": 4800,
+      "offset": 1196320
+    },
+    {
+      "text": "organizing all of it is very annoying.",
+      "duration": 4720,
+      "offset": 1198160
+    },
+    {
+      "text": "If I could use this to do a summary of",
+      "duration": 3360,
+      "offset": 1201120
+    },
+    {
+      "text": "my investments and then maybe connect it",
+      "duration": 3280,
+      "offset": 1202880
+    },
+    {
+      "text": "to the notion connector to update my",
+      "duration": 3120,
+      "offset": 1204480
+    },
+    {
+      "text": "database that I track all my investments",
+      "duration": 2960,
+      "offset": 1206160
+    },
+    {
+      "text": "in, that could actually be really",
+      "duration": 3199,
+      "offset": 1207600
+    },
+    {
+      "text": "useful. See, this is the way you have to",
+      "duration": 2960,
+      "offset": 1209120
+    },
+    {
+      "text": "think. And I talked about this before in",
+      "duration": 3921,
+      "offset": 1210799
+    },
+    {
+      "text": "all of my AI coding videos. The use case",
+      "duration": 4800,
+      "offset": 1212080
+    },
+    {
+      "text": "for AI code isn't just to make changes",
+      "duration": 3600,
+      "offset": 1214720
+    },
+    {
+      "text": "in your codebase. And that might not",
+      "duration": 2799,
+      "offset": 1216880
+    },
+    {
+      "text": "even work for you depending on a lot of",
+      "duration": 3040,
+      "offset": 1218320
+    },
+    {
+      "text": "things. But there's a lot of things that",
+      "duration": 3120,
+      "offset": 1219679
+    },
+    {
+      "text": "you can do that are useful with these",
+      "duration": 3120,
+      "offset": 1221360
+    },
+    {
+      "text": "tools if you realize that it makes",
+      "duration": 3760,
+      "offset": 1222799
+    },
+    {
+      "text": "things that used to take a lot of time",
+      "duration": 4240,
+      "offset": 1224480
+    },
+    {
+      "text": "in terms of using your computer, writing",
+      "duration": 4000,
+      "offset": 1226559
+    },
+    {
+      "text": "one-off scripts, executing things, and",
+      "duration": 4079,
+      "offset": 1228720
+    },
+    {
+      "text": "doing things can automate that type of",
+      "duration": 3921,
+      "offset": 1230559
+    },
+    {
+      "text": "stuff. And this is what I'm excited",
+      "duration": 4161,
+      "offset": 1232799
+    },
+    {
+      "text": "about. The idea of like the clever",
+      "duration": 4400,
+      "offset": 1234480
+    },
+    {
+      "text": "people in my life that could have been",
+      "duration": 4079,
+      "offset": 1236960
+    },
+    {
+      "text": "good programmers but didn't care to be.",
+      "duration": 4560,
+      "offset": 1238880
+    },
+    {
+      "text": "The people who became big users of like",
+      "duration": 4801,
+      "offset": 1241039
+    },
+    {
+      "text": "if this then that and Zapier and those",
+      "duration": 5200,
+      "offset": 1243440
+    },
+    {
+      "text": "things. that type of person can do wild",
+      "duration": 4480,
+      "offset": 1245840
+    },
+    {
+      "text": "[ __ ] with tools like this and I'm really",
+      "duration": 3519,
+      "offset": 1248640
+    },
+    {
+      "text": "excited to see what they do. Here's its",
+      "duration": 5040,
+      "offset": 1250320
+    },
+    {
+      "text": "summary. I have 290 images, 32 PDFs, 38",
+      "duration": 6241,
+      "offset": 1252159
+    },
+    {
+      "text": "videos, 21 zips, bunch of DMGs for",
+      "duration": 6559,
+      "offset": 1255360
+    },
+    {
+      "text": "installing things, legal docs, random",
+      "duration": 5680,
+      "offset": 1258400
+    },
+    {
+      "text": "other [ __ ] You get the idea. I could",
+      "duration": 3601,
+      "offset": 1261919
+    },
+    {
+      "text": "ask it to do more to find the",
+      "duration": 3360,
+      "offset": 1264080
+    },
+    {
+      "text": "duplicates, delete large files to free",
+      "duration": 4159,
+      "offset": 1265520
+    },
+    {
+      "text": "up space, organize them, and more. Like,",
+      "duration": 4800,
+      "offset": 1267440
+    },
+    {
+      "text": "this is cool. That said, it's not that",
+      "duration": 4480,
+      "offset": 1269679
+    },
+    {
+      "text": "cool if you don't have files on your",
+      "duration": 3600,
+      "offset": 1272240
+    },
+    {
+      "text": "computer, which is one of the big things",
+      "duration": 3681,
+      "offset": 1274159
+    },
+    {
+      "text": "that makes this sketchy, but also",
+      "duration": 4000,
+      "offset": 1275840
+    },
+    {
+      "text": "exciting for people who do that. This is",
+      "duration": 4560,
+      "offset": 1277840
+    },
+    {
+      "text": "going to be really useful for people who",
+      "duration": 4319,
+      "offset": 1279840
+    },
+    {
+      "text": "have a job that involves a lot of file",
+      "duration": 3440,
+      "offset": 1282400
+    },
+    {
+      "text": "management and orchestration. I know",
+      "duration": 3361,
+      "offset": 1284159
+    },
+    {
+      "text": "people like executive assistants that",
+      "duration": 3120,
+      "offset": 1285840
+    },
+    {
+      "text": "are going to benefit greatly from this,",
+      "duration": 2800,
+      "offset": 1287520
+    },
+    {
+      "text": "just keeping track of all the random",
+      "duration": 3440,
+      "offset": 1288960
+    },
+    {
+      "text": "[ __ ] going on for their exec that they",
+      "duration": 4080,
+      "offset": 1290320
+    },
+    {
+      "text": "help manage. What else does Simon have",
+      "duration": 3519,
+      "offset": 1292400
+    },
+    {
+      "text": "to say? It started by running this",
+      "duration": 4560,
+      "offset": 1294400
+    },
+    {
+      "text": "command. Find/ session/sisbull yada yada",
+      "duration": 5601,
+      "offset": 1295919
+    },
+    {
+      "text": "yada the drafts. this is its session",
+      "duration": 4079,
+      "offset": 1298960
+    },
+    {
+      "text": "because again it's all virtual",
+      "duration": 2880,
+      "offset": 1301520
+    },
+    {
+      "text": "environments and if it has this SL",
+      "duration": 2481,
+      "offset": 1303039
+    },
+    {
+      "text": "sessions thing there's a very good",
+      "duration": 3440,
+      "offset": 1304400
+    },
+    {
+      "text": "chance that every one of these threads",
+      "duration": 4639,
+      "offset": 1305520
+    },
+    {
+      "text": "has its own session so has its own",
+      "duration": 4240,
+      "offset": 1307840
+    },
+    {
+      "text": "virtual Linux environment that it is",
+      "duration": 4880,
+      "offset": 1310159
+    },
+    {
+      "text": "using to access these files makes sense",
+      "duration": 4719,
+      "offset": 1312080
+    },
+    {
+      "text": "hopefully secure considering the fact",
+      "duration": 3201,
+      "offset": 1315039
+    },
+    {
+      "text": "that they vibe coded the whole thing",
+      "duration": 3441,
+      "offset": 1316799
+    },
+    {
+      "text": "hard to know for sure seems potentially",
+      "duration": 4799,
+      "offset": 1318240
+    },
+    {
+      "text": "very good says that co-work can only",
+      "duration": 5120,
+      "offset": 1320240
+    },
+    {
+      "text": "access files that you grant access to.",
+      "duration": 3921,
+      "offset": 1323039
+    },
+    {
+      "text": "It looks to me like they're mounting",
+      "duration": 3120,
+      "offset": 1325360
+    },
+    {
+      "text": "those files in a containerized",
+      "duration": 2800,
+      "offset": 1326960
+    },
+    {
+      "text": "environment, which should mean we can",
+      "duration": 3199,
+      "offset": 1328480
+    },
+    {
+      "text": "trust co-work not to be able to access",
+      "duration": 3360,
+      "offset": 1329760
+    },
+    {
+      "text": "things outside of the sandbox. Here's",
+      "duration": 3041,
+      "offset": 1331679
+    },
+    {
+      "text": "the reply he got with his question about",
+      "duration": 4400,
+      "offset": 1333120
+    },
+    {
+      "text": "drafts. Most ready to publish frequently",
+      "duration": 5280,
+      "offset": 1334720
+    },
+    {
+      "text": "argued questions against LLMs cloud code",
+      "duration": 4560,
+      "offset": 1337520
+    },
+    {
+      "text": "timeline and codeex timeline in his",
+      "duration": 4000,
+      "offset": 1340000
+    },
+    {
+      "text": "plug-in upgrade guide. That's a good",
+      "duration": 3760,
+      "offset": 1342080
+    },
+    {
+      "text": "response. It found exactly what I needed",
+      "duration": 3039,
+      "offset": 1344000
+    },
+    {
+      "text": "to see. Although this upgrade",
+      "duration": 2319,
+      "offset": 1345840
+    },
+    {
+      "text": "instructions are actually published",
+      "duration": 3120,
+      "offset": 1347039
+    },
+    {
+      "text": "elsewhere in the data set docs and",
+      "duration": 3441,
+      "offset": 1348159
+    },
+    {
+      "text": "weren't actually intended for my blog.",
+      "duration": 2801,
+      "offset": 1350159
+    },
+    {
+      "text": "Just for fun and because I really like",
+      "duration": 3040,
+      "offset": 1351600
+    },
+    {
+      "text": "artifacts, I asked for a follow-up.",
+      "duration": 3199,
+      "offset": 1352960
+    },
+    {
+      "text": "Artifacts, if you're not familiar with,",
+      "duration": 3279,
+      "offset": 1354640
+    },
+    {
+      "text": "are a feature in Claude where it will",
+      "duration": 4481,
+      "offset": 1356159
+    },
+    {
+      "text": "build like a mini web app in the sidebar",
+      "duration": 4401,
+      "offset": 1357919
+    },
+    {
+      "text": "as part of your thread that you can use",
+      "duration": 3279,
+      "offset": 1360640
+    },
+    {
+      "text": "to do things. I know people who have",
+      "duration": 4000,
+      "offset": 1362320
+    },
+    {
+      "text": "built games, apps, platforms, tools, and",
+      "duration": 4161,
+      "offset": 1363919
+    },
+    {
+      "text": "more in it. I personally will just spin",
+      "duration": 4160,
+      "offset": 1366320
+    },
+    {
+      "text": "up a folder in my CLI and have it build",
+      "duration": 5040,
+      "offset": 1368080
+    },
+    {
+      "text": "the thing for me. But this is cool.",
+      "duration": 4640,
+      "offset": 1370480
+    },
+    {
+      "text": "Artifacts for normies is similar to what",
+      "duration": 4640,
+      "offset": 1373120
+    },
+    {
+      "text": "I use the alternative tabs and folders.",
+      "duration": 4960,
+      "offset": 1375120
+    },
+    {
+      "text": "And I actually had open here my CC",
+      "duration": 4159,
+      "offset": 1377760
+    },
+    {
+      "text": "sandbox folder that I just use for",
+      "duration": 3280,
+      "offset": 1380080
+    },
+    {
+      "text": "whatever random [ __ ] I'm working on at",
+      "duration": 2880,
+      "offset": 1381919
+    },
+    {
+      "text": "any given time and I wipe it randomly",
+      "duration": 3920,
+      "offset": 1383360
+    },
+    {
+      "text": "too. Super helpful. But for normies,",
+      "duration": 4401,
+      "offset": 1384799
+    },
+    {
+      "text": "artifacts are the right version of the",
+      "duration": 3920,
+      "offset": 1387280
+    },
+    {
+      "text": "same thing. I couldn't figure out how to",
+      "duration": 4000,
+      "offset": 1389200
+    },
+    {
+      "text": "close the right sidebar, so the artifact",
+      "duration": 4160,
+      "offset": 1391200
+    },
+    {
+      "text": "ended up cramped into a thin column, but",
+      "duration": 4640,
+      "offset": 1393200
+    },
+    {
+      "text": "it did work. I expect Enthropic will fix",
+      "duration": 4640,
+      "offset": 1395360
+    },
+    {
+      "text": "the display bug pretty quickly. Yep,",
+      "duration": 4160,
+      "offset": 1397840
+    },
+    {
+      "text": "they added that there. Cool. Doesn't",
+      "duration": 3440,
+      "offset": 1400000
+    },
+    {
+      "text": "fully hide it, though. That's annoying,",
+      "duration": 4240,
+      "offset": 1402000
+    },
+    {
+      "text": "but they tried. So, how does this work?",
+      "duration": 4880,
+      "offset": 1403440
+    },
+    {
+      "text": "Is it not just cloud code? Yeah, it kind",
+      "duration": 3520,
+      "offset": 1406240
+    },
+    {
+      "text": "of is, but it's cloud code with a",
+      "duration": 3280,
+      "offset": 1408320
+    },
+    {
+      "text": "sandbox with additional tools to show",
+      "duration": 3440,
+      "offset": 1409760
+    },
+    {
+      "text": "you things in the UI directly. So, you",
+      "duration": 3680,
+      "offset": 1411600
+    },
+    {
+      "text": "have to build an app or use a terminal.",
+      "duration": 4080,
+      "offset": 1413200
+    },
+    {
+      "text": "I think there's a lot of potential here.",
+      "duration": 3360,
+      "offset": 1415280
+    },
+    {
+      "text": "I just don't know how much of it's being",
+      "duration": 3759,
+      "offset": 1417280
+    },
+    {
+      "text": "executed on right now. But since it is",
+      "duration": 4240,
+      "offset": 1418640
+    },
+    {
+      "text": "effectively a wrapper of Cloud Code,",
+      "duration": 3441,
+      "offset": 1421039
+    },
+    {
+      "text": "people are already trying to open it,",
+      "duration": 3440,
+      "offset": 1422880
+    },
+    {
+      "text": "which is why we have Open Work by",
+      "duration": 4079,
+      "offset": 1424480
+    },
+    {
+      "text": "Langchain as well as Open Work by",
+      "duration": 4640,
+      "offset": 1426320
+    },
+    {
+      "text": "Accomplishi. Yes, two separate groups of",
+      "duration": 3761,
+      "offset": 1428559
+    },
+    {
+      "text": "people published an open- source",
+      "duration": 3440,
+      "offset": 1430960
+    },
+    {
+      "text": "alternative to Cloud Co-work the same",
+      "duration": 4400,
+      "offset": 1432320
+    },
+    {
+      "text": "day with the same name at the same time.",
+      "duration": 4080,
+      "offset": 1434400
+    },
+    {
+      "text": "Here we are. The very least, if you want",
+      "duration": 3199,
+      "offset": 1436720
+    },
+    {
+      "text": "to try out your own open-source",
+      "duration": 2960,
+      "offset": 1438480
+    },
+    {
+      "text": "alternative to this, contribute to it,",
+      "duration": 2880,
+      "offset": 1439919
+    },
+    {
+      "text": "play with it, and see how it works on",
+      "duration": 3440,
+      "offset": 1441440
+    },
+    {
+      "text": "the inside, you have multiple options to",
+      "duration": 4000,
+      "offset": 1442799
+    },
+    {
+      "text": "go take a look at all on GitHub. But",
+      "duration": 3200,
+      "offset": 1444880
+    },
+    {
+      "text": "something that you need to pay attention",
+      "duration": 3201,
+      "offset": 1446799
+    },
+    {
+      "text": "to with all of this is the security of",
+      "duration": 4000,
+      "offset": 1448080
+    },
+    {
+      "text": "it, which was also touched on in this",
+      "duration": 4559,
+      "offset": 1450000
+    },
+    {
+      "text": "post by Simon. The virtualized layer",
+      "duration": 4240,
+      "offset": 1452080
+    },
+    {
+      "text": "helps, but there still is a real threat",
+      "duration": 3600,
+      "offset": 1454559
+    },
+    {
+      "text": "of prompt injection. With a feature like",
+      "duration": 3440,
+      "offset": 1456320
+    },
+    {
+      "text": "this, my first thought always jumps",
+      "duration": 3201,
+      "offset": 1458159
+    },
+    {
+      "text": "straight to security. How big is the",
+      "duration": 3039,
+      "offset": 1459760
+    },
+    {
+      "text": "risk that somebody using this might be",
+      "duration": 3040,
+      "offset": 1461360
+    },
+    {
+      "text": "hit by hidden malicious instructions",
+      "duration": 3521,
+      "offset": 1462799
+    },
+    {
+      "text": "somewhere that break their computer or",
+      "duration": 4159,
+      "offset": 1464400
+    },
+    {
+      "text": "steal their data? Like, I just had it",
+      "duration": 4560,
+      "offset": 1466320
+    },
+    {
+      "text": "read a bunch of files in my downloads",
+      "duration": 4321,
+      "offset": 1468559
+    },
+    {
+      "text": "folder. If one of those files had",
+      "duration": 3600,
+      "offset": 1470880
+    },
+    {
+      "text": "something that was a prompt injection in",
+      "duration": 3520,
+      "offset": 1472880
+    },
+    {
+      "text": "it that was reliable enough that if it",
+      "duration": 4000,
+      "offset": 1474480
+    },
+    {
+      "text": "got into the context, it could break it",
+      "duration": 4480,
+      "offset": 1476400
+    },
+    {
+      "text": "and do things I don't want, that could",
+      "duration": 4559,
+      "offset": 1478480
+    },
+    {
+      "text": "be bad. If that has the opportunity to",
+      "duration": 4159,
+      "offset": 1480880
+    },
+    {
+      "text": "access things it shouldn't, leak data.",
+      "duration": 3601,
+      "offset": 1483039
+    },
+    {
+      "text": "Like if you had a jailbreak prompt in",
+      "duration": 3520,
+      "offset": 1485039
+    },
+    {
+      "text": "here and it read a file and in that file",
+      "duration": 3919,
+      "offset": 1486640
+    },
+    {
+      "text": "it jailbreaks and gives it an",
+      "duration": 3441,
+      "offset": 1488559
+    },
+    {
+      "text": "instruction to take everything currently",
+      "duration": 3360,
+      "offset": 1490559
+    },
+    {
+      "text": "in context and post it to this random",
+      "duration": 3520,
+      "offset": 1492000
+    },
+    {
+      "text": "endpoint, you could get it to send",
+      "duration": 3120,
+      "offset": 1493919
+    },
+    {
+      "text": "things places it probably shouldn't.",
+      "duration": 3120,
+      "offset": 1495520
+    },
+    {
+      "text": "That said, Anthropic is working hard to",
+      "duration": 3120,
+      "offset": 1497039
+    },
+    {
+      "text": "prevent this. This is a quote from",
+      "duration": 3279,
+      "offset": 1498640
+    },
+    {
+      "text": "Anthropic directly. You should also be",
+      "duration": 3361,
+      "offset": 1500159
+    },
+    {
+      "text": "aware of the risk of prompt injections,",
+      "duration": 3601,
+      "offset": 1501919
+    },
+    {
+      "text": "attempts by attackers to alter Claude's",
+      "duration": 4240,
+      "offset": 1503520
+    },
+    {
+      "text": "plans through content it might encounter",
+      "duration": 3680,
+      "offset": 1505520
+    },
+    {
+      "text": "on the internet. We've built",
+      "duration": 3039,
+      "offset": 1507760
+    },
+    {
+      "text": "sophisticated defenses against prompt",
+      "duration": 3839,
+      "offset": 1509200
+    },
+    {
+      "text": "injections, but agent safety that is the",
+      "duration": 3841,
+      "offset": 1510799
+    },
+    {
+      "text": "task of securing Claude's real world",
+      "duration": 3760,
+      "offset": 1513039
+    },
+    {
+      "text": "actions is still an active area of",
+      "duration": 4639,
+      "offset": 1514640
+    },
+    {
+      "text": "development in the industry. Kind of",
+      "duration": 4961,
+      "offset": 1516799
+    },
+    {
+      "text": "pushing the responsibility off. I think",
+      "duration": 3841,
+      "offset": 1519279
+    },
+    {
+      "text": "personally the way I would have written",
+      "duration": 3519,
+      "offset": 1521760
+    },
+    {
+      "text": "this is we have built everything we know",
+      "duration": 4559,
+      "offset": 1523120
+    },
+    {
+      "text": "of here, but we are working hard to",
+      "duration": 4241,
+      "offset": 1525279
+    },
+    {
+      "text": "identify potential future things. We",
+      "duration": 3521,
+      "offset": 1527679
+    },
+    {
+      "text": "cannot guarantee that this will be safe.",
+      "duration": 3440,
+      "offset": 1529520
+    },
+    {
+      "text": "The whole industry is working with us to",
+      "duration": 2800,
+      "offset": 1531200
+    },
+    {
+      "text": "figure out what this looks like long",
+      "duration": 3040,
+      "offset": 1532960
+    },
+    {
+      "text": "term. I don't like the way they they",
+      "duration": 4320,
+      "offset": 1534000
+    },
+    {
+      "text": "skirted ownership here, but yeah. and",
+      "duration": 4480,
+      "offset": 1536000
+    },
+    {
+      "text": "then more qualifications. These risks",
+      "duration": 4000,
+      "offset": 1538320
+    },
+    {
+      "text": "aren't new with co-work, but it might be",
+      "duration": 3439,
+      "offset": 1540480
+    },
+    {
+      "text": "the first time you're using a more",
+      "duration": 3520,
+      "offset": 1542320
+    },
+    {
+      "text": "advanced tool that moves beyond simple",
+      "duration": 3601,
+      "offset": 1543919
+    },
+    {
+      "text": "conversations. We recommend taking",
+      "duration": 3520,
+      "offset": 1545840
+    },
+    {
+      "text": "precautions, particularly while you",
+      "duration": 3600,
+      "offset": 1547520
+    },
+    {
+      "text": "learn how it works. They have a help",
+      "duration": 3439,
+      "offset": 1549360
+    },
+    {
+      "text": "page that includes tips like avoiding",
+      "duration": 2960,
+      "offset": 1551120
+    },
+    {
+      "text": "granting access to local files of",
+      "duration": 2561,
+      "offset": 1552799
+    },
+    {
+      "text": "sensitive information like financial",
+      "duration": 2880,
+      "offset": 1554080
+    },
+    {
+      "text": "docs. When using the Cloud and Chrome",
+      "duration": 3199,
+      "offset": 1555360
+    },
+    {
+      "text": "extension, limit access to trusted",
+      "duration": 3599,
+      "offset": 1556960
+    },
+    {
+      "text": "sites. If you choose to extend Claude's",
+      "duration": 3441,
+      "offset": 1558559
+    },
+    {
+      "text": "default internet access settings, be",
+      "duration": 3041,
+      "offset": 1560559
+    },
+    {
+      "text": "careful to only extend internet access",
+      "duration": 3360,
+      "offset": 1562000
+    },
+    {
+      "text": "to sites you trust and monitor Claude",
+      "duration": 3520,
+      "offset": 1563600
+    },
+    {
+      "text": "for suspicious actions that may indicate",
+      "duration": 3760,
+      "offset": 1565360
+    },
+    {
+      "text": "prompt injection. And from our friend",
+      "duration": 4000,
+      "offset": 1567120
+    },
+    {
+      "text": "Simon, he says that he does not think",
+      "duration": 3919,
+      "offset": 1569120
+    },
+    {
+      "text": "it's fair to tell regular non-programmer",
+      "duration": 3679,
+      "offset": 1571120
+    },
+    {
+      "text": "users to watch out for suspicious",
+      "duration": 3201,
+      "offset": 1573039
+    },
+    {
+      "text": "actions that may indicate prompt",
+      "duration": 3041,
+      "offset": 1574799
+    },
+    {
+      "text": "injection. They will not understand",
+      "duration": 3600,
+      "offset": 1576240
+    },
+    {
+      "text": "that. Boris revealed that they're doing",
+      "duration": 3680,
+      "offset": 1577840
+    },
+    {
+      "text": "summarization where they take the",
+      "duration": 3439,
+      "offset": 1579840
+    },
+    {
+      "text": "context that it gets from the web and",
+      "duration": 3759,
+      "offset": 1581520
+    },
+    {
+      "text": "hand it to some other model to summarize",
+      "duration": 4000,
+      "offset": 1583279
+    },
+    {
+      "text": "it with a really strict system prompt",
+      "duration": 4481,
+      "offset": 1585279
+    },
+    {
+      "text": "and no access to tools. So once it does",
+      "duration": 4481,
+      "offset": 1587279
+    },
+    {
+      "text": "that, it passes the context on to the",
+      "duration": 4640,
+      "offset": 1589760
+    },
+    {
+      "text": "original model that has more capability",
+      "duration": 4799,
+      "offset": 1591760
+    },
+    {
+      "text": "to reduce the likelihood that the bad",
+      "duration": 4480,
+      "offset": 1594400
+    },
+    {
+      "text": "thing makes it in. That makes sense. The",
+      "duration": 3761,
+      "offset": 1596559
+    },
+    {
+      "text": "problem with prop injections remains",
+      "duration": 3039,
+      "offset": 1598880
+    },
+    {
+      "text": "that until there's a high-profile",
+      "duration": 3520,
+      "offset": 1600320
+    },
+    {
+      "text": "incident, it's really hard to get people",
+      "duration": 4401,
+      "offset": 1601919
+    },
+    {
+      "text": "to take it seriously. Simon himself had",
+      "duration": 4240,
+      "offset": 1603840
+    },
+    {
+      "text": "all sorts of claw code usage that could",
+      "duration": 3839,
+      "offset": 1606320
+    },
+    {
+      "text": "cause havoc if a malicious injection got",
+      "duration": 4320,
+      "offset": 1608080
+    },
+    {
+      "text": "in. Co-work does at least run a file",
+      "duration": 4241,
+      "offset": 1610159
+    },
+    {
+      "text": "system sandbox by default, which is more",
+      "duration": 3360,
+      "offset": 1612400
+    },
+    {
+      "text": "than can be said about his claw",
+      "duration": 3279,
+      "offset": 1614400
+    },
+    {
+      "text": "dangerous permissions habit. Yep,",
+      "duration": 4080,
+      "offset": 1615760
+    },
+    {
+      "text": "yoloing is dangerous. I talked about",
+      "duration": 4961,
+      "offset": 1617679
+    },
+    {
+      "text": "this in my 2025 year of AI summary video",
+      "duration": 4079,
+      "offset": 1619840
+    },
+    {
+      "text": "he talks about in his blog post. All",
+      "duration": 2960,
+      "offset": 1622640
+    },
+    {
+      "text": "really good things to consider. That",
+      "duration": 3441,
+      "offset": 1623919
+    },
+    {
+      "text": "said, this is a strong signal for the",
+      "duration": 3199,
+      "offset": 1625600
+    },
+    {
+      "text": "future. This is going to be the first",
+      "duration": 4080,
+      "offset": 1627360
+    },
+    {
+      "text": "time a lot of people have AI doing",
+      "duration": 5441,
+      "offset": 1628799
+    },
+    {
+      "text": "things for them, not just writing things",
+      "duration": 5520,
+      "offset": 1631440
+    },
+    {
+      "text": "for them. Up until this point, if my mom",
+      "duration": 4799,
+      "offset": 1634240
+    },
+    {
+      "text": "or my non-technical friends were using",
+      "duration": 4400,
+      "offset": 1636960
+    },
+    {
+      "text": "something like T3 chat or chat GBT or",
+      "duration": 4401,
+      "offset": 1639039
+    },
+    {
+      "text": "Claude, they were using it to find",
+      "duration": 3760,
+      "offset": 1641360
+    },
+    {
+      "text": "information and give it back to them in",
+      "duration": 4400,
+      "offset": 1643440
+    },
+    {
+      "text": "text or sometimes to generate an image.",
+      "duration": 4559,
+      "offset": 1645120
+    },
+    {
+      "text": "They could have it draft an email, but",
+      "duration": 3280,
+      "offset": 1647840
+    },
+    {
+      "text": "they couldn't have it send an email.",
+      "duration": 3281,
+      "offset": 1649679
+    },
+    {
+      "text": "They could attach a file and ask it to",
+      "duration": 2799,
+      "offset": 1651120
+    },
+    {
+      "text": "tell them about it, but they couldn't",
+      "duration": 3760,
+      "offset": 1652960
+    },
+    {
+      "text": "have it find a file. Claude, ChatgBT, T3",
+      "duration": 4640,
+      "offset": 1653919
+    },
+    {
+      "text": "chat, all these things could get",
+      "duration": 3360,
+      "offset": 1656720
+    },
+    {
+      "text": "information out of other information,",
+      "duration": 3921,
+      "offset": 1658559
+    },
+    {
+      "text": "but they couldn't do real work. And",
+      "duration": 5280,
+      "offset": 1660080
+    },
+    {
+      "text": "that's what's exciting here. Normies now",
+      "duration": 6000,
+      "offset": 1662480
+    },
+    {
+      "text": "have the ability to do actual work using",
+      "duration": 5120,
+      "offset": 1665360
+    },
+    {
+      "text": "the tools that I have been abusing with",
+      "duration": 4000,
+      "offset": 1668480
+    },
+    {
+      "text": "Cloud Code recently, and that's actually",
+      "duration": 5040,
+      "offset": 1670480
+    },
+    {
+      "text": "really exciting. The UX catches and",
+      "duration": 5439,
+      "offset": 1672480
+    },
+    {
+      "text": "gotas, the weird expectations around",
+      "duration": 3920,
+      "offset": 1675520
+    },
+    {
+      "text": "things, and the fact that it couldn't",
+      "duration": 3921,
+      "offset": 1677919
+    },
+    {
+      "text": "use my iMessage. I'll give it one more",
+      "duration": 4959,
+      "offset": 1679440
+    },
+    {
+      "text": "attempt here. Let's try the iMessage",
+      "duration": 5199,
+      "offset": 1681840
+    },
+    {
+      "text": "question again. This time with the Theo",
+      "duration": 4961,
+      "offset": 1684399
+    },
+    {
+      "text": "folder.",
+      "duration": 5360,
+      "offset": 1687039
+    },
+    {
+      "text": "Allow access.",
+      "duration": 7199,
+      "offset": 1689360
+    },
+    {
+      "text": "You have access to my root folder right",
+      "duration": 5841,
+      "offset": 1692399
+    },
+    {
+      "text": "now.",
+      "duration": 6480,
+      "offset": 1696559
+    },
+    {
+      "text": "Do it. It's trying its best. Oh god.",
+      "duration": 7760,
+      "offset": 1698240
+    },
+    {
+      "text": "Oh god. Do I do it? It It's not getting",
+      "duration": 4961,
+      "offset": 1703039
+    },
+    {
+      "text": "my photos. I'm sorry. It's taking so",
+      "duration": 3760,
+      "offset": 1706000
+    },
+    {
+      "text": "much longer than it did in cloud code. I",
+      "duration": 2799,
+      "offset": 1708000
+    },
+    {
+      "text": "have person to access your messages",
+      "duration": 2399,
+      "offset": 1709760
+    },
+    {
+      "text": "folder. Mac OS versions are blocking",
+      "duration": 3360,
+      "offset": 1710799
+    },
+    {
+      "text": "access. They shouldn't be. But then it",
+      "duration": 3361,
+      "offset": 1712159
+    },
+    {
+      "text": "gives this which a normie will not",
+      "duration": 3281,
+      "offset": 1714159
+    },
+    {
+      "text": "understand. I think a lot of the",
+      "duration": 3600,
+      "offset": 1715520
+    },
+    {
+      "text": "strength of this is going to be through",
+      "duration": 3440,
+      "offset": 1717440
+    },
+    {
+      "text": "connectors which they are working hard",
+      "duration": 4400,
+      "offset": 1719120
+    },
+    {
+      "text": "to get lots of. They also have MCPs",
+      "duration": 4720,
+      "offset": 1720880
+    },
+    {
+      "text": "which no normal person's ever going to",
+      "duration": 4480,
+      "offset": 1723520
+    },
+    {
+      "text": "understand and that being visible here",
+      "duration": 4240,
+      "offset": 1725600
+    },
+    {
+      "text": "by default is going to confuse a lot of",
+      "duration": 3919,
+      "offset": 1728000
+    },
+    {
+      "text": "people. You also have custom connectors",
+      "duration": 3920,
+      "offset": 1729840
+    },
+    {
+      "text": "that they don't really give much",
+      "duration": 3760,
+      "offset": 1731919
+    },
+    {
+      "text": "information on. Someone said there's an",
+      "duration": 3440,
+      "offset": 1733760
+    },
+    {
+      "text": "iMessage connector and I think they were",
+      "duration": 3360,
+      "offset": 1735679
+    },
+    {
+      "text": "lying. There might be an MCP or some",
+      "duration": 3520,
+      "offset": 1737200
+    },
+    {
+      "text": "[ __ ] for it, but that is not going to",
+      "duration": 4401,
+      "offset": 1739039
+    },
+    {
+      "text": "work for dormies. Oh, apparently there's",
+      "duration": 6000,
+      "offset": 1740720
+    },
+    {
+      "text": "extensions. So, we now have skills,",
+      "duration": 7359,
+      "offset": 1743440
+    },
+    {
+      "text": "connectors, MCPs, plugins, and desktop",
+      "duration": 6559,
+      "offset": 1746720
+    },
+    {
+      "text": "extensions. All different things with",
+      "duration": 4801,
+      "offset": 1750799
+    },
+    {
+      "text": "different expectations and controls. Oh,",
+      "duration": 3841,
+      "offset": 1753279
+    },
+    {
+      "text": "don't get me started with hooks, which",
+      "duration": 2720,
+      "offset": 1755600
+    },
+    {
+      "text": "is a whole separate thing inside of",
+      "duration": 4159,
+      "offset": 1757120
+    },
+    {
+      "text": "Cloud Code. Too many things. On that",
+      "duration": 4800,
+      "offset": 1758320
+    },
+    {
+      "text": "note though, I recognize a lot of these",
+      "duration": 3841,
+      "offset": 1761279
+    },
+    {
+      "text": "and I recognize them because somebody",
+      "duration": 4159,
+      "offset": 1763120
+    },
+    {
+      "text": "has built something very similar that I",
+      "duration": 4480,
+      "offset": 1765120
+    },
+    {
+      "text": "found much more useful. It has a very",
+      "duration": 5041,
+      "offset": 1767279
+    },
+    {
+      "text": "similar name, Claude. Well, Claudebot.",
+      "duration": 3840,
+      "offset": 1769600
+    },
+    {
+      "text": "We're talking about this in a lot of",
+      "duration": 3280,
+      "offset": 1772320
+    },
+    {
+      "text": "videos recently and this is why I said",
+      "duration": 4400,
+      "offset": 1773440
+    },
+    {
+      "text": "the AGI thing I said earlier because",
+      "duration": 4720,
+      "offset": 1775600
+    },
+    {
+      "text": "Claudebot gave me that taste.",
+      "duration": 4880,
+      "offset": 1777840
+    },
+    {
+      "text": "Effectively, what Cloudbot does is it",
+      "duration": 4959,
+      "offset": 1780320
+    },
+    {
+      "text": "runs Cloud Code or Codeex or one of",
+      "duration": 5280,
+      "offset": 1782720
+    },
+    {
+      "text": "those similar CLI tools on your computer",
+      "duration": 4961,
+      "offset": 1785279
+    },
+    {
+      "text": "through a wrapper that lets you talk to",
+      "duration": 4320,
+      "offset": 1788000
+    },
+    {
+      "text": "it remotely through something like",
+      "duration": 4880,
+      "offset": 1790240
+    },
+    {
+      "text": "Telegram or WhatsApp or iMessage. I",
+      "duration": 4239,
+      "offset": 1792320
+    },
+    {
+      "text": "actually have a Mac Mini in the corner",
+      "duration": 3600,
+      "offset": 1795120
+    },
+    {
+      "text": "of this studio that is wired up to my",
+      "duration": 3921,
+      "offset": 1796559
+    },
+    {
+      "text": "network, to the internet, and to some of",
+      "duration": 3839,
+      "offset": 1798720
+    },
+    {
+      "text": "my accounts on some things that also has",
+      "duration": 4480,
+      "offset": 1800480
+    },
+    {
+      "text": "aorked KVM on it so I can remote into it",
+      "duration": 4161,
+      "offset": 1802559
+    },
+    {
+      "text": "and fix things if they break. And the",
+      "duration": 3760,
+      "offset": 1804960
+    },
+    {
+      "text": "role of that machine is to run Cloudbot",
+      "duration": 4160,
+      "offset": 1806720
+    },
+    {
+      "text": "for me so I can ask it to go spin up an",
+      "duration": 3920,
+      "offset": 1808720
+    },
+    {
+      "text": "app to clone a repo and figure out",
+      "duration": 3440,
+      "offset": 1810880
+    },
+    {
+      "text": "what's going on in it to investigate",
+      "duration": 3519,
+      "offset": 1812640
+    },
+    {
+      "text": "some bug in one of our services with the",
+      "duration": 4160,
+      "offset": 1814320
+    },
+    {
+      "text": "access that it has. It turns out if you",
+      "duration": 4721,
+      "offset": 1816159
+    },
+    {
+      "text": "have a CLI in an environment that has",
+      "duration": 4240,
+      "offset": 1818480
+    },
+    {
+      "text": "access to the things you want, talking",
+      "duration": 3519,
+      "offset": 1820880
+    },
+    {
+      "text": "to it remotely can get a lot of work",
+      "duration": 3360,
+      "offset": 1822720
+    },
+    {
+      "text": "done. And I have been amazed at some of",
+      "duration": 3361,
+      "offset": 1824399
+    },
+    {
+      "text": "the things I and others have done",
+      "duration": 3760,
+      "offset": 1826080
+    },
+    {
+      "text": "through this. And a lot of the skills,",
+      "duration": 3840,
+      "offset": 1827760
+    },
+    {
+      "text": "well, in this case, not skills, the",
+      "duration": 3839,
+      "offset": 1829840
+    },
+    {
+      "text": "extensions that are visible here, most",
+      "duration": 3760,
+      "offset": 1831600
+    },
+    {
+      "text": "of these are things that are in the",
+      "duration": 3841,
+      "offset": 1833679
+    },
+    {
+      "text": "default set that you can pick from in",
+      "duration": 5039,
+      "offset": 1835360
+    },
+    {
+      "text": "Cloudbot. By the way, Cladbot, fully",
+      "duration": 5120,
+      "offset": 1837520
+    },
+    {
+      "text": "open source, available for anyone to use",
+      "duration": 4241,
+      "offset": 1840399
+    },
+    {
+      "text": "and install. It is not the easiest thing",
+      "duration": 3600,
+      "offset": 1842640
+    },
+    {
+      "text": "to set up yet, but it has gotten a lot",
+      "duration": 3279,
+      "offset": 1844640
+    },
+    {
+      "text": "better since the first time I tried it.",
+      "duration": 3120,
+      "offset": 1846240
+    },
+    {
+      "text": "And the things you can do with it are",
+      "duration": 3521,
+      "offset": 1847919
+    },
+    {
+      "text": "kind of [ __ ] crazy. It's fully open",
+      "duration": 3679,
+      "offset": 1849360
+    },
+    {
+      "text": "source and free to use, but it's not",
+      "duration": 2800,
+      "offset": 1851440
+    },
+    {
+      "text": "going to work very good if you don't",
+      "duration": 2561,
+      "offset": 1853039
+    },
+    {
+      "text": "have a subscription to something like",
+      "duration": 3600,
+      "offset": 1854240
+    },
+    {
+      "text": "Open Code or Codeex or Claude Code",
+      "duration": 4400,
+      "offset": 1855600
+    },
+    {
+      "text": "because it really works around those. It",
+      "duration": 3760,
+      "offset": 1857840
+    },
+    {
+      "text": "also burns through tokens like nothing",
+      "duration": 3919,
+      "offset": 1860000
+    },
+    {
+      "text": "I've ever seen before. But man, it's",
+      "duration": 4240,
+      "offset": 1861600
+    },
+    {
+      "text": "cool as hell and you can do a lot of",
+      "duration": 4081,
+      "offset": 1863919
+    },
+    {
+      "text": "really cool [ __ ] with it. So that's why",
+      "duration": 4400,
+      "offset": 1865840
+    },
+    {
+      "text": "I know this can be big because Claudebot",
+      "duration": 4559,
+      "offset": 1868000
+    },
+    {
+      "text": "gave me a taste of what this looks like",
+      "duration": 4240,
+      "offset": 1870240
+    },
+    {
+      "text": "of controlling your computer without",
+      "duration": 4321,
+      "offset": 1872559
+    },
+    {
+      "text": "even being at your computer. Oh, so",
+      "duration": 4160,
+      "offset": 1874480
+    },
+    {
+      "text": "cool. Highly, highly recommend. I'll",
+      "duration": 3039,
+      "offset": 1876880
+    },
+    {
+      "text": "keep a link in the description if you're",
+      "duration": 3360,
+      "offset": 1878640
+    },
+    {
+      "text": "curious. Shout out to Pete once again. I",
+      "duration": 3601,
+      "offset": 1879919
+    },
+    {
+      "text": "think we're on like a five video streak",
+      "duration": 3360,
+      "offset": 1882000
+    },
+    {
+      "text": "where I mention him and stuff. Really",
+      "duration": 3120,
+      "offset": 1883520
+    },
+    {
+      "text": "cool that he built this and is putting",
+      "duration": 2720,
+      "offset": 1885360
+    },
+    {
+      "text": "the time in doing it, open sourcing it",
+      "duration": 2880,
+      "offset": 1886640
+    },
+    {
+      "text": "and sharing all of his findings as he",
+      "duration": 3680,
+      "offset": 1888080
+    },
+    {
+      "text": "builds. Claudebot is really cool and",
+      "duration": 5039,
+      "offset": 1889520
+    },
+    {
+      "text": "still to me feels significantly better",
+      "duration": 4639,
+      "offset": 1891760
+    },
+    {
+      "text": "and more capable than what they have",
+      "duration": 4561,
+      "offset": 1894559
+    },
+    {
+      "text": "here with co-work. But also admittedly",
+      "duration": 5841,
+      "offset": 1896399
+    },
+    {
+      "text": "more risky. And to be frank, I can't",
+      "duration": 4480,
+      "offset": 1899120
+    },
+    {
+      "text": "imagine that if we were in some",
+      "duration": 3760,
+      "offset": 1902240
+    },
+    {
+      "text": "alternative timeline where Cloudbot",
+      "duration": 4000,
+      "offset": 1903600
+    },
+    {
+      "text": "didn't get really popular over the",
+      "duration": 3360,
+      "offset": 1906000
+    },
+    {
+      "text": "holiday break that they would have built",
+      "duration": 4000,
+      "offset": 1907600
+    },
+    {
+      "text": "co-work because the co-work team, well,",
+      "duration": 4319,
+      "offset": 1909360
+    },
+    {
+      "text": "the Cloud Code team themselves have said",
+      "duration": 4000,
+      "offset": 1911600
+    },
+    {
+      "text": "that they built this in a couple days. I",
+      "duration": 3521,
+      "offset": 1913679
+    },
+    {
+      "text": "think it was like 2 weeks they said",
+      "duration": 3439,
+      "offset": 1915600
+    },
+    {
+      "text": "using Cloud Code for all of the",
+      "duration": 3440,
+      "offset": 1917200
+    },
+    {
+      "text": "development of it, which means they were",
+      "duration": 3041,
+      "offset": 1919039
+    },
+    {
+      "text": "clearly inspired by things like",
+      "duration": 3279,
+      "offset": 1920640
+    },
+    {
+      "text": "Claudebot and wanted to see how far they",
+      "duration": 3839,
+      "offset": 1922080
+    },
+    {
+      "text": "could go with that themselves. Now I",
+      "duration": 4561,
+      "offset": 1923919
+    },
+    {
+      "text": "need to figure out how to get out of the",
+      "duration": 4401,
+      "offset": 1925919
+    },
+    {
+      "text": "settings. Do I have to go to a thread or",
+      "duration": 4960,
+      "offset": 1928480
+    },
+    {
+      "text": "open? Okay, just if you need help on UX",
+      "duration": 5440,
+      "offset": 1930320
+    },
+    {
+      "text": "anthropic, you have my phone number. A",
+      "duration": 3760,
+      "offset": 1933440
+    },
+    {
+      "text": "lot of employees at your company have my",
+      "duration": 2960,
+      "offset": 1935760
+    },
+    {
+      "text": "phone number. I'm happy to chat. We can",
+      "duration": 3359,
+      "offset": 1937200
+    },
+    {
+      "text": "figure this out. Until then, I'll be",
+      "duration": 3600,
+      "offset": 1938720
+    },
+    {
+      "text": "sticking with Claudebot, but I will",
+      "duration": 3201,
+      "offset": 1940559
+    },
+    {
+      "text": "probably be recommending this to people",
+      "duration": 3599,
+      "offset": 1942320
+    },
+    {
+      "text": "who I know in my life because there are",
+      "duration": 3919,
+      "offset": 1943760
+    },
+    {
+      "text": "real useful things you can do with a",
+      "duration": 4240,
+      "offset": 1945919
+    },
+    {
+      "text": "tool like this. Final thought, please",
+      "duration": 4641,
+      "offset": 1947679
+    },
+    {
+      "text": "open source Claude code. It's more than",
+      "duration": 3520,
+      "offset": 1950159
+    },
+    {
+      "text": "time. Now that it's being baked into",
+      "duration": 3280,
+      "offset": 1952320
+    },
+    {
+      "text": "things like this, there's no excuse.",
+      "duration": 3441,
+      "offset": 1953679
+    },
+    {
+      "text": "That's all I got on this one. I think",
+      "duration": 3120,
+      "offset": 1955600
+    },
+    {
+      "text": "co-work is really cool and does give us",
+      "duration": 3439,
+      "offset": 1957120
+    },
+    {
+      "text": "a glimpse into what the future of using",
+      "duration": 3839,
+      "offset": 1958720
+    },
+    {
+      "text": "computers with AI will look like, but it",
+      "duration": 3761,
+      "offset": 1960559
+    },
+    {
+      "text": "really is just a glimpse. I think the",
+      "duration": 3120,
+      "offset": 1962559
+    },
+    {
+      "text": "way that we use operating systems is",
+      "duration": 2959,
+      "offset": 1964320
+    },
+    {
+      "text": "going to change fundamentally and I'm",
+      "duration": 2641,
+      "offset": 1965679
+    },
+    {
+      "text": "probably going to talk about that a lot",
+      "duration": 2640,
+      "offset": 1967279
+    },
+    {
+      "text": "more in a future video. Let me know what",
+      "duration": 4400,
+      "offset": 1968320
+    },
+    {
+      "text": "y'all think about this.",
+      "duration": 2801,
+      "offset": 1969919
+    }
+  ],
+  "transcriptText": "I have a confession to make. I've been using Cloud Code a lot, like almost every day. So, where are all of the changes that I'm building? Where's all the code that I'm making? I'm not. I know that sounds crazy. What's the point of cloud code if not to code? Well, I'm using it for much more personal use cases. It's kind of like a way that I use the computer now. Whether I'm trying to analyze my iMessage history through the SQLite bindings, I'm trying to organize files on my computer, try to find that one picture of this one thing that's in my giant non-stop growing downloads folder. I find that cloud code is incredible for doing things on my computer just as much as it is for changing code in a codebase which is why I'm not at all surprised by the new product that was just dropped by anthropic co-work attempt to make these use cases for cloud code accessible to everyone making it easier to use with your computer directly as a normal person not somebody spending all their time in the terminal. Let's watch their little preview and hope they don't have music that will DMCA me like they love to do all the time. Look at that. The question UI made its way in. The to-do list made it in. You can follow up messages while it's working and it handles all that. And it can take over Chrome, which is actually a really cool feature. And it can generate a deck, which is funny because Anthropic is the only major lab that hasn't shipped an image model of any form. So it can't actually generate images. Has to do all of this through code, which is hilarious. Oh man, there's a lot of interesting things happening here. I have opinions on most of them. And I'll be frank, I do actually think this is a good product that makes a lot of sense. And in some ways, it seems like our first taste of AGI in a very real way. That said, I also had a full-on crash out just trying to install the app because Anthropic, despite having one of the best models for coding ever made, still doesn't know how to write code themselves. Do you know who does work reliably, though? Today's sponsor. These guys are all about saving time. So, if you're not hiring anybody, you can skip this ad. But if you are, you really should check out today's sponsor because G2I will make hiring so much easier, so much faster, and probably bring you better engineers than you would otherwise get yourself. Their network of 8,000 engineers is unbelievable. They're not just a bunch of fresh grads trying to get their first gig. It's people who have had years upon years of experience doing real projects at real companies. And their knowledge is up to date, too. The vast majority of them are already on board on the best AI tools. So, you're not going to have to teach them how to use cursor. You can just throw them at your codebase and get them going. What's even crazier is how fast they'll start filing those PRs. It's GTI's goal to get you from signed up to PR filed within 7 days. Yes, really. You sign up day one, you meet with their team day two, they set up the Slack day three, and they have candidates ready to start on a trial by the end of the week, and they will have PRs filed by the end of that day. It's kind of crazy, but I've seen it happen enough times I do actually believe it. If you're running a team, you have way more important stuff to be doing than chasing down recruiters. Use the ones who get it at soy. /G2i. In order to use this, I need to install it. And a spoiler behind thescenes peer moment thing here, I already did. And I decided to record it because I was having a rough time when I did. So, we're going to just cut to that and take over from there. It's time to get started. Okay, that's fine. I'll continue with Google. It's now asking to open Safari, a browser that I would uninstall if I could. I have multiple other browsers including stock Chrome, Chrome Beta, Helium, and my default Zen. And it's not choosing to use any of those. So, what happens when I click here? It brings me to this embedded claw.ai web view using a Safari web view. And now I have to click continue with Google again, which I just did, and it opens up another web view. The first time this happened, it froze, which is why I wanted to show you guys. And the best part is I can't use one password for this and I can't use my pass keys for this. I can't do this. This is going to take me actual time to sign into because they couldn't bother with a basic redirect flow like they have in I don't know claude code the other product that I signed into recently through anthropic. Can they go vibe code a solution that actually works for [ __ ] off? Like it it is claude code and opus really good? Yes. Are engineers going to lose jobs because of how good these tools are? Maybe. Is Anthropic demonstrating how capable they are at engineering as a result of their tools? Abso [ __ ] lutely not. It is hilarious how much random [ __ ] is broken because they don't care enough to fix it because everybody at Anthropics already signed in. They don't care. They don't check it. They don't try it. And most of them don't even use cloud.ai. They just use cloud code to ask it questions. Like it's cloud.ai AI is probably the worst chat experience from a major lab. Unless you count one of the five instances of Gemini. It's just there's so many of these things that I experience every time I try to just sign into Claude. I have to scan the pass key on my phone because it can't use the pass key on my computer because they don't know how to [ __ ] write code. Three separate modals just popped up. One, two, three. the preview for co-work which I'll X out of so you can see the quickly chat to Claude in a few taps that's underneath. Hide. Hide. Continue. And now I can actually use it. Oh god. The treatment on that little blue icon there is clipping. It's literally clipping. Are you kidding? Oh my god. I I want to like this. I want to see the value here. But holy [ __ ] They do not know how to build apps at all. Okay. Okay. I should have shown that before cuz when I click the co-work it lagged a whole bunch. The second time it flashed in. Are you kidding? Yeah. When you go to co-work it reloads the whole page. Someone asked how much of co-work did Cloud Code write and Boris answered all of it. Did Cloud Code also QA it? Like I don't I I don't want to sit here and be this mean. actually came in excited, but just getting to the feature has resulted in me seeing so many [ __ ] skeletons. Like, I can't get over that. The whole UI flickers out. They can't even get Claude to work in the [ __ ] code base for cloud.AI. Now, I'll be saying this a lot throughout this video. I am sorry in advance. Enthropic, we can lay down our pitchforks. We can come together. We can be purchased to come in and fix this. You clearly don't have engineers that care enough or understand enough about user experience or they don't have the right leadership or ownership or opportunity to make an app that's actually pleasant to use. I would be down to get over my [ __ ] and bring my team in to unfuck your [ __ ] but I'm not doing it till you open source cloud code. That is a hard line. Anyways, let's figure out if co-works of any use. Theoretically speaking, as long as I never leave this tab, it shouldn't be too too bad, right? Fingers crossed. So, what are the use cases for something like this? They put out some examples, and honestly, I'm just thankful the example they put out isn't yet another travel planner. The next time somebody shows that their AI can plan a trip for them, I'm going to flip a [ __ ] because first off, that's not a good use case. And second off, no, it [ __ ] can't. So, this use case I actually think is really, really cool. This is a demo that a lot of people in my life need to see. Also, Josh, CEO of the browser company in Arc, should definitely see this one. and he has the most disgusting desktop I've ever seen. And if he ever again talks [ __ ] about my downloads folder, I will ruin him. And here it is running a command. It is noticing all the things on the desktop and offering for a full auto organize other options and it still has the press number key thing to do that stuff. This isn't my desktop to be clear. I would never do this. My desktop is mostly cleared. When I set up a new Mac and forget to move the screenshots like default directory over, I get a couple there, but that's it. My desktop's empty. And here it just moved all these things over because you know through a terminal these things aren't that hard to do. At the same time though, isn't it a little bit scary to give a desktop app pseudo access to your terminal when you don't even know what a terminal is or what the risks are of something like that? Yeah, it is scary. Simon Willis's been experimenting with this and we'll be sure to read his blog post. But first, I wanted to call out this interesting find. used cloud code to reverse engineer the cloud Mac OS Electron app and had co-work dig around in its own environment. Now he has a good idea of how the sandboxes work. It's using Apple's virtualization framework. Think like Docker but native to Apple's platform. It's using an Ubuntu VM through that which is very interesting because that means when you install the cloud app, you are now downloading a full Ubuntu VM. Kernels on kernels on kernels. Now every OS has Ubuntu as part of it. Windows subsystem for Linux is now turned on by default in Windows. Ubuntu is now bundled alongside Claude. We're in an interesting world, aren't we? It really is the year of the Linux desktop, isn't it? It's not even using the latest LTS. It's on 2204. You kidding? It has a separate network name space, so it can't access devices on your network. Has a separate pit isolation, so it doesn't have access to your other processes. These are good things that it's doing. Cloud code should probably do some of these, too. Or at the very least, if you're using it in unsafe mode, you should set something up like this yourself. Cool to see. It's very very good that they are isolating it, but that is not stopping it from having security issues. Cloud code is vulnerable to file exfiltration attacks via indirect prompt injection as a result of known but unresolved isolation flaws in Cloud Code's execution environment. Well, in Claude's code execution environment. This isn't Claude Code. It's Claude the desktop apps code execution environment. Naming is getting really easy. I am just thankful they didn't call this Claude Code for normies or something or just name it Claude Code again because they have Cloud Code and Cloud Code for web and the Cloud Code SDK that are all entirely different basically unrelated products. Yeah. What does Simon have to say before we go play ourselves? New from Anthropic today is Cloud Co-Work, a research preview that they describe as Cloud Code for the rest of your work. Currently available only to max subs at the $100 and $200 per month plans. It was only available to those. But since their post went so viral with over 47 million views on Twitter, not that this number actually means anything, but regardless, it seems to get a lot of attention. People seem really hyped on it. They made a big change, which is that it's now also available to pro subscribers. Yet more inference that I am subsidizing as an external API user. Great. Simon's been saying for a while now that cloud code is a general agent disguised as a developer tool. I totally agree. Cloud Code is magical for doing things on your computer, not just like editing code. I use it for that type of thing all of the time. It can help you with any computer task that can be achieved by executing code or running terminal commands, which covers almost anything, provided that you know what you're doing with it. Yep, the majority of code that my cloud code has written was written to be run one time to do one thing and then thrown away. What this really needs is a UI that doesn't involve the terminal and a name that doesn't scare away non-devs. Co-work's a pretty solid choice on the name front. So what does it look like? The interface for co-work tab in the cloud desktop app called co-work. It sits next to the existing chat and code tabs. It looks very similar to the desktop interface for regular cloud code. You start with a prompt optionally attaching a folder of files and then it starts to work. He tried it out against his perpetually growing blog drafts folder with the following prompt. Look at my drafts that were started within the last 3 months and check that I didn't publish them on simonwilis.net net using a search against content on the site and then suggest ones that are the most close to being ready. That's a cool use case. He has this folder on his computer that has all of this data in it. He wants to reference an external source, the web, and it can do all of that safely through its VM that has file access. Where this starts to break down is when you're using things that you can't access that way. There are some things where you can surprisingly enough do this. Again, I used the example with iMessage earlier. Your iMessage on your Mac is just a SQLite file on the computer. So, a lot of things can access that via commands. Historically, Anthropic hasn't put out many products for end users. They put out cool things that their APIs can do, cool models that are super powerful, and occasionally developer stuff, but they don't have the same grind on userfacing product that a company like, I don't know, OpenAI does. Last year, OpenAI put out so many things for consumers, including a full Tik Tok clone for AI generated video, an alternative browser, and a whole apps platform for users to use inside of Shashbt directly. OpenAI clearly is invested in building new things that are userfacing constantly. And that's why their subscription revenue is so much higher than Anthropics. It's comical difference. And this is why Anthropic just introduced Labs. Labs is their attempt to incubate products and projects internally to build out these types of experiences for users. And this is a big part of why co-work happened. They saw this success with cloud code which basically happened cuz somebody internally wanted it. So they built it and before the company could shut it down, it got too popular and they want to introduce an internal program to make more things like this happen. Incubators like this are pretty common at big companies. Enthropic doesn't have this way of working yet. So, it's cool to see them shifting towards it. And this is why something like co-work could happen. But what is it like to actually use? Let's try it. How many iMessage messages did I get in the last 30 days? It can't figure it out. Let's switch over to my terminal then. Cloud code. Paste. Send. I'll query your iMessage database to count for the last 30 days. I received 4546 messages. co-work couldn't do that. You have access to my file system and can run commands. Why can't you figure this out? You're right. I apologize for the confusion. Let me look into this for you. Great. A norm is not going to understand that it can do that. They're going to ask it. It's going to say it can't and they're going to move on. I just so happen to know. This is actually the type of use case I was really excited about. Oh, I'm running analytics environment, not on your Mac directly. The IMS database is stored locally on the Mac. Do I have to give it access to the folders? Interesting. I thought it would be able to find those types of things. Let me go back and watch that example with the desktop. Do they manually select the desktop in it? Oh, no. They already have it selected. You have to have the folder selected or it can't do it. That's actually a good thing overall, but it does take away a lot of the magic because I don't think normies have a lot of files on their computers. There's actually a pretty notorious problem going on right now that normies don't know how to use file systems on computers, especially younger people who grew up primarily on Chromebooks, iPads, and iPhones. None of those things have a traditional file system. And the result is that a lot of these kids get into college, they get their first real computer, and they have no idea how to do anything on it other than sign in and open Chrome. The idea of files is fundamentally flawed. that I could do a very long rant about why I hate file systems, but at the very least, you need to know how to use them to use your computer effectively. I think this starts to fall under the tasks XKCD comic. I love this one. The direct example in this comic is now broken because of AI, funny enough, but it's introducing more similar things. In this example, somebody's describing an app they want and the engineer is going to build it. When a user takes a photo, the app should check if they're in a national park. And then the person working on the app says, &quot;Sure, I just use the global positioning system. Should be easy to figure this out through the metadata. Give me a few hours.&quot; The person asking for the app says, &quot;And check if the photos of a bird.&quot; The developer immediately responds, &quot;I'll need a research team in 5 years because that's what the it was believed it would take in order to do visual recognition.&quot; And it did. This comic is more than 5 years old. Now, these things are generic enough you can do it, but at the time they weren't. And trying to explain to a normal person why figuring out if the photo is at a national park is trivial and figuring out if there's a bird in the photo is nearly impossible is really hard to do unless you do these things for a living. Now we have another one of those. Somebody will watch the demo that we just saw or hear the things other people are using this for and assume they can do the same thing. And they'll ask it, &quot;Hey, can you figure out which draft in my notion or Google Drive is the most recent that I should be using?&quot; and it won't be able to do that because they're not files on their computer and these users don't understand that. I don't know how useful this will be to those types of people. That said, I've already seen it be useful to people that I know and care about in my life. I have a good friend who had one of these really messy desktops and there was no world in which she would organize it herself. She has a little bit of programming experience. She used to work in Python here and there for data stuff. She reorganized her desktop and changed a bunch of [ __ ] about her environment on her Mac with this. On that note, only works on Mac right now. I doubt that'll change anytime soon, if ever. This seems like a thing they built because they wanted it and it went bigger than expected. How much they invest in it long term, we will see. And also to be clear, you can attach other sources through their integrations and things. They have connectors for things like Google Drive, their MCP registry, Claude and Chrome, which is really cool because it can now control your browser, stuff like that. Can I'll make a new thread. Can you give me feedback on my Twitter profile next.com/thea? Let's see if it uses my browser for this. I'm actually curious. Here it is. Opening a Claude and Chrome instance. I already signed into this. I used this just a few days ago. One second. Again, Anthropic is struggling with the basics of usable software. Okay, now that I've signed in, it has this permissions question. Do I want to allow it to navigate to X.com? Sure. And it did in that other tab. And now it's asking for permission to read it. This is the most annoying thing I've had to deal with in a minute. Allow all actions. Let it do its thing. And now you can see from the glow and the extension and all the annoying things in my browser that it is using the browser. And now I have a notification from Claude that it's done. I have to go manually hop back over. This is not a great single screen experience. I can see that this is actually Theo Brown's profile. T3 GGT T3 Stack Creator with 268K followers, not yours. Could you share your actual Twitterx username? That handle at Theo belongs to someone else. God damn it. So, we're at 0 for two so far. Why are you so certain it isn't me? You're right. I apologize for that assumption. I shouldn't have presumed it wasn't your profile. The edit profile button is right there, which indicates you're logged into this account. I I feeling the AGI, guys. I'm trying so hard. I really am. I'm actually on much better terms with Anthropic right now, and I wanted to come in and show how cool this is. Let's give it something a little more realistic. As I mentioned many times before, my downloads folder is uh rough. If we go and take a look at it, and this is after a somewhat recent system wipe because I just got a new computer. Okay, cool. We're down to 28 gigs. It only has 27,65 files. That's not that bad. Previously, it was over a terabyte, so don't give me [ __ ] Let's ask it some things, though. Can you help me find any important files in this folder so I can organize them better? [ __ ] I just came up with a genuine use case for this. When I do a batch of investments at demo day with Y Combinator, I have a whole bunch of PDFs that I get for the information about those investments, the documents, those types of things. I get all of that as PDFs that go in my downloads folder and organizing all of it is very annoying. If I could use this to do a summary of my investments and then maybe connect it to the notion connector to update my database that I track all my investments in, that could actually be really useful. See, this is the way you have to think. And I talked about this before in all of my AI coding videos. The use case for AI code isn't just to make changes in your codebase. And that might not even work for you depending on a lot of things. But there's a lot of things that you can do that are useful with these tools if you realize that it makes things that used to take a lot of time in terms of using your computer, writing one-off scripts, executing things, and doing things can automate that type of stuff. And this is what I'm excited about. The idea of like the clever people in my life that could have been good programmers but didn't care to be. The people who became big users of like if this then that and Zapier and those things. that type of person can do wild [ __ ] with tools like this and I'm really excited to see what they do. Here's its summary. I have 290 images, 32 PDFs, 38 videos, 21 zips, bunch of DMGs for installing things, legal docs, random other [ __ ] You get the idea. I could ask it to do more to find the duplicates, delete large files to free up space, organize them, and more. Like, this is cool. That said, it's not that cool if you don't have files on your computer, which is one of the big things that makes this sketchy, but also exciting for people who do that. This is going to be really useful for people who have a job that involves a lot of file management and orchestration. I know people like executive assistants that are going to benefit greatly from this, just keeping track of all the random [ __ ] going on for their exec that they help manage. What else does Simon have to say? It started by running this command. Find/ session/sisbull yada yada yada the drafts. this is its session because again it's all virtual environments and if it has this SL sessions thing there's a very good chance that every one of these threads has its own session so has its own virtual Linux environment that it is using to access these files makes sense hopefully secure considering the fact that they vibe coded the whole thing hard to know for sure seems potentially very good says that co-work can only access files that you grant access to. It looks to me like they're mounting those files in a containerized environment, which should mean we can trust co-work not to be able to access things outside of the sandbox. Here's the reply he got with his question about drafts. Most ready to publish frequently argued questions against LLMs cloud code timeline and codeex timeline in his plug-in upgrade guide. That's a good response. It found exactly what I needed to see. Although this upgrade instructions are actually published elsewhere in the data set docs and weren't actually intended for my blog. Just for fun and because I really like artifacts, I asked for a follow-up. Artifacts, if you're not familiar with, are a feature in Claude where it will build like a mini web app in the sidebar as part of your thread that you can use to do things. I know people who have built games, apps, platforms, tools, and more in it. I personally will just spin up a folder in my CLI and have it build the thing for me. But this is cool. Artifacts for normies is similar to what I use the alternative tabs and folders. And I actually had open here my CC sandbox folder that I just use for whatever random [ __ ] I'm working on at any given time and I wipe it randomly too. Super helpful. But for normies, artifacts are the right version of the same thing. I couldn't figure out how to close the right sidebar, so the artifact ended up cramped into a thin column, but it did work. I expect Enthropic will fix the display bug pretty quickly. Yep, they added that there. Cool. Doesn't fully hide it, though. That's annoying, but they tried. So, how does this work? Is it not just cloud code? Yeah, it kind of is, but it's cloud code with a sandbox with additional tools to show you things in the UI directly. So, you have to build an app or use a terminal. I think there's a lot of potential here. I just don't know how much of it's being executed on right now. But since it is effectively a wrapper of Cloud Code, people are already trying to open it, which is why we have Open Work by Langchain as well as Open Work by Accomplishi. Yes, two separate groups of people published an open- source alternative to Cloud Co-work the same day with the same name at the same time. Here we are. The very least, if you want to try out your own open-source alternative to this, contribute to it, play with it, and see how it works on the inside, you have multiple options to go take a look at all on GitHub. But something that you need to pay attention to with all of this is the security of it, which was also touched on in this post by Simon. The virtualized layer helps, but there still is a real threat of prompt injection. With a feature like this, my first thought always jumps straight to security. How big is the risk that somebody using this might be hit by hidden malicious instructions somewhere that break their computer or steal their data? Like, I just had it read a bunch of files in my downloads folder. If one of those files had something that was a prompt injection in it that was reliable enough that if it got into the context, it could break it and do things I don't want, that could be bad. If that has the opportunity to access things it shouldn't, leak data. Like if you had a jailbreak prompt in here and it read a file and in that file it jailbreaks and gives it an instruction to take everything currently in context and post it to this random endpoint, you could get it to send things places it probably shouldn't. That said, Anthropic is working hard to prevent this. This is a quote from Anthropic directly. You should also be aware of the risk of prompt injections, attempts by attackers to alter Claude's plans through content it might encounter on the internet. We've built sophisticated defenses against prompt injections, but agent safety that is the task of securing Claude's real world actions is still an active area of development in the industry. Kind of pushing the responsibility off. I think personally the way I would have written this is we have built everything we know of here, but we are working hard to identify potential future things. We cannot guarantee that this will be safe. The whole industry is working with us to figure out what this looks like long term. I don't like the way they they skirted ownership here, but yeah. and then more qualifications. These risks aren't new with co-work, but it might be the first time you're using a more advanced tool that moves beyond simple conversations. We recommend taking precautions, particularly while you learn how it works. They have a help page that includes tips like avoiding granting access to local files of sensitive information like financial docs. When using the Cloud and Chrome extension, limit access to trusted sites. If you choose to extend Claude's default internet access settings, be careful to only extend internet access to sites you trust and monitor Claude for suspicious actions that may indicate prompt injection. And from our friend Simon, he says that he does not think it's fair to tell regular non-programmer users to watch out for suspicious actions that may indicate prompt injection. They will not understand that. Boris revealed that they're doing summarization where they take the context that it gets from the web and hand it to some other model to summarize it with a really strict system prompt and no access to tools. So once it does that, it passes the context on to the original model that has more capability to reduce the likelihood that the bad thing makes it in. That makes sense. The problem with prop injections remains that until there's a high-profile incident, it's really hard to get people to take it seriously. Simon himself had all sorts of claw code usage that could cause havoc if a malicious injection got in. Co-work does at least run a file system sandbox by default, which is more than can be said about his claw dangerous permissions habit. Yep, yoloing is dangerous. I talked about this in my 2025 year of AI summary video he talks about in his blog post. All really good things to consider. That said, this is a strong signal for the future. This is going to be the first time a lot of people have AI doing things for them, not just writing things for them. Up until this point, if my mom or my non-technical friends were using something like T3 chat or chat GBT or Claude, they were using it to find information and give it back to them in text or sometimes to generate an image. They could have it draft an email, but they couldn't have it send an email. They could attach a file and ask it to tell them about it, but they couldn't have it find a file. Claude, ChatgBT, T3 chat, all these things could get information out of other information, but they couldn't do real work. And that's what's exciting here. Normies now have the ability to do actual work using the tools that I have been abusing with Cloud Code recently, and that's actually really exciting. The UX catches and gotas, the weird expectations around things, and the fact that it couldn't use my iMessage. I'll give it one more attempt here. Let's try the iMessage question again. This time with the Theo folder. Allow access. You have access to my root folder right now. Do it. It's trying its best. Oh god. Oh god. Do I do it? It It's not getting my photos. I'm sorry. It's taking so much longer than it did in cloud code. I have person to access your messages folder. Mac OS versions are blocking access. They shouldn't be. But then it gives this which a normie will not understand. I think a lot of the strength of this is going to be through connectors which they are working hard to get lots of. They also have MCPs which no normal person's ever going to understand and that being visible here by default is going to confuse a lot of people. You also have custom connectors that they don't really give much information on. Someone said there's an iMessage connector and I think they were lying. There might be an MCP or some [ __ ] for it, but that is not going to work for dormies. Oh, apparently there's extensions. So, we now have skills, connectors, MCPs, plugins, and desktop extensions. All different things with different expectations and controls. Oh, don't get me started with hooks, which is a whole separate thing inside of Cloud Code. Too many things. On that note though, I recognize a lot of these and I recognize them because somebody has built something very similar that I found much more useful. It has a very similar name, Claude. Well, Claudebot. We're talking about this in a lot of videos recently and this is why I said the AGI thing I said earlier because Claudebot gave me that taste. Effectively, what Cloudbot does is it runs Cloud Code or Codeex or one of those similar CLI tools on your computer through a wrapper that lets you talk to it remotely through something like Telegram or WhatsApp or iMessage. I actually have a Mac Mini in the corner of this studio that is wired up to my network, to the internet, and to some of my accounts on some things that also has aorked KVM on it so I can remote into it and fix things if they break. And the role of that machine is to run Cloudbot for me so I can ask it to go spin up an app to clone a repo and figure out what's going on in it to investigate some bug in one of our services with the access that it has. It turns out if you have a CLI in an environment that has access to the things you want, talking to it remotely can get a lot of work done. And I have been amazed at some of the things I and others have done through this. And a lot of the skills, well, in this case, not skills, the extensions that are visible here, most of these are things that are in the default set that you can pick from in Cloudbot. By the way, Cladbot, fully open source, available for anyone to use and install. It is not the easiest thing to set up yet, but it has gotten a lot better since the first time I tried it. And the things you can do with it are kind of [ __ ] crazy. It's fully open source and free to use, but it's not going to work very good if you don't have a subscription to something like Open Code or Codeex or Claude Code because it really works around those. It also burns through tokens like nothing I've ever seen before. But man, it's cool as hell and you can do a lot of really cool [ __ ] with it. So that's why I know this can be big because Claudebot gave me a taste of what this looks like of controlling your computer without even being at your computer. Oh, so cool. Highly, highly recommend. I'll keep a link in the description if you're curious. Shout out to Pete once again. I think we're on like a five video streak where I mention him and stuff. Really cool that he built this and is putting the time in doing it, open sourcing it and sharing all of his findings as he builds. Claudebot is really cool and still to me feels significantly better and more capable than what they have here with co-work. But also admittedly more risky. And to be frank, I can't imagine that if we were in some alternative timeline where Cloudbot didn't get really popular over the holiday break that they would have built co-work because the co-work team, well, the Cloud Code team themselves have said that they built this in a couple days. I think it was like 2 weeks they said using Cloud Code for all of the development of it, which means they were clearly inspired by things like Claudebot and wanted to see how far they could go with that themselves. Now I need to figure out how to get out of the settings. Do I have to go to a thread or open? Okay, just if you need help on UX anthropic, you have my phone number. A lot of employees at your company have my phone number. I'm happy to chat. We can figure this out. Until then, I'll be sticking with Claudebot, but I will probably be recommending this to people who I know in my life because there are real useful things you can do with a tool like this. Final thought, please open source Claude code. It's more than time. Now that it's being baked into things like this, there's no excuse. That's all I got on this one. I think co-work is really cool and does give us a glimpse into what the future of using computers with AI will look like, but it really is just a glimpse. I think the way that we use operating systems is going to change fundamentally and I'm probably going to talk about that a lot more in a future video. Let me know what y'all think about this."
+}

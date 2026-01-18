@@ -1,0 +1,1901 @@
+{
+  "channel": {
+    "id": "UCbRP3c757lWg9M-U7TyEkXA",
+    "name": "Theo Browne",
+    "description": "Theo is a software dev, AI nerd, TypeScript sympathizer, creator of T3 Chat and the T3 Stack."
+  },
+  "videoId": "nTMP_rLZOYM",
+  "title": "TOON: “JSON for AI” (is it any good?)",
+  "url": "https://www.youtube.com/watch?v=nTMP_rLZOYM",
+  "publishedAt": "2025-12-19T12:06:01.963Z",
+  "description": "JSON is great, but it also uses a ton of tokens during llm generations. What if there was something better?\n\nThank you G2i for sponsoring! Check them out at: https://soydev.link/g2i\n\nSOURCE\nhttps://github.com/toon-format/toon#readme\n\nWant to sponsor a video? Learn more here: https://soydev.link/sponsor-me\n\nCheck out my Twitch, Twitter, Discord more at https://t3.gg\n\nS/O Ph4se0n3 for the awesome edit 🙏",
+  "thumbnailUrl": "https://i.ytimg.com/vi_webp/nTMP_rLZOYM/maxresdefault.webp",
+  "transcript": [
+    {
+      "text": "Have you heard of JSON prompting before?",
+      "duration": 3680,
+      "offset": 80
+    },
+    {
+      "text": "You might not have. It's a bit of a",
+      "duration": 3200,
+      "offset": 2240
+    },
+    {
+      "text": "chaotic deep dive that I've seen a lot",
+      "duration": 3519,
+      "offset": 3760
+    },
+    {
+      "text": "of people going into. It's this idea",
+      "duration": 3360,
+      "offset": 5440
+    },
+    {
+      "text": "where language models are not",
+      "duration": 2961,
+      "offset": 7279
+    },
+    {
+      "text": "necessarily great at following",
+      "duration": 4320,
+      "offset": 8800
+    },
+    {
+      "text": "instructions as sentences, but JSON as a",
+      "duration": 4880,
+      "offset": 10240
+    },
+    {
+      "text": "structure is relatively consistent and",
+      "duration": 3919,
+      "offset": 13120
+    },
+    {
+      "text": "concise. So, what if we took the thing",
+      "duration": 3680,
+      "offset": 15120
+    },
+    {
+      "text": "we wanted the model to do, we made it",
+      "duration": 4000,
+      "offset": 17039
+    },
+    {
+      "text": "JSON instead? Wouldn't that make the",
+      "duration": 5040,
+      "offset": 18800
+    },
+    {
+      "text": "models better and smarter? Perhaps. And",
+      "duration": 4320,
+      "offset": 21039
+    },
+    {
+      "text": "we'll get to that in a second. But",
+      "duration": 2880,
+      "offset": 23840
+    },
+    {
+      "text": "first, I just want to show what the",
+      "duration": 2961,
+      "offset": 25359
+    },
+    {
+      "text": "difference looks like. So, here is the",
+      "duration": 3760,
+      "offset": 26720
+    },
+    {
+      "text": "first example. format the response as a",
+      "duration": 4239,
+      "offset": 28320
+    },
+    {
+      "text": "markdown list with subheadings for each",
+      "duration": 4480,
+      "offset": 30480
+    },
+    {
+      "text": "day. Here it is in YAML",
+      "duration": 4881,
+      "offset": 32559
+    },
+    {
+      "text": "and here it is in JSON. But here's where",
+      "duration": 4160,
+      "offset": 34960
+    },
+    {
+      "text": "things get interesting. I'm going to",
+      "duration": 4480,
+      "offset": 37440
+    },
+    {
+      "text": "copy paste this into the chat GBT",
+      "duration": 6080,
+      "offset": 39120
+    },
+    {
+      "text": "tokenizer. The paragraph version without",
+      "duration": 6880,
+      "offset": 41920
+    },
+    {
+      "text": "the quotes was 55 tokens. Tokens are how",
+      "duration": 5440,
+      "offset": 45200
+    },
+    {
+      "text": "the model splits up chunks of text so",
+      "duration": 3520,
+      "offset": 48800
+    },
+    {
+      "text": "that it can process it and autocomplete",
+      "duration": 3599,
+      "offset": 50640
+    },
+    {
+      "text": "it effectively. If we compare that to",
+      "duration": 5200,
+      "offset": 52320
+    },
+    {
+      "text": "the YAML version, we go from 55 tokens",
+      "duration": 6800,
+      "offset": 54239
+    },
+    {
+      "text": "to 88 tokens. What? It's more, but it",
+      "duration": 6560,
+      "offset": 57520
+    },
+    {
+      "text": "seems so concise. It gets worse, my",
+      "duration": 4561,
+      "offset": 61039
+    },
+    {
+      "text": "friends.",
+      "duration": 4719,
+      "offset": 64080
+    },
+    {
+      "text": "Let's try the JSON version.",
+      "duration": 6960,
+      "offset": 65600
+    },
+    {
+      "text": "115 tokens. We more than doubled the",
+      "duration": 6000,
+      "offset": 68799
+    },
+    {
+      "text": "number of tokens because we think this",
+      "duration": 4480,
+      "offset": 72560
+    },
+    {
+      "text": "should work. And this is why Tune",
+      "duration": 5921,
+      "offset": 74799
+    },
+    {
+      "text": "exists. Tune is tokenoriented object",
+      "duration": 6480,
+      "offset": 77040
+    },
+    {
+      "text": "notation. It is similar to JSON. It is",
+      "duration": 4800,
+      "offset": 80720
+    },
+    {
+      "text": "meant to do roughly the same thing with",
+      "duration": 4000,
+      "offset": 83520
+    },
+    {
+      "text": "the difference being it is intended to",
+      "duration": 4400,
+      "offset": 85520
+    },
+    {
+      "text": "be used for LLM inputs as a lossless",
+      "duration": 4480,
+      "offset": 87520
+    },
+    {
+      "text": "drop in replacement for JSON. We have an",
+      "duration": 4320,
+      "offset": 89920
+    },
+    {
+      "text": "example of JSON here with a list of",
+      "duration": 4479,
+      "offset": 92000
+    },
+    {
+      "text": "items in it. And here is how tune would",
+      "duration": 4000,
+      "offset": 94240
+    },
+    {
+      "text": "convey the same information with fewer",
+      "duration": 4241,
+      "offset": 96479
+    },
+    {
+      "text": "tokens. Users two cuz there's two things",
+      "duration": 5120,
+      "offset": 98240
+    },
+    {
+      "text": "in it. ID name and RO and then",
+      "duration": 4719,
+      "offset": 100720
+    },
+    {
+      "text": "immediately have this list. Let's",
+      "duration": 4240,
+      "offset": 103360
+    },
+    {
+      "text": "compare the tokenization here. JSON",
+      "duration": 6081,
+      "offset": 105439
+    },
+    {
+      "text": "examples 51 tokens. Tune example",
+      "duration": 6159,
+      "offset": 107600
+    },
+    {
+      "text": "24 tokens. This seems too good to be",
+      "duration": 4400,
+      "offset": 111520
+    },
+    {
+      "text": "true, right? Probably. And we'll get to",
+      "duration": 3360,
+      "offset": 113759
+    },
+    {
+      "text": "that right after a quick word from",
+      "duration": 2640,
+      "offset": 115920
+    },
+    {
+      "text": "today's sponsor. I need to be real with",
+      "duration": 3441,
+      "offset": 117119
+    },
+    {
+      "text": "y'all. Hiring kind of sucks right now.",
+      "duration": 3760,
+      "offset": 118560
+    },
+    {
+      "text": "There's just a massive pile of AI",
+      "duration": 3839,
+      "offset": 120560
+    },
+    {
+      "text": "generated resume slop. And finding good",
+      "duration": 4000,
+      "offset": 122320
+    },
+    {
+      "text": "candidates is really, really hard.",
+      "duration": 3521,
+      "offset": 124399
+    },
+    {
+      "text": "Unless you're using today's sponsor,",
+      "duration": 3760,
+      "offset": 126320
+    },
+    {
+      "text": "G2I. I cannot tell you how many people",
+      "duration": 3840,
+      "offset": 127920
+    },
+    {
+      "text": "I've referred to this outside of my",
+      "duration": 3519,
+      "offset": 130080
+    },
+    {
+      "text": "sponsorships. Sure, they're paying me to",
+      "duration": 3440,
+      "offset": 131760
+    },
+    {
+      "text": "tell you why they're so good at hiring",
+      "duration": 3441,
+      "offset": 133599
+    },
+    {
+      "text": "here, but I've actually recommended them",
+      "duration": 3440,
+      "offset": 135200
+    },
+    {
+      "text": "a ton, and I've been incredibly",
+      "duration": 3120,
+      "offset": 137040
+    },
+    {
+      "text": "impressed with the results. Their",
+      "duration": 3200,
+      "offset": 138640
+    },
+    {
+      "text": "candidates can go from first interview",
+      "duration": 4480,
+      "offset": 140160
+    },
+    {
+      "text": "to first PR landed and merged in under 7",
+      "duration": 4399,
+      "offset": 141840
+    },
+    {
+      "text": "days. And I've seen this happen enough",
+      "duration": 3440,
+      "offset": 144640
+    },
+    {
+      "text": "times to say it confidently. They have a",
+      "duration": 4401,
+      "offset": 146239
+    },
+    {
+      "text": "network of over 8,000 really technical",
+      "duration": 4400,
+      "offset": 148080
+    },
+    {
+      "text": "engineers, not just random people who",
+      "duration": 3440,
+      "offset": 150640
+    },
+    {
+      "text": "freshly got out of college, people who",
+      "duration": 3520,
+      "offset": 152480
+    },
+    {
+      "text": "have real industry experience that can",
+      "duration": 5040,
+      "offset": 154080
+    },
+    {
+      "text": "work part-time, full-time, US, LATAM, so",
+      "duration": 5200,
+      "offset": 156000
+    },
+    {
+      "text": "many options. They really have the wide",
+      "duration": 4160,
+      "offset": 159120
+    },
+    {
+      "text": "variety for every type of experience,",
+      "duration": 4480,
+      "offset": 161200
+    },
+    {
+      "text": "every level of AI usage, and a deep",
+      "duration": 4239,
+      "offset": 163280
+    },
+    {
+      "text": "understanding of code. They're not just",
+      "duration": 3760,
+      "offset": 165680
+    },
+    {
+      "text": "a recruitment firm. They're a network.",
+      "duration": 3681,
+      "offset": 167519
+    },
+    {
+      "text": "They're an awesome set of tools to do",
+      "duration": 3840,
+      "offset": 169440
+    },
+    {
+      "text": "the interview process with, and they're",
+      "duration": 3920,
+      "offset": 171200
+    },
+    {
+      "text": "a real team that will integrate with you",
+      "duration": 3760,
+      "offset": 173280
+    },
+    {
+      "text": "in your Slack to make sure you find the",
+      "duration": 3520,
+      "offset": 175120
+    },
+    {
+      "text": "right people on a timeline you won't",
+      "duration": 3520,
+      "offset": 177040
+    },
+    {
+      "text": "[ __ ] believe. These guys have been so",
+      "duration": 3440,
+      "offset": 178640
+    },
+    {
+      "text": "awesome to work with. And even just as a",
+      "duration": 2640,
+      "offset": 180560
+    },
+    {
+      "text": "creator, working with them has been",
+      "duration": 2960,
+      "offset": 182080
+    },
+    {
+      "text": "great. They also run React Miami, which",
+      "duration": 3920,
+      "offset": 183200
+    },
+    {
+      "text": "by the way, if you can go, you really",
+      "duration": 3600,
+      "offset": 185040
+    },
+    {
+      "text": "should. That's the most fun tech",
+      "duration": 3280,
+      "offset": 187120
+    },
+    {
+      "text": "conference I've ever gone to by far. And",
+      "duration": 3519,
+      "offset": 188640
+    },
+    {
+      "text": "I go out of my way to go every year, and",
+      "duration": 3520,
+      "offset": 190400
+    },
+    {
+      "text": "I bring my whole team if I can. Stop",
+      "duration": 3360,
+      "offset": 192159
+    },
+    {
+      "text": "spending months trying to hire good",
+      "duration": 2880,
+      "offset": 193920
+    },
+    {
+      "text": "engineers when you could spend days",
+      "duration": 2961,
+      "offset": 195519
+    },
+    {
+      "text": "hiring great ones instead. Check them",
+      "duration": 4560,
+      "offset": 196800
+    },
+    {
+      "text": "out now at soyv.link/g2i.",
+      "duration": 4960,
+      "offset": 198480
+    },
+    {
+      "text": "So, here we are. Yet another object",
+      "duration": 5360,
+      "offset": 201360
+    },
+    {
+      "text": "notation. Not YAML, not pickle, not",
+      "duration": 6000,
+      "offset": 203440
+    },
+    {
+      "text": "JSON, not BSON, not some other weird",
+      "duration": 4640,
+      "offset": 206720
+    },
+    {
+      "text": "[ __ ] Okay, it is kind of some other",
+      "duration": 4000,
+      "offset": 209440
+    },
+    {
+      "text": "weird [ __ ] We're now in the world",
+      "duration": 4959,
+      "offset": 211360
+    },
+    {
+      "text": "of tokenoriented object notation. The",
+      "duration": 5840,
+      "offset": 213440
+    },
+    {
+      "text": "original creator of Tune is Johan here",
+      "duration": 5041,
+      "offset": 216319
+    },
+    {
+      "text": "and here's how he announced it. JSON is",
+      "duration": 4319,
+      "offset": 219280
+    },
+    {
+      "text": "token expensive for LLMs just like Matt",
+      "duration": 5120,
+      "offset": 221360
+    },
+    {
+      "text": "PCO frequently mentions. Meet Tune, the",
+      "duration": 5121,
+      "offset": 223599
+    },
+    {
+      "text": "token oriented object notation, 40 to",
+      "duration": 4720,
+      "offset": 226480
+    },
+    {
+      "text": "60% fewer tokens than JSON and is",
+      "duration": 4960,
+      "offset": 228720
+    },
+    {
+      "text": "readable and tokenizer aware. Wrap your",
+      "duration": 5039,
+      "offset": 231200
+    },
+    {
+      "text": "JSON within code to save half the token",
+      "duration": 4720,
+      "offset": 233680
+    },
+    {
+      "text": "cost. That's a really cool thing that",
+      "duration": 4000,
+      "offset": 236239
+    },
+    {
+      "text": "this works with apparently. I want to",
+      "duration": 4320,
+      "offset": 238400
+    },
+    {
+      "text": "try that. Try the format tokenization",
+      "duration": 4321,
+      "offset": 240239
+    },
+    {
+      "text": "playground. Here's a playground where",
+      "duration": 3680,
+      "offset": 242720
+    },
+    {
+      "text": "you can look at existing examples of how",
+      "duration": 4480,
+      "offset": 244560
+    },
+    {
+      "text": "the tokenization changes depending on",
+      "duration": 4880,
+      "offset": 246400
+    },
+    {
+      "text": "what you're doing. So again, remember a",
+      "duration": 5040,
+      "offset": 249040
+    },
+    {
+      "text": "token is a chunk of text that your model",
+      "duration": 5840,
+      "offset": 251280
+    },
+    {
+      "text": "is using to figure out what chunks lead",
+      "duration": 5279,
+      "offset": 254080
+    },
+    {
+      "text": "to what things. The these models don't",
+      "duration": 3839,
+      "offset": 257120
+    },
+    {
+      "text": "go character by character on your",
+      "duration": 3681,
+      "offset": 259359
+    },
+    {
+      "text": "inputs. They break it out into these",
+      "duration": 4481,
+      "offset": 260959
+    },
+    {
+      "text": "chunks so they can create maps of where",
+      "duration": 4800,
+      "offset": 263040
+    },
+    {
+      "text": "they go in their crazy neural network of",
+      "duration": 5039,
+      "offset": 265440
+    },
+    {
+      "text": "just parameters floating around. So",
+      "duration": 4480,
+      "offset": 267840
+    },
+    {
+      "text": "based on the set of tokens that you have",
+      "duration": 3681,
+      "offset": 270479
+    },
+    {
+      "text": "in the order they're in, it can predict",
+      "duration": 3439,
+      "offset": 272320
+    },
+    {
+      "text": "what tokens are most likely to come",
+      "duration": 3759,
+      "offset": 274160
+    },
+    {
+      "text": "next. And if you have some pretty",
+      "duration": 6801,
+      "offset": 275759
+    },
+    {
+      "text": "formatted JSON, 77 tokens is not great.",
+      "duration": 6241,
+      "offset": 277919
+    },
+    {
+      "text": "You flatten it a bunch and kill all this",
+      "duration": 3600,
+      "offset": 282560
+    },
+    {
+      "text": "white spaces. Each of these tabs is a",
+      "duration": 6319,
+      "offset": 284160
+    },
+    {
+      "text": "token. You get down to 38 tokens. YAML's",
+      "duration": 7360,
+      "offset": 286160
+    },
+    {
+      "text": "50 and tune is 32.",
+      "duration": 5440,
+      "offset": 290479
+    },
+    {
+      "text": "To be fair here, the compression from",
+      "duration": 6320,
+      "offset": 293520
+    },
+    {
+      "text": "flattened JSON to tune is only like four",
+      "duration": 7121,
+      "offset": 295919
+    },
+    {
+      "text": "tokens. It's barely notable, but I can",
+      "duration": 5840,
+      "offset": 299840
+    },
+    {
+      "text": "bring my own data. Let's do that. Let's",
+      "duration": 7879,
+      "offset": 303040
+    },
+    {
+      "text": "bring my JSON example from here. Paste.",
+      "duration": 5239,
+      "offset": 305680
+    },
+    {
+      "text": "Are you kidding me? Sir, this isn't even",
+      "duration": 6080,
+      "offset": 311360
+    },
+    {
+      "text": "hard to make. [sighs]",
+      "duration": 5360,
+      "offset": 314720
+    },
+    {
+      "text": "I was wrong. AI is a mistake. Vibe",
+      "duration": 4720,
+      "offset": 317440
+    },
+    {
+      "text": "coding is dumb. if it we couldn't even",
+      "duration": 4720,
+      "offset": 320080
+    },
+    {
+      "text": "finish this demo. I know what we have to",
+      "duration": 5360,
+      "offset": 322160
+    },
+    {
+      "text": "do and I hate this. This project is",
+      "duration": 4640,
+      "offset": 324800
+    },
+    {
+      "text": "meant to make it easy to compare the",
+      "duration": 4239,
+      "offset": 327520
+    },
+    {
+      "text": "implementation and token counts of",
+      "duration": 5360,
+      "offset": 329440
+    },
+    {
+      "text": "various different syntaxes for object",
+      "duration": 5841,
+      "offset": 331759
+    },
+    {
+      "text": "notation. I should be able to paste in a",
+      "duration": 5200,
+      "offset": 334800
+    },
+    {
+      "text": "JSON blob and it should show how it is",
+      "duration": 5520,
+      "offset": 337600
+    },
+    {
+      "text": "tokenized and compare it with a less",
+      "duration": 6000,
+      "offset": 340000
+    },
+    {
+      "text": "pritified JSON version. So a collapsed",
+      "duration": 6639,
+      "offset": 343120
+    },
+    {
+      "text": "JSON output, a YAML output and a tune",
+      "duration": 6560,
+      "offset": 346000
+    },
+    {
+      "text": "output. I will link the docs for tune",
+      "duration": 5440,
+      "offset": 349759
+    },
+    {
+      "text": "here as well. Use official tokenizer",
+      "duration": 4880,
+      "offset": 352560
+    },
+    {
+      "text": "packages as well as the packages for",
+      "duration": 5280,
+      "offset": 355199
+    },
+    {
+      "text": "converting for YAML and for tune. If you",
+      "duration": 4479,
+      "offset": 357440
+    },
+    {
+      "text": "have any questions about which packages",
+      "duration": 3761,
+      "offset": 360479
+    },
+    {
+      "text": "to use, highlight them and I'll do my",
+      "duration": 4400,
+      "offset": 361919
+    },
+    {
+      "text": "best to answer. We'll let that go in the",
+      "duration": 4799,
+      "offset": 364240
+    },
+    {
+      "text": "background while I try to do actual",
+      "duration": 5361,
+      "offset": 366319
+    },
+    {
+      "text": "useful [ __ ] Until then, I'll use the",
+      "duration": 6641,
+      "offset": 369039
+    },
+    {
+      "text": "existing non-uniform large complex data.",
+      "duration": 7040,
+      "offset": 371680
+    },
+    {
+      "text": "So here it's 371 tokens. Flattening the",
+      "duration": 6239,
+      "offset": 375680
+    },
+    {
+      "text": "JSON gets you down to 199. YAML is down",
+      "duration": 7599,
+      "offset": 378720
+    },
+    {
+      "text": "to 250 and tune is 257.",
+      "duration": 7041,
+      "offset": 381919
+    },
+    {
+      "text": "I guess the non-standard non-uniform",
+      "duration": 4801,
+      "offset": 386319
+    },
+    {
+      "text": "structures for data breaks it real bad.",
+      "duration": 4959,
+      "offset": 388960
+    },
+    {
+      "text": "Uniform nested with uniform data 560 to",
+      "duration": 6079,
+      "offset": 391120
+    },
+    {
+      "text": "318 for JSON to pretty JSON to JSON.",
+      "duration": 6720,
+      "offset": 393919
+    },
+    {
+      "text": "Tunes down to 401. YAML's 390. What the",
+      "duration": 5761,
+      "offset": 397199
+    },
+    {
+      "text": "[ __ ] going on? Why is YAML compressing",
+      "duration": 5280,
+      "offset": 400639
+    },
+    {
+      "text": "better? The [ __ ] I feel like half the",
+      "duration": 5040,
+      "offset": 402960
+    },
+    {
+      "text": "[ __ ] in this world is made up. Straight",
+      "duration": 3921,
+      "offset": 405919
+    },
+    {
+      "text": "up. We haven't even gotten to my",
+      "duration": 3919,
+      "offset": 408000
+    },
+    {
+      "text": "favorite thing that's [ __ ] JSON",
+      "duration": 4240,
+      "offset": 409840
+    },
+    {
+      "text": "prompting in the first place. I Google",
+      "duration": 3681,
+      "offset": 411919
+    },
+    {
+      "text": "searched to find a JSON prompting",
+      "duration": 3280,
+      "offset": 414080
+    },
+    {
+      "text": "benchmark for all these lunatics who are",
+      "duration": 3120,
+      "offset": 415600
+    },
+    {
+      "text": "rewriting their prompts in JSON,",
+      "duration": 2559,
+      "offset": 417360
+    },
+    {
+      "text": "thinking it'll magically make the",
+      "duration": 4720,
+      "offset": 418720
+    },
+    {
+      "text": "outputs better. This is such a funny set",
+      "duration": 6241,
+      "offset": 419919
+    },
+    {
+      "text": "of results. Two months ago, JSON",
+      "duration": 4960,
+      "offset": 423440
+    },
+    {
+      "text": "prompting is exploding for precise AI",
+      "duration": 5039,
+      "offset": 426160
+    },
+    {
+      "text": "responses. Next thing, one week ago on",
+      "duration": 5600,
+      "offset": 428400
+    },
+    {
+      "text": "Medium, JSON prompting is dead. Why your",
+      "duration": 4881,
+      "offset": 431199
+    },
+    {
+      "text": "revolutionary LLM technique is actually",
+      "duration": 4800,
+      "offset": 434000
+    },
+    {
+      "text": "a 15% failure rate in disguise. Next",
+      "duration": 4640,
+      "offset": 436080
+    },
+    {
+      "text": "post, why I switched to JSON prompting",
+      "duration": 4720,
+      "offset": 438800
+    },
+    {
+      "text": "and why you might need to. Oh man. Oh",
+      "duration": 5440,
+      "offset": 440720
+    },
+    {
+      "text": "man. JSON prompting, the ultimate guide",
+      "duration": 5040,
+      "offset": 443520
+    },
+    {
+      "text": "to perfect AI outputs. I think opinions",
+      "duration": 4479,
+      "offset": 446160
+    },
+    {
+      "text": "on this one might be a little bit mixed.",
+      "duration": 3520,
+      "offset": 448560
+    },
+    {
+      "text": "People are pointing out that nesting",
+      "duration": 3041,
+      "offset": 450639
+    },
+    {
+      "text": "might be where it breaks. That's a fair",
+      "duration": 4399,
+      "offset": 452080
+    },
+    {
+      "text": "point. Let's do a uniform tople array of",
+      "duration": 5680,
+      "offset": 453680
+    },
+    {
+      "text": "primitives instead. Then 796 to 484 for",
+      "duration": 6000,
+      "offset": 456479
+    },
+    {
+      "text": "pretty JSON to JSON. Cool. 612 for YAML",
+      "duration": 6000,
+      "offset": 459360
+    },
+    {
+      "text": "and 318 for tune. Okay. So when things",
+      "duration": 5280,
+      "offset": 462479
+    },
+    {
+      "text": "get nested, tune falls apart. But when",
+      "duration": 4239,
+      "offset": 465360
+    },
+    {
+      "text": "things are one level deep like they are",
+      "duration": 3440,
+      "offset": 467759
+    },
+    {
+      "text": "here where we just have this one giant",
+      "duration": 4241,
+      "offset": 469599
+    },
+    {
+      "text": "array with things in it, that's when",
+      "duration": 4641,
+      "offset": 471199
+    },
+    {
+      "text": "tune is really good. I see what they",
+      "duration": 5600,
+      "offset": 473840
+    },
+    {
+      "text": "mean by the top piece here of uh the",
+      "duration": 6240,
+      "offset": 475840
+    },
+    {
+      "text": "uniform array of objects. Multiple",
+      "duration": 4560,
+      "offset": 479440
+    },
+    {
+      "text": "fields per row, same structure across",
+      "duration": 4399,
+      "offset": 482080
+    },
+    {
+      "text": "items. Makes sense. So, we're passing a",
+      "duration": 5360,
+      "offset": 484000
+    },
+    {
+      "text": "big array of stuff to an LLM. This could",
+      "duration": 5681,
+      "offset": 486479
+    },
+    {
+      "text": "work. Okay. With CSV like compactness",
+      "duration": 4480,
+      "offset": 489360
+    },
+    {
+      "text": "while adding explicit structure that",
+      "duration": 3599,
+      "offset": 492160
+    },
+    {
+      "text": "helps LMS parse and validate data",
+      "duration": 4400,
+      "offset": 493840
+    },
+    {
+      "text": "reliably. Think of tune as a translation",
+      "duration": 4241,
+      "offset": 495759
+    },
+    {
+      "text": "layer. Use JSON programmatically and",
+      "duration": 4239,
+      "offset": 498240
+    },
+    {
+      "text": "then convert to tune for LM input. I do",
+      "duration": 4479,
+      "offset": 500000
+    },
+    {
+      "text": "really like the diagram on the like top",
+      "duration": 4241,
+      "offset": 502479
+    },
+    {
+      "text": "here that they're not pretending it's",
+      "duration": 3761,
+      "offset": 504479
+    },
+    {
+      "text": "something it isn't. They're not telling",
+      "duration": 3599,
+      "offset": 506720
+    },
+    {
+      "text": "you use tune for all of your stuff, for",
+      "duration": 3760,
+      "offset": 508240
+    },
+    {
+      "text": "all the code you write. They're telling",
+      "duration": 5361,
+      "offset": 510319
+    },
+    {
+      "text": "you use JSON, call their encode function",
+      "duration": 6240,
+      "offset": 512000
+    },
+    {
+      "text": "to create tune outputs instead, and then",
+      "duration": 5039,
+      "offset": 515680
+    },
+    {
+      "text": "send that to the LLM and save tokens by",
+      "duration": 5039,
+      "offset": 518240
+    },
+    {
+      "text": "30 to 60%. And apparently from their",
+      "duration": 5441,
+      "offset": 520719
+    },
+    {
+      "text": "tests, the retrieval accuracy goes up by",
+      "duration": 5761,
+      "offset": 523279
+    },
+    {
+      "text": "a meaningful amount, 4% or so. That",
+      "duration": 4720,
+      "offset": 526160
+    },
+    {
+      "text": "actually could make sense. So, I know",
+      "duration": 4320,
+      "offset": 529040
+    },
+    {
+      "text": "I've been a little harsh thus far, but",
+      "duration": 4880,
+      "offset": 530880
+    },
+    {
+      "text": "there is actually value in this. If you",
+      "duration": 5520,
+      "offset": 533360
+    },
+    {
+      "text": "want to hand an LLM hundreds of rows of",
+      "duration": 5600,
+      "offset": 535760
+    },
+    {
+      "text": "absurd [ __ ] data, you probably",
+      "duration": 4639,
+      "offset": 538880
+    },
+    {
+      "text": "shouldn't do that through JSON. I have",
+      "duration": 3599,
+      "offset": 541360
+    },
+    {
+      "text": "done this before. I've even pasted giant",
+      "duration": 3681,
+      "offset": 543519
+    },
+    {
+      "text": "HTML into things with questionable",
+      "duration": 4560,
+      "offset": 544959
+    },
+    {
+      "text": "results. This seems like a much better",
+      "duration": 4160,
+      "offset": 547200
+    },
+    {
+      "text": "choice for that. You shouldn't be using",
+      "duration": 3601,
+      "offset": 549519
+    },
+    {
+      "text": "tune for JSON prompting because you",
+      "duration": 3520,
+      "offset": 551360
+    },
+    {
+      "text": "shouldn't be doing JSON prompting. JSON",
+      "duration": 4000,
+      "offset": 553120
+    },
+    {
+      "text": "prompting is stupid and bad and ugly and",
+      "duration": 3920,
+      "offset": 554880
+    },
+    {
+      "text": "miserable and a weird thing people do",
+      "duration": 3200,
+      "offset": 557120
+    },
+    {
+      "text": "cuz they think they're smarter than us",
+      "duration": 2880,
+      "offset": 558800
+    },
+    {
+      "text": "and they think that they found this",
+      "duration": 3840,
+      "offset": 560320
+    },
+    {
+      "text": "clever hack to make the LMS better. This",
+      "duration": 3680,
+      "offset": 561680
+    },
+    {
+      "text": "is the problem with all this [ __ ] being",
+      "duration": 3520,
+      "offset": 564160
+    },
+    {
+      "text": "non-deterministic. The conspiracy",
+      "duration": 4560,
+      "offset": 565360
+    },
+    {
+      "text": "theorists are out in droves coming up",
+      "duration": 4240,
+      "offset": 567680
+    },
+    {
+      "text": "with their own crazy [ __ ] on how to",
+      "duration": 4320,
+      "offset": 569920
+    },
+    {
+      "text": "make LMS smarter. It's also why we need",
+      "duration": 4080,
+      "offset": 571920
+    },
+    {
+      "text": "more and better evals, which is big part",
+      "duration": 4240,
+      "offset": 574240
+    },
+    {
+      "text": "of why I'm working on said better evals.",
+      "duration": 4320,
+      "offset": 576000
+    },
+    {
+      "text": "Someone in chat already made a converter",
+      "duration": 4960,
+      "offset": 578480
+    },
+    {
+      "text": "site. Oh boy. Let me take my silly",
+      "duration": 5920,
+      "offset": 580320
+    },
+    {
+      "text": "example from earlier from 115 tokens to",
+      "duration": 5280,
+      "offset": 583440
+    },
+    {
+      "text": "81. But again, this one's not really a",
+      "duration": 5279,
+      "offset": 586240
+    },
+    {
+      "text": "list type example. This one is much more",
+      "duration": 5280,
+      "offset": 588720
+    },
+    {
+      "text": "so a shitty attempt at JSON prompting.",
+      "duration": 4880,
+      "offset": 591519
+    },
+    {
+      "text": "It's a demo. Thank you, NFSD, for this",
+      "duration": 4160,
+      "offset": 594000
+    },
+    {
+      "text": "example. Really appreciate that.",
+      "duration": 2641,
+      "offset": 596399
+    },
+    {
+      "text": "Apparently, they have their own",
+      "duration": 2799,
+      "offset": 598160
+    },
+    {
+      "text": "benchmarks. Benchmarks are organized",
+      "duration": 3200,
+      "offset": 599040
+    },
+    {
+      "text": "into two tracks to ensure fair",
+      "duration": 2961,
+      "offset": 600959
+    },
+    {
+      "text": "comparisons. The first one is a mixed",
+      "duration": 3279,
+      "offset": 602240
+    },
+    {
+      "text": "structure track where data sets have",
+      "duration": 3840,
+      "offset": 603920
+    },
+    {
+      "text": "nested or semi-uniform structures. CSV",
+      "duration": 3760,
+      "offset": 605519
+    },
+    {
+      "text": "is excluded if it can't properly",
+      "duration": 3440,
+      "offset": 607760
+    },
+    {
+      "text": "represent these structures. Yep. CSV is",
+      "duration": 4081,
+      "offset": 609279
+    },
+    {
+      "text": "very very flat but then they also have a",
+      "duration": 5360,
+      "offset": 611200
+    },
+    {
+      "text": "flat only track. So data sets that CSV",
+      "duration": 5840,
+      "offset": 613360
+    },
+    {
+      "text": "can represent. Makes sense. Here is each",
+      "duration": 5120,
+      "offset": 616560
+    },
+    {
+      "text": "format's overall performance against a",
+      "duration": 6960,
+      "offset": 619200
+    },
+    {
+      "text": "simple data set catalog against token",
+      "duration": 6960,
+      "offset": 621680
+    },
+    {
+      "text": "cost. Um I don't know what this number",
+      "duration": 4640,
+      "offset": 626160
+    },
+    {
+      "text": "is. Yeah, I think this number is some",
+      "duration": 3520,
+      "offset": 628640
+    },
+    {
+      "text": "weird math they're doing against these",
+      "duration": 3360,
+      "offset": 630800
+    },
+    {
+      "text": "two values. The things that matter are",
+      "duration": 3760,
+      "offset": 632160
+    },
+    {
+      "text": "the accuracy and the number of tokens",
+      "duration": 4480,
+      "offset": 634160
+    },
+    {
+      "text": "that were used. Compacted JSON takes",
+      "duration": 5280,
+      "offset": 635920
+    },
+    {
+      "text": "like a 3% accuracy hit into slightly",
+      "duration": 5520,
+      "offset": 638640
+    },
+    {
+      "text": "more tokens for this first example. YAML",
+      "duration": 6480,
+      "offset": 641200
+    },
+    {
+      "text": "is another percent or two for accuracy",
+      "duration": 5760,
+      "offset": 644160
+    },
+    {
+      "text": "and a significant bump in tokens. Their",
+      "duration": 3920,
+      "offset": 647680
+    },
+    {
+      "text": "standard pretty print JSON things that",
+      "duration": 3200,
+      "offset": 649920
+    },
+    {
+      "text": "aren't flattened and all the tabs aren't",
+      "duration": 5120,
+      "offset": 651600
+    },
+    {
+      "text": "removed yet. Way more tokens, but solid",
+      "duration": 5120,
+      "offset": 653120
+    },
+    {
+      "text": "accuracy. It's actually funny that the",
+      "duration": 4160,
+      "offset": 656720
+    },
+    {
+      "text": "compacted JSON is more accurate than",
+      "duration": 4960,
+      "offset": 658240
+    },
+    {
+      "text": "pretty printed JSON. Tokens are weird,",
+      "duration": 4880,
+      "offset": 660880
+    },
+    {
+      "text": "man. LLMs are [ __ ] strange. And then",
+      "duration": 4960,
+      "offset": 663200
+    },
+    {
+      "text": "XML is garbage. Don't use XML for LLMs,",
+      "duration": 3920,
+      "offset": 665760
+    },
+    {
+      "text": "please.",
+      "duration": 5280,
+      "offset": 668160
+    },
+    {
+      "text": "It changes per model. Oh boy.",
+      "duration": 6560,
+      "offset": 669680
+    },
+    {
+      "text": "Gemini 25 Flash stays winning. I knew I",
+      "duration": 5120,
+      "offset": 673440
+    },
+    {
+      "text": "had a good thing going. I've suspected",
+      "duration": 3520,
+      "offset": 676240
+    },
+    {
+      "text": "for a while and haven't had a good",
+      "duration": 3760,
+      "offset": 678560
+    },
+    {
+      "text": "benchmark to prove it that 25 Flash is",
+      "duration": 4960,
+      "offset": 679760
+    },
+    {
+      "text": "really good at retrieval of random [ __ ]",
+      "duration": 5040,
+      "offset": 682320
+    },
+    {
+      "text": "in giant piles of [ __ ] There we go.",
+      "duration": 4960,
+      "offset": 684720
+    },
+    {
+      "text": "We have proof. Although apparently GBT5",
+      "duration": 4400,
+      "offset": 687360
+    },
+    {
+      "text": "Nano is even better at it now. It is so",
+      "duration": 5279,
+      "offset": 689680
+    },
+    {
+      "text": "funny to me though that Gemini's worst",
+      "duration": 5840,
+      "offset": 691760
+    },
+    {
+      "text": "case which was standard JSON parsing got",
+      "duration": 6481,
+      "offset": 694959
+    },
+    {
+      "text": "a 77% accuracy rating and Haiku 45 which",
+      "duration": 6320,
+      "offset": 697600
+    },
+    {
+      "text": "just dropped a few weeks ago and its",
+      "duration": 4480,
+      "offset": 701440
+    },
+    {
+      "text": "best case with tune couldn't even hit a",
+      "duration": 4479,
+      "offset": 703920
+    },
+    {
+      "text": "60%. If you wonder why Claude doesn't",
+      "duration": 3760,
+      "offset": 705920
+    },
+    {
+      "text": "understand your code, it's because",
+      "duration": 2880,
+      "offset": 708399
+    },
+    {
+      "text": "Claude doesn't understand things that go",
+      "duration": 3279,
+      "offset": 709680
+    },
+    {
+      "text": "past the first thousand tokens. So",
+      "duration": 3361,
+      "offset": 711279
+    },
+    {
+      "text": "please stop sending 100,000 token",
+      "duration": 3281,
+      "offset": 712959
+    },
+    {
+      "text": "queries on T3 chat. It costs us money",
+      "duration": 3360,
+      "offset": 714640
+    },
+    {
+      "text": "and you don't get good answers. Gemini",
+      "duration": 4000,
+      "offset": 716240
+    },
+    {
+      "text": "25 flash is so much better with large",
+      "duration": 4079,
+      "offset": 718000
+    },
+    {
+      "text": "context even though this model has not",
+      "duration": 4000,
+      "offset": 720240
+    },
+    {
+      "text": "been updated in months and 5 nano even",
+      "duration": 4000,
+      "offset": 722079
+    },
+    {
+      "text": "more so. I think 5 nano is such an",
+      "duration": 4000,
+      "offset": 724240
+    },
+    {
+      "text": "underrated model and look at that Gro 5",
+      "duration": 3760,
+      "offset": 726079
+    },
+    {
+      "text": "fast non-reasoning when you're asking to",
+      "duration": 4000,
+      "offset": 728240
+    },
+    {
+      "text": "do something reasonable cannot do it.",
+      "duration": 4081,
+      "offset": 729839
+    },
+    {
+      "text": "This is arguably the most important",
+      "duration": 4640,
+      "offset": 732240
+    },
+    {
+      "text": "piece here that Gemini and GBD5 Nano are",
+      "duration": 4960,
+      "offset": 733920
+    },
+    {
+      "text": "so much better at data retrieval. I",
+      "duration": 3040,
+      "offset": 736880
+    },
+    {
+      "text": "would never have guessed that the",
+      "duration": 3040,
+      "offset": 738880
+    },
+    {
+      "text": "difference was this big. Apparently 25",
+      "duration": 3520,
+      "offset": 739920
+    },
+    {
+      "text": "Flash was updated a little bit two",
+      "duration": 3680,
+      "offset": 741920
+    },
+    {
+      "text": "months ago. I'm sorry they didn't do a",
+      "duration": 4800,
+      "offset": 743440
+    },
+    {
+      "text": "big announcement. Still cool results.",
+      "duration": 4320,
+      "offset": 745600
+    },
+    {
+      "text": "And once we get into more nested data",
+      "duration": 3279,
+      "offset": 748240
+    },
+    {
+      "text": "structures, you'll see the gap here that",
+      "duration": 5359,
+      "offset": 749920
+    },
+    {
+      "text": "JSON compact is slightly better and is",
+      "duration": 6560,
+      "offset": 751519
+    },
+    {
+      "text": "using a good bit less tokens. But XML is",
+      "duration": 5680,
+      "offset": 755279
+    },
+    {
+      "text": "once again useless at 122,000 tokens for",
+      "duration": 5440,
+      "offset": 758079
+    },
+    {
+      "text": "something that tune does in 72K.",
+      "duration": 4401,
+      "offset": 760959
+    },
+    {
+      "text": "You know, I I'm coming around to this.",
+      "duration": 4401,
+      "offset": 763519
+    },
+    {
+      "text": "If you are actually passing JSON arrays",
+      "duration": 5039,
+      "offset": 765360
+    },
+    {
+      "text": "to your models, you really should go",
+      "duration": 5120,
+      "offset": 767920
+    },
+    {
+      "text": "give this a shot. Instead of passing the",
+      "duration": 4961,
+      "offset": 770399
+    },
+    {
+      "text": "data as is, just wrap it with this",
+      "duration": 5039,
+      "offset": 773040
+    },
+    {
+      "text": "encode call. It's a small package. You",
+      "duration": 5360,
+      "offset": 775360
+    },
+    {
+      "text": "install it, you wrap the data in this",
+      "duration": 4801,
+      "offset": 778079
+    },
+    {
+      "text": "and pass that to the LLM instead and see",
+      "duration": 3919,
+      "offset": 780720
+    },
+    {
+      "text": "if it saves you some money and see if it",
+      "duration": 3840,
+      "offset": 782880
+    },
+    {
+      "text": "gets any smarter. I actually think it",
+      "duration": 6880,
+      "offset": 784639
+    },
+    {
+      "text": "might. plan MD. I love LLMs. They even",
+      "duration": 6559,
+      "offset": 786720
+    },
+    {
+      "text": "have a CLI. So, if you just want to dump",
+      "duration": 4721,
+      "offset": 791519
+    },
+    {
+      "text": "data with like bash scripts locally and",
+      "duration": 5360,
+      "offset": 793279
+    },
+    {
+      "text": "get it into tune, that's so easy.",
+      "duration": 5120,
+      "offset": 796240
+    },
+    {
+      "text": "Actually, I want to try that quick. Um,",
+      "duration": 4961,
+      "offset": 798639
+    },
+    {
+      "text": "let's grab my shitty JSON prompt",
+      "duration": 3919,
+      "offset": 801360
+    },
+    {
+      "text": "example.",
+      "duration": 4400,
+      "offset": 803600
+    },
+    {
+      "text": "Save that tune format CLI. That makes",
+      "duration": 4721,
+      "offset": 805279
+    },
+    {
+      "text": "sense. That's really cool, actually. I",
+      "duration": 3279,
+      "offset": 808000
+    },
+    {
+      "text": "like that they made something simple. I",
+      "duration": 2560,
+      "offset": 810000
+    },
+    {
+      "text": "was going to go write this and they",
+      "duration": 3360,
+      "offset": 811279
+    },
+    {
+      "text": "already built it for me. This is weirdly",
+      "duration": 3760,
+      "offset": 812560
+    },
+    {
+      "text": "thought out and actually useful. I am",
+      "duration": 3041,
+      "offset": 814639
+    },
+    {
+      "text": "surprised I'm coming around to this as",
+      "duration": 4319,
+      "offset": 816320
+    },
+    {
+      "text": "hard and as quick as I am. Like I see",
+      "duration": 4719,
+      "offset": 817680
+    },
+    {
+      "text": "genuine value in this and with a bunch",
+      "duration": 3521,
+      "offset": 820639
+    },
+    {
+      "text": "of like random JSON [ __ ] that I'm",
+      "duration": 4321,
+      "offset": 822399
+    },
+    {
+      "text": "doing for some projects. I could see",
+      "duration": 5200,
+      "offset": 824160
+    },
+    {
+      "text": "myself using this somewhat regularly. I",
+      "duration": 3919,
+      "offset": 826720
+    },
+    {
+      "text": "did not think that this would be this",
+      "duration": 3360,
+      "offset": 829360
+    },
+    {
+      "text": "useful. This is actually kind of good. I",
+      "duration": 4000,
+      "offset": 830639
+    },
+    {
+      "text": "just wanted to see if we could vibe code",
+      "duration": 3600,
+      "offset": 832720
+    },
+    {
+      "text": "our solution for this and how it would",
+      "duration": 4801,
+      "offset": 834639
+    },
+    {
+      "text": "do. And it looks like we can. That's",
+      "duration": 4639,
+      "offset": 836320
+    },
+    {
+      "text": "kind of nuts. I did not write a single",
+      "duration": 3839,
+      "offset": 839440
+    },
+    {
+      "text": "line of code. I told GBT5 to write a",
+      "duration": 5601,
+      "offset": 840959
+    },
+    {
+      "text": "plan, pasted two errors in and got a",
+      "duration": 5841,
+      "offset": 843279
+    },
+    {
+      "text": "working implementation. I think I came",
+      "duration": 3920,
+      "offset": 846560
+    },
+    {
+      "text": "around to tune in the end here. I'm",
+      "duration": 2719,
+      "offset": 849120
+    },
+    {
+      "text": "curious what y'all think though. Is this",
+      "duration": 3680,
+      "offset": 850480
+    },
+    {
+      "text": "overrated, not worthwhile, or actually a",
+      "duration": 3841,
+      "offset": 851839
+    },
+    {
+      "text": "pretty useful little tool to use",
+      "duration": 3200,
+      "offset": 854160
+    },
+    {
+      "text": "alongside your LLMs? Let me know what",
+      "duration": 3920,
+      "offset": 855680
+    },
+    {
+      "text": "you guys think. Until next time, he",
+      "duration": 4400,
+      "offset": 857360
+    },
+    {
+      "text": "starts.",
+      "duration": 2160,
+      "offset": 859600
+    }
+  ],
+  "transcriptText": "Have you heard of JSON prompting before? You might not have. It's a bit of a chaotic deep dive that I've seen a lot of people going into. It's this idea where language models are not necessarily great at following instructions as sentences, but JSON as a structure is relatively consistent and concise. So, what if we took the thing we wanted the model to do, we made it JSON instead? Wouldn't that make the models better and smarter? Perhaps. And we'll get to that in a second. But first, I just want to show what the difference looks like. So, here is the first example. format the response as a markdown list with subheadings for each day. Here it is in YAML and here it is in JSON. But here's where things get interesting. I'm going to copy paste this into the chat GBT tokenizer. The paragraph version without the quotes was 55 tokens. Tokens are how the model splits up chunks of text so that it can process it and autocomplete it effectively. If we compare that to the YAML version, we go from 55 tokens to 88 tokens. What? It's more, but it seems so concise. It gets worse, my friends. Let's try the JSON version. 115 tokens. We more than doubled the number of tokens because we think this should work. And this is why Tune exists. Tune is tokenoriented object notation. It is similar to JSON. It is meant to do roughly the same thing with the difference being it is intended to be used for LLM inputs as a lossless drop in replacement for JSON. We have an example of JSON here with a list of items in it. And here is how tune would convey the same information with fewer tokens. Users two cuz there's two things in it. ID name and RO and then immediately have this list. Let's compare the tokenization here. JSON examples 51 tokens. Tune example 24 tokens. This seems too good to be true, right? Probably. And we'll get to that right after a quick word from today's sponsor. I need to be real with y'all. Hiring kind of sucks right now. There's just a massive pile of AI generated resume slop. And finding good candidates is really, really hard. Unless you're using today's sponsor, G2I. I cannot tell you how many people I've referred to this outside of my sponsorships. Sure, they're paying me to tell you why they're so good at hiring here, but I've actually recommended them a ton, and I've been incredibly impressed with the results. Their candidates can go from first interview to first PR landed and merged in under 7 days. And I've seen this happen enough times to say it confidently. They have a network of over 8,000 really technical engineers, not just random people who freshly got out of college, people who have real industry experience that can work part-time, full-time, US, LATAM, so many options. They really have the wide variety for every type of experience, every level of AI usage, and a deep understanding of code. They're not just a recruitment firm. They're a network. They're an awesome set of tools to do the interview process with, and they're a real team that will integrate with you in your Slack to make sure you find the right people on a timeline you won't [ __ ] believe. These guys have been so awesome to work with. And even just as a creator, working with them has been great. They also run React Miami, which by the way, if you can go, you really should. That's the most fun tech conference I've ever gone to by far. And I go out of my way to go every year, and I bring my whole team if I can. Stop spending months trying to hire good engineers when you could spend days hiring great ones instead. Check them out now at soyv.link/g2i. So, here we are. Yet another object notation. Not YAML, not pickle, not JSON, not BSON, not some other weird [ __ ] Okay, it is kind of some other weird [ __ ] We're now in the world of tokenoriented object notation. The original creator of Tune is Johan here and here's how he announced it. JSON is token expensive for LLMs just like Matt PCO frequently mentions. Meet Tune, the token oriented object notation, 40 to 60% fewer tokens than JSON and is readable and tokenizer aware. Wrap your JSON within code to save half the token cost. That's a really cool thing that this works with apparently. I want to try that. Try the format tokenization playground. Here's a playground where you can look at existing examples of how the tokenization changes depending on what you're doing. So again, remember a token is a chunk of text that your model is using to figure out what chunks lead to what things. The these models don't go character by character on your inputs. They break it out into these chunks so they can create maps of where they go in their crazy neural network of just parameters floating around. So based on the set of tokens that you have in the order they're in, it can predict what tokens are most likely to come next. And if you have some pretty formatted JSON, 77 tokens is not great. You flatten it a bunch and kill all this white spaces. Each of these tabs is a token. You get down to 38 tokens. YAML's 50 and tune is 32. To be fair here, the compression from flattened JSON to tune is only like four tokens. It's barely notable, but I can bring my own data. Let's do that. Let's bring my JSON example from here. Paste. Are you kidding me? Sir, this isn't even hard to make. [sighs] I was wrong. AI is a mistake. Vibe coding is dumb. if it we couldn't even finish this demo. I know what we have to do and I hate this. This project is meant to make it easy to compare the implementation and token counts of various different syntaxes for object notation. I should be able to paste in a JSON blob and it should show how it is tokenized and compare it with a less pritified JSON version. So a collapsed JSON output, a YAML output and a tune output. I will link the docs for tune here as well. Use official tokenizer packages as well as the packages for converting for YAML and for tune. If you have any questions about which packages to use, highlight them and I'll do my best to answer. We'll let that go in the background while I try to do actual useful [ __ ] Until then, I'll use the existing non-uniform large complex data. So here it's 371 tokens. Flattening the JSON gets you down to 199. YAML is down to 250 and tune is 257. I guess the non-standard non-uniform structures for data breaks it real bad. Uniform nested with uniform data 560 to 318 for JSON to pretty JSON to JSON. Tunes down to 401. YAML's 390. What the [ __ ] going on? Why is YAML compressing better? The [ __ ] I feel like half the [ __ ] in this world is made up. Straight up. We haven't even gotten to my favorite thing that's [ __ ] JSON prompting in the first place. I Google searched to find a JSON prompting benchmark for all these lunatics who are rewriting their prompts in JSON, thinking it'll magically make the outputs better. This is such a funny set of results. Two months ago, JSON prompting is exploding for precise AI responses. Next thing, one week ago on Medium, JSON prompting is dead. Why your revolutionary LLM technique is actually a 15% failure rate in disguise. Next post, why I switched to JSON prompting and why you might need to. Oh man. Oh man. JSON prompting, the ultimate guide to perfect AI outputs. I think opinions on this one might be a little bit mixed. People are pointing out that nesting might be where it breaks. That's a fair point. Let's do a uniform tople array of primitives instead. Then 796 to 484 for pretty JSON to JSON. Cool. 612 for YAML and 318 for tune. Okay. So when things get nested, tune falls apart. But when things are one level deep like they are here where we just have this one giant array with things in it, that's when tune is really good. I see what they mean by the top piece here of uh the uniform array of objects. Multiple fields per row, same structure across items. Makes sense. So, we're passing a big array of stuff to an LLM. This could work. Okay. With CSV like compactness while adding explicit structure that helps LMS parse and validate data reliably. Think of tune as a translation layer. Use JSON programmatically and then convert to tune for LM input. I do really like the diagram on the like top here that they're not pretending it's something it isn't. They're not telling you use tune for all of your stuff, for all the code you write. They're telling you use JSON, call their encode function to create tune outputs instead, and then send that to the LLM and save tokens by 30 to 60%. And apparently from their tests, the retrieval accuracy goes up by a meaningful amount, 4% or so. That actually could make sense. So, I know I've been a little harsh thus far, but there is actually value in this. If you want to hand an LLM hundreds of rows of absurd [ __ ] data, you probably shouldn't do that through JSON. I have done this before. I've even pasted giant HTML into things with questionable results. This seems like a much better choice for that. You shouldn't be using tune for JSON prompting because you shouldn't be doing JSON prompting. JSON prompting is stupid and bad and ugly and miserable and a weird thing people do cuz they think they're smarter than us and they think that they found this clever hack to make the LMS better. This is the problem with all this [ __ ] being non-deterministic. The conspiracy theorists are out in droves coming up with their own crazy [ __ ] on how to make LMS smarter. It's also why we need more and better evals, which is big part of why I'm working on said better evals. Someone in chat already made a converter site. Oh boy. Let me take my silly example from earlier from 115 tokens to 81. But again, this one's not really a list type example. This one is much more so a shitty attempt at JSON prompting. It's a demo. Thank you, NFSD, for this example. Really appreciate that. Apparently, they have their own benchmarks. Benchmarks are organized into two tracks to ensure fair comparisons. The first one is a mixed structure track where data sets have nested or semi-uniform structures. CSV is excluded if it can't properly represent these structures. Yep. CSV is very very flat but then they also have a flat only track. So data sets that CSV can represent. Makes sense. Here is each format's overall performance against a simple data set catalog against token cost. Um I don't know what this number is. Yeah, I think this number is some weird math they're doing against these two values. The things that matter are the accuracy and the number of tokens that were used. Compacted JSON takes like a 3% accuracy hit into slightly more tokens for this first example. YAML is another percent or two for accuracy and a significant bump in tokens. Their standard pretty print JSON things that aren't flattened and all the tabs aren't removed yet. Way more tokens, but solid accuracy. It's actually funny that the compacted JSON is more accurate than pretty printed JSON. Tokens are weird, man. LLMs are [ __ ] strange. And then XML is garbage. Don't use XML for LLMs, please. It changes per model. Oh boy. Gemini 25 Flash stays winning. I knew I had a good thing going. I've suspected for a while and haven't had a good benchmark to prove it that 25 Flash is really good at retrieval of random [ __ ] in giant piles of [ __ ] There we go. We have proof. Although apparently GBT5 Nano is even better at it now. It is so funny to me though that Gemini's worst case which was standard JSON parsing got a 77% accuracy rating and Haiku 45 which just dropped a few weeks ago and its best case with tune couldn't even hit a 60%. If you wonder why Claude doesn't understand your code, it's because Claude doesn't understand things that go past the first thousand tokens. So please stop sending 100,000 token queries on T3 chat. It costs us money and you don't get good answers. Gemini 25 flash is so much better with large context even though this model has not been updated in months and 5 nano even more so. I think 5 nano is such an underrated model and look at that Gro 5 fast non-reasoning when you're asking to do something reasonable cannot do it. This is arguably the most important piece here that Gemini and GBD5 Nano are so much better at data retrieval. I would never have guessed that the difference was this big. Apparently 25 Flash was updated a little bit two months ago. I'm sorry they didn't do a big announcement. Still cool results. And once we get into more nested data structures, you'll see the gap here that JSON compact is slightly better and is using a good bit less tokens. But XML is once again useless at 122,000 tokens for something that tune does in 72K. You know, I I'm coming around to this. If you are actually passing JSON arrays to your models, you really should go give this a shot. Instead of passing the data as is, just wrap it with this encode call. It's a small package. You install it, you wrap the data in this and pass that to the LLM instead and see if it saves you some money and see if it gets any smarter. I actually think it might. plan MD. I love LLMs. They even have a CLI. So, if you just want to dump data with like bash scripts locally and get it into tune, that's so easy. Actually, I want to try that quick. Um, let's grab my shitty JSON prompt example. Save that tune format CLI. That makes sense. That's really cool, actually. I like that they made something simple. I was going to go write this and they already built it for me. This is weirdly thought out and actually useful. I am surprised I'm coming around to this as hard and as quick as I am. Like I see genuine value in this and with a bunch of like random JSON [ __ ] that I'm doing for some projects. I could see myself using this somewhat regularly. I did not think that this would be this useful. This is actually kind of good. I just wanted to see if we could vibe code our solution for this and how it would do. And it looks like we can. That's kind of nuts. I did not write a single line of code. I told GBT5 to write a plan, pasted two errors in and got a working implementation. I think I came around to tune in the end here. I'm curious what y'all think though. Is this overrated, not worthwhile, or actually a pretty useful little tool to use alongside your LLMs? Let me know what you guys think. Until next time, he starts."
+}

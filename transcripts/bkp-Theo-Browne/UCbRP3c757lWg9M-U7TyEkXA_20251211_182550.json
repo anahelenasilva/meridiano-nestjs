@@ -1,0 +1,3906 @@
+{
+  "channel": {
+    "id": "UCbRP3c757lWg9M-U7TyEkXA",
+    "name": "Theo Browne",
+    "description": "Theo is a software dev, AI nerd, TypeScript sympathizer, creator of T3 Chat and the T3 Stack."
+  },
+  "videoId": "5DeqL844pH0",
+  "title": "Anthropic gave MCP to the Linux Foundation",
+  "url": "https://www.youtube.com/watch?v=5DeqL844pH0",
+  "publishedAt": "2025-12-11T09:25:48.365Z",
+  "description": "Anthropic is giving MCP to the Linux Foundation...\n\nThank you Greptile for sponsoring! Check them out at: https://soydev.link/greptile\n\nSOURCES\nhttps://openai.com/index/agentic-ai-foundation/...",
+  "thumbnailUrl": "https://i.ytimg.com/vi/5DeqL844pH0/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDr0nn2u7CzgDnINi9sqnFiK_nL8g",
+  "transcript": [
+    {
+      "text": "As you all probably know by now, I kind",
+      "duration": 1840,
+      "offset": "80"
+    },
+    {
+      "text": "of love bullying Anthropic. As great as",
+      "duration": 2160,
+      "offset": "1920"
+    },
+    {
+      "text": "their models can be, they have their",
+      "duration": 1520,
+      "offset": "4080"
+    },
+    {
+      "text": "weird behaviors and things that I just",
+      "duration": 1840,
+      "offset": "5600"
+    },
+    {
+      "text": "don't love about how the company",
+      "duration": 1280,
+      "offset": "7440"
+    },
+    {
+      "text": "operates. One of those things in",
+      "duration": 1600,
+      "offset": "8720"
+    },
+    {
+      "text": "particular is the way they treat open",
+      "duration": 1520,
+      "offset": "10320"
+    },
+    {
+      "text": "source. I've never been super fond of",
+      "duration": 1839,
+      "offset": "11840"
+    },
+    {
+      "text": "it. But they recently acquired Bun, the",
+      "duration": 2000,
+      "offset": "13679"
+    },
+    {
+      "text": "JavaScript runtime, that I do dearly",
+      "duration": 1761,
+      "offset": "15679"
+    },
+    {
+      "text": "love, both the framework and the runtime",
+      "duration": 1839,
+      "offset": "17440"
+    },
+    {
+      "text": "itself, as well as the team building it.",
+      "duration": 1681,
+      "offset": "19279"
+    },
+    {
+      "text": "And it seems like with this acquisition,",
+      "duration": 1680,
+      "offset": "20960"
+    },
+    {
+      "text": "a new focus on open source is happening,",
+      "duration": 2479,
+      "offset": "22640"
+    },
+    {
+      "text": "which is why this announcement, as crazy",
+      "duration": 2480,
+      "offset": "25119"
+    },
+    {
+      "text": "as it is, is actually quite cool. And",
+      "duration": 2080,
+      "offset": "27599"
+    },
+    {
+      "text": "Thorback just donated the model context",
+      "duration": 1680,
+      "offset": "29679"
+    },
+    {
+      "text": "protocol to the new Agentic AI",
+      "duration": 1761,
+      "offset": "31359"
+    },
+    {
+      "text": "Foundation. If you're curious what this",
+      "duration": 1680,
+      "offset": "33120"
+    },
+    {
+      "text": "is, spoiler, it's a new fund that was",
+      "duration": 3759,
+      "offset": "34800"
+    },
+    {
+      "text": "just formed under the Linux Foundation.",
+      "duration": 2881,
+      "offset": "38559"
+    },
+    {
+      "text": "Yes, really. The Linux Foundation are",
+      "duration": 2880,
+      "offset": "41440"
+    },
+    {
+      "text": "now the owners of the model context",
+      "duration": 1840,
+      "offset": "44320"
+    },
+    {
+      "text": "protocol. This is a fascinating new",
+      "duration": 2320,
+      "offset": "46160"
+    },
+    {
+      "text": "development. both the creation of this",
+      "duration": 1840,
+      "offset": "48480"
+    },
+    {
+      "text": "new agentic group within Linux",
+      "duration": 2160,
+      "offset": "50320"
+    },
+    {
+      "text": "Foundation, but also MCP becoming a more",
+      "duration": 2640,
+      "offset": "52480"
+    },
+    {
+      "text": "open standard that exists in an external",
+      "duration": 2560,
+      "offset": "55120"
+    },
+    {
+      "text": "entity instead of just being part of",
+      "duration": 1519,
+      "offset": "57680"
+    },
+    {
+      "text": "Anthropic. This is super super exciting",
+      "duration": 2641,
+      "offset": "59199"
+    },
+    {
+      "text": "stuff. Projects like this are only",
+      "duration": 2000,
+      "offset": "61840"
+    },
+    {
+      "text": "possible because wellunded companies",
+      "duration": 1520,
+      "offset": "63840"
+    },
+    {
+      "text": "like Anthropic Block, OpenAI, Google,",
+      "duration": 2079,
+      "offset": "65360"
+    },
+    {
+      "text": "Microsoft, and Amazon support them. But",
+      "duration": 2161,
+      "offset": "67439"
+    },
+    {
+      "text": "we need support too. So let's do a quick",
+      "duration": 1440,
+      "offset": "69600"
+    },
+    {
+      "text": "word from today's sponsor. Today's",
+      "duration": 1439,
+      "offset": "71040"
+    },
+    {
+      "text": "sponsor is different and I want to give",
+      "duration": 1121,
+      "offset": "72479"
+    },
+    {
+      "text": "you guys a bit of history on them. They",
+      "duration": 1760,
+      "offset": "73600"
+    },
+    {
+      "text": "started their journey as the best",
+      "duration": 1360,
+      "offset": "75360"
+    },
+    {
+      "text": "possible API for giving context on your",
+      "duration": 2160,
+      "offset": "76720"
+    },
+    {
+      "text": "codebase to different AI agents. So if",
+      "duration": 1840,
+      "offset": "78880"
+    },
+    {
+      "text": "you're trying to build your own AI that",
+      "duration": 1439,
+      "offset": "80720"
+    },
+    {
+      "text": "deeply understands your codebase, their",
+      "duration": 2000,
+      "offset": "82159"
+    },
+    {
+      "text": "product built around like modern grap.",
+      "duration": 2161,
+      "offset": "84159"
+    },
+    {
+      "text": "It turns out that's useful for a lot of",
+      "duration": 1680,
+      "offset": "86320"
+    },
+    {
+      "text": "other things though. In particular, code",
+      "duration": 2159,
+      "offset": "88000"
+    },
+    {
+      "text": "review. If an AI agent knows everything",
+      "duration": 1920,
+      "offset": "90159"
+    },
+    {
+      "text": "about your codebase, it can actually",
+      "duration": 1521,
+      "offset": "92079"
+    },
+    {
+      "text": "give you really good feedback when",
+      "duration": 1280,
+      "offset": "93600"
+    },
+    {
+      "text": "you're trying to change it. The sponsor",
+      "duration": 1599,
+      "offset": "94880"
+    },
+    {
+      "text": "is Grapile and I want to show you what",
+      "duration": 1280,
+      "offset": "96479"
+    },
+    {
+      "text": "this looks like in practice. This is a",
+      "duration": 1841,
+      "offset": "97759"
+    },
+    {
+      "text": "code review on a real repo. It's Physics",
+      "duration": 1920,
+      "offset": "99600"
+    },
+    {
+      "text": "Nemo by Nvidia. like actual real big",
+      "duration": 2559,
+      "offset": "101520"
+    },
+    {
+      "text": "legit project. Grab Tile left a review",
+      "duration": 2080,
+      "offset": "104079"
+    },
+    {
+      "text": "here. Gave it a low confidence score, a",
+      "duration": 1761,
+      "offset": "106159"
+    },
+    {
+      "text": "three out of five. But god, I love this",
+      "duration": 2239,
+      "offset": "107920"
+    },
+    {
+      "text": "feature so much. The way that it will",
+      "duration": 1280,
+      "offset": "110159"
+    },
+    {
+      "text": "tell you how it feels overall, it's just",
+      "duration": 1601,
+      "offset": "111439"
+    },
+    {
+      "text": "so clear and easy to know like, do I",
+      "duration": 1520,
+      "offset": "113040"
+    },
+    {
+      "text": "need to give this another look or not?",
+      "duration": 1440,
+      "offset": "114560"
+    },
+    {
+      "text": "Confidence score is a three, but the",
+      "duration": 1600,
+      "offset": "116000"
+    },
+    {
+      "text": "reason why is where it gets interesting.",
+      "duration": 2080,
+      "offset": "117600"
+    },
+    {
+      "text": "Gravile called out that there is a",
+      "duration": 1840,
+      "offset": "119680"
+    },
+    {
+      "text": "precision calculation issue on this",
+      "duration": 1840,
+      "offset": "121520"
+    },
+    {
+      "text": "particular line. The piece that's",
+      "duration": 1600,
+      "offset": "123360"
+    },
+    {
+      "text": "interesting here is it can only know",
+      "duration": 1280,
+      "offset": "124960"
+    },
+    {
+      "text": "this with that codebase context. that",
+      "duration": 2159,
+      "offset": "126240"
+    },
+    {
+      "text": "the way that these values are calculated",
+      "duration": 1840,
+      "offset": "128399"
+    },
+    {
+      "text": "other places is to put both of these",
+      "duration": 2161,
+      "offset": "130239"
+    },
+    {
+      "text": "values underneath when it's doing this",
+      "duration": 1919,
+      "offset": "132400"
+    },
+    {
+      "text": "division. One of the maintainers claimed",
+      "duration": 1681,
+      "offset": "134319"
+    },
+    {
+      "text": "otherwise saying that the true positives",
+      "duration": 1599,
+      "offset": "136000"
+    },
+    {
+      "text": "over predicted positives can be greater",
+      "duration": 1761,
+      "offset": "137599"
+    },
+    {
+      "text": "than one which is correct in their",
+      "duration": 2239,
+      "offset": "139360"
+    },
+    {
+      "text": "understanding. GPile responded which is",
+      "duration": 2720,
+      "offset": "141599"
+    },
+    {
+      "text": "what makes it so different. Looking at",
+      "duration": 2481,
+      "offset": "144319"
+    },
+    {
+      "text": "your concern, I need to clarify the",
+      "duration": 1200,
+      "offset": "146800"
+    },
+    {
+      "text": "issue. The formula on line 200 is indeed",
+      "duration": 2160,
+      "offset": "148000"
+    },
+    {
+      "text": "wrong but true positives over predicted",
+      "duration": 1920,
+      "offset": "150160"
+    },
+    {
+      "text": "positives cannot be greater than one",
+      "duration": 1439,
+      "offset": "152080"
+    },
+    {
+      "text": "when calculated correctly. The problems",
+      "duration": 1921,
+      "offset": "153519"
+    },
+    {
+      "text": "on line 196. It's calculating the count",
+      "duration": 2240,
+      "offset": "155440"
+    },
+    {
+      "text": "of all true class zero labels which",
+      "duration": 1680,
+      "offset": "157680"
+    },
+    {
+      "text": "should be called actual positives not",
+      "duration": 1760,
+      "offset": "159360"
+    },
+    {
+      "text": "true positives or precision true",
+      "duration": 2080,
+      "offset": "161120"
+    },
+    {
+      "text": "positives is the same. You get the idea.",
+      "duration": 2000,
+      "offset": "163200"
+    },
+    {
+      "text": "It's a really good fellow code reviewer",
+      "duration": 2560,
+      "offset": "165200"
+    },
+    {
+      "text": "and as we could see here Kelvin",
+      "duration": 2000,
+      "offset": "167760"
+    },
+    {
+      "text": "confirmed as much. Turns out I was wrong",
+      "duration": 1680,
+      "offset": "169760"
+    },
+    {
+      "text": "and overlooked the true positives as the",
+      "duration": 1760,
+      "offset": "171440"
+    },
+    {
+      "text": "intersection. I fixed this and also",
+      "duration": 1759,
+      "offset": "173200"
+    },
+    {
+      "text": "flipped the positive as label one. There",
+      "duration": 1761,
+      "offset": "174959"
+    },
+    {
+      "text": "you go. If all of your code reviews are",
+      "duration": 1680,
+      "offset": "176720"
+    },
+    {
+      "text": "still being done by humans, you're",
+      "duration": 1199,
+      "offset": "178400"
+    },
+    {
+      "text": "wasting all of those humans time. Pull",
+      "duration": 1681,
+      "offset": "179599"
+    },
+    {
+      "text": "in Gravile today at soyv.link/graphile.",
+      "duration": 2959,
+      "offset": "181280"
+    },
+    {
+      "text": "donating the model context protocol and",
+      "duration": 1761,
+      "offset": "184239"
+    },
+    {
+      "text": "establishing the Agentic AI Foundation.",
+      "duration": 2720,
+      "offset": "186000"
+    },
+    {
+      "text": "Today we're donating the MCP to the",
+      "duration": 1760,
+      "offset": "188720"
+    },
+    {
+      "text": "Agentic AI Foundation, AIF, a directed",
+      "duration": 2560,
+      "offset": "190480"
+    },
+    {
+      "text": "fund under the Linux Foundation, which",
+      "duration": 1520,
+      "offset": "193040"
+    },
+    {
+      "text": "is co-founded by Anthropic, Block, and",
+      "duration": 1599,
+      "offset": "194560"
+    },
+    {
+      "text": "OpenAI with support from Google,",
+      "duration": 1681,
+      "offset": "196159"
+    },
+    {
+      "text": "Microsoft, AWS, Cloudflare, and",
+      "duration": 1759,
+      "offset": "197840"
+    },
+    {
+      "text": "Bloomberg. One of these things is not",
+      "duration": 1521,
+      "offset": "199599"
+    },
+    {
+      "text": "like the others. Bloomberg's code",
+      "duration": 2399,
+      "offset": "201120"
+    },
+    {
+      "text": "discipline in particular is actually",
+      "duration": 1440,
+      "offset": "203519"
+    },
+    {
+      "text": "really good. Their TypeScript stuff is",
+      "duration": 1521,
+      "offset": "204959"
+    },
+    {
+      "text": "incredible. I thought MCP was a little",
+      "duration": 1679,
+      "offset": "206480"
+    },
+    {
+      "text": "more than a year old. Is that really",
+      "duration": 1360,
+      "offset": "208159"
+    },
+    {
+      "text": "right? No, 24. Wow. Yeah, it's one year",
+      "duration": 2881,
+      "offset": "209519"
+    },
+    {
+      "text": "later. That's crazy. Almost to the dot.",
+      "duration": 2399,
+      "offset": "212400"
+    },
+    {
+      "text": "One year ago, Anthropic introduced MCP",
+      "duration": 2401,
+      "offset": "214799"
+    },
+    {
+      "text": "is a universal open standard for",
+      "duration": 1520,
+      "offset": "217200"
+    },
+    {
+      "text": "connecting AI applications to external",
+      "duration": 1760,
+      "offset": "218720"
+    },
+    {
+      "text": "systems. Notably, connecting and",
+      "duration": 2319,
+      "offset": "220480"
+    },
+    {
+      "text": "external systems, implying that the",
+      "duration": 1921,
+      "offset": "222799"
+    },
+    {
+      "text": "server that you're connecting to is",
+      "duration": 1439,
+      "offset": "224720"
+    },
+    {
+      "text": "expected to be live and maintain a",
+      "duration": 1601,
+      "offset": "226159"
+    },
+    {
+      "text": "connection during the entire session,",
+      "duration": 1759,
+      "offset": "227760"
+    },
+    {
+      "text": "which makes it really annoying to deploy",
+      "duration": 2000,
+      "offset": "229519"
+    },
+    {
+      "text": "and adopt. So, a couple cool new",
+      "duration": 1601,
+      "offset": "231519"
+    },
+    {
+      "text": "companies working on figuring out",
+      "duration": 1600,
+      "offset": "233120"
+    },
+    {
+      "text": "solutions to that now. But yeah, the the",
+      "duration": 2159,
+      "offset": "234720"
+    },
+    {
+      "text": "way MCP is implemented is really focused",
+      "duration": 2481,
+      "offset": "236879"
+    },
+    {
+      "text": "on making the agent side as easy as",
+      "duration": 1760,
+      "offset": "239360"
+    },
+    {
+      "text": "possible, not on making the developer",
+      "duration": 1759,
+      "offset": "241120"
+    },
+    {
+      "text": "implementation side on the other end as",
+      "duration": 1761,
+      "offset": "242879"
+    },
+    {
+      "text": "easy as possible or really viable at",
+      "duration": 2239,
+      "offset": "244640"
+    },
+    {
+      "text": "all. MCP's achieved incredible adoption.",
+      "duration": 2241,
+      "offset": "246879"
+    },
+    {
+      "text": "There are over 10,000 active public MCP",
+      "duration": 2399,
+      "offset": "249120"
+    },
+    {
+      "text": "servers covering everything from",
+      "duration": 1360,
+      "offset": "251519"
+    },
+    {
+      "text": "developer tools to Fortune 500",
+      "duration": 1440,
+      "offset": "252879"
+    },
+    {
+      "text": "deployments. Across platforms, MCP has",
+      "duration": 2241,
+      "offset": "254319"
+    },
+    {
+      "text": "been adopted by ChatGBT, Cursor, Gemini,",
+      "duration": 2079,
+      "offset": "256560"
+    },
+    {
+      "text": "Copilot, Visual Studio Code, and other",
+      "duration": 1761,
+      "offset": "258639"
+    },
+    {
+      "text": "popular AI products. Enterprise grade",
+      "duration": 2000,
+      "offset": "260400"
+    },
+    {
+      "text": "infra now exists with deployment support",
+      "duration": 1440,
+      "offset": "262400"
+    },
+    {
+      "text": "for MCP from providers including AWS",
+      "duration": 2000,
+      "offset": "263840"
+    },
+    {
+      "text": "Cloudflare, Google Cloud, and Azure. It",
+      "duration": 1840,
+      "offset": "265840"
+    },
+    {
+      "text": "does make sense that the big clouds",
+      "duration": 1440,
+      "offset": "267680"
+    },
+    {
+      "text": "would want to be part of this. It's also",
+      "duration": 1840,
+      "offset": "269120"
+    },
+    {
+      "text": "nice having them supporting Linux",
+      "duration": 1360,
+      "offset": "270960"
+    },
+    {
+      "text": "Foundation more. You're not already",
+      "duration": 1599,
+      "offset": "272320"
+    },
+    {
+      "text": "familiar with Linux Foundation. No,",
+      "duration": 1840,
+      "offset": "273919"
+    },
+    {
+      "text": "they're not like the people who make",
+      "duration": 1440,
+      "offset": "275759"
+    },
+    {
+      "text": "Linux. It's a little more complex than",
+      "duration": 1521,
+      "offset": "277199"
+    },
+    {
+      "text": "that. The Linux Foundation is an attempt",
+      "duration": 2160,
+      "offset": "278720"
+    },
+    {
+      "text": "to take a lot of like open- source work",
+      "duration": 3039,
+      "offset": "280880"
+    },
+    {
+      "text": "and orchestrate it while also getting",
+      "duration": 2401,
+      "offset": "283919"
+    },
+    {
+      "text": "money in memberships from big companies",
+      "duration": 2960,
+      "offset": "286320"
+    },
+    {
+      "text": "to try and make sure the direction of",
+      "duration": 1359,
+      "offset": "289280"
+    },
+    {
+      "text": "all of these important big open source",
+      "duration": 1840,
+      "offset": "290639"
+    },
+    {
+      "text": "projects continues to make sense for how",
+      "duration": 3280,
+      "offset": "292479"
+    },
+    {
+      "text": "everybody is using them. They have a",
+      "duration": 2000,
+      "offset": "295759"
+    },
+    {
+      "text": "fascinating set of projects including of",
+      "duration": 1601,
+      "offset": "297759"
+    },
+    {
+      "text": "course the Linux kernel, risk 5 and",
+      "duration": 3040,
+      "offset": "299360"
+    },
+    {
+      "text": "pietorch. So the things underneath them",
+      "duration": 3359,
+      "offset": "302400"
+    },
+    {
+      "text": "are really important and fascinating.",
+      "duration": 2241,
+      "offset": "305759"
+    },
+    {
+      "text": "You guys remember the chaos around",
+      "duration": 1199,
+      "offset": "308000"
+    },
+    {
+      "text": "Reddus? Remember when they changed the",
+      "duration": 1681,
+      "offset": "309199"
+    },
+    {
+      "text": "license and suddenly all the other",
+      "duration": 1440,
+      "offset": "310880"
+    },
+    {
+      "text": "providers that hosted it had to like not",
+      "duration": 2080,
+      "offset": "312320"
+    },
+    {
+      "text": "do that or use an old version? When that",
+      "duration": 2000,
+      "offset": "314400"
+    },
+    {
+      "text": "happened, both AWS and Microsoft put a",
+      "duration": 2320,
+      "offset": "316400"
+    },
+    {
+      "text": "lot of money in in order to fund the",
+      "duration": 1759,
+      "offset": "318720"
+    },
+    {
+      "text": "development of a fork called Valky that",
+      "duration": 2160,
+      "offset": "320479"
+    },
+    {
+      "text": "included a bunch of the original",
+      "duration": 1361,
+      "offset": "322639"
+    },
+    {
+      "text": "maintainers of Reddus as well as people",
+      "duration": 1520,
+      "offset": "324000"
+    },
+    {
+      "text": "maintaining it at Azure and at AWS. They",
+      "duration": 3360,
+      "offset": "325520"
+    },
+    {
+      "text": "then instead of trying to run this",
+      "duration": 1680,
+      "offset": "328880"
+    },
+    {
+      "text": "independently and separately, donated it",
+      "duration": 2160,
+      "offset": "330560"
+    },
+    {
+      "text": "to the Linux Foundation alongside I'm",
+      "duration": 2080,
+      "offset": "332720"
+    },
+    {
+      "text": "sure more donations. The result being",
+      "duration": 2160,
+      "offset": "334800"
+    },
+    {
+      "text": "the Linux Foundation now owning a good",
+      "duration": 2160,
+      "offset": "336960"
+    },
+    {
+      "text": "open standard for Reddit style use cases",
+      "duration": 3440,
+      "offset": "339120"
+    },
+    {
+      "text": "that is truly open and will stay open. I",
+      "duration": 2320,
+      "offset": "342560"
+    },
+    {
+      "text": "don't think there's any example of",
+      "duration": 1440,
+      "offset": "344880"
+    },
+    {
+      "text": "something that went to the Linux",
+      "duration": 1040,
+      "offset": "346320"
+    },
+    {
+      "text": "Foundation to be a well-maintained open",
+      "duration": 1679,
+      "offset": "347360"
+    },
+    {
+      "text": "source project then locking down which",
+      "duration": 2880,
+      "offset": "349039"
+    },
+    {
+      "text": "is a big reason why Anthropic would be",
+      "duration": 2881,
+      "offset": "351919"
+    },
+    {
+      "text": "interested in this. There's always fear",
+      "duration": 2239,
+      "offset": "354800"
+    },
+    {
+      "text": "that an open standard could get closed",
+      "duration": 2321,
+      "offset": "357039"
+    },
+    {
+      "text": "and the way you counter that is going",
+      "duration": 2399,
+      "offset": "359360"
+    },
+    {
+      "text": "really far alongside it which is what",
+      "duration": 2641,
+      "offset": "361759"
+    },
+    {
+      "text": "happened here. Since there's now concern",
+      "duration": 2079,
+      "offset": "364400"
+    },
+    {
+      "text": "about Reddus potentially changing its",
+      "duration": 1840,
+      "offset": "366479"
+    },
+    {
+      "text": "license and the rugpull that can occur,",
+      "duration": 2241,
+      "offset": "368319"
+    },
+    {
+      "text": "the alternative to that isn't another",
+      "duration": 1759,
+      "offset": "370560"
+    },
+    {
+      "text": "thing that can be rugpulled, it's to",
+      "duration": 1921,
+      "offset": "372319"
+    },
+    {
+      "text": "throw it at Linux Foundation so it will",
+      "duration": 1840,
+      "offset": "374240"
+    },
+    {
+      "text": "be there hypothetically speaking",
+      "duration": 1760,
+      "offset": "376080"
+    },
+    {
+      "text": "forever. A lot of the things Linux",
+      "duration": 1760,
+      "offset": "377840"
+    },
+    {
+      "text": "Foundation maintains are things that",
+      "duration": 1920,
+      "offset": "379600"
+    },
+    {
+      "text": "just have existed forever and probably",
+      "duration": 1920,
+      "offset": "381520"
+    },
+    {
+      "text": "will as well. It's also worth noting",
+      "duration": 1759,
+      "offset": "383440"
+    },
+    {
+      "text": "that the Linux foundation has other sub",
+      "duration": 2241,
+      "offset": "385199"
+    },
+    {
+      "text": "foundations that they help operate as",
+      "duration": 2000,
+      "offset": "387440"
+    },
+    {
+      "text": "well like the cloudnative computing",
+      "duration": 1520,
+      "offset": "389440"
+    },
+    {
+      "text": "foundation, openjs foundation, the open",
+      "duration": 2400,
+      "offset": "390960"
+    },
+    {
+      "text": "source security foundation and more.",
+      "duration": 1839,
+      "offset": "393360"
+    },
+    {
+      "text": "There's a lot of these foundations that",
+      "duration": 1761,
+      "offset": "395199"
+    },
+    {
+      "text": "they help manage and run is open search",
+      "duration": 2320,
+      "offset": "396960"
+    },
+    {
+      "text": "their attempt to do uh elastic search",
+      "duration": 3280,
+      "offset": "399280"
+    },
+    {
+      "text": "because I know that they had an elastic",
+      "duration": 1280,
+      "offset": "402560"
+    },
+    {
+      "text": "search alternative at some point as",
+      "duration": 1280,
+      "offset": "403840"
+    },
+    {
+      "text": "well. Regardless, a new one has just",
+      "duration": 2480,
+      "offset": "405120"
+    },
+    {
+      "text": "been dropped which is the agentic AI",
+      "duration": 2159,
+      "offset": "407600"
+    },
+    {
+      "text": "foundation which is one of the Linux",
+      "duration": 1201,
+      "offset": "409759"
+    },
+    {
+      "text": "foundation projects. The AIF provides a",
+      "duration": 2480,
+      "offset": "410960"
+    },
+    {
+      "text": "neutral open- source foundation to",
+      "duration": 1520,
+      "offset": "413440"
+    },
+    {
+      "text": "ensure the critical capability evolves",
+      "duration": 2160,
+      "offset": "414960"
+    },
+    {
+      "text": "transparently, collaboratively, and in",
+      "duration": 1680,
+      "offset": "417120"
+    },
+    {
+      "text": "ways that advance the adoption of",
+      "duration": 1839,
+      "offset": "418800"
+    },
+    {
+      "text": "leading open source AI projects. It is",
+      "duration": 2560,
+      "offset": "420639"
+    },
+    {
+      "text": "kind of funny that the Open Linux",
+      "duration": 2881,
+      "offset": "423199"
+    },
+    {
+      "text": "Foundation Agentic AI foundation is",
+      "duration": 1920,
+      "offset": "426080"
+    },
+    {
+      "text": "funded by the companies doing all of the",
+      "duration": 1919,
+      "offset": "428000"
+    },
+    {
+      "text": "closedweight models. Like, has Anthropic",
+      "duration": 2720,
+      "offset": "429919"
+    },
+    {
+      "text": "released any openweight anything in the",
+      "duration": 2081,
+      "offset": "432639"
+    },
+    {
+      "text": "last like 3 to four years? I'm pretty",
+      "duration": 1840,
+      "offset": "434720"
+    },
+    {
+      "text": "sure no. Opening just recently did one,",
+      "duration": 2479,
+      "offset": "436560"
+    },
+    {
+      "text": "but you would expect a Meestrol or",
+      "duration": 2961,
+      "offset": "439039"
+    },
+    {
+      "text": "DeepSeek to be here, but they also don't",
+      "duration": 1840,
+      "offset": "442000"
+    },
+    {
+      "text": "have the funding to justify it. It is",
+      "duration": 1759,
+      "offset": "443840"
+    },
+    {
+      "text": "cool to see though. They now have MCP as",
+      "duration": 2401,
+      "offset": "445599"
+    },
+    {
+      "text": "well as Goose, which is an open source",
+      "duration": 1440,
+      "offset": "448000"
+    },
+    {
+      "text": "accessible AI agent that goes beyond",
+      "duration": 1440,
+      "offset": "449440"
+    },
+    {
+      "text": "code suggestions. Interesting. And",
+      "duration": 2080,
+      "offset": "450880"
+    },
+    {
+      "text": "Agents MD they also own. Very",
+      "duration": 2720,
+      "offset": "452960"
+    },
+    {
+      "text": "interesting actually. I did not realize",
+      "duration": 2160,
+      "offset": "455680"
+    },
+    {
+      "text": "that Agents MD was big enough to go to a",
+      "duration": 2799,
+      "offset": "457840"
+    },
+    {
+      "text": "foundation like this, but that does make",
+      "duration": 2081,
+      "offset": "460639"
+    },
+    {
+      "text": "sense. And I've seen more and more cool",
+      "duration": 1759,
+      "offset": "462720"
+    },
+    {
+      "text": "uses of Agents MD files. So, this is",
+      "duration": 2321,
+      "offset": "464479"
+    },
+    {
+      "text": "cool. Oh, interesting. Goose is by",
+      "duration": 2560,
+      "offset": "466800"
+    },
+    {
+      "text": "Block. If you're not familiar with",
+      "duration": 1760,
+      "offset": "469360"
+    },
+    {
+      "text": "Block, they are a company that owns a",
+      "duration": 2720,
+      "offset": "471120"
+    },
+    {
+      "text": "lot of different things. They own",
+      "duration": 1759,
+      "offset": "473840"
+    },
+    {
+      "text": "Square, Cash App. They bought Title,",
+      "duration": 3600,
+      "offset": "475599"
+    },
+    {
+      "text": "which uh is close to my heart, as well",
+      "duration": 2641,
+      "offset": "479199"
+    },
+    {
+      "text": "as a few other things. It was founded by",
+      "duration": 2000,
+      "offset": "481840"
+    },
+    {
+      "text": "the original founder of Twitter. Coolish",
+      "duration": 2400,
+      "offset": "483840"
+    },
+    {
+      "text": "company. No issues with them. It's cool",
+      "duration": 1920,
+      "offset": "486240"
+    },
+    {
+      "text": "seeing them doing more open source stuff",
+      "duration": 1520,
+      "offset": "488160"
+    },
+    {
+      "text": "like this. Wait, no way. Yeah, I know",
+      "duration": 2480,
+      "offset": "489680"
+    },
+    {
+      "text": "Roselle. She's great. That's so cool. I",
+      "duration": 1360,
+      "offset": "492160"
+    },
+    {
+      "text": "had no idea she was at Block now. That",
+      "duration": 1359,
+      "offset": "493520"
+    },
+    {
+      "text": "makes a ton of sense. Good for her. Good",
+      "duration": 2241,
+      "offset": "494879"
+    },
+    {
+      "text": "stuff. Local AI agent autonomously",
+      "duration": 2240,
+      "offset": "497120"
+    },
+    {
+      "text": "engineering tasks seamlessly. This is a",
+      "duration": 2640,
+      "offset": "499360"
+    },
+    {
+      "text": "good set of things. It's cool to see",
+      "duration": 2080,
+      "offset": "502000"
+    },
+    {
+      "text": "something like this forming. Now, it's a",
+      "duration": 2559,
+      "offset": "504080"
+    },
+    {
+      "text": "weird set of projects. You have a",
+      "duration": 2081,
+      "offset": "506639"
+    },
+    {
+      "text": "markdown file standard. You have an",
+      "duration": 2720,
+      "offset": "508720"
+    },
+    {
+      "text": "actual big open-source AI agent toolkit",
+      "duration": 3279,
+      "offset": "511440"
+    },
+    {
+      "text": "and then MCP which is a protocol for",
+      "duration": 2641,
+      "offset": "514719"
+    },
+    {
+      "text": "interfacing with agentic stuff. Very",
+      "duration": 3039,
+      "offset": "517360"
+    },
+    {
+      "text": "interesting set of things especially",
+      "duration": 2241,
+      "offset": "520399"
+    },
+    {
+      "text": "when you look at the set of members that",
+      "duration": 1680,
+      "offset": "522640"
+    },
+    {
+      "text": "they have. the block membership makes",
+      "duration": 1600,
+      "offset": "524320"
+    },
+    {
+      "text": "much more sense now. Seems like they",
+      "duration": 1760,
+      "offset": "525920"
+    },
+    {
+      "text": "kind of want to pawn goose off there,",
+      "duration": 2080,
+      "offset": "527680"
+    },
+    {
+      "text": "but also the block founders have always",
+      "duration": 2400,
+      "offset": "529760"
+    },
+    {
+      "text": "been very very pro- opensource things.",
+      "duration": 3440,
+      "offset": "532160"
+    },
+    {
+      "text": "So, it does make a lot of sense there.",
+      "duration": 2239,
+      "offset": "535600"
+    },
+    {
+      "text": "Back to the article.",
+      "duration": 3041,
+      "offset": "537839"
+    },
+    {
+      "text": "Oh, they have a whole fancy little",
+      "duration": 1120,
+      "offset": "540880"
+    },
+    {
+      "text": "timeline of the history of MCP here.",
+      "duration": 2240,
+      "offset": "542000"
+    },
+    {
+      "text": "Early adoption from cursor of the AI",
+      "duration": 1599,
+      "offset": "544240"
+    },
+    {
+      "text": "tools back in December to February. MCP",
+      "duration": 2000,
+      "offset": "545839"
+    },
+    {
+      "text": "was presented at the AI engineering",
+      "duration": 1281,
+      "offset": "547839"
+    },
+    {
+      "text": "summit. There was 2,000 public MCP",
+      "duration": 2080,
+      "offset": "549120"
+    },
+    {
+      "text": "servers at the time. A second spec came",
+      "duration": 2160,
+      "offset": "551200"
+    },
+    {
+      "text": "out which included enterprise off HTTP",
+      "duration": 2080,
+      "offset": "553360"
+    },
+    {
+      "text": "streaming multimodal content but also",
+      "duration": 2320,
+      "offset": "555440"
+    },
+    {
+      "text": "the enterprise o solution they picked",
+      "duration": 2079,
+      "offset": "557760"
+    },
+    {
+      "text": "was lackluster at best. It's my",
+      "duration": 1680,
+      "offset": "559839"
+    },
+    {
+      "text": "understanding that they used an existing",
+      "duration": 2401,
+      "offset": "561519"
+    },
+    {
+      "text": "HTTP standard for O that had never",
+      "duration": 2479,
+      "offset": "563920"
+    },
+    {
+      "text": "really been implemented by anyone. That",
+      "duration": 2161,
+      "offset": "566399"
+    },
+    {
+      "text": "kind of sucks and as such it was not",
+      "duration": 3200,
+      "offset": "568560"
+    },
+    {
+      "text": "something many people did. It's also",
+      "duration": 2639,
+      "offset": "571760"
+    },
+    {
+      "text": "funny that a thousand people register",
+      "duration": 1761,
+      "offset": "574399"
+    },
+    {
+      "text": "for the MCP night in San Francisco",
+      "duration": 2080,
+      "offset": "576160"
+    },
+    {
+      "text": "because that's happening again tonight",
+      "duration": 2560,
+      "offset": "578240"
+    },
+    {
+      "text": "and I will be there. That's why I'm",
+      "duration": 1680,
+      "offset": "580800"
+    },
+    {
+      "text": "ending stream early. At this point, they",
+      "duration": 1680,
+      "offset": "582480"
+    },
+    {
+      "text": "had 4,000 public MCP servers. Then June",
+      "duration": 3520,
+      "offset": "584160"
+    },
+    {
+      "text": "to July, the third spec came out with",
+      "duration": 1920,
+      "offset": "587680"
+    },
+    {
+      "text": "structured outputs, which is essential",
+      "duration": 1520,
+      "offset": "589600"
+    },
+    {
+      "text": "to have the MCP actually output things",
+      "duration": 2960,
+      "offset": "591120"
+    },
+    {
+      "text": "into consistent shape. Interactive",
+      "duration": 1759,
+      "offset": "594080"
+    },
+    {
+      "text": "prompts as well as hardened security.",
+      "duration": 1680,
+      "offset": "595839"
+    },
+    {
+      "text": "They also introduced the MCP directory",
+      "duration": 1681,
+      "offset": "597519"
+    },
+    {
+      "text": "and 2,000 people took part in the agents",
+      "duration": 2000,
+      "offset": "599200"
+    },
+    {
+      "text": "hackathon. Then enterprise MCP hosting",
+      "duration": 2240,
+      "offset": "601200"
+    },
+    {
+      "text": "started happening on Google Cloud, Azure",
+      "duration": 1600,
+      "offset": "603440"
+    },
+    {
+      "text": "and Cloudflare. MCP DevSummit sold out",
+      "duration": 2320,
+      "offset": "605040"
+    },
+    {
+      "text": "in London. This is also around when we",
+      "duration": 2000,
+      "offset": "607360"
+    },
+    {
+      "text": "started to see these like the push back",
+      "duration": 2960,
+      "offset": "609360"
+    },
+    {
+      "text": "on the idea that MCP is a thing that is",
+      "duration": 2560,
+      "offset": "612320"
+    },
+    {
+      "text": "just how models will do application",
+      "duration": 2000,
+      "offset": "614880"
+    },
+    {
+      "text": "development and application style work",
+      "duration": 2079,
+      "offset": "616880"
+    },
+    {
+      "text": "make less and less sense. And that's",
+      "duration": 1681,
+      "offset": "618959"
+    },
+    {
+      "text": "when I did the videos about the",
+      "duration": 1759,
+      "offset": "620640"
+    },
+    {
+      "text": "Cloudflare article about turning MCPs",
+      "duration": 2641,
+      "offset": "622399"
+    },
+    {
+      "text": "back into code and then letting the",
+      "duration": 2799,
+      "offset": "625040"
+    },
+    {
+      "text": "agents write code to execute instead.",
+      "duration": 2081,
+      "offset": "627839"
+    },
+    {
+      "text": "Watch those videos if you haven't and",
+      "duration": 1359,
+      "offset": "629920"
+    },
+    {
+      "text": "you want to better understand the things",
+      "duration": 1841,
+      "offset": "631279"
+    },
+    {
+      "text": "I don't like about MCP as well as how we",
+      "duration": 1920,
+      "offset": "633120"
+    },
+    {
+      "text": "can take advantage of the standard more",
+      "duration": 1440,
+      "offset": "635040"
+    },
+    {
+      "text": "effectively. This is interesting though.",
+      "duration": 1840,
+      "offset": "636480"
+    },
+    {
+      "text": "I also don't think the growth is that",
+      "duration": 1840,
+      "offset": "638320"
+    },
+    {
+      "text": "impressive from like the first two",
+      "duration": 2000,
+      "offset": "640160"
+    },
+    {
+      "text": "months they got 2,000 servers and then",
+      "duration": 2239,
+      "offset": "642160"
+    },
+    {
+      "text": "over the next 10 months they got another",
+      "duration": 2401,
+      "offset": "644399"
+    },
+    {
+      "text": "8,000. That's relatively linear growth.",
+      "duration": 3920,
+      "offset": "646800"
+    },
+    {
+      "text": "I'm once again going to run a poll. Do",
+      "duration": 2480,
+      "offset": "650720"
+    },
+    {
+      "text": "you use MCP? Yes, a lot. Greater than",
+      "duration": 4639,
+      "offset": "653200"
+    },
+    {
+      "text": "five servers? Yes, a bit less than five",
+      "duration": 3680,
+      "offset": "657839"
+    },
+    {
+      "text": "servers. Not really. Nope. I'll change",
+      "duration": 2961,
+      "offset": "661519"
+    },
+    {
+      "text": "it to tried but churned. I should have",
+      "duration": 2080,
+      "offset": "664480"
+    },
+    {
+      "text": "put a just contact 7 option. I'll do",
+      "duration": 1839,
+      "offset": "666560"
+    },
+    {
+      "text": "another poll after for that. Yeah, gave",
+      "duration": 2961,
+      "offset": "668399"
+    },
+    {
+      "text": "up on Context 7, which is the only MCP I",
+      "duration": 2000,
+      "offset": "671360"
+    },
+    {
+      "text": "was trying to use after the last poll in",
+      "duration": 1599,
+      "offset": "673360"
+    },
+    {
+      "text": "chat. According to my audience, 56% of",
+      "duration": 3440,
+      "offset": "674959"
+    },
+    {
+      "text": "people don't use MCP, 16% tried and",
+      "duration": 3521,
+      "offset": "678399"
+    },
+    {
+      "text": "churned, 25% use it a bit, and 4% use it",
+      "duration": 3359,
+      "offset": "681920"
+    },
+    {
+      "text": "a lot. It's kind of crazy how close the",
+      "duration": 2560,
+      "offset": "685279"
+    },
+    {
+      "text": "a bit of use and tried and churned are,",
+      "duration": 2801,
+      "offset": "687839"
+    },
+    {
+      "text": "but this is my experience, too. I just",
+      "duration": 1840,
+      "offset": "690640"
+    },
+    {
+      "text": "have not found many use cases for MCP in",
+      "duration": 2720,
+      "offset": "692480"
+    },
+    {
+      "text": "my day-to-day usage. Yeah, the use case",
+      "duration": 3040,
+      "offset": "695200"
+    },
+    {
+      "text": "I see for it, funny enough, is much",
+      "duration": 1920,
+      "offset": "698240"
+    },
+    {
+      "text": "stronger locally. I've yet to find many",
+      "duration": 2720,
+      "offset": "700160"
+    },
+    {
+      "text": "MCPs that are useful if you run them",
+      "duration": 2480,
+      "offset": "702880"
+    },
+    {
+      "text": "remotely. Like there's the Mac MCP that",
+      "duration": 2640,
+      "offset": "705360"
+    },
+    {
+      "text": "lets you control your Mac. Of course,",
+      "duration": 2720,
+      "offset": "708000"
+    },
+    {
+      "text": "Super Memory are the ones doing it. This",
+      "duration": 2000,
+      "offset": "710720"
+    },
+    {
+      "text": "is the Mac MCP is pretty cool. The point",
+      "duration": 2799,
+      "offset": "712720"
+    },
+    {
+      "text": "of it is that you can control features",
+      "duration": 1921,
+      "offset": "715519"
+    },
+    {
+      "text": "on your Mac via MCP. There's a bunch of",
+      "duration": 2240,
+      "offset": "717440"
+    },
+    {
+      "text": "TypeScript code written to do things on",
+      "duration": 1839,
+      "offset": "719680"
+    },
+    {
+      "text": "your Mac exposed over a local server",
+      "duration": 2320,
+      "offset": "721519"
+    },
+    {
+      "text": "that your AI agents can call and do",
+      "duration": 2481,
+      "offset": "723839"
+    },
+    {
+      "text": "things like send texts or update your",
+      "duration": 2400,
+      "offset": "726320"
+    },
+    {
+      "text": "notes, touch your contacts. And here you",
+      "duration": 2320,
+      "offset": "728720"
+    },
+    {
+      "text": "can see in Daria's example, he tells it",
+      "duration": 2640,
+      "offset": "731040"
+    },
+    {
+      "text": "to send a message, this is a test to",
+      "duration": 2240,
+      "offset": "733680"
+    },
+    {
+      "text": "somebody. And now it's running behind",
+      "duration": 2080,
+      "offset": "735920"
+    },
+    {
+      "text": "the scenes on his Mac doing the things",
+      "duration": 1920,
+      "offset": "738000"
+    },
+    {
+      "text": "that he requested, which is pretty cool.",
+      "duration": 2479,
+      "offset": "739920"
+    },
+    {
+      "text": "But those are the use cases that I think",
+      "duration": 1761,
+      "offset": "742399"
+    },
+    {
+      "text": "are the most valid right now due to the",
+      "duration": 1840,
+      "offset": "744160"
+    },
+    {
+      "text": "stranges of how the protocol is",
+      "duration": 2079,
+      "offset": "746000"
+    },
+    {
+      "text": "implemented. There's also like the",
+      "duration": 1760,
+      "offset": "748079"
+    },
+    {
+      "text": "Ableton MCP. If you're a music nerd,",
+      "duration": 2961,
+      "offset": "749839"
+    },
+    {
+      "text": "it's pretty cool. Ableton MCP is another",
+      "duration": 2240,
+      "offset": "752800"
+    },
+    {
+      "text": "very fun one. It's for controlling the",
+      "duration": 1440,
+      "offset": "755040"
+    },
+    {
+      "text": "Ableton Live digital audio workstation.",
+      "duration": 2080,
+      "offset": "756480"
+    },
+    {
+      "text": "It's a very common tool for producing",
+      "duration": 1680,
+      "offset": "758560"
+    },
+    {
+      "text": "music. And Ableton MCP lets you modify",
+      "duration": 2320,
+      "offset": "760240"
+    },
+    {
+      "text": "your project in Ableton using bottle",
+      "duration": 2640,
+      "offset": "762560"
+    },
+    {
+      "text": "context protocol. But once again, since",
+      "duration": 2560,
+      "offset": "765200"
+    },
+    {
+      "text": "you have to run a full dedicated server",
+      "duration": 2480,
+      "offset": "767760"
+    },
+    {
+      "text": "for this to work, you have to set up the",
+      "duration": 2399,
+      "offset": "770240"
+    },
+    {
+      "text": "smiththery CLI, install this MCP, and",
+      "duration": 3041,
+      "offset": "772639"
+    },
+    {
+      "text": "specify the client is claude. You",
+      "duration": 1920,
+      "offset": "775680"
+    },
+    {
+      "text": "probably have to install UV as well",
+      "duration": 1280,
+      "offset": "777600"
+    },
+    {
+      "text": "because it's all a Python server and",
+      "duration": 2720,
+      "offset": "778880"
+    },
+    {
+      "text": "then spin it up and run it locally in",
+      "duration": 1919,
+      "offset": "781600"
+    },
+    {
+      "text": "the background because like MCP can't",
+      "duration": 2320,
+      "offset": "783519"
+    },
+    {
+      "text": "execute things that it doesn't have. It",
+      "duration": 2800,
+      "offset": "785839"
+    },
+    {
+      "text": "is effectively an HTTP server that is",
+      "duration": 2481,
+      "offset": "788639"
+    },
+    {
+      "text": "exposing specific behaviors to a model",
+      "duration": 3040,
+      "offset": "791120"
+    },
+    {
+      "text": "and allowing for it to stay connected to",
+      "duration": 2160,
+      "offset": "794160"
+    },
+    {
+      "text": "this server so it can do things and get",
+      "duration": 1920,
+      "offset": "796320"
+    },
+    {
+      "text": "data and make changes. Another notable",
+      "duration": 2719,
+      "offset": "798240"
+    },
+    {
+      "text": "thing about these examples is none of",
+      "duration": 1680,
+      "offset": "800959"
+    },
+    {
+      "text": "them require complex off stories because",
+      "duration": 3281,
+      "offset": "802639"
+    },
+    {
+      "text": "O is one of the most annoying nightmares",
+      "duration": 2080,
+      "offset": "805920"
+    },
+    {
+      "text": "across all of these things. I don't even",
+      "duration": 2079,
+      "offset": "808000"
+    },
+    {
+      "text": "know if you can off an MCP server and",
+      "duration": 2401,
+      "offset": "810079"
+    },
+    {
+      "text": "cursor. Oh, fun. You have to hardcode",
+      "duration": 2960,
+      "offset": "812480"
+    },
+    {
+      "text": "the tokens or you can pull them from",
+      "duration": 2720,
+      "offset": "815440"
+    },
+    {
+      "text": "environment in the definition that you",
+      "duration": 2239,
+      "offset": "818160"
+    },
+    {
+      "text": "paste in for the project. Fascinating.",
+      "duration": 3601,
+      "offset": "820399"
+    },
+    {
+      "text": "Yeah, it's cool. They do support it now.",
+      "duration": 1839,
+      "offset": "824000"
+    },
+    {
+      "text": "You also have to manually toggle the",
+      "duration": 1761,
+      "offset": "825839"
+    },
+    {
+      "text": "features that you do and don't want it",
+      "duration": 1520,
+      "offset": "827600"
+    },
+    {
+      "text": "to have access to on and off. Fun. You",
+      "duration": 2159,
+      "offset": "829120"
+    },
+    {
+      "text": "couldn't tell I don't use MCP and cursor",
+      "duration": 1841,
+      "offset": "831279"
+    },
+    {
+      "text": "a whole bunch because I don't use MCP a",
+      "duration": 1680,
+      "offset": "833120"
+    },
+    {
+      "text": "whole bunch. You can also return images",
+      "duration": 1680,
+      "offset": "834800"
+    },
+    {
+      "text": "as long as they're base 64. Fun, man.",
+      "duration": 3120,
+      "offset": "836480"
+    },
+    {
+      "text": "What an interesting standard. Back to",
+      "duration": 2160,
+      "offset": "839600"
+    },
+    {
+      "text": "the article because there more important",
+      "duration": 1199,
+      "offset": "841760"
+    },
+    {
+      "text": "pieces here. We're continuing to invest",
+      "duration": 1521,
+      "offset": "842959"
+    },
+    {
+      "text": "in MCP's growth. Clouds are directed",
+      "duration": 1840,
+      "offset": "844480"
+    },
+    {
+      "text": "with over 75 connectors which are",
+      "duration": 1440,
+      "offset": "846320"
+    },
+    {
+      "text": "powered by MCP and they recently",
+      "duration": 1439,
+      "offset": "847760"
+    },
+    {
+      "text": "launched the tool search and",
+      "duration": 961,
+      "offset": "849199"
+    },
+    {
+      "text": "programmatic tool calling capabilities",
+      "duration": 1440,
+      "offset": "850160"
+    },
+    {
+      "text": "in their API. I like that they worded",
+      "duration": 1840,
+      "offset": "851600"
+    },
+    {
+      "text": "this carefully so they don't have to",
+      "duration": 1040,
+      "offset": "853440"
+    },
+    {
+      "text": "call it the tool search tool as they",
+      "duration": 1440,
+      "offset": "854480"
+    },
+    {
+      "text": "have been constantly. They did tool",
+      "duration": 1599,
+      "offset": "855920"
+    },
+    {
+      "text": "search and programmatic tool calling",
+      "duration": 2000,
+      "offset": "857519"
+    },
+    {
+      "text": "capabilities which helps with production",
+      "duration": 1921,
+      "offset": "859519"
+    },
+    {
+      "text": "scale MCP deployments handling thousands",
+      "duration": 1839,
+      "offset": "861440"
+    },
+    {
+      "text": "of tools efficiently and reducing",
+      "duration": 1201,
+      "offset": "863279"
+    },
+    {
+      "text": "latency and complex agent workflows.",
+      "duration": 2080,
+      "offset": "864480"
+    },
+    {
+      "text": "Yeah, that's a big step. It feels like",
+      "duration": 3120,
+      "offset": "866560"
+    },
+    {
+      "text": "Anthropic recognizes that improving the",
+      "duration": 2399,
+      "offset": "869680"
+    },
+    {
+      "text": "standard is not necessarily within their",
+      "duration": 2000,
+      "offset": "872079"
+    },
+    {
+      "text": "area of expertise and instead of trying",
+      "duration": 2961,
+      "offset": "874079"
+    },
+    {
+      "text": "to patch it again and again, it is much",
+      "duration": 2720,
+      "offset": "877040"
+    },
+    {
+      "text": "more efficient for them to hand it off",
+      "duration": 2720,
+      "offset": "879760"
+    },
+    {
+      "text": "to a better open standards committee",
+      "duration": 2400,
+      "offset": "882480"
+    },
+    {
+      "text": "that can be designed. I know design by",
+      "duration": 2480,
+      "offset": "884880"
+    },
+    {
+      "text": "committee is terrible, but for things",
+      "duration": 1440,
+      "offset": "887360"
+    },
+    {
+      "text": "that are standards that are going to be",
+      "duration": 1440,
+      "offset": "888800"
+    },
+    {
+      "text": "adopted by many, it makes a lot more",
+      "duration": 1920,
+      "offset": "890240"
+    },
+    {
+      "text": "sense. make the standard external so it",
+      "duration": 2479,
+      "offset": "892160"
+    },
+    {
+      "text": "can be iterated on, developed and owned",
+      "duration": 2401,
+      "offset": "894639"
+    },
+    {
+      "text": "safely, openly and externally and",
+      "duration": 2560,
+      "offset": "897040"
+    },
+    {
+      "text": "continue building the new features on",
+      "duration": 1599,
+      "offset": "899600"
+    },
+    {
+      "text": "top. It definitely seems like their",
+      "duration": 2080,
+      "offset": "901199"
+    },
+    {
+      "text": "recent interest has less been in",
+      "duration": 2081,
+      "offset": "903279"
+    },
+    {
+      "text": "changing how MCP works and more in",
+      "duration": 2159,
+      "offset": "905360"
+    },
+    {
+      "text": "building things around it. Like if we go",
+      "duration": 2161,
+      "offset": "907519"
+    },
+    {
+      "text": "back to the timeline, they got early",
+      "duration": 2000,
+      "offset": "909680"
+    },
+    {
+      "text": "adoption, they presented it, they",
+      "duration": 2640,
+      "offset": "911680"
+    },
+    {
+      "text": "released the second spec which included",
+      "duration": 1440,
+      "offset": "914320"
+    },
+    {
+      "text": "the O stuff. Then in June and July, they",
+      "duration": 1920,
+      "offset": "915760"
+    },
+    {
+      "text": "did the third spec with structured",
+      "duration": 1279,
+      "offset": "917680"
+    },
+    {
+      "text": "outputs, interactive prompts, and harden",
+      "duration": 1761,
+      "offset": "918959"
+    },
+    {
+      "text": "security. And since then, a lot of the",
+      "duration": 2479,
+      "offset": "920720"
+    },
+    {
+      "text": "new stuff isn't really part of the spec.",
+      "duration": 2561,
+      "offset": "923199"
+    },
+    {
+      "text": "Like discovery isn't really part of the",
+      "duration": 3120,
+      "offset": "925760"
+    },
+    {
+      "text": "spec for MCP. Async tasks are, but are",
+      "duration": 3840,
+      "offset": "928880"
+    },
+    {
+      "text": "more like an implementation detail on",
+      "duration": 1840,
+      "offset": "932720"
+    },
+    {
+      "text": "the thing consuming. And agentic",
+      "duration": 2399,
+      "offset": "934560"
+    },
+    {
+      "text": "sampling, I don't even know what they",
+      "duration": 1841,
+      "offset": "936959"
+    },
+    {
+      "text": "mean by that. Interesting. Sampling",
+      "duration": 3279,
+      "offset": "938800"
+    },
+    {
+      "text": "allows for the server to reverse request",
+      "duration": 2961,
+      "offset": "942079"
+    },
+    {
+      "text": "back to the model to do a thing. So if",
+      "duration": 2400,
+      "offset": "945040"
+    },
+    {
+      "text": "you're using Opus 4.5 and it uses the",
+      "duration": 3199,
+      "offset": "947440"
+    },
+    {
+      "text": "MCP for I don't know doing a a query",
+      "duration": 3521,
+      "offset": "950639"
+    },
+    {
+      "text": "against your database to get some data",
+      "duration": 1840,
+      "offset": "954160"
+    },
+    {
+      "text": "and then your code realizes because you",
+      "duration": 2000,
+      "offset": "956000"
+    },
+    {
+      "text": "wrote the code this way that it has to",
+      "duration": 1440,
+      "offset": "958000"
+    },
+    {
+      "text": "have the right SQL to generate it can",
+      "duration": 2000,
+      "offset": "959440"
+    },
+    {
+      "text": "forward back that request to the model",
+      "duration": 2880,
+      "offset": "961440"
+    },
+    {
+      "text": "to generate the SQL string that it has",
+      "duration": 2720,
+      "offset": "964320"
+    },
+    {
+      "text": "to run. I've never seen anyone using",
+      "duration": 2719,
+      "offset": "967040"
+    },
+    {
+      "text": "this. This is really interesting too.",
+      "duration": 2801,
+      "offset": "969759"
+    },
+    {
+      "text": "There's a hints section which is an",
+      "duration": 2079,
+      "offset": "972560"
+    },
+    {
+      "text": "array of arbitrary JSON objects by the",
+      "duration": 2721,
+      "offset": "974639"
+    },
+    {
+      "text": "looks of it, but they're separately this",
+      "duration": 1919,
+      "offset": "977360"
+    },
+    {
+      "text": "intelligence priority and speed priority",
+      "duration": 1680,
+      "offset": "979279"
+    },
+    {
+      "text": "things that are top level keys which",
+      "duration": 1361,
+      "offset": "980959"
+    },
+    {
+      "text": "means that they're probably part of the",
+      "duration": 1439,
+      "offset": "982320"
+    },
+    {
+      "text": "spec,",
+      "duration": 1681,
+      "offset": "983759"
+    },
+    {
+      "text": "man.",
+      "duration": 3000,
+      "offset": "985440"
+    },
+    {
+      "text": "Yeah, you can see that the chaos that is",
+      "duration": 2000,
+      "offset": "988959"
+    },
+    {
+      "text": "this diagram. The server initializes the",
+      "duration": 2800,
+      "offset": "990959"
+    },
+    {
+      "text": "sampling with the sampling create",
+      "duration": 1281,
+      "offset": "993759"
+    },
+    {
+      "text": "message. A human can review that",
+      "duration": 2799,
+      "offset": "995040"
+    },
+    {
+      "text": "request. They're presented the request",
+      "duration": 1841,
+      "offset": "997839"
+    },
+    {
+      "text": "for approval. they could request a a",
+      "duration": 3680,
+      "offset": "999680"
+    },
+    {
+      "text": "modify or just approve it and then it",
+      "duration": 2399,
+      "offset": "1003360"
+    },
+    {
+      "text": "forwards that request to the LLM,",
+      "duration": 2561,
+      "offset": "1005759"
+    },
+    {
+      "text": "returns a generation. You can review the",
+      "duration": 2079,
+      "offset": "1008320"
+    },
+    {
+      "text": "response. The response is presented to",
+      "duration": 2481,
+      "offset": "1010399"
+    },
+    {
+      "text": "the human for approval and if they",
+      "duration": 1360,
+      "offset": "1012880"
+    },
+    {
+      "text": "approve it, it gets sent back to the",
+      "duration": 1599,
+      "offset": "1014240"
+    },
+    {
+      "text": "client which then sends it back to the",
+      "duration": 1201,
+      "offset": "1015839"
+    },
+    {
+      "text": "server to continue. Man,",
+      "duration": 3359,
+      "offset": "1017040"
+    },
+    {
+      "text": "when I say it feels like all of this is",
+      "duration": 1601,
+      "offset": "1020399"
+    },
+    {
+      "text": "chaotically overengineered,",
+      "duration": 2240,
+      "offset": "1022000"
+    },
+    {
+      "text": "do you understand?",
+      "duration": 3120,
+      "offset": "1024240"
+    },
+    {
+      "text": "It is also kind of chaotic that the the",
+      "duration": 1839,
+      "offset": "1027360"
+    },
+    {
+      "text": "client in this case is something like if",
+      "duration": 1921,
+      "offset": "1029199"
+    },
+    {
+      "text": "you use the cloudi desktop app or if you",
+      "duration": 2000,
+      "offset": "1031120"
+    },
+    {
+      "text": "use cursor the server is sending a",
+      "duration": 2959,
+      "offset": "1033120"
+    },
+    {
+      "text": "request to the client that the user then",
+      "duration": 1521,
+      "offset": "1036079"
+    },
+    {
+      "text": "approves so the client can then resend",
+      "duration": 1520,
+      "offset": "1037600"
+    },
+    {
+      "text": "it to the LLM. This weird graph of where",
+      "duration": 2880,
+      "offset": "1039120"
+    },
+    {
+      "text": "everything lands is just strange. It can",
+      "duration": 3120,
+      "offset": "1042000"
+    },
+    {
+      "text": "also request images back and audio.",
+      "duration": 3520,
+      "offset": "1045120"
+    },
+    {
+      "text": "Does",
+      "duration": 2480,
+      "offset": "1048640"
+    },
+    {
+      "text": "this feels like a standard looking for a",
+      "duration": 2240,
+      "offset": "1051120"
+    },
+    {
+      "text": "problem still? Like who's going to",
+      "duration": 2400,
+      "offset": "1053360"
+    },
+    {
+      "text": "implement this? What tools exist right",
+      "duration": 2480,
+      "offset": "1055760"
+    },
+    {
+      "text": "now where if I wrote my MCP server to",
+      "duration": 2960,
+      "offset": "1058240"
+    },
+    {
+      "text": "then request an image back to the client",
+      "duration": 2240,
+      "offset": "1061200"
+    },
+    {
+      "text": "that will handle that properly? I just",
+      "duration": 3280,
+      "offset": "1063440"
+    },
+    {
+      "text": "don't think there's going to be many.",
+      "duration": 1680,
+      "offset": "1066720"
+    },
+    {
+      "text": "Oh, and then yeah, the these are",
+      "duration": 1760,
+      "offset": "1068400"
+    },
+    {
+      "text": "standard cost priority, speed priority,",
+      "duration": 2240,
+      "offset": "1070160"
+    },
+    {
+      "text": "and intelligence priority. Cost",
+      "duration": 1920,
+      "offset": "1072400"
+    },
+    {
+      "text": "priority. Higher values prefer cheaper",
+      "duration": 2640,
+      "offset": "1074320"
+    },
+    {
+      "text": "models. Speed higher prefers faster. And",
+      "duration": 2880,
+      "offset": "1076960"
+    },
+    {
+      "text": "intelligence, higher prefers more",
+      "duration": 1680,
+      "offset": "1079840"
+    },
+    {
+      "text": "capable. And the values, by the way, are",
+      "duration": 2480,
+      "offset": "1081520"
+    },
+    {
+      "text": "between zero and one. Great. Then the",
+      "duration": 3600,
+      "offset": "1084000"
+    },
+    {
+      "text": "hints allow servers to suggest specific",
+      "duration": 2000,
+      "offset": "1087600"
+    },
+    {
+      "text": "models or model families. Again, they",
+      "duration": 2319,
+      "offset": "1089600"
+    },
+    {
+      "text": "had cloud 3 sonnet and then claude as a",
+      "duration": 2241,
+      "offset": "1091919"
+    },
+    {
+      "text": "fallback.",
+      "duration": 2240,
+      "offset": "1094160"
+    },
+    {
+      "text": "Yeah, interesting. So, yeah, that is a",
+      "duration": 3440,
+      "offset": "1096400"
+    },
+    {
+      "text": "new part of the standard. is not one",
+      "duration": 1440,
+      "offset": "1099840"
+    },
+    {
+      "text": "I've heard anyone talking about, but",
+      "duration": 1120,
+      "offset": "1101280"
+    },
+    {
+      "text": "they did add something. But it does",
+      "duration": 2720,
+      "offset": "1102400"
+    },
+    {
+      "text": "generally feel like the standard in the",
+      "duration": 2080,
+      "offset": "1105120"
+    },
+    {
+      "text": "spec has less been Anthropic's focus and",
+      "duration": 2240,
+      "offset": "1107200"
+    },
+    {
+      "text": "more the things they're building around",
+      "duration": 1440,
+      "offset": "1109440"
+    },
+    {
+      "text": "it, which makes the punting of it off as",
+      "duration": 2960,
+      "offset": "1110880"
+    },
+    {
+      "text": "they build new tools on top of it make",
+      "duration": 2160,
+      "offset": "1113840"
+    },
+    {
+      "text": "more and more sense. It is also like to",
+      "duration": 2400,
+      "offset": "1116000"
+    },
+    {
+      "text": "be fair a really good faith play to say",
+      "duration": 3279,
+      "offset": "1118400"
+    },
+    {
+      "text": "we're not just building MCP for our own",
+      "duration": 2641,
+      "offset": "1121679"
+    },
+    {
+      "text": "use cases and tricking you all to build",
+      "duration": 2000,
+      "offset": "1124320"
+    },
+    {
+      "text": "on top of it. They do clearly want MCP",
+      "duration": 2960,
+      "offset": "1126320"
+    },
+    {
+      "text": "to be a winning open standard. I have no",
+      "duration": 2080,
+      "offset": "1129280"
+    },
+    {
+      "text": "reason to believe that any of their way",
+      "duration": 2000,
+      "offset": "1131360"
+    },
+    {
+      "text": "of doing this is malicious. I still have",
+      "duration": 2240,
+      "offset": "1133360"
+    },
+    {
+      "text": "my skepticism around MCP, but I don't",
+      "duration": 2800,
+      "offset": "1135600"
+    },
+    {
+      "text": "think they're doing this because they're",
+      "duration": 1200,
+      "offset": "1138400"
+    },
+    {
+      "text": "dumb or evil. I think they do genuinely",
+      "duration": 2000,
+      "offset": "1139600"
+    },
+    {
+      "text": "believe this is an important thing to",
+      "duration": 2079,
+      "offset": "1141600"
+    },
+    {
+      "text": "exist and that it is the best chance we",
+      "duration": 1841,
+      "offset": "1143679"
+    },
+    {
+      "text": "have at an open standard for AI to do",
+      "duration": 3120,
+      "offset": "1145520"
+    },
+    {
+      "text": "things on real systems. Still kind of",
+      "duration": 2080,
+      "offset": "1148640"
+    },
+    {
+      "text": "crazy that they're making this so open",
+      "duration": 1280,
+      "offset": "1150720"
+    },
+    {
+      "text": "and cloud code is still closed source",
+      "duration": 1520,
+      "offset": "1152000"
+    },
+    {
+      "text": "and they've sent as many DMCAs as they",
+      "duration": 1600,
+      "offset": "1153520"
+    },
+    {
+      "text": "have to GitHub about people who shared",
+      "duration": 1919,
+      "offset": "1155120"
+    },
+    {
+      "text": "the source maps for cloud code when they",
+      "duration": 2081,
+      "offset": "1157039"
+    },
+    {
+      "text": "leaked them in their own package when",
+      "duration": 1520,
+      "offset": "1159120"
+    },
+    {
+      "text": "they deployed it. Just saying. The Linux",
+      "duration": 2800,
+      "offset": "1160640"
+    },
+    {
+      "text": "Foundation and the Agentic AI",
+      "duration": 1520,
+      "offset": "1163440"
+    },
+    {
+      "text": "Foundation. The Linux Foundation is a",
+      "duration": 1599,
+      "offset": "1164960"
+    },
+    {
+      "text": "nonprofit organization dedicated to",
+      "duration": 1521,
+      "offset": "1166559"
+    },
+    {
+      "text": "fostering the growth of sustainable open",
+      "duration": 1680,
+      "offset": "1168080"
+    },
+    {
+      "text": "source ecosystems through neutral",
+      "duration": 1440,
+      "offset": "1169760"
+    },
+    {
+      "text": "stewardship, community building, and",
+      "duration": 1680,
+      "offset": "1171200"
+    },
+    {
+      "text": "shared infrastructure. It has decades of",
+      "duration": 2000,
+      "offset": "1172880"
+    },
+    {
+      "text": "experience stewarding the most critical",
+      "duration": 1520,
+      "offset": "1174880"
+    },
+    {
+      "text": "and globally significant open source",
+      "duration": 1519,
+      "offset": "1176400"
+    },
+    {
+      "text": "projects including Linux, Kubernetes,",
+      "duration": 2161,
+      "offset": "1177919"
+    },
+    {
+      "text": "Node.js and PyTorch. Yeah, Node is",
+      "duration": 2320,
+      "offset": "1180080"
+    },
+    {
+      "text": "technically part of it too which is",
+      "duration": 1200,
+      "offset": "1182400"
+    },
+    {
+      "text": "nuts. Importantly, the Linux Foundation",
+      "duration": 2079,
+      "offset": "1183600"
+    },
+    {
+      "text": "has a proven track record in",
+      "duration": 1360,
+      "offset": "1185679"
+    },
+    {
+      "text": "facilitating open collaboration and",
+      "duration": 1601,
+      "offset": "1187039"
+    },
+    {
+      "text": "maintaining vendor neutrality. Yes,",
+      "duration": 2399,
+      "offset": "1188640"
+    },
+    {
+      "text": "absolutely yes. Node runs just as well",
+      "duration": 2961,
+      "offset": "1191039"
+    },
+    {
+      "text": "everywhere, which is kind of crazy if",
+      "duration": 1600,
+      "offset": "1194000"
+    },
+    {
+      "text": "you think about it. Like you all know",
+      "duration": 2000,
+      "offset": "1195600"
+    },
+    {
+      "text": "how much people complain about Nex.js",
+      "duration": 1680,
+      "offset": "1197600"
+    },
+    {
+      "text": "being easiest on Versel. Node works",
+      "duration": 2320,
+      "offset": "1199280"
+    },
+    {
+      "text": "everywhere other than Cloudflare kind",
+      "duration": 1920,
+      "offset": "1201600"
+    },
+    {
+      "text": "of, but you get the point. Node is a",
+      "duration": 1760,
+      "offset": "1203520"
+    },
+    {
+      "text": "very much supported standard that works",
+      "duration": 2800,
+      "offset": "1205280"
+    },
+    {
+      "text": "equally well pretty much everywhere.",
+      "duration": 1839,
+      "offset": "1208080"
+    },
+    {
+      "text": "It's really cool that that's proven.",
+      "duration": 1921,
+      "offset": "1209919"
+    },
+    {
+      "text": "Same with Linux kernel. I would imagine",
+      "duration": 1920,
+      "offset": "1211840"
+    },
+    {
+      "text": "a significant portion, if not the",
+      "duration": 1520,
+      "offset": "1213760"
+    },
+    {
+      "text": "majority of the money that Microsoft",
+      "duration": 1519,
+      "offset": "1215280"
+    },
+    {
+      "text": "makes on Azure right now is going",
+      "duration": 1841,
+      "offset": "1216799"
+    },
+    {
+      "text": "through Linux systems. Agentic AI",
+      "duration": 2159,
+      "offset": "1218640"
+    },
+    {
+      "text": "Foundation is a directed fund under the",
+      "duration": 1601,
+      "offset": "1220799"
+    },
+    {
+      "text": "Linux Foundation co-founded by Anthropic",
+      "duration": 1920,
+      "offset": "1222400"
+    },
+    {
+      "text": "Block and OpenAI with support from all",
+      "duration": 1520,
+      "offset": "1224320"
+    },
+    {
+      "text": "the other companies I mentioned before.",
+      "duration": 1520,
+      "offset": "1225840"
+    },
+    {
+      "text": "The AIF aims to ensure agentic AI",
+      "duration": 2640,
+      "offset": "1227360"
+    },
+    {
+      "text": "evolves transparently, collaboratively,",
+      "duration": 1600,
+      "offset": "1230000"
+    },
+    {
+      "text": "and in the public interest through",
+      "duration": 1520,
+      "offset": "1231600"
+    },
+    {
+      "text": "strategic investment, community",
+      "duration": 1600,
+      "offset": "1233120"
+    },
+    {
+      "text": "building, and shared development of open",
+      "duration": 1760,
+      "offset": "1234720"
+    },
+    {
+      "text": "standards. The idea of agentic AI",
+      "duration": 2079,
+      "offset": "1236480"
+    },
+    {
+      "text": "evolving transparently by making MCP an",
+      "duration": 3521,
+      "offset": "1238559"
+    },
+    {
+      "text": "open standard is an interesting thing. I",
+      "duration": 3520,
+      "offset": "1242080"
+    },
+    {
+      "text": "would imagine that transparent evolution",
+      "duration": 1680,
+      "offset": "1245600"
+    },
+    {
+      "text": "of AI and agentic work would involve",
+      "duration": 2160,
+      "offset": "1247280"
+    },
+    {
+      "text": "more transparency around how the models",
+      "duration": 1920,
+      "offset": "1249440"
+    },
+    {
+      "text": "are being trained, which none of the",
+      "duration": 1439,
+      "offset": "1251360"
+    },
+    {
+      "text": "labs are willing to do. Some deeply",
+      "duration": 1760,
+      "offset": "1252799"
+    },
+    {
+      "text": "skeptical part of me wants to see this",
+      "duration": 1681,
+      "offset": "1254559"
+    },
+    {
+      "text": "as an attempt to look more transparent",
+      "duration": 3200,
+      "offset": "1256240"
+    },
+    {
+      "text": "when they are more than ever closing off",
+      "duration": 2080,
+      "offset": "1259440"
+    },
+    {
+      "text": "their research and work so people can't",
+      "duration": 1519,
+      "offset": "1261520"
+    },
+    {
+      "text": "copy their details. But I do really want",
+      "duration": 2241,
+      "offset": "1263039"
+    },
+    {
+      "text": "to read this in good faith cuz there's",
+      "duration": 1519,
+      "offset": "1265280"
+    },
+    {
+      "text": "no reason not to at this point at least.",
+      "duration": 2721,
+      "offset": "1266799"
+    },
+    {
+      "text": "I'll be keeping my eye on it. And now",
+      "duration": 1760,
+      "offset": "1269520"
+    },
+    {
+      "text": "the donating MCP section. Anthropic",
+      "duration": 2160,
+      "offset": "1271280"
+    },
+    {
+      "text": "dating the model context protocol to the",
+      "duration": 1280,
+      "offset": "1273440"
+    },
+    {
+      "text": "Linux Foundation's new agentic AI",
+      "duration": 1600,
+      "offset": "1274720"
+    },
+    {
+      "text": "foundation where it will join Goose by",
+      "duration": 1359,
+      "offset": "1276320"
+    },
+    {
+      "text": "block and agents MD by OpenAI as",
+      "duration": 1841,
+      "offset": "1277679"
+    },
+    {
+      "text": "founding projects. I didn't know agents",
+      "duration": 2000,
+      "offset": "1279520"
+    },
+    {
+      "text": "was open AI. That does make sense.",
+      "duration": 1600,
+      "offset": "1281520"
+    },
+    {
+      "text": "Bringing these and future projects under",
+      "duration": 1520,
+      "offset": "1283120"
+    },
+    {
+      "text": "the AIF will foster innovation across",
+      "duration": 2000,
+      "offset": "1284640"
+    },
+    {
+      "text": "the agentic AI ecosystem as well as",
+      "duration": 2000,
+      "offset": "1286640"
+    },
+    {
+      "text": "ensuring that these foundational",
+      "duration": 1519,
+      "offset": "1288640"
+    },
+    {
+      "text": "technologies remain neutral, open, and",
+      "duration": 1841,
+      "offset": "1290159"
+    },
+    {
+      "text": "communitydriven. The MCP's governance",
+      "duration": 1840,
+      "offset": "1292000"
+    },
+    {
+      "text": "model will remain unchanged. The",
+      "duration": 1360,
+      "offset": "1293840"
+    },
+    {
+      "text": "project's maintainers will continue to",
+      "duration": 1200,
+      "offset": "1295200"
+    },
+    {
+      "text": "prioritize community input and",
+      "duration": 1360,
+      "offset": "1296400"
+    },
+    {
+      "text": "transparent decision-making. There is a",
+      "duration": 2240,
+      "offset": "1297760"
+    },
+    {
+      "text": "lot of work on this. I've seen so many",
+      "duration": 2240,
+      "offset": "1300000"
+    },
+    {
+      "text": "issues that are hundreds upon hundreds",
+      "duration": 1919,
+      "offset": "1302240"
+    },
+    {
+      "text": "of replies deep as well as their shared",
+      "duration": 2081,
+      "offset": "1304159"
+    },
+    {
+      "text": "Discord server.",
+      "duration": 2000,
+      "offset": "1306240"
+    },
+    {
+      "text": "They are trying to make it better. I've",
+      "duration": 1600,
+      "offset": "1308240"
+    },
+    {
+      "text": "had a lot of people, like more so than",
+      "duration": 1440,
+      "offset": "1309840"
+    },
+    {
+      "text": "almost anything I've complained about,",
+      "duration": 1360,
+      "offset": "1311280"
+    },
+    {
+      "text": "I've had a lot of people who are part of",
+      "duration": 1519,
+      "offset": "1312640"
+    },
+    {
+      "text": "the MCP spec and standards committee",
+      "duration": 2241,
+      "offset": "1314159"
+    },
+    {
+      "text": "replying and reaching out trying to",
+      "duration": 2080,
+      "offset": "1316400"
+    },
+    {
+      "text": "figure things out, especially the off",
+      "duration": 1600,
+      "offset": "1318480"
+    },
+    {
+      "text": "things. It seems like the off stuff's a",
+      "duration": 1599,
+      "offset": "1320080"
+    },
+    {
+      "text": "total disaster. The future of MCP open",
+      "duration": 2641,
+      "offset": "1321679"
+    },
+    {
+      "text": "source software is essential for",
+      "duration": 1280,
+      "offset": "1324320"
+    },
+    {
+      "text": "building a secure and innovative",
+      "duration": 1600,
+      "offset": "1325600"
+    },
+    {
+      "text": "ecosystem for agentic AI. Today's",
+      "duration": 1839,
+      "offset": "1327200"
+    },
+    {
+      "text": "donation to the Linux Foundation",
+      "duration": 1520,
+      "offset": "1329039"
+    },
+    {
+      "text": "demonstrates our commitment to ensuring",
+      "duration": 1681,
+      "offset": "1330559"
+    },
+    {
+      "text": "MCP remains a neutral open standard.",
+      "duration": 2080,
+      "offset": "1332240"
+    },
+    {
+      "text": "We're excited to continue contributing",
+      "duration": 1200,
+      "offset": "1334320"
+    },
+    {
+      "text": "to MCP and other agentic AI projects",
+      "duration": 2080,
+      "offset": "1335520"
+    },
+    {
+      "text": "through the AIF. Yeah, this is cool. If",
+      "duration": 3680,
+      "offset": "1337600"
+    },
+    {
+      "text": "they want to prove that it's an open",
+      "duration": 1200,
+      "offset": "1341280"
+    },
+    {
+      "text": "standard, they did it right. But it also",
+      "duration": 2800,
+      "offset": "1342480"
+    },
+    {
+      "text": "kind of seems like Infopa can only have",
+      "duration": 1519,
+      "offset": "1345280"
+    },
+    {
+      "text": "one open source project at a time. And",
+      "duration": 2000,
+      "offset": "1346799"
+    },
+    {
+      "text": "now that they have Bun as their big open",
+      "duration": 1441,
+      "offset": "1348799"
+    },
+    {
+      "text": "source project, MCP has been moved away.",
+      "duration": 2880,
+      "offset": "1350240"
+    },
+    {
+      "text": "Openai's article about this foundation",
+      "duration": 1760,
+      "offset": "1353120"
+    },
+    {
+      "text": "has even more interesting stuff. I'm",
+      "duration": 1360,
+      "offset": "1354880"
+    },
+    {
+      "text": "going to read this a little too. Similar",
+      "duration": 1760,
+      "offset": "1356240"
+    },
+    {
+      "text": "blurb here. It is cool that they're",
+      "duration": 1520,
+      "offset": "1358000"
+    },
+    {
+      "text": "calling out that they're working with",
+      "duration": 1279,
+      "offset": "1359520"
+    },
+    {
+      "text": "Anthropic and Linux Foundation block all",
+      "duration": 2401,
+      "offset": "1360799"
+    },
+    {
+      "text": "of them. I've never seen OpenAI call out",
+      "duration": 2719,
+      "offset": "1363200"
+    },
+    {
+      "text": "Anthropic as a supporter and Anthropic",
+      "duration": 1681,
+      "offset": "1365919"
+    },
+    {
+      "text": "call out OpenAI in matching articles the",
+      "duration": 2480,
+      "offset": "1367600"
+    },
+    {
+      "text": "same day. Weird to see this much",
+      "duration": 2240,
+      "offset": "1370080"
+    },
+    {
+      "text": "alignment and genuine collaboration on",
+      "duration": 2160,
+      "offset": "1372320"
+    },
+    {
+      "text": "the standards here. Why open standards",
+      "duration": 2240,
+      "offset": "1374480"
+    },
+    {
+      "text": "matter? Developers are rapidly adopting",
+      "duration": 2000,
+      "offset": "1376720"
+    },
+    {
+      "text": "AI to build more capable agentic systems",
+      "duration": 2000,
+      "offset": "1378720"
+    },
+    {
+      "text": "from coding assistance to workflow",
+      "duration": 1439,
+      "offset": "1380720"
+    },
+    {
+      "text": "automation and customer service agents.",
+      "duration": 2081,
+      "offset": "1382159"
+    },
+    {
+      "text": "In 2025, these systems have begun to",
+      "duration": 2080,
+      "offset": "1384240"
+    },
+    {
+      "text": "move from prototypes into tools that",
+      "duration": 1680,
+      "offset": "1386320"
+    },
+    {
+      "text": "handle real work in business and",
+      "duration": 1600,
+      "offset": "1388000"
+    },
+    {
+      "text": "consumer settings. We believe the",
+      "duration": 1360,
+      "offset": "1389600"
+    },
+    {
+      "text": "transition from experimental agents to",
+      "duration": 1680,
+      "offset": "1390960"
+    },
+    {
+      "text": "real world systems will best work at",
+      "duration": 1840,
+      "offset": "1392640"
+    },
+    {
+      "text": "scale if there are open standards that",
+      "duration": 1679,
+      "offset": "1394480"
+    },
+    {
+      "text": "help make them interoperable, like a",
+      "duration": 2000,
+      "offset": "1396159"
+    },
+    {
+      "text": "standard for a markdown file. Open",
+      "duration": 2081,
+      "offset": "1398159"
+    },
+    {
+      "text": "standards make agents safer, easier to",
+      "duration": 1679,
+      "offset": "1400240"
+    },
+    {
+      "text": "build, and more portable across tools",
+      "duration": 1681,
+      "offset": "1401919"
+    },
+    {
+      "text": "and platforms. And they help prevent the",
+      "duration": 1680,
+      "offset": "1403600"
+    },
+    {
+      "text": "ecosystem from fragmenting as the new",
+      "duration": 2240,
+      "offset": "1405280"
+    },
+    {
+      "text": "category matures. As more agents begin",
+      "duration": 2480,
+      "offset": "1407520"
+    },
+    {
+      "text": "handling real responsibility, the cost",
+      "duration": 1520,
+      "offset": "1410000"
+    },
+    {
+      "text": "of fragmentation increases. Without",
+      "duration": 1680,
+      "offset": "1411520"
+    },
+    {
+      "text": "common conventions and neutral",
+      "duration": 1280,
+      "offset": "1413200"
+    },
+    {
+      "text": "governance, agent development risks",
+      "duration": 2000,
+      "offset": "1414480"
+    },
+    {
+      "text": "diverging into incompatible silos that",
+      "duration": 1840,
+      "offset": "1416480"
+    },
+    {
+      "text": "limit portability, safety, and progress.",
+      "duration": 2320,
+      "offset": "1418320"
+    },
+    {
+      "text": "You were around for the early web days",
+      "duration": 1840,
+      "offset": "1420640"
+    },
+    {
+      "text": "between like the 15 different attempts",
+      "duration": 2400,
+      "offset": "1422480"
+    },
+    {
+      "text": "to do dynamic web apps. I see why",
+      "duration": 3039,
+      "offset": "1424880"
+    },
+    {
+      "text": "jumping on this early is a thing they're",
+      "duration": 2321,
+      "offset": "1427919"
+    },
+    {
+      "text": "all focused on. Agents SDK isn't open",
+      "duration": 2400,
+      "offset": "1430240"
+    },
+    {
+      "text": "source, is it? What is the license? MIT.",
+      "duration": 2800,
+      "offset": "1432640"
+    },
+    {
+      "text": "Is it standard MIT? It is. Cool.",
+      "duration": 2560,
+      "offset": "1435440"
+    },
+    {
+      "text": "OpenAI's history with the agents SDK,",
+      "duration": 2159,
+      "offset": "1438000"
+    },
+    {
+      "text": "apps SDK, and Agentic commerce protocol",
+      "duration": 2321,
+      "offset": "1440159"
+    },
+    {
+      "text": "is cited here as proof that they really",
+      "duration": 1920,
+      "offset": "1442480"
+    },
+    {
+      "text": "want to contribute to these building",
+      "duration": 1759,
+      "offset": "1444400"
+    },
+    {
+      "text": "blocks and open standards and codec CLI",
+      "duration": 2400,
+      "offset": "1446159"
+    },
+    {
+      "text": "was a pretty baller move. When they",
+      "duration": 1681,
+      "offset": "1448559"
+    },
+    {
+      "text": "dropped that as an open- source project,",
+      "duration": 2319,
+      "offset": "1450240"
+    },
+    {
+      "text": "I was surprised. I did not see that",
+      "duration": 1841,
+      "offset": "1452559"
+    },
+    {
+      "text": "coming, especially after how strictly",
+      "duration": 2159,
+      "offset": "1454400"
+    },
+    {
+      "text": "cloud code has stayed closed source.",
+      "duration": 1600,
+      "offset": "1456559"
+    },
+    {
+      "text": "It's a baller move on their part. And",
+      "duration": 1520,
+      "offset": "1458159"
+    },
+    {
+      "text": "then they did the GPTO OSS models, which",
+      "duration": 1681,
+      "offset": "1459679"
+    },
+    {
+      "text": "believe it or not, I'm still using",
+      "duration": 1439,
+      "offset": "1461360"
+    },
+    {
+      "text": "GPT120 bill quite a bit. It runs really",
+      "duration": 3120,
+      "offset": "1462799"
+    },
+    {
+      "text": "well on my laptop, too. Is the apps SDK",
+      "duration": 2240,
+      "offset": "1465919"
+    },
+    {
+      "text": "open source as well? There's no way.",
+      "duration": 2801,
+      "offset": "1468159"
+    },
+    {
+      "text": "These are just examples. That's what I",
+      "duration": 2240,
+      "offset": "1470960"
+    },
+    {
+      "text": "thought. The apps SDK is not open",
+      "duration": 2640,
+      "offset": "1473200"
+    },
+    {
+      "text": "source. Also, to give Enthropic a little",
+      "duration": 2240,
+      "offset": "1475840"
+    },
+    {
+      "text": "more grace here, the apps SDK and the",
+      "duration": 2560,
+      "offset": "1478080"
+    },
+    {
+      "text": "idea of apps in chat GPT was so hyped",
+      "duration": 2800,
+      "offset": "1480640"
+    },
+    {
+      "text": "when they announced it and I haven't",
+      "duration": 1359,
+      "offset": "1483440"
+    },
+    {
+      "text": "seen anyone use it for anything like not",
+      "duration": 2961,
+      "offset": "1484799"
+    },
+    {
+      "text": "a single thing. Apparently, the UI",
+      "duration": 2159,
+      "offset": "1487760"
+    },
+    {
+      "text": "portion is open source, but yeah, no",
+      "duration": 2801,
+      "offset": "1489919"
+    },
+    {
+      "text": "one's using it. I don't care. They've",
+      "duration": 1360,
+      "offset": "1492720"
+    },
+    {
+      "text": "been early adopters and core",
+      "duration": 880,
+      "offset": "1494080"
+    },
+    {
+      "text": "contributors to MCP incorporating it as",
+      "duration": 1760,
+      "offset": "1494960"
+    },
+    {
+      "text": "a foundation for connectors and apps in",
+      "duration": 1439,
+      "offset": "1496720"
+    },
+    {
+      "text": "Chat GPT. Just last week, they announced",
+      "duration": 1681,
+      "offset": "1498159"
+    },
+    {
+      "text": "a collab with Enthropic and MCP UI to",
+      "duration": 1920,
+      "offset": "1499840"
+    },
+    {
+      "text": "extend the apps SDK to all MCP",
+      "duration": 2000,
+      "offset": "1501760"
+    },
+    {
+      "text": "developers through MCP apps. Oh, great.",
+      "duration": 2320,
+      "offset": "1503760"
+    },
+    {
+      "text": "They're combining the two standards I",
+      "duration": 1199,
+      "offset": "1506080"
+    },
+    {
+      "text": "don't like.",
+      "duration": 1601,
+      "offset": "1507279"
+    },
+    {
+      "text": "And they donated agents MD.",
+      "duration": 3279,
+      "offset": "1508880"
+    },
+    {
+      "text": "Agents MD has been adopted by more than",
+      "duration": 1760,
+      "offset": "1512159"
+    },
+    {
+      "text": "60,000 open source projects and agent",
+      "duration": 1760,
+      "offset": "1513919"
+    },
+    {
+      "text": "frameworks including AMP, Codeex,",
+      "duration": 1441,
+      "offset": "1515679"
+    },
+    {
+      "text": "Cursor, Devon, Factory, Gemini CLI,",
+      "duration": 1840,
+      "offset": "1517120"
+    },
+    {
+      "text": "GitHub, Copilot, Jules, and VS Code",
+      "duration": 1920,
+      "offset": "1518960"
+    },
+    {
+      "text": "among others. Jules mentioned that's",
+      "duration": 2399,
+      "offset": "1520880"
+    },
+    {
+      "text": "Google's agentic coding tool that nobody",
+      "duration": 2400,
+      "offset": "1523279"
+    },
+    {
+      "text": "knows about. There's also a bunch of",
+      "duration": 2321,
+      "offset": "1525679"
+    },
+    {
+      "text": "other things they're not calling out",
+      "duration": 1039,
+      "offset": "1528000"
+    },
+    {
+      "text": "here. Like I know that uh code rabbit",
+      "duration": 2081,
+      "offset": "1529039"
+    },
+    {
+      "text": "and grapile both use agents MD very well",
+      "duration": 2400,
+      "offset": "1531120"
+    },
+    {
+      "text": "as well which is super helpful during",
+      "duration": 1759,
+      "offset": "1533520"
+    },
+    {
+      "text": "code review steps. It's cool that we",
+      "duration": 1921,
+      "offset": "1535279"
+    },
+    {
+      "text": "don't have the problem that we have with",
+      "duration": 1680,
+      "offset": "1537200"
+    },
+    {
+      "text": "a JavaScript project like uh you know",
+      "duration": 2240,
+      "offset": "1538880"
+    },
+    {
+      "text": "the classic config hell. Look at all",
+      "duration": 2480,
+      "offset": "1541120"
+    },
+    {
+      "text": "these dot files. The envitign Ignore and",
+      "duration": 3120,
+      "offset": "1543600"
+    },
+    {
+      "text": "VMRC oxlint prettier ignore prettier rc",
+      "duration": 4000,
+      "offset": "1546720"
+    },
+    {
+      "text": "components json nip json agentmd all",
+      "duration": 3760,
+      "offset": "1550720"
+    },
+    {
+      "text": "these things. It is pretty cool that the",
+      "duration": 1600,
+      "offset": "1554480"
+    },
+    {
+      "text": "agent MD is now just one file that works",
+      "duration": 2640,
+      "offset": "1556080"
+    },
+    {
+      "text": "with everything and we're not going to",
+      "duration": 1839,
+      "offset": "1558720"
+    },
+    {
+      "text": "have as bad of config hell. Like there",
+      "duration": 2321,
+      "offset": "1560559"
+    },
+    {
+      "text": "was a bit where you had to have the",
+      "duration": 1520,
+      "offset": "1562880"
+    },
+    {
+      "text": "cursor MD cursor rules agent MD winds",
+      "duration": 3600,
+      "offset": "1564400"
+    },
+    {
+      "text": "surfs equivalent and like 15 other",
+      "duration": 2080,
+      "offset": "1568000"
+    },
+    {
+      "text": "things. Agents MD has been standardized",
+      "duration": 2320,
+      "offset": "1570080"
+    },
+    {
+      "text": "enough that like everyone uses it. That",
+      "duration": 2639,
+      "offset": "1572400"
+    },
+    {
+      "text": "said, different tools benefit from",
+      "duration": 1681,
+      "offset": "1575039"
+    },
+    {
+      "text": "different types of instructions which it",
+      "duration": 2559,
+      "offset": "1576720"
+    },
+    {
+      "text": "varies. Still overall very good thing",
+      "duration": 2321,
+      "offset": "1579279"
+    },
+    {
+      "text": "especially if more and more of these",
+      "duration": 1120,
+      "offset": "1581600"
+    },
+    {
+      "text": "tools adjust to follow the agent MD",
+      "duration": 3040,
+      "offset": "1582720"
+    },
+    {
+      "text": "standard better. This seems cool. I",
+      "duration": 2480,
+      "offset": "1585760"
+    },
+    {
+      "text": "really like this type of collaboration",
+      "duration": 2160,
+      "offset": "1588240"
+    },
+    {
+      "text": "and alignment. I think it leads towards",
+      "duration": 2240,
+      "offset": "1590400"
+    },
+    {
+      "text": "better things happening. I really like",
+      "duration": 2240,
+      "offset": "1592640"
+    },
+    {
+      "text": "the idea of the Agentic AI Foundation",
+      "duration": 2159,
+      "offset": "1594880"
+    },
+    {
+      "text": "where if a thing becomes popular enough",
+      "duration": 1841,
+      "offset": "1597039"
+    },
+    {
+      "text": "that is meant to be open, the Linux",
+      "duration": 3039,
+      "offset": "1598880"
+    },
+    {
+      "text": "Foundation can now own it as part of the",
+      "duration": 2081,
+      "offset": "1601919"
+    },
+    {
+      "text": "Aif. This makes a ton of sense. I wish I",
+      "duration": 3279,
+      "offset": "1604000"
+    },
+    {
+      "text": "had more negative to say cuz it's fun,",
+      "duration": 2241,
+      "offset": "1607279"
+    },
+    {
+      "text": "but this is a good thing. This is the",
+      "duration": 2639,
+      "offset": "1609520"
+    },
+    {
+      "text": "best future for MCP. This is a really",
+      "duration": 2241,
+      "offset": "1612159"
+    },
+    {
+      "text": "good thing for all of these standards",
+      "duration": 1519,
+      "offset": "1614400"
+    },
+    {
+      "text": "and it makes the future of Agentic AI",
+      "duration": 2000,
+      "offset": "1615919"
+    },
+    {
+      "text": "tooling much, much safer and potentially",
+      "duration": 2561,
+      "offset": "1617919"
+    },
+    {
+      "text": "much better. Curious what y'all think",
+      "duration": 1679,
+      "offset": "1620480"
+    },
+    {
+      "text": "though. Am I way too excited about this",
+      "duration": 1841,
+      "offset": "1622159"
+    },
+    {
+      "text": "or is this just another weird MCP thing?",
+      "duration": 4320,
+      "offset": "1624000"
+    }
+  ],
+  "transcriptText": "As you all probably know by now, I kind of love bullying Anthropic. As great as their models can be, they have their weird behaviors and things that I just don't love about how the company operates. One of those things in particular is the way they treat open source. I've never been super fond of it. But they recently acquired Bun, the JavaScript runtime, that I do dearly love, both the framework and the runtime itself, as well as the team building it. And it seems like with this acquisition, a new focus on open source is happening, which is why this announcement, as crazy as it is, is actually quite cool. And Thorback just donated the model context protocol to the new Agentic AI Foundation. If you're curious what this is, spoiler, it's a new fund that was just formed under the Linux Foundation. Yes, really. The Linux Foundation are now the owners of the model context protocol. This is a fascinating new development. both the creation of this new agentic group within Linux Foundation, but also MCP becoming a more open standard that exists in an external entity instead of just being part of Anthropic. This is super super exciting stuff. Projects like this are only possible because wellunded companies like Anthropic Block, OpenAI, Google, Microsoft, and Amazon support them. But we need support too. So let's do a quick word from today's sponsor. Today's sponsor is different and I want to give you guys a bit of history on them. They started their journey as the best possible API for giving context on your codebase to different AI agents. So if you're trying to build your own AI that deeply understands your codebase, their product built around like modern grap. It turns out that's useful for a lot of other things though. In particular, code review. If an AI agent knows everything about your codebase, it can actually give you really good feedback when you're trying to change it. The sponsor is Grapile and I want to show you what this looks like in practice. This is a code review on a real repo. It's Physics Nemo by Nvidia. like actual real big legit project. Grab Tile left a review here. Gave it a low confidence score, a three out of five. But god, I love this feature so much. The way that it will tell you how it feels overall, it's just so clear and easy to know like, do I need to give this another look or not? Confidence score is a three, but the reason why is where it gets interesting. Gravile called out that there is a precision calculation issue on this particular line. The piece that's interesting here is it can only know this with that codebase context. that the way that these values are calculated other places is to put both of these values underneath when it's doing this division. One of the maintainers claimed otherwise saying that the true positives over predicted positives can be greater than one which is correct in their understanding. GPile responded which is what makes it so different. Looking at your concern, I need to clarify the issue. The formula on line 200 is indeed wrong but true positives over predicted positives cannot be greater than one when calculated correctly. The problems on line 196. It's calculating the count of all true class zero labels which should be called actual positives not true positives or precision true positives is the same. You get the idea. It's a really good fellow code reviewer and as we could see here Kelvin confirmed as much. Turns out I was wrong and overlooked the true positives as the intersection. I fixed this and also flipped the positive as label one. There you go. If all of your code reviews are still being done by humans, you're wasting all of those humans time. Pull in Gravile today at soyv.link/graphile. donating the model context protocol and establishing the Agentic AI Foundation. Today we're donating the MCP to the Agentic AI Foundation, AIF, a directed fund under the Linux Foundation, which is co-founded by Anthropic, Block, and OpenAI with support from Google, Microsoft, AWS, Cloudflare, and Bloomberg. One of these things is not like the others. Bloomberg's code discipline in particular is actually really good. Their TypeScript stuff is incredible. I thought MCP was a little more than a year old. Is that really right? No, 24. Wow. Yeah, it's one year later. That's crazy. Almost to the dot. One year ago, Anthropic introduced MCP is a universal open standard for connecting AI applications to external systems. Notably, connecting and external systems, implying that the server that you're connecting to is expected to be live and maintain a connection during the entire session, which makes it really annoying to deploy and adopt. So, a couple cool new companies working on figuring out solutions to that now. But yeah, the the way MCP is implemented is really focused on making the agent side as easy as possible, not on making the developer implementation side on the other end as easy as possible or really viable at all. MCP's achieved incredible adoption. There are over 10,000 active public MCP servers covering everything from developer tools to Fortune 500 deployments. Across platforms, MCP has been adopted by ChatGBT, Cursor, Gemini, Copilot, Visual Studio Code, and other popular AI products. Enterprise grade infra now exists with deployment support for MCP from providers including AWS Cloudflare, Google Cloud, and Azure. It does make sense that the big clouds would want to be part of this. It's also nice having them supporting Linux Foundation more. You're not already familiar with Linux Foundation. No, they're not like the people who make Linux. It's a little more complex than that. The Linux Foundation is an attempt to take a lot of like open- source work and orchestrate it while also getting money in memberships from big companies to try and make sure the direction of all of these important big open source projects continues to make sense for how everybody is using them. They have a fascinating set of projects including of course the Linux kernel, risk 5 and pietorch. So the things underneath them are really important and fascinating. You guys remember the chaos around Reddus? Remember when they changed the license and suddenly all the other providers that hosted it had to like not do that or use an old version? When that happened, both AWS and Microsoft put a lot of money in in order to fund the development of a fork called Valky that included a bunch of the original maintainers of Reddus as well as people maintaining it at Azure and at AWS. They then instead of trying to run this independently and separately, donated it to the Linux Foundation alongside I'm sure more donations. The result being the Linux Foundation now owning a good open standard for Reddit style use cases that is truly open and will stay open. I don't think there's any example of something that went to the Linux Foundation to be a well-maintained open source project then locking down which is a big reason why Anthropic would be interested in this. There's always fear that an open standard could get closed and the way you counter that is going really far alongside it which is what happened here. Since there's now concern about Reddus potentially changing its license and the rugpull that can occur, the alternative to that isn't another thing that can be rugpulled, it's to throw it at Linux Foundation so it will be there hypothetically speaking forever. A lot of the things Linux Foundation maintains are things that just have existed forever and probably will as well. It's also worth noting that the Linux foundation has other sub foundations that they help operate as well like the cloudnative computing foundation, openjs foundation, the open source security foundation and more. There's a lot of these foundations that they help manage and run is open search their attempt to do uh elastic search because I know that they had an elastic search alternative at some point as well. Regardless, a new one has just been dropped which is the agentic AI foundation which is one of the Linux foundation projects. The AIF provides a neutral open- source foundation to ensure the critical capability evolves transparently, collaboratively, and in ways that advance the adoption of leading open source AI projects. It is kind of funny that the Open Linux Foundation Agentic AI foundation is funded by the companies doing all of the closedweight models. Like, has Anthropic released any openweight anything in the last like 3 to four years? I'm pretty sure no. Opening just recently did one, but you would expect a Meestrol or DeepSeek to be here, but they also don't have the funding to justify it. It is cool to see though. They now have MCP as well as Goose, which is an open source accessible AI agent that goes beyond code suggestions. Interesting. And Agents MD they also own. Very interesting actually. I did not realize that Agents MD was big enough to go to a foundation like this, but that does make sense. And I've seen more and more cool uses of Agents MD files. So, this is cool. Oh, interesting. Goose is by Block. If you're not familiar with Block, they are a company that owns a lot of different things. They own Square, Cash App. They bought Title, which uh is close to my heart, as well as a few other things. It was founded by the original founder of Twitter. Coolish company. No issues with them. It's cool seeing them doing more open source stuff like this. Wait, no way. Yeah, I know Roselle. She's great. That's so cool. I had no idea she was at Block now. That makes a ton of sense. Good for her. Good stuff. Local AI agent autonomously engineering tasks seamlessly. This is a good set of things. It's cool to see something like this forming. Now, it's a weird set of projects. You have a markdown file standard. You have an actual big open-source AI agent toolkit and then MCP which is a protocol for interfacing with agentic stuff. Very interesting set of things especially when you look at the set of members that they have. the block membership makes much more sense now. Seems like they kind of want to pawn goose off there, but also the block founders have always been very very pro- opensource things. So, it does make a lot of sense there. Back to the article. Oh, they have a whole fancy little timeline of the history of MCP here. Early adoption from cursor of the AI tools back in December to February. MCP was presented at the AI engineering summit. There was 2,000 public MCP servers at the time. A second spec came out which included enterprise off HTTP streaming multimodal content but also the enterprise o solution they picked was lackluster at best. It's my understanding that they used an existing HTTP standard for O that had never really been implemented by anyone. That kind of sucks and as such it was not something many people did. It's also funny that a thousand people register for the MCP night in San Francisco because that's happening again tonight and I will be there. That's why I'm ending stream early. At this point, they had 4,000 public MCP servers. Then June to July, the third spec came out with structured outputs, which is essential to have the MCP actually output things into consistent shape. Interactive prompts as well as hardened security. They also introduced the MCP directory and 2,000 people took part in the agents hackathon. Then enterprise MCP hosting started happening on Google Cloud, Azure and Cloudflare. MCP DevSummit sold out in London. This is also around when we started to see these like the push back on the idea that MCP is a thing that is just how models will do application development and application style work make less and less sense. And that's when I did the videos about the Cloudflare article about turning MCPs back into code and then letting the agents write code to execute instead. Watch those videos if you haven't and you want to better understand the things I don't like about MCP as well as how we can take advantage of the standard more effectively. This is interesting though. I also don't think the growth is that impressive from like the first two months they got 2,000 servers and then over the next 10 months they got another 8,000. That's relatively linear growth. I'm once again going to run a poll. Do you use MCP? Yes, a lot. Greater than five servers? Yes, a bit less than five servers. Not really. Nope. I'll change it to tried but churned. I should have put a just contact 7 option. I'll do another poll after for that. Yeah, gave up on Context 7, which is the only MCP I was trying to use after the last poll in chat. According to my audience, 56% of people don't use MCP, 16% tried and churned, 25% use it a bit, and 4% use it a lot. It's kind of crazy how close the a bit of use and tried and churned are, but this is my experience, too. I just have not found many use cases for MCP in my day-to-day usage. Yeah, the use case I see for it, funny enough, is much stronger locally. I've yet to find many MCPs that are useful if you run them remotely. Like there's the Mac MCP that lets you control your Mac. Of course, Super Memory are the ones doing it. This is the Mac MCP is pretty cool. The point of it is that you can control features on your Mac via MCP. There's a bunch of TypeScript code written to do things on your Mac exposed over a local server that your AI agents can call and do things like send texts or update your notes, touch your contacts. And here you can see in Daria's example, he tells it to send a message, this is a test to somebody. And now it's running behind the scenes on his Mac doing the things that he requested, which is pretty cool. But those are the use cases that I think are the most valid right now due to the stranges of how the protocol is implemented. There's also like the Ableton MCP. If you're a music nerd, it's pretty cool. Ableton MCP is another very fun one. It's for controlling the Ableton Live digital audio workstation. It's a very common tool for producing music. And Ableton MCP lets you modify your project in Ableton using bottle context protocol. But once again, since you have to run a full dedicated server for this to work, you have to set up the smiththery CLI, install this MCP, and specify the client is claude. You probably have to install UV as well because it's all a Python server and then spin it up and run it locally in the background because like MCP can't execute things that it doesn't have. It is effectively an HTTP server that is exposing specific behaviors to a model and allowing for it to stay connected to this server so it can do things and get data and make changes. Another notable thing about these examples is none of them require complex off stories because O is one of the most annoying nightmares across all of these things. I don't even know if you can off an MCP server and cursor. Oh, fun. You have to hardcode the tokens or you can pull them from environment in the definition that you paste in for the project. Fascinating. Yeah, it's cool. They do support it now. You also have to manually toggle the features that you do and don't want it to have access to on and off. Fun. You couldn't tell I don't use MCP and cursor a whole bunch because I don't use MCP a whole bunch. You can also return images as long as they're base 64. Fun, man. What an interesting standard. Back to the article because there more important pieces here. We're continuing to invest in MCP's growth. Clouds are directed with over 75 connectors which are powered by MCP and they recently launched the tool search and programmatic tool calling capabilities in their API. I like that they worded this carefully so they don't have to call it the tool search tool as they have been constantly. They did tool search and programmatic tool calling capabilities which helps with production scale MCP deployments handling thousands of tools efficiently and reducing latency and complex agent workflows. Yeah, that's a big step. It feels like Anthropic recognizes that improving the standard is not necessarily within their area of expertise and instead of trying to patch it again and again, it is much more efficient for them to hand it off to a better open standards committee that can be designed. I know design by committee is terrible, but for things that are standards that are going to be adopted by many, it makes a lot more sense. make the standard external so it can be iterated on, developed and owned safely, openly and externally and continue building the new features on top. It definitely seems like their recent interest has less been in changing how MCP works and more in building things around it. Like if we go back to the timeline, they got early adoption, they presented it, they released the second spec which included the O stuff. Then in June and July, they did the third spec with structured outputs, interactive prompts, and harden security. And since then, a lot of the new stuff isn't really part of the spec. Like discovery isn't really part of the spec for MCP. Async tasks are, but are more like an implementation detail on the thing consuming. And agentic sampling, I don't even know what they mean by that. Interesting. Sampling allows for the server to reverse request back to the model to do a thing. So if you're using Opus 4.5 and it uses the MCP for I don't know doing a a query against your database to get some data and then your code realizes because you wrote the code this way that it has to have the right SQL to generate it can forward back that request to the model to generate the SQL string that it has to run. I've never seen anyone using this. This is really interesting too. There's a hints section which is an array of arbitrary JSON objects by the looks of it, but they're separately this intelligence priority and speed priority things that are top level keys which means that they're probably part of the spec, man. Yeah, you can see that the chaos that is this diagram. The server initializes the sampling with the sampling create message. A human can review that request. They're presented the request for approval. they could request a a modify or just approve it and then it forwards that request to the LLM, returns a generation. You can review the response. The response is presented to the human for approval and if they approve it, it gets sent back to the client which then sends it back to the server to continue. Man, when I say it feels like all of this is chaotically overengineered, do you understand? It is also kind of chaotic that the the client in this case is something like if you use the cloudi desktop app or if you use cursor the server is sending a request to the client that the user then approves so the client can then resend it to the LLM. This weird graph of where everything lands is just strange. It can also request images back and audio. Does this feels like a standard looking for a problem still? Like who's going to implement this? What tools exist right now where if I wrote my MCP server to then request an image back to the client that will handle that properly? I just don't think there's going to be many. Oh, and then yeah, the these are standard cost priority, speed priority, and intelligence priority. Cost priority. Higher values prefer cheaper models. Speed higher prefers faster. And intelligence, higher prefers more capable. And the values, by the way, are between zero and one. Great. Then the hints allow servers to suggest specific models or model families. Again, they had cloud 3 sonnet and then claude as a fallback. Yeah, interesting. So, yeah, that is a new part of the standard. is not one I've heard anyone talking about, but they did add something. But it does generally feel like the standard in the spec has less been Anthropic's focus and more the things they're building around it, which makes the punting of it off as they build new tools on top of it make more and more sense. It is also like to be fair a really good faith play to say we're not just building MCP for our own use cases and tricking you all to build on top of it. They do clearly want MCP to be a winning open standard. I have no reason to believe that any of their way of doing this is malicious. I still have my skepticism around MCP, but I don't think they're doing this because they're dumb or evil. I think they do genuinely believe this is an important thing to exist and that it is the best chance we have at an open standard for AI to do things on real systems. Still kind of crazy that they're making this so open and cloud code is still closed source and they've sent as many DMCAs as they have to GitHub about people who shared the source maps for cloud code when they leaked them in their own package when they deployed it. Just saying. The Linux Foundation and the Agentic AI Foundation. The Linux Foundation is a nonprofit organization dedicated to fostering the growth of sustainable open source ecosystems through neutral stewardship, community building, and shared infrastructure. It has decades of experience stewarding the most critical and globally significant open source projects including Linux, Kubernetes, Node.js and PyTorch. Yeah, Node is technically part of it too which is nuts. Importantly, the Linux Foundation has a proven track record in facilitating open collaboration and maintaining vendor neutrality. Yes, absolutely yes. Node runs just as well everywhere, which is kind of crazy if you think about it. Like you all know how much people complain about Nex.js being easiest on Versel. Node works everywhere other than Cloudflare kind of, but you get the point. Node is a very much supported standard that works equally well pretty much everywhere. It's really cool that that's proven. Same with Linux kernel. I would imagine a significant portion, if not the majority of the money that Microsoft makes on Azure right now is going through Linux systems. Agentic AI Foundation is a directed fund under the Linux Foundation co-founded by Anthropic Block and OpenAI with support from all the other companies I mentioned before. The AIF aims to ensure agentic AI evolves transparently, collaboratively, and in the public interest through strategic investment, community building, and shared development of open standards. The idea of agentic AI evolving transparently by making MCP an open standard is an interesting thing. I would imagine that transparent evolution of AI and agentic work would involve more transparency around how the models are being trained, which none of the labs are willing to do. Some deeply skeptical part of me wants to see this as an attempt to look more transparent when they are more than ever closing off their research and work so people can't copy their details. But I do really want to read this in good faith cuz there's no reason not to at this point at least. I'll be keeping my eye on it. And now the donating MCP section. Anthropic dating the model context protocol to the Linux Foundation's new agentic AI foundation where it will join Goose by block and agents MD by OpenAI as founding projects. I didn't know agents was open AI. That does make sense. Bringing these and future projects under the AIF will foster innovation across the agentic AI ecosystem as well as ensuring that these foundational technologies remain neutral, open, and communitydriven. The MCP's governance model will remain unchanged. The project's maintainers will continue to prioritize community input and transparent decision-making. There is a lot of work on this. I've seen so many issues that are hundreds upon hundreds of replies deep as well as their shared Discord server. They are trying to make it better. I've had a lot of people, like more so than almost anything I've complained about, I've had a lot of people who are part of the MCP spec and standards committee replying and reaching out trying to figure things out, especially the off things. It seems like the off stuff's a total disaster. The future of MCP open source software is essential for building a secure and innovative ecosystem for agentic AI. Today's donation to the Linux Foundation demonstrates our commitment to ensuring MCP remains a neutral open standard. We're excited to continue contributing to MCP and other agentic AI projects through the AIF. Yeah, this is cool. If they want to prove that it's an open standard, they did it right. But it also kind of seems like Infopa can only have one open source project at a time. And now that they have Bun as their big open source project, MCP has been moved away. Openai's article about this foundation has even more interesting stuff. I'm going to read this a little too. Similar blurb here. It is cool that they're calling out that they're working with Anthropic and Linux Foundation block all of them. I've never seen OpenAI call out Anthropic as a supporter and Anthropic call out OpenAI in matching articles the same day. Weird to see this much alignment and genuine collaboration on the standards here. Why open standards matter? Developers are rapidly adopting AI to build more capable agentic systems from coding assistance to workflow automation and customer service agents. In 2025, these systems have begun to move from prototypes into tools that handle real work in business and consumer settings. We believe the transition from experimental agents to real world systems will best work at scale if there are open standards that help make them interoperable, like a standard for a markdown file. Open standards make agents safer, easier to build, and more portable across tools and platforms. And they help prevent the ecosystem from fragmenting as the new category matures. As more agents begin handling real responsibility, the cost of fragmentation increases. Without common conventions and neutral governance, agent development risks diverging into incompatible silos that limit portability, safety, and progress. You were around for the early web days between like the 15 different attempts to do dynamic web apps. I see why jumping on this early is a thing they're all focused on. Agents SDK isn't open source, is it? What is the license? MIT. Is it standard MIT? It is. Cool. OpenAI's history with the agents SDK, apps SDK, and Agentic commerce protocol is cited here as proof that they really want to contribute to these building blocks and open standards and codec CLI was a pretty baller move. When they dropped that as an open- source project, I was surprised. I did not see that coming, especially after how strictly cloud code has stayed closed source. It's a baller move on their part. And then they did the GPTO OSS models, which believe it or not, I'm still using GPT120 bill quite a bit. It runs really well on my laptop, too. Is the apps SDK open source as well? There's no way. These are just examples. That's what I thought. The apps SDK is not open source. Also, to give Enthropic a little more grace here, the apps SDK and the idea of apps in chat GPT was so hyped when they announced it and I haven't seen anyone use it for anything like not a single thing. Apparently, the UI portion is open source, but yeah, no one's using it. I don't care. They've been early adopters and core contributors to MCP incorporating it as a foundation for connectors and apps in Chat GPT. Just last week, they announced a collab with Enthropic and MCP UI to extend the apps SDK to all MCP developers through MCP apps. Oh, great. They're combining the two standards I don't like. And they donated agents MD. Agents MD has been adopted by more than 60,000 open source projects and agent frameworks including AMP, Codeex, Cursor, Devon, Factory, Gemini CLI, GitHub, Copilot, Jules, and VS Code among others. Jules mentioned that's Google's agentic coding tool that nobody knows about. There's also a bunch of other things they're not calling out here. Like I know that uh code rabbit and grapile both use agents MD very well as well which is super helpful during code review steps. It's cool that we don't have the problem that we have with a JavaScript project like uh you know the classic config hell. Look at all these dot files. The envitign Ignore and VMRC oxlint prettier ignore prettier rc components json nip json agentmd all these things. It is pretty cool that the agent MD is now just one file that works with everything and we're not going to have as bad of config hell. Like there was a bit where you had to have the cursor MD cursor rules agent MD winds surfs equivalent and like 15 other things. Agents MD has been standardized enough that like everyone uses it. That said, different tools benefit from different types of instructions which it varies. Still overall very good thing especially if more and more of these tools adjust to follow the agent MD standard better. This seems cool. I really like this type of collaboration and alignment. I think it leads towards better things happening. I really like the idea of the Agentic AI Foundation where if a thing becomes popular enough that is meant to be open, the Linux Foundation can now own it as part of the Aif. This makes a ton of sense. I wish I had more negative to say cuz it's fun, but this is a good thing. This is the best future for MCP. This is a really good thing for all of these standards and it makes the future of Agentic AI tooling much, much safer and potentially much better. Curious what y'all think though. Am I way too excited about this or is this just another weird MCP thing?"
+}
