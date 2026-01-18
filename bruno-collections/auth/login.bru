@@ -1,0 +1,31 @@
+meta {
+  name: login
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/api/auth/login
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "email": "anahelenarp@hotmail.com",
+    "password": "Ana123456"
+  }
+}
+
+script:post-response {
+  bru.setEnvVar('access_token', res.body.access_token)
+  
+}
+
+settings {
+  encodeUrl: true
+}

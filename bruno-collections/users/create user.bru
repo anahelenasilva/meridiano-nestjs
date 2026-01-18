@@ -1,0 +1,36 @@
+meta {
+  name: create user
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/api/users
+  body: json
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "email": "anahelenarp@hotmail.com",
+    "username": "anahelenarp",
+    "password": "Ana123456"
+  }
+}
+
+script:post-response {
+  bru.setEnvVar('access_token', res.body.access_token)
+  
+}
+
+settings {
+  encodeUrl: true
+}

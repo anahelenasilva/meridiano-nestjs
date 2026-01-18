@@ -1,0 +1,73 @@
+meta {
+  name: Process Markdown
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/api/articles/markdown
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+      "s3Key": "articles/2024/01/example-article.md",
+      "feedProfile": "technology",
+      "s3Bucket": "meridiano-articles"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  # Process Markdown Article
+  
+    Queues a markdown article from S3 for processing. The article will be processed asynchronously and the job ID is returned immediately.
+  
+    ## Request Body
+  
+    - `s3Key` (string, required): The S3 key/path to the markdown article file
+    - `feedProfile` (enum, required): The feed profile category. Valid values:
+      - `default`
+      - `technology`
+      - `politics`
+      - `business`
+      - `health`
+      - `science`
+      - `brasil`
+      - `teclas`
+    - `s3Bucket` (string, optional): The S3 bucket name. If not provided, uses the `S3_ARTICLES_BUCKET_NAME` environment variable.
+  
+    ## Response
+  
+    Success (200):
+    ```json
+    {
+      "success": true,
+      "jobId": "123",
+      "articleFileKey": "articles/2024/01/example-article.md",
+      "message": "Markdown article queued for processing"
+    }
+    ```
+  
+    Error (400):
+    ```json
+    {
+      "statusCode": 400,
+      "message": "S3 bucket name not provided and S3_ARTICLES_BUCKET_NAME environment variable is not set"
+    }
+    ```
+  
+    ## Notes
+  
+    - The job will be retried up to 3 times with exponential backoff if processing fails
+    - Use the returned `jobId` to check the job status via `GET /api/articles/jobs/:jobId`
+    - If the S3 bucket is not specified and the environment variable is not set, the request will fail with a 400 error
+}

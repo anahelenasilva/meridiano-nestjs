@@ -1,0 +1,23 @@
+meta {
+  name: get articles
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/api/articles
+  body: json
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+settings {
+  encodeUrl: true
+}
