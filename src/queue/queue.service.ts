@@ -73,6 +73,17 @@ export class QueueService implements OnModuleInit, OnModuleDestroy {
     this.markdownQueueEvents.on('failed', this.failureHandler);
   }
 
+  private isValidMarkdownArticleJobData(data: unknown): data is ProcessMarkdownArticleJobData {
+    return (
+      data !== null &&
+      typeof data === 'object' &&
+      's3Bucket' in data &&
+      's3Key' in data &&
+      typeof (data as { s3Bucket: unknown }).s3Bucket === 'string' &&
+      typeof (data as { s3Key: unknown }).s3Key === 'string'
+    );
+  }
+
   private async handleMarkdownArticleFailure(jobId: string, failedReason: string): Promise<void> {
     try {
       const job = await this.markdownArticleQueue.getJob(jobId);
@@ -87,7 +98,14 @@ export class QueueService implements OnModuleInit, OnModuleDestroy {
         const notificationEmail = this.configService.getArticleFailureNotificationEmail();
 
         if (notificationEmail) {
-          const { s3Bucket, s3Key } = job.data as ProcessMarkdownArticleJobData;
+          const jobData = job.data;
+
+          if (!this.isValidMarkdownArticleJobData(jobData)) {
+            console.error(`Job ${job.id} has invalid data structure. Expected ProcessMarkdownArticleJobData but got:`, jobData);
+            return;
+          }
+
+          const { s3Bucket, s3Key } = jobData;
           const errorMessage = failedReason || 'Unknown error';
           const timestamp = new Date().toISOString();
 
