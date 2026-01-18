@@ -7,6 +7,7 @@ import {
   ParseUUIDPipe,
   Post
 } from '@nestjs/common';
+import { Public } from '../auth/decorators/public.decorator';
 import { CreateUserDto, UserResponseDto } from './user.entity';
 import { UsersService } from './users.service';
 
@@ -14,6 +15,7 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
+  @Public()
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto) {
     const user = await this.usersService.createUser(
