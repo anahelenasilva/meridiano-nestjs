@@ -141,16 +141,16 @@ Please investigate the issue.`,
 
   /**
    * Add an article to the processing queue
-   * @param articleId - The ID of the article to process
+   * @param articleFileKey - The ID of the article to process
    * @param feedProfile - The feed profile for the article
    * @returns Job information including job ID
    */
   async addArticleProcessingJob(
-    articleId: string,
+    articleFileKey: string,
     feedProfile: FeedProfile,
   ): Promise<JobInfo> {
     const jobData: ProcessArticleJobData = {
-      articleId,
+      articleFileKey,
       feedProfile,
     };
 
@@ -158,7 +158,7 @@ Please investigate the issue.`,
 
     return {
       success: true,
-      articleFileKey: articleId,
+      articleFileKey,
       jobId: job.id as string,
       message: 'Article queued for processing',
     };

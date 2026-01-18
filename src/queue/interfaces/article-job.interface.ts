@@ -1,6 +1,6 @@
 import { FeedProfile } from '../../shared/types/feed';
 
 export interface ProcessArticleJobData {
-  articleId: string;
+  articleFileKey: string;
   feedProfile: FeedProfile;
 }

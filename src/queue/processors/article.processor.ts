@@ -42,7 +42,7 @@ export class ArticleProcessor implements OnModuleInit {
   async processArticle(
     job: Job<ProcessArticleJobData>,
   ): Promise<{ success: boolean; message: string }> {
-    const { articleId, feedProfile } = job.data;
+    const { articleFileKey: articleId, feedProfile } = job.data;
 
     console.log(
       `\n>>> Processing article ID ${articleId} from queue (Job ${job.id}) <<<`,
