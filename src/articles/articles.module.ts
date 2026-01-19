@@ -2,6 +2,7 @@ import { Module, forwardRef } from '@nestjs/common';
 import { DatabaseModule } from '../database/database.module';
 import { ProfilesModule } from '../profiles/profiles.module';
 import { QueueModule } from '../queue/queue.module';
+import { S3Module } from '../s3/s3.module';
 import { ScraperModule } from '../scraper/scraper.module';
 import { ArticlesController } from './articles.controller';
 import { ArticlesService } from './articles.service';
@@ -12,6 +13,7 @@ import { ListArticlesQuery } from './queries/list-articles.query';
   imports: [
     DatabaseModule,
     ProfilesModule,
+    S3Module,
     forwardRef(() => ScraperModule),
     forwardRef(() => QueueModule),
   ],

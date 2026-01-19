@@ -1,4 +1,5 @@
 import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
 import { Injectable } from '@nestjs/common';
 import { Readable } from 'stream';
 
@@ -69,6 +70,50 @@ export class S3Service {
 
       throw new Error(
         `Failed to download file ${key} from bucket ${bucketName}: ${errorMessage}`,
+      );
+    }
+  }
+
+  async generatePresignedPostUrl(
+    bucketName: string,
+    key: string,
+    contentType?: string,
+    maxFileSize?: number,
+  ): Promise<{ url: string; fields: Record<string, string>; expiresIn: number }> {
+    const fiveMB = 5 * 1024 * 1024;
+    const fileSizeLimit = maxFileSize || fiveMB;
+    const expiresIn = 300;
+
+    const allowedContentTypes = ['text/markdown', 'text/plain'];
+    const finalContentType = contentType && allowedContentTypes.includes(contentType)
+      ? contentType
+      : 'text/markdown';
+
+    try {
+      const { url, fields } = await createPresignedPost(this.s3Client, {
+        Bucket: bucketName,
+        Key: key,
+        Conditions: [
+          ['content-length-range', 0, fileSizeLimit],
+          ['eq', '$Content-Type', finalContentType],
+        ],
+        Fields: {
+          'Content-Type': finalContentType,
+        },
+        Expires: expiresIn,
+      });
+
+      return {
+        url,
+        fields,
+        expiresIn,
+      };
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+
+      throw new Error(
+        `Failed to generate presigned POST URL for ${key}: ${errorMessage}`,
       );
     }
   }

@@ -24,6 +24,31 @@ export class S3Stack extends cdk.Stack {
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       removalPolicy: cdk.RemovalPolicy.RETAIN,
       autoDeleteObjects: false,
+      cors: [
+        {
+          allowedOrigins: [
+            'http://100.127.158.111:3000',
+            'http://192.168.1.18:3000',
+            'http://localhost:3000',
+          ],
+          allowedMethods: [
+            s3.HttpMethods.PUT,
+            s3.HttpMethods.POST,
+            s3.HttpMethods.GET,
+            s3.HttpMethods.HEAD,
+          ],
+          allowedHeaders: [
+            '*',
+          ],
+          exposedHeaders: [
+            'ETag',
+            'x-amz-server-side-encryption',
+            'x-amz-request-id',
+            'x-amz-id-2',
+          ],
+          maxAge: 3000,
+        },
+      ],
       lifecycleRules: [
         {
           id: 'DeleteOldVersions',
@@ -33,10 +58,11 @@ export class S3Stack extends cdk.Stack {
       ],
     });
 
-    const readPolicy = new iam.PolicyStatement({
+    const readWritePolicy = new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
       actions: [
         's3:GetObject',
+        's3:PutObject',
         's3:ListBucket',
       ],
       resources: [
@@ -46,9 +72,8 @@ export class S3Stack extends cdk.Stack {
     });
 
     const managedPolicy = new iam.ManagedPolicy(this, 'ArticlesBucketReadPolicy', {
-      managedPolicyName: `meridiano-articles-read-${environment}`,
-      description: `Read access to Meridiano articles S3 bucket for ${environment} environment`,
-      statements: [readPolicy],
+      description: `Read and write access to Meridiano articles S3 bucket for ${environment} environment`,
+      statements: [readWritePolicy],
     });
 
     new cdk.CfnOutput(this, 'BucketName', {

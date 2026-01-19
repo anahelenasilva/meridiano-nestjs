@@ -1,0 +1,105 @@
+meta {
+  name: Generate Upload URL
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/api/articles/upload-url
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+      "articleFileName": "articles/2024/01/my-article.md",
+      "contentType": "text/markdown"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  # Generate Pre-signed Upload URL
+  
+  Generates a pre-signed POST URL for uploading markdown articles directly to S3. The URL is valid for 5 minutes and includes validation constraints for file size and content type.
+  
+  ## Request Body
+  
+  - `s3Key` (string, required): The desired S3 key/path for the file to be uploaded
+  - `s3Bucket` (string, optional): The S3 bucket name. If not provided, uses the `S3_ARTICLES_BUCKET_NAME` environment variable.
+  - `contentType` (string, optional): The content type for the upload. Valid values:
+    - `text/markdown` (default)
+    - `text/plain`
+  - `fileSize` (number, optional): Maximum file size in bytes. Defaults to 5MB (5242880 bytes).
+  
+  ## Response
+  
+  Success (200):
+  ```json
+  {
+    "url": "https://meridiano-articles.s3.amazonaws.com",
+    "fields": {
+      "key": "articles/2024/01/my-article.md",
+      "Content-Type": "text/markdown",
+      "X-Amz-Algorithm": "AWS4-HMAC-SHA256",
+      "X-Amz-Credential": "...",
+      "X-Amz-Date": "...",
+      "Policy": "...",
+      "X-Amz-Signature": "..."
+    },
+    "expiresIn": 300
+  }
+  ```
+  
+  Error (400):
+  ```json
+  {
+    "statusCode": 400,
+    "message": "S3 bucket name not provided and S3_ARTICLES_BUCKET_NAME environment variable is not set"
+  }
+  ```
+  
+  ## How to Use the Response
+  
+  1. Create a FormData object with the returned `fields`
+  2. Append your file to the FormData
+  3. POST the FormData to the returned `url`
+  
+  Example (JavaScript):
+  ```javascript
+  const { url, fields } = response;
+  const formData = new FormData();
+  
+  // Add all the fields first
+  Object.entries(fields).forEach(([key, value]) => {
+    formData.append(key, value);
+  });
+  
+  // Add the file last
+  formData.append('file', fileBlob);
+  
+  // Upload to S3
+  await fetch(url, {
+    method: 'POST',
+    body: formData
+  });
+  ```
+  
+  ## Security & Constraints
+  
+  - Pre-signed URL expires after 5 minutes (300 seconds)
+  - File size limited to 5MB by default (customizable via `fileSize` parameter)
+  - Content type restricted to `text/markdown` or `text/plain`
+  - S3 enforces these constraints server-side during upload
+  
+  ## Next Steps
+  
+  After successfully uploading to S3, call the `POST /api/articles/markdown` endpoint with the same `s3Key` to process the uploaded file.
+}

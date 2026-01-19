@@ -11,10 +11,12 @@ import {
   Query,
 } from '@nestjs/common';
 import { QueueService } from '../queue/queue.service';
+import { S3Service } from '../s3/s3.service';
 import { ScraperService } from '../scraper/scraper.service';
 import type { PaginatedArticleInput } from './article.entity';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
+import { GenerateUploadUrlDto } from './dto/generate-upload-url.dto';
 import { ProcessMarkdownArticleDto } from './dto/process-markdown-article.dto';
 import { GetArticleByIdQuery } from './queries/get-article-by-id.query';
 import { ListArticlesQuery } from './queries/list-articles.query';
@@ -27,6 +29,7 @@ export class ArticlesController {
     private readonly getArticleByIdQuery: GetArticleByIdQuery,
     private readonly scraperService: ScraperService,
     private readonly queueService: QueueService,
+    private readonly s3Service: S3Service,
   ) { }
 
   @Post()
@@ -63,6 +66,47 @@ export class ArticlesController {
 
       throw new BadRequestException(
         `Failed to scrape article: ${errorMessage}`,
+      );
+    }
+  }
+
+  @Post('upload-url')
+  async generateUploadUrl(@Body() dto: GenerateUploadUrlDto) {
+    const {
+      articleFileName,
+      s3Bucket,
+      contentType,
+      fileSize
+    } = dto;
+
+    try {
+      const bucketName = s3Bucket || process.env.S3_ARTICLES_BUCKET_NAME;
+
+      if (!bucketName) {
+        throw new BadRequestException(
+          'S3 bucket name not provided and S3_ARTICLES_BUCKET_NAME environment variable is not set',
+        );
+      }
+
+      const result = await this.s3Service.generatePresignedPostUrl(
+        bucketName,
+        articleFileName,
+        contentType,
+        fileSize,
+      );
+
+      return result;
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+
+      const errorMessage = error instanceof Error ?
+        error.message :
+        'Unknown error occurred';
+
+      throw new BadRequestException(
+        `Failed to generate upload URL: ${errorMessage}`,
       );
     }
   }

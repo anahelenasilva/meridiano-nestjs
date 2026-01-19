@@ -1,9 +1,11 @@
 import { S3Client } from '@aws-sdk/client-s3';
+import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Readable } from 'stream';
 import { S3Service } from './s3.service';
 
 jest.mock('@aws-sdk/client-s3');
+jest.mock('@aws-sdk/s3-presigned-post');
 
 describe('S3Service', () => {
   let service: S3Service;
@@ -189,6 +191,219 @@ describe('S3Service', () => {
       const result = await service.downloadMarkdownFile(bucketName, key);
 
       expect(result).toBe(expectedContent);
+    });
+  });
+
+  describe('generatePresignedPostUrl', () => {
+    const mockCreatePresignedPost = createPresignedPost as jest.MockedFunction<typeof createPresignedPost>;
+
+    beforeEach(() => {
+      mockCreatePresignedPost.mockClear();
+    });
+
+    it('should generate presigned POST URL with default settings', async () => {
+      const bucketName = 'test-bucket';
+      const key = 'articles/test-article.md';
+      const mockUrl = 'https://test-bucket.s3.amazonaws.com';
+      const mockFields = {
+        key: 'articles/test-article.md',
+        'Content-Type': 'text/markdown',
+        bucket: 'test-bucket',
+        'X-Amz-Algorithm': 'AWS4-HMAC-SHA256',
+      };
+
+      mockCreatePresignedPost.mockResolvedValueOnce({
+        url: mockUrl,
+        fields: mockFields,
+      });
+
+      const result = await service.generatePresignedPostUrl(bucketName, key);
+
+      expect(result).toEqual({
+        url: mockUrl,
+        fields: mockFields,
+        expiresIn: 300,
+      });
+
+      expect(mockCreatePresignedPost).toHaveBeenCalledWith(
+        expect.anything(),
+        expect.objectContaining({
+          Bucket: bucketName,
+          Key: key,
+          Conditions: [
+            ['content-length-range', 0, 5 * 1024 * 1024],
+            ['eq', '$Content-Type', 'text/markdown'],
+          ],
+          Fields: {
+            'Content-Type': 'text/markdown',
+          },
+          Expires: 300,
+        }),
+      );
+    });
+
+    it('should generate presigned POST URL with custom content type', async () => {
+      const bucketName = 'test-bucket';
+      const key = 'articles/test-article.txt';
+      const contentType = 'text/plain';
+      const mockUrl = 'https://test-bucket.s3.amazonaws.com';
+      const mockFields = {
+        key: 'articles/test-article.txt',
+        'Content-Type': 'text/plain',
+      };
+
+      mockCreatePresignedPost.mockResolvedValueOnce({
+        url: mockUrl,
+        fields: mockFields,
+      });
+
+      const result = await service.generatePresignedPostUrl(
+        bucketName,
+        key,
+        contentType,
+      );
+
+      expect(result).toEqual({
+        url: mockUrl,
+        fields: mockFields,
+        expiresIn: 300,
+      });
+
+      expect(mockCreatePresignedPost).toHaveBeenCalledWith(
+        expect.anything(),
+        expect.objectContaining({
+          Conditions: expect.arrayContaining([
+            ['eq', '$Content-Type', 'text/plain'],
+          ]),
+          Fields: {
+            'Content-Type': 'text/plain',
+          },
+        }),
+      );
+    });
+
+    it('should use default content type for invalid content type', async () => {
+      const bucketName = 'test-bucket';
+      const key = 'articles/test-article.md';
+      const invalidContentType = 'application/json';
+      const mockUrl = 'https://test-bucket.s3.amazonaws.com';
+      const mockFields = {
+        key: 'articles/test-article.md',
+        'Content-Type': 'text/markdown',
+      };
+
+      mockCreatePresignedPost.mockResolvedValueOnce({
+        url: mockUrl,
+        fields: mockFields,
+      });
+
+      const result = await service.generatePresignedPostUrl(
+        bucketName,
+        key,
+        invalidContentType,
+      );
+
+      expect(result.fields['Content-Type']).toBe('text/markdown');
+      expect(mockCreatePresignedPost).toHaveBeenCalledWith(
+        expect.anything(),
+        expect.objectContaining({
+          Fields: {
+            'Content-Type': 'text/markdown',
+          },
+        }),
+      );
+    });
+
+    it('should generate presigned POST URL with custom file size', async () => {
+      const bucketName = 'test-bucket';
+      const key = 'articles/test-article.md';
+      const customFileSize = 2 * 1024 * 1024;
+      const mockUrl = 'https://test-bucket.s3.amazonaws.com';
+      const mockFields = {
+        key: 'articles/test-article.md',
+        'Content-Type': 'text/markdown',
+      };
+
+      mockCreatePresignedPost.mockResolvedValueOnce({
+        url: mockUrl,
+        fields: mockFields,
+      });
+
+      const result = await service.generatePresignedPostUrl(
+        bucketName,
+        key,
+        undefined,
+        customFileSize,
+      );
+
+      expect(result).toBeDefined();
+      expect(mockCreatePresignedPost).toHaveBeenCalledWith(
+        expect.anything(),
+        expect.objectContaining({
+          Conditions: expect.arrayContaining([
+            ['content-length-range', 0, customFileSize],
+          ]),
+        }),
+      );
+    });
+
+    it('should handle errors when generating presigned POST URL', async () => {
+      const bucketName = 'test-bucket';
+      const key = 'articles/test-article.md';
+      const error = new Error('AWS credentials not configured');
+
+      mockCreatePresignedPost.mockRejectedValueOnce(error);
+
+      await expect(
+        service.generatePresignedPostUrl(bucketName, key),
+      ).rejects.toThrow(
+        `Failed to generate presigned POST URL for ${key}: AWS credentials not configured`,
+      );
+    });
+
+    it('should enforce 5MB default file size limit', async () => {
+      const bucketName = 'test-bucket';
+      const key = 'articles/test-article.md';
+      const mockUrl = 'https://test-bucket.s3.amazonaws.com';
+      const mockFields = { key };
+
+      mockCreatePresignedPost.mockResolvedValueOnce({
+        url: mockUrl,
+        fields: mockFields,
+      });
+
+      await service.generatePresignedPostUrl(bucketName, key);
+
+      expect(mockCreatePresignedPost).toHaveBeenCalledWith(
+        expect.anything(),
+        expect.objectContaining({
+          Conditions: expect.arrayContaining([
+            ['content-length-range', 0, 5 * 1024 * 1024],
+          ]),
+        }),
+      );
+    });
+
+    it('should set expiration to 5 minutes (300 seconds)', async () => {
+      const bucketName = 'test-bucket';
+      const key = 'articles/test-article.md';
+      const mockUrl = 'https://test-bucket.s3.amazonaws.com';
+      const mockFields = { key };
+
+      mockCreatePresignedPost.mockResolvedValueOnce({
+        url: mockUrl,
+        fields: mockFields,
+      });
+
+      const result = await service.generatePresignedPostUrl(bucketName, key);
+
+      expect(result.expiresIn).toBe(300);
+      expect(mockCreatePresignedPost).toHaveBeenCalledWith(
+        expect.anything(),
+        expect.objectContaining({
+          Expires: 300,
+        }),
+      );
     });
   });
 });
