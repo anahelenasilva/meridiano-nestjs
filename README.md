@@ -312,7 +312,7 @@ Breaking down this regex parttern:
 - [x] Endpoint to create channel
 - [x] Add auth
 - [x] Make it possible to upload a markdown file to S3 with an article and send an event to the queue to process this md file
-- [ ] Change the s3 upload to use the pre signed post from s3
+- [x] Change the s3 upload to use the pre signed post from s3
 - [ ] Migrate feeds configs to a table
 - [ ] Refactor all tests to use jest-mock-extended
 - [ ] Send email with articles briefings; use my `personal-sendmail-api` (create validation on aws SES for meridiano)
