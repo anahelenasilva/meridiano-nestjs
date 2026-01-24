@@ -15,3 +15,17 @@ Started: Sat Jan 24 16:01:45 -03 2026
   - TypeScript compilation succeeds even with empty libs directory
   - Directory structure follows standard NestJS patterns (module/service structure)
 ---
+
+## 2026-01-24 16:18:00 - US-002
+- Moved all S3 module files to libs/s3/ using git mv (preserves history)
+- Files moved: s3.module.ts, s3.service.ts, s3.module.spec.ts, s3.service.spec.ts
+- Removed src/s3/ directory
+- Updated imports to use relative paths to libs/s3/ (US-006 will update to @libs/s3 alias)
+- Verified git history preserved (git log --follow shows original commits)
+- Typecheck passes
+- **Learnings for future iterations:**
+  - git mv preserves full file history (verified with git log --follow)
+  - When moving modules, imports need immediate update for typecheck to pass
+  - Relative paths work temporarily, but @libs/* alias will be cleaner (US-006)
+  - All import locations: app.module.ts, articles.module.ts, articles.controller.ts, queue.module.ts, markdown-article.processor.ts, markdown-article.processor.spec.ts
+---
