@@ -40,7 +40,7 @@ In your `app.module.ts` or any feature module:
 
 ```typescript
 import { Module } from '@nestjs/common';
-import { EmailModule } from './email/email.module';
+import { EmailModule } from '@libs/email';
 
 @Module({
   imports: [
@@ -51,13 +51,24 @@ import { EmailModule } from './email/email.module';
 export class AppModule {}
 ```
 
+**Note:** The email module uses the `forRoot()` pattern to dynamically configure the email provider based on environment variables. Always use `EmailModule.forRoot()` when importing the module - this ensures the correct provider is initialized based on your `EMAIL_PROVIDER` environment variable.
+
+### Why `forRoot()`?
+
+The `forRoot()` static method is used because:
+- **Dynamic Provider Selection**: The email provider is selected at runtime based on the `EMAIL_PROVIDER` environment variable
+- **Dependency Injection**: It uses NestJS dependency injection tokens to abstract the provider implementation
+- **Flexibility**: Makes it easy to switch providers without changing code - just update environment variables
+
+This pattern differs from simpler modules (like `S3Module`) that don't require runtime configuration.
+
 ## Usage
 
 ### Inject and Use the Email Service
 
 ```typescript
 import { Injectable } from '@nestjs/common';
-import { EmailService } from './email/email.service';
+import { EmailService } from '@libs/email';
 
 @Injectable()
 export class MyService {
@@ -128,7 +139,7 @@ You can use the email service in scripts or standalone applications:
 ```typescript
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '../app.module';
-import { EmailService } from '../email/email.service';
+import { EmailService } from '@libs/email';
 
 async function main() {
   const app = await NestFactory.createApplicationContext(AppModule);
