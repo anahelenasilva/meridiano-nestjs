@@ -109,3 +109,23 @@ Started: Fri Jan 24 2026 20:05:00 GMT-0300
 - EmailModule uses forRoot() pattern requiring environment variable setup in tests
 - Test files in libs/ can use relative imports for their module files (don't need @libs/email)
 ---
+
+## Sat Jan 24 2026 20:06:16 GMT-0300 - US-006
+
+- Updated libs/email/README.md with libs import examples using @libs/email pattern
+- Updated all import examples to use @libs/email instead of relative paths
+- Added documentation explaining forRoot() pattern and when to use it
+- Added "Why forRoot()?" section explaining dynamic provider selection, dependency injection, and flexibility
+- Examples show proper module import: EmailModule.forRoot()
+- Examples show proper service injection: EmailService from @libs/email
+- Documentation matches libs structure patterns
+- Verified build passes (typecheck successful)
+
+**Files changed:**
+- Updated: libs/email/README.md (import examples and forRoot() documentation)
+
+**Learnings for future iterations:**
+- README examples should always use @libs/* import pattern, not relative paths
+- Document unique patterns (like forRoot()) to help developers understand when and why to use them
+- Explain the reasoning behind patterns, not just how to use them
+---
