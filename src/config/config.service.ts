@@ -191,4 +191,9 @@ export class ConfigService {
       failureNotificationEmailFrom: process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM || '',
     }
   }
+
+  isBriefingsGenerationEnabled(): boolean {
+    const value = process.env.ENABLE_BRIEFINGS_GENERATION;
+    return value === 'true' || value === '1' || value === undefined;
+  }
 }

@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '../../config/config.service';
 import { BriefingService } from '../../briefing/briefing.service';
 import {
   GenerateBriefInputDto,
@@ -7,11 +8,22 @@ import {
 
 @Injectable()
 export class GenerateSimpleBriefUseCase {
-  constructor(private readonly briefingService: BriefingService) { }
+  constructor(
+    private readonly briefingService: BriefingService,
+    private readonly configService: ConfigService,
+  ) { }
 
   async execute(
     input: GenerateBriefInputDto,
   ): Promise<GenerateBriefOutputDto> {
+    if (!this.configService.isBriefingsGenerationEnabled()) {
+      return {
+        success: false,
+        briefingId: undefined,
+        error: 'Briefings generation is disabled. Set ENABLE_BRIEFINGS_GENERATION=true to enable.',
+      };
+    }
+
     const result = await this.briefingService.generateSimpleBrief(
       input.feedProfile,
     );

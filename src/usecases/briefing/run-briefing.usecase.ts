@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '../../config/config.service';
 import { ProfilesService } from '../../profiles/profiles.service';
 import { CategorizeArticlesUseCase } from './categorize-articles.usecase';
 import {
@@ -19,6 +20,7 @@ export class RunBriefingUseCase {
     private readonly categorizeArticlesUseCase: CategorizeArticlesUseCase,
     private readonly generateBriefUseCase: GenerateBriefUseCase,
     private readonly profilesService: ProfilesService,
+    private readonly configService: ConfigService,
   ) { }
 
   async execute(input: RunBriefingInputDto): Promise<RunBriefingOutputDto> {
@@ -62,9 +64,20 @@ export class RunBriefingUseCase {
     });
 
     // Stage 5: Brief Generation
-    const briefResult = await this.generateBriefUseCase.execute({
-      feedProfile: input.feedProfile,
-    });
+    let briefResult;
+    if (this.configService.isBriefingsGenerationEnabled()) {
+      briefResult = await this.generateBriefUseCase.execute({
+        feedProfile: input.feedProfile,
+      });
+    } else {
+      console.log('Briefings generation is disabled. Skipping brief generation stage.');
+      briefResult = {
+        success: false,
+        briefingId: undefined,
+        stats: undefined,
+        error: 'Briefings generation is disabled. Set ENABLE_BRIEFINGS_GENERATION=true to enable.',
+      };
+    }
 
     const endTime = new Date();
     const duration = (endTime.getTime() - startTime.getTime()) / 1000;
