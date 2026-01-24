@@ -316,7 +316,12 @@ Breaking down this regex parttern:
 - [ ] Migrate feeds configs to a table
 - [ ] Refactor all tests to use jest-mock-extended
 - [ ] Send email with articles briefings; use my `personal-sendmail-api` (create validation on aws SES for meridiano)
-- [ ] Move the S3, email, auth, database, and queue modules to a libs structure inside this project
+- [ ] Move the following modules to a libs structure inside this project:
+  - [x] S3
+  - [x] Email
+  - [ ] Auth
+  - [ ] Database
+  - [ ] Queue
 
 # How to use Ralph in this project
 
