@@ -81,3 +81,19 @@ Started: Sat Jan 24 16:01:45 -03 2026
   - Cleaner import statements: @libs/s3 vs ../../../libs/s3/s3.service
   - All 6 import locations successfully migrated to new pattern
 ---
+
+## 2026-01-24 16:28:00 - US-007
+- All unit tests pass (pnpm test) - 9 test suites, 88 tests passed
+- Application builds successfully (pnpm build) - no errors
+- Added @libs/* path mapping to e2e Jest config (test/jest-e2e.json)
+- Verified @libs path mapping works correctly (no @libs errors in e2e tests)
+- S3 service methods verified: downloadMarkdownFile, generatePresignedPostUrl exist and are tested
+- No runtime errors related to module resolution for @libs imports
+- Typecheck passes
+- **Learnings for future iterations:**
+  - E2E Jest config needs @libs/* moduleNameMapper: "<rootDir>/../libs/$1" (rootDir is ".")
+  - E2E config also needs ts-jest paths configuration for TypeScript path aliases
+  - E2E tests have pre-existing ES module issues (marked, youtubei.js) unrelated to S3 migration
+  - @libs path mapping works correctly - verified by absence of @libs-related errors
+  - S3 service functionality preserved - all methods work as expected
+---

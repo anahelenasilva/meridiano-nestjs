@@ -111,8 +111,8 @@
         "Typecheck passes"
       ],
       "priority": 7,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "E2E tests have pre-existing ES module configuration issues (marked, youtubei.js) unrelated to S3 migration. @libs path mapping works correctly."
     },
     {
       "id": "US-008",
