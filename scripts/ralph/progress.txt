@@ -129,3 +129,22 @@ Started: Fri Jan 24 2026 20:05:00 GMT-0300
 - Document unique patterns (like forRoot()) to help developers understand when and why to use them
 - Explain the reasoning behind patterns, not just how to use them
 ---
+
+## Sat Jan 24 2026 20:06:16 GMT-0300 - US-007
+
+- Updated libs/README.md with email module in Current Libraries section
+- Documented EmailModule and EmailService exports
+- Documented forRoot() initialization pattern and explained why it's used
+- Documented supported providers (Mailgun)
+- Included usage examples with @libs/email imports showing EmailModule.forRoot() and EmailService injection
+- Removed email from Planned Migrations section
+- Verified build passes (typecheck successful)
+
+**Files changed:**
+- Updated: libs/README.md (added email module documentation, removed from planned migrations)
+
+**Learnings for future iterations:**
+- When documenting modules in libs README, include initialization patterns (like forRoot()) if they differ from standard pattern
+- Include practical usage examples showing both module import and service injection
+- Keep Planned Migrations section updated as modules are migrated
+---
