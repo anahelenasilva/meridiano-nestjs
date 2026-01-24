@@ -67,3 +67,17 @@ Started: Sat Jan 24 16:01:45 -03 2026
   - Tests in libs/ use relative imports (./s3.service) which work fine
   - When src files use @libs/* imports, Jest will resolve them correctly
 ---
+
+## 2026-01-24 16:26:00 - US-006
+- Updated all S3 imports to use @libs/s3 barrel export pattern
+- Files updated: app.module.ts, articles.module.ts, articles.controller.ts, queue.module.ts, markdown-article.processor.ts, markdown-article.processor.spec.ts
+- All imports now use @libs/s3 instead of relative paths (../libs/s3/...)
+- Verified no references to src/s3/ or ../s3/ remain in codebase
+- Typecheck passes (pnpm build)
+- All tests pass (pnpm test) - 9 test suites, 88 tests
+- **Learnings for future iterations:**
+  - @libs/s3 barrel export works perfectly with TypeScript path aliases
+  - Jest moduleNameMapper correctly resolves @libs/* imports in tests
+  - Cleaner import statements: @libs/s3 vs ../../../libs/s3/s3.service
+  - All 6 import locations successfully migrated to new pattern
+---
