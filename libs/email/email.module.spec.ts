@@ -4,14 +4,27 @@ import { EmailService } from './email.service';
 
 describe('EmailModule', () => {
   let module: TestingModule;
-  let originalEmailProvider: string | undefined;
-  let originalMailgunApiKey: string | undefined;
-  let originalMailgunDomain: string | undefined;
+  let originalEnvState: {
+    EMAIL_PROVIDER: { value: string; existed: boolean };
+    MAILGUN_API_KEY: { value: string; existed: boolean };
+    MAILGUN_DOMAIN: { value: string; existed: boolean };
+  };
 
   beforeEach(async () => {
-    originalEmailProvider = process.env.EMAIL_PROVIDER;
-    originalMailgunApiKey = process.env.MAILGUN_API_KEY;
-    originalMailgunDomain = process.env.MAILGUN_DOMAIN;
+    originalEnvState = {
+      EMAIL_PROVIDER: {
+        value: process.env.EMAIL_PROVIDER ?? '',
+        existed: 'EMAIL_PROVIDER' in process.env,
+      },
+      MAILGUN_API_KEY: {
+        value: process.env.MAILGUN_API_KEY ?? '',
+        existed: 'MAILGUN_API_KEY' in process.env,
+      },
+      MAILGUN_DOMAIN: {
+        value: process.env.MAILGUN_DOMAIN ?? '',
+        existed: 'MAILGUN_DOMAIN' in process.env,
+      },
+    };
 
     process.env.EMAIL_PROVIDER = 'mailgun';
     process.env.MAILGUN_API_KEY = 'test-key';
@@ -23,20 +36,20 @@ describe('EmailModule', () => {
   });
 
   afterEach(() => {
-    if (originalEmailProvider !== undefined) {
-      process.env.EMAIL_PROVIDER = originalEmailProvider;
+    if (originalEnvState.EMAIL_PROVIDER.existed) {
+      process.env.EMAIL_PROVIDER = originalEnvState.EMAIL_PROVIDER.value;
     } else {
       delete process.env.EMAIL_PROVIDER;
     }
 
-    if (originalMailgunApiKey !== undefined) {
-      process.env.MAILGUN_API_KEY = originalMailgunApiKey;
+    if (originalEnvState.MAILGUN_API_KEY.existed) {
+      process.env.MAILGUN_API_KEY = originalEnvState.MAILGUN_API_KEY.value;
     } else {
       delete process.env.MAILGUN_API_KEY;
     }
 
-    if (originalMailgunDomain !== undefined) {
-      process.env.MAILGUN_DOMAIN = originalMailgunDomain;
+    if (originalEnvState.MAILGUN_DOMAIN.existed) {
+      process.env.MAILGUN_DOMAIN = originalEnvState.MAILGUN_DOMAIN.value;
     } else {
       delete process.env.MAILGUN_DOMAIN;
     }
