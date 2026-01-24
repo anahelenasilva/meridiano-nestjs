@@ -27,3 +27,27 @@ Started: Fri Jan 24 2026 20:05:00 GMT-0300
 - Build command validates TypeScript types (no separate typecheck script exists)
 - libs/ structure pattern: module-name/ with interfaces/ and providers/ subdirectories for organization
 ---
+
+## Sat Jan 24 2026 20:06:16 GMT-0300 - US-002
+
+- Moved all email module files from src/email/ to libs/email/ using git mv (preserves history)
+- Moved files: email.module.ts, email.service.ts, index.ts, README.md
+- Moved interfaces/ directory: email-provider.interface.ts, send-email-options.interface.ts
+- Moved providers/ directory: mailgun.provider.ts
+- Removed .gitkeep files from interfaces/ and providers/ (no longer needed)
+- Removed src/email/ directory completely
+- Updated imports in src/queue/queue.module.ts and src/queue/queue.service.ts to use @libs/email (required for typecheck to pass)
+- Verified git history preserved with git log --follow
+- Verified build passes (typecheck successful)
+
+**Files changed:**
+- Moved: src/email/* -> libs/email/*
+- Updated: src/queue/queue.module.ts (import EmailModule from @libs/email)
+- Updated: src/queue/queue.service.ts (import EmailService from @libs/email)
+
+**Learnings for future iterations:**
+- git mv preserves file history - verified with git log --follow showing previous commits
+- When moving modules, imports in consuming files must be updated immediately for typecheck to pass
+- Relative imports within moved modules (like ./interfaces/) remain valid after move
+- Removing .gitkeep files after populating directories keeps git history clean
+---
