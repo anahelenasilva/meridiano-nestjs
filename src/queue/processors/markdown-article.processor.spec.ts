@@ -3,7 +3,7 @@ import { Job, Worker } from 'bullmq';
 import { mock, mockReset } from 'jest-mock-extended';
 import { ArticlesService } from '../../articles/articles.service';
 import { ProcessorService } from '../../processor/processor.service';
-import { S3Service } from '../../s3/s3.service';
+import { S3Service } from '@libs/s3';
 import { FeedProfile } from '../../shared/types/feed';
 import { ProcessMarkdownArticleJobData } from '../interfaces/markdown-article-job.interface';
 import { RedisService } from '../redis.service';

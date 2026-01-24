@@ -35,6 +35,41 @@ feature/
 - **Usecases**: Complex business logic orchestration (`src/usecases/`)
 - All should be `@Injectable()` classes with an `execute()` method
 
+### Library Structure (libs/)
+Shared infrastructure modules and cross-cutting concerns are organized in `libs/` at the project root:
+
+```
+libs/
+└── s3/
+    ├── index.ts          # Barrel export (exports module and service)
+    ├── s3.module.ts      # NestJS module definition
+    ├── s3.service.ts     # Service implementation
+    ├── s3.module.spec.ts # Module tests
+    └── s3.service.spec.ts # Service tests
+```
+
+**What belongs in `libs/`:**
+- Shared infrastructure modules (S3, email, auth, database, queue)
+- Reusable utilities used across multiple domain modules
+- Cross-cutting concerns that don't belong to a specific domain
+
+**What stays in `src/`:**
+- Domain-specific modules (articles, users, briefings, etc.)
+- Business logic and use cases
+- API controllers and routes
+- Domain entities and DTOs
+
+**Import Conventions:**
+- Use `@libs/*` path aliases for all libs imports
+- Prefer barrel exports: `import { S3Module, S3Service } from '@libs/s3'`
+- Direct file imports also work: `import { S3Module } from '@libs/s3/s3.module'`
+- Avoid relative paths like `../../libs/s3` - use `@libs/s3` instead
+
+**Barrel Export Pattern:**
+- Each lib module should have an `index.ts` that exports the module and service
+- This enables clean imports via `@libs/module-name`
+- Example: `libs/s3/index.ts` exports `S3Module` and `S3Service`
+
 ### File Naming Conventions
 | Type | File Pattern | Class Pattern |
 |------|--------------|---------------|
