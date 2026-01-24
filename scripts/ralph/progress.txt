@@ -51,3 +51,21 @@ Started: Fri Jan 24 2026 20:05:00 GMT-0300
 - Relative imports within moved modules (like ./interfaces/) remain valid after move
 - Removing .gitkeep files after populating directories keeps git history clean
 ---
+
+## Sat Jan 24 2026 20:06:16 GMT-0300 - US-003
+
+- Updated libs/email/index.ts barrel export to only export EmailModule and EmailService
+- Removed exports of interfaces and providers (internal implementation details)
+- Changed from `export *` to named exports `export { EmailModule }` and `export { EmailService }` (matching S3 pattern)
+- Verified imports work with @libs/email pattern (barrel export)
+- Verified internal module files (email.module.ts, email.service.ts, mailgun.provider.ts) still use relative imports for interfaces/providers
+- Verified build passes (typecheck successful)
+
+**Files changed:**
+- Updated: libs/email/index.ts (barrel export now only exports EmailModule and EmailService)
+
+**Learnings for future iterations:**
+- Barrel exports should use named exports (`export { X }`) not wildcard exports (`export *`) for better tree-shaking and clarity
+- Internal implementation details (interfaces, providers) should not be exported from barrel - only public API (Module and Service)
+- Internal module files can continue using relative imports for their dependencies
+---
