@@ -41,3 +41,16 @@ Started: Sat Jan 24 16:01:45 -03 2026
   - Both patterns will work: @libs/s3 (barrel) and @libs/s3/s3.module (direct)
   - Barrel exports are standard NestJS pattern for library modules
 ---
+
+## 2026-01-24 16:22:00 - US-004
+- Added @libs/* path mapping to tsconfig.json: "@libs/*": ["libs/*"]
+- Verified libs/**/* is included in compilation (libs compiled to dist/)
+- TypeScript compilation succeeds (pnpm build)
+- Path alias configured and ready for use in imports
+- Typecheck passes
+- **Learnings for future iterations:**
+  - Path aliases work with nodenext module resolution
+  - baseUrl: "./" is required for paths to work correctly
+  - libs/**/* is automatically included since no explicit exclude targets it
+  - Path aliases are TypeScript-only - runtime resolution may need additional config (handled by NestJS)
+---
