@@ -97,3 +97,17 @@ Started: Sat Jan 24 16:01:45 -03 2026
   - @libs path mapping works correctly - verified by absence of @libs-related errors
   - S3 service functionality preserved - all methods work as expected
 ---
+
+## 2026-01-24 16:30:00 - US-008
+- Added libs directory structure section to .cursorrules
+- Documented what belongs in libs/ vs src/
+- Documented import conventions (@libs/* path aliases)
+- Documented barrel export pattern with examples
+- Included directory structure example showing libs/s3 organization
+- Typecheck passes
+- **Learnings for future iterations:**
+  - Documentation should be clear about libs/ vs src/ separation
+  - Import conventions help maintain consistency across codebase
+  - Barrel export pattern enables clean imports via @libs/* aliases
+  - Examples in documentation help developers understand patterns quickly
+---
