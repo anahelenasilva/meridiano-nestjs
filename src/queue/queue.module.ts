@@ -4,7 +4,7 @@ import { ArticlesModule } from '../articles/articles.module';
 import { ConfigModule } from '../config/config.module';
 import { EmailModule } from '../email/email.module';
 import { ProcessorModule } from '../processor/processor.module';
-import { S3Module } from '../../libs/s3/s3.module';
+import { S3Module } from '@libs/s3';
 import {
   ARTICLE_PROCESSING_QUEUE,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,

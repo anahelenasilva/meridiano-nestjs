@@ -11,7 +11,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { QueueService } from '../queue/queue.service';
-import { S3Service } from '../../libs/s3/s3.service';
+import { S3Service } from '@libs/s3';
 import { ScraperService } from '../scraper/scraper.service';
 import type { PaginatedArticleInput } from './article.entity';
 import { ArticlesService } from './articles.service';

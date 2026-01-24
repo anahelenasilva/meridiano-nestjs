@@ -3,7 +3,7 @@ import { Job, Worker } from 'bullmq';
 import { parseMarkdownArticle } from '../../articles/helpers/parse-markdown';
 import { ArticlesService } from '../../articles/articles.service';
 import { ProcessorService } from '../../processor/processor.service';
-import { S3Service } from '../../../libs/s3/s3.service';
+import { S3Service } from '@libs/s3';
 import { MARKDOWN_ARTICLE_PROCESSING_QUEUE } from '../../shared/types/queue.constants';
 import { ProcessMarkdownArticleJobData } from '../interfaces/markdown-article-job.interface';
 import { RedisService } from '../redis.service';

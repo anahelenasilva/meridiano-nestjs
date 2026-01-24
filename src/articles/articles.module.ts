@@ -2,7 +2,7 @@ import { Module, forwardRef } from '@nestjs/common';
 import { DatabaseModule } from '../database/database.module';
 import { ProfilesModule } from '../profiles/profiles.module';
 import { QueueModule } from '../queue/queue.module';
-import { S3Module } from '../../libs/s3/s3.module';
+import { S3Module } from '@libs/s3';
 import { ScraperModule } from '../scraper/scraper.module';
 import { ArticlesController } from './articles.controller';
 import { ArticlesService } from './articles.service';
