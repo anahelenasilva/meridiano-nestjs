@@ -54,3 +54,16 @@ Started: Sat Jan 24 16:01:45 -03 2026
   - libs/**/* is automatically included since no explicit exclude targets it
   - Path aliases are TypeScript-only - runtime resolution may need additional config (handled by NestJS)
 ---
+
+## 2026-01-24 16:24:00 - US-005
+- Added @libs/* moduleNameMapper to Jest config: "^@libs/(.*)$": "<rootDir>/../libs/$1"
+- Configured ts-jest path mapping correctly (works with existing rootDir: "src")
+- All unit tests pass (pnpm test) - 9 test suites, 88 tests
+- Jest path mapping ready for @libs/* imports (will be used in US-006)
+- **Learnings for future iterations:**
+  - Jest moduleNameMapper uses regex patterns with capture groups
+  - <rootDir> resolves to Jest's rootDir (src in this case)
+  - Path mapping: <rootDir>/../libs/$1 maps @libs/s3 to ../libs/s3 from src root
+  - Tests in libs/ use relative imports (./s3.service) which work fine
+  - When src files use @libs/* imports, Jest will resolve them correctly
+---
