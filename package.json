@@ -125,7 +125,8 @@
       "node_modules/(?!(youtubei.js)/)"
     ],
     "moduleNameMapper": {
-      "^youtubei.js$": "<rootDir>/__mocks__/youtubei.js.ts"
+      "^youtubei.js$": "<rootDir>/__mocks__/youtubei.js.ts",
+      "^@libs/(.*)$": "<rootDir>/../libs/$1"
     },
     "collectCoverageFrom": [
       "**/*.(t|j)s"
