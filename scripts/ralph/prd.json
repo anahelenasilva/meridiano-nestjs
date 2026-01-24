@@ -1,0 +1,150 @@
+{
+  "project": "meridiano-nestjs",
+  "branchName": "ralph/s3-to-libs-structure",
+  "description": "Migrate the S3 module from src/s3/ to libs/s3/ to establish a proper library structure for shared infrastructure modules. This refactoring separates infrastructure concerns from domain logic and establishes patterns for future migrations.",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Create libs directory structure",
+      "description": "As a developer, I want a libs/ directory at the project root so that infrastructure modules can be organized separately from domain logic.",
+      "acceptanceCriteria": [
+        "libs/ directory exists at project root",
+        "libs/s3/ directory structure is created",
+        "Directory structure follows NestJS module conventions",
+        "Typecheck passes"
+      ],
+      "priority": 1,
+      "passes": true,
+      "notes": ""
+    },
+    {
+      "id": "US-002",
+      "title": "Move S3 module files to libs",
+      "description": "As a developer, I want S3 module files moved to libs/s3/ so that the module is organized as a shared infrastructure library.",
+      "acceptanceCriteria": [
+        "All S3 module files moved to libs/s3/ using git mv (preserves history)",
+        "Files moved: s3.module.ts, s3.service.ts, s3.module.spec.ts, s3.service.spec.ts",
+        "No files remain in src/s3/",
+        "src/s3/ directory removed",
+        "Git history preserved (verified with git log --follow libs/s3/s3.service.ts)",
+        "Typecheck passes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-003",
+      "title": "Create barrel export for S3 module",
+      "description": "As a developer, I want a barrel export (index.ts) in libs/s3/ so that imports can use @libs/s3 instead of explicit file paths.",
+      "acceptanceCriteria": [
+        "libs/s3/index.ts file created",
+        "Exports S3Module and S3Service",
+        "Imports work with both @libs/s3 and @libs/s3/s3.module patterns",
+        "Typecheck passes"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-004",
+      "title": "Configure TypeScript path aliases",
+      "description": "As a developer, I want TypeScript configured to resolve @libs/* path aliases so that imports work correctly across the codebase.",
+      "acceptanceCriteria": [
+        "tsconfig.json includes @libs/* path mapping to libs/*",
+        "tsconfig.json includes libs/**/* in compilation paths",
+        "TypeScript compilation succeeds (pnpm build)",
+        "Typecheck passes"
+      ],
+      "priority": 4,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-005",
+      "title": "Configure Jest path mapping for libs",
+      "description": "As a developer, I want Jest configured to resolve @libs/* paths using ts-jest so that tests can import from libs without errors.",
+      "acceptanceCriteria": [
+        "package.json jest config includes moduleNameMapper for @libs/*",
+        "ts-jest path mapping configured correctly",
+        "All unit tests pass (pnpm test)",
+        "S3Service tests work with new import paths",
+        "S3Module tests work with new import paths",
+        "Tests pass"
+      ],
+      "priority": 5,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-006",
+      "title": "Update all S3 import statements",
+      "description": "As a developer, I want all S3 imports updated to use @libs/s3 so that the codebase references the correct module location.",
+      "acceptanceCriteria": [
+        "src/app.module.ts import updated to @libs/s3",
+        "src/articles/articles.module.ts import updated to @libs/s3",
+        "src/articles/articles.controller.ts import updated to @libs/s3",
+        "src/queue/queue.module.ts import updated to @libs/s3",
+        "src/queue/processors/markdown-article.processor.ts import updated to @libs/s3",
+        "src/queue/processors/markdown-article.processor.spec.ts import updated to @libs/s3",
+        "All imports use @libs/s3 pattern (barrel export)",
+        "No references to src/s3/ or ../s3/ remain",
+        "Typecheck passes"
+      ],
+      "priority": 6,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-007",
+      "title": "Verify functionality after migration",
+      "description": "As a developer, I want all existing functionality to work after migration so that no breaking changes are introduced.",
+      "acceptanceCriteria": [
+        "All unit tests pass (pnpm test)",
+        "All integration tests pass (pnpm test:e2e)",
+        "Application builds successfully (pnpm build)",
+        "Application starts without errors (pnpm start:dev)",
+        "S3 service methods work correctly (downloadMarkdownFile, generatePresignedPostUrl)",
+        "No runtime errors related to module resolution",
+        "Tests pass",
+        "Typecheck passes"
+      ],
+      "priority": 7,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-008",
+      "title": "Update .cursorrules documentation",
+      "description": "As a developer, I want .cursorrules updated to document the libs structure so that future development follows established patterns.",
+      "acceptanceCriteria": [
+        ".cursorrules includes section on libs directory structure",
+        "Documents what belongs in libs/ vs src/",
+        "Documents import conventions (@libs/*)",
+        "Documents barrel export pattern",
+        "Typecheck passes"
+      ],
+      "priority": 8,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-009",
+      "title": "Create libs README documentation",
+      "description": "As a developer, I want a libs/README.md documenting the libs structure so that patterns are clear for future migrations.",
+      "acceptanceCriteria": [
+        "libs/README.md file created",
+        "Documents purpose of libs directory",
+        "Explains what belongs in libs vs src",
+        "Documents import conventions",
+        "Documents testing patterns for libs",
+        "Includes examples of proper usage",
+        "Lists current libs (S3) and planned migrations"
+      ],
+      "priority": 9,
+      "passes": false,
+      "notes": ""
+    }
+  ]
+}
