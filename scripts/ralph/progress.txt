@@ -29,3 +29,15 @@ Started: Sat Jan 24 16:01:45 -03 2026
   - Relative paths work temporarily, but @libs/* alias will be cleaner (US-006)
   - All import locations: app.module.ts, articles.module.ts, articles.controller.ts, queue.module.ts, markdown-article.processor.ts, markdown-article.processor.spec.ts
 ---
+
+## 2026-01-24 16:20:00 - US-003
+- Created libs/s3/index.ts barrel export file
+- Exports S3Module and S3Service
+- Barrel export ready for @libs/s3 alias (will be configured in US-004)
+- Direct file imports (@libs/s3/s3.module) will still work once alias is configured
+- Typecheck passes
+- **Learnings for future iterations:**
+  - Barrel exports (index.ts) allow cleaner imports via path aliases
+  - Both patterns will work: @libs/s3 (barrel) and @libs/s3/s3.module (direct)
+  - Barrel exports are standard NestJS pattern for library modules
+---
