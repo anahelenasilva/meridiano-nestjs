@@ -69,3 +69,20 @@ Started: Fri Jan 24 2026 20:05:00 GMT-0300
 - Internal implementation details (interfaces, providers) should not be exported from barrel - only public API (Module and Service)
 - Internal module files can continue using relative imports for their dependencies
 ---
+
+## Sat Jan 24 2026 20:06:16 GMT-0300 - US-004
+
+- All email imports already updated to @libs/email in US-002 (required for typecheck to pass)
+- Verified src/queue/queue.module.ts uses @libs/email
+- Verified src/queue/queue.service.ts uses @libs/email
+- Verified no references to src/email/ or ../email/ remain in codebase
+- Verified internal email module files use relative imports for interfaces/providers
+- Verified build passes (typecheck successful)
+
+**Files changed:**
+- Already updated in US-002: src/queue/queue.module.ts, src/queue/queue.service.ts
+
+**Learnings for future iterations:**
+- When moving modules, import updates may need to happen in the same story to satisfy typecheck requirements
+- Use grep to verify no old import paths remain after migration
+---

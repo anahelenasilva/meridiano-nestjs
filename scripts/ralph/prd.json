@@ -64,8 +64,8 @@
         "Typecheck passes"
       ],
       "priority": 4,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Completed as part of US-002 (required for typecheck to pass)"
     },
     {
       "id": "US-005",
