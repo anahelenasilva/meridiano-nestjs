@@ -57,11 +57,11 @@ pnpm ralph --max-iterations 5
 
 The TypeScript version (`ralph.ts`) is designed for Cursor chat:
 
-- ✅ No external CLI dependencies (`amp` or `claude`)
-- ✅ Works directly in Cursor chat by referencing the file
-- ✅ Provides all context needed for the AI to execute tasks
-- ✅ Tracks progress and manages iterations
-- ✅ Auto-archives previous runs when branch changes
+- No external CLI dependencies (`amp` or `claude`)
+- Works directly in Cursor chat by referencing the file
+- Provides all context needed for the AI to execute tasks
+- Tracks progress and manages iterations
+- Auto-archives previous runs when branch changes
 
 ## Example Session
 
