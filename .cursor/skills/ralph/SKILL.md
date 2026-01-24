@@ -121,7 +121,11 @@ Frontend stories are NOT complete until visually verified. Ralph will use the de
 2. **IDs**: Sequential (US-001, US-002, etc.)
 3. **Priority**: Based on dependency order, then document order
 4. **All stories**: `passes: false` and empty `notes`
-5. **branchName**: Derive from feature name, kebab-case, prefixed with `ralph/`
+5. **branchName**: Derive from task name, kebab-case, following the "Conventional Branch" specification:
+   1. `feat/task-name`: Feature branches are used to develop new features
+   2. `fix/task-name`: Fix branches are used to fix bugs
+   3. `improvement/task-name`: Improvement branches are used for enhancements and optimizations
+   5. `chore/task-name`: Chore branches are used for non-code tasks like dependency, docs updates
 6. **Always add**: "Typecheck passes" to every story's acceptance criteria
 
 ---
