@@ -2,9 +2,48 @@
 
 Ralph is an autonomous coding agent that works through user stories in a PRD (Product Requirements Document) iteratively. This version is designed to work inside Cursor chat instead of using external CLI tools like `amp` or `claude`.
 
+This was inspired by [snarktank/ralph](https://github.com/snarktank/ralph).
+
 ## How It Works
 
 Ralph reads a `prd.json` file containing user stories, then executes them one by one following the instructions in `prompt.md`. After each story is completed, it moves to the next highest priority story until all are done.
+
+### 1. How to generate the PRD file
+
+In Cursor chat, use the PRD skill to generate a detailed requirements document:
+```plaintext
+/generate-prd create a PRD for moving the S3 modules to a lib structure inside this project
+```
+
+Answer the clarifying questions. The skill saves output to `tasks/prd-[feature-name].md`.
+
+### 2. How to convert PRD to Ralph format
+
+In Cursor chat, use the Ralph skill to convert the markdown PRD to JSON:
+```plaintext
+/ralph convert tasks/prd-[feature-name].md to prd.json
+```
+
+### 3. Run Ralph
+
+In Cursor chat, simply reference the script:
+
+```plaintext
+@scripts/ralph/ralph.ts
+```
+
+Default is 10 iterations. Use `--tool amp` or `--tool claude` to select your AI coding tool.
+
+Ralph will:
+
+1. Create a feature branch (from PRD `branchName`)
+2. Pick the highest priority story where `passes: false`
+3. Implement that single story
+4. Run quality checks (typecheck, tests)
+5. Commit if checks pass
+6. Update `prd.json` to mark story as `passes: true`
+7. Append learnings to `progress.txt`
+8. Repeat until all stories pass or max iterations reached
 
 ## Usage in Cursor Chat
 

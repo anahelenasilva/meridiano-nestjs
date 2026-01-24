@@ -318,7 +318,47 @@ Breaking down this regex parttern:
 - [ ] Send email with articles briefings; use my `personal-sendmail-api` (create validation on aws SES for meridiano)
 - [ ] Move the S3, email, auth, database, and queue modules to a libs structure inside this project
 
-## API Documentation
+# How to use Ralph in this project
+
+Ralph is an autonomous coding agent that works through user stories in a PRD (Product Requirements Document) iteratively.
+
+It reads a `prd.json` file containing user stories, then executes them one by one following the instructions in `prompt.md`. After each story is completed, it moves to the next highest priority story until all are done.
+
+## 1. How to generate the PRD file
+
+In Cursor chat, use the PRD skill to generate a detailed requirements document:
+```plaintext
+/generate-prd create a PRD for [feature name]
+```
+
+Answer the clarifying questions. The skill saves output to `tasks/prd-[feature-name].md`.
+
+## 2. How to convert PRD to Ralph format
+
+In Cursor chat, use the Ralph skill to convert the markdown PRD to JSON:
+```plaintext
+/ralph convert tasks/prd-[feature-name].md to prd.json
+```
+
+## 3. Run Ralph
+
+In Cursor chat, simply reference the script:
+
+```plaintext
+@scripts/ralph/ralph.ts
+```
+
+This will load the script and execute one iteration, showing you:
+- The current status (completed/total stories)
+- The next story to work on
+- The full prompt instructions
+- Current progress log
+
+Then you (or the AI assistant) can execute the instructions to implement the story.
+
+For more information, access [Ralph documentation here](./scripts/ralph/README.md).
+
+# API Documentation
 
 For detailed API documentation, see:
 - [Bookmarks API Documentation](docs/bookmarks/BOOKMARKS_API.md) - Complete guide for users and bookmarks endpoints
