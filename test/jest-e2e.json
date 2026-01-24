@@ -4,6 +4,19 @@
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",
   "transform": {
-    "^.+\\.(t|j)s$": "ts-jest"
+    "^.+\\.(t|j)s$": ["ts-jest", {
+      "tsconfig": {
+        "paths": {
+          "@libs/*": ["libs/*"]
+        }
+      }
+    }]
+  },
+  "transformIgnorePatterns": [
+    "node_modules/(?!(youtubei.js)/)"
+  ],
+  "moduleNameMapper": {
+    "^youtubei.js$": "<rootDir>/../src/__mocks__/youtubei.js.ts",
+    "^@libs/(.*)$": "<rootDir>/../libs/$1"
   }
 }
