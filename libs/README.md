@@ -165,11 +165,48 @@ AWS S3 integration module providing:
 **Migration Date**: January 2026  
 **Original Location**: `src/s3/`
 
+### Email (`libs/email/`)
+
+Email service module providing provider-agnostic email sending:
+- `EmailModule`: NestJS module with `forRoot()` initialization pattern
+- `EmailService`: Service for sending emails
+  - `sendEmail()`: Send emails with support for multiple recipients and CC
+
+**Initialization Pattern**: Uses `EmailModule.forRoot()` to dynamically configure the email provider based on environment variables.
+
+**Supported Providers**:
+- **Mailgun** (default) - Configured via `MAILGUN_API_KEY` and `MAILGUN_DOMAIN` environment variables
+
+**Usage Example**:
+```typescript
+import { Module } from '@nestjs/common';
+import { EmailModule, EmailService } from '@libs/email';
+
+@Module({
+  imports: [EmailModule.forRoot()],
+})
+export class AppModule {}
+
+// In a service
+constructor(private readonly emailService: EmailService) {}
+
+async sendEmail() {
+  const result = await this.emailService.sendEmail({
+    from: 'noreply@example.com',
+    to: 'recipient@example.com',
+    subject: 'Hello',
+    text: 'Email body',
+  });
+}
+```
+
+**Migration Date**: January 2026  
+**Original Location**: `src/email/`
+
 ## Planned Migrations
 
 The following modules are candidates for migration to `libs/`:
 
-- **Email** (`src/email/`) - Email sending infrastructure
 - **Auth** (`src/auth/`) - Authentication infrastructure (if shared)
 - **Database** (`src/database/`) - Database connection and utilities
 - **Queue** (`src/queue/`) - Queue infrastructure (if shared)

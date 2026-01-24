@@ -2,7 +2,7 @@ import { Module, forwardRef } from '@nestjs/common';
 import { Queue } from 'bullmq';
 import { ArticlesModule } from '../articles/articles.module';
 import { ConfigModule } from '../config/config.module';
-import { EmailModule } from '../email/email.module';
+import { EmailModule } from '@libs/email';
 import { ProcessorModule } from '../processor/processor.module';
 import { S3Module } from '@libs/s3';
 import {

@@ -1,7 +1,7 @@
 import { Inject, Injectable, NotFoundException, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { Queue, QueueEvents } from 'bullmq';
 import { ConfigService } from '../config/config.service';
-import { EmailService } from '../email/email.service';
+import { EmailService } from '@libs/email';
 import { FeedProfile } from '../shared/types/feed';
 import {
   ARTICLE_PROCESSING_QUEUE,
