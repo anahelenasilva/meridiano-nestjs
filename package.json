@@ -116,7 +116,10 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "roots": [
+      "<rootDir>/src",
+      "<rootDir>/libs"
+    ],
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
@@ -125,13 +128,14 @@
       "node_modules/(?!(youtubei.js)/)"
     ],
     "moduleNameMapper": {
-      "^youtubei.js$": "<rootDir>/__mocks__/youtubei.js.ts",
-      "^@libs/(.*)$": "<rootDir>/../libs/$1"
+      "^youtubei.js$": "<rootDir>/src/__mocks__/youtubei.js.ts",
+      "^@libs/(.*)$": "<rootDir>/libs/$1"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "src/**/*.(t|j)s",
+      "libs/**/*.(t|j)s"
     ],
-    "coverageDirectory": "../coverage",
+    "coverageDirectory": "coverage",
     "testEnvironment": "node"
   }
 }
