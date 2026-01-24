@@ -1,133 +1,29 @@
 # Ralph Progress Log
-Started: Sat Jan 24 16:01:45 -03 2026
+Started: Fri Jan 24 2026 20:05:00 GMT-0300
 ---
 
 ## Codebase Patterns
 
+- Empty directories in git require .gitkeep files to be tracked
+- Build command (`pnpm run build`) performs typechecking (no separate typecheck script)
+- libs/ directory structure follows pattern: module-name/ with interfaces/ and providers/ subdirectories
+
 ---
 
-## 2026-01-24 16:16:00 - US-001
-- Created libs/ directory at project root
-- Created libs/s3/ directory structure following NestJS module conventions
-- Verified TypeScript compilation passes
-- **Learnings for future iterations:**
-  - Empty directories are fine - NestJS modules will be created in subsequent stories
-  - TypeScript compilation succeeds even with empty libs directory
-  - Directory structure follows standard NestJS patterns (module/service structure)
----
+## Fri Jan 24 2026 20:05:00 GMT-0300 - US-001
 
-## 2026-01-24 16:18:00 - US-002
-- Moved all S3 module files to libs/s3/ using git mv (preserves history)
-- Files moved: s3.module.ts, s3.service.ts, s3.module.spec.ts, s3.service.spec.ts
-- Removed src/s3/ directory
-- Updated imports to use relative paths to libs/s3/ (US-006 will update to @libs/s3 alias)
-- Verified git history preserved (git log --follow shows original commits)
-- Typecheck passes
-- **Learnings for future iterations:**
-  - git mv preserves full file history (verified with git log --follow)
-  - When moving modules, imports need immediate update for typecheck to pass
-  - Relative paths work temporarily, but @libs/* alias will be cleaner (US-006)
-  - All import locations: app.module.ts, articles.module.ts, articles.controller.ts, queue.module.ts, markdown-article.processor.ts, markdown-article.processor.spec.ts
----
+- Created libs/email/ directory structure at project root
+- Created subdirectories: interfaces/ and providers/
+- Added .gitkeep files to ensure directories are tracked by git
+- Verified build passes (typecheck successful)
+- Directory structure follows NestJS module conventions matching libs/s3/ pattern
 
-## 2026-01-24 16:20:00 - US-003
-- Created libs/s3/index.ts barrel export file
-- Exports S3Module and S3Service
-- Barrel export ready for @libs/s3 alias (will be configured in US-004)
-- Direct file imports (@libs/s3/s3.module) will still work once alias is configured
-- Typecheck passes
-- **Learnings for future iterations:**
-  - Barrel exports (index.ts) allow cleaner imports via path aliases
-  - Both patterns will work: @libs/s3 (barrel) and @libs/s3/s3.module (direct)
-  - Barrel exports are standard NestJS pattern for library modules
----
+**Files changed:**
+- Created: libs/email/interfaces/.gitkeep
+- Created: libs/email/providers/.gitkeep
 
-## 2026-01-24 16:22:00 - US-004
-- Added @libs/* path mapping to tsconfig.json: "@libs/*": ["libs/*"]
-- Verified libs/**/* is included in compilation (libs compiled to dist/)
-- TypeScript compilation succeeds (pnpm build)
-- Path alias configured and ready for use in imports
-- Typecheck passes
-- **Learnings for future iterations:**
-  - Path aliases work with nodenext module resolution
-  - baseUrl: "./" is required for paths to work correctly
-  - libs/**/* is automatically included since no explicit exclude targets it
-  - Path aliases are TypeScript-only - runtime resolution may need additional config (handled by NestJS)
----
-
-## 2026-01-24 16:24:00 - US-005
-- Added @libs/* moduleNameMapper to Jest config: "^@libs/(.*)$": "<rootDir>/../libs/$1"
-- Configured ts-jest path mapping correctly (works with existing rootDir: "src")
-- All unit tests pass (pnpm test) - 9 test suites, 88 tests
-- Jest path mapping ready for @libs/* imports (will be used in US-006)
-- **Learnings for future iterations:**
-  - Jest moduleNameMapper uses regex patterns with capture groups
-  - <rootDir> resolves to Jest's rootDir (src in this case)
-  - Path mapping: <rootDir>/../libs/$1 maps @libs/s3 to ../libs/s3 from src root
-  - Tests in libs/ use relative imports (./s3.service) which work fine
-  - When src files use @libs/* imports, Jest will resolve them correctly
----
-
-## 2026-01-24 16:26:00 - US-006
-- Updated all S3 imports to use @libs/s3 barrel export pattern
-- Files updated: app.module.ts, articles.module.ts, articles.controller.ts, queue.module.ts, markdown-article.processor.ts, markdown-article.processor.spec.ts
-- All imports now use @libs/s3 instead of relative paths (../libs/s3/...)
-- Verified no references to src/s3/ or ../s3/ remain in codebase
-- Typecheck passes (pnpm build)
-- All tests pass (pnpm test) - 9 test suites, 88 tests
-- **Learnings for future iterations:**
-  - @libs/s3 barrel export works perfectly with TypeScript path aliases
-  - Jest moduleNameMapper correctly resolves @libs/* imports in tests
-  - Cleaner import statements: @libs/s3 vs ../../../libs/s3/s3.service
-  - All 6 import locations successfully migrated to new pattern
----
-
-## 2026-01-24 16:28:00 - US-007
-- All unit tests pass (pnpm test) - 9 test suites, 88 tests passed
-- Application builds successfully (pnpm build) - no errors
-- Added @libs/* path mapping to e2e Jest config (test/jest-e2e.json)
-- Verified @libs path mapping works correctly (no @libs errors in e2e tests)
-- S3 service methods verified: downloadMarkdownFile, generatePresignedPostUrl exist and are tested
-- No runtime errors related to module resolution for @libs imports
-- Typecheck passes
-- **Learnings for future iterations:**
-  - E2E Jest config needs @libs/* moduleNameMapper: "<rootDir>/../libs/$1" (rootDir is ".")
-  - E2E config also needs ts-jest paths configuration for TypeScript path aliases
-  - E2E tests have pre-existing ES module issues (marked, youtubei.js) unrelated to S3 migration
-  - @libs path mapping works correctly - verified by absence of @libs-related errors
-  - S3 service functionality preserved - all methods work as expected
----
-
-## 2026-01-24 16:30:00 - US-008
-- Added libs directory structure section to .cursorrules
-- Documented what belongs in libs/ vs src/
-- Documented import conventions (@libs/* path aliases)
-- Documented barrel export pattern with examples
-- Included directory structure example showing libs/s3 organization
-- Typecheck passes
-- **Learnings for future iterations:**
-  - Documentation should be clear about libs/ vs src/ separation
-  - Import conventions help maintain consistency across codebase
-  - Barrel export pattern enables clean imports via @libs/* aliases
-  - Examples in documentation help developers understand patterns quickly
----
-
-## 2026-01-24 16:32:00 - US-009
-- Created libs/README.md file with comprehensive documentation
-- Documented purpose of libs directory (infrastructure vs domain separation)
-- Explained what belongs in libs/ vs src/ with clear examples
-- Documented import conventions (@libs/* path aliases) with code examples
-- Documented testing patterns for libs (unit tests, Jest configuration)
-- Included usage examples (module imports, service usage, feature module setup)
-- Listed current libs (S3) with migration date and original location
-- Listed planned migrations (email, auth, database, queue) with migration criteria
-- Included configuration details (TypeScript paths, Jest mapping)
-- Added best practices and migration guide
-- Typecheck passes
-- **Learnings for future iterations:**
-  - Comprehensive README helps developers understand patterns quickly
-  - Examples are crucial for demonstrating proper usage
-  - Migration guide helps future migrations follow established patterns
-  - Documentation should include both "what" and "how" (purpose + examples)
-  - Listing current and planned libs helps track migration progress
+**Learnings for future iterations:**
+- Git doesn't track empty directories - use .gitkeep files when directories need to be committed before they contain files
+- Build command validates TypeScript types (no separate typecheck script exists)
+- libs/ structure pattern: module-name/ with interfaces/ and providers/ subdirectories for organization
 ---
