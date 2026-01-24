@@ -130,8 +130,8 @@
         "Typecheck passes"
       ],
       "priority": 8,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Reviewed .cursorrules - import conventions and barrel export patterns already documented. Email-specific forRoot() pattern documented in libs/email/README.md"
     },
     {
       "id": "US-009",

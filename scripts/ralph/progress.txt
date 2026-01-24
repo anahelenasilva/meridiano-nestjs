@@ -148,3 +148,22 @@ Started: Fri Jan 24 2026 20:05:00 GMT-0300
 - Include practical usage examples showing both module import and service injection
 - Keep Planned Migrations section updated as modules are migrated
 ---
+
+## Sat Jan 24 2026 20:06:16 GMT-0300 - US-008
+
+- Reviewed .cursorrules for email-specific patterns
+- Verified email module is already mentioned in shared infrastructure modules list (line 52)
+- Verified import conventions are already documented (lines 62-66) and apply to all libs modules including email
+- Verified barrel export pattern is already documented (lines 68-71) and applies to all libs modules
+- Email-specific forRoot() pattern is documented in libs/email/README.md (appropriate location for module-specific patterns)
+- No changes needed to .cursorrules - existing patterns cover email module
+- Verified build passes (typecheck successful)
+
+**Files changed:**
+- No changes needed to .cursorrules
+
+**Learnings for future iterations:**
+- Module-specific patterns (like forRoot()) should be documented in module README, not necessarily in .cursorrules
+- .cursorrules should contain general patterns that apply across modules
+- If a pattern is unique to one module, module README is the appropriate place for documentation
+---
