@@ -16,3 +16,13 @@ Started: Sat Jan 24 2026
   - Build passes with empty directory structure
   - Following the same pattern as libs/s3 and libs/email
 ---
+
+## 2026-01-24 - US-002
+- **What was implemented**: Created UserLookupProvider interface to decouple AuthService from UsersService
+- **Files changed**: 
+  - Created libs/auth/interfaces/user-lookup-provider.interface.ts
+- **Learnings for future iterations:**
+  - Interface imports User entity from src/users/user.entity.ts using relative path (acceptable since User is a domain entity)
+  - Interface matches the exact signatures from UsersService: getUserByEmail(email, includePassword) and getUserById(userId)
+  - Both methods return Promise<User | null>
+---
