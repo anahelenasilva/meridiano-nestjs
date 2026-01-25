@@ -51,4 +51,17 @@ Started: Sat Jan 24 2026
   - Injection token pattern allows decoupling from concrete implementations
   - Wrapper module pattern needed to bridge libs module with domain-specific dependencies
   - Git history preserved when using git mv
+
+## 2026-01-24 - US-005
+- **What was implemented**: Moved guards, decorators, and strategies to libs/auth/
+- **Files changed**: 
+  - Moved src/auth/guards/jwt-auth.guard.ts to libs/auth/guards/jwt-auth.guard.ts (using git mv)
+  - Moved src/auth/decorators/public.decorator.ts to libs/auth/decorators/public.decorator.ts (using git mv)
+  - Moved src/auth/strategies/jwt.strategy.ts to libs/auth/strategies/jwt.strategy.ts (using git mv)
+  - Updated JwtStrategy to import AuthService from relative path within libs/auth
+  - Temporarily updated imports in app.controller.ts, app.module.ts, auth.controller.ts, auth.module.ts, users.controller.ts (will be updated to @libs/auth in US-010)
+- **Learnings for future iterations:**
+  - Relative imports within libs/auth work correctly (e.g., '../decorators/public.decorator')
+  - JwtStrategy now imports AuthService from '../auth.service' (relative within libs/auth)
+  - Git history preserved for all moved files
 ---
