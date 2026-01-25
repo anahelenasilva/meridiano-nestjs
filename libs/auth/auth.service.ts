@@ -1,18 +1,20 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { UsersService } from '../users/users.service';
 import { LoginResponseDto } from './dto/login-response.dto';
+import type { UserLookupProvider } from './interfaces/user-lookup-provider.interface';
+
+export const USER_LOOKUP_PROVIDER_TOKEN = 'USER_LOOKUP_PROVIDER';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly usersService: UsersService,
+    @Inject(USER_LOOKUP_PROVIDER_TOKEN) private readonly userLookupProvider: UserLookupProvider,
     private readonly jwtService: JwtService,
   ) { }
 
   async login(email: string, password: string): Promise<LoginResponseDto> {
-    const user = await this.usersService.getUserByEmail(email, true);
+    const user = await this.userLookupProvider.getUserByEmail(email, true);
 
     if (!user) {
       throw new UnauthorizedException('Failed to login');
@@ -39,6 +41,6 @@ export class AuthService {
   }
 
   async validateUser(userId: string) {
-    return this.usersService.getUserById(userId);
+    return this.userLookupProvider.getUserById(userId);
   }
 }

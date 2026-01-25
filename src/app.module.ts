@@ -5,7 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ArticlesModule } from './articles/articles.module';
 import { AuthModule } from './auth/auth.module';
-import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '@libs/auth';
 import { BookmarksModule } from './bookmarks/bookmarks.module';
 import { BriefingModule } from './briefing/briefing.module';
 import { BriefingsModule } from './briefings/briefings.module';

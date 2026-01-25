@@ -203,11 +203,64 @@ async sendEmail() {
 **Migration Date**: January 2026  
 **Original Location**: `src/email/`
 
+### Auth (`libs/auth/`)
+
+Authentication infrastructure module providing JWT-based authentication:
+- `AuthModule`: NestJS module with `forRoot()` and `forRootAsync()` initialization patterns
+- `AuthService`: Service for user authentication and JWT token generation
+  - `login()`: Authenticate user and generate JWT token
+  - `validateUser()`: Validate user by ID
+- `JwtAuthGuard`: Guard for protecting routes with JWT authentication
+- `Public` decorator: Decorator to mark routes as public (bypass authentication)
+- `LoginDto`: DTO for login requests
+- `LoginResponseDto`: DTO for login responses
+
+**Initialization Pattern**: Uses `AuthModule.forRoot()` or `AuthModule.forRootAsync()` to configure a `UserLookupProvider` implementation. The provider interface decouples the auth module from domain-specific user services.
+
+**Usage Example**:
+```typescript
+import { Module } from '@nestjs/common';
+import { AuthModule } from '@libs/auth';
+import { UsersModule } from '../users/users.module';
+import { UserLookupProviderImpl } from './providers/user-lookup.provider';
+
+@Module({
+  imports: [
+    UsersModule,
+    AuthModule.forRootAsync({
+      imports: [UsersModule],
+      useFactory: (usersService: UsersService) => {
+        return new UserLookupProviderImpl(usersService);
+      },
+      inject: [UsersService],
+    }),
+  ],
+})
+export class AuthModule {}
+
+// In a controller
+import { Controller, Post, Body } from '@nestjs/common';
+import { AuthService, LoginDto, LoginResponseDto, Public } from '@libs/auth';
+
+@Controller('api/auth')
+export class AuthController {
+  constructor(private readonly authService: AuthService) {}
+
+  @Public()
+  @Post('login')
+  async login(@Body() loginDto: LoginDto): Promise<LoginResponseDto> {
+    return this.authService.login(loginDto.email, loginDto.password);
+  }
+}
+```
+
+**Migration Date**: January 2026  
+**Original Location**: `src/auth/`
+
 ## Planned Migrations
 
 The following modules are candidates for migration to `libs/`:
 
-- **Auth** (`src/auth/`) - Authentication infrastructure (if shared)
 - **Database** (`src/database/`) - Database connection and utilities
 - **Queue** (`src/queue/`) - Queue infrastructure (if shared)
 
