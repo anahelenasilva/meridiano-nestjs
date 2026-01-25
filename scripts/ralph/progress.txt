@@ -104,4 +104,16 @@ Started: Sat Jan 24 2026
   - Controller uses @libs/auth barrel export for clean imports
   - Wrapper module pattern bridges libs infrastructure with domain-specific dependencies
   - JwtStrategy still provided in wrapper module (needs AuthService which is exported from libs)
+
+## 2026-01-24 - US-010
+- **What was implemented**: Updated all auth imports to use @libs/auth
+- **Files changed**: 
+  - Updated src/app.module.ts to import JwtAuthGuard from @libs/auth
+  - Updated src/app.controller.ts to import Public from @libs/auth
+  - Updated src/users/users.controller.ts to import Public from @libs/auth
+  - src/auth/auth.controller.ts already uses @libs/auth (from US-009)
+- **Learnings for future iterations:**
+  - All public API imports now use @libs/auth barrel export
+  - Internal imports (like JwtStrategy) still use relative paths since not exported from barrel
+  - No references to src/auth/ for infrastructure (only controller and wrapper module remain)
 ---
