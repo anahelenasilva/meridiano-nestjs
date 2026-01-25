@@ -70,6 +70,13 @@ libs/
 - This enables clean imports via `@libs/module-name`
 - Example: `libs/s3/index.ts` exports `S3Module` and `S3Service`
 
+**Module Initialization Patterns:**
+- Simple modules (like `S3Module`) can be imported directly: `imports: [S3Module]`
+- Modules requiring configuration use `forRoot()` or `forRootAsync()`:
+  - `EmailModule.forRoot()` - configures provider based on environment variables
+  - `AuthModule.forRootAsync()` - accepts user lookup provider via factory pattern
+- Use `forRootAsync()` when provider needs dependencies injected (e.g., `AuthModule` with `UserLookupProvider`)
+
 ### File Naming Conventions
 | Type | File Pattern | Class Pattern |
 |------|--------------|---------------|
@@ -114,7 +121,11 @@ throw new UnauthorizedException('Failed to login');
 
 ### Authentication
 - Global JWT auth guard is applied via `APP_GUARD`
-- Use `@Public()` decorator from `src/auth/decorators/public.decorator.ts` for public routes
+- Use `@Public()` decorator from `@libs/auth` for public routes
+- Auth infrastructure is in `libs/auth/` (module, service, guards, decorators, strategies, DTOs)
+- Controllers remain in `src/auth/` (domain-specific)
+- AuthModule uses `forRoot()` or `forRootAsync()` pattern to accept a `UserLookupProvider` implementation
+- User lookup provider pattern decouples auth infrastructure from domain-specific user services
 - User context available via `@CurrentUser()` decorator
 
 ### Database Patterns
