@@ -137,4 +137,14 @@ Started: Sat Jan 24 2026
   - Documentation follows same pattern as other libs modules
   - Includes initialization pattern, usage examples, and migration date
   - Removed auth from Planned Migrations section
+
+## 2026-01-24 - US-013
+- **What was implemented**: Updated .cursorrules to document auth module patterns
+- **Files changed**: 
+  - Updated .cursorrules authentication section to reference @libs/auth
+  - Added module initialization patterns section documenting forRoot() and forRootAsync()
+  - Documented user lookup provider pattern
+- **Learnings for future iterations:**
+  - .cursorrules should document unique patterns for each lib module
+  - Module initialization patterns section helps future developers understand when to use forRoot() vs direct import
 ---
