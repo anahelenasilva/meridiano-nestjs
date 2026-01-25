@@ -26,3 +26,16 @@ Started: Sat Jan 24 2026
   - Interface matches the exact signatures from UsersService: getUserByEmail(email, includePassword) and getUserById(userId)
   - Both methods return Promise<User | null>
 ---
+
+## 2026-01-24 - US-003
+- **What was implemented**: Moved AuthService to libs/auth/ and refactored to use UserLookupProvider interface instead of UsersService
+- **Files changed**: 
+  - Moved src/auth/auth.service.ts to libs/auth/auth.service.ts (using git mv)
+  - Updated AuthService to use UserLookupProvider interface
+  - Temporarily updated imports in auth.controller.ts, auth.module.ts, and jwt.strategy.ts (will be properly refactored in later stories)
+- **Learnings for future iterations:**
+  - Use `import type` for interfaces used in constructor parameters when isolatedModules is enabled
+  - When moving services, temporarily update imports in dependent files to keep build passing (they'll be refactored properly in later stories)
+  - Git history is preserved when using `git mv` (verified with git log --follow)
+  - LoginResponseDto still imported from src/auth/dto/ temporarily (will be moved in US-006)
+---
