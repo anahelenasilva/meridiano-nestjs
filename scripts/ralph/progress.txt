@@ -93,4 +93,15 @@ Started: Sat Jan 24 2026
   - Provider implementation stays in src/auth/ since it's domain-specific (wraps UsersService)
   - Uses @libs/auth import for the interface
   - Properly implements both methods with correct types
+
+## 2026-01-24 - US-009
+- **What was implemented**: Updated src/auth/ to contain only controller and wrapper module
+- **Files changed**: 
+  - Updated src/auth/auth.module.ts to use UserLookupProviderImpl from providers/
+  - Updated src/auth/auth.controller.ts to import from @libs/auth barrel export
+  - Wrapper module properly configures AuthModule.forRootAsync() with UserLookupProviderImpl
+- **Learnings for future iterations:**
+  - Controller uses @libs/auth barrel export for clean imports
+  - Wrapper module pattern bridges libs infrastructure with domain-specific dependencies
+  - JwtStrategy still provided in wrapper module (needs AuthService which is exported from libs)
 ---
