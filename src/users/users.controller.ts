@@ -7,7 +7,7 @@ import {
   ParseUUIDPipe,
   Post
 } from '@nestjs/common';
-import { Public } from '../../libs/auth/decorators/public.decorator';
+import { Public } from '@libs/auth';
 import { CreateUserDto, UserResponseDto } from './user.entity';
 import { UsersService } from './users.service';
 
