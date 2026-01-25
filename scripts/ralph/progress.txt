@@ -64,4 +64,15 @@ Started: Sat Jan 24 2026
   - Relative imports within libs/auth work correctly (e.g., '../decorators/public.decorator')
   - JwtStrategy now imports AuthService from '../auth.service' (relative within libs/auth)
   - Git history preserved for all moved files
+
+## 2026-01-24 - US-006
+- **What was implemented**: Moved DTOs to libs/auth/dto/
+- **Files changed**: 
+  - Moved src/auth/dto/login.dto.ts to libs/auth/dto/login.dto.ts (using git mv)
+  - Moved src/auth/dto/login-response.dto.ts to libs/auth/dto/login-response.dto.ts (using git mv)
+  - Updated AuthService to import LoginResponseDto from './dto/login-response.dto' (relative within libs/auth)
+  - Updated auth.controller.ts to import DTOs from libs/auth/dto/ (temporarily, will use @libs/auth in US-010)
+- **Learnings for future iterations:**
+  - DTOs maintain all validation decorators after move
+  - Git history preserved for moved DTOs
 ---
