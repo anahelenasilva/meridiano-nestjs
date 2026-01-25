@@ -116,4 +116,16 @@ Started: Sat Jan 24 2026
   - All public API imports now use @libs/auth barrel export
   - Internal imports (like JwtStrategy) still use relative paths since not exported from barrel
   - No references to src/auth/ for infrastructure (only controller and wrapper module remain)
+
+## 2026-01-24 - US-011
+- **What was implemented**: Created basic test structure files for auth module
+- **Files changed**: 
+  - Created libs/auth/auth.module.spec.ts
+  - Created libs/auth/auth.service.spec.ts
+  - Created libs/auth/guards/jwt-auth.guard.spec.ts
+- **Learnings for future iterations:**
+  - Tests follow same patterns as libs/email and libs/s3
+  - Use jest-mock-extended for type-safe mocks
+  - Mock ExecutionContext properly with getHandler() and getClass() methods
+  - All tests pass successfully
 ---
