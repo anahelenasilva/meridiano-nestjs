@@ -1,7 +1,7 @@
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { LoginResponseDto } from '../../src/auth/dto/login-response.dto';
+import { LoginResponseDto } from './dto/login-response.dto';
 import type { UserLookupProvider } from './interfaces/user-lookup-provider.interface';
 
 export const USER_LOOKUP_PROVIDER_TOKEN = 'USER_LOOKUP_PROVIDER';
