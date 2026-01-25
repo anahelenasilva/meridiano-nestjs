@@ -38,4 +38,17 @@ Started: Sat Jan 24 2026
   - When moving services, temporarily update imports in dependent files to keep build passing (they'll be refactored properly in later stories)
   - Git history is preserved when using `git mv` (verified with git log --follow)
   - LoginResponseDto still imported from src/auth/dto/ temporarily (will be moved in US-006)
+
+## 2026-01-24 - US-004
+- **What was implemented**: Moved AuthModule to libs/auth/ and refactored to use forRoot()/forRootAsync() pattern with UserLookupProvider
+- **Files changed**: 
+  - Moved src/auth/auth.module.ts to libs/auth/auth.module.ts (using git mv)
+  - Added forRoot() and forRootAsync() static methods to AuthModule
+  - Created temporary wrapper module in src/auth/auth.module.ts (will be properly completed in US-009)
+  - Updated AuthService to use injection token USER_LOOKUP_PROVIDER_TOKEN
+- **Learnings for future iterations:**
+  - Use forRootAsync() with useFactory when provider needs dependencies injected
+  - Injection token pattern allows decoupling from concrete implementations
+  - Wrapper module pattern needed to bridge libs module with domain-specific dependencies
+  - Git history preserved when using git mv
 ---
