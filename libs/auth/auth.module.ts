@@ -7,12 +7,17 @@ import type { UserLookupProvider } from './interfaces/user-lookup-provider.inter
 @Module({})
 export class AuthModule {
   static forRoot(userLookupProvider: new () => UserLookupProvider): DynamicModule {
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret || jwtSecret.trim() === '') {
+      throw new Error('JWT_SECRET is required but not found in environment variables');
+    }
+
     return {
       module: AuthModule,
       imports: [
         PassportModule,
         JwtModule.register({
-          secret: process.env.JWT_SECRET,
+          secret: jwtSecret,
           signOptions: { expiresIn: '24h' },
         }),
       ],
@@ -32,12 +37,17 @@ export class AuthModule {
     inject?: any[];
     imports?: any[];
   }): DynamicModule {
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret || jwtSecret.trim() === '') {
+      throw new Error('JWT_SECRET is required but not found in environment variables');
+    }
+
     return {
       module: AuthModule,
       imports: [
         PassportModule,
         JwtModule.register({
-          secret: process.env.JWT_SECRET,
+          secret: jwtSecret,
           signOptions: { expiresIn: '24h' },
         }),
         ...(options.imports || []),
