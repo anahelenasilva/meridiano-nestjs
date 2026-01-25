@@ -1,13 +1,15 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { LoginResponseDto } from '../../src/auth/dto/login-response.dto';
 import type { UserLookupProvider } from './interfaces/user-lookup-provider.interface';
 
+export const USER_LOOKUP_PROVIDER_TOKEN = 'USER_LOOKUP_PROVIDER';
+
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly userLookupProvider: UserLookupProvider,
+    @Inject(USER_LOOKUP_PROVIDER_TOKEN) private readonly userLookupProvider: UserLookupProvider,
     private readonly jwtService: JwtService,
   ) { }
 
