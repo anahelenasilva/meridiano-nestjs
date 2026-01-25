@@ -84,4 +84,13 @@ Started: Sat Jan 24 2026
   - Barrel export follows same pattern as libs/s3 and libs/email
   - Exports only public API (module, service, guard, decorator, DTOs)
   - Does NOT export internal interfaces (UserLookupProvider) or strategies (JwtStrategy)
+
+## 2026-01-24 - US-008
+- **What was implemented**: Created UserLookupProvider implementation that wraps UsersService
+- **Files changed**: 
+  - Created src/auth/providers/user-lookup.provider.ts
+- **Learnings for future iterations:**
+  - Provider implementation stays in src/auth/ since it's domain-specific (wraps UsersService)
+  - Uses @libs/auth import for the interface
+  - Properly implements both methods with correct types
 ---
