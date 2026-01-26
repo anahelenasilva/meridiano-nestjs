@@ -90,6 +90,14 @@ export const techRSSFeeds: RSSFeed[] = [
       '404 Media is a journalist-founded digital media company exploring the ways technology is shaping-and is shaped by-our world.',
     enabled: true,
   },
+  {
+    url: 'https://www.philschmid.de/rss#/',
+    name: "Philipp Schmid",
+    category: 'tech',
+    description:
+      'A Staff Engineer (Developer Experience and Developer Relations) at Google DeepMind, where he is building the first AI DevRel/DevX team to bring Google DeepMind\'s AI research to every developer.',
+    enabled: true,
+  },
 ];
 
 export const techPrompts = {
