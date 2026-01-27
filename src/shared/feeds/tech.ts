@@ -110,7 +110,7 @@ export const techPrompts = {
   - Organize the summary so it is easy to scan.
 
   Output on the {article_content} property:
-  1) 3-5 sentence overview in plain English.
+  1) 1-2 sentence overview in plain English.
   2) 3-5 sentence summary in technical terms.
   3) Key takeaways as concise bullet points and/or short sections, as appropriate.
   4) Notable data, trends, or memorable quotes called out clearly.
@@ -120,26 +120,35 @@ export const techPrompts = {
   {article_content}
   `,
 
-  impactRating: `Analyze the following article summary and estimate its overall impact. Consider factors like newsworthiness, originality, geographic scope (local vs global), number of people affected, severity, and potential long-term consequences. Be extremely critical and conservative when assigning scores—higher scores should reflect truly exceptional or rare events.
+  impactRating: `Analyze the following technology article summary and estimate its impact on the industry. Consider factors like disruption potential, adoption barriers, security implications, and long-term architectural shifts. Be ruthless; most "breakthroughs" are just marketing noise.
 
-Rate the impact on a scale of 1 to 10, using these guidelines:
+  Rate the impact on a scale of 1 to 10:
 
-1-2: Minimal significance. Niche interest or local news with no broader relevance. Example: A review of a local restaurant or a minor product launch.
+  1-2: Noise / Niche.
+  Minor library updates, niche tool releases, or "Hello World" tutorials. Routine maintenance or bug fixes with zero broader relevance.
+  Example: A minor patch version for a utility library or a generic "Top 10 VS Code Extensions" listicle.
 
-3-4: Regionally notable. Pop culture happenings, local events, or community-focused stories. Example: A local mayor's resignation or a regional festival.
+  3-4: localized / Incremental.
+  Useful but contained. Framework version bumps with nice-to-have features, beta releases of interesting tools, or regional tech policy changes.
+  Example: React 19 minor alpha release or a new CSS feature gaining partial browser support.
 
-5-6: Regionally significant or moderately global. Affects multiple communities or industries. Example: A nationwide strike or a major company bankruptcy. Also includes minor updates to popular programming languages or frameworks, especially Typescript, Javascript and NodeJs that have limited impact on the developer community.
+  5-6: Significant / Ecosystem Shift.
+  Affects a large developer base or enterprise stack. Major version releases of dominant languages (TypeScript, Python) or runtimes (Node.js, Bun). Vulnerabilities requiring widespread patching.
+  Example: Next.js major release with breaking changes, a CVE in a popular npm package, or a mid-sized tech acquisition.
 
-7-8: Highly significant. Major international relevance, significant disruptions, or wide-reaching implications. Example: A large-scale natural disaster, global health alerts, or a major geopolitical shift. Also includes articles about Typescript or JavaScript frameworks updates that have substantial implications for the developer community. Also includes significant changes in NodeJs that impact a wide range of applications and services.
+  7-8: Industry Shaking / Disruptive.
+  fundamentally changes how software is built or deployed. Paradigm shifts, massive security breaches affecting millions, or hardware breakthroughs that unlock new software capabilities.
+  Example: The release of GPT-4, the Log4j vulnerability, or Apple Silicon forcing ARM architecture mainstream.
 
-9-10: Extraordinary and historic. Global, severe, and long-lasting implications. Example: Declaration of war, groundbreaking global treaties, or critical climate crises. Also, major technological breakthroughs that redefine industries or human capabilities. Also includes events that fundamentally alter societal structures or global governance.
+  9-10: Paradigm Shift / Historic.
+  redefines computing. Rare events that render previous technologies obsolete or alter the trajectory of human-computer interaction.
+  Example: The invention of the World Wide Web, the launch of the first iPhone, or the achievement of commercial AGI.
 
-Key Reminder: Scores of 9-10 should be exceedingly rare and reserved for world-defining events. Always err on the side of a lower score unless the impact is undeniably significant.
+  Key Reminder: True 9s and 10s happen once a decade. If it's just a new JavaScript framework, it's probably a 3. Keep it grounded.
+  Summary:
+  "{summary}"
 
-Summary:
-"{summary}"
-
-Output ONLY the integer number representing your rating (1-10).`,
+  Output ONLY the integer number representing your rating (1-10).`,
 
   briefSynthesis: `You are an AI assistant writing a daily intelligence briefing for a tech and politics youtuber using Markdown. The quality of this briefing is vital for the development of the channel. Synthesize the following analyzed news clusters into a coherent, high-level executive summary. Start with the 2-3 most critical overarching themes globally based *only* on these inputs. Then, provide concise bullet points summarizing key developments within the most significant clusters (roughly 7-10 clusters) and a paragraph summarizing connections and conclusions between the points. Maintain an objective, analytical tone. Avoid speculation. Try to include the sources of each statement using a numbered reference style using Markdown link syntax. The link should reference the article title and NOT the news cluster, and link to the article link which is available right after it's summary. It's vital to understand the source of the information for later analysis.
 
