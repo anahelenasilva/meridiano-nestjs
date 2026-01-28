@@ -99,12 +99,15 @@ $ pnpm run migration:revert
 ```
 
 ### Create tables in the local database
+
 1. Install dependencies (if you haven't already):
+
 ```bash
 $ pnpm install
 ```
 
 2. Create a .env file in the project root with your database configuration:
+
 ```env
 DATABASE_TYPE=postgres
 DATABASE_USER=postgres
@@ -115,6 +118,7 @@ DATABASE_NAME=meridian
 ```
 
 3. Start the PostgreSQL database using Docker:
+
 ```bash
 $ pnpm run docker:up
 ```
@@ -122,20 +126,24 @@ $ pnpm run docker:up
 This will start both PostgreSQL and Redis containers in the background.
 
 4. Build the project (this compiles the TypeScript migration files to JavaScript):
+
 ```bash
 $ pnpm run build
 ```
 
 5. Run migrations - You have two options:
-Option A: Run migrations manually (recommended for first time):
+   Option A: Run migrations manually (recommended for first time):
+
 ```bash
 pnpm run migration:run
 ```
 
 Option B: Let migrations run automatically on app startup:
+
 ```bash
 pnpm run start:dev
 ```
+
 The migrations will run automatically because we configured the DatabaseModule (from `@libs/database`) to execute them on startup.
 
 ### Verification
@@ -143,27 +151,32 @@ The migrations will run automatically because we configured the DatabaseModule (
 To verify your tables were created successfully:
 
 1. **Connect to your PostgreSQL database:**
+
 ```bash
 docker exec -it meridiano-postgres-local psql -U postgres -d meridian
 ```
 
 2. **List all tables:**
+
 ```sql
 \dt
 ```
 
 You should see:
+
 - `articles`
 - `briefings`
 - `youtube_transcriptions`
 - `typeorm_migrations` (tracks which migrations have run)
 
 3. **View a table structure:**
+
 ```sql
 \d articles
 ```
 
 4. **Exit psql:**
+
 ```sql
 \q
 ```
@@ -171,6 +184,7 @@ You should see:
 ### Environment-Specific Setup
 
 **Local Development:**
+
 ```bash
 # Uses docker-compose with 'local' profile
 COMPOSE_PROFILE=local
@@ -179,6 +193,7 @@ pnpm run start:dev
 ```
 
 **Staging:**
+
 ```bash
 # Uses docker-compose with 'staging' profile
 COMPOSE_PROFILE=staging
@@ -187,6 +202,7 @@ pnpm run start
 ```
 
 **Production:**
+
 ```bash
 # Uses docker-compose with 'production' profile
 COMPOSE_PROFILE=production
@@ -287,6 +303,7 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 # Parse Markdown Article Function Regex
 
 The regex pattern to parse an article markdown is:
+
 ```
 /^#[ \t]+([^\r\n]*)/m
 ```
@@ -298,8 +315,8 @@ Breaking down this regex parttern:
 - `([^\r\n]*)` - captures zero or more non-newline characters (everything else on the line)
 - `m` flag - enables multiline mode
 
-
 # To-dos (not necessarily in order)
+
 - [x] Check if youtube transcription already exists in database before adding it and process it
 - [x] Convert cli commands to use usecase so it's more decoupled and easy to reuse
 - [x] Isolate prompts configs from config.service.ts to separate files, so it's easier to mantain; also do this for the other configs
@@ -328,6 +345,7 @@ Breaking down this regex parttern:
   - [ ] get transcriptions
   - [ ] process transcription
 - [ ] Add an AI coding CLI, for example, Code Rabbit as part of the loop where after a run, it runs the Code Rabbit CLI against the current diff, finds any potential things that might be wrong with that code, and then sends that as part of the context to another agent that will go and fix the things that it caught
+- [ ] Generate an audio for a transcript (optional param); save to s3? make it possible to listen on the transcription page?
 
 # How to use Ralph in this project
 
@@ -338,6 +356,7 @@ It reads a `prd.json` file containing user stories, then executes them one by on
 ## 1. How to generate the PRD file
 
 In Cursor chat, use the PRD skill to generate a detailed requirements document:
+
 ```plaintext
 /generate-prd create a PRD for [feature name]
 ```
@@ -347,6 +366,7 @@ Answer the clarifying questions. The skill saves output to `tasks/prd-[feature-
 ## 2. How to convert PRD to Ralph format
 
 In Cursor chat, use the Ralph skill to convert the markdown PRD to JSON:
+
 ```plaintext
 /ralph convert tasks/prd-[feature-name].md to prd.json
 ```
@@ -360,6 +380,7 @@ In Cursor chat, simply reference the script:
 ```
 
 This will load the script and execute one iteration, showing you:
+
 - The current status (completed/total stories)
 - The next story to work on
 - The full prompt instructions
@@ -372,4 +393,5 @@ For more information, access [Ralph documentation here](./scripts/ralph/README.m
 # API Documentation
 
 For detailed API documentation, see:
+
 - [Bookmarks API Documentation](docs/bookmarks/BOOKMARKS_API.md) - Complete guide for users and bookmarks endpoints
