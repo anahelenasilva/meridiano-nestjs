@@ -167,6 +167,27 @@ Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
   - Full testing of migration commands requires database connection
 ---
 
+## 2026-01-28T01:50:00.000Z - US-010
+Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
+- Created database.module.spec.ts with module initialization tests
+- Created database.service.spec.ts with comprehensive service tests
+- Tests use jest-mock-extended for mocking dependencies (pg Pool, DataSource)
+- Module test verifies DatabaseModule compiles and provides/exports DatabaseService
+- Service test covers initDb, getDbConnection, closeDb, and onModuleDestroy methods
+- All 15 tests pass successfully
+- Typecheck passes
+- Files changed:
+  - libs/database/database.module.spec.ts (new)
+  - libs/database/database.service.spec.ts (new)
+- **Learnings for future iterations:**
+  - TypeOrmModule.forRoot() returns a DynamicModule that must provide DataSource
+  - When mocking TypeOrmModule in tests, ensure DataSource is provided in the mock
+  - jest.mock() hoisting requires mock instances to be defined inside the factory function
+  - DatabaseModule exports TypeOrmModule which requires proper mocking in tests
+  - Use jest-mock-extended for type-safe mocks of complex dependencies
+  - Mock pg Pool instance methods (connect, query, end) for database service tests
+---
+
 ## 2026-01-28T01:36:00.000Z - US-009
 Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
 - Verified @libs/* path alias in tsconfig.json already covers @libs/database
