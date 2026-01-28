@@ -67,3 +67,15 @@ Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
   - Since migrations stay in src/database/migrations/, dist path remains 'dist/database/migrations/*.js'
   - Typecheck failures are expected until backward compatibility aliases are created in US-007
 ---
+
+## 2026-01-28T01:15:00.000Z - US-004
+Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
+- Updated app.module.ts to import DatabaseModule from @libs/database
+- Removed import from src/database/database.module
+- Typecheck fails as expected (will be fixed in US-007 when aliases are created)
+- Files changed:
+  - src/app.module.ts (updated import)
+- **Learnings for future iterations:**
+  - AppModule now uses @libs/database path alias consistent with other libs (auth, s3)
+  - Typecheck failures are expected until backward compatibility aliases are created in US-007
+---
