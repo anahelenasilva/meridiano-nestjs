@@ -104,3 +104,26 @@ Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
   - Typecheck failures are expected until backward compatibility aliases are created in US-007
   - Service files use DatabaseService from @libs/database consistently
 ---
+
+## 2026-01-28T01:25:00.000Z - US-006
+Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
+- Updated all module files to import DatabaseModule from @libs/database
+- Updated src/bookmarks/bookmarks.module.ts
+- Updated src/users/users.module.ts
+- Updated src/briefings/briefings.module.ts
+- Updated src/youtube-channels/youtube-channels.module.ts
+- Updated src/youtube-transcriptions/youtube-transcriptions.module.ts
+- Updated src/articles/articles.module.ts
+- Typecheck fails as expected (will be fixed in US-007 when aliases are created)
+- Files changed:
+  - src/bookmarks/bookmarks.module.ts (updated import)
+  - src/users/users.module.ts (updated import)
+  - src/briefings/briefings.module.ts (updated import)
+  - src/youtube-channels/youtube-channels.module.ts (updated import)
+  - src/youtube-transcriptions/youtube-transcriptions.module.ts (updated import)
+  - src/articles/articles.module.ts (updated import)
+- **Learnings for future iterations:**
+  - All module files now use @libs/database path alias
+  - Typecheck failures are expected until backward compatibility aliases are created in US-007
+  - Module files use DatabaseModule from @libs/database consistently
+---
