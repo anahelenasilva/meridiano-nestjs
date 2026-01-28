@@ -136,7 +136,7 @@ Option B: Let migrations run automatically on app startup:
 ```bash
 pnpm run start:dev
 ```
-The migrations will run automatically because we configured the DatabaseModule to execute them on startup.
+The migrations will run automatically because we configured the DatabaseModule (from `@libs/database`) to execute them on startup.
 
 ### Verification
 

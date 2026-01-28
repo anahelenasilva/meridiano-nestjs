@@ -274,3 +274,22 @@ Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
   - Verification step confirms migration is complete
   - src/database/ directory structure now clean with only migrations/
 ---
+
+## 2026-01-28T02:20:00.000Z - US-014
+Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
+- Updated README.md to reference DatabaseModule from @libs/database
+- Updated .cursorrules to specify importing DatabaseService from @libs/database in Database Operations section
+- Updated docs/bookmarks/BOOKMARKS_IMPLEMENTATION.md to reference DatabaseService from @libs/database
+- Migration paths remain correct (migrations stay in src/database/migrations/ as per design)
+- All documentation references are now consistent with new libs/database structure
+- Build passes successfully
+- Files changed:
+  - README.md (updated DatabaseModule reference)
+  - .cursorrules (added import instruction for DatabaseService)
+  - docs/bookmarks/BOOKMARKS_IMPLEMENTATION.md (updated DatabaseService reference)
+- **Learnings for future iterations:**
+  - Migration paths stay in src/database/migrations/ even though module moved to libs/database/
+  - Historical plan documents can remain as-is (they document what was done at that time)
+  - Architecture and implementation docs should be updated to reflect current structure
+  - Always specify import paths (@libs/database) in documentation for clarity
+---
