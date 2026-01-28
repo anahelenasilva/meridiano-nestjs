@@ -55,11 +55,11 @@ describe('DatabaseService', () => {
       },
     };
 
-    process.env.DATABASE_USER = 'test-user';
-    process.env.DATABASE_PASSWORD = 'test-password';
+    process.env.DATABASE_USER = 'fake-test-user';
+    process.env.DATABASE_PASSWORD = 'fake-test-password';
     process.env.DATABASE_HOST = 'localhost';
     process.env.DATABASE_PORT = '5432';
-    process.env.DATABASE_NAME = 'test-db';
+    process.env.DATABASE_NAME = 'fake-test-db';
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [DatabaseService],
@@ -73,7 +73,7 @@ describe('DatabaseService', () => {
     mockPoolInstance.connect.mockResolvedValue(mockClient as never);
   });
 
-  afterEach(async () => {
+  afterEach(() => {
     if (originalEnvState.DATABASE_URL?.existed) {
       process.env.DATABASE_URL = originalEnvState.DATABASE_URL.value;
     } else {
@@ -125,27 +125,27 @@ describe('DatabaseService', () => {
     });
 
     it('should use DATABASE_URL if provided', async () => {
-      process.env.DATABASE_URL = 'postgresql://custom:password@host:5432/db';
+      process.env.DATABASE_URL = 'postgresql://fake-user:fake-password@fake-host:5432/fake-db';
 
       await service.initDb();
 
       expect(Pool).toHaveBeenCalledWith({
-        connectionString: 'postgresql://custom:password@host:5432/db',
+        connectionString: 'postgresql://fake-user:fake-password@fake-host:5432/fake-db',
       });
     });
 
     it('should build connection string from environment variables', async () => {
       delete process.env.DATABASE_URL;
-      process.env.DATABASE_USER = 'testuser';
-      process.env.DATABASE_PASSWORD = 'testpass';
-      process.env.DATABASE_HOST = 'testhost';
+      process.env.DATABASE_USER = 'fake-test-user';
+      process.env.DATABASE_PASSWORD = 'fake-test-password';
+      process.env.DATABASE_HOST = 'fake-test-host';
       process.env.DATABASE_PORT = '5433';
-      process.env.DATABASE_NAME = 'testdb';
+      process.env.DATABASE_NAME = 'fake-test-db';
 
       await service.initDb();
 
       expect(Pool).toHaveBeenCalledWith({
-        connectionString: expect.stringContaining('testuser'),
+        connectionString: expect.stringContaining('fake-test-user'),
       });
     });
 

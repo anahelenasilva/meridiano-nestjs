@@ -47,11 +47,11 @@ Create a `.env` file in the root directory with your database configuration:
 ```bash
 # Database Configuration
 DATABASE_TYPE=postgres
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/meridian
+DATABASE_URL=postgresql://your-user:your-password@localhost:5432/meridian
 
 # Or use individual variables
-DATABASE_USER=postgres
-DATABASE_PASSWORD=postgres
+DATABASE_USER=your-user
+DATABASE_PASSWORD=your-password
 DATABASE_HOST=localhost
 DATABASE_PORT=5432
 DATABASE_NAME=meridian

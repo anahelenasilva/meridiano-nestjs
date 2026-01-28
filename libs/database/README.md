@@ -30,7 +30,7 @@ DATABASE_PORT=5432
 DATABASE_NAME=meridian
 
 # Optional: Use a full connection string instead
-# DATABASE_URL=postgresql://user:password@host:port/database
+# DATABASE_URL=postgresql://your-user:your-password@your-host:5432/your-database
 
 # Optional: Enable SSL (for production)
 # DATABASE_SSL=true
