@@ -166,3 +166,17 @@ Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
   - Config file path must be relative to project root for TypeORM CLI
   - Full testing of migration commands requires database connection
 ---
+
+## 2026-01-28T01:36:00.000Z - US-009
+Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
+- Verified @libs/* path alias in tsconfig.json already covers @libs/database
+- Path alias configured as "@libs/*": ["libs/*"] in tsconfig.json paths
+- Verified path alias resolves correctly - multiple files using @libs/database imports
+- Typecheck passes with no errors
+- Files changed:
+  - None (path alias already configured)
+- **Learnings for future iterations:**
+  - The @libs/* wildcard path alias covers all libs modules including @libs/database
+  - Path aliases in tsconfig.json use wildcard pattern matching
+  - No need for specific @libs/database entry when @libs/* wildcard exists
+---
