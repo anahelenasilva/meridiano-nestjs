@@ -51,3 +51,19 @@ Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
   - Internal imports using relative paths don't need updating when moving files within same directory structure
   - Typecheck failures are expected during migration until all imports are updated
 ---
+
+## 2026-01-28T01:14:00.000Z - US-003
+Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
+- Moved typeorm.config.ts from src/database/ to libs/database/ using git mv
+- Verified DatabaseModule imports TypeOrmModule.forRoot() with correct config from libs/database/
+- Migration path 'dist/database/migrations/*.js' resolves correctly (migrations stay in src/database/migrations/)
+- Verified @Global() decorator is kept on DatabaseModule
+- Typecheck fails as expected (will be fixed in US-007 when aliases are created)
+- Files changed:
+  - src/database/typeorm.config.ts (deleted via git mv)
+  - libs/database/typeorm.config.ts (moved via git mv)
+- **Learnings for future iterations:**
+  - Migration paths in TypeORM config should point to where migrations will be in dist/
+  - Since migrations stay in src/database/migrations/, dist path remains 'dist/database/migrations/*.js'
+  - Typecheck failures are expected until backward compatibility aliases are created in US-007
+---

@@ -48,8 +48,8 @@
         "Typecheck passes"
       ],
       "priority": 3,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Typecheck will pass after US-007 creates aliases in src/database/"
     },
     {
       "id": "US-004",
