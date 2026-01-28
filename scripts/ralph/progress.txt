@@ -28,3 +28,26 @@ Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
   - DatabaseModule uses @Global() decorator to make it available throughout the app
   - The module implements OnModuleInit and OnModuleDestroy for lifecycle hooks
 ---
+
+## 2026-01-28T01:11:00.000Z - US-002
+Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
+- Moved database service implementations from src/database/ to libs/database/ using git mv
+- Moved database.service.ts preserving git history
+- Moved abstract-database.service.ts preserving git history
+- Moved postgres-database.service.ts preserving git history
+- Verified git history preserved with git log --follow
+- Internal imports already use relative paths (no changes needed)
+- Typecheck fails as expected (will be fixed in US-005 and US-006)
+- Files changed:
+  - src/database/database.service.ts (deleted via git mv)
+  - src/database/abstract-database.service.ts (deleted via git mv)
+  - src/database/postgres-database.service.ts (deleted via git mv)
+  - libs/database/database.service.ts (moved via git mv)
+  - libs/database/abstract-database.service.ts (moved via git mv)
+  - libs/database/postgres-database.service.ts (moved via git mv)
+- **Learnings for future iterations:**
+  - git mv preserves file history when moving files
+  - Use git log --follow to verify history is preserved
+  - Internal imports using relative paths don't need updating when moving files within same directory structure
+  - Typecheck failures are expected during migration until all imports are updated
+---
