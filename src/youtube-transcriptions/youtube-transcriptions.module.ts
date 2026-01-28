@@ -13,6 +13,7 @@ import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-tr
 import { ListYoutubeTranscriptionsQuery } from './queries/list-youtube-transcriptions.query';
 import { StorageService } from './services/storage.service';
 import { TranscriptService } from './services/transcript.service';
+import { YoutubeTranscriptionsAlternativeService } from './services/youtube-transcriptions-alternative.service';
 import { YoutubeTranscriptionsService } from './services/youtube-transcriptions.service';
 import { YouTubeService } from './services/youtube.service';
 import { YoutubeTranscriptionsController } from './youtube-transcriptions.controller';
@@ -29,6 +30,7 @@ import { YoutubeTranscriptionsController } from './youtube-transcriptions.contro
     YoutubeTranscriptionsService,
     YouTubeService,
     TranscriptService,
+    YoutubeTranscriptionsAlternativeService,
     StorageService,
     AiService,
     ConfigService,
