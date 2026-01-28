@@ -79,3 +79,28 @@ Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
   - AppModule now uses @libs/database path alias consistent with other libs (auth, s3)
   - Typecheck failures are expected until backward compatibility aliases are created in US-007
 ---
+
+## 2026-01-28T01:20:00.000Z - US-005
+Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
+- Updated all service files to import DatabaseService from @libs/database
+- Updated src/articles/articles.service.ts
+- Updated src/bookmarks/bookmarks.service.ts
+- Updated src/briefings/briefings.service.ts
+- Updated src/users/users.service.ts
+- Updated src/youtube-channels/youtube-channels.service.ts
+- Updated src/youtube-transcriptions/services/youtube-transcriptions.service.ts
+- Updated src/youtube-transcriptions/services/youtube-transcriptions.service.spec.ts
+- Typecheck fails as expected (will be fixed in US-007 when aliases are created)
+- Files changed:
+  - src/articles/articles.service.ts (updated import)
+  - src/bookmarks/bookmarks.service.ts (updated import)
+  - src/briefings/briefings.service.ts (updated import)
+  - src/users/users.service.ts (updated import)
+  - src/youtube-channels/youtube-channels.service.ts (updated import)
+  - src/youtube-transcriptions/services/youtube-transcriptions.service.ts (updated import)
+  - src/youtube-transcriptions/services/youtube-transcriptions.service.spec.ts (updated import)
+- **Learnings for future iterations:**
+  - All service files now use @libs/database path alias
+  - Typecheck failures are expected until backward compatibility aliases are created in US-007
+  - Service files use DatabaseService from @libs/database consistently
+---
