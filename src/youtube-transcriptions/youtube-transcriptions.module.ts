@@ -1,9 +1,9 @@
+import { DatabaseModule } from '@libs/database';
 import { Module, forwardRef } from '@nestjs/common';
 import { AiModule } from '../ai/ai.module';
 import { AiService } from '../ai/ai.service';
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
-import { DatabaseModule } from '../database/database.module';
 import { QueueModule } from '../queue/queue.module';
 import { YoutubeChannelsModule } from '../youtube-channels/youtube-channels.module';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';

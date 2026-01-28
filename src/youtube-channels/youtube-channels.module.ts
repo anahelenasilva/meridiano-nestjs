@@ -1,5 +1,5 @@
+import { DatabaseModule } from '@libs/database';
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from '../database/database.module';
 import { CreateYoutubeChannelCommand } from './commands/create-youtube-channel.command';
 import { UpdateChannelEnabledCommand } from './commands/update-channel-enabled.command';
 import { GetYoutubeChannelsQuery } from './queries/get-youtube-channels.query';

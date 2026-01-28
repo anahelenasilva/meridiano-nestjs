@@ -1,6 +1,6 @@
+import { DatabaseModule } from '@libs/database';
 import { Module } from '@nestjs/common';
 import { ArticlesService } from '../articles/articles.service';
-import { DatabaseModule } from '../database/database.module';
 import { BriefingsController } from './briefings.controller';
 import { BriefingsService } from './briefings.service';
 import { ListBriefingsQuery } from './queries/list-briefings.query';
@@ -11,4 +11,4 @@ import { ListBriefingsQuery } from './queries/list-briefings.query';
   controllers: [BriefingsController],
   exports: [BriefingsService],
 })
-export class BriefingsModule {}
+export class BriefingsModule { }
