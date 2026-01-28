@@ -1,5 +1,5 @@
+import { DatabaseService } from '@libs/database';
 import { ConflictException, Injectable, InternalServerErrorException } from '@nestjs/common';
-import { DatabaseService } from '../database/database.service';
 import { YoutubeChannel } from './domain/youtube-channel';
 
 @Injectable()

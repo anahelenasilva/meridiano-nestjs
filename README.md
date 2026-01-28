@@ -47,11 +47,11 @@ Create a `.env` file in the root directory with your database configuration:
 ```bash
 # Database Configuration
 DATABASE_TYPE=postgres
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/meridian
+DATABASE_URL=postgresql://your-user:your-password@localhost:5432/meridian
 
 # Or use individual variables
-DATABASE_USER=postgres
-DATABASE_PASSWORD=postgres
+DATABASE_USER=your-user
+DATABASE_PASSWORD=your-password
 DATABASE_HOST=localhost
 DATABASE_PORT=5432
 DATABASE_NAME=meridian
@@ -136,7 +136,7 @@ Option B: Let migrations run automatically on app startup:
 ```bash
 pnpm run start:dev
 ```
-The migrations will run automatically because we configured the DatabaseModule to execute them on startup.
+The migrations will run automatically because we configured the DatabaseModule (from `@libs/database`) to execute them on startup.
 
 ### Verification
 
@@ -319,9 +319,15 @@ Breaking down this regex parttern:
 - [ ] Move the following modules to a libs structure inside this project:
   - [x] S3
   - [x] Email
-  - [ ] Auth
+  - [x] Auth
   - [ ] Database
   - [ ] Queue
+- [ ] Add e2e tests for the main parts
+  - [ ] login
+  - [ ] briefing tech (or could be any other -> maybe break down into smaller pieces)
+  - [ ] get transcriptions
+  - [ ] process transcription
+- [ ] Add an AI coding CLI, for example, Code Rabbit as part of the loop where after a run, it runs the Code Rabbit CLI against the current diff, finds any potential things that might be wrong with that code, and then sends that as part of the context to another agent that will go and fix the things that it caught
 
 # How to use Ralph in this project
 

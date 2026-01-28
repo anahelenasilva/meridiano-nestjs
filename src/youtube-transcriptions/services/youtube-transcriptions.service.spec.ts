@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock, mockReset } from 'jest-mock-extended';
 
+import { DatabaseService } from '@libs/database';
 import { INestApplication } from '@nestjs/common';
-import { DatabaseService } from '../../database/database.service';
 import { QueueService } from '../../queue/queue.service';
 import { ChannelConfig } from '../../shared/types/channel';
 import { VideoMetadata } from '../../shared/types/video';

@@ -1,6 +1,6 @@
+import { DatabaseModule } from '@libs/database';
 import { Module } from '@nestjs/common';
 import { ArticlesModule } from '../articles/articles.module';
-import { DatabaseModule } from '../database/database.module';
 import { UsersModule } from '../users/users.module';
 import { BookmarksController } from './bookmarks.controller';
 import { BookmarksService } from './bookmarks.service';

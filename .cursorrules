@@ -290,10 +290,11 @@ pnpm run migration:revert
 5. Add appropriate HTTP exceptions for error cases
 
 ### Database Operations
-1. Inject `DatabaseService` in constructor
-2. Get connection: `this.databaseService.getDbConnection()`
-3. Use prepared statements: `db.prepare(sql)`
-4. Handle errors and convert to appropriate exceptions
+1. Import `DatabaseService` from `@libs/database`
+2. Inject `DatabaseService` in constructor
+3. Get connection: `this.databaseService.getDbConnection()`
+4. Use prepared statements: `db.prepare(sql)`
+5. Handle errors and convert to appropriate exceptions
 
 ## Don't
 - Don't use SQLite (project migrated to PostgreSQL)

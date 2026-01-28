@@ -21,7 +21,7 @@ Created two new database tables via migration:
 - **Unique constraint** on (user_id, article_id) to prevent duplicate bookmarks
 - **Indexes** on user_id, article_id, and created_at for performance
 
-**Migration File:** `src/database/migrations/1768063500376-CreateUsersAndBookmarks.ts`
+**Migration File:** `src/database/migrations/1768063500376-CreateUsersAndBookmarks.ts` (migrations remain in `src/database/migrations/` while database module is in `libs/database/`)
 
 ### 2. Module Structure
 
@@ -254,7 +254,7 @@ curl -X DELETE "http://localhost:3000/api/bookmarks?user_id=USER_UUID&article_id
 
 ## Notes
 
-- The implementation uses the existing DatabaseService abstraction, which works with PostgreSQL
+- The implementation uses the existing DatabaseService abstraction (from `@libs/database`), which works with PostgreSQL
 - All database queries use prepared statements for security
 - The system is designed to be extended with full authentication later
 - For now, user_id must be provided in API requests (will be replaced by session/JWT auth later)

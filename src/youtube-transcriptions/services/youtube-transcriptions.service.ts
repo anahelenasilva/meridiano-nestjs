@@ -1,5 +1,5 @@
+import { DatabaseService } from '@libs/database';
 import { Injectable } from '@nestjs/common';
-import { DatabaseService } from '../../database/database.service';
 import { QueueService } from '../../queue/queue.service';
 import { ChannelConfig } from '../../shared/types/channel';
 import { TranscriptItem, VideoWithTranscript } from '../../shared/types/video';
