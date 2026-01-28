@@ -319,9 +319,15 @@ Breaking down this regex parttern:
 - [ ] Move the following modules to a libs structure inside this project:
   - [x] S3
   - [x] Email
-  - [ ] Auth
+  - [x] Auth
   - [ ] Database
   - [ ] Queue
+- [ ] Add e2e tests for the main parts
+  - [ ] login
+  - [ ] briefing tech (or could be any other -> maybe break down into smaller pieces)
+  - [ ] get transcriptions
+  - [ ] process transcription
+- [ ] Add an AI coding CLI, for example, Code Rabbit as part of the loop where after a run, it runs the Code Rabbit CLI against the current diff, finds any potential things that might be wrong with that code, and then sends that as part of the context to another agent that will go and fix the things that it caught
 
 # How to use Ralph in this project
 
