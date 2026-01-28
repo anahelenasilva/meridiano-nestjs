@@ -26,7 +26,7 @@
     "briefing:process": "ts-node -r tsconfig-paths/register src/scripts/runBriefing.ts --process",
     "briefing:rate": "ts-node -r tsconfig-paths/register src/scripts/runBriefing.ts --rate",
     "briefing:generate": "ts-node -r tsconfig-paths/register src/scripts/runBriefing.ts --generate",
-    "yt-transcript": "ts-node src/scripts/runYoutubeTranscripts.ts",
+    "yt-transcript": "ts-node -r tsconfig-paths/register src/scripts/runYoutubeTranscripts.ts",
     "process-transcriptions": "ts-node -r tsconfig-paths/register src/scripts/runProcessTranscriptions.ts",
     "list-transcriptions": "ts-node -r tsconfig-paths/register src/scripts/runListTranscriptions.ts",
     "set-password": "ts-node -r tsconfig-paths/register src/scripts/setUserPassword.ts",
