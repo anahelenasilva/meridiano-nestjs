@@ -12,6 +12,7 @@ import {
 } from '../entities/youtube-transcription.entity';
 import { StorageService } from '../services/storage.service';
 import { TranscriptService } from '../services/transcript.service';
+import { YoutubeTranscriptionsAlternativeService } from './youtube-transcriptions-alternative.service';
 import { fetchTranscriptViaInnertube } from './youtube-transcriptions-innertube.service';
 import { YouTubeService } from './youtube.service';
 
@@ -50,6 +51,7 @@ export class YoutubeTranscriptionsService {
   constructor(
     private readonly youtubeService: YouTubeService,
     private readonly transcriptService: TranscriptService,
+    private readonly youtubeTranscriptionsAlternativeService: YoutubeTranscriptionsAlternativeService,
     private readonly storageService: StorageService,
     private readonly databaseService: DatabaseService,
     private readonly queueService: QueueService,
@@ -86,40 +88,57 @@ export class YoutubeTranscriptionsService {
           let transcript: TranscriptItem[] = [];
 
           try {
-            // Try primary method first (getInfo)
-            console.log('Attempting to fetch transcript using primary method...');
-            transcript = await this.transcriptService.getTranscript(video.videoId);
+            // Try alternative service first (youtube-transcript-plus)
+            console.log('Attempting to fetch transcript using alternative service...');
+            transcript = await this.youtubeTranscriptionsAlternativeService.fetchTranscript(video.videoId);
 
             if (!transcript || transcript.length === 0) {
-              throw new Error('Primary method returned empty transcript');
+              throw new Error('Alternative service returned empty transcript');
             }
 
-            console.log(`✓ Successfully fetched transcript using primary method (${transcript.length} items)`);
-          } catch (primaryError) {
-            // Fallback to alternative method (getBasicInfo + direct XML fetch)
-            console.log('Primary method failed, attempting fallback method...');
-            const primaryErrorMessage = primaryError instanceof Error ? primaryError.message : String(primaryError);
-            console.log(`  Primary error: ${primaryErrorMessage}`);
+            console.log(`✓ Successfully fetched transcript using alternative service (${transcript.length} items)`);
+          } catch (alternativeServiceError) {
+            // Fallback to primary method (TranscriptService)
+            console.log('Alternative service failed, attempting primary method...');
+            const alternativeServiceErrorMessage = alternativeServiceError instanceof Error ? alternativeServiceError.message : String(alternativeServiceError);
+            console.log(`  Alternative service error: ${alternativeServiceErrorMessage}`);
 
             try {
-              const alternativeSegments = await fetchTranscriptViaInnertube(video.videoId);
-              transcript = convertYouTubeSegmentsToTranscriptItems(alternativeSegments);
+              console.log('Attempting to fetch transcript using primary method...');
+              transcript = await this.transcriptService.getTranscript(video.videoId);
 
               if (!transcript || transcript.length === 0) {
-                throw new Error('Alternative method returned empty transcript');
+                throw new Error('Primary method returned empty transcript');
               }
 
-              console.log(`✓ Successfully fetched transcript using alternative method (${transcript.length} items)`);
-            } catch (alternativeError) {
-              // Both methods failed
-              const alternativeErrorMessage = alternativeError instanceof Error ? alternativeError.message : String(alternativeError);
-              console.error('Both transcript methods failed:');
-              console.error(`  Primary: ${primaryErrorMessage}`);
-              console.error(`  Alternative: ${alternativeErrorMessage}`);
+              console.log(`✓ Successfully fetched transcript using primary method (${transcript.length} items)`);
+            } catch (primaryError) {
+              // Fallback to innertube method
+              console.log('Primary method failed, attempting innertube method...');
+              const primaryErrorMessage = primaryError instanceof Error ? primaryError.message : String(primaryError);
+              console.log(`  Primary error: ${primaryErrorMessage}`);
 
-              throw new Error(
-                `Failed to fetch transcript using both methods. Primary: ${primaryErrorMessage}. Alternative: ${alternativeErrorMessage}`
-              );
+              try {
+                const innertubeSegments = await fetchTranscriptViaInnertube(video.videoId);
+                transcript = convertYouTubeSegmentsToTranscriptItems(innertubeSegments);
+
+                if (!transcript || transcript.length === 0) {
+                  throw new Error('Innertube method returned empty transcript');
+                }
+
+                console.log(`✓ Successfully fetched transcript using innertube method (${transcript.length} items)`);
+              } catch (innertubeError) {
+                // All three methods failed
+                const innertubeErrorMessage = innertubeError instanceof Error ? innertubeError.message : String(innertubeError);
+                console.error('All transcript methods failed:');
+                console.error(`  Alternative service: ${alternativeServiceErrorMessage}`);
+                console.error(`  Primary: ${primaryErrorMessage}`);
+                console.error(`  Innertube: ${innertubeErrorMessage}`);
+
+                throw new Error(
+                  `Failed to fetch transcript using all methods. Alternative service: ${alternativeServiceErrorMessage}. Primary: ${primaryErrorMessage}. Innertube: ${innertubeErrorMessage}`
+                );
+              }
             }
           }
 
@@ -247,40 +266,57 @@ export class YoutubeTranscriptionsService {
       let transcript: TranscriptItem[] = [];
 
       try {
-        // Try primary method first (getInfo)
-        console.log('Attempting to fetch transcript using primary method...');
-        transcript = await this.transcriptService.getTranscript(videoId);
+        // Try alternative service first (youtube-transcript-plus)
+        console.log('Attempting to fetch transcript using alternative service...');
+        transcript = await this.youtubeTranscriptionsAlternativeService.fetchTranscript(videoId);
 
         if (!transcript || transcript.length === 0) {
-          throw new Error('Primary method returned empty transcript');
+          throw new Error('Alternative service returned empty transcript');
         }
 
-        console.log(`✓ Successfully fetched transcript using primary method (${transcript.length} items)`);
-      } catch (primaryError) {
-        // Fallback to alternative method (getBasicInfo + direct XML fetch)
-        console.log('Primary method failed, attempting fallback method...');
-        const primaryErrorMessage = primaryError instanceof Error ? primaryError.message : String(primaryError);
-        console.log(`  Primary error: ${primaryErrorMessage}`);
+        console.log(`✓ Successfully fetched transcript using alternative service (${transcript.length} items)`);
+      } catch (alternativeServiceError) {
+        // Fallback to primary method (TranscriptService)
+        console.log('Alternative service failed, attempting primary method...');
+        const alternativeServiceErrorMessage = alternativeServiceError instanceof Error ? alternativeServiceError.message : String(alternativeServiceError);
+        console.log(`  Alternative service error: ${alternativeServiceErrorMessage}`);
 
         try {
-          const alternativeSegments = await fetchTranscriptViaInnertube(videoId, proxyUrl);
-          transcript = convertYouTubeSegmentsToTranscriptItems(alternativeSegments);
+          console.log('Attempting to fetch transcript using primary method...');
+          transcript = await this.transcriptService.getTranscript(videoId);
 
           if (!transcript || transcript.length === 0) {
-            throw new Error('Alternative method returned empty transcript');
+            throw new Error('Primary method returned empty transcript');
           }
 
-          console.log(`✓ Successfully fetched transcript using alternative method (${transcript.length} items)`);
-        } catch (alternativeError) {
-          // Both methods failed
-          const alternativeErrorMessage = alternativeError instanceof Error ? alternativeError.message : String(alternativeError);
-          console.error('Both transcript methods failed:');
-          console.error(`  Primary: ${primaryErrorMessage}`);
-          console.error(`  Alternative: ${alternativeErrorMessage}`);
+          console.log(`✓ Successfully fetched transcript using primary method (${transcript.length} items)`);
+        } catch (primaryError) {
+          // Fallback to innertube method
+          console.log('Primary method failed, attempting innertube method...');
+          const primaryErrorMessage = primaryError instanceof Error ? primaryError.message : String(primaryError);
+          console.log(`  Primary error: ${primaryErrorMessage}`);
 
-          throw new Error(
-            `Failed to fetch transcript using both methods. Primary: ${primaryErrorMessage}. Alternative: ${alternativeErrorMessage}`
-          );
+          try {
+            const innertubeSegments = await fetchTranscriptViaInnertube(videoId, proxyUrl);
+            transcript = convertYouTubeSegmentsToTranscriptItems(innertubeSegments);
+
+            if (!transcript || transcript.length === 0) {
+              throw new Error('Innertube method returned empty transcript');
+            }
+
+            console.log(`✓ Successfully fetched transcript using innertube method (${transcript.length} items)`);
+          } catch (innertubeError) {
+            // All three methods failed
+            const innertubeErrorMessage = innertubeError instanceof Error ? innertubeError.message : String(innertubeError);
+            console.error('All transcript methods failed:');
+            console.error(`  Alternative service: ${alternativeServiceErrorMessage}`);
+            console.error(`  Primary: ${primaryErrorMessage}`);
+            console.error(`  Innertube: ${innertubeErrorMessage}`);
+
+            throw new Error(
+              `Failed to fetch transcript using all methods. Alternative service: ${alternativeServiceErrorMessage}. Primary: ${primaryErrorMessage}. Innertube: ${innertubeErrorMessage}`
+            );
+          }
         }
       }
 
