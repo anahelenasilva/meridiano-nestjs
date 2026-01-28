@@ -201,3 +201,37 @@ Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
   - Path aliases in tsconfig.json use wildcard pattern matching
   - No need for specific @libs/database entry when @libs/* wildcard exists
 ---
+
+## 2026-01-28T02:00:00.000Z - US-005 (Verification)
+Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
+- Verified all service files use @libs/database imports
+- Confirmed no remaining imports from src/database in service files
+- Verified all imports use @libs/database path alias
+- Database tests pass (15 tests)
+- Build passes successfully
+- Files changed:
+  - None (verification only)
+- **Learnings for future iterations:**
+  - US-005 was already complete from previous iteration but not marked in PRD
+  - All service files consistently use @libs/database imports
+  - Verification step important to ensure PRD accuracy
+---
+
+## 2026-01-28T02:05:00.000Z - US-011
+Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
+- Created libs/database/README.md following libs/email/README.md pattern
+- Documented DatabaseService API and all methods (prepare, run, all, get)
+- Included comprehensive usage examples
+- Documented configuration requirements and environment variables
+- Documented migration commands and lifecycle
+- Documented placeholder conversion (SQLite-style ? to PostgreSQL $1, $2, etc.)
+- Included example service implementation
+- Build passes successfully
+- Files changed:
+  - libs/database/README.md (new)
+- **Learnings for future iterations:**
+  - libs/email/README.md provides good pattern for lib documentation
+  - README should include: overview, setup, usage examples, API documentation, configuration
+  - Document both high-level usage and low-level API details
+  - Include practical examples that developers can copy-paste
+---
