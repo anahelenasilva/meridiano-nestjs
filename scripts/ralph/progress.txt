@@ -147,3 +147,22 @@ Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
   - Tests pass with aliases in place
   - JSDoc comments clearly indicate these are temporary
 ---
+
+## 2026-01-28T01:35:00.000Z - US-008
+Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
+- Updated migration scripts in package.json to use libs/database/typeorm.config.ts
+- Updated migration:generate script to use new config path
+- Updated migration:run script to use new config path
+- Updated migration:revert script to use new config path
+- migration:create script doesn't need data source config (takes path argument directly)
+- Verified config file exists at libs/database/typeorm.config.ts
+- Typecheck passes
+- Files changed:
+  - package.json (updated migration script paths)
+- **Learnings for future iterations:**
+  - TypeORM CLI commands use -d flag to specify data source config file
+  - migration:create doesn't need a data source file - it just creates empty migration files
+  - migration:generate, migration:run, and migration:revert all require the data source config
+  - Config file path must be relative to project root for TypeORM CLI
+  - Full testing of migration commands requires database connection
+---
