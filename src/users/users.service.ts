@@ -1,6 +1,6 @@
+import { DatabaseService } from '@libs/database';
 import { ConflictException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { DatabaseService } from '../database/database.service';
 import { User } from './user.entity';
 
 interface UserRow {

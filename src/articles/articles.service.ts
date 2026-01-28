@@ -1,5 +1,5 @@
+import { DatabaseService } from '@libs/database';
 import { Injectable } from '@nestjs/common';
-import { DatabaseService } from '../database/database.service';
 import { FeedProfile } from '../shared/types/feed';
 import {
   ArticleCategory,

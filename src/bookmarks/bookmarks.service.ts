@@ -1,6 +1,6 @@
+import { DatabaseService } from '@libs/database';
 import { Injectable } from '@nestjs/common';
 import { ArticleCategory, DBArticle } from '../articles/article.entity';
-import { DatabaseService } from '../database/database.service';
 import { Bookmark, BookmarkWithArticle } from './bookmark.entity';
 
 interface BookmarkRow {

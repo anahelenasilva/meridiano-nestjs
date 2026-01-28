@@ -1,11 +1,11 @@
+import { DatabaseService } from '@libs/database';
 import { Injectable } from '@nestjs/common';
-import { DatabaseService } from '../database/database.service';
-import { FeedProfile } from '../shared/types/feed';
 import {
   BriefsMetadata,
   GetBriefByIdResult,
   ProcessingStatsResult,
 } from '../briefing/briefing.entity';
+import { FeedProfile } from '../shared/types/feed';
 
 interface BriefingRow {
   id: string;
@@ -24,7 +24,7 @@ interface AvgRow {
 
 @Injectable()
 export class BriefingsService {
-  constructor(private readonly databaseService: DatabaseService) {}
+  constructor(private readonly databaseService: DatabaseService) { }
 
   async saveBrief(
     content: string,
