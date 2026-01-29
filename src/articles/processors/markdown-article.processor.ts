@@ -1,8 +1,8 @@
 import {
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
   ProcessMarkdownArticleJobData,
-  RedisService,
 } from '@libs/queue';
+import { RedisService } from '@libs/redis';
 import { S3Service } from '@libs/s3';
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { Job, Worker } from 'bullmq';

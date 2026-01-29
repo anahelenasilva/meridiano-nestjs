@@ -11,5 +11,4 @@ export type { ProcessTranscriptionSummaryJobData } from './interfaces/youtube-tr
 
 export { QueueModule } from './queue.module';
 export { QueueService } from './queue.service';
-export { RedisService } from './redis.service';
 

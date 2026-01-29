@@ -1,5 +1,6 @@
 import { DatabaseModule } from '@libs/database';
 import { QueueModule } from '@libs/queue';
+import { RedisModule } from '@libs/redis';
 import { Module } from '@nestjs/common';
 import { AiModule } from '../ai/ai.module';
 import { AiService } from '../ai/ai.service';
@@ -25,6 +26,7 @@ import { YoutubeTranscriptionsController } from './youtube-transcriptions.contro
     AiModule,
     ConfigModule,
     YoutubeChannelsModule,
+    RedisModule,
     QueueModule,
   ],
   providers: [

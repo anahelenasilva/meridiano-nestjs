@@ -1,5 +1,5 @@
 import { ProcessMarkdownArticleJobData } from '@libs/queue';
-import { RedisService } from '@libs/queue/redis.service';
+import { RedisService } from '@libs/redis';
 import { S3Service } from '@libs/s3';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Job, Worker } from 'bullmq';

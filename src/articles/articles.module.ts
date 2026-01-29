@@ -1,5 +1,6 @@
 import { DatabaseModule } from '@libs/database';
-import { QueueModule, RedisService } from '@libs/queue';
+import { QueueModule } from '@libs/queue';
+import { RedisModule } from '@libs/redis';
 import { S3Module } from '@libs/s3';
 import { Module, forwardRef } from '@nestjs/common';
 import { ProcessorModule } from '../processor/processor.module';
@@ -16,12 +17,12 @@ import { ListArticlesQuery } from './queries/list-articles.query';
     DatabaseModule,
     ProfilesModule,
     S3Module,
+    RedisModule,
     forwardRef(() => QueueModule),
     forwardRef(() => ProcessorModule),
     forwardRef(() => ScraperModule),
   ],
   providers: [
-    RedisService,
     ArticlesService,
     ListArticlesQuery,
     GetArticleByIdQuery,

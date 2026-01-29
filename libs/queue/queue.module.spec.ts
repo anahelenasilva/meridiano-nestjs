@@ -1,3 +1,4 @@
+import { RedisModule } from '@libs/redis';
 import { Test, TestingModule } from '@nestjs/testing';
 import {
   ARTICLE_PROCESSING_QUEUE,
@@ -6,14 +7,13 @@ import {
 } from './constants/queue.constants';
 import { QueueModule } from './queue.module';
 import { QueueService } from './queue.service';
-import { RedisService } from './redis.service';
 
 describe('QueueModule', () => {
   let module: TestingModule;
 
   beforeEach(async () => {
     module = await Test.createTestingModule({
-      imports: [QueueModule],
+      imports: [RedisModule, QueueModule],
     }).compile();
   });
 
@@ -25,12 +25,6 @@ describe('QueueModule', () => {
     const service = module.get<QueueService>(QueueService);
     expect(service).toBeDefined();
     expect(service).toBeInstanceOf(QueueService);
-  });
-
-  it('should provide RedisService', () => {
-    const service = module.get<RedisService>(RedisService);
-    expect(service).toBeDefined();
-    expect(service).toBeInstanceOf(RedisService);
   });
 
   it('should provide queue tokens', () => {
@@ -46,11 +40,6 @@ describe('QueueModule', () => {
 
   it('should export QueueService', () => {
     const service = module.get<QueueService>(QueueService);
-    expect(service).toBeDefined();
-  });
-
-  it('should export RedisService', () => {
-    const service = module.get<RedisService>(RedisService);
     expect(service).toBeDefined();
   });
 });

@@ -1,4 +1,5 @@
 import { EmailModule } from '@libs/email';
+import { RedisModule, RedisService } from '@libs/redis';
 import { S3Module } from '@libs/s3';
 import { Module, forwardRef } from '@nestjs/common';
 import { Queue } from 'bullmq';
@@ -11,7 +12,6 @@ import {
 } from './constants/queue.constants';
 import { ArticleProcessor } from './processors/article.processor';
 import { QueueService } from './queue.service';
-import { RedisService } from './redis.service';
 
 @Module({
   imports: [
@@ -19,9 +19,9 @@ import { RedisService } from './redis.service';
     ConfigModule,
     EmailModule.forRoot(),
     S3Module,
+    RedisModule,
   ],
   providers: [
-    RedisService,
     {
       provide: ARTICLE_PROCESSING_QUEUE,
       useFactory: (redisService: RedisService) => {
@@ -56,7 +56,6 @@ import { RedisService } from './redis.service';
     ARTICLE_PROCESSING_QUEUE,
     MARKDOWN_ARTICLE_PROCESSING_QUEUE,
     YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
-    RedisService,
     QueueService,
   ],
 })

@@ -6,11 +6,13 @@ import {
   Controller,
   Delete,
   Get,
+  Inject,
   NotFoundException,
   Param,
   ParseUUIDPipe,
   Post,
   Query,
+  forwardRef,
 } from '@nestjs/common';
 import { ScraperService } from '../scraper/scraper.service';
 import type { PaginatedArticleInput } from './article.entity';
@@ -28,6 +30,7 @@ export class ArticlesController {
     private readonly listArticlesQuery: ListArticlesQuery,
     private readonly getArticleByIdQuery: GetArticleByIdQuery,
     private readonly scraperService: ScraperService,
+    @Inject(forwardRef(() => QueueService))
     private readonly queueService: QueueService,
     private readonly s3Service: S3Service,
   ) { }

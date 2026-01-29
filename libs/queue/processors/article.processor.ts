@@ -1,3 +1,4 @@
+import { RedisService } from '@libs/redis';
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Job, Worker } from 'bullmq';
 import { ProcessorService } from '../../../src/processor/processor.service';
@@ -5,7 +6,6 @@ import {
   ARTICLE_PROCESSING_QUEUE
 } from '../constants/queue.constants';
 import { ProcessArticleJobData } from '../interfaces/article-job.interface';
-import { RedisService } from '../redis.service';
 
 @Injectable()
 export class ArticleProcessor implements OnModuleInit {

@@ -1,8 +1,8 @@
 import {
   ProcessTranscriptionSummaryJobData,
-  RedisService,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from '@libs/queue';
+import { RedisService } from '@libs/redis';
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Job, Worker } from 'bullmq';
 import { AiService } from '../../ai/ai.service';

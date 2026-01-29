@@ -6,8 +6,6 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
   private client: Redis;
 
   constructor() {
-    // Initialize Redis client immediately in constructor so it's available
-    // when Queue providers are created during module initialization
     const redisHost = process.env.REDIS_HOST || 'localhost';
     const redisPort = parseInt(process.env.REDIS_PORT || '6379', 10);
     const redisPassword = process.env.REDIS_PASSWORD || undefined;
@@ -31,8 +29,6 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
   }
 
   onModuleInit() {
-    // Client is already initialized in constructor
-    // This hook can be used for additional setup if needed
     console.log('[RedisService] onModuleInit - Redis client ready');
   }
 
