@@ -1,5 +1,6 @@
 import { JwtAuthGuard } from '@libs/auth';
 import { DatabaseModule } from '@libs/database';
+import { QueueModule } from '@libs/queue';
 import { S3Module } from '@libs/s3';
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
@@ -14,7 +15,6 @@ import { BriefingsModule } from './briefings/briefings.module';
 import { ConfigModule } from './config/config.module';
 import { ProcessorModule } from './processor/processor.module';
 import { ProfilesModule } from './profiles/profiles.module';
-import { QueueModule } from './queue/queue.module';
 import { ScraperModule } from './scraper/scraper.module';
 import { TechModule } from './tech/tech.module';
 import { UsecasesModule } from './usecases/usecases.module';

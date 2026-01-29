@@ -1,33 +1,27 @@
+import { EmailModule } from '@libs/email';
+import { RedisModule, RedisService } from '@libs/redis';
+import { S3Module } from '@libs/s3';
 import { Module, forwardRef } from '@nestjs/common';
 import { Queue } from 'bullmq';
-import { ArticlesModule } from '../articles/articles.module';
-import { ConfigModule } from '../config/config.module';
-import { EmailModule } from '@libs/email';
-import { ProcessorModule } from '../processor/processor.module';
-import { S3Module } from '@libs/s3';
+import { ConfigModule } from '../../src/config/config.module';
+import { ProcessorModule } from '../../src/processor/processor.module';
 import {
   ARTICLE_PROCESSING_QUEUE,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
-} from '../shared/types/queue.constants';
-import { YoutubeTranscriptionsModule } from '../youtube-transcriptions/youtube-transcriptions.module';
+} from './constants/queue.constants';
 import { ArticleProcessor } from './processors/article.processor';
-import { MarkdownArticleProcessor } from './processors/markdown-article.processor';
-import { YoutubeTranscriptionProcessor } from './processors/youtube-transcription.processor';
 import { QueueService } from './queue.service';
-import { RedisService } from './redis.service';
 
 @Module({
   imports: [
-    forwardRef(() => ArticlesModule),
-    forwardRef(() => YoutubeTranscriptionsModule),
-    ProcessorModule,
+    forwardRef(() => ProcessorModule),
     ConfigModule,
     EmailModule.forRoot(),
     S3Module,
+    RedisModule,
   ],
   providers: [
-    RedisService,
     {
       provide: ARTICLE_PROCESSING_QUEUE,
       useFactory: (redisService: RedisService) => {
@@ -56,15 +50,12 @@ import { RedisService } from './redis.service';
       inject: [RedisService],
     },
     ArticleProcessor,
-    MarkdownArticleProcessor,
-    YoutubeTranscriptionProcessor,
     QueueService,
   ],
   exports: [
     ARTICLE_PROCESSING_QUEUE,
     MARKDOWN_ARTICLE_PROCESSING_QUEUE,
     YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
-    RedisService,
     QueueService,
   ],
 })

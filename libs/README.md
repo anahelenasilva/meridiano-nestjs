@@ -9,7 +9,7 @@ The `libs/` directory separates infrastructure concerns from domain logic, makin
 ## What Belongs in `libs/` vs `src/`
 
 ### `libs/` - Infrastructure & Shared Modules
-- **Shared infrastructure modules**: S3, email, auth, database, queue
+- **Shared infrastructure modules**: S3, email, auth, database, redis, queue
 - **Reusable utilities** used across multiple domain modules
 - **Cross-cutting concerns** that don't belong to a specific domain
 - **Modules that provide services** to multiple domain modules
@@ -162,7 +162,7 @@ AWS S3 integration module providing:
   - `downloadMarkdownFile()`: Download markdown files from S3
   - `generatePresignedPostUrl()`: Generate presigned POST URLs for file uploads
 
-**Migration Date**: January 2026  
+**Migration Date**: January 2026
 **Original Location**: `src/s3/`
 
 ### Email (`libs/email/`)
@@ -200,7 +200,7 @@ async sendEmail() {
 }
 ```
 
-**Migration Date**: January 2026  
+**Migration Date**: January 2026
 **Original Location**: `src/email/`
 
 ### Auth (`libs/auth/`)
@@ -254,15 +254,101 @@ export class AuthController {
 }
 ```
 
-**Migration Date**: January 2026  
+**Migration Date**: January 2026
 **Original Location**: `src/auth/`
+
+### Redis (`libs/redis/`)
+
+Redis infrastructure module providing Redis client connection:
+- `RedisModule`: NestJS module for Redis infrastructure
+- `RedisService`: Service for Redis client connection
+  - `getClient()`: Get the Redis client instance
+
+**Usage Example**:
+```typescript
+import { Module } from '@nestjs/common';
+import { RedisModule, RedisService } from '@libs/redis';
+
+@Module({
+  imports: [RedisModule],
+})
+export class ArticlesModule {}
+
+// In a service
+import { Injectable } from '@nestjs/common';
+import { RedisService } from '@libs/redis';
+import Redis from 'ioredis';
+
+@Injectable()
+export class ArticlesService {
+  constructor(private readonly redisService: RedisService) {}
+
+  async getRedisClient(): Promise<Redis> {
+    return this.redisService.getClient();
+  }
+}
+```
+
+**Migration Date**: January 2026
+**Original Location**: `libs/queue/redis.service.ts`
+
+### Queue (`libs/queue/`)
+
+Queue infrastructure module providing BullMQ-based job queue functionality with Redis:
+- `QueueModule`: NestJS module for queue infrastructure
+- `QueueService`: Service for managing job queues
+  - `addArticleProcessingJob()`: Add article processing job to queue
+  - `addMarkdownArticleProcessingJob()`: Add markdown article processing job to queue
+  - `addTranscriptionSummaryJob()`: Add transcription summary job to queue
+  - `getJobStatus()`: Get status of a job by ID
+- Queue constants: `ARTICLE_PROCESSING_QUEUE`, `MARKDOWN_ARTICLE_PROCESSING_QUEUE`, `YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE`, `PROCESS_ARTICLE_JOB`, `PROCESS_MARKDOWN_ARTICLE_JOB`, `PROCESS_TRANSCRIPTION_SUMMARY_JOB`
+- Job data interfaces: `ProcessArticleJobData`, `ProcessMarkdownArticleJobData`, `ProcessTranscriptionSummaryJobData`
+
+**Architecture Notes**:
+- QueueModule depends on RedisModule for Redis client connection
+- Domain-specific processors (`MarkdownArticleProcessor`, `YoutubeTranscriptionProcessor`) are located in their respective domain modules (`src/articles/processors/`, `src/youtube-transcriptions/processors/`)
+- Only infrastructure processors (`ArticleProcessor`) remain in QueueModule
+
+**Usage Example**:
+```typescript
+import { Module } from '@nestjs/common';
+import { QueueModule, QueueService, ARTICLE_PROCESSING_QUEUE } from '@libs/queue';
+
+@Module({
+  imports: [QueueModule],
+})
+export class ArticlesModule {}
+
+// In a service
+import { Inject, Injectable } from '@nestjs/common';
+import { Queue } from 'bullmq';
+import { QueueService, ARTICLE_PROCESSING_QUEUE } from '@libs/queue';
+
+@Injectable()
+export class ArticlesService {
+  constructor(
+    private readonly queueService: QueueService,
+    @Inject(ARTICLE_PROCESSING_QUEUE) private readonly articleQueue: Queue,
+  ) {}
+
+  async processArticle(articleId: string, feedProfile: FeedProfile) {
+    const jobInfo = await this.queueService.addArticleProcessingJob(
+      articleId,
+      feedProfile,
+    );
+    return jobInfo;
+  }
+}
+```
+
+**Migration Date**: January 2026
+**Original Location**: `src/queue/`
 
 ## Planned Migrations
 
 The following modules are candidates for migration to `libs/`:
 
 - **Database** (`src/database/`) - Database connection and utilities
-- **Queue** (`src/queue/`) - Queue infrastructure (if shared)
 
 Migration decisions should be made based on:
 1. Whether the module is used by multiple domain modules
