@@ -98,6 +98,14 @@ export const techRSSFeeds: RSSFeed[] = [
       'A Staff Engineer (Developer Experience and Developer Relations) at Google DeepMind, where he is building the first AI DevRel/DevX team to bring Google DeepMind\'s AI research to every developer.',
     enabled: true,
   },
+  {
+    url: 'https://lethain.com/feeds.xml#/',
+    name: "Will Larson",
+    category: 'tech',
+    description:
+      'Will Larson is CTO at Carta, and has been a software engineering leader at Calm, Stripe, and Uber. He is the author of An Elegant Puzzle, Staff Engineer, and The Engineering Executive’s Primer. He lives with his family in San Francisco.',
+    enabled: true,
+  },
 ];
 
 export const techPrompts = {
