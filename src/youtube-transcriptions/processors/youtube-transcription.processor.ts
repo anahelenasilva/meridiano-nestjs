@@ -1,13 +1,13 @@
+import {
+  ProcessTranscriptionSummaryJobData,
+  RedisService,
+  YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
+} from '@libs/queue';
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Job, Worker } from 'bullmq';
 import { AiService } from '../../ai/ai.service';
 import { ConfigService } from '../../config/config.service';
-import {
-  YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
-} from '../../shared/types/queue.constants';
-import { YoutubeTranscriptionsService } from '../../youtube-transcriptions/services/youtube-transcriptions.service';
-import { ProcessTranscriptionSummaryJobData } from '../interfaces/youtube-transcription-job.interface';
-import { RedisService } from '../redis.service';
+import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 
 @Injectable()
 export class YoutubeTranscriptionProcessor implements OnModuleInit {

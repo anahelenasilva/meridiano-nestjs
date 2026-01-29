@@ -1,3 +1,5 @@
+import { QueueService } from '@libs/queue';
+import { S3Service } from '@libs/s3';
 import {
   BadRequestException,
   Body,
@@ -10,8 +12,6 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { QueueService } from '../queue/queue.service';
-import { S3Service } from '@libs/s3';
 import { ScraperService } from '../scraper/scraper.service';
 import type { PaginatedArticleInput } from './article.entity';
 import { ArticlesService } from './articles.service';

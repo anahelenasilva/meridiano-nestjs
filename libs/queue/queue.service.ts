@@ -1,8 +1,8 @@
+import { EmailService } from '@libs/email';
 import { Inject, Injectable, NotFoundException, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { Queue, QueueEvents } from 'bullmq';
-import { ConfigService } from '../config/config.service';
-import { EmailService } from '@libs/email';
-import { FeedProfile } from '../shared/types/feed';
+import { ConfigService } from '../../src/config/config.service';
+import { FeedProfile } from '../../src/shared/types/feed';
 import {
   ARTICLE_PROCESSING_QUEUE,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
@@ -10,7 +10,7 @@ import {
   PROCESS_MARKDOWN_ARTICLE_JOB,
   PROCESS_TRANSCRIPTION_SUMMARY_JOB,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
-} from '../shared/types/queue.constants';
+} from './constants/queue.constants';
 import type { ProcessArticleJobData } from './interfaces/article-job.interface';
 import type { ProcessMarkdownArticleJobData } from './interfaces/markdown-article-job.interface';
 import type { ProcessTranscriptionSummaryJobData } from './interfaces/youtube-transcription-job.interface';

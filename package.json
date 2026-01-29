@@ -114,6 +114,7 @@
   "jest": {
     "moduleFileExtensions": [
       "js",
+      "mjs",
       "json",
       "ts"
     ],
@@ -123,13 +124,30 @@
     ],
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
+      "^.+\\.(t|j)s$": [
+        "ts-jest",
+        {
+          "useESM": false,
+          "tsconfig": {
+            "esModuleInterop": true,
+            "allowSyntheticDefaultImports": true
+          }
+        }
+      ],
+      "^.+\\.mjs$": [
+        "ts-jest",
+        {
+          "useESM": false
+        }
+      ]
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!(youtubei.js)/)"
+      "node_modules/(?!(\\.pnpm/(youtubei.js|marked)@[^/]+/node_modules/)?(youtubei.js|marked)/)"
     ],
     "moduleNameMapper": {
       "^youtubei.js$": "<rootDir>/src/__mocks__/youtubei.js.ts",
+      "^youtube-transcript-plus$": "<rootDir>/src/__mocks__/youtube-transcript-plus.ts",
+      "^marked$": "<rootDir>/node_modules/marked/lib/marked.umd.js",
       "^@libs/(.*)$": "<rootDir>/libs/$1"
     },
     "collectCoverageFrom": [

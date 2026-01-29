@@ -1,4 +1,4 @@
-import { FeedProfile } from '../../shared/types/feed';
+import { FeedProfile } from '../../../src/shared/types/feed';
 
 export interface ProcessArticleJobData {
   articleFileKey: string;

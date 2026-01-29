@@ -1,13 +1,14 @@
 import { DatabaseModule } from '@libs/database';
-import { Module, forwardRef } from '@nestjs/common';
+import { QueueModule } from '@libs/queue';
+import { Module } from '@nestjs/common';
 import { AiModule } from '../ai/ai.module';
 import { AiService } from '../ai/ai.service';
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
-import { QueueModule } from '../queue/queue.module';
 import { YoutubeChannelsModule } from '../youtube-channels/youtube-channels.module';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
+import { YoutubeTranscriptionProcessor } from './processors/youtube-transcription.processor';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
 import { ListYoutubeTranscriptionsQuery } from './queries/list-youtube-transcriptions.query';
@@ -24,7 +25,7 @@ import { YoutubeTranscriptionsController } from './youtube-transcriptions.contro
     AiModule,
     ConfigModule,
     YoutubeChannelsModule,
-    forwardRef(() => QueueModule),
+    QueueModule,
   ],
   providers: [
     YoutubeTranscriptionsService,
@@ -39,6 +40,7 @@ import { YoutubeTranscriptionsController } from './youtube-transcriptions.contro
     GetYoutubeTranscriptionByIdQuery,
     DeleteYoutubeTranscriptionCommand,
     CreateYoutubeTranscriptionCommand,
+    YoutubeTranscriptionProcessor,
   ],
   exports: [YoutubeTranscriptionsService],
   controllers: [YoutubeTranscriptionsController],

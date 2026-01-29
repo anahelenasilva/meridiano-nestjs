@@ -1,11 +1,13 @@
 import { DatabaseModule } from '@libs/database';
+import { QueueModule, RedisService } from '@libs/queue';
 import { S3Module } from '@libs/s3';
 import { Module, forwardRef } from '@nestjs/common';
+import { ProcessorModule } from '../processor/processor.module';
 import { ProfilesModule } from '../profiles/profiles.module';
-import { QueueModule } from '../queue/queue.module';
 import { ScraperModule } from '../scraper/scraper.module';
 import { ArticlesController } from './articles.controller';
 import { ArticlesService } from './articles.service';
+import { MarkdownArticleProcessor } from './processors/markdown-article.processor';
 import { GetArticleByIdQuery } from './queries/get-article-by-id.query';
 import { ListArticlesQuery } from './queries/list-articles.query';
 
@@ -14,10 +16,17 @@ import { ListArticlesQuery } from './queries/list-articles.query';
     DatabaseModule,
     ProfilesModule,
     S3Module,
-    forwardRef(() => ScraperModule),
     forwardRef(() => QueueModule),
+    forwardRef(() => ProcessorModule),
+    forwardRef(() => ScraperModule),
   ],
-  providers: [ArticlesService, ListArticlesQuery, GetArticleByIdQuery],
+  providers: [
+    RedisService,
+    ArticlesService,
+    ListArticlesQuery,
+    GetArticleByIdQuery,
+    MarkdownArticleProcessor,
+  ],
   controllers: [ArticlesController],
   exports: [ArticlesService],
 })

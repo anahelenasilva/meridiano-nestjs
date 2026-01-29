@@ -1,6 +1,6 @@
 import { DatabaseService } from '@libs/database';
+import { QueueService } from '@libs/queue';
 import { Injectable } from '@nestjs/common';
-import { QueueService } from '../../queue/queue.service';
 import { ChannelConfig } from '../../shared/types/channel';
 import { TranscriptItem, VideoWithTranscript } from '../../shared/types/video';
 import { YoutubeChannelsService } from '../../youtube-channels/youtube-channels.service';

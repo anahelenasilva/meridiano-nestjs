@@ -320,7 +320,7 @@ Breaking down this regex parttern:
   - [x] S3
   - [x] Email
   - [x] Auth
-  - [ ] Database
+  - [x] Database
   - [ ] Queue
 - [ ] Add e2e tests for the main parts
   - [ ] login

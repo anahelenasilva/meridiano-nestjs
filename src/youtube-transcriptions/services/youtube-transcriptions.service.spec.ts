@@ -2,14 +2,15 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { mock, mockReset } from 'jest-mock-extended';
 
 import { DatabaseService } from '@libs/database';
+import { QueueService } from '@libs/queue/queue.service';
 import { INestApplication } from '@nestjs/common';
-import { QueueService } from '../../queue/queue.service';
 import { ChannelConfig } from '../../shared/types/channel';
 import { VideoMetadata } from '../../shared/types/video';
 import { YoutubeChannel } from '../../youtube-channels/domain/youtube-channel';
 import { YoutubeChannelsService } from '../../youtube-channels/youtube-channels.service';
 import { StorageService } from '../services/storage.service';
 import { TranscriptService } from '../services/transcript.service';
+import { YoutubeTranscriptionsAlternativeService } from './youtube-transcriptions-alternative.service';
 import { YoutubeTranscriptionsService } from './youtube-transcriptions.service';
 import { YouTubeService } from './youtube.service';
 
@@ -20,6 +21,8 @@ describe('YoutubeTranscriptionsService', () => {
   // Mock implementations
   const mockYouTubeService = mock<YouTubeService>();
   const mockTranscriptService = mock<TranscriptService>();
+  const mockYoutubeTranscriptionsAlternativeService =
+    mock<YoutubeTranscriptionsAlternativeService>();
   const mockStorageService = mock<StorageService>();
   const mockDatabaseService = mock<DatabaseService>();
   const mockQueueService = mock<QueueService>();
@@ -38,6 +41,10 @@ describe('YoutubeTranscriptionsService', () => {
           useValue: mockTranscriptService,
         },
         {
+          provide: YoutubeTranscriptionsAlternativeService,
+          useValue: mockYoutubeTranscriptionsAlternativeService,
+        },
+        {
           provide: StorageService,
           useValue: mockStorageService,
         },
@@ -54,10 +61,7 @@ describe('YoutubeTranscriptionsService', () => {
           useValue: mockYoutubeChannelsService,
         },
       ],
-    })
-      .overrideProvider(YoutubeTranscriptionsService) // override the dependency with the mocked version
-      .useValue(service)
-      .compile();
+    }).compile();
 
     app = module.createNestApplication();
     await app.init();
@@ -68,6 +72,7 @@ describe('YoutubeTranscriptionsService', () => {
   beforeEach(() => {
     mockReset(mockYouTubeService);
     mockReset(mockTranscriptService);
+    mockReset(mockYoutubeTranscriptionsAlternativeService);
     mockReset(mockStorageService);
     mockReset(mockDatabaseService);
     mockReset(mockQueueService);
