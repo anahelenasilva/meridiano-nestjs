@@ -8,6 +8,9 @@ import {
 import { QueueModule } from './queue.module';
 import { QueueService } from './queue.service';
 
+jest.mock('ioredis');
+jest.mock('bullmq');
+
 describe('QueueModule', () => {
   let module: TestingModule;
 
