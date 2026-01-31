@@ -409,6 +409,36 @@ source scripts/opencode-helpers.sh
 ocu "add authentication to articles endpoint"
 ```
 
+# How to use the `generate-commit-message` skill for better commit messages
+
+The skill will automatically trigger when you:
+- Ask for a commit message
+- Ask to commit changes
+- Need help writing commit messages
+
+You can also explicitly invoke it:
+```
+/generate-commit-message
+```
+
+Or ask:
+- "Generate a commit message for my changes"
+- "What commit message should I use?"
+- "Help me write a commit message"
+
+**Location**: `.cursor/skills/generate-commit-message/SKILL.md`
+
+The skill includes:
+
+1. **Process workflow**: Steps to analyze git changes and generate commit messages
+2. **Type reference**: Table of all Conventional Commits types with examples
+3. **Scope guidelines**: How to identify and format scopes
+4. **Description best practices**: Imperative mood, length, formatting
+5. **Breaking changes**: How to indicate breaking changes
+6. **Examples**: Real-world examples for different scenarios
+7. **Analysis tips**: How to interpret diffs and identify types/scopes
+
+
 # API Documentation
 
 For detailed API documentation, see:
