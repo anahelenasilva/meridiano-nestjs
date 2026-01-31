@@ -1,12 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { mock } from 'jest-mock-extended';
 import { Pool } from 'pg';
 import { DatabaseService } from './database.service';
 
-const mockPoolInstance = {
-  connect: jest.fn(),
-  query: jest.fn(),
-  end: jest.fn(),
-};
+const mockPoolInstance = mock<Pool>();
 
 jest.mock('pg', () => {
   return {
@@ -67,9 +64,7 @@ describe('DatabaseService', () => {
 
     service = module.get<DatabaseService>(DatabaseService);
 
-    const mockClient = {
-      release: jest.fn(),
-    };
+    const mockClient = mock<{ release: () => void }>();
     mockPoolInstance.connect.mockResolvedValue(mockClient as never);
   });
 
@@ -151,7 +146,7 @@ describe('DatabaseService', () => {
 
     it('should handle connection errors', async () => {
       const error = new Error('Connection failed');
-      mockPoolInstance.connect.mockRejectedValueOnce(error);
+      mockPoolInstance.connect.mockRejectedValueOnce(error as unknown as never);
 
       await expect(service.initDb()).rejects.toThrow('Connection failed');
     });
@@ -178,7 +173,7 @@ describe('DatabaseService', () => {
 
   describe('closeDb', () => {
     it('should close database connection', async () => {
-      mockPoolInstance.end.mockResolvedValue(undefined);
+      mockPoolInstance.end.mockResolvedValue(undefined as unknown as never);
 
       await service.initDb();
       await service.closeDb();
@@ -188,7 +183,7 @@ describe('DatabaseService', () => {
 
     it('should handle close errors gracefully', async () => {
       const error = new Error('Close failed');
-      mockPoolInstance.end.mockRejectedValueOnce(error);
+      mockPoolInstance.end.mockRejectedValueOnce(error as unknown as never);
 
       await service.initDb();
       await expect(service.closeDb()).rejects.toThrow('Close failed');
@@ -201,7 +196,7 @@ describe('DatabaseService', () => {
 
   describe('onModuleDestroy', () => {
     it('should close database connection', async () => {
-      mockPoolInstance.end.mockResolvedValue(undefined);
+      mockPoolInstance.end.mockResolvedValue(undefined as unknown as never);
 
       await service.initDb();
       await service.onModuleDestroy();
@@ -211,7 +206,7 @@ describe('DatabaseService', () => {
 
     it('should handle errors during destroy', async () => {
       const error = new Error('Destroy failed');
-      mockPoolInstance.end.mockRejectedValueOnce(error);
+      mockPoolInstance.end.mockRejectedValueOnce(error as unknown as never);
 
       await service.initDb();
       await expect(service.onModuleDestroy()).rejects.toThrow('Destroy failed');

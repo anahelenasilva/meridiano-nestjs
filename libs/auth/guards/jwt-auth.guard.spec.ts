@@ -2,8 +2,8 @@ import { ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
-import { JwtAuthGuard } from './jwt-auth.guard';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
+import { JwtAuthGuard } from './jwt-auth.guard';
 
 describe('JwtAuthGuard', () => {
   let guard: JwtAuthGuard;
@@ -11,6 +11,8 @@ describe('JwtAuthGuard', () => {
   const mockExecutionContext = mock<ExecutionContext>();
 
   beforeEach(async () => {
+    jest.clearAllMocks();
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         JwtAuthGuard,
@@ -34,8 +36,8 @@ describe('JwtAuthGuard', () => {
 
   describe('canActivate', () => {
     it('should return true when route is marked as public', () => {
-      const mockHandler = jest.fn();
-      const mockClass = class MockClass {};
+      const mockHandler = mock<(...args: unknown[]) => unknown>();
+      const mockClass = class MockClass { };
       mockExecutionContext.getHandler.mockReturnValue(mockHandler as any);
       mockExecutionContext.getClass.mockReturnValue(mockClass);
       mockReflector.getAllAndOverride.mockReturnValueOnce(true);

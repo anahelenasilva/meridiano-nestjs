@@ -12,7 +12,9 @@ describe('S3Service', () => {
   let mockSend: jest.Mock;
 
   beforeEach(async () => {
+    jest.clearAllMocks();
     mockSend = jest.fn();
+
     (S3Client as jest.Mock).mockImplementation(() => ({
       send: mockSend,
     }));
@@ -26,6 +28,9 @@ describe('S3Service', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+    if (mockSend) {
+      mockSend.mockReset();
+    }
   });
 
   it('should be defined', () => {
@@ -40,7 +45,7 @@ describe('S3Service', () => {
 
       const mockStream = Readable.from([fileContent]);
 
-      mockSend.mockResolvedValueOnce({
+      mockSend.mockResolvedValue({
         Body: mockStream,
       });
 
