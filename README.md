@@ -390,6 +390,25 @@ Then you (or the AI assistant) can execute the instructions to implement the sto
 
 For more information, access [Ralph documentation here](./scripts/ralph/README.md).
 
+# Cursor + OpenCode Workflow
+
+This project supports using both Cursor and OpenCode together for maximum productivity.
+
+- **Cursor**: Quick edits, code review, file navigation, immediate feedback
+- **OpenCode**: Complex multi-step tasks, orchestrated agent workflows with `ultrawork`
+
+See the [Cursor + OpenCode Workflow Guide](./docs/CURSOR_OPENCODE_WORKFLOW.md) for:
+- When to use which tool
+- Workflow patterns and examples
+- Helper scripts and shortcuts
+- Best practices
+
+Quick start: Source the helper script and use `ocu <task>` for ultrawork tasks:
+```bash
+source scripts/opencode-helpers.sh
+ocu "add authentication to articles endpoint"
+```
+
 # API Documentation
 
 For detailed API documentation, see:
