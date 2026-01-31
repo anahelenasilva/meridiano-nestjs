@@ -1,17 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import Redis from 'ioredis';
+import { mock } from 'jest-mock-extended';
 import { RedisService } from './redis.service';
 
 jest.mock('ioredis');
 
 describe('RedisService', () => {
   let service: RedisService;
-  const mockRedisClient = {
-    on: jest.fn(),
-    disconnect: jest.fn(),
-  };
+  const mockRedisClient = mock<Redis>();
 
   beforeEach(async () => {
+    jest.clearAllMocks();
+
     (Redis as unknown as jest.Mock).mockImplementation(() => mockRedisClient);
 
     const module: TestingModule = await Test.createTestingModule({

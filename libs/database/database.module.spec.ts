@@ -15,13 +15,15 @@ jest.mock('typeorm', () => {
 });
 
 jest.mock('@nestjs/typeorm', () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { DataSource } = require('typeorm');
-  const MockTypeOrmModule = class {} as any;
+  const MockTypeOrmModule = class { } as any;
   MockTypeOrmModule.forRoot = jest.fn(() => ({
     module: MockTypeOrmModule,
     providers: [
       {
         provide: DataSource,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         useFactory: () => new DataSource({} as any),
       },
     ],
@@ -37,15 +39,15 @@ jest.mock('@nestjs/typeorm', () => {
 
 describe('DatabaseModule', () => {
   let module: TestingModule;
-  const mockDatabaseService = {
-    initDb: jest.fn().mockResolvedValue(undefined),
-    getDbConnection: jest.fn(),
-    closeDb: jest.fn().mockResolvedValue(undefined),
-    onModuleDestroy: jest.fn().mockResolvedValue(undefined),
-  };
+  const mockDatabaseService = mock<DatabaseService>();
   const mockDataSource = mock<DataSource>();
 
   beforeEach(async () => {
+    jest.clearAllMocks();
+
+    mockDatabaseService.initDb.mockResolvedValue(undefined);
+    mockDatabaseService.closeDb.mockResolvedValue(undefined);
+    mockDatabaseService.onModuleDestroy.mockResolvedValue(undefined);
     mockDataSource.runMigrations.mockResolvedValue([]);
     mockDataSource.destroy.mockResolvedValue(undefined);
 
