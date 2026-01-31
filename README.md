@@ -333,12 +333,12 @@ Breaking down this regex parttern:
 - [ ] Migrate feeds configs to a table
 - [ ] Refactor all tests to use jest-mock-extended
 - [ ] Send email with articles briefings; use my `personal-sendmail-api` (create validation on aws SES for meridiano)
-- [ ] Move the following modules to a libs structure inside this project:
+- [x] Move the following modules to a libs structure inside this project:
   - [x] S3
   - [x] Email
   - [x] Auth
   - [x] Database
-  - [ ] Queue
+  - [x] Queue
 - [ ] Add e2e tests for the main parts
   - [ ] login
   - [ ] briefing tech (or could be any other -> maybe break down into smaller pieces)
