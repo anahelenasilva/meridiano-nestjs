@@ -78,19 +78,19 @@ libs/
 - Use `forRootAsync()` when provider needs dependencies injected (e.g., `AuthModule` with `UserLookupProvider`)
 
 ### File Naming Conventions
-| Type | File Pattern | Class Pattern |
-|------|--------------|---------------|
-| Service | `*.service.ts` | `*Service` |
-| Controller | `*.controller.ts` | `*Controller` |
-| Module | `*.module.ts` | `*Module` |
-| Entity/Types | `*.entity.ts` | Interfaces/Types |
-| DTO | `*.dto.ts` | `*Dto` |
-| Command | `*.command.ts` | `*Command` |
-| Query | `*.query.ts` | `*Query` |
-| Usecase | `*.usecase.ts` | `*UseCase` |
-| Test | `*.spec.ts` | - |
-| Migration | `{timestamp}-{PascalCase}.ts` | - |
-| Prompt | `*.prompt.ts` | - |
+| Type         | File Pattern                  | Class Pattern    |
+| ------------ | ----------------------------- | ---------------- |
+| Service      | `*.service.ts`                | `*Service`       |
+| Controller   | `*.controller.ts`             | `*Controller`    |
+| Module       | `*.module.ts`                 | `*Module`        |
+| Entity/Types | `*.entity.ts`                 | Interfaces/Types |
+| DTO          | `*.dto.ts`                    | `*Dto`           |
+| Command      | `*.command.ts`                | `*Command`       |
+| Query        | `*.query.ts`                  | `*Query`         |
+| Usecase      | `*.usecase.ts`                | `*UseCase`       |
+| Test         | `*.spec.ts`                   | -                |
+| Migration    | `{timestamp}-{PascalCase}.ts` | -                |
+| Prompt       | `*.prompt.ts`                 | -                |
 
 ## Code Style
 
@@ -126,7 +126,6 @@ throw new UnauthorizedException('Failed to login');
 - Controllers remain in `src/auth/` (domain-specific)
 - AuthModule uses `forRoot()` or `forRootAsync()` pattern to accept a `UserLookupProvider` implementation
 - User lookup provider pattern decouples auth infrastructure from domain-specific user services
-- User context available via `@CurrentUser()` decorator
 
 ### Database Patterns
 - TypeORM with PostgreSQL (not SQLite)
