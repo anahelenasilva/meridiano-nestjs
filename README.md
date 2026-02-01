@@ -69,7 +69,8 @@ JWT_SECRET=your-secret-key-change-in-production
 # AI API Keys
 DEEPSEEK_API_KEY=your-deepseek-api-key
 EMBEDDING_API_KEY=your-embedding-api-key
-OPENAI_API_KEY=your-openai-api-key  # Required for text-to-speech audio generation
+# Required for text-to-speech audio generation
+OPENAI_API_KEY=your-openai-api-key
 ```
 
 ### Starting the Database
@@ -351,6 +352,7 @@ Breaking down this regex parttern:
   - [ ] process transcription
 - [ ] Add an AI coding CLI, for example, Code Rabbit as part of the loop where after a run, it runs the Code Rabbit CLI against the current diff, finds any potential things that might be wrong with that code, and then sends that as part of the context to another agent that will go and fix the things that it caught
 - [ ] Generate an audio for a transcript (optional param); save to s3? make it possible to listen on the transcription page?
+- [ ] Remove usecase module
 
 # How to use Ralph in this project
 
