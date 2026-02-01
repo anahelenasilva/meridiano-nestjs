@@ -1,31 +1,26 @@
-import { Test, TestingModule } from '@nestjs/testing';
 
+import { mock } from 'jest-mock-extended';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
+import { YoutubeTranscriptionsService } from './services/youtube-transcriptions.service';
 import { YoutubeTranscriptionsController } from './youtube-transcriptions.controller';
 
-describe.skip('YoutubeTranscriptionsController', () => {
+describe('YoutubeTranscriptionsController', () => {
   let controller: YoutubeTranscriptionsController;
+  const mockYoutubeTranscriptionsService = mock<YoutubeTranscriptionsService>();
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [YoutubeTranscriptionsController],
-      providers: [
-        ListAllYoutubeTranscriptionsQuery,
-        GetYoutubeTranscriptionByIdQuery,
-        DeleteYoutubeTranscriptionCommand,
-        CreateYoutubeTranscriptionCommand,
-      ],
-    }).compile();
+  beforeEach(() => {
+    const mockListAllYoutubeTranscriptionsQuery = new ListAllYoutubeTranscriptionsQuery(mockYoutubeTranscriptionsService);
+    const mockGetYoutubeTranscriptionByIdQuery = new GetYoutubeTranscriptionByIdQuery(mockYoutubeTranscriptionsService);
+    const mockDeleteYoutubeTranscriptionCommand = new DeleteYoutubeTranscriptionCommand(mockYoutubeTranscriptionsService);
+    const mockCreateYoutubeTranscriptionCommand = new CreateYoutubeTranscriptionCommand(mockYoutubeTranscriptionsService);
 
-    controller = module.get<YoutubeTranscriptionsController>(
-      YoutubeTranscriptionsController,
-    );
+    controller = new YoutubeTranscriptionsController(mockListAllYoutubeTranscriptionsQuery, mockGetYoutubeTranscriptionByIdQuery, mockDeleteYoutubeTranscriptionCommand, mockCreateYoutubeTranscriptionCommand);
   });
 
-  it.skip('should be defined', () => {
+  it('should be defined', () => {
     expect(controller).toBeDefined();
   });
 });
