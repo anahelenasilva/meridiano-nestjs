@@ -6,8 +6,8 @@ import { RedisService } from '@libs/redis';
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Job, Worker } from 'bullmq';
 import { AiService } from '../../ai/ai.service';
+import { GenerateAudioUseCase } from '../../audio-files/usecases/generate-audio.usecase';
 import { ConfigService } from '../../config/config.service';
-import { GenerateAudioUseCase } from '../../usecases/audio/generate-audio.usecase';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 
 @Injectable()

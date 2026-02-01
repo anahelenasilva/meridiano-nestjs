@@ -3,8 +3,8 @@ import * as dotenv from 'dotenv';
 
 import { AppModule } from '../app.module';
 import { ChannelConfig } from '../shared/types/channel';
-import { ExtractYoutubeTranscriptsUseCase } from '../usecases/youtube-transcriptions/extract-youtube-transcripts.usecase';
 import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
+import { ExtractYoutubeTranscriptsUseCase } from '../youtube-transcriptions/usecases/extract-youtube-transcripts.usecase';
 
 dotenv.config();
 

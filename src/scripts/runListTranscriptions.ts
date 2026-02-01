@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import * as dotenv from 'dotenv';
 
 import { AppModule } from '../app.module';
-import { ListTranscriptionsUseCase } from '../usecases/youtube-transcriptions/list-transcriptions.usecase';
+import { ListTranscriptionsUseCase } from '../youtube-transcriptions/usecases/list-transcriptions.usecase';
 
 dotenv.config();
 
