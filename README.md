@@ -352,6 +352,7 @@ Breaking down this regex parttern:
   - [ ] process transcription
 - [ ] Add an AI coding CLI, for example, Code Rabbit as part of the loop where after a run, it runs the Code Rabbit CLI against the current diff, finds any potential things that might be wrong with that code, and then sends that as part of the context to another agent that will go and fix the things that it caught
 - [ ] Generate an audio for a transcript (optional param); save to s3? make it possible to listen on the transcription page?
+- [ ] Isolate the generate audio feature into another job, and add a specific command for it; also add retry (max 1x) if it fails to process audio; if max attempts reached, add to dead letter queue
 - [ ] Remove usecase module
 
 # How to use Ralph in this project
