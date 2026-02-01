@@ -74,4 +74,18 @@ Started: Sat Jan 31 2026
   - Module pattern: Import required modules (DatabaseModule, S3Module), provide service, export service
   - Module imports in AppModule should be alphabetically ordered for consistency
   - Always add import statement at top of file when adding module to imports array
+
+## Sun Feb 01 2026 - US-007
+- Created audio generation use case with complete workflow
+- Files changed:
+  - `src/usecases/audio/dto/generate-audio.dto.ts` (new)
+  - `src/usecases/audio/generate-audio.usecase.ts` (new)
+  - `src/usecases/usecases.module.ts` (modified)
+- **Learnings for future iterations:**
+  - Use case pattern: Inject required services, implement execute() method with input/output DTOs
+  - S3 bucket name retrieved from environment variable: `process.env.S3_ARTICLES_BUCKET_NAME`
+  - S3 path format for audio: `audio/{YYYY-MM-DD}/{sourceType}-{sourceId}.mp3`
+  - Use Logger for tracking workflow progress
+  - Return success/error objects instead of throwing exceptions for graceful error handling
+  - UsecasesModule requires importing all dependent modules (AiModule, S3Module, AudioFilesModule)
 ---

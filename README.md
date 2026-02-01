@@ -65,6 +65,11 @@ REDIS_PORT=6379
 
 # JWT Authentication
 JWT_SECRET=your-secret-key-change-in-production
+
+# AI API Keys
+DEEPSEEK_API_KEY=your-deepseek-api-key
+EMBEDDING_API_KEY=your-embedding-api-key
+OPENAI_API_KEY=your-openai-api-key  # Required for text-to-speech audio generation
 ```
 
 ### Starting the Database
