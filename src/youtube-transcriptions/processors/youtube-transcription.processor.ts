@@ -7,6 +7,7 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Job, Worker } from 'bullmq';
 import { AiService } from '../../ai/ai.service';
 import { ConfigService } from '../../config/config.service';
+import { GenerateAudioUseCase } from '../../usecases/audio/generate-audio.usecase';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 
 @Injectable()
@@ -18,6 +19,7 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
     private readonly youtubeTranscriptionsService: YoutubeTranscriptionsService,
     private readonly aiService: AiService,
     private readonly configService: ConfigService,
+    private readonly generateAudioUseCase: GenerateAudioUseCase,
   ) { }
 
   onModuleInit() {
@@ -77,6 +79,31 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
       console.log(
         `✓ Transcription ${transcriptionId} summary generated and saved successfully (Job ${job.id})`,
       );
+
+      // Generate audio if flag is enabled
+      if (job.data.generateAudio) {
+        try {
+          console.log(`Generating audio for transcription ID: ${transcriptionId}...`);
+          const transcription = await this.youtubeTranscriptionsService.getTranscriptionById(transcriptionId);
+
+          if (transcription) {
+            const audioResult = await this.generateAudioUseCase.execute({
+              sourceType: 'transcription',
+              sourceId: transcriptionId,
+              text: summary,
+              date: transcription.processedAt,
+            });
+
+            if (audioResult.success) {
+              console.log(`Audio generated successfully for transcription ID: ${transcriptionId}`);
+            } else {
+              console.error(`Audio generation failed for transcription ID: ${transcriptionId}: ${audioResult.error}`);
+            }
+          }
+        } catch (audioError) {
+          console.error(`Error generating audio for transcription ID: ${transcriptionId}:`, audioError);
+        }
+      }
 
       return {
         success: true,

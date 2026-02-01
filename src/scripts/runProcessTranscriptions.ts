@@ -1,10 +1,27 @@
 import { NestFactory } from '@nestjs/core';
+import { Command } from 'commander';
 import * as dotenv from 'dotenv';
 
 import { AppModule } from '../app.module';
 import { ProcessTranscriptionFilesUseCase } from '../usecases/youtube-transcriptions/process-transcription-files.usecase';
 
 dotenv.config();
+
+const program = new Command();
+
+program
+  .name('process-transcriptions')
+  .description('Process YouTube transcription files')
+  .version('1.0.0')
+  .option('--generate-audio', 'Generate audio for transcription summaries');
+
+program.parse();
+
+interface ProgramOptions {
+  generateAudio?: boolean;
+}
+
+const options: ProgramOptions = program.opts();
 
 async function initialize() {
   const app = await NestFactory.createApplicationContext(AppModule);
@@ -25,7 +42,9 @@ async function main() {
   try {
     const services = await initialize();
 
-    const stats = await services.processTranscriptionFilesUseCase.execute({});
+    const stats = await services.processTranscriptionFilesUseCase.execute({
+      generateAudio: options.generateAudio,
+    });
 
     if (stats.totalFiles === 0) {
       console.log('No transcription files found to process.');

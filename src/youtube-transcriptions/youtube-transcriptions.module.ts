@@ -1,11 +1,12 @@
 import { DatabaseModule } from '@libs/database';
 import { QueueModule } from '@libs/queue';
 import { RedisModule } from '@libs/redis';
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { AiModule } from '../ai/ai.module';
 import { AiService } from '../ai/ai.service';
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
+import { UsecasesModule } from '../usecases/usecases.module';
 import { YoutubeChannelsModule } from '../youtube-channels/youtube-channels.module';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
@@ -27,7 +28,8 @@ import { YoutubeTranscriptionsController } from './youtube-transcriptions.contro
     ConfigModule,
     YoutubeChannelsModule,
     RedisModule,
-    QueueModule,
+    forwardRef(() => QueueModule),
+    forwardRef(() => UsecasesModule),
   ],
   providers: [
     YoutubeTranscriptionsService,

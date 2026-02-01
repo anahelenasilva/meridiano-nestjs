@@ -1,295 +1,136 @@
 # Ralph Progress Log
-Started: Tue Jan 27 2026
+Started: Sat Jan 31 2026
 ---
 
-## 2026-01-28T00:58:00.000Z - US-001
-Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
-- Created libs/database module structure following the project's lib pattern
-- Created database.module.ts with @Global() decorator
-- Created database.service.ts with core database operations
-- Created database.interface.ts with database service interface
-- Created abstract-database.service.ts for abstract base class
-- Created postgres-database.service.ts for PostgreSQL implementation
-- Created typeorm.config.ts for TypeORM configuration
-- Created index.ts barrel export
-- Typecheck passed successfully
-- Files changed:
-  - libs/database/abstract-database.service.ts (new)
-  - libs/database/database.interface.ts (new)
-  - libs/database/database.module.ts (new)
-  - libs/database/database.service.ts (new)
-  - libs/database/index.ts (new)
-  - libs/database/postgres-database.service.ts (new)
-  - libs/database/typeorm.config.ts (new)
-- **Learnings for future iterations:**
-  - The project uses @libs/* path aliases configured in tsconfig.json
-  - When using isolatedModules in tsconfig, type exports must use `export type` syntax
-  - The database module follows the same pattern as other libs (auth, email, s3)
-  - DatabaseModule uses @Global() decorator to make it available throughout the app
-  - The module implements OnModuleInit and OnModuleDestroy for lifecycle hooks
----
+## Codebase Patterns
+- Migrations use TypeORM MigrationInterface pattern with `up()` and `down()` methods
+- Migration files follow naming: `{timestamp}-{PascalCaseDescription}.ts`
+- Use `CREATE TABLE IF NOT EXISTS` pattern for idempotent migrations
+- PostgreSQL UUID columns use `gen_random_uuid()` as default
+- Timestamps use `TIMESTAMP DEFAULT CURRENT_TIMESTAMP`
+- Create indexes separately after table creation
+- Use `IF NOT EXISTS` and `IF EXISTS` clauses for idempotent operations
+- Build verification: Use `pnpm run build` to verify TypeScript compilation (no separate typecheck script)
 
-## 2026-01-28T01:11:00.000Z - US-002
-Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
-- Moved database service implementations from src/database/ to libs/database/ using git mv
-- Moved database.service.ts preserving git history
-- Moved abstract-database.service.ts preserving git history
-- Moved postgres-database.service.ts preserving git history
-- Verified git history preserved with git log --follow
-- Internal imports already use relative paths (no changes needed)
-- Typecheck fails as expected (will be fixed in US-005 and US-006)
+## Sat Jan 31 2026 - US-001
+- Created audio_files database table migration
 - Files changed:
-  - src/database/database.service.ts (deleted via git mv)
-  - src/database/abstract-database.service.ts (deleted via git mv)
-  - src/database/postgres-database.service.ts (deleted via git mv)
-  - libs/database/database.service.ts (moved via git mv)
-  - libs/database/abstract-database.service.ts (moved via git mv)
-  - libs/database/postgres-database.service.ts (moved via git mv)
+  - `src/database/migrations/1769908667952-CreateAudioFilesTable.ts` (new)
 - **Learnings for future iterations:**
-  - git mv preserves file history when moving files
-  - Use git log --follow to verify history is preserved
-  - Internal imports using relative paths don't need updating when moving files within same directory structure
-  - Typecheck failures are expected during migration until all imports are updated
----
+  - Migration pattern: Class name follows `{Description}{Timestamp}` format
+  - PostgreSQL CHECK constraints used for enum-like values: `CHECK (source_type IN ('article', 'transcription'))`
+  - Unique constraints created via `CONSTRAINT unique_name UNIQUE (col1, col2)` syntax
+  - Indexes created with DESC ordering for created_at: `CREATE INDEX ... ON table(column DESC)`
 
-## 2026-01-28T01:14:00.000Z - US-003
-Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
-- Moved typeorm.config.ts from src/database/ to libs/database/ using git mv
-- Verified DatabaseModule imports TypeOrmModule.forRoot() with correct config from libs/database/
-- Migration path 'dist/database/migrations/*.js' resolves correctly (migrations stay in src/database/migrations/)
-- Verified @Global() decorator is kept on DatabaseModule
-- Typecheck fails as expected (will be fixed in US-007 when aliases are created)
+## Sat Jan 31 2026 - US-002
+- Added OpenAI TTS client initialization to AiService
 - Files changed:
-  - src/database/typeorm.config.ts (deleted via git mv)
-  - libs/database/typeorm.config.ts (moved via git mv)
+  - `src/ai/ai.service.ts` (modified)
 - **Learnings for future iterations:**
-  - Migration paths in TypeORM config should point to where migrations will be in dist/
-  - Since migrations stay in src/database/migrations/, dist path remains 'dist/database/migrations/*.js'
-  - Typecheck failures are expected until backward compatibility aliases are created in US-007
----
+  - AiService uses OnModuleInit pattern - clients initialized in `onModuleInit()` hook
+  - Optional clients (like TTS) should log warnings instead of throwing errors when API key is missing
+  - OpenAI client initialization uses default base URL when no custom baseURL is needed
+  - Client properties follow pattern: `private clientName: OpenAI | null = null`
 
-## 2026-01-28T01:15:00.000Z - US-004
-Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
-- Updated app.module.ts to import DatabaseModule from @libs/database
-- Removed import from src/database/database.module
-- Typecheck fails as expected (will be fixed in US-007 when aliases are created)
+## Sun Feb 01 2026 - US-003
+- Added text-to-speech method to AiService
 - Files changed:
-  - src/app.module.ts (updated import)
+  - `src/ai/ai.service.ts` (modified)
 - **Learnings for future iterations:**
-  - AppModule now uses @libs/database path alias consistent with other libs (auth, s3)
-  - Typecheck failures are expected until backward compatibility aliases are created in US-007
----
+  - OpenAI TTS API uses `audio.speech.create()` method with model 'tts-1'
+  - Voice options: 'alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer'
+  - Response format 'mp3' ensures MP3 output
+  - Convert ArrayBuffer to Buffer using `Buffer.from(arrayBuffer)`
+  - Handle missing TTS client gracefully by returning null and logging error
 
-## 2026-01-28T01:20:00.000Z - US-005
-Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
-- Updated all service files to import DatabaseService from @libs/database
-- Updated src/articles/articles.service.ts
-- Updated src/bookmarks/bookmarks.service.ts
-- Updated src/briefings/briefings.service.ts
-- Updated src/users/users.service.ts
-- Updated src/youtube-channels/youtube-channels.service.ts
-- Updated src/youtube-transcriptions/services/youtube-transcriptions.service.ts
-- Updated src/youtube-transcriptions/services/youtube-transcriptions.service.spec.ts
-- Typecheck fails as expected (will be fixed in US-007 when aliases are created)
+## Sun Feb 01 2026 - US-004
+- Added uploadAudioFile method to S3Service
 - Files changed:
-  - src/articles/articles.service.ts (updated import)
-  - src/bookmarks/bookmarks.service.ts (updated import)
-  - src/briefings/briefings.service.ts (updated import)
-  - src/users/users.service.ts (updated import)
-  - src/youtube-channels/youtube-channels.service.ts (updated import)
-  - src/youtube-transcriptions/services/youtube-transcriptions.service.ts (updated import)
-  - src/youtube-transcriptions/services/youtube-transcriptions.service.spec.ts (updated import)
+  - `libs/s3/s3.service.ts` (modified)
 - **Learnings for future iterations:**
-  - All service files now use @libs/database path alias
-  - Typecheck failures are expected until backward compatibility aliases are created in US-007
-  - Service files use DatabaseService from @libs/database consistently
----
+  - Use `PutObjectCommand` from @aws-sdk/client-s3 for direct uploads
+  - Upload pattern: `Body: Buffer`, `ContentType: 'audio/mpeg'`
+  - S3Service follows consistent error handling pattern with descriptive messages
+  - Import pattern: `import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'`
 
-## 2026-01-28T01:25:00.000Z - US-006
-Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
-- Updated all module files to import DatabaseModule from @libs/database
-- Updated src/bookmarks/bookmarks.module.ts
-- Updated src/users/users.module.ts
-- Updated src/briefings/briefings.module.ts
-- Updated src/youtube-channels/youtube-channels.module.ts
-- Updated src/youtube-transcriptions/youtube-transcriptions.module.ts
-- Updated src/articles/articles.module.ts
-- Typecheck fails as expected (will be fixed in US-007 when aliases are created)
+## Sun Feb 01 2026 - US-005
+- Created AudioFilesService for database operations
 - Files changed:
-  - src/bookmarks/bookmarks.module.ts (updated import)
-  - src/users/users.module.ts (updated import)
-  - src/briefings/briefings.module.ts (updated import)
-  - src/youtube-channels/youtube-channels.module.ts (updated import)
-  - src/youtube-transcriptions/youtube-transcriptions.module.ts (updated import)
-  - src/articles/articles.module.ts (updated import)
+  - `src/audio-files/audio-files.service.ts` (new)
 - **Learnings for future iterations:**
-  - All module files now use @libs/database path alias
-  - Typecheck failures are expected until backward compatibility aliases are created in US-007
-  - Module files use DatabaseModule from @libs/database consistently
----
+  - Service pattern: Inject DatabaseService in constructor
+  - Database query pattern: Use Promise wrapper with db.prepare() for INSERT, db.get() for single row SELECT
+  - Handle duplicate key errors by checking error code '23505' (PostgreSQL unique violation)
+  - Return null on duplicate key errors instead of throwing
+  - Export interface types alongside service for type safety
+  - Interface pattern: Define row interface for database results, then map to domain interface
 
-## 2026-01-28T01:27:00.000Z - US-007
-Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
-- Created src/database/database.module.ts that re-exports from @libs/database
-- Created src/database/database.service.ts that re-exports from @libs/database
-- Created src/database/database.interface.ts that re-exports from @libs/database
-- Added JSDoc comments indicating these are temporary for migration
-- Typecheck passes
-- Tests pass
+## Sun Feb 01 2026 - US-006
+- Created AudioFilesModule and integrated into AppModule
 - Files changed:
-  - src/database/database.module.ts (new alias)
-  - src/database/database.service.ts (new alias)
-  - src/database/database.interface.ts (new alias)
+  - `src/audio-files/audio-files.module.ts` (new)
+  - `src/app.module.ts` (modified)
 - **Learnings for future iterations:**
-  - Temporary aliases allow gradual migration without breaking changes
-  - All imports now use @libs/database directly
-  - Typecheck passes with aliases in place
-  - Tests pass with aliases in place
-  - JSDoc comments clearly indicate these are temporary
----
+  - Module pattern: Import required modules (DatabaseModule, S3Module), provide service, export service
+  - Module imports in AppModule should be alphabetically ordered for consistency
+  - Always add import statement at top of file when adding module to imports array
 
-## 2026-01-28T01:35:00.000Z - US-008
-Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
-- Updated migration scripts in package.json to use libs/database/typeorm.config.ts
-- Updated migration:generate script to use new config path
-- Updated migration:run script to use new config path
-- Updated migration:revert script to use new config path
-- migration:create script doesn't need data source config (takes path argument directly)
-- Verified config file exists at libs/database/typeorm.config.ts
-- Typecheck passes
+## Sun Feb 01 2026 - US-007
+- Created audio generation use case with complete workflow
 - Files changed:
-  - package.json (updated migration script paths)
+  - `src/usecases/audio/dto/generate-audio.dto.ts` (new)
+  - `src/usecases/audio/generate-audio.usecase.ts` (new)
+  - `src/usecases/usecases.module.ts` (modified)
 - **Learnings for future iterations:**
-  - TypeORM CLI commands use -d flag to specify data source config file
-  - migration:create doesn't need a data source file - it just creates empty migration files
-  - migration:generate, migration:run, and migration:revert all require the data source config
-  - Config file path must be relative to project root for TypeORM CLI
-  - Full testing of migration commands requires database connection
----
+  - Use case pattern: Inject required services, implement execute() method with input/output DTOs
+  - S3 bucket name retrieved from environment variable: `process.env.S3_ARTICLES_BUCKET_NAME`
+  - S3 path format for audio: `audio/{YYYY-MM-DD}/{sourceType}-{sourceId}.mp3`
+  - Use Logger for tracking workflow progress
+  - Return success/error objects instead of throwing exceptions for graceful error handling
+  - UsecasesModule requires importing all dependent modules (AiModule, S3Module, AudioFilesModule)
 
-## 2026-01-28T01:50:00.000Z - US-010
-Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
-- Created database.module.spec.ts with module initialization tests
-- Created database.service.spec.ts with comprehensive service tests
-- Tests use jest-mock-extended for mocking dependencies (pg Pool, DataSource)
-- Module test verifies DatabaseModule compiles and provides/exports DatabaseService
-- Service test covers initDb, getDbConnection, closeDb, and onModuleDestroy methods
-- All 15 tests pass successfully
-- Typecheck passes
+## Sun Feb 01 2026 - US-008
+- Added environment variable documentation for OPENAI_API_KEY
 - Files changed:
-  - libs/database/database.module.spec.ts (new)
-  - libs/database/database.service.spec.ts (new)
+  - `README.md` (modified)
+  - `.env.sample` (modified)
 - **Learnings for future iterations:**
-  - TypeOrmModule.forRoot() returns a DynamicModule that must provide DataSource
-  - When mocking TypeOrmModule in tests, ensure DataSource is provided in the mock
-  - jest.mock() hoisting requires mock instances to be defined inside the factory function
-  - DatabaseModule exports TypeOrmModule which requires proper mocking in tests
-  - Use jest-mock-extended for type-safe mocks of complex dependencies
-  - Mock pg Pool instance methods (connect, query, end) for database service tests
----
+  - AiService already had validation for OPENAI_API_KEY (logs warning if missing)
+  - Document new environment variables in both README.md and .env.sample
+  - Add inline comments in .env.sample to explain purpose of environment variables
 
-## 2026-01-28T01:36:00.000Z - US-009
-Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
-- Verified @libs/* path alias in tsconfig.json already covers @libs/database
-- Path alias configured as "@libs/*": ["libs/*"] in tsconfig.json paths
-- Verified path alias resolves correctly - multiple files using @libs/database imports
-- Typecheck passes with no errors
+## Sun Feb 01 2026 - US-009
+- Added audio generation to article processing workflow
 - Files changed:
-  - None (path alias already configured)
+  - `src/scripts/runBriefing.ts` (modified)
+  - `src/usecases/briefing/dto/process-articles.dto.ts` (modified)
+  - `src/usecases/briefing/process-articles.usecase.ts` (modified)
+  - `src/processor/processor.service.ts` (modified)
+  - `src/processor/processor.module.ts` (modified)
 - **Learnings for future iterations:**
-  - The @libs/* wildcard path alias covers all libs modules including @libs/database
-  - Path aliases in tsconfig.json use wildcard pattern matching
-  - No need for specific @libs/database entry when @libs/* wildcard exists
----
+  - CLI flags added using Commander.js `.option()` method
+  - Pass optional flags through DTO layers using `@IsOptional()` and `@IsBoolean()` decorators
+  - ProcessorService needed to inject GenerateAudioUseCase via constructor
+  - ProcessorModule needed to import UsecasesModule with `forwardRef()` to avoid circular dependencies
+  - Audio generation wrapped in try-catch to continue processing even if audio fails
+  - Use article's published_date for S3 path date, fallback to current date if not available
 
-## 2026-01-28T02:00:00.000Z - US-005 (Verification)
-Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
-- Verified all service files use @libs/database imports
-- Confirmed no remaining imports from src/database in service files
-- Verified all imports use @libs/database path alias
-- Database tests pass (15 tests)
-- Build passes successfully
+## Sun Feb 01 2026 - US-010
+- Added audio generation to transcription processing workflow
 - Files changed:
-  - None (verification only)
+  - `src/scripts/runProcessTranscriptions.ts` (modified)
+  - `src/usecases/youtube-transcriptions/dto/process-transcription-files.dto.ts` (modified)
+  - `src/usecases/youtube-transcriptions/process-transcription-files.usecase.ts` (modified)
+  - `src/youtube-transcriptions/services/youtube-transcriptions.service.ts` (modified)
+  - `src/youtube-transcriptions/processors/youtube-transcription.processor.ts` (modified)
+  - `src/youtube-transcriptions/youtube-transcriptions.module.ts` (modified)
+  - `libs/queue/interfaces/youtube-transcription-job.interface.ts` (modified)
+  - `libs/queue/queue.service.ts` (modified)
 - **Learnings for future iterations:**
-  - US-005 was already complete from previous iteration but not marked in PRD
-  - All service files consistently use @libs/database imports
-  - Verification step important to ensure PRD accuracy
----
-
-## 2026-01-28T02:05:00.000Z - US-011
-Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
-- Created libs/database/README.md following libs/email/README.md pattern
-- Documented DatabaseService API and all methods (prepare, run, all, get)
-- Included comprehensive usage examples
-- Documented configuration requirements and environment variables
-- Documented migration commands and lifecycle
-- Documented placeholder conversion (SQLite-style ? to PostgreSQL $1, $2, etc.)
-- Included example service implementation
-- Build passes successfully
-- Files changed:
-  - libs/database/README.md (new)
-- **Learnings for future iterations:**
-  - libs/email/README.md provides good pattern for lib documentation
-  - README should include: overview, setup, usage examples, API documentation, configuration
-  - Document both high-level usage and low-level API details
-  - Include practical examples that developers can copy-paste
----
-
-## 2026-01-28T02:10:00.000Z - US-012
-Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
-- Verified no files import from src/database (grep confirmed no matches)
-- Deleted src/database/database.module.ts alias file
-- Deleted src/database/database.service.ts alias file
-- Deleted src/database/database.interface.ts alias file
-- Verified migrations directory preserved (src/database/migrations/ still exists)
-- Build passes successfully
-- Database tests pass (15 tests)
-- Files changed:
-  - src/database/database.module.ts (deleted)
-  - src/database/database.service.ts (deleted)
-  - src/database/database.interface.ts (deleted)
-- **Learnings for future iterations:**
-  - Temporary alias files can be safely removed once all imports are updated
-  - Always verify no imports remain before deleting alias files
-  - Migrations directory should be preserved separately from service files
-  - Relative imports within libs/database are fine (they're not imports from src/database)
----
-
-## 2026-01-28T02:15:00.000Z - US-013
-Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
-- Verified all old service files were already moved to libs/database/ in US-002
-- Confirmed src/database/database.service.ts (original) no longer exists
-- Confirmed src/database/abstract-database.service.ts no longer exists
-- Confirmed src/database/postgres-database.service.ts no longer exists
-- Confirmed src/database/database.interface.ts (original) no longer exists
-- Verified typeorm.config.ts is properly located in libs/database/ and referenced in migration scripts
-- Verified src/database/ now contains only migrations/ directory
-- Build passes successfully
-- Database tests pass (15 tests)
-- Files changed:
-  - None (files already moved in US-002)
-- **Learnings for future iterations:**
-  - Files moved with git mv in earlier stories are already removed from source location
-  - Verification step confirms migration is complete
-  - src/database/ directory structure now clean with only migrations/
----
-
-## 2026-01-28T02:20:00.000Z - US-014
-Thread: https://ampcode.com/threads/$AMP_CURRENT_THREAD_ID
-- Updated README.md to reference DatabaseModule from @libs/database
-- Updated .cursorrules to specify importing DatabaseService from @libs/database in Database Operations section
-- Updated docs/bookmarks/BOOKMARKS_IMPLEMENTATION.md to reference DatabaseService from @libs/database
-- Migration paths remain correct (migrations stay in src/database/migrations/ as per design)
-- All documentation references are now consistent with new libs/database structure
-- Build passes successfully
-- Files changed:
-  - README.md (updated DatabaseModule reference)
-  - .cursorrules (added import instruction for DatabaseService)
-  - docs/bookmarks/BOOKMARKS_IMPLEMENTATION.md (updated DatabaseService reference)
-- **Learnings for future iterations:**
-  - Migration paths stay in src/database/migrations/ even though module moved to libs/database/
-  - Historical plan documents can remain as-is (they document what was done at that time)
-  - Architecture and implementation docs should be updated to reflect current structure
-  - Always specify import paths (@libs/database) in documentation for clarity
+  - Added Commander.js support to runProcessTranscriptions.ts (previously didn't use it)
+  - Queue job data interfaces need to be updated when adding new optional parameters
+  - Pass flags through queue jobs by adding them to job data interface
+  - Audio generation in async queue processors happens after summary is saved
+  - YoutubeTranscriptionsModule needed to import UsecasesModule with `forwardRef()` to avoid circular dependencies
+  - Fetch transcription record to get processed_at date for S3 path
 ---

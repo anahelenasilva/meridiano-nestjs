@@ -1,6 +1,6 @@
 import { DatabaseService } from '@libs/database';
 import { QueueService } from '@libs/queue';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { ChannelConfig } from '../../shared/types/channel';
 import { TranscriptItem, VideoWithTranscript } from '../../shared/types/video';
 import { YoutubeChannelsService } from '../../youtube-channels/youtube-channels.service';
@@ -54,6 +54,7 @@ export class YoutubeTranscriptionsService {
     private readonly youtubeTranscriptionsAlternativeService: YoutubeTranscriptionsAlternativeService,
     private readonly storageService: StorageService,
     private readonly databaseService: DatabaseService,
+    @Inject(forwardRef(() => QueueService))
     private readonly queueService: QueueService,
     private readonly youtubeChannelsService: YoutubeChannelsService,
   ) { }
@@ -495,6 +496,7 @@ export class YoutubeTranscriptionsService {
   async processTranscriptionFile(
     // filePath: string,
     videoData: VideoWithTranscript,
+    generateAudio?: boolean,
   ): Promise<{ success: boolean; error?: string }> {
     try {
       // const fileContent = await fs.readFile(filePath, 'utf-8');
@@ -539,6 +541,7 @@ export class YoutubeTranscriptionsService {
         insertedId,
         videoData.transcriptText.substring(0, 8000), // Limit text length
         videoData.title,
+        generateAudio,
       );
 
       console.log(`  ✓ Successfully processed and saved transcription (ID: ${insertedId})`);

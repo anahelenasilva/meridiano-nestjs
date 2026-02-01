@@ -1,4 +1,7 @@
-import { Module } from '@nestjs/common';
+import { S3Module } from '@libs/s3';
+import { Module, forwardRef } from '@nestjs/common';
+import { AiModule } from '../ai/ai.module';
+import { AudioFilesModule } from '../audio-files/audio-files.module';
 import { BriefingModule } from '../briefing/briefing.module';
 import { ConfigModule } from '../config/config.module';
 import { ProcessorModule } from '../processor/processor.module';
@@ -6,6 +9,7 @@ import { ProfilesModule } from '../profiles/profiles.module';
 import { ScraperModule } from '../scraper/scraper.module';
 import { YoutubeChannelsModule } from '../youtube-channels/youtube-channels.module';
 import { YoutubeTranscriptionsModule } from '../youtube-transcriptions/youtube-transcriptions.module';
+import { GenerateAudioUseCase } from './audio/generate-audio.usecase';
 import { CategorizeArticlesUseCase } from './briefing/categorize-articles.usecase';
 import { GenerateBriefUseCase } from './briefing/generate-brief.usecase';
 import { GenerateSimpleBriefUseCase } from './briefing/generate-simple-brief.usecase';
@@ -20,14 +24,19 @@ import { ProcessTranscriptionFilesUseCase } from './youtube-transcriptions/proce
 @Module({
   imports: [
     ScraperModule,
-    ProcessorModule,
+    forwardRef(() => ProcessorModule),
     BriefingModule,
     ProfilesModule,
     YoutubeChannelsModule,
-    YoutubeTranscriptionsModule,
+    forwardRef(() => YoutubeTranscriptionsModule),
     ConfigModule,
+    AiModule,
+    S3Module,
+    AudioFilesModule,
   ],
   providers: [
+    // Audio usecases
+    GenerateAudioUseCase,
     // Briefing usecases
     ScrapeArticlesUseCase,
     ProcessArticlesUseCase,
@@ -42,6 +51,8 @@ import { ProcessTranscriptionFilesUseCase } from './youtube-transcriptions/proce
     ListTranscriptionsUseCase,
   ],
   exports: [
+    // Audio usecases
+    GenerateAudioUseCase,
     // Briefing usecases
     ScrapeArticlesUseCase,
     ProcessArticlesUseCase,

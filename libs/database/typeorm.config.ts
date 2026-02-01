@@ -26,7 +26,7 @@ export const typeormConfig: DataSourceOptions = {
   // Entities will be added here when we create them
   // For now, we're using raw SQL through the existing DatabaseService
   entities: [],
-  migrations: ['dist/database/migrations/*.js'],
+  migrations: ['dist/src/database/migrations/*.js'],
   migrationsTableName: 'typeorm_migrations',
   synchronize: false, // Never use true in production - always use migrations
   logging: process.env.NODE_ENV === 'development',

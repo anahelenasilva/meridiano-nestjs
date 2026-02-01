@@ -1,9 +1,13 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsOptional, IsString } from 'class-validator';
 
 export class ProcessTranscriptionFilesInputDto {
   @IsOptional()
   @IsString()
   transcriptsDir?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  generateAudio?: boolean;
 }
 
 export interface ProcessTranscriptionFilesOutputDto {

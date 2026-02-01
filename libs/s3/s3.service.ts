@@ -1,4 +1,4 @@
-import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
 import { Injectable } from '@nestjs/common';
 import { Readable } from 'stream';
@@ -114,6 +114,35 @@ export class S3Service {
 
       throw new Error(
         `Failed to generate presigned POST URL for ${key}: ${errorMessage}`,
+      );
+    }
+  }
+
+  async uploadAudioFile(
+    bucketName: string,
+    key: string,
+    audioBuffer: Buffer,
+    contentType?: string,
+  ): Promise<string> {
+    const finalContentType = contentType || 'audio/mpeg';
+
+    try {
+      const command = new PutObjectCommand({
+        Bucket: bucketName,
+        Key: key,
+        Body: audioBuffer,
+        ContentType: finalContentType,
+      });
+
+      await this.s3Client.send(command);
+
+      return key;
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+
+      throw new Error(
+        `Failed to upload audio file ${key} to bucket ${bucketName}: ${errorMessage}`,
       );
     }
   }

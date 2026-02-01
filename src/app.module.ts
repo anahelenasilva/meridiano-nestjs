@@ -8,6 +8,7 @@ import { AiModule } from './ai/ai.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ArticlesModule } from './articles/articles.module';
+import { AudioFilesModule } from './audio-files/audio-files.module';
 import { AuthModule } from './auth/auth.module';
 import { BookmarksModule } from './bookmarks/bookmarks.module';
 import { BriefingModule } from './briefing/briefing.module';
@@ -29,6 +30,7 @@ import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-tr
     AuthModule,
     AiModule,
     ArticlesModule,
+    AudioFilesModule,
     BriefingsModule,
     ProfilesModule,
     ScraperModule,

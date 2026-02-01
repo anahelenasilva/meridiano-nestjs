@@ -62,7 +62,8 @@ program
   .option('--categorize', 'Run only the article categorization stage')
   .option('--generate', 'Run only the brief generation stage')
   .option('--all', 'Run all stages sequentially (default behavior)')
-  .option('--simple-brief', 'Generate a simple brief without clustering');
+  .option('--simple-brief', 'Generate a simple brief without clustering')
+  .option('--generate-audio', 'Generate audio for article summaries');
 
 program.parse();
 
@@ -75,6 +76,7 @@ interface ProgramOptions {
   generate?: boolean;
   all?: boolean;
   simpleBrief?: boolean;
+  generateAudio?: boolean;
 }
 
 const options: ProgramOptions = program.opts();
@@ -179,6 +181,7 @@ async function main(): Promise<void> {
       if (options.process) {
         const result = await services.processArticlesUseCase.execute({
           feedProfile,
+          generateAudio: options.generateAudio,
         });
         console.log(
           `Processing completed. Processed: ${result.articlesProcessed}, Errors: ${result.errors}`,

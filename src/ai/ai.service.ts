@@ -7,6 +7,7 @@ import { ChatMessage } from '../shared/types/ai';
 export class AiService implements OnModuleInit {
   private deepseekClient: OpenAI | null = null;
   private embeddingClient: OpenAI | null = null;
+  private openaiTtsClient: OpenAI | null = null;
 
   constructor(private readonly configService: ConfigService) { }
 
@@ -17,6 +18,7 @@ export class AiService implements OnModuleInit {
   private initializeClients(): void {
     const deepseekApiKey = process.env.DEEPSEEK_API_KEY;
     const embeddingApiKey = process.env.EMBEDDING_API_KEY;
+    const openaiApiKey = process.env.OPENAI_API_KEY;
 
     if (!deepseekApiKey) {
       throw new Error('DEEPSEEK_API_KEY not found in environment variables');
@@ -35,6 +37,15 @@ export class AiService implements OnModuleInit {
       apiKey: embeddingApiKey,
       baseURL: 'https://api.together.xyz/v1',
     });
+
+    if (openaiApiKey) {
+      this.openaiTtsClient = new OpenAI({
+        apiKey: openaiApiKey,
+      });
+      console.log('OpenAI TTS client initialized successfully');
+    } else {
+      console.warn('OPENAI_API_KEY not found in environment variables. TTS functionality will not be available.');
+    }
 
     console.log('API clients initialized successfully');
   }
@@ -147,6 +158,43 @@ export class AiService implements OnModuleInit {
     }
 
     return results;
+  }
+
+  async generateAudio(
+    text: string,
+    voice?: string,
+  ): Promise<Buffer | null> {
+    if (!this.openaiTtsClient) {
+      console.error(
+        'OpenAI TTS client not initialized. OPENAI_API_KEY may be missing.',
+      );
+      return null;
+    }
+
+    const validVoices = [
+      'alloy',
+      'echo',
+      'fable',
+      'onyx',
+      'nova',
+      'shimmer',
+    ];
+    const selectedVoice = voice && validVoices.includes(voice) ? voice : 'alloy';
+
+    try {
+      const response = await this.openaiTtsClient.audio.speech.create({
+        model: 'tts-1',
+        voice: selectedVoice as 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer',
+        input: text,
+        response_format: 'mp3',
+      });
+
+      const arrayBuffer = await response.arrayBuffer();
+      return Buffer.from(arrayBuffer);
+    } catch (error) {
+      console.error('Error generating audio with OpenAI TTS:', error);
+      return null;
+    }
   }
 
   async testApiConnectivity(): Promise<{
