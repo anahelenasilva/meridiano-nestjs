@@ -21,4 +21,14 @@ Started: Sat Jan 31 2026
   - PostgreSQL CHECK constraints used for enum-like values: `CHECK (source_type IN ('article', 'transcription'))`
   - Unique constraints created via `CONSTRAINT unique_name UNIQUE (col1, col2)` syntax
   - Indexes created with DESC ordering for created_at: `CREATE INDEX ... ON table(column DESC)`
+
+## Sat Jan 31 2026 - US-002
+- Added OpenAI TTS client initialization to AiService
+- Files changed:
+  - `src/ai/ai.service.ts` (modified)
+- **Learnings for future iterations:**
+  - AiService uses OnModuleInit pattern - clients initialized in `onModuleInit()` hook
+  - Optional clients (like TTS) should log warnings instead of throwing errors when API key is missing
+  - OpenAI client initialization uses default base URL when no custom baseURL is needed
+  - Client properties follow pattern: `private clientName: OpenAI | null = null`
 ---

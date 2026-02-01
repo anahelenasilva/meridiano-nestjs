@@ -160,6 +160,43 @@ export class AiService implements OnModuleInit {
     return results;
   }
 
+  async generateAudio(
+    text: string,
+    voice?: string,
+  ): Promise<Buffer | null> {
+    if (!this.openaiTtsClient) {
+      console.error(
+        'OpenAI TTS client not initialized. OPENAI_API_KEY may be missing.',
+      );
+      return null;
+    }
+
+    const validVoices = [
+      'alloy',
+      'echo',
+      'fable',
+      'onyx',
+      'nova',
+      'shimmer',
+    ];
+    const selectedVoice = voice && validVoices.includes(voice) ? voice : 'alloy';
+
+    try {
+      const response = await this.openaiTtsClient.audio.speech.create({
+        model: 'tts-1',
+        voice: selectedVoice as 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer',
+        input: text,
+        response_format: 'mp3',
+      });
+
+      const arrayBuffer = await response.arrayBuffer();
+      return Buffer.from(arrayBuffer);
+    } catch (error) {
+      console.error('Error generating audio with OpenAI TTS:', error);
+      return null;
+    }
+  }
+
   async testApiConnectivity(): Promise<{
     deepseek: boolean;
     embedding: boolean;
