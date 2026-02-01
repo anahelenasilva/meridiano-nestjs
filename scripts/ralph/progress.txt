@@ -52,4 +52,16 @@ Started: Sat Jan 31 2026
   - Upload pattern: `Body: Buffer`, `ContentType: 'audio/mpeg'`
   - S3Service follows consistent error handling pattern with descriptive messages
   - Import pattern: `import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'`
+
+## Sun Feb 01 2026 - US-005
+- Created AudioFilesService for database operations
+- Files changed:
+  - `src/audio-files/audio-files.service.ts` (new)
+- **Learnings for future iterations:**
+  - Service pattern: Inject DatabaseService in constructor
+  - Database query pattern: Use Promise wrapper with db.prepare() for INSERT, db.get() for single row SELECT
+  - Handle duplicate key errors by checking error code '23505' (PostgreSQL unique violation)
+  - Return null on duplicate key errors instead of throwing
+  - Export interface types alongside service for type safety
+  - Interface pattern: Define row interface for database results, then map to domain interface
 ---
