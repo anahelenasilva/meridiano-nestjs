@@ -1,5 +1,7 @@
+import { EmailService } from '@libs/email';
 import { RedisModule } from '@libs/redis';
 import { Test, TestingModule } from '@nestjs/testing';
+import { mock } from 'jest-mock-extended';
 import {
   ARTICLE_PROCESSING_QUEUE,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
@@ -13,11 +15,15 @@ jest.mock('bullmq');
 
 describe('QueueModule', () => {
   let module: TestingModule;
+  const mockEmailService = mock<EmailService>();
 
   beforeEach(async () => {
     module = await Test.createTestingModule({
       imports: [RedisModule, QueueModule],
-    }).compile();
+    })
+      .overrideProvider(EmailService)
+      .useValue(mockEmailService)
+      .compile();
   });
 
   it('should compile successfully', () => {
