@@ -354,6 +354,8 @@ Breaking down this regex parttern:
 - [ ] Generate an audio for a transcript (optional param); save to s3? make it possible to listen on the transcription page?
 - [ ] Isolate the generate audio feature into another job, and add a specific command for it; also add retry (max 1x) if it fails to process audio; if max attempts reached, add to dead letter queue
 - [ ] Remove usecase module
+- [ ] Add github actions (or alternative)
+- [ ] Add embedding search on articles and on youtube transcriptions (e.g. search for "github actions alternatives")
 
 # How to use Ralph in this project
 
