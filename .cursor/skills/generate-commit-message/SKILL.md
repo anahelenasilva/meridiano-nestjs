@@ -28,18 +28,18 @@ Generate commit messages that follow the [Conventional Commits](https://www.conv
 
 ## Types
 
-| Type | When to Use | Example |
-|------|-------------|---------|
-| `feat` | New feature | `feat(auth): add JWT token refresh` |
-| `fix` | Bug fix | `fix(reports): correct date formatting` |
-| `docs` | Documentation only | `docs: update API documentation` |
-| `style` | Formatting, missing semicolons | `style: format code with prettier` |
-| `refactor` | Code restructuring | `refactor(users): extract validation logic` |
-| `perf` | Performance improvement | `perf(db): optimize query with index` |
-| `test` | Adding/updating tests | `test(auth): add login tests` |
-| `chore` | Build tasks, dependencies | `chore: update dependencies` |
-| `build` | Build system changes | `build: update webpack config` |
-| `ci` | CI/CD changes | `ci: add GitHub Actions workflow` |
+| Type       | When to Use                    | Example                                     |
+| ---------- | ------------------------------ | ------------------------------------------- |
+| `feat`     | New feature                    | `feat(auth): add JWT token refresh`         |
+| `fix`      | Bug fix                        | `fix(reports): correct date formatting`     |
+| `docs`     | Documentation only             | `docs: update API documentation`            |
+| `style`    | Formatting, missing semicolons | `style: format code with prettier`          |
+| `refactor` | Code restructuring             | `refactor(users): extract validation logic` |
+| `perf`     | Performance improvement        | `perf(db): optimize query with index`       |
+| `test`     | Adding/updating tests          | `test(auth): add login tests`               |
+| `chore`    | Build tasks, dependencies      | `chore: update dependencies`                |
+| `build`    | Build system changes           | `build: update webpack config`              |
+| `ci`       | CI/CD changes                  | `ci: add GitHub Actions workflow`           |
 
 ## Scope Guidelines
 
@@ -112,7 +112,7 @@ feat(articles): add article categorization
 
 ## Analysis Tips
 
-1. **File patterns**: 
+1. **File patterns**:
    - New files → usually `feat`
    - Test files → `test`
    - Config files → `chore` or `build`
@@ -137,7 +137,7 @@ feat(articles): add article categorization
 
 ## Output Format
 
-Provide the commit message ready to use:
+ALWAYS provide the full git commit command with the message:
 
 ```bash
 git commit -m "feat(scope): description"
