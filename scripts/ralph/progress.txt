@@ -31,4 +31,15 @@ Started: Sat Jan 31 2026
   - Optional clients (like TTS) should log warnings instead of throwing errors when API key is missing
   - OpenAI client initialization uses default base URL when no custom baseURL is needed
   - Client properties follow pattern: `private clientName: OpenAI | null = null`
+
+## Sun Feb 01 2026 - US-003
+- Added text-to-speech method to AiService
+- Files changed:
+  - `src/ai/ai.service.ts` (modified)
+- **Learnings for future iterations:**
+  - OpenAI TTS API uses `audio.speech.create()` method with model 'tts-1'
+  - Voice options: 'alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer'
+  - Response format 'mp3' ensures MP3 output
+  - Convert ArrayBuffer to Buffer using `Buffer.from(arrayBuffer)`
+  - Handle missing TTS client gracefully by returning null and logging error
 ---
