@@ -18,7 +18,6 @@ import { ProcessorModule } from './processor/processor.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import { ScraperModule } from './scraper/scraper.module';
 import { TechModule } from './tech/tech.module';
-import { UsecasesModule } from './usecases/usecases.module';
 import { UsersModule } from './users/users.module';
 import { YoutubeChannelsModule } from './youtube-channels/youtube-channels.module';
 import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-transcriptions.module';
@@ -40,7 +39,6 @@ import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-tr
     YoutubeChannelsModule,
     YoutubeTranscriptionsModule,
     QueueModule,
-    UsecasesModule,
     UsersModule,
     BookmarksModule,
     S3Module,

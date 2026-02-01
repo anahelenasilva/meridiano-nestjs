@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { AiService } from '../ai/ai.service';
 import { ArticleCategory, DBArticle } from '../articles/article.entity';
 import { ArticlesService } from '../articles/articles.service';
+import { GenerateAudioUseCase } from '../audio-files/usecases/generate-audio.usecase';
 import { ConfigService } from '../config/config.service';
 import { ProfilesService } from '../profiles/profiles.service';
 import { ProcessingStats } from '../shared/types/ai';
 import { FeedProfile } from '../shared/types/feed';
-import { GenerateAudioUseCase } from '../usecases/audio/generate-audio.usecase';
 
 @Injectable()
 export class ProcessorService {

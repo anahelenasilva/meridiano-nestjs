@@ -3,7 +3,7 @@ import { Command } from 'commander';
 import * as dotenv from 'dotenv';
 
 import { AppModule } from '../app.module';
-import { ProcessTranscriptionFilesUseCase } from '../usecases/youtube-transcriptions/process-transcription-files.usecase';
+import { ProcessTranscriptionFilesUseCase } from '../youtube-transcriptions/usecases/process-transcription-files.usecase';
 
 dotenv.config();
 

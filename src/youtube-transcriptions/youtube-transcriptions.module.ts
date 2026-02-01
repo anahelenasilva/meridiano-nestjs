@@ -4,9 +4,9 @@ import { RedisModule } from '@libs/redis';
 import { Module, forwardRef } from '@nestjs/common';
 import { AiModule } from '../ai/ai.module';
 import { AiService } from '../ai/ai.service';
+import { AudioFilesModule } from '../audio-files/audio-files.module';
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
-import { UsecasesModule } from '../usecases/usecases.module';
 import { YoutubeChannelsModule } from '../youtube-channels/youtube-channels.module';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
@@ -21,6 +21,11 @@ import { YoutubeTranscriptionsService } from './services/youtube-transcriptions.
 import { YouTubeService } from './services/youtube.service';
 import { YoutubeTranscriptionsController } from './youtube-transcriptions.controller';
 
+// Usecases
+import { ExtractYoutubeTranscriptsUseCase } from './usecases/extract-youtube-transcripts.usecase';
+import { ListTranscriptionsUseCase } from './usecases/list-transcriptions.usecase';
+import { ProcessTranscriptionFilesUseCase } from './usecases/process-transcription-files.usecase';
+
 @Module({
   imports: [
     DatabaseModule,
@@ -28,8 +33,8 @@ import { YoutubeTranscriptionsController } from './youtube-transcriptions.contro
     ConfigModule,
     YoutubeChannelsModule,
     RedisModule,
+    AudioFilesModule,
     forwardRef(() => QueueModule),
-    forwardRef(() => UsecasesModule),
   ],
   providers: [
     YoutubeTranscriptionsService,
@@ -45,8 +50,18 @@ import { YoutubeTranscriptionsController } from './youtube-transcriptions.contro
     DeleteYoutubeTranscriptionCommand,
     CreateYoutubeTranscriptionCommand,
     YoutubeTranscriptionProcessor,
+    // YouTube transcription usecases
+    ExtractYoutubeTranscriptsUseCase,
+    ListTranscriptionsUseCase,
+    ProcessTranscriptionFilesUseCase,
   ],
-  exports: [YoutubeTranscriptionsService],
+  exports: [
+    YoutubeTranscriptionsService,
+    // Export usecases for external use
+    ExtractYoutubeTranscriptsUseCase,
+    ListTranscriptionsUseCase,
+    ProcessTranscriptionFilesUseCase,
+  ],
   controllers: [YoutubeTranscriptionsController],
 })
 export class YoutubeTranscriptionsModule { }

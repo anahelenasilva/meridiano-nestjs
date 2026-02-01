@@ -3,15 +3,15 @@ import { NestFactory } from '@nestjs/core';
 import { Command } from 'commander';
 import * as dotenv from 'dotenv';
 import { AppModule } from '../app.module';
+import { CategorizeArticlesUseCase } from '../briefings/usecases/categorize-articles.usecase';
+import { GenerateBriefUseCase } from '../briefings/usecases/generate-brief.usecase';
+import { GenerateSimpleBriefUseCase } from '../briefings/usecases/generate-simple-brief.usecase';
+import { ProcessArticlesUseCase } from '../briefings/usecases/process-articles.usecase';
+import { RateArticlesUseCase } from '../briefings/usecases/rate-articles.usecase';
+import { RunBriefingUseCase } from '../briefings/usecases/run-briefing.usecase';
+import { ScrapeArticlesUseCase } from '../briefings/usecases/scrape-articles.usecase';
 import { ProfilesService } from '../profiles/profiles.service';
 import { FeedProfile } from '../shared/types/feed';
-import { CategorizeArticlesUseCase } from '../usecases/briefing/categorize-articles.usecase';
-import { GenerateBriefUseCase } from '../usecases/briefing/generate-brief.usecase';
-import { GenerateSimpleBriefUseCase } from '../usecases/briefing/generate-simple-brief.usecase';
-import { ProcessArticlesUseCase } from '../usecases/briefing/process-articles.usecase';
-import { RateArticlesUseCase } from '../usecases/briefing/rate-articles.usecase';
-import { RunBriefingUseCase } from '../usecases/briefing/run-briefing.usecase';
-import { ScrapeArticlesUseCase } from '../usecases/briefing/scrape-articles.usecase';
 
 dotenv.config();
 

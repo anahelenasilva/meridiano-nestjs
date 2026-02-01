@@ -1,9 +1,9 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { AiModule } from '../ai/ai.module';
 import { ArticlesModule } from '../articles/articles.module';
+import { AudioFilesModule } from '../audio-files/audio-files.module';
 import { ConfigModule } from '../config/config.module';
 import { ProfilesModule } from '../profiles/profiles.module';
-import { UsecasesModule } from '../usecases/usecases.module';
 import { ProcessorService } from './processor.service';
 
 @Module({
@@ -12,7 +12,7 @@ import { ProcessorService } from './processor.service';
     AiModule,
     ConfigModule,
     ProfilesModule,
-    forwardRef(() => UsecasesModule),
+    AudioFilesModule,
   ],
   providers: [ProcessorService],
   exports: [ProcessorService],
