@@ -1,7 +1,37 @@
-import { EmailService } from '@libs/email';
+// Mock the entire email module BEFORE any other imports
+// This prevents the real EmailModule from being loaded and requiring env vars
+jest.mock('@libs/email', () => {
+  const mockSendEmail = jest.fn().mockResolvedValue({ success: true });
+
+  class MockEmailService {
+    sendEmail = mockSendEmail;
+  }
+
+  return {
+    EmailModule: {
+      forRoot: jest.fn().mockReturnValue({
+        module: class MockEmailModule { },
+        providers: [
+          {
+            provide: 'EMAIL_PROVIDER',
+            useValue: {
+              sendEmail: mockSendEmail,
+            },
+          },
+          {
+            provide: MockEmailService,
+            useClass: MockEmailService,
+          },
+        ],
+        exports: [MockEmailService],
+      }),
+    },
+    EmailService: MockEmailService,
+  };
+});
+
 import { RedisModule } from '@libs/redis';
 import { Test, TestingModule } from '@nestjs/testing';
-import { mock } from 'jest-mock-extended';
 import {
   ARTICLE_PROCESSING_QUEUE,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
@@ -15,15 +45,11 @@ jest.mock('bullmq');
 
 describe('QueueModule', () => {
   let module: TestingModule;
-  const mockEmailService = mock<EmailService>();
 
   beforeEach(async () => {
     module = await Test.createTestingModule({
       imports: [RedisModule, QueueModule],
-    })
-      .overrideProvider(EmailService)
-      .useValue(mockEmailService)
-      .compile();
+    }).compile();
   });
 
   it('should compile successfully', () => {
