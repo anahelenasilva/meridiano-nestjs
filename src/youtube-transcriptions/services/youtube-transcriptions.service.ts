@@ -1,6 +1,6 @@
 import { DatabaseService } from '@libs/database';
 import { QueueService } from '@libs/queue';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { ChannelConfig } from '../../shared/types/channel';
 import { TranscriptItem, VideoWithTranscript } from '../../shared/types/video';
 import { YoutubeChannelsService } from '../../youtube-channels/youtube-channels.service';
@@ -54,6 +54,7 @@ export class YoutubeTranscriptionsService {
     private readonly youtubeTranscriptionsAlternativeService: YoutubeTranscriptionsAlternativeService,
     private readonly storageService: StorageService,
     private readonly databaseService: DatabaseService,
+    @Inject(forwardRef(() => QueueService))
     private readonly queueService: QueueService,
     private readonly youtubeChannelsService: YoutubeChannelsService,
   ) { }

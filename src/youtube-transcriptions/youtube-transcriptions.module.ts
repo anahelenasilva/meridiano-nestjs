@@ -28,7 +28,7 @@ import { YoutubeTranscriptionsController } from './youtube-transcriptions.contro
     ConfigModule,
     YoutubeChannelsModule,
     RedisModule,
-    QueueModule,
+    forwardRef(() => QueueModule),
     forwardRef(() => UsecasesModule),
   ],
   providers: [
