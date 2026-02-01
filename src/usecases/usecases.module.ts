@@ -1,5 +1,5 @@
 import { S3Module } from '@libs/s3';
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { AiModule } from '../ai/ai.module';
 import { AudioFilesModule } from '../audio-files/audio-files.module';
 import { BriefingModule } from '../briefing/briefing.module';
@@ -24,11 +24,11 @@ import { ProcessTranscriptionFilesUseCase } from './youtube-transcriptions/proce
 @Module({
   imports: [
     ScraperModule,
-    ProcessorModule,
+    forwardRef(() => ProcessorModule),
     BriefingModule,
     ProfilesModule,
     YoutubeChannelsModule,
-    YoutubeTranscriptionsModule,
+    forwardRef(() => YoutubeTranscriptionsModule),
     ConfigModule,
     AiModule,
     S3Module,
