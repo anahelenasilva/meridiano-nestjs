@@ -33,6 +33,8 @@ export function extractVideoId(url: string): string | null {
 
     return null;
   } catch (error) {
+    console.error('Error extracting video ID:', error);
+    console.error('URL:', url);
     return null;
   }
 }
