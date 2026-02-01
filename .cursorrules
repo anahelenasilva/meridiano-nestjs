@@ -15,6 +15,10 @@ This is a NestJS application for processing and aggregating news articles, YouTu
 
 ## Architecture Patterns
 
+- Reduce coupling when possible
+- Never create the "god module" anti-pattern, for example: never create a centralized Module such as UsecasesModule. Modules are supposed to be about contexts like Articles, Audio, Users, etc. When in doubt, ask the user what should be done
+- Focus on maintainability: developers should be able to find usecases in their domain folder, reducing cognitive load
+
 ### Module Structure
 Each domain feature is organized as a NestJS module:
 ```
