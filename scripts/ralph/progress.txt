@@ -114,4 +114,23 @@ Started: Sat Jan 31 2026
   - ProcessorModule needed to import UsecasesModule with `forwardRef()` to avoid circular dependencies
   - Audio generation wrapped in try-catch to continue processing even if audio fails
   - Use article's published_date for S3 path date, fallback to current date if not available
+
+## Sun Feb 01 2026 - US-010
+- Added audio generation to transcription processing workflow
+- Files changed:
+  - `src/scripts/runProcessTranscriptions.ts` (modified)
+  - `src/usecases/youtube-transcriptions/dto/process-transcription-files.dto.ts` (modified)
+  - `src/usecases/youtube-transcriptions/process-transcription-files.usecase.ts` (modified)
+  - `src/youtube-transcriptions/services/youtube-transcriptions.service.ts` (modified)
+  - `src/youtube-transcriptions/processors/youtube-transcription.processor.ts` (modified)
+  - `src/youtube-transcriptions/youtube-transcriptions.module.ts` (modified)
+  - `libs/queue/interfaces/youtube-transcription-job.interface.ts` (modified)
+  - `libs/queue/queue.service.ts` (modified)
+- **Learnings for future iterations:**
+  - Added Commander.js support to runProcessTranscriptions.ts (previously didn't use it)
+  - Queue job data interfaces need to be updated when adding new optional parameters
+  - Pass flags through queue jobs by adding them to job data interface
+  - Audio generation in async queue processors happens after summary is saved
+  - YoutubeTranscriptionsModule needed to import UsecasesModule with `forwardRef()` to avoid circular dependencies
+  - Fetch transcription record to get processed_at date for S3 path
 ---
