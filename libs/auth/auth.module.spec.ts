@@ -1,16 +1,28 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { mock } from 'jest-mock-extended';
+import { User } from 'src/users/user.entity';
 import { AuthModule } from './auth.module';
 import { AuthService } from './auth.service';
 import type { UserLookupProvider } from './interfaces/user-lookup-provider.interface';
 
 class MockUserLookupProvider implements UserLookupProvider {
-  async getUserByEmail() {
-    return null;
+  getUserById(userId: string): Promise<User | null> {
+    return Promise.resolve({
+      id: userId,
+      email: 'test@example.com',
+      password: 'password',
+      username: 'testuser',
+      created_at: new Date(),
+    });
   }
 
-  async getUserById() {
-    return null;
+  getUserByEmail(email: string, includePassword: boolean): Promise<User | null> {
+    return Promise.resolve({
+      id: '1',
+      email,
+      password: includePassword ? 'password' : undefined,
+      username: 'testuser',
+      created_at: new Date(),
+    });
   }
 }
 
