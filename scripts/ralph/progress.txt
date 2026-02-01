@@ -64,4 +64,14 @@ Started: Sat Jan 31 2026
   - Return null on duplicate key errors instead of throwing
   - Export interface types alongside service for type safety
   - Interface pattern: Define row interface for database results, then map to domain interface
+
+## Sun Feb 01 2026 - US-006
+- Created AudioFilesModule and integrated into AppModule
+- Files changed:
+  - `src/audio-files/audio-files.module.ts` (new)
+  - `src/app.module.ts` (modified)
+- **Learnings for future iterations:**
+  - Module pattern: Import required modules (DatabaseModule, S3Module), provide service, export service
+  - Module imports in AppModule should be alphabetically ordered for consistency
+  - Always add import statement at top of file when adding module to imports array
 ---
