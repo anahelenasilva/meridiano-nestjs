@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Setup Depot
+        uses: depot/setup-action@v1.6.0
+
       - name: Checkout code
         uses: actions/checkout@v4
 
