@@ -1,3 +1,24 @@
 # Ralph Progress Log
 Started: Sat Jan 31 2026
 ---
+
+## Codebase Patterns
+- Migrations use TypeORM MigrationInterface pattern with `up()` and `down()` methods
+- Migration files follow naming: `{timestamp}-{PascalCaseDescription}.ts`
+- Use `CREATE TABLE IF NOT EXISTS` pattern for idempotent migrations
+- PostgreSQL UUID columns use `gen_random_uuid()` as default
+- Timestamps use `TIMESTAMP DEFAULT CURRENT_TIMESTAMP`
+- Create indexes separately after table creation
+- Use `IF NOT EXISTS` and `IF EXISTS` clauses for idempotent operations
+- Build verification: Use `pnpm run build` to verify TypeScript compilation (no separate typecheck script)
+
+## Sat Jan 31 2026 - US-001
+- Created audio_files database table migration
+- Files changed:
+  - `src/database/migrations/1769908667952-CreateAudioFilesTable.ts` (new)
+- **Learnings for future iterations:**
+  - Migration pattern: Class name follows `{Description}{Timestamp}` format
+  - PostgreSQL CHECK constraints used for enum-like values: `CHECK (source_type IN ('article', 'transcription'))`
+  - Unique constraints created via `CONSTRAINT unique_name UNIQUE (col1, col2)` syntax
+  - Indexes created with DESC ordering for created_at: `CREATE INDEX ... ON table(column DESC)`
+---
