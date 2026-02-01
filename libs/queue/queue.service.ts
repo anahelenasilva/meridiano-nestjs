@@ -215,11 +215,13 @@ Please investigate the issue.`,
     transcriptionId: string,
     transcriptText: string,
     videoTitle: string,
+    generateAudio?: boolean,
   ): Promise<JobInfo> {
     const jobData: ProcessTranscriptionSummaryJobData = {
       transcriptionId,
       transcriptText,
       videoTitle,
+      generateAudio,
     };
 
     const job = await this.transcriptionSummaryQueue.add(

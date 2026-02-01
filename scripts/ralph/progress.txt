@@ -98,4 +98,20 @@ Started: Sat Jan 31 2026
   - AiService already had validation for OPENAI_API_KEY (logs warning if missing)
   - Document new environment variables in both README.md and .env.sample
   - Add inline comments in .env.sample to explain purpose of environment variables
+
+## Sun Feb 01 2026 - US-009
+- Added audio generation to article processing workflow
+- Files changed:
+  - `src/scripts/runBriefing.ts` (modified)
+  - `src/usecases/briefing/dto/process-articles.dto.ts` (modified)
+  - `src/usecases/briefing/process-articles.usecase.ts` (modified)
+  - `src/processor/processor.service.ts` (modified)
+  - `src/processor/processor.module.ts` (modified)
+- **Learnings for future iterations:**
+  - CLI flags added using Commander.js `.option()` method
+  - Pass optional flags through DTO layers using `@IsOptional()` and `@IsBoolean()` decorators
+  - ProcessorService needed to inject GenerateAudioUseCase via constructor
+  - ProcessorModule needed to import UsecasesModule with `forwardRef()` to avoid circular dependencies
+  - Audio generation wrapped in try-catch to continue processing even if audio fails
+  - Use article's published_date for S3 path date, fallback to current date if not available
 ---

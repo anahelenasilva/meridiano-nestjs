@@ -495,6 +495,7 @@ export class YoutubeTranscriptionsService {
   async processTranscriptionFile(
     // filePath: string,
     videoData: VideoWithTranscript,
+    generateAudio?: boolean,
   ): Promise<{ success: boolean; error?: string }> {
     try {
       // const fileContent = await fs.readFile(filePath, 'utf-8');
@@ -539,6 +540,7 @@ export class YoutubeTranscriptionsService {
         insertedId,
         videoData.transcriptText.substring(0, 8000), // Limit text length
         videoData.title,
+        generateAudio,
       );
 
       console.log(`  ✓ Successfully processed and saved transcription (ID: ${insertedId})`);

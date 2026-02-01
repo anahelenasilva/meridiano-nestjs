@@ -58,7 +58,7 @@ export class ProcessTranscriptionFilesUseCase {
           continue;
         }
 
-        const result = await this.youtubeTranscriptionsService.processTranscriptionFile(videoData);
+        const result = await this.youtubeTranscriptionsService.processTranscriptionFile(videoData, input.generateAudio);
 
         if (result.success) {
           stats.processed++;
