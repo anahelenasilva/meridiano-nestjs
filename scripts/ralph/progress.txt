@@ -42,4 +42,14 @@ Started: Sat Jan 31 2026
   - Response format 'mp3' ensures MP3 output
   - Convert ArrayBuffer to Buffer using `Buffer.from(arrayBuffer)`
   - Handle missing TTS client gracefully by returning null and logging error
+
+## Sun Feb 01 2026 - US-004
+- Added uploadAudioFile method to S3Service
+- Files changed:
+  - `libs/s3/s3.service.ts` (modified)
+- **Learnings for future iterations:**
+  - Use `PutObjectCommand` from @aws-sdk/client-s3 for direct uploads
+  - Upload pattern: `Body: Buffer`, `ContentType: 'audio/mpeg'`
+  - S3Service follows consistent error handling pattern with descriptive messages
+  - Import pattern: `import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'`
 ---
