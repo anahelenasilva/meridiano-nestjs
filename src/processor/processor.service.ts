@@ -6,6 +6,7 @@ import { ConfigService } from '../config/config.service';
 import { ProfilesService } from '../profiles/profiles.service';
 import { ProcessingStats } from '../shared/types/ai';
 import { FeedProfile } from '../shared/types/feed';
+import { GenerateAudioUseCase } from '../usecases/audio/generate-audio.usecase';
 
 @Injectable()
 export class ProcessorService {
@@ -14,12 +15,14 @@ export class ProcessorService {
     private readonly aiService: AiService,
     private readonly configService: ConfigService,
     private readonly profilesService: ProfilesService,
+    private readonly generateAudioUseCase: GenerateAudioUseCase,
   ) { }
 
   async processArticles(
     feedProfile: FeedProfile,
     limit: number = 1000,
     articleId?: string,
+    generateAudio?: boolean,
   ): Promise<ProcessingStats> {
     // console.log('\n--- Starting Article Processing ---');
 
@@ -94,6 +97,27 @@ export class ProcessorService {
         );
         stats.articlesProcessed++;
         console.log(`Successfully processed article ID: ${article.id}`);
+
+        // Generate audio if flag is enabled
+        if (generateAudio) {
+          try {
+            console.log(`Generating audio for article ID: ${article.id}...`);
+            const audioResult = await this.generateAudioUseCase.execute({
+              sourceType: 'article',
+              sourceId: article.id,
+              text: summary,
+              date: article.published_date ? new Date(article.published_date) : new Date(),
+            });
+
+            if (audioResult.success) {
+              console.log(`Audio generated successfully for article ID: ${article.id}`);
+            } else {
+              console.error(`Audio generation failed for article ID: ${article.id}: ${audioResult.error}`);
+            }
+          } catch (audioError) {
+            console.error(`Error generating audio for article ID: ${article.id}:`, audioError);
+          }
+        }
 
         await new Promise((resolve) => setTimeout(resolve, 1000));
       } catch (error) {

@@ -88,4 +88,14 @@ Started: Sat Jan 31 2026
   - Use Logger for tracking workflow progress
   - Return success/error objects instead of throwing exceptions for graceful error handling
   - UsecasesModule requires importing all dependent modules (AiModule, S3Module, AudioFilesModule)
+
+## Sun Feb 01 2026 - US-008
+- Added environment variable documentation for OPENAI_API_KEY
+- Files changed:
+  - `README.md` (modified)
+  - `.env.sample` (modified)
+- **Learnings for future iterations:**
+  - AiService already had validation for OPENAI_API_KEY (logs warning if missing)
+  - Document new environment variables in both README.md and .env.sample
+  - Add inline comments in .env.sample to explain purpose of environment variables
 ---
