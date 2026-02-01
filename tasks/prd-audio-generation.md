@@ -41,7 +41,7 @@ Add optional AI-powered text-to-speech audio generation for article summaries an
 
 **Acceptance Criteria:**
 - [ ] Add `generateAudio(text: string, voice?: string): Promise<Buffer | null>` method to AiService
-- [ ] Use OpenAI TTS API (`audio.speech.create`) with model `tts-1` or `tts-1-hd`
+- [ ] Use OpenAI TTS API (`audio.speech.create`) with model `tts-1`
 - [ ] Support voice parameter (default to 'alloy', options: 'alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer')
 - [ ] Return audio as Buffer in MP3 format
 - [ ] Handle API errors gracefully and return null on failure
