@@ -106,6 +106,14 @@ export const techRSSFeeds: RSSFeed[] = [
       'Will Larson is CTO at Carta, and has been a software engineering leader at Calm, Stripe, and Uber. He is the author of An Elegant Puzzle, Staff Engineer, and The Engineering Executive’s Primer. He lives with his family in San Francisco.',
     enabled: true,
   },
+  {
+    url: 'https://addyo.substack.com/feed',
+    name: "Elevate by Addy Osmani",
+    category: 'tech',
+    description:
+      'Addy Osmani shares his thoughts on technology, engineering, and leadership.',
+    enabled: true,
+  },
 ];
 
 export const techPrompts = {
