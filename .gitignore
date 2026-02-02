@@ -69,3 +69,8 @@ mcp.json
 
 # Cursor personal files
 .cursor/**/personal/**
+
+projectStructure.cache.json
+repomix-*.md
+project-structure-*.md
+folderStructure.mjs

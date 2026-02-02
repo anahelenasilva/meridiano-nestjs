@@ -1,15 +1,27 @@
 // @ts-check
 import eslint from '@eslint/js';
+import {
+  projectStructureParser,
+  projectStructurePlugin,
+} from "eslint-plugin-project-structure";
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   {
-    ignores: ['eslint.config.mjs'],
+    ignores: ["projectStructure.cache.json"],
+    languageOptions: { parser: projectStructureParser },
+    plugins: {
+      "project-structure": projectStructurePlugin,
+    },
   },
   eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
+  ...tseslint.configs.recommendedTypeChecked.map((config) => ({
+    ...config,
+    files: ['**/*.ts', '**/*.tsx'],
+  })),
   {
+    files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
       globals: {
         ...globals.node,
@@ -23,6 +35,7 @@ export default tseslint.config(
     },
   },
   {
+    files: ['**/*.ts', '**/*.tsx'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-floating-promises': 'warn',
