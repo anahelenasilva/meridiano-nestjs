@@ -299,11 +299,55 @@ pnpm run migration:revert
 4. Use prepared statements: `db.prepare(sql)`
 5. Handle errors and convert to appropriate exceptions
 
-## Don't
-- Don't use SQLite (project migrated to PostgreSQL)
-- Don't add unnecessary abstractions or over-engineer
-- Don't add unnecessary comments in the code for obvious things
-- Don't create new files for single-use helpers
-- Don't skip error handling in async operations
-- Don't use `any` type when a proper interface exists
-- Don't hardcode configuration values (use ConfigService or env vars)
+## Don'ts
+
+These are things that should be avoided as much as possible, but if you think it's really necessary, ask the user for confirmation first.
+
+### 1. Don't add unnecessary comments in the code for obvious things
+Examples of bad comments that must be avoided:
+```typescript
+/**
+ * Error types for audio generation jobs
+ */
+type ErrorType = 'retryable' | 'fatal';
+```
+
+```typescript
+// Retryable error patterns
+private readonly retryablePatterns = [
+  /timeout/i,
+  /ETIMEDOUT/i
+];
+```
+
+```typescript
+// Validate input data
+if (!text || text.trim().length === 0) {
+  throw new Error('Invalid input: text is required and cannot be empty');
+}
+```
+
+### 2. Don't use SQLite (project migrated to PostgreSQL)
+
+This is a PostgreSQL project, so we should use PostgreSQL for all database operations.
+
+### 3. Don't add unnecessary abstractions or over-engineer
+
+This is a small project, so we should avoid adding unnecessary abstractions or over-engineering.
+
+### 4. Don't create new files for single-use helpers
+
+We should avoid creating new files for single-use helpers. If the helper is used in multiple files, it should be created in the appropriate file.
+
+### 5. Don't skip error handling in async operations
+
+We should avoid skipping error handling in async operations. If an error is thrown, it should be handled appropriately.
+
+### 6. Don't use `any` type when a proper interface exists
+
+The `any` type is a wildcard type that allows you to assign any value to a variable, regardless of its type.
+This is useful when you don't know the type of a value, but it can also lead to type errors if you use it incorrectly.
+
+### 7. Don't hardcode configuration values
+
+We should use the ConfigService or env vars to get configuration values.
