@@ -109,6 +109,28 @@ jest.mock('./processors/article.processor', () => {
   };
 });
 
+// Mock AudioGenerationProcessor to avoid dependencies
+jest.mock('./processors/audio-generation.processor', () => {
+  return {
+    AudioGenerationProcessor: class MockAudioGenerationProcessor {
+      onModuleInit = jest.fn();
+      onModuleDestroy = jest.fn();
+    },
+  };
+});
+
+// Mock AudioJobService to avoid dependencies
+jest.mock('./services/audio-job.service', () => {
+  return {
+    AudioJobService: class MockAudioJobService {
+      enqueueAudioJob = jest.fn();
+      getJobStatus = jest.fn();
+      getJobsBySource = jest.fn();
+      cancelJob = jest.fn();
+    },
+  };
+});
+
 // Mock QueueService to avoid ConfigService dependency
 jest.mock('./queue.service', () => {
   return {
@@ -126,6 +148,7 @@ jest.mock('./queue.service', () => {
 import { Test, TestingModule } from '@nestjs/testing';
 import {
   ARTICLE_PROCESSING_QUEUE,
+  AUDIO_GENERATION_QUEUE,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from './constants/queue.constants';
@@ -162,6 +185,9 @@ describe('QueueModule', () => {
 
     const transcriptionQueue = module.get(YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE);
     expect(transcriptionQueue).toBeDefined();
+
+    const audioQueue = module.get(AUDIO_GENERATION_QUEUE);
+    expect(audioQueue).toBeDefined();
   });
 
   it('should export QueueService', () => {

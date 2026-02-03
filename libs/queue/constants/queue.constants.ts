@@ -6,3 +6,6 @@ export const PROCESS_MARKDOWN_ARTICLE_JOB = 'process-markdown-article';
 
 export const YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE = 'youtube-transcription-summary';
 export const PROCESS_TRANSCRIPTION_SUMMARY_JOB = 'process-transcription-summary';
+
+export const AUDIO_GENERATION_QUEUE = 'audio-generation';
+export const GENERATE_AUDIO_JOB = 'generate-audio';

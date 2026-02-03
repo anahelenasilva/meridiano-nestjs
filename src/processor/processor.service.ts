@@ -1,8 +1,8 @@
+import { AudioJobService } from '@libs/queue';
 import { Injectable } from '@nestjs/common';
 import { AiService } from '../ai/ai.service';
 import { ArticleCategory, DBArticle } from '../articles/article.entity';
 import { ArticlesService } from '../articles/articles.service';
-import { GenerateAudioUseCase } from '../audio-files/usecases/generate-audio.usecase';
 import { ConfigService } from '../config/config.service';
 import { ProfilesService } from '../profiles/profiles.service';
 import { ProcessingStats } from '../shared/types/ai';
@@ -15,7 +15,7 @@ export class ProcessorService {
     private readonly aiService: AiService,
     private readonly configService: ConfigService,
     private readonly profilesService: ProfilesService,
-    private readonly generateAudioUseCase: GenerateAudioUseCase,
+    private readonly audioJobService: AudioJobService,
   ) { }
 
   async processArticles(
@@ -101,21 +101,16 @@ export class ProcessorService {
         // Generate audio if flag is enabled
         if (generateAudio) {
           try {
-            console.log(`Generating audio for article ID: ${article.id}...`);
-            const audioResult = await this.generateAudioUseCase.execute({
+            console.log(`Enqueuing audio generation for article ID: ${article.id}...`);
+            const jobInfo = await this.audioJobService.enqueueAudioJob({
               sourceType: 'article',
               sourceId: article.id,
               text: summary,
               date: article.published_date ? new Date(article.published_date) : new Date(),
             });
-
-            if (audioResult.success) {
-              console.log(`Audio generated successfully for article ID: ${article.id}`);
-            } else {
-              console.error(`Audio generation failed for article ID: ${article.id}: ${audioResult.error}`);
-            }
+            console.log(`Audio generation job enqueued: ${jobInfo.jobId}`);
           } catch (audioError) {
-            console.error(`Error generating audio for article ID: ${article.id}:`, audioError);
+            console.error(`Error enqueuing audio generation for article ID: ${article.id}:`, audioError);
           }
         }
 
