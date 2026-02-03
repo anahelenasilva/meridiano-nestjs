@@ -356,6 +356,7 @@ Breaking down this regex parttern:
 - [x] Remove usecase module
 - [x] Add github actions (or alternative like depot)
 - [ ] Add embedding search on articles and on youtube transcriptions (e.g. search for "github actions alternatives")
+- [ ] Possibility do add comments to an article or youtube transcription (goal: add my notes to them)
 
 # How to use Ralph in this project
 
