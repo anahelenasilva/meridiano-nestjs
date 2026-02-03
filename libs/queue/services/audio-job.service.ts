@@ -1,0 +1,174 @@
+import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Job, Queue } from 'bullmq';
+import {
+  AUDIO_GENERATION_QUEUE,
+  GENERATE_AUDIO_JOB,
+} from '../constants/queue.constants';
+import {
+  AudioJobStatus,
+  EnqueueOptions,
+  GenerateAudioJobData,
+  JobInfo,
+} from '../interfaces/audio-job.interface';
+
+@Injectable()
+export class AudioJobService {
+  private readonly logger = new Logger(AudioJobService.name);
+
+  constructor(
+    @Inject(AUDIO_GENERATION_QUEUE)
+    private readonly audioQueue: Queue,
+  ) { }
+
+  /**
+   * Enqueue an audio generation job
+   * @param data - The audio generation job data
+   * @param options - Optional enqueue options
+   * @returns JobInfo or AudioJobStatus if waitForCompletion is true
+   */
+  async enqueueAudioJob(
+    data: GenerateAudioJobData,
+    options?: EnqueueOptions,
+  ): Promise<JobInfo | AudioJobStatus> {
+    const job = await this.audioQueue.add(GENERATE_AUDIO_JOB, data, {
+      priority: options?.priority,
+      delay: options?.delay,
+    });
+
+    const jobId = String(job.id);
+
+    this.logger.log({
+      jobId,
+      sourceType: data.sourceType,
+      sourceId: data.sourceId,
+      operation: 'enqueue',
+      status: 'queued',
+    });
+
+    // Fire-and-forget mode (default)
+    if (!options?.waitForCompletion) {
+      return { jobId, status: 'queued' };
+    }
+
+    // Synchronous mode for backward compatibility
+    // Poll for job completion since waitUntilCompleted is not available
+    const DEFAULT_TIMEOUT_MS = 60000; // 1 minute default
+    const timeoutMs = options.timeout || DEFAULT_TIMEOUT_MS;
+    const pollIntervalMs = 500;
+    const startTime = Date.now();
+
+    while (Date.now() - startTime < timeoutMs) {
+      const currentJob = await this.audioQueue.getJob(jobId);
+      if (!currentJob) {
+        throw new Error(`Job ${jobId} not found`);
+      }
+
+      const state = await currentJob.getState();
+      if (state === 'completed') {
+        return this.mapJobToStatus(currentJob);
+      }
+      if (state === 'failed') {
+        return this.mapJobToStatus(currentJob);
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, pollIntervalMs));
+    }
+
+    throw new Error(`Timeout waiting for job ${jobId} to complete`);
+  }
+
+  /**
+   * Get the status of a job by ID
+   * @param jobId - The job ID
+   * @returns The job status
+   */
+  async getJobStatus(jobId: string): Promise<AudioJobStatus | null> {
+    const job = await this.audioQueue.getJob(jobId);
+
+    if (!job) {
+      return null;
+    }
+
+    return this.mapJobToStatus(job);
+  }
+
+  /**
+   * Get jobs by source type and source ID
+   * @param sourceType - The source type ('article' | 'transcription')
+   * @param sourceId - The source ID
+   * @returns Array of matching job statuses
+   */
+  async getJobsBySource(
+    sourceType: string,
+    sourceId: string,
+  ): Promise<AudioJobStatus[]> {
+    const jobs = await this.audioQueue.getJobs(['waiting', 'active', 'completed', 'failed', 'delayed', 'paused']);
+
+    const matchingJobs = jobs.filter((job) => {
+      const data = job.data as GenerateAudioJobData;
+      return data.sourceType === sourceType && data.sourceId === sourceId;
+    });
+
+    return matchingJobs.map((job) => this.mapJobToStatus(job));
+  }
+
+  /**
+   * Cancel a pending job
+   * @param jobId - The job ID to cancel
+   * @returns true if cancelled, false otherwise
+   */
+  async cancelJob(jobId: string): Promise<boolean> {
+    const job = await this.audioQueue.getJob(jobId);
+
+    if (!job) {
+      this.logger.warn({
+        jobId,
+        operation: 'cancel',
+        status: 'not_found',
+      });
+      return false;
+    }
+
+    const state = await job.getState();
+
+    if (state !== 'waiting' && state !== 'delayed') {
+      this.logger.warn({
+        jobId,
+        operation: 'cancel',
+        status: 'invalid_state',
+        currentState: state,
+      });
+      return false;
+    }
+
+    await job.remove();
+
+    this.logger.log({
+      jobId,
+      operation: 'cancel',
+      status: 'cancelled',
+    });
+
+    return true;
+  }
+
+  /**
+   * Map a BullMQ job to AudioJobStatus
+   * @param job - The BullMQ job
+   * @returns The audio job status
+   */
+  private mapJobToStatus(job: Job): AudioJobStatus {
+    const data = job.data as GenerateAudioJobData;
+    const returnValue = job.returnvalue;
+    const failedReason = job.failedReason;
+
+    return {
+      jobId: String(job.id),
+      state: job.finishedOn ? (job.returnvalue ? 'completed' : 'failed') : 'unknown',
+      progress: job.progress || 0,
+      result: returnValue,
+      error: failedReason,
+      data,
+    };
+  }
+}

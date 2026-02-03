@@ -1,9 +1,8 @@
 import { ProcessMarkdownArticleJobData } from '@libs/queue';
 import { RedisService } from '@libs/redis';
 import { S3Service } from '@libs/s3';
-import { Test, TestingModule } from '@nestjs/testing';
 import { Job, Worker } from 'bullmq';
-import { mock, mockReset } from 'jest-mock-extended';
+import { mock } from 'jest-mock-extended';
 import { ProcessorService } from '../../processor/processor.service';
 import { FeedProfile } from '../../shared/types/feed';
 import { ArticlesService } from '../articles.service';
@@ -19,37 +18,10 @@ describe('MarkdownArticleProcessor', () => {
   const mockProcessorService = mock<ProcessorService>();
   const mockWorker = mock<Worker>();
 
-  beforeEach(async () => {
+  beforeEach(() => {
     (Worker as unknown as jest.Mock).mockImplementation(() => mockWorker);
 
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        MarkdownArticleProcessor,
-        {
-          provide: RedisService,
-          useValue: mockRedisService,
-        },
-        {
-          provide: S3Service,
-          useValue: mockS3Service,
-        },
-        {
-          provide: ArticlesService,
-          useValue: mockArticlesService,
-        },
-        {
-          provide: ProcessorService,
-          useValue: mockProcessorService,
-        },
-      ],
-    }).compile();
-
-    processor = module.get<MarkdownArticleProcessor>(MarkdownArticleProcessor);
-    mockReset(mockRedisService);
-    mockReset(mockS3Service);
-    mockReset(mockArticlesService);
-    mockReset(mockProcessorService);
-    mockReset(mockWorker);
+    processor = new MarkdownArticleProcessor(mockRedisService, mockS3Service, mockArticlesService, mockProcessorService);
   });
 
   afterEach(() => {

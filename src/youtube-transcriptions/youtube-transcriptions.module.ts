@@ -4,7 +4,6 @@ import { RedisModule } from '@libs/redis';
 import { Module, forwardRef } from '@nestjs/common';
 import { AiModule } from '../ai/ai.module';
 import { AiService } from '../ai/ai.service';
-import { AudioFilesModule } from '../audio-files/audio-files.module';
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
 import { YoutubeChannelsModule } from '../youtube-channels/youtube-channels.module';
@@ -33,7 +32,6 @@ import { ProcessTranscriptionFilesUseCase } from './usecases/process-transcripti
     ConfigModule,
     YoutubeChannelsModule,
     RedisModule,
-    AudioFilesModule,
     forwardRef(() => QueueModule),
   ],
   providers: [

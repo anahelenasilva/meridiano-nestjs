@@ -1,4 +1,5 @@
 import {
+  AudioJobService,
   ProcessTranscriptionSummaryJobData,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from '@libs/queue';
@@ -6,7 +7,6 @@ import { RedisService } from '@libs/redis';
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Job, Worker } from 'bullmq';
 import { AiService } from '../../ai/ai.service';
-import { GenerateAudioUseCase } from '../../audio-files/usecases/generate-audio.usecase';
 import { ConfigService } from '../../config/config.service';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 
@@ -19,7 +19,7 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
     private readonly youtubeTranscriptionsService: YoutubeTranscriptionsService,
     private readonly aiService: AiService,
     private readonly configService: ConfigService,
-    private readonly generateAudioUseCase: GenerateAudioUseCase,
+    private readonly audioJobService: AudioJobService,
   ) { }
 
   onModuleInit() {
@@ -83,25 +83,20 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
       // Generate audio if flag is enabled
       if (job.data.generateAudio) {
         try {
-          console.log(`Generating audio for transcription ID: ${transcriptionId}...`);
+          console.log(`Enqueuing audio generation for transcription ID: ${transcriptionId}...`);
           const transcription = await this.youtubeTranscriptionsService.getTranscriptionById(transcriptionId);
 
           if (transcription) {
-            const audioResult = await this.generateAudioUseCase.execute({
+            const jobInfo = await this.audioJobService.enqueueAudioJob({
               sourceType: 'transcription',
               sourceId: transcriptionId,
               text: summary,
               date: transcription.processedAt,
             });
-
-            if (audioResult.success) {
-              console.log(`Audio generated successfully for transcription ID: ${transcriptionId}`);
-            } else {
-              console.error(`Audio generation failed for transcription ID: ${transcriptionId}: ${audioResult.error}`);
-            }
+            console.log(`Audio generation job enqueued: ${jobInfo.jobId}`);
           }
         } catch (audioError) {
-          console.error(`Error generating audio for transcription ID: ${transcriptionId}:`, audioError);
+          console.error(`Error enqueuing audio generation for transcription ID: ${transcriptionId}:`, audioError);
         }
       }
 
