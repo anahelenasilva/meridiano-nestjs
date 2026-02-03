@@ -89,7 +89,7 @@ export class AudioJobService {
       return null;
     }
 
-    return this.mapJobToStatus(job);
+    return await this.mapJobToStatus(job);
   }
 
   /**
@@ -109,7 +109,7 @@ export class AudioJobService {
       return data.sourceType === sourceType && data.sourceId === sourceId;
     });
 
-    return matchingJobs.map((job) => this.mapJobToStatus(job));
+    return Promise.all(matchingJobs.map((job) => this.mapJobToStatus(job)));
   }
 
   /**
@@ -157,14 +157,24 @@ export class AudioJobService {
    * @param job - The BullMQ job
    * @returns The audio job status
    */
-  private mapJobToStatus(job: Job): AudioJobStatus {
+  private async mapJobToStatus(job: Job): Promise<AudioJobStatus> {
     const data = job.data as GenerateAudioJobData;
     const returnValue = job.returnvalue;
     const failedReason = job.failedReason;
+    const state = await job.getState();
+
+    let status: 'completed' | 'failed' | 'unknown';
+    if (state === 'completed') {
+      status = 'completed';
+    } else if (state === 'failed' || failedReason) {
+      status = 'failed';
+    } else {
+      status = 'unknown';
+    }
 
     return {
       jobId: String(job.id),
-      state: job.finishedOn ? (job.returnvalue ? 'completed' : 'failed') : 'unknown',
+      state: status,
       progress: job.progress || 0,
       result: returnValue,
       error: failedReason,

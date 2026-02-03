@@ -2,7 +2,7 @@ export interface GenerateAudioJobData {
   sourceType: 'article' | 'transcription';
   sourceId: string;
   text: string;
-  date: Date;
+  date: Date | string;
   voice?: string;
 }
 
