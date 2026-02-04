@@ -1,7 +1,7 @@
-import { AUDIO_GENERATION_QUEUE } from '@libs/queue';
 import { RedisModule, RedisService } from '@libs/redis';
 import { Module } from '@nestjs/common';
 import { Queue } from 'bullmq';
+import { AUDIO_GENERATION_QUEUE } from '../queue/constants/queue.constants';
 import { AudioJobService } from './services/audio-job.service';
 
 @Module({
