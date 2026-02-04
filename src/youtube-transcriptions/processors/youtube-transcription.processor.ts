@@ -1,5 +1,5 @@
+import { AudioJobService } from '@libs/audio';
 import {
-  AudioJobService,
   ProcessTranscriptionSummaryJobData,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from '@libs/queue';
@@ -40,6 +40,15 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
 
     this.worker.on('failed', (job, err) => {
       console.error(`Job ${job?.id} failed with error:`, err);
+    });
+
+    // Handle connection errors during shutdown to prevent ECONNRESET from crashing tests
+    this.worker.on('error', (err: Error) => {
+      // Suppress ECONNRESET errors during shutdown - these are expected when Redis connection closes
+      if (err.message?.includes('ECONNRESET') || err.message?.includes('closed')) {
+        return;
+      }
+      console.error('YouTube transcription processor worker error:', err);
     });
 
     console.log('YouTube transcription processor worker initialized');

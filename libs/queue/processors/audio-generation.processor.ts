@@ -93,6 +93,15 @@ export class AudioGenerationProcessor implements OnModuleInit {
       });
     });
 
+    // Handle connection errors during shutdown to prevent ECONNRESET from crashing tests
+    this.worker.on('error', (err: Error) => {
+      // Suppress ECONNRESET errors during shutdown - these are expected when Redis connection closes
+      if (err.message?.includes('ECONNRESET') || err.message?.includes('closed')) {
+        return;
+      }
+      this.logger.error('Audio generation processor worker error:', err);
+    });
+
     this.logger.log('Audio generation processor worker initialized');
   }
 

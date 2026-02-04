@@ -1,3 +1,4 @@
+import { AudioModule } from '@libs/audio';
 import { DatabaseModule } from '@libs/database';
 import { QueueModule } from '@libs/queue';
 import { RedisModule } from '@libs/redis';
@@ -33,6 +34,7 @@ import { ProcessTranscriptionFilesUseCase } from './usecases/process-transcripti
     YoutubeChannelsModule,
     RedisModule,
     forwardRef(() => QueueModule),
+    AudioModule,
   ],
   providers: [
     YoutubeTranscriptionsService,
