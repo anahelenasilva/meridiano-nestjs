@@ -14,11 +14,13 @@ describe('RedisService', () => {
 
     (Redis as unknown as jest.Mock).mockImplementation(() => mockRedisClient);
 
-    const module: TestingModule = await Test.createTestingModule({
+    const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [RedisService],
     }).compile();
 
-    service = module.get<RedisService>(RedisService);
+    await moduleRef.init();
+
+    service = moduleRef.get<RedisService>(RedisService);
   });
 
   afterEach(() => {
