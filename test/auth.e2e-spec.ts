@@ -1,4 +1,4 @@
-import { AuthModule as LibsAuthModule, USER_LOOKUP_PROVIDER_TOKEN } from '@libs/auth';
+import { AuthModule as LibsAuthModule } from '@libs/auth';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -63,16 +63,12 @@ describe('Authentication (e2e)', () => {
 
     moduleFixture = await Test.createTestingModule({
       imports: [
-        LibsAuthModule.forRoot({
-          getUserByEmail: mockUserLookupProvider.getUserByEmail,
-          getUserById: mockUserLookupProvider.getUserById,
-        } as any),
+        LibsAuthModule.forRootAsync({
+          useFactory: () => mockUserLookupProvider,
+        }),
       ],
       controllers: [AuthController],
-    })
-      .overrideProvider(USER_LOOKUP_PROVIDER_TOKEN)
-      .useValue(mockUserLookupProvider)
-      .compile();
+    }).compile();
 
     app = moduleFixture.createNestApplication();
 
