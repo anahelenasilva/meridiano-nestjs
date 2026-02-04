@@ -18,14 +18,7 @@ export class ProcessorService {
     private readonly configService: ConfigService,
     private readonly profilesService: ProfilesService,
     private readonly audioJobService: AudioJobService,
-  ) {
-    this.logger.debug('ProcessorService constructor called');
-    this.logger.debug(`articlesService: ${typeof this.articlesService}`);
-    this.logger.debug(`aiService: ${typeof this.aiService}`);
-    this.logger.debug(`configService: ${typeof this.configService}`);
-    this.logger.debug(`profilesService: ${typeof this.profilesService}`);
-    this.logger.debug(`audioJobService: ${typeof this.audioJobService}`);
-  }
+  ) { }
 
   async processArticles(
     feedProfile: FeedProfile,
