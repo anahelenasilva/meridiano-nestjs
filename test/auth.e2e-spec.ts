@@ -49,8 +49,12 @@ describe('Authentication (e2e)', () => {
   let app: INestApplication<App>;
   let moduleFixture: TestingModule;
   let mockUserLookupProvider: ReturnType<typeof createMockUserLookupProvider>;
+  let originalJwtSecret: string | undefined;
 
   beforeAll(async () => {
+    // Capture original JWT_SECRET before overriding
+    originalJwtSecret = process.env.JWT_SECRET;
+
     // Set JWT_SECRET for testing
     process.env.JWT_SECRET = 'test-jwt-secret-key-for-e2e-tests';
 
@@ -92,6 +96,13 @@ describe('Authentication (e2e)', () => {
     mockUserLookupProvider.getUserByEmail.mockClear();
     mockUserLookupProvider.getUserById.mockClear();
     jest.clearAllMocks();
+
+    // Restore original JWT_SECRET or delete if it was undefined
+    if (originalJwtSecret === undefined) {
+      delete process.env.JWT_SECRET;
+    } else {
+      process.env.JWT_SECRET = originalJwtSecret;
+    }
   });
 
   describe('POST /api/auth/login', () => {
