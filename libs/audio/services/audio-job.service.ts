@@ -30,51 +30,62 @@ export class AudioJobService {
     data: GenerateAudioJobData,
     options?: EnqueueOptions,
   ): Promise<JobInfo | AudioJobStatus> {
-    const job = await this.audioQueue.add(GENERATE_AUDIO_JOB, data, {
-      priority: options?.priority,
-      delay: options?.delay,
-    });
+    try {
+      const job = await this.audioQueue.add(GENERATE_AUDIO_JOB, data, {
+        priority: options?.priority,
+        delay: options?.delay,
+      });
 
-    const jobId = String(job.id);
+      const jobId = String(job.id);
 
-    this.logger.log({
-      jobId,
-      sourceType: data.sourceType,
-      sourceId: data.sourceId,
-      operation: 'enqueue',
-      status: 'queued',
-    });
+      this.logger.log({
+        jobId,
+        sourceType: data.sourceType,
+        sourceId: data.sourceId,
+        operation: 'enqueue',
+        status: 'queued',
+      });
 
-    // Fire-and-forget mode (default)
-    if (!options?.waitForCompletion) {
-      return { jobId, status: 'queued' };
+      // Fire-and-forget mode (default)
+      if (!options?.waitForCompletion) {
+        return { jobId, status: 'queued' };
+      }
+
+      // Synchronous mode for backward compatibility
+      // Poll for job completion since waitUntilCompleted is not available
+      const DEFAULT_TIMEOUT_MS = 60000; // 1 minute default
+      const timeoutMs = options.timeout || DEFAULT_TIMEOUT_MS;
+      const pollIntervalMs = 500;
+      const startTime = Date.now();
+
+      while (Date.now() - startTime < timeoutMs) {
+        const currentJob = await this.audioQueue.getJob(jobId);
+        if (!currentJob) {
+          throw new Error(`Job ${jobId} not found`);
+        }
+
+        const state = await currentJob.getState();
+        if (state === 'completed') {
+          return this.mapJobToStatus(currentJob);
+        }
+        if (state === 'failed') {
+          return this.mapJobToStatus(currentJob);
+        }
+
+        await new Promise((resolve) => setTimeout(resolve, pollIntervalMs));
+      }
+
+      throw new Error(`Timeout waiting for job ${jobId} to complete`);
+    } catch (error) {
+      this.logger.error({
+        operation: 'enqueue',
+        sourceType: data.sourceType,
+        sourceId: data.sourceId,
+        error: error instanceof Error ? error.message : String(error),
+        errorObject: error,
+      });
+      throw error;
     }
-
-    // Synchronous mode for backward compatibility
-    // Poll for job completion since waitUntilCompleted is not available
-    const DEFAULT_TIMEOUT_MS = 60000; // 1 minute default
-    const timeoutMs = options.timeout || DEFAULT_TIMEOUT_MS;
-    const pollIntervalMs = 500;
-    const startTime = Date.now();
-
-    while (Date.now() - startTime < timeoutMs) {
-      const currentJob = await this.audioQueue.getJob(jobId);
-      if (!currentJob) {
-        throw new Error(`Job ${jobId} not found`);
-      }
-
-      const state = await currentJob.getState();
-      if (state === 'completed') {
-        return this.mapJobToStatus(currentJob);
-      }
-      if (state === 'failed') {
-        return this.mapJobToStatus(currentJob);
-      }
-
-      await new Promise((resolve) => setTimeout(resolve, pollIntervalMs));
-    }
-
-    throw new Error(`Timeout waiting for job ${jobId} to complete`);
   }
 
   /**
@@ -83,13 +94,23 @@ export class AudioJobService {
    * @returns The job status
    */
   async getJobStatus(jobId: string): Promise<AudioJobStatus | null> {
-    const job = await this.audioQueue.getJob(jobId);
+    try {
+      const job = await this.audioQueue.getJob(jobId);
 
-    if (!job) {
+      if (!job) {
+        return null;
+      }
+
+      return await this.mapJobToStatus(job);
+    } catch (error) {
+      this.logger.error({
+        operation: 'status',
+        jobId,
+        error: error instanceof Error ? error.message : String(error),
+        errorObject: error,
+      });
       return null;
     }
-
-    return await this.mapJobToStatus(job);
   }
 
   /**
@@ -102,14 +123,25 @@ export class AudioJobService {
     sourceType: string,
     sourceId: string,
   ): Promise<AudioJobStatus[]> {
-    const jobs = await this.audioQueue.getJobs(['waiting', 'active', 'completed', 'failed', 'delayed', 'paused']);
+    try {
+      const jobs = await this.audioQueue.getJobs(['waiting', 'active', 'completed', 'failed', 'delayed', 'paused']);
 
-    const matchingJobs = jobs.filter((job) => {
-      const data = job.data as GenerateAudioJobData;
-      return data.sourceType === sourceType && data.sourceId === sourceId;
-    });
+      const matchingJobs = jobs.filter((job) => {
+        const data = job.data as GenerateAudioJobData;
+        return data.sourceType === sourceType && data.sourceId === sourceId;
+      });
 
-    return Promise.all(matchingJobs.map((job) => this.mapJobToStatus(job)));
+      return Promise.all(matchingJobs.map((job) => this.mapJobToStatus(job)));
+    } catch (error) {
+      this.logger.error({
+        operation: 'list',
+        sourceType,
+        sourceId,
+        error: error instanceof Error ? error.message : String(error),
+        errorObject: error,
+      });
+      return [];
+    }
   }
 
   /**
@@ -118,38 +150,48 @@ export class AudioJobService {
    * @returns true if cancelled, false otherwise
    */
   async cancelJob(jobId: string): Promise<boolean> {
-    const job = await this.audioQueue.getJob(jobId);
+    try {
+      const job = await this.audioQueue.getJob(jobId);
 
-    if (!job) {
-      this.logger.warn({
+      if (!job) {
+        this.logger.warn({
+          jobId,
+          operation: 'cancel',
+          status: 'not_found',
+        });
+        return false;
+      }
+
+      const state = await job.getState();
+
+      if (state !== 'waiting' && state !== 'delayed') {
+        this.logger.warn({
+          jobId,
+          operation: 'cancel',
+          status: 'invalid_state',
+          currentState: state,
+        });
+        return false;
+      }
+
+      await job.remove();
+
+      this.logger.log({
         jobId,
         operation: 'cancel',
-        status: 'not_found',
+        status: 'cancelled',
+      });
+
+      return true;
+    } catch (error) {
+      this.logger.error({
+        operation: 'cancel',
+        jobId,
+        error: error instanceof Error ? error.message : String(error),
+        errorObject: error,
       });
       return false;
     }
-
-    const state = await job.getState();
-
-    if (state !== 'waiting' && state !== 'delayed') {
-      this.logger.warn({
-        jobId,
-        operation: 'cancel',
-        status: 'invalid_state',
-        currentState: state,
-      });
-      return false;
-    }
-
-    await job.remove();
-
-    this.logger.log({
-      jobId,
-      operation: 'cancel',
-      status: 'cancelled',
-    });
-
-    return true;
   }
 
   /**
