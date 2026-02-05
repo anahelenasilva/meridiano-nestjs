@@ -120,7 +120,7 @@ export class AudioJobService {
    * @returns Array of matching job statuses
    */
   async getJobsBySource(
-    sourceType: string,
+    sourceType: 'article' | 'transcription',
     sourceId: string,
   ): Promise<AudioJobStatus[]> {
     try {
