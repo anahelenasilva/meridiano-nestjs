@@ -41,6 +41,15 @@ export class MarkdownArticleProcessor implements OnModuleInit, OnModuleDestroy {
       console.error(`Markdown article job ${job?.id} failed with error:`, err);
     });
 
+    // Handle connection errors during shutdown to prevent ECONNRESET from crashing tests
+    this.worker.on('error', (err: Error) => {
+      // Suppress ECONNRESET errors during shutdown - these are expected when Redis connection closes
+      if (err.message?.includes('ECONNRESET') || err.message?.includes('closed')) {
+        return;
+      }
+      console.error('Markdown article processor worker error:', err);
+    });
+
     console.log('Markdown article processor worker initialized');
   }
 

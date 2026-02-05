@@ -4,37 +4,56 @@ import Redis from 'ioredis';
 @Injectable()
 export class RedisService implements OnModuleInit, OnModuleDestroy {
   private client: Redis;
+  private errorHandler?: (error: Error) => void;
+  private connectHandler?: () => void;
+  private redisHost: string;
+  private redisPort: number;
+  private redisPassword: string | undefined;
 
   constructor() {
-    const redisHost = process.env.REDIS_HOST || 'localhost';
-    const redisPort = parseInt(process.env.REDIS_PORT || '6379', 10);
-    const redisPassword = process.env.REDIS_PASSWORD || undefined;
-
-    console.log(`[RedisService] Initializing Redis client - Connecting to ${redisHost}:${redisPort}`);
-
-    this.client = new Redis({
-      host: redisHost,
-      port: redisPort,
-      password: redisPassword,
-      maxRetriesPerRequest: null,
-    });
-
-    this.client.on('error', (error) => {
-      console.error('[RedisService] Redis connection error:', error);
-    });
-
-    this.client.on('connect', () => {
-      console.log('[RedisService] Redis connected successfully');
-    });
+    this.redisHost = process.env.REDIS_HOST || 'localhost';
+    this.redisPort = parseInt(process.env.REDIS_PORT || '6379', 10);
+    this.redisPassword = process.env.REDIS_PASSWORD || undefined;
   }
 
   onModuleInit() {
+    console.log(`[RedisService] Initializing Redis client - Connecting to ${this.redisHost}:${this.redisPort}`);
+
+    this.client = new Redis({
+      host: this.redisHost,
+      port: this.redisPort,
+      password: this.redisPassword,
+      maxRetriesPerRequest: null,
+    });
+
+    this.errorHandler = (error: Error) => {
+      console.error('[RedisService] Redis connection error:', error);
+    };
+
+    this.connectHandler = () => {
+      console.log('[RedisService] Redis connected successfully');
+    };
+
+    this.client.on('error', this.errorHandler);
+    this.client.on('connect', this.connectHandler);
+
     console.log('[RedisService] onModuleInit - Redis client ready');
   }
 
-  onModuleDestroy() {
+  async onModuleDestroy() {
     if (this.client) {
-      this.client.disconnect();
+      if (this.errorHandler) {
+        this.client.removeListener('error', this.errorHandler);
+      }
+      if (this.connectHandler) {
+        this.client.removeListener('connect', this.connectHandler);
+      }
+      try {
+        await this.client.quit();
+      } catch (error) {
+        console.error('[RedisService] Error quitting Redis client:', error);
+        this.client.disconnect();
+      }
     }
   }
 

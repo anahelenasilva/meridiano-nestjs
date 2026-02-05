@@ -1,5 +1,5 @@
 import { RedisService } from '@libs/redis';
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { Job, Worker } from 'bullmq';
 import { ProcessorService } from '../../../src/processor/processor.service';
 import {
@@ -8,7 +8,7 @@ import {
 import { ProcessArticleJobData } from '../interfaces/article-job.interface';
 
 @Injectable()
-export class ArticleProcessor implements OnModuleInit {
+export class ArticleProcessor implements OnModuleInit, OnModuleDestroy {
   private worker: Worker;
 
   constructor(
@@ -34,6 +34,15 @@ export class ArticleProcessor implements OnModuleInit {
 
     this.worker.on('failed', (job, err) => {
       console.error(`Job ${job?.id} failed with error:`, err);
+    });
+
+    // Handle connection errors during shutdown to prevent ECONNRESET from crashing tests
+    this.worker.on('error', (err: Error) => {
+      // Suppress ECONNRESET errors during shutdown - these are expected when Redis connection closes
+      if (err.message?.includes('ECONNRESET') || err.message?.includes('closed')) {
+        return;
+      }
+      console.error('Article processor worker error:', err);
     });
 
     console.log('Article processor worker initialized');

@@ -8,15 +8,9 @@ export {
 } from './constants/queue.constants';
 
 export type { ProcessArticleJobData } from './interfaces/article-job.interface';
-export type {
-  AudioJobStatus,
-  EnqueueOptions,
-  GenerateAudioJobData,
-  JobInfo
-} from './interfaces/audio-job.interface';
 export type { ProcessMarkdownArticleJobData } from './interfaces/markdown-article-job.interface';
 export type { ProcessTranscriptionSummaryJobData } from './interfaces/youtube-transcription-job.interface';
 
 export { QueueModule } from './queue.module';
 export { QueueService } from './queue.service';
-export { AudioJobService } from './services/audio-job.service';
+// Note: AudioJobService is now exported from @libs/audio

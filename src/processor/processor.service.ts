@@ -1,5 +1,5 @@
-import { AudioJobService } from '@libs/queue';
-import { Injectable } from '@nestjs/common';
+import { AudioJobService } from '@libs/audio';
+import { Injectable, Logger } from '@nestjs/common';
 import { AiService } from '../ai/ai.service';
 import { ArticleCategory, DBArticle } from '../articles/article.entity';
 import { ArticlesService } from '../articles/articles.service';
@@ -10,6 +10,8 @@ import { FeedProfile } from '../shared/types/feed';
 
 @Injectable()
 export class ProcessorService {
+  private readonly logger = new Logger(ProcessorService.name);
+
   constructor(
     private readonly articlesService: ArticlesService,
     private readonly aiService: AiService,

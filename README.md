@@ -346,7 +346,7 @@ Breaking down this regex parttern:
   - [x] Database
   - [x] Queue
 - [ ] Add e2e tests for the main parts
-  - [ ] login
+  - [x] login
   - [ ] briefing tech (or could be any other -> maybe break down into smaller pieces)
   - [ ] get transcriptions
   - [ ] process transcription
@@ -356,7 +356,9 @@ Breaking down this regex parttern:
 - [x] Remove usecase module
 - [x] Add github actions (or alternative like depot)
 - [ ] Add embedding search on articles and on youtube transcriptions (e.g. search for "github actions alternatives")
-- [ ] Possibility do add comments to an article or youtube transcription (goal: add my notes to them)
+- [ ] Possibility to add comments to an article or youtube transcription (goal: add my notes to them)
+- [ ] Add a PR pre check to validate if the file CLAUDE.md needs to be updated
+- [ ] Move the processor module to articles module
 
 # How to use Ralph in this project
 

@@ -1,22 +1,33 @@
 {
-  "moduleFileExtensions": ["js", "json", "ts"],
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "ts"
+  ],
   "rootDir": ".",
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",
   "transform": {
-    "^.+\\.(t|j)s$": ["ts-jest", {
-      "tsconfig": {
-        "paths": {
-          "@libs/*": ["libs/*"]
+    "^.+\\.(t|j)s$": [
+      "ts-jest",
+      {
+        "tsconfig": {
+          "paths": {
+            "@libs/*": [
+              "libs/*"
+            ]
+          }
         }
       }
-    }]
+    ]
   },
   "transformIgnorePatterns": [
-    "node_modules/(?!(youtubei.js)/)"
+    "node_modules/(?!(\\.pnpm/(youtubei\\.js|marked|youtube-transcript-plus)@[^/]+/node_modules/)?(youtubei\\.js|marked|youtube-transcript-plus)/)"
   ],
   "moduleNameMapper": {
-    "^youtubei.js$": "<rootDir>/../src/__mocks__/youtubei.js.ts",
+    "^youtubei\\.js$": "<rootDir>/../src/__mocks__/youtubei.js.ts",
+    "^youtube-transcript-plus$": "<rootDir>/../src/__mocks__/youtube-transcript-plus.ts",
+    "^marked$": "<rootDir>/../node_modules/marked/lib/marked.esm.js",
     "^@libs/(.*)$": "<rootDir>/../libs/$1"
   }
 }
