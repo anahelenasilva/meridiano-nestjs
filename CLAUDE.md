@@ -15,8 +15,10 @@ alwaysApply: true
 2. If modifying database schema, create a migration first
 
 ## Testing
-- Run tests before completing any task: `pnpm test`
-- Run specific test file: `pnpm test <filename>`
+- Run unit tests before completing any task: `pnpm test`
+- Run specific unit test file: `pnpm test <filename>`
+- Run E2E tests: `pnpm test:e2e`
+- Run specific E2E test file: `pnpm test:e2e -- <filename>`
 - If tests fail, fix them before moving on
 
 ## Database Migrations
