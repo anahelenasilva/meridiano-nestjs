@@ -7,6 +7,7 @@ jest.mock('ioredis');
 
 describe('RedisService', () => {
   let service: RedisService;
+  let moduleRef: TestingModule;
   const mockRedisClient = mock<Redis>();
 
   beforeEach(async () => {
@@ -14,7 +15,7 @@ describe('RedisService', () => {
 
     (Redis as unknown as jest.Mock).mockImplementation(() => mockRedisClient);
 
-    const moduleRef: TestingModule = await Test.createTestingModule({
+    moduleRef = await Test.createTestingModule({
       providers: [RedisService],
     }).compile();
 
@@ -23,7 +24,8 @@ describe('RedisService', () => {
     service = moduleRef.get<RedisService>(RedisService);
   });
 
-  afterEach(() => {
+  afterEach(async () => {
+    await moduleRef.close();
     jest.clearAllMocks();
   });
 
