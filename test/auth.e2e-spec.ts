@@ -1,8 +1,10 @@
 import { AuthModule as LibsAuthModule } from '@libs/auth';
+import { UserLookupProvider } from '@libs/auth/interfaces/user-lookup-provider.interface';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as bcrypt from 'bcrypt';
+import { mock, MockProxy } from 'jest-mock-extended';
 import request from 'supertest';
 import { App } from 'supertest/types';
 import { AuthController } from '../src/auth/auth.controller';
@@ -26,8 +28,9 @@ const mockUserWithoutPassword = {
 };
 
 // Factory function for creating fresh mock instances
-const createMockUserLookupProvider = () => ({
-  getUserByEmail: jest.fn((email: string, includePassword: boolean) => {
+const createMockUserLookupProvider = (): MockProxy<UserLookupProvider> => {
+  const mockProvider = mock<UserLookupProvider>();
+  mockProvider.getUserByEmail.mockImplementation((email: string, includePassword: boolean) => {
     if (email === mockUser.email) {
       if (includePassword) {
         return Promise.resolve(mockUser);
@@ -35,15 +38,16 @@ const createMockUserLookupProvider = () => ({
       return Promise.resolve({ ...mockUser, password: undefined });
     }
     return Promise.resolve(null); // User not found
-  }),
+  });
 
-  getUserById: jest.fn((userId: string) => {
+  mockProvider.getUserById.mockImplementation((userId: string) => {
     if (userId === mockUser.id) {
       return Promise.resolve({ ...mockUser, password: undefined });
     }
     return Promise.resolve(null);
-  }),
-});
+  });
+  return mockProvider;
+};
 
 describe('Authentication (e2e)', () => {
   let app: INestApplication<App>;
