@@ -1,5 +1,5 @@
 # Backend Dockerfile for NestJS
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 
 # Install pnpm
 RUN npm install -g pnpm
@@ -27,7 +27,7 @@ RUN echo "=== Build output structure ===" && \
   test -f dist/src/main.js || test -f dist/main.js || (echo "ERROR: No main.js found in dist/src/ or dist/!" && exit 1)
 
 # Production stage
-FROM node:20-alpine AS production
+FROM node:22-alpine AS production
 
 # Install pnpm
 RUN npm install -g pnpm
