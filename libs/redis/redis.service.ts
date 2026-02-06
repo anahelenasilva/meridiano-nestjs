@@ -6,25 +6,31 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
   private client: Redis;
   private errorHandler?: (error: Error) => void;
   private connectHandler?: () => void;
-  private redisHost: string;
-  private redisPort: number;
-  private redisPassword: string | undefined;
 
-  constructor() {
-    this.redisHost = process.env.REDIS_HOST || 'localhost';
-    this.redisPort = parseInt(process.env.REDIS_PORT || '6379', 10);
-    this.redisPassword = process.env.REDIS_PASSWORD || undefined;
-  }
+  constructor() {}
 
   onModuleInit() {
-    console.log(`[RedisService] Initializing Redis client - Connecting to ${this.redisHost}:${this.redisPort}`);
+    const redisUrl = process.env.REDIS_URL || process.env.REDISCLOUD_URL;
 
-    this.client = new Redis({
-      host: this.redisHost,
-      port: this.redisPort,
-      password: this.redisPassword,
-      maxRetriesPerRequest: null,
-    });
+    if (redisUrl) {
+      console.log(`[RedisService] Initializing Redis client - Using Redis URL`);
+      this.client = new Redis(redisUrl, {
+        maxRetriesPerRequest: null,
+      });
+    } else {
+      const redisHost = process.env.REDIS_HOST || 'localhost';
+      const redisPort = parseInt(process.env.REDIS_PORT || '6379', 10);
+      const redisPassword = process.env.REDIS_PASSWORD || undefined;
+
+      console.log(`[RedisService] Initializing Redis client - Connecting to ${redisHost}:${redisPort}`);
+
+      this.client = new Redis({
+        host: redisHost,
+        port: redisPort,
+        password: redisPassword,
+        maxRetriesPerRequest: null,
+      });
+    }
 
     this.errorHandler = (error: Error) => {
       console.error('[RedisService] Redis connection error:', error);

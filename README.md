@@ -244,6 +244,71 @@ $ pnpm run test:cov
 
 ## Deployment
 
+### Railway Deployment
+
+When deploying to Railway, you need to configure the following environment variables:
+
+**Database (PostgreSQL):**
+Railway automatically provides a `POSTGRES_URL` or `DATABASE_URL` environment variable when you add a PostgreSQL service. The application will automatically use this if available. Alternatively, you can set:
+- `DATABASE_URL` - Full PostgreSQL connection string (preferred)
+- `POSTGRES_URL` - Alternative name Railway may use
+- Or individual variables: `DATABASE_HOST`, `DATABASE_PORT`, `DATABASE_USER`, `DATABASE_PASSWORD`, `DATABASE_NAME`
+
+**Redis:**
+Railway provides a `REDIS_URL` environment variable when you add a Redis service. The application will automatically use this. Alternatively, you can set:
+- `REDIS_URL` - Full Redis connection string (preferred)
+- Or individual variables: `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASSWORD`
+
+**Required Environment Variables:**
+```env
+# Database (use Railway's POSTGRES_URL or DATABASE_URL)
+POSTGRES_URL=postgresql://user:password@host:port/database
+# OR
+DATABASE_URL=postgresql://user:password@host:port/database
+
+# Redis (use Railway's REDIS_URL)
+REDIS_URL=redis://host:port
+
+# Application
+PORT=3000
+NODE_ENV=production
+
+# JWT Authentication
+JWT_SECRET=your-secret-key-change-in-production
+
+# AI API Keys
+DEEPSEEK_API_KEY=your-deepseek-api-key
+EMBEDDING_API_KEY=your-embedding-api-key
+OPENAI_API_KEY=your-openai-api-key
+
+# Email Configuration
+EMAIL_PROVIDER=mailgun
+EMAIL_FROM=your-email@domain.com
+MAILGUN_API_KEY=your-mailgun-api-key
+MAILGUN_DOMAIN=your-domain.com
+
+# AWS Configuration (for S3)
+AWS_REGION=us-east-1
+AWS_ACCESS_KEY_ID=your-aws-access-key
+AWS_SECRET_ACCESS_KEY=your-aws-secret-key
+S3_ARTICLES_BUCKET_NAME=your-bucket-name
+
+# Article Processing
+ARTICLE_FAILURE_NOTIFICATION_EMAIL=your-email@domain.com
+ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM=your-email@domain.com
+
+# Briefings Generation
+ENABLE_BRIEFINGS_GENERATION=true
+```
+
+**Important Notes:**
+- Railway automatically sets `POSTGRES_URL` and `REDIS_URL` when you add these services
+- Make sure to add both PostgreSQL and Redis services in Railway before deploying
+- The application will automatically use URL-based connections if available, falling back to individual host/port variables
+- Database migrations run automatically on startup
+
+### Other Deployment Options
+
 When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
 
 If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:

@@ -5,20 +5,22 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 // This ensures Docker Compose environment variables take precedence
 dotenv.config({ override: false });
 
-const dbUser = process.env.DATABASE_USER || 'postgres';
-const dbPassword = process.env.DATABASE_PASSWORD || 'postgres';
-const dbHost = process.env.DATABASE_HOST || 'localhost';
-const dbPort = process.env.DATABASE_PORT || '5432';
-const dbName = process.env.DATABASE_NAME || 'meridian';
+const connectionString =
+  process.env.DATABASE_URL ||
+  process.env.POSTGRES_URL ||
+  (() => {
+    const dbUser = process.env.DATABASE_USER || 'postgres';
+    const dbPassword = process.env.DATABASE_PASSWORD || 'postgres';
+    const dbHost = process.env.DATABASE_HOST || 'localhost';
+    const dbPort = process.env.DATABASE_PORT || '5432';
+    const dbName = process.env.DATABASE_NAME || 'meridian';
 
-console.log(`  Connecting to database at ${dbHost}:${dbPort}/${dbName} (user: ${dbUser})`);
+    console.log(`  Connecting to database at ${dbHost}:${dbPort}/${dbName} (user: ${dbUser})`);
 
-// URL-encode username and password to handle special characters
-const encodedUser = encodeURIComponent(dbUser);
-const encodedPassword = encodeURIComponent(dbPassword);
-const builtDbUrl = `postgresql://${encodedUser}:${encodedPassword}@${dbHost}:${dbPort}/${dbName}`;
-
-const connectionString = process.env.DATABASE_URL || builtDbUrl;
+    const encodedUser = encodeURIComponent(dbUser);
+    const encodedPassword = encodeURIComponent(dbPassword);
+    return `postgresql://${encodedUser}:${encodedPassword}@${dbHost}:${dbPort}/${dbName}`;
+  })();
 
 export const typeormConfig: DataSourceOptions = {
   type: 'postgres',

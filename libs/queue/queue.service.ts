@@ -1,4 +1,5 @@
 import { EmailService } from '@libs/email';
+import { RedisService } from '@libs/redis';
 import { Inject, Injectable, NotFoundException, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { Queue, QueueEvents } from 'bullmq';
 import { ConfigService } from '../../src/config/config.service';
@@ -45,12 +46,10 @@ export class QueueService implements OnModuleInit, OnModuleDestroy {
     private readonly transcriptionSummaryQueue: Queue,
     private readonly configService: ConfigService,
     private readonly emailService: EmailService,
+    private readonly redisService: RedisService,
   ) {
     this.markdownQueueEvents = new QueueEvents(MARKDOWN_ARTICLE_PROCESSING_QUEUE, {
-      connection: {
-        host: process.env.REDIS_HOST || 'localhost',
-        port: parseInt(process.env.REDIS_PORT || '6379', 10),
-      },
+      connection: this.redisService.getClient(),
     });
   }
 

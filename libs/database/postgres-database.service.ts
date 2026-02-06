@@ -165,19 +165,26 @@ export class PostgresDatabaseService extends AbstractDatabaseService {
   }
 
   async initDb(): Promise<void> {
-    const dbUser = process.env.DATABASE_USER || 'postgres';
-    const dbPassword = process.env.DATABASE_PASSWORD || '';
-    const dbHost = process.env.DATABASE_HOST || 'localhost';
-    const dbPort = process.env.DATABASE_PORT || '5432';
-    const dbName = process.env.DATABASE_NAME || 'meridian';
-    const encodedUser = encodeURIComponent(dbUser);
-    const encodedPassword = encodeURIComponent(dbPassword);
-    const builtDbUrl = `postgresql://${encodedUser}:${encodedPassword}@${dbHost}:${dbPort}/${dbName}`;
-
-    const connectionString = process.env.DATABASE_URL || builtDbUrl;
+    const connectionString =
+      process.env.DATABASE_URL ||
+      process.env.POSTGRES_URL ||
+      (() => {
+        const dbUser = process.env.DATABASE_USER || 'postgres';
+        const dbPassword = process.env.DATABASE_PASSWORD || '';
+        const dbHost = process.env.DATABASE_HOST || 'localhost';
+        const dbPort = process.env.DATABASE_PORT || '5432';
+        const dbName = process.env.DATABASE_NAME || 'meridian';
+        const encodedUser = encodeURIComponent(dbUser);
+        const encodedPassword = encodeURIComponent(dbPassword);
+        return `postgresql://${encodedUser}:${encodedPassword}@${dbHost}:${dbPort}/${dbName}`;
+      })();
 
     this.pool = new Pool({
       connectionString,
+      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+      max: 20,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 2000,
     });
 
     try {
