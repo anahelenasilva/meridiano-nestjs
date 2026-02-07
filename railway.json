@@ -1,6 +1,5 @@
 {
   "build": {
-    "buildCommand": "IS_BUILD=true pnpm install --frozen-lockfile && pnpm run build",
-    "startCommand": "sleep 3 && tsc && pnpm run start:prod"
+    "buildCommand": "IS_BUILD=true pnpm install --frozen-lockfile && pnpm run build"
   }
 }
