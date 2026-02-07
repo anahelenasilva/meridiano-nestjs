@@ -1,0 +1,4072 @@
+{
+  "channel": {
+    "id": "UCbRP3c757lWg9M-U7TyEkXA",
+    "databaseId": "a51c1705-882c-4be5-b706-055eceb039f8",
+    "name": "Theo Browne",
+    "description": "Theo is a software dev, AI nerd, TypeScript sympathizer, creator of T3 Chat and the T3 Stack."
+  },
+  "videoId": "s3AWPNLeUlU",
+  "title": "wtf is going on with ChatGPT?",
+  "url": "https://www.youtube.com/watch?v=s3AWPNLeUlU",
+  "publishedAt": "2026-01-18T22:36:30.737Z",
+  "description": "OpenAI just dropped an $8 tier, with ads...\n\nThank you Mobbin for sponsoring! Check them out at: https://soydev.link/mobbin\n\nSOURCES\nhttps://x.com/OpenAI/status/2012223323812270219\nhttps://x.com/sa...",
+  "thumbnailUrl": "https://i.ytimg.com/vi/s3AWPNLeUlU/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDcJcYXWCLz_n4Tm1wWdO3Krk2g7g",
+  "transcript": [
+    {
+      "text": "Seems like OpenAI realized that they",
+      "duration": 2799,
+      "offset": 80
+    },
+    {
+      "text": "have competition and they're finally",
+      "duration": 3120,
+      "offset": 1520
+    },
+    {
+      "text": "making changes to address it that really",
+      "duration": 3601,
+      "offset": 2879
+    },
+    {
+      "text": "seem to underpin this deep fear they",
+      "duration": 3600,
+      "offset": 4640
+    },
+    {
+      "text": "have about losing the market. Today,",
+      "duration": 4640,
+      "offset": 6480
+    },
+    {
+      "text": "OpenAI dropped chat GPT Go, their new $8",
+      "duration": 4960,
+      "offset": 8240
+    },
+    {
+      "text": "a month plan across the whole world.",
+      "duration": 3760,
+      "offset": 11120
+    },
+    {
+      "text": "Originally, this plan only existed in",
+      "duration": 3520,
+      "offset": 13200
+    },
+    {
+      "text": "India as a way to have presence in",
+      "duration": 3360,
+      "offset": 14880
+    },
+    {
+      "text": "markets that don't have quite as much",
+      "duration": 3520,
+      "offset": 16720
+    },
+    {
+      "text": "spend per person. And now it's around",
+      "duration": 3680,
+      "offset": 18240
+    },
+    {
+      "text": "everywhere. And big part of how they're",
+      "duration": 3840,
+      "offset": 20240
+    },
+    {
+      "text": "handling this is through adding ads to",
+      "duration": 4720,
+      "offset": 21920
+    },
+    {
+      "text": "ChatGpt. Yes, really. You will now get",
+      "duration": 4720,
+      "offset": 24080
+    },
+    {
+      "text": "ads and chat GBT on the free tier and on",
+      "duration": 4639,
+      "offset": 26640
+    },
+    {
+      "text": "the $8 a month tier almost like Netflix",
+      "duration": 5279,
+      "offset": 28800
+    },
+    {
+      "text": "style. Kind of crazy. And it shows some",
+      "duration": 4800,
+      "offset": 31279
+    },
+    {
+      "text": "really big rethinkings going on at",
+      "duration": 4721,
+      "offset": 34079
+    },
+    {
+      "text": "OpenAI about how they make money.",
+      "duration": 3921,
+      "offset": 36079
+    },
+    {
+      "text": "There's a deeper reason why they're",
+      "duration": 2640,
+      "offset": 38800
+    },
+    {
+      "text": "doing this that I want to talk a lot",
+      "duration": 3680,
+      "offset": 40000
+    },
+    {
+      "text": "about. OpenAI is losing their share of",
+      "duration": 4080,
+      "offset": 41440
+    },
+    {
+      "text": "the market. They were comfortably over",
+      "duration": 5600,
+      "offset": 43680
+    },
+    {
+      "text": "75% closer to 85 12 months ago and since",
+      "duration": 5359,
+      "offset": 45520
+    },
+    {
+      "text": "then they've dropped all the way to the",
+      "duration": 4480,
+      "offset": 49280
+    },
+    {
+      "text": "60s. That is crazy. Google is coming in",
+      "duration": 5121,
+      "offset": 50879
+    },
+    {
+      "text": "and really squeezing out market from",
+      "duration": 4240,
+      "offset": 53760
+    },
+    {
+      "text": "open AAI and they are terrified and",
+      "duration": 4160,
+      "offset": 56000
+    },
+    {
+      "text": "making changes accordingly. I don't know",
+      "duration": 4320,
+      "offset": 58000
+    },
+    {
+      "text": "how well those changes will work though.",
+      "duration": 3999,
+      "offset": 60160
+    },
+    {
+      "text": "I think a lot about these things both",
+      "duration": 3360,
+      "offset": 62320
+    },
+    {
+      "text": "the business side and the developer side",
+      "duration": 3761,
+      "offset": 64159
+    },
+    {
+      "text": "but also different sources of revenue",
+      "duration": 4080,
+      "offset": 65680
+    },
+    {
+      "text": "and how they work and how those affect",
+      "duration": 3440,
+      "offset": 67920
+    },
+    {
+      "text": "people in the market. I think a lot",
+      "duration": 3200,
+      "offset": 69760
+    },
+    {
+      "text": "about how people make decisions around",
+      "duration": 4320,
+      "offset": 71360
+    },
+    {
+      "text": "what they do and don't use. And also I'm",
+      "duration": 5519,
+      "offset": 72960
+    },
+    {
+      "text": "a direct competitor. T3 Chat just so",
+      "duration": 5840,
+      "offset": 75680
+    },
+    {
+      "text": "happens to be a very similar price. As",
+      "duration": 5680,
+      "offset": 78479
+    },
+    {
+      "text": "the previous leading owner of an $8 a",
+      "duration": 5120,
+      "offset": 81520
+    },
+    {
+      "text": "month chat service, I have a lot to say",
+      "duration": 4401,
+      "offset": 84159
+    },
+    {
+      "text": "here, but if they're going to come eat",
+      "duration": 3920,
+      "offset": 86640
+    },
+    {
+      "text": "out our margins, we still got to eat.",
+      "duration": 3360,
+      "offset": 88560
+    },
+    {
+      "text": "So, we'll do a quick break for today's",
+      "duration": 3360,
+      "offset": 90560
+    },
+    {
+      "text": "sponsor first. Today's sponsors changed",
+      "duration": 3839,
+      "offset": 91920
+    },
+    {
+      "text": "how I think about design forever. It's",
+      "duration": 3440,
+      "offset": 93920
+    },
+    {
+      "text": "Mobin. They're the best source of",
+      "duration": 3360,
+      "offset": 95759
+    },
+    {
+      "text": "realworld design inspiration because",
+      "duration": 3680,
+      "offset": 97360
+    },
+    {
+      "text": "they've indexed every major app and made",
+      "duration": 3761,
+      "offset": 99119
+    },
+    {
+      "text": "it really easy to search for the things",
+      "duration": 3280,
+      "offset": 101040
+    },
+    {
+      "text": "you're looking for. Whether you want to",
+      "duration": 2960,
+      "offset": 102880
+    },
+    {
+      "text": "fix your sign-in page to make it look",
+      "duration": 3040,
+      "offset": 104320
+    },
+    {
+      "text": "great or you want a really good",
+      "duration": 3520,
+      "offset": 105840
+    },
+    {
+      "text": "conversational view for your booking",
+      "duration": 3840,
+      "offset": 107360
+    },
+    {
+      "text": "app, there's nothing better than mommen",
+      "duration": 3600,
+      "offset": 109360
+    },
+    {
+      "text": "for finding good sources. Take it from",
+      "duration": 3440,
+      "offset": 111200
+    },
+    {
+      "text": "someone who's been cursed doing this on",
+      "duration": 3600,
+      "offset": 112960
+    },
+    {
+      "text": "Google images forever. It's so easy to",
+      "duration": 2799,
+      "offset": 114640
+    },
+    {
+      "text": "find the type of screen that you're",
+      "duration": 2400,
+      "offset": 116560
+    },
+    {
+      "text": "looking for. It's actually hilarious. We",
+      "duration": 3441,
+      "offset": 117439
+    },
+    {
+      "text": "can click chatbot and see all sorts of",
+      "duration": 4799,
+      "offset": 118960
+    },
+    {
+      "text": "examples of web and mobile chat bots. I",
+      "duration": 4559,
+      "offset": 120880
+    },
+    {
+      "text": "want to show you as a practical example,",
+      "duration": 3360,
+      "offset": 123759
+    },
+    {
+      "text": "though. Here's the homepage for a new",
+      "duration": 3361,
+      "offset": 125439
+    },
+    {
+      "text": "side project I'm working on for image",
+      "duration": 4801,
+      "offset": 127119
+    },
+    {
+      "text": "generation. And it's uh not great. I",
+      "duration": 4640,
+      "offset": 128800
+    },
+    {
+      "text": "think we can do a lot better. So, I have",
+      "duration": 3200,
+      "offset": 131920
+    },
+    {
+      "text": "Cloud Code open here with a prompt ready",
+      "duration": 3280,
+      "offset": 133440
+    },
+    {
+      "text": "to go, but I want to give it some design",
+      "duration": 3119,
+      "offset": 135120
+    },
+    {
+      "text": "references to use. Let's find some",
+      "duration": 3440,
+      "offset": 136720
+    },
+    {
+      "text": "onboarding pages that we can use as a",
+      "duration": 4000,
+      "offset": 138239
+    },
+    {
+      "text": "better reference. I like the Revolute",
+      "duration": 3520,
+      "offset": 140160
+    },
+    {
+      "text": "page. So, let's just click the copy",
+      "duration": 2720,
+      "offset": 142239
+    },
+    {
+      "text": "button there. Switch back over to my",
+      "duration": 3360,
+      "offset": 143680
+    },
+    {
+      "text": "terminal and paste that image in. Let's",
+      "duration": 4081,
+      "offset": 144959
+    },
+    {
+      "text": "see if we can find a few others. I",
+      "duration": 3760,
+      "offset": 147040
+    },
+    {
+      "text": "actually really like the Dovetail home",
+      "duration": 3760,
+      "offset": 149040
+    },
+    {
+      "text": "screen. We'll start with that, too.",
+      "duration": 4640,
+      "offset": 150800
+    },
+    {
+      "text": "Paste that. I really like this one,",
+      "duration": 5760,
+      "offset": 152800
+    },
+    {
+      "text": "actually. Let's copy that. Paste it. And",
+      "duration": 4720,
+      "offset": 155440
+    },
+    {
+      "text": "let's see how Claude does now that we've",
+      "duration": 5160,
+      "offset": 158560
+    },
+    {
+      "text": "given it some reference.",
+      "duration": 3560,
+      "offset": 160160
+    },
+    {
+      "text": "Uh, holy [ __ ] [laughter and gasps] I",
+      "duration": 3680,
+      "offset": 164000
+    },
+    {
+      "text": "did not think it would be that much",
+      "duration": 3681,
+      "offset": 166239
+    },
+    {
+      "text": "better. I was hoping for a slight",
+      "duration": 8080,
+      "offset": 167680
+    },
+    {
+      "text": "improvement, but what the Yeah. Yeah.",
+      "duration": 8080,
+      "offset": 169920
+    },
+    {
+      "text": "Hopefully, we have made the point here.",
+      "duration": 4000,
+      "offset": 175760
+    },
+    {
+      "text": "If you want to make your designs way",
+      "duration": 3599,
+      "offset": 178000
+    },
+    {
+      "text": "better, whether you're just trying to",
+      "duration": 3600,
+      "offset": 179760
+    },
+    {
+      "text": "inspire yourself or you're trying to",
+      "duration": 3441,
+      "offset": 181599
+    },
+    {
+      "text": "give your agents some better inspiration",
+      "duration": 3440,
+      "offset": 183360
+    },
+    {
+      "text": "to start from, Mobin's going to make",
+      "duration": 3199,
+      "offset": 185040
+    },
+    {
+      "text": "your life way better. Check them out now",
+      "duration": 3359,
+      "offset": 186800
+    },
+    {
+      "text": "at soyv.link/mobin.",
+      "duration": 3601,
+      "offset": 188239
+    },
+    {
+      "text": "The irony of running an ad before",
+      "duration": 3281,
+      "offset": 190159
+    },
+    {
+      "text": "talking about why ads don't work is",
+      "duration": 3039,
+      "offset": 191840
+    },
+    {
+      "text": "definitely getting to me. We'll talk",
+      "duration": 4159,
+      "offset": 193440
+    },
+    {
+      "text": "about that a lot near the end because uh",
+      "duration": 5121,
+      "offset": 194879
+    },
+    {
+      "text": "ads are an interesting way for OpenAI to",
+      "duration": 4081,
+      "offset": 197599
+    },
+    {
+      "text": "start making revenue. I have a lot of",
+      "duration": 3040,
+      "offset": 200000
+    },
+    {
+      "text": "thoughts there, but first we should",
+      "duration": 3680,
+      "offset": 201680
+    },
+    {
+      "text": "briefly go over what is chat GPT Go.",
+      "duration": 4080,
+      "offset": 203040
+    },
+    {
+      "text": "Then we should talk about why OpenAI is",
+      "duration": 3760,
+      "offset": 205360
+    },
+    {
+      "text": "so scared and then one of my favorite",
+      "duration": 4880,
+      "offset": 207120
+    },
+    {
+      "text": "topics, why $8? Lots to talk about here.",
+      "duration": 4960,
+      "offset": 209120
+    },
+    {
+      "text": "So first, what is chatgbt go? On one",
+      "duration": 4000,
+      "offset": 212000
+    },
+    {
+      "text": "hand, it's a lot like T3 chat. It's $8 a",
+      "duration": 3439,
+      "offset": 214080
+    },
+    {
+      "text": "month and you can generate images, talk",
+      "duration": 4319,
+      "offset": 216000
+    },
+    {
+      "text": "to the models and also get ads which we",
+      "duration": 4640,
+      "offset": 217519
+    },
+    {
+      "text": "won't have. Probably will never have.",
+      "duration": 3121,
+      "offset": 220319
+    },
+    {
+      "text": "There are other differences though. Like",
+      "duration": 4000,
+      "offset": 222159
+    },
+    {
+      "text": "on T3 Chat we have every model. All of",
+      "duration": 5519,
+      "offset": 223440
+    },
+    {
+      "text": "them. Like all of them. All of them. We",
+      "duration": 4321,
+      "offset": 226159
+    },
+    {
+      "text": "just had to redo our model picker in",
+      "duration": 3681,
+      "offset": 228959
+    },
+    {
+      "text": "order to make them all fit better. Very",
+      "duration": 3920,
+      "offset": 230480
+    },
+    {
+      "text": "proud of what we have here. OpenAI's",
+      "duration": 3920,
+      "offset": 232640
+    },
+    {
+      "text": "introduction of Go is more so an attempt",
+      "duration": 4720,
+      "offset": 234400
+    },
+    {
+      "text": "to capture some of the market that they",
+      "duration": 4399,
+      "offset": 236560
+    },
+    {
+      "text": "haven't fully yet. And to their credit,",
+      "duration": 3119,
+      "offset": 239120
+    },
+    {
+      "text": "there are things it will do better than",
+      "duration": 3121,
+      "offset": 240959
+    },
+    {
+      "text": "T3 chat. People really like voice mode",
+      "duration": 3521,
+      "offset": 242239
+    },
+    {
+      "text": "and just talking to the model. They are",
+      "duration": 3280,
+      "offset": 244080
+    },
+    {
+      "text": "the best place to do that. If you're",
+      "duration": 4240,
+      "offset": 245760
+    },
+    {
+      "text": "still SCOP by GPT40 and feel like that's",
+      "duration": 4079,
+      "offset": 247360
+    },
+    {
+      "text": "the only model you can justify talking",
+      "duration": 4000,
+      "offset": 250000
+    },
+    {
+      "text": "to, we removed it from T3 chat. So, it's",
+      "duration": 3841,
+      "offset": 251439
+    },
+    {
+      "text": "over there. That's the only thing we",
+      "duration": 2799,
+      "offset": 254000
+    },
+    {
+      "text": "don't have now. They also have a better",
+      "duration": 2639,
+      "offset": 255280
+    },
+    {
+      "text": "mobile app because we don't have a",
+      "duration": 3521,
+      "offset": 256799
+    },
+    {
+      "text": "mobile app yet. Coming very soon. Since",
+      "duration": 3840,
+      "offset": 257919
+    },
+    {
+      "text": "we finally have an $8 a month",
+      "duration": 3360,
+      "offset": 260320
+    },
+    {
+      "text": "competitor, I'll sweeten the deal on T3",
+      "duration": 3201,
+      "offset": 261759
+    },
+    {
+      "text": "chat. You can get your first month for",
+      "duration": 3440,
+      "offset": 263680
+    },
+    {
+      "text": "$1 with code ad free at checkout.",
+      "duration": 4320,
+      "offset": 264960
+    },
+    {
+      "text": "AD-free. Yes, that's access to every",
+      "duration": 4160,
+      "offset": 267120
+    },
+    {
+      "text": "model, including image generation for",
+      "duration": 4000,
+      "offset": 269280
+    },
+    {
+      "text": "just eight bucks a month and just $1 for",
+      "duration": 3440,
+      "offset": 271280
+    },
+    {
+      "text": "your first month. Check it out. We put a",
+      "duration": 2560,
+      "offset": 273280
+    },
+    {
+      "text": "lot of work in. I'm proud of what we",
+      "duration": 2560,
+      "offset": 274720
+    },
+    {
+      "text": "built. I think you'll be surprised. And",
+      "duration": 2799,
+      "offset": 275840
+    },
+    {
+      "text": "if you hate it, flame me on Twitter so",
+      "duration": 2479,
+      "offset": 277280
+    },
+    {
+      "text": "we can fix it. Done with talking about",
+      "duration": 3280,
+      "offset": 278639
+    },
+    {
+      "text": "T3. I really want to focus on this and",
+      "duration": 4481,
+      "offset": 279759
+    },
+    {
+      "text": "the margins and the way this all works.",
+      "duration": 4241,
+      "offset": 281919
+    },
+    {
+      "text": "The goal of Chetchico in India was to",
+      "duration": 3200,
+      "offset": 284240
+    },
+    {
+      "text": "have a lowc cost subscription designed",
+      "duration": 3360,
+      "offset": 286160
+    },
+    {
+      "text": "to expand access ChBT's most popular",
+      "duration": 3920,
+      "offset": 287440
+    },
+    {
+      "text": "features and help more people use",
+      "duration": 4880,
+      "offset": 289520
+    },
+    {
+      "text": "advanced AI in their daily life. This is",
+      "duration": 5440,
+      "offset": 291360
+    },
+    {
+      "text": "one of the biggest pieces here. There is",
+      "duration": 4560,
+      "offset": 294400
+    },
+    {
+      "text": "a stickiness to using these tools. I",
+      "duration": 3600,
+      "offset": 296800
+    },
+    {
+      "text": "know a lot of people that didn't use",
+      "duration": 3200,
+      "offset": 298960
+    },
+    {
+      "text": "TouchBT a whole lot when it first came",
+      "duration": 3760,
+      "offset": 300400
+    },
+    {
+      "text": "out, but then eventually there's one",
+      "duration": 3840,
+      "offset": 302160
+    },
+    {
+      "text": "thing it does well for them. They get",
+      "duration": 3920,
+      "offset": 304160
+    },
+    {
+      "text": "really into it and then it becomes just",
+      "duration": 3759,
+      "offset": 306000
+    },
+    {
+      "text": "part of their day-to-day. And that's",
+      "duration": 3839,
+      "offset": 308080
+    },
+    {
+      "text": "really the play that OpenAI has to bank",
+      "duration": 4321,
+      "offset": 309759
+    },
+    {
+      "text": "on is how do we get more people to",
+      "duration": 4481,
+      "offset": 311919
+    },
+    {
+      "text": "integrate this in their day-to-day life.",
+      "duration": 5200,
+      "offset": 314080
+    },
+    {
+      "text": "That said, these customers aren't cheap.",
+      "duration": 5760,
+      "offset": 316400
+    },
+    {
+      "text": "The cost of a message on chat GPT is",
+      "duration": 4720,
+      "offset": 319280
+    },
+    {
+      "text": "non-trivial. If you look at the pricing",
+      "duration": 3920,
+      "offset": 322160
+    },
+    {
+      "text": "for GPT 5.2, too. You'll see what I",
+      "duration": 4720,
+      "offset": 324000
+    },
+    {
+      "text": "mean. A million input tokens is $1.75",
+      "duration": 5600,
+      "offset": 326080
+    },
+    {
+      "text": "and a million output tokens is $14. So,",
+      "duration": 5039,
+      "offset": 328720
+    },
+    {
+      "text": "if you take a random thread somebody",
+      "duration": 3680,
+      "offset": 331680
+    },
+    {
+      "text": "has, especially if they're doing things",
+      "duration": 3201,
+      "offset": 333759
+    },
+    {
+      "text": "that use more tokens, like they're",
+      "duration": 3600,
+      "offset": 335360
+    },
+    {
+      "text": "attaching their Google Drive account and",
+      "duration": 3519,
+      "offset": 336960
+    },
+    {
+      "text": "it's indexing it and pulling a lot of",
+      "duration": 4000,
+      "offset": 338960
+    },
+    {
+      "text": "data from it, it's easy for a thread to",
+      "duration": 5521,
+      "offset": 340479
+    },
+    {
+      "text": "do a 100,000 tokens. Probably not all is",
+      "duration": 4880,
+      "offset": 342960
+    },
+    {
+      "text": "output and a lot of it will be cached,",
+      "duration": 3600,
+      "offset": 346000
+    },
+    {
+      "text": "but it is not uncommon for people to",
+      "duration": 3600,
+      "offset": 347840
+    },
+    {
+      "text": "have a long thread that they send a",
+      "duration": 4000,
+      "offset": 349600
+    },
+    {
+      "text": "message in and each individual message",
+      "duration": 4960,
+      "offset": 351440
+    },
+    {
+      "text": "can cost 10 to 30 cents. That's a very",
+      "duration": 4720,
+      "offset": 353600
+    },
+    {
+      "text": "real number that I've seen hit many",
+      "duration": 4239,
+      "offset": 356400
+    },
+    {
+      "text": "times on platforms like T3 chat. That's",
+      "duration": 4319,
+      "offset": 358320
+    },
+    {
+      "text": "why we have to have GBT 5.2, the",
+      "duration": 3761,
+      "offset": 360639
+    },
+    {
+      "text": "thinking version, as a premium model.",
+      "duration": 3041,
+      "offset": 362639
+    },
+    {
+      "text": "And honestly, since they bumped the",
+      "duration": 3120,
+      "offset": 364400
+    },
+    {
+      "text": "price from $10 per mill out to 14 with",
+      "duration": 4720,
+      "offset": 365680
+    },
+    {
+      "text": "5.2, it's probably time that we move 5.2",
+      "duration": 5280,
+      "offset": 367520
+    },
+    {
+      "text": "over with the immediate non-reasoning",
+      "duration": 5120,
+      "offset": 370400
+    },
+    {
+      "text": "mode as well. On top of that, reasoning",
+      "duration": 5119,
+      "offset": 372800
+    },
+    {
+      "text": "boosts the amount of output tokens by a",
+      "duration": 4640,
+      "offset": 375520
+    },
+    {
+      "text": "ton. The cost of these things is going",
+      "duration": 4400,
+      "offset": 377919
+    },
+    {
+      "text": "up consistently. And some of the tests",
+      "duration": 4319,
+      "offset": 380160
+    },
+    {
+      "text": "and benchmarks I run, they'll do a few",
+      "duration": 5201,
+      "offset": 382319
+    },
+    {
+      "text": "hundred messages can cost $10 to $30 to",
+      "duration": 5921,
+      "offset": 384479
+    },
+    {
+      "text": "run. Like the inference costs money. And",
+      "duration": 4720,
+      "offset": 387520
+    },
+    {
+      "text": "you might think this is them massively",
+      "duration": 4239,
+      "offset": 390400
+    },
+    {
+      "text": "overpricing on the API to give them more",
+      "duration": 4399,
+      "offset": 392240
+    },
+    {
+      "text": "margins. And I understand why you'd",
+      "duration": 4081,
+      "offset": 394639
+    },
+    {
+      "text": "think that, but I've run a lot of smart",
+      "duration": 4400,
+      "offset": 396639
+    },
+    {
+      "text": "models on my own hardware and the costs",
+      "duration": 4400,
+      "offset": 398720
+    },
+    {
+      "text": "are very high. Just running generic",
+      "duration": 4561,
+      "offset": 401039
+    },
+    {
+      "text": "openweight models on my RTX5090 nearly",
+      "duration": 4000,
+      "offset": 403120
+    },
+    {
+      "text": "doubled my power bill. Running that",
+      "duration": 4719,
+      "offset": 405600
+    },
+    {
+      "text": "fulltime is over $2,000 a month of just",
+      "duration": 6160,
+      "offset": 407120
+    },
+    {
+      "text": "power. That's crazy. These things are",
+      "duration": 5041,
+      "offset": 410319
+    },
+    {
+      "text": "expensive. Honestly, their margin could",
+      "duration": 4000,
+      "offset": 413280
+    },
+    {
+      "text": "go either way. I wouldn't be surprised",
+      "duration": 4320,
+      "offset": 415360
+    },
+    {
+      "text": "if this was 20% profit or they were",
+      "duration": 4560,
+      "offset": 417280
+    },
+    {
+      "text": "selling the API at a 20% loss. And this",
+      "duration": 3600,
+      "offset": 419680
+    },
+    {
+      "text": "makes even more sense when you look at",
+      "duration": 3680,
+      "offset": 421840
+    },
+    {
+      "text": "the breakdown of their revenue. At the",
+      "duration": 4639,
+      "offset": 423280
+    },
+    {
+      "text": "end of 2024, if you broke down OpenAI's",
+      "duration": 5519,
+      "offset": 425520
+    },
+    {
+      "text": "rev, they made three to 4x more off of",
+      "duration": 5361,
+      "offset": 427919
+    },
+    {
+      "text": "subscriptions to ChatGpt than they made",
+      "duration": 5600,
+      "offset": 431039
+    },
+    {
+      "text": "off of the API. That is insane. So, just",
+      "duration": 5120,
+      "offset": 433280
+    },
+    {
+      "text": "think about this, guys. For every",
+      "duration": 5041,
+      "offset": 436639
+    },
+    {
+      "text": "ChatGpt rapper, ChatGpt itself makes",
+      "duration": 5440,
+      "offset": 438400
+    },
+    {
+      "text": "three times more. If you take all of the",
+      "duration": 4079,
+      "offset": 441680
+    },
+    {
+      "text": "ChatG rappers and combine them together,",
+      "duration": 3359,
+      "offset": 443840
+    },
+    {
+      "text": "the amount of money that that makes for",
+      "duration": 3601,
+      "offset": 445759
+    },
+    {
+      "text": "OpenAI is less than a third of how much",
+      "duration": 4161,
+      "offset": 447199
+    },
+    {
+      "text": "money they make off of subs. So why the",
+      "duration": 4080,
+      "offset": 449360
+    },
+    {
+      "text": "[ __ ] would they be focused on the APIs",
+      "duration": 3600,
+      "offset": 451360
+    },
+    {
+      "text": "when they could be driving the",
+      "duration": 3039,
+      "offset": 453440
+    },
+    {
+      "text": "subscriptions? Especially because",
+      "duration": 2799,
+      "offset": 454960
+    },
+    {
+      "text": "they're now starting to get more",
+      "duration": 3120,
+      "offset": 456479
+    },
+    {
+      "text": "competition from companies that are more",
+      "duration": 3840,
+      "offset": 457759
+    },
+    {
+      "text": "focused on that vertical integration and",
+      "duration": 4000,
+      "offset": 459599
+    },
+    {
+      "text": "having these pieces built into their",
+      "duration": 3761,
+      "offset": 461599
+    },
+    {
+      "text": "existing services. It's also worth",
+      "duration": 3040,
+      "offset": 463599
+    },
+    {
+      "text": "noting the gap here when compared to",
+      "duration": 3440,
+      "offset": 465360
+    },
+    {
+      "text": "Anthropic, who makes way more money off",
+      "duration": 3761,
+      "offset": 466639
+    },
+    {
+      "text": "the API than they do off of their",
+      "duration": 3040,
+      "offset": 468800
+    },
+    {
+      "text": "subscriptions. That is starting to",
+      "duration": 3040,
+      "offset": 470400
+    },
+    {
+      "text": "change due to the fact that Claude Code",
+      "duration": 3520,
+      "offset": 471840
+    },
+    {
+      "text": "has the $200 a month plan. But the goal",
+      "duration": 3280,
+      "offset": 473440
+    },
+    {
+      "text": "of all of these companies is to get us",
+      "duration": 3839,
+      "offset": 475360
+    },
+    {
+      "text": "addicted to their product, their UX,",
+      "duration": 4720,
+      "offset": 476720
+    },
+    {
+      "text": "their tools, their features, their",
+      "duration": 5361,
+      "offset": 479199
+    },
+    {
+      "text": "things so that we stick with them. And",
+      "duration": 4720,
+      "offset": 481440
+    },
+    {
+      "text": "that's kind of crazy when you think",
+      "duration": 3919,
+      "offset": 484560
+    },
+    {
+      "text": "about how big of a loss that $8 a month",
+      "duration": 4400,
+      "offset": 486160
+    },
+    {
+      "text": "price is. A big part of why we can offer",
+      "duration": 3840,
+      "offset": 488479
+    },
+    {
+      "text": "that pricing is because we limit how",
+      "duration": 3359,
+      "offset": 490560
+    },
+    {
+      "text": "much you can use the really expensive",
+      "duration": 3440,
+      "offset": 492319
+    },
+    {
+      "text": "models and try to encourage you to use",
+      "duration": 3680,
+      "offset": 493919
+    },
+    {
+      "text": "the cheaper ones that are still really,",
+      "duration": 3601,
+      "offset": 495759
+    },
+    {
+      "text": "really good. We also limit how much",
+      "duration": 3040,
+      "offset": 497599
+    },
+    {
+      "text": "context you can have in a thread in",
+      "duration": 2480,
+      "offset": 499360
+    },
+    {
+      "text": "order to keep a given message from",
+      "duration": 2801,
+      "offset": 500639
+    },
+    {
+      "text": "costing us an egregious amount of money.",
+      "duration": 3039,
+      "offset": 501840
+    },
+    {
+      "text": "These are all optimizations and changes",
+      "duration": 3680,
+      "offset": 503440
+    },
+    {
+      "text": "we've had to make over time to tune the",
+      "duration": 4241,
+      "offset": 504879
+    },
+    {
+      "text": "price performance margin on T3 chat so",
+      "duration": 3519,
+      "offset": 507120
+    },
+    {
+      "text": "you feel like you're getting a good deal",
+      "duration": 4159,
+      "offset": 509120
+    },
+    {
+      "text": "and we don't lose our butts immediately.",
+      "duration": 4960,
+      "offset": 510639
+    },
+    {
+      "text": "There are still around 1% of people who",
+      "duration": 4640,
+      "offset": 513279
+    },
+    {
+      "text": "cost us two to four times more than the",
+      "duration": 3761,
+      "offset": 515599
+    },
+    {
+      "text": "subscription, but they have to put",
+      "duration": 3360,
+      "offset": 517919
+    },
+    {
+      "text": "effort in to do that and the majority of",
+      "duration": 3599,
+      "offset": 519360
+    },
+    {
+      "text": "users aren't quite costing us eight",
+      "duration": 3361,
+      "offset": 521279
+    },
+    {
+      "text": "bucks. So, the margins work out. We are",
+      "duration": 3121,
+      "offset": 522959
+    },
+    {
+      "text": "roughly profitable, really proud of",
+      "duration": 3120,
+      "offset": 524640
+    },
+    {
+      "text": "where we're at, but we don't have",
+      "duration": 3360,
+      "offset": 526080
+    },
+    {
+      "text": "billions of dollars of investment in",
+      "duration": 3840,
+      "offset": 527760
+    },
+    {
+      "text": "crazy long-term potentials like our",
+      "duration": 4160,
+      "offset": 529440
+    },
+    {
+      "text": "competitors like OpenAI do. I know",
+      "duration": 3120,
+      "offset": 531600
+    },
+    {
+      "text": "you're probably thinking, you're not a",
+      "duration": 2880,
+      "offset": 533600
+    },
+    {
+      "text": "competitor with OpenAI. You don't make",
+      "duration": 3920,
+      "offset": 534720
+    },
+    {
+      "text": "models yourself. Well, we need to be",
+      "duration": 4080,
+      "offset": 536480
+    },
+    {
+      "text": "realistic here. When OpenAI makes the",
+      "duration": 4000,
+      "offset": 538640
+    },
+    {
+      "text": "vast majority of their revenue selling a",
+      "duration": 4560,
+      "offset": 540560
+    },
+    {
+      "text": "subscription to a chat web app, they are",
+      "duration": 4480,
+      "offset": 542640
+    },
+    {
+      "text": "competing with us. We both make the",
+      "duration": 3279,
+      "offset": 545120
+    },
+    {
+      "text": "majority of our income for our",
+      "duration": 3760,
+      "offset": 547120
+    },
+    {
+      "text": "businesses the same way, the app layer.",
+      "duration": 4241,
+      "offset": 548399
+    },
+    {
+      "text": "Just because OpenAI has integrations",
+      "duration": 3200,
+      "offset": 550880
+    },
+    {
+      "text": "through other things does not mean we",
+      "duration": 3040,
+      "offset": 552640
+    },
+    {
+      "text": "are not competition. Just because they",
+      "duration": 3280,
+      "offset": 554080
+    },
+    {
+      "text": "regularly give me early access to try",
+      "duration": 2560,
+      "offset": 555680
+    },
+    {
+      "text": "things does not mean we're not",
+      "duration": 2320,
+      "offset": 557360
+    },
+    {
+      "text": "competition. We are threatening to",
+      "duration": 3120,
+      "offset": 558240
+    },
+    {
+      "text": "commoditize their layer and that is",
+      "duration": 2960,
+      "offset": 559680
+    },
+    {
+      "text": "scary to them which is why they're",
+      "duration": 2720,
+      "offset": 561360
+    },
+    {
+      "text": "trying to make their product more and",
+      "duration": 3840,
+      "offset": 562640
+    },
+    {
+      "text": "more compelling even at the cost of",
+      "duration": 4319,
+      "offset": 564080
+    },
+    {
+      "text": "money. They could very well lose a lot",
+      "duration": 3440,
+      "offset": 566480
+    },
+    {
+      "text": "of money on the subscription tier. But",
+      "duration": 3041,
+      "offset": 568399
+    },
+    {
+      "text": "there are reasons that is a worthwhile",
+      "duration": 4160,
+      "offset": 569920
+    },
+    {
+      "text": "bet. There's a couple things that seem",
+      "duration": 5040,
+      "offset": 571440
+    },
+    {
+      "text": "to be true over time in markets like",
+      "duration": 4560,
+      "offset": 574080
+    },
+    {
+      "text": "this. One of these two is always true.",
+      "duration": 6640,
+      "offset": 576480
+    },
+    {
+      "text": "either costs go down or willingness to",
+      "duration": 7600,
+      "offset": 578640
+    },
+    {
+      "text": "spend goes up. And right now OpenAI does",
+      "duration": 5200,
+      "offset": 583120
+    },
+    {
+      "text": "not seem to know which will happen. I",
+      "duration": 3520,
+      "offset": 586240
+    },
+    {
+      "text": "assume they are betting that some amount",
+      "duration": 3600,
+      "offset": 588320
+    },
+    {
+      "text": "of both will. So if right now the",
+      "duration": 3920,
+      "offset": 589760
+    },
+    {
+      "text": "inference that somebody is doing for $8",
+      "duration": 4400,
+      "offset": 591920
+    },
+    {
+      "text": "a month could cost them money, as models",
+      "duration": 4480,
+      "offset": 593680
+    },
+    {
+      "text": "get better and smaller and cheaper to",
+      "duration": 3920,
+      "offset": 596320
+    },
+    {
+      "text": "run, as OpenAI gets more hardware to run",
+      "duration": 4000,
+      "offset": 598160
+    },
+    {
+      "text": "them on and more optimizations are made",
+      "duration": 3440,
+      "offset": 600240
+    },
+    {
+      "text": "to make it cheaper to actually do that",
+      "duration": 4160,
+      "offset": 602160
+    },
+    {
+      "text": "work, their margins will increase. If",
+      "duration": 4719,
+      "offset": 603680
+    },
+    {
+      "text": "right now a user can cost them $10 on",
+      "duration": 4480,
+      "offset": 606320
+    },
+    {
+      "text": "the $8 a month plan, it's possible that",
+      "duration": 5201,
+      "offset": 608399
+    },
+    {
+      "text": "in six months the exact same usage will",
+      "duration": 4880,
+      "offset": 610800
+    },
+    {
+      "text": "only cost them $4 a month if they make",
+      "duration": 3840,
+      "offset": 613600
+    },
+    {
+      "text": "the models smaller and cheaper, which",
+      "duration": 3279,
+      "offset": 615680
+    },
+    {
+      "text": "they have done in the past. I've seen",
+      "duration": 3440,
+      "offset": 617440
+    },
+    {
+      "text": "them do crazy things like cut 03's price",
+      "duration": 4241,
+      "offset": 618959
+    },
+    {
+      "text": "by like what was it 8 or 10x when they",
+      "duration": 3519,
+      "offset": 620880
+    },
+    {
+      "text": "found a better way to run it that was",
+      "duration": 3680,
+      "offset": 623200
+    },
+    {
+      "text": "cheaper. They will get costs down. They",
+      "duration": 4560,
+      "offset": 624399
+    },
+    {
+      "text": "will be able to get under that tier, but",
+      "duration": 4320,
+      "offset": 626880
+    },
+    {
+      "text": "they want to capture the customers now",
+      "duration": 4000,
+      "offset": 628959
+    },
+    {
+      "text": "and they're willing to do that at a",
+      "duration": 4560,
+      "offset": 631200
+    },
+    {
+      "text": "cost. OpenAI is so desperate to keep",
+      "duration": 4560,
+      "offset": 632959
+    },
+    {
+      "text": "these users and get them addicted to",
+      "duration": 3519,
+      "offset": 635760
+    },
+    {
+      "text": "their product that they are willing to",
+      "duration": 4241,
+      "offset": 637519
+    },
+    {
+      "text": "lose money for now knowing that either",
+      "duration": 4000,
+      "offset": 639279
+    },
+    {
+      "text": "their margins will get better as the",
+      "duration": 3280,
+      "offset": 641760
+    },
+    {
+      "text": "models get cheaper and faster and",
+      "duration": 4961,
+      "offset": 643279
+    },
+    {
+      "text": "smaller and easier to run or worst case",
+      "duration": 5280,
+      "offset": 645040
+    },
+    {
+      "text": "when they can't do that for some reason",
+      "duration": 3599,
+      "offset": 648240
+    },
+    {
+      "text": "they can increase the price and people",
+      "duration": 3280,
+      "offset": 650320
+    },
+    {
+      "text": "will be too scared to leave. I'm going",
+      "duration": 3201,
+      "offset": 651839
+    },
+    {
+      "text": "to talk more about how costs go down in",
+      "duration": 2880,
+      "offset": 653600
+    },
+    {
+      "text": "a sec but I want to go on one other",
+      "duration": 3280,
+      "offset": 655040
+    },
+    {
+      "text": "tangent which is the willingness to",
+      "duration": 4000,
+      "offset": 656480
+    },
+    {
+      "text": "spend going up and what it looks like to",
+      "duration": 4240,
+      "offset": 658320
+    },
+    {
+      "text": "put people in that hostage situation.",
+      "duration": 4880,
+      "offset": 660480
+    },
+    {
+      "text": "There is one golden example of this from",
+      "duration": 4640,
+      "offset": 662560
+    },
+    {
+      "text": "the past, the one that they are almost",
+      "duration": 3280,
+      "offset": 665360
+    },
+    {
+      "text": "certainly looking at. Google's",
+      "duration": 3600,
+      "offset": 667200
+    },
+    {
+      "text": "Workspaces product. You know, the thing",
+      "duration": 3759,
+      "offset": 668640
+    },
+    {
+      "text": "that lets you use your own domain on",
+      "duration": 3200,
+      "offset": 670800
+    },
+    {
+      "text": "Gmail that you can run your business",
+      "duration": 4081,
+      "offset": 672399
+    },
+    {
+      "text": "through. Let's just ask Gemini 3 about",
+      "duration": 4160,
+      "offset": 674000
+    },
+    {
+      "text": "how Google Workspace pricing has changed",
+      "duration": 4720,
+      "offset": 676480
+    },
+    {
+      "text": "over time. I was here for all of these",
+      "duration": 4960,
+      "offset": 678160
+    },
+    {
+      "text": "steps, which is why I wanted to break it",
+      "duration": 4079,
+      "offset": 681200
+    },
+    {
+      "text": "down. When Google originally launched",
+      "duration": 4320,
+      "offset": 683120
+    },
+    {
+      "text": "apps for your domain, it was free. They",
+      "duration": 4000,
+      "offset": 685279
+    },
+    {
+      "text": "kept the free tier around for 6 years",
+      "duration": 3839,
+      "offset": 687440
+    },
+    {
+      "text": "until 2012. I still missed that free",
+      "duration": 3521,
+      "offset": 689279
+    },
+    {
+      "text": "tier. I used it for a ton of [ __ ] when I",
+      "duration": 3041,
+      "offset": 691279
+    },
+    {
+      "text": "was younger. In 2007, they added the",
+      "duration": 3599,
+      "offset": 692800
+    },
+    {
+      "text": "premier edition for larger businesses.",
+      "duration": 4320,
+      "offset": 694320
+    },
+    {
+      "text": "That was $50 per user per year, which",
+      "duration": 4081,
+      "offset": 696399
+    },
+    {
+      "text": "was like four bucks a month. That was a",
+      "duration": 4000,
+      "offset": 698640
+    },
+    {
+      "text": "good deal. Then in 2016, they rebranded",
+      "duration": 4720,
+      "offset": 700480
+    },
+    {
+      "text": "it as G Suite, and it was $5 per user",
+      "duration": 4319,
+      "offset": 702640
+    },
+    {
+      "text": "per month. And then the fancy business",
+      "duration": 3440,
+      "offset": 705200
+    },
+    {
+      "text": "tier, which included their unlimited",
+      "duration": 2880,
+      "offset": 706959
+    },
+    {
+      "text": "storage that they have since walked",
+      "duration": 3199,
+      "offset": 708640
+    },
+    {
+      "text": "back, was $10 per user per month. They",
+      "duration": 4081,
+      "offset": 709839
+    },
+    {
+      "text": "kept it at that $5 a month price for a",
+      "duration": 4881,
+      "offset": 711839
+    },
+    {
+      "text": "long time, but then in 2019, they bumped",
+      "duration": 6000,
+      "offset": 713920
+    },
+    {
+      "text": "it to $6 per month. Then in 2020, they",
+      "duration": 5520,
+      "offset": 716720
+    },
+    {
+      "text": "rebranded again. They increased the cost",
+      "duration": 4240,
+      "offset": 719920
+    },
+    {
+      "text": "if you were using storage more, but for",
+      "duration": 4080,
+      "offset": 722240
+    },
+    {
+      "text": "the most part it was still the same. But",
+      "duration": 4400,
+      "offset": 724160
+    },
+    {
+      "text": "then we started to get way more price",
+      "duration": 5920,
+      "offset": 726320
+    },
+    {
+      "text": "hikes. In 2023, it bumped to $7.20. And",
+      "duration": 5040,
+      "offset": 728560
+    },
+    {
+      "text": "it seems like the training date is out",
+      "duration": 3599,
+      "offset": 732240
+    },
+    {
+      "text": "of date on Gemini. What a surprise. The",
+      "duration": 5840,
+      "offset": 733600
+    },
+    {
+      "text": "price just got hiked again to $8.40.",
+      "duration": 5041,
+      "offset": 735839
+    },
+    {
+      "text": "So they went from keeping a pretty",
+      "duration": 4320,
+      "offset": 739440
+    },
+    {
+      "text": "stable price for upwards of a decade.",
+      "duration": 4959,
+      "offset": 740880
+    },
+    {
+      "text": "And then over the last 5 years, they've",
+      "duration": 4720,
+      "offset": 743760
+    },
+    {
+      "text": "increased it three times.",
+      "duration": 4481,
+      "offset": 745839
+    },
+    {
+      "text": "I bring this up because this is what",
+      "duration": 3760,
+      "offset": 748480
+    },
+    {
+      "text": "happens when you win your market. You",
+      "duration": 3519,
+      "offset": 750320
+    },
+    {
+      "text": "start for free. You get a bunch of",
+      "duration": 4080,
+      "offset": 752240
+    },
+    {
+      "text": "users. You charge them a reasonable",
+      "duration": 4961,
+      "offset": 753839
+    },
+    {
+      "text": "amount. Nobody questions it. You bump it",
+      "duration": 4720,
+      "offset": 756320
+    },
+    {
+      "text": "slightly to test out the market and its",
+      "duration": 3760,
+      "offset": 758800
+    },
+    {
+      "text": "tolerance for price changes. And this is",
+      "duration": 2799,
+      "offset": 761040
+    },
+    {
+      "text": "a very small bump going from five bucks",
+      "duration": 3279,
+      "offset": 762560
+    },
+    {
+      "text": "to six bucks, whatever. Then they bumped",
+      "duration": 4560,
+      "offset": 763839
+    },
+    {
+      "text": "it to 720. And then just 2 years later,",
+      "duration": 5041,
+      "offset": 765839
+    },
+    {
+      "text": "they bumped it again. Very clearly",
+      "duration": 4240,
+      "offset": 768399
+    },
+    {
+      "text": "Google is taking advantage of the fact",
+      "duration": 4079,
+      "offset": 770880
+    },
+    {
+      "text": "that nobody can cancel their G Suite",
+      "duration": 4081,
+      "offset": 772639
+    },
+    {
+      "text": "subscriptions. People are saying this is",
+      "duration": 4560,
+      "offset": 774959
+    },
+    {
+      "text": "within inflation. It is not. Inflation",
+      "duration": 5679,
+      "offset": 776720
+    },
+    {
+      "text": "happened between 2007 and 2019 and the",
+      "duration": 4401,
+      "offset": 779519
+    },
+    {
+      "text": "price did not change that much in that",
+      "duration": 3761,
+      "offset": 782399
+    },
+    {
+      "text": "window. This is a meaningful price bump",
+      "duration": 4960,
+      "offset": 783920
+    },
+    {
+      "text": "to go from six bucks to 8.40 shows that",
+      "duration": 4400,
+      "offset": 786160
+    },
+    {
+      "text": "they are confident in their position and",
+      "duration": 3440,
+      "offset": 788880
+    },
+    {
+      "text": "that nobody could [ __ ] with them because",
+      "duration": 3680,
+      "offset": 790560
+    },
+    {
+      "text": "you can't really move off of G Suite",
+      "duration": 4000,
+      "offset": 792320
+    },
+    {
+      "text": "once you're on it. So, Google's proven",
+      "duration": 4000,
+      "offset": 794240
+    },
+    {
+      "text": "this out. It is more important to get",
+      "duration": 3600,
+      "offset": 796320
+    },
+    {
+      "text": "your users hooked on your service than",
+      "duration": 3839,
+      "offset": 798240
+    },
+    {
+      "text": "to nickel and dime them immediately",
+      "duration": 3760,
+      "offset": 799920
+    },
+    {
+      "text": "because if you can get them deep enough,",
+      "duration": 2880,
+      "offset": 802079
+    },
+    {
+      "text": "they are now integrated into your",
+      "duration": 2880,
+      "offset": 803680
+    },
+    {
+      "text": "systems and you can hold them. But",
+      "duration": 3680,
+      "offset": 804959
+    },
+    {
+      "text": "there's a big aspect of this that makes",
+      "duration": 4480,
+      "offset": 806560
+    },
+    {
+      "text": "it work, the bundle. And funny enough,",
+      "duration": 4320,
+      "offset": 808639
+    },
+    {
+      "text": "this is also the thing that is currently",
+      "duration": 4239,
+      "offset": 811040
+    },
+    {
+      "text": "killing them over at OpenAI because",
+      "duration": 4481,
+      "offset": 812959
+    },
+    {
+      "text": "Google has this compelling bundle",
+      "duration": 4401,
+      "offset": 815279
+    },
+    {
+      "text": "already. They have the G Suite. They",
+      "duration": 4720,
+      "offset": 817440
+    },
+    {
+      "text": "have Google Drive, Google Docs, Google",
+      "duration": 4719,
+      "offset": 819680
+    },
+    {
+      "text": "Sheets, Gmail, all these other",
+      "duration": 4000,
+      "offset": 822160
+    },
+    {
+      "text": "integrations, all these other tools that",
+      "duration": 4240,
+      "offset": 824399
+    },
+    {
+      "text": "are very useful to companies that an",
+      "duration": 4160,
+      "offset": 826160
+    },
+    {
+      "text": "individual can't realistically move off",
+      "duration": 3681,
+      "offset": 828639
+    },
+    {
+      "text": "of once they've adopted. And now that",
+      "duration": 5120,
+      "offset": 830320
+    },
+    {
+      "text": "bundle all comes at one price. And now",
+      "duration": 4879,
+      "offset": 832320
+    },
+    {
+      "text": "they're adding more things to the bundle",
+      "duration": 4560,
+      "offset": 835440
+    },
+    {
+      "text": "like Gemini. And I want to be very, very",
+      "duration": 4880,
+      "offset": 837199
+    },
+    {
+      "text": "clear about this. The only reason anyone",
+      "duration": 3839,
+      "offset": 840000
+    },
+    {
+      "text": "would use Gemini, including Google",
+      "duration": 3760,
+      "offset": 842079
+    },
+    {
+      "text": "employees, is because they have to cuz",
+      "duration": 4240,
+      "offset": 843839
+    },
+    {
+      "text": "their employer said so. probably to save",
+      "duration": 4000,
+      "offset": 845839
+    },
+    {
+      "text": "money or it's somehow the only thing",
+      "duration": 3841,
+      "offset": 848079
+    },
+    {
+      "text": "they've heard about. There are very few",
+      "duration": 3680,
+      "offset": 849839
+    },
+    {
+      "text": "people who pick Gemini over other",
+      "duration": 3919,
+      "offset": 851920
+    },
+    {
+      "text": "solutions because to be frank the apps",
+      "duration": 4961,
+      "offset": 853519
+    },
+    {
+      "text": "are terrible. It is very unpleasant to",
+      "duration": 5440,
+      "offset": 855839
+    },
+    {
+      "text": "use. The gap between Gemini and",
+      "duration": 5599,
+      "offset": 858480
+    },
+    {
+      "text": "something like T3 Chat is hilarious",
+      "duration": 4641,
+      "offset": 861279
+    },
+    {
+      "text": "which is why we have so many people who",
+      "duration": 4401,
+      "offset": 864079
+    },
+    {
+      "text": "like the Gemini models moving to T3 chat",
+      "duration": 4080,
+      "offset": 865920
+    },
+    {
+      "text": "because we're just the better way to use",
+      "duration": 3440,
+      "offset": 868480
+    },
+    {
+      "text": "them. With OpenAI's models, there is",
+      "duration": 3920,
+      "offset": 870000
+    },
+    {
+      "text": "much more argument to be had. There are",
+      "duration": 3680,
+      "offset": 871920
+    },
+    {
+      "text": "things that the OpenAI models do well on",
+      "duration": 3680,
+      "offset": 873920
+    },
+    {
+      "text": "chat GPT, things like their memory",
+      "duration": 3359,
+      "offset": 875600
+    },
+    {
+      "text": "product that people really like that we",
+      "duration": 3280,
+      "offset": 877600
+    },
+    {
+      "text": "haven't done just yet. And chances of us",
+      "duration": 3041,
+      "offset": 878959
+    },
+    {
+      "text": "getting memory as good as them are",
+      "duration": 4000,
+      "offset": 880880
+    },
+    {
+      "text": "relatively low. Everything else we wipe",
+      "duration": 4959,
+      "offset": 882000
+    },
+    {
+      "text": "the floor with Google though. Like it's",
+      "duration": 4079,
+      "offset": 884880
+    },
+    {
+      "text": "just comical how much better the",
+      "duration": 3601,
+      "offset": 886959
+    },
+    {
+      "text": "experience is with Google's models and",
+      "duration": 3921,
+      "offset": 888959
+    },
+    {
+      "text": "other products. But OpenAI doesn't have",
+      "duration": 4480,
+      "offset": 890560
+    },
+    {
+      "text": "a bundle in the same way. I'm going to",
+      "duration": 3519,
+      "offset": 892880
+    },
+    {
+      "text": "be paying that eight bucks a month for",
+      "duration": 3680,
+      "offset": 895040
+    },
+    {
+      "text": "Google whether or not I'm using Gemini.",
+      "duration": 4321,
+      "offset": 896399
+    },
+    {
+      "text": "If I use it zero times a month or",
+      "duration": 3919,
+      "offset": 898720
+    },
+    {
+      "text": "thousands of times a month, I'm still",
+      "duration": 4080,
+      "offset": 900720
+    },
+    {
+      "text": "going to pay for that. I am there. Which",
+      "duration": 3921,
+      "offset": 902639
+    },
+    {
+      "text": "means over time, if the products get",
+      "duration": 3520,
+      "offset": 904800
+    },
+    {
+      "text": "more commoditized, the gap between the",
+      "duration": 3680,
+      "offset": 906560
+    },
+    {
+      "text": "two gets lesser and lesser. The",
+      "duration": 3440,
+      "offset": 908320
+    },
+    {
+      "text": "likelihood that somebody keeps their",
+      "duration": 4159,
+      "offset": 910240
+    },
+    {
+      "text": "ChatBt subscription is going down. This",
+      "duration": 4480,
+      "offset": 911760
+    },
+    {
+      "text": "is part of why that $8 number is so",
+      "duration": 3120,
+      "offset": 914399
+    },
+    {
+      "text": "interesting. It seems like they're",
+      "duration": 3760,
+      "offset": 916240
+    },
+    {
+      "text": "trying to fit within the tiering that",
+      "duration": 3601,
+      "offset": 917519
+    },
+    {
+      "text": "Google has. I'm not going to sit here",
+      "duration": 2639,
+      "offset": 920000
+    },
+    {
+      "text": "and pretend they're copying our price.",
+      "duration": 2959,
+      "offset": 921120
+    },
+    {
+      "text": "They're not. There is a lot of",
+      "duration": 3121,
+      "offset": 922639
+    },
+    {
+      "text": "psychology behind the price that funny",
+      "duration": 4081,
+      "offset": 924079
+    },
+    {
+      "text": "enough, the game studio that made Peak",
+      "duration": 4240,
+      "offset": 925760
+    },
+    {
+      "text": "put out recently. In a player's mind,",
+      "duration": 3760,
+      "offset": 928160
+    },
+    {
+      "text": "what does it mean to spend five bucks?",
+      "duration": 4240,
+      "offset": 930000
+    },
+    {
+      "text": "Well, that's five bucks, but six bucks,",
+      "duration": 4240,
+      "offset": 931920
+    },
+    {
+      "text": "that's still kind of five bucks. We",
+      "duration": 4080,
+      "offset": 934240
+    },
+    {
+      "text": "rounded our brains to specific numbers.",
+      "duration": 5520,
+      "offset": 936160
+    },
+    {
+      "text": "It's like 1 2 5 10 20. It's kind of how",
+      "duration": 5280,
+      "offset": 938320
+    },
+    {
+      "text": "our brains work. Four bucks is also kind",
+      "duration": 3839,
+      "offset": 941680
+    },
+    {
+      "text": "of five bucks, he continued. Three bucks",
+      "duration": 3840,
+      "offset": 943600
+    },
+    {
+      "text": "is two bucks. And two bucks is basically",
+      "duration": 3841,
+      "offset": 945519
+    },
+    {
+      "text": "free. So, we've got these tiers, you",
+      "duration": 4240,
+      "offset": 947440
+    },
+    {
+      "text": "know, 12 bucks, that's 10 bucks. 13",
+      "duration": 4479,
+      "offset": 949360
+    },
+    {
+      "text": "bucks is 15 bucks though. And we found",
+      "duration": 4159,
+      "offset": 951680
+    },
+    {
+      "text": "that eight bucks is somehow still five",
+      "duration": 4800,
+      "offset": 953839
+    },
+    {
+      "text": "bucks. It doesn't become 10. $7.99",
+      "duration": 5360,
+      "offset": 955839
+    },
+    {
+      "text": "that's $5, right? So eight bucks going",
+      "duration": 3681,
+      "offset": 958639
+    },
+    {
+      "text": "to five bucks is the biggest",
+      "duration": 2961,
+      "offset": 961199
+    },
+    {
+      "text": "differential we could find in pricing.",
+      "duration": 4160,
+      "offset": 962320
+    },
+    {
+      "text": "So we found it very optimal. It's silly,",
+      "duration": 4080,
+      "offset": 964160
+    },
+    {
+      "text": "but this is actually how we thought",
+      "duration": 4320,
+      "offset": 966480
+    },
+    {
+      "text": "about it when we priced T3 chat at $8 a",
+      "duration": 5200,
+      "offset": 968240
+    },
+    {
+      "text": "month. $5 would kill our margins. It",
+      "duration": 4479,
+      "offset": 970800
+    },
+    {
+      "text": "would be way, way too tight. We wouldn't",
+      "duration": 3920,
+      "offset": 973440
+    },
+    {
+      "text": "be able to offer a lot. 10 bucks makes",
+      "duration": 3601,
+      "offset": 975279
+    },
+    {
+      "text": "it a little too expensive for people to",
+      "duration": 3680,
+      "offset": 977360
+    },
+    {
+      "text": "justify, but eight bucks feels close",
+      "duration": 4480,
+      "offset": 978880
+    },
+    {
+      "text": "enough to five, but massively improves",
+      "duration": 4159,
+      "offset": 981040
+    },
+    {
+      "text": "our margins to let us do the things we",
+      "duration": 4159,
+      "offset": 983360
+    },
+    {
+      "text": "want to do. So $8 is a really good price",
+      "duration": 4721,
+      "offset": 985199
+    },
+    {
+      "text": "tier in that regard where it feels like",
+      "duration": 4481,
+      "offset": 987519
+    },
+    {
+      "text": "five, but it's actually closer to 10,",
+      "duration": 4800,
+      "offset": 989920
+    },
+    {
+      "text": "which lets you have much more margin to",
+      "duration": 4320,
+      "offset": 992000
+    },
+    {
+      "text": "work with. Stop me if you've seen this",
+      "duration": 3039,
+      "offset": 994720
+    },
+    {
+      "text": "one before. I cite this report from",
+      "duration": 3519,
+      "offset": 996320
+    },
+    {
+      "text": "artificial analysis a lot, specifically",
+      "duration": 3760,
+      "offset": 997759
+    },
+    {
+      "text": "this part, which is the vertical",
+      "duration": 3360,
+      "offset": 999839
+    },
+    {
+      "text": "integration across different businesses",
+      "duration": 4721,
+      "offset": 1001519
+    },
+    {
+      "text": "in the AI space. A company like OpenAI",
+      "duration": 4721,
+      "offset": 1003199
+    },
+    {
+      "text": "sells applications like you use",
+      "duration": 4560,
+      "offset": 1006240
+    },
+    {
+      "text": "chatgbt.com to use the models. They also",
+      "duration": 3919,
+      "offset": 1007920
+    },
+    {
+      "text": "have the models that they make",
+      "duration": 2560,
+      "offset": 1010800
+    },
+    {
+      "text": "themselves. They also have inference",
+      "duration": 2961,
+      "offset": 1011839
+    },
+    {
+      "text": "that they sell for you to use the models",
+      "duration": 3360,
+      "offset": 1013360
+    },
+    {
+      "text": "over the API that they charge money for.",
+      "duration": 3680,
+      "offset": 1014800
+    },
+    {
+      "text": "The thing they don't have is their own",
+      "duration": 4000,
+      "offset": 1016720
+    },
+    {
+      "text": "hardware, which is really interesting.",
+      "duration": 4560,
+      "offset": 1018480
+    },
+    {
+      "text": "Most companies don't because making GPUs",
+      "duration": 5119,
+      "offset": 1020720
+    },
+    {
+      "text": "and AI accelerated chips is a very hard",
+      "duration": 4879,
+      "offset": 1023040
+    },
+    {
+      "text": "thing to do. OMA has played around the",
+      "duration": 3360,
+      "offset": 1025839
+    },
+    {
+      "text": "idea of investing in this space or",
+      "duration": 3040,
+      "offset": 1027919
+    },
+    {
+      "text": "buying a company that's already done it",
+      "duration": 3441,
+      "offset": 1029199
+    },
+    {
+      "text": "but hasn't made the commitment. It's",
+      "duration": 3041,
+      "offset": 1030959
+    },
+    {
+      "text": "actually one of the things that's in",
+      "duration": 4319,
+      "offset": 1032640
+    },
+    {
+      "text": "that weird Elon Open AAI lawsuit. Info",
+      "duration": 4400,
+      "offset": 1034000
+    },
+    {
+      "text": "about this keeps coming out. Other",
+      "duration": 3041,
+      "offset": 1036959
+    },
+    {
+      "text": "companies in the space like Anthropic",
+      "duration": 3760,
+      "offset": 1038400
+    },
+    {
+      "text": "are in a very similar place to OpenAI.",
+      "duration": 3919,
+      "offset": 1040000
+    },
+    {
+      "text": "What makes Google so interesting is they",
+      "duration": 3600,
+      "offset": 1042160
+    },
+    {
+      "text": "do all the same things, but they also",
+      "duration": 4321,
+      "offset": 1043919
+    },
+    {
+      "text": "are making their own chips. Google makes",
+      "duration": 5279,
+      "offset": 1045760
+    },
+    {
+      "text": "their TPUs specifically to have the most",
+      "duration": 5200,
+      "offset": 1048240
+    },
+    {
+      "text": "efficient, fast running, cheapest AI",
+      "duration": 4801,
+      "offset": 1051039
+    },
+    {
+      "text": "inference possible. And it's so good",
+      "duration": 4479,
+      "offset": 1053440
+    },
+    {
+      "text": "that Meta is now licensing it from",
+      "duration": 3920,
+      "offset": 1055840
+    },
+    {
+      "text": "Google. Meta is going to buy a bunch of",
+      "duration": 4401,
+      "offset": 1057919
+    },
+    {
+      "text": "servers from Google instead of Nvidia to",
+      "duration": 4320,
+      "offset": 1059760
+    },
+    {
+      "text": "run their inference because it's more",
+      "duration": 4320,
+      "offset": 1062320
+    },
+    {
+      "text": "powerful and cheaper. Very, very big",
+      "duration": 4479,
+      "offset": 1064080
+    },
+    {
+      "text": "deal. This is a big part of why OpenAI",
+      "duration": 3360,
+      "offset": 1066640
+    },
+    {
+      "text": "is now working with Cerebrris, which is",
+      "duration": 3441,
+      "offset": 1068559
+    },
+    {
+      "text": "a company that does this in particular.",
+      "duration": 3840,
+      "offset": 1070000
+    },
+    {
+      "text": "They make chips to do accelerated",
+      "duration": 4320,
+      "offset": 1072000
+    },
+    {
+      "text": "inference cheaper and faster. And if",
+      "duration": 4320,
+      "offset": 1073840
+    },
+    {
+      "text": "this partnership works out and OpenAI",
+      "duration": 3280,
+      "offset": 1076320
+    },
+    {
+      "text": "can make their models run better and",
+      "duration": 3519,
+      "offset": 1078160
+    },
+    {
+      "text": "cheaper on Cerebris's infrastructure,",
+      "duration": 3680,
+      "offset": 1079600
+    },
+    {
+      "text": "they can knock their costs down",
+      "duration": 3601,
+      "offset": 1081679
+    },
+    {
+      "text": "meaningful amounts. And yes, thank you",
+      "duration": 3759,
+      "offset": 1083280
+    },
+    {
+      "text": "chat. I know Anthropic also using",
+      "duration": 3279,
+      "offset": 1085280
+    },
+    {
+      "text": "Google's TPUs. They just recently",
+      "duration": 3121,
+      "offset": 1087039
+    },
+    {
+      "text": "started expanding to Google Cloud to use",
+      "duration": 3521,
+      "offset": 1088559
+    },
+    {
+      "text": "those as well. This is how everybody's",
+      "duration": 3680,
+      "offset": 1090160
+    },
+    {
+      "text": "competing. They all need to find things",
+      "duration": 3360,
+      "offset": 1092080
+    },
+    {
+      "text": "that are cheaper than GPUs. I'm probably",
+      "duration": 3040,
+      "offset": 1093840
+    },
+    {
+      "text": "going to do a whole video dedicated to",
+      "duration": 3359,
+      "offset": 1095440
+    },
+    {
+      "text": "just that. But it's important to know",
+      "duration": 3280,
+      "offset": 1096880
+    },
+    {
+      "text": "that the companies are trying to find",
+      "duration": 3201,
+      "offset": 1098799
+    },
+    {
+      "text": "ways to knock costs down by reducing",
+      "duration": 3680,
+      "offset": 1100160
+    },
+    {
+      "text": "power usage, by reducing hardware costs,",
+      "duration": 3280,
+      "offset": 1102000
+    },
+    {
+      "text": "and by reducing the amount of time it",
+      "duration": 3280,
+      "offset": 1103840
+    },
+    {
+      "text": "takes to generate a response, thereby",
+      "duration": 4399,
+      "offset": 1105280
+    },
+    {
+      "text": "usually decreasing costs. So, Google is",
+      "duration": 4000,
+      "offset": 1107120
+    },
+    {
+      "text": "chewing out their margins. They are",
+      "duration": 3041,
+      "offset": 1109679
+    },
+    {
+      "text": "taking meaningful pieces of the market",
+      "duration": 3679,
+      "offset": 1111120
+    },
+    {
+      "text": "from OpenAI. And OpenAI can't compete",
+      "duration": 3760,
+      "offset": 1112720
+    },
+    {
+      "text": "with Google, but Google can compete with",
+      "duration": 3921,
+      "offset": 1114799
+    },
+    {
+      "text": "OpenAI if that makes sense. OpenAI",
+      "duration": 4160,
+      "offset": 1116480
+    },
+    {
+      "text": "doesn't have the chip fobs that Google",
+      "duration": 3360,
+      "offset": 1118720
+    },
+    {
+      "text": "does. OpenAI doesn't have an email",
+      "duration": 3279,
+      "offset": 1120640
+    },
+    {
+      "text": "everyone uses like Google does. OpenAI",
+      "duration": 3839,
+      "offset": 1122080
+    },
+    {
+      "text": "doesn't have a docs and product platform",
+      "duration": 3921,
+      "offset": 1123919
+    },
+    {
+      "text": "for managing your company's files like",
+      "duration": 4161,
+      "offset": 1125919
+    },
+    {
+      "text": "Google does. Google's already become an",
+      "duration": 3839,
+      "offset": 1127840
+    },
+    {
+      "text": "essential part of your stack. And if",
+      "duration": 3280,
+      "offset": 1130080
+    },
+    {
+      "text": "Google can get more people on Gemini by",
+      "duration": 3360,
+      "offset": 1131679
+    },
+    {
+      "text": "giving it out for free, doing it with",
+      "duration": 3439,
+      "offset": 1133360
+    },
+    {
+      "text": "ads, embedding it into everything, and",
+      "duration": 3601,
+      "offset": 1135039
+    },
+    {
+      "text": "having it be part of your existing $8 a",
+      "duration": 3841,
+      "offset": 1136799
+    },
+    {
+      "text": "month sub, OpenAI is going to struggle a",
+      "duration": 4080,
+      "offset": 1138640
+    },
+    {
+      "text": "lot to sell a $20 a month subscription.",
+      "duration": 3680,
+      "offset": 1140640
+    },
+    {
+      "text": "That's why they're introducing the $8 a",
+      "duration": 3199,
+      "offset": 1142720
+    },
+    {
+      "text": "month tier because they know they have a",
+      "duration": 3440,
+      "offset": 1144320
+    },
+    {
+      "text": "better product and they absolutely do.",
+      "duration": 5041,
+      "offset": 1145919
+    },
+    {
+      "text": "Chat GBT is so far and ahead of what any",
+      "duration": 5120,
+      "offset": 1147760
+    },
+    {
+      "text": "of the other labs offer for a chat",
+      "duration": 4240,
+      "offset": 1150960
+    },
+    {
+      "text": "application. It's hilarious. But there's",
+      "duration": 4480,
+      "offset": 1152880
+    },
+    {
+      "text": "an important piece for this to all work.",
+      "duration": 4960,
+      "offset": 1155200
+    },
+    {
+      "text": "Ads. I have a challenge for you, the",
+      "duration": 4000,
+      "offset": 1157360
+    },
+    {
+      "text": "listener. If you've been watching my",
+      "duration": 2480,
+      "offset": 1160160
+    },
+    {
+      "text": "videos for a while, you might have seen",
+      "duration": 2880,
+      "offset": 1161360
+    },
+    {
+      "text": "this number in the past, but I'm going",
+      "duration": 3760,
+      "offset": 1162640
+    },
+    {
+      "text": "to ask you now. I'll also pull up chat",
+      "duration": 4000,
+      "offset": 1164240
+    },
+    {
+      "text": "so you guys can put your thoughts in as",
+      "duration": 4159,
+      "offset": 1166400
+    },
+    {
+      "text": "well. I get a lot of viewership on",
+      "duration": 4559,
+      "offset": 1168240
+    },
+    {
+      "text": "YouTube. I get the equivalent of four",
+      "duration": 3681,
+      "offset": 1170559
+    },
+    {
+      "text": "Super Bowl commercials worth of",
+      "duration": 3441,
+      "offset": 1172799
+    },
+    {
+      "text": "viewership a month. That is the",
+      "duration": 3600,
+      "offset": 1174240
+    },
+    {
+      "text": "equivalent of if you take all the time",
+      "duration": 3200,
+      "offset": 1176240
+    },
+    {
+      "text": "people spend sitting and watching a",
+      "duration": 3440,
+      "offset": 1177840
+    },
+    {
+      "text": "Super Bowl ad. Add four of those",
+      "duration": 3440,
+      "offset": 1179440
+    },
+    {
+      "text": "together and the amount of time",
+      "duration": 4160,
+      "offset": 1181280
+    },
+    {
+      "text": "consumed. That's how much time is spent",
+      "duration": 4400,
+      "offset": 1182880
+    },
+    {
+      "text": "watching my videos every month. It's an",
+      "duration": 4400,
+      "offset": 1185440
+    },
+    {
+      "text": "unbelievable amount of time. How much",
+      "duration": 4720,
+      "offset": 1187280
+    },
+    {
+      "text": "money do you think I make per month off",
+      "duration": 4480,
+      "offset": 1189840
+    },
+    {
+      "text": "of ads on YouTube? Not off of my",
+      "duration": 5280,
+      "offset": 1192000
+    },
+    {
+      "text": "sponsors, just off of the ad revenue",
+      "duration": 5200,
+      "offset": 1194320
+    },
+    {
+      "text": "that I get from Google because there are",
+      "duration": 4320,
+      "offset": 1197280
+    },
+    {
+      "text": "ads opening and closing my videos. How",
+      "duration": 3760,
+      "offset": 1199520
+    },
+    {
+      "text": "much money do you think that makes a",
+      "duration": 4978,
+      "offset": 1201600
+    },
+    {
+      "text": "month? [music]",
+      "duration": 3298,
+      "offset": 1203280
+    },
+    {
+      "text": "Seeing 100k, seeing 3,000, seeing",
+      "duration": 8560,
+      "offset": 1210880
+    },
+    {
+      "text": "less than 10k. Interesting. Y'all watch",
+      "duration": 4480,
+      "offset": 1216559
+    },
+    {
+      "text": "a lot of my stuff clearly if you know",
+      "duration": 4400,
+      "offset": 1219440
+    },
+    {
+      "text": "that these numbers are in this range.",
+      "duration": 4401,
+      "offset": 1221039
+    },
+    {
+      "text": "Reminder, a 30-second Super Bowl",
+      "duration": 4560,
+      "offset": 1223840
+    },
+    {
+      "text": "commercial costs $7 million. So, how",
+      "duration": 4960,
+      "offset": 1225440
+    },
+    {
+      "text": "much do you think I make off of ads? I",
+      "duration": 3360,
+      "offset": 1228400
+    },
+    {
+      "text": "will show you as the transparent",
+      "duration": 3840,
+      "offset": 1230400
+    },
+    {
+      "text": "YouTuber I am. It is between 5 and",
+      "duration": 5440,
+      "offset": 1231760
+    },
+    {
+      "text": "$8,000 a month. It is almost enough to",
+      "duration": 5360,
+      "offset": 1234240
+    },
+    {
+      "text": "pay my editor sometimes. It is not",
+      "duration": 4320,
+      "offset": 1237200
+    },
+    {
+      "text": "enough to pay the rest of my team or me",
+      "duration": 4160,
+      "offset": 1239600
+    },
+    {
+      "text": "or any of our other expenses. That is",
+      "duration": 3840,
+      "offset": 1241520
+    },
+    {
+      "text": "not a number I could sustain the channel",
+      "duration": 4560,
+      "offset": 1243760
+    },
+    {
+      "text": "with or even come close. The amount of",
+      "duration": 6240,
+      "offset": 1245360
+    },
+    {
+      "text": "money ads make is so much less than",
+      "duration": 5599,
+      "offset": 1248320
+    },
+    {
+      "text": "people seem to think. It is hilarious",
+      "duration": 4640,
+      "offset": 1251600
+    },
+    {
+      "text": "how small the number is. Here is my",
+      "duration": 5361,
+      "offset": 1253919
+    },
+    {
+      "text": "actual CPM chart over time. For some",
+      "duration": 4799,
+      "offset": 1256240
+    },
+    {
+      "text": "reason, this one random video has a much",
+      "duration": 3759,
+      "offset": 1259280
+    },
+    {
+      "text": "higher CPM, but for the most part, they",
+      "duration": 4880,
+      "offset": 1261039
+    },
+    {
+      "text": "are quite a bit lower. CPM stands for",
+      "duration": 5201,
+      "offset": 1263039
+    },
+    {
+      "text": "cost per millie, which is a thousand.",
+      "duration": 4561,
+      "offset": 1265919
+    },
+    {
+      "text": "So, this is how much money I make off of",
+      "duration": 4720,
+      "offset": 1268240
+    },
+    {
+      "text": "a,000 impressions. And the number is a",
+      "duration": 4000,
+      "offset": 1270480
+    },
+    {
+      "text": "lot less bad than it used to be. If I",
+      "duration": 4000,
+      "offset": 1272960
+    },
+    {
+      "text": "change this to lifetime breaks on my",
+      "duration": 3679,
+      "offset": 1274480
+    },
+    {
+      "text": "channel cuz my channel's technically",
+      "duration": 3040,
+      "offset": 1276960
+    },
+    {
+      "text": "existed for a very long time. So I'll",
+      "duration": 3520,
+      "offset": 1278159
+    },
+    {
+      "text": "change this to be a more reasonable",
+      "duration": 5360,
+      "offset": 1280000
+    },
+    {
+      "text": "custom range. Let's do 23 to now. My",
+      "duration": 6641,
+      "offset": 1281679
+    },
+    {
+      "text": "CPMs regularly hover between three and",
+      "duration": 6880,
+      "offset": 1285360
+    },
+    {
+      "text": "$6 per millie. So that is for every,000",
+      "duration": 6400,
+      "offset": 1288320
+    },
+    {
+      "text": "ad impressions. Somebody watching an ad,",
+      "duration": 8880,
+      "offset": 1292240
+    },
+    {
+      "text": "I make $3 every thousand at best. That's",
+      "duration": 9680,
+      "offset": 1294720
+    },
+    {
+      "text": "so low. Some CPMs are higher in specific",
+      "duration": 5520,
+      "offset": 1301120
+    },
+    {
+      "text": "categories, but when it comes to ads",
+      "duration": 4240,
+      "offset": 1304400
+    },
+    {
+      "text": "that are being automatically placed in a",
+      "duration": 4080,
+      "offset": 1306640
+    },
+    {
+      "text": "piece of content via things like an ad",
+      "duration": 4080,
+      "offset": 1308640
+    },
+    {
+      "text": "distribution network, there is not that",
+      "duration": 4480,
+      "offset": 1310720
+    },
+    {
+      "text": "much money there. There just isn't. On",
+      "duration": 3760,
+      "offset": 1312720
+    },
+    {
+      "text": "one hand, my numbers are slightly better",
+      "duration": 2479,
+      "offset": 1315200
+    },
+    {
+      "text": "than others. On the other hand, they're",
+      "duration": 2800,
+      "offset": 1316480
+    },
+    {
+      "text": "actually quite a bit worse. And if",
+      "duration": 2801,
+      "offset": 1317679
+    },
+    {
+      "text": "you're wondering about how YouTube",
+      "duration": 3200,
+      "offset": 1319280
+    },
+    {
+      "text": "Premium factors in, it used to pay",
+      "duration": 3760,
+      "offset": 1320480
+    },
+    {
+      "text": "slightly higher than average, but",
+      "duration": 5040,
+      "offset": 1322480
+    },
+    {
+      "text": "recently it's down by like 80% of what I",
+      "duration": 5760,
+      "offset": 1324240
+    },
+    {
+      "text": "would expect from traditional CPMs. So,",
+      "duration": 4399,
+      "offset": 1327520
+    },
+    {
+      "text": "I actually make a tiny tiny bit more",
+      "duration": 3520,
+      "offset": 1330000
+    },
+    {
+      "text": "money off of people watching without",
+      "duration": 3681,
+      "offset": 1331919
+    },
+    {
+      "text": "premium than with. But to be frank, I",
+      "duration": 4000,
+      "offset": 1333520
+    },
+    {
+      "text": "don't care. Watch my videos you want.",
+      "duration": 3600,
+      "offset": 1335600
+    },
+    {
+      "text": "Watch them with ad block. It doesn't",
+      "duration": 4000,
+      "offset": 1337520
+    },
+    {
+      "text": "make an actual difference to my income",
+      "duration": 4880,
+      "offset": 1339200
+    },
+    {
+      "text": "because these numbers are not enough to",
+      "duration": 4720,
+      "offset": 1341520
+    },
+    {
+      "text": "even come close to funding the business.",
+      "duration": 3760,
+      "offset": 1344080
+    },
+    {
+      "text": "That's why I turned off mid rolls. And",
+      "duration": 4319,
+      "offset": 1346240
+    },
+    {
+      "text": "even with mid rolls on, my revenue was",
+      "duration": 4800,
+      "offset": 1347840
+    },
+    {
+      "text": "not great. It was at best, I think I had",
+      "duration": 5120,
+      "offset": 1350559
+    },
+    {
+      "text": "a $9,000 month once. The vast majority",
+      "duration": 4960,
+      "offset": 1352640
+    },
+    {
+      "text": "of my income for the channel comes from",
+      "duration": 4801,
+      "offset": 1355679
+    },
+    {
+      "text": "sponsors by like more than a 30x",
+      "duration": 5520,
+      "offset": 1357600
+    },
+    {
+      "text": "difference. It is so absurd. I make more",
+      "duration": 4720,
+      "offset": 1360480
+    },
+    {
+      "text": "off of one ad than I make per month on",
+      "duration": 3840,
+      "offset": 1363120
+    },
+    {
+      "text": "the channel consistently. I need you",
+      "duration": 3440,
+      "offset": 1365200
+    },
+    {
+      "text": "guys to understand sponsors are what",
+      "duration": 4160,
+      "offset": 1366960
+    },
+    {
+      "text": "makes this all work. Without them, we",
+      "duration": 5039,
+      "offset": 1368640
+    },
+    {
+      "text": "die. Which is why seeing a company going",
+      "duration": 5520,
+      "offset": 1371120
+    },
+    {
+      "text": "all in on ads like this is interesting",
+      "duration": 5521,
+      "offset": 1373679
+    },
+    {
+      "text": "because ads don't make jack [ __ ] [ __ ]",
+      "duration": 4560,
+      "offset": 1376640
+    },
+    {
+      "text": "for revenue. I also know this because I",
+      "duration": 3599,
+      "offset": 1379200
+    },
+    {
+      "text": "worked at Twitch for a while and we",
+      "duration": 3280,
+      "offset": 1381200
+    },
+    {
+      "text": "worked really hard to try and make ads",
+      "duration": 3601,
+      "offset": 1382799
+    },
+    {
+      "text": "on Twitch profitable. It was hard to",
+      "duration": 3439,
+      "offset": 1384480
+    },
+    {
+      "text": "even get ads to a point where they would",
+      "duration": 3279,
+      "offset": 1386400
+    },
+    {
+      "text": "pay for the bandwidth to send them to",
+      "duration": 3760,
+      "offset": 1387919
+    },
+    {
+      "text": "you, much less the engineers working on",
+      "duration": 3841,
+      "offset": 1389679
+    },
+    {
+      "text": "it, much less the cost of everything",
+      "duration": 3521,
+      "offset": 1391679
+    },
+    {
+      "text": "else that we were worried about like",
+      "duration": 4159,
+      "offset": 1393520
+    },
+    {
+      "text": "distributing the actual content. Ads is",
+      "duration": 4400,
+      "offset": 1395200
+    },
+    {
+      "text": "a very hard business to make money in,",
+      "duration": 3521,
+      "offset": 1397679
+    },
+    {
+      "text": "which is why there's only two companies",
+      "duration": 3760,
+      "offset": 1399600
+    },
+    {
+      "text": "that consistently do it, Google and",
+      "duration": 4160,
+      "offset": 1401200
+    },
+    {
+      "text": "Meta. And a big part of how they do it",
+      "duration": 4319,
+      "offset": 1403360
+    },
+    {
+      "text": "is because they have incredibly sharp",
+      "duration": 4799,
+      "offset": 1405360
+    },
+    {
+      "text": "targeting with their ad platforms. They",
+      "duration": 4000,
+      "offset": 1407679
+    },
+    {
+      "text": "know so much about the people that they",
+      "duration": 3601,
+      "offset": 1410159
+    },
+    {
+      "text": "are giving ads to that they can get",
+      "duration": 4401,
+      "offset": 1411679
+    },
+    {
+      "text": "really really specific and give brands",
+      "duration": 4560,
+      "offset": 1413760
+    },
+    {
+      "text": "all these knobs to tune to get the exact",
+      "duration": 4079,
+      "offset": 1416080
+    },
+    {
+      "text": "type of person they want. If they want",
+      "duration": 4880,
+      "offset": 1418320
+    },
+    {
+      "text": "fathers between ages 20 and 24 who had a",
+      "duration": 5201,
+      "offset": 1420159
+    },
+    {
+      "text": "coke recently in Detroit, they can",
+      "duration": 4400,
+      "offset": 1423200
+    },
+    {
+      "text": "target down to that level because they",
+      "duration": 3840,
+      "offset": 1425360
+    },
+    {
+      "text": "have so much information no one else",
+      "duration": 4240,
+      "offset": 1427600
+    },
+    {
+      "text": "does. OpenAI might have some information",
+      "duration": 3920,
+      "offset": 1429200
+    },
+    {
+      "text": "that's useful through memory and",
+      "duration": 2880,
+      "offset": 1431840
+    },
+    {
+      "text": "whatnot, but they're also talking",
+      "duration": 2960,
+      "offset": 1433120
+    },
+    {
+      "text": "differently about how they plan to",
+      "duration": 3360,
+      "offset": 1434720
+    },
+    {
+      "text": "target so specifically. They specify",
+      "duration": 3599,
+      "offset": 1436080
+    },
+    {
+      "text": "that they will not accept money to",
+      "duration": 3440,
+      "offset": 1438080
+    },
+    {
+      "text": "influence the answers that CHGBT gives",
+      "duration": 3281,
+      "offset": 1439679
+    },
+    {
+      "text": "you. The conversations will be private",
+      "duration": 3600,
+      "offset": 1441520
+    },
+    {
+      "text": "from advertisers, but this wording is",
+      "duration": 4719,
+      "offset": 1442960
+    },
+    {
+      "text": "very sus. We'll keep your conversations",
+      "duration": 4400,
+      "offset": 1445120
+    },
+    {
+      "text": "private from advertisers. What they",
+      "duration": 3441,
+      "offset": 1447679
+    },
+    {
+      "text": "won't keep private is what they know",
+      "duration": 3279,
+      "offset": 1449520
+    },
+    {
+      "text": "about you. They might not necessarily",
+      "duration": 2720,
+      "offset": 1451120
+    },
+    {
+      "text": "share that directly with the",
+      "duration": 2641,
+      "offset": 1452799
+    },
+    {
+      "text": "advertisers, but they will use the",
+      "duration": 3120,
+      "offset": 1453840
+    },
+    {
+      "text": "information they have based on your chat",
+      "duration": 3920,
+      "offset": 1455440
+    },
+    {
+      "text": "history to add all of these knobs that",
+      "duration": 4560,
+      "offset": 1456960
+    },
+    {
+      "text": "the advertisers can use to target",
+      "duration": 4640,
+      "offset": 1459360
+    },
+    {
+      "text": "specific demographics. That is scary and",
+      "duration": 3759,
+      "offset": 1461520
+    },
+    {
+      "text": "it's not a thing most people would want",
+      "duration": 3679,
+      "offset": 1464000
+    },
+    {
+      "text": "to do. Funny enough, in 2024, Sam even",
+      "duration": 4161,
+      "offset": 1465279
+    },
+    {
+      "text": "said as much. I kind of think of ads as",
+      "duration": 3441,
+      "offset": 1467679
+    },
+    {
+      "text": "like a last resort for us for a business",
+      "duration": 3839,
+      "offset": 1469440
+    },
+    {
+      "text": "model. Um, I would do it if it meant",
+      "duration": 4080,
+      "offset": 1471120
+    },
+    {
+      "text": "that was the only way to get everybody",
+      "duration": 4000,
+      "offset": 1473279
+    },
+    {
+      "text": "on the world in the world like access to",
+      "duration": 4240,
+      "offset": 1475200
+    },
+    {
+      "text": "great services. But if we can find",
+      "duration": 3760,
+      "offset": 1477279
+    },
+    {
+      "text": "something that doesn't do that, I'd",
+      "duration": 2320,
+      "offset": 1479440
+    },
+    {
+      "text": "prefer that.",
+      "duration": 2321,
+      "offset": 1481039
+    },
+    {
+      "text": ">> Yeah, very clear he did not want to do",
+      "duration": 4320,
+      "offset": 1481760
+    },
+    {
+      "text": "this. So part of the bet here is that",
+      "duration": 4480,
+      "offset": 1483360
+    },
+    {
+      "text": "people will get personal enough with",
+      "duration": 4160,
+      "offset": 1486080
+    },
+    {
+      "text": "their use of chat GPT that it will know",
+      "duration": 4319,
+      "offset": 1487840
+    },
+    {
+      "text": "way too much about them so they can",
+      "duration": 3919,
+      "offset": 1490240
+    },
+    {
+      "text": "target better and hopefully make a",
+      "duration": 4241,
+      "offset": 1492159
+    },
+    {
+      "text": "little bit more money from said ads. I",
+      "duration": 4481,
+      "offset": 1494159
+    },
+    {
+      "text": "wish them luck because doing this right",
+      "duration": 4720,
+      "offset": 1496400
+    },
+    {
+      "text": "is really, really, really hard. And",
+      "duration": 4480,
+      "offset": 1498640
+    },
+    {
+      "text": "again, if you don't want ads and you",
+      "duration": 3600,
+      "offset": 1501120
+    },
+    {
+      "text": "only want to pay eight bucks, bad news,",
+      "duration": 3200,
+      "offset": 1503120
+    },
+    {
+      "text": "price actually $1 for your first month",
+      "duration": 3520,
+      "offset": 1504720
+    },
+    {
+      "text": "on T3 chat. Just use code adfree at",
+      "duration": 4479,
+      "offset": 1506320
+    },
+    {
+      "text": "checkout. And just as a nice reminder of",
+      "duration": 4799,
+      "offset": 1508240
+    },
+    {
+      "text": "how much these companies know about you,",
+      "duration": 4161,
+      "offset": 1510799
+    },
+    {
+      "text": "Signal tried to do a transparent ad",
+      "duration": 3361,
+      "offset": 1513039
+    },
+    {
+      "text": "campaign on Instagram and Facebook",
+      "duration": 2959,
+      "offset": 1514960
+    },
+    {
+      "text": "refused to let them and banned their",
+      "duration": 3200,
+      "offset": 1516400
+    },
+    {
+      "text": "account as a result. My assumption is",
+      "duration": 3521,
+      "offset": 1517919
+    },
+    {
+      "text": "they were saying things about how they",
+      "duration": 3520,
+      "offset": 1519600
+    },
+    {
+      "text": "won't track you. You got this ad because",
+      "duration": 3119,
+      "offset": 1521440
+    },
+    {
+      "text": "you're a teacher, but more importantly,",
+      "duration": 3760,
+      "offset": 1523120
+    },
+    {
+      "text": "you're a Leo and single. This ad used",
+      "duration": 3521,
+      "offset": 1524559
+    },
+    {
+      "text": "your location to see that you're in",
+      "duration": 2560,
+      "offset": 1526880
+    },
+    {
+      "text": "Moscow. You like to support sketch",
+      "duration": 3199,
+      "offset": 1528080
+    },
+    {
+      "text": "comedy, and this ad thinks you do drag.",
+      "duration": 3359,
+      "offset": 1529440
+    },
+    {
+      "text": "This is again cuz they have all this",
+      "duration": 3121,
+      "offset": 1531279
+    },
+    {
+      "text": "info, so they can make custom ads based",
+      "duration": 4161,
+      "offset": 1532799
+    },
+    {
+      "text": "on the knobs. Usually people have",
+      "duration": 3920,
+      "offset": 1534400
+    },
+    {
+      "text": "specific people they want to target and",
+      "duration": 3040,
+      "offset": 1536960
+    },
+    {
+      "text": "they use the knobs to target them. This",
+      "duration": 3760,
+      "offset": 1538320
+    },
+    {
+      "text": "is the opposite. Signal wanted to use",
+      "duration": 4559,
+      "offset": 1540000
+    },
+    {
+      "text": "the knobs as the ad itself and they did",
+      "duration": 4240,
+      "offset": 1542080
+    },
+    {
+      "text": "not like that. So they got banned",
+      "duration": 3360,
+      "offset": 1544559
+    },
+    {
+      "text": "because this is a huge threat to the",
+      "duration": 4320,
+      "offset": 1546320
+    },
+    {
+      "text": "model. Instagram, Facebook, Google and",
+      "duration": 5360,
+      "offset": 1547919
+    },
+    {
+      "text": "all of these things. If you knew as the",
+      "duration": 4560,
+      "offset": 1550640
+    },
+    {
+      "text": "user how much they knew about you, you",
+      "duration": 3520,
+      "offset": 1553279
+    },
+    {
+      "text": "would stop. And you know that classic",
+      "duration": 3520,
+      "offset": 1555200
+    },
+    {
+      "text": "conspiracy everybody's always worried",
+      "duration": 4401,
+      "offset": 1556799
+    },
+    {
+      "text": "about the classic your phone listens to",
+      "duration": 5360,
+      "offset": 1558720
+    },
+    {
+      "text": "you. It does not. This is factually",
+      "duration": 4959,
+      "offset": 1561200
+    },
+    {
+      "text": "false. That is so easy to verify. What's",
+      "duration": 4719,
+      "offset": 1564080
+    },
+    {
+      "text": "actually happening is way scarier. If",
+      "duration": 3841,
+      "offset": 1566159
+    },
+    {
+      "text": "you're talking about something with",
+      "duration": 2801,
+      "offset": 1568799
+    },
+    {
+      "text": "someone and then you go use Instagram",
+      "duration": 3360,
+      "offset": 1570000
+    },
+    {
+      "text": "and you get an ad for it, you're",
+      "duration": 3199,
+      "offset": 1571600
+    },
+    {
+      "text": "freaking out because you think it heard",
+      "duration": 3439,
+      "offset": 1573360
+    },
+    {
+      "text": "the conversation. What they did was way",
+      "duration": 4321,
+      "offset": 1574799
+    },
+    {
+      "text": "worse. You saw the ad before, didn't",
+      "duration": 3841,
+      "offset": 1576799
+    },
+    {
+      "text": "realize, and it influenced the",
+      "duration": 3039,
+      "offset": 1579120
+    },
+    {
+      "text": "conversation. It's not that the phone",
+      "duration": 3120,
+      "offset": 1580640
+    },
+    {
+      "text": "knows what you're talking about. It's",
+      "duration": 3281,
+      "offset": 1582159
+    },
+    {
+      "text": "that your phone tells you what to talk",
+      "duration": 4240,
+      "offset": 1583760
+    },
+    {
+      "text": "about. Terrifying if you think about it.",
+      "duration": 4479,
+      "offset": 1585440
+    },
+    {
+      "text": "But now there's a company that you",
+      "duration": 3600,
+      "offset": 1588000
+    },
+    {
+      "text": "actually talk to a bunch on your phone.",
+      "duration": 3521,
+      "offset": 1589919
+    },
+    {
+      "text": "a company that people regularly use the",
+      "duration": 4400,
+      "offset": 1591600
+    },
+    {
+      "text": "product of with their mic just on chat",
+      "duration": 4479,
+      "offset": 1593440
+    },
+    {
+      "text": "GPT. I know a lot of people who have",
+      "duration": 3840,
+      "offset": 1596000
+    },
+    {
+      "text": "been oneshot by the ChatGpt app and they",
+      "duration": 3281,
+      "offset": 1597919
+    },
+    {
+      "text": "just have it on for their whole car",
+      "duration": 2800,
+      "offset": 1599840
+    },
+    {
+      "text": "ride. They just talk to their phone and",
+      "duration": 2959,
+      "offset": 1601200
+    },
+    {
+      "text": "have it answer questions and things.",
+      "duration": 4159,
+      "offset": 1602640
+    },
+    {
+      "text": "That chat history is part of OpenAI's",
+      "duration": 4081,
+      "offset": 1604159
+    },
+    {
+      "text": "profile of you, their understanding of",
+      "duration": 3681,
+      "offset": 1606799
+    },
+    {
+      "text": "you, their memory of you. Memory might",
+      "duration": 4640,
+      "offset": 1608240
+    },
+    {
+      "text": "seem cool as a feature, but it's also an",
+      "duration": 4880,
+      "offset": 1610480
+    },
+    {
+      "text": "insane method to target very, very",
+      "duration": 5279,
+      "offset": 1612880
+    },
+    {
+      "text": "specific details about you. Yeah, that's",
+      "duration": 5199,
+      "offset": 1615360
+    },
+    {
+      "text": "the only reason OpenAI has any chance in",
+      "duration": 4000,
+      "offset": 1618159
+    },
+    {
+      "text": "the ad market is they have so much",
+      "duration": 3841,
+      "offset": 1620559
+    },
+    {
+      "text": "information, but that also is sketchy as",
+      "duration": 3760,
+      "offset": 1622159
+    },
+    {
+      "text": "hell and you should be somewhat",
+      "duration": 3200,
+      "offset": 1624400
+    },
+    {
+      "text": "concerned. I wouldn't touch this tier",
+      "duration": 4081,
+      "offset": 1625919
+    },
+    {
+      "text": "with a 10-ft pole personally, but like",
+      "duration": 4079,
+      "offset": 1627600
+    },
+    {
+      "text": "I'm also on the $200 a month tier cuz I",
+      "duration": 4480,
+      "offset": 1630000
+    },
+    {
+      "text": "abuse it in Codeex, so judge me for all",
+      "duration": 4240,
+      "offset": 1631679
+    },
+    {
+      "text": "of the above and more. I deserve it.",
+      "duration": 2880,
+      "offset": 1634480
+    },
+    {
+      "text": "Take it from the person who bet way too",
+      "duration": 3120,
+      "offset": 1635919
+    },
+    {
+      "text": "much of their career on an $8 a month",
+      "duration": 3679,
+      "offset": 1637360
+    },
+    {
+      "text": "sub. This is going to be a hard play for",
+      "duration": 3601,
+      "offset": 1639039
+    },
+    {
+      "text": "them to maintain. I'm curious how it",
+      "duration": 2961,
+      "offset": 1641039
+    },
+    {
+      "text": "goes and how people end up feeling about",
+      "duration": 2720,
+      "offset": 1642640
+    },
+    {
+      "text": "these ads. Let me know how you feel",
+      "duration": 2559,
+      "offset": 1644000
+    },
+    {
+      "text": "about all this in the comments. And",
+      "duration": 4799,
+      "offset": 1645360
+    },
+    {
+      "text": "until next time, peace nerds.",
+      "duration": 3600,
+      "offset": 1646559
+    }
+  ],
+  "transcriptText": "Seems like OpenAI realized that they have competition and they're finally making changes to address it that really seem to underpin this deep fear they have about losing the market. Today, OpenAI dropped chat GPT Go, their new $8 a month plan across the whole world. Originally, this plan only existed in India as a way to have presence in markets that don't have quite as much spend per person. And now it's around everywhere. And big part of how they're handling this is through adding ads to ChatGpt. Yes, really. You will now get ads and chat GBT on the free tier and on the $8 a month tier almost like Netflix style. Kind of crazy. And it shows some really big rethinkings going on at OpenAI about how they make money. There's a deeper reason why they're doing this that I want to talk a lot about. OpenAI is losing their share of the market. They were comfortably over 75% closer to 85 12 months ago and since then they've dropped all the way to the 60s. That is crazy. Google is coming in and really squeezing out market from open AAI and they are terrified and making changes accordingly. I don't know how well those changes will work though. I think a lot about these things both the business side and the developer side but also different sources of revenue and how they work and how those affect people in the market. I think a lot about how people make decisions around what they do and don't use. And also I'm a direct competitor. T3 Chat just so happens to be a very similar price. As the previous leading owner of an $8 a month chat service, I have a lot to say here, but if they're going to come eat out our margins, we still got to eat. So, we'll do a quick break for today's sponsor first. Today's sponsors changed how I think about design forever. It's Mobin. They're the best source of realworld design inspiration because they've indexed every major app and made it really easy to search for the things you're looking for. Whether you want to fix your sign-in page to make it look great or you want a really good conversational view for your booking app, there's nothing better than mommen for finding good sources. Take it from someone who's been cursed doing this on Google images forever. It's so easy to find the type of screen that you're looking for. It's actually hilarious. We can click chatbot and see all sorts of examples of web and mobile chat bots. I want to show you as a practical example, though. Here's the homepage for a new side project I'm working on for image generation. And it's uh not great. I think we can do a lot better. So, I have Cloud Code open here with a prompt ready to go, but I want to give it some design references to use. Let's find some onboarding pages that we can use as a better reference. I like the Revolute page. So, let's just click the copy button there. Switch back over to my terminal and paste that image in. Let's see if we can find a few others. I actually really like the Dovetail home screen. We'll start with that, too. Paste that. I really like this one, actually. Let's copy that. Paste it. And let's see how Claude does now that we've given it some reference. Uh, holy [ __ ] [laughter and gasps] I did not think it would be that much better. I was hoping for a slight improvement, but what the Yeah. Yeah. Hopefully, we have made the point here. If you want to make your designs way better, whether you're just trying to inspire yourself or you're trying to give your agents some better inspiration to start from, Mobin's going to make your life way better. Check them out now at soyv.link/mobin. The irony of running an ad before talking about why ads don't work is definitely getting to me. We'll talk about that a lot near the end because uh ads are an interesting way for OpenAI to start making revenue. I have a lot of thoughts there, but first we should briefly go over what is chat GPT Go. Then we should talk about why OpenAI is so scared and then one of my favorite topics, why $8? Lots to talk about here. So first, what is chatgbt go? On one hand, it's a lot like T3 chat. It's $8 a month and you can generate images, talk to the models and also get ads which we won't have. Probably will never have. There are other differences though. Like on T3 Chat we have every model. All of them. Like all of them. All of them. We just had to redo our model picker in order to make them all fit better. Very proud of what we have here. OpenAI's introduction of Go is more so an attempt to capture some of the market that they haven't fully yet. And to their credit, there are things it will do better than T3 chat. People really like voice mode and just talking to the model. They are the best place to do that. If you're still SCOP by GPT40 and feel like that's the only model you can justify talking to, we removed it from T3 chat. So, it's over there. That's the only thing we don't have now. They also have a better mobile app because we don't have a mobile app yet. Coming very soon. Since we finally have an $8 a month competitor, I'll sweeten the deal on T3 chat. You can get your first month for $1 with code ad free at checkout. AD-free. Yes, that's access to every model, including image generation for just eight bucks a month and just $1 for your first month. Check it out. We put a lot of work in. I'm proud of what we built. I think you'll be surprised. And if you hate it, flame me on Twitter so we can fix it. Done with talking about T3. I really want to focus on this and the margins and the way this all works. The goal of Chetchico in India was to have a lowc cost subscription designed to expand access ChBT's most popular features and help more people use advanced AI in their daily life. This is one of the biggest pieces here. There is a stickiness to using these tools. I know a lot of people that didn't use TouchBT a whole lot when it first came out, but then eventually there's one thing it does well for them. They get really into it and then it becomes just part of their day-to-day. And that's really the play that OpenAI has to bank on is how do we get more people to integrate this in their day-to-day life. That said, these customers aren't cheap. The cost of a message on chat GPT is non-trivial. If you look at the pricing for GPT 5.2, too. You'll see what I mean. A million input tokens is $1.75 and a million output tokens is $14. So, if you take a random thread somebody has, especially if they're doing things that use more tokens, like they're attaching their Google Drive account and it's indexing it and pulling a lot of data from it, it's easy for a thread to do a 100,000 tokens. Probably not all is output and a lot of it will be cached, but it is not uncommon for people to have a long thread that they send a message in and each individual message can cost 10 to 30 cents. That's a very real number that I've seen hit many times on platforms like T3 chat. That's why we have to have GBT 5.2, the thinking version, as a premium model. And honestly, since they bumped the price from $10 per mill out to 14 with 5.2, it's probably time that we move 5.2 over with the immediate non-reasoning mode as well. On top of that, reasoning boosts the amount of output tokens by a ton. The cost of these things is going up consistently. And some of the tests and benchmarks I run, they'll do a few hundred messages can cost $10 to $30 to run. Like the inference costs money. And you might think this is them massively overpricing on the API to give them more margins. And I understand why you'd think that, but I've run a lot of smart models on my own hardware and the costs are very high. Just running generic openweight models on my RTX5090 nearly doubled my power bill. Running that fulltime is over $2,000 a month of just power. That's crazy. These things are expensive. Honestly, their margin could go either way. I wouldn't be surprised if this was 20% profit or they were selling the API at a 20% loss. And this makes even more sense when you look at the breakdown of their revenue. At the end of 2024, if you broke down OpenAI's rev, they made three to 4x more off of subscriptions to ChatGpt than they made off of the API. That is insane. So, just think about this, guys. For every ChatGpt rapper, ChatGpt itself makes three times more. If you take all of the ChatG rappers and combine them together, the amount of money that that makes for OpenAI is less than a third of how much money they make off of subs. So why the [ __ ] would they be focused on the APIs when they could be driving the subscriptions? Especially because they're now starting to get more competition from companies that are more focused on that vertical integration and having these pieces built into their existing services. It's also worth noting the gap here when compared to Anthropic, who makes way more money off the API than they do off of their subscriptions. That is starting to change due to the fact that Claude Code has the $200 a month plan. But the goal of all of these companies is to get us addicted to their product, their UX, their tools, their features, their things so that we stick with them. And that's kind of crazy when you think about how big of a loss that $8 a month price is. A big part of why we can offer that pricing is because we limit how much you can use the really expensive models and try to encourage you to use the cheaper ones that are still really, really good. We also limit how much context you can have in a thread in order to keep a given message from costing us an egregious amount of money. These are all optimizations and changes we've had to make over time to tune the price performance margin on T3 chat so you feel like you're getting a good deal and we don't lose our butts immediately. There are still around 1% of people who cost us two to four times more than the subscription, but they have to put effort in to do that and the majority of users aren't quite costing us eight bucks. So, the margins work out. We are roughly profitable, really proud of where we're at, but we don't have billions of dollars of investment in crazy long-term potentials like our competitors like OpenAI do. I know you're probably thinking, you're not a competitor with OpenAI. You don't make models yourself. Well, we need to be realistic here. When OpenAI makes the vast majority of their revenue selling a subscription to a chat web app, they are competing with us. We both make the majority of our income for our businesses the same way, the app layer. Just because OpenAI has integrations through other things does not mean we are not competition. Just because they regularly give me early access to try things does not mean we're not competition. We are threatening to commoditize their layer and that is scary to them which is why they're trying to make their product more and more compelling even at the cost of money. They could very well lose a lot of money on the subscription tier. But there are reasons that is a worthwhile bet. There's a couple things that seem to be true over time in markets like this. One of these two is always true. either costs go down or willingness to spend goes up. And right now OpenAI does not seem to know which will happen. I assume they are betting that some amount of both will. So if right now the inference that somebody is doing for $8 a month could cost them money, as models get better and smaller and cheaper to run, as OpenAI gets more hardware to run them on and more optimizations are made to make it cheaper to actually do that work, their margins will increase. If right now a user can cost them $10 on the $8 a month plan, it's possible that in six months the exact same usage will only cost them $4 a month if they make the models smaller and cheaper, which they have done in the past. I've seen them do crazy things like cut 03's price by like what was it 8 or 10x when they found a better way to run it that was cheaper. They will get costs down. They will be able to get under that tier, but they want to capture the customers now and they're willing to do that at a cost. OpenAI is so desperate to keep these users and get them addicted to their product that they are willing to lose money for now knowing that either their margins will get better as the models get cheaper and faster and smaller and easier to run or worst case when they can't do that for some reason they can increase the price and people will be too scared to leave. I'm going to talk more about how costs go down in a sec but I want to go on one other tangent which is the willingness to spend going up and what it looks like to put people in that hostage situation. There is one golden example of this from the past, the one that they are almost certainly looking at. Google's Workspaces product. You know, the thing that lets you use your own domain on Gmail that you can run your business through. Let's just ask Gemini 3 about how Google Workspace pricing has changed over time. I was here for all of these steps, which is why I wanted to break it down. When Google originally launched apps for your domain, it was free. They kept the free tier around for 6 years until 2012. I still missed that free tier. I used it for a ton of [ __ ] when I was younger. In 2007, they added the premier edition for larger businesses. That was $50 per user per year, which was like four bucks a month. That was a good deal. Then in 2016, they rebranded it as G Suite, and it was $5 per user per month. And then the fancy business tier, which included their unlimited storage that they have since walked back, was $10 per user per month. They kept it at that $5 a month price for a long time, but then in 2019, they bumped it to $6 per month. Then in 2020, they rebranded again. They increased the cost if you were using storage more, but for the most part it was still the same. But then we started to get way more price hikes. In 2023, it bumped to $7.20. And it seems like the training date is out of date on Gemini. What a surprise. The price just got hiked again to $8.40. So they went from keeping a pretty stable price for upwards of a decade. And then over the last 5 years, they've increased it three times. I bring this up because this is what happens when you win your market. You start for free. You get a bunch of users. You charge them a reasonable amount. Nobody questions it. You bump it slightly to test out the market and its tolerance for price changes. And this is a very small bump going from five bucks to six bucks, whatever. Then they bumped it to 720. And then just 2 years later, they bumped it again. Very clearly Google is taking advantage of the fact that nobody can cancel their G Suite subscriptions. People are saying this is within inflation. It is not. Inflation happened between 2007 and 2019 and the price did not change that much in that window. This is a meaningful price bump to go from six bucks to 8.40 shows that they are confident in their position and that nobody could [ __ ] with them because you can't really move off of G Suite once you're on it. So, Google's proven this out. It is more important to get your users hooked on your service than to nickel and dime them immediately because if you can get them deep enough, they are now integrated into your systems and you can hold them. But there's a big aspect of this that makes it work, the bundle. And funny enough, this is also the thing that is currently killing them over at OpenAI because Google has this compelling bundle already. They have the G Suite. They have Google Drive, Google Docs, Google Sheets, Gmail, all these other integrations, all these other tools that are very useful to companies that an individual can't realistically move off of once they've adopted. And now that bundle all comes at one price. And now they're adding more things to the bundle like Gemini. And I want to be very, very clear about this. The only reason anyone would use Gemini, including Google employees, is because they have to cuz their employer said so. probably to save money or it's somehow the only thing they've heard about. There are very few people who pick Gemini over other solutions because to be frank the apps are terrible. It is very unpleasant to use. The gap between Gemini and something like T3 Chat is hilarious which is why we have so many people who like the Gemini models moving to T3 chat because we're just the better way to use them. With OpenAI's models, there is much more argument to be had. There are things that the OpenAI models do well on chat GPT, things like their memory product that people really like that we haven't done just yet. And chances of us getting memory as good as them are relatively low. Everything else we wipe the floor with Google though. Like it's just comical how much better the experience is with Google's models and other products. But OpenAI doesn't have a bundle in the same way. I'm going to be paying that eight bucks a month for Google whether or not I'm using Gemini. If I use it zero times a month or thousands of times a month, I'm still going to pay for that. I am there. Which means over time, if the products get more commoditized, the gap between the two gets lesser and lesser. The likelihood that somebody keeps their ChatBt subscription is going down. This is part of why that $8 number is so interesting. It seems like they're trying to fit within the tiering that Google has. I'm not going to sit here and pretend they're copying our price. They're not. There is a lot of psychology behind the price that funny enough, the game studio that made Peak put out recently. In a player's mind, what does it mean to spend five bucks? Well, that's five bucks, but six bucks, that's still kind of five bucks. We rounded our brains to specific numbers. It's like 1 2 5 10 20. It's kind of how our brains work. Four bucks is also kind of five bucks, he continued. Three bucks is two bucks. And two bucks is basically free. So, we've got these tiers, you know, 12 bucks, that's 10 bucks. 13 bucks is 15 bucks though. And we found that eight bucks is somehow still five bucks. It doesn't become 10. $7.99 that's $5, right? So eight bucks going to five bucks is the biggest differential we could find in pricing. So we found it very optimal. It's silly, but this is actually how we thought about it when we priced T3 chat at $8 a month. $5 would kill our margins. It would be way, way too tight. We wouldn't be able to offer a lot. 10 bucks makes it a little too expensive for people to justify, but eight bucks feels close enough to five, but massively improves our margins to let us do the things we want to do. So $8 is a really good price tier in that regard where it feels like five, but it's actually closer to 10, which lets you have much more margin to work with. Stop me if you've seen this one before. I cite this report from artificial analysis a lot, specifically this part, which is the vertical integration across different businesses in the AI space. A company like OpenAI sells applications like you use chatgbt.com to use the models. They also have the models that they make themselves. They also have inference that they sell for you to use the models over the API that they charge money for. The thing they don't have is their own hardware, which is really interesting. Most companies don't because making GPUs and AI accelerated chips is a very hard thing to do. OMA has played around the idea of investing in this space or buying a company that's already done it but hasn't made the commitment. It's actually one of the things that's in that weird Elon Open AAI lawsuit. Info about this keeps coming out. Other companies in the space like Anthropic are in a very similar place to OpenAI. What makes Google so interesting is they do all the same things, but they also are making their own chips. Google makes their TPUs specifically to have the most efficient, fast running, cheapest AI inference possible. And it's so good that Meta is now licensing it from Google. Meta is going to buy a bunch of servers from Google instead of Nvidia to run their inference because it's more powerful and cheaper. Very, very big deal. This is a big part of why OpenAI is now working with Cerebrris, which is a company that does this in particular. They make chips to do accelerated inference cheaper and faster. And if this partnership works out and OpenAI can make their models run better and cheaper on Cerebris's infrastructure, they can knock their costs down meaningful amounts. And yes, thank you chat. I know Anthropic also using Google's TPUs. They just recently started expanding to Google Cloud to use those as well. This is how everybody's competing. They all need to find things that are cheaper than GPUs. I'm probably going to do a whole video dedicated to just that. But it's important to know that the companies are trying to find ways to knock costs down by reducing power usage, by reducing hardware costs, and by reducing the amount of time it takes to generate a response, thereby usually decreasing costs. So, Google is chewing out their margins. They are taking meaningful pieces of the market from OpenAI. And OpenAI can't compete with Google, but Google can compete with OpenAI if that makes sense. OpenAI doesn't have the chip fobs that Google does. OpenAI doesn't have an email everyone uses like Google does. OpenAI doesn't have a docs and product platform for managing your company's files like Google does. Google's already become an essential part of your stack. And if Google can get more people on Gemini by giving it out for free, doing it with ads, embedding it into everything, and having it be part of your existing $8 a month sub, OpenAI is going to struggle a lot to sell a $20 a month subscription. That's why they're introducing the $8 a month tier because they know they have a better product and they absolutely do. Chat GBT is so far and ahead of what any of the other labs offer for a chat application. It's hilarious. But there's an important piece for this to all work. Ads. I have a challenge for you, the listener. If you've been watching my videos for a while, you might have seen this number in the past, but I'm going to ask you now. I'll also pull up chat so you guys can put your thoughts in as well. I get a lot of viewership on YouTube. I get the equivalent of four Super Bowl commercials worth of viewership a month. That is the equivalent of if you take all the time people spend sitting and watching a Super Bowl ad. Add four of those together and the amount of time consumed. That's how much time is spent watching my videos every month. It's an unbelievable amount of time. How much money do you think I make per month off of ads on YouTube? Not off of my sponsors, just off of the ad revenue that I get from Google because there are ads opening and closing my videos. How much money do you think that makes a month? [music] Seeing 100k, seeing 3,000, seeing less than 10k. Interesting. Y'all watch a lot of my stuff clearly if you know that these numbers are in this range. Reminder, a 30-second Super Bowl commercial costs $7 million. So, how much do you think I make off of ads? I will show you as the transparent YouTuber I am. It is between 5 and $8,000 a month. It is almost enough to pay my editor sometimes. It is not enough to pay the rest of my team or me or any of our other expenses. That is not a number I could sustain the channel with or even come close. The amount of money ads make is so much less than people seem to think. It is hilarious how small the number is. Here is my actual CPM chart over time. For some reason, this one random video has a much higher CPM, but for the most part, they are quite a bit lower. CPM stands for cost per millie, which is a thousand. So, this is how much money I make off of a,000 impressions. And the number is a lot less bad than it used to be. If I change this to lifetime breaks on my channel cuz my channel's technically existed for a very long time. So I'll change this to be a more reasonable custom range. Let's do 23 to now. My CPMs regularly hover between three and $6 per millie. So that is for every,000 ad impressions. Somebody watching an ad, I make $3 every thousand at best. That's so low. Some CPMs are higher in specific categories, but when it comes to ads that are being automatically placed in a piece of content via things like an ad distribution network, there is not that much money there. There just isn't. On one hand, my numbers are slightly better than others. On the other hand, they're actually quite a bit worse. And if you're wondering about how YouTube Premium factors in, it used to pay slightly higher than average, but recently it's down by like 80% of what I would expect from traditional CPMs. So, I actually make a tiny tiny bit more money off of people watching without premium than with. But to be frank, I don't care. Watch my videos you want. Watch them with ad block. It doesn't make an actual difference to my income because these numbers are not enough to even come close to funding the business. That's why I turned off mid rolls. And even with mid rolls on, my revenue was not great. It was at best, I think I had a $9,000 month once. The vast majority of my income for the channel comes from sponsors by like more than a 30x difference. It is so absurd. I make more off of one ad than I make per month on the channel consistently. I need you guys to understand sponsors are what makes this all work. Without them, we die. Which is why seeing a company going all in on ads like this is interesting because ads don't make jack [ __ ] [ __ ] for revenue. I also know this because I worked at Twitch for a while and we worked really hard to try and make ads on Twitch profitable. It was hard to even get ads to a point where they would pay for the bandwidth to send them to you, much less the engineers working on it, much less the cost of everything else that we were worried about like distributing the actual content. Ads is a very hard business to make money in, which is why there's only two companies that consistently do it, Google and Meta. And a big part of how they do it is because they have incredibly sharp targeting with their ad platforms. They know so much about the people that they are giving ads to that they can get really really specific and give brands all these knobs to tune to get the exact type of person they want. If they want fathers between ages 20 and 24 who had a coke recently in Detroit, they can target down to that level because they have so much information no one else does. OpenAI might have some information that's useful through memory and whatnot, but they're also talking differently about how they plan to target so specifically. They specify that they will not accept money to influence the answers that CHGBT gives you. The conversations will be private from advertisers, but this wording is very sus. We'll keep your conversations private from advertisers. What they won't keep private is what they know about you. They might not necessarily share that directly with the advertisers, but they will use the information they have based on your chat history to add all of these knobs that the advertisers can use to target specific demographics. That is scary and it's not a thing most people would want to do. Funny enough, in 2024, Sam even said as much. I kind of think of ads as like a last resort for us for a business model. Um, I would do it if it meant that was the only way to get everybody on the world in the world like access to great services. But if we can find something that doesn't do that, I'd prefer that. >> Yeah, very clear he did not want to do this. So part of the bet here is that people will get personal enough with their use of chat GPT that it will know way too much about them so they can target better and hopefully make a little bit more money from said ads. I wish them luck because doing this right is really, really, really hard. And again, if you don't want ads and you only want to pay eight bucks, bad news, price actually $1 for your first month on T3 chat. Just use code adfree at checkout. And just as a nice reminder of how much these companies know about you, Signal tried to do a transparent ad campaign on Instagram and Facebook refused to let them and banned their account as a result. My assumption is they were saying things about how they won't track you. You got this ad because you're a teacher, but more importantly, you're a Leo and single. This ad used your location to see that you're in Moscow. You like to support sketch comedy, and this ad thinks you do drag. This is again cuz they have all this info, so they can make custom ads based on the knobs. Usually people have specific people they want to target and they use the knobs to target them. This is the opposite. Signal wanted to use the knobs as the ad itself and they did not like that. So they got banned because this is a huge threat to the model. Instagram, Facebook, Google and all of these things. If you knew as the user how much they knew about you, you would stop. And you know that classic conspiracy everybody's always worried about the classic your phone listens to you. It does not. This is factually false. That is so easy to verify. What's actually happening is way scarier. If you're talking about something with someone and then you go use Instagram and you get an ad for it, you're freaking out because you think it heard the conversation. What they did was way worse. You saw the ad before, didn't realize, and it influenced the conversation. It's not that the phone knows what you're talking about. It's that your phone tells you what to talk about. Terrifying if you think about it. But now there's a company that you actually talk to a bunch on your phone. a company that people regularly use the product of with their mic just on chat GPT. I know a lot of people who have been oneshot by the ChatGpt app and they just have it on for their whole car ride. They just talk to their phone and have it answer questions and things. That chat history is part of OpenAI's profile of you, their understanding of you, their memory of you. Memory might seem cool as a feature, but it's also an insane method to target very, very specific details about you. Yeah, that's the only reason OpenAI has any chance in the ad market is they have so much information, but that also is sketchy as hell and you should be somewhat concerned. I wouldn't touch this tier with a 10-ft pole personally, but like I'm also on the $200 a month tier cuz I abuse it in Codeex, so judge me for all of the above and more. I deserve it. Take it from the person who bet way too much of their career on an $8 a month sub. This is going to be a hard play for them to maintain. I'm curious how it goes and how people end up feeling about these ads. Let me know how you feel about all this in the comments. And until next time, peace nerds."
+}

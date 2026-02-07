@@ -1,0 +1,3352 @@
+{
+  "channel": {
+    "id": "50b94418-f587-4b26-9ed9-353d8d39e6d7",
+    "databaseId": "50b94418-f587-4b26-9ed9-353d8d39e6d7",
+    "name": "Waldemar Neto - Dev Lab",
+    "description": "On this channel, you’ll find advanced content about software development, technical leadership, and software architecture, presented in a practical and accessible way."
+  },
+  "videoId": "-jPYunHFGL4",
+  "title": "Meu fluxo COMPLETO de desenvolvimento avançado com IA",
+  "url": "https://www.youtube.com/watch?v=-jPYunHFGL4",
+  "publishedAt": "2026-01-24T17:45:28.106Z",
+  "description": "💎 Workshop de IA Avançado, vagas limitadas https://tinyurl.com/kaft5j4d\n\nNeste vídeo, mostro meu fluxo COMPLETO de desenvolvimento com IA - do design doc ao código em produção. Aprenda o 80/20 de como trabalhar com IA para aumentar muito a tua produtividade.\n\n💡 Principais conceitos abordados:\n- Contexto vs Prompts\n- 80/20 do desenvolvimento com IA\n- Diferença entre MCP, Skills e Agents\n- Como usar Cursor, Atlassian MCP e outras ferramentas\n- Paralelização de tasks para ganhar tempo\n\n🚨 Se inscreva na live grátis sobre Skills, Rules e contexto no dia 29/01 https://tinyurl.com/2wjttx7c\n\nAssista ao meu vídeo anterior sobre RPI e Context Engineering  https://youtu.be/8fZUfVFWT4M\n\n📄 Link para o Technical Design Doc que mostrei https://drive.google.com/file/d/1LrCv_NS8o5jHjGpQeyVx3WssqpmbHqCY/view?usp=drive_link\n\n⏱ Timestamps\n00:00 - Introdução: Feature complexa em minutos com IA\n00:11 - O princípio 80/20 do desenvolvimento com IA\n00:40 - O que você vai aprender neste vídeo\n01:07 - Pré-requisito #1: Fonte do contexto (Design Docs)\n01:38 - Exemplo prático: usando Confluence para design doc\n04:02 - Pré-requisito #2: Setup no repositório (vamos pro código)\n04:13 - O mínimo para ter efetividade com IA no repositório\n04:28 - Rules, Skills e Agents: qual a diferença?\n06:23 - MCPs: o que são e para que servem\n07:36 - Usando MCP para buscar contexto remoto (Atlassian)\n07:43 - MCP vs Skills vs Documentação (explicado)\n10:44 - Contexto bem estruturado é o que importa\n14:36 - Review e aprovação: você é o engenheiro\n16:09 - Trabalhando em paralelo: múltiplas tasks simultâneas\n21:24 - Resultado: MVP completo seguindo todos os padrões\n\n⚡ A feature desenvolvida:\nIntegração completa com Stripe (billing) - setup de credenciais, criação de clientes, gerenciamento de assinaturas, migrations de banco e muito mais.\n\n🎯 Para quem é este vídeo:\nDesenvolvedores que querem trabalhar de forma mais inteligente (não mais duro) usando IA como um multiplicador de força.",
+  "thumbnailUrl": "https://i.ytimg.com/vi_webp/-jPYunHFGL4/maxresdefault.webp",
+  "transcript": [
+    {
+      "text": "E aí, nesse vídeo vou te mostrar o fluxo",
+      "duration": 3480,
+      "offset": 120
+    },
+    {
+      "text": "completo de desenvolvimento de uma",
+      "duration": 4320,
+      "offset": 2280
+    },
+    {
+      "text": "funcionalidade complexa 100% com IA,",
+      "duration": 5280,
+      "offset": 3600
+    },
+    {
+      "text": "algo que levaria dias para ser feito em",
+      "duration": 4640,
+      "offset": 6600
+    },
+    {
+      "text": "alguns minutos com 100% de segurança.",
+      "duration": 4520,
+      "offset": 8880
+    },
+    {
+      "text": "Esse aqui é o 8020. Entendendo essas",
+      "duration": 4319,
+      "offset": 11240
+    },
+    {
+      "text": "coisas já vai ter um ganho absurdo de",
+      "duration": 3959,
+      "offset": 13400
+    },
+    {
+      "text": "produtividade. Depois desse vídeo, tu",
+      "duration": 4441,
+      "offset": 15559
+    },
+    {
+      "text": "vai conseguir desenvolver end to end cuá",
+      "duration": 4881,
+      "offset": 17359
+    },
+    {
+      "text": "em qualquer cod base de qualquer tamanho",
+      "duration": 4840,
+      "offset": 20000
+    },
+    {
+      "text": "e ganhar muita produtividade. E fica até",
+      "duration": 4359,
+      "offset": 22240
+    },
+    {
+      "text": "o final porque no fim eu mostro o que eu",
+      "duration": 3359,
+      "offset": 24840
+    },
+    {
+      "text": "acho que é a cereja do bolo do",
+      "duration": 3600,
+      "offset": 26599
+    },
+    {
+      "text": "desenvolvimento avançado com IAR. Eu sou",
+      "duration": 3361,
+      "offset": 28199
+    },
+    {
+      "text": "Valdemar Neto e eu falo sobre",
+      "duration": 2961,
+      "offset": 30199
+    },
+    {
+      "text": "desenvolvimento de software avançado,",
+      "duration": 3839,
+      "offset": 31560
+    },
+    {
+      "text": "liderança e IAR. E se tu não me segue",
+      "duration": 4719,
+      "offset": 33160
+    },
+    {
+      "text": "ainda, segue aqui, comenta, dá like e",
+      "duration": 4160,
+      "offset": 35399
+    },
+    {
+      "text": "ajuda bastante o canal a crescer. E o",
+      "duration": 2881,
+      "offset": 37879
+    },
+    {
+      "text": "que que a gente vai ver nesse vídeo aqui",
+      "duration": 2520,
+      "offset": 39559
+    },
+    {
+      "text": "na prática? Primeiro, o que que é",
+      "duration": 2840,
+      "offset": 40760
+    },
+    {
+      "text": "preciso para desenvolver uma feature com",
+      "duration": 3441,
+      "offset": 42079
+    },
+    {
+      "text": "IA? Todo o fluxo necessário. Qual o",
+      "duration": 4200,
+      "offset": 43600
+    },
+    {
+      "text": "setup mínimo necessário da IA no",
+      "duration": 3719,
+      "offset": 45520
+    },
+    {
+      "text": "repositório para ter uma boa",
+      "duration": 3680,
+      "offset": 47800
+    },
+    {
+      "text": "produtividade? Qual o papel de rules,",
+      "duration": 5000,
+      "offset": 49239
+    },
+    {
+      "text": "skills e MCPs e documentação na criação",
+      "duration": 4440,
+      "offset": 51480
+    },
+    {
+      "text": "do contexto e no desenvolvimento da",
+      "duration": 3721,
+      "offset": 54239
+    },
+    {
+      "text": "feature? Como desenvolver mantendo o",
+      "duration": 4799,
+      "offset": 55920
+    },
+    {
+      "text": "contexto baixo e como paralelizar",
+      "duration": 4520,
+      "offset": 57960
+    },
+    {
+      "text": "tarefas. Então, com isso aqui, tu vai",
+      "duration": 3361,
+      "offset": 60719
+    },
+    {
+      "text": "est pronto para desenvolver em grande",
+      "duration": 3039,
+      "offset": 62480
+    },
+    {
+      "text": "escala. Nesse nosso fluxo, a gente vai",
+      "duration": 2480,
+      "offset": 64080
+    },
+    {
+      "text": "estar olhando para coisas muito",
+      "duration": 3161,
+      "offset": 65519
+    },
+    {
+      "text": "importantes. Primeiro, a fonte do",
+      "duration": 4720,
+      "offset": 66560
+    },
+    {
+      "text": "contexto. De onde vem o contexto. Um uma",
+      "duration": 4799,
+      "offset": 68680
+    },
+    {
+      "text": "boa engenharia de contexto vem de tu ter",
+      "duration": 4640,
+      "offset": 71280
+    },
+    {
+      "text": "bons design docs, boas referências de",
+      "duration": 4561,
+      "offset": 73479
+    },
+    {
+      "text": "contexto. Se teu time e a tua empresa já",
+      "duration": 4440,
+      "offset": 75920
+    },
+    {
+      "text": "são acostumados a escrever RFCs, ADRs,",
+      "duration": 5640,
+      "offset": 78040
+    },
+    {
+      "text": "design docs eh PRDs, tá em um ótimo",
+      "duration": 4920,
+      "offset": 80360
+    },
+    {
+      "text": "lugar. Senão é uma coisa que tu vai ter",
+      "duration": 3119,
+      "offset": 83680
+    },
+    {
+      "text": "que começar a exercitar, porque quanto",
+      "duration": 4120,
+      "offset": 85280
+    },
+    {
+      "text": "mais contexto tem com expectativas do",
+      "duration": 4401,
+      "offset": 86799
+    },
+    {
+      "text": "negócio, expectativas do que que tem ser",
+      "duration": 3960,
+      "offset": 89400
+    },
+    {
+      "text": "feito, mais fácil vai ser estudar",
+      "duration": 4320,
+      "offset": 91200
+    },
+    {
+      "text": "contexto para IAT. Então tudo começa",
+      "duration": 3840,
+      "offset": 93360
+    },
+    {
+      "text": "aqui, a parte de discover, o que que tem",
+      "duration": 3279,
+      "offset": 95520
+    },
+    {
+      "text": "que ser feito, a funcionalidade. Então",
+      "duration": 3320,
+      "offset": 97200
+    },
+    {
+      "text": "no meu exemplo eu vou usar o confluence",
+      "duration": 4201,
+      "offset": 98799
+    },
+    {
+      "text": "para pegar um design doc e usar como",
+      "duration": 4120,
+      "offset": 100520
+    },
+    {
+      "text": "contexto. Vocês podem criar no",
+      "duration": 3159,
+      "offset": 103000
+    },
+    {
+      "text": "repositório, podem usar o notion, usar o",
+      "duration": 3560,
+      "offset": 104640
+    },
+    {
+      "text": "que vocês quiserem. O importante é criar",
+      "duration": 4121,
+      "offset": 106159
+    },
+    {
+      "text": "o contexto para começar. Depois eu vou",
+      "duration": 3680,
+      "offset": 108200
+    },
+    {
+      "text": "usar o cursor. Vocês podem usar qualquer",
+      "duration": 3839,
+      "offset": 110280
+    },
+    {
+      "text": "ferramenta como ferramenta central. Essa",
+      "duration": 3760,
+      "offset": 111880
+    },
+    {
+      "text": "ferramenta vai pegar um design doc, vai",
+      "duration": 3161,
+      "offset": 114119
+    },
+    {
+      "text": "quebrar ele em tarefas, vai colocar",
+      "duration": 3640,
+      "offset": 115640
+    },
+    {
+      "text": "essas tarefas no gira, a partir dessas",
+      "duration": 4080,
+      "offset": 117280
+    },
+    {
+      "text": "tarefas começar a fazer uma a uma nas",
+      "duration": 4759,
+      "offset": 119280
+    },
+    {
+      "text": "funcionalidades e aí basear, usar as",
+      "duration": 4799,
+      "offset": 121360
+    },
+    {
+      "text": "guidelines como base, criar planos a",
+      "duration": 4360,
+      "offset": 124039
+    },
+    {
+      "text": "partir delas. Mas esse é o fluxo que",
+      "duration": 4440,
+      "offset": 126159
+    },
+    {
+      "text": "vocês devem focar de ter sempre ter uma",
+      "duration": 4401,
+      "offset": 128399
+    },
+    {
+      "text": "fonte da verdade, foi revisada por",
+      "duration": 3761,
+      "offset": 130599
+    },
+    {
+      "text": "humano, escrita por humanos, a partir",
+      "duration": 3920,
+      "offset": 132800
+    },
+    {
+      "text": "dali tu não escreve mais nada, tu usa i",
+      "duration": 3920,
+      "offset": 134360
+    },
+    {
+      "text": "para ir enriquecendo aquele contexto e",
+      "duration": 3080,
+      "offset": 136720
+    },
+    {
+      "text": "criando o código. Vamos ver na prática",
+      "duration": 3120,
+      "offset": 138280
+    },
+    {
+      "text": "aqui. Mas o que que é a funcionalidade",
+      "duration": 2920,
+      "offset": 139800
+    },
+    {
+      "text": "que a gente vai desenvolver? é uma",
+      "duration": 3360,
+      "offset": 141400
+    },
+    {
+      "text": "integração com o stripe. Então a gente",
+      "duration": 3239,
+      "offset": 142720
+    },
+    {
+      "text": "vai pegar um code base que eu vou",
+      "duration": 2600,
+      "offset": 144760
+    },
+    {
+      "text": "mostrar que é um code base complexo",
+      "duration": 3121,
+      "offset": 145959
+    },
+    {
+      "text": "baseado em um code base real que eu",
+      "duration": 4480,
+      "offset": 147360
+    },
+    {
+      "text": "copiei com IAI e mudei algumas coisas. E",
+      "duration": 4320,
+      "offset": 149080
+    },
+    {
+      "text": "esse code base tem uma parte de",
+      "duration": 3360,
+      "offset": 151840
+    },
+    {
+      "text": "assinaturas e a gente vai começar a usar",
+      "duration": 3640,
+      "offset": 153400
+    },
+    {
+      "text": "o Stripe como gateway de pagamento, ou",
+      "duration": 3840,
+      "offset": 155200
+    },
+    {
+      "text": "seja, fazer uma integração com um novo",
+      "duration": 3680,
+      "offset": 157040
+    },
+    {
+      "text": "vendor. Um design doc, que é esse",
+      "duration": 2839,
+      "offset": 159040
+    },
+    {
+      "text": "documento que eu tô mostrando aqui para",
+      "duration": 3439,
+      "offset": 160720
+    },
+    {
+      "text": "vocês, é uma boa prática de engenharia,",
+      "duration": 4401,
+      "offset": 161879
+    },
+    {
+      "text": "ou seja, produto e engenharia fazem uma",
+      "duration": 3961,
+      "offset": 164159
+    },
+    {
+      "text": "discovery e transforma essa discovery em",
+      "duration": 3599,
+      "offset": 166280
+    },
+    {
+      "text": "um design doc. Tem todo o contexto do",
+      "duration": 3560,
+      "offset": 168120
+    },
+    {
+      "text": "projeto. Aqui ele explica, ó, fake flix,",
+      "duration": 4321,
+      "offset": 169879
+    },
+    {
+      "text": "que é meu sistema fake de streaming. Ele",
+      "duration": 4160,
+      "offset": 171680
+    },
+    {
+      "text": "explica o motivo dele, ó. Ele é um",
+      "duration": 3280,
+      "offset": 174200
+    },
+    {
+      "text": "sistema de streaming, quer botar um novo",
+      "duration": 3880,
+      "offset": 175840
+    },
+    {
+      "text": "gator de pagamento. Aqui tem todos toda",
+      "duration": 4440,
+      "offset": 177480
+    },
+    {
+      "text": "a descrição, todo o contexto do que vai",
+      "duration": 3920,
+      "offset": 179720
+    },
+    {
+      "text": "ser feito, as APIs que vão ser usadas.",
+      "duration": 4000,
+      "offset": 181920
+    },
+    {
+      "text": "Aqui pode ser um humano junto como a IA",
+      "duration": 4200,
+      "offset": 183640
+    },
+    {
+      "text": "explorando isso, né? Fazendo uma poque",
+      "duration": 3840,
+      "offset": 185920
+    },
+    {
+      "text": "ali. Então a gente definiu o MVP que vai",
+      "duration": 4560,
+      "offset": 187840
+    },
+    {
+      "text": "ser um fluxo de teste gratuito. Primeira",
+      "duration": 3920,
+      "offset": 189760
+    },
+    {
+      "text": "parte para você não precisar lidar com",
+      "duration": 2919,
+      "offset": 192400
+    },
+    {
+      "text": "cartão de crédito, esse tipo de coisa.",
+      "duration": 3680,
+      "offset": 193680
+    },
+    {
+      "text": "Aqui ele explica todo o fluxo e aqui",
+      "duration": 3560,
+      "offset": 195319
+    },
+    {
+      "text": "embaixo tem as tarefas. Isso é muito",
+      "duration": 4480,
+      "offset": 197360
+    },
+    {
+      "text": "importante num design doc tu listar as",
+      "duration": 4720,
+      "offset": 198879
+    },
+    {
+      "text": "coisas principais da tua exploração, se",
+      "duration": 3440,
+      "offset": 201840
+    },
+    {
+      "text": "tu tá liderando aun funcionalidade,",
+      "duration": 3481,
+      "offset": 203599
+    },
+    {
+      "text": "quais são as coisas principais e se elas",
+      "duration": 3239,
+      "offset": 205280
+    },
+    {
+      "text": "estão definidas ou não. Então vai ter um",
+      "duration": 3159,
+      "offset": 207080
+    },
+    {
+      "text": "setup de crencial, vai ter um setup do",
+      "duration": 3681,
+      "offset": 208519
+    },
+    {
+      "text": "ambiente de teste, vai ter criação de",
+      "duration": 4360,
+      "offset": 210239
+    },
+    {
+      "text": "clientes, né, no lado da nossa API e no",
+      "duration": 4480,
+      "offset": 212200
+    },
+    {
+      "text": "lado do Stripe também. Ah, o",
+      "duration": 3961,
+      "offset": 214599
+    },
+    {
+      "text": "gerenciamento de métodos de pagamento tá",
+      "duration": 3800,
+      "offset": 216680
+    },
+    {
+      "text": "indefinido, mas tá fora do escopo. Então",
+      "duration": 3840,
+      "offset": 218560
+    },
+    {
+      "text": "tá tudo que tá definido aqui e o que tá",
+      "duration": 3440,
+      "offset": 220480
+    },
+    {
+      "text": "indefinido a gente vai deixar fora do",
+      "duration": 3759,
+      "offset": 222400
+    },
+    {
+      "text": "MVP, né? Então esse é o design doc, esse",
+      "duration": 3840,
+      "offset": 223920
+    },
+    {
+      "text": "é o contexto que a gente precisa do que",
+      "duration": 3041,
+      "offset": 226159
+    },
+    {
+      "text": "que vai ser feito. Pensem assim, isso",
+      "duration": 2960,
+      "offset": 227760
+    },
+    {
+      "text": "aqui é um projeto grande e ainda não",
+      "duration": 3480,
+      "offset": 229200
+    },
+    {
+      "text": "tenho tarefas. Se você já tem tarefas, o",
+      "duration": 3799,
+      "offset": 230720
+    },
+    {
+      "text": "contexto é a tarefa que vai ser feita. E",
+      "duration": 3399,
+      "offset": 232680
+    },
+    {
+      "text": "eu também vou disponibilizar esse",
+      "duration": 3521,
+      "offset": 234519
+    },
+    {
+      "text": "documento como PDF para vocês poderem",
+      "duration": 4281,
+      "offset": 236079
+    },
+    {
+      "text": "ver e usar como base pros de vocês.",
+      "duration": 4080,
+      "offset": 238040
+    },
+    {
+      "text": "Então vamos lá, vamos pro código. Eu o",
+      "duration": 4000,
+      "offset": 240360
+    },
+    {
+      "text": "que que eu vou usar aqui como base? é um",
+      "duration": 4039,
+      "offset": 242120
+    },
+    {
+      "text": "monorrepo de uma aplicação modular que",
+      "duration": 3959,
+      "offset": 244360
+    },
+    {
+      "text": "eu tenho dentro da comunidade clube. E a",
+      "duration": 3681,
+      "offset": 246159
+    },
+    {
+      "text": "gente vai estocando nesse módulo de",
+      "duration": 3321,
+      "offset": 248319
+    },
+    {
+      "text": "billing aqui, que é onde vai ficar a",
+      "duration": 3200,
+      "offset": 249840
+    },
+    {
+      "text": "integração com o Stripe. O que que é o",
+      "duration": 3480,
+      "offset": 251640
+    },
+    {
+      "text": "mínimo que eu preciso ter para ter muita",
+      "duration": 4159,
+      "offset": 253040
+    },
+    {
+      "text": "efetividade com IA no repositório? é o",
+      "duration": 4239,
+      "offset": 255120
+    },
+    {
+      "text": "setup do conhecimento, do contexto.",
+      "duration": 3521,
+      "offset": 257199
+    },
+    {
+      "text": "Então, no caso aqui, eu uso o cursor,",
+      "duration": 2440,
+      "offset": 259359
+    },
+    {
+      "text": "mas as coisas que eu vou mostrar",
+      "duration": 3280,
+      "offset": 260720
+    },
+    {
+      "text": "funcionam para qualquer agente moderno",
+      "duration": 4481,
+      "offset": 261799
+    },
+    {
+      "text": "dos dias de hoje, menos rules que são do",
+      "duration": 4720,
+      "offset": 264000
+    },
+    {
+      "text": "cursor, mais rules elas fazem o mesmo",
+      "duration": 5479,
+      "offset": 266280
+    },
+    {
+      "text": "que o agents.m faz e que as skills fazem",
+      "duration": 5400,
+      "offset": 268720
+    },
+    {
+      "text": "também, só que o mercado separou, né?",
+      "duration": 5160,
+      "offset": 271759
+    },
+    {
+      "text": "Um, ficou a documentação no agents. MD e",
+      "duration": 6200,
+      "offset": 274120
+    },
+    {
+      "text": "execução de capacidades ficou em skills.",
+      "duration": 5681,
+      "offset": 276919
+    },
+    {
+      "text": "Então, o cursor adota os dois. E aqui eu",
+      "duration": 3599,
+      "offset": 280320
+    },
+    {
+      "text": "vou usar um exemplo, mas o que que",
+      "duration": 3840,
+      "offset": 282600
+    },
+    {
+      "text": "importa? As minhas rules aqui é seriam",
+      "duration": 5401,
+      "offset": 283919
+    },
+    {
+      "text": "similares vocês terem um ags. Macdal ou",
+      "duration": 5360,
+      "offset": 286440
+    },
+    {
+      "text": "algo assim? Elas têm só o básico da",
+      "duration": 4240,
+      "offset": 289320
+    },
+    {
+      "text": "estrutura do projeto, tá? Essa aqui",
+      "duration": 2839,
+      "offset": 291800
+    },
+    {
+      "text": "sempre carrega. Então, sempre que",
+      "duration": 2800,
+      "offset": 293560
+    },
+    {
+      "text": "iniciar um contexto de a, ele vai",
+      "duration": 3921,
+      "offset": 294639
+    },
+    {
+      "text": "carregar isso aqui. E aqui ele aprende o",
+      "duration": 4640,
+      "offset": 296360
+    },
+    {
+      "text": "básico da estrutura do meu projeto e",
+      "duration": 5160,
+      "offset": 298560
+    },
+    {
+      "text": "aonde tá o resto da documentação. Olha,",
+      "duration": 5199,
+      "offset": 301000
+    },
+    {
+      "text": "se uma tesque envolve criar o modif",
+      "duration": 4640,
+      "offset": 303720
+    },
+    {
+      "text": "modificar módulos, usa esse aqui. Se",
+      "duration": 4801,
+      "offset": 306199
+    },
+    {
+      "text": "envolve entidades do banco de dados, usa",
+      "duration": 4839,
+      "offset": 308360
+    },
+    {
+      "text": "esse aqui. Se envolve criar controllers",
+      "duration": 4360,
+      "offset": 311000
+    },
+    {
+      "text": "ou services, usa esse daqui. E aí dentro",
+      "duration": 4881,
+      "offset": 313199
+    },
+    {
+      "text": "de docs, eu tenho os docs aqui. Dessa",
+      "duration": 5360,
+      "offset": 315360
+    },
+    {
+      "text": "maneira, ela vai buscando sobre demanda",
+      "duration": 4360,
+      "offset": 318080
+    },
+    {
+      "text": "quando precisa. Se vocês não viram o meu",
+      "duration": 3360,
+      "offset": 320720
+    },
+    {
+      "text": "vídeo anterior que eu mostro a teoria",
+      "duration": 3240,
+      "offset": 322440
+    },
+    {
+      "text": "disso aqui tudo, deiem uma olhada que eu",
+      "duration": 3880,
+      "offset": 324080
+    },
+    {
+      "text": "falo de progressive disclosure, falo de",
+      "duration": 4480,
+      "offset": 325680
+    },
+    {
+      "text": "RPI, que eu vou falar aqui também que é",
+      "duration": 3920,
+      "offset": 327960
+    },
+    {
+      "text": "research plan implement. Então dei uma",
+      "duration": 3159,
+      "offset": 330160
+    },
+    {
+      "text": "olhada nesse naquele vídeo. Esse vídeo é",
+      "duration": 3240,
+      "offset": 331880
+    },
+    {
+      "text": "a parte prática daquele vídeo, beleza?",
+      "duration": 3801,
+      "offset": 333319
+    },
+    {
+      "text": "Então carregou isso daqui, ela já sabe,",
+      "duration": 3960,
+      "offset": 335120
+    },
+    {
+      "text": "cara, se eu precisar fazer algo, eu vou",
+      "duration": 3280,
+      "offset": 337120
+    },
+    {
+      "text": "buscar nesses arquivos. Essa é a",
+      "duration": 3760,
+      "offset": 339080
+    },
+    {
+      "text": "primeira coisa. Segunda coisa, skills.",
+      "duration": 4200,
+      "offset": 340400
+    },
+    {
+      "text": "Pô, eu tenho que bater no confluence",
+      "duration": 3400,
+      "offset": 342840
+    },
+    {
+      "text": "para pegar um design doc. Eu tenho que",
+      "duration": 3200,
+      "offset": 344600
+    },
+    {
+      "text": "bater no gira para criar uma tesque. Eu",
+      "duration": 2679,
+      "offset": 346240
+    },
+    {
+      "text": "não vou ficar dando prompt para isso",
+      "duration": 2360,
+      "offset": 347800
+    },
+    {
+      "text": "toda vez. Eu venho aqui e crio uma",
+      "duration": 3400,
+      "offset": 348919
+    },
+    {
+      "text": "skill. Então, a skill é um contexto",
+      "duration": 4240,
+      "offset": 350160
+    },
+    {
+      "text": "especializado em fazer isso. Ela sabe,",
+      "duration": 3641,
+      "offset": 352319
+    },
+    {
+      "text": "ela sabe, por exemplo, qual que é a",
+      "duration": 3280,
+      "offset": 354400
+    },
+    {
+      "text": "minha instância do conflence, ela sabe",
+      "duration": 5880,
+      "offset": 355960
+    },
+    {
+      "text": "bater lá, ela sabe usar o MCP da Atlacen",
+      "duration": 5480,
+      "offset": 357680
+    },
+    {
+      "text": "para fazer isso que eu vou mostrar.",
+      "duration": 2639,
+      "offset": 361840
+    },
+    {
+      "text": "Então, a skill é para isso. Eu não vou",
+      "duration": 2800,
+      "offset": 363160
+    },
+    {
+      "text": "explicar tudo como criar uma skill aqui,",
+      "duration": 3681,
+      "offset": 364479
+    },
+    {
+      "text": "porque eu vou ter uma live dia 29/01 só",
+      "duration": 3679,
+      "offset": 365960
+    },
+    {
+      "text": "focado em skills. Então, vou deixar o",
+      "duration": 3039,
+      "offset": 368160
+    },
+    {
+      "text": "link aqui embaixo. Tem outra skill que é",
+      "duration": 3280,
+      "offset": 369639
+    },
+    {
+      "text": "o giro. Então, mesma coisa, né? Como",
+      "duration": 3481,
+      "offset": 371199
+    },
+    {
+      "text": "criar tesque no meu giro, como buscar",
+      "duration": 3641,
+      "offset": 372919
+    },
+    {
+      "text": "tesques do meu giro. Tudo aqui bem",
+      "duration": 3639,
+      "offset": 374680
+    },
+    {
+      "text": "específico, a gente vai ver na prática.",
+      "duration": 4039,
+      "offset": 376560
+    },
+    {
+      "text": "E a última coisa que a gente tem que ver",
+      "duration": 4921,
+      "offset": 378319
+    },
+    {
+      "text": "pro nosso fluxo ficar perfeito é os",
+      "duration": 4761,
+      "offset": 380599
+    },
+    {
+      "text": "MCPs. Qual os MCPs que eu botei aqui? O",
+      "duration": 4200,
+      "offset": 383240
+    },
+    {
+      "text": "da Atlas para bater nas ferramentas e o",
+      "duration": 3239,
+      "offset": 385360
+    },
+    {
+      "text": "do Contactex Sev para mim ter",
+      "duration": 2759,
+      "offset": 387440
+    },
+    {
+      "text": "documentação atualizada. Deixei só esses",
+      "duration": 2961,
+      "offset": 388599
+    },
+    {
+      "text": "para não confundir ninguém e esses são",
+      "duration": 3961,
+      "offset": 390199
+    },
+    {
+      "text": "os que eu mais uso. Beleza? Com isso eu",
+      "duration": 5160,
+      "offset": 391560
+    },
+    {
+      "text": "já consigo fazer uma funcionalidade",
+      "duration": 5360,
+      "offset": 394160
+    },
+    {
+      "text": "inteira sem ter que mudar quase nada",
+      "duration": 4440,
+      "offset": 396720
+    },
+    {
+      "text": "porque eu tenho todo o conhecimento do",
+      "duration": 3200,
+      "offset": 399520
+    },
+    {
+      "text": "meu projeto aqui. Muito importante,",
+      "duration": 3439,
+      "offset": 401160
+    },
+    {
+      "text": "galera. Aqui, ó, minhas documentação,",
+      "duration": 3919,
+      "offset": 402720
+    },
+    {
+      "text": "tem a estrutura de todo o meu projeto,",
+      "duration": 4281,
+      "offset": 404599
+    },
+    {
+      "text": "né? né? Então aqui eu tenho eh como é",
+      "duration": 4000,
+      "offset": 406639
+    },
+    {
+      "text": "uma uma aplicação modular, eu tenho que",
+      "duration": 4400,
+      "offset": 408880
+    },
+    {
+      "text": "explicar as lógicas da modularização. Eu",
+      "duration": 5601,
+      "offset": 410639
+    },
+    {
+      "text": "também tenho os meus padrões de código",
+      "duration": 4840,
+      "offset": 413280
+    },
+    {
+      "text": "do meu projeto. Isso aqui é coisa que a",
+      "duration": 3760,
+      "offset": 416240
+    },
+    {
+      "text": "gente vai evoluindo ao longo do tempo.",
+      "duration": 3919,
+      "offset": 418120
+    },
+    {
+      "text": "Então pensem, para mim fazer uma coisa",
+      "duration": 4319,
+      "offset": 420000
+    },
+    {
+      "text": "em uma hora que ia levar 7 dias, eu",
+      "duration": 3880,
+      "offset": 422039
+    },
+    {
+      "text": "levei um tempo até criar esse contexto.",
+      "duration": 3280,
+      "offset": 424319
+    },
+    {
+      "text": "Então isso é normal. Vocês vocês vão",
+      "duration": 3481,
+      "offset": 425919
+    },
+    {
+      "text": "levar alguns dias até ter um bom",
+      "duration": 3440,
+      "offset": 427599
+    },
+    {
+      "text": "contexto pro projeto, mas quando tiver",
+      "duration": 3320,
+      "offset": 429400
+    },
+    {
+      "text": "ficar muito assertivo. Beleza? Então",
+      "duration": 2401,
+      "offset": 431039
+    },
+    {
+      "text": "agora a gente vai começar uma",
+      "duration": 2240,
+      "offset": 432720
+    },
+    {
+      "text": "funcionalidade. Vou criar um novo agente",
+      "duration": 3439,
+      "offset": 433440
+    },
+    {
+      "text": "aqui. Vou fechar essa parte modelos. A",
+      "duration": 3400,
+      "offset": 434960
+    },
+    {
+      "text": "gente vai est vendo também estratégia de",
+      "duration": 3160,
+      "offset": 436879
+    },
+    {
+      "text": "qual modelo usar. Mas eu vou dizer",
+      "duration": 4360,
+      "offset": 438360
+    },
+    {
+      "text": "baseado nesse design doc, design do",
+      "duration": 8041,
+      "offset": 440039
+    },
+    {
+      "text": "baseado no MVP desse design doc. Avalie",
+      "duration": 8720,
+      "offset": 442720
+    },
+    {
+      "text": "design doc. Avalie se tudo que precisa",
+      "duration": 7440,
+      "offset": 448080
+    },
+    {
+      "text": "para fazer o MVP está definido, tá? Vou",
+      "duration": 5360,
+      "offset": 451440
+    },
+    {
+      "text": "mandar ele fazer isso aqui. Ele vai usar",
+      "duration": 3560,
+      "offset": 455520
+    },
+    {
+      "text": "o MCP, vai bater lá na Atlas e vai pegar",
+      "duration": 4160,
+      "offset": 456800
+    },
+    {
+      "text": "ele e vai parciar o conteúdo e vai me",
+      "duration": 4119,
+      "offset": 459080
+    },
+    {
+      "text": "dizer qual a diferença do MCP de skill e",
+      "duration": 4280,
+      "offset": 460960
+    },
+    {
+      "text": "documentação. MCP é para coisas remotas,",
+      "duration": 2921,
+      "offset": 463199
+    },
+    {
+      "text": "né? Quando a gente precisa do",
+      "duration": 2359,
+      "offset": 465240
+    },
+    {
+      "text": "conhecimento que tá em outro lugar.",
+      "duration": 3160,
+      "offset": 466120
+    },
+    {
+      "text": "Então ele é um protocolo que unifica",
+      "duration": 4280,
+      "offset": 467599
+    },
+    {
+      "text": "tipo uma API para LLMs. Então e a gente",
+      "duration": 4400,
+      "offset": 469280
+    },
+    {
+      "text": "bate lá, pega o contexto e bota o",
+      "duration": 4681,
+      "offset": 471879
+    },
+    {
+      "text": "contexto aqui. Skill é local, tática",
+      "duration": 5079,
+      "offset": 473680
+    },
+    {
+      "text": "local no repositório. Então ele foi lá,",
+      "duration": 4240,
+      "offset": 476560
+    },
+    {
+      "text": "pegou e avaliou o que que tá definido,",
+      "duration": 3720,
+      "offset": 478759
+    },
+    {
+      "text": "que pode prosseguir, o setup inicial,",
+      "duration": 3679,
+      "offset": 480800
+    },
+    {
+      "text": "configuração de credenciais, gestão de",
+      "duration": 3961,
+      "offset": 482479
+    },
+    {
+      "text": "clientes, né, de customers e gestão de",
+      "duration": 3680,
+      "offset": 484479
+    },
+    {
+      "text": "assinatura. Os web hooks não estão",
+      "duration": 3479,
+      "offset": 486440
+    },
+    {
+      "text": "definidos a definidos ainda. Então pra",
+      "duration": 3480,
+      "offset": 488159
+    },
+    {
+      "text": "gente ter esse MVP completo, precisaria",
+      "duration": 3560,
+      "offset": 489919
+    },
+    {
+      "text": "ter o setup do web hook. Então, OK, pro",
+      "duration": 4280,
+      "offset": 491639
+    },
+    {
+      "text": "nosso nosso exemplo aqui, eu não vou não",
+      "duration": 4361,
+      "offset": 493479
+    },
+    {
+      "text": "vou não vou fazer isso. Tratamento de",
+      "duration": 3960,
+      "offset": 495919
+    },
+    {
+      "text": "erros e falhas de pagamentos também tá",
+      "duration": 3759,
+      "offset": 497840
+    },
+    {
+      "text": "como indefinido, mas a gente já tem o",
+      "duration": 3880,
+      "offset": 499879
+    },
+    {
+      "text": "MVP, né? Aqui, ó, a gente tem o MVP que",
+      "duration": 3801,
+      "offset": 501599
+    },
+    {
+      "text": "é essa parte. A gente pode criar essa",
+      "duration": 2840,
+      "offset": 503759
+    },
+    {
+      "text": "parte aqui, que é o que a gente vai",
+      "duration": 2919,
+      "offset": 505400
+    },
+    {
+      "text": "focar. Aqui tem mais algumas coisas,",
+      "duration": 3000,
+      "offset": 506599
+    },
+    {
+      "text": "pontos ausentes no documento,",
+      "duration": 3481,
+      "offset": 508319
+    },
+    {
+      "text": "arquitetura. O design Doc não define em",
+      "duration": 4201,
+      "offset": 509599
+    },
+    {
+      "text": "qual pack de módulo vai ficar, qual",
+      "duration": 5000,
+      "offset": 511800
+    },
+    {
+      "text": "estrutura padrão. Aí aqui provavelmente",
+      "duration": 5799,
+      "offset": 513800
+    },
+    {
+      "text": "porque a a IA não carregou meus padrões",
+      "duration": 4919,
+      "offset": 516800
+    },
+    {
+      "text": "de projeto, mas aqui, ó, l recomendação",
+      "duration": 4120,
+      "offset": 519599
+    },
+    {
+      "text": "ler architecture overview e defini uma",
+      "duration": 3281,
+      "offset": 521719
+    },
+    {
+      "text": "arquitetura modular. Então ele já",
+      "duration": 3680,
+      "offset": 523719
+    },
+    {
+      "text": "entendeu que ele vai ter que fazer. Ahã.",
+      "duration": 5399,
+      "offset": 525000
+    },
+    {
+      "text": "Agora eu vou quebrar tesques pra gente",
+      "duration": 4560,
+      "offset": 527399
+    },
+    {
+      "text": "começar a trabalhar que eu pedi para ele",
+      "duration": 3921,
+      "offset": 530399
+    },
+    {
+      "text": "criar me dizer quais são as tesques, não",
+      "duration": 3440,
+      "offset": 531959
+    },
+    {
+      "text": "criar porque ele vai criar no giro",
+      "duration": 2760,
+      "offset": 534320
+    },
+    {
+      "text": "depois. E a gente vai ver quais que vão",
+      "duration": 3241,
+      "offset": 535399
+    },
+    {
+      "text": "ser as tesques que ele vai sugerir.",
+      "duration": 3560,
+      "offset": 537080
+    },
+    {
+      "text": "Notem que aqui ele tá lendo o que",
+      "duration": 3800,
+      "offset": 538640
+    },
+    {
+      "text": "precisa, né? Pegou o coding pattern",
+      "duration": 3199,
+      "offset": 540640
+    },
+    {
+      "text": "state isolation porque tem que criar",
+      "duration": 3920,
+      "offset": 542440
+    },
+    {
+      "text": "tabelas. Então ele tá passando por todo",
+      "duration": 4440,
+      "offset": 543839
+    },
+    {
+      "text": "o nosso TDD, nosso technical design doc",
+      "duration": 3320,
+      "offset": 546360
+    },
+    {
+      "text": "e fazendo essas coisas. Então ele já vem",
+      "duration": 3240,
+      "offset": 548279
+    },
+    {
+      "text": "aqui com a nossa tesqu. Ó, uma coisa",
+      "duration": 5080,
+      "offset": 549680
+    },
+    {
+      "text": "aqui por padrão, a IA cria tesques como",
+      "duration": 5081,
+      "offset": 551519
+    },
+    {
+      "text": "se fosse para humano, tes tesques bem",
+      "duration": 3600,
+      "offset": 554760
+    },
+    {
+      "text": "pequenas. Tá vendo aqui? Fase setup",
+      "duration": 3840,
+      "offset": 556600
+    },
+    {
+      "text": "infraestrutura. Aí, pô, quebrou.",
+      "duration": 3760,
+      "offset": 558360
+    },
+    {
+      "text": "Configura credencial e configura",
+      "duration": 3519,
+      "offset": 560440
+    },
+    {
+      "text": "instalar SDK. Cara, isso pode ser tudo",
+      "duration": 4120,
+      "offset": 562120
+    },
+    {
+      "text": "uma coisa. Fase três, não vou botar",
+      "duration": 6000,
+      "offset": 563959
+    },
+    {
+      "text": "assim, cada fase deve ser uma tesque",
+      "duration": 6640,
+      "offset": 566240
+    },
+    {
+      "text": "para facilitar o desenvolvimento. Bom,",
+      "duration": 4601,
+      "offset": 569959
+    },
+    {
+      "text": "agora ele quebrou. Então a tesque um é o",
+      "duration": 3440,
+      "offset": 572880
+    },
+    {
+      "text": "setup e infraestrutura do stripe. Então",
+      "duration": 3279,
+      "offset": 574560
+    },
+    {
+      "text": "dentro dessa tesque vai ter configurar",
+      "duration": 3440,
+      "offset": 576320
+    },
+    {
+      "text": "variáveis de ambiente, configurar o SDK,",
+      "duration": 3801,
+      "offset": 577839
+    },
+    {
+      "text": "ter um stripe service que é para",
+      "duration": 5160,
+      "offset": 579760
+    },
+    {
+      "text": "inicialização do SDK, ah, um provider",
+      "duration": 6000,
+      "offset": 581640
+    },
+    {
+      "text": "registrado no Billy Module, beleza? Vai",
+      "duration": 5159,
+      "offset": 584920
+    },
+    {
+      "text": "ter aqui adicionar as dependências.",
+      "duration": 4520,
+      "offset": 587640
+    },
+    {
+      "text": "Tesque dois é persistência. Assim, o",
+      "duration": 4000,
+      "offset": 590079
+    },
+    {
+      "text": "quanto de contexto vocês vão botar na",
+      "duration": 3919,
+      "offset": 592160
+    },
+    {
+      "text": "Tesquec é por vocês, porque a tesc ela",
+      "duration": 3841,
+      "offset": 594079
+    },
+    {
+      "text": "vai virar um plano depois. Vou mostrar.",
+      "duration": 3361,
+      "offset": 596079
+    },
+    {
+      "text": "Então, eu não boto muito contexto",
+      "duration": 3280,
+      "offset": 597920
+    },
+    {
+      "text": "técnico aqui, né? Não precisa mencionar",
+      "duration": 3040,
+      "offset": 599440
+    },
+    {
+      "text": "muito arquivo nem nada, só dar o",
+      "duration": 3759,
+      "offset": 601200
+    },
+    {
+      "text": "contexto no alto nível. Beleza? Então,",
+      "duration": 6520,
+      "offset": 602480
+    },
+    {
+      "text": "ah, tá, tá. OK. OK. Agora crie essas",
+      "duration": 7120,
+      "offset": 604959
+    },
+    {
+      "text": "tesques no giro. Não precisa colocar",
+      "duration": 5399,
+      "offset": 609000
+    },
+    {
+      "text": "detalhes dos tests. Então agora ele vai",
+      "duration": 4281,
+      "offset": 612079
+    },
+    {
+      "text": "criar essas tescas no gira para nós. E",
+      "duration": 3120,
+      "offset": 614399
+    },
+    {
+      "text": "aí depois a gente vai começar a",
+      "duration": 2479,
+      "offset": 616360
+    },
+    {
+      "text": "desenvolver as funcionalidades. Como eu",
+      "duration": 2880,
+      "offset": 617519
+    },
+    {
+      "text": "já tenho as skills, eu só falo e ele",
+      "duration": 4081,
+      "offset": 618839
+    },
+    {
+      "text": "sabe, olha, cria, cria a tesque, é busca",
+      "duration": 4081,
+      "offset": 620399
+    },
+    {
+      "text": "a tesque, tudo assim. Quer dizer que",
+      "duration": 4280,
+      "offset": 622920
+    },
+    {
+      "text": "vocês precisam usar o conference, o gira",
+      "duration": 4760,
+      "offset": 624480
+    },
+    {
+      "text": "de novo? Não. Muita gente cria direto no",
+      "duration": 3960,
+      "offset": 627200
+    },
+    {
+      "text": "repositório e desenvolve. Mas assim, se",
+      "duration": 3520,
+      "offset": 629240
+    },
+    {
+      "text": "vocês estiverem trabalhando num time",
+      "duration": 3919,
+      "offset": 631160
+    },
+    {
+      "text": "maior, vai ter tesc, né? Vai ter um",
+      "duration": 3720,
+      "offset": 632760
+    },
+    {
+      "text": "design doc, vocês vão ter que quebrar.",
+      "duration": 2481,
+      "offset": 635079
+    },
+    {
+      "text": "Então vai estar em algum lugar. Por isso",
+      "duration": 2960,
+      "offset": 636480
+    },
+    {
+      "text": "que eu acabo, como eu uso muito esses",
+      "duration": 3320,
+      "offset": 637560
+    },
+    {
+      "text": "fluxos, é a maneira que eu gosto de",
+      "duration": 3240,
+      "offset": 639440
+    },
+    {
+      "text": "mostrar. Mas pensem que o que importa é",
+      "duration": 3639,
+      "offset": 640880
+    },
+    {
+      "text": "o contexto bem estruturado, ok? Então",
+      "duration": 3880,
+      "offset": 642680
+    },
+    {
+      "text": "ele criou essas tesques para nós. Testes",
+      "duration": 4401,
+      "offset": 644519
+    },
+    {
+      "text": "criadas, setup, persistência, core",
+      "duration": 5519,
+      "offset": 646560
+    },
+    {
+      "text": "services, essa APIs Rest, tá ótimo.",
+      "duration": 4960,
+      "offset": 648920
+    },
+    {
+      "text": "Dando uma estimativa ali de quanto tempo",
+      "duration": 3721,
+      "offset": 652079
+    },
+    {
+      "text": "vai levar. Beleza, agora vou perguntar,",
+      "duration": 5519,
+      "offset": 653880
+    },
+    {
+      "text": "tem algo que seja paralelizável",
+      "duration": 5039,
+      "offset": 655800
+    },
+    {
+      "text": "pra gente saber, né? Tem algo que seja",
+      "duration": 3680,
+      "offset": 659399
+    },
+    {
+      "text": "paralelizável. E uma das coisas",
+      "duration": 4601,
+      "offset": 660839
+    },
+    {
+      "text": "sensacionais da IA é que a IA ela",
+      "duration": 4440,
+      "offset": 663079
+    },
+    {
+      "text": "consegue criar uma tesque e avaliar o",
+      "duration": 3560,
+      "offset": 665440
+    },
+    {
+      "text": "esforço que vai ir naquela tesque, ainda",
+      "duration": 3041,
+      "offset": 667519
+    },
+    {
+      "text": "mais tu usa um monorrepo, você tem tudo",
+      "duration": 3360,
+      "offset": 669000
+    },
+    {
+      "text": "junto o esforço que vai naquela tesque",
+      "duration": 3279,
+      "offset": 670560
+    },
+    {
+      "text": "para poder estimar. Isso é muito bom.",
+      "duration": 3960,
+      "offset": 672360
+    },
+    {
+      "text": "Então ó, que que ela sugeriu? A base,",
+      "duration": 4800,
+      "offset": 673839
+    },
+    {
+      "text": "né? Então, o setup ser feito e depois em",
+      "duration": 5680,
+      "offset": 676320
+    },
+    {
+      "text": "paralelo fazer a persistência e outra",
+      "duration": 5401,
+      "offset": 678639
+    },
+    {
+      "text": "parte que é o Ident Integration client.",
+      "duration": 3720,
+      "offset": 682000
+    },
+    {
+      "text": "Não, esse aqui a gente ainda não tem.",
+      "duration": 3120,
+      "offset": 684040
+    },
+    {
+      "text": "Então aqui me deu algumas ideias do que",
+      "duration": 2880,
+      "offset": 685720
+    },
+    {
+      "text": "pode ser paralelisado. A maioria das",
+      "duration": 2479,
+      "offset": 687160
+    },
+    {
+      "text": "coisas ainda não dá para ser",
+      "duration": 3120,
+      "offset": 688600
+    },
+    {
+      "text": "paralelizado. Então criação do criação",
+      "duration": 4681,
+      "offset": 689639
+    },
+    {
+      "text": "da persistência depois o service API,",
+      "duration": 4799,
+      "offset": 691720
+    },
+    {
+      "text": "documentação. Então a gente vai fazer",
+      "duration": 3800,
+      "offset": 694320
+    },
+    {
+      "text": "essa base e depois a gente vai ver o que",
+      "duration": 3081,
+      "offset": 696519
+    },
+    {
+      "text": "que pode ser paralelizado. Então aqui eu",
+      "duration": 3440,
+      "offset": 698120
+    },
+    {
+      "text": "vou abrir um novo contexto. Sempre abram",
+      "duration": 3400,
+      "offset": 699600
+    },
+    {
+      "text": "um novo contexto. Lembro que vocês",
+      "duration": 3320,
+      "offset": 701560
+    },
+    {
+      "text": "querem manter a janela de contexto",
+      "duration": 4040,
+      "offset": 703000
+    },
+    {
+      "text": "baixa. Aqui vocês podem ver que a gente",
+      "duration": 4800,
+      "offset": 704880
+    },
+    {
+      "text": "já tá com a janela de contexto em 44%.",
+      "duration": 4080,
+      "offset": 707040
+    },
+    {
+      "text": "Qualquer prompt que eu começar a dar",
+      "duration": 3880,
+      "offset": 709680
+    },
+    {
+      "text": "aqui, ela vai começar a alucinar, porque",
+      "duration": 4480,
+      "offset": 711120
+    },
+    {
+      "text": "ela tem muita coisa, muita coisa. que eu",
+      "duration": 3959,
+      "offset": 713560
+    },
+    {
+      "text": "pedi para ela. Então, sempre abro uma",
+      "duration": 3840,
+      "offset": 715600
+    },
+    {
+      "text": "nova janela de contexto para começar",
+      "duration": 3721,
+      "offset": 717519
+    },
+    {
+      "text": "zerado, que nem o vídeo anterior. Olhem",
+      "duration": 4519,
+      "offset": 719440
+    },
+    {
+      "text": "lá, tentar manter ali no máximo 30% da",
+      "duration": 4399,
+      "offset": 721240
+    },
+    {
+      "text": "janela de contexto numa janela de",
+      "duration": 3801,
+      "offset": 723959
+    },
+    {
+      "text": "200.000 tokens é extremamente saudável,",
+      "duration": 3320,
+      "offset": 725639
+    },
+    {
+      "text": "extremamente possível. Beleza? Então,",
+      "duration": 2800,
+      "offset": 727760
+    },
+    {
+      "text": "vamos abrir uma nova janela e aqui eu",
+      "duration": 3801,
+      "offset": 728959
+    },
+    {
+      "text": "vou mudar pro modo de plano e vou dizer",
+      "duration": 6120,
+      "offset": 730560
+    },
+    {
+      "text": "que eu quero fazer a tesque, quero cri",
+      "duration": 7079,
+      "offset": 732760
+    },
+    {
+      "text": "crie um plano para a tesque CAN 11.",
+      "duration": 6240,
+      "offset": 736680
+    },
+    {
+      "text": "Então, que é a a parte inicial ali da da",
+      "duration": 5841,
+      "offset": 739839
+    },
+    {
+      "text": "integração. Aqui sim, se eu quiser já",
+      "duration": 5080,
+      "offset": 742920
+    },
+    {
+      "text": "deixar um plano rodando para fazer a",
+      "duration": 4200,
+      "offset": 745680
+    },
+    {
+      "text": "outra tesca em paralelo, eu posso abrir",
+      "duration": 3760,
+      "offset": 748000
+    },
+    {
+      "text": "outro agente aqui. O problema é que como",
+      "duration": 3680,
+      "offset": 749880
+    },
+    {
+      "text": "não tem infraestrutura nenhuma, um vai",
+      "duration": 3400,
+      "offset": 751760
+    },
+    {
+      "text": "tentar criar coisa do outro, então não é",
+      "duration": 3120,
+      "offset": 753560
+    },
+    {
+      "text": "o momento da gente paralelizar. Vou",
+      "duration": 2880,
+      "offset": 755160
+    },
+    {
+      "text": "mostrar depois. Bom, enquanto a nossa IA",
+      "duration": 2599,
+      "offset": 756680
+    },
+    {
+      "text": "tá rodando, eu quero te convidar pro meu",
+      "duration": 2960,
+      "offset": 758040
+    },
+    {
+      "text": "workshop avançado sobre o",
+      "duration": 3281,
+      "offset": 759279
+    },
+    {
+      "text": "desenvolvimento com IA. Tudo que tu tá",
+      "duration": 3440,
+      "offset": 761000
+    },
+    {
+      "text": "vendo aqui, eu vou explicar desde o",
+      "duration": 4040,
+      "offset": 762560
+    },
+    {
+      "text": "início como fazer para ti, pro teu time,",
+      "duration": 4480,
+      "offset": 764440
+    },
+    {
+      "text": "quais frameworks usar, como escalar,",
+      "duration": 4599,
+      "offset": 766600
+    },
+    {
+      "text": "tudo isso de forma prática e com um",
+      "duration": 6039,
+      "offset": 768920
+    },
+    {
+      "text": "valor muito bom, por apenas R$ 67. Nesse",
+      "duration": 5601,
+      "offset": 771199
+    },
+    {
+      "text": "lote que tá agora, depois vai para 97,",
+      "duration": 3680,
+      "offset": 774959
+    },
+    {
+      "text": "tu vai ter acesso a 6 horas de workshop",
+      "duration": 4599,
+      "offset": 776800
+    },
+    {
+      "text": "ao vivo no dia 7/02 comigo. Vai ser",
+      "duration": 4521,
+      "offset": 778639
+    },
+    {
+      "text": "muito máco, muito empolgado. Clica aqui",
+      "duration": 3481,
+      "offset": 781399
+    },
+    {
+      "text": "embaixo, deixar o link e te inscreve lá",
+      "duration": 3160,
+      "offset": 783160
+    },
+    {
+      "text": "e vamos voltar pro vídeo. Feito, então o",
+      "duration": 3480,
+      "offset": 784880
+    },
+    {
+      "text": "nosso primeiro plano aqui, tá feito. Eu",
+      "duration": 3879,
+      "offset": 786320
+    },
+    {
+      "text": "vou dar uma revisada nele para ver se",
+      "duration": 3880,
+      "offset": 788360
+    },
+    {
+      "text": "segue as estruturas do meu projeto, tá?",
+      "duration": 6041,
+      "offset": 790199
+    },
+    {
+      "text": "Então a ar context Billy Module follows",
+      "duration": 5760,
+      "offset": 792240
+    },
+    {
+      "text": "mod log architect, tá? Tá certo a minha",
+      "duration": 3279,
+      "offset": 796240
+    },
+    {
+      "text": "arquitetura? Então como eu tenho cada",
+      "duration": 4279,
+      "offset": 798000
+    },
+    {
+      "text": "projeto tem as suas suas regras, né? E o",
+      "duration": 5000,
+      "offset": 799519
+    },
+    {
+      "text": "meu aqui ele entendeu bem porque eu",
+      "duration": 4081,
+      "offset": 802279
+    },
+    {
+      "text": "tenho uma boa documentação. Então para",
+      "duration": 3560,
+      "offset": 804519
+    },
+    {
+      "text": "falar com o Stripe, ele vai seguir o",
+      "duration": 3440,
+      "offset": 806360
+    },
+    {
+      "text": "padrão de clients que eu tenho. Vai",
+      "duration": 4081,
+      "offset": 808079
+    },
+    {
+      "text": "instalar o SDK, vai botar as variáveis",
+      "duration": 5520,
+      "offset": 809800
+    },
+    {
+      "text": "de ambiente, beleza? Vai criar variável",
+      "duration": 5359,
+      "offset": 812160
+    },
+    {
+      "text": "de ambiente, vai criar um client stripe.",
+      "duration": 5560,
+      "offset": 815320
+    },
+    {
+      "text": "Client é a camada que fala, né, com a",
+      "duration": 5721,
+      "offset": 817519
+    },
+    {
+      "text": "aplicação externa. Beleza? Tá, vai",
+      "duration": 4880,
+      "offset": 820880
+    },
+    {
+      "text": "registrar, vai exportar o módulo. Então",
+      "duration": 4520,
+      "offset": 823240
+    },
+    {
+      "text": "tá tudo, parece tudo certo aqui no",
+      "duration": 3439,
+      "offset": 825760
+    },
+    {
+      "text": "final. O que que eu quero ver? se ele",
+      "duration": 4639,
+      "offset": 827760
+    },
+    {
+      "text": "vai. Ah, então tá tudo certo. Agora o",
+      "duration": 4361,
+      "offset": 829199
+    },
+    {
+      "text": "que que acontece, galera? O que que eu",
+      "duration": 3201,
+      "offset": 832399
+    },
+    {
+      "text": "vou fazer? Ah, vocês estão vendo que o",
+      "duration": 4480,
+      "offset": 833560
+    },
+    {
+      "text": "meu contexto aqui já tá em 31%. Isso é",
+      "duration": 3960,
+      "offset": 835600
+    },
+    {
+      "text": "por quê? Porque para criar esse plano,",
+      "duration": 3120,
+      "offset": 838040
+    },
+    {
+      "text": "ele teve que pesquisar coisas no",
+      "duration": 3199,
+      "offset": 839560
+    },
+    {
+      "text": "projeto. Pensem o seguinte, quanto maior",
+      "duration": 3239,
+      "offset": 841160
+    },
+    {
+      "text": "o projeto de vocês, mais ele vai ter que",
+      "duration": 3041,
+      "offset": 842759
+    },
+    {
+      "text": "pesquisar para criar um plano. E",
+      "duration": 3521,
+      "offset": 844399
+    },
+    {
+      "text": "executar esse plano aqui pode ser",
+      "duration": 4520,
+      "offset": 845800
+    },
+    {
+      "text": "seguro, porque tem coisas bem claras",
+      "duration": 5320,
+      "offset": 847920
+    },
+    {
+      "text": "para para ir a fazer, mas pode ser que",
+      "duration": 4480,
+      "offset": 850320
+    },
+    {
+      "text": "tu tenha que dar um prompt depois para",
+      "duration": 2880,
+      "offset": 853240
+    },
+    {
+      "text": "arrumar algo, tu vai estar numa janela",
+      "duration": 2520,
+      "offset": 854800
+    },
+    {
+      "text": "muito grande. Então o que que eu gosto",
+      "duration": 3399,
+      "offset": 856120
+    },
+    {
+      "text": "de fazer aqui é clicar em novo agente e",
+      "duration": 3959,
+      "offset": 857320
+    },
+    {
+      "text": "mandar esse plano para um novo agente. E",
+      "duration": 3440,
+      "offset": 859519
+    },
+    {
+      "text": "aqui eu boto o modelo mais barato.",
+      "duration": 4401,
+      "offset": 861279
+    },
+    {
+      "text": "Então, em vez de eu usar eh o da cloud",
+      "duration": 4320,
+      "offset": 862959
+    },
+    {
+      "text": "que eu tava usando, o Sonet, eu vou usar",
+      "duration": 3519,
+      "offset": 865680
+    },
+    {
+      "text": "o composer do do cursor, que é bem mais",
+      "duration": 3800,
+      "offset": 867279
+    },
+    {
+      "text": "rápido e mais barato para executar um",
+      "duration": 3241,
+      "offset": 869199
+    },
+    {
+      "text": "plano, porque o plano é um monte de",
+      "duration": 3361,
+      "offset": 871079
+    },
+    {
+      "text": "steps, né? Então, dou play aqui e deixa",
+      "duration": 4519,
+      "offset": 872440
+    },
+    {
+      "text": "ele executar esse plano agora. Bom, ele",
+      "duration": 3839,
+      "offset": 874440
+    },
+    {
+      "text": "fez a planimentação. O que que a gente",
+      "duration": 3041,
+      "offset": 876959
+    },
+    {
+      "text": "vai fazer agora como bons engenheiros de",
+      "duration": 3560,
+      "offset": 878279
+    },
+    {
+      "text": "software? É revisar e aprovar. Então,",
+      "duration": 3600,
+      "offset": 880000
+    },
+    {
+      "text": "vou revisar na minha configuração. Ele",
+      "duration": 4321,
+      "offset": 881839
+    },
+    {
+      "text": "botou um esquema, tá certo? Dentro de",
+      "duration": 4280,
+      "offset": 883600
+    },
+    {
+      "text": "billing, ele importou o client que ele",
+      "duration": 4440,
+      "offset": 886160
+    },
+    {
+      "text": "fez, tá OK? aqui dentro de client stripe",
+      "duration": 4680,
+      "offset": 887880
+    },
+    {
+      "text": "API, ele fez um client que é o que vai",
+      "duration": 4599,
+      "offset": 890600
+    },
+    {
+      "text": "falar com com Stripe client, tá? Botar",
+      "duration": 4560,
+      "offset": 892560
+    },
+    {
+      "text": "uma configuração pro Stripe para nós.",
+      "duration": 5921,
+      "offset": 895199
+    },
+    {
+      "text": "Ah, beleza. OK, tá bom. Ah, ok. Ok,",
+      "duration": 6000,
+      "offset": 897120
+    },
+    {
+      "text": "então. OK. Minha implementação aqui",
+      "duration": 3680,
+      "offset": 901120
+    },
+    {
+      "text": "ficou certinha e eu vou ir paraa outra",
+      "duration": 3399,
+      "offset": 903120
+    },
+    {
+      "text": "tesquec agora. OK. Então, ele fez o meu",
+      "duration": 3959,
+      "offset": 904800
+    },
+    {
+      "text": "plano. Vamos ver aqui, tá? Esse aqui é o",
+      "duration": 4921,
+      "offset": 906519
+    },
+    {
+      "text": "plano que vai criar as entidades e e o",
+      "duration": 5281,
+      "offset": 908759
+    },
+    {
+      "text": "gator do Stripe, né? O, e o repositório.",
+      "duration": 4199,
+      "offset": 911440
+    },
+    {
+      "text": "Repositório ele segue o meu padrão",
+      "duration": 2919,
+      "offset": 914040
+    },
+    {
+      "text": "porque eu tenho documentação para tudo",
+      "duration": 3361,
+      "offset": 915639
+    },
+    {
+      "text": "isso. Criar as entidades do banco, ele",
+      "duration": 4440,
+      "offset": 916959
+    },
+    {
+      "text": "também segue o padrão na repos na no",
+      "duration": 4600,
+      "offset": 919000
+    },
+    {
+      "text": "diretório certo. Elisa os comandos",
+      "duration": 5240,
+      "offset": 921399
+    },
+    {
+      "text": "certos para gerar migration, porque eu",
+      "duration": 4919,
+      "offset": 923600
+    },
+    {
+      "text": "tenho uma rule que fala disso aqui, ó.",
+      "duration": 4241,
+      "offset": 926639
+    },
+    {
+      "text": "Quando for fazer migrations, usa os",
+      "duration": 4161,
+      "offset": 928519
+    },
+    {
+      "text": "comandos corretos. Então, tu vai, cada",
+      "duration": 3639,
+      "offset": 930880
+    },
+    {
+      "text": "vez tu vai gerando um plano que falta",
+      "duration": 3279,
+      "offset": 932680
+    },
+    {
+      "text": "algo, tu vai melhorando tua documentação",
+      "duration": 2800,
+      "offset": 934519
+    },
+    {
+      "text": "até tu chega nesse estado que eu acho",
+      "duration": 3081,
+      "offset": 935959
+    },
+    {
+      "text": "que é o Nirvana, onde consegue fazer",
+      "duration": 3320,
+      "offset": 937319
+    },
+    {
+      "text": "tudo. Mesma coisa. Esse aqui tá com um",
+      "duration": 3760,
+      "offset": 939040
+    },
+    {
+      "text": "contexto pouco maior, 34. Vou mandar ele",
+      "duration": 4521,
+      "offset": 940639
+    },
+    {
+      "text": "rodar em um novo agente. Agora, enquanto",
+      "duration": 3959,
+      "offset": 942800
+    },
+    {
+      "text": "ele roda essa implementação, eu vou",
+      "duration": 3039,
+      "offset": 945160
+    },
+    {
+      "text": "mostrar outra coisa extremamente",
+      "duration": 2760,
+      "offset": 946759
+    },
+    {
+      "text": "interessante para você. Pensa aqui, eu",
+      "duration": 2921,
+      "offset": 948199
+    },
+    {
+      "text": "tô fazendo uma funcionalidade que não",
+      "duration": 3481,
+      "offset": 949519
+    },
+    {
+      "text": "pode ser",
+      "duration": 5079,
+      "offset": 951120
+    },
+    {
+      "text": "paralelizada, mas eu tô com tempo livre,",
+      "duration": 4680,
+      "offset": 953000
+    },
+    {
+      "text": "né? E uma coisa que tá acontecendo,",
+      "duration": 3401,
+      "offset": 956199
+    },
+    {
+      "text": "principalmente com essa geração que aí a",
+      "duration": 3599,
+      "offset": 957680
+    },
+    {
+      "text": "first, a galera é muito boa em",
+      "duration": 3599,
+      "offset": 959600
+    },
+    {
+      "text": "paralelizar coisa. O que que eu faço",
+      "duration": 4360,
+      "offset": 961279
+    },
+    {
+      "text": "nesse caso aqui? Pô, tem um tempo ali,",
+      "duration": 3721,
+      "offset": 963199
+    },
+    {
+      "text": "não tenho outra coisa para fazer, vou",
+      "duration": 2880,
+      "offset": 965639
+    },
+    {
+      "text": "pegar outra tesque para fazer. Cria um",
+      "duration": 3520,
+      "offset": 966920
+    },
+    {
+      "text": "novo agente. Vocês vão começar a ver",
+      "duration": 3800,
+      "offset": 968519
+    },
+    {
+      "text": "sobre work trees. Que que é workes? São",
+      "duration": 3959,
+      "offset": 970440
+    },
+    {
+      "text": "Work trees são do Git. Ou seja, tu vai",
+      "duration": 4561,
+      "offset": 972319
+    },
+    {
+      "text": "criar meio que uma nova brand da do Git",
+      "duration": 4161,
+      "offset": 974399
+    },
+    {
+      "text": "ali, fazer uma alteração que não vai",
+      "duration": 3480,
+      "offset": 976880
+    },
+    {
+      "text": "impactar a brand principal e voltar para",
+      "duration": 4120,
+      "offset": 978560
+    },
+    {
+      "text": "ela. Tu pode tanto fazer na brch que tu",
+      "duration": 5760,
+      "offset": 980360
+    },
+    {
+      "text": "tá. No meu caso aqui, eu tô na nessa br,",
+      "duration": 5360,
+      "offset": 982680
+    },
+    {
+      "text": "eu tô na main agora, tá? Minha main",
+      "duration": 3839,
+      "offset": 986120
+    },
+    {
+      "text": "atual. Eu posso fazer isso em outra",
+      "duration": 3320,
+      "offset": 988040
+    },
+    {
+      "text": "brand, eu posso fazer isso numa feature",
+      "duration": 2880,
+      "offset": 989959
+    },
+    {
+      "text": "brand. Então, tu pode fazer tanto da",
+      "duration": 3159,
+      "offset": 991360
+    },
+    {
+      "text": "brand que tu tá trabalhando ou tu pode,",
+      "duration": 3281,
+      "offset": 992839
+    },
+    {
+      "text": "no caso no bug, tu volta pra brand",
+      "duration": 4201,
+      "offset": 994519
+    },
+    {
+      "text": "principal e tu resolve um bug a partir",
+      "duration": 4839,
+      "offset": 996120
+    },
+    {
+      "text": "de lá, né? Então, tem um bug que é uma",
+      "duration": 6520,
+      "offset": 998720
+    },
+    {
+      "text": "tesque Ken 17. Crie um plano para fixar",
+      "duration": 7081,
+      "offset": 1000959
+    },
+    {
+      "text": "o bug Ken 17, tá? Você estão vendo que",
+      "duration": 4079,
+      "offset": 1005240
+    },
+    {
+      "text": "eu tô criando aqui um novo, eu tenho um",
+      "duration": 2719,
+      "offset": 1008040
+    },
+    {
+      "text": "agente rodando. Esse agente aqui tá",
+      "duration": 3080,
+      "offset": 1009319
+    },
+    {
+      "text": "implementando coisa, tá implementando",
+      "duration": 4161,
+      "offset": 1010759
+    },
+    {
+      "text": "coisa lá. E agora numa work tree eu vou",
+      "duration": 4521,
+      "offset": 1012399
+    },
+    {
+      "text": "fazer outra implementação, ou seja, elas",
+      "duration": 3719,
+      "offset": 1014920
+    },
+    {
+      "text": "não vão conflitar, tá vendo? Porque, ó,",
+      "duration": 4479,
+      "offset": 1016920
+    },
+    {
+      "text": "ele criou uma branch aqui, Canet Fix.",
+      "duration": 4801,
+      "offset": 1018639
+    },
+    {
+      "text": "Então tudo isso, no caso eu uso o",
+      "duration": 3640,
+      "offset": 1021399
+    },
+    {
+      "text": "cursor, o cursor vai arrumar para mim,",
+      "duration": 2920,
+      "offset": 1023440
+    },
+    {
+      "text": "eu vou criar uma brand, depois eu vou",
+      "duration": 3520,
+      "offset": 1025039
+    },
+    {
+      "text": "aceitar de volta na brand principal as",
+      "duration": 4400,
+      "offset": 1026360
+    },
+    {
+      "text": "mudanças que eu fiz. Então isso aqui te",
+      "duration": 3640,
+      "offset": 1028559
+    },
+    {
+      "text": "permite ir paralelizando. Às vezes tu vê",
+      "duration": 3199,
+      "offset": 1030760
+    },
+    {
+      "text": "vídeo de gente com cloud code, com",
+      "duration": 3681,
+      "offset": 1032199
+    },
+    {
+      "text": "várias instâncias abertas, seis sete.",
+      "duration": 2921,
+      "offset": 1033959
+    },
+    {
+      "text": "Então assim, se tiver dinheiro para",
+      "duration": 3280,
+      "offset": 1035880
+    },
+    {
+      "text": "jogar na máquina vai firme. Mas beleza.",
+      "duration": 4760,
+      "offset": 1036880
+    },
+    {
+      "text": "Então aqui eu tô rodando, né? Ele já tá",
+      "duration": 4039,
+      "offset": 1039160
+    },
+    {
+      "text": "fazendo plano para mim e aqui eu tô",
+      "duration": 3799,
+      "offset": 1041640
+    },
+    {
+      "text": "fazendo outro. Poderia est iniciando",
+      "duration": 4401,
+      "offset": 1043199
+    },
+    {
+      "text": "outro para fazer outra coisa. Então eu",
+      "duration": 4841,
+      "offset": 1045439
+    },
+    {
+      "text": "já rodei três assim. Eu uso bastante,",
+      "duration": 4160,
+      "offset": 1047600
+    },
+    {
+      "text": "mas só quando realmente eu tenho tempo,",
+      "duration": 3160,
+      "offset": 1050280
+    },
+    {
+      "text": "né? Porque mudar de contexto também não",
+      "duration": 3279,
+      "offset": 1051760
+    },
+    {
+      "text": "é uma coisa boa. Mas tu tem que esperar",
+      "duration": 3119,
+      "offset": 1053440
+    },
+    {
+      "text": "bastante quando um plano grande como",
+      "duration": 3921,
+      "offset": 1055039
+    },
+    {
+      "text": "esse, dá para te fazer mais duas",
+      "duration": 4321,
+      "offset": 1056559
+    },
+    {
+      "text": "coisas em paralelo aqui. Tranquilo.",
+      "duration": 3920,
+      "offset": 1058960
+    },
+    {
+      "text": "Então, eu gosto bastante do work, eu",
+      "duration": 3360,
+      "offset": 1060880
+    },
+    {
+      "text": "gosto bastante da experiência do cursor",
+      "duration": 4200,
+      "offset": 1062880
+    },
+    {
+      "text": "de poder eh trabalhar nas works, depois",
+      "duration": 4319,
+      "offset": 1064240
+    },
+    {
+      "text": "fazer merge de volta, que eu vou mostrar",
+      "duration": 3080,
+      "offset": 1067080
+    },
+    {
+      "text": "aqui, tá? Então, ele criou aqui o plano",
+      "duration": 3081,
+      "offset": 1068559
+    },
+    {
+      "text": "para fixar o bug que eu tô fazendo,",
+      "duration": 3360,
+      "offset": 1070160
+    },
+    {
+      "text": "enquanto o meu outro tá indo lá 6:10,",
+      "duration": 3919,
+      "offset": 1071640
+    },
+    {
+      "text": "tá? minha outra implementação. E aqui o",
+      "duration": 3840,
+      "offset": 1073520
+    },
+    {
+      "text": "bug ocorre porque quando o usuário tenta",
+      "duration": 4321,
+      "offset": 1075559
+    },
+    {
+      "text": "fazer o login com e-mail em upper case o",
+      "duration": 4360,
+      "offset": 1077360
+    },
+    {
+      "text": "sistema falha porque ele não suporta,",
+      "duration": 3520,
+      "offset": 1079880
+    },
+    {
+      "text": "tá? Então vamos mandar, arruma esse daí.",
+      "duration": 3079,
+      "offset": 1081720
+    },
+    {
+      "text": "Isso aqui é menos prioridade, só um",
+      "duration": 2680,
+      "offset": 1083400
+    },
+    {
+      "text": "exemplo para você. Então ele começa a",
+      "duration": 2880,
+      "offset": 1084799
+    },
+    {
+      "text": "fazer isso. Eu tenho dois rodandos",
+      "duration": 2800,
+      "offset": 1086080
+    },
+    {
+      "text": "agora, então jogando dinheiro na",
+      "duration": 2681,
+      "offset": 1087679
+    },
+    {
+      "text": "máquina. Coloca dinheiro na máquina. Mas",
+      "duration": 4240,
+      "offset": 1088880
+    },
+    {
+      "text": "tá, tô paralelizando tesques aqui. Então",
+      "duration": 4960,
+      "offset": 1090360
+    },
+    {
+      "text": "esse meu outro finalizou, provavelmente.",
+      "duration": 3960,
+      "offset": 1093120
+    },
+    {
+      "text": "Deixa eu ver. Finalizou. Então ele vai",
+      "duration": 3520,
+      "offset": 1095320
+    },
+    {
+      "text": "tentar rodar os checks que ele sempre",
+      "duration": 4719,
+      "offset": 1097080
+    },
+    {
+      "text": "roda, né? O lint, o build. Se tiver algo",
+      "duration": 5319,
+      "offset": 1098840
+    },
+    {
+      "text": "errado, ele vai fixar isso. Ah, não.",
+      "duration": 4360,
+      "offset": 1101799
+    },
+    {
+      "text": "Testes passaram, o build passou, tá tudo",
+      "duration": 4041,
+      "offset": 1104159
+    },
+    {
+      "text": "certo. Então, tá, essa essa tesque aqui",
+      "duration": 3520,
+      "offset": 1106159
+    },
+    {
+      "text": "passou também. Beleza. Criou as",
+      "duration": 2719,
+      "offset": 1108200
+    },
+    {
+      "text": "migrations do banco, rodou as",
+      "duration": 3240,
+      "offset": 1109679
+    },
+    {
+      "text": "migrations, tudo que tinha que ser e o",
+      "duration": 4760,
+      "offset": 1110919
+    },
+    {
+      "text": "nosso bug tá sendo fixado lá. Beleza? E",
+      "duration": 6441,
+      "offset": 1112919
+    },
+    {
+      "text": "aqui eu já vou ir para outro ah outra",
+      "duration": 4880,
+      "offset": 1115679
+    },
+    {
+      "text": "tes que é a última que eu vou mostrar de",
+      "duration": 2799,
+      "offset": 1119360
+    },
+    {
+      "text": "exemplo nesse vídeo, que é de criar os",
+      "duration": 4801,
+      "offset": 1120559
+    },
+    {
+      "text": "corees. Agora crie. Vamos lá. Nosso bug",
+      "duration": 4961,
+      "offset": 1122159
+    },
+    {
+      "text": "lá tá dois de quatro já resolvido, tá",
+      "duration": 3160,
+      "offset": 1125360
+    },
+    {
+      "text": "arrumando os testes. Claro que sim, né,",
+      "duration": 3120,
+      "offset": 1127120
+    },
+    {
+      "text": "galera? Na prática eu vou revisar bem o",
+      "duration": 3159,
+      "offset": 1128520
+    },
+    {
+      "text": "código e tal. que tô mostrando para",
+      "duration": 4080,
+      "offset": 1130240
+    },
+    {
+      "text": "vocês que ele, eu tô rodando dois em",
+      "duration": 5360,
+      "offset": 1131679
+    },
+    {
+      "text": "paralelo, eu reviso bem o plano, mas é",
+      "duration": 4200,
+      "offset": 1134320
+    },
+    {
+      "text": "extremamente assertivo porque meu",
+      "duration": 2961,
+      "offset": 1137039
+    },
+    {
+      "text": "projeto tá praticamente todo coberto com",
+      "duration": 3000,
+      "offset": 1138520
+    },
+    {
+      "text": "uma boa documentação e não é muita",
+      "duration": 3640,
+      "offset": 1140000
+    },
+    {
+      "text": "documentação, é só as principais, as",
+      "duration": 4279,
+      "offset": 1141520
+    },
+    {
+      "text": "coisas que não são normais, que são",
+      "duration": 3519,
+      "offset": 1143640
+    },
+    {
+      "text": "específicas do meu projeto, eu tenho",
+      "duration": 3321,
+      "offset": 1145799
+    },
+    {
+      "text": "elas bem documentadas. OK, terminei de",
+      "duration": 3481,
+      "offset": 1147159
+    },
+    {
+      "text": "fixar o bug aqui. Agora eu vou em",
+      "duration": 3400,
+      "offset": 1149120
+    },
+    {
+      "text": "review, tá vendo? Essa é a minha a minha",
+      "duration": 3680,
+      "offset": 1150640
+    },
+    {
+      "text": "work, né? A minha brand que eu criei. E",
+      "duration": 3800,
+      "offset": 1152520
+    },
+    {
+      "text": "aqui eu vou dar um apply. Apliquei tudo,",
+      "duration": 4000,
+      "offset": 1154320
+    },
+    {
+      "text": "ele foi pra brand principal. Já agora eu",
+      "duration": 3960,
+      "offset": 1156320
+    },
+    {
+      "text": "posso ir lá e dar um commit e tal.",
+      "duration": 3920,
+      "offset": 1158320
+    },
+    {
+      "text": "Tranquilo? Beleza? Então é assim que",
+      "duration": 3440,
+      "offset": 1160280
+    },
+    {
+      "text": "funciona. Enquanto isso, eu tô criando",
+      "duration": 3000,
+      "offset": 1162240
+    },
+    {
+      "text": "esse outro plano aqui para fazer essa",
+      "duration": 2560,
+      "offset": 1163720
+    },
+    {
+      "text": "implementação, que vai ser a última",
+      "duration": 2840,
+      "offset": 1165240
+    },
+    {
+      "text": "implementação que eu vou fazer. Mas qual",
+      "duration": 3080,
+      "offset": 1166280
+    },
+    {
+      "text": "que é a grande coisa aqui, galera, que",
+      "duration": 3000,
+      "offset": 1168080
+    },
+    {
+      "text": "vocês estão vendo? A gente com uma boa",
+      "duration": 3760,
+      "offset": 1169360
+    },
+    {
+      "text": "documentação, cara, fica muito assertivo",
+      "duration": 3680,
+      "offset": 1171080
+    },
+    {
+      "text": "e a gente vai tendo tempo para ir",
+      "duration": 3080,
+      "offset": 1173120
+    },
+    {
+      "text": "abrindo outras coisas em paralelo.",
+      "duration": 2919,
+      "offset": 1174760
+    },
+    {
+      "text": "Então, conforme tu vai desenvolvendo uma",
+      "duration": 3240,
+      "offset": 1176200
+    },
+    {
+      "text": "funcionalidade grande, tem várias coisas",
+      "duration": 3161,
+      "offset": 1177679
+    },
+    {
+      "text": "paralelizáveis. Então, tu pode pegar",
+      "duration": 3040,
+      "offset": 1179440
+    },
+    {
+      "text": "três, quatro tescos e fazendo ao mesmo",
+      "duration": 3839,
+      "offset": 1180840
+    },
+    {
+      "text": "tempo. E assim, esse é o novo perfil do",
+      "duration": 3400,
+      "offset": 1182480
+    },
+    {
+      "text": "dev. A gente tem muito medo dos",
+      "duration": 2360,
+      "offset": 1184679
+    },
+    {
+      "text": "juniores. O que que vai acontecer com os",
+      "duration": 2799,
+      "offset": 1185880
+    },
+    {
+      "text": "juniores, coitados e tal? Cara, a galera",
+      "duration": 3241,
+      "offset": 1187039
+    },
+    {
+      "text": "que tá entrando agora já vem com essa",
+      "duration": 3921,
+      "offset": 1188679
+    },
+    {
+      "text": "mentalidade de paralelização do zero,",
+      "duration": 3560,
+      "offset": 1190280
+    },
+    {
+      "text": "que a gente tem que ir pegando porque",
+      "duration": 2640,
+      "offset": 1192600
+    },
+    {
+      "text": "não era normal, né, a gente parar para",
+      "duration": 2800,
+      "offset": 1193840
+    },
+    {
+      "text": "fazer outra coisa. Muito engraçado.",
+      "duration": 2880,
+      "offset": 1195240
+    },
+    {
+      "text": "Então tá que ele vai me dar o plano.",
+      "duration": 4680,
+      "offset": 1196640
+    },
+    {
+      "text": "Deixa eu ver. Ã, tá, vai criar um client",
+      "duration": 5720,
+      "offset": 1198120
+    },
+    {
+      "text": "proent para falar com o Identity Módel,",
+      "duration": 5280,
+      "offset": 1201320
+    },
+    {
+      "text": "tá? O repositório, tá certo?",
+      "duration": 5520,
+      "offset": 1203840
+    },
+    {
+      "text": "Diferenciamento de subscriptions, tá?",
+      "duration": 6400,
+      "offset": 1206600
+    },
+    {
+      "text": "Ah, building padrões técnicos, gatory,",
+      "duration": 6319,
+      "offset": 1209360
+    },
+    {
+      "text": "repository. Tá beleza. Tá, vou mandar",
+      "duration": 5240,
+      "offset": 1213000
+    },
+    {
+      "text": "ele construir. Só botar no composer.",
+      "duration": 3480,
+      "offset": 1215679
+    },
+    {
+      "text": "Vou, deixa eu ver como é que tá minha",
+      "duration": 2400,
+      "offset": 1218240
+    },
+    {
+      "text": "janela de contexto desse. Essa aqui",
+      "duration": 3961,
+      "offset": 1219159
+    },
+    {
+      "text": "janela tá em 37%. Vou mandar ele",
+      "duration": 4360,
+      "offset": 1220640
+    },
+    {
+      "text": "construir um em um novo agente pra gente",
+      "duration": 4120,
+      "offset": 1223120
+    },
+    {
+      "text": "pegar um um contexto menor. Bom,",
+      "duration": 3600,
+      "offset": 1225000
+    },
+    {
+      "text": "terminou então a minha implementação.",
+      "duration": 3000,
+      "offset": 1227240
+    },
+    {
+      "text": "Agora vou dar uma olhada. Essa daqui é",
+      "duration": 3760,
+      "offset": 1228600
+    },
+    {
+      "text": "vai criar os services. Então, vou ter o",
+      "duration": 4360,
+      "offset": 1230240
+    },
+    {
+      "text": "import service, beleza? Aqui tá o meu",
+      "duration": 3960,
+      "offset": 1232360
+    },
+    {
+      "text": "Stripe Customer service que vai criar os",
+      "duration": 3520,
+      "offset": 1234600
+    },
+    {
+      "text": "customers. Então ele usa o repositório",
+      "duration": 3960,
+      "offset": 1236320
+    },
+    {
+      "text": "stripe client user management service,",
+      "duration": 4799,
+      "offset": 1238120
+    },
+    {
+      "text": "find your create customer, bate lá, pega",
+      "duration": 5080,
+      "offset": 1240280
+    },
+    {
+      "text": "o customer, tá? Pega o client do stripe.",
+      "duration": 5681,
+      "offset": 1242919
+    },
+    {
+      "text": "Então, mesma coisa. Pega que o customer,",
+      "duration": 5640,
+      "offset": 1245360
+    },
+    {
+      "text": "então, OK. Aqui ele busca o customer,",
+      "duration": 5319,
+      "offset": 1248600
+    },
+    {
+      "text": "cria o customer. Ã, implementação tá",
+      "duration": 6400,
+      "offset": 1251000
+    },
+    {
+      "text": "correta. Busca por e-mail, sy customer",
+      "duration": 5120,
+      "offset": 1253919
+    },
+    {
+      "text": "from stripe. Quando o customer tá lá,",
+      "duration": 4399,
+      "offset": 1257400
+    },
+    {
+      "text": "ele de volta. Então a implementação aqui",
+      "duration": 4481,
+      "offset": 1259039
+    },
+    {
+      "text": "tudo certo. Uma coisa que faltou nesse",
+      "duration": 3000,
+      "offset": 1261799
+    },
+    {
+      "text": "plano que eu quero ter botado é escrever",
+      "duration": 2840,
+      "offset": 1263520
+    },
+    {
+      "text": "o teste no mesmo plano. Ele vai escrever",
+      "duration": 2880,
+      "offset": 1264799
+    },
+    {
+      "text": "o teste depois. Então essa é uma coisa",
+      "duration": 3799,
+      "offset": 1266360
+    },
+    {
+      "text": "que podia ter melhorado. Ã, create trial",
+      "duration": 4281,
+      "offset": 1267679
+    },
+    {
+      "text": "subscription, que é o nosso MVP. Então",
+      "duration": 3801,
+      "offset": 1270159
+    },
+    {
+      "text": "ele vai lá no gateway customer",
+      "duration": 4480,
+      "offset": 1271960
+    },
+    {
+      "text": "repository, pega o customer, aí pega o",
+      "duration": 4959,
+      "offset": 1273960
+    },
+    {
+      "text": "client e a partir do client ele cria uma",
+      "duration": 4479,
+      "offset": 1276440
+    },
+    {
+      "text": "subscription, certinho? E cria uma",
+      "duration": 3401,
+      "offset": 1278919
+    },
+    {
+      "text": "subscription no nosso banco de dados",
+      "duration": 3161,
+      "offset": 1280919
+    },
+    {
+      "text": "também e salva ela. Tudo usando os",
+      "duration": 3000,
+      "offset": 1282320
+    },
+    {
+      "text": "padrões do projeto, usando nosso",
+      "duration": 3240,
+      "offset": 1284080
+    },
+    {
+      "text": "transaction. Então esse era o nosso MVP,",
+      "duration": 3959,
+      "offset": 1285320
+    },
+    {
+      "text": "né? Parece tá OK. Claro que teria que",
+      "duration": 3640,
+      "offset": 1287320
+    },
+    {
+      "text": "testar mais e tal. Agora é isso que eu",
+      "duration": 3241,
+      "offset": 1289279
+    },
+    {
+      "text": "queria mostrar. Espero que vocês tenham",
+      "duration": 3079,
+      "offset": 1290960
+    },
+    {
+      "text": "gostado. E a cereja do bolo que eu tava",
+      "duration": 3840,
+      "offset": 1292520
+    },
+    {
+      "text": "falando é de começar a trabalhar mais em",
+      "duration": 3721,
+      "offset": 1294039
+    },
+    {
+      "text": "paralelo. Com o tempo livre que a gente",
+      "duration": 3240,
+      "offset": 1296360
+    },
+    {
+      "text": "tem esperando algo acontecer, a gente",
+      "duration": 3799,
+      "offset": 1297760
+    },
+    {
+      "text": "pode iniciar outras funcionalidades. E o",
+      "duration": 3920,
+      "offset": 1299600
+    },
+    {
+      "text": "work trece é a melhor coisa para vocês",
+      "duration": 3720,
+      "offset": 1301559
+    },
+    {
+      "text": "aprenderem. Achem ferramentas que dão",
+      "duration": 3880,
+      "offset": 1303520
+    },
+    {
+      "text": "bom suporte ao work, a tu fazer merge de",
+      "duration": 3681,
+      "offset": 1305279
+    },
+    {
+      "text": "volta na brand principal, que vai",
+      "duration": 3639,
+      "offset": 1307400
+    },
+    {
+      "text": "aumentar muita produtividade de vocês.",
+      "duration": 3760,
+      "offset": 1308960
+    },
+    {
+      "text": "Comentem aqui ferramentas que vocês",
+      "duration": 3120,
+      "offset": 1311039
+    },
+    {
+      "text": "usam, o que que vocês estão fazendo, se",
+      "duration": 2640,
+      "offset": 1312720
+    },
+    {
+      "text": "vocês gostaram do vídeo também, se",
+      "duration": 3361,
+      "offset": 1314159
+    },
+    {
+      "text": "ficaram com dúvidas. E não esqueça, vou",
+      "duration": 4439,
+      "offset": 1315360
+    },
+    {
+      "text": "deixar o link pro workshop e paraa live",
+      "duration": 4120,
+      "offset": 1317520
+    },
+    {
+      "text": "também, onde eu vou mostrar tudo sobre",
+      "duration": 3601,
+      "offset": 1319799
+    },
+    {
+      "text": "skills, tudo sobre contexto. Beleza? Até",
+      "duration": 4159,
+      "offset": 1321640
+    },
+    {
+      "text": "a próxima.",
+      "duration": 2399,
+      "offset": 1323400
+    }
+  ],
+  "transcriptText": "E aí, nesse vídeo vou te mostrar o fluxo completo de desenvolvimento de uma funcionalidade complexa 100% com IA, algo que levaria dias para ser feito em alguns minutos com 100% de segurança. Esse aqui é o 8020. Entendendo essas coisas já vai ter um ganho absurdo de produtividade. Depois desse vídeo, tu vai conseguir desenvolver end to end cuá em qualquer cod base de qualquer tamanho e ganhar muita produtividade. E fica até o final porque no fim eu mostro o que eu acho que é a cereja do bolo do desenvolvimento avançado com IAR. Eu sou Valdemar Neto e eu falo sobre desenvolvimento de software avançado, liderança e IAR. E se tu não me segue ainda, segue aqui, comenta, dá like e ajuda bastante o canal a crescer. E o que que a gente vai ver nesse vídeo aqui na prática? Primeiro, o que que é preciso para desenvolver uma feature com IA? Todo o fluxo necessário. Qual o setup mínimo necessário da IA no repositório para ter uma boa produtividade? Qual o papel de rules, skills e MCPs e documentação na criação do contexto e no desenvolvimento da feature? Como desenvolver mantendo o contexto baixo e como paralelizar tarefas. Então, com isso aqui, tu vai est pronto para desenvolver em grande escala. Nesse nosso fluxo, a gente vai estar olhando para coisas muito importantes. Primeiro, a fonte do contexto. De onde vem o contexto. Um uma boa engenharia de contexto vem de tu ter bons design docs, boas referências de contexto. Se teu time e a tua empresa já são acostumados a escrever RFCs, ADRs, design docs eh PRDs, tá em um ótimo lugar. Senão é uma coisa que tu vai ter que começar a exercitar, porque quanto mais contexto tem com expectativas do negócio, expectativas do que que tem ser feito, mais fácil vai ser estudar contexto para IAT. Então tudo começa aqui, a parte de discover, o que que tem que ser feito, a funcionalidade. Então no meu exemplo eu vou usar o confluence para pegar um design doc e usar como contexto. Vocês podem criar no repositório, podem usar o notion, usar o que vocês quiserem. O importante é criar o contexto para começar. Depois eu vou usar o cursor. Vocês podem usar qualquer ferramenta como ferramenta central. Essa ferramenta vai pegar um design doc, vai quebrar ele em tarefas, vai colocar essas tarefas no gira, a partir dessas tarefas começar a fazer uma a uma nas funcionalidades e aí basear, usar as guidelines como base, criar planos a partir delas. Mas esse é o fluxo que vocês devem focar de ter sempre ter uma fonte da verdade, foi revisada por humano, escrita por humanos, a partir dali tu não escreve mais nada, tu usa i para ir enriquecendo aquele contexto e criando o código. Vamos ver na prática aqui. Mas o que que é a funcionalidade que a gente vai desenvolver? é uma integração com o stripe. Então a gente vai pegar um code base que eu vou mostrar que é um code base complexo baseado em um code base real que eu copiei com IAI e mudei algumas coisas. E esse code base tem uma parte de assinaturas e a gente vai começar a usar o Stripe como gateway de pagamento, ou seja, fazer uma integração com um novo vendor. Um design doc, que é esse documento que eu tô mostrando aqui para vocês, é uma boa prática de engenharia, ou seja, produto e engenharia fazem uma discovery e transforma essa discovery em um design doc. Tem todo o contexto do projeto. Aqui ele explica, ó, fake flix, que é meu sistema fake de streaming. Ele explica o motivo dele, ó. Ele é um sistema de streaming, quer botar um novo gator de pagamento. Aqui tem todos toda a descrição, todo o contexto do que vai ser feito, as APIs que vão ser usadas. Aqui pode ser um humano junto como a IA explorando isso, né? Fazendo uma poque ali. Então a gente definiu o MVP que vai ser um fluxo de teste gratuito. Primeira parte para você não precisar lidar com cartão de crédito, esse tipo de coisa. Aqui ele explica todo o fluxo e aqui embaixo tem as tarefas. Isso é muito importante num design doc tu listar as coisas principais da tua exploração, se tu tá liderando aun funcionalidade, quais são as coisas principais e se elas estão definidas ou não. Então vai ter um setup de crencial, vai ter um setup do ambiente de teste, vai ter criação de clientes, né, no lado da nossa API e no lado do Stripe também. Ah, o gerenciamento de métodos de pagamento tá indefinido, mas tá fora do escopo. Então tá tudo que tá definido aqui e o que tá indefinido a gente vai deixar fora do MVP, né? Então esse é o design doc, esse é o contexto que a gente precisa do que que vai ser feito. Pensem assim, isso aqui é um projeto grande e ainda não tenho tarefas. Se você já tem tarefas, o contexto é a tarefa que vai ser feita. E eu também vou disponibilizar esse documento como PDF para vocês poderem ver e usar como base pros de vocês. Então vamos lá, vamos pro código. Eu o que que eu vou usar aqui como base? é um monorrepo de uma aplicação modular que eu tenho dentro da comunidade clube. E a gente vai estocando nesse módulo de billing aqui, que é onde vai ficar a integração com o Stripe. O que que é o mínimo que eu preciso ter para ter muita efetividade com IA no repositório? é o setup do conhecimento, do contexto. Então, no caso aqui, eu uso o cursor, mas as coisas que eu vou mostrar funcionam para qualquer agente moderno dos dias de hoje, menos rules que são do cursor, mais rules elas fazem o mesmo que o agents.m faz e que as skills fazem também, só que o mercado separou, né? Um, ficou a documentação no agents. MD e execução de capacidades ficou em skills. Então, o cursor adota os dois. E aqui eu vou usar um exemplo, mas o que que importa? As minhas rules aqui é seriam similares vocês terem um ags. Macdal ou algo assim? Elas têm só o básico da estrutura do projeto, tá? Essa aqui sempre carrega. Então, sempre que iniciar um contexto de a, ele vai carregar isso aqui. E aqui ele aprende o básico da estrutura do meu projeto e aonde tá o resto da documentação. Olha, se uma tesque envolve criar o modif modificar módulos, usa esse aqui. Se envolve entidades do banco de dados, usa esse aqui. Se envolve criar controllers ou services, usa esse daqui. E aí dentro de docs, eu tenho os docs aqui. Dessa maneira, ela vai buscando sobre demanda quando precisa. Se vocês não viram o meu vídeo anterior que eu mostro a teoria disso aqui tudo, deiem uma olhada que eu falo de progressive disclosure, falo de RPI, que eu vou falar aqui também que é research plan implement. Então dei uma olhada nesse naquele vídeo. Esse vídeo é a parte prática daquele vídeo, beleza? Então carregou isso daqui, ela já sabe, cara, se eu precisar fazer algo, eu vou buscar nesses arquivos. Essa é a primeira coisa. Segunda coisa, skills. Pô, eu tenho que bater no confluence para pegar um design doc. Eu tenho que bater no gira para criar uma tesque. Eu não vou ficar dando prompt para isso toda vez. Eu venho aqui e crio uma skill. Então, a skill é um contexto especializado em fazer isso. Ela sabe, ela sabe, por exemplo, qual que é a minha instância do conflence, ela sabe bater lá, ela sabe usar o MCP da Atlacen para fazer isso que eu vou mostrar. Então, a skill é para isso. Eu não vou explicar tudo como criar uma skill aqui, porque eu vou ter uma live dia 29/01 só focado em skills. Então, vou deixar o link aqui embaixo. Tem outra skill que é o giro. Então, mesma coisa, né? Como criar tesque no meu giro, como buscar tesques do meu giro. Tudo aqui bem específico, a gente vai ver na prática. E a última coisa que a gente tem que ver pro nosso fluxo ficar perfeito é os MCPs. Qual os MCPs que eu botei aqui? O da Atlas para bater nas ferramentas e o do Contactex Sev para mim ter documentação atualizada. Deixei só esses para não confundir ninguém e esses são os que eu mais uso. Beleza? Com isso eu já consigo fazer uma funcionalidade inteira sem ter que mudar quase nada porque eu tenho todo o conhecimento do meu projeto aqui. Muito importante, galera. Aqui, ó, minhas documentação, tem a estrutura de todo o meu projeto, né? né? Então aqui eu tenho eh como é uma uma aplicação modular, eu tenho que explicar as lógicas da modularização. Eu também tenho os meus padrões de código do meu projeto. Isso aqui é coisa que a gente vai evoluindo ao longo do tempo. Então pensem, para mim fazer uma coisa em uma hora que ia levar 7 dias, eu levei um tempo até criar esse contexto. Então isso é normal. Vocês vocês vão levar alguns dias até ter um bom contexto pro projeto, mas quando tiver ficar muito assertivo. Beleza? Então agora a gente vai começar uma funcionalidade. Vou criar um novo agente aqui. Vou fechar essa parte modelos. A gente vai est vendo também estratégia de qual modelo usar. Mas eu vou dizer baseado nesse design doc, design do baseado no MVP desse design doc. Avalie design doc. Avalie se tudo que precisa para fazer o MVP está definido, tá? Vou mandar ele fazer isso aqui. Ele vai usar o MCP, vai bater lá na Atlas e vai pegar ele e vai parciar o conteúdo e vai me dizer qual a diferença do MCP de skill e documentação. MCP é para coisas remotas, né? Quando a gente precisa do conhecimento que tá em outro lugar. Então ele é um protocolo que unifica tipo uma API para LLMs. Então e a gente bate lá, pega o contexto e bota o contexto aqui. Skill é local, tática local no repositório. Então ele foi lá, pegou e avaliou o que que tá definido, que pode prosseguir, o setup inicial, configuração de credenciais, gestão de clientes, né, de customers e gestão de assinatura. Os web hooks não estão definidos a definidos ainda. Então pra gente ter esse MVP completo, precisaria ter o setup do web hook. Então, OK, pro nosso nosso exemplo aqui, eu não vou não vou não vou fazer isso. Tratamento de erros e falhas de pagamentos também tá como indefinido, mas a gente já tem o MVP, né? Aqui, ó, a gente tem o MVP que é essa parte. A gente pode criar essa parte aqui, que é o que a gente vai focar. Aqui tem mais algumas coisas, pontos ausentes no documento, arquitetura. O design Doc não define em qual pack de módulo vai ficar, qual estrutura padrão. Aí aqui provavelmente porque a a IA não carregou meus padrões de projeto, mas aqui, ó, l recomendação ler architecture overview e defini uma arquitetura modular. Então ele já entendeu que ele vai ter que fazer. Ahã. Agora eu vou quebrar tesques pra gente começar a trabalhar que eu pedi para ele criar me dizer quais são as tesques, não criar porque ele vai criar no giro depois. E a gente vai ver quais que vão ser as tesques que ele vai sugerir. Notem que aqui ele tá lendo o que precisa, né? Pegou o coding pattern state isolation porque tem que criar tabelas. Então ele tá passando por todo o nosso TDD, nosso technical design doc e fazendo essas coisas. Então ele já vem aqui com a nossa tesqu. Ó, uma coisa aqui por padrão, a IA cria tesques como se fosse para humano, tes tesques bem pequenas. Tá vendo aqui? Fase setup infraestrutura. Aí, pô, quebrou. Configura credencial e configura instalar SDK. Cara, isso pode ser tudo uma coisa. Fase três, não vou botar assim, cada fase deve ser uma tesque para facilitar o desenvolvimento. Bom, agora ele quebrou. Então a tesque um é o setup e infraestrutura do stripe. Então dentro dessa tesque vai ter configurar variáveis de ambiente, configurar o SDK, ter um stripe service que é para inicialização do SDK, ah, um provider registrado no Billy Module, beleza? Vai ter aqui adicionar as dependências. Tesque dois é persistência. Assim, o quanto de contexto vocês vão botar na Tesquec é por vocês, porque a tesc ela vai virar um plano depois. Vou mostrar. Então, eu não boto muito contexto técnico aqui, né? Não precisa mencionar muito arquivo nem nada, só dar o contexto no alto nível. Beleza? Então, ah, tá, tá. OK. OK. Agora crie essas tesques no giro. Não precisa colocar detalhes dos tests. Então agora ele vai criar essas tescas no gira para nós. E aí depois a gente vai começar a desenvolver as funcionalidades. Como eu já tenho as skills, eu só falo e ele sabe, olha, cria, cria a tesque, é busca a tesque, tudo assim. Quer dizer que vocês precisam usar o conference, o gira de novo? Não. Muita gente cria direto no repositório e desenvolve. Mas assim, se vocês estiverem trabalhando num time maior, vai ter tesc, né? Vai ter um design doc, vocês vão ter que quebrar. Então vai estar em algum lugar. Por isso que eu acabo, como eu uso muito esses fluxos, é a maneira que eu gosto de mostrar. Mas pensem que o que importa é o contexto bem estruturado, ok? Então ele criou essas tesques para nós. Testes criadas, setup, persistência, core services, essa APIs Rest, tá ótimo. Dando uma estimativa ali de quanto tempo vai levar. Beleza, agora vou perguntar, tem algo que seja paralelizável pra gente saber, né? Tem algo que seja paralelizável. E uma das coisas sensacionais da IA é que a IA ela consegue criar uma tesque e avaliar o esforço que vai ir naquela tesque, ainda mais tu usa um monorrepo, você tem tudo junto o esforço que vai naquela tesque para poder estimar. Isso é muito bom. Então ó, que que ela sugeriu? A base, né? Então, o setup ser feito e depois em paralelo fazer a persistência e outra parte que é o Ident Integration client. Não, esse aqui a gente ainda não tem. Então aqui me deu algumas ideias do que pode ser paralelisado. A maioria das coisas ainda não dá para ser paralelizado. Então criação do criação da persistência depois o service API, documentação. Então a gente vai fazer essa base e depois a gente vai ver o que que pode ser paralelizado. Então aqui eu vou abrir um novo contexto. Sempre abram um novo contexto. Lembro que vocês querem manter a janela de contexto baixa. Aqui vocês podem ver que a gente já tá com a janela de contexto em 44%. Qualquer prompt que eu começar a dar aqui, ela vai começar a alucinar, porque ela tem muita coisa, muita coisa. que eu pedi para ela. Então, sempre abro uma nova janela de contexto para começar zerado, que nem o vídeo anterior. Olhem lá, tentar manter ali no máximo 30% da janela de contexto numa janela de 200.000 tokens é extremamente saudável, extremamente possível. Beleza? Então, vamos abrir uma nova janela e aqui eu vou mudar pro modo de plano e vou dizer que eu quero fazer a tesque, quero cri crie um plano para a tesque CAN 11. Então, que é a a parte inicial ali da da integração. Aqui sim, se eu quiser já deixar um plano rodando para fazer a outra tesca em paralelo, eu posso abrir outro agente aqui. O problema é que como não tem infraestrutura nenhuma, um vai tentar criar coisa do outro, então não é o momento da gente paralelizar. Vou mostrar depois. Bom, enquanto a nossa IA tá rodando, eu quero te convidar pro meu workshop avançado sobre o desenvolvimento com IA. Tudo que tu tá vendo aqui, eu vou explicar desde o início como fazer para ti, pro teu time, quais frameworks usar, como escalar, tudo isso de forma prática e com um valor muito bom, por apenas R$ 67. Nesse lote que tá agora, depois vai para 97, tu vai ter acesso a 6 horas de workshop ao vivo no dia 7/02 comigo. Vai ser muito máco, muito empolgado. Clica aqui embaixo, deixar o link e te inscreve lá e vamos voltar pro vídeo. Feito, então o nosso primeiro plano aqui, tá feito. Eu vou dar uma revisada nele para ver se segue as estruturas do meu projeto, tá? Então a ar context Billy Module follows mod log architect, tá? Tá certo a minha arquitetura? Então como eu tenho cada projeto tem as suas suas regras, né? E o meu aqui ele entendeu bem porque eu tenho uma boa documentação. Então para falar com o Stripe, ele vai seguir o padrão de clients que eu tenho. Vai instalar o SDK, vai botar as variáveis de ambiente, beleza? Vai criar variável de ambiente, vai criar um client stripe. Client é a camada que fala, né, com a aplicação externa. Beleza? Tá, vai registrar, vai exportar o módulo. Então tá tudo, parece tudo certo aqui no final. O que que eu quero ver? se ele vai. Ah, então tá tudo certo. Agora o que que acontece, galera? O que que eu vou fazer? Ah, vocês estão vendo que o meu contexto aqui já tá em 31%. Isso é por quê? Porque para criar esse plano, ele teve que pesquisar coisas no projeto. Pensem o seguinte, quanto maior o projeto de vocês, mais ele vai ter que pesquisar para criar um plano. E executar esse plano aqui pode ser seguro, porque tem coisas bem claras para para ir a fazer, mas pode ser que tu tenha que dar um prompt depois para arrumar algo, tu vai estar numa janela muito grande. Então o que que eu gosto de fazer aqui é clicar em novo agente e mandar esse plano para um novo agente. E aqui eu boto o modelo mais barato. Então, em vez de eu usar eh o da cloud que eu tava usando, o Sonet, eu vou usar o composer do do cursor, que é bem mais rápido e mais barato para executar um plano, porque o plano é um monte de steps, né? Então, dou play aqui e deixa ele executar esse plano agora. Bom, ele fez a planimentação. O que que a gente vai fazer agora como bons engenheiros de software? É revisar e aprovar. Então, vou revisar na minha configuração. Ele botou um esquema, tá certo? Dentro de billing, ele importou o client que ele fez, tá OK? aqui dentro de client stripe API, ele fez um client que é o que vai falar com com Stripe client, tá? Botar uma configuração pro Stripe para nós. Ah, beleza. OK, tá bom. Ah, ok. Ok, então. OK. Minha implementação aqui ficou certinha e eu vou ir paraa outra tesquec agora. OK. Então, ele fez o meu plano. Vamos ver aqui, tá? Esse aqui é o plano que vai criar as entidades e e o gator do Stripe, né? O, e o repositório. Repositório ele segue o meu padrão porque eu tenho documentação para tudo isso. Criar as entidades do banco, ele também segue o padrão na repos na no diretório certo. Elisa os comandos certos para gerar migration, porque eu tenho uma rule que fala disso aqui, ó. Quando for fazer migrations, usa os comandos corretos. Então, tu vai, cada vez tu vai gerando um plano que falta algo, tu vai melhorando tua documentação até tu chega nesse estado que eu acho que é o Nirvana, onde consegue fazer tudo. Mesma coisa. Esse aqui tá com um contexto pouco maior, 34. Vou mandar ele rodar em um novo agente. Agora, enquanto ele roda essa implementação, eu vou mostrar outra coisa extremamente interessante para você. Pensa aqui, eu tô fazendo uma funcionalidade que não pode ser paralelizada, mas eu tô com tempo livre, né? E uma coisa que tá acontecendo, principalmente com essa geração que aí a first, a galera é muito boa em paralelizar coisa. O que que eu faço nesse caso aqui? Pô, tem um tempo ali, não tenho outra coisa para fazer, vou pegar outra tesque para fazer. Cria um novo agente. Vocês vão começar a ver sobre work trees. Que que é workes? São Work trees são do Git. Ou seja, tu vai criar meio que uma nova brand da do Git ali, fazer uma alteração que não vai impactar a brand principal e voltar para ela. Tu pode tanto fazer na brch que tu tá. No meu caso aqui, eu tô na nessa br, eu tô na main agora, tá? Minha main atual. Eu posso fazer isso em outra brand, eu posso fazer isso numa feature brand. Então, tu pode fazer tanto da brand que tu tá trabalhando ou tu pode, no caso no bug, tu volta pra brand principal e tu resolve um bug a partir de lá, né? Então, tem um bug que é uma tesque Ken 17. Crie um plano para fixar o bug Ken 17, tá? Você estão vendo que eu tô criando aqui um novo, eu tenho um agente rodando. Esse agente aqui tá implementando coisa, tá implementando coisa lá. E agora numa work tree eu vou fazer outra implementação, ou seja, elas não vão conflitar, tá vendo? Porque, ó, ele criou uma branch aqui, Canet Fix. Então tudo isso, no caso eu uso o cursor, o cursor vai arrumar para mim, eu vou criar uma brand, depois eu vou aceitar de volta na brand principal as mudanças que eu fiz. Então isso aqui te permite ir paralelizando. Às vezes tu vê vídeo de gente com cloud code, com várias instâncias abertas, seis sete. Então assim, se tiver dinheiro para jogar na máquina vai firme. Mas beleza. Então aqui eu tô rodando, né? Ele já tá fazendo plano para mim e aqui eu tô fazendo outro. Poderia est iniciando outro para fazer outra coisa. Então eu já rodei três assim. Eu uso bastante, mas só quando realmente eu tenho tempo, né? Porque mudar de contexto também não é uma coisa boa. Mas tu tem que esperar bastante quando um plano grande como esse, dá para te fazer mais duas coisas em paralelo aqui. Tranquilo. Então, eu gosto bastante do work, eu gosto bastante da experiência do cursor de poder eh trabalhar nas works, depois fazer merge de volta, que eu vou mostrar aqui, tá? Então, ele criou aqui o plano para fixar o bug que eu tô fazendo, enquanto o meu outro tá indo lá 6:10, tá? minha outra implementação. E aqui o bug ocorre porque quando o usuário tenta fazer o login com e-mail em upper case o sistema falha porque ele não suporta, tá? Então vamos mandar, arruma esse daí. Isso aqui é menos prioridade, só um exemplo para você. Então ele começa a fazer isso. Eu tenho dois rodandos agora, então jogando dinheiro na máquina. Coloca dinheiro na máquina. Mas tá, tô paralelizando tesques aqui. Então esse meu outro finalizou, provavelmente. Deixa eu ver. Finalizou. Então ele vai tentar rodar os checks que ele sempre roda, né? O lint, o build. Se tiver algo errado, ele vai fixar isso. Ah, não. Testes passaram, o build passou, tá tudo certo. Então, tá, essa essa tesque aqui passou também. Beleza. Criou as migrations do banco, rodou as migrations, tudo que tinha que ser e o nosso bug tá sendo fixado lá. Beleza? E aqui eu já vou ir para outro ah outra tes que é a última que eu vou mostrar de exemplo nesse vídeo, que é de criar os corees. Agora crie. Vamos lá. Nosso bug lá tá dois de quatro já resolvido, tá arrumando os testes. Claro que sim, né, galera? Na prática eu vou revisar bem o código e tal. que tô mostrando para vocês que ele, eu tô rodando dois em paralelo, eu reviso bem o plano, mas é extremamente assertivo porque meu projeto tá praticamente todo coberto com uma boa documentação e não é muita documentação, é só as principais, as coisas que não são normais, que são específicas do meu projeto, eu tenho elas bem documentadas. OK, terminei de fixar o bug aqui. Agora eu vou em review, tá vendo? Essa é a minha a minha work, né? A minha brand que eu criei. E aqui eu vou dar um apply. Apliquei tudo, ele foi pra brand principal. Já agora eu posso ir lá e dar um commit e tal. Tranquilo? Beleza? Então é assim que funciona. Enquanto isso, eu tô criando esse outro plano aqui para fazer essa implementação, que vai ser a última implementação que eu vou fazer. Mas qual que é a grande coisa aqui, galera, que vocês estão vendo? A gente com uma boa documentação, cara, fica muito assertivo e a gente vai tendo tempo para ir abrindo outras coisas em paralelo. Então, conforme tu vai desenvolvendo uma funcionalidade grande, tem várias coisas paralelizáveis. Então, tu pode pegar três, quatro tescos e fazendo ao mesmo tempo. E assim, esse é o novo perfil do dev. A gente tem muito medo dos juniores. O que que vai acontecer com os juniores, coitados e tal? Cara, a galera que tá entrando agora já vem com essa mentalidade de paralelização do zero, que a gente tem que ir pegando porque não era normal, né, a gente parar para fazer outra coisa. Muito engraçado. Então tá que ele vai me dar o plano. Deixa eu ver. Ã, tá, vai criar um client proent para falar com o Identity Módel, tá? O repositório, tá certo? Diferenciamento de subscriptions, tá? Ah, building padrões técnicos, gatory, repository. Tá beleza. Tá, vou mandar ele construir. Só botar no composer. Vou, deixa eu ver como é que tá minha janela de contexto desse. Essa aqui janela tá em 37%. Vou mandar ele construir um em um novo agente pra gente pegar um um contexto menor. Bom, terminou então a minha implementação. Agora vou dar uma olhada. Essa daqui é vai criar os services. Então, vou ter o import service, beleza? Aqui tá o meu Stripe Customer service que vai criar os customers. Então ele usa o repositório stripe client user management service, find your create customer, bate lá, pega o customer, tá? Pega o client do stripe. Então, mesma coisa. Pega que o customer, então, OK. Aqui ele busca o customer, cria o customer. Ã, implementação tá correta. Busca por e-mail, sy customer from stripe. Quando o customer tá lá, ele de volta. Então a implementação aqui tudo certo. Uma coisa que faltou nesse plano que eu quero ter botado é escrever o teste no mesmo plano. Ele vai escrever o teste depois. Então essa é uma coisa que podia ter melhorado. Ã, create trial subscription, que é o nosso MVP. Então ele vai lá no gateway customer repository, pega o customer, aí pega o client e a partir do client ele cria uma subscription, certinho? E cria uma subscription no nosso banco de dados também e salva ela. Tudo usando os padrões do projeto, usando nosso transaction. Então esse era o nosso MVP, né? Parece tá OK. Claro que teria que testar mais e tal. Agora é isso que eu queria mostrar. Espero que vocês tenham gostado. E a cereja do bolo que eu tava falando é de começar a trabalhar mais em paralelo. Com o tempo livre que a gente tem esperando algo acontecer, a gente pode iniciar outras funcionalidades. E o work trece é a melhor coisa para vocês aprenderem. Achem ferramentas que dão bom suporte ao work, a tu fazer merge de volta na brand principal, que vai aumentar muita produtividade de vocês. Comentem aqui ferramentas que vocês usam, o que que vocês estão fazendo, se vocês gostaram do vídeo também, se ficaram com dúvidas. E não esqueça, vou deixar o link pro workshop e paraa live também, onde eu vou mostrar tudo sobre skills, tudo sobre contexto. Beleza? Até a próxima."
+}

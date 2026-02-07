@@ -1,0 +1,4617 @@
+{
+  "channel": {
+    "id": "UCbRP3c757lWg9M-U7TyEkXA",
+    "databaseId": "a51c1705-882c-4be5-b706-055eceb039f8",
+    "name": "Theo Browne",
+    "description": "Theo is a software dev, AI nerd, TypeScript sympathizer, creator of T3 Chat and the T3 Stack."
+  },
+  "videoId": "iV1EcfZSdCM",
+  "title": "What’s the best programming language for AI?",
+  "url": "https://www.youtube.com/watch?v=iV1EcfZSdCM",
+  "publishedAt": "2026-01-28T21:48:01.096Z",
+  "description": "You'd probably think that Python or TypeScript is the best language for AI. Turns out it's not..\n\nThank you Greptile for Sponsoring! Check them out at: https://soydev.link/greptile\n\nSOURCES...",
+  "thumbnailUrl": "https://i.ytimg.com/vi/iV1EcfZSdCM/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCGBjSe7tGgz7gavfQkhRw5NzZrrw",
+  "transcript": [
+    {
+      "text": "Us programmers love to argue about",
+      "duration": 3.28,
+      "offset": 0.08
+    },
+    {
+      "text": "different languages. Which is best and",
+      "duration": 3.36,
+      "offset": 1.76
+    },
+    {
+      "text": "which is worst, which is fast, which is",
+      "duration": 3.36,
+      "offset": 3.36
+    },
+    {
+      "text": "slow, and so many other things about",
+      "duration": 4.08,
+      "offset": 5.12
+    },
+    {
+      "text": "them. But which language is best for AI?",
+      "duration": 3.999,
+      "offset": 6.72
+    },
+    {
+      "text": "Apparently, it's Polish. But we're not",
+      "duration": 3.2,
+      "offset": 9.2
+    },
+    {
+      "text": "here to talk about Polish or spoken",
+      "duration": 3.201,
+      "offset": 10.719
+    },
+    {
+      "text": "languages. We're here to talk about",
+      "duration": 3.359,
+      "offset": 12.4
+    },
+    {
+      "text": "programming languages. And just to be",
+      "duration": 3.52,
+      "offset": 13.92
+    },
+    {
+      "text": "even clearer, we're not talking about",
+      "duration": 3.28,
+      "offset": 15.759
+    },
+    {
+      "text": "programming languages that were made for",
+      "duration": 3.28,
+      "offset": 17.44
+    },
+    {
+      "text": "AI. There's already a few of these, like",
+      "duration": 4.32,
+      "offset": 19.039
+    },
+    {
+      "text": "Nanolang and Nerd, but as cool as those",
+      "duration": 4.799,
+      "offset": 20.72
+    },
+    {
+      "text": "are, they're nowhere near ready for real",
+      "duration": 4.721,
+      "offset": 23.359
+    },
+    {
+      "text": "world use. I want to talk about real",
+      "duration": 4.241,
+      "offset": 25.519
+    },
+    {
+      "text": "programming languages that we already",
+      "duration": 3.92,
+      "offset": 28.08
+    },
+    {
+      "text": "use every day. Autocodebench is a",
+      "duration": 4.16,
+      "offset": 29.76
+    },
+    {
+      "text": "benchmark made by Tencent specifically",
+      "duration": 4,
+      "offset": 32
+    },
+    {
+      "text": "to try and evaluate how different models",
+      "duration": 4,
+      "offset": 33.92
+    },
+    {
+      "text": "perform in different languages. Their",
+      "duration": 3.44,
+      "offset": 36
+    },
+    {
+      "text": "goal with this was to figure out which",
+      "duration": 2.799,
+      "offset": 37.92
+    },
+    {
+      "text": "models are the best at certain",
+      "duration": 3.2,
+      "offset": 39.44
+    },
+    {
+      "text": "languages. Well, we can go a different",
+      "duration": 4.081,
+      "offset": 40.719
+    },
+    {
+      "text": "direction with it. We can use this to",
+      "duration": 4.32,
+      "offset": 42.64
+    },
+    {
+      "text": "see which languages the models do best",
+      "duration": 4.64,
+      "offset": 44.8
+    },
+    {
+      "text": "with. And the results are genuinely",
+      "duration": 4.72,
+      "offset": 46.96
+    },
+    {
+      "text": "fascinating. I first saw these because",
+      "duration": 3.68,
+      "offset": 49.44
+    },
+    {
+      "text": "the author of a language that I'm",
+      "duration": 3.359,
+      "offset": 51.68
+    },
+    {
+      "text": "friends with showed it to me and we were",
+      "duration": 4,
+      "offset": 53.12
+    },
+    {
+      "text": "both just kind of standing there in",
+      "duration": 4.401,
+      "offset": 55.039
+    },
+    {
+      "text": "disbelief. It's a very interesting",
+      "duration": 4.239,
+      "offset": 57.12
+    },
+    {
+      "text": "bench. It has some very interesting",
+      "duration": 4,
+      "offset": 59.44
+    },
+    {
+      "text": "results that have very very interesting",
+      "duration": 4.001,
+      "offset": 61.359
+    },
+    {
+      "text": "implications. Whatever language you",
+      "duration": 4.24,
+      "offset": 63.44
+    },
+    {
+      "text": "think is the best, I'm almost certain",
+      "duration": 3.92,
+      "offset": 65.36
+    },
+    {
+      "text": "it's not unless you've already read",
+      "duration": 4,
+      "offset": 67.68
+    },
+    {
+      "text": "this. And spoiler, it's definitely not",
+      "duration": 4.08,
+      "offset": 69.28
+    },
+    {
+      "text": "Typescript as much as I would like for",
+      "duration": 3.119,
+      "offset": 71.68
+    },
+    {
+      "text": "it to be. And believe it or not, it's",
+      "duration": 3.36,
+      "offset": 73.36
+    },
+    {
+      "text": "not Python either. I can't wait to tell",
+      "duration": 3.601,
+      "offset": 74.799
+    },
+    {
+      "text": "you all about which languages are",
+      "duration": 3.52,
+      "offset": 76.72
+    },
+    {
+      "text": "topping this benchmark and why I think",
+      "duration": 3.52,
+      "offset": 78.4
+    },
+    {
+      "text": "they're doing that right after a quick",
+      "duration": 3.44,
+      "offset": 80.24
+    },
+    {
+      "text": "word from today's sponsor. Stop me if",
+      "duration": 3.199,
+      "offset": 81.92
+    },
+    {
+      "text": "you heard this one before. AI is great",
+      "duration": 2.64,
+      "offset": 83.68
+    },
+    {
+      "text": "at coding and it's better at code",
+      "duration": 2.481,
+      "offset": 85.119
+    },
+    {
+      "text": "review. That's why today's sponsor is",
+      "duration": 2.72,
+      "offset": 86.32
+    },
+    {
+      "text": "Graptile, one of the best AI code",
+      "duration": 3.12,
+      "offset": 87.6
+    },
+    {
+      "text": "reviewers. Okay, you've heard this. I",
+      "duration": 3.36,
+      "offset": 89.04
+    },
+    {
+      "text": "get it. I want to do something a bit",
+      "duration": 2.88,
+      "offset": 90.72
+    },
+    {
+      "text": "different today. I don't even have",
+      "duration": 2.719,
+      "offset": 92.4
+    },
+    {
+      "text": "permission from the team, but I I hope",
+      "duration": 3.04,
+      "offset": 93.6
+    },
+    {
+      "text": "that they'll be okay with this. They're",
+      "duration": 3.04,
+      "offset": 95.119
+    },
+    {
+      "text": "going to review this before we air it,",
+      "duration": 3.519,
+      "offset": 96.64
+    },
+    {
+      "text": "so it's kind of their thing. Regardless,",
+      "duration": 3.6,
+      "offset": 98.159
+    },
+    {
+      "text": "this is a post they just made about the",
+      "duration": 4,
+      "offset": 100.159
+    },
+    {
+      "text": "AI code review bubble. This was very",
+      "duration": 3.68,
+      "offset": 101.759
+    },
+    {
+      "text": "interesting to me and I thought it was",
+      "duration": 2.881,
+      "offset": 104.159
+    },
+    {
+      "text": "worth touching on because a lot of other",
+      "duration": 3.36,
+      "offset": 105.439
+    },
+    {
+      "text": "companies have started releasing AI code",
+      "duration": 3.119,
+      "offset": 107.04
+    },
+    {
+      "text": "review products as part of their",
+      "duration": 3.28,
+      "offset": 108.799
+    },
+    {
+      "text": "existing tools be it cognition linear",
+      "duration": 3.92,
+      "offset": 110.159
+    },
+    {
+      "text": "and more and I really like their takes",
+      "duration": 4,
+      "offset": 112.079
+    },
+    {
+      "text": "on this. Grapiles benchmarks say they're",
+      "duration": 3.521,
+      "offset": 114.079
+    },
+    {
+      "text": "the best but all of the benchmarks from",
+      "duration": 2.801,
+      "offset": 116.079
+    },
+    {
+      "text": "all of these companies say that they're",
+      "duration": 3.28,
+      "offset": 117.6
+    },
+    {
+      "text": "the best. We have to talk about this a",
+      "duration": 3.36,
+      "offset": 118.88
+    },
+    {
+      "text": "little bit deeper. The first big piece",
+      "duration": 2.879,
+      "offset": 120.88
+    },
+    {
+      "text": "they touch on is independence. We",
+      "duration": 3.199,
+      "offset": 122.24
+    },
+    {
+      "text": "strongly believe that the review agent",
+      "duration": 2.801,
+      "offset": 123.759
+    },
+    {
+      "text": "should be different from the coding",
+      "duration": 2.561,
+      "offset": 125.439
+    },
+    {
+      "text": "agent. We're opinionated on the",
+      "duration": 2.96,
+      "offset": 126.56
+    },
+    {
+      "text": "importance of independent code",
+      "duration": 3.68,
+      "offset": 128
+    },
+    {
+      "text": "validation agents. In spite of multiple",
+      "duration": 4,
+      "offset": 129.52
+    },
+    {
+      "text": "requests, we've never shipped codegen",
+      "duration": 3.84,
+      "offset": 131.68
+    },
+    {
+      "text": "features. We don't write code. An otter",
+      "duration": 3.84,
+      "offset": 133.52
+    },
+    {
+      "text": "doesn't prepare the books. A fox doesn't",
+      "duration": 3.359,
+      "offset": 135.52
+    },
+    {
+      "text": "guard the hen house. And a student",
+      "duration": 3.28,
+      "offset": 137.36
+    },
+    {
+      "text": "doesn't grade their own essays. Today's",
+      "duration": 3.601,
+      "offset": 138.879
+    },
+    {
+      "text": "agents are better than the median human",
+      "duration": 3.44,
+      "offset": 140.64
+    },
+    {
+      "text": "code reviewer at catching issues and",
+      "duration": 3.28,
+      "offset": 142.48
+    },
+    {
+      "text": "enforcing standards. And they're only",
+      "duration": 3.36,
+      "offset": 144.08
+    },
+    {
+      "text": "getting better. It's clear that in the",
+      "duration": 3.28,
+      "offset": 145.76
+    },
+    {
+      "text": "future, a large percentage of code at",
+      "duration": 3.12,
+      "offset": 147.44
+    },
+    {
+      "text": "companies will be auto approved by the",
+      "duration": 3.36,
+      "offset": 149.04
+    },
+    {
+      "text": "code review agents. In other words,",
+      "duration": 3.36,
+      "offset": 150.56
+    },
+    {
+      "text": "there will be some instances where a",
+      "duration": 3.04,
+      "offset": 152.4
+    },
+    {
+      "text": "human writes a ticket, an agent writes a",
+      "duration": 3.2,
+      "offset": 153.92
+    },
+    {
+      "text": "PR, and another agent validates,",
+      "duration": 3.519,
+      "offset": 155.44
+    },
+    {
+      "text": "approves, and merges it. This sounds",
+      "duration": 3.119,
+      "offset": 157.12
+    },
+    {
+      "text": "insane and I never would have believed",
+      "duration": 3.041,
+      "offset": 158.959
+    },
+    {
+      "text": "it, but I started doing it myself. They",
+      "duration": 3.201,
+      "offset": 160.239
+    },
+    {
+      "text": "talk a bit about feedback loops here",
+      "duration": 3.36,
+      "offset": 162
+    },
+    {
+      "text": "because they have a Claude code plugin",
+      "duration": 4.72,
+      "offset": 163.44
+    },
+    {
+      "text": "for Grapile. Yes, really. The plug-in",
+      "duration": 4.56,
+      "offset": 165.36
+    },
+    {
+      "text": "can be set up to give feedback to the",
+      "duration": 3.68,
+      "offset": 168.16
+    },
+    {
+      "text": "coding agent after it writes code. And",
+      "duration": 3.36,
+      "offset": 169.92
+    },
+    {
+      "text": "once the review comes in, it'll address",
+      "duration": 3.28,
+      "offset": 171.84
+    },
+    {
+      "text": "the feedback over and over again until",
+      "duration": 3.36,
+      "offset": 173.28
+    },
+    {
+      "text": "there isn't any left. And if there's",
+      "duration": 4,
+      "offset": 175.12
+    },
+    {
+      "text": "ambiguity at any point, the agents slack",
+      "duration": 4.16,
+      "offset": 176.64
+    },
+    {
+      "text": "the human to clarify. Do you know how",
+      "duration": 3.28,
+      "offset": 179.12
+    },
+    {
+      "text": "cool that is? you know how much longer",
+      "duration": 3.12,
+      "offset": 180.8
+    },
+    {
+      "text": "you can run agents for if they're",
+      "duration": 3.199,
+      "offset": 182.4
+    },
+    {
+      "text": "getting feedback and review, especially",
+      "duration": 3.039,
+      "offset": 183.92
+    },
+    {
+      "text": "if it's coming from a different harness",
+      "duration": 3.121,
+      "offset": 185.599
+    },
+    {
+      "text": "or a different model. I've tried the",
+      "duration": 3.761,
+      "offset": 186.959
+    },
+    {
+      "text": "local review things and they just aren't",
+      "duration": 3.84,
+      "offset": 188.72
+    },
+    {
+      "text": "as good. Grappile's understanding of",
+      "duration": 4,
+      "offset": 190.72
+    },
+    {
+      "text": "your codebase goes deep. I've seen it",
+      "duration": 4,
+      "offset": 192.56
+    },
+    {
+      "text": "call things out from many files away",
+      "duration": 3.84,
+      "offset": 194.72
+    },
+    {
+      "text": "that aren't even being touched in the PR",
+      "duration": 4.16,
+      "offset": 196.56
+    },
+    {
+      "text": "because it understands your code base.",
+      "duration": 3.92,
+      "offset": 198.56
+    },
+    {
+      "text": "Combine that with a coding agent and it",
+      "duration": 3.68,
+      "offset": 200.72
+    },
+    {
+      "text": "can iterate on itself way faster than",
+      "duration": 3.28,
+      "offset": 202.48
+    },
+    {
+      "text": "you can imagine. I guess there's a",
+      "duration": 3.04,
+      "offset": 204.4
+    },
+    {
+      "text": "reason everyone from Brex to Scale to",
+      "duration": 3.92,
+      "offset": 205.76
+    },
+    {
+      "text": "Post Hog is using them. They seem to",
+      "duration": 3.92,
+      "offset": 207.44
+    },
+    {
+      "text": "really get it. And from my experience,",
+      "duration": 3.76,
+      "offset": 209.68
+    },
+    {
+      "text": "they definitely do. Graile stop me from",
+      "duration": 5.439,
+      "offset": 211.36
+    },
+    {
+      "text": "shipping bugs. Let them stop you at soy.",
+      "duration": 4.719,
+      "offset": 213.44
+    },
+    {
+      "text": "Before we can determine what the best",
+      "duration": 3.681,
+      "offset": 216.799
+    },
+    {
+      "text": "language for AI is, we should probably",
+      "duration": 4.321,
+      "offset": 218.159
+    },
+    {
+      "text": "start with what makes a good language",
+      "duration": 3.6,
+      "offset": 220.48
+    },
+    {
+      "text": "and then also, of course, what makes a",
+      "duration": 4,
+      "offset": 222.48
+    },
+    {
+      "text": "good language for AI. So, what makes a",
+      "duration": 5.28,
+      "offset": 224.08
+    },
+    {
+      "text": "good programming language? I'm sure this",
+      "duration": 4.72,
+      "offset": 226.48
+    },
+    {
+      "text": "is a really simple question that nobody",
+      "duration": 3.92,
+      "offset": 229.36
+    },
+    {
+      "text": "will have contradicting opinions about.",
+      "duration": 4.319,
+      "offset": 231.2
+    },
+    {
+      "text": "What makes a good programming language?",
+      "duration": 4.239,
+      "offset": 233.28
+    },
+    {
+      "text": "Let's see what theories we all have.",
+      "duration": 3.761,
+      "offset": 235.519
+    },
+    {
+      "text": "Cotlin makes a good programming language",
+      "duration": 4.881,
+      "offset": 237.519
+    },
+    {
+      "text": "apparently. Types, type safety, simple",
+      "duration": 7.039,
+      "offset": 239.28
+    },
+    {
+      "text": "syntax, readability, no error handling,",
+      "duration": 6.96,
+      "offset": 242.4
+    },
+    {
+      "text": "long live go, lots of training examples,",
+      "duration": 7.28,
+      "offset": 246.319
+    },
+    {
+      "text": "great compiler, Apple beauty. Ooh, from",
+      "duration": 6,
+      "offset": 249.36
+    },
+    {
+      "text": "YouTube. YouTube's actually playing good",
+      "duration": 3.441,
+      "offset": 253.599
+    },
+    {
+      "text": "here. Pattern matching. That's one that",
+      "duration": 3.279,
+      "offset": 255.36
+    },
+    {
+      "text": "I love. That's a good feature. Human",
+      "duration": 3.12,
+      "offset": 257.04
+    },
+    {
+      "text": "readability.",
+      "duration": 3.44,
+      "offset": 258.639
+    },
+    {
+      "text": "Simplicity plus functionality equals",
+      "duration": 5.039,
+      "offset": 260.16
+    },
+    {
+      "text": "sophistication. How fast is it, bro? If",
+      "duration": 6.001,
+      "offset": 262.079
+    },
+    {
+      "text": "it's called Rust, good docs, emoji to",
+      "duration": 4.961,
+      "offset": 265.199
+    },
+    {
+      "text": "text ratio. Most languages suffer",
+      "duration": 3.6,
+      "offset": 268.08
+    },
+    {
+      "text": "immensely here in particular. I am",
+      "duration": 3.2,
+      "offset": 270.16
+    },
+    {
+      "text": "disappointed at how few languages let",
+      "duration": 3.76,
+      "offset": 271.68
+    },
+    {
+      "text": "you define variables and values as",
+      "duration": 4.96,
+      "offset": 273.36
+    },
+    {
+      "text": "emojis. Very frustrating. Higher kind of",
+      "duration": 4.8,
+      "offset": 275.44
+    },
+    {
+      "text": "types, macros, functors, decorators,",
+      "duration": 4.64,
+      "offset": 278.32
+    },
+    {
+      "text": "centralized tooling, standard library.",
+      "duration": 4.8,
+      "offset": 280.24
+    },
+    {
+      "text": "Interesting. I think hopefully from here",
+      "duration": 3.76,
+      "offset": 282.96
+    },
+    {
+      "text": "we can establish the one thing that",
+      "duration": 2.96,
+      "offset": 285.04
+    },
+    {
+      "text": "makes a good programming language for",
+      "duration": 3.919,
+      "offset": 286.72
+    },
+    {
+      "text": "humans. The human likes it. This is",
+      "duration": 4.4,
+      "offset": 288
+    },
+    {
+      "text": "really what it comes down to. As sad as",
+      "duration": 3.28,
+      "offset": 290.639
+    },
+    {
+      "text": "it is, I wish we could evaluate",
+      "duration": 2.72,
+      "offset": 292.4
+    },
+    {
+      "text": "programming languages in a more",
+      "duration": 3.84,
+      "offset": 293.919
+    },
+    {
+      "text": "meaningful way. But sadly, humans do not",
+      "duration": 5.359,
+      "offset": 295.12
+    },
+    {
+      "text": "allow us to do such. We project our",
+      "duration": 5.281,
+      "offset": 297.759
+    },
+    {
+      "text": "beliefs onto languages as a whole and",
+      "duration": 5.761,
+      "offset": 300.479
+    },
+    {
+      "text": "use those to evaluate them and as such",
+      "duration": 5.04,
+      "offset": 303.04
+    },
+    {
+      "text": "have preferences that go beyond anything",
+      "duration": 3.76,
+      "offset": 306.24
+    },
+    {
+      "text": "that can be measured. As Joel said in",
+      "duration": 3.839,
+      "offset": 308.08
+    },
+    {
+      "text": "chat, if you like it, it's good wine.",
+      "duration": 3.68,
+      "offset": 310
+    },
+    {
+      "text": "Yep. So, when we're talking about what",
+      "duration": 3.28,
+      "offset": 311.919
+    },
+    {
+      "text": "makes a good language for us, we're",
+      "duration": 3.2,
+      "offset": 313.68
+    },
+    {
+      "text": "going to obviously have our own",
+      "duration": 4.641,
+      "offset": 315.199
+    },
+    {
+      "text": "preferences biased into it. So let's ask",
+      "duration": 4.48,
+      "offset": 316.88
+    },
+    {
+      "text": "the next version of this question, the",
+      "duration": 2.96,
+      "offset": 319.84
+    },
+    {
+      "text": "one that we care about. What makes a",
+      "duration": 4.32,
+      "offset": 321.36
+    },
+    {
+      "text": "good programming language for LMS? What",
+      "duration": 5.04,
+      "offset": 322.8
+    },
+    {
+      "text": "are the traits and characteristics that",
+      "duration": 5.04,
+      "offset": 325.68
+    },
+    {
+      "text": "make a model good with a given language?",
+      "duration": 5.68,
+      "offset": 327.84
+    },
+    {
+      "text": "Simplicity, types, LSP, token",
+      "duration": 4.479,
+      "offset": 330.72
+    },
+    {
+      "text": "efficiency, that's an interesting one to",
+      "duration": 3.04,
+      "offset": 333.52
+    },
+    {
+      "text": "bring up. A word I'm not even going to",
+      "duration": 4.401,
+      "offset": 335.199
+    },
+    {
+      "text": "try to pronounce. concise syntax, high",
+      "duration": 5.28,
+      "offset": 336.56
+    },
+    {
+      "text": "verbosity that feels contradictory,",
+      "duration": 4.96,
+      "offset": 339.6
+    },
+    {
+      "text": "vector spaces, C style syntax, how much",
+      "duration": 4.32,
+      "offset": 341.84
+    },
+    {
+      "text": "training data that it was trained on,",
+      "duration": 3.28,
+      "offset": 344.56
+    },
+    {
+      "text": "the quality of the training data in the",
+      "duration": 4,
+      "offset": 346.16
+    },
+    {
+      "text": "language, how much data the language is",
+      "duration": 4.639,
+      "offset": 347.84
+    },
+    {
+      "text": "in the AI, and how specific and clear is",
+      "duration": 5.28,
+      "offset": 350.16
+    },
+    {
+      "text": "the syntax. There's a couple themes we",
+      "duration": 6.56,
+      "offset": 352.479
+    },
+    {
+      "text": "are seeing here. Those are simplicity,",
+      "duration": 5.84,
+      "offset": 355.44
+    },
+    {
+      "text": "token efficiency, amount of training",
+      "duration": 5.121,
+      "offset": 359.039
+    },
+    {
+      "text": "data, feedback mechanisms,",
+      "duration": 5.359,
+      "offset": 361.28
+    },
+    {
+      "text": "i.e. type safety. Anything else",
+      "duration": 3.68,
+      "offset": 364.16
+    },
+    {
+      "text": "important you guys feel like I'm missing",
+      "duration": 3.761,
+      "offset": 366.639
+    },
+    {
+      "text": "with this? How unique the syntax is.",
+      "duration": 4.72,
+      "offset": 367.84
+    },
+    {
+      "text": "That's an interesting one. Another one,",
+      "duration": 4.079,
+      "offset": 370.4
+    },
+    {
+      "text": "not loads of [ __ ] code in the training",
+      "duration": 4,
+      "offset": 372.56
+    },
+    {
+      "text": "data. So, amount of training data. I",
+      "duration": 3.681,
+      "offset": 374.479
+    },
+    {
+      "text": "will put underneath that quality of",
+      "duration": 4.8,
+      "offset": 376.56
+    },
+    {
+      "text": "training data. It's closure. Mandatory",
+      "duration": 5.039,
+      "offset": 378.16
+    },
+    {
+      "text": "return types. How similar are the",
+      "duration": 3.76,
+      "offset": 381.36
+    },
+    {
+      "text": "patterns to other languages. I guess",
+      "duration": 4.241,
+      "offset": 383.199
+    },
+    {
+      "text": "homogeneity is indeed a useful value.",
+      "duration": 4.16,
+      "offset": 385.12
+    },
+    {
+      "text": "Like how similar is it to other things?",
+      "duration": 4,
+      "offset": 387.44
+    },
+    {
+      "text": "So, let's take a handful of languages",
+      "duration": 4.56,
+      "offset": 389.28
+    },
+    {
+      "text": "and throw them against this and see how",
+      "duration": 4.96,
+      "offset": 391.44
+    },
+    {
+      "text": "we think they will rank. JavaScript",
+      "duration": 6.88,
+      "offset": 393.84
+    },
+    {
+      "text": "simplicity e no token efficiency",
+      "duration": 7.519,
+      "offset": 396.4
+    },
+    {
+      "text": "definitely no amount of training data",
+      "duration": 4.8,
+      "offset": 400.72
+    },
+    {
+      "text": "yeah there's a lot of training data for",
+      "duration": 4.56,
+      "offset": 403.919
+    },
+    {
+      "text": "this quality of that training data mixed",
+      "duration": 5.679,
+      "offset": 405.52
+    },
+    {
+      "text": "bag feedback mechanisms jack [ __ ]",
+      "duration": 5.041,
+      "offset": 408.479
+    },
+    {
+      "text": "JavaScript probably not great the",
+      "duration": 3.521,
+      "offset": 411.199
+    },
+    {
+      "text": "training data is huge so if you think",
+      "duration": 2.64,
+      "offset": 413.52
+    },
+    {
+      "text": "the training data is by far the most",
+      "duration": 2.64,
+      "offset": 414.72
+    },
+    {
+      "text": "important thing that you have a ton of",
+      "duration": 2.879,
+      "offset": 416.16
+    },
+    {
+      "text": "it and JavaScript should be pretty good",
+      "duration": 2.959,
+      "offset": 417.36
+    },
+    {
+      "text": "so depending on how you weight these",
+      "duration": 2.801,
+      "offset": 419.039
+    },
+    {
+      "text": "things should be near the top or the",
+      "duration": 4.481,
+      "offset": 420.319
+    },
+    {
+      "text": "bottom TypeScript similar overall I",
+      "duration": 4.56,
+      "offset": 421.84
+    },
+    {
+      "text": "would argue the TypeScript training data",
+      "duration": 3.839,
+      "offset": 424.8
+    },
+    {
+      "text": "available is of slightly higher quality",
+      "duration": 4.079,
+      "offset": 426.4
+    },
+    {
+      "text": "and the feedback mechanisms are very",
+      "duration": 3.521,
+      "offset": 428.639
+    },
+    {
+      "text": "important because type safety can be",
+      "duration": 3.361,
+      "offset": 430.479
+    },
+    {
+      "text": "checked for with a compiler and feedback",
+      "duration": 3.599,
+      "offset": 432.16
+    },
+    {
+      "text": "can be given to the model. Thereby I",
+      "duration": 3.359,
+      "offset": 433.84
+    },
+    {
+      "text": "would expect TypeScript to perform",
+      "duration": 4.88,
+      "offset": 435.759
+    },
+    {
+      "text": "better. Python interesting one probably",
+      "duration": 5.44,
+      "offset": 437.199
+    },
+    {
+      "text": "the most data and also the most",
+      "duration": 3.761,
+      "offset": 440.639
+    },
+    {
+      "text": "incentive from the labs to make it work",
+      "duration": 4.4,
+      "offset": 442.639
+    },
+    {
+      "text": "because they use Python a lot but also",
+      "duration": 4.48,
+      "offset": 444.4
+    },
+    {
+      "text": "no agreement around the type safety.",
+      "duration": 2.961,
+      "offset": 447.039
+    },
+    {
+      "text": "There's lots of different ways to do it",
+      "duration": 2.96,
+      "offset": 448.88
+    },
+    {
+      "text": "and all of them suck. There's a ton of",
+      "duration": 3.84,
+      "offset": 450
+    },
+    {
+      "text": "[ __ ] data for Python and the feedback",
+      "duration": 4.079,
+      "offset": 451.84
+    },
+    {
+      "text": "mechanisms are garbage. So, probably",
+      "duration": 5.68,
+      "offset": 453.84
+    },
+    {
+      "text": "mixed bag. Java definitely not hitting",
+      "duration": 5.521,
+      "offset": 455.919
+    },
+    {
+      "text": "simplicity or token efficiency anytime",
+      "duration": 3.679,
+      "offset": 459.52
+    },
+    {
+      "text": "soon. Probably has a good amount of",
+      "duration": 3.92,
+      "offset": 461.44
+    },
+    {
+      "text": "data. Probably is decent quality data.",
+      "duration": 3.761,
+      "offset": 463.199
+    },
+    {
+      "text": "Not great feedback mechanisms, but not",
+      "duration": 3.92,
+      "offset": 465.36
+    },
+    {
+      "text": "the worst either. It is kind of checked.",
+      "duration": 5.88,
+      "offset": 466.96
+    },
+    {
+      "text": "Sure. C++",
+      "duration": 3.56,
+      "offset": 469.28
+    },
+    {
+      "text": "I think C++ is the only thing to get a",
+      "duration": 4.96,
+      "offset": 473.44
+    },
+    {
+      "text": "straight zero on every one of these",
+      "duration": 4.081,
+      "offset": 475.759
+    },
+    {
+      "text": "other than amount of training data. It",
+      "duration": 3.44,
+      "offset": 478.4
+    },
+    {
+      "text": "has lots of training data, but it's not",
+      "duration": 3.52,
+      "offset": 479.84
+    },
+    {
+      "text": "a simple language. It is far from an",
+      "duration": 3.199,
+      "offset": 481.84
+    },
+    {
+      "text": "efficient language in terms of the token",
+      "duration": 4,
+      "offset": 483.36
+    },
+    {
+      "text": "efficiency. The quality of that data",
+      "duration": 4.72,
+      "offset": 485.039
+    },
+    {
+      "text": "varies comically, and the feedback",
+      "duration": 4.48,
+      "offset": 487.36
+    },
+    {
+      "text": "mechanisms are did it crash your system",
+      "duration": 5.521,
+      "offset": 489.759
+    },
+    {
+      "text": "or not. Good luck. C is probably a lot",
+      "duration": 5.6,
+      "offset": 491.84
+    },
+    {
+      "text": "better in these regards. I would, you",
+      "duration": 3.599,
+      "offset": 495.28
+    },
+    {
+      "text": "know what I'll do? I'll add one more",
+      "duration": 3.84,
+      "offset": 497.44
+    },
+    {
+      "text": "piece here. Thing I think is important,",
+      "duration": 4.88,
+      "offset": 498.879
+    },
+    {
+      "text": "documentation. And I'll say and ease of",
+      "duration": 4.319,
+      "offset": 501.28
+    },
+    {
+      "text": "accessibility. So, how good are the docs",
+      "duration": 4.481,
+      "offset": 503.759
+    },
+    {
+      "text": "and how easily are they accessed? And to",
+      "duration": 4.481,
+      "offset": 505.599
+    },
+    {
+      "text": "be fair, for everything up until this",
+      "duration": 4.08,
+      "offset": 508.24
+    },
+    {
+      "text": "point, I would say the answer to the",
+      "duration": 5.12,
+      "offset": 510.08
+    },
+    {
+      "text": "documentation access for that is [ __ ]",
+      "duration": 6.399,
+      "offset": 512.32
+    },
+    {
+      "text": "for C pretty damn good. The C# community",
+      "duration": 5.44,
+      "offset": 515.2
+    },
+    {
+      "text": "ecosystem and frameworks around Net and",
+      "duration": 3.521,
+      "offset": 518.719
+    },
+    {
+      "text": "everything have some of the best",
+      "duration": 4,
+      "offset": 520.64
+    },
+    {
+      "text": "documentation in the world. Whether or",
+      "duration": 4.159,
+      "offset": 522.24
+    },
+    {
+      "text": "not you like the language, it is very",
+      "duration": 4.16,
+      "offset": 524.64
+    },
+    {
+      "text": "good at this. How about Ruby? Honestly,",
+      "duration": 4.241,
+      "offset": 526.399
+    },
+    {
+      "text": "for docs, Ruby does pretty well.",
+      "duration": 3.36,
+      "offset": 528.8
+    },
+    {
+      "text": "Feedback mechanisms, it does utter",
+      "duration": 3.28,
+      "offset": 530.64
+    },
+    {
+      "text": "[ __ ] [ __ ] For quality of training",
+      "duration": 3.6,
+      "offset": 532.16
+    },
+    {
+      "text": "data, it is not very good. Token",
+      "duration": 3.599,
+      "offset": 533.92
+    },
+    {
+      "text": "efficiency, it is decent. Simplicity, it",
+      "duration": 3.28,
+      "offset": 535.76
+    },
+    {
+      "text": "could be decent, but Rails ruined that",
+      "duration": 3.76,
+      "offset": 537.519
+    },
+    {
+      "text": "for us. Could be fine. I would probably",
+      "duration": 3.84,
+      "offset": 539.04
+    },
+    {
+      "text": "guess it's higher up than Python and",
+      "duration": 3.761,
+      "offset": 541.279
+    },
+    {
+      "text": "Java based on what we know, but hard to",
+      "duration": 5.519,
+      "offset": 542.88
+    },
+    {
+      "text": "know. Elixir, my beloved. Simple,",
+      "duration": 5.2,
+      "offset": 545.04
+    },
+    {
+      "text": "depending on who you ask. Token",
+      "duration": 4.481,
+      "offset": 548.399
+    },
+    {
+      "text": "efficient, decently so, probably similar",
+      "duration": 4.8,
+      "offset": 550.24
+    },
+    {
+      "text": "to Ruby there. Amount of training data,",
+      "duration": 4.24,
+      "offset": 552.88
+    },
+    {
+      "text": "very, very small. Quality of training",
+      "duration": 3.68,
+      "offset": 555.04
+    },
+    {
+      "text": "data, I'll be a little conceited here",
+      "duration": 3.04,
+      "offset": 557.12
+    },
+    {
+      "text": "and say all of the Elixir devs I know",
+      "duration": 2.88,
+      "offset": 558.72
+    },
+    {
+      "text": "are some of the smartest people I know.",
+      "duration": 2.88,
+      "offset": 560.16
+    },
+    {
+      "text": "So, the quality of that data is likely",
+      "duration": 3.679,
+      "offset": 561.6
+    },
+    {
+      "text": "very high. Feedback mechanisms, [ __ ]",
+      "duration": 4.4,
+      "offset": 563.04
+    },
+    {
+      "text": "garbage. They are still introducing type",
+      "duration": 3.521,
+      "offset": 565.279
+    },
+    {
+      "text": "safety to the language. They are far",
+      "duration": 2.88,
+      "offset": 567.44
+    },
+    {
+      "text": "from it though. They're not that far",
+      "duration": 3.039,
+      "offset": 568.8
+    },
+    {
+      "text": "from it. It's coming very soon. But the",
+      "duration": 3.12,
+      "offset": 570.32
+    },
+    {
+      "text": "tools even understanding that's going to",
+      "duration": 4.241,
+      "offset": 571.839
+    },
+    {
+      "text": "take a while in the documentation",
+      "duration": 6,
+      "offset": 573.44
+    },
+    {
+      "text": "worldass. Golang simple to a fault.",
+      "duration": 5.36,
+      "offset": 576.08
+    },
+    {
+      "text": "Token efficient absolutely not. Amount",
+      "duration": 4.399,
+      "offset": 579.44
+    },
+    {
+      "text": "of training data decent. Quality of data",
+      "duration": 5.04,
+      "offset": 581.44
+    },
+    {
+      "text": "decentish. Feedback mechanisms garbage.",
+      "duration": 7.201,
+      "offset": 583.839
+    },
+    {
+      "text": "Documentation eh fine. Rust simplicity",
+      "duration": 7.2,
+      "offset": 586.48
+    },
+    {
+      "text": "no. Token efficiency no amount of",
+      "duration": 4.64,
+      "offset": 591.04
+    },
+    {
+      "text": "training data decent. Quality of",
+      "duration": 4.159,
+      "offset": 593.68
+    },
+    {
+      "text": "training data very decent feedback",
+      "duration": 4.88,
+      "offset": 595.68
+    },
+    {
+      "text": "mechanisms worldclass the best feedback",
+      "duration": 4.241,
+      "offset": 597.839
+    },
+    {
+      "text": "you could possibly get from a compiler",
+      "duration": 3.04,
+      "offset": 600.56
+    },
+    {
+      "text": "even if the compiler is slower than the",
+      "duration": 4.8,
+      "offset": 602.08
+    },
+    {
+      "text": "model is and documentation very good. So",
+      "duration": 5.6,
+      "offset": 603.6
+    },
+    {
+      "text": "just off of what we said all here, I",
+      "duration": 5.04,
+      "offset": 606.88
+    },
+    {
+      "text": "would guess we'd have Rust near the top.",
+      "duration": 4.4,
+      "offset": 609.2
+    },
+    {
+      "text": "Amount of data is important. So I would",
+      "duration": 3.359,
+      "offset": 611.92
+    },
+    {
+      "text": "guess Typescript would be decently high",
+      "duration": 4.799,
+      "offset": 613.6
+    },
+    {
+      "text": "up, right? C's probably decently high up",
+      "duration": 5.12,
+      "offset": 615.279
+    },
+    {
+      "text": "there. I know Go doesn't have the",
+      "duration": 3.68,
+      "offset": 618.399
+    },
+    {
+      "text": "feedback mechanisms, but the data and",
+      "duration": 2.961,
+      "offset": 620.399
+    },
+    {
+      "text": "the quality of the data and the",
+      "duration": 3.921,
+      "offset": 622.079
+    },
+    {
+      "text": "documentation probably helps it a lot.",
+      "duration": 5.12,
+      "offset": 623.36
+    },
+    {
+      "text": "C++ is not going to be anywhere near the",
+      "duration": 4.88,
+      "offset": 626
+    },
+    {
+      "text": "top. Python because they care too much.",
+      "duration": 5.039,
+      "offset": 628.48
+    },
+    {
+      "text": "Ruby because it exists and there's a lot",
+      "duration": 4,
+      "offset": 630.88
+    },
+    {
+      "text": "of it. There's probably a lot of good",
+      "duration": 4.241,
+      "offset": 633.519
+    },
+    {
+      "text": "examples. JavaScript because there's a",
+      "duration": 4.72,
+      "offset": 634.88
+    },
+    {
+      "text": "lot of examples. Java because there's a",
+      "duration": 4.8,
+      "offset": 637.76
+    },
+    {
+      "text": "good enough number of examples. C++",
+      "duration": 4.08,
+      "offset": 639.6
+    },
+    {
+      "text": "obviously near the end. What is the",
+      "duration": 3.2,
+      "offset": 642.56
+    },
+    {
+      "text": "other one we're missing? So JS. Oh,",
+      "duration": 4.48,
+      "offset": 643.68
+    },
+    {
+      "text": "Elixir. Huh. Where does Elixir fit here?",
+      "duration": 4.4,
+      "offset": 645.76
+    },
+    {
+      "text": "That's a tough one. I would just",
+      "duration": 4.88,
+      "offset": 648.16
+    },
+    {
+      "text": "instinctively say right below Ruby by",
+      "duration": 4.64,
+      "offset": 650.16
+    },
+    {
+      "text": "the nature of Elixir being very similar",
+      "duration": 4.32,
+      "offset": 653.04
+    },
+    {
+      "text": "to Ruby but less popular. This all makes",
+      "duration": 5.039,
+      "offset": 654.8
+    },
+    {
+      "text": "sense. Like given the biases we have and",
+      "duration": 4,
+      "offset": 657.36
+    },
+    {
+      "text": "what our thoughts are for what makes a",
+      "duration": 2.801,
+      "offset": 659.839
+    },
+    {
+      "text": "good programming language, Rust",
+      "duration": 3.36,
+      "offset": 661.36
+    },
+    {
+      "text": "obviously should be near the top. C++",
+      "duration": 4.4,
+      "offset": 662.64
+    },
+    {
+      "text": "obviously should be near the bottom.",
+      "duration": 5.52,
+      "offset": 664.72
+    },
+    {
+      "text": "Sure. Spoiler, this one's a pre-eread.",
+      "duration": 5.52,
+      "offset": 667.04
+    },
+    {
+      "text": "I've already seen the results here and",
+      "duration": 5.12,
+      "offset": 670.24
+    },
+    {
+      "text": "they are far from what any of us would",
+      "duration": 4.56,
+      "offset": 672.56
+    },
+    {
+      "text": "probably expect even with an exercise",
+      "duration": 3.52,
+      "offset": 675.36
+    },
+    {
+      "text": "like this. So, we look at the results",
+      "duration": 3.839,
+      "offset": 677.12
+    },
+    {
+      "text": "here by the average per language, we'll",
+      "duration": 4.24,
+      "offset": 678.88
+    },
+    {
+      "text": "see Opus one. And if we look at the more",
+      "duration": 4.961,
+      "offset": 680.959
+    },
+    {
+      "text": "recent version, they did a V2, we'll see",
+      "duration": 6.32,
+      "offset": 683.12
+    },
+    {
+      "text": "Opus 4.5 thinking crushed. So, overall,",
+      "duration": 5.919,
+      "offset": 685.92
+    },
+    {
+      "text": "Opus best language at this bench.",
+      "duration": 4.56,
+      "offset": 689.44
+    },
+    {
+      "text": "Doesn't seem like they did 5.2. And 5.2",
+      "duration": 3.601,
+      "offset": 691.839
+    },
+    {
+      "text": "Codex wasn't out at the time they did",
+      "duration": 3.6,
+      "offset": 694
+    },
+    {
+      "text": "this, so we don't know how that compares",
+      "duration": 4.399,
+      "offset": 695.44
+    },
+    {
+      "text": "yet. They probably do pretty well. But",
+      "duration": 3.679,
+      "offset": 697.6
+    },
+    {
+      "text": "we're not here to see what model is the",
+      "duration": 3.281,
+      "offset": 699.839
+    },
+    {
+      "text": "best. We're here for the languages,",
+      "duration": 4.24,
+      "offset": 701.279
+    },
+    {
+      "text": "which is this section here. So this is",
+      "duration": 4.159,
+      "offset": 703.12
+    },
+    {
+      "text": "the score based on all of the problems",
+      "duration": 3.76,
+      "offset": 705.519
+    },
+    {
+      "text": "they had for it. Most of the languages",
+      "duration": 3.201,
+      "offset": 707.279
+    },
+    {
+      "text": "had roughly the same number of problems",
+      "duration": 4.721,
+      "offset": 709.279
+    },
+    {
+      "text": "between 185 to 200 of similar problems.",
+      "duration": 5.84,
+      "offset": 710.48
+    },
+    {
+      "text": "And you'll see the top languages are not",
+      "duration": 4.16,
+      "offset": 714
+    },
+    {
+      "text": "the ones that we suspected. We thought",
+      "duration": 4,
+      "offset": 716.32
+    },
+    {
+      "text": "it would be Rust and Typescript. And the",
+      "duration": 3.919,
+      "offset": 718.16
+    },
+    {
+      "text": "numbers for Rust and Typescript are",
+      "duration": 3.84,
+      "offset": 720.32
+    },
+    {
+      "text": "respectively",
+      "duration": 5.361,
+      "offset": 722.079
+    },
+    {
+      "text": "61% for Rust and 61% for TypeScript.",
+      "duration": 5.359,
+      "offset": 724.16
+    },
+    {
+      "text": "Almost identical score, 61.3. The",
+      "duration": 4.56,
+      "offset": 727.44
+    },
+    {
+      "text": "languages we thought would be very good",
+      "duration": 5.201,
+      "offset": 729.519
+    },
+    {
+      "text": "were not. But then we get to some other",
+      "duration": 4.56,
+      "offset": 732
+    },
+    {
+      "text": "interesting ones like Java that got a",
+      "duration": 4.72,
+      "offset": 734.72
+    },
+    {
+      "text": "78.7 meaningfully higher scores than",
+      "duration": 6.959,
+      "offset": 736.56
+    },
+    {
+      "text": "Rust. Weird. C++ 74.7 meaningfully",
+      "duration": 6.24,
+      "offset": 739.44
+    },
+    {
+      "text": "better than Typescript. Even weirder.",
+      "duration": 7.681,
+      "offset": 743.519
+    },
+    {
+      "text": "Then we get to C sharp with an 88.4%.",
+      "duration": 6.719,
+      "offset": 745.68
+    },
+    {
+      "text": "But if you're actually looking at the",
+      "duration": 2.72,
+      "offset": 751.2
+    },
+    {
+      "text": "screen, which I know not all of you do,",
+      "duration": 3.44,
+      "offset": 752.399
+    },
+    {
+      "text": "you might have missed the thing I'm kind",
+      "duration": 4.24,
+      "offset": 753.92
+    },
+    {
+      "text": "of trying to cover up.",
+      "duration": 6,
+      "offset": 755.839
+    },
+    {
+      "text": "My favorite language, my beloved Elixir",
+      "duration": 5.919,
+      "offset": 758.16
+    },
+    {
+      "text": "got a 97.5.",
+      "duration": 4.881,
+      "offset": 761.839
+    },
+    {
+      "text": "Wild. Did I do this whole video to trick",
+      "duration": 4.161,
+      "offset": 764.079
+    },
+    {
+      "text": "you guys into listening to me rant about",
+      "duration": 3.84,
+      "offset": 766.72
+    },
+    {
+      "text": "Elixir for a bit? Kind of. And I think",
+      "duration": 3.76,
+      "offset": 768.24
+    },
+    {
+      "text": "I've earned the right to do that for",
+      "duration": 3.279,
+      "offset": 770.56
+    },
+    {
+      "text": "getting you here for this long. So, I'm",
+      "duration": 3.6,
+      "offset": 772
+    },
+    {
+      "text": "going to do that now. Elixir is an",
+      "duration": 3.521,
+      "offset": 773.839
+    },
+    {
+      "text": "incredible programming language. I love",
+      "duration": 3.28,
+      "offset": 775.6
+    },
+    {
+      "text": "it dearly. It was the first time I ever",
+      "duration": 3.36,
+      "offset": 777.36
+    },
+    {
+      "text": "felt productive as a programmer and the",
+      "duration": 3.36,
+      "offset": 778.88
+    },
+    {
+      "text": "result is that I felt very productive.",
+      "duration": 3.119,
+      "offset": 780.72
+    },
+    {
+      "text": "So much so that I did a lot of really",
+      "duration": 3.839,
+      "offset": 782.24
+    },
+    {
+      "text": "cool things. Ended up getting pretty",
+      "duration": 4.401,
+      "offset": 783.839
+    },
+    {
+      "text": "wild career starting a company and now I",
+      "duration": 3.681,
+      "offset": 786.079
+    },
+    {
+      "text": "am known as the TypeScript guy. But",
+      "duration": 2.8,
+      "offset": 788.24
+    },
+    {
+      "text": "believe it or not, my heart is not in",
+      "duration": 3.519,
+      "offset": 789.76
+    },
+    {
+      "text": "Typescript. My life is in Typescript. My",
+      "duration": 3.919,
+      "offset": 791.04
+    },
+    {
+      "text": "work is in Typescript. My heart will",
+      "duration": 4.081,
+      "offset": 793.279
+    },
+    {
+      "text": "always be in Elixir. Jaz Valim is a",
+      "duration": 4.481,
+      "offset": 794.959
+    },
+    {
+      "text": "personal hero of mine. I love that man",
+      "duration": 4.64,
+      "offset": 797.36
+    },
+    {
+      "text": "so much. I would not be the programmer I",
+      "duration": 4.16,
+      "offset": 799.44
+    },
+    {
+      "text": "am today without him. I have a whole",
+      "duration": 3.519,
+      "offset": 802
+    },
+    {
+      "text": "video I did that was actually a talk I",
+      "duration": 4.16,
+      "offset": 803.6
+    },
+    {
+      "text": "gave at Elixir comp about how Elixir",
+      "duration": 4.081,
+      "offset": 805.519
+    },
+    {
+      "text": "made me the engineer I am today. I",
+      "duration": 3.68,
+      "offset": 807.76
+    },
+    {
+      "text": "[ __ ] love this language. There's a",
+      "duration": 4.4,
+      "offset": 809.6
+    },
+    {
+      "text": "lot of things I like about Elixir. I'm",
+      "duration": 4,
+      "offset": 811.44
+    },
+    {
+      "text": "just going to talk about the language",
+      "duration": 3.68,
+      "offset": 814
+    },
+    {
+      "text": "ones because that's what you experience",
+      "duration": 4.24,
+      "offset": 815.44
+    },
+    {
+      "text": "when you write Elixir. Things like the",
+      "duration": 4.399,
+      "offset": 817.68
+    },
+    {
+      "text": "piping. It's so good. You just pipe",
+      "duration": 3.76,
+      "offset": 819.68
+    },
+    {
+      "text": "almost the same way you do in a",
+      "duration": 3.44,
+      "offset": 822.079
+    },
+    {
+      "text": "terminal. And when you do that, you're",
+      "duration": 4.8,
+      "offset": 823.44
+    },
+    {
+      "text": "taking the value of the previous return",
+      "duration": 4.801,
+      "offset": 825.519
+    },
+    {
+      "text": "that be a variable or a function and",
+      "duration": 4.32,
+      "offset": 828.24
+    },
+    {
+      "text": "piping it as the first argument into the",
+      "duration": 4.24,
+      "offset": 830.32
+    },
+    {
+      "text": "next thing. So here we take the string,",
+      "duration": 4.719,
+      "offset": 832.56
+    },
+    {
+      "text": "we break it down to graffims and then we",
+      "duration": 5.36,
+      "offset": 834.56
+    },
+    {
+      "text": "measure the frequency of each value from",
+      "duration": 4.961,
+      "offset": 837.279
+    },
+    {
+      "text": "that string. So here we see E occurs",
+      "duration": 4.32,
+      "offset": 839.92
+    },
+    {
+      "text": "once, I occurs twice, L occurs once, R",
+      "duration": 4.399,
+      "offset": 842.24
+    },
+    {
+      "text": "occurs once, X occurs once. This is such",
+      "duration": 4.56,
+      "offset": 844.24
+    },
+    {
+      "text": "an elegant way to write this instead of",
+      "duration": 3.681,
+      "offset": 846.639
+    },
+    {
+      "text": "storing a bunch of random variables and",
+      "duration": 3.039,
+      "offset": 848.8
+    },
+    {
+      "text": "keeping track of all of it. A way of",
+      "duration": 3.36,
+      "offset": 850.32
+    },
+    {
+      "text": "thinking of this is effectively that the",
+      "duration": 3.921,
+      "offset": 851.839
+    },
+    {
+      "text": "pipeline the data goes through is what",
+      "duration": 3.519,
+      "offset": 853.68
+    },
+    {
+      "text": "you're encoding rather than the",
+      "duration": 4,
+      "offset": 855.76
+    },
+    {
+      "text": "different values that exist throughout.",
+      "duration": 5.281,
+      "offset": 857.199
+    },
+    {
+      "text": "And this pattern is so powerful,",
+      "duration": 4.16,
+      "offset": 859.76
+    },
+    {
+      "text": "especially when you combine it with a",
+      "duration": 3.039,
+      "offset": 862.48
+    },
+    {
+      "text": "lot of the other really cool things you",
+      "duration": 3.279,
+      "offset": 863.92
+    },
+    {
+      "text": "can do in Elixir. One of my favorite",
+      "duration": 3.201,
+      "offset": 865.519
+    },
+    {
+      "text": "features in Elixir is how the pattern",
+      "duration": 3.921,
+      "offset": 867.199
+    },
+    {
+      "text": "matching with overloads works. You can",
+      "duration": 4.88,
+      "offset": 868.72
+    },
+    {
+      "text": "redefine the same function multiple",
+      "duration": 6.64,
+      "offset": 871.12
+    },
+    {
+      "text": "times with arguments defined as checks",
+      "duration": 5.84,
+      "offset": 873.6
+    },
+    {
+      "text": "effectively. So when you define the",
+      "duration": 3.68,
+      "offset": 877.76
+    },
+    {
+      "text": "arguments for a function, you don't type",
+      "duration": 3.6,
+      "offset": 879.44
+    },
+    {
+      "text": "them the way you do in other languages.",
+      "duration": 3.12,
+      "offset": 881.44
+    },
+    {
+      "text": "Like in JavaScript or TypeScript, you",
+      "duration": 4.239,
+      "offset": 883.04
+    },
+    {
+      "text": "say this function takes in an object. It",
+      "duration": 4.8,
+      "offset": 884.56
+    },
+    {
+      "text": "has name, which is a string, and it has",
+      "duration": 4.56,
+      "offset": 887.279
+    },
+    {
+      "text": "age, which is a number. In Elixir, you",
+      "duration": 5.039,
+      "offset": 889.36
+    },
+    {
+      "text": "can define specific values that match.",
+      "duration": 4.161,
+      "offset": 891.839
+    },
+    {
+      "text": "And if you have three versions of the",
+      "duration": 3.921,
+      "offset": 894.399
+    },
+    {
+      "text": "same function, it matches based on what",
+      "duration": 4.16,
+      "offset": 896
+    },
+    {
+      "text": "the values are encoded as in the",
+      "duration": 4.079,
+      "offset": 898.32
+    },
+    {
+      "text": "arguments. So here we have a Fibonacci",
+      "duration": 4.08,
+      "offset": 900.16
+    },
+    {
+      "text": "function. The Fibonacci function is",
+      "duration": 4.56,
+      "offset": 902.399
+    },
+    {
+      "text": "redefined four times. So this first one",
+      "duration": 5.039,
+      "offset": 904.24
+    },
+    {
+      "text": "is defined as zero. So if you call fib",
+      "duration": 5.041,
+      "offset": 906.959
+    },
+    {
+      "text": "with zero, it will hit this first. So it",
+      "duration": 4.401,
+      "offset": 909.279
+    },
+    {
+      "text": "returns zero. If you call it with one,",
+      "duration": 3.44,
+      "offset": 912
+    },
+    {
+      "text": "it will hit this and return one. If you",
+      "duration": 4.88,
+      "offset": 913.68
+    },
+    {
+      "text": "call it with n when n is an integer and",
+      "duration": 5.28,
+      "offset": 915.44
+    },
+    {
+      "text": "greater than two, then we will do this",
+      "duration": 3.92,
+      "offset": 918.56
+    },
+    {
+      "text": "where we call the same thing with n",
+      "duration": 4.08,
+      "offset": 920.72
+    },
+    {
+      "text": "minus one and n minus2. Instead of doing",
+      "duration": 4.4,
+      "offset": 922.48
+    },
+    {
+      "text": "an if statement inside of the function",
+      "duration": 4.08,
+      "offset": 924.8
+    },
+    {
+      "text": "to handle these cases, we are defining",
+      "duration": 4.56,
+      "offset": 926.88
+    },
+    {
+      "text": "the functions via those cases. And then",
+      "duration": 4.72,
+      "offset": 928.88
+    },
+    {
+      "text": "we have a fallback here which is what",
+      "duration": 3.68,
+      "offset": 931.44
+    },
+    {
+      "text": "catches if none of these other things",
+      "duration": 2.88,
+      "offset": 933.6
+    },
+    {
+      "text": "catch. Because effectively the way this",
+      "duration": 4.079,
+      "offset": 935.12
+    },
+    {
+      "text": "is evaluated by the language in the VM",
+      "duration": 5.359,
+      "offset": 936.48
+    },
+    {
+      "text": "is it goes through these one at a time.",
+      "duration": 4.401,
+      "offset": 939.199
+    },
+    {
+      "text": "It takes the value in the function",
+      "duration": 3.44,
+      "offset": 941.839
+    },
+    {
+      "text": "you're trying to call and it sees if the",
+      "duration": 3.76,
+      "offset": 943.6
+    },
+    {
+      "text": "value matches this one. If it doesn't,",
+      "duration": 3.68,
+      "offset": 945.279
+    },
+    {
+      "text": "it checks the next one. If it doesn't,",
+      "duration": 2.88,
+      "offset": 947.36
+    },
+    {
+      "text": "it checks the next one. And if it",
+      "duration": 3.201,
+      "offset": 948.959
+    },
+    {
+      "text": "doesn't, it checks this next one. It's",
+      "duration": 4.88,
+      "offset": 950.24
+    },
+    {
+      "text": "so cool. It's so readable. It's so easy",
+      "duration": 5.039,
+      "offset": 952.16
+    },
+    {
+      "text": "to gro. It keeps you from having to",
+      "duration": 3.839,
+      "offset": 955.12
+    },
+    {
+      "text": "deeply nest things because of complex",
+      "duration": 3.601,
+      "offset": 957.199
+    },
+    {
+      "text": "logic. And there are so many little",
+      "duration": 3.12,
+      "offset": 958.959
+    },
+    {
+      "text": "things you can do with this. Like you",
+      "duration": 3.44,
+      "offset": 960.8
+    },
+    {
+      "text": "can redefine the checkout function where",
+      "duration": 4.32,
+      "offset": 962.079
+    },
+    {
+      "text": "if user isn't signed in or if user is",
+      "duration": 4,
+      "offset": 964.24
+    },
+    {
+      "text": "admin",
+      "duration": 3.68,
+      "offset": 966.399
+    },
+    {
+      "text": "and I see a lot of people saying really",
+      "duration": 4.48,
+      "offset": 968.24
+    },
+    {
+      "text": "dumb things in chat right now like your",
+      "duration": 4.481,
+      "offset": 970.079
+    },
+    {
+      "text": "compiler for a statically typed language",
+      "duration": 4.72,
+      "offset": 972.72
+    },
+    {
+      "text": "can do this. Rust can do this. Haskell",
+      "duration": 4.399,
+      "offset": 974.56
+    },
+    {
+      "text": "can do this. Okay, Haskell can kind of",
+      "duration": 3.6,
+      "offset": 977.44
+    },
+    {
+      "text": "do things like this. But this this idea",
+      "duration": 5.361,
+      "offset": 978.959
+    },
+    {
+      "text": "of matching the expectations of an",
+      "duration": 5.039,
+      "offset": 981.04
+    },
+    {
+      "text": "argument as part of the function's",
+      "duration": 3.28,
+      "offset": 984.32
+    },
+    {
+      "text": "definition rather than part of the",
+      "duration": 3.68,
+      "offset": 986.079
+    },
+    {
+      "text": "contents of the function is really",
+      "duration": 4.08,
+      "offset": 987.6
+    },
+    {
+      "text": "really really cool. And there are a lot",
+      "duration": 3.601,
+      "offset": 989.759
+    },
+    {
+      "text": "of programmers who fell in love with",
+      "duration": 3.36,
+      "offset": 991.68
+    },
+    {
+      "text": "this concept, including funny enough",
+      "duration": 3.52,
+      "offset": 993.36
+    },
+    {
+      "text": "Primagen because I ranted to him about",
+      "duration": 4.159,
+      "offset": 995.04
+    },
+    {
+      "text": "this so non-stop every time we hung out",
+      "duration": 4,
+      "offset": 996.88
+    },
+    {
+      "text": "that he went and explored Elixir out of",
+      "duration": 4,
+      "offset": 999.199
+    },
+    {
+      "text": "curiosity. And while a lot of the quirks",
+      "duration": 4,
+      "offset": 1000.88
+    },
+    {
+      "text": "of the language aren't for him, he did",
+      "duration": 3.361,
+      "offset": 1003.199
+    },
+    {
+      "text": "fall in love with this aspect. It's so",
+      "duration": 3.36,
+      "offset": 1004.88
+    },
+    {
+      "text": "[ __ ] cool. And there's just a lot of",
+      "duration": 3.76,
+      "offset": 1006.56
+    },
+    {
+      "text": "these types of things in Elixir that are",
+      "duration": 5.44,
+      "offset": 1008.24
+    },
+    {
+      "text": "weird one-offs that are novel to Elixir,",
+      "duration": 4.72,
+      "offset": 1010.32
+    },
+    {
+      "text": "which I thought would make it way harder",
+      "duration": 2.88,
+      "offset": 1013.68
+    },
+    {
+      "text": "for models to understand because",
+      "duration": 3.44,
+      "offset": 1015.04
+    },
+    {
+      "text": "training data for other languages is not",
+      "duration": 4.399,
+      "offset": 1016.56
+    },
+    {
+      "text": "going to map well to these patterns.",
+      "duration": 4.88,
+      "offset": 1018.48
+    },
+    {
+      "text": "Maybe some ideas from Ruby will, but not",
+      "duration": 4.08,
+      "offset": 1020.959
+    },
+    {
+      "text": "too many. And once you start combining",
+      "duration": 3.679,
+      "offset": 1023.36
+    },
+    {
+      "text": "this with pipes, things get really",
+      "duration": 4.16,
+      "offset": 1025.039
+    },
+    {
+      "text": "crazy, especially because nothing is",
+      "duration": 4.4,
+      "offset": 1027.039
+    },
+    {
+      "text": "mutable in Elixir. Everything is an",
+      "duration": 3.84,
+      "offset": 1029.199
+    },
+    {
+      "text": "immutable value. If you want to change",
+      "duration": 4.161,
+      "offset": 1031.439
+    },
+    {
+      "text": "it, you create a new value. It's a weird",
+      "duration": 5.601,
+      "offset": 1033.039
+    },
+    {
+      "text": "language and I deeply dearly love it.",
+      "duration": 5.28,
+      "offset": 1035.6
+    },
+    {
+      "text": "It's so fun. But none of these aspects",
+      "duration": 4,
+      "offset": 1038.64
+    },
+    {
+      "text": "are the ones that I think make it good",
+      "duration": 4.559,
+      "offset": 1040.88
+    },
+    {
+      "text": "for tools to use like AI agents. If",
+      "duration": 4.64,
+      "offset": 1042.64
+    },
+    {
+      "text": "anything, these might actually hurt a",
+      "duration": 4.161,
+      "offset": 1045.439
+    },
+    {
+      "text": "little bit because they are so unique to",
+      "duration": 4.399,
+      "offset": 1047.28
+    },
+    {
+      "text": "Elixir. Some part of that helps because",
+      "duration": 3.84,
+      "offset": 1049.6
+    },
+    {
+      "text": "it's not able to use the training data",
+      "duration": 3.441,
+      "offset": 1051.679
+    },
+    {
+      "text": "for other things and make those mistakes",
+      "duration": 3.2,
+      "offset": 1053.44
+    },
+    {
+      "text": "because it's so different. And the",
+      "duration": 3.679,
+      "offset": 1055.12
+    },
+    {
+      "text": "immutability definitely helps a lot too.",
+      "duration": 4,
+      "offset": 1056.64
+    },
+    {
+      "text": "But the things I think help the most",
+      "duration": 4.401,
+      "offset": 1058.799
+    },
+    {
+      "text": "aren't necessarily the syntax or the",
+      "duration": 4.64,
+      "offset": 1060.64
+    },
+    {
+      "text": "language or its characteristics. I think",
+      "duration": 3.68,
+      "offset": 1063.2
+    },
+    {
+      "text": "a lot of it is hex. If you're not",
+      "duration": 3.519,
+      "offset": 1065.28
+    },
+    {
+      "text": "already familiar with this fact, Elixir",
+      "duration": 3.84,
+      "offset": 1066.88
+    },
+    {
+      "text": "doesn't compile to machine code like a",
+      "duration": 5.12,
+      "offset": 1068.799
+    },
+    {
+      "text": "C++ or a Rust does. Elixir compiles to",
+      "duration": 5.76,
+      "offset": 1070.72
+    },
+    {
+      "text": "Erlang, which runs in a VM closer to how",
+      "duration": 6.481,
+      "offset": 1073.919
+    },
+    {
+      "text": "Java works. But Erlang's VM, Beam, is",
+      "duration": 5.52,
+      "offset": 1076.48
+    },
+    {
+      "text": "actually magical. The things you can do",
+      "duration": 3.92,
+      "offset": 1080.4
+    },
+    {
+      "text": "with Beam are unfucking believable. Not",
+      "duration": 3.84,
+      "offset": 1082
+    },
+    {
+      "text": "relevant right now. So, I will resist",
+      "duration": 3.92,
+      "offset": 1084.32
+    },
+    {
+      "text": "the urge to deep dive on my loyalty to",
+      "duration": 4.48,
+      "offset": 1085.84
+    },
+    {
+      "text": "that VM because of how absurdly powerful",
+      "duration": 4.319,
+      "offset": 1088.24
+    },
+    {
+      "text": "and cool and fascinating it is. Let me",
+      "duration": 3.68,
+      "offset": 1090.32
+    },
+    {
+      "text": "know in the comments if I can do that in",
+      "duration": 2.801,
+      "offset": 1092.559
+    },
+    {
+      "text": "the future because I would love to just",
+      "duration": 2.559,
+      "offset": 1094
+    },
+    {
+      "text": "sit here and rant about all the things",
+      "duration": 2.8,
+      "offset": 1095.36
+    },
+    {
+      "text": "that make this ecosystem cool. Believe",
+      "duration": 4.161,
+      "offset": 1096.559
+    },
+    {
+      "text": "me. But since Elixir is running on Beam",
+      "duration": 5.519,
+      "offset": 1098.16
+    },
+    {
+      "text": "and is effectively just Erlang, Elixir",
+      "duration": 5.44,
+      "offset": 1100.72
+    },
+    {
+      "text": "can use the whole Erlang ecosystem as",
+      "duration": 4.321,
+      "offset": 1103.679
+    },
+    {
+      "text": "well as Gleam, which is another language",
+      "duration": 5.92,
+      "offset": 1106.16
+    },
+    {
+      "text": "built on top of Erlang and Beam VM. It's",
+      "duration": 6.24,
+      "offset": 1108
+    },
+    {
+      "text": "so cool. This ecosystem is great. The",
+      "duration": 3.839,
+      "offset": 1112.08
+    },
+    {
+      "text": "reason I'm here though is not just",
+      "duration": 4,
+      "offset": 1114.24
+    },
+    {
+      "text": "because I want to talk about Erling. As",
+      "duration": 3.841,
+      "offset": 1115.919
+    },
+    {
+      "text": "tempting as it is, it's because I want",
+      "duration": 3.28,
+      "offset": 1118.24
+    },
+    {
+      "text": "to show you guys some things. Here is",
+      "duration": 4.96,
+      "offset": 1119.76
+    },
+    {
+      "text": "the most popular package on Hex JSON.",
+      "duration": 5.279,
+      "offset": 1121.52
+    },
+    {
+      "text": "It's a blazing fast JSON parser and",
+      "duration": 4.56,
+      "offset": 1124.72
+    },
+    {
+      "text": "generator in pure elixir. Let's click on",
+      "duration": 4.161,
+      "offset": 1126.799
+    },
+    {
+      "text": "it. Here we can see all the things you",
+      "duration": 3.759,
+      "offset": 1129.28
+    },
+    {
+      "text": "would expect from an npm type site. You",
+      "duration": 4.48,
+      "offset": 1130.96
+    },
+    {
+      "text": "can also go to the online docs because",
+      "duration": 5.201,
+      "offset": 1133.039
+    },
+    {
+      "text": "every single package on Hex has a Hex",
+      "duration": 6.16,
+      "offset": 1135.44
+    },
+    {
+      "text": "Docs site. Every single package in hex",
+      "duration": 6,
+      "offset": 1138.24
+    },
+    {
+      "text": "comes with documentation built in",
+      "duration": 5.12,
+      "offset": 1141.6
+    },
+    {
+      "text": "because you document it as you build it.",
+      "duration": 5.04,
+      "offset": 1144.24
+    },
+    {
+      "text": "There is syntax in elixir where when you",
+      "duration": 5.04,
+      "offset": 1146.72
+    },
+    {
+      "text": "write source code, you write comments in",
+      "duration": 4.399,
+      "offset": 1149.28
+    },
+    {
+      "text": "a specific format that result in",
+      "duration": 4.96,
+      "offset": 1151.76
+    },
+    {
+      "text": "documentation being built out of it as a",
+      "duration": 4.801,
+      "offset": 1153.679
+    },
+    {
+      "text": "result of just writing the code. You",
+      "duration": 3.52,
+      "offset": 1156.72
+    },
+    {
+      "text": "document it by commenting it. And the",
+      "duration": 4.24,
+      "offset": 1158.48
+    },
+    {
+      "text": "results are really, really good docs",
+      "duration": 4.799,
+      "offset": 1160.24
+    },
+    {
+      "text": "when you're done. I see chat has this",
+      "duration": 3.92,
+      "offset": 1162.72
+    },
+    {
+      "text": "starting to click now. That's so good.",
+      "duration": 4.88,
+      "offset": 1165.039
+    },
+    {
+      "text": "Holy [ __ ] That's so cool. Wow. Yeah,",
+      "duration": 4.56,
+      "offset": 1166.64
+    },
+    {
+      "text": "it's another one of those things where",
+      "duration": 3.12,
+      "offset": 1169.919
+    },
+    {
+      "text": "it's cool for humans and it's even",
+      "duration": 4.8,
+      "offset": 1171.2
+    },
+    {
+      "text": "cooler for models. Let's take a look at",
+      "duration": 5.52,
+      "offset": 1173.039
+    },
+    {
+      "text": "the decoder module. Here's the file in",
+      "duration": 4.96,
+      "offset": 1176
+    },
+    {
+      "text": "Elixir, of course, for this project for",
+      "duration": 5.041,
+      "offset": 1178.559
+    },
+    {
+      "text": "decoding JSON. And as we scroll through",
+      "duration": 5.68,
+      "offset": 1180.96
+    },
+    {
+      "text": "here, you see at module doc false. This",
+      "duration": 5.52,
+      "offset": 1183.6
+    },
+    {
+      "text": "is saying don't include this in the",
+      "duration": 5.2,
+      "offset": 1186.64
+    },
+    {
+      "text": "module docs directly.",
+      "duration": 4.72,
+      "offset": 1189.12
+    },
+    {
+      "text": "So, this one is specified like don't",
+      "duration": 4.24,
+      "offset": 1191.84
+    },
+    {
+      "text": "generate docs for this for me directly.",
+      "duration": 4.959,
+      "offset": 1193.84
+    },
+    {
+      "text": "Let's find something where they do.",
+      "duration": 4.959,
+      "offset": 1196.08
+    },
+    {
+      "text": "probably JSON.ex. Here we are. Module",
+      "duration": 4.641,
+      "offset": 1198.799
+    },
+    {
+      "text": "doc, a blazing fast JSON parser in",
+      "duration": 5.201,
+      "offset": 1201.039
+    },
+    {
+      "text": "generator in pure elixir. Look at that",
+      "duration": 5.76,
+      "offset": 1203.44
+    },
+    {
+      "text": "right there.",
+      "duration": 6.08,
+      "offset": 1206.24
+    },
+    {
+      "text": "At doc parse a JSON value from input IO",
+      "duration": 8.88,
+      "offset": 1209.2
+    },
+    {
+      "text": "data options all described right here.",
+      "duration": 7.359,
+      "offset": 1212.32
+    },
+    {
+      "text": "And they're even getting early on the",
+      "duration": 4.4,
+      "offset": 1218.08
+    },
+    {
+      "text": "type stuff with specs.",
+      "duration": 5.521,
+      "offset": 1219.679
+    },
+    {
+      "text": "All of this is in the source code",
+      "duration": 5.76,
+      "offset": 1222.48
+    },
+    {
+      "text": "alongside the actual thing that you're",
+      "duration": 5.359,
+      "offset": 1225.2
+    },
+    {
+      "text": "writing the code for. The code and the",
+      "duration": 4.72,
+      "offset": 1228.24
+    },
+    {
+      "text": "docs are not just like in the same",
+      "duration": 5.681,
+      "offset": 1230.559
+    },
+    {
+      "text": "codebase. They are intertwined together.",
+      "duration": 4.959,
+      "offset": 1232.96
+    },
+    {
+      "text": "That means not only that the docs are",
+      "duration": 3.679,
+      "offset": 1236.24
+    },
+    {
+      "text": "easy to access and generate, but more",
+      "duration": 3.841,
+      "offset": 1237.919
+    },
+    {
+      "text": "importantly, it is significantly more",
+      "duration": 4,
+      "offset": 1239.919
+    },
+    {
+      "text": "likely these docs are up toate and the",
+      "duration": 4.08,
+      "offset": 1241.76
+    },
+    {
+      "text": "relationship between these docs and the",
+      "duration": 4.721,
+      "offset": 1243.919
+    },
+    {
+      "text": "source code is very very tight. That",
+      "duration": 6,
+      "offset": 1245.84
+    },
+    {
+      "text": "makes models really good at doing this.",
+      "duration": 4.88,
+      "offset": 1248.64
+    },
+    {
+      "text": "As people are correctly identifying in",
+      "duration": 4.4,
+      "offset": 1251.84
+    },
+    {
+      "text": "chat, collocation makes LLMs go burr.",
+      "duration": 4.48,
+      "offset": 1253.52
+    },
+    {
+      "text": "Absolutely. It's great for context,",
+      "duration": 3.76,
+      "offset": 1256.24
+    },
+    {
+      "text": "great for LLMs. For the same reason",
+      "duration": 3.76,
+      "offset": 1258
+    },
+    {
+      "text": "Tailwind is good for models because it",
+      "duration": 3.919,
+      "offset": 1260
+    },
+    {
+      "text": "colllocates the markup, the styling, and",
+      "duration": 4.32,
+      "offset": 1261.76
+    },
+    {
+      "text": "the behavior, actual built-in",
+      "duration": 4.64,
+      "offset": 1263.919
+    },
+    {
+      "text": "documentation standards in the language",
+      "duration": 5.04,
+      "offset": 1266.08
+    },
+    {
+      "text": "make the modules we use much easier to",
+      "duration": 5.201,
+      "offset": 1268.559
+    },
+    {
+      "text": "understand and adopt. I see a lot of",
+      "duration": 4.88,
+      "offset": 1271.12
+    },
+    {
+      "text": "people saying this is like JSTOC. No,",
+      "duration": 4.72,
+      "offset": 1273.76
+    },
+    {
+      "text": "it's not because JSTO is barely a used",
+      "duration": 4.559,
+      "offset": 1276
+    },
+    {
+      "text": "standard. Nobody has an actual good",
+      "duration": 3.92,
+      "offset": 1278.48
+    },
+    {
+      "text": "autogenerator for things that you do in",
+      "duration": 4.881,
+      "offset": 1280.559
+    },
+    {
+      "text": "JSO doc. Nobody [ __ ] uses it and it",
+      "duration": 5.2,
+      "offset": 1282.4
+    },
+    {
+      "text": "was added too late to be relevant. The",
+      "duration": 4.479,
+      "offset": 1285.44
+    },
+    {
+      "text": "thing that's magic about the module docs",
+      "duration": 5.76,
+      "offset": 1287.6
+    },
+    {
+      "text": "in hex docs is that every single package",
+      "duration": 5.681,
+      "offset": 1289.919
+    },
+    {
+      "text": "has them. I guarantee you if we just sit",
+      "duration": 4.88,
+      "offset": 1293.36
+    },
+    {
+      "text": "here and go through those top 10 here,",
+      "duration": 4.319,
+      "offset": 1295.6
+    },
+    {
+      "text": "every single one of these I'll just pick",
+      "duration": 5.04,
+      "offset": 1298.24
+    },
+    {
+      "text": "the top six. Okay, I I have self-owned",
+      "duration": 6.561,
+      "offset": 1299.919
+    },
+    {
+      "text": "already. One of the first ones I checked",
+      "duration": 6.399,
+      "offset": 1303.28
+    },
+    {
+      "text": "is an Erling dep, not an elixir dep. And",
+      "duration": 5.04,
+      "offset": 1306.48
+    },
+    {
+      "text": "the Erling people aren't quite as good",
+      "duration": 4.321,
+      "offset": 1309.679
+    },
+    {
+      "text": "about the documentation.",
+      "duration": 4.48,
+      "offset": 1311.52
+    },
+    {
+      "text": "So, one bad one. Let's see how many more",
+      "duration": 4.88,
+      "offset": 1314
+    },
+    {
+      "text": "bad ones we hit. Let's try the telemetry",
+      "duration": 4.48,
+      "offset": 1316
+    },
+    {
+      "text": "one.",
+      "duration": 3.279,
+      "offset": 1318.88
+    },
+    {
+      "text": "This one looks really, really good,",
+      "duration": 4.319,
+      "offset": 1320.48
+    },
+    {
+      "text": "actually. Cool. The next package is",
+      "duration": 5.601,
+      "offset": 1322.159
+    },
+    {
+      "text": "good. Cowib also Erlang, not elixir.",
+      "duration": 4.721,
+      "offset": 1324.799
+    },
+    {
+      "text": "Sad. The Erling ones are going to be",
+      "duration": 3.279,
+      "offset": 1327.76
+    },
+    {
+      "text": "worse. The elixir ones are all going to",
+      "duration": 4,
+      "offset": 1329.52
+    },
+    {
+      "text": "be perfect. Again, when we go back to",
+      "duration": 4.721,
+      "offset": 1331.039
+    },
+    {
+      "text": "the bench here, I don't know if Erling",
+      "duration": 3.76,
+      "offset": 1333.52
+    },
+    {
+      "text": "made it in as a test language. I don't",
+      "duration": 3.2,
+      "offset": 1335.76
+    },
+    {
+      "text": "think it did yet. Sadly, didn't. But I",
+      "duration": 3.36,
+      "offset": 1337.28
+    },
+    {
+      "text": "would bet Erling would score much worse",
+      "duration": 4.32,
+      "offset": 1338.96
+    },
+    {
+      "text": "because the Erling ecosystem, as insane",
+      "duration": 5.039,
+      "offset": 1340.64
+    },
+    {
+      "text": "and powerful as it is, was started",
+      "duration": 4.08,
+      "offset": 1343.28
+    },
+    {
+      "text": "before programming languages even really",
+      "duration": 3.921,
+      "offset": 1345.679
+    },
+    {
+      "text": "existed. Erling is so [ __ ] old and",
+      "duration": 5.199,
+      "offset": 1347.36
+    },
+    {
+      "text": "weird. And Elixir came out way later. A",
+      "duration": 5.6,
+      "offset": 1349.6
+    },
+    {
+      "text": "big part of why Jose made elixir is that",
+      "duration": 4.161,
+      "offset": 1352.559
+    },
+    {
+      "text": "he wanted to take all of these lessons",
+      "duration": 2.88,
+      "offset": 1355.2
+    },
+    {
+      "text": "that he had learned about what makes",
+      "duration": 3.439,
+      "offset": 1356.72
+    },
+    {
+      "text": "languages good and maintainable, what",
+      "duration": 3.52,
+      "offset": 1358.08
+    },
+    {
+      "text": "patterns do we develop that are good",
+      "duration": 3.52,
+      "offset": 1360.159
+    },
+    {
+      "text": "later on and bring as many of those in",
+      "duration": 5.28,
+      "offset": 1361.6
+    },
+    {
+      "text": "as possible to elixir. So while this was",
+      "duration": 5.201,
+      "offset": 1363.679
+    },
+    {
+      "text": "disappointing to see how many of those",
+      "duration": 4.799,
+      "offset": 1366.88
+    },
+    {
+      "text": "aren't well documented, I would be",
+      "duration": 4.48,
+      "offset": 1368.88
+    },
+    {
+      "text": "surprised if we go through any of the",
+      "duration": 3.921,
+      "offset": 1371.679
+    },
+    {
+      "text": "elixir depths and saw any problems.",
+      "duration": 4.24,
+      "offset": 1373.36
+    },
+    {
+      "text": "Yeah, again all the elixir ones are in a",
+      "duration": 4.319,
+      "offset": 1375.6
+    },
+    {
+      "text": "very good state. I will resist the urge,",
+      "duration": 4.64,
+      "offset": 1377.6
+    },
+    {
+      "text": "the deep, deep primal urge to keep",
+      "duration": 4,
+      "offset": 1379.919
+    },
+    {
+      "text": "glazing elixir because there's other",
+      "duration": 4.72,
+      "offset": 1382.24
+    },
+    {
+      "text": "interesting data here too like C scoring",
+      "duration": 5.441,
+      "offset": 1383.919
+    },
+    {
+      "text": "so absurdly high compared to a lot of",
+      "duration": 4.959,
+      "offset": 1386.96
+    },
+    {
+      "text": "other things. What would make C",
+      "duration": 4.72,
+      "offset": 1389.36
+    },
+    {
+      "text": "similarly high up here? It's almost",
+      "duration": 5.361,
+      "offset": 1391.919
+    },
+    {
+      "text": "certainly said documentation. Similar to",
+      "duration": 5.36,
+      "offset": 1394.08
+    },
+    {
+      "text": "Elixir, there is a concept of doing",
+      "duration": 4.879,
+      "offset": 1397.28
+    },
+    {
+      "text": "comments for documentation in the C#",
+      "duration": 4.88,
+      "offset": 1399.44
+    },
+    {
+      "text": "language directly. You can in the middle",
+      "duration": 4.561,
+      "offset": 1402.159
+    },
+    {
+      "text": "of a C# file, you can triple comment and",
+      "duration": 5.76,
+      "offset": 1404.32
+    },
+    {
+      "text": "write XML that describes the section of",
+      "duration": 4.959,
+      "offset": 1406.72
+    },
+    {
+      "text": "code that you're writing. You can just",
+      "duration": 3.52,
+      "offset": 1410.08
+    },
+    {
+      "text": "do this at any point and do XML",
+      "duration": 3.36,
+      "offset": 1411.679
+    },
+    {
+      "text": "definitions of the things you're working",
+      "duration": 4.16,
+      "offset": 1413.6
+    },
+    {
+      "text": "on and similarly generate code and",
+      "duration": 4.961,
+      "offset": 1415.039
+    },
+    {
+      "text": "generate more importantly documentation",
+      "duration": 5.36,
+      "offset": 1417.76
+    },
+    {
+      "text": "as a result. The depth and quality of",
+      "duration": 5.84,
+      "offset": 1420
+    },
+    {
+      "text": "these docs is absurd. I would argue that",
+      "duration": 5.2,
+      "offset": 1423.12
+    },
+    {
+      "text": "if you were to go train a new model from",
+      "duration": 4.48,
+      "offset": 1425.84
+    },
+    {
+      "text": "scratch purely on programming language",
+      "duration": 4.08,
+      "offset": 1428.32
+    },
+    {
+      "text": "documentation, it would be better at C#",
+      "duration": 3.44,
+      "offset": 1430.32
+    },
+    {
+      "text": "than anything else because the quality",
+      "duration": 3.6,
+      "offset": 1432.4
+    },
+    {
+      "text": "of these docs is insane. But there are",
+      "duration": 4.399,
+      "offset": 1433.76
+    },
+    {
+      "text": "other aspects here too, things that we",
+      "duration": 3.44,
+      "offset": 1436
+    },
+    {
+      "text": "didn't necessarily touch on here.",
+      "duration": 3.041,
+      "offset": 1438.159
+    },
+    {
+      "text": "Quality of training data definitely",
+      "duration": 4.08,
+      "offset": 1439.44
+    },
+    {
+      "text": "fits. But another similar thing, how",
+      "duration": 4.32,
+      "offset": 1441.2
+    },
+    {
+      "text": "many solutions to a problem? In",
+      "duration": 3.92,
+      "offset": 1443.52
+    },
+    {
+      "text": "languages that I use a lot, things like",
+      "duration": 4.56,
+      "offset": 1445.52
+    },
+    {
+      "text": "TypeScript for example, there are tons",
+      "duration": 4.88,
+      "offset": 1447.44
+    },
+    {
+      "text": "like nearly infinite different solutions",
+      "duration": 4.4,
+      "offset": 1450.08
+    },
+    {
+      "text": "to a given problem. But in languages",
+      "duration": 4.88,
+      "offset": 1452.32
+    },
+    {
+      "text": "like Elixir and C, there are many, many",
+      "duration": 5.04,
+      "offset": 1454.48
+    },
+    {
+      "text": "fewer. Languages that came in with a",
+      "duration": 4.32,
+      "offset": 1457.2
+    },
+    {
+      "text": "strong design philosophy that knew that",
+      "duration": 3.6,
+      "offset": 1459.52
+    },
+    {
+      "text": "there were only so many ways that these",
+      "duration": 2.96,
+      "offset": 1461.52
+    },
+    {
+      "text": "things should be done that provided",
+      "duration": 3.439,
+      "offset": 1463.12
+    },
+    {
+      "text": "those things alongside good",
+      "duration": 4.72,
+      "offset": 1464.48
+    },
+    {
+      "text": "documentation, those tend to do very",
+      "duration": 4.72,
+      "offset": 1466.559
+    },
+    {
+      "text": "well. The points I would think about are",
+      "duration": 4.479,
+      "offset": 1469.2
+    },
+    {
+      "text": "quite different. How easy is it to find",
+      "duration": 4.721,
+      "offset": 1471.279
+    },
+    {
+      "text": "the right solution? How hard is it to",
+      "duration": 5.041,
+      "offset": 1473.679
+    },
+    {
+      "text": "find a bad solution? How easy is it to",
+      "duration": 4.799,
+      "offset": 1476
+    },
+    {
+      "text": "understand code that you already have",
+      "duration": 4.079,
+      "offset": 1478.72
+    },
+    {
+      "text": "available to you? How clear are your",
+      "duration": 3.921,
+      "offset": 1480.799
+    },
+    {
+      "text": "external dependencies and their specific",
+      "duration": 4.48,
+      "offset": 1482.799
+    },
+    {
+      "text": "behaviors? And one last one, this is",
+      "duration": 5.04,
+      "offset": 1484.72
+    },
+    {
+      "text": "kind of in the realm of type safety, but",
+      "duration": 3.921,
+      "offset": 1487.279
+    },
+    {
+      "text": "different in a way I think you'll",
+      "duration": 3.279,
+      "offset": 1489.76
+    },
+    {
+      "text": "hopefully understand now. How easy is it",
+      "duration": 4.079,
+      "offset": 1491.2
+    },
+    {
+      "text": "to assure that this code will only run",
+      "duration": 4.721,
+      "offset": 1493.039
+    },
+    {
+      "text": "when my expectations are met? I would",
+      "duration": 4.88,
+      "offset": 1495.279
+    },
+    {
+      "text": "argue, and again, this is all theory",
+      "duration": 4.48,
+      "offset": 1497.76
+    },
+    {
+      "text": "crafting. None of this is stuff that we",
+      "duration": 4.64,
+      "offset": 1500.159
+    },
+    {
+      "text": "know for sure. I would argue these",
+      "duration": 5.439,
+      "offset": 1502.24
+    },
+    {
+      "text": "traits are ones that really affect and",
+      "duration": 4.961,
+      "offset": 1504.799
+    },
+    {
+      "text": "shape how good models are with a given",
+      "duration": 4.24,
+      "offset": 1507.679
+    },
+    {
+      "text": "language. In a language like TypeScript,",
+      "duration": 3.68,
+      "offset": 1509.76
+    },
+    {
+      "text": "it's pretty easy to find a good",
+      "duration": 3.681,
+      "offset": 1511.919
+    },
+    {
+      "text": "solution, but not the right solution.",
+      "duration": 4.32,
+      "offset": 1513.44
+    },
+    {
+      "text": "There are so many different options that",
+      "duration": 4.24,
+      "offset": 1515.6
+    },
+    {
+      "text": "it's easy to get lost in the sauce",
+      "duration": 3.68,
+      "offset": 1517.76
+    },
+    {
+      "text": "trying to pick the right one. And if you",
+      "duration": 2.88,
+      "offset": 1519.84
+    },
+    {
+      "text": "pick one in one place and a different",
+      "duration": 4.08,
+      "offset": 1521.44
+    },
+    {
+      "text": "one somewhere else, things get much",
+      "duration": 4.959,
+      "offset": 1522.72
+    },
+    {
+      "text": "harder to maintain over time. And more",
+      "duration": 3.84,
+      "offset": 1525.52
+    },
+    {
+      "text": "importantly, how hard is it to find a",
+      "duration": 3.921,
+      "offset": 1527.679
+    },
+    {
+      "text": "bad solution? In Typescript, it is",
+      "duration": 4.24,
+      "offset": 1529.36
+    },
+    {
+      "text": "trivial. It is so easy to find bad",
+      "duration": 3.52,
+      "offset": 1531.6
+    },
+    {
+      "text": "solutions. You can just press tab a few",
+      "duration": 3.28,
+      "offset": 1533.6
+    },
+    {
+      "text": "times and you'll find a bunch. How easy",
+      "duration": 3.439,
+      "offset": 1535.12
+    },
+    {
+      "text": "is it to understand code that you",
+      "duration": 3.76,
+      "offset": 1536.88
+    },
+    {
+      "text": "already have available to you? This",
+      "duration": 4.801,
+      "offset": 1538.559
+    },
+    {
+      "text": "one's also fun. Type systems and LSPs",
+      "duration": 4.399,
+      "offset": 1540.64
+    },
+    {
+      "text": "are great, but they only help when you",
+      "duration": 3.439,
+      "offset": 1543.36
+    },
+    {
+      "text": "have a cursor you can hover over them to",
+      "duration": 3.921,
+      "offset": 1545.039
+    },
+    {
+      "text": "see what the type definition is. If you",
+      "duration": 3.76,
+      "offset": 1546.799
+    },
+    {
+      "text": "give the right feedback mechanisms to a",
+      "duration": 3.52,
+      "offset": 1548.96
+    },
+    {
+      "text": "model to find these things, it can help.",
+      "duration": 3.6,
+      "offset": 1550.559
+    },
+    {
+      "text": "But if it has to hover over every single",
+      "duration": 3.52,
+      "offset": 1552.48
+    },
+    {
+      "text": "thing to see what it does or run a tool",
+      "duration": 3.921,
+      "offset": 1554.159
+    },
+    {
+      "text": "call to check it every single time, that",
+      "duration": 3.52,
+      "offset": 1556
+    },
+    {
+      "text": "is going to perform much worse than if",
+      "duration": 3.44,
+      "offset": 1558.08
+    },
+    {
+      "text": "the language describes the things that",
+      "duration": 3.68,
+      "offset": 1559.52
+    },
+    {
+      "text": "they want to know. This is also an",
+      "duration": 2.56,
+      "offset": 1561.52
+    },
+    {
+      "text": "interesting thing because token",
+      "duration": 2.88,
+      "offset": 1563.2
+    },
+    {
+      "text": "efficiency does not map directly to",
+      "duration": 4.24,
+      "offset": 1564.08
+    },
+    {
+      "text": "performance at all. A lot of people seem",
+      "duration": 4,
+      "offset": 1566.08
+    },
+    {
+      "text": "to think token efficiency matters. I",
+      "duration": 3.52,
+      "offset": 1568.32
+    },
+    {
+      "text": "certainly did myself. But if you look",
+      "duration": 4.16,
+      "offset": 1570.08
+    },
+    {
+      "text": "here, C is one of the least token",
+      "duration": 3.92,
+      "offset": 1571.84
+    },
+    {
+      "text": "efficient languages and it was one of",
+      "duration": 3.919,
+      "offset": 1574.24
+    },
+    {
+      "text": "the best performers on that bench. How",
+      "duration": 3.919,
+      "offset": 1575.76
+    },
+    {
+      "text": "clear are the external dependencies and",
+      "duration": 3.12,
+      "offset": 1578.159
+    },
+    {
+      "text": "their specific behaviors? As a",
+      "duration": 4.081,
+      "offset": 1579.679
+    },
+    {
+      "text": "TypeScript dev,",
+      "duration": 3.601,
+      "offset": 1581.279
+    },
+    {
+      "text": "especially once you get into post",
+      "duration": 3.36,
+      "offset": 1583.76
+    },
+    {
+      "text": "install hell, things can be rough. I'm",
+      "duration": 3.919,
+      "offset": 1584.88
+    },
+    {
+      "text": "currently working on porting an old",
+      "duration": 4,
+      "offset": 1587.12
+    },
+    {
+      "text": "codebase for the ping zoom product, the",
+      "duration": 4.561,
+      "offset": 1588.799
+    },
+    {
+      "text": "video call app for streamers. The amount",
+      "duration": 4.24,
+      "offset": 1591.12
+    },
+    {
+      "text": "of weird things those old packages do is",
+      "duration": 4.319,
+      "offset": 1593.36
+    },
+    {
+      "text": "horrifying. And even getting the model",
+      "duration": 3.439,
+      "offset": 1595.36
+    },
+    {
+      "text": "to understand the difference between the",
+      "duration": 2.48,
+      "offset": 1597.679
+    },
+    {
+      "text": "old version and the new version can be",
+      "duration": 3.521,
+      "offset": 1598.799
+    },
+    {
+      "text": "really, really rough. And how easy is it",
+      "duration": 4.161,
+      "offset": 1600.159
+    },
+    {
+      "text": "to assure that this code will only run",
+      "duration": 3.68,
+      "offset": 1602.32
+    },
+    {
+      "text": "when my expectations are met. Type",
+      "duration": 4,
+      "offset": 1604.32
+    },
+    {
+      "text": "safety and type systems can help here.",
+      "duration": 4.4,
+      "offset": 1606
+    },
+    {
+      "text": "But nothing will protect you better than",
+      "duration": 4,
+      "offset": 1608.32
+    },
+    {
+      "text": "asurances in the language itself that",
+      "duration": 3.68,
+      "offset": 1610.4
+    },
+    {
+      "text": "these expectations are met before the",
+      "duration": 3.68,
+      "offset": 1612.32
+    },
+    {
+      "text": "code runs, which is again a thing Elixir",
+      "duration": 3.599,
+      "offset": 1614.08
+    },
+    {
+      "text": "does. exceptionally well. So to go back",
+      "duration": 3.2,
+      "offset": 1616
+    },
+    {
+      "text": "through all of these with Elixir, how",
+      "duration": 2.88,
+      "offset": 1617.679
+    },
+    {
+      "text": "easy is it to find the right solution?",
+      "duration": 2.959,
+      "offset": 1619.2
+    },
+    {
+      "text": "Pretty easy. How hard is it to find a",
+      "duration": 3.281,
+      "offset": 1620.559
+    },
+    {
+      "text": "bad solution? Extremely hard because",
+      "duration": 3.601,
+      "offset": 1622.159
+    },
+    {
+      "text": "there's so little Elixir code published",
+      "duration": 3.199,
+      "offset": 1623.84
+    },
+    {
+      "text": "that all of the code that is published",
+      "duration": 3.12,
+      "offset": 1625.76
+    },
+    {
+      "text": "is for the most part pretty good. How",
+      "duration": 3.441,
+      "offset": 1627.039
+    },
+    {
+      "text": "easy is it to understand code that you",
+      "duration": 3.52,
+      "offset": 1628.88
+    },
+    {
+      "text": "already have available to you? Trivial.",
+      "duration": 3.92,
+      "offset": 1630.48
+    },
+    {
+      "text": "It is a very clear language once you",
+      "duration": 4.639,
+      "offset": 1632.4
+    },
+    {
+      "text": "understand its idioms. It is very very",
+      "duration": 4.48,
+      "offset": 1634.4
+    },
+    {
+      "text": "readable, especially once you start",
+      "duration": 3.921,
+      "offset": 1637.039
+    },
+    {
+      "text": "chaining things. Again, just some",
+      "duration": 4.399,
+      "offset": 1638.88
+    },
+    {
+      "text": "examples. With Elixir, you can pipe a",
+      "duration": 4.64,
+      "offset": 1640.96
+    },
+    {
+      "text": "value to another function trivially. So",
+      "duration": 4.321,
+      "offset": 1643.279
+    },
+    {
+      "text": "if we have an input, we can pipe it to",
+      "duration": 4.24,
+      "offset": 1645.6
+    },
+    {
+      "text": "two string. String.trim, string",
+      "duration": 4,
+      "offset": 1647.6
+    },
+    {
+      "text": "downcase, string.replace, and then",
+      "duration": 3.839,
+      "offset": 1649.84
+    },
+    {
+      "text": "string.trim. Sure, in JavaScript, we",
+      "duration": 4.16,
+      "offset": 1651.6
+    },
+    {
+      "text": "could do dots over and over. But that's",
+      "duration": 4.561,
+      "offset": 1653.679
+    },
+    {
+      "text": "assuming that the type of the value",
+      "duration": 4.56,
+      "offset": 1655.76
+    },
+    {
+      "text": "stays consistent throughout and that you",
+      "duration": 3.76,
+      "offset": 1658.24
+    },
+    {
+      "text": "don't need to do other things and pass",
+      "duration": 3.599,
+      "offset": 1660.32
+    },
+    {
+      "text": "other arguments. Like here, we want to",
+      "duration": 3.84,
+      "offset": 1662
+    },
+    {
+      "text": "pass other arguments to thereplace",
+      "duration": 3.681,
+      "offset": 1663.919
+    },
+    {
+      "text": "function. And it's also of note that",
+      "duration": 3.68,
+      "offset": 1665.84
+    },
+    {
+      "text": "this is a value and that the functions",
+      "duration": 3.76,
+      "offset": 1667.6
+    },
+    {
+      "text": "aren't things that exist on values. You",
+      "duration": 4.96,
+      "offset": 1669.52
+    },
+    {
+      "text": "don't have input. Uppercase, you have",
+      "duration": 5.12,
+      "offset": 1671.36
+    },
+    {
+      "text": "string.2 to uppercase and you pass it a",
+      "duration": 3.84,
+      "offset": 1674.48
+    },
+    {
+      "text": "value. Since this is just strings, you",
+      "duration": 3.76,
+      "offset": 1676.48
+    },
+    {
+      "text": "could rewrite this as a oneliner in JS,",
+      "duration": 3.52,
+      "offset": 1678.32
+    },
+    {
+      "text": "but that's not going to look very great",
+      "duration": 3.52,
+      "offset": 1680.24
+    },
+    {
+      "text": "or be very readable if we're being real.",
+      "duration": 3.76,
+      "offset": 1681.84
+    },
+    {
+      "text": "But in a language like JavaScript, you",
+      "duration": 4.159,
+      "offset": 1683.76
+    },
+    {
+      "text": "have to reassign these values over and",
+      "duration": 4.24,
+      "offset": 1685.6
+    },
+    {
+      "text": "over again before you can get to the",
+      "duration": 3.76,
+      "offset": 1687.919
+    },
+    {
+      "text": "result you're looking for. Oh, this is a",
+      "duration": 3.52,
+      "offset": 1689.84
+    },
+    {
+      "text": "much better example. Take a query string",
+      "duration": 4.24,
+      "offset": 1691.679
+    },
+    {
+      "text": "like a= 3 and bals 4. We have to parse",
+      "duration": 4.24,
+      "offset": 1693.36
+    },
+    {
+      "text": "it, coersse it to integers, compute a",
+      "duration": 3.441,
+      "offset": 1695.919
+    },
+    {
+      "text": "result, and then format it. So, we take",
+      "duration": 4.4,
+      "offset": 1697.6
+    },
+    {
+      "text": "query string, we pass it to URI. code",
+      "duration": 5.84,
+      "offset": 1699.36
+    },
+    {
+      "text": "query pass it to then extract ins. This",
+      "duration": 5.44,
+      "offset": 1702
+    },
+    {
+      "text": "is a syntax for like catching it if",
+      "duration": 5.359,
+      "offset": 1705.2
+    },
+    {
+      "text": "there's an error. Then fn a b maths",
+      "duration": 6.479,
+      "offset": 1707.44
+    },
+    {
+      "text": "square root a * a plus b * b. This index",
+      "duration": 4.561,
+      "offset": 1710.559
+    },
+    {
+      "text": "here is similar to in javascript where",
+      "duration": 3.041,
+      "offset": 1713.919
+    },
+    {
+      "text": "you can dstructure the arguments. So",
+      "duration": 3.36,
+      "offset": 1715.12
+    },
+    {
+      "text": "here it's being called with an object",
+      "duration": 4.319,
+      "offset": 1716.96
+    },
+    {
+      "text": "that has keys a and b. And this is now",
+      "duration": 5.52,
+      "offset": 1718.48
+    },
+    {
+      "text": "two values we can access here a and b.",
+      "duration": 4.4,
+      "offset": 1721.279
+    },
+    {
+      "text": "And that function you can see right here",
+      "duration": 5.12,
+      "offset": 1724
+    },
+    {
+      "text": "dstructured object a is a and b is b.",
+      "duration": 5.921,
+      "offset": 1725.679
+    },
+    {
+      "text": "And here we now return string that to",
+      "duration": 4.32,
+      "offset": 1729.12
+    },
+    {
+      "text": "integer a string to integer b. We have",
+      "duration": 4.16,
+      "offset": 1731.6
+    },
+    {
+      "text": "now extracted this from the URI",
+      "duration": 4.239,
+      "offset": 1733.44
+    },
+    {
+      "text": "decoding. So the extract ins function",
+      "duration": 4.159,
+      "offset": 1735.76
+    },
+    {
+      "text": "will parse out the strings and give us",
+      "duration": 4.561,
+      "offset": 1737.679
+    },
+    {
+      "text": "that. And now we have a and b is ins map",
+      "duration": 4.48,
+      "offset": 1739.919
+    },
+    {
+      "text": "square root a * a plus b * b. Pass it to",
+      "duration": 4.159,
+      "offset": 1742.24
+    },
+    {
+      "text": "float.round. Pass it to two string. I",
+      "duration": 3.52,
+      "offset": 1744.399
+    },
+    {
+      "text": "was wrong. Then is a new thing which is",
+      "duration": 3.201,
+      "offset": 1746.399
+    },
+    {
+      "text": "why I'm not familiar. It's for moving",
+      "duration": 4.321,
+      "offset": 1747.919
+    },
+    {
+      "text": "the arguments around. Not too important",
+      "duration": 4.4,
+      "offset": 1749.6
+    },
+    {
+      "text": "here, but you get the idea. There's a",
+      "duration": 3.36,
+      "offset": 1752.24
+    },
+    {
+      "text": "lot of different indexes to change where",
+      "duration": 2.88,
+      "offset": 1754
+    },
+    {
+      "text": "the argument goes. If you don't want it",
+      "duration": 2.48,
+      "offset": 1755.6
+    },
+    {
+      "text": "to be the first or the last argument,",
+      "duration": 2.799,
+      "offset": 1756.88
+    },
+    {
+      "text": "you can pass it around using helpers",
+      "duration": 3.12,
+      "offset": 1758.08
+    },
+    {
+      "text": "like that, not too important. You get",
+      "duration": 3.12,
+      "offset": 1759.679
+    },
+    {
+      "text": "the general flow here very easily. Even",
+      "duration": 3.04,
+      "offset": 1761.2
+    },
+    {
+      "text": "if you don't know the syntax, you can",
+      "duration": 3.76,
+      "offset": 1762.799
+    },
+    {
+      "text": "clearly read what this does, which is",
+      "duration": 4.48,
+      "offset": 1764.24
+    },
+    {
+      "text": "really, really cool. Whereas with",
+      "duration": 4.801,
+      "offset": 1766.559
+    },
+    {
+      "text": "TypeScript, you can read this and",
+      "duration": 5.199,
+      "offset": 1768.72
+    },
+    {
+      "text": "understand it. But it takes a lot more",
+      "duration": 5.199,
+      "offset": 1771.36
+    },
+    {
+      "text": "mental effort because the core syntax of",
+      "duration": 4.561,
+      "offset": 1773.919
+    },
+    {
+      "text": "the function is no longer just",
+      "duration": 3.921,
+      "offset": 1776.559
+    },
+    {
+      "text": "describing the flow of information. The",
+      "duration": 4.48,
+      "offset": 1778.48
+    },
+    {
+      "text": "core syntax of the function is defining",
+      "duration": 5.439,
+      "offset": 1780.48
+    },
+    {
+      "text": "a bunch of how we pass values around.",
+      "duration": 5.52,
+      "offset": 1782.96
+    },
+    {
+      "text": "Since we have to assign every bare value",
+      "duration": 5.281,
+      "offset": 1785.919
+    },
+    {
+      "text": "throughout this, the code is as much how",
+      "duration": 4.96,
+      "offset": 1788.48
+    },
+    {
+      "text": "the memory is being used as it is what",
+      "duration": 4.959,
+      "offset": 1791.2
+    },
+    {
+      "text": "we are doing. And this is the magic of",
+      "duration": 5.119,
+      "offset": 1793.44
+    },
+    {
+      "text": "elixir that I love so dearly. The top",
+      "duration": 5.52,
+      "offset": 1796.159
+    },
+    {
+      "text": "level function is describing what is",
+      "duration": 6.561,
+      "offset": 1798.559
+    },
+    {
+      "text": "being done, not the how in the same way.",
+      "duration": 4.961,
+      "offset": 1801.679
+    },
+    {
+      "text": "Good point in chat here is that it",
+      "duration": 4.159,
+      "offset": 1805.12
+    },
+    {
+      "text": "almost feels like pseudo code. very much",
+      "duration": 5.2,
+      "offset": 1806.64
+    },
+    {
+      "text": "does and that is why I think it is so",
+      "duration": 4.721,
+      "offset": 1809.279
+    },
+    {
+      "text": "[ __ ] cool because it so clearly",
+      "duration": 4.88,
+      "offset": 1811.84
+    },
+    {
+      "text": "describes what is happening not all of",
+      "duration": 5.279,
+      "offset": 1814
+    },
+    {
+      "text": "the other details and let's be real you",
+      "duration": 3.839,
+      "offset": 1816.72
+    },
+    {
+      "text": "don't know how the memor is being",
+      "duration": 3.361,
+      "offset": 1819.279
+    },
+    {
+      "text": "managed here anyways when does this a",
+      "duration": 5.281,
+      "offset": 1820.559
+    },
+    {
+      "text": "raw and b raw value get cleared up good",
+      "duration": 6.159,
+      "offset": 1822.64
+    },
+    {
+      "text": "question I got 5.2 two to remove all of",
+      "duration": 4.8,
+      "offset": 1825.84
+    },
+    {
+      "text": "the thens to make it a little easier to",
+      "duration": 3.441,
+      "offset": 1828.799
+    },
+    {
+      "text": "read. You have to define the functions a",
+      "duration": 2.88,
+      "offset": 1830.64
+    },
+    {
+      "text": "little bit more aggressively externally",
+      "duration": 2.96,
+      "offset": 1832.24
+    },
+    {
+      "text": "as a result, but it's still very",
+      "duration": 5.279,
+      "offset": 1833.52
+    },
+    {
+      "text": "readable. Like just this is so good.",
+      "duration": 6.16,
+      "offset": 1835.2
+    },
+    {
+      "text": "It's so good.",
+      "duration": 6.321,
+      "offset": 1838.799
+    },
+    {
+      "text": "And people are asking about effect TS.",
+      "duration": 5.12,
+      "offset": 1841.36
+    },
+    {
+      "text": "Do you think this is actually more",
+      "duration": 5.36,
+      "offset": 1845.12
+    },
+    {
+      "text": "readable? I say as a fan of effect.",
+      "duration": 6.16,
+      "offset": 1846.48
+    },
+    {
+      "text": "Yeah, effect is just like elixir. It",
+      "duration": 4.16,
+      "offset": 1850.48
+    },
+    {
+      "text": "even has pipes.",
+      "duration": 4.32,
+      "offset": 1852.64
+    },
+    {
+      "text": "Sure. This is the equivalent of that top",
+      "duration": 5.2,
+      "offset": 1854.64
+    },
+    {
+      "text": "snippet from before. Pipe parse params",
+      "duration": 7.839,
+      "offset": 1856.96
+    },
+    {
+      "text": "query comma effect.flatmap p nested pipe",
+      "duration": 8.64,
+      "offset": 1859.84
+    },
+    {
+      "text": "effect.all a pipe require param a p",
+      "duration": 7.521,
+      "offset": 1864.799
+    },
+    {
+      "text": "effect flatmap to number a. No, I'm not",
+      "duration": 4.96,
+      "offset": 1868.48
+    },
+    {
+      "text": "saying you shouldn't use effect. In",
+      "duration": 2.32,
+      "offset": 1872.32
+    },
+    {
+      "text": "fact, if you're using typescript, I",
+      "duration": 2.56,
+      "offset": 1873.44
+    },
+    {
+      "text": "think effect is a phenomenal way to",
+      "duration": 2.56,
+      "offset": 1874.64
+    },
+    {
+      "text": "structure your typescript in a way that",
+      "duration": 3.44,
+      "offset": 1876
+    },
+    {
+      "text": "is more reliable. You will never beat",
+      "duration": 4.64,
+      "offset": 1877.2
+    },
+    {
+      "text": "the readability and elegance of this.",
+      "duration": 5.839,
+      "offset": 1879.44
+    },
+    {
+      "text": "It's so good. It's so good. And that's a",
+      "duration": 5.199,
+      "offset": 1881.84
+    },
+    {
+      "text": "large part of why the models like it so",
+      "duration": 4.481,
+      "offset": 1885.279
+    },
+    {
+      "text": "much. It's extremely clear when you read",
+      "duration": 4.961,
+      "offset": 1887.039
+    },
+    {
+      "text": "code what it is doing. And then the last",
+      "duration": 4.32,
+      "offset": 1889.76
+    },
+    {
+      "text": "parts here, how clear are your external",
+      "duration": 3.2,
+      "offset": 1892
+    },
+    {
+      "text": "dependencies and their specific",
+      "duration": 3.04,
+      "offset": 1894.08
+    },
+    {
+      "text": "behaviors? Very clear because the source",
+      "duration": 4.319,
+      "offset": 1895.2
+    },
+    {
+      "text": "code is bundled and has the docs",
+      "duration": 4.64,
+      "offset": 1897.12
+    },
+    {
+      "text": "alongside it. And how easy is it to",
+      "duration": 4.16,
+      "offset": 1899.519
+    },
+    {
+      "text": "assure that the code will only run when",
+      "duration": 3.919,
+      "offset": 1901.76
+    },
+    {
+      "text": "my expectations are met? Incredibly,",
+      "duration": 4.48,
+      "offset": 1903.679
+    },
+    {
+      "text": "because again, pattern matching. Here,",
+      "duration": 4.801,
+      "offset": 1905.679
+    },
+    {
+      "text": "when we extract ins, we only do this",
+      "duration": 4.561,
+      "offset": 1908.159
+    },
+    {
+      "text": "when we have an a value and a b value.",
+      "duration": 3.76,
+      "offset": 1910.48
+    },
+    {
+      "text": "If we have a different value, we raise",
+      "duration": 3.52,
+      "offset": 1912.72
+    },
+    {
+      "text": "an error. The fact that the argument for",
+      "duration": 4.08,
+      "offset": 1914.24
+    },
+    {
+      "text": "the function itself is what defines if",
+      "duration": 4.319,
+      "offset": 1916.24
+    },
+    {
+      "text": "it can be hit, not if it should be hit,",
+      "duration": 5.12,
+      "offset": 1918.32
+    },
+    {
+      "text": "if it can be hit, is magical. I think",
+      "duration": 4.401,
+      "offset": 1920.559
+    },
+    {
+      "text": "I've said all I have to here. If",
+      "duration": 3.2,
+      "offset": 1923.44
+    },
+    {
+      "text": "somebody who's deeper in the C world",
+      "duration": 2.88,
+      "offset": 1924.96
+    },
+    {
+      "text": "wants to do the equivalent of this",
+      "duration": 2.879,
+      "offset": 1926.64
+    },
+    {
+      "text": "video, but for the C# side instead of",
+      "duration": 3.52,
+      "offset": 1927.84
+    },
+    {
+      "text": "just me glazing elixir constantly, that",
+      "duration": 3.28,
+      "offset": 1929.519
+    },
+    {
+      "text": "would be really cool to see. And please",
+      "duration": 2.72,
+      "offset": 1931.36
+    },
+    {
+      "text": "let me know if you do that. I would love",
+      "duration": 2.72,
+      "offset": 1932.799
+    },
+    {
+      "text": "to see that. But for now, it's probably",
+      "duration": 2.88,
+      "offset": 1934.08
+    },
+    {
+      "text": "time for me to go back to the trenches",
+      "duration": 2.88,
+      "offset": 1935.519
+    },
+    {
+      "text": "of Typescript instead of sitting here",
+      "duration": 3.439,
+      "offset": 1936.96
+    },
+    {
+      "text": "glazing the language I love most. But",
+      "duration": 4.16,
+      "offset": 1938.399
+    },
+    {
+      "text": "maybe, just maybe, in this AI powered",
+      "duration": 4.961,
+      "offset": 1940.399
+    },
+    {
+      "text": "world, Elixir might finally win. Let me",
+      "duration": 5.441,
+      "offset": 1942.559
+    },
+    {
+      "text": "know how y'all feel.",
+      "duration": 2.64,
+      "offset": 1945.36
+    }
+  ],
+  "transcriptText": "Us programmers love to argue about different languages. Which is best and which is worst, which is fast, which is slow, and so many other things about them. But which language is best for AI? Apparently, it's Polish. But we're not here to talk about Polish or spoken languages. We're here to talk about programming languages. And just to be even clearer, we're not talking about programming languages that were made for AI. There's already a few of these, like Nanolang and Nerd, but as cool as those are, they're nowhere near ready for real world use. I want to talk about real programming languages that we already use every day. Autocodebench is a benchmark made by Tencent specifically to try and evaluate how different models perform in different languages. Their goal with this was to figure out which models are the best at certain languages. Well, we can go a different direction with it. We can use this to see which languages the models do best with. And the results are genuinely fascinating. I first saw these because the author of a language that I'm friends with showed it to me and we were both just kind of standing there in disbelief. It's a very interesting bench. It has some very interesting results that have very very interesting implications. Whatever language you think is the best, I'm almost certain it's not unless you've already read this. And spoiler, it's definitely not Typescript as much as I would like for it to be. And believe it or not, it's not Python either. I can't wait to tell you all about which languages are topping this benchmark and why I think they're doing that right after a quick word from today's sponsor. Stop me if you heard this one before. AI is great at coding and it's better at code review. That's why today's sponsor is Graptile, one of the best AI code reviewers. Okay, you've heard this. I get it. I want to do something a bit different today. I don't even have permission from the team, but I I hope that they'll be okay with this. They're going to review this before we air it, so it's kind of their thing. Regardless, this is a post they just made about the AI code review bubble. This was very interesting to me and I thought it was worth touching on because a lot of other companies have started releasing AI code review products as part of their existing tools be it cognition linear and more and I really like their takes on this. Grapiles benchmarks say they're the best but all of the benchmarks from all of these companies say that they're the best. We have to talk about this a little bit deeper. The first big piece they touch on is independence. We strongly believe that the review agent should be different from the coding agent. We're opinionated on the importance of independent code validation agents. In spite of multiple requests, we've never shipped codegen features. We don't write code. An otter doesn't prepare the books. A fox doesn't guard the hen house. And a student doesn't grade their own essays. Today's agents are better than the median human code reviewer at catching issues and enforcing standards. And they're only getting better. It's clear that in the future, a large percentage of code at companies will be auto approved by the code review agents. In other words, there will be some instances where a human writes a ticket, an agent writes a PR, and another agent validates, approves, and merges it. This sounds insane and I never would have believed it, but I started doing it myself. They talk a bit about feedback loops here because they have a Claude code plugin for Grapile. Yes, really. The plug-in can be set up to give feedback to the coding agent after it writes code. And once the review comes in, it'll address the feedback over and over again until there isn't any left. And if there's ambiguity at any point, the agents slack the human to clarify. Do you know how cool that is? you know how much longer you can run agents for if they're getting feedback and review, especially if it's coming from a different harness or a different model. I've tried the local review things and they just aren't as good. Grappile's understanding of your codebase goes deep. I've seen it call things out from many files away that aren't even being touched in the PR because it understands your code base. Combine that with a coding agent and it can iterate on itself way faster than you can imagine. I guess there's a reason everyone from Brex to Scale to Post Hog is using them. They seem to really get it. And from my experience, they definitely do. Graile stop me from shipping bugs. Let them stop you at soy. Before we can determine what the best language for AI is, we should probably start with what makes a good language and then also, of course, what makes a good language for AI. So, what makes a good programming language? I'm sure this is a really simple question that nobody will have contradicting opinions about. What makes a good programming language? Let's see what theories we all have. Cotlin makes a good programming language apparently. Types, type safety, simple syntax, readability, no error handling, long live go, lots of training examples, great compiler, Apple beauty. Ooh, from YouTube. YouTube's actually playing good here. Pattern matching. That's one that I love. That's a good feature. Human readability. Simplicity plus functionality equals sophistication. How fast is it, bro? If it's called Rust, good docs, emoji to text ratio. Most languages suffer immensely here in particular. I am disappointed at how few languages let you define variables and values as emojis. Very frustrating. Higher kind of types, macros, functors, decorators, centralized tooling, standard library. Interesting. I think hopefully from here we can establish the one thing that makes a good programming language for humans. The human likes it. This is really what it comes down to. As sad as it is, I wish we could evaluate programming languages in a more meaningful way. But sadly, humans do not allow us to do such. We project our beliefs onto languages as a whole and use those to evaluate them and as such have preferences that go beyond anything that can be measured. As Joel said in chat, if you like it, it's good wine. Yep. So, when we're talking about what makes a good language for us, we're going to obviously have our own preferences biased into it. So let's ask the next version of this question, the one that we care about. What makes a good programming language for LMS? What are the traits and characteristics that make a model good with a given language? Simplicity, types, LSP, token efficiency, that's an interesting one to bring up. A word I'm not even going to try to pronounce. concise syntax, high verbosity that feels contradictory, vector spaces, C style syntax, how much training data that it was trained on, the quality of the training data in the language, how much data the language is in the AI, and how specific and clear is the syntax. There's a couple themes we are seeing here. Those are simplicity, token efficiency, amount of training data, feedback mechanisms, i.e. type safety. Anything else important you guys feel like I'm missing with this? How unique the syntax is. That's an interesting one. Another one, not loads of [ __ ] code in the training data. So, amount of training data. I will put underneath that quality of training data. It's closure. Mandatory return types. How similar are the patterns to other languages. I guess homogeneity is indeed a useful value. Like how similar is it to other things? So, let's take a handful of languages and throw them against this and see how we think they will rank. JavaScript simplicity e no token efficiency definitely no amount of training data yeah there's a lot of training data for this quality of that training data mixed bag feedback mechanisms jack [ __ ] JavaScript probably not great the training data is huge so if you think the training data is by far the most important thing that you have a ton of it and JavaScript should be pretty good so depending on how you weight these things should be near the top or the bottom TypeScript similar overall I would argue the TypeScript training data available is of slightly higher quality and the feedback mechanisms are very important because type safety can be checked for with a compiler and feedback can be given to the model. Thereby I would expect TypeScript to perform better. Python interesting one probably the most data and also the most incentive from the labs to make it work because they use Python a lot but also no agreement around the type safety. There's lots of different ways to do it and all of them suck. There's a ton of [ __ ] data for Python and the feedback mechanisms are garbage. So, probably mixed bag. Java definitely not hitting simplicity or token efficiency anytime soon. Probably has a good amount of data. Probably is decent quality data. Not great feedback mechanisms, but not the worst either. It is kind of checked. Sure. C++ I think C++ is the only thing to get a straight zero on every one of these other than amount of training data. It has lots of training data, but it's not a simple language. It is far from an efficient language in terms of the token efficiency. The quality of that data varies comically, and the feedback mechanisms are did it crash your system or not. Good luck. C is probably a lot better in these regards. I would, you know what I'll do? I'll add one more piece here. Thing I think is important, documentation. And I'll say and ease of accessibility. So, how good are the docs and how easily are they accessed? And to be fair, for everything up until this point, I would say the answer to the documentation access for that is [ __ ] for C pretty damn good. The C# community ecosystem and frameworks around Net and everything have some of the best documentation in the world. Whether or not you like the language, it is very good at this. How about Ruby? Honestly, for docs, Ruby does pretty well. Feedback mechanisms, it does utter [ __ ] [ __ ] For quality of training data, it is not very good. Token efficiency, it is decent. Simplicity, it could be decent, but Rails ruined that for us. Could be fine. I would probably guess it's higher up than Python and Java based on what we know, but hard to know. Elixir, my beloved. Simple, depending on who you ask. Token efficient, decently so, probably similar to Ruby there. Amount of training data, very, very small. Quality of training data, I'll be a little conceited here and say all of the Elixir devs I know are some of the smartest people I know. So, the quality of that data is likely very high. Feedback mechanisms, [ __ ] garbage. They are still introducing type safety to the language. They are far from it though. They're not that far from it. It's coming very soon. But the tools even understanding that's going to take a while in the documentation worldass. Golang simple to a fault. Token efficient absolutely not. Amount of training data decent. Quality of data decentish. Feedback mechanisms garbage. Documentation eh fine. Rust simplicity no. Token efficiency no amount of training data decent. Quality of training data very decent feedback mechanisms worldclass the best feedback you could possibly get from a compiler even if the compiler is slower than the model is and documentation very good. So just off of what we said all here, I would guess we'd have Rust near the top. Amount of data is important. So I would guess Typescript would be decently high up, right? C's probably decently high up there. I know Go doesn't have the feedback mechanisms, but the data and the quality of the data and the documentation probably helps it a lot. C++ is not going to be anywhere near the top. Python because they care too much. Ruby because it exists and there's a lot of it. There's probably a lot of good examples. JavaScript because there's a lot of examples. Java because there's a good enough number of examples. C++ obviously near the end. What is the other one we're missing? So JS. Oh, Elixir. Huh. Where does Elixir fit here? That's a tough one. I would just instinctively say right below Ruby by the nature of Elixir being very similar to Ruby but less popular. This all makes sense. Like given the biases we have and what our thoughts are for what makes a good programming language, Rust obviously should be near the top. C++ obviously should be near the bottom. Sure. Spoiler, this one's a pre-eread. I've already seen the results here and they are far from what any of us would probably expect even with an exercise like this. So, we look at the results here by the average per language, we'll see Opus one. And if we look at the more recent version, they did a V2, we'll see Opus 4.5 thinking crushed. So, overall, Opus best language at this bench. Doesn't seem like they did 5.2. And 5.2 Codex wasn't out at the time they did this, so we don't know how that compares yet. They probably do pretty well. But we're not here to see what model is the best. We're here for the languages, which is this section here. So this is the score based on all of the problems they had for it. Most of the languages had roughly the same number of problems between 185 to 200 of similar problems. And you'll see the top languages are not the ones that we suspected. We thought it would be Rust and Typescript. And the numbers for Rust and Typescript are respectively 61% for Rust and 61% for TypeScript. Almost identical score, 61.3. The languages we thought would be very good were not. But then we get to some other interesting ones like Java that got a 78.7 meaningfully higher scores than Rust. Weird. C++ 74.7 meaningfully better than Typescript. Even weirder. Then we get to C sharp with an 88.4%. But if you're actually looking at the screen, which I know not all of you do, you might have missed the thing I'm kind of trying to cover up. My favorite language, my beloved Elixir got a 97.5. Wild. Did I do this whole video to trick you guys into listening to me rant about Elixir for a bit? Kind of. And I think I've earned the right to do that for getting you here for this long. So, I'm going to do that now. Elixir is an incredible programming language. I love it dearly. It was the first time I ever felt productive as a programmer and the result is that I felt very productive. So much so that I did a lot of really cool things. Ended up getting pretty wild career starting a company and now I am known as the TypeScript guy. But believe it or not, my heart is not in Typescript. My life is in Typescript. My work is in Typescript. My heart will always be in Elixir. Jaz Valim is a personal hero of mine. I love that man so much. I would not be the programmer I am today without him. I have a whole video I did that was actually a talk I gave at Elixir comp about how Elixir made me the engineer I am today. I [ __ ] love this language. There's a lot of things I like about Elixir. I'm just going to talk about the language ones because that's what you experience when you write Elixir. Things like the piping. It's so good. You just pipe almost the same way you do in a terminal. And when you do that, you're taking the value of the previous return that be a variable or a function and piping it as the first argument into the next thing. So here we take the string, we break it down to graffims and then we measure the frequency of each value from that string. So here we see E occurs once, I occurs twice, L occurs once, R occurs once, X occurs once. This is such an elegant way to write this instead of storing a bunch of random variables and keeping track of all of it. A way of thinking of this is effectively that the pipeline the data goes through is what you're encoding rather than the different values that exist throughout. And this pattern is so powerful, especially when you combine it with a lot of the other really cool things you can do in Elixir. One of my favorite features in Elixir is how the pattern matching with overloads works. You can redefine the same function multiple times with arguments defined as checks effectively. So when you define the arguments for a function, you don't type them the way you do in other languages. Like in JavaScript or TypeScript, you say this function takes in an object. It has name, which is a string, and it has age, which is a number. In Elixir, you can define specific values that match. And if you have three versions of the same function, it matches based on what the values are encoded as in the arguments. So here we have a Fibonacci function. The Fibonacci function is redefined four times. So this first one is defined as zero. So if you call fib with zero, it will hit this first. So it returns zero. If you call it with one, it will hit this and return one. If you call it with n when n is an integer and greater than two, then we will do this where we call the same thing with n minus one and n minus2. Instead of doing an if statement inside of the function to handle these cases, we are defining the functions via those cases. And then we have a fallback here which is what catches if none of these other things catch. Because effectively the way this is evaluated by the language in the VM is it goes through these one at a time. It takes the value in the function you're trying to call and it sees if the value matches this one. If it doesn't, it checks the next one. If it doesn't, it checks the next one. And if it doesn't, it checks this next one. It's so cool. It's so readable. It's so easy to gro. It keeps you from having to deeply nest things because of complex logic. And there are so many little things you can do with this. Like you can redefine the checkout function where if user isn't signed in or if user is admin and I see a lot of people saying really dumb things in chat right now like your compiler for a statically typed language can do this. Rust can do this. Haskell can do this. Okay, Haskell can kind of do things like this. But this this idea of matching the expectations of an argument as part of the function's definition rather than part of the contents of the function is really really really cool. And there are a lot of programmers who fell in love with this concept, including funny enough Primagen because I ranted to him about this so non-stop every time we hung out that he went and explored Elixir out of curiosity. And while a lot of the quirks of the language aren't for him, he did fall in love with this aspect. It's so [ __ ] cool. And there's just a lot of these types of things in Elixir that are weird one-offs that are novel to Elixir, which I thought would make it way harder for models to understand because training data for other languages is not going to map well to these patterns. Maybe some ideas from Ruby will, but not too many. And once you start combining this with pipes, things get really crazy, especially because nothing is mutable in Elixir. Everything is an immutable value. If you want to change it, you create a new value. It's a weird language and I deeply dearly love it. It's so fun. But none of these aspects are the ones that I think make it good for tools to use like AI agents. If anything, these might actually hurt a little bit because they are so unique to Elixir. Some part of that helps because it's not able to use the training data for other things and make those mistakes because it's so different. And the immutability definitely helps a lot too. But the things I think help the most aren't necessarily the syntax or the language or its characteristics. I think a lot of it is hex. If you're not already familiar with this fact, Elixir doesn't compile to machine code like a C++ or a Rust does. Elixir compiles to Erlang, which runs in a VM closer to how Java works. But Erlang's VM, Beam, is actually magical. The things you can do with Beam are unfucking believable. Not relevant right now. So, I will resist the urge to deep dive on my loyalty to that VM because of how absurdly powerful and cool and fascinating it is. Let me know in the comments if I can do that in the future because I would love to just sit here and rant about all the things that make this ecosystem cool. Believe me. But since Elixir is running on Beam and is effectively just Erlang, Elixir can use the whole Erlang ecosystem as well as Gleam, which is another language built on top of Erlang and Beam VM. It's so cool. This ecosystem is great. The reason I'm here though is not just because I want to talk about Erling. As tempting as it is, it's because I want to show you guys some things. Here is the most popular package on Hex JSON. It's a blazing fast JSON parser and generator in pure elixir. Let's click on it. Here we can see all the things you would expect from an npm type site. You can also go to the online docs because every single package on Hex has a Hex Docs site. Every single package in hex comes with documentation built in because you document it as you build it. There is syntax in elixir where when you write source code, you write comments in a specific format that result in documentation being built out of it as a result of just writing the code. You document it by commenting it. And the results are really, really good docs when you're done. I see chat has this starting to click now. That's so good. Holy [ __ ] That's so cool. Wow. Yeah, it's another one of those things where it's cool for humans and it's even cooler for models. Let's take a look at the decoder module. Here's the file in Elixir, of course, for this project for decoding JSON. And as we scroll through here, you see at module doc false. This is saying don't include this in the module docs directly. So, this one is specified like don't generate docs for this for me directly. Let's find something where they do. probably JSON.ex. Here we are. Module doc, a blazing fast JSON parser in generator in pure elixir. Look at that right there. At doc parse a JSON value from input IO data options all described right here. And they're even getting early on the type stuff with specs. All of this is in the source code alongside the actual thing that you're writing the code for. The code and the docs are not just like in the same codebase. They are intertwined together. That means not only that the docs are easy to access and generate, but more importantly, it is significantly more likely these docs are up toate and the relationship between these docs and the source code is very very tight. That makes models really good at doing this. As people are correctly identifying in chat, collocation makes LLMs go burr. Absolutely. It's great for context, great for LLMs. For the same reason Tailwind is good for models because it colllocates the markup, the styling, and the behavior, actual built-in documentation standards in the language make the modules we use much easier to understand and adopt. I see a lot of people saying this is like JSTOC. No, it's not because JSTO is barely a used standard. Nobody has an actual good autogenerator for things that you do in JSO doc. Nobody [ __ ] uses it and it was added too late to be relevant. The thing that's magic about the module docs in hex docs is that every single package has them. I guarantee you if we just sit here and go through those top 10 here, every single one of these I'll just pick the top six. Okay, I I have self-owned already. One of the first ones I checked is an Erling dep, not an elixir dep. And the Erling people aren't quite as good about the documentation. So, one bad one. Let's see how many more bad ones we hit. Let's try the telemetry one. This one looks really, really good, actually. Cool. The next package is good. Cowib also Erlang, not elixir. Sad. The Erling ones are going to be worse. The elixir ones are all going to be perfect. Again, when we go back to the bench here, I don't know if Erling made it in as a test language. I don't think it did yet. Sadly, didn't. But I would bet Erling would score much worse because the Erling ecosystem, as insane and powerful as it is, was started before programming languages even really existed. Erling is so [ __ ] old and weird. And Elixir came out way later. A big part of why Jose made elixir is that he wanted to take all of these lessons that he had learned about what makes languages good and maintainable, what patterns do we develop that are good later on and bring as many of those in as possible to elixir. So while this was disappointing to see how many of those aren't well documented, I would be surprised if we go through any of the elixir depths and saw any problems. Yeah, again all the elixir ones are in a very good state. I will resist the urge, the deep, deep primal urge to keep glazing elixir because there's other interesting data here too like C scoring so absurdly high compared to a lot of other things. What would make C similarly high up here? It's almost certainly said documentation. Similar to Elixir, there is a concept of doing comments for documentation in the C# language directly. You can in the middle of a C# file, you can triple comment and write XML that describes the section of code that you're writing. You can just do this at any point and do XML definitions of the things you're working on and similarly generate code and generate more importantly documentation as a result. The depth and quality of these docs is absurd. I would argue that if you were to go train a new model from scratch purely on programming language documentation, it would be better at C# than anything else because the quality of these docs is insane. But there are other aspects here too, things that we didn't necessarily touch on here. Quality of training data definitely fits. But another similar thing, how many solutions to a problem? In languages that I use a lot, things like TypeScript for example, there are tons like nearly infinite different solutions to a given problem. But in languages like Elixir and C, there are many, many fewer. Languages that came in with a strong design philosophy that knew that there were only so many ways that these things should be done that provided those things alongside good documentation, those tend to do very well. The points I would think about are quite different. How easy is it to find the right solution? How hard is it to find a bad solution? How easy is it to understand code that you already have available to you? How clear are your external dependencies and their specific behaviors? And one last one, this is kind of in the realm of type safety, but different in a way I think you'll hopefully understand now. How easy is it to assure that this code will only run when my expectations are met? I would argue, and again, this is all theory crafting. None of this is stuff that we know for sure. I would argue these traits are ones that really affect and shape how good models are with a given language. In a language like TypeScript, it's pretty easy to find a good solution, but not the right solution. There are so many different options that it's easy to get lost in the sauce trying to pick the right one. And if you pick one in one place and a different one somewhere else, things get much harder to maintain over time. And more importantly, how hard is it to find a bad solution? In Typescript, it is trivial. It is so easy to find bad solutions. You can just press tab a few times and you'll find a bunch. How easy is it to understand code that you already have available to you? This one's also fun. Type systems and LSPs are great, but they only help when you have a cursor you can hover over them to see what the type definition is. If you give the right feedback mechanisms to a model to find these things, it can help. But if it has to hover over every single thing to see what it does or run a tool call to check it every single time, that is going to perform much worse than if the language describes the things that they want to know. This is also an interesting thing because token efficiency does not map directly to performance at all. A lot of people seem to think token efficiency matters. I certainly did myself. But if you look here, C is one of the least token efficient languages and it was one of the best performers on that bench. How clear are the external dependencies and their specific behaviors? As a TypeScript dev, especially once you get into post install hell, things can be rough. I'm currently working on porting an old codebase for the ping zoom product, the video call app for streamers. The amount of weird things those old packages do is horrifying. And even getting the model to understand the difference between the old version and the new version can be really, really rough. And how easy is it to assure that this code will only run when my expectations are met. Type safety and type systems can help here. But nothing will protect you better than asurances in the language itself that these expectations are met before the code runs, which is again a thing Elixir does. exceptionally well. So to go back through all of these with Elixir, how easy is it to find the right solution? Pretty easy. How hard is it to find a bad solution? Extremely hard because there's so little Elixir code published that all of the code that is published is for the most part pretty good. How easy is it to understand code that you already have available to you? Trivial. It is a very clear language once you understand its idioms. It is very very readable, especially once you start chaining things. Again, just some examples. With Elixir, you can pipe a value to another function trivially. So if we have an input, we can pipe it to two string. String.trim, string downcase, string.replace, and then string.trim. Sure, in JavaScript, we could do dots over and over. But that's assuming that the type of the value stays consistent throughout and that you don't need to do other things and pass other arguments. Like here, we want to pass other arguments to thereplace function. And it's also of note that this is a value and that the functions aren't things that exist on values. You don't have input. Uppercase, you have string.2 to uppercase and you pass it a value. Since this is just strings, you could rewrite this as a oneliner in JS, but that's not going to look very great or be very readable if we're being real. But in a language like JavaScript, you have to reassign these values over and over again before you can get to the result you're looking for. Oh, this is a much better example. Take a query string like a= 3 and bals 4. We have to parse it, coersse it to integers, compute a result, and then format it. So, we take query string, we pass it to URI. code query pass it to then extract ins. This is a syntax for like catching it if there's an error. Then fn a b maths square root a * a plus b * b. This index here is similar to in javascript where you can dstructure the arguments. So here it's being called with an object that has keys a and b. And this is now two values we can access here a and b. And that function you can see right here dstructured object a is a and b is b. And here we now return string that to integer a string to integer b. We have now extracted this from the URI decoding. So the extract ins function will parse out the strings and give us that. And now we have a and b is ins map square root a * a plus b * b. Pass it to float.round. Pass it to two string. I was wrong. Then is a new thing which is why I'm not familiar. It's for moving the arguments around. Not too important here, but you get the idea. There's a lot of different indexes to change where the argument goes. If you don't want it to be the first or the last argument, you can pass it around using helpers like that, not too important. You get the general flow here very easily. Even if you don't know the syntax, you can clearly read what this does, which is really, really cool. Whereas with TypeScript, you can read this and understand it. But it takes a lot more mental effort because the core syntax of the function is no longer just describing the flow of information. The core syntax of the function is defining a bunch of how we pass values around. Since we have to assign every bare value throughout this, the code is as much how the memory is being used as it is what we are doing. And this is the magic of elixir that I love so dearly. The top level function is describing what is being done, not the how in the same way. Good point in chat here is that it almost feels like pseudo code. very much does and that is why I think it is so [ __ ] cool because it so clearly describes what is happening not all of the other details and let's be real you don't know how the memor is being managed here anyways when does this a raw and b raw value get cleared up good question I got 5.2 two to remove all of the thens to make it a little easier to read. You have to define the functions a little bit more aggressively externally as a result, but it's still very readable. Like just this is so good. It's so good. And people are asking about effect TS. Do you think this is actually more readable? I say as a fan of effect. Yeah, effect is just like elixir. It even has pipes. Sure. This is the equivalent of that top snippet from before. Pipe parse params query comma effect.flatmap p nested pipe effect.all a pipe require param a p effect flatmap to number a. No, I'm not saying you shouldn't use effect. In fact, if you're using typescript, I think effect is a phenomenal way to structure your typescript in a way that is more reliable. You will never beat the readability and elegance of this. It's so good. It's so good. And that's a large part of why the models like it so much. It's extremely clear when you read code what it is doing. And then the last parts here, how clear are your external dependencies and their specific behaviors? Very clear because the source code is bundled and has the docs alongside it. And how easy is it to assure that the code will only run when my expectations are met? Incredibly, because again, pattern matching. Here, when we extract ins, we only do this when we have an a value and a b value. If we have a different value, we raise an error. The fact that the argument for the function itself is what defines if it can be hit, not if it should be hit, if it can be hit, is magical. I think I've said all I have to here. If somebody who's deeper in the C world wants to do the equivalent of this video, but for the C# side instead of just me glazing elixir constantly, that would be really cool to see. And please let me know if you do that. I would love to see that. But for now, it's probably time for me to go back to the trenches of Typescript instead of sitting here glazing the language I love most. But maybe, just maybe, in this AI powered world, Elixir might finally win. Let me know how y'all feel."
+}

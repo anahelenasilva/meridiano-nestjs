@@ -1,0 +1,2482 @@
+{
+  "channel": {
+    "id": "accb6fa6-d556-4923-9bef-014f835e8919",
+    "databaseId": "accb6fa6-d556-4923-9bef-014f835e8919",
+    "name": "Matt Pocock",
+    "description": "Become a TypeScript wizard with tips, tricks and tutorials. Plus, updates from the latest TypeScript releases (and other open source awesomeness)."
+  },
+  "videoId": "_IK18goX4X8",
+  "title": "Ship working code while you sleep with the Ralph Wiggum technique",
+  "url": "https://www.youtube.com/watch?v=_IK18goX4X8",
+  "publishedAt": "2026-01-22T00:33:15.847Z",
+  "description": "Apologies for the audio quality in the one - I tweaked some OBS settings I should not have tweaked, and it sounds a lot more blasted than usual. Keeping this here until I find time to re-record.\n\nDiscover Ralph Wiggum, a devilishly simple approach to AI coding agents that uses just a for loop instead of complex orchestration systems. I'll show you the exact bash script I use to let Claude work through my entire backlog overnight, how to structure tasks as a PRD, and why keeping changes small with robust feedback loops (TypeScript, tests, CI) is the key to actually shipping working code. This technique mimics how real engineers work: pick a task, complete it, commit it, repeat. With models like Claude Opus 4.5 being so capable now, simpler approaches like Ralph are finally viable and honestly more intuitive than the multi-phase planning systems we were using just months ago.\n\n11 Tips on using Ralph Wiggum: https://www.aihero.dev/s/r-wiggum-article\nOriginal Ralph Article: https://ghuntley.com/ralph/\nAnthropic Article: https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents\n\nJoin my newsletter on AI Hero:\n\nhttps://www.aihero.dev/s/y-newsletter\n\nFollow Matt on Twitter\n\nhttps://twitter.com/mattpocockuk\n\nJoin the Discord:\n\nhttps://aihero.dev/discord",
+  "thumbnailUrl": "https://i.ytimg.com/vi_webp/_IK18goX4X8/maxresdefault.webp",
+  "transcript": [
+    {
+      "text": "I'm going to do something I don't",
+      "duration": 2560,
+      "offset": 0
+    },
+    {
+      "text": "usually do for these videos and give it",
+      "duration": 3279,
+      "offset": 1040
+    },
+    {
+      "text": "a pretty hypy intro. One of the dreams",
+      "duration": 4319,
+      "offset": 2560
+    },
+    {
+      "text": "of coding agents is that you can wake up",
+      "duration": 4721,
+      "offset": 4319
+    },
+    {
+      "text": "in the morning to working code that your",
+      "duration": 4321,
+      "offset": 6879
+    },
+    {
+      "text": "coding agent has worked through your",
+      "duration": 4559,
+      "offset": 9040
+    },
+    {
+      "text": "backlog and has just spit out a whole",
+      "duration": 4160,
+      "offset": 11200
+    },
+    {
+      "text": "bunch of code for you to review and it",
+      "duration": 3201,
+      "offset": 13599
+    },
+    {
+      "text": "works. Now, people have been trying to",
+      "duration": 3440,
+      "offset": 15360
+    },
+    {
+      "text": "make this work for a while with agent",
+      "duration": 4559,
+      "offset": 16800
+    },
+    {
+      "text": "swarms and meshes and orchestrators. But",
+      "duration": 4000,
+      "offset": 18800
+    },
+    {
+      "text": "what if I told you that the way to get",
+      "duration": 3920,
+      "offset": 21359
+    },
+    {
+      "text": "this to work is with a for loop. I'm",
+      "duration": 3600,
+      "offset": 22800
+    },
+    {
+      "text": "going to show you a technique for",
+      "duration": 3281,
+      "offset": 25279
+    },
+    {
+      "text": "running coding agents that makes it",
+      "duration": 4240,
+      "offset": 26400
+    },
+    {
+      "text": "devilishly simple that is a vast",
+      "duration": 4560,
+      "offset": 28560
+    },
+    {
+      "text": "improvement over any other AI coding",
+      "duration": 4880,
+      "offset": 30640
+    },
+    {
+      "text": "orchestration setup I've ever tried and",
+      "duration": 4959,
+      "offset": 33120
+    },
+    {
+      "text": "allows you to actually ship working",
+      "duration": 5039,
+      "offset": 35520
+    },
+    {
+      "text": "stuff with longrunning coding agents and",
+      "duration": 4561,
+      "offset": 38079
+    },
+    {
+      "text": "everyone's calling it Ralph Wigum. This",
+      "duration": 4401,
+      "offset": 40559
+    },
+    {
+      "text": "is credited to Jeffrey Huntley and even",
+      "duration": 4239,
+      "offset": 42640
+    },
+    {
+      "text": "though this came out in 14th of July,",
+      "duration": 3680,
+      "offset": 44960
+    },
+    {
+      "text": "Ralph is kind of having a moment right",
+      "duration": 3200,
+      "offset": 46879
+    },
+    {
+      "text": "now. That's because this article",
+      "duration": 4559,
+      "offset": 48640
+    },
+    {
+      "text": "advocates an extremely simple approach",
+      "duration": 5201,
+      "offset": 50079
+    },
+    {
+      "text": "to agent orchestration and it requires",
+      "duration": 4161,
+      "offset": 53199
+    },
+    {
+      "text": "the underlying coding model to be really",
+      "duration": 5119,
+      "offset": 55280
+    },
+    {
+      "text": "really good and with Opus 4.5 and GPT",
+      "duration": 5519,
+      "offset": 57360
+    },
+    {
+      "text": "5.2 that have come out they are very",
+      "duration": 4561,
+      "offset": 60399
+    },
+    {
+      "text": "very good and it means that simpler",
+      "duration": 5201,
+      "offset": 62879
+    },
+    {
+      "text": "approaches like this are now really",
+      "duration": 5440,
+      "offset": 64960
+    },
+    {
+      "text": "viable and I think to be recommended. So",
+      "duration": 3920,
+      "offset": 68080
+    },
+    {
+      "text": "let's get started and understand why",
+      "duration": 3440,
+      "offset": 70400
+    },
+    {
+      "text": "Ralph is so good. Before we get stuck",
+      "duration": 3600,
+      "offset": 72000
+    },
+    {
+      "text": "into code I want to talk about what",
+      "duration": 3599,
+      "offset": 73840
+    },
+    {
+      "text": "software engineers actually do. I'm",
+      "duration": 4000,
+      "offset": 75600
+    },
+    {
+      "text": "going to use some terms from agile, not",
+      "duration": 3921,
+      "offset": 77439
+    },
+    {
+      "text": "because I really care about agile, but",
+      "duration": 3280,
+      "offset": 79600
+    },
+    {
+      "text": "most software developers out there will",
+      "duration": 3600,
+      "offset": 81360
+    },
+    {
+      "text": "be working in some form of agile",
+      "duration": 3520,
+      "offset": 82880
+    },
+    {
+      "text": "terminology. You usually have as a",
+      "duration": 3920,
+      "offset": 84960
+    },
+    {
+      "text": "software engineer a sprint of things",
+      "duration": 4079,
+      "offset": 86400
+    },
+    {
+      "text": "that you need to get done. Each of these",
+      "duration": 3599,
+      "offset": 88880
+    },
+    {
+      "text": "are little tasks that need to be grabbed",
+      "duration": 3841,
+      "offset": 90479
+    },
+    {
+      "text": "by the engineers and done before the end",
+      "duration": 3441,
+      "offset": 92479
+    },
+    {
+      "text": "of the sprint. A sprint is usually time",
+      "duration": 3600,
+      "offset": 94320
+    },
+    {
+      "text": "boxed, right? So, you start it on some",
+      "duration": 4080,
+      "offset": 95920
+    },
+    {
+      "text": "date and it ends. Let's say you can have",
+      "duration": 3519,
+      "offset": 97920
+    },
+    {
+      "text": "one week sprints, two week sprints,",
+      "duration": 2880,
+      "offset": 100000
+    },
+    {
+      "text": "whatever. But in the AI coding world,",
+      "duration": 2720,
+      "offset": 101439
+    },
+    {
+      "text": "you don't need to worry about time",
+      "duration": 3360,
+      "offset": 102880
+    },
+    {
+      "text": "boxing these sprints because the AI has",
+      "duration": 4320,
+      "offset": 104159
+    },
+    {
+      "text": "infinite amounts of endurance and can",
+      "duration": 4400,
+      "offset": 106240
+    },
+    {
+      "text": "work forever in theory. And so in AI",
+      "duration": 4000,
+      "offset": 108479
+    },
+    {
+      "text": "coding, this is really just a list of",
+      "duration": 4080,
+      "offset": 110640
+    },
+    {
+      "text": "tasks that needs to be done in some",
+      "duration": 3920,
+      "offset": 112479
+    },
+    {
+      "text": "order or another. So how would you get",
+      "duration": 3999,
+      "offset": 114720
+    },
+    {
+      "text": "an AI to work through this entire",
+      "duration": 3841,
+      "offset": 116399
+    },
+    {
+      "text": "backlog? Well, what you could do is you",
+      "duration": 4400,
+      "offset": 118719
+    },
+    {
+      "text": "could get 16 AI agents to individually",
+      "duration": 5120,
+      "offset": 120240
+    },
+    {
+      "text": "work on each task, but that would be",
+      "duration": 3761,
+      "offset": 123119
+    },
+    {
+      "text": "absolutely hellish because you'd end up",
+      "duration": 3920,
+      "offset": 125360
+    },
+    {
+      "text": "with a ton of merge conflicts and tasks",
+      "duration": 4400,
+      "offset": 126880
+    },
+    {
+      "text": "might have like little dependencies",
+      "duration": 4160,
+      "offset": 129280
+    },
+    {
+      "text": "between each one that it's quite hard to",
+      "duration": 3599,
+      "offset": 131280
+    },
+    {
+      "text": "spot by just looking at it. One thing",
+      "duration": 3040,
+      "offset": 133440
+    },
+    {
+      "text": "you obviously couldn't do is get a",
+      "duration": 4000,
+      "offset": 134879
+    },
+    {
+      "text": "single AI to work through each one",
+      "duration": 4960,
+      "offset": 136480
+    },
+    {
+      "text": "because probably these tasks are too big",
+      "duration": 4481,
+      "offset": 138879
+    },
+    {
+      "text": "all collectively to fit in a single",
+      "duration": 3600,
+      "offset": 141440
+    },
+    {
+      "text": "context window. So, the AI would get",
+      "duration": 3280,
+      "offset": 143360
+    },
+    {
+      "text": "confused, it would break, and you'd end",
+      "duration": 3360,
+      "offset": 145040
+    },
+    {
+      "text": "up with crappy code. I've got a video on",
+      "duration": 3120,
+      "offset": 146640
+    },
+    {
+      "text": "context windows if you want to",
+      "duration": 2800,
+      "offset": 148400
+    },
+    {
+      "text": "understand more about what I mean. And",
+      "duration": 3920,
+      "offset": 149760
+    },
+    {
+      "text": "so what most smart AI coders are doing",
+      "duration": 5119,
+      "offset": 151200
+    },
+    {
+      "text": "now is they would split this into a",
+      "duration": 4800,
+      "offset": 153680
+    },
+    {
+      "text": "multi-phase plan. An LLM would then be",
+      "duration": 4481,
+      "offset": 156319
+    },
+    {
+      "text": "able to work through each one of these",
+      "duration": 4560,
+      "offset": 158480
+    },
+    {
+      "text": "clearing its context as it went. You",
+      "duration": 3920,
+      "offset": 160800
+    },
+    {
+      "text": "could imagine this multihase plan was",
+      "duration": 3839,
+      "offset": 163040
+    },
+    {
+      "text": "actually a markdown file where it",
+      "duration": 4400,
+      "offset": 164720
+    },
+    {
+      "text": "explains each step that it needs to be",
+      "duration": 4321,
+      "offset": 166879
+    },
+    {
+      "text": "done. And you would create this markdown",
+      "duration": 4720,
+      "offset": 169120
+    },
+    {
+      "text": "file with an LLM as well. So you go into",
+      "duration": 5039,
+      "offset": 171200
+    },
+    {
+      "text": "plan mode in clawed code or something",
+      "duration": 4800,
+      "offset": 173840
+    },
+    {
+      "text": "and you would create this big plan that",
+      "duration": 4401,
+      "offset": 176239
+    },
+    {
+      "text": "the LLM would then in multiple context",
+      "duration": 4560,
+      "offset": 178640
+    },
+    {
+      "text": "windows go and progress through. This is",
+      "duration": 4640,
+      "offset": 180640
+    },
+    {
+      "text": "previously before I discovered Ralph how",
+      "duration": 4399,
+      "offset": 183200
+    },
+    {
+      "text": "I've been doing my AI coding. I make",
+      "duration": 4879,
+      "offset": 185280
+    },
+    {
+      "text": "these big plans and then I say okay do",
+      "duration": 5441,
+      "offset": 187599
+    },
+    {
+      "text": "phase one then do phase two then do",
+      "duration": 4481,
+      "offset": 190159
+    },
+    {
+      "text": "phase three. But one thing I've noticed",
+      "duration": 3919,
+      "offset": 193040
+    },
+    {
+      "text": "here is it's really hard to add stuff to",
+      "duration": 3920,
+      "offset": 194640
+    },
+    {
+      "text": "the plan. When you need to add a new",
+      "duration": 3601,
+      "offset": 196959
+    },
+    {
+      "text": "item here, then you somehow got to kind",
+      "duration": 4399,
+      "offset": 198560
+    },
+    {
+      "text": "of squeeze it between two different",
+      "duration": 4880,
+      "offset": 200560
+    },
+    {
+      "text": "things here. You as the kind of",
+      "duration": 4640,
+      "offset": 202959
+    },
+    {
+      "text": "orchestrator need to like the human",
+      "duration": 4159,
+      "offset": 205440
+    },
+    {
+      "text": "orchestrator need to work out where it",
+      "duration": 4081,
+      "offset": 207599
+    },
+    {
+      "text": "fits in the exact place in the multihase",
+      "duration": 3920,
+      "offset": 209599
+    },
+    {
+      "text": "plan. And of course, you need to figure",
+      "duration": 3360,
+      "offset": 211680
+    },
+    {
+      "text": "out all of these arrows here. You need",
+      "duration": 3681,
+      "offset": 213519
+    },
+    {
+      "text": "to figure out the exact right path to go",
+      "duration": 3839,
+      "offset": 215040
+    },
+    {
+      "text": "through. And of course, the LLM can help",
+      "duration": 3119,
+      "offset": 217200
+    },
+    {
+      "text": "you, but it's still a lot of work that",
+      "duration": 3041,
+      "offset": 218879
+    },
+    {
+      "text": "you need to do up front. And the thing",
+      "duration": 3361,
+      "offset": 220319
+    },
+    {
+      "text": "that always bothered me is that this",
+      "duration": 4319,
+      "offset": 221920
+    },
+    {
+      "text": "doesn't really reflect how engineers",
+      "duration": 4479,
+      "offset": 223680
+    },
+    {
+      "text": "actually work. Real engineers will take",
+      "duration": 3601,
+      "offset": 226239
+    },
+    {
+      "text": "a look at a canon board and they will",
+      "duration": 3521,
+      "offset": 228159
+    },
+    {
+      "text": "go, &quot;Okay, I need to work on this task",
+      "duration": 4160,
+      "offset": 229840
+    },
+    {
+      "text": "next.&quot; Then they will take that task and",
+      "duration": 4320,
+      "offset": 231680
+    },
+    {
+      "text": "complete it, go back to the board and",
+      "duration": 3840,
+      "offset": 234000
+    },
+    {
+      "text": "notice, okay, that task is missing. Let",
+      "duration": 3920,
+      "offset": 236000
+    },
+    {
+      "text": "me find the next highest priority task.",
+      "duration": 3840,
+      "offset": 237840
+    },
+    {
+      "text": "Then they complete that and the cycle",
+      "duration": 4000,
+      "offset": 239920
+    },
+    {
+      "text": "continues until the sprint is complete.",
+      "duration": 3440,
+      "offset": 241680
+    },
+    {
+      "text": "This means that when you're designing",
+      "duration": 3120,
+      "offset": 243920
+    },
+    {
+      "text": "the sprint, all you're doing is",
+      "duration": 4640,
+      "offset": 245120
+    },
+    {
+      "text": "designing how it should look at the very",
+      "duration": 4320,
+      "offset": 247040
+    },
+    {
+      "text": "end. And so if you need to add a task",
+      "duration": 3759,
+      "offset": 249760
+    },
+    {
+      "text": "into this loop, all you do is just add a",
+      "duration": 3760,
+      "offset": 251360
+    },
+    {
+      "text": "new thing in there. You add an extra",
+      "duration": 3041,
+      "offset": 253519
+    },
+    {
+      "text": "specification for what the feature",
+      "duration": 3040,
+      "offset": 255120
+    },
+    {
+      "text": "should look like at the end. Now if we",
+      "duration": 3600,
+      "offset": 256560
+    },
+    {
+      "text": "look closely here, we have got ourselves",
+      "duration": 4720,
+      "offset": 258160
+    },
+    {
+      "text": "a loop where you specify some list of",
+      "duration": 5280,
+      "offset": 260160
+    },
+    {
+      "text": "tasks to complete. The LLM goes and",
+      "duration": 4640,
+      "offset": 262880
+    },
+    {
+      "text": "completes that task and then when all of",
+      "duration": 3600,
+      "offset": 265440
+    },
+    {
+      "text": "the tasks have disappeared and there's",
+      "duration": 3760,
+      "offset": 267520
+    },
+    {
+      "text": "nothing left for it, it then completes",
+      "duration": 4080,
+      "offset": 269040
+    },
+    {
+      "text": "the loop and it's done. To go back to",
+      "duration": 4160,
+      "offset": 271280
+    },
+    {
+      "text": "Jeffrey Hunt's article, this is what",
+      "duration": 5280,
+      "offset": 273120
+    },
+    {
+      "text": "Ralph is. Ralph is a bash loop. You give",
+      "duration": 5600,
+      "offset": 275440
+    },
+    {
+      "text": "the LLM some task to complete or list of",
+      "duration": 5040,
+      "offset": 278400
+    },
+    {
+      "text": "tasks and you run it again and again and",
+      "duration": 4400,
+      "offset": 281040
+    },
+    {
+      "text": "again until it's complete. Now, at this",
+      "duration": 3280,
+      "offset": 283440
+    },
+    {
+      "text": "point, you probably have a bunch of",
+      "duration": 3280,
+      "offset": 285440
+    },
+    {
+      "text": "questions about this approach. So, let's",
+      "duration": 3680,
+      "offset": 286720
+    },
+    {
+      "text": "dive into code to answer them. We are",
+      "duration": 3360,
+      "offset": 288720
+    },
+    {
+      "text": "inside a very important repo to me,",
+      "duration": 3760,
+      "offset": 290400
+    },
+    {
+      "text": "which is my course video manager. This",
+      "duration": 4000,
+      "offset": 292080
+    },
+    {
+      "text": "is an app that I built that I use to",
+      "duration": 4479,
+      "offset": 294160
+    },
+    {
+      "text": "edit my videos, to manage my courses, to",
+      "duration": 4800,
+      "offset": 296080
+    },
+    {
+      "text": "use AI to help me write articles. It's a",
+      "duration": 3840,
+      "offset": 298639
+    },
+    {
+      "text": "complex piece of code. And inside the",
+      "duration": 4319,
+      "offset": 300880
+    },
+    {
+      "text": "plans directory here, I have a Ralph.sh",
+      "duration": 4321,
+      "offset": 302479
+    },
+    {
+      "text": "file. Let's explain this line by line.",
+      "duration": 3681,
+      "offset": 305199
+    },
+    {
+      "text": "First of all, we set the error mode to",
+      "duration": 3600,
+      "offset": 306800
+    },
+    {
+      "text": "make sure that any errors in here are",
+      "duration": 3440,
+      "offset": 308880
+    },
+    {
+      "text": "thrown. The way you run this loop is you",
+      "duration": 4799,
+      "offset": 310400
+    },
+    {
+      "text": "run it with ralph.sh and you pass in the",
+      "duration": 5280,
+      "offset": 312320
+    },
+    {
+      "text": "maximum number of iterations you want it",
+      "duration": 3840,
+      "offset": 315199
+    },
+    {
+      "text": "to go through the loop. For instance, if",
+      "duration": 3439,
+      "offset": 317600
+    },
+    {
+      "text": "I open up a terminal here and I just run",
+      "duration": 4321,
+      "offset": 319039
+    },
+    {
+      "text": "plans ralph.sh, then it's going to yell",
+      "duration": 4241,
+      "offset": 321039
+    },
+    {
+      "text": "at me for not passing in the max number",
+      "duration": 4399,
+      "offset": 323360
+    },
+    {
+      "text": "of iterations. We then run a for loop",
+      "duration": 4960,
+      "offset": 325280
+    },
+    {
+      "text": "where we stop the for loop if we pass",
+      "duration": 4160,
+      "offset": 327759
+    },
+    {
+      "text": "the max number of iterations. In other",
+      "duration": 3040,
+      "offset": 330240
+    },
+    {
+      "text": "words, yeah, we're running this for",
+      "duration": 3521,
+      "offset": 331919
+    },
+    {
+      "text": "loop, but we do want a stop condition in",
+      "duration": 4240,
+      "offset": 333280
+    },
+    {
+      "text": "in case the LLM decides never to",
+      "duration": 3840,
+      "offset": 335440
+    },
+    {
+      "text": "complete. We then do a bit of logging.",
+      "duration": 4080,
+      "offset": 337520
+    },
+    {
+      "text": "We log out a line. And then we run",
+      "duration": 4720,
+      "offset": 339280
+    },
+    {
+      "text": "clawed code. It doesn't really matter",
+      "duration": 4000,
+      "offset": 341600
+    },
+    {
+      "text": "which one you run here, whether you're",
+      "duration": 3360,
+      "offset": 344000
+    },
+    {
+      "text": "running clawed, whether you're running",
+      "duration": 2879,
+      "offset": 345600
+    },
+    {
+      "text": "open code, whether you're running",
+      "duration": 4240,
+      "offset": 347360
+    },
+    {
+      "text": "codeex, as long as it's some kind of LLM",
+      "duration": 4801,
+      "offset": 348479
+    },
+    {
+      "text": "that you can or coding agent that you",
+      "duration": 4159,
+      "offset": 351600
+    },
+    {
+      "text": "can invoke via the CLI. We then pass it",
+      "duration": 5120,
+      "offset": 353280
+    },
+    {
+      "text": "two really important local files on the",
+      "duration": 4561,
+      "offset": 355759
+    },
+    {
+      "text": "file system. First of all, we pass it a",
+      "duration": 4720,
+      "offset": 358400
+    },
+    {
+      "text": "plans prd.json. Let's open that up to",
+      "duration": 5120,
+      "offset": 360320
+    },
+    {
+      "text": "see what that looks like here. This is a",
+      "duration": 4880,
+      "offset": 363120
+    },
+    {
+      "text": "JSON file with a bunch of different user",
+      "duration": 3920,
+      "offset": 365440
+    },
+    {
+      "text": "stories in it. For instance, I've been",
+      "duration": 3039,
+      "offset": 368000
+    },
+    {
+      "text": "working on a feature in my video editor",
+      "duration": 4080,
+      "offset": 369360
+    },
+    {
+      "text": "called beats where I can just specify a",
+      "duration": 6000,
+      "offset": 371039
+    },
+    {
+      "text": "clip to add a slight bit of a gap at the",
+      "duration": 5280,
+      "offset": 373440
+    },
+    {
+      "text": "end of it. In the UI, beats should",
+      "duration": 3761,
+      "offset": 377039
+    },
+    {
+      "text": "display as three orange ellipses dots",
+      "duration": 3840,
+      "offset": 378720
+    },
+    {
+      "text": "below the clip. So, you add a beat to a",
+      "duration": 3519,
+      "offset": 380800
+    },
+    {
+      "text": "clip. Verify that three orange dots",
+      "duration": 3199,
+      "offset": 382560
+    },
+    {
+      "text": "appear below the clip. Verify they're",
+      "duration": 3041,
+      "offset": 384319
+    },
+    {
+      "text": "orange colored. Verify they form an",
+      "duration": 3041,
+      "offset": 385759
+    },
+    {
+      "text": "ellipses pattern. As you can probably",
+      "duration": 3119,
+      "offset": 387360
+    },
+    {
+      "text": "tell, I've been iterating on this file",
+      "duration": 3760,
+      "offset": 388800
+    },
+    {
+      "text": "with an LLM to help me. Each one of",
+      "duration": 4321,
+      "offset": 390479
+    },
+    {
+      "text": "these items in this PRD product",
+      "duration": 5520,
+      "offset": 392560
+    },
+    {
+      "text": "requirements document has a passes flag",
+      "duration": 5679,
+      "offset": 394800
+    },
+    {
+      "text": "on it. This tells the LLM whether this",
+      "duration": 4720,
+      "offset": 398080
+    },
+    {
+      "text": "is actually passing or not in the",
+      "duration": 4641,
+      "offset": 400479
+    },
+    {
+      "text": "application code. And so this forms not",
+      "duration": 4080,
+      "offset": 402800
+    },
+    {
+      "text": "only a product requirements document,",
+      "duration": 4000,
+      "offset": 405120
+    },
+    {
+      "text": "but a to-do list. We can see that the",
+      "duration": 4240,
+      "offset": 406880
+    },
+    {
+      "text": "pre-recording checklist or let's go to",
+      "duration": 3919,
+      "offset": 409120
+    },
+    {
+      "text": "the one above. Delete video shows",
+      "duration": 3840,
+      "offset": 411120
+    },
+    {
+      "text": "confirmation dialogue before deleting.",
+      "duration": 3600,
+      "offset": 413039
+    },
+    {
+      "text": "We can see that that is passing in the",
+      "duration": 3440,
+      "offset": 414960
+    },
+    {
+      "text": "UI right now. In other words, this work",
+      "duration": 3361,
+      "offset": 416639
+    },
+    {
+      "text": "is complete and we don't need to do",
+      "duration": 3680,
+      "offset": 418400
+    },
+    {
+      "text": "anymore. So, as you can tell, this PRD",
+      "duration": 4960,
+      "offset": 420000
+    },
+    {
+      "text": "represents this list of tasks here. Each",
+      "duration": 5119,
+      "offset": 422080
+    },
+    {
+      "text": "one of these tasks represents a single",
+      "duration": 4239,
+      "offset": 424960
+    },
+    {
+      "text": "item in that array and we can consider",
+      "duration": 4481,
+      "offset": 427199
+    },
+    {
+      "text": "it passing when it's got that passes",
+      "duration": 4081,
+      "offset": 429199
+    },
+    {
+      "text": "true on it. Another important file that",
+      "duration": 3120,
+      "offset": 431680
+    },
+    {
+      "text": "we're passing in immediately is",
+      "duration": 3039,
+      "offset": 433280
+    },
+    {
+      "text": "progress.txt.",
+      "duration": 3600,
+      "offset": 434800
+    },
+    {
+      "text": "This file here is a free text log that",
+      "duration": 4641,
+      "offset": 436319
+    },
+    {
+      "text": "the LLM can append to with its learnings",
+      "duration": 4079,
+      "offset": 438400
+    },
+    {
+      "text": "as you went through. We can think of",
+      "duration": 3600,
+      "offset": 440960
+    },
+    {
+      "text": "this as the things that it learned on",
+      "duration": 4241,
+      "offset": 442479
+    },
+    {
+      "text": "this sprint. again implementing a bunch",
+      "duration": 4240,
+      "offset": 444560
+    },
+    {
+      "text": "of PRD items here. And so this",
+      "duration": 4640,
+      "offset": 446720
+    },
+    {
+      "text": "represents the LLM's memory for this",
+      "duration": 3839,
+      "offset": 448800
+    },
+    {
+      "text": "sprint. When we get to the end of the",
+      "duration": 2720,
+      "offset": 451360
+    },
+    {
+      "text": "sprint, I would usually just delete",
+      "duration": 4000,
+      "offset": 452639
+    },
+    {
+      "text": "this, but this as well as the PRD is",
+      "duration": 5679,
+      "offset": 454080
+    },
+    {
+      "text": "what the LLM sees going into its loop.",
+      "duration": 4960,
+      "offset": 456639
+    },
+    {
+      "text": "In the prompt, we give the LLM a list of",
+      "duration": 3681,
+      "offset": 459759
+    },
+    {
+      "text": "steps to complete. We say find the",
+      "duration": 3521,
+      "offset": 461599
+    },
+    {
+      "text": "highest priority feature to work on and",
+      "duration": 3599,
+      "offset": 463440
+    },
+    {
+      "text": "work only on that feature. I noticed",
+      "duration": 3359,
+      "offset": 465120
+    },
+    {
+      "text": "that it was often just choosing the",
+      "duration": 3201,
+      "offset": 467039
+    },
+    {
+      "text": "first one in the list. So I said, this",
+      "duration": 3280,
+      "offset": 468479
+    },
+    {
+      "text": "should be the one that you decide has",
+      "duration": 3440,
+      "offset": 470240
+    },
+    {
+      "text": "the high priority, not necessarily the",
+      "duration": 3361,
+      "offset": 471759
+    },
+    {
+      "text": "first in the list. I'll get to number",
+      "duration": 3199,
+      "offset": 473680
+    },
+    {
+      "text": "two in a minute, but number three says",
+      "duration": 4079,
+      "offset": 475120
+    },
+    {
+      "text": "update the PRD with the work that was",
+      "duration": 3600,
+      "offset": 476879
+    },
+    {
+      "text": "done. What it usually does at this point",
+      "duration": 4081,
+      "offset": 479199
+    },
+    {
+      "text": "is it just marks the right PRD items as",
+      "duration": 4641,
+      "offset": 480479
+    },
+    {
+      "text": "passes true and then append your",
+      "duration": 3840,
+      "offset": 483280
+    },
+    {
+      "text": "progress to the progress.txt file.",
+      "duration": 3759,
+      "offset": 485120
+    },
+    {
+      "text": "Append is really important. If you tell",
+      "duration": 3440,
+      "offset": 487120
+    },
+    {
+      "text": "it to update, it will usually just",
+      "duration": 4241,
+      "offset": 488879
+    },
+    {
+      "text": "update the entire file, whereas append",
+      "duration": 4160,
+      "offset": 490560
+    },
+    {
+      "text": "means it usually just goes and sticks",
+      "duration": 2880,
+      "offset": 493120
+    },
+    {
+      "text": "some stuff at the end. Just got some",
+      "duration": 3039,
+      "offset": 494720
+    },
+    {
+      "text": "loose advice here saying use this to",
+      "duration": 3120,
+      "offset": 496000
+    },
+    {
+      "text": "leave a note for the next person working",
+      "duration": 4000,
+      "offset": 497759
+    },
+    {
+      "text": "in your codebase. I then say make a git",
+      "duration": 4799,
+      "offset": 499120
+    },
+    {
+      "text": "commit of that feature. So it commits",
+      "duration": 4720,
+      "offset": 501759
+    },
+    {
+      "text": "the PRD, commits the progress.txt file,",
+      "duration": 3840,
+      "offset": 503919
+    },
+    {
+      "text": "and then it commits all the work that",
+      "duration": 2641,
+      "offset": 506479
+    },
+    {
+      "text": "it's done. So each time we're going",
+      "duration": 3440,
+      "offset": 507759
+    },
+    {
+      "text": "through a loop here, we're getting a git",
+      "duration": 4399,
+      "offset": 509120
+    },
+    {
+      "text": "commit. This is really, really useful",
+      "duration": 4161,
+      "offset": 511199
+    },
+    {
+      "text": "because it means that the LLM can query",
+      "duration": 3601,
+      "offset": 513519
+    },
+    {
+      "text": "the git history as well as see the",
+      "duration": 4640,
+      "offset": 515360
+    },
+    {
+      "text": "progress.txt to see what's been done",
+      "duration": 4560,
+      "offset": 517120
+    },
+    {
+      "text": "previously and to give it context for",
+      "duration": 3519,
+      "offset": 520000
+    },
+    {
+      "text": "what it needs to do now. And finally, we",
+      "duration": 4880,
+      "offset": 521680
+    },
+    {
+      "text": "say only work on a single feature. The",
+      "duration": 4561,
+      "offset": 523519
+    },
+    {
+      "text": "reason we say this and the reason we do",
+      "duration": 4080,
+      "offset": 526560
+    },
+    {
+      "text": "this whole PRD dance at all is to",
+      "duration": 4560,
+      "offset": 528080
+    },
+    {
+      "text": "prevent the LLM from biting off more",
+      "duration": 3759,
+      "offset": 530640
+    },
+    {
+      "text": "than it can chew. If we were to say, &quot;Oh",
+      "duration": 3440,
+      "offset": 532640
+    },
+    {
+      "text": "yeah, do as many as you fancy. Just do",
+      "duration": 3521,
+      "offset": 534399
+    },
+    {
+      "text": "like a whole bunch of tasks.&quot; Then we'd",
+      "duration": 3199,
+      "offset": 536080
+    },
+    {
+      "text": "end up with the same issues that we get",
+      "duration": 3599,
+      "offset": 537920
+    },
+    {
+      "text": "when we ask the LM to do just do the",
+      "duration": 4000,
+      "offset": 539279
+    },
+    {
+      "text": "whole thing, which is that LMS get",
+      "duration": 3681,
+      "offset": 541519
+    },
+    {
+      "text": "really stupid as you add more tokens to",
+      "duration": 3441,
+      "offset": 543279
+    },
+    {
+      "text": "the context window and you'd produce",
+      "duration": 3520,
+      "offset": 545200
+    },
+    {
+      "text": "crappier code as a result. This also",
+      "duration": 4000,
+      "offset": 546720
+    },
+    {
+      "text": "means we need to be careful about sizing",
+      "duration": 4799,
+      "offset": 548720
+    },
+    {
+      "text": "the tasks, too. If we have one enormous",
+      "duration": 4720,
+      "offset": 550720
+    },
+    {
+      "text": "task here and then a bunch of smaller",
+      "duration": 3601,
+      "offset": 553519
+    },
+    {
+      "text": "tasks, then when the LLM gets to this",
+      "duration": 3440,
+      "offset": 555440
+    },
+    {
+      "text": "one, it's going to just be swallowed up.",
+      "duration": 3520,
+      "offset": 557120
+    },
+    {
+      "text": "So, when we design the PRD, we got to",
+      "duration": 3600,
+      "offset": 558880
+    },
+    {
+      "text": "make sure that all of the tasks are nice",
+      "duration": 3920,
+      "offset": 560640
+    },
+    {
+      "text": "and small to make things really as easy",
+      "duration": 3760,
+      "offset": 562480
+    },
+    {
+      "text": "as possible for the LLM. And to be",
+      "duration": 3200,
+      "offset": 564560
+    },
+    {
+      "text": "honest, this is just good practice",
+      "duration": 3840,
+      "offset": 566240
+    },
+    {
+      "text": "anyway. If you design massive features",
+      "duration": 4800,
+      "offset": 567760
+    },
+    {
+      "text": "that take huge amounts of time in your",
+      "duration": 3920,
+      "offset": 570080
+    },
+    {
+      "text": "sprint, you're not going to have a fun",
+      "duration": 3279,
+      "offset": 572560
+    },
+    {
+      "text": "time whether you're an AI or a human.",
+      "duration": 3200,
+      "offset": 574000
+    },
+    {
+      "text": "Now, we finally get to the end of the",
+      "duration": 3601,
+      "offset": 575839
+    },
+    {
+      "text": "prompt. We say if while implementing the",
+      "duration": 4560,
+      "offset": 577200
+    },
+    {
+      "text": "feature you notice the PRD is complete",
+      "duration": 4800,
+      "offset": 579440
+    },
+    {
+      "text": "output promise complete here. All of",
+      "duration": 5040,
+      "offset": 581760
+    },
+    {
+      "text": "this we have saved in a variable here",
+      "duration": 4480,
+      "offset": 584240
+    },
+    {
+      "text": "that we then echo out to the terminal.",
+      "duration": 3760,
+      "offset": 586800
+    },
+    {
+      "text": "We then check to see if it contains",
+      "duration": 3840,
+      "offset": 588720
+    },
+    {
+      "text": "promise complete here and if it does",
+      "duration": 3920,
+      "offset": 590560
+    },
+    {
+      "text": "then we exit out of the loop early. I've",
+      "duration": 3760,
+      "offset": 592560
+    },
+    {
+      "text": "also set up this nice little CLI here.",
+      "duration": 4080,
+      "offset": 594480
+    },
+    {
+      "text": "This is a total TypeScript CLI that says",
+      "duration": 4400,
+      "offset": 596320
+    },
+    {
+      "text": "notify that sends me a WhatsApp message",
+      "duration": 4320,
+      "offset": 598560
+    },
+    {
+      "text": "saying that it's complete after X number",
+      "duration": 4160,
+      "offset": 600720
+    },
+    {
+      "text": "of iterations. So that is the essence of",
+      "duration": 4720,
+      "offset": 602880
+    },
+    {
+      "text": "Ralph. You have a list of tasks or a",
+      "duration": 4320,
+      "offset": 604880
+    },
+    {
+      "text": "description of a set of tasks that you",
+      "duration": 4160,
+      "offset": 607600
+    },
+    {
+      "text": "need to be done. You have a progress.txt",
+      "duration": 4720,
+      "offset": 609200
+    },
+    {
+      "text": "file that you then append to and then",
+      "duration": 4079,
+      "offset": 611760
+    },
+    {
+      "text": "you run the thing in a loop with a backs",
+      "duration": 3840,
+      "offset": 613920
+    },
+    {
+      "text": "stop to make it stop it running",
+      "duration": 3281,
+      "offset": 615839
+    },
+    {
+      "text": "infinitely. However, how do you know",
+      "duration": 3199,
+      "offset": 617760
+    },
+    {
+      "text": "that it's going to produce working code,",
+      "duration": 3440,
+      "offset": 619120
+    },
+    {
+      "text": "right? How do you prevent it from just",
+      "duration": 3761,
+      "offset": 620959
+    },
+    {
+      "text": "running endlessly and just spitting out",
+      "duration": 4320,
+      "offset": 622560
+    },
+    {
+      "text": "bad stuff? Well, to make Ralph really",
+      "duration": 4559,
+      "offset": 624720
+    },
+    {
+      "text": "work, you really need feedback loops.",
+      "duration": 3920,
+      "offset": 626880
+    },
+    {
+      "text": "This is of course where Typescript comes",
+      "duration": 3441,
+      "offset": 629279
+    },
+    {
+      "text": "to the four, right? check that the types",
+      "duration": 3920,
+      "offset": 630800
+    },
+    {
+      "text": "check via PNPM type check and that the",
+      "duration": 4640,
+      "offset": 632720
+    },
+    {
+      "text": "unit test pass via PNPM test. Whenever",
+      "duration": 5920,
+      "offset": 634720
+    },
+    {
+      "text": "your Ralph loop commits, CI has to stay",
+      "duration": 5680,
+      "offset": 637360
+    },
+    {
+      "text": "green. One really easy way that Ralph",
+      "duration": 4480,
+      "offset": 640640
+    },
+    {
+      "text": "can fail is that it commits some bad",
+      "duration": 4160,
+      "offset": 643040
+    },
+    {
+      "text": "code and then doesn't know where the bad",
+      "duration": 3760,
+      "offset": 645120
+    },
+    {
+      "text": "code came from because it lost all of",
+      "duration": 3360,
+      "offset": 647200
+    },
+    {
+      "text": "its memory. This is another reason why",
+      "duration": 4720,
+      "offset": 648880
+    },
+    {
+      "text": "small tasks are good. The LLM is usually",
+      "duration": 5279,
+      "offset": 650560
+    },
+    {
+      "text": "really focused on that small task, able",
+      "duration": 4720,
+      "offset": 653600
+    },
+    {
+      "text": "to write tests that just cover that user",
+      "duration": 4161,
+      "offset": 655839
+    },
+    {
+      "text": "story. and keeping it focused on a small",
+      "duration": 3440,
+      "offset": 658320
+    },
+    {
+      "text": "change usually means it produces better",
+      "duration": 3839,
+      "offset": 660000
+    },
+    {
+      "text": "outputs, is able to see the feedback",
+      "duration": 3759,
+      "offset": 661760
+    },
+    {
+      "text": "loop just for that feature. It's just",
+      "duration": 3041,
+      "offset": 663839
+    },
+    {
+      "text": "better. By the way, another article you",
+      "duration": 2241,
+      "offset": 665519
+    },
+    {
+      "text": "should definitely read if you're",
+      "duration": 2320,
+      "offset": 666880
+    },
+    {
+      "text": "interested in this stuff is effective",
+      "duration": 2960,
+      "offset": 667760
+    },
+    {
+      "text": "harnesses for longrunning agents from",
+      "duration": 3199,
+      "offset": 669200
+    },
+    {
+      "text": "Anthropic. I took a lot of inspiration",
+      "duration": 3440,
+      "offset": 670720
+    },
+    {
+      "text": "for this article, especially in",
+      "duration": 4641,
+      "offset": 672399
+    },
+    {
+      "text": "progress.txt here and in the format for",
+      "duration": 5040,
+      "offset": 674160
+    },
+    {
+      "text": "this JSON based PRD, which is a",
+      "duration": 3680,
+      "offset": 677040
+    },
+    {
+      "text": "recommendation from Anthropic. Another",
+      "duration": 3440,
+      "offset": 679200
+    },
+    {
+      "text": "thing they recommend is absolutely",
+      "duration": 4000,
+      "offset": 680720
+    },
+    {
+      "text": "robust feedback loops. In the article,",
+      "duration": 3840,
+      "offset": 682640
+    },
+    {
+      "text": "they noticed Claude's tendency to mark a",
+      "duration": 3200,
+      "offset": 684720
+    },
+    {
+      "text": "feature as complete without proper",
+      "duration": 2880,
+      "offset": 686480
+    },
+    {
+      "text": "testing. But it did much better at",
+      "duration": 3039,
+      "offset": 687920
+    },
+    {
+      "text": "verifying features end to end once",
+      "duration": 3200,
+      "offset": 689360
+    },
+    {
+      "text": "explicitly prompted to use browser",
+      "duration": 3440,
+      "offset": 690959
+    },
+    {
+      "text": "automation tools and do all testing as a",
+      "duration": 3200,
+      "offset": 692560
+    },
+    {
+      "text": "human user would. So these feedback",
+      "duration": 3680,
+      "offset": 694399
+    },
+    {
+      "text": "loops are essential for the LLM knowing",
+      "duration": 4480,
+      "offset": 695760
+    },
+    {
+      "text": "that the code works. And again, this is",
+      "duration": 4161,
+      "offset": 698079
+    },
+    {
+      "text": "another reason to keep these changes",
+      "duration": 3760,
+      "offset": 700240
+    },
+    {
+      "text": "really small so that you still have",
+      "duration": 4480,
+      "offset": 702240
+    },
+    {
+      "text": "context window left for the LLM actually",
+      "duration": 4320,
+      "offset": 704000
+    },
+    {
+      "text": "checking that it works. Doing things",
+      "duration": 4239,
+      "offset": 706720
+    },
+    {
+      "text": "like hooking it up to Playright's MCP",
+      "duration": 5040,
+      "offset": 708320
+    },
+    {
+      "text": "server is really good but quite context",
+      "duration": 3601,
+      "offset": 710959
+    },
+    {
+      "text": "expensive. So you want to make sure",
+      "duration": 2880,
+      "offset": 713360
+    },
+    {
+      "text": "tasks are small so that you have the",
+      "duration": 3440,
+      "offset": 714560
+    },
+    {
+      "text": "budget to actually poke around and for",
+      "duration": 3520,
+      "offset": 716240
+    },
+    {
+      "text": "the LM to view images and stuff. Now so",
+      "duration": 3600,
+      "offset": 718000
+    },
+    {
+      "text": "far we've been talking about Ralph as an",
+      "duration": 3519,
+      "offset": 719760
+    },
+    {
+      "text": "asynchronous coding agent that can run",
+      "duration": 4320,
+      "offset": 721600
+    },
+    {
+      "text": "overnight. A kind of AFK Ralph away from",
+      "duration": 4240,
+      "offset": 723279
+    },
+    {
+      "text": "keyboard Ralph. But a modification we",
+      "duration": 4000,
+      "offset": 725920
+    },
+    {
+      "text": "can make to that is just stick a human",
+      "duration": 4081,
+      "offset": 727519
+    },
+    {
+      "text": "in the loop here. This is something that",
+      "duration": 3359,
+      "offset": 729920
+    },
+    {
+      "text": "I've been experimenting with for",
+      "duration": 3440,
+      "offset": 731600
+    },
+    {
+      "text": "difficult to implement features features",
+      "duration": 3281,
+      "offset": 733279
+    },
+    {
+      "text": "where I want to do a lot of steering of",
+      "duration": 3440,
+      "offset": 735040
+    },
+    {
+      "text": "the LLM. And it's also a great way to",
+      "duration": 3519,
+      "offset": 736560
+    },
+    {
+      "text": "learn Ralph's capabilities and",
+      "duration": 3280,
+      "offset": 738480
+    },
+    {
+      "text": "understand what it's doing. For this",
+      "duration": 4401,
+      "offset": 740079
+    },
+    {
+      "text": "setup, I have a Ralph once.sh file",
+      "duration": 4879,
+      "offset": 741760
+    },
+    {
+      "text": "inside my repo that I pretty often use.",
+      "duration": 3520,
+      "offset": 744480
+    },
+    {
+      "text": "It has pretty much exactly the same",
+      "duration": 3121,
+      "offset": 746639
+    },
+    {
+      "text": "prompt as the normal Ralph. Instead, it",
+      "duration": 3440,
+      "offset": 748000
+    },
+    {
+      "text": "just runs it in an interactive terminal",
+      "duration": 3280,
+      "offset": 749760
+    },
+    {
+      "text": "instead. So, let's actually do something",
+      "duration": 3760,
+      "offset": 751440
+    },
+    {
+      "text": "that I know you've been waiting for,",
+      "duration": 4400,
+      "offset": 753040
+    },
+    {
+      "text": "which is let's see it in action. I'm",
+      "duration": 4879,
+      "offset": 755200
+    },
+    {
+      "text": "going to run plans Ralph once.sh. We can",
+      "duration": 4720,
+      "offset": 757440
+    },
+    {
+      "text": "see Claude Code is running here. And the",
+      "duration": 4320,
+      "offset": 760079
+    },
+    {
+      "text": "first thing it's done is it's selected a",
+      "duration": 4239,
+      "offset": 762160
+    },
+    {
+      "text": "bunch of PRD items and it's choosing the",
+      "duration": 3601,
+      "offset": 764399
+    },
+    {
+      "text": "priority. By the way, I'm using Opus",
+      "duration": 5120,
+      "offset": 766399
+    },
+    {
+      "text": "4.5. I have Claude Max 5X and it's gone",
+      "duration": 6399,
+      "offset": 768000
+    },
+    {
+      "text": "for 2123",
+      "duration": 5120,
+      "offset": 771519
+    },
+    {
+      "text": "27. So, it's only going to do beats",
+      "duration": 4081,
+      "offset": 774399
+    },
+    {
+      "text": "display as three orange ellipses dots",
+      "duration": 3041,
+      "offset": 776639
+    },
+    {
+      "text": "below clip. And there's some nice",
+      "duration": 2320,
+      "offset": 778480
+    },
+    {
+      "text": "reasoning there. Without the visual",
+      "duration": 3200,
+      "offset": 779680
+    },
+    {
+      "text": "display working, the other beat UI items",
+      "duration": 4159,
+      "offset": 780800
+    },
+    {
+      "text": "can't be verified. Then, it gives itself",
+      "duration": 4000,
+      "offset": 782880
+    },
+    {
+      "text": "a little plan here and it's going to",
+      "duration": 3921,
+      "offset": 784959
+    },
+    {
+      "text": "start the implementation. Okay, we can",
+      "duration": 4079,
+      "offset": 786880
+    },
+    {
+      "text": "see it's create the beat indicator",
+      "duration": 3680,
+      "offset": 788880
+    },
+    {
+      "text": "component. It's added that into the",
+      "duration": 3841,
+      "offset": 790959
+    },
+    {
+      "text": "code. Then further down, we've got the",
+      "duration": 3920,
+      "offset": 792560
+    },
+    {
+      "text": "insertion point. Okay, there it is.",
+      "duration": 3520,
+      "offset": 794800
+    },
+    {
+      "text": "Added the beat indicator there. It then",
+      "duration": 3760,
+      "offset": 796480
+    },
+    {
+      "text": "immediately runs the type check and the",
+      "duration": 4000,
+      "offset": 798320
+    },
+    {
+      "text": "tests here. That all looks good. So,",
+      "duration": 3839,
+      "offset": 800240
+    },
+    {
+      "text": "they both passed. Does a bit more",
+      "duration": 4880,
+      "offset": 802320
+    },
+    {
+      "text": "verification and then it marks the PRD",
+      "duration": 5121,
+      "offset": 804079
+    },
+    {
+      "text": "as passes true. Once that was done, it",
+      "duration": 5439,
+      "offset": 807200
+    },
+    {
+      "text": "went down and edited the progress. TXT",
+      "duration": 5040,
+      "offset": 809200
+    },
+    {
+      "text": "file just here. And it even adds a",
+      "duration": 3121,
+      "offset": 812639
+    },
+    {
+      "text": "little note to itself saying, &quot;Okay,",
+      "duration": 2960,
+      "offset": 814240
+    },
+    {
+      "text": "next you might want to think about this",
+      "duration": 3920,
+      "offset": 815760
+    },
+    {
+      "text": "PR item or maybe the beat playback",
+      "duration": 5199,
+      "offset": 817200
+    },
+    {
+      "text": "item.&quot; It then commits and diffs and",
+      "duration": 4719,
+      "offset": 819680
+    },
+    {
+      "text": "does all of its good stuff. And just so",
+      "duration": 3761,
+      "offset": 822399
+    },
+    {
+      "text": "I can prove to you it worked, we can",
+      "duration": 4081,
+      "offset": 824399
+    },
+    {
+      "text": "rightclick one of these items here and",
+      "duration": 4720,
+      "offset": 826160
+    },
+    {
+      "text": "press add beat. And we get this little",
+      "duration": 4479,
+      "offset": 828480
+    },
+    {
+      "text": "three orange dots, which looks great. So",
+      "duration": 3040,
+      "offset": 830880
+    },
+    {
+      "text": "yeah, I'm pretty happy with this",
+      "duration": 3041,
+      "offset": 832959
+    },
+    {
+      "text": "actually editing the video recording",
+      "duration": 4960,
+      "offset": 833920
+    },
+    {
+      "text": "software while editing a video that I'm",
+      "duration": 4639,
+      "offset": 836000
+    },
+    {
+      "text": "recording. Anyway, crazy. So I'm happy",
+      "duration": 3199,
+      "offset": 838880
+    },
+    {
+      "text": "with that. And if I want to run it again",
+      "duration": 3521,
+      "offset": 840639
+    },
+    {
+      "text": "and just do a few more PRD items, I just",
+      "duration": 3841,
+      "offset": 842079
+    },
+    {
+      "text": "run the same command again and it goes",
+      "duration": 2880,
+      "offset": 844160
+    },
+    {
+      "text": "through the loop again. That's something",
+      "duration": 2560,
+      "offset": 845920
+    },
+    {
+      "text": "you really can't underestimate with",
+      "duration": 4320,
+      "offset": 847040
+    },
+    {
+      "text": "Ralph is it's just so usable and easy to",
+      "duration": 4560,
+      "offset": 848480
+    },
+    {
+      "text": "use. Even when I'm in this human in the",
+      "duration": 3839,
+      "offset": 851360
+    },
+    {
+      "text": "loop version, I still feel like I'm more",
+      "duration": 4000,
+      "offset": 853040
+    },
+    {
+      "text": "productive than if I were to create a",
+      "duration": 3521,
+      "offset": 855199
+    },
+    {
+      "text": "multihase plan or something. This",
+      "duration": 3680,
+      "offset": 857040
+    },
+    {
+      "text": "concept of a loop where you just take",
+      "duration": 3440,
+      "offset": 858720
+    },
+    {
+      "text": "stuff off the board, take stuff off the",
+      "duration": 4000,
+      "offset": 860720
+    },
+    {
+      "text": "board and keep working is just feels so",
+      "duration": 4080,
+      "offset": 862160
+    },
+    {
+      "text": "familiar. and the multifphase plans that",
+      "duration": 3280,
+      "offset": 864720
+    },
+    {
+      "text": "I was doing before just felt really",
+      "duration": 3520,
+      "offset": 866240
+    },
+    {
+      "text": "ownorous to put together. Instead of",
+      "duration": 4320,
+      "offset": 868000
+    },
+    {
+      "text": "this kind of like really anal retentive",
+      "duration": 5040,
+      "offset": 869760
+    },
+    {
+      "text": "planner here, Ralph puts you in the seat",
+      "duration": 4079,
+      "offset": 872320
+    },
+    {
+      "text": "of the requirements gatherer. Really a",
+      "duration": 3279,
+      "offset": 874800
+    },
+    {
+      "text": "kind of product designer where instead",
+      "duration": 3521,
+      "offset": 876399
+    },
+    {
+      "text": "of focusing on how it's going to be",
+      "duration": 4161,
+      "offset": 878079
+    },
+    {
+      "text": "done, you just focus on what needs to be",
+      "duration": 3840,
+      "offset": 879920
+    },
+    {
+      "text": "done and how it should behave. And once",
+      "duration": 2959,
+      "offset": 882240
+    },
+    {
+      "text": "it's complete, you go through, read the",
+      "duration": 3199,
+      "offset": 883760
+    },
+    {
+      "text": "code, test everything works, and then",
+      "duration": 3841,
+      "offset": 885199
+    },
+    {
+      "text": "change the PRD if you need to. So that",
+      "duration": 3521,
+      "offset": 886959
+    },
+    {
+      "text": "folks is how I've been writing most of",
+      "duration": 4400,
+      "offset": 889040
+    },
+    {
+      "text": "my code. We have a Ralph AFK version, a",
+      "duration": 4880,
+      "offset": 890480
+    },
+    {
+      "text": "Ralph human the loop version and a",
+      "duration": 4079,
+      "offset": 893440
+    },
+    {
+      "text": "prd.json. As I learn more about this,",
+      "duration": 4000,
+      "offset": 895360
+    },
+    {
+      "text": "I'm going to invest more in my feedback",
+      "duration": 4161,
+      "offset": 897519
+    },
+    {
+      "text": "loops. With Ralph, you want more tests.",
+      "duration": 4479,
+      "offset": 899360
+    },
+    {
+      "text": "You want higher quality tests. You want",
+      "duration": 5519,
+      "offset": 901680
+    },
+    {
+      "text": "non-flaky tests. You want an MCP server",
+      "duration": 5680,
+      "offset": 903839
+    },
+    {
+      "text": "that can allow it to explore your",
+      "duration": 3681,
+      "offset": 907199
+    },
+    {
+      "text": "application. And most of all, you want",
+      "duration": 2880,
+      "offset": 909519
+    },
+    {
+      "text": "types, types, types, types, types.",
+      "duration": 2880,
+      "offset": 910880
+    },
+    {
+      "text": "Absolutely. You want the strongest types",
+      "duration": 2880,
+      "offset": 912399
+    },
+    {
+      "text": "you can get. Now, if you dug this stuff,",
+      "duration": 4000,
+      "offset": 913760
+    },
+    {
+      "text": "then you should head to aihero.dev. I've",
+      "duration": 4081,
+      "offset": 915279
+    },
+    {
+      "text": "been thinking about AI and talking about",
+      "duration": 3280,
+      "offset": 917760
+    },
+    {
+      "text": "AI and all of the stuff I've put",
+      "duration": 3520,
+      "offset": 919360
+    },
+    {
+      "text": "together is up here. My latest course on",
+      "duration": 4880,
+      "offset": 921040
+    },
+    {
+      "text": "the AI SDK allows you to learn how to",
+      "duration": 5199,
+      "offset": 922880
+    },
+    {
+      "text": "master AI in Typescript and it's",
+      "duration": 4159,
+      "offset": 925920
+    },
+    {
+      "text": "currently skinned in V5, but V6 came out",
+      "duration": 4320,
+      "offset": 928079
+    },
+    {
+      "text": "recently, so I'm doing a free update for",
+      "duration": 4000,
+      "offset": 930079
+    },
+    {
+      "text": "everyone who bought the V5 crash course.",
+      "duration": 2880,
+      "offset": 932399
+    },
+    {
+      "text": "But overall, thank you so much for",
+      "duration": 3041,
+      "offset": 934079
+    },
+    {
+      "text": "watching. This is a really fun one to",
+      "duration": 3601,
+      "offset": 935279
+    },
+    {
+      "text": "record and I'm recording it because I",
+      "duration": 4399,
+      "offset": 937120
+    },
+    {
+      "text": "just love this new style of coding. It",
+      "duration": 4480,
+      "offset": 938880
+    },
+    {
+      "text": "just feels so much more intuitive than",
+      "duration": 3201,
+      "offset": 941519
+    },
+    {
+      "text": "the stuff we were doing even 3 months",
+      "duration": 3279,
+      "offset": 943360
+    },
+    {
+      "text": "ago. And a final word, too. If you're",
+      "duration": 3600,
+      "offset": 944720
+    },
+    {
+      "text": "worried about getting left behind about",
+      "duration": 4081,
+      "offset": 946639
+    },
+    {
+      "text": "this stuff, if it all feels too hypy,",
+      "duration": 4879,
+      "offset": 948320
+    },
+    {
+      "text": "just remember that the dev branch is",
+      "duration": 4559,
+      "offset": 950720
+    },
+    {
+      "text": "always wackier than the main branch. We",
+      "duration": 4161,
+      "offset": 953199
+    },
+    {
+      "text": "are experimenting with stuff here and",
+      "duration": 3680,
+      "offset": 955279
+    },
+    {
+      "text": "some of it works and some of it doesn't",
+      "duration": 3360,
+      "offset": 957360
+    },
+    {
+      "text": "work and a lot of it changes. But in a",
+      "duration": 2961,
+      "offset": 958959
+    },
+    {
+      "text": "couple years time, we are going to",
+      "duration": 3840,
+      "offset": 960720
+    },
+    {
+      "text": "coalesce around some kind of shared",
+      "duration": 4000,
+      "offset": 961920
+    },
+    {
+      "text": "understanding about how to use these",
+      "duration": 3120,
+      "offset": 964560
+    },
+    {
+      "text": "tools effectively and that will still be",
+      "duration": 4159,
+      "offset": 965920
+    },
+    {
+      "text": "just as prized 2 years from now as it is",
+      "duration": 3839,
+      "offset": 967680
+    },
+    {
+      "text": "now. So with that, thanks for watching",
+      "duration": 3041,
+      "offset": 970079
+    },
+    {
+      "text": "and I will see you very soon. And the",
+      "duration": 3361,
+      "offset": 971519
+    },
+    {
+      "text": "fundamentals of development, which are",
+      "duration": 4079,
+      "offset": 973120
+    },
+    {
+      "text": "basically trying to translate people's",
+      "duration": 5680,
+      "offset": 974880
+    },
+    {
+      "text": "weird dreams into code, into language",
+      "duration": 5121,
+      "offset": 977199
+    },
+    {
+      "text": "that computers understand, that's not",
+      "duration": 4160,
+      "offset": 980560
+    },
+    {
+      "text": "going anywhere.",
+      "duration": 2400,
+      "offset": 982320
+    }
+  ],
+  "transcriptText": "I'm going to do something I don't usually do for these videos and give it a pretty hypy intro. One of the dreams of coding agents is that you can wake up in the morning to working code that your coding agent has worked through your backlog and has just spit out a whole bunch of code for you to review and it works. Now, people have been trying to make this work for a while with agent swarms and meshes and orchestrators. But what if I told you that the way to get this to work is with a for loop. I'm going to show you a technique for running coding agents that makes it devilishly simple that is a vast improvement over any other AI coding orchestration setup I've ever tried and allows you to actually ship working stuff with longrunning coding agents and everyone's calling it Ralph Wigum. This is credited to Jeffrey Huntley and even though this came out in 14th of July, Ralph is kind of having a moment right now. That's because this article advocates an extremely simple approach to agent orchestration and it requires the underlying coding model to be really really good and with Opus 4.5 and GPT 5.2 that have come out they are very very good and it means that simpler approaches like this are now really viable and I think to be recommended. So let's get started and understand why Ralph is so good. Before we get stuck into code I want to talk about what software engineers actually do. I'm going to use some terms from agile, not because I really care about agile, but most software developers out there will be working in some form of agile terminology. You usually have as a software engineer a sprint of things that you need to get done. Each of these are little tasks that need to be grabbed by the engineers and done before the end of the sprint. A sprint is usually time boxed, right? So, you start it on some date and it ends. Let's say you can have one week sprints, two week sprints, whatever. But in the AI coding world, you don't need to worry about time boxing these sprints because the AI has infinite amounts of endurance and can work forever in theory. And so in AI coding, this is really just a list of tasks that needs to be done in some order or another. So how would you get an AI to work through this entire backlog? Well, what you could do is you could get 16 AI agents to individually work on each task, but that would be absolutely hellish because you'd end up with a ton of merge conflicts and tasks might have like little dependencies between each one that it's quite hard to spot by just looking at it. One thing you obviously couldn't do is get a single AI to work through each one because probably these tasks are too big all collectively to fit in a single context window. So, the AI would get confused, it would break, and you'd end up with crappy code. I've got a video on context windows if you want to understand more about what I mean. And so what most smart AI coders are doing now is they would split this into a multi-phase plan. An LLM would then be able to work through each one of these clearing its context as it went. You could imagine this multihase plan was actually a markdown file where it explains each step that it needs to be done. And you would create this markdown file with an LLM as well. So you go into plan mode in clawed code or something and you would create this big plan that the LLM would then in multiple context windows go and progress through. This is previously before I discovered Ralph how I've been doing my AI coding. I make these big plans and then I say okay do phase one then do phase two then do phase three. But one thing I've noticed here is it's really hard to add stuff to the plan. When you need to add a new item here, then you somehow got to kind of squeeze it between two different things here. You as the kind of orchestrator need to like the human orchestrator need to work out where it fits in the exact place in the multihase plan. And of course, you need to figure out all of these arrows here. You need to figure out the exact right path to go through. And of course, the LLM can help you, but it's still a lot of work that you need to do up front. And the thing that always bothered me is that this doesn't really reflect how engineers actually work. Real engineers will take a look at a canon board and they will go, &quot;Okay, I need to work on this task next.&quot; Then they will take that task and complete it, go back to the board and notice, okay, that task is missing. Let me find the next highest priority task. Then they complete that and the cycle continues until the sprint is complete. This means that when you're designing the sprint, all you're doing is designing how it should look at the very end. And so if you need to add a task into this loop, all you do is just add a new thing in there. You add an extra specification for what the feature should look like at the end. Now if we look closely here, we have got ourselves a loop where you specify some list of tasks to complete. The LLM goes and completes that task and then when all of the tasks have disappeared and there's nothing left for it, it then completes the loop and it's done. To go back to Jeffrey Hunt's article, this is what Ralph is. Ralph is a bash loop. You give the LLM some task to complete or list of tasks and you run it again and again and again until it's complete. Now, at this point, you probably have a bunch of questions about this approach. So, let's dive into code to answer them. We are inside a very important repo to me, which is my course video manager. This is an app that I built that I use to edit my videos, to manage my courses, to use AI to help me write articles. It's a complex piece of code. And inside the plans directory here, I have a Ralph.sh file. Let's explain this line by line. First of all, we set the error mode to make sure that any errors in here are thrown. The way you run this loop is you run it with ralph.sh and you pass in the maximum number of iterations you want it to go through the loop. For instance, if I open up a terminal here and I just run plans ralph.sh, then it's going to yell at me for not passing in the max number of iterations. We then run a for loop where we stop the for loop if we pass the max number of iterations. In other words, yeah, we're running this for loop, but we do want a stop condition in in case the LLM decides never to complete. We then do a bit of logging. We log out a line. And then we run clawed code. It doesn't really matter which one you run here, whether you're running clawed, whether you're running open code, whether you're running codeex, as long as it's some kind of LLM that you can or coding agent that you can invoke via the CLI. We then pass it two really important local files on the file system. First of all, we pass it a plans prd.json. Let's open that up to see what that looks like here. This is a JSON file with a bunch of different user stories in it. For instance, I've been working on a feature in my video editor called beats where I can just specify a clip to add a slight bit of a gap at the end of it. In the UI, beats should display as three orange ellipses dots below the clip. So, you add a beat to a clip. Verify that three orange dots appear below the clip. Verify they're orange colored. Verify they form an ellipses pattern. As you can probably tell, I've been iterating on this file with an LLM to help me. Each one of these items in this PRD product requirements document has a passes flag on it. This tells the LLM whether this is actually passing or not in the application code. And so this forms not only a product requirements document, but a to-do list. We can see that the pre-recording checklist or let's go to the one above. Delete video shows confirmation dialogue before deleting. We can see that that is passing in the UI right now. In other words, this work is complete and we don't need to do anymore. So, as you can tell, this PRD represents this list of tasks here. Each one of these tasks represents a single item in that array and we can consider it passing when it's got that passes true on it. Another important file that we're passing in immediately is progress.txt. This file here is a free text log that the LLM can append to with its learnings as you went through. We can think of this as the things that it learned on this sprint. again implementing a bunch of PRD items here. And so this represents the LLM's memory for this sprint. When we get to the end of the sprint, I would usually just delete this, but this as well as the PRD is what the LLM sees going into its loop. In the prompt, we give the LLM a list of steps to complete. We say find the highest priority feature to work on and work only on that feature. I noticed that it was often just choosing the first one in the list. So I said, this should be the one that you decide has the high priority, not necessarily the first in the list. I'll get to number two in a minute, but number three says update the PRD with the work that was done. What it usually does at this point is it just marks the right PRD items as passes true and then append your progress to the progress.txt file. Append is really important. If you tell it to update, it will usually just update the entire file, whereas append means it usually just goes and sticks some stuff at the end. Just got some loose advice here saying use this to leave a note for the next person working in your codebase. I then say make a git commit of that feature. So it commits the PRD, commits the progress.txt file, and then it commits all the work that it's done. So each time we're going through a loop here, we're getting a git commit. This is really, really useful because it means that the LLM can query the git history as well as see the progress.txt to see what's been done previously and to give it context for what it needs to do now. And finally, we say only work on a single feature. The reason we say this and the reason we do this whole PRD dance at all is to prevent the LLM from biting off more than it can chew. If we were to say, &quot;Oh yeah, do as many as you fancy. Just do like a whole bunch of tasks.&quot; Then we'd end up with the same issues that we get when we ask the LM to do just do the whole thing, which is that LMS get really stupid as you add more tokens to the context window and you'd produce crappier code as a result. This also means we need to be careful about sizing the tasks, too. If we have one enormous task here and then a bunch of smaller tasks, then when the LLM gets to this one, it's going to just be swallowed up. So, when we design the PRD, we got to make sure that all of the tasks are nice and small to make things really as easy as possible for the LLM. And to be honest, this is just good practice anyway. If you design massive features that take huge amounts of time in your sprint, you're not going to have a fun time whether you're an AI or a human. Now, we finally get to the end of the prompt. We say if while implementing the feature you notice the PRD is complete output promise complete here. All of this we have saved in a variable here that we then echo out to the terminal. We then check to see if it contains promise complete here and if it does then we exit out of the loop early. I've also set up this nice little CLI here. This is a total TypeScript CLI that says notify that sends me a WhatsApp message saying that it's complete after X number of iterations. So that is the essence of Ralph. You have a list of tasks or a description of a set of tasks that you need to be done. You have a progress.txt file that you then append to and then you run the thing in a loop with a backs stop to make it stop it running infinitely. However, how do you know that it's going to produce working code, right? How do you prevent it from just running endlessly and just spitting out bad stuff? Well, to make Ralph really work, you really need feedback loops. This is of course where Typescript comes to the four, right? check that the types check via PNPM type check and that the unit test pass via PNPM test. Whenever your Ralph loop commits, CI has to stay green. One really easy way that Ralph can fail is that it commits some bad code and then doesn't know where the bad code came from because it lost all of its memory. This is another reason why small tasks are good. The LLM is usually really focused on that small task, able to write tests that just cover that user story. and keeping it focused on a small change usually means it produces better outputs, is able to see the feedback loop just for that feature. It's just better. By the way, another article you should definitely read if you're interested in this stuff is effective harnesses for longrunning agents from Anthropic. I took a lot of inspiration for this article, especially in progress.txt here and in the format for this JSON based PRD, which is a recommendation from Anthropic. Another thing they recommend is absolutely robust feedback loops. In the article, they noticed Claude's tendency to mark a feature as complete without proper testing. But it did much better at verifying features end to end once explicitly prompted to use browser automation tools and do all testing as a human user would. So these feedback loops are essential for the LLM knowing that the code works. And again, this is another reason to keep these changes really small so that you still have context window left for the LLM actually checking that it works. Doing things like hooking it up to Playright's MCP server is really good but quite context expensive. So you want to make sure tasks are small so that you have the budget to actually poke around and for the LM to view images and stuff. Now so far we've been talking about Ralph as an asynchronous coding agent that can run overnight. A kind of AFK Ralph away from keyboard Ralph. But a modification we can make to that is just stick a human in the loop here. This is something that I've been experimenting with for difficult to implement features features where I want to do a lot of steering of the LLM. And it's also a great way to learn Ralph's capabilities and understand what it's doing. For this setup, I have a Ralph once.sh file inside my repo that I pretty often use. It has pretty much exactly the same prompt as the normal Ralph. Instead, it just runs it in an interactive terminal instead. So, let's actually do something that I know you've been waiting for, which is let's see it in action. I'm going to run plans Ralph once.sh. We can see Claude Code is running here. And the first thing it's done is it's selected a bunch of PRD items and it's choosing the priority. By the way, I'm using Opus 4.5. I have Claude Max 5X and it's gone for 2123 27. So, it's only going to do beats display as three orange ellipses dots below clip. And there's some nice reasoning there. Without the visual display working, the other beat UI items can't be verified. Then, it gives itself a little plan here and it's going to start the implementation. Okay, we can see it's create the beat indicator component. It's added that into the code. Then further down, we've got the insertion point. Okay, there it is. Added the beat indicator there. It then immediately runs the type check and the tests here. That all looks good. So, they both passed. Does a bit more verification and then it marks the PRD as passes true. Once that was done, it went down and edited the progress. TXT file just here. And it even adds a little note to itself saying, &quot;Okay, next you might want to think about this PR item or maybe the beat playback item.&quot; It then commits and diffs and does all of its good stuff. And just so I can prove to you it worked, we can rightclick one of these items here and press add beat. And we get this little three orange dots, which looks great. So yeah, I'm pretty happy with this actually editing the video recording software while editing a video that I'm recording. Anyway, crazy. So I'm happy with that. And if I want to run it again and just do a few more PRD items, I just run the same command again and it goes through the loop again. That's something you really can't underestimate with Ralph is it's just so usable and easy to use. Even when I'm in this human in the loop version, I still feel like I'm more productive than if I were to create a multihase plan or something. This concept of a loop where you just take stuff off the board, take stuff off the board and keep working is just feels so familiar. and the multifphase plans that I was doing before just felt really ownorous to put together. Instead of this kind of like really anal retentive planner here, Ralph puts you in the seat of the requirements gatherer. Really a kind of product designer where instead of focusing on how it's going to be done, you just focus on what needs to be done and how it should behave. And once it's complete, you go through, read the code, test everything works, and then change the PRD if you need to. So that folks is how I've been writing most of my code. We have a Ralph AFK version, a Ralph human the loop version and a prd.json. As I learn more about this, I'm going to invest more in my feedback loops. With Ralph, you want more tests. You want higher quality tests. You want non-flaky tests. You want an MCP server that can allow it to explore your application. And most of all, you want types, types, types, types, types. Absolutely. You want the strongest types you can get. Now, if you dug this stuff, then you should head to aihero.dev. I've been thinking about AI and talking about AI and all of the stuff I've put together is up here. My latest course on the AI SDK allows you to learn how to master AI in Typescript and it's currently skinned in V5, but V6 came out recently, so I'm doing a free update for everyone who bought the V5 crash course. But overall, thank you so much for watching. This is a really fun one to record and I'm recording it because I just love this new style of coding. It just feels so much more intuitive than the stuff we were doing even 3 months ago. And a final word, too. If you're worried about getting left behind about this stuff, if it all feels too hypy, just remember that the dev branch is always wackier than the main branch. We are experimenting with stuff here and some of it works and some of it doesn't work and a lot of it changes. But in a couple years time, we are going to coalesce around some kind of shared understanding about how to use these tools effectively and that will still be just as prized 2 years from now as it is now. So with that, thanks for watching and I will see you very soon. And the fundamentals of development, which are basically trying to translate people's weird dreams into code, into language that computers understand, that's not going anywhere."
+}
