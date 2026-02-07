@@ -49,8 +49,8 @@ COPY --from=builder /app-meridian/libs/database ./libs/database
 # Copy tsconfig.json (needed for ts-node to resolve paths)
 COPY --from=builder /app-meridian/tsconfig.json ./tsconfig.json
 
-# Install ts-node as production dependency (needed for running migrations)
-RUN pnpm add -g ts-node typescript tsconfig-paths
+# Install ts-node, typescript, and tsconfig-paths globally (needed for running migrations)
+RUN npm install -g ts-node typescript tsconfig-paths
 
 # Verify dist was copied correctly and show structure
 RUN echo "=== Production stage dist contents ===" && \
