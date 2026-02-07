@@ -261,7 +261,9 @@ export class ArticlesService {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
-      const cutoffTime = new Date(Date.now() - lookbackHours * 60 * 60 * 1000);
+      const millisecondsPerHour = 60 * 60 * 1000;
+      const hoursInMilliseconds = lookbackHours * millisecondsPerHour;
+      const cutoffTime = new Date(Date.now() - hoursInMilliseconds);
 
       const query = `
         SELECT * FROM articles
