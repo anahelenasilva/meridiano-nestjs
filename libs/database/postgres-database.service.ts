@@ -172,13 +172,9 @@ export class PostgresDatabaseService extends AbstractDatabaseService {
       (() => {
         const dbUser = process.env.DATABASE_USER || process.env.PGUSER || 'postgres';
         const dbPassword = process.env.DATABASE_PASSWORD || process.env.PGPASSWORD || '';
-        let dbHost = process.env.DATABASE_HOST || process.env.PGHOST || 'localhost';
+        const dbHost = process.env.DATABASE_HOST || process.env.PGHOST || 'localhost';
         const dbPort = process.env.DATABASE_PORT || process.env.PGPORT || '5432';
         const dbName = process.env.DATABASE_NAME || process.env.PGDATABASE || 'meridian';
-
-        if (dbHost.includes('.railway.internal')) {
-          dbHost = dbHost.toLowerCase();
-        }
 
         console.log(`  Connecting to PostgreSQL database at ${dbHost}:${dbPort}/${dbName} (user: ${dbUser})`);
 

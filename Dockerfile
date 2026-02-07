@@ -46,6 +46,9 @@ COPY --from=builder /app-meridian/dist ./dist
 # Copy libs/database folder (needed for TypeORM migrations)
 COPY --from=builder /app-meridian/libs/database ./libs/database
 
+# Copy scripts folder (needed for migration script)
+COPY --from=builder /app-meridian/scripts ./scripts
+
 # Copy tsconfig.json (needed for ts-node to resolve paths)
 COPY --from=builder /app-meridian/tsconfig.json ./tsconfig.json
 
