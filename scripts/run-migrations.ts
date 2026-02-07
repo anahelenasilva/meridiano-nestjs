@@ -43,34 +43,15 @@ async function runMigrationsWithDataSource(config: DataSourceOptions, maxRetries
 }
 
 async function runMigrationsWithRetry(): Promise<void> {
-  const privateUrl = process.env.DATABASE_URL;
-  const publicUrl = process.env.DATABASE_PUBLIC_URL || process.env.POSTGRES_PUBLIC_URL;
+  console.log('Running migrations using DATABASE_URL...');
+  const config: DataSourceOptions = typeormConfig;
 
-  if (publicUrl) {
-    console.log('Using public database URL for migrations...');
-    const publicConfig: DataSourceOptions = {
-      ...typeormConfig,
-      url: publicUrl,
-    } as DataSourceOptions;
-
-    try {
-      await runMigrationsWithDataSource(publicConfig, 5, 2000);
-      process.exit(0);
-    } catch (error) {
-      console.error('Public URL failed, error:', error instanceof Error ? error.message : error);
-      process.exit(1);
-    }
-  } else {
-    console.log('No public URL found, using DATABASE_URL...');
-    const config: DataSourceOptions = typeormConfig;
-
-    try {
-      await runMigrationsWithDataSource(config, 5, 2000);
-      process.exit(0);
-    } catch (error) {
-      console.error('Migrations failed:', error instanceof Error ? error.message : error);
-      process.exit(1);
-    }
+  try {
+    await runMigrationsWithDataSource(config, 5, 2000);
+    process.exit(0);
+  } catch (error) {
+    console.error('Migrations failed:', error instanceof Error ? error.message : error);
+    process.exit(1);
   }
 }
 
