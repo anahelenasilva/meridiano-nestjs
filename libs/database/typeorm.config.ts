@@ -1,19 +1,18 @@
 import * as dotenv from 'dotenv';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
-// Load environment variables from .env file (only if not already set)
-// This ensures Docker Compose environment variables take precedence
 dotenv.config({ override: false });
 
 const connectionString =
   process.env.DATABASE_URL ||
   process.env.POSTGRES_URL ||
+  process.env.PGDATABASE_URL ||
   (() => {
-    const dbUser = process.env.DATABASE_USER || 'postgres';
-    const dbPassword = process.env.DATABASE_PASSWORD || 'postgres';
-    const dbHost = process.env.DATABASE_HOST || 'localhost';
-    const dbPort = process.env.DATABASE_PORT || '5432';
-    const dbName = process.env.DATABASE_NAME || 'meridian';
+    const dbUser = process.env.DATABASE_USER || process.env.PGUSER || 'postgres';
+    const dbPassword = process.env.DATABASE_PASSWORD || process.env.PGPASSWORD || 'postgres';
+    const dbHost = process.env.DATABASE_HOST || process.env.PGHOST || 'localhost';
+    const dbPort = process.env.DATABASE_PORT || process.env.PGPORT || '5432';
+    const dbName = process.env.DATABASE_NAME || process.env.PGDATABASE || 'meridian';
 
     console.log(`  Connecting to database at ${dbHost}:${dbPort}/${dbName} (user: ${dbUser})`);
 
@@ -21,6 +20,12 @@ const connectionString =
     const encodedPassword = encodeURIComponent(dbPassword);
     return `postgresql://${encodedUser}:${encodedPassword}@${dbHost}:${dbPort}/${dbName}`;
   })();
+
+// const isRailway = process.env.RAILWAY_ENVIRONMENT === 'production' ||
+//                   process.env.RAILWAY_ENVIRONMENT_NAME !== undefined ||
+//                   connectionString.includes('.railway.app') ||
+//                   connectionString.includes('.railway.internal') ||
+//                   process.env.DATABASE_HOST?.includes('.railway.internal');
 
 export const typeormConfig: DataSourceOptions = {
   type: 'postgres',

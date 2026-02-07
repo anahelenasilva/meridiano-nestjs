@@ -306,6 +306,22 @@ ENABLE_BRIEFINGS_GENERATION=true
 - Make sure to add both PostgreSQL and Redis services in Railway before deploying
 - The application will automatically use URL-based connections if available, falling back to individual host/port variables
 - Database migrations run automatically on startup
+- SSL is automatically enabled for Railway connections (detected by `.railway.internal` or `.railway.app` hostnames)
+
+**Troubleshooting Railway Connection Issues:**
+
+If you see errors like `getaddrinfo ENOTFOUND Postgres.railway.internal`:
+
+1. **Check Railway Dashboard**: Go to your PostgreSQL service → Variables tab → Look for `DATABASE_URL` or `POSTGRES_URL`
+2. **Use Public URL**: Railway provides both internal (`.railway.internal`) and public URLs. If the internal URL doesn't work, copy the public URL from Railway's dashboard
+3. **Set DATABASE_URL manually**: In your Railway app's environment variables, set `DATABASE_URL` to the full connection string from Railway's PostgreSQL service
+4. **Redis Connection**: Make sure you've added a Redis service and Railway has set `REDIS_URL`. If not, add it manually from Railway's Redis service variables
+
+**Example Railway Setup:**
+1. Add PostgreSQL service → Railway sets `DATABASE_URL` automatically
+2. Add Redis service → Railway sets `REDIS_URL` automatically  
+3. If automatic variables don't work, manually copy the connection URLs from each service's "Variables" tab
+4. Set `DATABASE_URL` and `REDIS_URL` in your app's environment variables
 
 ### Other Deployment Options
 
