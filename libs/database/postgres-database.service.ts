@@ -165,8 +165,6 @@ export class PostgresDatabaseService extends AbstractDatabaseService {
   }
 
   async initDb(): Promise<void> {
-    console.log(`  Connecting to PostgreSQL database using connection string: ${process.env.DATABASE_URL}`);
-
     const connectionString =
       process.env.DATABASE_URL ||
       process.env.POSTGRES_URL ||
@@ -185,13 +183,8 @@ export class PostgresDatabaseService extends AbstractDatabaseService {
         return `postgresql://${encodedUser}:${encodedPassword}@${dbHost}:${dbPort}/${dbName}`;
       })();
 
-    console.log(`  Connecting to PostgreSQL database using connection string: ${connectionString}`);
+    console.log(`  Connecting to PostgreSQL database using connection string`);
 
-    // const isRailway = process.env.RAILWAY_ENVIRONMENT === 'production' ||
-    //                   process.env.RAILWAY_ENVIRONMENT_NAME !== undefined ||
-    //                   connectionString.includes('.railway.app') ||
-    //                   connectionString.includes('.railway.internal') ||
-    //                   process.env.DATABASE_HOST?.includes('.railway.internal');
 
     this.pool = new Pool({
       connectionString,
