@@ -23,6 +23,7 @@ dotenv.config({ override: false });
 
 const connectionString = process.env.IS_BUILD === 'true' ? process.env.DATABASE_PUBLIC_URL : process.env.DATABASE_URL;
 
+console.log(`  process.env.IS_BUILD: `, process.env.IS_BUILD);
 console.log(`  Connecting to TypeORM database using connection string: ${connectionString}`);
 console.log(`  process.env.DATABASE_SSL: `, process.env.DATABASE_SSL);
 
