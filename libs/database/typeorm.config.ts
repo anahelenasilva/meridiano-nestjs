@@ -3,6 +3,8 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 
 dotenv.config({ override: false });
 
+console.log(`  Connecting to TypeORM database using connection string: ${process.env.DATABASE_URL}`);
+
 const connectionString =
   process.env.DATABASE_URL ||
   process.env.POSTGRES_URL ||
@@ -20,6 +22,8 @@ const connectionString =
     const encodedPassword = encodeURIComponent(dbPassword);
     return `postgresql://${encodedUser}:${encodedPassword}@${dbHost}:${dbPort}/${dbName}`;
   })();
+
+console.log(`  Connecting to TypeORM database using connection string: ${connectionString}`);
 
 // const isRailway = process.env.RAILWAY_ENVIRONMENT === 'production' ||
 //                   process.env.RAILWAY_ENVIRONMENT_NAME !== undefined ||
