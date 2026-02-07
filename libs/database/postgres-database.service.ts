@@ -165,10 +165,11 @@ export class PostgresDatabaseService extends AbstractDatabaseService {
   }
 
   async initDb(): Promise<void> {
-    const connectionString =
-      process.env.DATABASE_URL ||
-      process.env.POSTGRES_URL ||
-      process.env.PGDATABASE_URL ||
+    const privateUrl = process.env.DATABASE_URL;
+    const publicUrl = process.env.DATABASE_PUBLIC_URL;
+
+    let connectionString =
+      privateUrl ||
       (() => {
         const dbUser = process.env.DATABASE_USER || process.env.PGUSER || 'postgres';
         const dbPassword = process.env.DATABASE_PASSWORD || process.env.PGPASSWORD || '';
@@ -183,13 +184,14 @@ export class PostgresDatabaseService extends AbstractDatabaseService {
         return `postgresql://${encodedUser}:${encodedPassword}@${dbHost}:${dbPort}/${dbName}`;
       })();
 
-    console.log(`  Connecting to PostgreSQL database using connection string: ${connectionString}`);
+    const isPrivateUrl = connectionString.includes('.railway.internal');
+    console.log(`  Connecting to PostgreSQL database using ${isPrivateUrl ? 'PRIVATE' : 'PUBLIC'} URL`);
+    console.log(`  Connection string: ${connectionString}`);
     console.log(`  process.env.DATABASE_SSL`, process.env.DATABASE_SSL);
-
 
     this.pool = new Pool({
       connectionString,
-      ssl: process.env.DATABASE_SSL === 'true' || connectionString.includes('.railway.internal') ? { rejectUnauthorized: false } : false,
+      ssl: process.env.DATABASE_SSL === 'true' || isPrivateUrl ? { rejectUnauthorized: false } : false,
       max: 20,
       idleTimeoutMillis: 30000,
       connectionTimeoutMillis: 10000,
@@ -197,11 +199,38 @@ export class PostgresDatabaseService extends AbstractDatabaseService {
 
     try {
       const client = await this.pool.connect();
-      console.log('Connected to PostgreSQL database');
+      console.log(`Connected to PostgreSQL database (${isPrivateUrl ? 'private' : 'public'} network)`);
       client.release();
     } catch (err) {
-      console.error('Error connecting to PostgreSQL:', err);
-      throw err;
+      if (isPrivateUrl && publicUrl) {
+        console.warn('Failed to connect using private URL, falling back to public URL...');
+        console.error('Private URL error:', err);
+
+        await this.pool.end().catch(() => { });
+
+        connectionString = publicUrl;
+        console.log(`  Retrying with public URL: ${connectionString}`);
+
+        this.pool = new Pool({
+          connectionString,
+          ssl: process.env.DATABASE_SSL === 'true' ? { rejectUnauthorized: false } : false,
+          max: 20,
+          idleTimeoutMillis: 30000,
+          connectionTimeoutMillis: 10000,
+        });
+
+        try {
+          const client = await this.pool.connect();
+          console.log('Connected to PostgreSQL database using public URL fallback');
+          client.release();
+        } catch (fallbackErr) {
+          console.error('Error connecting to PostgreSQL with public URL:', fallbackErr);
+          throw fallbackErr;
+        }
+      } else {
+        console.error('Error connecting to PostgreSQL:', err);
+        throw err;
+      }
     }
   }
 

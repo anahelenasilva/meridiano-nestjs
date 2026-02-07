@@ -3,10 +3,11 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 
 dotenv.config({ override: false });
 
+const privateUrl = process.env.DATABASE_URL;
+const publicUrl = process.env.DATABASE_PUBLIC_URL;
+
 const connectionString =
-  process.env.DATABASE_URL ||
-  process.env.POSTGRES_URL ||
-  process.env.PGDATABASE_URL ||
+  privateUrl ||
   (() => {
     const dbUser = process.env.DATABASE_USER || process.env.PGUSER || 'postgres';
     const dbPassword = process.env.DATABASE_PASSWORD || process.env.PGPASSWORD || 'postgres';
@@ -21,7 +22,9 @@ const connectionString =
     return `postgresql://${encodedUser}:${encodedPassword}@${dbHost}:${dbPort}/${dbName}`;
   })();
 
-console.log(`  Connecting to TypeORM database using connection string: ${connectionString}`);
+const isPrivateUrl = connectionString.includes('.railway.internal');
+console.log(`  TypeORM using ${isPrivateUrl ? 'PRIVATE' : 'PUBLIC'} database URL`);
+console.log(`  Connection string: ${connectionString}`);
 console.log(`  process.env.DATABASE_SSL: `, process.env.DATABASE_SSL);
 
 export const typeormConfig: DataSourceOptions = {
@@ -32,8 +35,10 @@ export const typeormConfig: DataSourceOptions = {
   migrationsTableName: 'typeorm_migrations',
   synchronize: false,
   logging: process.env.NODE_ENV === 'development',
-  ssl: process.env.DATABASE_SSL === 'true' || connectionString.includes('.railway.internal') ? { rejectUnauthorized: false } : false,
+  ssl: process.env.DATABASE_SSL === 'true' || isPrivateUrl ? { rejectUnauthorized: false } : false,
 };
+
+export { publicUrl };
 
 const dataSource = new DataSource(typeormConfig);
 
