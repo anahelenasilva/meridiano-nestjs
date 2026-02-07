@@ -172,9 +172,13 @@ export class PostgresDatabaseService extends AbstractDatabaseService {
       (() => {
         const dbUser = process.env.DATABASE_USER || process.env.PGUSER || 'postgres';
         const dbPassword = process.env.DATABASE_PASSWORD || process.env.PGPASSWORD || '';
-        const dbHost = process.env.DATABASE_HOST || process.env.PGHOST || 'localhost';
+        let dbHost = process.env.DATABASE_HOST || process.env.PGHOST || 'localhost';
         const dbPort = process.env.DATABASE_PORT || process.env.PGPORT || '5432';
         const dbName = process.env.DATABASE_NAME || process.env.PGDATABASE || 'meridian';
+
+        if (dbHost.includes('.railway.internal')) {
+          dbHost = dbHost.toLowerCase();
+        }
 
         console.log(`  Connecting to PostgreSQL database at ${dbHost}:${dbPort}/${dbName} (user: ${dbUser})`);
 
@@ -189,10 +193,10 @@ export class PostgresDatabaseService extends AbstractDatabaseService {
 
     this.pool = new Pool({
       connectionString,
-      ssl: process.env.DATABASE_SSL === 'true' ? { rejectUnauthorized: false } : false,
+      ssl: process.env.DATABASE_SSL === 'true' || connectionString.includes('.railway.internal') ? { rejectUnauthorized: false } : false,
       max: 20,
       idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 2000,
+      connectionTimeoutMillis: 10000,
     });
 
     try {
