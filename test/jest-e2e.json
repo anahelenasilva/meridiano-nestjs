@@ -27,7 +27,7 @@
   "moduleNameMapper": {
     "^youtubei\\.js$": "<rootDir>/../src/__mocks__/youtubei.js.ts",
     "^youtube-transcript-plus$": "<rootDir>/../src/__mocks__/youtube-transcript-plus.ts",
-    "^marked$": "<rootDir>/../node_modules/marked/lib/marked.esm.js",
+    "^marked$": "<rootDir>/../node_modules/marked/lib/marked.umd.js",
     "^@libs/(.*)$": "<rootDir>/../libs/$1"
   }
 }

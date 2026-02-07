@@ -30,8 +30,6 @@
   "exclude": [
     "node_modules",
     "dist",
-    "infrastructure",
-    "test",
-    "**/*.spec.ts"
+    "infrastructure"
   ]
 }

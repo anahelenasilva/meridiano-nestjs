@@ -1,6 +1,8 @@
 import { EmailService } from '@libs/email';
+import { RedisService } from '@libs/redis';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Queue } from 'bullmq';
+import Redis from 'ioredis';
 import { mock, mockReset } from 'jest-mock-extended';
 import { ConfigService } from '../../src/config/config.service';
 import {
@@ -19,6 +21,8 @@ describe('QueueService', () => {
   const mockTranscriptionSummaryQueue = mock<Queue>();
   const mockConfigService = mock<ConfigService>();
   const mockEmailService = mock<EmailService>();
+  const mockRedisService = mock<RedisService>();
+  const mockRedisClient = mock<Redis>();
 
   beforeEach(async () => {
     mockReset(mockArticleQueue);
@@ -26,6 +30,10 @@ describe('QueueService', () => {
     mockReset(mockTranscriptionSummaryQueue);
     mockReset(mockConfigService);
     mockReset(mockEmailService);
+    mockReset(mockRedisService);
+    mockReset(mockRedisClient);
+
+    mockRedisService.getClient.mockReturnValue(mockRedisClient);
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -49,6 +57,10 @@ describe('QueueService', () => {
         {
           provide: EmailService,
           useValue: mockEmailService,
+        },
+        {
+          provide: RedisService,
+          useValue: mockRedisService,
         },
       ],
     }).compile();

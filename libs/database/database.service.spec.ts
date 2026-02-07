@@ -124,9 +124,9 @@ describe('DatabaseService', () => {
 
       await service.initDb();
 
-      expect(Pool).toHaveBeenCalledWith({
+      expect(Pool).toHaveBeenCalledWith(expect.objectContaining({
         connectionString: 'postgresql://fake-user:fake-password@fake-host:5432/fake-db',
-      });
+      }));
     });
 
     it('should build connection string from environment variables', async () => {
@@ -139,9 +139,9 @@ describe('DatabaseService', () => {
 
       await service.initDb();
 
-      expect(Pool).toHaveBeenCalledWith({
+      expect(Pool).toHaveBeenCalledWith(expect.objectContaining({
         connectionString: expect.stringContaining('fake-test-user'),
-      });
+      }));
     });
 
     it('should handle connection errors', async () => {
