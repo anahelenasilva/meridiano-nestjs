@@ -183,7 +183,8 @@ export class PostgresDatabaseService extends AbstractDatabaseService {
         return `postgresql://${encodedUser}:${encodedPassword}@${dbHost}:${dbPort}/${dbName}`;
       })();
 
-    console.log(`  Connecting to PostgreSQL database using connection string`);
+    console.log(`  Connecting to PostgreSQL database using connection string: ${connectionString}`);
+    console.log(`  process.env.DATABASE_SSL`, process.env.DATABASE_SSL);
 
 
     this.pool = new Pool({
