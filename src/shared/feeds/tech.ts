@@ -114,6 +114,14 @@ export const techRSSFeeds: RSSFeed[] = [
       'Addy Osmani shares his thoughts on technology, engineering, and leadership.',
     enabled: true,
   },
+  {
+    url: 'https://tldr.tech/api/rss/tech',
+    name: "TLDR Feed",
+    category: 'tech',
+    description:
+      'Keep up with tech in 5 minutes',
+    enabled: true,
+  },
 ];
 
 export const techPrompts = {
