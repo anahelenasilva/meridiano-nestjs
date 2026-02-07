@@ -60,4 +60,5 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
 
 # Start the application
 # Try dist/src/main.js first (if sourceRoot is "src"), then dist/main.js
-CMD ["sh", "-c", "if [ -f dist/src/main.js ]; then node dist/src/main.js; elif [ -f dist/main.js ]; then node dist/main.js; else echo 'ERROR: main.js not found!' && ls -la dist/ && exit 1; fi"]
+# CMD ["sh", "-c", "if [ -f dist/src/main.js ]; then node dist/src/main.js; elif [ -f dist/main.js ]; then node dist/main.js; else echo 'ERROR: main.js not found!' && ls -la dist/ && exit 1; fi"]
+CMD ["sh", "-c", "npm run migration:run && npm start:prod"]
