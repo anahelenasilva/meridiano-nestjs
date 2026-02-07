@@ -21,7 +21,8 @@ const connectionString =
     return `postgresql://${encodedUser}:${encodedPassword}@${dbHost}:${dbPort}/${dbName}`;
   })();
 
-console.log(`  Connecting to TypeORM database using connection string`);
+console.log(`  Connecting to TypeORM database using connection string: ${connectionString}`);
+console.log(`  process.env.DATABASE_SSL: `, process.env.DATABASE_SSL);
 
 export const typeormConfig: DataSourceOptions = {
   type: 'postgres',
