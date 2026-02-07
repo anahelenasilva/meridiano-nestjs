@@ -60,7 +60,7 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
     const redisUrl = process.env.REDIS_URL || process.env.REDISCLOUD_URL;
 
     if (redisUrl) {
-      console.log(`[RedisService] Initializing Redis client - Using Redis URL: ${redisUrl}`);
+      console.log('[RedisService] Initializing Redis client - Using Redis URL');
       return new Redis(redisUrl, {
         maxRetriesPerRequest: null,
         enableReadyCheck: true,
