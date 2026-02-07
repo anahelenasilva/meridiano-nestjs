@@ -40,7 +40,7 @@ export class ConfigService {
 
     models: {
       deepseekChatModel: 'deepseek-chat',
-      embeddingModel: 'togethercomputer/m2-bert-80M-32k-retrieval',
+      embeddingModel: 'Alibaba-NLP/gte-modernbert-base',
     },
 
     app: {
