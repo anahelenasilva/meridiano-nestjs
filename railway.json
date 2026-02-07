@@ -1,0 +1,9 @@
+{
+  "build": {
+    "buildCommand": "IS_BUILD=true pnpm install --frozen-lockfile && pnpm run build || pnpm run migration:run",
+    "startCommand": "sleep 3 && pnpm run start:prod"
+  },
+  "variables": {
+    "NIXPACKS_NODE_VERSION": "18"
+  }
+}
