@@ -43,6 +43,15 @@ RUN pnpm install --prod --frozen-lockfile
 # Copy built application from builder stage
 COPY --from=builder /app-meridian/dist ./dist
 
+# Copy libs/database folder (needed for TypeORM migrations)
+COPY --from=builder /app-meridian/libs/database ./libs/database
+
+# Copy tsconfig.json (needed for ts-node to resolve paths)
+COPY --from=builder /app-meridian/tsconfig.json ./tsconfig.json
+
+# Install ts-node as production dependency (needed for running migrations)
+RUN pnpm add -g ts-node typescript tsconfig-paths
+
 # Verify dist was copied correctly and show structure
 RUN echo "=== Production stage dist contents ===" && \
   ls -la dist/ && \
@@ -59,6 +68,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
   CMD node -e "require('http').get('http://127.0.0.1:3005/api/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
 
 # Start the application
-# Try dist/src/main.js first (if sourceRoot is "src"), then dist/main.js
-# CMD ["sh", "-c", "if [ -f dist/src/main.js ]; then node dist/src/main.js; elif [ -f dist/main.js ]; then node dist/main.js; else echo 'ERROR: main.js not found!' && ls -la dist/ && exit 1; fi"]
-CMD ["sh", "-c", "npm run migration:run && npm start:prod"]
+CMD ["sh", "-c", "pnpm run migration:run && pnpm run start:prod"]
