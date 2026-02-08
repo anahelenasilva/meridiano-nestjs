@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { BadRequestException, Injectable, OnModuleInit } from '@nestjs/common';
 import OpenAI from 'openai';
 import { ConfigService } from '../config/config.service';
 import { ChatMessage } from '../shared/types/ai';
@@ -22,11 +22,11 @@ export class AiService implements OnModuleInit {
     const openaiApiKey = process.env.OPENAI_API_KEY;
 
     if (!deepseekApiKey) {
-      throw new Error('DEEPSEEK_API_KEY not found in environment variables');
+      throw new BadRequestException('DEEPSEEK_API_KEY not found in environment variables');
     }
 
     if (!embeddingApiKey) {
-      throw new Error('EMBEDDING_API_KEY not found in environment variables');
+      throw new BadRequestException('EMBEDDING_API_KEY not found in environment variables');
     }
 
     this.deepseekClient = new OpenAI({
@@ -53,7 +53,7 @@ export class AiService implements OnModuleInit {
       console.log('OpenAI TTS and Chat clients initialized successfully');
     } else if (enabledChatModel === 'openai') {
       // Fail fast if OpenAI chat model is enabled but API key is missing
-      throw new Error(
+      throw new BadRequestException(
         'Configuration error: ENABLED_CHAT_MODEL is set to "openai" but OPENAI_API_KEY is not defined. ' +
         'Please set the OPENAI_API_KEY environment variable or change ENABLED_CHAT_MODEL to "deepseek".'
       );
@@ -70,7 +70,7 @@ export class AiService implements OnModuleInit {
     systemPrompt?: string,
   ): Promise<string | null> {
     if (!this.deepseekClient) {
-      throw new Error(
+      throw new BadRequestException(
         'Deepseek client not initialized. Call initializeClients() first.',
       );
     }
@@ -106,7 +106,7 @@ export class AiService implements OnModuleInit {
     systemPrompt?: string,
   ): Promise<string | null> {
     if (!this.openaiChatClient) {
-      throw new Error(
+      throw new BadRequestException(
         'OpenAI chat client not initialized. OPENAI_API_KEY may be missing.',
       );
     }
@@ -154,7 +154,7 @@ export class AiService implements OnModuleInit {
 
   async getEmbedding(text: string, model?: string): Promise<number[] | null> {
     if (!this.embeddingClient) {
-      throw new Error(
+      throw new BadRequestException(
         'Embedding client not initialized. Call initializeClients() first.',
       );
     }
@@ -183,7 +183,7 @@ export class AiService implements OnModuleInit {
     model?: string,
   ): Promise<(number[] | null)[]> {
     if (!this.embeddingClient) {
-      throw new Error(
+      throw new BadRequestException(
         'Embedding client not initialized. Call initializeClients() first.',
       );
     }
