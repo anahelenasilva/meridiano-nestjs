@@ -11,7 +11,7 @@ alwaysApply: true
 - Run scripts: `pnpm run <script>`
 
 ## Before Making Changes
-1. Ensure Docker containers are running: `pnpm run docker:up`
+<!-- 1. Ensure Docker containers are running: `pnpm run docker:up` -->
 2. If modifying database schema, create a migration first
 
 ## Testing

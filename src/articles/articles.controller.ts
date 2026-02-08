@@ -1,19 +1,23 @@
+import { AudioJobService } from '@libs/audio';
 import { QueueService } from '@libs/queue';
 import { S3Service } from '@libs/s3';
 import {
   BadRequestException,
   Body,
+  ConflictException,
   Controller,
   Delete,
   Get,
+  HttpCode,
   Inject,
   NotFoundException,
   Param,
   ParseUUIDPipe,
   Post,
   Query,
-  forwardRef,
+  forwardRef
 } from '@nestjs/common';
+import { AudioFilesService } from '../audio-files/audio-files.service';
 import { ScraperService } from '../scraper/scraper.service';
 import type { PaginatedArticleInput } from './article.entity';
 import { ArticlesService } from './articles.service';
@@ -33,6 +37,8 @@ export class ArticlesController {
     @Inject(forwardRef(() => QueueService))
     private readonly queueService: QueueService,
     private readonly s3Service: S3Service,
+    private readonly audioJobService: AudioJobService,
+    private readonly audioFilesService: AudioFilesService,
   ) { }
 
   @Post()
@@ -171,8 +177,12 @@ export class ArticlesController {
   }
 
   @Get(':id')
-  async getArticle(@Param('id', ParseUUIDPipe) id: string) {
-    const data = await this.getArticleByIdQuery.execute(id);
+  async getArticle(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Query('includeAudio') includeAudio?: string,
+  ) {
+    const shouldIncludeAudio = includeAudio === 'true';
+    const data = await this.getArticleByIdQuery.execute(id, shouldIncludeAudio);
 
     if (!data || !data.article) {
       throw new NotFoundException('Article not found');
@@ -185,5 +195,61 @@ export class ArticlesController {
   async deleteArticle(@Param('id', ParseUUIDPipe) id: string) {
     await this.articlesService.deleteArticleById(id);
     return { success: true };
+  }
+
+  @Post(':id/audio')
+  @HttpCode(202)
+  async generateAudio(@Param('id', ParseUUIDPipe) id: string) {
+    const article = await this.articlesService.getArticleById(id);
+
+    if (!article) {
+      throw new NotFoundException('Article not found');
+    }
+
+    const existingAudio = await this.audioFilesService.getAudioFileBySource(
+      'article',
+      id,
+    );
+
+    if (existingAudio) {
+      throw new ConflictException(
+        'Audio already exists for this article. Use GET /api/articles/:id?includeAudio=true to fetch the audio.',
+      );
+    }
+
+    // Determine the text to use for TTS: prefer processed_content, fall back to raw_content
+    const text = article.processed_content || article.raw_content;
+
+    if (!text) {
+      throw new BadRequestException(
+        'Article has no content available for audio generation',
+      );
+    }
+
+    const jobInfo = await this.audioJobService.enqueueAudioJob({
+      sourceType: 'article',
+      sourceId: id,
+      text,
+      date: article.published_date,
+    });
+
+    return {
+      jobId: jobInfo.jobId,
+      message: 'Audio generation job queued for article',
+    };
+  }
+
+  @Get(':id/audio/status/:jobId')
+  async getAudioJobStatus(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Param('jobId') jobId: string,
+  ) {
+    const jobStatus = await this.audioJobService.getJobStatus(jobId);
+
+    if (!jobStatus || !jobStatus.data || jobStatus.data.sourceId !== id) {
+      throw new NotFoundException('Audio job not found');
+    }
+
+    return jobStatus;
   }
 }
