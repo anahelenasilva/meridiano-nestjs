@@ -54,6 +54,8 @@ export class S3Service {
 
       return content;
     } catch (error) {
+      console.error('Error downloading markdown file:', error);
+
       const errorMessage =
         error instanceof Error ? error.message : String(error);
 

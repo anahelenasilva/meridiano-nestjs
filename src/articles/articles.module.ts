@@ -1,3 +1,4 @@
+import { AudioModule } from '@libs/audio';
 import { DatabaseModule } from '@libs/database';
 import { QueueModule } from '@libs/queue';
 import { RedisModule } from '@libs/redis';
@@ -20,6 +21,7 @@ import { ListArticlesQuery } from './queries/list-articles.query';
     S3Module,
     RedisModule,
     AudioFilesModule,
+    AudioModule,
     forwardRef(() => QueueModule),
     forwardRef(() => ProcessorModule),
     forwardRef(() => ScraperModule),
