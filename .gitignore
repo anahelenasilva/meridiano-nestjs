@@ -76,3 +76,5 @@ project-structure-*.md
 folderStructure.mjs
 
 prod.bru
+
+docs/plans/personal/**
