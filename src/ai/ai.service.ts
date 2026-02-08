@@ -85,11 +85,12 @@ export class AiService implements OnModuleInit {
 
     try {
       const modelName = model || this.configService.getModelConfig().deepseekChatModel;
+      const config = this.configService.getModelConfig();
       const response = await this.deepseekClient.chat.completions.create({
         model: modelName,
         messages,
-        max_tokens: 2048,
-        temperature: 0.7,
+        max_tokens: config.maxTokens,
+        temperature: config.temperature,
       });
 
       return response.choices[0]?.message?.content?.trim() || null;
@@ -121,11 +122,12 @@ export class AiService implements OnModuleInit {
 
     try {
       const modelName = model || this.configService.getModelConfig().openaiChatModel;
+      const config = this.configService.getModelConfig();
       const response = await this.openaiChatClient.chat.completions.create({
         model: modelName,
         messages,
-        max_tokens: 2048,
-        temperature: 0.7,
+        max_tokens: config.maxTokens,
+        temperature: config.temperature,
       });
 
       return response.choices[0]?.message?.content?.trim() || null;

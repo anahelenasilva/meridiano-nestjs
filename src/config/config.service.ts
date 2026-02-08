@@ -43,6 +43,8 @@ export class ConfigService {
       openaiChatModel: 'gpt-4o-mini',
       embeddingModel: 'Alibaba-NLP/gte-modernbert-base',
       enabledChatModel: 'deepseek',
+      maxTokens: 2048,
+      temperature: 0.7,
     },
 
     app: {

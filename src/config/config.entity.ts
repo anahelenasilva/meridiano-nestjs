@@ -30,6 +30,8 @@ export type Config = {
     openaiChatModel: string;
     embeddingModel: string;
     enabledChatModel: ValidChatModel;
+    maxTokens: number;
+    temperature: number;
   };
   app: {
     defaultFeedProfile: FeedProfile;
