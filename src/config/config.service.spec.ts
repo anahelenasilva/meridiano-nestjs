@@ -1,3 +1,4 @@
+import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
 import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
@@ -96,7 +97,7 @@ describe('ConfigService', () => {
       (service as unknown as { CONFIGS: { models: { enabledChatModel: string } } }).CONFIGS.models.enabledChatModel = '';
 
       expect(() => service.getEnabledChatModel()).toThrow(
-        'No enabled chat model found in environment variables or config file',
+        new BadRequestException('No enabled chat model found in environment variables or config file'),
       );
 
       // Restore original value

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { BriefingOptions } from '../briefing/briefing.entity';
 import { ImpactRating, PromptVariables } from '../shared/types/ai';
 import { FeedProfile } from '../shared/types/feed';
@@ -153,10 +153,8 @@ export class ConfigService {
   }
 
   async getYoutubeChannelsConfig() {
-    // Delegate to YoutubeChannelsService for backward compatibility
     const channels = await this.youtubeChannelsService.getAllChannels();
 
-    // Convert to old format for backward compatibility
     const channelsObj: Record<string, {
       name: string;
       url: string;
@@ -219,6 +217,6 @@ export class ConfigService {
       return this.CONFIGS.models.enabledChatModel;
     }
 
-    throw new Error('No enabled chat model found in environment variables or config file');
+    throw new BadRequestException('No enabled chat model found in environment variables or config file');
   }
 }
