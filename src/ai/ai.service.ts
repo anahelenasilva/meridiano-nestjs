@@ -39,6 +39,8 @@ export class AiService implements OnModuleInit {
       baseURL: 'https://api.together.xyz/v1',
     });
 
+    const enabledChatModel = this.configService.getEnabledChatModel();
+
     if (openaiApiKey) {
       this.openaiTtsClient = new OpenAI({
         apiKey: openaiApiKey,
@@ -49,6 +51,12 @@ export class AiService implements OnModuleInit {
       });
 
       console.log('OpenAI TTS and Chat clients initialized successfully');
+    } else if (enabledChatModel === 'openai') {
+      // Fail fast if OpenAI chat model is enabled but API key is missing
+      throw new Error(
+        'Configuration error: ENABLED_CHAT_MODEL is set to "openai" but OPENAI_API_KEY is not defined. ' +
+        'Please set the OPENAI_API_KEY environment variable or change ENABLED_CHAT_MODEL to "deepseek".'
+      );
     } else {
       console.warn('OPENAI_API_KEY not found in environment variables. TTS and OpenAI chat functionality will not be available.');
     }
