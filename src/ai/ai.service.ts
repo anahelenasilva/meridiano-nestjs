@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { BadRequestException, Injectable, OnModuleInit } from '@nestjs/common';
 import OpenAI from 'openai';
 import { ConfigService } from '../config/config.service';
 import { ChatMessage } from '../shared/types/ai';
@@ -8,6 +8,7 @@ export class AiService implements OnModuleInit {
   private deepseekClient: OpenAI | null = null;
   private embeddingClient: OpenAI | null = null;
   private openaiTtsClient: OpenAI | null = null;
+  private openaiChatClient: OpenAI | null = null;
 
   constructor(private readonly configService: ConfigService) { }
 
@@ -21,11 +22,11 @@ export class AiService implements OnModuleInit {
     const openaiApiKey = process.env.OPENAI_API_KEY;
 
     if (!deepseekApiKey) {
-      throw new Error('DEEPSEEK_API_KEY not found in environment variables');
+      throw new BadRequestException('DEEPSEEK_API_KEY not found in environment variables');
     }
 
     if (!embeddingApiKey) {
-      throw new Error('EMBEDDING_API_KEY not found in environment variables');
+      throw new BadRequestException('EMBEDDING_API_KEY not found in environment variables');
     }
 
     this.deepseekClient = new OpenAI({
@@ -38,13 +39,26 @@ export class AiService implements OnModuleInit {
       baseURL: 'https://api.together.xyz/v1',
     });
 
+    const enabledChatModel = this.configService.getEnabledChatModel();
+
     if (openaiApiKey) {
       this.openaiTtsClient = new OpenAI({
         apiKey: openaiApiKey,
       });
-      console.log('OpenAI TTS client initialized successfully');
+
+      this.openaiChatClient = new OpenAI({
+        apiKey: openaiApiKey,
+      });
+
+      console.log('OpenAI TTS and Chat clients initialized successfully');
+    } else if (enabledChatModel === 'openai') {
+      // Fail fast if OpenAI chat model is enabled but API key is missing
+      throw new BadRequestException(
+        'Configuration error: ENABLED_CHAT_MODEL is set to "openai" but OPENAI_API_KEY is not defined. ' +
+        'Please set the OPENAI_API_KEY environment variable or change ENABLED_CHAT_MODEL to "deepseek".'
+      );
     } else {
-      console.warn('OPENAI_API_KEY not found in environment variables. TTS functionality will not be available.');
+      console.warn('OPENAI_API_KEY not found in environment variables. TTS and OpenAI chat functionality will not be available.');
     }
 
     console.log('API clients initialized successfully');
@@ -56,7 +70,7 @@ export class AiService implements OnModuleInit {
     systemPrompt?: string,
   ): Promise<string | null> {
     if (!this.deepseekClient) {
-      throw new Error(
+      throw new BadRequestException(
         'Deepseek client not initialized. Call initializeClients() first.',
       );
     }
@@ -70,13 +84,13 @@ export class AiService implements OnModuleInit {
     messages.push({ role: 'user', content: prompt });
 
     try {
-      const modelName =
-        model || this.configService.getModelConfig().deepseekChatModel;
+      const modelName = model || this.configService.getModelConfig().deepseekChatModel;
+      const config = this.configService.getModelConfig();
       const response = await this.deepseekClient.chat.completions.create({
         model: modelName,
         messages,
-        max_tokens: 2048,
-        temperature: 0.7,
+        max_tokens: config.maxTokens,
+        temperature: config.temperature,
       });
 
       return response.choices[0]?.message?.content?.trim() || null;
@@ -87,20 +101,68 @@ export class AiService implements OnModuleInit {
     }
   }
 
+  async callOpenAIChat(
+    prompt: string,
+    model?: string,
+    systemPrompt?: string,
+  ): Promise<string | null> {
+    if (!this.openaiChatClient) {
+      throw new BadRequestException(
+        'OpenAI chat client not initialized. OPENAI_API_KEY may be missing.',
+      );
+    }
+
+    const messages: ChatMessage[] = [];
+
+    if (systemPrompt) {
+      messages.push({ role: 'system', content: systemPrompt });
+    }
+
+    messages.push({ role: 'user', content: prompt });
+
+    try {
+      const modelName = model || this.configService.getModelConfig().openaiChatModel;
+      const config = this.configService.getModelConfig();
+      const response = await this.openaiChatClient.chat.completions.create({
+        model: modelName,
+        messages,
+        max_tokens: config.maxTokens,
+        temperature: config.temperature,
+      });
+
+      return response.choices[0]?.message?.content?.trim() || null;
+    } catch (error) {
+      console.error('Error calling OpenAI Chat API:', error);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      return null;
+    }
+  }
+
+  async callChat(
+    prompt: string,
+    model?: string,
+    systemPrompt?: string,
+  ): Promise<string | null> {
+    const enabledProvider = this.configService.getEnabledChatModel();
+
+    switch (enabledProvider) {
+      case 'openai':
+        return this.callOpenAIChat(prompt, model, systemPrompt);
+      case 'deepseek':
+      default:
+        return this.callDeepseekChat(prompt, model, systemPrompt);
+    }
+  }
+
   async getEmbedding(text: string, model?: string): Promise<number[] | null> {
     if (!this.embeddingClient) {
-      throw new Error(
+      throw new BadRequestException(
         'Embedding client not initialized. Call initializeClients() first.',
       );
     }
 
-    // console.log(
-    //   `INFO: Getting embedding for text snippet: '${text.substring(0, 50)}...'`,
-    // );
-
     try {
-      const modelName =
-        model || this.configService.getModelConfig().embeddingModel;
+      const modelName = model || this.configService.getModelConfig().embeddingModel;
       const response = await this.embeddingClient.embeddings.create({
         model: modelName,
         input: [text],
@@ -123,15 +185,14 @@ export class AiService implements OnModuleInit {
     model?: string,
   ): Promise<(number[] | null)[]> {
     if (!this.embeddingClient) {
-      throw new Error(
+      throw new BadRequestException(
         'Embedding client not initialized. Call initializeClients() first.',
       );
     }
 
     const results: (number[] | null)[] = [];
     const batchSize = 10;
-    const modelName =
-      model || this.configService.getModelConfig().embeddingModel;
+    const modelName = model || this.configService.getModelConfig().embeddingModel;
 
     for (let i = 0; i < texts.length; i += batchSize) {
       const batch = texts.slice(i, i + batchSize);
@@ -179,6 +240,7 @@ export class AiService implements OnModuleInit {
       'nova',
       'shimmer',
     ];
+
     const selectedVoice = voice && validVoices.includes(voice) ? voice : 'alloy';
 
     try {
@@ -210,6 +272,7 @@ export class AiService implements OnModuleInit {
       const testPrompt = 'Respond with "OK" if you can read this.';
       const response = await this.callDeepseekChat(testPrompt);
       deepseekWorking = response !== null;
+
       if (!deepseekWorking) {
         errors.push('Deepseek API returned null response');
       }
@@ -221,6 +284,7 @@ export class AiService implements OnModuleInit {
       const testText = 'This is a test for embedding API connectivity.';
       const embedding = await this.getEmbedding(testText);
       embeddingWorking = embedding !== null && embedding.length > 0;
+
       if (!embeddingWorking) {
         errors.push('Embedding API returned null or empty embedding');
       }

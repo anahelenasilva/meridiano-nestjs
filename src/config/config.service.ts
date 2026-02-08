@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { BriefingOptions } from '../briefing/briefing.entity';
 import { ImpactRating, PromptVariables } from '../shared/types/ai';
 import { FeedProfile } from '../shared/types/feed';
 import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
-import { ArticleEmailsNotifications, Config } from './config.entity';
+import { ArticleEmailsNotifications, Config, VALID_CHAT_MODELS, ValidChatModel } from './config.entity';
 import {
   articleSummaryPrompt,
   briefSynthesisPrompt,
@@ -40,7 +40,11 @@ export class ConfigService {
 
     models: {
       deepseekChatModel: 'deepseek-chat',
+      openaiChatModel: 'gpt-4o-mini',
       embeddingModel: 'Alibaba-NLP/gte-modernbert-base',
+      enabledChatModel: 'deepseek',
+      maxTokens: 2048,
+      temperature: 0.7,
     },
 
     app: {
@@ -149,10 +153,8 @@ export class ConfigService {
   }
 
   async getYoutubeChannelsConfig() {
-    // Delegate to YoutubeChannelsService for backward compatibility
     const channels = await this.youtubeChannelsService.getAllChannels();
 
-    // Convert to old format for backward compatibility
     const channelsObj: Record<string, {
       name: string;
       url: string;
@@ -195,5 +197,26 @@ export class ConfigService {
   isBriefingsGenerationEnabled(): boolean {
     const value = process.env.ENABLE_BRIEFINGS_GENERATION;
     return value === 'true' || value === '1' || value === undefined;
+  }
+
+  getEnabledChatModel(): ValidChatModel {
+    const envValue = process.env.ENABLED_CHAT_MODEL;
+    if (envValue) {
+
+      const validModels = Object.keys(VALID_CHAT_MODELS);
+      if (!validModels.includes(envValue)) {
+        throw new Error(
+          `Invalid ENABLED_CHAT_MODEL value: '${envValue}'. Must be one of: ${validModels.join(', ')}.`,
+        );
+      }
+
+      return envValue as ValidChatModel;
+    }
+
+    if (this.CONFIGS.models.enabledChatModel) {
+      return this.CONFIGS.models.enabledChatModel;
+    }
+
+    throw new BadRequestException('No enabled chat model found in environment variables or config file');
   }
 }

@@ -72,7 +72,7 @@ export class ProcessorService {
             article.raw_content.substring(0, 4000),
           );
 
-        const summary = await this.aiService.callDeepseekChat(summaryPrompt);
+        const summary = await this.aiService.callChat(summaryPrompt);
 
         if (!summary) {
           console.log(
@@ -184,7 +184,7 @@ export class ProcessorService {
           : this.configService.getImpactRatingPrompt(article.processed_content);
 
         const ratingResponse =
-          await this.aiService.callDeepseekChat(ratingPrompt);
+          await this.aiService.callChat(ratingPrompt);
 
         if (ratingResponse) {
           try {
@@ -289,7 +289,7 @@ export class ProcessorService {
           );
 
         const categoryResponse =
-          await this.aiService.callDeepseekChat(categoryPrompt);
+          await this.aiService.callChat(categoryPrompt);
 
         if (categoryResponse) {
           try {

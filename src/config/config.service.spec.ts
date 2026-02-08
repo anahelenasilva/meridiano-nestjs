@@ -1,3 +1,4 @@
+import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
 import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
@@ -66,6 +67,41 @@ describe('ConfigService', () => {
 
       delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL;
       delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM;
+    });
+  });
+
+  describe('getEnabledChatModel', () => {
+    it('should return environment variable value when ENABLED_CHAT_MODEL is set', () => {
+      process.env.ENABLED_CHAT_MODEL = 'deepseek';
+
+      const result = service.getEnabledChatModel();
+
+      expect(result).toBe('deepseek');
+
+      delete process.env.ENABLED_CHAT_MODEL;
+    });
+
+    it('should return config value when ENABLED_CHAT_MODEL env var is not set', () => {
+      delete process.env.ENABLED_CHAT_MODEL;
+
+      const result = service.getEnabledChatModel();
+
+      expect(result).toBe('deepseek');
+    });
+
+    it('should throw error when neither env var nor config value is available', () => {
+      delete process.env.ENABLED_CHAT_MODEL;
+
+      // Temporarily override the config value to be empty
+      const originalValue = (service as unknown as { CONFIGS: { models: { enabledChatModel: string } } }).CONFIGS.models.enabledChatModel;
+      (service as unknown as { CONFIGS: { models: { enabledChatModel: string } } }).CONFIGS.models.enabledChatModel = '';
+
+      expect(() => service.getEnabledChatModel()).toThrow(
+        new BadRequestException('No enabled chat model found in environment variables or config file'),
+      );
+
+      // Restore original value
+      (service as unknown as { CONFIGS: { models: { enabledChatModel: string } } }).CONFIGS.models.enabledChatModel = originalValue;
     });
   });
 });
