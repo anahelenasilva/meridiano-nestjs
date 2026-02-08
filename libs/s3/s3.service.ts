@@ -162,8 +162,8 @@ export class S3Service {
       });
 
       const presignedUrl = await getSignedUrl(
-        this.s3Client as any,
-        command as any,
+        this.s3Client,
+        command,
         {
           expiresIn,
         },

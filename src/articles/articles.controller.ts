@@ -247,7 +247,7 @@ export class ArticlesController {
   ) {
     const jobStatus = await this.audioJobService.getJobStatus(jobId);
 
-    if (!jobStatus || jobStatus.data.sourceId !== id) {
+    if (!jobStatus || !jobStatus.data || jobStatus.data.sourceId !== id) {
       throw new NotFoundException('Audio job not found');
     }
 
