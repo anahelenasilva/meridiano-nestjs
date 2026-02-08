@@ -235,7 +235,6 @@ export class ArticlesController {
 
     return {
       jobId: jobInfo.jobId,
-      status: 'queued',
       message: 'Audio generation job queued for article',
     };
   }
