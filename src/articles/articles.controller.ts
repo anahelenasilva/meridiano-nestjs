@@ -171,8 +171,12 @@ export class ArticlesController {
   }
 
   @Get(':id')
-  async getArticle(@Param('id', ParseUUIDPipe) id: string) {
-    const data = await this.getArticleByIdQuery.execute(id);
+  async getArticle(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Query('includeAudio') includeAudio?: string,
+  ) {
+    const shouldIncludeAudio = includeAudio === 'true';
+    const data = await this.getArticleByIdQuery.execute(id, shouldIncludeAudio);
 
     if (!data || !data.article) {
       throw new NotFoundException('Article not found');

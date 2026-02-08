@@ -1,5 +1,6 @@
 import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { Injectable } from '@nestjs/common';
 import { Readable } from 'stream';
 
@@ -143,6 +144,40 @@ export class S3Service {
 
       throw new Error(
         `Failed to upload audio file ${key} to bucket ${bucketName}: ${errorMessage}`,
+      );
+    }
+  }
+
+  async generatePresignedGetUrl(
+    bucketName: string,
+    key: string,
+    expiresIn: number = 3600,
+  ): Promise<string> {
+    try {
+      const command = new GetObjectCommand({
+        Bucket: bucketName,
+        Key: key,
+      });
+
+      const presignedUrl = await getSignedUrl(
+        this.s3Client as any,
+        command as any,
+        {
+          expiresIn,
+        },
+      );
+
+      if (typeof presignedUrl !== 'string') {
+        throw new Error('Failed to generate presigned URL: invalid response type');
+      }
+
+      return presignedUrl;
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+
+      throw new Error(
+        `Failed to generate presigned GET URL for ${key}: ${errorMessage}`,
       );
     }
   }
