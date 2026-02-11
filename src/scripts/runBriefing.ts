@@ -103,7 +103,9 @@ async function main(): Promise<void> {
       options.process ||
       options.rate ||
       options.categorize ||
-      options.generate;
+      options.generate ||
+      options.generateAudio;
+
     const shouldRunAll = options.all || !hasSpecificStage;
 
     if (options.simpleBrief) {
