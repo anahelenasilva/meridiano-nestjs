@@ -28,8 +28,11 @@ export class S3Stack extends cdk.Stack {
         {
           allowedOrigins: [
             'http://100.127.158.111:3000',
+            'http://100.127.158.111:8080',
             'http://192.168.1.18:3000',
+            'http://192.168.1.18:8080',
             'http://localhost:3000',
+            'http://localhost:8080',
           ],
           allowedMethods: [
             s3.HttpMethods.PUT,
