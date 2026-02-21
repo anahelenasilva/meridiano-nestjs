@@ -11,6 +11,12 @@ export const VALID_CHAT_MODELS = {
 } as const;
 export type ValidChatModel = keyof typeof VALID_CHAT_MODELS;
 
+export const VALID_TTS_MODELS = {
+  openai: 'tts-1',
+  groq: 'canopylabs/orpheus-v1-english',
+} as const;
+export type ValidTtsModel = keyof typeof VALID_TTS_MODELS;
+
 export type Config = {
   prompts: {
     articleSummary: string;
@@ -33,6 +39,9 @@ export type Config = {
     openaiChatModel: string;
     embeddingModel: string;
     enabledChatModel: ValidChatModel;
+    enabledTtsModel: ValidTtsModel;
+    openaiTtsVoice: string;
+    groqTtsVoice: string;
     maxTokens: number;
     temperature: number;
   };
