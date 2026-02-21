@@ -1,5 +1,18 @@
 // Mock for youtubei.js
 /* eslint-disable @typescript-eslint/no-unused-vars */
+export const ClientType = {
+  WEB: 'web',
+  WEB_EMBED: 'web_embed',
+};
+
+export const Platform = {
+  WEB: 'web',
+};
+
+export const Types = {
+  VIDEO: 'video',
+};
+
 export class Innertube {
   static create() {
     return Promise.resolve(new Innertube());
