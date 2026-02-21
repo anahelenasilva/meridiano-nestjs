@@ -15,7 +15,7 @@ import {
   ParseUUIDPipe,
   Post,
   Query,
-  forwardRef
+  forwardRef,
 } from '@nestjs/common';
 import { AudioFilesService } from '../audio-files/audio-files.service';
 import { ScraperService } from '../scraper/scraper.service';
@@ -39,7 +39,7 @@ export class ArticlesController {
     private readonly s3Service: S3Service,
     private readonly audioJobService: AudioJobService,
     private readonly audioFilesService: AudioFilesService,
-  ) { }
+  ) {}
 
   @Post()
   async create(@Body() createArticleDto: CreateArticleDto) {
@@ -69,9 +69,8 @@ export class ArticlesController {
         throw error;
       }
 
-      const errorMessage = error instanceof Error ?
-        error.message :
-        'Unknown error occurred';
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error occurred';
 
       throw new BadRequestException(
         `Failed to scrape article: ${errorMessage}`,
@@ -81,12 +80,7 @@ export class ArticlesController {
 
   @Post('upload-url')
   async generateUploadUrl(@Body() dto: GenerateUploadUrlDto) {
-    const {
-      articleFileName,
-      s3Bucket,
-      contentType,
-      fileSize
-    } = dto;
+    const { articleFileName, s3Bucket, contentType, fileSize } = dto;
 
     try {
       const bucketName = s3Bucket || process.env.S3_ARTICLES_BUCKET_NAME;
@@ -110,9 +104,8 @@ export class ArticlesController {
         throw error;
       }
 
-      const errorMessage = error instanceof Error ?
-        error.message :
-        'Unknown error occurred';
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error occurred';
 
       throw new BadRequestException(
         `Failed to generate upload URL: ${errorMessage}`,
@@ -148,9 +141,8 @@ export class ArticlesController {
         throw error;
       }
 
-      const errorMessage = error instanceof Error ?
-        error.message :
-        'Unknown error occurred';
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error occurred';
 
       throw new BadRequestException(
         `Failed to queue markdown article: ${errorMessage}`,

@@ -66,7 +66,9 @@ describe('YoutubeTranscriptionsService', () => {
     app = module.createNestApplication();
     await app.init();
 
-    service = module.get<YoutubeTranscriptionsService>(YoutubeTranscriptionsService);
+    service = module.get<YoutubeTranscriptionsService>(
+      YoutubeTranscriptionsService,
+    );
   });
 
   beforeEach(() => {
@@ -112,7 +114,7 @@ describe('YoutubeTranscriptionsService', () => {
         channelDescription: 'Test Description',
         maxVideos: 2,
         databaseId: '123',
-      }
+      };
 
       const mockVideos: VideoMetadata[] = [
         {
@@ -156,7 +158,10 @@ describe('YoutubeTranscriptionsService', () => {
       await service.extractChannelTranscripts(mockChannelConfig);
 
       // Assert
-      expect(mockYouTubeService.getChannelVideos).toHaveBeenNthCalledWith(1, mockChannelConfig);
+      expect(mockYouTubeService.getChannelVideos).toHaveBeenNthCalledWith(
+        1,
+        mockChannelConfig,
+      );
       expect(mockTranscriptService.getTranscript).toHaveBeenCalledTimes(2);
       expect(mockStorageService.saveTranscript).toHaveBeenCalledTimes(2);
     });
@@ -169,7 +174,7 @@ describe('YoutubeTranscriptionsService', () => {
         channelName: 'Test Channel',
         channelDescription: 'Test Description',
         maxVideos: 2,
-      }
+      };
 
       const mockVideos: VideoMetadata[] = [
         {
@@ -207,7 +212,7 @@ describe('YoutubeTranscriptionsService', () => {
         channelDescription: 'Test Description',
         maxVideos: 2,
         databaseId: '123',
-      }
+      };
 
       const mockVideos: VideoMetadata[] = [
         {

@@ -68,7 +68,7 @@ export const techRSSFeeds: RSSFeed[] = [
   },
   {
     url: 'https://feed.infoq.com/',
-    name: "InfoQ",
+    name: 'InfoQ',
     category: 'tech',
     description:
       'InfoQ is a technology news website that covers the latest news and trends in the technology industry.',
@@ -84,7 +84,7 @@ export const techRSSFeeds: RSSFeed[] = [
   },
   {
     url: 'https://www.404media.co/rss/',
-    name: "404 Media",
+    name: '404 Media',
     category: 'tech',
     description:
       '404 Media is a journalist-founded digital media company exploring the ways technology is shaping-and is shaped by-our world.',
@@ -92,15 +92,15 @@ export const techRSSFeeds: RSSFeed[] = [
   },
   {
     url: 'https://www.philschmid.de/rss#/',
-    name: "Philipp Schmid",
+    name: 'Philipp Schmid',
     category: 'tech',
     description:
-      'A Staff Engineer (Developer Experience and Developer Relations) at Google DeepMind, where he is building the first AI DevRel/DevX team to bring Google DeepMind\'s AI research to every developer.',
+      "A Staff Engineer (Developer Experience and Developer Relations) at Google DeepMind, where he is building the first AI DevRel/DevX team to bring Google DeepMind's AI research to every developer.",
     enabled: true,
   },
   {
     url: 'https://lethain.com/feeds.xml#/',
-    name: "Will Larson",
+    name: 'Will Larson',
     category: 'tech',
     description:
       'Will Larson is CTO at Carta, and has been a software engineering leader at Calm, Stripe, and Uber. He is the author of An Elegant Puzzle, Staff Engineer, and The Engineering Executive’s Primer. He lives with his family in San Francisco.',
@@ -108,7 +108,7 @@ export const techRSSFeeds: RSSFeed[] = [
   },
   {
     url: 'https://addyo.substack.com/feed',
-    name: "Elevate by Addy Osmani",
+    name: 'Elevate by Addy Osmani',
     category: 'tech',
     description:
       'Addy Osmani shares his thoughts on technology, engineering, and leadership.',
@@ -116,10 +116,9 @@ export const techRSSFeeds: RSSFeed[] = [
   },
   {
     url: 'https://tldr.tech/api/rss/tech',
-    name: "TLDR Feed",
+    name: 'TLDR Feed',
     category: 'tech',
-    description:
-      'Keep up with tech in 5 minutes',
+    description: 'Keep up with tech in 5 minutes',
     enabled: true,
   },
 ];

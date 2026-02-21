@@ -13,7 +13,9 @@ export interface YoutubeChannelResponse {
 
 @Injectable()
 export class GetYoutubeChannelsQuery {
-  constructor(private readonly youtubeChannelsService: YoutubeChannelsService) { }
+  constructor(
+    private readonly youtubeChannelsService: YoutubeChannelsService,
+  ) {}
 
   async execute(): Promise<YoutubeChannelResponse[]> {
     const channels = await this.youtubeChannelsService.getAllChannels();

@@ -24,7 +24,7 @@ interface AvgRow {
 
 @Injectable()
 export class BriefingsService {
-  constructor(private readonly databaseService: DatabaseService) { }
+  constructor(private readonly databaseService: DatabaseService) {}
 
   async saveBrief(
     content: string,

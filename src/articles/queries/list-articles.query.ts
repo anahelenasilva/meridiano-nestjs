@@ -43,8 +43,8 @@ export type ListArticlesResponse = {
 export class ListArticlesQuery {
   constructor(
     private readonly service: ArticlesService,
-    private readonly profilesService: ProfilesService
-  ) { }
+    private readonly profilesService: ProfilesService,
+  ) {}
 
   async execute(
     request: ListArticlesRequest,

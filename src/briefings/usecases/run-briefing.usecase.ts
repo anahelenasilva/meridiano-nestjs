@@ -21,7 +21,7 @@ export class RunBriefingUseCase {
     private readonly generateBriefUseCase: GenerateBriefUseCase,
     private readonly profilesService: ProfilesService,
     private readonly configService: ConfigService,
-  ) { }
+  ) {}
 
   async execute(input: RunBriefingInputDto): Promise<RunBriefingOutputDto> {
     const startTime = new Date();
@@ -36,7 +36,7 @@ export class RunBriefingUseCase {
       return {
         success: false,
         duration: 0,
-        error: `No enabled feeds found for profile '${input.feedProfile}'.`
+        error: `No enabled feeds found for profile '${input.feedProfile}'.`,
       };
     }
 
@@ -70,12 +70,15 @@ export class RunBriefingUseCase {
         feedProfile: input.feedProfile,
       });
     } else {
-      console.log('Briefings generation is disabled. Skipping brief generation stage.');
+      console.log(
+        'Briefings generation is disabled. Skipping brief generation stage.',
+      );
       briefResult = {
         success: false,
         briefingId: undefined,
         stats: undefined,
-        error: 'Briefings generation is disabled. Set ENABLE_BRIEFINGS_GENERATION=true to enable.',
+        error:
+          'Briefings generation is disabled. Set ENABLE_BRIEFINGS_GENERATION=true to enable.',
       };
     }
 

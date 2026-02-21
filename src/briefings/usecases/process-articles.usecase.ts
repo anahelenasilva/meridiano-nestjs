@@ -7,7 +7,7 @@ import {
 
 @Injectable()
 export class ProcessArticlesUseCase {
-  constructor(private readonly processorService: ProcessorService) { }
+  constructor(private readonly processorService: ProcessorService) {}
 
   async execute(
     input: ProcessArticlesInputDto,

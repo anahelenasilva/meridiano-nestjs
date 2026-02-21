@@ -50,6 +50,7 @@ describe('AuthService', () => {
         email,
         username: 'testuser',
         password: hashedPassword,
+        isEmailVerified: true,
         created_at: new Date(),
       };
 
@@ -83,6 +84,7 @@ describe('AuthService', () => {
         email,
         username: 'testuser',
         password: 'hashed-password',
+        isEmailVerified: true,
         created_at: new Date(),
       };
 
@@ -91,6 +93,25 @@ describe('AuthService', () => {
 
       await expect(service.login(email, password)).rejects.toThrow(UnauthorizedException);
       expect(bcrypt.compare).toHaveBeenCalledWith(password, user.password);
+    });
+
+    it('should throw UnauthorizedException when email is not verified', async () => {
+      const email = 'test@example.com';
+      const password = 'password123';
+      const user = {
+        id: 'user-id',
+        email,
+        username: 'testuser',
+        password: 'hashed-password',
+        isEmailVerified: false,
+        created_at: new Date(),
+      };
+
+      mockUserLookupProvider.getUserByEmail.mockResolvedValueOnce(user);
+
+      await expect(service.login(email, password)).rejects.toThrow(
+        'Please verify your email before logging in',
+      );
     });
   });
 
@@ -101,6 +122,7 @@ describe('AuthService', () => {
         id: userId,
         email: 'test@example.com',
         username: 'testuser',
+        isEmailVerified: true,
         created_at: new Date(),
       };
 

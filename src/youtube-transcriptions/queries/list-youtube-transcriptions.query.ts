@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import moment from 'moment';
-import { PaginatedYoutubeTranscriptionInput } from "../dto/paginated-youtub-transcription-input.dto";
+import { PaginatedYoutubeTranscriptionInput } from '../dto/paginated-youtub-transcription-input.dto';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 
 export type ListYoutubeTranscriptionsRequest =
@@ -29,7 +29,7 @@ export type ListYoutubeTranscriptionsResponse = {
 
 @Injectable()
 export class ListYoutubeTranscriptionsQuery {
-  constructor(private readonly service: YoutubeTranscriptionsService) { }
+  constructor(private readonly service: YoutubeTranscriptionsService) {}
 
   async execute(
     request: ListYoutubeTranscriptionsRequest,

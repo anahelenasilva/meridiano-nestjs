@@ -20,7 +20,7 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
     private readonly aiService: AiService,
     private readonly configService: ConfigService,
     private readonly audioJobService: AudioJobService,
-  ) { }
+  ) {}
 
   onModuleInit() {
     this.worker = new Worker(
@@ -45,7 +45,10 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
     // Handle connection errors during shutdown to prevent ECONNRESET from crashing tests
     this.worker.on('error', (err: Error) => {
       // Suppress ECONNRESET errors during shutdown - these are expected when Redis connection closes
-      if (err.message?.includes('ECONNRESET') || err.message?.includes('closed')) {
+      if (
+        err.message?.includes('ECONNRESET') ||
+        err.message?.includes('closed')
+      ) {
         return;
       }
       console.error('YouTube transcription processor worker error:', err);
@@ -64,7 +67,8 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
     );
 
     try {
-      const summaryPrompt = this.configService.getTranscriptionSummaryPrompt(transcriptText);
+      const summaryPrompt =
+        this.configService.getTranscriptionSummaryPrompt(transcriptText);
 
       console.log(`Generating summary for transcription ${transcriptionId}...`);
       const summary = await this.aiService.callDeepseekChat(summaryPrompt);
@@ -92,8 +96,13 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
       // Generate audio if flag is enabled
       if (job.data.generateAudio) {
         try {
-          console.log(`Enqueuing audio generation for transcription ID: ${transcriptionId}...`);
-          const transcription = await this.youtubeTranscriptionsService.getTranscriptionById(transcriptionId);
+          console.log(
+            `Enqueuing audio generation for transcription ID: ${transcriptionId}...`,
+          );
+          const transcription =
+            await this.youtubeTranscriptionsService.getTranscriptionById(
+              transcriptionId,
+            );
 
           if (transcription) {
             const jobInfo = await this.audioJobService.enqueueAudioJob({
@@ -105,7 +114,10 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
             console.log(`Audio generation job enqueued: ${jobInfo.jobId}`);
           }
         } catch (audioError) {
-          console.error(`Error enqueuing audio generation for transcription ID: ${transcriptionId}:`, audioError);
+          console.error(
+            `Error enqueuing audio generation for transcription ID: ${transcriptionId}:`,
+            audioError,
+          );
         }
       }
 
@@ -114,7 +126,8 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
         message: `Transcription ${transcriptionId} summary generated and saved successfully`,
       };
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
       console.error(
         `Error processing transcription summary ${transcriptionId} in job ${job.id}:`,
         errorMessage,

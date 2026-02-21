@@ -9,4 +9,4 @@ import { ScraperService } from './scraper.service';
   providers: [ScraperService],
   exports: [ScraperService],
 })
-export class ScraperModule { }
+export class ScraperModule {}

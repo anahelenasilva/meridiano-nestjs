@@ -28,9 +28,7 @@ async function initialize() {
   await app.init(); // Initialize the application to trigger onModuleInit hooks
   return {
     app,
-    processTranscriptionFilesUseCase: app.get(
-      ProcessTranscriptionFilesUseCase,
-    ),
+    processTranscriptionFilesUseCase: app.get(ProcessTranscriptionFilesUseCase),
   };
 }
 

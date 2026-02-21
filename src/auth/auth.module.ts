@@ -19,4 +19,4 @@ import { UserLookupProviderImpl } from './providers/user-lookup.provider';
   controllers: [AuthController],
   providers: [JwtStrategy],
 })
-export class AuthModule { }
+export class AuthModule {}

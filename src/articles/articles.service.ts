@@ -31,7 +31,7 @@ interface CountRow {
 
 @Injectable()
 export class ArticlesService {
-  constructor(private readonly databaseService: DatabaseService) { }
+  constructor(private readonly databaseService: DatabaseService) {}
 
   async addArticle(
     url: string,

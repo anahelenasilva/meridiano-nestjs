@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Innertube } from 'youtubei.js';
-
+import * as fs from 'fs/promises';
+import path from 'path';
+import { ClientType, Innertube, Platform, Types } from 'youtubei.js/web';
 import { ChannelConfig } from '../../shared/types/channel';
 import { VideoMetadata } from '../../shared/types/video';
 import { parseRelativeTime } from '../helpers/parse-relative-time';
@@ -9,11 +10,16 @@ import { parseRelativeTime } from '../helpers/parse-relative-time';
 export class YouTubeService {
   private youtube: Innertube | null = null;
 
-  constructor() { }
+  constructor() {}
 
   private async initialize() {
     if (!this.youtube) {
-      this.youtube = await Innertube.create();
+      this.youtube = await Innertube.create({
+        generate_session_locally: true,
+        lang: 'en',
+        location: 'US',
+        retrieve_player: false,
+      });
     }
   }
 
@@ -83,12 +89,15 @@ export class YouTubeService {
         throw new Error('Failed to initialize YouTube client');
       }
 
-      const { channelId, channelName, channelDescription, maxVideos, databaseId } =
-        channelConfig;
+      const {
+        channelId,
+        channelName,
+        channelDescription,
+        maxVideos,
+        databaseId,
+      } = channelConfig;
 
-      console.log(
-        `Fetching videos from channel ${channelName}`,
-      );
+      console.log(`Fetching videos from channel ${channelName}`);
 
       const channelData = await this.youtube.getChannel(channelId);
       const videos = await channelData.getVideos();
@@ -131,6 +140,73 @@ export class YouTubeService {
         `Error fetching videos from channel ${channelConfig.channelId}: ${channelConfig.channelName}:`,
         error,
       );
+      throw error;
+    }
+  }
+
+  async downloadAudioFromVideo(videoId: string) {
+    try {
+      await this.initialize();
+
+      console.log(`Initialize YouTube client successfully`);
+
+      if (!this.youtube) {
+        throw new Error('Failed to initialize YouTube client');
+      }
+
+      Platform.shim.eval = (
+        data: Types.BuildScriptResult,
+        env: Record<string, Types.VMPrimative>,
+      ) => {
+        const properties = [];
+
+        if (env.n) {
+          properties.push(
+            `n: exportedVars.nFunction("${env.n as string}")` as never,
+          );
+        }
+
+        if (env.sig) {
+          properties.push(
+            `sig: exportedVars.sigFunction("${env.sig as string}")` as never,
+          );
+        }
+
+        const code = `${data.output}\nreturn { ${properties.join(', ')} }`;
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-implied-eval
+        return new Function(code)();
+      };
+
+      const innertube = await Innertube.create({
+        generate_session_locally: true,
+        lang: 'en',
+        location: 'US',
+        retrieve_innertube_config: true,
+        client_type: ClientType.WEB,
+      });
+
+      console.log(`Downloading audio from video: ${videoId}`);
+
+      const audio = await innertube.download(videoId, {
+        type: 'audio',
+      });
+
+      console.log(`Downloaded audio from video: ${videoId}`);
+
+      //save downloaded audio to a file
+      const filePath = path.join(
+        '/Users/anahelenadasilva/Desktop/dev/meridiano/meridiano-nestjs/src/youtube-transcriptions/services/',
+        '',
+        `${videoId}.mp3`,
+      );
+      await fs.writeFile(filePath, audio);
+
+      console.log(`Downloaded audio from video: ${videoId}`);
+
+      return audio;
+    } catch (error) {
+      console.error(`Error downloading audio from video ${videoId}:`, error);
       throw error;
     }
   }

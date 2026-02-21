@@ -31,9 +31,12 @@ interface CountRow {
 
 @Injectable()
 export class BookmarksService {
-  constructor(private readonly databaseService: DatabaseService) { }
+  constructor(private readonly databaseService: DatabaseService) {}
 
-  async addBookmark(userId: string, articleId: string): Promise<Bookmark | null> {
+  async addBookmark(
+    userId: string,
+    articleId: string,
+  ): Promise<Bookmark | null> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
@@ -60,7 +63,11 @@ export class BookmarksService {
                     reject(getErr);
                   } else if (!row) {
                     // This should not happen, but handle gracefully
-                    reject(new Error('Duplicate bookmark detected but bookmark not found'));
+                    reject(
+                      new Error(
+                        'Duplicate bookmark detected but bookmark not found',
+                      ),
+                    );
                   } else {
                     resolve({
                       id: row.id,
@@ -125,7 +132,12 @@ export class BookmarksService {
     userId: string,
     page: number = 1,
     perPage: number = 20,
-  ): Promise<{ bookmarks: BookmarkWithArticle[]; total: number; page: number; perPage: number }> {
+  ): Promise<{
+    bookmarks: BookmarkWithArticle[];
+    total: number;
+    page: number;
+    perPage: number;
+  }> {
     const offset = (page - 1) * perPage;
 
     return new Promise((resolve, reject) => {
@@ -173,33 +185,37 @@ export class BookmarksService {
               if (err) {
                 reject(err);
               } else {
-                const bookmarks: BookmarkWithArticle[] = (rows || []).map((row) => {
-                  const article: DBArticle = {
-                    id: row.article_id,
-                    url: row.article_url,
-                    title: row.article_title,
-                    published_date: new Date(row.article_published_date),
-                    feed_source: row.article_feed_source,
-                    raw_content: row.article_raw_content,
-                    processed_content: row.article_processed_content,
-                    embedding: row.article_embedding,
-                    impact_rating: row.article_impact_rating,
-                    feed_profile: row.article_feed_profile,
-                    image_url: row.article_image_url,
-                    created_at: new Date(row.article_created_at),
-                    categories: row.article_categories
-                      ? (JSON.parse(row.article_categories) as ArticleCategory[])
-                      : null,
-                  };
+                const bookmarks: BookmarkWithArticle[] = (rows || []).map(
+                  (row) => {
+                    const article: DBArticle = {
+                      id: row.article_id,
+                      url: row.article_url,
+                      title: row.article_title,
+                      published_date: new Date(row.article_published_date),
+                      feed_source: row.article_feed_source,
+                      raw_content: row.article_raw_content,
+                      processed_content: row.article_processed_content,
+                      embedding: row.article_embedding,
+                      impact_rating: row.article_impact_rating,
+                      feed_profile: row.article_feed_profile,
+                      image_url: row.article_image_url,
+                      created_at: new Date(row.article_created_at),
+                      categories: row.article_categories
+                        ? (JSON.parse(
+                            row.article_categories,
+                          ) as ArticleCategory[])
+                        : null,
+                    };
 
-                  return {
-                    id: row.id,
-                    user_id: row.user_id,
-                    article_id: row.article_id,
-                    created_at: new Date(row.created_at),
-                    article,
-                  };
-                });
+                    return {
+                      id: row.id,
+                      user_id: row.user_id,
+                      article_id: row.article_id,
+                      created_at: new Date(row.created_at),
+                      article,
+                    };
+                  },
+                );
 
                 resolve({
                   bookmarks,

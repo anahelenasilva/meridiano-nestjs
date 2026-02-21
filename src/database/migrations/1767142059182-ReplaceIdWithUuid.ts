@@ -182,7 +182,9 @@ export class ReplaceIdWithUuid1767142059182 implements MigrationInterface {
     `);
 
     // Drop backup tables
-    await queryRunner.query(`DROP TABLE IF EXISTS youtube_transcriptions_id_backup`);
+    await queryRunner.query(
+      `DROP TABLE IF EXISTS youtube_transcriptions_id_backup`,
+    );
     await queryRunner.query(`DROP TABLE IF EXISTS briefings_id_backup`);
     await queryRunner.query(`DROP TABLE IF EXISTS articles_id_backup`);
   }

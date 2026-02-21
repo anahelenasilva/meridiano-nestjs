@@ -25,7 +25,7 @@ export class BookmarksController {
     private readonly bookmarksService: BookmarksService,
     private readonly usersService: UsersService,
     private readonly articlesService: ArticlesService,
-  ) { }
+  ) {}
 
   @Post()
   async addBookmark(@Body() createBookmarkDto: CreateBookmarkDto) {
@@ -64,7 +64,10 @@ export class BookmarksController {
     @Query('user_id', ParseUUIDPipe) userId: string,
     @Query('article_id', ParseUUIDPipe) articleId: string,
   ) {
-    const removed = await this.bookmarksService.removeBookmark(userId, articleId);
+    const removed = await this.bookmarksService.removeBookmark(
+      userId,
+      articleId,
+    );
 
     if (!removed) {
       throw new NotFoundException('Bookmark not found');

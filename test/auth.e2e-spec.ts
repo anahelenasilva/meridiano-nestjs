@@ -30,15 +30,17 @@ const mockUserWithoutPassword = {
 // Factory function for creating fresh mock instances
 const createMockUserLookupProvider = (): MockProxy<UserLookupProvider> => {
   const mockProvider = mock<UserLookupProvider>();
-  mockProvider.getUserByEmail.mockImplementation((email: string, includePassword: boolean) => {
-    if (email === mockUser.email) {
-      if (includePassword) {
-        return Promise.resolve(mockUser);
+  mockProvider.getUserByEmail.mockImplementation(
+    (email: string, includePassword: boolean) => {
+      if (email === mockUser.email) {
+        if (includePassword) {
+          return Promise.resolve(mockUser);
+        }
+        return Promise.resolve({ ...mockUser, password: undefined });
       }
-      return Promise.resolve({ ...mockUser, password: undefined });
-    }
-    return Promise.resolve(null); // User not found
-  });
+      return Promise.resolve(null); // User not found
+    },
+  );
 
   mockProvider.getUserById.mockImplementation((userId: string) => {
     if (userId === mockUser.id) {
@@ -77,11 +79,13 @@ describe('Authentication (e2e)', () => {
     app = moduleFixture.createNestApplication();
 
     // Configure ValidationPipe for DTO validation
-    app.useGlobalPipes(new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-    }));
+    app.useGlobalPipes(
+      new ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        transform: true,
+      }),
+    );
 
     await app.init();
   });
@@ -235,7 +239,9 @@ describe('Authentication (e2e)', () => {
 
     it('should return 401 for user without password', async () => {
       // Temporarily override the mock to return user without password
-      mockUserLookupProvider.getUserByEmail.mockResolvedValueOnce(mockUserWithoutPassword);
+      mockUserLookupProvider.getUserByEmail.mockResolvedValueOnce(
+        mockUserWithoutPassword,
+      );
 
       await request(app.getHttpServer())
         .post('/api/auth/login')

@@ -5,7 +5,7 @@ import {
   NotFoundException,
   Param,
   ParseUUIDPipe,
-  Post
+  Post,
 } from '@nestjs/common';
 import { Public } from '@libs/auth';
 import { CreateUserDto, UserResponseDto } from './user.entity';
@@ -13,7 +13,7 @@ import { UsersService } from './users.service';
 
 @Controller('api/users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) { }
+  constructor(private readonly usersService: UsersService) {}
 
   @Public()
   @Post()

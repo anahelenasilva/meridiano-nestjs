@@ -1,7 +1,10 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { RedisModule } from '@libs/redis';
 import { AuthService, USER_LOOKUP_PROVIDER_TOKEN } from './auth.service';
+import { RateLimitGuard } from './rate-limit/rate-limit.guard';
+import { RateLimitService } from './rate-limit/rate-limit.service';
 import type { UserLookupProvider } from './interfaces/user-lookup-provider.interface';
 
 @Module({})
@@ -20,6 +23,7 @@ export class AuthModule {
           secret: jwtSecret,
           signOptions: { expiresIn: '24h' },
         }),
+        RedisModule,
       ],
       providers: [
         {
@@ -27,8 +31,10 @@ export class AuthModule {
           useClass: userLookupProvider,
         },
         AuthService,
+        RateLimitService,
+        RateLimitGuard,
       ],
-      exports: [AuthService],
+      exports: [AuthService, RateLimitService, RateLimitGuard],
     };
   }
 
@@ -50,6 +56,7 @@ export class AuthModule {
           secret: jwtSecret,
           signOptions: { expiresIn: '24h' },
         }),
+        RedisModule,
         ...(options.imports || []),
       ],
       providers: [
@@ -59,8 +66,10 @@ export class AuthModule {
           inject: options.inject || [],
         },
         AuthService,
+        RateLimitService,
+        RateLimitGuard,
       ],
-      exports: [AuthService],
+      exports: [AuthService, RateLimitService, RateLimitGuard],
     };
   }
 }

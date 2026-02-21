@@ -5,7 +5,10 @@ export type ArticleEmailsNotifications = {
   failureNotificationEmailFrom: string;
 };
 
-export const VALID_CHAT_MODELS = { openai: 'gpt-4o-mini', deepseek: 'deepseek-chat' } as const;
+export const VALID_CHAT_MODELS = {
+  openai: 'gpt-4o-mini',
+  deepseek: 'deepseek-chat',
+} as const;
 export type ValidChatModel = keyof typeof VALID_CHAT_MODELS;
 
 export type Config = {

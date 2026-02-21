@@ -24,7 +24,8 @@ async function main() {
 
   try {
     const services = await initialize();
-    const enabledChannels = await services.youtubeChannelsService.getEnabledChannels();
+    const enabledChannels =
+      await services.youtubeChannelsService.getEnabledChannels();
 
     const channels: ChannelConfig[] = enabledChannels.map((channel) => ({
       databaseId: channel.id,

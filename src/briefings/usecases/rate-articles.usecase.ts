@@ -7,7 +7,7 @@ import {
 
 @Injectable()
 export class RateArticlesUseCase {
-  constructor(private readonly processorService: ProcessorService) { }
+  constructor(private readonly processorService: ProcessorService) {}
 
   async execute(input: RateArticlesInputDto): Promise<RateArticlesOutputDto> {
     const stats = await this.processorService.rateArticles(input.feedProfile);

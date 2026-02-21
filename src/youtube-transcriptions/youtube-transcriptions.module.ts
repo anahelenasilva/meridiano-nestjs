@@ -64,4 +64,4 @@ import { ProcessTranscriptionFilesUseCase } from './usecases/process-transcripti
   ],
   controllers: [YoutubeTranscriptionsController],
 })
-export class YoutubeTranscriptionsModule { }
+export class YoutubeTranscriptionsModule {}

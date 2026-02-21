@@ -12,7 +12,12 @@ export class InnertubeTranscriptFetchError extends Error {
  * Error when fetching timedtext XML fails
  */
 export class InnertubeTimedTextFetchError extends InnertubeTranscriptFetchError {
-  constructor(options: { cause?: unknown; url: string; videoId: string; status?: number }) {
+  constructor(options: {
+    cause?: unknown;
+    url: string;
+    videoId: string;
+    status?: number;
+  }) {
     const message = options.status
       ? `Failed to fetch timedtext XML for video ${options.videoId} from ${options.url} (status: ${options.status})`
       : `Failed to fetch timedtext XML for video ${options.videoId} from ${options.url}`;

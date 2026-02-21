@@ -53,4 +53,3 @@ export class SeedYoutubeChannels1767438279000 implements MigrationInterface {
     `);
   }
 }
-

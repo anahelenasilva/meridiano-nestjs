@@ -7,7 +7,10 @@ import { UsersService } from '../../users/users.service';
 export class UserLookupProviderImpl implements UserLookupProvider {
   constructor(private readonly usersService: UsersService) {}
 
-  async getUserByEmail(email: string, includePassword: boolean): Promise<User | null> {
+  async getUserByEmail(
+    email: string,
+    includePassword: boolean,
+  ): Promise<User | null> {
     return this.usersService.getUserByEmail(email, includePassword);
   }
 

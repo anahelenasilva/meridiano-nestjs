@@ -20,7 +20,7 @@ export class GetArticleByIdQuery {
     private readonly service: ArticlesService,
     private readonly audioFilesService: AudioFilesService,
     private readonly s3Service: S3Service,
-  ) { }
+  ) {}
 
   async execute(articleId: string, includeAudio: boolean = false) {
     const article = await this.service.getArticleById(articleId);

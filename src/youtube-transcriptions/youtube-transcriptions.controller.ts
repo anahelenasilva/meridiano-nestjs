@@ -6,7 +6,7 @@ import {
   NotFoundException,
   Param,
   ParseUUIDPipe,
-  Post
+  Post,
 } from '@nestjs/common';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
@@ -20,8 +20,8 @@ export class YoutubeTranscriptionsController {
     private readonly listAllYoutubeTranscriptionsQuery: ListAllYoutubeTranscriptionsQuery,
     private readonly getYoutubeTranscriptionByIdQuery: GetYoutubeTranscriptionByIdQuery,
     private readonly deleteYoutubeTranscriptionCommand: DeleteYoutubeTranscriptionCommand,
-    private readonly createYoutubeTranscriptionCommand: CreateYoutubeTranscriptionCommand
-  ) { }
+    private readonly createYoutubeTranscriptionCommand: CreateYoutubeTranscriptionCommand,
+  ) {}
 
   @Get('transcriptions')
   async listTranscriptions() {
@@ -52,4 +52,11 @@ export class YoutubeTranscriptionsController {
     const data = await this.deleteYoutubeTranscriptionCommand.execute(id);
     return data;
   }
+
+  // @Public()
+  // @Get('transcriptions/:id/audio')
+  // async downloadAudio(@Param('id') id: string) {
+  //   const audio = await this.youtubeService.downloadAudioFromVideo(id);
+  //   return audio;
+  // }
 }

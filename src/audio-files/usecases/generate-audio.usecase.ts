@@ -17,11 +17,9 @@ export class GenerateAudioUseCase {
     private readonly s3Service: S3Service,
     private readonly audioFilesService: AudioFilesService,
     private readonly configService: ConfigService,
-  ) { }
+  ) {}
 
-  async execute(
-    input: GenerateAudioInputDto,
-  ): Promise<GenerateAudioOutputDto> {
+  async execute(input: GenerateAudioInputDto): Promise<GenerateAudioOutputDto> {
     try {
       // Generate audio using AI service
       this.logger.log(

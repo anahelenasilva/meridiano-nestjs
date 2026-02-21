@@ -6,7 +6,7 @@ import { TranscriptItem } from '../../shared/types/video';
 export class TranscriptService {
   private youtube: Innertube | null = null;
 
-  constructor() { }
+  constructor() {}
 
   private async initialize() {
     if (!this.youtube) {

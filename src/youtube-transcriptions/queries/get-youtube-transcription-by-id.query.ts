@@ -8,7 +8,7 @@ export type GetYoutubeTranscriptionByIdResponse = {
 
 @Injectable()
 export class GetYoutubeTranscriptionByIdQuery {
-  constructor(private readonly service: YoutubeTranscriptionsService) { }
+  constructor(private readonly service: YoutubeTranscriptionsService) {}
 
   async execute(
     id: string,

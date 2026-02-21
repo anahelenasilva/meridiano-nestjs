@@ -1,10 +1,20 @@
-import { IsEmail, IsNotEmpty, IsString, Matches, MaxLength, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  Matches,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export interface User {
   id: string;
   email: string;
   username: string;
   password?: string; // Optional: should not be returned in responses
+  isEmailVerified: boolean; // Email verification status
+  emailVerificationToken?: string; // Token for verifying email
+  emailVerificationExpires?: Date; // Expiration time for verification token
   created_at: Date;
 }
 
@@ -18,7 +28,8 @@ export class CreateUserDto {
   @MinLength(3, { message: 'Username must be at least 3 characters long' })
   @MaxLength(30, { message: 'Username must not exceed 30 characters' })
   @Matches(/^[a-zA-Z0-9_-]+$/, {
-    message: 'Username can only contain letters, numbers, underscores, and hyphens',
+    message:
+      'Username can only contain letters, numbers, underscores, and hyphens',
   })
   username: string;
 
@@ -26,7 +37,8 @@ export class CreateUserDto {
   @IsNotEmpty({ message: 'Password is required' })
   @MinLength(8, { message: 'Password must be at least 8 characters long' })
   @Matches(/^(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*\d).+$/, {
-    message: 'Password must contain at least one letter, one capital letter, and one number',
+    message:
+      'Password must contain at least one letter, one capital letter, and one number',
   })
   password: string;
 }

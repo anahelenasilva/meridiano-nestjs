@@ -13,19 +13,27 @@ export interface UpdateChannelEnabledOutput {
 
 @Injectable()
 export class UpdateChannelEnabledCommand {
-  constructor(private readonly youtubeChannelsService: YoutubeChannelsService) { }
+  constructor(
+    private readonly youtubeChannelsService: YoutubeChannelsService,
+  ) {}
 
-  async execute(input: UpdateChannelEnabledInput): Promise<UpdateChannelEnabledOutput> {
+  async execute(
+    input: UpdateChannelEnabledInput,
+  ): Promise<UpdateChannelEnabledOutput> {
     const { channelId, enabled } = input;
 
     try {
-      const channel = await this.youtubeChannelsService.getChannelById(channelId);
+      const channel =
+        await this.youtubeChannelsService.getChannelById(channelId);
 
       if (!channel) {
         throw new NotFoundException(`Channel with ID ${channelId} not found`);
       }
 
-      await this.youtubeChannelsService.updateChannelEnabled(channelId, enabled);
+      await this.youtubeChannelsService.updateChannelEnabled(
+        channelId,
+        enabled,
+      );
 
       return {
         success: true,
@@ -36,7 +44,8 @@ export class UpdateChannelEnabledCommand {
         throw error;
       }
 
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error';
       throw new Error(`Failed to update channel: ${errorMessage}`);
     }
   }

@@ -1,6 +1,8 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class CreateYoutubeChannelsTable1767438278000 implements MigrationInterface {
+export class CreateYoutubeChannelsTable1767438278000
+  implements MigrationInterface
+{
   name = 'CreateYoutubeChannelsTable1767438278000';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -31,9 +33,12 @@ export class CreateYoutubeChannelsTable1767438278000 implements MigrationInterfa
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DROP INDEX IF EXISTS idx_youtube_channels_enabled`);
-    await queryRunner.query(`DROP INDEX IF EXISTS idx_youtube_channels_channel_id`);
+    await queryRunner.query(
+      `DROP INDEX IF EXISTS idx_youtube_channels_enabled`,
+    );
+    await queryRunner.query(
+      `DROP INDEX IF EXISTS idx_youtube_channels_channel_id`,
+    );
     await queryRunner.query(`DROP TABLE IF EXISTS youtube_channels`);
   }
 }
-

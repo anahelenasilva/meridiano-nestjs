@@ -18,7 +18,7 @@ export class ProcessorService {
     private readonly configService: ConfigService,
     private readonly profilesService: ProfilesService,
     private readonly audioJobService: AudioJobService,
-  ) { }
+  ) {}
 
   async processArticles(
     feedProfile: FeedProfile,
@@ -43,8 +43,10 @@ export class ProcessorService {
         await this.articlesService.getUnprocessedArticleById(articleId);
       unprocessedArticles = article ? [article] : [];
     } else {
-      unprocessedArticles =
-        await this.articlesService.getUnprocessedArticles(feedProfile, limit);
+      unprocessedArticles = await this.articlesService.getUnprocessedArticles(
+        feedProfile,
+        limit,
+      );
     }
 
     if (unprocessedArticles.length === 0) {
@@ -59,18 +61,16 @@ export class ProcessorService {
       this.profilesService.getPromptsForProfile(feedProfile);
 
     for (const article of unprocessedArticles) {
-      console.log(
-        `Processing article ID: ${article.id} - ${article.title}...`,
-      );
+      console.log(`Processing article ID: ${article.id} - ${article.title}...`);
 
       try {
         const summaryPrompt = profilePrompts.articleSummary
           ? this.configService.formatPrompt(profilePrompts.articleSummary, {
-            article_content: article.raw_content.substring(0, 4000),
-          })
+              article_content: article.raw_content.substring(0, 4000),
+            })
           : this.configService.getArticleSummaryPrompt(
-            article.raw_content.substring(0, 4000),
-          );
+              article.raw_content.substring(0, 4000),
+            );
 
         const summary = await this.aiService.callChat(summaryPrompt);
 
@@ -103,16 +103,23 @@ export class ProcessorService {
         // Generate audio if flag is enabled
         if (generateAudio) {
           try {
-            console.log(`Enqueuing audio generation for article ID: ${article.id}...`);
+            console.log(
+              `Enqueuing audio generation for article ID: ${article.id}...`,
+            );
             const jobInfo = await this.audioJobService.enqueueAudioJob({
               sourceType: 'article',
               sourceId: article.id,
               text: summary,
-              date: article.published_date ? new Date(article.published_date) : new Date(),
+              date: article.published_date
+                ? new Date(article.published_date)
+                : new Date(),
             });
             console.log(`Audio generation job enqueued: ${jobInfo.jobId}`);
           } catch (audioError) {
-            console.error(`Error enqueuing audio generation for article ID: ${article.id}:`, audioError);
+            console.error(
+              `Error enqueuing audio generation for article ID: ${article.id}:`,
+              audioError,
+            );
           }
         }
 
@@ -179,12 +186,11 @@ export class ProcessorService {
       try {
         const ratingPrompt = profilePrompts.impactRating
           ? this.configService.formatPrompt(profilePrompts.impactRating, {
-            summary: article.processed_content,
-          })
+              summary: article.processed_content,
+            })
           : this.configService.getImpactRatingPrompt(article.processed_content);
 
-        const ratingResponse =
-          await this.aiService.callChat(ratingPrompt);
+        const ratingResponse = await this.aiService.callChat(ratingPrompt);
 
         if (ratingResponse) {
           try {
@@ -288,8 +294,7 @@ export class ProcessorService {
             article.processed_content.substring(0, 2000),
           );
 
-        const categoryResponse =
-          await this.aiService.callChat(categoryPrompt);
+        const categoryResponse = await this.aiService.callChat(categoryPrompt);
 
         if (categoryResponse) {
           try {

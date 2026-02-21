@@ -14,9 +14,7 @@ import { ProcessorService } from './processor.service';
     ConfigModule,
     ProfilesModule,
   ],
-  providers: [
-    ProcessorService,
-  ],
+  providers: [ProcessorService],
   exports: [ProcessorService],
 })
-export class ProcessorModule { }
+export class ProcessorModule {}
