@@ -195,11 +195,7 @@ export class YouTubeService {
       console.log(`Downloaded audio from video: ${videoId}`);
 
       //save downloaded audio to a file
-      const filePath = path.join(
-        '/Users/anahelenadasilva/Desktop/dev/meridiano/meridiano-nestjs/src/youtube-transcriptions/services/',
-        '',
-        `${videoId}.mp3`,
-      );
+      const filePath = path.join('./downloads', '', `${videoId}.mp3`);
       await fs.writeFile(filePath, audio);
 
       console.log(`Downloaded audio from video: ${videoId}`);

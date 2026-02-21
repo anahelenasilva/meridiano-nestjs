@@ -257,9 +257,9 @@ export const fetchTranscriptViaInnertube = async (
 
     if (!englishTrack?.base_url) {
       throw new InnertubeNoValidCaptionUrlError({
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         availableLanguages: captionTracks.map(
-          (t: any) => t.language_code ?? 'unknown',
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+          (captionTrack: any) => captionTrack.language_code ?? 'unknown',
         ) as string[],
         videoId,
       });
