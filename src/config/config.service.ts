@@ -7,7 +7,9 @@ import {
   ArticleEmailsNotifications,
   Config,
   VALID_CHAT_MODELS,
+  VALID_TTS_MODELS,
   ValidChatModel,
+  ValidTtsModel,
 } from './config.entity';
 import {
   articleSummaryPrompt,
@@ -50,6 +52,9 @@ export class ConfigService {
       openaiChatModel: 'gpt-4o-mini',
       embeddingModel: 'Alibaba-NLP/gte-modernbert-base',
       enabledChatModel: 'deepseek',
+      enabledTtsModel: 'openai',
+      openaiTtsVoice: 'alloy',
+      groqTtsVoice: 'hannah',
       maxTokens: 2048,
       temperature: 0.7,
     },
@@ -231,6 +236,28 @@ export class ConfigService {
 
     throw new BadRequestException(
       'No enabled chat model found in environment variables or config file',
+    );
+  }
+
+  getEnabledTtsModel(): ValidTtsModel {
+    const envValue = process.env.ENABLED_TTS_MODEL;
+    if (envValue) {
+      const validModels = Object.keys(VALID_TTS_MODELS);
+      if (!validModels.includes(envValue)) {
+        throw new Error(
+          `Invalid ENABLED_TTS_MODEL value: '${envValue}'. Must be one of: ${validModels.join(', ')}.`,
+        );
+      }
+
+      return envValue as ValidTtsModel;
+    }
+
+    if (this.CONFIGS.models.enabledTtsModel) {
+      return this.CONFIGS.models.enabledTtsModel;
+    }
+
+    throw new BadRequestException(
+      'No enabled TTS model found in environment variables or config file',
     );
   }
 }
