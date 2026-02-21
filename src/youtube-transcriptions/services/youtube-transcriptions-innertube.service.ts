@@ -102,51 +102,52 @@ const fetchTimedTextXml = async (
  * Parse <p t="ms" d="ms">text</p> format (Android client)
  */
 const parsePTagFormat = (xml: string): Array<TranscriptSegment> => {
-  const segments: Array<TranscriptSegment> = []
-  const pTagRegex = /<p\s+t="(\d+)"\s+d="(\d+)"[^>]*>([\s\S]*?)<\/p>/g
+  const segments: Array<TranscriptSegment> = [];
+  const pTagRegex = /<p\s+t="(\d+)"\s+d="(\d+)"[^>]*>([\s\S]*?)<\/p>/g;
 
-  let match = pTagRegex.exec(xml)
+  let match = pTagRegex.exec(xml);
   while (match !== null) {
-    const [, startMsStr, durationMsStr, rawText] = match
+    const [, startMsStr, durationMsStr, rawText] = match;
     if (startMsStr && durationMsStr && rawText) {
-      const text = decodeHtmlEntities(rawText.replace(/<[^>]+>/g, '')).trim()
+      const text = decodeHtmlEntities(rawText.replace(/<[^>]+>/g, '')).trim();
       if (text) {
         segments.push({
           durationMs: Number.parseInt(durationMsStr, 10),
           startMs: Number.parseInt(startMsStr, 10),
           text,
-        })
+        });
       }
     }
-    match = pTagRegex.exec(xml)
+    match = pTagRegex.exec(xml);
   }
-  return segments
-}
+  return segments;
+};
 
 /**
  * Parse <text start="sec" dur="sec">text</text> format (alternative format)
  */
 const parseTextTagFormat = (xml: string): Array<TranscriptSegment> => {
-  const segments: Array<TranscriptSegment> = []
-  const textTagRegex = /<text\s+start="([\d.]+)"\s+dur="([\d.]+)"[^>]*>([\s\S]*?)<\/text>/g
+  const segments: Array<TranscriptSegment> = [];
+  const textTagRegex =
+    /<text\s+start="([\d.]+)"\s+dur="([\d.]+)"[^>]*>([\s\S]*?)<\/text>/g;
 
-  let match = textTagRegex.exec(xml)
+  let match = textTagRegex.exec(xml);
   while (match !== null) {
-    const [, startStr, durStr, rawText] = match
+    const [, startStr, durStr, rawText] = match;
     if (startStr && durStr && rawText) {
-      const text = decodeHtmlEntities(rawText.replace(/<[^>]+>/g, '')).trim()
+      const text = decodeHtmlEntities(rawText.replace(/<[^>]+>/g, '')).trim();
       if (text) {
         segments.push({
           durationMs: Math.round(Number.parseFloat(durStr) * 1000),
           startMs: Math.round(Number.parseFloat(startStr) * 1000),
           text,
-        })
+        });
       }
     }
-    match = textTagRegex.exec(xml)
+    match = textTagRegex.exec(xml);
   }
-  return segments
-}
+  return segments;
+};
 
 /**
  * Parse timedtext XML into transcript segments
@@ -154,13 +155,13 @@ const parseTextTagFormat = (xml: string): Array<TranscriptSegment> => {
  */
 const parseTimedTextXml = (xml: string): Array<TranscriptSegment> => {
   // Try <p> tag format first (Android client format)
-  const pSegments = parsePTagFormat(xml)
+  const pSegments = parsePTagFormat(xml);
   if (pSegments.length > 0) {
-    return pSegments
+    return pSegments;
   }
   // Fall back to <text> tag format
-  return parseTextTagFormat(xml)
-}
+  return parseTextTagFormat(xml);
+};
 
 /**
  * Decode common HTML entities in transcript text
@@ -173,7 +174,9 @@ const decodeHtmlEntities = (text: string): string =>
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&nbsp;/g, ' ')
-    .replace(/&#(\d+);/g, (_, num) => globalThis.String.fromCharCode(Number.parseInt(num, 10)))
+    .replace(/&#(\d+);/g, (_, num) =>
+      globalThis.String.fromCharCode(Number.parseInt(num, 10)),
+    );
 
 /**
  * Convert parsed transcript segments to youtubei.js TranscriptSegmentList format
@@ -197,16 +200,16 @@ const convertToYouTubeSegments = (
  * Format milliseconds as a timestamp string (e.g., "1:23" or "1:23:45")
  */
 const formatTimestamp = (ms: number): string => {
-  const totalSeconds = Math.floor(ms / 1000)
-  const hours = Math.floor(totalSeconds / 3600)
-  const minutes = Math.floor((totalSeconds % 3600) / 60)
-  const seconds = totalSeconds % 60
+  const totalSeconds = Math.floor(ms / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
 
   if (hours > 0) {
-    return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+    return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   }
-  return `${minutes}:${seconds.toString().padStart(2, '0')}`
-}
+  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+};
 
 /**
  * Fetch transcript using Innertube's getBasicInfo to get caption URLs
@@ -245,21 +248,29 @@ export const fetchTranscriptViaInnertube = async (
 
     // 4. Find English caption track (prefer non-ASR if available)
     const englishTrack: any =
-      captionTracks.find((t: any) => t.language_code === 'en' && t.kind !== 'asr') ||
+      captionTracks.find(
+        (t: any) => t.language_code === 'en' && t.kind !== 'asr',
+      ) ||
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       captionTracks.find((t: any) => t.language_code?.startsWith('en')) ||
       captionTracks[0];
 
     if (!englishTrack?.base_url) {
       throw new InnertubeNoValidCaptionUrlError({
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        availableLanguages: captionTracks.map((t: any) => t.language_code ?? 'unknown') as string[],
+        availableLanguages: captionTracks.map(
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+          (captionTrack: any) => captionTrack.language_code ?? 'unknown',
+        ) as string[],
         videoId,
       });
     }
 
     // 5. Fetch timedtext XML
-    const xml = await fetchTimedTextXml(englishTrack.base_url, proxyUrl, videoId);
+    const xml = await fetchTimedTextXml(
+      englishTrack.base_url,
+      proxyUrl,
+      videoId,
+    );
 
     // 6. Parse XML to segments
     const segments = parseTimedTextXml(xml);

@@ -22,4 +22,4 @@ import { YoutubeChannelsService } from './youtube-channels.service';
     CreateYoutubeChannelCommand,
   ],
 })
-export class YoutubeChannelsModule { }
+export class YoutubeChannelsModule {}

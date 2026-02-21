@@ -35,4 +35,4 @@ import { ListArticlesQuery } from './queries/list-articles.query';
   controllers: [ArticlesController],
   exports: [ArticlesService],
 })
-export class ArticlesModule { }
+export class ArticlesModule {}

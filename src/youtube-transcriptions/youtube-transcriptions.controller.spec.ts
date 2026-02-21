@@ -1,4 +1,3 @@
-
 import { mock } from 'jest-mock-extended';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
@@ -12,12 +11,21 @@ describe('YoutubeTranscriptionsController', () => {
   const mockYoutubeTranscriptionsService = mock<YoutubeTranscriptionsService>();
 
   beforeEach(() => {
-    const mockListAllYoutubeTranscriptionsQuery = new ListAllYoutubeTranscriptionsQuery(mockYoutubeTranscriptionsService);
-    const mockGetYoutubeTranscriptionByIdQuery = new GetYoutubeTranscriptionByIdQuery(mockYoutubeTranscriptionsService);
-    const mockDeleteYoutubeTranscriptionCommand = new DeleteYoutubeTranscriptionCommand(mockYoutubeTranscriptionsService);
-    const mockCreateYoutubeTranscriptionCommand = new CreateYoutubeTranscriptionCommand(mockYoutubeTranscriptionsService);
+    const mockListAllYoutubeTranscriptionsQuery =
+      new ListAllYoutubeTranscriptionsQuery(mockYoutubeTranscriptionsService);
+    const mockGetYoutubeTranscriptionByIdQuery =
+      new GetYoutubeTranscriptionByIdQuery(mockYoutubeTranscriptionsService);
+    const mockDeleteYoutubeTranscriptionCommand =
+      new DeleteYoutubeTranscriptionCommand(mockYoutubeTranscriptionsService);
+    const mockCreateYoutubeTranscriptionCommand =
+      new CreateYoutubeTranscriptionCommand(mockYoutubeTranscriptionsService);
 
-    controller = new YoutubeTranscriptionsController(mockListAllYoutubeTranscriptionsQuery, mockGetYoutubeTranscriptionByIdQuery, mockDeleteYoutubeTranscriptionCommand, mockCreateYoutubeTranscriptionCommand);
+    controller = new YoutubeTranscriptionsController(
+      mockListAllYoutubeTranscriptionsQuery,
+      mockGetYoutubeTranscriptionByIdQuery,
+      mockDeleteYoutubeTranscriptionCommand,
+      mockCreateYoutubeTranscriptionCommand,
+    );
   });
 
   it('should be defined', () => {

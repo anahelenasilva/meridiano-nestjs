@@ -3,7 +3,12 @@ import { BriefingOptions } from '../briefing/briefing.entity';
 import { ImpactRating, PromptVariables } from '../shared/types/ai';
 import { FeedProfile } from '../shared/types/feed';
 import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
-import { ArticleEmailsNotifications, Config, VALID_CHAT_MODELS, ValidChatModel } from './config.entity';
+import {
+  ArticleEmailsNotifications,
+  Config,
+  VALID_CHAT_MODELS,
+  ValidChatModel,
+} from './config.entity';
 import {
   articleSummaryPrompt,
   briefSynthesisPrompt,
@@ -17,7 +22,9 @@ import {
 
 @Injectable()
 export class ConfigService {
-  constructor(private readonly youtubeChannelsService: YoutubeChannelsService) { }
+  constructor(
+    private readonly youtubeChannelsService: YoutubeChannelsService,
+  ) {}
 
   private readonly CONFIGS: Config = {
     prompts: {
@@ -155,13 +162,16 @@ export class ConfigService {
   async getYoutubeChannelsConfig() {
     const channels = await this.youtubeChannelsService.getAllChannels();
 
-    const channelsObj: Record<string, {
-      name: string;
-      url: string;
-      description: string;
-      enabled: boolean;
-      maxVideos?: number;
-    }> = {};
+    const channelsObj: Record<
+      string,
+      {
+        name: string;
+        url: string;
+        description: string;
+        enabled: boolean;
+        maxVideos?: number;
+      }
+    > = {};
 
     channels.forEach((channel) => {
       channelsObj[channel.channelId] = {
@@ -175,7 +185,8 @@ export class ConfigService {
 
     return {
       channels: channelsObj,
-      maxVideosPerChannel: this.CONFIGS.youtubeTranscriptions.maxVideosPerChannel,
+      maxVideosPerChannel:
+        this.CONFIGS.youtubeTranscriptions.maxVideosPerChannel,
     };
   }
 
@@ -189,9 +200,11 @@ export class ConfigService {
 
   getArticleEmailsNotifications(): ArticleEmailsNotifications {
     return {
-      failureNotificationEmail: process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL || '',
-      failureNotificationEmailFrom: process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM || '',
-    }
+      failureNotificationEmail:
+        process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL || '',
+      failureNotificationEmailFrom:
+        process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM || '',
+    };
   }
 
   isBriefingsGenerationEnabled(): boolean {
@@ -202,7 +215,6 @@ export class ConfigService {
   getEnabledChatModel(): ValidChatModel {
     const envValue = process.env.ENABLED_CHAT_MODEL;
     if (envValue) {
-
       const validModels = Object.keys(VALID_CHAT_MODELS);
       if (!validModels.includes(envValue)) {
         throw new Error(
@@ -217,6 +229,8 @@ export class ConfigService {
       return this.CONFIGS.models.enabledChatModel;
     }
 
-    throw new BadRequestException('No enabled chat model found in environment variables or config file');
+    throw new BadRequestException(
+      'No enabled chat model found in environment variables or config file',
+    );
   }
 }

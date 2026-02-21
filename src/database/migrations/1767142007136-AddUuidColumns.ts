@@ -38,13 +38,21 @@ export class AddUuidColumns1767142007136 implements MigrationInterface {
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     // Drop indexes
-    await queryRunner.query(`DROP INDEX IF EXISTS idx_youtube_transcriptions_uuid`);
+    await queryRunner.query(
+      `DROP INDEX IF EXISTS idx_youtube_transcriptions_uuid`,
+    );
     await queryRunner.query(`DROP INDEX IF EXISTS idx_briefings_uuid`);
     await queryRunner.query(`DROP INDEX IF EXISTS idx_articles_uuid`);
 
     // Drop UUID columns
-    await queryRunner.query(`ALTER TABLE youtube_transcriptions DROP COLUMN IF EXISTS id_uuid`);
-    await queryRunner.query(`ALTER TABLE briefings DROP COLUMN IF EXISTS id_uuid`);
-    await queryRunner.query(`ALTER TABLE articles DROP COLUMN IF EXISTS id_uuid`);
+    await queryRunner.query(
+      `ALTER TABLE youtube_transcriptions DROP COLUMN IF EXISTS id_uuid`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE briefings DROP COLUMN IF EXISTS id_uuid`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE articles DROP COLUMN IF EXISTS id_uuid`,
+    );
   }
 }

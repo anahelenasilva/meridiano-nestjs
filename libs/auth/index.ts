@@ -5,3 +5,6 @@ export { LoginResponseDto } from './dto/login-response.dto';
 export { LoginDto } from './dto/login.dto';
 export { JwtAuthGuard } from './guards/jwt-auth.guard';
 export { JwtStrategy } from './strategies/jwt.strategy';
+export { RateLimitGuard, RateLimitService } from './rate-limit';
+export { RateLimit } from './rate-limit/rate-limit.decorator';
+export type { RateLimitOptions } from './rate-limit/rate-limit.types';

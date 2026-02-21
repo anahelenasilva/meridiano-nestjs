@@ -9,12 +9,13 @@ import {
 export class ListTranscriptionsUseCase {
   constructor(
     private readonly youtubeTranscriptionsService: YoutubeTranscriptionsService,
-  ) { }
+  ) {}
 
   async execute(
     input: ListTranscriptionsInputDto,
   ): Promise<ListTranscriptionsOutputDto> {
-    const transcriptions = await this.youtubeTranscriptionsService.getAllTranscriptions();
+    const transcriptions =
+      await this.youtubeTranscriptionsService.getAllTranscriptions();
 
     let filteredTranscriptions = transcriptions;
 

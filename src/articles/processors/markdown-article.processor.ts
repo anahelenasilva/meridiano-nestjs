@@ -19,7 +19,7 @@ export class MarkdownArticleProcessor implements OnModuleInit, OnModuleDestroy {
     private readonly s3Service: S3Service,
     private readonly articlesService: ArticlesService,
     private readonly processorService: ProcessorService,
-  ) { }
+  ) {}
 
   onModuleInit() {
     this.worker = new Worker(
@@ -44,7 +44,10 @@ export class MarkdownArticleProcessor implements OnModuleInit, OnModuleDestroy {
     // Handle connection errors during shutdown to prevent ECONNRESET from crashing tests
     this.worker.on('error', (err: Error) => {
       // Suppress ECONNRESET errors during shutdown - these are expected when Redis connection closes
-      if (err.message?.includes('ECONNRESET') || err.message?.includes('closed')) {
+      if (
+        err.message?.includes('ECONNRESET') ||
+        err.message?.includes('closed')
+      ) {
         return;
       }
       console.error('Markdown article processor worker error:', err);
@@ -84,7 +87,9 @@ export class MarkdownArticleProcessor implements OnModuleInit, OnModuleDestroy {
       );
 
       if (!articleId) {
-        throw new Error('Failed to create article (duplicate or database error)');
+        throw new Error(
+          'Failed to create article (duplicate or database error)',
+        );
       }
 
       console.log(`Article created with ID: ${articleId}`);
@@ -134,7 +139,8 @@ export class MarkdownArticleProcessor implements OnModuleInit, OnModuleDestroy {
         message: `Markdown article from ${s3Key} processed successfully (Article ID: ${articleId})`,
       };
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
       console.error(
         `✗ Failed to process markdown article (Job ${job.id}):`,
         errorMessage,

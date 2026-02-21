@@ -1,10 +1,14 @@
 import { DatabaseService } from '@libs/database';
-import { ConflictException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { YoutubeChannel } from './domain/youtube-channel';
 
 @Injectable()
 export class YoutubeChannelsService {
-  constructor(private readonly databaseService: DatabaseService) { }
+  constructor(private readonly databaseService: DatabaseService) {}
 
   async getAllChannels(): Promise<YoutubeChannel[]> {
     return new Promise((resolve, reject) => {
@@ -152,7 +156,10 @@ export class YoutubeChannelsService {
         [channelId, name, url, description, enabled, maxVideos ?? null],
         (err: Error | null) => {
           if (err) {
-            const errorWithCode = err as Error & { code?: string; detail?: string };
+            const errorWithCode = err as Error & {
+              code?: string;
+              detail?: string;
+            };
 
             if (
               err.message.includes('duplicate key value') ||
@@ -164,11 +171,19 @@ export class YoutubeChannelsService {
               if (errorDetail.includes('channel_id')) {
                 reject(new ConflictException('Channel ID already exists'));
               } else {
-                reject(new ConflictException('A channel with this information already exists'));
+                reject(
+                  new ConflictException(
+                    'A channel with this information already exists',
+                  ),
+                );
               }
             } else {
               console.error('Error creating channel:', err);
-              reject(new InternalServerErrorException('Failed to create channel. Please try again.'));
+              reject(
+                new InternalServerErrorException(
+                  'Failed to create channel. Please try again.',
+                ),
+              );
             }
           } else {
             db.get(
@@ -177,9 +192,17 @@ export class YoutubeChannelsService {
               (getErr: Error | null, row?: any) => {
                 if (getErr) {
                   console.error('Error fetching created channel:', getErr);
-                  reject(new InternalServerErrorException('Channel created but failed to fetch details'));
+                  reject(
+                    new InternalServerErrorException(
+                      'Channel created but failed to fetch details',
+                    ),
+                  );
                 } else if (!row) {
-                  reject(new InternalServerErrorException('Channel not found after creation'));
+                  reject(
+                    new InternalServerErrorException(
+                      'Channel not found after creation',
+                    ),
+                  );
                 } else {
                   const channel: YoutubeChannel = {
                     id: row.id,

@@ -14,12 +14,13 @@ export class ProcessTranscriptionFilesUseCase {
   constructor(
     private readonly youtubeTranscriptionsService: YoutubeTranscriptionsService,
     private readonly youtubeChannelsService: YoutubeChannelsService,
-  ) { }
+  ) {}
 
   async execute(
     input: ProcessTranscriptionFilesInputDto,
   ): Promise<ProcessTranscriptionFilesOutputDto> {
-    const transcriptsDir = input.transcriptsDir || path.join(process.cwd(), 'transcripts');
+    const transcriptsDir =
+      input.transcriptsDir || path.join(process.cwd(), 'transcripts');
 
     const stats: ProcessTranscriptionFilesOutputDto = {
       totalFiles: 0,
@@ -36,7 +37,9 @@ export class ProcessTranscriptionFilesUseCase {
     }
 
     const files = await fs.readdir(transcriptsDir);
-    const jsonFiles = files.filter((file) => file.endsWith('.json') && !file.startsWith('.'));
+    const jsonFiles = files.filter(
+      (file) => file.endsWith('.json') && !file.startsWith('.'),
+    );
 
     stats.totalFiles = jsonFiles.length;
 
@@ -51,14 +54,20 @@ export class ProcessTranscriptionFilesUseCase {
           continue;
         }
 
-        const channelData = await this.youtubeChannelsService.getChannelById(videoData.channel.databaseId);
+        const channelData = await this.youtubeChannelsService.getChannelById(
+          videoData.channel.databaseId,
+        );
 
         if (!channelData || channelData.enabled === false) {
           stats.skipped++;
           continue;
         }
 
-        const result = await this.youtubeTranscriptionsService.processTranscriptionFile(videoData, input.generateAudio);
+        const result =
+          await this.youtubeTranscriptionsService.processTranscriptionFile(
+            videoData,
+            input.generateAudio,
+          );
 
         if (result.success) {
           stats.processed++;
@@ -71,7 +80,8 @@ export class ProcessTranscriptionFilesUseCase {
         }
       } catch (error) {
         stats.errors++;
-        const errorMessage = error instanceof Error ? error.message : String(error);
+        const errorMessage =
+          error instanceof Error ? error.message : String(error);
         stats.errorDetails.push({ file: filename, error: errorMessage });
       }
     }

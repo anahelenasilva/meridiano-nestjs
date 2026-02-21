@@ -94,7 +94,9 @@ export class InitialSchema1735027200000 implements MigrationInterface {
     await queryRunner.query(`DROP INDEX IF EXISTS idx_youtube_channel_id`);
     await queryRunner.query(`DROP INDEX IF EXISTS idx_briefings_created_at`);
     await queryRunner.query(`DROP INDEX IF EXISTS idx_briefings_feed_profile`);
-    await queryRunner.query(`DROP INDEX IF EXISTS idx_articles_feed_profile_date`);
+    await queryRunner.query(
+      `DROP INDEX IF EXISTS idx_articles_feed_profile_date`,
+    );
     await queryRunner.query(`DROP INDEX IF EXISTS idx_articles_published_date`);
     await queryRunner.query(`DROP INDEX IF EXISTS idx_articles_feed_profile`);
 
@@ -103,4 +105,3 @@ export class InitialSchema1735027200000 implements MigrationInterface {
     await queryRunner.query(`DROP TABLE IF EXISTS articles`);
   }
 }
-

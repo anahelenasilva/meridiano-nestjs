@@ -24,6 +24,10 @@ export class AuthService {
       throw new UnauthorizedException('Failed to login');
     }
 
+    if (!user.isEmailVerified) {
+      throw new UnauthorizedException('Please verify your email before logging in');
+    }
+
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {

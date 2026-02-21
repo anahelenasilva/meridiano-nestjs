@@ -14,8 +14,8 @@ describe('ConfigService', () => {
         ConfigService,
         {
           provide: YoutubeChannelsService,
-          useValue: mockYoutubeChannelsService
-        }
+          useValue: mockYoutubeChannelsService,
+        },
       ],
     }).compile();
 
@@ -93,15 +93,29 @@ describe('ConfigService', () => {
       delete process.env.ENABLED_CHAT_MODEL;
 
       // Temporarily override the config value to be empty
-      const originalValue = (service as unknown as { CONFIGS: { models: { enabledChatModel: string } } }).CONFIGS.models.enabledChatModel;
-      (service as unknown as { CONFIGS: { models: { enabledChatModel: string } } }).CONFIGS.models.enabledChatModel = '';
+      const originalValue = (
+        service as unknown as {
+          CONFIGS: { models: { enabledChatModel: string } };
+        }
+      ).CONFIGS.models.enabledChatModel;
+      (
+        service as unknown as {
+          CONFIGS: { models: { enabledChatModel: string } };
+        }
+      ).CONFIGS.models.enabledChatModel = '';
 
       expect(() => service.getEnabledChatModel()).toThrow(
-        new BadRequestException('No enabled chat model found in environment variables or config file'),
+        new BadRequestException(
+          'No enabled chat model found in environment variables or config file',
+        ),
       );
 
       // Restore original value
-      (service as unknown as { CONFIGS: { models: { enabledChatModel: string } } }).CONFIGS.models.enabledChatModel = originalValue;
+      (
+        service as unknown as {
+          CONFIGS: { models: { enabledChatModel: string } };
+        }
+      ).CONFIGS.models.enabledChatModel = originalValue;
     });
   });
 });

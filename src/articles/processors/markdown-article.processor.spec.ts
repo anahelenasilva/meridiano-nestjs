@@ -21,7 +21,12 @@ describe('MarkdownArticleProcessor', () => {
   beforeEach(() => {
     (Worker as unknown as jest.Mock).mockImplementation(() => mockWorker);
 
-    processor = new MarkdownArticleProcessor(mockRedisService, mockS3Service, mockArticlesService, mockProcessorService);
+    processor = new MarkdownArticleProcessor(
+      mockRedisService,
+      mockS3Service,
+      mockArticlesService,
+      mockProcessorService,
+    );
   });
 
   afterEach(() => {
@@ -37,8 +42,14 @@ describe('MarkdownArticleProcessor', () => {
       processor.onModuleInit();
 
       expect(Worker).toHaveBeenCalledTimes(1);
-      expect(mockWorker.on).toHaveBeenCalledWith('completed', expect.any(Function));
-      expect(mockWorker.on).toHaveBeenCalledWith('failed', expect.any(Function));
+      expect(mockWorker.on).toHaveBeenCalledWith(
+        'completed',
+        expect.any(Function),
+      );
+      expect(mockWorker.on).toHaveBeenCalledWith(
+        'failed',
+        expect.any(Function),
+      );
     });
   });
 

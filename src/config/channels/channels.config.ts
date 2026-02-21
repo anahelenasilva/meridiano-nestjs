@@ -13,7 +13,7 @@ export const youtubeChannelsConfig = {
       'PewDiePie is a Swedish YouTuber who is known for his comedic videos and gaming content.',
     enabled: false,
   },
-  'UCQM428Hwrvxla8DCgjGONSQ': {
+  UCQM428Hwrvxla8DCgjGONSQ: {
     url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCQM428Hwrvxla8DCgjGONSQ',
     name: 'JavaScript Conferences by GitNation',
     description:
@@ -23,8 +23,7 @@ export const youtubeChannelsConfig = {
   'UCLW51-XEzuOm5RwPMChHBMw': {
     url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCLW51-XEzuOm5RwPMChHBMw',
     name: 'Augusto Galego',
-    description:
-      'Augusto Galego channel',
+    description: 'Augusto Galego channel',
     enabled: false,
   },
 };

@@ -56,4 +56,4 @@ import { ScrapeArticlesUseCase } from './usecases/scrape-articles.usecase';
     ScrapeArticlesUseCase,
   ],
 })
-export class BriefingsModule { }
+export class BriefingsModule {}

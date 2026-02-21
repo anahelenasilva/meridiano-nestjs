@@ -4,7 +4,7 @@ import { Public } from '@libs/auth';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) { }
+  constructor(private readonly appService: AppService) {}
 
   @Public()
   @Get()

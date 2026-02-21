@@ -9,7 +9,7 @@ import {
 export class ExtractYoutubeTranscriptsUseCase {
   constructor(
     private readonly youtubeTranscriptionsService: YoutubeTranscriptionsService,
-  ) { }
+  ) {}
 
   async execute(
     input: ExtractYoutubeTranscriptsInputDto,

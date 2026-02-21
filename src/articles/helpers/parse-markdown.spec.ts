@@ -173,7 +173,8 @@ describe('parseMarkdownArticle', () => {
     });
 
     it('should preserve blockquotes', () => {
-      const markdown = '# Title\n\n> This is a quote\n> Multiple lines\n\nContent.';
+      const markdown =
+        '# Title\n\n> This is a quote\n> Multiple lines\n\nContent.';
 
       const result = parseMarkdownArticle(markdown);
 

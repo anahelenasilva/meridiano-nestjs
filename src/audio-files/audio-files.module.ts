@@ -7,19 +7,8 @@ import { AudioFilesService } from './audio-files.service';
 import { GenerateAudioUseCase } from './usecases/generate-audio.usecase';
 
 @Module({
-  imports: [
-    DatabaseModule,
-    S3Module,
-    AiModule,
-    ConfigModule,
-  ],
-  providers: [
-    AudioFilesService,
-    GenerateAudioUseCase,
-  ],
-  exports: [
-    AudioFilesService,
-    GenerateAudioUseCase,
-  ],
+  imports: [DatabaseModule, S3Module, AiModule, ConfigModule],
+  providers: [AudioFilesService, GenerateAudioUseCase],
+  exports: [AudioFilesService, GenerateAudioUseCase],
 })
-export class AudioFilesModule { }
+export class AudioFilesModule {}

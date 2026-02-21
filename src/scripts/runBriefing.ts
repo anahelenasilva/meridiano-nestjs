@@ -118,16 +118,22 @@ async function main(): Promise<void> {
           `Simple brief generated successfully. ID: ${result.briefingId}`,
         );
       } else {
-        console.error(`Simple brief generation failed: ${result.error || 'Unknown error'}`);
+        console.error(
+          `Simple brief generation failed: ${result.error || 'Unknown error'}`,
+        );
       }
     } else if (shouldRunAll) {
       console.log(`\n>>> Running ALL stages for [${feedProfile}] <<<`);
 
       try {
-        const result = await services.runBriefingUseCase.execute({ feedProfile });
+        const result = await services.runBriefingUseCase.execute({
+          feedProfile,
+        });
 
         if (!result.success || !result.stages) {
-          console.error(`Briefing run failed: ${result.error || 'Unknown error'}`);
+          console.error(
+            `Briefing run failed: ${result.error || 'Unknown error'}`,
+          );
           process.exit(1);
         }
 

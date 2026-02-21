@@ -1,7 +1,6 @@
-import { MigrationInterface, QueryRunner } from "typeorm";
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class CreateAudioFilesTable1769908667952 implements MigrationInterface {
-
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE TABLE IF NOT EXISTS audio_files (
@@ -37,5 +36,4 @@ export class CreateAudioFilesTable1769908667952 implements MigrationInterface {
 
     await queryRunner.query(`DROP TABLE IF EXISTS audio_files`);
   }
-
 }

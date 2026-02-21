@@ -8,7 +8,7 @@ export type ListAllYoutubeTranscriptionsResponse = {
 
 @Injectable()
 export class ListAllYoutubeTranscriptionsQuery {
-  constructor(private readonly service: YoutubeTranscriptionsService) { }
+  constructor(private readonly service: YoutubeTranscriptionsService) {}
 
   async execute(): Promise<ListAllYoutubeTranscriptionsResponse | null> {
     const transcriptions = await this.service.getAllTranscriptions();

@@ -11,7 +11,7 @@ export class ScrapeArticlesUseCase {
   constructor(
     private readonly scraperService: ScraperService,
     private readonly profilesService: ProfilesService,
-  ) { }
+  ) {}
 
   async execute(
     input: ScrapeArticlesInputDto,

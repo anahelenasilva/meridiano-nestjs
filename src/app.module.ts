@@ -52,4 +52,4 @@ import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-tr
     },
   ],
 })
-export class AppModule { }
+export class AppModule {}

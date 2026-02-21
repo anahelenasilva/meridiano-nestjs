@@ -19,9 +19,13 @@ export interface CreateYoutubeChannelOutput {
 
 @Injectable()
 export class CreateYoutubeChannelCommand {
-  constructor(private readonly youtubeChannelsService: YoutubeChannelsService) { }
+  constructor(
+    private readonly youtubeChannelsService: YoutubeChannelsService,
+  ) {}
 
-  async execute(input: CreateYoutubeChannelInput): Promise<CreateYoutubeChannelOutput> {
+  async execute(
+    input: CreateYoutubeChannelInput,
+  ): Promise<CreateYoutubeChannelOutput> {
     const { channelId, name, url, description, enabled, maxVideos } = input;
 
     try {

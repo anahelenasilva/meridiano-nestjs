@@ -1,20 +1,24 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 
 export type CreateYoutubeTranscriptionCommandInput = {
   url: string;
   channelId: string;
-}
+};
 
 export type CreateYoutubeTranscriptionCommandResponse = {
   success: boolean;
   transcriptionId?: string;
   message: string;
-}
+};
 
 @Injectable()
 export class CreateYoutubeTranscriptionCommand {
-  constructor(private readonly service: YoutubeTranscriptionsService) { }
+  constructor(private readonly service: YoutubeTranscriptionsService) {}
 
   async execute(
     input: CreateYoutubeTranscriptionCommandInput,
@@ -28,9 +32,7 @@ export class CreateYoutubeTranscriptionCommand {
       );
 
       if (transcriptionId === null) {
-        throw new BadRequestException(
-          'Video already exists in database',
-        );
+        throw new BadRequestException('Video already exists in database');
       }
 
       return {
@@ -55,19 +57,18 @@ export class CreateYoutubeTranscriptionCommand {
       }
 
       if (errorMessage.includes('No transcript available')) {
-        throw new BadRequestException(
-          'No transcript available for this video',
-        );
+        throw new BadRequestException('No transcript available for this video');
       }
 
-      if (error instanceof BadRequestException || error instanceof NotFoundException) {
+      if (
+        error instanceof BadRequestException ||
+        error instanceof NotFoundException
+      ) {
         throw error;
       }
 
       // Generic error
-      throw new BadRequestException(
-        `Failed to process video: ${errorMessage}`,
-      );
+      throw new BadRequestException(`Failed to process video: ${errorMessage}`);
     }
   }
 }

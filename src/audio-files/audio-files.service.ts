@@ -25,7 +25,7 @@ interface AudioFileRow {
 
 @Injectable()
 export class AudioFilesService {
-  constructor(private readonly databaseService: DatabaseService) { }
+  constructor(private readonly databaseService: DatabaseService) {}
 
   async saveAudioFile(
     sourceType: 'article' | 'transcription',
@@ -44,7 +44,14 @@ export class AudioFilesService {
       `);
 
       stmt.run(
-        [sourceType, sourceId, s3Bucket, s3Key, fileSizeBytes, durationSeconds ?? null],
+        [
+          sourceType,
+          sourceId,
+          s3Bucket,
+          s3Key,
+          fileSizeBytes,
+          durationSeconds ?? null,
+        ],
         function (this: { lastID?: string }, err: Error | null) {
           if (err) {
             const errorWithCode = err as Error & { code?: string };
@@ -77,23 +84,27 @@ export class AudioFilesService {
         WHERE source_type = ? AND source_id = ?
       `;
 
-      db.get(query, [sourceType, sourceId], (err, row: AudioFileRow | undefined) => {
-        if (err) {
-          reject(err);
-          return;
-        }
+      db.get(
+        query,
+        [sourceType, sourceId],
+        (err, row: AudioFileRow | undefined) => {
+          if (err) {
+            reject(err);
+            return;
+          }
 
-        if (row) {
-          const audioFile: AudioFile = {
-            ...row,
-            created_at: new Date(row.created_at),
-            duration_seconds: row.duration_seconds ?? undefined,
-          };
-          resolve(audioFile);
-        } else {
-          resolve(null);
-        }
-      });
+          if (row) {
+            const audioFile: AudioFile = {
+              ...row,
+              created_at: new Date(row.created_at),
+              duration_seconds: row.duration_seconds ?? undefined,
+            };
+            resolve(audioFile);
+          } else {
+            resolve(null);
+          }
+        },
+      );
     });
   }
 }

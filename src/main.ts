@@ -24,15 +24,15 @@ async function bootstrap() {
   const corsOrigins = process.env.CORS_ORIGINS;
   const corsConfig = corsOrigins
     ? {
-      origin: corsOrigins.split(',').map((origin) => origin.trim()),
-      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-      allowedHeaders: ['Content-Type', 'Authorization'],
-    }
+        origin: corsOrigins.split(',').map((origin) => origin.trim()),
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+      }
     : {
-      origin: true, // Allow all origins (useful for Tailscale/local network access)
-      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-      allowedHeaders: ['Content-Type', 'Authorization'],
-    };
+        origin: true, // Allow all origins (useful for Tailscale/local network access)
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+      };
 
   app.enableCors(corsConfig);
 
@@ -46,8 +46,12 @@ async function bootstrap() {
   console.log(`   GET /api/articles - List articles`);
   console.log(`   GET /api/articles/:id - Get article details`);
   console.log(`   GET /api/profiles - Get available feed profiles`);
-  console.log(`   GET /api/youtube/transcriptions - List youtube transcriptions`);
-  console.log(`   GET /api/youtube/transcriptions/:id - Get youtube transcription details`);
+  console.log(
+    `   GET /api/youtube/transcriptions - List youtube transcriptions`,
+  );
+  console.log(
+    `   GET /api/youtube/transcriptions/:id - Get youtube transcription details`,
+  );
   console.log(`   GET /api/health - Health check`);
 }
 

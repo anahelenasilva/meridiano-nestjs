@@ -11,17 +11,16 @@ export class GenerateBriefUseCase {
   constructor(
     private readonly briefingService: BriefingService,
     private readonly configService: ConfigService,
-  ) { }
+  ) {}
 
-  async execute(
-    input: GenerateBriefInputDto,
-  ): Promise<GenerateBriefOutputDto> {
+  async execute(input: GenerateBriefInputDto): Promise<GenerateBriefOutputDto> {
     if (!this.configService.isBriefingsGenerationEnabled()) {
       return {
         success: false,
         briefingId: undefined,
         stats: undefined,
-        error: 'Briefings generation is disabled. Set ENABLE_BRIEFINGS_GENERATION=true to enable.',
+        error:
+          'Briefings generation is disabled. Set ENABLE_BRIEFINGS_GENERATION=true to enable.',
       };
     }
 

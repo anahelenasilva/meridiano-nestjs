@@ -26,7 +26,11 @@ export function extractVideoId(url: string): string | null {
     }
 
     // Format: https://www.youtube.com/embed/VIDEO_ID or https://www.youtube.com/v/VIDEO_ID
-    if (hostname === 'youtube.com' && (urlObj.pathname.startsWith('/embed/') || urlObj.pathname.startsWith('/v/'))) {
+    if (
+      hostname === 'youtube.com' &&
+      (urlObj.pathname.startsWith('/embed/') ||
+        urlObj.pathname.startsWith('/v/'))
+    ) {
       const pathParts = urlObj.pathname.split('/');
       return pathParts[2] || null;
     }

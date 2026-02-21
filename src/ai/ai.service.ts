@@ -10,7 +10,7 @@ export class AiService implements OnModuleInit {
   private openaiTtsClient: OpenAI | null = null;
   private openaiChatClient: OpenAI | null = null;
 
-  constructor(private readonly configService: ConfigService) { }
+  constructor(private readonly configService: ConfigService) {}
 
   onModuleInit() {
     this.initializeClients();
@@ -22,11 +22,15 @@ export class AiService implements OnModuleInit {
     const openaiApiKey = process.env.OPENAI_API_KEY;
 
     if (!deepseekApiKey) {
-      throw new BadRequestException('DEEPSEEK_API_KEY not found in environment variables');
+      throw new BadRequestException(
+        'DEEPSEEK_API_KEY not found in environment variables',
+      );
     }
 
     if (!embeddingApiKey) {
-      throw new BadRequestException('EMBEDDING_API_KEY not found in environment variables');
+      throw new BadRequestException(
+        'EMBEDDING_API_KEY not found in environment variables',
+      );
     }
 
     this.deepseekClient = new OpenAI({
@@ -55,10 +59,12 @@ export class AiService implements OnModuleInit {
       // Fail fast if OpenAI chat model is enabled but API key is missing
       throw new BadRequestException(
         'Configuration error: ENABLED_CHAT_MODEL is set to "openai" but OPENAI_API_KEY is not defined. ' +
-        'Please set the OPENAI_API_KEY environment variable or change ENABLED_CHAT_MODEL to "deepseek".'
+          'Please set the OPENAI_API_KEY environment variable or change ENABLED_CHAT_MODEL to "deepseek".',
       );
     } else {
-      console.warn('OPENAI_API_KEY not found in environment variables. TTS and OpenAI chat functionality will not be available.');
+      console.warn(
+        'OPENAI_API_KEY not found in environment variables. TTS and OpenAI chat functionality will not be available.',
+      );
     }
 
     console.log('API clients initialized successfully');
@@ -84,7 +90,8 @@ export class AiService implements OnModuleInit {
     messages.push({ role: 'user', content: prompt });
 
     try {
-      const modelName = model || this.configService.getModelConfig().deepseekChatModel;
+      const modelName =
+        model || this.configService.getModelConfig().deepseekChatModel;
       const config = this.configService.getModelConfig();
       const response = await this.deepseekClient.chat.completions.create({
         model: modelName,
@@ -121,7 +128,8 @@ export class AiService implements OnModuleInit {
     messages.push({ role: 'user', content: prompt });
 
     try {
-      const modelName = model || this.configService.getModelConfig().openaiChatModel;
+      const modelName =
+        model || this.configService.getModelConfig().openaiChatModel;
       const config = this.configService.getModelConfig();
       const response = await this.openaiChatClient.chat.completions.create({
         model: modelName,
@@ -162,7 +170,8 @@ export class AiService implements OnModuleInit {
     }
 
     try {
-      const modelName = model || this.configService.getModelConfig().embeddingModel;
+      const modelName =
+        model || this.configService.getModelConfig().embeddingModel;
       const response = await this.embeddingClient.embeddings.create({
         model: modelName,
         input: [text],
@@ -192,7 +201,8 @@ export class AiService implements OnModuleInit {
 
     const results: (number[] | null)[] = [];
     const batchSize = 10;
-    const modelName = model || this.configService.getModelConfig().embeddingModel;
+    const modelName =
+      model || this.configService.getModelConfig().embeddingModel;
 
     for (let i = 0; i < texts.length; i += batchSize) {
       const batch = texts.slice(i, i + batchSize);
@@ -221,10 +231,7 @@ export class AiService implements OnModuleInit {
     return results;
   }
 
-  async generateAudio(
-    text: string,
-    voice?: string,
-  ): Promise<Buffer | null> {
+  async generateAudio(text: string, voice?: string): Promise<Buffer | null> {
     if (!this.openaiTtsClient) {
       console.error(
         'OpenAI TTS client not initialized. OPENAI_API_KEY may be missing.',
@@ -232,21 +239,21 @@ export class AiService implements OnModuleInit {
       return null;
     }
 
-    const validVoices = [
-      'alloy',
-      'echo',
-      'fable',
-      'onyx',
-      'nova',
-      'shimmer',
-    ];
+    const validVoices = ['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer'];
 
-    const selectedVoice = voice && validVoices.includes(voice) ? voice : 'alloy';
+    const selectedVoice =
+      voice && validVoices.includes(voice) ? voice : 'alloy';
 
     try {
       const response = await this.openaiTtsClient.audio.speech.create({
         model: 'tts-1',
-        voice: selectedVoice as 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer',
+        voice: selectedVoice as
+          | 'alloy'
+          | 'echo'
+          | 'fable'
+          | 'onyx'
+          | 'nova'
+          | 'shimmer',
         input: text,
         response_format: 'mp3',
       });

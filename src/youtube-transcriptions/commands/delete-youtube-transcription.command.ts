@@ -8,7 +8,7 @@ export type DeleteYoutubeTranscriptionCommandResponse = {
 
 @Injectable()
 export class DeleteYoutubeTranscriptionCommand {
-  constructor(private readonly service: YoutubeTranscriptionsService) { }
+  constructor(private readonly service: YoutubeTranscriptionsService) {}
 
   async execute(
     id: string,
@@ -23,7 +23,7 @@ export class DeleteYoutubeTranscriptionCommand {
       return {
         sucess: false,
         error: error.message,
-      }
+      };
     }
   }
 }

@@ -52,7 +52,7 @@ export class ScraperService {
     private readonly articlesService: ArticlesService,
     private readonly profilesService: ProfilesService,
     private readonly configService: ConfigService,
-  ) { }
+  ) {}
 
   async fetchArticleContentAndOgImage(url: string): Promise<ArticleContent> {
     let content: string | null = null;

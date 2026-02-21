@@ -1,7 +1,8 @@
-import { MigrationInterface, QueryRunner } from "typeorm";
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class CreateUsersAndBookmarks1768063500376 implements MigrationInterface {
-
+export class CreateUsersAndBookmarks1768063500376
+  implements MigrationInterface
+{
   public async up(queryRunner: QueryRunner): Promise<void> {
     // Create users table
     await queryRunner.query(`
@@ -59,5 +60,4 @@ export class CreateUsersAndBookmarks1768063500376 implements MigrationInterface 
     // Drop users table
     await queryRunner.query(`DROP TABLE IF EXISTS users`);
   }
-
 }
