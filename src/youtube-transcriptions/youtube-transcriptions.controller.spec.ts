@@ -1,4 +1,4 @@
-import { AudioJobService } from '@libs/audio';
+import { AUDIO_GENERATION_SUCCESS_MESSAGE, AudioJobService } from '@libs/audio';
 import {
   BadRequestException,
   ConflictException,
@@ -74,7 +74,7 @@ describe('YoutubeTranscriptionsController', () => {
 
       expect(result).toEqual({
         jobId: 'job-123',
-        message: 'Audio generation job queued for transcription',
+        message: AUDIO_GENERATION_SUCCESS_MESSAGE,
       });
       expect(
         mockAudioJobService.enqueueAudioJobIfNotDuplicate,

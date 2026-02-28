@@ -11,7 +11,7 @@ import {
   ParseUUIDPipe,
   Post,
 } from '@nestjs/common';
-import { AudioJobService } from '@libs/audio';
+import { AudioJobService, AUDIO_GENERATION_SUCCESS_MESSAGE } from '@libs/audio';
 import { AudioFilesService } from '../audio-files/audio-files.service';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
@@ -105,7 +105,7 @@ export class YoutubeTranscriptionsController {
 
     return {
       jobId: jobInfo.jobId,
-      message: 'Audio generation job queued for transcription',
+      message: AUDIO_GENERATION_SUCCESS_MESSAGE,
     };
   }
 
