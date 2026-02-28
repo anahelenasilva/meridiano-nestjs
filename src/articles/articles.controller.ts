@@ -205,7 +205,7 @@ export class ArticlesController {
 
     if (existingAudio) {
       throw new ConflictException(
-        'Audio already exists for this article. Use GET /api/articles/:id?includeAudio=true to fetch the audio.',
+        'Audio already exists for this resource. Use the detail endpoint with includeAudio=true to fetch the audio.',
       );
     }
 
@@ -218,12 +218,18 @@ export class ArticlesController {
       );
     }
 
-    const jobInfo = await this.audioJobService.enqueueAudioJob({
+    const jobInfo = await this.audioJobService.enqueueAudioJobIfNotDuplicate({
       sourceType: 'article',
       sourceId: id,
       text,
       date: article.published_date,
     });
+
+    if (!jobInfo) {
+      throw new ConflictException(
+        'Audio generation is already in progress for this resource.',
+      );
+    }
 
     return {
       jobId: jobInfo.jobId,

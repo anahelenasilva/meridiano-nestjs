@@ -2,6 +2,7 @@ import {
   AUDIO_GENERATION_QUEUE,
   GENERATE_AUDIO_JOB,
 } from '@libs/queue';
+import { RedisService } from '@libs/redis';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Job, Queue } from 'bullmq';
 import {
@@ -14,11 +15,74 @@ import {
 @Injectable()
 export class AudioJobService {
   private readonly logger = new Logger(AudioJobService.name);
+  private readonly enqueueLockTtlSeconds = 10;
 
   constructor(
     @Inject(AUDIO_GENERATION_QUEUE)
     private readonly audioQueue: Queue,
+    private readonly redisService: RedisService,
   ) { }
+
+  async hasPendingAudioJob(
+    sourceType: 'article' | 'transcription',
+    sourceId: string,
+  ): Promise<boolean> {
+    try {
+      const jobs = await this.audioQueue.getJobs([
+        'waiting',
+        'active',
+        'delayed',
+        'paused',
+      ]);
+
+      return jobs.some((job) => {
+        const data = job.data as GenerateAudioJobData;
+        return data.sourceType === sourceType && data.sourceId === sourceId;
+      });
+    } catch (error) {
+      this.logger.error({
+        operation: 'hasPendingAudioJob',
+        sourceType,
+        sourceId,
+        error: error instanceof Error ? error.message : String(error),
+        errorObject: error,
+      });
+      return false;
+    }
+  }
+
+  async enqueueAudioJobIfNotDuplicate(
+    data: GenerateAudioJobData,
+    options?: EnqueueOptions,
+  ): Promise<JobInfo | AudioJobStatus | null> {
+    const lockKey = `audio:enqueue-lock:${data.sourceType}:${data.sourceId}`;
+    const lockAcquired = await this.redisService.getClient().set(
+      lockKey,
+      '1',
+      'EX',
+      this.enqueueLockTtlSeconds,
+      'NX',
+    );
+
+    if (!lockAcquired) {
+      return null;
+    }
+
+    try {
+      const hasPendingJob = await this.hasPendingAudioJob(
+        data.sourceType,
+        data.sourceId,
+      );
+
+      if (hasPendingJob) {
+        return null;
+      }
+
+      return await this.enqueueAudioJob(data, options);
+    } finally {
+      await this.redisService.getClient().del(lockKey);
+    }
+  }
 
   /**
    * Enqueue an audio generation job
