@@ -1,5 +1,9 @@
 import { AudioJobService } from '@libs/audio';
-import { BadRequestException, ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { mock } from 'jest-mock-extended';
 import { AudioFilesService } from '../audio-files/audio-files.service';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
@@ -72,7 +76,9 @@ describe('YoutubeTranscriptionsController', () => {
         jobId: 'job-123',
         message: 'Audio generation job queued for transcription',
       });
-      expect(mockAudioJobService.enqueueAudioJobIfNotDuplicate).toHaveBeenCalledWith({
+      expect(
+        mockAudioJobService.enqueueAudioJobIfNotDuplicate,
+      ).toHaveBeenCalledWith({
         sourceType: 'transcription',
         sourceId: transcriptionId,
         text: mockTranscription.transcriptionSummary,
@@ -96,7 +102,9 @@ describe('YoutubeTranscriptionsController', () => {
 
       await controller.generateAudio(transcriptionId);
 
-      expect(mockAudioJobService.enqueueAudioJobIfNotDuplicate).toHaveBeenCalledWith({
+      expect(
+        mockAudioJobService.enqueueAudioJobIfNotDuplicate,
+      ).toHaveBeenCalledWith({
         sourceType: 'transcription',
         sourceId: transcriptionId,
         text: mockTranscription.transcriptionText,

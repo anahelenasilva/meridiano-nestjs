@@ -15,7 +15,7 @@ import {
 @Injectable()
 export class AudioJobService {
   private readonly logger = new Logger(AudioJobService.name);
-  private readonly enqueueLockTtlSeconds = 10;
+  private readonly enqueueLockTtlSeconds = 60;
 
   constructor(
     @Inject(AUDIO_GENERATION_QUEUE)
