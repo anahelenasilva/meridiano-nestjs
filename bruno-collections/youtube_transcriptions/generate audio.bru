@@ -1,0 +1,27 @@
+meta {
+  name: generate audio
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3005/api/youtube/transcriptions/{{transcription_id}}/audio
+  body: none
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+vars:pre-request {
+  transcription_id: 007b77ec-155b-4721-8d8d-1ec43d40de79
+}
+
+settings {
+  encodeUrl: false
+}

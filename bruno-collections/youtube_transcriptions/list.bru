@@ -1,0 +1,19 @@
+meta {
+  name: list
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:3005/api/youtube/transcriptions
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+settings {
+  encodeUrl: false
+}
