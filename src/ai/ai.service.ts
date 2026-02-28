@@ -272,9 +272,7 @@ export class AiService implements OnModuleInit {
     const validVoices = ['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer'];
     const modelConfig = this.configService.getModelConfig();
     const selectedVoice =
-      voice && validVoices.includes(voice)
-        ? voice
-        : modelConfig.openaiTtsVoice;
+      voice && validVoices.includes(voice) ? voice : modelConfig.openaiTtsVoice;
 
     try {
       const response = await this.openaiTtsClient.audio.speech.create({
@@ -320,9 +318,7 @@ export class AiService implements OnModuleInit {
     ];
     const modelConfig = this.configService.getModelConfig();
     const selectedVoice =
-      voice && validVoices.includes(voice)
-        ? voice
-        : modelConfig.groqTtsVoice;
+      voice && validVoices.includes(voice) ? voice : modelConfig.groqTtsVoice;
 
     // Groq Orpheus model has a 200 character limit per request
     const maxCharsPerChunk = 200;
@@ -400,7 +396,11 @@ export class AiService implements OnModuleInit {
 
       // Add the chunk (including the period if we split on a sentence)
       let chunk = remainingText.substring(0, splitIndex + 1).trim();
-      if (!chunk.endsWith('.') && !chunk.endsWith('!') && !chunk.endsWith('?')) {
+      if (
+        !chunk.endsWith('.') &&
+        !chunk.endsWith('!') &&
+        !chunk.endsWith('?')
+      ) {
         chunk = remainingText.substring(0, splitIndex).trim();
       }
 

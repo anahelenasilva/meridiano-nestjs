@@ -1,5 +1,9 @@
 import { AudioJobService } from '@libs/audio';
-import { BadRequestException, ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { mock } from 'jest-mock-extended';
 import { AudioFilesService } from '../audio-files/audio-files.service';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
@@ -61,7 +65,7 @@ describe('YoutubeTranscriptionsController', () => {
         mockTranscription,
       );
       mockAudioFilesService.getAudioFileBySource.mockResolvedValue(null);
-      mockAudioJobService.enqueueAudioJob.mockResolvedValue({
+      mockAudioJobService.enqueueAudioJobIfNotDuplicate.mockResolvedValue({
         jobId: 'job-123',
         status: 'queued',
       });
@@ -72,7 +76,9 @@ describe('YoutubeTranscriptionsController', () => {
         jobId: 'job-123',
         message: 'Audio generation job queued for transcription',
       });
-      expect(mockAudioJobService.enqueueAudioJob).toHaveBeenCalledWith({
+      expect(
+        mockAudioJobService.enqueueAudioJobIfNotDuplicate,
+      ).toHaveBeenCalledWith({
         sourceType: 'transcription',
         sourceId: transcriptionId,
         text: mockTranscription.transcriptionSummary,
@@ -89,14 +95,16 @@ describe('YoutubeTranscriptionsController', () => {
         transcriptionWithoutSummary,
       );
       mockAudioFilesService.getAudioFileBySource.mockResolvedValue(null);
-      mockAudioJobService.enqueueAudioJob.mockResolvedValue({
+      mockAudioJobService.enqueueAudioJobIfNotDuplicate.mockResolvedValue({
         jobId: 'job-456',
         status: 'queued',
       });
 
       await controller.generateAudio(transcriptionId);
 
-      expect(mockAudioJobService.enqueueAudioJob).toHaveBeenCalledWith({
+      expect(
+        mockAudioJobService.enqueueAudioJobIfNotDuplicate,
+      ).toHaveBeenCalledWith({
         sourceType: 'transcription',
         sourceId: transcriptionId,
         text: mockTranscription.transcriptionText,
@@ -113,7 +121,9 @@ describe('YoutubeTranscriptionsController', () => {
         controller.generateAudio('00000000-0000-0000-0000-000000000000'),
       ).rejects.toThrow(NotFoundException);
 
-      expect(mockAudioJobService.enqueueAudioJob).not.toHaveBeenCalled();
+      expect(
+        mockAudioJobService.enqueueAudioJobIfNotDuplicate,
+      ).not.toHaveBeenCalled();
     });
 
     it('should throw ConflictException when audio already exists', async () => {
@@ -130,11 +140,17 @@ describe('YoutubeTranscriptionsController', () => {
         created_at: new Date(),
       });
 
-      await expect(controller.generateAudio(transcriptionId)).rejects.toThrow(
-        ConflictException,
-      );
+      const result = controller.generateAudio(transcriptionId);
 
-      expect(mockAudioJobService.enqueueAudioJob).not.toHaveBeenCalled();
+      await expect(result).rejects.toThrow(ConflictException);
+      await expect(result).rejects.toMatchObject({
+        message:
+          'Audio already exists for this resource. Use the detail endpoint with includeAudio=true to fetch the audio.',
+      });
+
+      expect(
+        mockAudioJobService.enqueueAudioJobIfNotDuplicate,
+      ).not.toHaveBeenCalled();
     });
 
     it('should throw BadRequestException when transcription has no content', async () => {
@@ -152,7 +168,24 @@ describe('YoutubeTranscriptionsController', () => {
         BadRequestException,
       );
 
-      expect(mockAudioJobService.enqueueAudioJob).not.toHaveBeenCalled();
+      expect(
+        mockAudioJobService.enqueueAudioJobIfNotDuplicate,
+      ).not.toHaveBeenCalled();
+    });
+
+    it('should throw ConflictException when generation is already in progress', async () => {
+      mockYoutubeTranscriptionsService.getTranscriptionById.mockResolvedValue(
+        mockTranscription,
+      );
+      mockAudioFilesService.getAudioFileBySource.mockResolvedValue(null);
+      mockAudioJobService.enqueueAudioJobIfNotDuplicate.mockResolvedValue(null);
+
+      const result = controller.generateAudio(transcriptionId);
+
+      await expect(result).rejects.toThrow(ConflictException);
+      await expect(result).rejects.toMatchObject({
+        message: 'Audio generation is already in progress for this resource.',
+      });
     });
   });
 });

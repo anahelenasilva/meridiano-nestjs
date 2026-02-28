@@ -77,7 +77,7 @@ export class YoutubeTranscriptionsController {
 
     if (existingAudio) {
       throw new ConflictException(
-        'Audio already exists for this transcription. Use GET /api/youtube/transcriptions/:id?includeAudio=true to fetch the audio.',
+        'Audio already exists for this resource. Use the detail endpoint with includeAudio=true to fetch the audio.',
       );
     }
 
@@ -90,12 +90,18 @@ export class YoutubeTranscriptionsController {
       );
     }
 
-    const jobInfo = await this.audioJobService.enqueueAudioJob({
+    const jobInfo = await this.audioJobService.enqueueAudioJobIfNotDuplicate({
       sourceType: 'transcription',
       sourceId: id,
       text,
       date: transcription.postedAt ? transcription.postedAt : new Date(),
     });
+
+    if (!jobInfo) {
+      throw new ConflictException(
+        'Audio generation is already in progress for this resource.',
+      );
+    }
 
     return {
       jobId: jobInfo.jobId,
