@@ -70,6 +70,46 @@ describe('ConfigService', () => {
     });
   });
 
+  describe('getPresignedUrlExpirySeconds', () => {
+    it('should return 3600 when env var is not set', () => {
+      delete process.env.PRESIGNED_URL_EXPIRY_SECONDS;
+
+      const result = service.getPresignedUrlExpirySeconds();
+
+      expect(result).toBe(3600);
+    });
+
+    it('should return env var value when set', () => {
+      process.env.PRESIGNED_URL_EXPIRY_SECONDS = '7200';
+
+      const result = service.getPresignedUrlExpirySeconds();
+
+      expect(result).toBe(7200);
+
+      delete process.env.PRESIGNED_URL_EXPIRY_SECONDS;
+    });
+
+    it('should return 3600 when env var is invalid', () => {
+      process.env.PRESIGNED_URL_EXPIRY_SECONDS = 'invalid';
+
+      const result = service.getPresignedUrlExpirySeconds();
+
+      expect(result).toBe(3600);
+
+      delete process.env.PRESIGNED_URL_EXPIRY_SECONDS;
+    });
+
+    it('should return 3600 when env var is zero', () => {
+      process.env.PRESIGNED_URL_EXPIRY_SECONDS = '0';
+
+      const result = service.getPresignedUrlExpirySeconds();
+
+      expect(result).toBe(3600);
+
+      delete process.env.PRESIGNED_URL_EXPIRY_SECONDS;
+    });
+  });
+
   describe('getEnabledChatModel', () => {
     it('should return environment variable value when ENABLED_CHAT_MODEL is set', () => {
       process.env.ENABLED_CHAT_MODEL = 'deepseek';

@@ -1,10 +1,9 @@
 import { S3Service } from '@libs/s3';
 import { Injectable, Logger } from '@nestjs/common';
+import { ConfigService } from '../../config/config.service';
 import { AudioFilesService } from '../../audio-files/audio-files.service';
 import { YoutubeTranscription } from '../entities/youtube-transcription.entity';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
-
-const PRESIGNED_URL_EXPIRY_SECONDS = 3600;
 
 export type TranscriptionAudioMetadata = {
   id: string;
@@ -17,6 +16,7 @@ export type TranscriptionAudioMetadata = {
 export type GetYoutubeTranscriptionByIdResponse = {
   transcription: YoutubeTranscription;
   audio?: TranscriptionAudioMetadata;
+  audio_error?: string;
 };
 
 @Injectable()
@@ -27,6 +27,7 @@ export class GetYoutubeTranscriptionByIdQuery {
     private readonly service: YoutubeTranscriptionsService,
     private readonly audioFilesService: AudioFilesService,
     private readonly s3Service: S3Service,
+    private readonly configService: ConfigService,
   ) {}
 
   async execute(
@@ -51,10 +52,12 @@ export class GetYoutubeTranscriptionByIdQuery {
         );
 
         if (audioFile) {
+          const expirySeconds =
+            this.configService.getPresignedUrlExpirySeconds();
           const presignedUrl = await this.s3Service.generatePresignedGetUrl(
             audioFile.s3_bucket,
             audioFile.s3_key,
-            PRESIGNED_URL_EXPIRY_SECONDS,
+            expirySeconds,
           );
 
           response.audio = {
@@ -64,11 +67,14 @@ export class GetYoutubeTranscriptionByIdQuery {
             duration_seconds: audioFile.duration_seconds,
             presigned_url: presignedUrl,
           };
+        } else {
+          response.audio_error = 'Audio not available for this resource';
         }
       } catch (error) {
         this.logger.error(
           `Failed to fetch audio for transcription ${id}: ${error instanceof Error ? error.message : String(error)}`,
         );
+        response.audio_error = 'Failed to fetch audio';
       }
     }
 

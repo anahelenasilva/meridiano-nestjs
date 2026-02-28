@@ -17,6 +17,7 @@ import {
   Query,
   forwardRef,
 } from '@nestjs/common';
+import { parseIncludeAudio } from '../shared/helpers/parse-include-audio';
 import { AudioFilesService } from '../audio-files/audio-files.service';
 import { ScraperService } from '../scraper/scraper.service';
 import type { PaginatedArticleInput } from './article.entity';
@@ -173,7 +174,7 @@ export class ArticlesController {
     @Param('id', ParseUUIDPipe) id: string,
     @Query('includeAudio') includeAudio?: string,
   ) {
-    const shouldIncludeAudio = includeAudio === 'true';
+    const shouldIncludeAudio = parseIncludeAudio(includeAudio);
     const data = await this.getArticleByIdQuery.execute(id, shouldIncludeAudio);
 
     if (!data || !data.article) {

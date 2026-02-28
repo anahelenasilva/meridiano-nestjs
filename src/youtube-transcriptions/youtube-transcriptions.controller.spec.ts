@@ -7,6 +7,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { mock } from 'jest-mock-extended';
+import { ConfigService } from '../config/config.service';
 import { AudioFilesService } from '../audio-files/audio-files.service';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
@@ -23,6 +24,7 @@ describe('YoutubeTranscriptionsController', () => {
   const mockAudioJobService = mock<AudioJobService>();
   const mockAudioFilesService = mock<AudioFilesService>();
   const mockS3Service = mock<S3Service>();
+  const mockConfigService = mock<ConfigService>();
 
   const transcriptionId = '11111111-1111-1111-1111-111111111111';
   const mockTranscription: YoutubeTranscription = {
@@ -42,10 +44,12 @@ describe('YoutubeTranscriptionsController', () => {
 
     const mockListAllYoutubeTranscriptionsQuery =
       new ListAllYoutubeTranscriptionsQuery(mockYoutubeTranscriptionsService);
+    mockConfigService.getPresignedUrlExpirySeconds.mockReturnValue(3600);
     mockGetYoutubeTranscriptionByIdQuery = new GetYoutubeTranscriptionByIdQuery(
       mockYoutubeTranscriptionsService,
       mockAudioFilesService,
       mockS3Service,
+      mockConfigService,
     );
     const mockDeleteYoutubeTranscriptionCommand =
       new DeleteYoutubeTranscriptionCommand(mockYoutubeTranscriptionsService);
@@ -67,7 +71,7 @@ describe('YoutubeTranscriptionsController', () => {
   });
 
   describe('getTranscription', () => {
-    it('should return transcription without audio when includeAudio is not true', async () => {
+    it('should return transcription without audio when includeAudio is falsy', async () => {
       mockYoutubeTranscriptionsService.getTranscriptionById.mockResolvedValue(
         mockTranscription,
       );
@@ -118,6 +122,61 @@ describe('YoutubeTranscriptionsController', () => {
         'transcription',
         transcriptionId,
       );
+    });
+
+    it('should return transcription with audio when includeAudio=1', async () => {
+      mockYoutubeTranscriptionsService.getTranscriptionById.mockResolvedValue(
+        mockTranscription,
+      );
+      mockAudioFilesService.getAudioFileBySource.mockResolvedValue({
+        id: 'audio-1',
+        source_type: 'transcription',
+        source_id: transcriptionId,
+        s3_bucket: 'bucket',
+        s3_key: 'audio/key.mp3',
+        file_size_bytes: 1000,
+        duration_seconds: 120,
+        created_at: new Date(),
+      });
+      mockS3Service.generatePresignedGetUrl.mockResolvedValue(
+        'https://s3.example.com/presigned',
+      );
+
+      const result = await controller.getTranscription(
+        transcriptionId,
+        '1',
+      );
+
+      expect(result.audio).toBeDefined();
+      expect(result.audio?.presigned_url).toBe(
+        'https://s3.example.com/presigned',
+      );
+    });
+
+    it('should return transcription with audio when includeAudio=yes', async () => {
+      mockYoutubeTranscriptionsService.getTranscriptionById.mockResolvedValue(
+        mockTranscription,
+      );
+      mockAudioFilesService.getAudioFileBySource.mockResolvedValue({
+        id: 'audio-1',
+        source_type: 'transcription',
+        source_id: transcriptionId,
+        s3_bucket: 'bucket',
+        s3_key: 'audio/key.mp3',
+        file_size_bytes: 1000,
+        duration_seconds: 120,
+        created_at: new Date(),
+      });
+      mockS3Service.generatePresignedGetUrl.mockResolvedValue(
+        'https://s3.example.com/presigned',
+      );
+
+      const result = await controller.getTranscription(
+        transcriptionId,
+        'yes',
+      );
+
+      expect(result.audio).toBeDefined();
     });
 
     it('should throw NotFoundException when transcription does not exist', async () => {

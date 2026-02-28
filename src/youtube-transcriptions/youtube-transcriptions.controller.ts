@@ -17,6 +17,7 @@ import { AudioFilesService } from '../audio-files/audio-files.service';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
 import { CreateYoutubeTranscriptionDto } from './dto/create-youtube-transcription.dto';
+import { parseIncludeAudio } from '../shared/helpers/parse-include-audio';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
 
@@ -49,7 +50,7 @@ export class YoutubeTranscriptionsController {
     @Param('id', ParseUUIDPipe) id: string,
     @Query('includeAudio') includeAudio?: string,
   ) {
-    const shouldIncludeAudio = includeAudio === 'true';
+    const shouldIncludeAudio = parseIncludeAudio(includeAudio);
     const data = await this.getYoutubeTranscriptionByIdQuery.execute(
       id,
       shouldIncludeAudio,

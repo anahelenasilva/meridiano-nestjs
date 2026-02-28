@@ -1,5 +1,6 @@
 import { S3Service } from '@libs/s3';
 import { mock } from 'jest-mock-extended';
+import { ConfigService } from '../../config/config.service';
 import { AudioFilesService } from '../../audio-files/audio-files.service';
 import { YoutubeTranscription } from '../entities/youtube-transcription.entity';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
@@ -9,6 +10,7 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
   const mockService = mock<YoutubeTranscriptionsService>();
   const mockAudioFilesService = mock<AudioFilesService>();
   const mockS3Service = mock<S3Service>();
+  const mockConfigService = mock<ConfigService>();
 
   const transcriptionId = '11111111-1111-1111-1111-111111111111';
   const mockTranscription: YoutubeTranscription = {
@@ -27,10 +29,12 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    mockConfigService.getPresignedUrlExpirySeconds.mockReturnValue(3600);
     query = new GetYoutubeTranscriptionByIdQuery(
       mockService,
       mockAudioFilesService,
       mockS3Service,
+      mockConfigService,
     );
   });
 
@@ -77,13 +81,16 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
     );
   });
 
-  it('should return transcription without audio when includeAudio=true but no audio exists', async () => {
+  it('should return transcription with audio_error when includeAudio=true but no audio exists', async () => {
     mockService.getTranscriptionById.mockResolvedValue(mockTranscription);
     mockAudioFilesService.getAudioFileBySource.mockResolvedValue(null);
 
     const result = await query.execute(transcriptionId, true);
 
-    expect(result).toEqual({ transcription: mockTranscription });
+    expect(result).toEqual({
+      transcription: mockTranscription,
+      audio_error: 'Audio not available for this resource',
+    });
     expect(mockAudioFilesService.getAudioFileBySource).toHaveBeenCalledWith(
       'transcription',
       transcriptionId,
@@ -100,7 +107,7 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
     expect(mockAudioFilesService.getAudioFileBySource).not.toHaveBeenCalled();
   });
 
-  it('should return transcription without audio when audio fetch throws', async () => {
+  it('should return transcription with audio_error when audio fetch throws', async () => {
     mockService.getTranscriptionById.mockResolvedValue(mockTranscription);
     mockAudioFilesService.getAudioFileBySource.mockRejectedValue(
       new Error('DB connection failed'),
@@ -108,7 +115,10 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
 
     const result = await query.execute(transcriptionId, true);
 
-    expect(result).toEqual({ transcription: mockTranscription });
+    expect(result).toEqual({
+      transcription: mockTranscription,
+      audio_error: 'Failed to fetch audio',
+    });
     expect(mockS3Service.generatePresignedGetUrl).not.toHaveBeenCalled();
   });
 
