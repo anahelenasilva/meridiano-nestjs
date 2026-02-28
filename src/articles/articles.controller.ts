@@ -1,4 +1,4 @@
-import { AudioJobService } from '@libs/audio';
+import { AudioJobService, AUDIO_GENERATION_SUCCESS_MESSAGE } from '@libs/audio';
 import { QueueService } from '@libs/queue';
 import { S3Service } from '@libs/s3';
 import {
@@ -233,7 +233,7 @@ export class ArticlesController {
 
     return {
       jobId: jobInfo.jobId,
-      message: 'Audio generation job queued for article',
+      message: AUDIO_GENERATION_SUCCESS_MESSAGE,
     };
   }
 
