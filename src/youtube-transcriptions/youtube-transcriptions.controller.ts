@@ -1,13 +1,18 @@
 import {
+  BadRequestException,
   Body,
+  ConflictException,
   Controller,
   Delete,
   Get,
+  HttpCode,
   NotFoundException,
   Param,
   ParseUUIDPipe,
   Post,
 } from '@nestjs/common';
+import { AudioJobService } from '@libs/audio';
+import { AudioFilesService } from '../audio-files/audio-files.service';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
 import { CreateYoutubeTranscriptionDto } from './dto/create-youtube-transcription.dto';
@@ -21,6 +26,8 @@ export class YoutubeTranscriptionsController {
     private readonly getYoutubeTranscriptionByIdQuery: GetYoutubeTranscriptionByIdQuery,
     private readonly deleteYoutubeTranscriptionCommand: DeleteYoutubeTranscriptionCommand,
     private readonly createYoutubeTranscriptionCommand: CreateYoutubeTranscriptionCommand,
+    private readonly audioJobService: AudioJobService,
+    private readonly audioFilesService: AudioFilesService,
   ) {}
 
   @Get('transcriptions')
@@ -51,6 +58,49 @@ export class YoutubeTranscriptionsController {
   async delete(@Param('id', ParseUUIDPipe) id: string) {
     const data = await this.deleteYoutubeTranscriptionCommand.execute(id);
     return data;
+  }
+
+  @Post('transcriptions/:id/audio')
+  @HttpCode(202)
+  async generateAudio(@Param('id', ParseUUIDPipe) id: string) {
+    const data = await this.getYoutubeTranscriptionByIdQuery.execute(id);
+
+    if (!data || !data.transcription) {
+      throw new NotFoundException('YouTube transcription not found');
+    }
+
+    const transcription = data.transcription;
+    const existingAudio = await this.audioFilesService.getAudioFileBySource(
+      'transcription',
+      id,
+    );
+
+    if (existingAudio) {
+      throw new ConflictException(
+        'Audio already exists for this transcription. Use GET /api/youtube/transcriptions/:id?includeAudio=true to fetch the audio.',
+      );
+    }
+
+    const text =
+      transcription.transcriptionSummary || transcription.transcriptionText;
+
+    if (!text || text.trim().length === 0) {
+      throw new BadRequestException(
+        'Transcription has no content available for audio generation',
+      );
+    }
+
+    const jobInfo = await this.audioJobService.enqueueAudioJob({
+      sourceType: 'transcription',
+      sourceId: id,
+      text,
+      date: transcription.postedAt ? transcription.postedAt : new Date(),
+    });
+
+    return {
+      jobId: jobInfo.jobId,
+      message: 'Audio generation job queued for transcription',
+    };
   }
 
   // @Public()
