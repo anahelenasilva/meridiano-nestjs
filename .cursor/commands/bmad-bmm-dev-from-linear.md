@@ -4,7 +4,7 @@ description: 'Create story files and implement from one or more Linear issue IDs
 ---
 
 **Usage**: `/bmad-bmm-dev-from-linear TASK-253` or `/bmad-bmm-dev-from-linear TASK-253 TASK-254`
-
+ALWAYS ANSWER IN ENGLISH.
 IT IS CRITICAL THAT YOU FOLLOW THESE STEPS - while staying in character as the current agent persona you may have loaded:
 
 <steps CRITICAL="TRUE">
