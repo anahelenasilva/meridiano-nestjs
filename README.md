@@ -454,6 +454,81 @@ The skill includes:
 7. **Analysis tips**: How to interpret diffs and identify types/scopes
 
 
+# BMAD + Linear Integration (Isolated Custom Layer)
+
+This repo supports BMAD sprint planning with optional native Linear issue sync, while keeping customizations isolated for intentional rebases.
+
+## Why this setup
+
+- Keep upstream BMAD files mostly intact.
+- Place project-specific behavior under `_bmad/custom/...`.
+- Continue generating BMAD local artifacts (`_bmad-output/...`) so existing BMAD workflows still work.
+- Option A hierarchy in Linear: epics and stories are both issues, and stories are linked as children of epic issues.
+
+## Custom layer files
+
+- `_bmad/custom/README.md`
+- `_bmad/custom/bmm/workflows/4-implementation/sprint-planning/workflow.yaml`
+- `_bmad/custom/bmm/workflows/4-implementation/sprint-planning/instructions.md`
+- `_bmad/custom/bmm/workflows/4-implementation/sprint-planning/checklist.md`
+- `_bmad/custom/bmm/workflows/4-implementation/sprint-planning/sprint-status-template.yaml`
+
+The command entrypoint points to this custom workflow:
+
+- `.cursor/commands/bmad-bmm-sprint-planning.md`
+- `.claude/commands/bmad-bmm-sprint-planning.md`
+
+## Required config (`_bmad/bmm/config.yaml`)
+
+```yaml
+tracking_system: file-system # file-system | linear
+project_key: NOKEY
+
+linear_team: "" # REQUIRED when tracking_system=linear
+linear_project: "meridiano-e8e1e094a11f"
+linear_milestone: "d93c9401-2657-4785-b3cf-b3a921a5af37"
+linear_label_epic: "epic"
+linear_label_story: "story"
+linear_parent_child_mode: "issue-parent-child"
+```
+
+## How to run
+
+1. Keep `tracking_system: file-system` if you only want local BMAD artifacts.
+2. Set `tracking_system: linear` to sync to Linear.
+3. Fill `linear_team` with your team name or id.
+4. Run:
+
+```bash
+/bmad-bmm-sprint-planning
+```
+
+## Outputs
+
+Always generated:
+
+- `_bmad-output/implementation-artifacts/sprint-status.yaml`
+
+Generated in Linear mode:
+
+- `_bmad-output/implementation-artifacts/linear-issue-map.yaml`
+
+The linear issue map stores BMAD key -> Linear issue id mappings for idempotent reruns (avoid duplicate issue creation).
+
+## Linear issue model (Option A)
+
+- Parent epic issue key: `epic-{n}`
+- Child story issue key: `{n}-{m}-{kebab-title}`
+- Issue descriptions include `BMAD_KEY: ...` marker for stable lookup/update on reruns.
+
+## Rebase workflow for BMAD upgrades
+
+1. Compare upstream sprint-planning files under `_bmad/bmm/workflows/4-implementation/sprint-planning/`.
+2. Reapply or merge relevant upstream improvements into `_bmad/custom/...`.
+3. Keep command entrypoints pointing to custom workflow paths.
+4. Validate by running `/bmad-bmm-sprint-planning` in a branch before merging.
+
+
 # API Documentation
 
 For detailed API documentation, see:
