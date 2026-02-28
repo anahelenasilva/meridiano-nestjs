@@ -1,4 +1,5 @@
 import { AUDIO_GENERATION_SUCCESS_MESSAGE, AudioJobService } from '@libs/audio';
+import { IS_PUBLIC_KEY } from '@libs/auth';
 import {
   BadRequestException,
   ConflictException,
@@ -57,6 +58,15 @@ describe('YoutubeTranscriptionsController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
+  });
+
+  it('should not have @Public() on generateAudio endpoint', () => {
+    const isPublic = Reflect.getMetadata(
+      IS_PUBLIC_KEY,
+      YoutubeTranscriptionsController.prototype,
+      'generateAudio',
+    );
+    expect(isPublic).toBeUndefined();
   });
 
   describe('generateAudio', () => {

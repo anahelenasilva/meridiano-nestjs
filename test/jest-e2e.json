@@ -28,6 +28,7 @@
     "^youtubei\\.js$": "<rootDir>/../src/__mocks__/youtubei.js.ts",
     "^youtube-transcript-plus$": "<rootDir>/../src/__mocks__/youtube-transcript-plus.ts",
     "^marked$": "<rootDir>/../node_modules/marked/lib/marked.umd.js",
-    "^@libs/(.*)$": "<rootDir>/../libs/$1"
+    "^@libs/(.*)$": "<rootDir>/../libs/$1",
+    "^youtubei\\.js/web$": "<rootDir>/../src/__mocks__/youtubei.js.ts"
   }
 }
