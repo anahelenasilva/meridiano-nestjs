@@ -1,7 +1,8 @@
 import { AudioModule } from '@libs/audio';
 import { DatabaseModule } from '@libs/database';
-import { AudioFilesModule } from '../audio-files/audio-files.module';
 import { QueueModule } from '@libs/queue';
+import { S3Module } from '@libs/s3';
+import { AudioFilesModule } from '../audio-files/audio-files.module';
 import { RedisModule } from '@libs/redis';
 import { Module, forwardRef } from '@nestjs/common';
 import { AiModule } from '../ai/ai.module';
@@ -31,6 +32,7 @@ import { ProcessTranscriptionFilesUseCase } from './usecases/process-transcripti
   imports: [
     DatabaseModule,
     AudioFilesModule,
+    S3Module,
     AiModule,
     ConfigModule,
     YoutubeChannelsModule,

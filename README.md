@@ -71,6 +71,9 @@ DEEPSEEK_API_KEY=your-deepseek-api-key
 EMBEDDING_API_KEY=your-embedding-api-key
 # Required for text-to-speech audio generation
 OPENAI_API_KEY=your-openai-api-key
+
+# Presigned URL expiry in seconds for audio playback (default: 3600)
+PRESIGNED_URL_EXPIRY_SECONDS=3600
 ```
 
 ### Starting the Database

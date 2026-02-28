@@ -1,5 +1,6 @@
 import { S3Service } from '@libs/s3';
 import { Injectable, Logger } from '@nestjs/common';
+import { ConfigService } from '../../config/config.service';
 import { AudioFilesService } from '../../audio-files/audio-files.service';
 import { ArticlesService } from '../articles.service';
 import { prepareArticleContent } from '../helpers/prepareArticleContent';
@@ -20,6 +21,7 @@ export class GetArticleByIdQuery {
     private readonly service: ArticlesService,
     private readonly audioFilesService: AudioFilesService,
     private readonly s3Service: S3Service,
+    private readonly configService: ConfigService,
   ) {}
 
   async execute(articleId: string, includeAudio: boolean = false) {
@@ -37,8 +39,8 @@ export class GetArticleByIdQuery {
       relatedArticles.map((article) => prepareArticleContent(article)),
     );
 
-    // Include audio metadata if requested
     let audio: AudioMetadata | undefined;
+    let audioError: string | undefined;
     if (includeAudio) {
       try {
         const audioFile = await this.audioFilesService.getAudioFileBySource(
@@ -47,10 +49,12 @@ export class GetArticleByIdQuery {
         );
 
         if (audioFile) {
+          const expirySeconds =
+            this.configService.getPresignedUrlExpirySeconds();
           const presignedUrl = await this.s3Service.generatePresignedGetUrl(
             audioFile.s3_bucket,
             audioFile.s3_key,
-            3600, // 1 hour expiration
+            expirySeconds,
           );
 
           audio = {
@@ -60,21 +64,26 @@ export class GetArticleByIdQuery {
             duration_seconds: audioFile.duration_seconds,
             presigned_url: presignedUrl,
           };
+        } else {
+          audioError = 'Audio not available for this resource';
         }
       } catch (error) {
         this.logger.error(
           `Failed to fetch audio for article ${articleId}: ${error instanceof Error ? error.message : String(error)}`,
         );
-        // Leave audio undefined so the article is returned without audio
+        audioError = 'Failed to fetch audio';
       }
     }
 
-    const articleResponse: any = {
+    const articleResponse: Record<string, unknown> = {
       ...preparedArticle,
     };
 
     if (audio) {
       articleResponse.audio = audio;
+    }
+    if (audioError) {
+      articleResponse.audio_error = audioError;
     }
 
     return {

@@ -1,11 +1,13 @@
 import { AUDIO_GENERATION_SUCCESS_MESSAGE, AudioJobService } from '@libs/audio';
 import { IS_PUBLIC_KEY } from '@libs/auth';
+import { S3Service } from '@libs/s3';
 import {
   BadRequestException,
   ConflictException,
   NotFoundException,
 } from '@nestjs/common';
 import { mock } from 'jest-mock-extended';
+import { ConfigService } from '../config/config.service';
 import { AudioFilesService } from '../audio-files/audio-files.service';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
@@ -17,9 +19,12 @@ import { YoutubeTranscriptionsController } from './youtube-transcriptions.contro
 
 describe('YoutubeTranscriptionsController', () => {
   let controller: YoutubeTranscriptionsController;
+  let mockGetYoutubeTranscriptionByIdQuery: GetYoutubeTranscriptionByIdQuery;
   const mockYoutubeTranscriptionsService = mock<YoutubeTranscriptionsService>();
   const mockAudioJobService = mock<AudioJobService>();
   const mockAudioFilesService = mock<AudioFilesService>();
+  const mockS3Service = mock<S3Service>();
+  const mockConfigService = mock<ConfigService>();
 
   const transcriptionId = '11111111-1111-1111-1111-111111111111';
   const mockTranscription: YoutubeTranscription = {
@@ -39,8 +44,13 @@ describe('YoutubeTranscriptionsController', () => {
 
     const mockListAllYoutubeTranscriptionsQuery =
       new ListAllYoutubeTranscriptionsQuery(mockYoutubeTranscriptionsService);
-    const mockGetYoutubeTranscriptionByIdQuery =
-      new GetYoutubeTranscriptionByIdQuery(mockYoutubeTranscriptionsService);
+    mockConfigService.getPresignedUrlExpirySeconds.mockReturnValue(3600);
+    mockGetYoutubeTranscriptionByIdQuery = new GetYoutubeTranscriptionByIdQuery(
+      mockYoutubeTranscriptionsService,
+      mockAudioFilesService,
+      mockS3Service,
+      mockConfigService,
+    );
     const mockDeleteYoutubeTranscriptionCommand =
       new DeleteYoutubeTranscriptionCommand(mockYoutubeTranscriptionsService);
     const mockCreateYoutubeTranscriptionCommand =
@@ -60,11 +70,142 @@ describe('YoutubeTranscriptionsController', () => {
     expect(controller).toBeDefined();
   });
 
+  describe('getTranscription', () => {
+    it('should return transcription without audio when includeAudio is falsy', async () => {
+      mockYoutubeTranscriptionsService.getTranscriptionById.mockResolvedValue(
+        mockTranscription,
+      );
+
+      const result = await controller.getTranscription(transcriptionId);
+
+      expect(result).toEqual({ transcription: mockTranscription });
+      expect(
+        mockYoutubeTranscriptionsService.getTranscriptionById,
+      ).toHaveBeenCalledWith(transcriptionId);
+    });
+
+    it('should return transcription with audio when includeAudio=true and audio exists', async () => {
+      const mockAudio = {
+        id: 'audio-1',
+        s3_key: 'audio/key.mp3',
+        file_size_bytes: 1000,
+        duration_seconds: 120,
+        presigned_url: 'https://s3.example.com/presigned',
+      };
+      mockYoutubeTranscriptionsService.getTranscriptionById.mockResolvedValue(
+        mockTranscription,
+      );
+      mockAudioFilesService.getAudioFileBySource.mockResolvedValue({
+        id: 'audio-1',
+        source_type: 'transcription',
+        source_id: transcriptionId,
+        s3_bucket: 'bucket',
+        s3_key: 'audio/key.mp3',
+        file_size_bytes: 1000,
+        duration_seconds: 120,
+        created_at: new Date(),
+      });
+      mockS3Service.generatePresignedGetUrl.mockResolvedValue(
+        'https://s3.example.com/presigned',
+      );
+
+      const result = await controller.getTranscription(
+        transcriptionId,
+        'true',
+      );
+
+      expect(result).toEqual({
+        transcription: mockTranscription,
+        audio: mockAudio,
+      });
+      expect(mockAudioFilesService.getAudioFileBySource).toHaveBeenCalledWith(
+        'transcription',
+        transcriptionId,
+      );
+    });
+
+    it('should return transcription with audio when includeAudio=1', async () => {
+      mockYoutubeTranscriptionsService.getTranscriptionById.mockResolvedValue(
+        mockTranscription,
+      );
+      mockAudioFilesService.getAudioFileBySource.mockResolvedValue({
+        id: 'audio-1',
+        source_type: 'transcription',
+        source_id: transcriptionId,
+        s3_bucket: 'bucket',
+        s3_key: 'audio/key.mp3',
+        file_size_bytes: 1000,
+        duration_seconds: 120,
+        created_at: new Date(),
+      });
+      mockS3Service.generatePresignedGetUrl.mockResolvedValue(
+        'https://s3.example.com/presigned',
+      );
+
+      const result = await controller.getTranscription(
+        transcriptionId,
+        '1',
+      );
+
+      expect(result.audio).toBeDefined();
+      expect(result.audio?.presigned_url).toBe(
+        'https://s3.example.com/presigned',
+      );
+    });
+
+    it('should return transcription with audio when includeAudio=yes', async () => {
+      mockYoutubeTranscriptionsService.getTranscriptionById.mockResolvedValue(
+        mockTranscription,
+      );
+      mockAudioFilesService.getAudioFileBySource.mockResolvedValue({
+        id: 'audio-1',
+        source_type: 'transcription',
+        source_id: transcriptionId,
+        s3_bucket: 'bucket',
+        s3_key: 'audio/key.mp3',
+        file_size_bytes: 1000,
+        duration_seconds: 120,
+        created_at: new Date(),
+      });
+      mockS3Service.generatePresignedGetUrl.mockResolvedValue(
+        'https://s3.example.com/presigned',
+      );
+
+      const result = await controller.getTranscription(
+        transcriptionId,
+        'yes',
+      );
+
+      expect(result.audio).toBeDefined();
+    });
+
+    it('should throw NotFoundException when transcription does not exist', async () => {
+      mockYoutubeTranscriptionsService.getTranscriptionById.mockResolvedValue(
+        null,
+      );
+
+      await expect(
+        controller.getTranscription(
+          '00000000-0000-0000-0000-000000000000',
+        ),
+      ).rejects.toThrow(NotFoundException);
+    });
+  });
+
   it('should not have @Public() on generateAudio endpoint', () => {
     const isPublic = Reflect.getMetadata(
       IS_PUBLIC_KEY,
       YoutubeTranscriptionsController.prototype,
       'generateAudio',
+    );
+    expect(isPublic).toBeUndefined();
+  });
+
+  it('should not have @Public() on getTranscription endpoint (playback access)', () => {
+    const isPublic = Reflect.getMetadata(
+      IS_PUBLIC_KEY,
+      YoutubeTranscriptionsController.prototype,
+      'getTranscription',
     );
     expect(isPublic).toBeUndefined();
   });

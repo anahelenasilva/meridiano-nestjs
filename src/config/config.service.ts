@@ -195,6 +195,18 @@ export class ConfigService {
     };
   }
 
+  getPresignedUrlExpirySeconds(): number {
+    const value = process.env.PRESIGNED_URL_EXPIRY_SECONDS;
+    if (value === undefined || value === '') {
+      return 3600;
+    }
+    const parsed = parseInt(value, 10);
+    if (Number.isNaN(parsed) || parsed < 1) {
+      return 3600;
+    }
+    return parsed;
+  }
+
   getRedisConfig() {
     return {
       host: process.env.REDIS_HOST || 'localhost',

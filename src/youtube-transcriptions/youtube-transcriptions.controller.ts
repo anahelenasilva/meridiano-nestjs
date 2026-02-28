@@ -10,12 +10,14 @@ import {
   Param,
   ParseUUIDPipe,
   Post,
+  Query,
 } from '@nestjs/common';
 import { AudioJobService, AUDIO_GENERATION_SUCCESS_MESSAGE } from '@libs/audio';
 import { AudioFilesService } from '../audio-files/audio-files.service';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
 import { CreateYoutubeTranscriptionDto } from './dto/create-youtube-transcription.dto';
+import { parseIncludeAudio } from '../shared/helpers/parse-include-audio';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
 
@@ -44,8 +46,15 @@ export class YoutubeTranscriptionsController {
   }
 
   @Get('transcriptions/:id')
-  async getTranscription(@Param('id', ParseUUIDPipe) id: string) {
-    const data = await this.getYoutubeTranscriptionByIdQuery.execute(id);
+  async getTranscription(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Query('includeAudio') includeAudio?: string,
+  ) {
+    const shouldIncludeAudio = parseIncludeAudio(includeAudio);
+    const data = await this.getYoutubeTranscriptionByIdQuery.execute(
+      id,
+      shouldIncludeAudio,
+    );
 
     if (!data || !data.transcription) {
       throw new NotFoundException('YouTube transcription not found');
