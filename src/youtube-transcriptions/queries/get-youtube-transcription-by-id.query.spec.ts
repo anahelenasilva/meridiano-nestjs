@@ -100,6 +100,18 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
     expect(mockAudioFilesService.getAudioFileBySource).not.toHaveBeenCalled();
   });
 
+  it('should return transcription without audio when audio fetch throws', async () => {
+    mockService.getTranscriptionById.mockResolvedValue(mockTranscription);
+    mockAudioFilesService.getAudioFileBySource.mockRejectedValue(
+      new Error('DB connection failed'),
+    );
+
+    const result = await query.execute(transcriptionId, true);
+
+    expect(result).toEqual({ transcription: mockTranscription });
+    expect(mockS3Service.generatePresignedGetUrl).not.toHaveBeenCalled();
+  });
+
   it('should return audio with required playback contract fields for HTML5/player controls', async () => {
     mockService.getTranscriptionById.mockResolvedValue(mockTranscription);
     mockAudioFilesService.getAudioFileBySource.mockResolvedValue({
@@ -118,12 +130,15 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
 
     const result = await query.execute(transcriptionId, true);
 
+    expect(result).not.toBeNull();
     expect(result?.audio).toBeDefined();
-    const audio = result!.audio!;
+    const audio = result?.audio;
+    expect(audio).toBeDefined();
     expect(audio).toHaveProperty('id');
     expect(audio).toHaveProperty('s3_key');
     expect(audio).toHaveProperty('file_size_bytes');
     expect(audio).toHaveProperty('presigned_url');
+    if (!audio) throw new Error('Test setup failed');
     expect(typeof audio.presigned_url).toBe('string');
     expect(audio.presigned_url.length).toBeGreaterThan(0);
   });

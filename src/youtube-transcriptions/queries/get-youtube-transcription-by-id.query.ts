@@ -4,6 +4,8 @@ import { AudioFilesService } from '../../audio-files/audio-files.service';
 import { YoutubeTranscription } from '../entities/youtube-transcription.entity';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 
+const PRESIGNED_URL_EXPIRY_SECONDS = 3600;
+
 export type TranscriptionAudioMetadata = {
   id: string;
   s3_key: string;
@@ -52,7 +54,7 @@ export class GetYoutubeTranscriptionByIdQuery {
           const presignedUrl = await this.s3Service.generatePresignedGetUrl(
             audioFile.s3_bucket,
             audioFile.s3_key,
-            3600,
+            PRESIGNED_URL_EXPIRY_SECONDS,
           );
 
           response.audio = {
