@@ -10,4 +10,13 @@ describe('ArticlesController', () => {
     );
     expect(isPublic).toBeUndefined();
   });
+
+  it('should not have @Public() on getArticle endpoint (playback access)', () => {
+    const isPublic = Reflect.getMetadata(
+      IS_PUBLIC_KEY,
+      ArticlesController.prototype,
+      'getArticle',
+    );
+    expect(isPublic).toBeUndefined();
+  });
 });
