@@ -5,6 +5,11 @@ export type ArticleEmailsNotifications = {
   failureNotificationEmailFrom: string;
 };
 
+export type AudioFailureNotification = {
+  to: string;
+  from: string;
+};
+
 export const VALID_CHAT_MODELS = {
   openai: 'gpt-4o-mini',
   deepseek: 'deepseek-chat',

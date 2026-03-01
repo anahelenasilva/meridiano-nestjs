@@ -84,11 +84,6 @@ export class YoutubeTranscriptionsController {
       id,
     );
 
-    console.log('existingAudio', {
-      existingAudio,
-      id
-    });
-
     if (existingAudio) {
       throw new ConflictException(
         'Audio already exists for this resource. Use the detail endpoint with includeAudio=true to fetch the audio.',
