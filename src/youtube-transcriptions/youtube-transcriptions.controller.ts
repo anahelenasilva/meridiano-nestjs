@@ -1,3 +1,4 @@
+import { AUDIO_GENERATION_SUCCESS_MESSAGE, AudioJobService } from '@libs/audio';
 import {
   BadRequestException,
   Body,
@@ -12,12 +13,11 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { AudioJobService, AUDIO_GENERATION_SUCCESS_MESSAGE } from '@libs/audio';
 import { AudioFilesService } from '../audio-files/audio-files.service';
+import { parseIncludeAudio } from '../shared/helpers/parse-include-audio';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
 import { CreateYoutubeTranscriptionDto } from './dto/create-youtube-transcription.dto';
-import { parseIncludeAudio } from '../shared/helpers/parse-include-audio';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
 
@@ -30,7 +30,7 @@ export class YoutubeTranscriptionsController {
     private readonly createYoutubeTranscriptionCommand: CreateYoutubeTranscriptionCommand,
     private readonly audioJobService: AudioJobService,
     private readonly audioFilesService: AudioFilesService,
-  ) {}
+  ) { }
 
   @Get('transcriptions')
   async listTranscriptions() {
@@ -83,6 +83,11 @@ export class YoutubeTranscriptionsController {
       'transcription',
       id,
     );
+
+    console.log('existingAudio', {
+      existingAudio,
+      id
+    });
 
     if (existingAudio) {
       throw new ConflictException(

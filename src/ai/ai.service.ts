@@ -274,22 +274,31 @@ export class AiService implements OnModuleInit {
     const selectedVoice =
       voice && validVoices.includes(voice) ? voice : modelConfig.openaiTtsVoice;
 
-    try {
-      const response = await this.openaiTtsClient.audio.speech.create({
-        model: 'tts-1',
-        voice: selectedVoice as
-          | 'alloy'
-          | 'echo'
-          | 'fable'
-          | 'onyx'
-          | 'nova'
-          | 'shimmer',
-        input: text,
-        response_format: 'mp3',
-      });
+    const maxCharsPerChunk = 4096;
 
-      const arrayBuffer = await response.arrayBuffer();
-      return Buffer.from(arrayBuffer);
+    try {
+      const chunks = this.splitTextIntoChunks(text, maxCharsPerChunk);
+      const audioBuffers: Buffer[] = [];
+
+      for (const chunk of chunks) {
+        const response = await this.openaiTtsClient.audio.speech.create({
+          model: 'tts-1',
+          voice: selectedVoice as
+            | 'alloy'
+            | 'echo'
+            | 'fable'
+            | 'onyx'
+            | 'nova'
+            | 'shimmer',
+          input: chunk,
+          response_format: 'mp3',
+        });
+
+        const arrayBuffer = await response.arrayBuffer();
+        audioBuffers.push(Buffer.from(arrayBuffer));
+      }
+
+      return Buffer.concat(audioBuffers);
     } catch (error) {
       console.error('Error generating audio with OpenAI TTS:', error);
       return null;
