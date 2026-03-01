@@ -211,7 +211,7 @@ describe('YoutubeTranscriptionsController', () => {
   });
 
   describe('generateAudio', () => {
-    it('should return 202 with jobId and message when transcription exists with no audio', async () => {
+    it('should return 202 with jobId and message when transcription exists with no audio (initial or re-request after failure)', async () => {
       mockYoutubeTranscriptionsService.getTranscriptionById.mockResolvedValue(
         mockTranscription,
       );

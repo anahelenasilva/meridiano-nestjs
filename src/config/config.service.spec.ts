@@ -70,6 +70,53 @@ describe('ConfigService', () => {
     });
   });
 
+  describe('getAudioFailureNotificationEmail', () => {
+    it('should return config when both to and from are set', () => {
+      process.env.AUDIO_FAILURE_SUPPORT_EMAIL = 'support@example.com';
+      process.env.AUDIO_FAILURE_SUPPORT_EMAIL_FROM = 'noreply@example.com';
+
+      const result = service.getAudioFailureNotificationEmail();
+
+      expect(result).toEqual({ to: 'support@example.com', from: 'noreply@example.com' });
+
+      delete process.env.AUDIO_FAILURE_SUPPORT_EMAIL;
+      delete process.env.AUDIO_FAILURE_SUPPORT_EMAIL_FROM;
+    });
+
+    it('should fall back to ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM when AUDIO_FAILURE_SUPPORT_EMAIL_FROM is not set', () => {
+      process.env.AUDIO_FAILURE_SUPPORT_EMAIL = 'support@example.com';
+      process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM = 'article-from@example.com';
+
+      const result = service.getAudioFailureNotificationEmail();
+
+      expect(result).toEqual({ to: 'support@example.com', from: 'article-from@example.com' });
+
+      delete process.env.AUDIO_FAILURE_SUPPORT_EMAIL;
+      delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM;
+    });
+
+    it('should return null when AUDIO_FAILURE_SUPPORT_EMAIL is not set', () => {
+      delete process.env.AUDIO_FAILURE_SUPPORT_EMAIL;
+      delete process.env.AUDIO_FAILURE_SUPPORT_EMAIL_FROM;
+
+      const result = service.getAudioFailureNotificationEmail();
+
+      expect(result).toBeNull();
+    });
+
+    it('should return null when from is not configured', () => {
+      process.env.AUDIO_FAILURE_SUPPORT_EMAIL = 'support@example.com';
+      delete process.env.AUDIO_FAILURE_SUPPORT_EMAIL_FROM;
+      delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM;
+
+      const result = service.getAudioFailureNotificationEmail();
+
+      expect(result).toBeNull();
+
+      delete process.env.AUDIO_FAILURE_SUPPORT_EMAIL;
+    });
+  });
+
   describe('getPresignedUrlExpirySeconds', () => {
     it('should return 3600 when env var is not set', () => {
       delete process.env.PRESIGNED_URL_EXPIRY_SECONDS;

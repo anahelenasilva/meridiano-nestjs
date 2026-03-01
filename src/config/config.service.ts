@@ -5,6 +5,7 @@ import { FeedProfile } from '../shared/types/feed';
 import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
 import {
   ArticleEmailsNotifications,
+  AudioFailureNotification,
   Config,
   VALID_CHAT_MODELS,
   VALID_TTS_MODELS,
@@ -222,6 +223,21 @@ export class ConfigService {
       failureNotificationEmailFrom:
         process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM || '',
     };
+  }
+
+  getAudioFailureNotificationEmail(): AudioFailureNotification | null {
+    const to = process.env.AUDIO_FAILURE_SUPPORT_EMAIL?.trim() || '';
+    if (!to) {
+      return null;
+    }
+    const from =
+      process.env.AUDIO_FAILURE_SUPPORT_EMAIL_FROM?.trim() ||
+      process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM?.trim() ||
+      '';
+    if (!from) {
+      return null;
+    }
+    return { to, from };
   }
 
   isBriefingsGenerationEnabled(): boolean {
