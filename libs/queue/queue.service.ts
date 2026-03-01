@@ -13,8 +13,8 @@ import {
   PROCESS_TRANSCRIPTION_SUMMARY_JOB,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from './constants/queue.constants';
-import type { GenerateAudioJobData } from './interfaces/audio-job.interface';
 import type { ProcessArticleJobData } from './interfaces/article-job.interface';
+import type { GenerateAudioJobData } from './interfaces/audio-job.interface';
 import type { ProcessMarkdownArticleJobData } from './interfaces/markdown-article-job.interface';
 import type { ProcessTranscriptionSummaryJobData } from './interfaces/youtube-transcription-job.interface';
 
@@ -101,8 +101,12 @@ export class QueueService implements OnModuleInit, OnModuleDestroy {
       typeof data === 'object' &&
       'sourceType' in data &&
       'sourceId' in data &&
+      'text' in data &&
+      'date' in data &&
       typeof (data as { sourceType: unknown }).sourceType === 'string' &&
-      typeof (data as { sourceId: unknown }).sourceId === 'string'
+      typeof (data as { sourceId: unknown }).sourceId === 'string' &&
+      typeof (data as { text: unknown }).text === 'string' &&
+      (data as { date: unknown }).date instanceof Date
     );
   }
 
