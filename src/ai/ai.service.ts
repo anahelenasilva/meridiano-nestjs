@@ -246,7 +246,7 @@ export class AiService implements OnModuleInit {
     return results;
   }
 
-  async generateAudio(text: string, voice?: string): Promise<Buffer | null> {
+  async generateAudio(text: string, voice?: string): Promise<Buffer> {
     const enabledTtsModel = this.configService.getEnabledTtsModel();
 
     switch (enabledTtsModel) {
@@ -261,12 +261,11 @@ export class AiService implements OnModuleInit {
   async generateOpenAiAudio(
     text: string,
     voice?: string,
-  ): Promise<Buffer | null> {
+  ): Promise<Buffer> {
     if (!this.openaiTtsClient) {
-      console.error(
+      throw new Error(
         'OpenAI TTS client not initialized. OPENAI_API_KEY may be missing.',
       );
-      return null;
     }
 
     const validVoices = ['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer'];
@@ -300,23 +299,21 @@ export class AiService implements OnModuleInit {
 
       return Buffer.concat(audioBuffers);
     } catch (error) {
-      console.error('Error generating audio with OpenAI TTS:', error);
-      return null;
+      const message = error instanceof Error ? error.message : String(error);
+      throw new Error(`OpenAI TTS failed: ${message}`);
     }
   }
 
   async generateGroqAudio(
     text: string,
     voice?: string,
-  ): Promise<Buffer | null> {
+  ): Promise<Buffer> {
     if (!this.groqClient) {
-      console.error(
+      throw new Error(
         'Groq client not initialized. GROQ_API_KEY may be missing.',
       );
-      return null;
     }
 
-    // Groq Orpheus model supports these voices: autumn, diana, hannah, austin, daniel, troy
     const validVoices = [
       'autumn',
       'diana',
@@ -329,17 +326,14 @@ export class AiService implements OnModuleInit {
     const selectedVoice =
       voice && validVoices.includes(voice) ? voice : modelConfig.groqTtsVoice;
 
-    // Groq Orpheus model has a 200 character limit per request
     const maxCharsPerChunk = 200;
 
     try {
-      // Split text into chunks of maxCharsPerChunk
       const chunks = this.splitTextIntoChunks(text, maxCharsPerChunk);
       console.log(
         `Splitting text into ${chunks.length} chunks for Groq TTS (limit: ${maxCharsPerChunk} chars per chunk)`,
       );
 
-      // Generate audio for each chunk and collect buffers
       const audioBuffers: Buffer[] = [];
 
       for (let i = 0; i < chunks.length; i++) {
@@ -355,25 +349,22 @@ export class AiService implements OnModuleInit {
           const arrayBuffer = await response.arrayBuffer();
           audioBuffers.push(Buffer.from(arrayBuffer));
 
-          // Small delay between chunks to avoid rate limiting
           if (i < chunks.length - 1) {
             await new Promise((resolve) => setTimeout(resolve, 100));
           }
         } catch (chunkError) {
-          console.error(
-            `Error generating audio for chunk ${i + 1}/${chunks.length}:`,
-            chunkError,
-          );
-          return null;
+          const message = chunkError instanceof Error ? chunkError.message : String(chunkError);
+          throw new Error(`Groq TTS failed on chunk ${i + 1}/${chunks.length}: ${message}`);
         }
       }
 
-      // Concatenate all audio buffers
-      const combinedBuffer = Buffer.concat(audioBuffers);
-      return combinedBuffer;
+      return Buffer.concat(audioBuffers);
     } catch (error) {
-      console.error('Error generating audio with Groq Orpheus TTS:', error);
-      return null;
+      if (error instanceof Error && error.message.startsWith('Groq TTS failed')) {
+        throw error;
+      }
+      const message = error instanceof Error ? error.message : String(error);
+      throw new Error(`Groq TTS failed: ${message}`);
     }
   }
 

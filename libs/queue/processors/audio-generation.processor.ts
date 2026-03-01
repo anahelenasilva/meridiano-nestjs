@@ -189,10 +189,7 @@ export class AudioGenerationProcessor implements OnModuleInit {
           void job.discard();
         }
 
-        return {
-          success: false,
-          error: result.error,
-        };
+        throw new Error(result.error || 'Audio generation failed');
       }
     } catch (error) {
       const durationMs = Date.now() - startTime;

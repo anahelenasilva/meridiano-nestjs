@@ -96,17 +96,16 @@ export class QueueService implements OnModuleInit, OnModuleDestroy {
   }
 
   private isValidAudioJobData(data: unknown): data is GenerateAudioJobData {
+    if (data === null || typeof data !== 'object') return false;
+    const d = data as Record<string, unknown>;
+    const date = d.date;
+    const isValidDate = date instanceof Date || (typeof date === 'string' && !Number.isNaN(Date.parse(date)));
     return (
-      data !== null &&
-      typeof data === 'object' &&
-      'sourceType' in data &&
-      'sourceId' in data &&
-      'text' in data &&
-      'date' in data &&
-      typeof (data as { sourceType: unknown }).sourceType === 'string' &&
-      typeof (data as { sourceId: unknown }).sourceId === 'string' &&
-      typeof (data as { text: unknown }).text === 'string' &&
-      (data as { date: unknown }).date instanceof Date
+      typeof d.sourceType === 'string' &&
+      typeof d.sourceId === 'string' &&
+      typeof d.text === 'string' &&
+      'date' in d &&
+      isValidDate
     );
   }
 

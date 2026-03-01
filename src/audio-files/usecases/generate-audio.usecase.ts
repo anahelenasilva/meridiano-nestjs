@@ -27,20 +27,9 @@ export class GenerateAudioUseCase {
       );
       const audioBuffer = await this.aiService.generateAudio(input.text);
 
-      if (!audioBuffer) {
-        return {
-          success: false,
-          error: 'Failed to generate audio from text',
-        };
-      }
-
-      // Format date for S3 path (YYYY-MM-DD)
       const dateStr = input.date.toISOString().split('T')[0];
-
-      // Build S3 key
       const s3Key = `audio/${dateStr}/${input.sourceType}-${input.sourceId}.mp3`;
 
-      // Get S3 bucket from environment
       const s3Bucket = process.env.S3_ARTICLES_BUCKET_NAME;
       if (!s3Bucket) {
         return {

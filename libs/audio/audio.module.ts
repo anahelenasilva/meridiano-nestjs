@@ -15,7 +15,7 @@ import { AudioJobService } from './services/audio-job.service';
         return new Queue(AUDIO_GENERATION_QUEUE, {
           connection: redisService.getClient(),
           defaultJobOptions: {
-            attempts: 3,
+            attempts: 2,
             backoff: { type: 'exponential', delay: 2000 },
             removeOnComplete: { count: 100 },
             removeOnFail: { count: 500 },
