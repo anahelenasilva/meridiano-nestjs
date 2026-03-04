@@ -554,4 +554,12 @@ The linear issue map stores BMAD key -> Linear issue id mappings for idempotent 
 
 For detailed API documentation, see:
 
+- **[📚 Project Documentation Index](docs/PROJECT_DOCUMENTATION_INDEX.md)** - Central documentation hub
+- **[🔧 Developer Guide](docs/DEVELOPER_GUIDE.md)** - Comprehensive development guide
+- **[📡 API Reference](docs/API_REFERENCE.md)** - Complete API documentation with examples
+- **[🏗️ Architecture Guide](docs/ARCHITECTURE.md)** - System architecture and design patterns
+- **[📦 Libraries Guide](docs/LIBRARIES.md)** - Infrastructure library documentation
 - [Bookmarks API Documentation](docs/bookmarks/BOOKMARKS_API.md) - Complete guide for users and bookmarks endpoints
+- [Project Overview](docs/project/PROJECT_OVERVIEW.md) - High-level project overview
+- [Technical Overview](docs/project/TECHNICAL_OVERVIEW.md) - Technical architecture details
+- [Libraries Documentation](libs/README.md) - Infrastructure libraries guide

@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable, OnModuleInit } from '@nestjs/common';
-import OpenAI from 'openai';
 import Groq from 'groq-sdk';
+import OpenAI from 'openai';
 import { ConfigService } from '../config/config.service';
 import { ChatMessage } from '../shared/types/ai';
 
@@ -12,7 +12,7 @@ export class AiService implements OnModuleInit {
   private openaiChatClient: OpenAI | null = null;
   private groqClient: Groq | null = null;
 
-  constructor(private readonly configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) { }
 
   onModuleInit() {
     this.initializeClients();
@@ -62,7 +62,7 @@ export class AiService implements OnModuleInit {
       // Fail fast if OpenAI chat model is enabled but API key is missing
       throw new BadRequestException(
         'Configuration error: ENABLED_CHAT_MODEL is set to "openai" but OPENAI_API_KEY is not defined. ' +
-          'Please set the OPENAI_API_KEY environment variable or change ENABLED_CHAT_MODEL to "deepseek".',
+        'Please set the OPENAI_API_KEY environment variable or change ENABLED_CHAT_MODEL to "deepseek".',
       );
     } else {
       console.warn(
@@ -184,22 +184,83 @@ export class AiService implements OnModuleInit {
       );
     }
 
-    try {
-      const modelName =
-        model || this.configService.getModelConfig().embeddingModel;
-      const response = await this.embeddingClient.embeddings.create({
-        model: modelName,
-        input: [text],
-      });
+    if (!text || !text.trim()) {
+      console.warn('Empty or whitespace-only text provided to getEmbedding');
+      return null;
+    }
 
-      if (response.data && response.data.length > 0) {
-        return response.data[0].embedding;
-      } else {
+    try {
+      const modelName = this.resolveEmbeddingModel(model);
+      const safeInput = this.prepareEmbeddingInput(text, modelName);
+      const tokenLimit = this.getModelTokenLimit(modelName);
+      const safeChunkTokenLimit = Math.max(64, Math.floor(tokenLimit * 0.8));
+      const chunks = this.splitTextByEstimatedTokens(
+        safeInput,
+        safeChunkTokenLimit,
+      );
+
+      if (chunks.length === 0) {
+        return null;
+      }
+
+      const vectors: number[][] = [];
+
+      for (let i = 0; i < chunks.length; i++) {
+        const chunk = chunks[i];
+        let embedding: number[] | null = null;
+        let retries = 0;
+        const maxRetries = 2;
+
+        while (retries <= maxRetries && !embedding) {
+          try {
+            embedding = await this.getSingleEmbedding(chunk, modelName);
+          } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            // Only retry on retriable errors (rate limits, timeouts, connection issues)
+            const isRetryable =
+              errorMessage.includes('429') ||
+              errorMessage.includes('rate') ||
+              errorMessage.includes('timeout') ||
+              errorMessage.includes('ECONN') ||
+              errorMessage.includes('ETIMEDOUT') ||
+              errorMessage.includes('ECONNRESET');
+
+            if (!isRetryable) {
+              // Don't retry on authentication or invalid request errors
+              console.error(
+                `Chunk ${i + 1}/${chunks.length} failed with non-retryable error: ${errorMessage}`,
+              );
+              break;
+            }
+
+            retries++;
+            if (retries <= maxRetries) {
+              console.warn(
+                `Chunk ${i + 1}/${chunks.length} failed, retrying (${retries}/${maxRetries})...`,
+              );
+              await new Promise((resolve) => setTimeout(resolve, 500));
+            }
+          }
+        }
+
+        if (embedding) {
+          vectors.push(embedding);
+        } else {
+          console.warn(`Warning: Failed to get embedding for chunk ${i + 1}/${chunks.length} after ${maxRetries} retries.`);
+        }
+      }
+
+      if (vectors.length === 0) {
         console.warn('Warning: No embedding returned for text.');
         return null;
       }
+
+      return this.averageEmbeddings(vectors);
     } catch (error) {
-      console.error('Error calling Embedding API:', error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error(
+        `Error calling Embedding API for text (${text.length} chars) with model ${model || 'default'}: ${errorMessage}`,
+      );
       return null;
     }
   }
@@ -214,36 +275,253 @@ export class AiService implements OnModuleInit {
       );
     }
 
-    const results: (number[] | null)[] = [];
+    const results: (number[] | null)[] = new Array(texts.length).fill(null);
+    const modelName = this.resolveEmbeddingModel(model);
+    const tokenLimit = this.getModelTokenLimit(modelName);
+    const safeChunkTokenLimit = Math.max(64, Math.floor(tokenLimit * 0.8));
     const batchSize = 10;
-    const modelName =
-      model || this.configService.getModelConfig().embeddingModel;
+    const shortInputs: Array<{ index: number; input: string; original: string }> = [];
+    const longInputs: Array<{ index: number; original: string }> = [];
 
-    for (let i = 0; i < texts.length; i += batchSize) {
-      const batch = texts.slice(i, i + batchSize);
+    texts.forEach((text, index) => {
+      const preparedInput = this.prepareEmbeddingInput(text, modelName);
+      if (this.estimateTokenCount(preparedInput) <= safeChunkTokenLimit) {
+        shortInputs.push({ index, input: preparedInput, original: text });
+        return;
+      }
 
+      longInputs.push({ index, original: text });
+    });
+
+    for (let i = 0; i < shortInputs.length; i += batchSize) {
+      const batch = shortInputs.slice(i, i + batchSize);
       try {
         const response = await this.embeddingClient.embeddings.create({
           model: modelName,
-          input: batch,
+          input: batch.map((item) => item.input),
         });
 
-        batch.forEach((_, index) => {
-          if (response.data[index]) {
-            results.push(response.data[index].embedding);
-          } else {
-            results.push(null);
-          }
+        batch.forEach((item, itemIndex) => {
+          const embedding = response.data[itemIndex]?.embedding ?? null;
+          results[item.index] = embedding;
         });
-
-        await new Promise((resolve) => setTimeout(resolve, 500));
       } catch (error) {
-        console.error(`Error getting batch embeddings for batch ${i}:`, error);
-        batch.forEach(() => results.push(null));
+        console.error(
+          `Error getting batch embeddings for batch ${i} (model: ${modelName}, items: ${batch.length}):`,
+          error,
+        );
+
+        for (let j = 0; j < batch.length; j++) {
+          const item = batch[j];
+          results[item.index] = await this.getEmbedding(item.original, modelName);
+
+          // Add delay to avoid rate limiting on fallback calls
+          if (j < batch.length - 1) {
+            await new Promise((resolve) => setTimeout(resolve, 200));
+          }
+        }
       }
     }
 
+    for (const item of longInputs) {
+      results[item.index] = await this.getEmbedding(item.original, modelName);
+    }
+
     return results;
+  }
+
+  private resolveEmbeddingModel(model?: string): string {
+    return model || this.configService.getModelConfig().embeddingModel;
+  }
+
+  private prepareEmbeddingInput(text: string, modelName: string): string {
+    const normalizedText = text.trim().replace(/\s+/g, ' ');
+    const usesE5Model = this.isE5Model(modelName);
+    const hasInstructionPrefix =
+      normalizedText.startsWith('passage:') ||
+      normalizedText.startsWith('query:');
+
+    if (usesE5Model && !hasInstructionPrefix) {
+      return `passage: ${normalizedText}`;
+    }
+
+    return normalizedText;
+  }
+
+  private isE5Model(modelName: string): boolean {
+    const normalized = modelName.toLowerCase();
+    // Explicit E5 model family detection - require model path prefix or exact match
+    // to avoid false positives with model names containing 'e5' (e.g., "fake-e5-model")
+    const e5Patterns = [
+      /^intfloat\//, // intfloat/* models (the E5 family)
+      /^multilingual-e5/, // multilingual-e5-* models
+      /\/e5-/, // any */e5-* pattern
+      /^e5-[a-z]+$/i, // e5-large, e5-small, e5-base (standalone)
+    ];
+    return e5Patterns.some((pattern) => pattern.test(normalized));
+  }
+
+  private getModelTokenLimit(modelName: string): number {
+    const normalizedModel = modelName.toLowerCase();
+
+    if (normalizedModel.includes('e5')) {
+      return 512;
+    }
+
+    if (
+      normalizedModel.includes('8k') ||
+      normalizedModel.includes('nomic-embed-text-v1.5') ||
+      normalizedModel.includes('bge-m3')
+    ) {
+      return 8192;
+    }
+
+    return 2048;
+  }
+
+  private splitTextByEstimatedTokens(text: string, maxTokens: number): string[] {
+    const normalizedText = text.trim().replace(/\s+/g, ' ');
+    if (!normalizedText) {
+      return [];
+    }
+
+    if (this.estimateTokenCount(normalizedText) <= maxTokens) {
+      return [normalizedText];
+    }
+
+    const sentences = normalizedText.split(/(?<=[.!?])\s+/);
+    const chunks: string[] = [];
+    let currentChunk = '';
+
+    for (const sentence of sentences) {
+      const candidate = currentChunk ? `${currentChunk} ${sentence}` : sentence;
+
+      if (this.estimateTokenCount(candidate) <= maxTokens) {
+        currentChunk = candidate;
+        continue;
+      }
+
+      if (currentChunk) {
+        chunks.push(currentChunk);
+      }
+
+      if (this.estimateTokenCount(sentence) <= maxTokens) {
+        currentChunk = sentence;
+        continue;
+      }
+
+      const wordChunks = this.splitSentenceIntoWordChunks(sentence, maxTokens);
+      chunks.push(...wordChunks.slice(0, -1));
+      currentChunk = wordChunks[wordChunks.length - 1] || '';
+    }
+
+    if (currentChunk) {
+      chunks.push(currentChunk);
+    }
+
+    return chunks;
+  }
+
+  private splitSentenceIntoWordChunks(
+    sentence: string,
+    maxTokens: number,
+  ): string[] {
+    const words = sentence.split(/\s+/);
+    const chunks: string[] = [];
+    let currentChunk = '';
+
+    for (const word of words) {
+      const candidate = currentChunk ? `${currentChunk} ${word}` : word;
+      if (this.estimateTokenCount(candidate) <= maxTokens) {
+        currentChunk = candidate;
+      } else {
+        if (currentChunk) {
+          chunks.push(currentChunk);
+        }
+        // Safety check: if a single word exceeds maxTokens, truncate it
+        if (this.estimateTokenCount(word) > maxTokens) {
+          // Truncate word to safe length and add as its own chunk
+          const safeLength = Math.floor(maxTokens * 3); // Approx 3 chars per token
+          const truncatedWord = word.substring(0, safeLength);
+          chunks.push(truncatedWord);
+          currentChunk = '';
+        } else {
+          currentChunk = word;
+        }
+      }
+    }
+
+    if (currentChunk) {
+      chunks.push(currentChunk);
+    }
+
+    return chunks;
+  }
+
+  private estimateTokenCount(text: string): number {
+    // More accurate token estimation:
+    // - Words with punctuation typically count as separate tokens
+    // - Code/math symbols may be split
+    // - This estimation is conservative to prevent token limit exceeded errors
+    if (!text || text.length === 0) {
+      return 0;
+    }
+
+    // Count words (whitespace-separated)
+    const words = text.trim().split(/\s+/).length;
+
+    // Count punctuation that often becomes separate tokens
+    const punctuationMatches = text.match(/[.,!?;:"'()[\]{}]/g);
+    const punctuationCount = punctuationMatches ? punctuationMatches.length : 0;
+
+    // Count uppercase sequences (acronyms often become separate tokens)
+    const uppercaseMatches = text.match(/[A-Z]{2,}/g);
+    const uppercaseCount = uppercaseMatches ? uppercaseMatches.length : 0;
+
+    // Base estimate: words + punctuation + some padding
+    const baseEstimate = words + punctuationCount * 0.5 + uppercaseCount * 0.3;
+
+    // Apply safety multiplier and ensure we don't underestimate
+    return Math.ceil(baseEstimate * 1.2);
+  }
+
+  private async getSingleEmbedding(
+    text: string,
+    modelName: string,
+  ): Promise<number[] | null> {
+    if (!this.embeddingClient) {
+      throw new BadRequestException(
+        'Embedding client not initialized. Call initializeClients() first.',
+      );
+    }
+
+    const response = await this.embeddingClient.embeddings.create({
+      model: modelName,
+      input: [text],
+    });
+
+    if (!response.data || response.data.length === 0) {
+      return null;
+    }
+
+    return response.data[0].embedding;
+  }
+
+  private averageEmbeddings(embeddings: number[][]): number[] {
+    if (!embeddings || embeddings.length === 0) {
+      throw new BadRequestException('Cannot average empty embeddings array');
+    }
+
+    const vectorSize = embeddings[0].length;
+    const sums = new Array<number>(vectorSize).fill(0);
+
+    for (const embedding of embeddings) {
+      for (let i = 0; i < vectorSize; i += 1) {
+        sums[i] += embedding[i];
+      }
+    }
+
+    return sums.map((sum) => sum / embeddings.length);
   }
 
   async generateAudio(text: string, voice?: string): Promise<Buffer> {
