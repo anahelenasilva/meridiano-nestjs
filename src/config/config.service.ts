@@ -158,7 +158,13 @@ export class ConfigService {
   }
 
   getModelConfig() {
-    return { ...this.CONFIGS.models };
+    const embeddingModel =
+      process.env.EMBEDDING_MODEL || this.CONFIGS.models.embeddingModel;
+
+    return {
+      ...this.CONFIGS.models,
+      embeddingModel,
+    };
   }
 
   getAppConfig() {
