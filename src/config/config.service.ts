@@ -27,7 +27,7 @@ import {
 export class ConfigService {
   constructor(
     private readonly youtubeChannelsService: YoutubeChannelsService,
-  ) {}
+  ) { }
 
   private readonly CONFIGS: Config = {
     prompts: {
@@ -51,7 +51,7 @@ export class ConfigService {
     models: {
       deepseekChatModel: 'deepseek-chat',
       openaiChatModel: 'gpt-4o-mini',
-      embeddingModel: 'Alibaba-NLP/gte-modernbert-base',
+      embeddingModel: 'intfloat/multilingual-e5-large-instruct',
       enabledChatModel: 'deepseek',
       enabledTtsModel: 'openai',
       openaiTtsVoice: 'alloy',
