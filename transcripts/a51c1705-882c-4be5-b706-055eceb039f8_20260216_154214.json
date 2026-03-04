@@ -1,0 +1,5702 @@
+{
+  "channel": {
+    "id": "a51c1705-882c-4be5-b706-055eceb039f8",
+    "databaseId": "a51c1705-882c-4be5-b706-055eceb039f8",
+    "name": "Theo Browne",
+    "description": "Theo is a software dev, AI nerd, TypeScript sympathizer, creator of T3 Chat and the T3 Stack."
+  },
+  "videoId": "yfxDdQo2cyI",
+  "title": "Where Should You Deploy In 2026?",
+  "url": "https://www.youtube.com/watch?v=yfxDdQo2cyI",
+  "publishedAt": "2026-02-16T18:42:13.185Z",
+  "description": "So where should you be hosting your apps in 2026? Vercel, Cloudflare, AWS?\n\nThank you Blacksmith for sponsoring! Check them out at: https://soydev.link/blacksmith\n\nWant to sponsor a video? Learn more here: https://soydev.link/sponsor-me\n\nCheck out my Twitch, Twitter, Discord more at https://t3.gg\n\nS/O @Ph4seon3 for the awesome edit 🙏",
+  "thumbnailUrl": "https://i.ytimg.com/vi_webp/yfxDdQo2cyI/maxresdefault.webp",
+  "transcript": [
+    {
+      "text": "Today's video is going to be a bit",
+      "duration": 2.64,
+      "offset": 0.08
+    },
+    {
+      "text": "different because I wasn't actually",
+      "duration": 3.36,
+      "offset": 1.28
+    },
+    {
+      "text": "filming this video when I filmed most of",
+      "duration": 3.28,
+      "offset": 2.72
+    },
+    {
+      "text": "this video. I know that sounds crazy,",
+      "duration": 3.279,
+      "offset": 4.64
+    },
+    {
+      "text": "but just hear me out for a sec. I was",
+      "duration": 3.44,
+      "offset": 6
+    },
+    {
+      "text": "just filming a video about the death of",
+      "duration": 3.121,
+      "offset": 7.919
+    },
+    {
+      "text": "Heroku. You might have even seen it",
+      "duration": 3.44,
+      "offset": 9.44
+    },
+    {
+      "text": "already. And that video ended up with a",
+      "duration": 3.599,
+      "offset": 11.04
+    },
+    {
+      "text": "long tangent about various other",
+      "duration": 3.2,
+      "offset": 12.88
+    },
+    {
+      "text": "alternatives that you might consider",
+      "duration": 4.321,
+      "offset": 14.639
+    },
+    {
+      "text": "moving to. Everything from AWS to",
+      "duration": 5.199,
+      "offset": 16.08
+    },
+    {
+      "text": "Verscell, Railway, Netlefi, Render,",
+      "duration": 4.319,
+      "offset": 18.96
+    },
+    {
+      "text": "Cloudflare, Digital Ocean, Hner, Flight,",
+      "duration": 4.08,
+      "offset": 21.279
+    },
+    {
+      "text": "and more. I wanted to do my best to",
+      "duration": 4,
+      "offset": 23.279
+    },
+    {
+      "text": "break all of these options down and",
+      "duration": 4.16,
+      "offset": 25.359
+    },
+    {
+      "text": "share how I think about them and how I",
+      "duration": 4.561,
+      "offset": 27.279
+    },
+    {
+      "text": "choose where I deploy my applications.",
+      "duration": 3.761,
+      "offset": 29.519
+    },
+    {
+      "text": "While I have been sponsored by many of",
+      "duration": 2.96,
+      "offset": 31.84
+    },
+    {
+      "text": "these companies in the past, none of",
+      "duration": 3.04,
+      "offset": 33.28
+    },
+    {
+      "text": "them are sponsoring this video. The",
+      "duration": 3.36,
+      "offset": 34.8
+    },
+    {
+      "text": "point of this was to give you my honest",
+      "duration": 4.64,
+      "offset": 36.32
+    },
+    {
+      "text": "take on how I choose where I deploy my",
+      "duration": 4.399,
+      "offset": 38.16
+    },
+    {
+      "text": "services. It can feel a little",
+      "duration": 3.599,
+      "offset": 40.96
+    },
+    {
+      "text": "overwhelming to choose and a lot of the",
+      "duration": 4.081,
+      "offset": 42.559
+    },
+    {
+      "text": "advice I see around the internet feels",
+      "duration": 4.241,
+      "offset": 44.559
+    },
+    {
+      "text": "like it's coming a little bit too much",
+      "duration": 3.919,
+      "offset": 46.64
+    },
+    {
+      "text": "out of the perspective of the user and",
+      "duration": 3.2,
+      "offset": 48.8
+    },
+    {
+      "text": "the specific thing they are working on",
+      "duration": 3.441,
+      "offset": 50.559
+    },
+    {
+      "text": "in that moment where all of these",
+      "duration": 4.239,
+      "offset": 52
+    },
+    {
+      "text": "platforms, okay, most of these platforms",
+      "duration": 3.92,
+      "offset": 54
+    },
+    {
+      "text": "have real benefits that are worth",
+      "duration": 3.521,
+      "offset": 56.239
+    },
+    {
+      "text": "considering. There are at least three",
+      "duration": 4.72,
+      "offset": 57.92
+    },
+    {
+      "text": "options on each side here that are worth",
+      "duration": 4.56,
+      "offset": 59.76
+    },
+    {
+      "text": "thinking about and evaluating before",
+      "duration": 3.68,
+      "offset": 62.64
+    },
+    {
+      "text": "making a decision. And this video isn't",
+      "duration": 3.76,
+      "offset": 64.32
+    },
+    {
+      "text": "just like this one's good and this one's",
+      "duration": 3.44,
+      "offset": 66.32
+    },
+    {
+      "text": "bad. I'm trying to help you make a",
+      "duration": 3.68,
+      "offset": 68.08
+    },
+    {
+      "text": "mental mapping and model for how to",
+      "duration": 3.76,
+      "offset": 69.76
+    },
+    {
+      "text": "choose the right place to host your",
+      "duration": 3.2,
+      "offset": 71.76
+    },
+    {
+      "text": "code. And in a world where we're",
+      "duration": 3.04,
+      "offset": 73.52
+    },
+    {
+      "text": "deploying more and more services, making",
+      "duration": 3.199,
+      "offset": 74.96
+    },
+    {
+      "text": "all these micro apps, and vibe coding",
+      "duration": 3.76,
+      "offset": 76.56
+    },
+    {
+      "text": "all sorts of stuff, no one's helping you",
+      "duration": 4.081,
+      "offset": 78.159
+    },
+    {
+      "text": "figure out where to put it. And if I",
+      "duration": 4.159,
+      "offset": 80.32
+    },
+    {
+      "text": "keep seeing these crazy versell bills or",
+      "duration": 3.919,
+      "offset": 82.24
+    },
+    {
+      "text": "people getting stuck trying to deploy on",
+      "duration": 3.921,
+      "offset": 84.479
+    },
+    {
+      "text": "AWS, I'm going to go mad. I really want",
+      "duration": 4.081,
+      "offset": 86.159
+    },
+    {
+      "text": "to help you guys understand how I pick",
+      "duration": 3.92,
+      "offset": 88.4
+    },
+    {
+      "text": "solutions. And it's not based on who's",
+      "duration": 3.839,
+      "offset": 90.24
+    },
+    {
+      "text": "paying me. None of these companies are",
+      "duration": 3.839,
+      "offset": 92.32
+    },
+    {
+      "text": "paying me today. The only one who is is",
+      "duration": 3.761,
+      "offset": 94.079
+    },
+    {
+      "text": "today's sponsor. I have a confession to",
+      "duration": 4.241,
+      "offset": 96.159
+    },
+    {
+      "text": "make. I've stopped using GitHub for CI",
+      "duration": 4,
+      "offset": 97.84
+    },
+    {
+      "text": "because today's sponsor, Blacksmith, has",
+      "duration": 3.679,
+      "offset": 100.4
+    },
+    {
+      "text": "made my CI so much better. Actions just",
+      "duration": 4.16,
+      "offset": 101.84
+    },
+    {
+      "text": "aren't reliable, and I've had so many",
+      "duration": 3.201,
+      "offset": 104.079
+    },
+    {
+      "text": "problems with them. And they all",
+      "duration": 2.799,
+      "offset": 106
+    },
+    {
+      "text": "vanished as soon as I set up Blacksmith",
+      "duration": 3.28,
+      "offset": 107.28
+    },
+    {
+      "text": "for all of our repos. And yes, I mean",
+      "duration": 2.96,
+      "offset": 108.799
+    },
+    {
+      "text": "all of them. Looks like we even have",
+      "duration": 2.96,
+      "offset": 110.56
+    },
+    {
+      "text": "jobs running right now. Honestly, all of",
+      "duration": 3.04,
+      "offset": 111.759
+    },
+    {
+      "text": "the observability stuff would be worth",
+      "duration": 3.04,
+      "offset": 113.52
+    },
+    {
+      "text": "it by itself. Actually seeing what",
+      "duration": 3.68,
+      "offset": 114.799
+    },
+    {
+      "text": "failed and why and having a log search",
+      "duration": 4,
+      "offset": 116.56
+    },
+    {
+      "text": "that like works. If you've ever had to",
+      "duration": 3.92,
+      "offset": 118.479
+    },
+    {
+      "text": "debug weird actions, you know how",
+      "duration": 4.32,
+      "offset": 120.56
+    },
+    {
+      "text": "absurdly useful this is by itself. It is",
+      "duration": 4.08,
+      "offset": 122.399
+    },
+    {
+      "text": "not just for individual projects. You",
+      "duration": 3.359,
+      "offset": 124.88
+    },
+    {
+      "text": "can scan all of your projects as well,",
+      "duration": 3.92,
+      "offset": 126.479
+    },
+    {
+      "text": "which is huge. But the real key is the",
+      "duration": 3.921,
+      "offset": 128.239
+    },
+    {
+      "text": "fastest part because they really are the",
+      "duration": 3.521,
+      "offset": 130.399
+    },
+    {
+      "text": "fastest. The secret to how they're so",
+      "duration": 3.36,
+      "offset": 132.16
+    },
+    {
+      "text": "fast isn't really that secret. They're",
+      "duration": 3.44,
+      "offset": 133.92
+    },
+    {
+      "text": "using better hardware with gaming CPUs",
+      "duration": 3.84,
+      "offset": 135.52
+    },
+    {
+      "text": "as well as NVME drives that store all of",
+      "duration": 3.36,
+      "offset": 137.36
+    },
+    {
+      "text": "your layers for things like Docker,",
+      "duration": 2.959,
+      "offset": 139.36
+    },
+    {
+      "text": "which allows the restoration process to",
+      "duration": 3.28,
+      "offset": 140.72
+    },
+    {
+      "text": "be instantaneous instead of taking",
+      "duration": 3.681,
+      "offset": 142.319
+    },
+    {
+      "text": "forever. I just moved some actions for a",
+      "duration": 3.36,
+      "offset": 144
+    },
+    {
+      "text": "Rust project I'm working on, and they",
+      "duration": 3.36,
+      "offset": 146
+    },
+    {
+      "text": "went from 5 minutes to under 30 seconds.",
+      "duration": 3.68,
+      "offset": 147.36
+    },
+    {
+      "text": "We've seen similar speedups across all",
+      "duration": 2.879,
+      "offset": 149.36
+    },
+    {
+      "text": "of the projects that we're working on.",
+      "duration": 3.12,
+      "offset": 151.04
+    },
+    {
+      "text": "Other companies like Ashb doubled their",
+      "duration": 3.601,
+      "offset": 152.239
+    },
+    {
+      "text": "deployment speeds while also cutting",
+      "duration": 4.24,
+      "offset": 154.16
+    },
+    {
+      "text": "their spend by 75%. Because yes,",
+      "duration": 4.479,
+      "offset": 155.84
+    },
+    {
+      "text": "Blacksmith's cheaper, too. Don't believe",
+      "duration": 3.6,
+      "offset": 158.4
+    },
+    {
+      "text": "me? Try it yourself. It's free to get",
+      "duration": 3.2,
+      "offset": 160.319
+    },
+    {
+      "text": "started and it's one line of code",
+      "duration": 3.44,
+      "offset": 162
+    },
+    {
+      "text": "changed. Yes, really. You swap the",
+      "duration": 3.521,
+      "offset": 163.519
+    },
+    {
+      "text": "action. Once you're set up, it's good to",
+      "duration": 3.12,
+      "offset": 165.44
+    },
+    {
+      "text": "go. Stop wasting your time and speed up",
+      "duration": 3.6,
+      "offset": 167.04
+    },
+    {
+      "text": "your builds at soyv.link/blacksmith.",
+      "duration": 3.92,
+      "offset": 168.56
+    },
+    {
+      "text": "I'll break this into servers and",
+      "duration": 3.28,
+      "offset": 170.64
+    },
+    {
+      "text": "serverless. You know, we'll call it",
+      "duration": 4.16,
+      "offset": 172.48
+    },
+    {
+      "text": "VPS's and serverless. There's a lot of",
+      "duration": 5.12,
+      "offset": 173.92
+    },
+    {
+      "text": "good options for both. In the serverless",
+      "duration": 4.4,
+      "offset": 176.64
+    },
+    {
+      "text": "side, obviously Verscell is still",
+      "duration": 4.8,
+      "offset": 179.04
+    },
+    {
+      "text": "inarguably king. The balance of DX and",
+      "duration": 4.4,
+      "offset": 181.04
+    },
+    {
+      "text": "capability of the platform is pretty",
+      "duration": 3.44,
+      "offset": 183.84
+    },
+    {
+      "text": "hard to beat. Nellifi is not a bad",
+      "duration": 3.68,
+      "offset": 185.44
+    },
+    {
+      "text": "option, especially with their recent",
+      "duration": 3.36,
+      "offset": 187.28
+    },
+    {
+      "text": "embrace of vibe coding and supporting",
+      "duration": 3.199,
+      "offset": 189.12
+    },
+    {
+      "text": "all of the platforms that build all the",
+      "duration": 3.679,
+      "offset": 190.64
+    },
+    {
+      "text": "fancy vioding tools. Scales great. I",
+      "duration": 4,
+      "offset": 192.319
+    },
+    {
+      "text": "love the CEO. Really good. Has it",
+      "duration": 3.441,
+      "offset": 194.319
+    },
+    {
+      "text": "negatives. We'll get there. And then we",
+      "duration": 3.521,
+      "offset": 196.319
+    },
+    {
+      "text": "have Cloudflare. A lot of things to say",
+      "duration": 4.16,
+      "offset": 197.76
+    },
+    {
+      "text": "about that. On the VPS side, we have a",
+      "duration": 4.64,
+      "offset": 199.84
+    },
+    {
+      "text": "ton of options. Obviously, we can go AWS",
+      "duration": 6.16,
+      "offset": 201.92
+    },
+    {
+      "text": "with EC2 or EKS. Lots of options there.",
+      "duration": 4.96,
+      "offset": 204.48
+    },
+    {
+      "text": "Railway, which I've already talked",
+      "duration": 4.48,
+      "offset": 208.08
+    },
+    {
+      "text": "about. You have render fly.io. Yeah,",
+      "duration": 5.6,
+      "offset": 209.44
+    },
+    {
+      "text": "digital ocean. Another crazy throwback.",
+      "duration": 4.959,
+      "offset": 212.56
+    },
+    {
+      "text": "Man, I have digital ocean. I have a long",
+      "duration": 4.64,
+      "offset": 215.04
+    },
+    {
+      "text": "ass history. Oh, yeah. Hner, the",
+      "duration": 3.121,
+      "offset": 217.519
+    },
+    {
+      "text": "classic. That's the one I was",
+      "duration": 2.559,
+      "offset": 219.68
+    },
+    {
+      "text": "forgetting. Obviously, there's other",
+      "duration": 4.4,
+      "offset": 220.64
+    },
+    {
+      "text": "traditional clouds like GCP, Azure. The",
+      "duration": 4.08,
+      "offset": 222.239
+    },
+    {
+      "text": "reality is that if either of these are",
+      "duration": 3.119,
+      "offset": 225.04
+    },
+    {
+      "text": "the right solution to your problem, you",
+      "duration": 3.2,
+      "offset": 226.319
+    },
+    {
+      "text": "already know that and you're not here",
+      "duration": 2.561,
+      "offset": 228.159
+    },
+    {
+      "text": "for me to tell you about different",
+      "duration": 3.841,
+      "offset": 229.519
+    },
+    {
+      "text": "options. There's also OVH. None of the",
+      "duration": 4.56,
+      "offset": 230.72
+    },
+    {
+      "text": "rest are things I care about enough to",
+      "duration": 3.519,
+      "offset": 233.36
+    },
+    {
+      "text": "put in the list. I think this is a good",
+      "duration": 3.28,
+      "offset": 235.28
+    },
+    {
+      "text": "enough list of the VPS's. I'm going to",
+      "duration": 3.601,
+      "offset": 236.879
+    },
+    {
+      "text": "start by diving into the serverless list",
+      "duration": 3.92,
+      "offset": 238.56
+    },
+    {
+      "text": "here. If you don't know which of these",
+      "duration": 3.839,
+      "offset": 240.48
+    },
+    {
+      "text": "you fit under, you should almost",
+      "duration": 3.36,
+      "offset": 242.48
+    },
+    {
+      "text": "certainly start with the serverless",
+      "duration": 3.84,
+      "offset": 244.319
+    },
+    {
+      "text": "options and if they have issues because",
+      "duration": 4.08,
+      "offset": 245.84
+    },
+    {
+      "text": "you actually do end up meeting a server,",
+      "duration": 3.201,
+      "offset": 248.159
+    },
+    {
+      "text": "you'll figure that out pretty fast and",
+      "duration": 3.36,
+      "offset": 249.92
+    },
+    {
+      "text": "then you'll move over accordingly. But",
+      "duration": 4.4,
+      "offset": 251.36
+    },
+    {
+      "text": "generally speaking, 98 plus% of",
+      "duration": 4.4,
+      "offset": 253.28
+    },
+    {
+      "text": "applications can be served totally fine",
+      "duration": 3.759,
+      "offset": 255.76
+    },
+    {
+      "text": "in a serverless deployment solution. I",
+      "duration": 3.119,
+      "offset": 257.68
+    },
+    {
+      "text": "would lean in that direction. So that's",
+      "duration": 4.161,
+      "offset": 259.519
+    },
+    {
+      "text": "being a fair point that AWS Lambda",
+      "duration": 4.4,
+      "offset": 260.799
+    },
+    {
+      "text": "should also be in here. You're not",
+      "duration": 3.2,
+      "offset": 263.68
+    },
+    {
+      "text": "wrong, but we're not going to be talking",
+      "duration": 3.361,
+      "offset": 265.199
+    },
+    {
+      "text": "about that one too much. Let's break",
+      "duration": 3.599,
+      "offset": 266.88
+    },
+    {
+      "text": "down all these options and how I pick",
+      "duration": 3.68,
+      "offset": 268.56
+    },
+    {
+      "text": "between them. I honestly think this will",
+      "duration": 3.761,
+      "offset": 270.479
+    },
+    {
+      "text": "be easier if we go backwards. So, let's",
+      "duration": 5.12,
+      "offset": 272.24
+    },
+    {
+      "text": "start with AWS Lambda. Lambda is not",
+      "duration": 4.88,
+      "offset": 274.24
+    },
+    {
+      "text": "trivial to set up. There are lots of",
+      "duration": 4,
+      "offset": 277.36
+    },
+    {
+      "text": "tools to help like SST, Palumi,",
+      "duration": 4.079,
+      "offset": 279.12
+    },
+    {
+      "text": "Terraform, things like that. It still",
+      "duration": 4.8,
+      "offset": 281.36
+    },
+    {
+      "text": "sucks. Concurrency is not viable. They",
+      "duration": 4.801,
+      "offset": 283.199
+    },
+    {
+      "text": "are starting to introduce their concept",
+      "duration": 3.52,
+      "offset": 286.16
+    },
+    {
+      "text": "of doing concurrent Lambda stuff.",
+      "duration": 2.8,
+      "offset": 288
+    },
+    {
+      "text": "They're not there yet. I don't know",
+      "duration": 2.4,
+      "offset": 289.68
+    },
+    {
+      "text": "anyone who's actually using it or",
+      "duration": 2.48,
+      "offset": 290.8
+    },
+    {
+      "text": "relying on it. Then they have like",
+      "duration": 5.52,
+      "offset": 292.08
+    },
+    {
+      "text": "amplify which is a total joke. Yeah. CDN",
+      "duration": 7.12,
+      "offset": 293.28
+    },
+    {
+      "text": "gateway is your problem. Git push",
+      "duration": 6.56,
+      "offset": 297.6
+    },
+    {
+      "text": "pipeline GHF costs are fine but",
+      "duration": 6.96,
+      "offset": 300.4
+    },
+    {
+      "text": "concurrency sucks. Yeah. It's hard to",
+      "duration": 5.12,
+      "offset": 304.16
+    },
+    {
+      "text": "recommend Lambda to most people. At",
+      "duration": 3.92,
+      "offset": 307.36
+    },
+    {
+      "text": "least it's Node though or anything else.",
+      "duration": 3.199,
+      "offset": 309.28
+    },
+    {
+      "text": "If you can put in a Docker image, you",
+      "duration": 2.96,
+      "offset": 311.28
+    },
+    {
+      "text": "can put it on Lambda. But a lot of",
+      "duration": 4.321,
+      "offset": 312.479
+    },
+    {
+      "text": "technologies that people like tend to be",
+      "duration": 5.519,
+      "offset": 314.24
+    },
+    {
+      "text": "slow to spin up. So don't think you can",
+      "duration": 4.56,
+      "offset": 316.8
+    },
+    {
+      "text": "just rewrite your Lambda in Rust and",
+      "duration": 3.44,
+      "offset": 319.759
+    },
+    {
+      "text": "it's magically super fast. Sometimes",
+      "duration": 2.96,
+      "offset": 321.36
+    },
+    {
+      "text": "those things take a bit to boot,",
+      "duration": 2.801,
+      "offset": 323.199
+    },
+    {
+      "text": "especially if your wait time isn't on",
+      "duration": 3.36,
+      "offset": 324.32
+    },
+    {
+      "text": "the startup of your code. It's actually",
+      "duration": 3.68,
+      "offset": 326
+    },
+    {
+      "text": "on the connection to your database. Good",
+      "duration": 3.44,
+      "offset": 327.68
+    },
+    {
+      "text": "luck. Have fun. There's also a lot of",
+      "duration": 2.64,
+      "offset": 329.68
+    },
+    {
+      "text": "other little things like streaming with",
+      "duration": 2.96,
+      "offset": 331.12
+    },
+    {
+      "text": "super broken Lambda. I think it might be",
+      "duration": 3.2,
+      "offset": 332.32
+    },
+    {
+      "text": "fixed now. I'm not sure, but if you're",
+      "duration": 2.959,
+      "offset": 334.08
+    },
+    {
+      "text": "using a server component style framework",
+      "duration": 3.36,
+      "offset": 335.52
+    },
+    {
+      "text": "that does HTTP streaming like you know,",
+      "duration": 5.041,
+      "offset": 337.039
+    },
+    {
+      "text": "Nex.js, not fun. And next we have",
+      "duration": 5.84,
+      "offset": 338.88
+    },
+    {
+      "text": "everyone's favorite CloudFlare. First",
+      "duration": 3.679,
+      "offset": 342.08
+    },
+    {
+      "text": "thing I want to say is that they have",
+      "duration": 2.8,
+      "offset": 344.72
+    },
+    {
+      "text": "one of a kind infra. And that one of a",
+      "duration": 3.361,
+      "offset": 345.759
+    },
+    {
+      "text": "kind infra allows them to be",
+      "duration": 3.28,
+      "offset": 347.52
+    },
+    {
+      "text": "significantly cheaper than almost",
+      "duration": 3.84,
+      "offset": 349.12
+    },
+    {
+      "text": "anything else because Cloudflare isn't",
+      "duration": 4.32,
+      "offset": 350.8
+    },
+    {
+      "text": "using traditional servers or Docker",
+      "duration": 4.32,
+      "offset": 352.96
+    },
+    {
+      "text": "images. You can't send a Docker image to",
+      "duration": 4.4,
+      "offset": 355.12
+    },
+    {
+      "text": "Cloudflare and run it. Well, you kind of",
+      "duration": 3.919,
+      "offset": 357.28
+    },
+    {
+      "text": "can now, but their whole like Docker",
+      "duration": 2.88,
+      "offset": 359.52
+    },
+    {
+      "text": "image server thing is a different",
+      "duration": 2.56,
+      "offset": 361.199
+    },
+    {
+      "text": "product and it sucks. I don't anyone",
+      "duration": 2.56,
+      "offset": 362.4
+    },
+    {
+      "text": "using it. It's super overpriced and",
+      "duration": 2.961,
+      "offset": 363.759
+    },
+    {
+      "text": "slow. Cloudflare's strength is you give",
+      "duration": 3.679,
+      "offset": 364.96
+    },
+    {
+      "text": "them a JavaScript file and they run it",
+      "duration": 3.919,
+      "offset": 366.72
+    },
+    {
+      "text": "on their edge network that has a",
+      "duration": 3.68,
+      "offset": 368.639
+    },
+    {
+      "text": "different layer of abstraction. Instead",
+      "duration": 3.361,
+      "offset": 370.639
+    },
+    {
+      "text": "of handing them a box with a kernel in",
+      "duration": 3.361,
+      "offset": 372.319
+    },
+    {
+      "text": "it and expecting them to run it for you,",
+      "duration": 4,
+      "offset": 374
+    },
+    {
+      "text": "you're handing them a JS file and three",
+      "duration": 4.16,
+      "offset": 375.68
+    },
+    {
+      "text": "layers above the kernel in their custom",
+      "duration": 4,
+      "offset": 378
+    },
+    {
+      "text": "version of V8 called workerd, they run",
+      "duration": 4.479,
+      "offset": 379.84
+    },
+    {
+      "text": "your code safely in an isolate that",
+      "duration": 4,
+      "offset": 382
+    },
+    {
+      "text": "doesn't have to spin up a whole server",
+      "duration": 3.44,
+      "offset": 384.319
+    },
+    {
+      "text": "the way that things like Lambda do. That",
+      "duration": 3.759,
+      "offset": 386
+    },
+    {
+      "text": "means that cold starts are near zero. It",
+      "duration": 3.121,
+      "offset": 387.759
+    },
+    {
+      "text": "means that their pricing model is",
+      "duration": 2.241,
+      "offset": 389.759
+    },
+    {
+      "text": "fundamentally different because they",
+      "duration": 3.36,
+      "offset": 390.88
+    },
+    {
+      "text": "only charge on CPU time. Other platforms",
+      "duration": 4.319,
+      "offset": 392
+    },
+    {
+      "text": "charge wall clock time because the",
+      "duration": 3.679,
+      "offset": 394.24
+    },
+    {
+      "text": "server's up. It doesn't matter how",
+      "duration": 3.121,
+      "offset": 396.319
+    },
+    {
+      "text": "people are using it. It costs them",
+      "duration": 3.361,
+      "offset": 397.919
+    },
+    {
+      "text": "money, it costs you money, too. With",
+      "duration": 4.24,
+      "offset": 399.44
+    },
+    {
+      "text": "Cloudflare, if your request isn't doing",
+      "duration": 4.08,
+      "offset": 401.28
+    },
+    {
+      "text": "anything, like it's idling, waiting for",
+      "duration": 3.359,
+      "offset": 403.68
+    },
+    {
+      "text": "more data to come in, the compute on",
+      "duration": 3.679,
+      "offset": 405.36
+    },
+    {
+      "text": "that box can be used for someone else's",
+      "duration": 4.321,
+      "offset": 407.039
+    },
+    {
+      "text": "request because lots of people are",
+      "duration": 3.921,
+      "offset": 409.039
+    },
+    {
+      "text": "running their code at the same time on",
+      "duration": 3.36,
+      "offset": 411.36
+    },
+    {
+      "text": "the same box. On Verscell, every",
+      "duration": 3.2,
+      "offset": 412.96
+    },
+    {
+      "text": "developer's deployment has its own",
+      "duration": 3.36,
+      "offset": 414.72
+    },
+    {
+      "text": "kernel. On Cloudflare, every single",
+      "duration": 4,
+      "offset": 416.16
+    },
+    {
+      "text": "deployment is just a JavaScript file",
+      "duration": 3.76,
+      "offset": 418.08
+    },
+    {
+      "text": "running in the same VM. It also changes",
+      "duration": 3.039,
+      "offset": 420.16
+    },
+    {
+      "text": "their performance profile meaningly.",
+      "duration": 2.72,
+      "offset": 421.84
+    },
+    {
+      "text": "Check out the Verscell versus Cloudflare",
+      "duration": 2.56,
+      "offset": 423.199
+    },
+    {
+      "text": "video if you want more info on that.",
+      "duration": 2.479,
+      "offset": 424.56
+    },
+    {
+      "text": "They've made improvements since, but",
+      "duration": 3.521,
+      "offset": 425.759
+    },
+    {
+      "text": "it's still not as fast as dedicated box",
+      "duration": 4.56,
+      "offset": 427.039
+    },
+    {
+      "text": "can be. But there's a much bigger catch.",
+      "duration": 5.359,
+      "offset": 429.28
+    },
+    {
+      "text": "Not Node. Every time I use Cloudflare, I",
+      "duration": 5.361,
+      "offset": 431.599
+    },
+    {
+      "text": "run into something because of this. It's",
+      "duration": 4.321,
+      "offset": 434.639
+    },
+    {
+      "text": "not running Node.js. It's running their",
+      "duration": 3.92,
+      "offset": 436.96
+    },
+    {
+      "text": "JavaScript engine. And because of that,",
+      "duration": 4.4,
+      "offset": 438.96
+    },
+    {
+      "text": "a lot of things don't work. Things like",
+      "duration": 5.039,
+      "offset": 440.88
+    },
+    {
+      "text": "reading and writing files, things like",
+      "duration": 3.92,
+      "offset": 443.36
+    },
+    {
+      "text": "many of the methods you use to connect",
+      "duration": 4.161,
+      "offset": 445.919
+    },
+    {
+      "text": "to databases, things like any package",
+      "duration": 4.8,
+      "offset": 447.28
+    },
+    {
+      "text": "that runs any native code, you know,",
+      "duration": 5.119,
+      "offset": 450.08
+    },
+    {
+      "text": "like image optimizers, PDF parsing, all",
+      "duration": 4.959,
+      "offset": 452.08
+    },
+    {
+      "text": "the fun things we like to do in our",
+      "duration": 4,
+      "offset": 455.199
+    },
+    {
+      "text": "servers with our node apps. There's a",
+      "duration": 4.321,
+      "offset": 457.039
+    },
+    {
+      "text": "lot of issues when you can't use node.",
+      "duration": 4.481,
+      "offset": 459.199
+    },
+    {
+      "text": "They've done their best to patch in",
+      "duration": 5.04,
+      "offset": 461.36
+    },
+    {
+      "text": "support for a lot of node stuff. None of",
+      "duration": 4.079,
+      "offset": 463.68
+    },
+    {
+      "text": "the things I just mentioned have been",
+      "duration": 2.96,
+      "offset": 466.4
+    },
+    {
+      "text": "fixed. All of those are still problems,",
+      "duration": 3.201,
+      "offset": 467.759
+    },
+    {
+      "text": "but most packages have shims around the",
+      "duration": 3.76,
+      "offset": 469.36
+    },
+    {
+      "text": "node functions now built in where they",
+      "duration": 4.32,
+      "offset": 470.96
+    },
+    {
+      "text": "can mostly work. Things like crypto were",
+      "duration": 4.56,
+      "offset": 473.12
+    },
+    {
+      "text": "entirely broken and now mostly work. The",
+      "duration": 4.8,
+      "offset": 475.28
+    },
+    {
+      "text": "compat layers fine, but you're almost",
+      "duration": 4.239,
+      "offset": 477.68
+    },
+    {
+      "text": "certainly going to run into some issues.",
+      "duration": 3.28,
+      "offset": 480.08
+    },
+    {
+      "text": "Like one of the biggest ones I have is",
+      "duration": 3.521,
+      "offset": 481.919
+    },
+    {
+      "text": "stuff like sharp and ffmpeg. you're not",
+      "duration": 3.519,
+      "offset": 483.36
+    },
+    {
+      "text": "running anything that is written in a",
+      "duration": 3.039,
+      "offset": 485.44
+    },
+    {
+      "text": "language other than JavaScript in",
+      "duration": 3.681,
+      "offset": 486.879
+    },
+    {
+      "text": "Cloudflare. And anyone saying otherwise,",
+      "duration": 4.72,
+      "offset": 488.479
+    },
+    {
+      "text": "like, oh, you can just wom your stuff",
+      "duration": 4.72,
+      "offset": 490.56
+    },
+    {
+      "text": "has not tried it seriously. I have been",
+      "duration": 3.921,
+      "offset": 493.199
+    },
+    {
+      "text": "to hell and back for many projects",
+      "duration": 3.44,
+      "offset": 495.28
+    },
+    {
+      "text": "trying to get Cloudflare to let me do",
+      "duration": 3.44,
+      "offset": 497.12
+    },
+    {
+      "text": "something that involves any code that",
+      "duration": 3.36,
+      "offset": 498.72
+    },
+    {
+      "text": "isn't in JavaScript and every single",
+      "duration": 3.28,
+      "offset": 500.56
+    },
+    {
+      "text": "time I gave up and moved to one of the",
+      "duration": 3.04,
+      "offset": 502.08
+    },
+    {
+      "text": "other options. Speaking of other",
+      "duration": 3.919,
+      "offset": 503.84
+    },
+    {
+      "text": "options, Netlefi. Nellifi is another",
+      "duration": 4.32,
+      "offset": 505.12
+    },
+    {
+      "text": "Lambda wrapper, but they include all the",
+      "duration": 3.681,
+      "offset": 507.759
+    },
+    {
+      "text": "other fun things like the CDN that make",
+      "duration": 4,
+      "offset": 509.44
+    },
+    {
+      "text": "the platform so nice. Everything from",
+      "duration": 4.64,
+      "offset": 511.44
+    },
+    {
+      "text": "here down effectively has those pieces.",
+      "duration": 4.719,
+      "offset": 513.44
+    },
+    {
+      "text": "Really good GitHub integrations.",
+      "duration": 3.439,
+      "offset": 516.08
+    },
+    {
+      "text": "Honestly, really good integrations in",
+      "duration": 3.041,
+      "offset": 518.159
+    },
+    {
+      "text": "general. They have an awesome team. They",
+      "duration": 3.52,
+      "offset": 519.519
+    },
+    {
+      "text": "support the hell out of open source.",
+      "duration": 3.52,
+      "offset": 521.2
+    },
+    {
+      "text": "They're pretty good. I've never",
+      "duration": 3.441,
+      "offset": 523.039
+    },
+    {
+      "text": "regretted my use of Netlefi in a",
+      "duration": 3.04,
+      "offset": 524.72
+    },
+    {
+      "text": "meaningful way. They've been a sponsor",
+      "duration": 2.24,
+      "offset": 526.48
+    },
+    {
+      "text": "in the past. I wouldn't be surprised if",
+      "duration": 2.88,
+      "offset": 527.76
+    },
+    {
+      "text": "they are again in the future. Netlefi is",
+      "duration": 5.28,
+      "offset": 528.72
+    },
+    {
+      "text": "solid platform. They handle CDN and",
+      "duration": 6,
+      "offset": 530.64
+    },
+    {
+      "text": "distribution stuff, but they don't have",
+      "duration": 4.72,
+      "offset": 534
+    },
+    {
+      "text": "everything. The biggest thing I miss",
+      "duration": 4.96,
+      "offset": 536.64
+    },
+    {
+      "text": "when I use Netlfi is concurrency because",
+      "duration": 4.64,
+      "offset": 538.72
+    },
+    {
+      "text": "again the concurrency model for a lot of",
+      "duration": 4.08,
+      "offset": 541.6
+    },
+    {
+      "text": "these things including AWS Lambda is",
+      "duration": 4.8,
+      "offset": 543.36
+    },
+    {
+      "text": "each request gets its own instance and",
+      "duration": 4.56,
+      "offset": 545.68
+    },
+    {
+      "text": "for the modern way that things work that",
+      "duration": 4.56,
+      "offset": 548.16
+    },
+    {
+      "text": "is not pleasant. Their solution for this",
+      "duration": 5.52,
+      "offset": 550.24
+    },
+    {
+      "text": "is some really cool background jobs and",
+      "duration": 4.88,
+      "offset": 552.72
+    },
+    {
+      "text": "Q type stuff. The work they have done",
+      "duration": 3.759,
+      "offset": 555.76
+    },
+    {
+      "text": "for their queuing things is actually",
+      "duration": 3.359,
+      "offset": 557.6
+    },
+    {
+      "text": "really really cool. The bit I played",
+      "duration": 3.44,
+      "offset": 559.519
+    },
+    {
+      "text": "with it for was awesome. They were way",
+      "duration": 3.521,
+      "offset": 560.959
+    },
+    {
+      "text": "ahead of Versel with the workspace",
+      "duration": 3.281,
+      "offset": 562.959
+    },
+    {
+      "text": "thing. They had it figured out early and",
+      "duration": 3.359,
+      "offset": 564.48
+    },
+    {
+      "text": "it was surprisingly cheap. I should also",
+      "duration": 2.96,
+      "offset": 566.24
+    },
+    {
+      "text": "mention for the Cloudflare stuff before",
+      "duration": 4.161,
+      "offset": 567.839
+    },
+    {
+      "text": "I forget, GitHub integration, GHF.",
+      "duration": 4.4,
+      "offset": 569.2
+    },
+    {
+      "text": "Getting your Cloudflare stuff integrated",
+      "duration": 4,
+      "offset": 572
+    },
+    {
+      "text": "with modern tools is still your problem,",
+      "duration": 4.96,
+      "offset": 573.6
+    },
+    {
+      "text": "not theirs. The dashboard is absolute",
+      "duration": 4.959,
+      "offset": 576
+    },
+    {
+      "text": "garbage. I I actually think that the",
+      "duration": 4.48,
+      "offset": 578.56
+    },
+    {
+      "text": "entire dashboard codebase should be",
+      "duration": 4.161,
+      "offset": 580.959
+    },
+    {
+      "text": "deleted and restarted from scratch.",
+      "duration": 3.68,
+      "offset": 583.04
+    },
+    {
+      "text": "There is no recovery at this point.",
+      "duration": 3.839,
+      "offset": 585.12
+    },
+    {
+      "text": "They've had multiple massive global",
+      "duration": 4.72,
+      "offset": 586.72
+    },
+    {
+      "text": "outages because of bad code for fetching",
+      "duration": 4.56,
+      "offset": 588.959
+    },
+    {
+      "text": "data in the dashboard. It's pretty",
+      "duration": 3.68,
+      "offset": 591.44
+    },
+    {
+      "text": "pathetic. Addy just jumped in saying",
+      "duration": 2.961,
+      "offset": 593.519
+    },
+    {
+      "text": "Cloudflare pages is native GitHub",
+      "duration": 3.52,
+      "offset": 595.12
+    },
+    {
+      "text": "integration. Awesome. Cloudflare pages",
+      "duration": 4.96,
+      "offset": 596.48
+    },
+    {
+      "text": "is also dead. They are merging it with",
+      "duration": 4.639,
+      "offset": 598.64
+    },
+    {
+      "text": "Cloudflare workers now and they've done",
+      "duration": 3.839,
+      "offset": 601.44
+    },
+    {
+      "text": "a terrible job documenting those changes",
+      "duration": 3.921,
+      "offset": 603.279
+    },
+    {
+      "text": "and I never know where I'm going when",
+      "duration": 3.12,
+      "offset": 605.279
+    },
+    {
+      "text": "I'm trying to deploy on Cloudflare",
+      "duration": 2.8,
+      "offset": 607.2
+    },
+    {
+      "text": "anymore. I had so many problems the last",
+      "duration": 2.961,
+      "offset": 608.399
+    },
+    {
+      "text": "time I tried to deploy on Cloudflare",
+      "duration": 3.44,
+      "offset": 610
+    },
+    {
+      "text": "that I sent to the team. The poor exec",
+      "duration": 3.2,
+      "offset": 611.36
+    },
+    {
+      "text": "who was in the room with me when I did",
+      "duration": 3.6,
+      "offset": 613.44
+    },
+    {
+      "text": "this wrote over seven pages of notes at",
+      "duration": 4.88,
+      "offset": 614.56
+    },
+    {
+      "text": "a 10-point single spaced font that she",
+      "duration": 4.799,
+      "offset": 617.04
+    },
+    {
+      "text": "then presented to the entire org and got",
+      "duration": 4.32,
+      "offset": 619.44
+    },
+    {
+      "text": "like half or so of the things fixed.",
+      "duration": 3.921,
+      "offset": 621.839
+    },
+    {
+      "text": "They are trying. Cloudflare does care a",
+      "duration": 4.88,
+      "offset": 623.76
+    },
+    {
+      "text": "lot, but the experience is just so far",
+      "duration": 5.199,
+      "offset": 625.76
+    },
+    {
+      "text": "behind any of the competition that's at",
+      "duration": 4.96,
+      "offset": 628.64
+    },
+    {
+      "text": "all more modern. Just go try to deploy a",
+      "duration": 5.521,
+      "offset": 630.959
+    },
+    {
+      "text": "random V react app on Cloudflare and on",
+      "duration": 4.72,
+      "offset": 633.6
+    },
+    {
+      "text": "Versel and then make a change and see",
+      "duration": 3.28,
+      "offset": 636.48
+    },
+    {
+      "text": "how hard it is to deploy on those two",
+      "duration": 4.48,
+      "offset": 638.32
+    },
+    {
+      "text": "things. It's just not pleasant. But what",
+      "duration": 5.04,
+      "offset": 639.76
+    },
+    {
+      "text": "you're getting for that cost of your",
+      "duration": 5.36,
+      "offset": 642.8
+    },
+    {
+      "text": "sanity is way cheaper overall. There are",
+      "duration": 5.36,
+      "offset": 644.8
+    },
+    {
+      "text": "issues with the cost side though because",
+      "duration": 3.919,
+      "offset": 648.16
+    },
+    {
+      "text": "they're not very transparent about what",
+      "duration": 4.08,
+      "offset": 650.16
+    },
+    {
+      "text": "free things stay free. They don't charge",
+      "duration": 4.401,
+      "offset": 652.079
+    },
+    {
+      "text": "for egress in a bunch of cases which is",
+      "duration": 3.44,
+      "offset": 654.24
+    },
+    {
+      "text": "huge because it means if you're doing a",
+      "duration": 3.84,
+      "offset": 656.48
+    },
+    {
+      "text": "lot of data transfer it is cheap or free",
+      "duration": 4.32,
+      "offset": 657.68
+    },
+    {
+      "text": "but at a certain point they might",
+      "duration": 3.68,
+      "offset": 660.32
+    },
+    {
+      "text": "strongarm you into the enterprise plans",
+      "duration": 3.44,
+      "offset": 662
+    },
+    {
+      "text": "where those things suddenly do cost",
+      "duration": 3.519,
+      "offset": 664
+    },
+    {
+      "text": "money. So if it's free on the free tier",
+      "duration": 3.839,
+      "offset": 665.44
+    },
+    {
+      "text": "or free on the base tier that does not",
+      "duration": 3.121,
+      "offset": 667.519
+    },
+    {
+      "text": "guarantee it stays free in the",
+      "duration": 3.12,
+      "offset": 669.279
+    },
+    {
+      "text": "enterprise tiers. So know that cuz it's",
+      "duration": 3.36,
+      "offset": 670.64
+    },
+    {
+      "text": "very important. One last really great",
+      "duration": 3.201,
+      "offset": 672.399
+    },
+    {
+      "text": "thing they did though they hired Dylan.",
+      "duration": 3.519,
+      "offset": 674
+    },
+    {
+      "text": "If you're not familiar, Dylan Moy is one",
+      "duration": 4.16,
+      "offset": 675.6
+    },
+    {
+      "text": "of the like wizard Typescript devs",
+      "duration": 3.681,
+      "offset": 677.519
+    },
+    {
+      "text": "powering all sorts of tools in the",
+      "duration": 2.8,
+      "offset": 679.76
+    },
+    {
+      "text": "background. One of the people that's",
+      "duration": 3.44,
+      "offset": 681.2
+    },
+    {
+      "text": "really pushed Effectts to where it is",
+      "duration": 4.48,
+      "offset": 682.56
+    },
+    {
+      "text": "today. Fellow JJ nerd, great developer",
+      "duration": 4.48,
+      "offset": 684.64
+    },
+    {
+      "text": "overall. Love Dylan to death. He was at",
+      "duration": 4,
+      "offset": 687.04
+    },
+    {
+      "text": "Versell and cared a lot about DX there.",
+      "duration": 3.44,
+      "offset": 689.12
+    },
+    {
+      "text": "He's now at Cloudflare and he's pushing",
+      "duration": 3.44,
+      "offset": 691.04
+    },
+    {
+      "text": "the limits of DX there as well. Trying",
+      "duration": 3.44,
+      "offset": 692.56
+    },
+    {
+      "text": "to fix a ton of stuff. In his first",
+      "duration": 3.76,
+      "offset": 694.48
+    },
+    {
+      "text": "week, he filed like 20 PRs to the",
+      "duration": 4.32,
+      "offset": 696
+    },
+    {
+      "text": "Wrangler CLI and all these other random",
+      "duration": 3.839,
+      "offset": 698.24
+    },
+    {
+      "text": "things. There's a good chance that Dylan",
+      "duration": 3.12,
+      "offset": 700.32
+    },
+    {
+      "text": "will be able to fix a handful of the",
+      "duration": 2.88,
+      "offset": 702.079
+    },
+    {
+      "text": "things in this list, but right now,",
+      "duration": 3.6,
+      "offset": 703.44
+    },
+    {
+      "text": "Cloudflare has the second worst DX",
+      "duration": 4.481,
+      "offset": 704.959
+    },
+    {
+      "text": "compared to AWS. In many ways, I would",
+      "duration": 4.4,
+      "offset": 707.04
+    },
+    {
+      "text": "argue it's worse than AWS because it",
+      "duration": 3.6,
+      "offset": 709.44
+    },
+    {
+      "text": "changes all the time and is never well",
+      "duration": 3.6,
+      "offset": 711.44
+    },
+    {
+      "text": "documented and nothing ever makes sense.",
+      "duration": 4.56,
+      "offset": 713.04
+    },
+    {
+      "text": "It's actually so unclear what you can",
+      "duration": 4.32,
+      "offset": 715.04
+    },
+    {
+      "text": "and can't do on Cloudflare because the",
+      "duration": 4,
+      "offset": 717.6
+    },
+    {
+      "text": "docs are just wrong and lie a lot. It's",
+      "duration": 4.479,
+      "offset": 719.36
+    },
+    {
+      "text": "it's rough. And now for the exact",
+      "duration": 5.039,
+      "offset": 721.6
+    },
+    {
+      "text": "opposite experience, Verscell. I have my",
+      "duration": 4.8,
+      "offset": 723.839
+    },
+    {
+      "text": "issues with Verscell. Everyone does.",
+      "duration": 3.521,
+      "offset": 726.639
+    },
+    {
+      "text": "Watch my breaking up with Versell video",
+      "duration": 3.121,
+      "offset": 728.639
+    },
+    {
+      "text": "if you want to see some of them. There's",
+      "duration": 3.76,
+      "offset": 730.16
+    },
+    {
+      "text": "a lot of them, but they are still by far",
+      "duration": 4.079,
+      "offset": 731.76
+    },
+    {
+      "text": "the easiest and most consistent way to",
+      "duration": 4.32,
+      "offset": 733.92
+    },
+    {
+      "text": "deploy most apps. Basically, everything",
+      "duration": 4.321,
+      "offset": 735.839
+    },
+    {
+      "text": "I have shipped to the web over the last",
+      "duration": 4,
+      "offset": 738.24
+    },
+    {
+      "text": "few years has been on Versell at the",
+      "duration": 4.16,
+      "offset": 740.16
+    },
+    {
+      "text": "very least for the web app for it cuz",
+      "duration": 3.68,
+      "offset": 742.24
+    },
+    {
+      "text": "it's just a really easy way to do that.",
+      "duration": 2.959,
+      "offset": 744.32
+    },
+    {
+      "text": "The GitHub integration is great. The",
+      "duration": 2.8,
+      "offset": 745.92
+    },
+    {
+      "text": "free tier is great. The billing model",
+      "duration": 3.041,
+      "offset": 747.279
+    },
+    {
+      "text": "makes sense. The integrations with",
+      "duration": 3.84,
+      "offset": 748.72
+    },
+    {
+      "text": "everything are awesome. Honestly, I can",
+      "duration": 5.04,
+      "offset": 750.32
+    },
+    {
+      "text": "just copy this part as well as this",
+      "duration": 4.56,
+      "offset": 752.56
+    },
+    {
+      "text": "part. Obviously, it's the best place for",
+      "duration": 3.36,
+      "offset": 755.36
+    },
+    {
+      "text": "Nex.js JS regardless of how you feel",
+      "duration": 3.76,
+      "offset": 757.12
+    },
+    {
+      "text": "about next even I'm coming around to not",
+      "duration": 4.48,
+      "offset": 758.72
+    },
+    {
+      "text": "liking next too much nowadays obviously",
+      "duration": 4.639,
+      "offset": 760.88
+    },
+    {
+      "text": "they handle the CDN distribution stuff",
+      "duration": 4.24,
+      "offset": 763.2
+    },
+    {
+      "text": "and the parts where we start to really",
+      "duration": 3.681,
+      "offset": 765.519
+    },
+    {
+      "text": "differ from the competition fluid",
+      "duration": 3.28,
+      "offset": 767.44
+    },
+    {
+      "text": "compute this is the thing I talked about",
+      "duration": 3.6,
+      "offset": 769.2
+    },
+    {
+      "text": "before it's their attempt to do similar",
+      "duration": 4.32,
+      "offset": 770.72
+    },
+    {
+      "text": "pricing to what Cloudflare does with the",
+      "duration": 4.56,
+      "offset": 772.8
+    },
+    {
+      "text": "CPU time pricing it has helped a ton",
+      "duration": 4.16,
+      "offset": 775.04
+    },
+    {
+      "text": "they also consistently introduce cool",
+      "duration": 3.279,
+      "offset": 777.36
+    },
+    {
+      "text": "primitives to the infrastructure that",
+      "duration": 3.199,
+      "offset": 779.2
+    },
+    {
+      "text": "take advantage of these things like the",
+      "duration": 4.32,
+      "offset": 780.639
+    },
+    {
+      "text": "workflows stuff I know you guys don't",
+      "duration": 4.56,
+      "offset": 782.399
+    },
+    {
+      "text": "love the whole syntax of direct",
+      "duration": 3.601,
+      "offset": 784.959
+    },
+    {
+      "text": "directives with use workflow and",
+      "duration": 3.841,
+      "offset": 786.959
+    },
+    {
+      "text": "whatnot, but it is really cool what it",
+      "duration": 4,
+      "offset": 788.56
+    },
+    {
+      "text": "can do. It's a good way to get started",
+      "duration": 3.279,
+      "offset": 790.8
+    },
+    {
+      "text": "with that type of building if you want",
+      "duration": 3.6,
+      "offset": 792.56
+    },
+    {
+      "text": "more reliable services. It is what it",
+      "duration": 4.401,
+      "offset": 794.079
+    },
+    {
+      "text": "is. There are negatives though. Cost is",
+      "duration": 5.359,
+      "offset": 796.16
+    },
+    {
+      "text": "still an issue, not just CPU cost. I",
+      "duration": 5.28,
+      "offset": 798.48
+    },
+    {
+      "text": "would actually argue for most apps, the",
+      "duration": 4,
+      "offset": 801.519
+    },
+    {
+      "text": "cost difference between Versel and",
+      "duration": 4.56,
+      "offset": 803.76
+    },
+    {
+      "text": "Lambda is in favor of Versell for the",
+      "duration": 4.801,
+      "offset": 805.519
+    },
+    {
+      "text": "compute side because of the concurrency",
+      "duration": 3.92,
+      "offset": 808.32
+    },
+    {
+      "text": "stuff in particular. That just knocks",
+      "duration": 4.56,
+      "offset": 810.32
+    },
+    {
+      "text": "costs down a shitload. But they do",
+      "duration": 4.32,
+      "offset": 812.24
+    },
+    {
+      "text": "things with the costs that still aren't",
+      "duration": 3.92,
+      "offset": 814.88
+    },
+    {
+      "text": "great. Things like the $20 per month",
+      "duration": 4.399,
+      "offset": 816.56
+    },
+    {
+      "text": "seat pricing. Very annoying. Every time",
+      "duration": 3.839,
+      "offset": 818.8
+    },
+    {
+      "text": "I have to add a new dev to the team, I'm",
+      "duration": 3.68,
+      "offset": 820.959
+    },
+    {
+      "text": "just increasing my Verscell bill. Don't",
+      "duration": 4.081,
+      "offset": 822.639
+    },
+    {
+      "text": "love that. But the biggest cost when",
+      "duration": 3.921,
+      "offset": 824.639
+    },
+    {
+      "text": "you're shipping real software is almost",
+      "duration": 3.679,
+      "offset": 826.72
+    },
+    {
+      "text": "never going to be the compute or the",
+      "duration": 5.2,
+      "offset": 828.56
+    },
+    {
+      "text": "seat pricing on Versel. Bandwidth. Every",
+      "duration": 4.801,
+      "offset": 830.399
+    },
+    {
+      "text": "time I see one of those viral bills",
+      "duration": 2.96,
+      "offset": 833.76
+    },
+    {
+      "text": "where it's like, \"Oh my god, Verscell",
+      "duration": 4.319,
+      "offset": 835.2
+    },
+    {
+      "text": "cost me $5,000.\" All but one of those",
+      "duration": 4.88,
+      "offset": 836.72
+    },
+    {
+      "text": "instances, it was bandwidth. Because",
+      "duration": 3.601,
+      "offset": 839.519
+    },
+    {
+      "text": "Versell has a very aggressively",
+      "duration": 3.52,
+      "offset": 841.6
+    },
+    {
+      "text": "positioned CDN that has the goal of",
+      "duration": 4.48,
+      "offset": 843.12
+    },
+    {
+      "text": "making everything as fast as possible.",
+      "duration": 4.56,
+      "offset": 845.12
+    },
+    {
+      "text": "All of the code that Verscell ships for",
+      "duration": 3.599,
+      "offset": 847.6
+    },
+    {
+      "text": "you, the things that go to the users",
+      "duration": 4.24,
+      "offset": 849.68
+    },
+    {
+      "text": "like your HTML pages, your JS bundles,",
+      "duration": 5.041,
+      "offset": 851.199
+    },
+    {
+      "text": "your SVGs, all the things that are",
+      "duration": 3.76,
+      "offset": 853.92
+    },
+    {
+      "text": "coming out of your codebase that are",
+      "duration": 3.12,
+      "offset": 856.24
+    },
+    {
+      "text": "going to the user, those are all on",
+      "duration": 3.92,
+      "offset": 857.68
+    },
+    {
+      "text": "Versel's CDN. It is obviously meant for",
+      "duration": 3.919,
+      "offset": 859.36
+    },
+    {
+      "text": "things that are small and need to be",
+      "duration": 3.76,
+      "offset": 861.6
+    },
+    {
+      "text": "loaded quick, like you know, JavaScript",
+      "duration": 3.68,
+      "offset": 863.279
+    },
+    {
+      "text": "files that power your site. But if",
+      "duration": 3.279,
+      "offset": 865.36
+    },
+    {
+      "text": "you're filling up your public folder in",
+      "duration": 3.761,
+      "offset": 866.959
+    },
+    {
+      "text": "your project with a ton of big assets",
+      "duration": 4.32,
+      "offset": 868.639
+    },
+    {
+      "text": "like 50 megabyte video files or 10",
+      "duration": 5.84,
+      "offset": 870.72
+    },
+    {
+      "text": "megabyte PGs or 5 to 10 megabyte MP3s,",
+      "duration": 5.281,
+      "offset": 872.959
+    },
+    {
+      "text": "that's going to cost a lot. It's almost",
+      "duration": 3.12,
+      "offset": 876.56
+    },
+    {
+      "text": "like you're trying to use a race car to",
+      "duration": 3.36,
+      "offset": 878.24
+    },
+    {
+      "text": "pick up groceries. Not only is it going",
+      "duration": 3.68,
+      "offset": 879.68
+    },
+    {
+      "text": "to fit fewer groceries, it's going to",
+      "duration": 4.08,
+      "offset": 881.6
+    },
+    {
+      "text": "use more gas and probably cost you more",
+      "duration": 3.839,
+      "offset": 883.36
+    },
+    {
+      "text": "maintenance. It is not the right",
+      "duration": 4.88,
+      "offset": 885.68
+    },
+    {
+      "text": "solution for any static asset that is",
+      "duration": 5.44,
+      "offset": 887.199
+    },
+    {
+      "text": "bigger than like 400 kilobytes. They do",
+      "duration": 3.68,
+      "offset": 890.56
+    },
+    {
+      "text": "offer their own file storage solution",
+      "duration": 4.161,
+      "offset": 892.639
+    },
+    {
+      "text": "called blob that is built on top of R2,",
+      "duration": 4.48,
+      "offset": 894.24
+    },
+    {
+      "text": "funny enough, the Cloudflare product. I",
+      "duration": 3.2,
+      "offset": 896.8
+    },
+    {
+      "text": "don't know how hard they're focused on",
+      "duration": 2.4,
+      "offset": 898.72
+    },
+    {
+      "text": "it now. It doesn't really seem like a",
+      "duration": 2.56,
+      "offset": 900
+    },
+    {
+      "text": "thing they care a lot about. Thankfully,",
+      "duration": 4,
+      "offset": 901.12
+    },
+    {
+      "text": "you can use upload thing, a weird file",
+      "duration": 3.92,
+      "offset": 902.56
+    },
+    {
+      "text": "upload service some random YouTuber",
+      "duration": 2.88,
+      "offset": 905.12
+    },
+    {
+      "text": "made. Don't think about that part too",
+      "duration": 3.76,
+      "offset": 906.48
+    },
+    {
+      "text": "much, but uh it's a lot cheaper. Doesn't",
+      "duration": 4.56,
+      "offset": 908
+    },
+    {
+      "text": "charge for egress. Worth considering.",
+      "duration": 4.719,
+      "offset": 910.24
+    },
+    {
+      "text": "So, that's why I default to Verscell. As",
+      "duration": 3.44,
+      "offset": 912.56
+    },
+    {
+      "text": "long as you're careful about the",
+      "duration": 2.24,
+      "offset": 914.959
+    },
+    {
+      "text": "bandwidth and where you're putting it,",
+      "duration": 2.639,
+      "offset": 916
+    },
+    {
+      "text": "it ends up being really good. The GitHub",
+      "duration": 3.041,
+      "offset": 917.199
+    },
+    {
+      "text": "integrations are best in class. The CLI",
+      "duration": 3.44,
+      "offset": 918.639
+    },
+    {
+      "text": "is really good. It's easy to set up. It",
+      "duration": 3.599,
+      "offset": 920.24
+    },
+    {
+      "text": "works with everything. It's real node,",
+      "duration": 2.88,
+      "offset": 922.079
+    },
+    {
+      "text": "so you can do anything you can do in",
+      "duration": 3.281,
+      "offset": 923.839
+    },
+    {
+      "text": "Node.js. It's pretty good. Generally",
+      "duration": 3.841,
+      "offset": 924.959
+    },
+    {
+      "text": "speaking, if it doesn't work on Versell,",
+      "duration": 2.8,
+      "offset": 927.12
+    },
+    {
+      "text": "it's probably because it's a bad",
+      "duration": 3.68,
+      "offset": 928.8
+    },
+    {
+      "text": "workload for serverless in general. It",
+      "duration": 4.4,
+      "offset": 929.92
+    },
+    {
+      "text": "is very rare that I find it worthwhile",
+      "duration": 3.68,
+      "offset": 932.48
+    },
+    {
+      "text": "to move off of Versel to another",
+      "duration": 4.16,
+      "offset": 934.32
+    },
+    {
+      "text": "serverless provider, unless it is some",
+      "duration": 4.56,
+      "offset": 936.16
+    },
+    {
+      "text": "crazy weird compute thing that",
+      "duration": 4.24,
+      "offset": 938.48
+    },
+    {
+      "text": "Cloudflare happens to be cheaper for.",
+      "duration": 3.52,
+      "offset": 940.72
+    },
+    {
+      "text": "But even that's getting rarer now with",
+      "duration": 4.16,
+      "offset": 942.72
+    },
+    {
+      "text": "the fluid compute pricing. Cool. So,",
+      "duration": 4.32,
+      "offset": 944.24
+    },
+    {
+      "text": "let's say you're one of those people",
+      "duration": 4.16,
+      "offset": 946.88
+    },
+    {
+      "text": "that just cannot use serverless. There",
+      "duration": 4.079,
+      "offset": 948.56
+    },
+    {
+      "text": "are a lot of people that that is the",
+      "duration": 2.96,
+      "offset": 951.04
+    },
+    {
+      "text": "case for and there are even more people",
+      "duration": 2.88,
+      "offset": 952.639
+    },
+    {
+      "text": "that that isn't the case for but",
+      "duration": 3.199,
+      "offset": 954
+    },
+    {
+      "text": "occasionally have a project that",
+      "duration": 4.24,
+      "offset": 955.519
+    },
+    {
+      "text": "benefits from traditional servers. Let's",
+      "duration": 4.64,
+      "offset": 957.199
+    },
+    {
+      "text": "look at our options for that. Let's",
+      "duration": 4.481,
+      "offset": 959.759
+    },
+    {
+      "text": "start with the easy ones to make fun of",
+      "duration": 5.761,
+      "offset": 961.839
+    },
+    {
+      "text": "Petner and OVH. Benefits really cheap.",
+      "duration": 4.56,
+      "offset": 964.24
+    },
+    {
+      "text": "People on Twitter will think you're",
+      "duration": 4.239,
+      "offset": 967.6
+    },
+    {
+      "text": "cool. Negatives, uh, your account can",
+      "duration": 5.52,
+      "offset": 968.8
+    },
+    {
+      "text": "get cancelled at any time, especially",
+      "duration": 4.641,
+      "offset": 971.839
+    },
+    {
+      "text": "with Hster. I've even experienced this.",
+      "duration": 3.439,
+      "offset": 974.32
+    },
+    {
+      "text": "They didn't like that I signed up with a",
+      "duration": 3.599,
+      "offset": 976.48
+    },
+    {
+      "text": "Gmail account, so I got auto flagged and",
+      "duration": 4.241,
+      "offset": 977.759
+    },
+    {
+      "text": "my account couldn't deploy for a long",
+      "duration": 4.481,
+      "offset": 980.079
+    },
+    {
+      "text": "ass time. It was bad. And I've seen that",
+      "duration": 4,
+      "offset": 982
+    },
+    {
+      "text": "story so many times. I've even seen",
+      "duration": 2.639,
+      "offset": 984.56
+    },
+    {
+      "text": "people's production environments getting",
+      "duration": 2.959,
+      "offset": 986
+    },
+    {
+      "text": "taken down because some random policy",
+      "duration": 3.681,
+      "offset": 987.199
+    },
+    {
+      "text": "change resulted in their account not",
+      "duration": 4.401,
+      "offset": 988.959
+    },
+    {
+      "text": "having some checkbox hit. They are known",
+      "duration": 3.759,
+      "offset": 990.88
+    },
+    {
+      "text": "for banning. They are known for",
+      "duration": 3.279,
+      "offset": 993.36
+    },
+    {
+      "text": "flagging. A lot of people have had a lot",
+      "duration": 4.241,
+      "offset": 994.639
+    },
+    {
+      "text": "of problems. Immediately, I get [ __ ] for",
+      "duration": 3.521,
+      "offset": 996.639
+    },
+    {
+      "text": "talking [ __ ] on Hesser, but I don't",
+      "duration": 2.48,
+      "offset": 998.88
+    },
+    {
+      "text": "care. I've exclusively had bad",
+      "duration": 2.72,
+      "offset": 1000.16
+    },
+    {
+      "text": "experiences with Hner, and I need y'all",
+      "duration": 3.839,
+      "offset": 1001.36
+    },
+    {
+      "text": "to know that. OVH is some amount better,",
+      "duration": 3.68,
+      "offset": 1002.88
+    },
+    {
+      "text": "but honestly they're also slightly more",
+      "duration": 3.281,
+      "offset": 1005.199
+    },
+    {
+      "text": "expensive, so I rarely find it is worth",
+      "duration": 3.68,
+      "offset": 1006.56
+    },
+    {
+      "text": "it. The product offering is also",
+      "duration": 4.159,
+      "offset": 1008.48
+    },
+    {
+      "text": "lacking. Like no integrations with",
+      "duration": 5.039,
+      "offset": 1010.24
+    },
+    {
+      "text": "anything. If you're using Hatner, you're",
+      "duration": 4.32,
+      "offset": 1012.639
+    },
+    {
+      "text": "managing your deployment pipelines.",
+      "duration": 3.441,
+      "offset": 1015.279
+    },
+    {
+      "text": "You're managing your methods for",
+      "duration": 3.361,
+      "offset": 1016.959
+    },
+    {
+      "text": "allocation. You're managing your",
+      "duration": 3.119,
+      "offset": 1018.72
+    },
+    {
+      "text": "hierarchy for like what servers are",
+      "duration": 3.04,
+      "offset": 1020.32
+    },
+    {
+      "text": "being routed to and from your gateways,",
+      "duration": 3.761,
+      "offset": 1021.839
+    },
+    {
+      "text": "your CDNs, everything. They're not doing",
+      "duration": 3.76,
+      "offset": 1023.36
+    },
+    {
+      "text": "[ __ ] for you. They're giving you a VPS",
+      "duration": 3.68,
+      "offset": 1025.6
+    },
+    {
+      "text": "in a box that they own somewhere random.",
+      "duration": 4.719,
+      "offset": 1027.12
+    },
+    {
+      "text": "Also of note, uh locations kind of suck.",
+      "duration": 4.559,
+      "offset": 1029.28
+    },
+    {
+      "text": "The best prices are for the EU servers,",
+      "duration": 3.761,
+      "offset": 1031.839
+    },
+    {
+      "text": "but even the EU servers aren't",
+      "duration": 3.441,
+      "offset": 1033.839
+    },
+    {
+      "text": "coll-located with other important",
+      "duration": 3.439,
+      "offset": 1035.6
+    },
+    {
+      "text": "things. Like if you're using, I don't",
+      "duration": 3.6,
+      "offset": 1037.28
+    },
+    {
+      "text": "know, planet scale for your database,",
+      "duration": 3.441,
+      "offset": 1039.039
+    },
+    {
+      "text": "the likelihood that the planet scale",
+      "duration": 3.919,
+      "offset": 1040.88
+    },
+    {
+      "text": "database and the heter database are on",
+      "duration": 4.8,
+      "offset": 1042.48
+    },
+    {
+      "text": "the same network is basically zero,",
+      "duration": 4.321,
+      "offset": 1044.799
+    },
+    {
+      "text": "which means you're adding a shitload of",
+      "duration": 3.279,
+      "offset": 1047.28
+    },
+    {
+      "text": "latency and making your service",
+      "duration": 3.52,
+      "offset": 1049.12
+    },
+    {
+      "text": "significantly slower and worse so that",
+      "duration": 3.521,
+      "offset": 1050.559
+    },
+    {
+      "text": "you can look cool on Twitter for paying",
+      "duration": 3.36,
+      "offset": 1052.64
+    },
+    {
+      "text": "five bucks a month instead of six. It's",
+      "duration": 3.839,
+      "offset": 1054.08
+    },
+    {
+      "text": "just not worth it. I I don't know any",
+      "duration": 3.36,
+      "offset": 1056
+    },
+    {
+      "text": "serious people who are building on top",
+      "duration": 3.201,
+      "offset": 1057.919
+    },
+    {
+      "text": "of Hetner. I just don't. It's all",
+      "duration": 3.28,
+      "offset": 1059.36
+    },
+    {
+      "text": "hobbyists. And that's fine if you want",
+      "duration": 3.52,
+      "offset": 1061.12
+    },
+    {
+      "text": "to just be a hobbyist and really",
+      "duration": 4.48,
+      "offset": 1062.64
+    },
+    {
+      "text": "microoptimize your costs. I don't",
+      "duration": 4.8,
+      "offset": 1064.64
+    },
+    {
+      "text": "believe that you're real. I just don't.",
+      "duration": 4.4,
+      "offset": 1067.12
+    },
+    {
+      "text": "Not a hatner fan. I'm sure my comment",
+      "duration": 4.08,
+      "offset": 1069.44
+    },
+    {
+      "text": "section is going to be wonderful now",
+      "duration": 4.32,
+      "offset": 1071.52
+    },
+    {
+      "text": "that I've said that. Next, we'll talk",
+      "duration": 4.56,
+      "offset": 1073.52
+    },
+    {
+      "text": "about Digital Ocean. This is one I have",
+      "duration": 5.04,
+      "offset": 1075.84
+    },
+    {
+      "text": "a ton of experience with. First benefit",
+      "duration": 6.719,
+      "offset": 1078.08
+    },
+    {
+      "text": "is the docs. Best in class. I in chat,",
+      "duration": 5.28,
+      "offset": 1080.88
+    },
+    {
+      "text": "tell me if you're old enough to have",
+      "duration": 3.441,
+      "offset": 1084.799
+    },
+    {
+      "text": "been there with me. Ones in the chat. If",
+      "duration": 4.72,
+      "offset": 1086.16
+    },
+    {
+      "text": "you've also relied on the docs for",
+      "duration": 4.799,
+      "offset": 1088.24
+    },
+    {
+      "text": "Digital Ocean, for deploying Minecraft",
+      "duration": 4.159,
+      "offset": 1090.88
+    },
+    {
+      "text": "servers places other than Digital Ocean.",
+      "duration": 3.52,
+      "offset": 1093.039
+    },
+    {
+      "text": "I know that's been the case for me. I",
+      "duration": 3.52,
+      "offset": 1095.039
+    },
+    {
+      "text": "would not be the dev I am today if it",
+      "duration": 3.521,
+      "offset": 1096.559
+    },
+    {
+      "text": "wasn't for the Digital Ocean",
+      "duration": 3.601,
+      "offset": 1098.559
+    },
+    {
+      "text": "documentation on how to host Minecraft",
+      "duration": 4.16,
+      "offset": 1100.08
+    },
+    {
+      "text": "servers. Look at that chat. A lot of us",
+      "duration": 3.92,
+      "offset": 1102.16
+    },
+    {
+      "text": "have been there. Crazy throwback, but",
+      "duration": 4.72,
+      "offset": 1104.24
+    },
+    {
+      "text": "man, the amount of quality documentation",
+      "duration": 5.68,
+      "offset": 1106.08
+    },
+    {
+      "text": "that they have had forever now is just",
+      "duration": 4.56,
+      "offset": 1108.96
+    },
+    {
+      "text": "unbelievable. Like to this day, I'll",
+      "duration": 3.36,
+      "offset": 1111.76
+    },
+    {
+      "text": "Google search some weird thing I want to",
+      "duration": 3.92,
+      "offset": 1113.52
+    },
+    {
+      "text": "do with SSH or GNU screen or some thing",
+      "duration": 4.4,
+      "offset": 1115.12
+    },
+    {
+      "text": "I want to deploy. There's a 50% chance",
+      "duration": 3.68,
+      "offset": 1117.44
+    },
+    {
+      "text": "that Digital Ocean is one of the first",
+      "duration": 4.08,
+      "offset": 1119.52
+    },
+    {
+      "text": "results and not even how to do this on",
+      "duration": 4.48,
+      "offset": 1121.12
+    },
+    {
+      "text": "Digital Ocean. It's just how to do this.",
+      "duration": 3.52,
+      "offset": 1123.6
+    },
+    {
+      "text": "And if you choose to use Digital Ocean,",
+      "duration": 3.52,
+      "offset": 1125.6
+    },
+    {
+      "text": "you can. They really took that angle",
+      "duration": 3.84,
+      "offset": 1127.12
+    },
+    {
+      "text": "seriously of just being a good resource",
+      "duration": 3.679,
+      "offset": 1129.12
+    },
+    {
+      "text": "for developers. They have since laid off",
+      "duration": 2.88,
+      "offset": 1130.96
+    },
+    {
+      "text": "a lot of the staff that wrote those",
+      "duration": 3.12,
+      "offset": 1132.799
+    },
+    {
+      "text": "docs, but god damn were they useful for",
+      "duration": 4.48,
+      "offset": 1133.84
+    },
+    {
+      "text": "a long, long ass time, even like",
+      "duration": 4.64,
+      "offset": 1135.919
+    },
+    {
+      "text": "pre-stack overflow days. Other benefits",
+      "duration": 4,
+      "offset": 1138.32
+    },
+    {
+      "text": "of Digital Ocean, they've been around",
+      "duration": 3.36,
+      "offset": 1140.559
+    },
+    {
+      "text": "forever, so they're probably not going",
+      "duration": 3.44,
+      "offset": 1142.32
+    },
+    {
+      "text": "anywhere. They have good integrations,",
+      "duration": 3.12,
+      "offset": 1143.919
+    },
+    {
+      "text": "not great, but good integrations with",
+      "duration": 3.68,
+      "offset": 1145.76
+    },
+    {
+      "text": "things like GitHub. I'll call it decent",
+      "duration": 5.041,
+      "offset": 1147.039
+    },
+    {
+      "text": "integrations and a lot of companies that",
+      "duration": 4.64,
+      "offset": 1149.44
+    },
+    {
+      "text": "we use things from here are using them",
+      "duration": 4.16,
+      "offset": 1152.08
+    },
+    {
+      "text": "from Bright Data to FAL to Character AI",
+      "duration": 3.52,
+      "offset": 1154.08
+    },
+    {
+      "text": "and more. Like they're they're a real",
+      "duration": 2.96,
+      "offset": 1156.24
+    },
+    {
+      "text": "legit company that's being used by a lot",
+      "duration": 3.52,
+      "offset": 1157.6
+    },
+    {
+      "text": "of real legit products unlike some of",
+      "duration": 3.359,
+      "offset": 1159.2
+    },
+    {
+      "text": "the other options here. We need to take",
+      "duration": 2.64,
+      "offset": 1161.12
+    },
+    {
+      "text": "a look at the pricing though because",
+      "duration": 3.36,
+      "offset": 1162.559
+    },
+    {
+      "text": "it's not cheap. They're immediately",
+      "duration": 4.48,
+      "offset": 1163.76
+    },
+    {
+      "text": "starting with their GPU boxes, which is",
+      "duration": 4.081,
+      "offset": 1165.919
+    },
+    {
+      "text": "cool that they offer those, but the",
+      "duration": 4.16,
+      "offset": 1168.24
+    },
+    {
+      "text": "compute less great. They do still have a",
+      "duration": 4.799,
+      "offset": 1170
+    },
+    {
+      "text": "free tier, but droplets, oh, they're now",
+      "duration": 5.12,
+      "offset": 1172.4
+    },
+    {
+      "text": "per second pricing. Their base here at",
+      "duration": 5.921,
+      "offset": 1174.799
+    },
+    {
+      "text": "512 meg, 500 gigs of transfer, 10 gig",
+      "duration": 6.24,
+      "offset": 1177.52
+    },
+    {
+      "text": "drive is four bucks a month. 1 gig is up",
+      "duration": 5.36,
+      "offset": 1180.72
+    },
+    {
+      "text": "to six. And just for comparison sake,",
+      "duration": 4.48,
+      "offset": 1183.76
+    },
+    {
+      "text": "we'll look at Hner's pricing. They got",
+      "duration": 5.04,
+      "offset": 1186.08
+    },
+    {
+      "text": "boxes with 4 gigs of RAM and 40 gig SSDs",
+      "duration": 5.52,
+      "offset": 1188.24
+    },
+    {
+      "text": "and up to 20 terabytes of traffic for",
+      "duration": 4.4,
+      "offset": 1191.12
+    },
+    {
+      "text": "four bucks a month. This is why people",
+      "duration": 3.68,
+      "offset": 1193.76
+    },
+    {
+      "text": "choose Hner. It is also worth noting",
+      "duration": 4.64,
+      "offset": 1195.52
+    },
+    {
+      "text": "that it's in Germany or Finland. And I",
+      "duration": 4.96,
+      "offset": 1197.44
+    },
+    {
+      "text": "don't think the US locations are even",
+      "duration": 4.32,
+      "offset": 1200.16
+    },
+    {
+      "text": "visible in the pricing charts. Or is it",
+      "duration": 4.24,
+      "offset": 1202.4
+    },
+    {
+      "text": "regular performance? That's okay, cool.",
+      "duration": 3.92,
+      "offset": 1204.48
+    },
+    {
+      "text": "Regular performance. A different tab",
+      "duration": 3.52,
+      "offset": 1206.64
+    },
+    {
+      "text": "than the cost optimized ones. And those",
+      "duration": 4.159,
+      "offset": 1208.4
+    },
+    {
+      "text": "ones have US locations. And now we're up",
+      "duration": 4.72,
+      "offset": 1210.16
+    },
+    {
+      "text": "to six bucks for the 2 gig 40 gig plan.",
+      "duration": 4.401,
+      "offset": 1212.559
+    },
+    {
+      "text": "That's a lot closer to what we were",
+      "duration": 5.6,
+      "offset": 1214.88
+    },
+    {
+      "text": "seeing over here. So it as crazy as it",
+      "duration": 6,
+      "offset": 1216.96
+    },
+    {
+      "text": "seems, do you understand how hard Hner",
+      "duration": 5.52,
+      "offset": 1220.48
+    },
+    {
+      "text": "works to make the price look incredible",
+      "duration": 5.76,
+      "offset": 1222.96
+    },
+    {
+      "text": "even though there are catches? Like",
+      "duration": 4.799,
+      "offset": 1226
+    },
+    {
+      "text": "again, we have to hit this button to get",
+      "duration": 4.079,
+      "offset": 1228.72
+    },
+    {
+      "text": "real locations and immediately the price",
+      "duration": 5.041,
+      "offset": 1230.799
+    },
+    {
+      "text": "skyrockets. Turns out that the two vCPU",
+      "duration": 5.76,
+      "offset": 1232.799
+    },
+    {
+      "text": "4 gig boxes in Germany in regular",
+      "duration": 4.88,
+      "offset": 1235.84
+    },
+    {
+      "text": "performance mode, not cost optimized",
+      "duration": 4.48,
+      "offset": 1238.559
+    },
+    {
+      "text": "mode, is more expensive than Digital",
+      "duration": 4.959,
+      "offset": 1240.72
+    },
+    {
+      "text": "Ocean. And if you want a dedicated box",
+      "duration": 4.161,
+      "offset": 1243.039
+    },
+    {
+      "text": "so that you never have to worry about",
+      "duration": 3.601,
+      "offset": 1245.679
+    },
+    {
+      "text": "performance degrading, you're now at 14",
+      "duration": 4.08,
+      "offset": 1247.2
+    },
+    {
+      "text": "bucks a month minimum for again relative",
+      "duration": 3.36,
+      "offset": 1249.28
+    },
+    {
+      "text": "small. Okay, it's 8 gigs of RAM. It's a",
+      "duration": 3.279,
+      "offset": 1251.28
+    },
+    {
+      "text": "little bit better, but 28 bucks for 16",
+      "duration": 4.72,
+      "offset": 1252.64
+    },
+    {
+      "text": "gigs a month, not great. Regardless,",
+      "duration": 4.801,
+      "offset": 1254.559
+    },
+    {
+      "text": "pricing is reasonable across these",
+      "duration": 3.439,
+      "offset": 1257.36
+    },
+    {
+      "text": "options so far. We have not gone into",
+      "duration": 2.319,
+      "offset": 1259.36
+    },
+    {
+      "text": "the things that are massively",
+      "duration": 3.12,
+      "offset": 1260.799
+    },
+    {
+      "text": "overpriced. Okay, admittedly, 2 gigs of",
+      "duration": 4.721,
+      "offset": 1261.679
+    },
+    {
+      "text": "RAM and one vCPU for 12 bucks is a",
+      "duration": 5.041,
+      "offset": 1263.919
+    },
+    {
+      "text": "little expensive. Digital Ocean is not",
+      "duration": 4.399,
+      "offset": 1266.4
+    },
+    {
+      "text": "the cheap option. It never was. If",
+      "duration": 3.44,
+      "offset": 1268.96
+    },
+    {
+      "text": "you're optimizing on that level, it's",
+      "duration": 2.801,
+      "offset": 1270.799
+    },
+    {
+      "text": "hard for me to take the work you're",
+      "duration": 3.759,
+      "offset": 1272.4
+    },
+    {
+      "text": "doing seriously. Like a $2 to5 a month",
+      "duration": 4.319,
+      "offset": 1273.6
+    },
+    {
+      "text": "difference across servers is not",
+      "duration": 3.281,
+      "offset": 1276.159
+    },
+    {
+      "text": "something I care about because the time",
+      "duration": 2.88,
+      "offset": 1277.919
+    },
+    {
+      "text": "it takes to build those things is a lot",
+      "duration": 2.96,
+      "offset": 1279.44
+    },
+    {
+      "text": "more. Hell, the inference I use to build",
+      "duration": 2.721,
+      "offset": 1280.799
+    },
+    {
+      "text": "those things is a lot more. I'm paying",
+      "duration": 2.8,
+      "offset": 1282.4
+    },
+    {
+      "text": "200 bucks a month for Claude and for",
+      "duration": 3.36,
+      "offset": 1283.52
+    },
+    {
+      "text": "Codeex right now. Five bucks a month is",
+      "duration": 3.92,
+      "offset": 1285.2
+    },
+    {
+      "text": "whatever. So, what are the negatives?",
+      "duration": 4.64,
+      "offset": 1286.88
+    },
+    {
+      "text": "How do I put this? Digital Ocean feels a",
+      "duration": 4.559,
+      "offset": 1289.12
+    },
+    {
+      "text": "little lost right now. They don't really",
+      "duration": 4.32,
+      "offset": 1291.52
+    },
+    {
+      "text": "know what their core offering is. You",
+      "duration": 4.081,
+      "offset": 1293.679
+    },
+    {
+      "text": "can even tell from the homepage. The",
+      "duration": 4.64,
+      "offset": 1295.84
+    },
+    {
+      "text": "inference cloud built for scale. What?",
+      "duration": 4.159,
+      "offset": 1297.76
+    },
+    {
+      "text": "That's not what I've you I don't know",
+      "duration": 3.439,
+      "offset": 1300.48
+    },
+    {
+      "text": "anyone using Digital Ocean for inference",
+      "duration": 3.521,
+      "offset": 1301.919
+    },
+    {
+      "text": "right now. I've never met a person who",
+      "duration": 2.88,
+      "offset": 1303.919
+    },
+    {
+      "text": "does that. Oh, look at that. They have",
+      "duration": 3.359,
+      "offset": 1305.44
+    },
+    {
+      "text": "an open claw shout out on the homepage",
+      "duration": 4.161,
+      "offset": 1306.799
+    },
+    {
+      "text": "now. They are leaning so hard into",
+      "duration": 4.161,
+      "offset": 1308.799
+    },
+    {
+      "text": "trying to find new customers, which",
+      "duration": 4.8,
+      "offset": 1310.96
+    },
+    {
+      "text": "suggests, this is the scary part, they",
+      "duration": 5.199,
+      "offset": 1312.96
+    },
+    {
+      "text": "may be circling the drain. Of the",
+      "duration": 4.72,
+      "offset": 1315.76
+    },
+    {
+      "text": "options I have in this list, they are in",
+      "duration": 4.88,
+      "offset": 1318.159
+    },
+    {
+      "text": "the top section of most likely to have",
+      "duration": 3.92,
+      "offset": 1320.48
+    },
+    {
+      "text": "the same problem that we're talking",
+      "duration": 3.841,
+      "offset": 1323.039
+    },
+    {
+      "text": "about here right now. So yeah, if your",
+      "duration": 4.24,
+      "offset": 1324.4
+    },
+    {
+      "text": "goal is to not have to deal with this",
+      "duration": 3.36,
+      "offset": 1326.88
+    },
+    {
+      "text": "type of migration because of the Heroku",
+      "duration": 3.519,
+      "offset": 1328.64
+    },
+    {
+      "text": "death, I can't guarantee with Digital",
+      "duration": 3.12,
+      "offset": 1330.24
+    },
+    {
+      "text": "Ocean that you won't have to experience",
+      "duration": 3.041,
+      "offset": 1332.159
+    },
+    {
+      "text": "that again. So know that going in.",
+      "duration": 3.679,
+      "offset": 1333.36
+    },
+    {
+      "text": "Definitely feels a tad dated and it",
+      "duration": 3.839,
+      "offset": 1335.2
+    },
+    {
+      "text": "feels like the compute isn't their focus",
+      "duration": 3.441,
+      "offset": 1337.039
+    },
+    {
+      "text": "anymore. They really seem to be leaning",
+      "duration": 3.281,
+      "offset": 1339.039
+    },
+    {
+      "text": "into the inference side, which good for",
+      "duration": 4.079,
+      "offset": 1340.48
+    },
+    {
+      "text": "them, but there's way more competition",
+      "duration": 3.839,
+      "offset": 1342.32
+    },
+    {
+      "text": "there, and I'm not confident that they",
+      "duration": 3.441,
+      "offset": 1344.559
+    },
+    {
+      "text": "can have a meaningful impact. So what do",
+      "duration": 4.081,
+      "offset": 1346.159
+    },
+    {
+      "text": "we have next? We covered these ones.",
+      "duration": 4.24,
+      "offset": 1348
+    },
+    {
+      "text": "Let's hop into Fly.io next. Flyio is",
+      "duration": 4.319,
+      "offset": 1350.24
+    },
+    {
+      "text": "dope. They were a sponsor in the past. I",
+      "duration": 3.76,
+      "offset": 1352.24
+    },
+    {
+      "text": "hope they might be in the future, but",
+      "duration": 3.201,
+      "offset": 1354.559
+    },
+    {
+      "text": "they did recently have to do layoffs and",
+      "duration": 3.36,
+      "offset": 1356
+    },
+    {
+      "text": "I chose to cut them off as a sponsor at",
+      "duration": 3.039,
+      "offset": 1357.76
+    },
+    {
+      "text": "that point because I felt really bad",
+      "duration": 2.88,
+      "offset": 1359.36
+    },
+    {
+      "text": "taking money from a company that just",
+      "duration": 2.961,
+      "offset": 1360.799
+    },
+    {
+      "text": "laid off a bunch of the staff that I was",
+      "duration": 3.36,
+      "offset": 1362.24
+    },
+    {
+      "text": "working with. Really good stuff overall",
+      "duration": 3.6,
+      "offset": 1363.76
+    },
+    {
+      "text": "and they are also a huge member of like",
+      "duration": 3.36,
+      "offset": 1365.6
+    },
+    {
+      "text": "the elixir community which is obviously",
+      "duration": 3.84,
+      "offset": 1367.36
+    },
+    {
+      "text": "near and dear to my heart. So benefits",
+      "duration": 4.8,
+      "offset": 1368.96
+    },
+    {
+      "text": "elixir native which I absolutely love",
+      "duration": 4.959,
+      "offset": 1371.2
+    },
+    {
+      "text": "worldclass DX for deploying servers.",
+      "duration": 4.08,
+      "offset": 1373.76
+    },
+    {
+      "text": "They have some of the best DX in the",
+      "duration": 2.961,
+      "offset": 1376.159
+    },
+    {
+      "text": "world. things like the way it integrates",
+      "duration": 2.8,
+      "offset": 1377.84
+    },
+    {
+      "text": "with GitHub, how you manage things in",
+      "duration": 3.28,
+      "offset": 1379.12
+    },
+    {
+      "text": "the dashboard, the clarity in what's",
+      "duration": 3.519,
+      "offset": 1380.64
+    },
+    {
+      "text": "going on where, the tools for linking",
+      "duration": 3.04,
+      "offset": 1382.4
+    },
+    {
+      "text": "different things together, preview",
+      "duration": 3.361,
+      "offset": 1384.159
+    },
+    {
+      "text": "environments, sleeping servers, all of",
+      "duration": 4.08,
+      "offset": 1385.44
+    },
+    {
+      "text": "those types of things. Great. They're",
+      "duration": 5.2,
+      "offset": 1387.52
+    },
+    {
+      "text": "also huge OSS supporters. They help",
+      "duration": 4.88,
+      "offset": 1389.52
+    },
+    {
+      "text": "sponsor everything from like the Elixir",
+      "duration": 4.079,
+      "offset": 1392.72
+    },
+    {
+      "text": "ecosystem and Gleam, Rails, and many",
+      "duration": 3.6,
+      "offset": 1394.4
+    },
+    {
+      "text": "other things I'm almost certainly going",
+      "duration": 2.721,
+      "offset": 1396.799
+    },
+    {
+      "text": "to forget if I try to list them off.",
+      "duration": 3.28,
+      "offset": 1398
+    },
+    {
+      "text": "They are just a good player in the",
+      "duration": 3.92,
+      "offset": 1399.52
+    },
+    {
+      "text": "space, more so than anyone else we've",
+      "duration": 4.16,
+      "offset": 1401.28
+    },
+    {
+      "text": "talked about so far. I would argue they",
+      "duration": 4.4,
+      "offset": 1403.44
+    },
+    {
+      "text": "are actively meaningfully contributing",
+      "duration": 4.16,
+      "offset": 1405.44
+    },
+    {
+      "text": "to the development of important open-",
+      "duration": 3.52,
+      "offset": 1407.84
+    },
+    {
+      "text": "source technologies to the point where",
+      "duration": 3.92,
+      "offset": 1409.6
+    },
+    {
+      "text": "it is hurting the business. Okay, people",
+      "duration": 5.76,
+      "offset": 1411.36
+    },
+    {
+      "text": "are saying they might not sponsor Gleam.",
+      "duration": 5.12,
+      "offset": 1413.52
+    },
+    {
+      "text": "Maybe they're not sponsoring Gleam",
+      "duration": 2.88,
+      "offset": 1417.12
+    },
+    {
+      "text": "anymore. I'm pretty sure they did in the",
+      "duration": 3.84,
+      "offset": 1418.64
+    },
+    {
+      "text": "past, but they are not necessarily doing",
+      "duration": 5.039,
+      "offset": 1420
+    },
+    {
+      "text": "great financially. Again, layoffs and I",
+      "duration": 3.439,
+      "offset": 1422.48
+    },
+    {
+      "text": "haven't heard anything about them",
+      "duration": 2.401,
+      "offset": 1425.039
+    },
+    {
+      "text": "raising anytime soon, which means they",
+      "duration": 3.281,
+      "offset": 1425.919
+    },
+    {
+      "text": "probably haven't. They also have their",
+      "duration": 3.28,
+      "offset": 1427.44
+    },
+    {
+      "text": "sprite stuff, which I've heard really",
+      "duration": 4,
+      "offset": 1429.2
+    },
+    {
+      "text": "good things about. It's meant to be VMs",
+      "duration": 4.8,
+      "offset": 1430.72
+    },
+    {
+      "text": "and sandboxes that you can safely run",
+      "duration": 4.4,
+      "offset": 1433.2
+    },
+    {
+      "text": "agents in that have their own primitives",
+      "duration": 4,
+      "offset": 1435.52
+    },
+    {
+      "text": "that will let them be powerful. And",
+      "duration": 3.36,
+      "offset": 1437.6
+    },
+    {
+      "text": "there's a bunch of other random things",
+      "duration": 3.44,
+      "offset": 1439.52
+    },
+    {
+      "text": "that they've built that are just way",
+      "duration": 3.76,
+      "offset": 1440.96
+    },
+    {
+      "text": "cooler than what you can do on other",
+      "duration": 4.56,
+      "offset": 1442.96
+    },
+    {
+      "text": "clouds. I did a video a while back about",
+      "duration": 4.56,
+      "offset": 1444.72
+    },
+    {
+      "text": "Flame, which is an alternative way of",
+      "duration": 3.44,
+      "offset": 1447.52
+    },
+    {
+      "text": "doing serverless where you are",
+      "duration": 4.16,
+      "offset": 1449.28
+    },
+    {
+      "text": "encapsulating processes in your codebase",
+      "duration": 4.4,
+      "offset": 1450.96
+    },
+    {
+      "text": "to spin them up on different servers for",
+      "duration": 3.52,
+      "offset": 1453.44
+    },
+    {
+      "text": "specific needs. Like if you want to",
+      "duration": 3.28,
+      "offset": 1455.36
+    },
+    {
+      "text": "sometimes have a GPU for doing, I don't",
+      "duration": 3.68,
+      "offset": 1456.96
+    },
+    {
+      "text": "know, ffmpeg stuff, but you usually",
+      "duration": 4.32,
+      "offset": 1458.64
+    },
+    {
+      "text": "don't need it. Having your stuff always",
+      "duration": 5.36,
+      "offset": 1460.64
+    },
+    {
+      "text": "run on the GPU box would be way too",
+      "duration": 4.56,
+      "offset": 1462.96
+    },
+    {
+      "text": "expensive. The GPU is not being used.",
+      "duration": 2.72,
+      "offset": 1466
+    },
+    {
+      "text": "But if you could have one function in",
+      "duration": 3.12,
+      "offset": 1467.52
+    },
+    {
+      "text": "your codebase that runs on the GPU box",
+      "duration": 3.76,
+      "offset": 1468.72
+    },
+    {
+      "text": "and spins it up and handles it, then",
+      "duration": 3.76,
+      "offset": 1470.64
+    },
+    {
+      "text": "awesome. In this example, I'm sorry if",
+      "duration": 3.439,
+      "offset": 1472.48
+    },
+    {
+      "text": "you're not familiar with Elixir syntax,",
+      "duration": 3.92,
+      "offset": 1474.4
+    },
+    {
+      "text": "my beloved. You take this process that",
+      "duration": 3.681,
+      "offset": 1475.919
+    },
+    {
+      "text": "is defined here for generating",
+      "duration": 3.599,
+      "offset": 1478.32
+    },
+    {
+      "text": "thumbnails, which runs in FFmpeg, which",
+      "duration": 4.4,
+      "offset": 1479.6
+    },
+    {
+      "text": "could lock up the main server or just",
+      "duration": 3.36,
+      "offset": 1481.919
+    },
+    {
+      "text": "not be performed if it doesn't have a",
+      "duration": 4,
+      "offset": 1484
+    },
+    {
+      "text": "GPU. You can wrap it with a flame call,",
+      "duration": 4.721,
+      "offset": 1485.279
+    },
+    {
+      "text": "exact same stub function here, and it",
+      "duration": 3.679,
+      "offset": 1488
+    },
+    {
+      "text": "will return the result as though you",
+      "duration": 4.24,
+      "offset": 1490
+    },
+    {
+      "text": "just called this on the same box. It's",
+      "duration": 6.161,
+      "offset": 1491.679
+    },
+    {
+      "text": "so cool. It's just so far ahead of",
+      "duration": 5.52,
+      "offset": 1494.24
+    },
+    {
+      "text": "anything else I've seen for this type of",
+      "duration": 4.079,
+      "offset": 1497.84
+    },
+    {
+      "text": "stuff. But we need to be realistic. The",
+      "duration": 4.32,
+      "offset": 1499.76
+    },
+    {
+      "text": "negatives, the database reliability just",
+      "duration": 4.161,
+      "offset": 1501.919
+    },
+    {
+      "text": "isn't there. Even when I was doing my",
+      "duration": 3.839,
+      "offset": 1504.08
+    },
+    {
+      "text": "tutorials and work with them, I had my",
+      "duration": 4.4,
+      "offset": 1506.08
+    },
+    {
+      "text": "database just die and fail multiple",
+      "duration": 4.24,
+      "offset": 1507.919
+    },
+    {
+      "text": "times throughout. I learned to just not",
+      "duration": 3.439,
+      "offset": 1510.48
+    },
+    {
+      "text": "trust the database, as many other Fly",
+      "duration": 3.281,
+      "offset": 1512.159
+    },
+    {
+      "text": "customers have. They often move their",
+      "duration": 3.681,
+      "offset": 1513.919
+    },
+    {
+      "text": "databases off of fly to their own other",
+      "duration": 3.599,
+      "offset": 1515.44
+    },
+    {
+      "text": "alternative services like you know",
+      "duration": 3.52,
+      "offset": 1517.6
+    },
+    {
+      "text": "planet scale but during dev it's so",
+      "duration": 3.361,
+      "offset": 1519.039
+    },
+    {
+      "text": "convenient like the way that setting",
+      "duration": 4.08,
+      "offset": 1521.12
+    },
+    {
+      "text": "things up on fly is so nice it hurts but",
+      "duration": 4.399,
+      "offset": 1522.4
+    },
+    {
+      "text": "reality is that the database stuff isn't",
+      "duration": 3.68,
+      "offset": 1525.2
+    },
+    {
+      "text": "there and in general reliability just",
+      "duration": 3.601,
+      "offset": 1526.799
+    },
+    {
+      "text": "isn't quite where we need it to be. They",
+      "duration": 3.039,
+      "offset": 1528.88
+    },
+    {
+      "text": "had a huge outage recently. They likely",
+      "duration": 3.279,
+      "offset": 1530.4
+    },
+    {
+      "text": "will again in the future. They have",
+      "duration": 3.841,
+      "offset": 1531.919
+    },
+    {
+      "text": "built a lot of their own things and a",
+      "duration": 3.201,
+      "offset": 1533.679
+    },
+    {
+      "text": "lot of those things are really really",
+      "duration": 2.72,
+      "offset": 1535.76
+    },
+    {
+      "text": "cool. It's why they can do all this cool",
+      "duration": 3.36,
+      "offset": 1536.88
+    },
+    {
+      "text": "stuff but it also means they're not as",
+      "duration": 3.52,
+      "offset": 1538.48
+    },
+    {
+      "text": "tried by the industry and as a result",
+      "duration": 3.52,
+      "offset": 1540.24
+    },
+    {
+      "text": "they're not as reliable. Also note with",
+      "duration": 4.559,
+      "offset": 1542
+    },
+    {
+      "text": "the DB thing not managed. They don't do",
+      "duration": 5.2,
+      "offset": 1543.76
+    },
+    {
+      "text": "managed databases. They just give you an",
+      "duration": 4.801,
+      "offset": 1546.559
+    },
+    {
+      "text": "image that is running Postgress.",
+      "duration": 3.92,
+      "offset": 1548.96
+    },
+    {
+      "text": "Apparently they now do have managed",
+      "duration": 2.96,
+      "offset": 1551.36
+    },
+    {
+      "text": "databases. I did not know that. That's",
+      "duration": 3.6,
+      "offset": 1552.88
+    },
+    {
+      "text": "good to hear, but uh the last time I",
+      "duration": 4.08,
+      "offset": 1554.32
+    },
+    {
+      "text": "tried it, they didn't. That is a relief.",
+      "duration": 3.12,
+      "offset": 1556.48
+    },
+    {
+      "text": "I'm still going to say the reliability",
+      "duration": 2.56,
+      "offset": 1558.4
+    },
+    {
+      "text": "isn't good, but the fact they have",
+      "duration": 3.36,
+      "offset": 1559.6
+    },
+    {
+      "text": "managed DB is a cool change. And I would",
+      "duration": 4.56,
+      "offset": 1560.96
+    },
+    {
+      "text": "also argue that within these options,",
+      "duration": 5.12,
+      "offset": 1562.96
+    },
+    {
+      "text": "Fly might be the highest risk of death.",
+      "duration": 5.279,
+      "offset": 1565.52
+    },
+    {
+      "text": "I would put them slightly higher than",
+      "duration": 4.479,
+      "offset": 1568.08
+    },
+    {
+      "text": "Digital Ocean in terms of this company",
+      "duration": 3.921,
+      "offset": 1570.799
+    },
+    {
+      "text": "might run out of money and die. I just",
+      "duration": 4.561,
+      "offset": 1572.559
+    },
+    {
+      "text": "have not seen a lot of big customers or",
+      "duration": 4.319,
+      "offset": 1574.72
+    },
+    {
+      "text": "revenue numbers or investments or any of",
+      "duration": 3.28,
+      "offset": 1577.12
+    },
+    {
+      "text": "the things that would make me confident",
+      "duration": 2.961,
+      "offset": 1579.039
+    },
+    {
+      "text": "Fly will still be here at the end of the",
+      "duration": 3.44,
+      "offset": 1580.4
+    },
+    {
+      "text": "year or even early next year. Even when",
+      "duration": 3.919,
+      "offset": 1582
+    },
+    {
+      "text": "I was working with them, the rate at",
+      "duration": 3.92,
+      "offset": 1583.84
+    },
+    {
+      "text": "which the people I was talking to",
+      "duration": 3.36,
+      "offset": 1585.919
+    },
+    {
+      "text": "suddenly weren't at the company anymore",
+      "duration": 3.36,
+      "offset": 1587.76
+    },
+    {
+      "text": "was a bit terrifying. I even went to",
+      "duration": 4.081,
+      "offset": 1589.279
+    },
+    {
+      "text": "Elixir in 2024 and was sitting at a",
+      "duration": 3.6,
+      "offset": 1591.12
+    },
+    {
+      "text": "table with a bunch of Elixir nerds,",
+      "duration": 3.04,
+      "offset": 1593.36
+    },
+    {
+      "text": "including a few that worked at Fly, and",
+      "duration": 3.04,
+      "offset": 1594.72
+    },
+    {
+      "text": "watched as they checked their phones and",
+      "duration": 3.2,
+      "offset": 1596.4
+    },
+    {
+      "text": "got laid off. That does not inspire",
+      "duration": 3.919,
+      "offset": 1597.76
+    },
+    {
+      "text": "confidence. They also deprecate things.",
+      "duration": 4.24,
+      "offset": 1599.6
+    },
+    {
+      "text": "Not a lot, but enough to be concerned.",
+      "duration": 3.36,
+      "offset": 1601.679
+    },
+    {
+      "text": "Somebody in chat just mentioned that",
+      "duration": 2.959,
+      "offset": 1603.84
+    },
+    {
+      "text": "they used to have a managed DB Superbase",
+      "duration": 3.681,
+      "offset": 1605.039
+    },
+    {
+      "text": "integration, but that got discontinued.",
+      "duration": 3.281,
+      "offset": 1606.799
+    },
+    {
+      "text": "Not the thing I would bet my whole",
+      "duration": 3.12,
+      "offset": 1608.72
+    },
+    {
+      "text": "business on right now, personally. One",
+      "duration": 3.199,
+      "offset": 1610.08
+    },
+    {
+      "text": "of the most fun platforms I've ever",
+      "duration": 3.6,
+      "offset": 1611.84
+    },
+    {
+      "text": "built on. Not confident that they will",
+      "duration": 4,
+      "offset": 1613.279
+    },
+    {
+      "text": "still be here next year. Take that as",
+      "duration": 5.119,
+      "offset": 1615.44
+    },
+    {
+      "text": "you will. And next we have Render, who",
+      "duration": 5.28,
+      "offset": 1617.279
+    },
+    {
+      "text": "has this big migrate from Heroku with",
+      "duration": 4.161,
+      "offset": 1620.559
+    },
+    {
+      "text": "near zero downtime banner on top. They",
+      "duration": 3.761,
+      "offset": 1622.559
+    },
+    {
+      "text": "know exactly what they're doing. Render",
+      "duration": 4.319,
+      "offset": 1624.72
+    },
+    {
+      "text": "is used by a ton of big companies. Their",
+      "duration": 4.239,
+      "offset": 1626.32
+    },
+    {
+      "text": "revenue is really solid. They've had no",
+      "duration": 3.361,
+      "offset": 1629.039
+    },
+    {
+      "text": "issues raising money. They understand",
+      "duration": 4.961,
+      "offset": 1630.559
+    },
+    {
+      "text": "modern tech and PHP. Even the founder of",
+      "duration": 4.639,
+      "offset": 1632.4
+    },
+    {
+      "text": "Hashi Corp has had nice things to say",
+      "duration": 3.519,
+      "offset": 1635.52
+    },
+    {
+      "text": "about Render. Mitchell's a legend. Cool",
+      "duration": 3.921,
+      "offset": 1637.039
+    },
+    {
+      "text": "to see. They have a decent free tier.",
+      "duration": 3.921,
+      "offset": 1639.039
+    },
+    {
+      "text": "You have to immediately bump to their",
+      "duration": 3.599,
+      "offset": 1640.96
+    },
+    {
+      "text": "monthly tier if you want to do more,",
+      "duration": 3.199,
+      "offset": 1642.96
+    },
+    {
+      "text": "though. You don't have like boxes you're",
+      "duration": 3.041,
+      "offset": 1644.559
+    },
+    {
+      "text": "renting the same way, but they're pretty",
+      "duration": 3.601,
+      "offset": 1646.159
+    },
+    {
+      "text": "generous overall. Relatively modern,",
+      "duration": 4.64,
+      "offset": 1647.6
+    },
+    {
+      "text": "supports everything, generous free tier,",
+      "duration": 4.24,
+      "offset": 1649.76
+    },
+    {
+      "text": "likely staying around. They make enough",
+      "duration": 2.96,
+      "offset": 1652.24
+    },
+    {
+      "text": "revenue that I'm not worried about them",
+      "duration": 3.44,
+      "offset": 1654
+    },
+    {
+      "text": "disappearing anytime soon. Negatives,",
+      "duration": 6.88,
+      "offset": 1655.2
+    },
+    {
+      "text": "you pay a sub instead of server pricing.",
+      "duration": 6.16,
+      "offset": 1657.44
+    },
+    {
+      "text": "A lot of that pricing is hidden under",
+      "duration": 4.24,
+      "offset": 1662.08
+    },
+    {
+      "text": "the enterprise custom tier. They charge",
+      "duration": 4.72,
+      "offset": 1663.6
+    },
+    {
+      "text": "a separate monthly fee for setting up",
+      "duration": 4.4,
+      "offset": 1666.32
+    },
+    {
+      "text": "cron jobs. That's kind of funny. Oh,",
+      "duration": 4,
+      "offset": 1668.32
+    },
+    {
+      "text": "look at that. Their GitHub integration",
+      "duration": 3.28,
+      "offset": 1670.72
+    },
+    {
+      "text": "is still in a very good state. Last time",
+      "duration": 2.56,
+      "offset": 1672.32
+    },
+    {
+      "text": "I used it, it was pretty good. So,",
+      "duration": 2.08,
+      "offset": 1674
+    },
+    {
+      "text": "that's good to hear. I'll put that in",
+      "duration": 3.6,
+      "offset": 1674.88
+    },
+    {
+      "text": "here. Good GitHub integration plus",
+      "duration": 4.319,
+      "offset": 1676.08
+    },
+    {
+      "text": "preview environments, which is not",
+      "duration": 3.28,
+      "offset": 1678.48
+    },
+    {
+      "text": "guaranteed across these different",
+      "duration": 3.28,
+      "offset": 1680.399
+    },
+    {
+      "text": "providers. Apparently, the egress is",
+      "duration": 4.32,
+      "offset": 1681.76
+    },
+    {
+      "text": "super expensive as well. Definitely",
+      "duration": 4.081,
+      "offset": 1683.679
+    },
+    {
+      "text": "worth noting. Good call out chat. The",
+      "duration": 3.199,
+      "offset": 1686.08
+    },
+    {
+      "text": "$20 tier comes with 500 gigs of",
+      "duration": 3.279,
+      "offset": 1687.76
+    },
+    {
+      "text": "bandwidth. 15 bucks per additional 100",
+      "duration": 3.76,
+      "offset": 1689.279
+    },
+    {
+      "text": "gigs. Inbound bandwidth is free. Okay,",
+      "duration": 3.601,
+      "offset": 1691.039
+    },
+    {
+      "text": "that's cool. So, uploading to it is",
+      "duration": 3.841,
+      "offset": 1693.039
+    },
+    {
+      "text": "free. Sending data from it costs money.",
+      "duration": 3.84,
+      "offset": 1694.64
+    },
+    {
+      "text": "That's actually a really nice call out.",
+      "duration": 3.279,
+      "offset": 1696.88
+    },
+    {
+      "text": "Good [ __ ] I would never fault anyone",
+      "duration": 2.96,
+      "offset": 1698.48
+    },
+    {
+      "text": "for going with render. Seems like a",
+      "duration": 2.721,
+      "offset": 1700.159
+    },
+    {
+      "text": "really good option. Honestly, like one",
+      "duration": 3.04,
+      "offset": 1701.44
+    },
+    {
+      "text": "of the most reliable out of all of",
+      "duration": 2.96,
+      "offset": 1702.88
+    },
+    {
+      "text": "these. Like I I would say like other",
+      "duration": 3.6,
+      "offset": 1704.48
+    },
+    {
+      "text": "than AWS, least flight risk, too. But",
+      "duration": 4.319,
+      "offset": 1705.84
+    },
+    {
+      "text": "now we need to talk about Railway.",
+      "duration": 4.56,
+      "offset": 1708.08
+    },
+    {
+      "text": "Obviously more than at any point in here",
+      "duration": 4.321,
+      "offset": 1710.159
+    },
+    {
+      "text": "account for bias here. Jake and I have a",
+      "duration": 3.519,
+      "offset": 1712.64
+    },
+    {
+      "text": "long history. I was almost hired as",
+      "duration": 3.84,
+      "offset": 1714.48
+    },
+    {
+      "text": "engineer number four at Railway all the",
+      "duration": 4.24,
+      "offset": 1716.159
+    },
+    {
+      "text": "way back in 2021. I've watched this",
+      "duration": 4.239,
+      "offset": 1718.32
+    },
+    {
+      "text": "company's ups and downs. I've used them",
+      "duration": 4.64,
+      "offset": 1720.399
+    },
+    {
+      "text": "for that entire 5-year window. I love",
+      "duration": 4.24,
+      "offset": 1722.559
+    },
+    {
+      "text": "Railway to death. I have my issues with",
+      "duration": 3.36,
+      "offset": 1725.039
+    },
+    {
+      "text": "them, but for the most part, it's a",
+      "duration": 3.281,
+      "offset": 1726.799
+    },
+    {
+      "text": "great platform. It's a phenomenal team",
+      "duration": 3.201,
+      "offset": 1728.399
+    },
+    {
+      "text": "and I'm very excited for them and all",
+      "duration": 2.719,
+      "offset": 1730.08
+    },
+    {
+      "text": "the success that they've been having.",
+      "duration": 4.64,
+      "offset": 1731.6
+    },
+    {
+      "text": "Benefits truly modern. It's just you'll",
+      "duration": 5.36,
+      "offset": 1732.799
+    },
+    {
+      "text": "feel the difference when you use it. It",
+      "duration": 3.76,
+      "offset": 1736.24
+    },
+    {
+      "text": "just works great with everything. The",
+      "duration": 3.76,
+      "offset": 1738.159
+    },
+    {
+      "text": "CLI is awesome. The docs are awesome.",
+      "duration": 3.84,
+      "offset": 1740
+    },
+    {
+      "text": "The GitHub integration is great. It just",
+      "duration": 4,
+      "offset": 1741.919
+    },
+    {
+      "text": "behaves. It also is one of the best",
+      "duration": 3.76,
+      "offset": 1743.84
+    },
+    {
+      "text": "dashboards for actually seeing what's",
+      "duration": 3.201,
+      "offset": 1745.919
+    },
+    {
+      "text": "going on and how parts are linked. You",
+      "duration": 3.12,
+      "offset": 1747.6
+    },
+    {
+      "text": "can clearly see the different services,",
+      "duration": 3.039,
+      "offset": 1749.12
+    },
+    {
+      "text": "how they're linked to each other. The",
+      "duration": 3.839,
+      "offset": 1750.72
+    },
+    {
+      "text": "domain setup, all of that really good.",
+      "duration": 3.76,
+      "offset": 1752.159
+    },
+    {
+      "text": "The observability is awesome, too. I",
+      "duration": 2.48,
+      "offset": 1754.559
+    },
+    {
+      "text": "haven't even bothered setting it up yet",
+      "duration": 2.64,
+      "offset": 1755.919
+    },
+    {
+      "text": "cuz this project hasn't needed it. The",
+      "duration": 2.721,
+      "offset": 1757.039
+    },
+    {
+      "text": "way they handle different environments",
+      "duration": 2.48,
+      "offset": 1758.559
+    },
+    {
+      "text": "is great. You can set up preview",
+      "duration": 2.24,
+      "offset": 1759.76
+    },
+    {
+      "text": "environments, things like that",
+      "duration": 2.721,
+      "offset": 1761.039
+    },
+    {
+      "text": "relatively well. It does not, as far as",
+      "duration": 3.6,
+      "offset": 1762
+    },
+    {
+      "text": "I know, have good automatic preview",
+      "duration": 3.68,
+      "offset": 1763.76
+    },
+    {
+      "text": "environment creation when you do PRs and",
+      "duration": 3.36,
+      "offset": 1765.6
+    },
+    {
+      "text": "things like that. It might be able to be",
+      "duration": 3.76,
+      "offset": 1767.44
+    },
+    {
+      "text": "set up, but it's good. I honestly really",
+      "duration": 4,
+      "offset": 1768.96
+    },
+    {
+      "text": "like the way Addi put it here. Railway",
+      "duration": 3.92,
+      "offset": 1771.2
+    },
+    {
+      "text": "makes me smile every time I use it. The",
+      "duration": 3.92,
+      "offset": 1772.96
+    },
+    {
+      "text": "pricing is relatively transparent and",
+      "duration": 3.439,
+      "offset": 1775.12
+    },
+    {
+      "text": "clear. They drop hard numbers for what",
+      "duration": 3.76,
+      "offset": 1776.88
+    },
+    {
+      "text": "each thing costs. There's a little",
+      "duration": 3.84,
+      "offset": 1778.559
+    },
+    {
+      "text": "confusion around various different",
+      "duration": 3.6,
+      "offset": 1780.64
+    },
+    {
+      "text": "things like the relationship between",
+      "duration": 3.52,
+      "offset": 1782.399
+    },
+    {
+      "text": "like how these parts are measured. It's",
+      "duration": 3.439,
+      "offset": 1784.24
+    },
+    {
+      "text": "sometimes confusing to figure out what",
+      "duration": 3.76,
+      "offset": 1785.919
+    },
+    {
+      "text": "usage you're actually going to get. And",
+      "duration": 4.24,
+      "offset": 1787.679
+    },
+    {
+      "text": "then there are interesting things that",
+      "duration": 3.761,
+      "offset": 1789.679
+    },
+    {
+      "text": "are free that I'm not confident are",
+      "duration": 3.281,
+      "offset": 1791.919
+    },
+    {
+      "text": "going to stay free. So like in the",
+      "duration": 4.64,
+      "offset": 1793.44
+    },
+    {
+      "text": "benefits section, egress from their",
+      "duration": 5.12,
+      "offset": 1795.2
+    },
+    {
+      "text": "object store is free. But then in the",
+      "duration": 5.36,
+      "offset": 1798.08
+    },
+    {
+      "text": "negatives, object store is private only.",
+      "duration": 4.64,
+      "offset": 1800.32
+    },
+    {
+      "text": "You cannot do a public bucket. That",
+      "duration": 3.119,
+      "offset": 1803.44
+    },
+    {
+      "text": "burned me real bad on a project that I'm",
+      "duration": 3.68,
+      "offset": 1804.96
+    },
+    {
+      "text": "now migrating off of railway storage.",
+      "duration": 4.561,
+      "offset": 1806.559
+    },
+    {
+      "text": "Free egress is a ticking timer in my",
+      "duration": 4.32,
+      "offset": 1808.64
+    },
+    {
+      "text": "opinion. No one offering egress for free",
+      "duration": 3.279,
+      "offset": 1811.12
+    },
+    {
+      "text": "can maintain that forever. Like there's",
+      "duration": 2.959,
+      "offset": 1812.96
+    },
+    {
+      "text": "always a catch. and I am a little scared",
+      "duration": 3.201,
+      "offset": 1814.399
+    },
+    {
+      "text": "of what that catch will be with railway.",
+      "duration": 2.961,
+      "offset": 1815.919
+    },
+    {
+      "text": "This is the type of complaint that I",
+      "duration": 2.64,
+      "offset": 1817.6
+    },
+    {
+      "text": "might have for other things if I use",
+      "duration": 3.36,
+      "offset": 1818.88
+    },
+    {
+      "text": "them more, but as a pretty heavy Railway",
+      "duration": 3.679,
+      "offset": 1820.24
+    },
+    {
+      "text": "user, I see the flaws more and the",
+      "duration": 3.12,
+      "offset": 1822.24
+    },
+    {
+      "text": "dashboard can get into some weird",
+      "duration": 4.161,
+      "offset": 1823.919
+    },
+    {
+      "text": "states, especially around DNS and SSL",
+      "duration": 4.64,
+      "offset": 1825.36
+    },
+    {
+      "text": "stuff. You don't buy domains on Railway.",
+      "duration": 3.68,
+      "offset": 1828.08
+    },
+    {
+      "text": "I bought mine on Versel, but then I set",
+      "duration": 4,
+      "offset": 1830
+    },
+    {
+      "text": "it up on Railway and SSL was broken",
+      "duration": 3.68,
+      "offset": 1831.76
+    },
+    {
+      "text": "forever. The dashboard just wouldn't",
+      "duration": 3.12,
+      "offset": 1834
+    },
+    {
+      "text": "verify the CNAME. It just it took a",
+      "duration": 3.04,
+      "offset": 1835.44
+    },
+    {
+      "text": "while to get that working and I didn't",
+      "duration": 3.2,
+      "offset": 1837.12
+    },
+    {
+      "text": "know if I was doing it right last time",
+      "duration": 3.439,
+      "offset": 1838.48
+    },
+    {
+      "text": "because the UI didn't really indicate",
+      "duration": 3.599,
+      "offset": 1840.32
+    },
+    {
+      "text": "what the current state was very well.",
+      "duration": 3.521,
+      "offset": 1841.919
+    },
+    {
+      "text": "Thankfully, I just left it alone for",
+      "duration": 3.441,
+      "offset": 1843.919
+    },
+    {
+      "text": "half an hour, went back and it was good.",
+      "duration": 3.359,
+      "offset": 1845.44
+    },
+    {
+      "text": "Not clear that was happening though or",
+      "duration": 3.12,
+      "offset": 1847.36
+    },
+    {
+      "text": "if it would or wouldn't work. Oh, and",
+      "duration": 4.641,
+      "offset": 1848.799
+    },
+    {
+      "text": "the egress does cost 5 cents per gig for",
+      "duration": 5.84,
+      "offset": 1850.48
+    },
+    {
+      "text": "services, but the object storage has",
+      "duration": 4.959,
+      "offset": 1853.44
+    },
+    {
+      "text": "free egress, but you are paying 1.5",
+      "duration": 4.32,
+      "offset": 1856.32
+    },
+    {
+      "text": "cents per gig per month for the storage.",
+      "duration": 4.241,
+      "offset": 1858.399
+    },
+    {
+      "text": "So, know that I got the previous storage",
+      "duration": 3.2,
+      "offset": 1860.64
+    },
+    {
+      "text": "price from Jake. He might have just",
+      "duration": 3.2,
+      "offset": 1862.64
+    },
+    {
+      "text": "typed it, but 1.5 cents per gig is",
+      "duration": 3.6,
+      "offset": 1863.84
+    },
+    {
+      "text": "pretty good price for the storage. I",
+      "duration": 3.439,
+      "offset": 1865.84
+    },
+    {
+      "text": "might rethink some things based on that.",
+      "duration": 3.359,
+      "offset": 1867.44
+    },
+    {
+      "text": "There's a lot more benefits to them",
+      "duration": 3.201,
+      "offset": 1869.279
+    },
+    {
+      "text": "though than we've gotten to here.",
+      "duration": 4.24,
+      "offset": 1870.799
+    },
+    {
+      "text": "supports everything. Best DB setup I've",
+      "duration": 4.24,
+      "offset": 1872.48
+    },
+    {
+      "text": "ever had. Like the way that you link",
+      "duration": 2.961,
+      "offset": 1875.039
+    },
+    {
+      "text": "services together and all of that is",
+      "duration": 3.76,
+      "offset": 1876.72
+    },
+    {
+      "text": "just so pleasant. Config is generally",
+      "duration": 4.48,
+      "offset": 1878
+    },
+    {
+      "text": "great. Perf is insane. They're racking",
+      "duration": 3.679,
+      "offset": 1880.48
+    },
+    {
+      "text": "their own servers and they're good",
+      "duration": 3.36,
+      "offset": 1882.48
+    },
+    {
+      "text": "servers. I also think that the server",
+      "duration": 3.601,
+      "offset": 1884.159
+    },
+    {
+      "text": "firm I'm using for US West is pretty",
+      "duration": 3.68,
+      "offset": 1885.84
+    },
+    {
+      "text": "close to me, which makes it feel just",
+      "duration": 4,
+      "offset": 1887.76
+    },
+    {
+      "text": "absurdly fast. I'm just very happy with",
+      "duration": 5.519,
+      "offset": 1889.52
+    },
+    {
+      "text": "Railway. I'll call pricing fair overall.",
+      "duration": 4.399,
+      "offset": 1891.76
+    },
+    {
+      "text": "There are very few things on Railway",
+      "duration": 2.321,
+      "offset": 1895.039
+    },
+    {
+      "text": "where I'm like, that's too expensive,",
+      "duration": 2.721,
+      "offset": 1896.159
+    },
+    {
+      "text": "and the one that I thought was, I was",
+      "duration": 2.799,
+      "offset": 1897.36
+    },
+    {
+      "text": "just wrong about. Oh, they do have",
+      "duration": 2.72,
+      "offset": 1898.88
+    },
+    {
+      "text": "previews and oneclick roll backs. That's",
+      "duration": 3.041,
+      "offset": 1900.159
+    },
+    {
+      "text": "good to know. The one-click rollbacks is",
+      "duration": 3.36,
+      "offset": 1901.6
+    },
+    {
+      "text": "huge and has saved me a ton of times.",
+      "duration": 2.959,
+      "offset": 1903.2
+    },
+    {
+      "text": "Depending on how you use the platform",
+      "duration": 2.8,
+      "offset": 1904.96
+    },
+    {
+      "text": "might even save you a shitload of money.",
+      "duration": 3.52,
+      "offset": 1906.159
+    },
+    {
+      "text": "Some customers who were on AWS before",
+      "duration": 4,
+      "offset": 1907.76
+    },
+    {
+      "text": "were able to cut their cost by 90% by",
+      "duration": 3.521,
+      "offset": 1909.679
+    },
+    {
+      "text": "moving to Railway and also get better",
+      "duration": 3.44,
+      "offset": 1911.76
+    },
+    {
+      "text": "experience. It's It's really good. I'm",
+      "duration": 3.76,
+      "offset": 1913.2
+    },
+    {
+      "text": "super happy with Railway. I bet you will",
+      "duration": 3.52,
+      "offset": 1915.2
+    },
+    {
+      "text": "be too. They are probably my top pick",
+      "duration": 3.199,
+      "offset": 1916.96
+    },
+    {
+      "text": "here. One last thing on Railway before",
+      "duration": 3.36,
+      "offset": 1918.72
+    },
+    {
+      "text": "we get to EC2. They just raised $100",
+      "duration": 4.161,
+      "offset": 1920.159
+    },
+    {
+      "text": "million. They're not going anywhere.",
+      "duration": 4,
+      "offset": 1922.08
+    },
+    {
+      "text": "They were already nearly profitable",
+      "duration": 3.04,
+      "offset": 1924.32
+    },
+    {
+      "text": "before. They might have actually been",
+      "duration": 3.28,
+      "offset": 1926.08
+    },
+    {
+      "text": "profitable for a bit. They are not going",
+      "duration": 5.52,
+      "offset": 1927.36
+    },
+    {
+      "text": "anywhere. AWS also never going anywhere.",
+      "duration": 5.84,
+      "offset": 1929.36
+    },
+    {
+      "text": "Super reliable, like disgustingly",
+      "duration": 5.2,
+      "offset": 1932.88
+    },
+    {
+      "text": "reliable, supported by everything, great",
+      "duration": 4.959,
+      "offset": 1935.2
+    },
+    {
+      "text": "locations, so you know that they'll",
+      "duration": 5.12,
+      "offset": 1938.08
+    },
+    {
+      "text": "network with everything fast. Like every",
+      "duration": 5.76,
+      "offset": 1940.159
+    },
+    {
+      "text": "service tries to get themselves into AWS",
+      "duration": 4.24,
+      "offset": 1943.2
+    },
+    {
+      "text": "server farms so that you can have low",
+      "duration": 4.081,
+      "offset": 1945.919
+    },
+    {
+      "text": "latency with AWS EC2. The amount of",
+      "duration": 4.239,
+      "offset": 1947.44
+    },
+    {
+      "text": "integration that they have with like",
+      "duration": 4.32,
+      "offset": 1950
+    },
+    {
+      "text": "everything is nuts cuz everyone's built",
+      "duration": 4.401,
+      "offset": 1951.679
+    },
+    {
+      "text": "it. Platforms like Terraform and Palumi",
+      "duration": 4.479,
+      "offset": 1954.32
+    },
+    {
+      "text": "are largely built around EC2 and EKS.",
+      "duration": 4.959,
+      "offset": 1956.08
+    },
+    {
+      "text": "And hell, Kubernetes is largely designed",
+      "duration": 4.081,
+      "offset": 1958.799
+    },
+    {
+      "text": "around how EKS works at this point. Like",
+      "duration": 4.961,
+      "offset": 1961.039
+    },
+    {
+      "text": "everything is building for EC2. Like if",
+      "duration": 5.039,
+      "offset": 1962.88
+    },
+    {
+      "text": "it doesn't support EC2, I am sus as",
+      "duration": 3.919,
+      "offset": 1966
+    },
+    {
+      "text": "hell. Guaranteed SLAs, reliability, all",
+      "duration": 3.76,
+      "offset": 1967.919
+    },
+    {
+      "text": "the things you need there. Bargate's",
+      "duration": 3.441,
+      "offset": 1969.919
+    },
+    {
+      "text": "dope. There's tons of other services you",
+      "duration": 3.84,
+      "offset": 1971.679
+    },
+    {
+      "text": "can integrate alongside EC2 within AWS",
+      "duration": 4.24,
+      "offset": 1973.36
+    },
+    {
+      "text": "and externally that are insane. And most",
+      "duration": 3.441,
+      "offset": 1975.519
+    },
+    {
+      "text": "importantly, no one's ever been fired",
+      "duration": 3.36,
+      "offset": 1977.6
+    },
+    {
+      "text": "for picking AWS. It's the default. And",
+      "duration": 3.52,
+      "offset": 1978.96
+    },
+    {
+      "text": "it's the default for a reason. It is",
+      "duration": 3.839,
+      "offset": 1980.96
+    },
+    {
+      "text": "good. But there are negatives. cost is",
+      "duration": 4.319,
+      "offset": 1982.48
+    },
+    {
+      "text": "surprisingly higher than competition.",
+      "duration": 3.841,
+      "offset": 1984.799
+    },
+    {
+      "text": "Their pricing is so annoying that",
+      "duration": 4.561,
+      "offset": 1986.799
+    },
+    {
+      "text": "usually you go use another service to",
+      "duration": 4.639,
+      "offset": 1988.64
+    },
+    {
+      "text": "look at it because it's just their",
+      "duration": 4.96,
+      "offset": 1991.36
+    },
+    {
+      "text": "pricing is God, they hide all this info",
+      "duration": 5.52,
+      "offset": 1993.279
+    },
+    {
+      "text": "so deep. Here we go. Sadly, this chart",
+      "duration": 5.599,
+      "offset": 1996.32
+    },
+    {
+      "text": "is doing hourly pricing, not monthly.",
+      "duration": 6.161,
+      "offset": 1998.799
+    },
+    {
+      "text": "Time 24* 30. And there's a reason why. A",
+      "duration": 7.12,
+      "offset": 2001.919
+    },
+    {
+      "text": "2 gig 1vcpu box with just EBS storage is",
+      "duration": 7.199,
+      "offset": 2004.96
+    },
+    {
+      "text": "$22 a month.",
+      "duration": 4.401,
+      "offset": 2009.039
+    },
+    {
+      "text": "If we're talking EKS, you're going to",
+      "duration": 2.64,
+      "offset": 2012.159
+    },
+    {
+      "text": "want the beefiest nodes you can",
+      "duration": 3.839,
+      "offset": 2013.44
+    },
+    {
+      "text": "reasonably fill. So, you can choose 190",
+      "duration": 4.801,
+      "offset": 2014.799
+    },
+    {
+      "text": "core Graviton box. Yeah, it's it's",
+      "duration": 6.081,
+      "offset": 2017.279
+    },
+    {
+      "text": "pretty nuts. AWS not only charges a",
+      "duration": 5.76,
+      "offset": 2019.6
+    },
+    {
+      "text": "significantly higher price than what I",
+      "duration": 4.24,
+      "offset": 2023.36
+    },
+    {
+      "text": "would expect for the tier of hardware,",
+      "duration": 4.799,
+      "offset": 2025.36
+    },
+    {
+      "text": "they don't really lower those prices.",
+      "duration": 4.319,
+      "offset": 2027.6
+    },
+    {
+      "text": "So, it's kind of just like a fee you're",
+      "duration": 3.601,
+      "offset": 2030.159
+    },
+    {
+      "text": "paying forever on a box that's probably",
+      "duration": 3.681,
+      "offset": 2031.919
+    },
+    {
+      "text": "6 plus years old and you're paying as",
+      "duration": 3.919,
+      "offset": 2033.76
+    },
+    {
+      "text": "though it's brand new. It's bad. It's",
+      "duration": 3.76,
+      "offset": 2035.6
+    },
+    {
+      "text": "crazy. Everybody always advertises like",
+      "duration": 4.561,
+      "offset": 2037.679
+    },
+    {
+      "text": "AWS is the cheap option. It's not. In",
+      "duration": 4.88,
+      "offset": 2039.36
+    },
+    {
+      "text": "many cases, Versell is actually cheaper",
+      "duration": 3.52,
+      "offset": 2042.24
+    },
+    {
+      "text": "than AWS. Just depends on how you're",
+      "duration": 2.64,
+      "offset": 2044.24
+    },
+    {
+      "text": "using them. And if you're doing stupid",
+      "duration": 2.399,
+      "offset": 2045.76
+    },
+    {
+      "text": "things on either, you can screw",
+      "duration": 3.199,
+      "offset": 2046.88
+    },
+    {
+      "text": "yourself. It's no surprise railway comes",
+      "duration": 3.44,
+      "offset": 2048.159
+    },
+    {
+      "text": "out cheaper as often as they do. So,",
+      "duration": 3.52,
+      "offset": 2050.079
+    },
+    {
+      "text": "yeah, cost is not the thing you are",
+      "duration": 3.921,
+      "offset": 2051.599
+    },
+    {
+      "text": "saving. Setup isn't the thing you're",
+      "duration": 3.921,
+      "offset": 2053.599
+    },
+    {
+      "text": "saving either. You basically have to",
+      "duration": 4.399,
+      "offset": 2055.52
+    },
+    {
+      "text": "build a solution to handle your",
+      "duration": 4.48,
+      "offset": 2057.52
+    },
+    {
+      "text": "deployments on AWS. There have been",
+      "duration": 3.92,
+      "offset": 2059.919
+    },
+    {
+      "text": "multiple billion plus dollar companies",
+      "duration": 4.48,
+      "offset": 2062
+    },
+    {
+      "text": "built just because setting up on AWS is",
+      "duration": 4.401,
+      "offset": 2063.839
+    },
+    {
+      "text": "too hard. Everything from Terraform to",
+      "duration": 4.8,
+      "offset": 2066.48
+    },
+    {
+      "text": "versel is arguably because AWS sucks to",
+      "duration": 7.359,
+      "offset": 2068.24
+    },
+    {
+      "text": "config dashboard is Cloudflare tier UX.",
+      "duration": 6.24,
+      "offset": 2071.28
+    },
+    {
+      "text": "It at least works though. It's rare on",
+      "duration": 3.201,
+      "offset": 2075.599
+    },
+    {
+      "text": "the AWS dashboard and things are just",
+      "duration": 2.559,
+      "offset": 2077.52
+    },
+    {
+      "text": "outright broken like they are on",
+      "duration": 3.279,
+      "offset": 2078.8
+    },
+    {
+      "text": "Cloudflare, but getting around it is",
+      "duration": 5.921,
+      "offset": 2080.079
+    },
+    {
+      "text": "hellish. Oh god, the permissions. I",
+      "duration": 6.881,
+      "offset": 2082.079
+    },
+    {
+      "text": "god that's so many throwbacks. I I have",
+      "duration": 5.919,
+      "offset": 2086
+    },
+    {
+      "text": "been to hell with AM. It's so bad. It's",
+      "duration": 5.04,
+      "offset": 2088.96
+    },
+    {
+      "text": "so [ __ ] bad. I I'd put this in the",
+      "duration": 4.48,
+      "offset": 2091.919
+    },
+    {
+      "text": "same bucket honestly as I put GCP and",
+      "duration": 4.72,
+      "offset": 2094
+    },
+    {
+      "text": "Azure. Now, if you're coming to me or a",
+      "duration": 4.001,
+      "offset": 2096.399
+    },
+    {
+      "text": "channel in a video like this for advice",
+      "duration": 4.48,
+      "offset": 2098.72
+    },
+    {
+      "text": "on where to deploy, don't deploy to AWS.",
+      "duration": 5.199,
+      "offset": 2100.4
+    },
+    {
+      "text": "Seriously, don't. We've went over all of",
+      "duration": 5.28,
+      "offset": 2103.2
+    },
+    {
+      "text": "these options. You hopefully understand",
+      "duration": 5.281,
+      "offset": 2105.599
+    },
+    {
+      "text": "what the values are for each of them. If",
+      "duration": 4.32,
+      "offset": 2108.48
+    },
+    {
+      "text": "I was to tier these, I'm going to ignore",
+      "duration": 3.6,
+      "offset": 2110.88
+    },
+    {
+      "text": "the ones I wouldn't recommend. I'll say",
+      "duration": 3.44,
+      "offset": 2112.8
+    },
+    {
+      "text": "top Rex, the ones that I would",
+      "duration": 3.2,
+      "offset": 2114.48
+    },
+    {
+      "text": "absolutely recommend, I think everyone",
+      "duration": 3.28,
+      "offset": 2116.24
+    },
+    {
+      "text": "should at least consider, Railway,",
+      "duration": 5.28,
+      "offset": 2117.68
+    },
+    {
+      "text": "Versell, and Render. all easy. S tier,",
+      "duration": 5.36,
+      "offset": 2119.52
+    },
+    {
+      "text": "you're good. I have a specific need",
+      "duration": 4.48,
+      "offset": 2122.96
+    },
+    {
+      "text": "tier. I would put Netlefi if they have",
+      "duration": 3.84,
+      "offset": 2124.88
+    },
+    {
+      "text": "some specific integration or their",
+      "duration": 3.12,
+      "offset": 2127.44
+    },
+    {
+      "text": "queuing stuff works really well for you.",
+      "duration": 3.6,
+      "offset": 2128.72
+    },
+    {
+      "text": "Cloudflare if you're willing to deal",
+      "duration": 3.519,
+      "offset": 2130.56
+    },
+    {
+      "text": "with the compromises around not having a",
+      "duration": 3.44,
+      "offset": 2132.32
+    },
+    {
+      "text": "proper node environment. Very",
+      "duration": 3.121,
+      "offset": 2134.079
+    },
+    {
+      "text": "beneficial. Or you're just trying to",
+      "duration": 4.079,
+      "offset": 2135.76
+    },
+    {
+      "text": "microoptimize for costs at crazy scales.",
+      "duration": 5.52,
+      "offset": 2137.2
+    },
+    {
+      "text": "Really good option as well. Maybe Hner.",
+      "duration": 4.641,
+      "offset": 2139.839
+    },
+    {
+      "text": "It hurts to put it here, but if your",
+      "duration": 3.84,
+      "offset": 2142.72
+    },
+    {
+      "text": "goal is to have the cheapest possible",
+      "duration": 4.879,
+      "offset": 2144.48
+    },
+    {
+      "text": "thing with insane free egress that's",
+      "duration": 4.08,
+      "offset": 2146.56
+    },
+    {
+      "text": "just hosted and you're okay with it",
+      "duration": 2.881,
+      "offset": 2149.359
+    },
+    {
+      "text": "being slow and unreliable, it can be",
+      "duration": 3.28,
+      "offset": 2150.64
+    },
+    {
+      "text": "fine. I wouldn't confidently tell you",
+      "duration": 3.28,
+      "offset": 2152.24
+    },
+    {
+      "text": "like, oh, go move that to Hner, but it",
+      "duration": 4.159,
+      "offset": 2153.92
+    },
+    {
+      "text": "is an option worth considering. Oh, and",
+      "duration": 5.28,
+      "offset": 2155.52
+    },
+    {
+      "text": "Fly, absolutely Fly.io. While it might",
+      "duration": 4.721,
+      "offset": 2158.079
+    },
+    {
+      "text": "not still exist in a year or two, it has",
+      "duration": 3.92,
+      "offset": 2160.8
+    },
+    {
+      "text": "some really compelling offerings that",
+      "duration": 3.12,
+      "offset": 2162.8
+    },
+    {
+      "text": "nothing else does. There's a good chance",
+      "duration": 2.72,
+      "offset": 2164.72
+    },
+    {
+      "text": "you run into a problem Fly uniquely",
+      "duration": 3.439,
+      "offset": 2165.92
+    },
+    {
+      "text": "solves. Worth considering if you do. And",
+      "duration": 4.24,
+      "offset": 2167.44
+    },
+    {
+      "text": "then I have the you won't listen anyways",
+      "duration": 5.121,
+      "offset": 2169.359
+    },
+    {
+      "text": "tier. This is for people who watch these",
+      "duration": 5.2,
+      "offset": 2171.68
+    },
+    {
+      "text": "videos for fun but can't realistically",
+      "duration": 5.04,
+      "offset": 2174.48
+    },
+    {
+      "text": "take my recommendations for all sorts of",
+      "duration": 4.32,
+      "offset": 2176.88
+    },
+    {
+      "text": "different reasons. This is where I'd put",
+      "duration": 3.92,
+      "offset": 2179.52
+    },
+    {
+      "text": "most of the AWS offerings like Lambda",
+      "duration": 5.04,
+      "offset": 2181.2
+    },
+    {
+      "text": "and EC2. I'd also put GCP in here,",
+      "duration": 6.159,
+      "offset": 2183.44
+    },
+    {
+      "text": "Azure, IBM Cloud, things like that. Like",
+      "duration": 5.76,
+      "offset": 2186.24
+    },
+    {
+      "text": "if your employer already chose it for",
+      "duration": 4.641,
+      "offset": 2189.599
+    },
+    {
+      "text": "you, it's fine. And pretty much",
+      "duration": 4.64,
+      "offset": 2192
+    },
+    {
+      "text": "everything else, I don't think I can",
+      "duration": 4.56,
+      "offset": 2194.24
+    },
+    {
+      "text": "recommend it. Now, if you pick anything",
+      "duration": 4.32,
+      "offset": 2196.64
+    },
+    {
+      "text": "here, you're probably well set. If you",
+      "duration": 3.52,
+      "offset": 2198.8
+    },
+    {
+      "text": "pick anything here, I hope you have a",
+      "duration": 2.8,
+      "offset": 2200.96
+    },
+    {
+      "text": "good reason. And if you pick anything",
+      "duration": 2.64,
+      "offset": 2202.32
+    },
+    {
+      "text": "here, I hope it was your boss that",
+      "duration": 3.52,
+      "offset": 2203.76
+    },
+    {
+      "text": "picked it, not you. Now, you know how I",
+      "duration": 3.92,
+      "offset": 2204.96
+    },
+    {
+      "text": "think about these things. And hopefully",
+      "duration": 3.36,
+      "offset": 2207.28
+    },
+    {
+      "text": "you can now better understand why almost",
+      "duration": 3.6,
+      "offset": 2208.88
+    },
+    {
+      "text": "everything I deploy is on Versel and",
+      "duration": 3.68,
+      "offset": 2210.64
+    },
+    {
+      "text": "Railway. And maybe in the future render",
+      "duration": 4.4,
+      "offset": 2212.48
+    },
+    {
+      "text": "as well. Yeah, and we barely even talked",
+      "duration": 5.2,
+      "offset": 2214.32
+    },
+    {
+      "text": "about CDNs. What a video. I hope this",
+      "duration": 4.16,
+      "offset": 2216.88
+    },
+    {
+      "text": "helps you better understand what these",
+      "duration": 2.96,
+      "offset": 2219.52
+    },
+    {
+      "text": "platforms are, what benefits and",
+      "duration": 3.28,
+      "offset": 2221.04
+    },
+    {
+      "text": "negatives each have, and maybe, just",
+      "duration": 3.359,
+      "offset": 2222.48
+    },
+    {
+      "text": "maybe, you'll have more confidence when",
+      "duration": 3.279,
+      "offset": 2224.32
+    },
+    {
+      "text": "you pick the next place you host. Let me",
+      "duration": 3.201,
+      "offset": 2225.839
+    },
+    {
+      "text": "know how y'all feel. And until next",
+      "duration": 3.361,
+      "offset": 2227.599
+    },
+    {
+      "text": "time, please stop flaming me about",
+      "duration": 3.44,
+      "offset": 2229.04
+    },
+    {
+      "text": "Hutner. I really don't care about your",
+      "duration": 4,
+      "offset": 2230.96
+    },
+    {
+      "text": "$5 VPS.",
+      "duration": 2.48,
+      "offset": 2232.48
+    }
+  ],
+  "transcriptText": "Today's video is going to be a bit different because I wasn't actually filming this video when I filmed most of this video. I know that sounds crazy, but just hear me out for a sec. I was just filming a video about the death of Heroku. You might have even seen it already. And that video ended up with a long tangent about various other alternatives that you might consider moving to. Everything from AWS to Verscell, Railway, Netlefi, Render, Cloudflare, Digital Ocean, Hner, Flight, and more. I wanted to do my best to break all of these options down and share how I think about them and how I choose where I deploy my applications. While I have been sponsored by many of these companies in the past, none of them are sponsoring this video. The point of this was to give you my honest take on how I choose where I deploy my services. It can feel a little overwhelming to choose and a lot of the advice I see around the internet feels like it's coming a little bit too much out of the perspective of the user and the specific thing they are working on in that moment where all of these platforms, okay, most of these platforms have real benefits that are worth considering. There are at least three options on each side here that are worth thinking about and evaluating before making a decision. And this video isn't just like this one's good and this one's bad. I'm trying to help you make a mental mapping and model for how to choose the right place to host your code. And in a world where we're deploying more and more services, making all these micro apps, and vibe coding all sorts of stuff, no one's helping you figure out where to put it. And if I keep seeing these crazy versell bills or people getting stuck trying to deploy on AWS, I'm going to go mad. I really want to help you guys understand how I pick solutions. And it's not based on who's paying me. None of these companies are paying me today. The only one who is is today's sponsor. I have a confession to make. I've stopped using GitHub for CI because today's sponsor, Blacksmith, has made my CI so much better. Actions just aren't reliable, and I've had so many problems with them. And they all vanished as soon as I set up Blacksmith for all of our repos. And yes, I mean all of them. Looks like we even have jobs running right now. Honestly, all of the observability stuff would be worth it by itself. Actually seeing what failed and why and having a log search that like works. If you've ever had to debug weird actions, you know how absurdly useful this is by itself. It is not just for individual projects. You can scan all of your projects as well, which is huge. But the real key is the fastest part because they really are the fastest. The secret to how they're so fast isn't really that secret. They're using better hardware with gaming CPUs as well as NVME drives that store all of your layers for things like Docker, which allows the restoration process to be instantaneous instead of taking forever. I just moved some actions for a Rust project I'm working on, and they went from 5 minutes to under 30 seconds. We've seen similar speedups across all of the projects that we're working on. Other companies like Ashb doubled their deployment speeds while also cutting their spend by 75%. Because yes, Blacksmith's cheaper, too. Don't believe me? Try it yourself. It's free to get started and it's one line of code changed. Yes, really. You swap the action. Once you're set up, it's good to go. Stop wasting your time and speed up your builds at soyv.link/blacksmith. I'll break this into servers and serverless. You know, we'll call it VPS's and serverless. There's a lot of good options for both. In the serverless side, obviously Verscell is still inarguably king. The balance of DX and capability of the platform is pretty hard to beat. Nellifi is not a bad option, especially with their recent embrace of vibe coding and supporting all of the platforms that build all the fancy vioding tools. Scales great. I love the CEO. Really good. Has it negatives. We'll get there. And then we have Cloudflare. A lot of things to say about that. On the VPS side, we have a ton of options. Obviously, we can go AWS with EC2 or EKS. Lots of options there. Railway, which I've already talked about. You have render fly.io. Yeah, digital ocean. Another crazy throwback. Man, I have digital ocean. I have a long ass history. Oh, yeah. Hner, the classic. That's the one I was forgetting. Obviously, there's other traditional clouds like GCP, Azure. The reality is that if either of these are the right solution to your problem, you already know that and you're not here for me to tell you about different options. There's also OVH. None of the rest are things I care about enough to put in the list. I think this is a good enough list of the VPS's. I'm going to start by diving into the serverless list here. If you don't know which of these you fit under, you should almost certainly start with the serverless options and if they have issues because you actually do end up meeting a server, you'll figure that out pretty fast and then you'll move over accordingly. But generally speaking, 98 plus% of applications can be served totally fine in a serverless deployment solution. I would lean in that direction. So that's being a fair point that AWS Lambda should also be in here. You're not wrong, but we're not going to be talking about that one too much. Let's break down all these options and how I pick between them. I honestly think this will be easier if we go backwards. So, let's start with AWS Lambda. Lambda is not trivial to set up. There are lots of tools to help like SST, Palumi, Terraform, things like that. It still sucks. Concurrency is not viable. They are starting to introduce their concept of doing concurrent Lambda stuff. They're not there yet. I don't know anyone who's actually using it or relying on it. Then they have like amplify which is a total joke. Yeah. CDN gateway is your problem. Git push pipeline GHF costs are fine but concurrency sucks. Yeah. It's hard to recommend Lambda to most people. At least it's Node though or anything else. If you can put in a Docker image, you can put it on Lambda. But a lot of technologies that people like tend to be slow to spin up. So don't think you can just rewrite your Lambda in Rust and it's magically super fast. Sometimes those things take a bit to boot, especially if your wait time isn't on the startup of your code. It's actually on the connection to your database. Good luck. Have fun. There's also a lot of other little things like streaming with super broken Lambda. I think it might be fixed now. I'm not sure, but if you're using a server component style framework that does HTTP streaming like you know, Nex.js, not fun. And next we have everyone's favorite CloudFlare. First thing I want to say is that they have one of a kind infra. And that one of a kind infra allows them to be significantly cheaper than almost anything else because Cloudflare isn't using traditional servers or Docker images. You can't send a Docker image to Cloudflare and run it. Well, you kind of can now, but their whole like Docker image server thing is a different product and it sucks. I don't anyone using it. It's super overpriced and slow. Cloudflare's strength is you give them a JavaScript file and they run it on their edge network that has a different layer of abstraction. Instead of handing them a box with a kernel in it and expecting them to run it for you, you're handing them a JS file and three layers above the kernel in their custom version of V8 called workerd, they run your code safely in an isolate that doesn't have to spin up a whole server the way that things like Lambda do. That means that cold starts are near zero. It means that their pricing model is fundamentally different because they only charge on CPU time. Other platforms charge wall clock time because the server's up. It doesn't matter how people are using it. It costs them money, it costs you money, too. With Cloudflare, if your request isn't doing anything, like it's idling, waiting for more data to come in, the compute on that box can be used for someone else's request because lots of people are running their code at the same time on the same box. On Verscell, every developer's deployment has its own kernel. On Cloudflare, every single deployment is just a JavaScript file running in the same VM. It also changes their performance profile meaningly. Check out the Verscell versus Cloudflare video if you want more info on that. They've made improvements since, but it's still not as fast as dedicated box can be. But there's a much bigger catch. Not Node. Every time I use Cloudflare, I run into something because of this. It's not running Node.js. It's running their JavaScript engine. And because of that, a lot of things don't work. Things like reading and writing files, things like many of the methods you use to connect to databases, things like any package that runs any native code, you know, like image optimizers, PDF parsing, all the fun things we like to do in our servers with our node apps. There's a lot of issues when you can't use node. They've done their best to patch in support for a lot of node stuff. None of the things I just mentioned have been fixed. All of those are still problems, but most packages have shims around the node functions now built in where they can mostly work. Things like crypto were entirely broken and now mostly work. The compat layers fine, but you're almost certainly going to run into some issues. Like one of the biggest ones I have is stuff like sharp and ffmpeg. you're not running anything that is written in a language other than JavaScript in Cloudflare. And anyone saying otherwise, like, oh, you can just wom your stuff has not tried it seriously. I have been to hell and back for many projects trying to get Cloudflare to let me do something that involves any code that isn't in JavaScript and every single time I gave up and moved to one of the other options. Speaking of other options, Netlefi. Nellifi is another Lambda wrapper, but they include all the other fun things like the CDN that make the platform so nice. Everything from here down effectively has those pieces. Really good GitHub integrations. Honestly, really good integrations in general. They have an awesome team. They support the hell out of open source. They're pretty good. I've never regretted my use of Netlefi in a meaningful way. They've been a sponsor in the past. I wouldn't be surprised if they are again in the future. Netlefi is solid platform. They handle CDN and distribution stuff, but they don't have everything. The biggest thing I miss when I use Netlfi is concurrency because again the concurrency model for a lot of these things including AWS Lambda is each request gets its own instance and for the modern way that things work that is not pleasant. Their solution for this is some really cool background jobs and Q type stuff. The work they have done for their queuing things is actually really really cool. The bit I played with it for was awesome. They were way ahead of Versel with the workspace thing. They had it figured out early and it was surprisingly cheap. I should also mention for the Cloudflare stuff before I forget, GitHub integration, GHF. Getting your Cloudflare stuff integrated with modern tools is still your problem, not theirs. The dashboard is absolute garbage. I I actually think that the entire dashboard codebase should be deleted and restarted from scratch. There is no recovery at this point. They've had multiple massive global outages because of bad code for fetching data in the dashboard. It's pretty pathetic. Addy just jumped in saying Cloudflare pages is native GitHub integration. Awesome. Cloudflare pages is also dead. They are merging it with Cloudflare workers now and they've done a terrible job documenting those changes and I never know where I'm going when I'm trying to deploy on Cloudflare anymore. I had so many problems the last time I tried to deploy on Cloudflare that I sent to the team. The poor exec who was in the room with me when I did this wrote over seven pages of notes at a 10-point single spaced font that she then presented to the entire org and got like half or so of the things fixed. They are trying. Cloudflare does care a lot, but the experience is just so far behind any of the competition that's at all more modern. Just go try to deploy a random V react app on Cloudflare and on Versel and then make a change and see how hard it is to deploy on those two things. It's just not pleasant. But what you're getting for that cost of your sanity is way cheaper overall. There are issues with the cost side though because they're not very transparent about what free things stay free. They don't charge for egress in a bunch of cases which is huge because it means if you're doing a lot of data transfer it is cheap or free but at a certain point they might strongarm you into the enterprise plans where those things suddenly do cost money. So if it's free on the free tier or free on the base tier that does not guarantee it stays free in the enterprise tiers. So know that cuz it's very important. One last really great thing they did though they hired Dylan. If you're not familiar, Dylan Moy is one of the like wizard Typescript devs powering all sorts of tools in the background. One of the people that's really pushed Effectts to where it is today. Fellow JJ nerd, great developer overall. Love Dylan to death. He was at Versell and cared a lot about DX there. He's now at Cloudflare and he's pushing the limits of DX there as well. Trying to fix a ton of stuff. In his first week, he filed like 20 PRs to the Wrangler CLI and all these other random things. There's a good chance that Dylan will be able to fix a handful of the things in this list, but right now, Cloudflare has the second worst DX compared to AWS. In many ways, I would argue it's worse than AWS because it changes all the time and is never well documented and nothing ever makes sense. It's actually so unclear what you can and can't do on Cloudflare because the docs are just wrong and lie a lot. It's it's rough. And now for the exact opposite experience, Verscell. I have my issues with Verscell. Everyone does. Watch my breaking up with Versell video if you want to see some of them. There's a lot of them, but they are still by far the easiest and most consistent way to deploy most apps. Basically, everything I have shipped to the web over the last few years has been on Versell at the very least for the web app for it cuz it's just a really easy way to do that. The GitHub integration is great. The free tier is great. The billing model makes sense. The integrations with everything are awesome. Honestly, I can just copy this part as well as this part. Obviously, it's the best place for Nex.js JS regardless of how you feel about next even I'm coming around to not liking next too much nowadays obviously they handle the CDN distribution stuff and the parts where we start to really differ from the competition fluid compute this is the thing I talked about before it's their attempt to do similar pricing to what Cloudflare does with the CPU time pricing it has helped a ton they also consistently introduce cool primitives to the infrastructure that take advantage of these things like the workflows stuff I know you guys don't love the whole syntax of direct directives with use workflow and whatnot, but it is really cool what it can do. It's a good way to get started with that type of building if you want more reliable services. It is what it is. There are negatives though. Cost is still an issue, not just CPU cost. I would actually argue for most apps, the cost difference between Versel and Lambda is in favor of Versell for the compute side because of the concurrency stuff in particular. That just knocks costs down a shitload. But they do things with the costs that still aren't great. Things like the $20 per month seat pricing. Very annoying. Every time I have to add a new dev to the team, I'm just increasing my Verscell bill. Don't love that. But the biggest cost when you're shipping real software is almost never going to be the compute or the seat pricing on Versel. Bandwidth. Every time I see one of those viral bills where it's like, \"Oh my god, Verscell cost me $5,000.\" All but one of those instances, it was bandwidth. Because Versell has a very aggressively positioned CDN that has the goal of making everything as fast as possible. All of the code that Verscell ships for you, the things that go to the users like your HTML pages, your JS bundles, your SVGs, all the things that are coming out of your codebase that are going to the user, those are all on Versel's CDN. It is obviously meant for things that are small and need to be loaded quick, like you know, JavaScript files that power your site. But if you're filling up your public folder in your project with a ton of big assets like 50 megabyte video files or 10 megabyte PGs or 5 to 10 megabyte MP3s, that's going to cost a lot. It's almost like you're trying to use a race car to pick up groceries. Not only is it going to fit fewer groceries, it's going to use more gas and probably cost you more maintenance. It is not the right solution for any static asset that is bigger than like 400 kilobytes. They do offer their own file storage solution called blob that is built on top of R2, funny enough, the Cloudflare product. I don't know how hard they're focused on it now. It doesn't really seem like a thing they care a lot about. Thankfully, you can use upload thing, a weird file upload service some random YouTuber made. Don't think about that part too much, but uh it's a lot cheaper. Doesn't charge for egress. Worth considering. So, that's why I default to Verscell. As long as you're careful about the bandwidth and where you're putting it, it ends up being really good. The GitHub integrations are best in class. The CLI is really good. It's easy to set up. It works with everything. It's real node, so you can do anything you can do in Node.js. It's pretty good. Generally speaking, if it doesn't work on Versell, it's probably because it's a bad workload for serverless in general. It is very rare that I find it worthwhile to move off of Versel to another serverless provider, unless it is some crazy weird compute thing that Cloudflare happens to be cheaper for. But even that's getting rarer now with the fluid compute pricing. Cool. So, let's say you're one of those people that just cannot use serverless. There are a lot of people that that is the case for and there are even more people that that isn't the case for but occasionally have a project that benefits from traditional servers. Let's look at our options for that. Let's start with the easy ones to make fun of Petner and OVH. Benefits really cheap. People on Twitter will think you're cool. Negatives, uh, your account can get cancelled at any time, especially with Hster. I've even experienced this. They didn't like that I signed up with a Gmail account, so I got auto flagged and my account couldn't deploy for a long ass time. It was bad. And I've seen that story so many times. I've even seen people's production environments getting taken down because some random policy change resulted in their account not having some checkbox hit. They are known for banning. They are known for flagging. A lot of people have had a lot of problems. Immediately, I get [ __ ] for talking [ __ ] on Hesser, but I don't care. I've exclusively had bad experiences with Hner, and I need y'all to know that. OVH is some amount better, but honestly they're also slightly more expensive, so I rarely find it is worth it. The product offering is also lacking. Like no integrations with anything. If you're using Hatner, you're managing your deployment pipelines. You're managing your methods for allocation. You're managing your hierarchy for like what servers are being routed to and from your gateways, your CDNs, everything. They're not doing [ __ ] for you. They're giving you a VPS in a box that they own somewhere random. Also of note, uh locations kind of suck. The best prices are for the EU servers, but even the EU servers aren't coll-located with other important things. Like if you're using, I don't know, planet scale for your database, the likelihood that the planet scale database and the heter database are on the same network is basically zero, which means you're adding a shitload of latency and making your service significantly slower and worse so that you can look cool on Twitter for paying five bucks a month instead of six. It's just not worth it. I I don't know any serious people who are building on top of Hetner. I just don't. It's all hobbyists. And that's fine if you want to just be a hobbyist and really microoptimize your costs. I don't believe that you're real. I just don't. Not a hatner fan. I'm sure my comment section is going to be wonderful now that I've said that. Next, we'll talk about Digital Ocean. This is one I have a ton of experience with. First benefit is the docs. Best in class. I in chat, tell me if you're old enough to have been there with me. Ones in the chat. If you've also relied on the docs for Digital Ocean, for deploying Minecraft servers places other than Digital Ocean. I know that's been the case for me. I would not be the dev I am today if it wasn't for the Digital Ocean documentation on how to host Minecraft servers. Look at that chat. A lot of us have been there. Crazy throwback, but man, the amount of quality documentation that they have had forever now is just unbelievable. Like to this day, I'll Google search some weird thing I want to do with SSH or GNU screen or some thing I want to deploy. There's a 50% chance that Digital Ocean is one of the first results and not even how to do this on Digital Ocean. It's just how to do this. And if you choose to use Digital Ocean, you can. They really took that angle seriously of just being a good resource for developers. They have since laid off a lot of the staff that wrote those docs, but god damn were they useful for a long, long ass time, even like pre-stack overflow days. Other benefits of Digital Ocean, they've been around forever, so they're probably not going anywhere. They have good integrations, not great, but good integrations with things like GitHub. I'll call it decent integrations and a lot of companies that we use things from here are using them from Bright Data to FAL to Character AI and more. Like they're they're a real legit company that's being used by a lot of real legit products unlike some of the other options here. We need to take a look at the pricing though because it's not cheap. They're immediately starting with their GPU boxes, which is cool that they offer those, but the compute less great. They do still have a free tier, but droplets, oh, they're now per second pricing. Their base here at 512 meg, 500 gigs of transfer, 10 gig drive is four bucks a month. 1 gig is up to six. And just for comparison sake, we'll look at Hner's pricing. They got boxes with 4 gigs of RAM and 40 gig SSDs and up to 20 terabytes of traffic for four bucks a month. This is why people choose Hner. It is also worth noting that it's in Germany or Finland. And I don't think the US locations are even visible in the pricing charts. Or is it regular performance? That's okay, cool. Regular performance. A different tab than the cost optimized ones. And those ones have US locations. And now we're up to six bucks for the 2 gig 40 gig plan. That's a lot closer to what we were seeing over here. So it as crazy as it seems, do you understand how hard Hner works to make the price look incredible even though there are catches? Like again, we have to hit this button to get real locations and immediately the price skyrockets. Turns out that the two vCPU 4 gig boxes in Germany in regular performance mode, not cost optimized mode, is more expensive than Digital Ocean. And if you want a dedicated box so that you never have to worry about performance degrading, you're now at 14 bucks a month minimum for again relative small. Okay, it's 8 gigs of RAM. It's a little bit better, but 28 bucks for 16 gigs a month, not great. Regardless, pricing is reasonable across these options so far. We have not gone into the things that are massively overpriced. Okay, admittedly, 2 gigs of RAM and one vCPU for 12 bucks is a little expensive. Digital Ocean is not the cheap option. It never was. If you're optimizing on that level, it's hard for me to take the work you're doing seriously. Like a $2 to5 a month difference across servers is not something I care about because the time it takes to build those things is a lot more. Hell, the inference I use to build those things is a lot more. I'm paying 200 bucks a month for Claude and for Codeex right now. Five bucks a month is whatever. So, what are the negatives? How do I put this? Digital Ocean feels a little lost right now. They don't really know what their core offering is. You can even tell from the homepage. The inference cloud built for scale. What? That's not what I've you I don't know anyone using Digital Ocean for inference right now. I've never met a person who does that. Oh, look at that. They have an open claw shout out on the homepage now. They are leaning so hard into trying to find new customers, which suggests, this is the scary part, they may be circling the drain. Of the options I have in this list, they are in the top section of most likely to have the same problem that we're talking about here right now. So yeah, if your goal is to not have to deal with this type of migration because of the Heroku death, I can't guarantee with Digital Ocean that you won't have to experience that again. So know that going in. Definitely feels a tad dated and it feels like the compute isn't their focus anymore. They really seem to be leaning into the inference side, which good for them, but there's way more competition there, and I'm not confident that they can have a meaningful impact. So what do we have next? We covered these ones. Let's hop into Fly.io next. Flyio is dope. They were a sponsor in the past. I hope they might be in the future, but they did recently have to do layoffs and I chose to cut them off as a sponsor at that point because I felt really bad taking money from a company that just laid off a bunch of the staff that I was working with. Really good stuff overall and they are also a huge member of like the elixir community which is obviously near and dear to my heart. So benefits elixir native which I absolutely love worldclass DX for deploying servers. They have some of the best DX in the world. things like the way it integrates with GitHub, how you manage things in the dashboard, the clarity in what's going on where, the tools for linking different things together, preview environments, sleeping servers, all of those types of things. Great. They're also huge OSS supporters. They help sponsor everything from like the Elixir ecosystem and Gleam, Rails, and many other things I'm almost certainly going to forget if I try to list them off. They are just a good player in the space, more so than anyone else we've talked about so far. I would argue they are actively meaningfully contributing to the development of important open- source technologies to the point where it is hurting the business. Okay, people are saying they might not sponsor Gleam. Maybe they're not sponsoring Gleam anymore. I'm pretty sure they did in the past, but they are not necessarily doing great financially. Again, layoffs and I haven't heard anything about them raising anytime soon, which means they probably haven't. They also have their sprite stuff, which I've heard really good things about. It's meant to be VMs and sandboxes that you can safely run agents in that have their own primitives that will let them be powerful. And there's a bunch of other random things that they've built that are just way cooler than what you can do on other clouds. I did a video a while back about Flame, which is an alternative way of doing serverless where you are encapsulating processes in your codebase to spin them up on different servers for specific needs. Like if you want to sometimes have a GPU for doing, I don't know, ffmpeg stuff, but you usually don't need it. Having your stuff always run on the GPU box would be way too expensive. The GPU is not being used. But if you could have one function in your codebase that runs on the GPU box and spins it up and handles it, then awesome. In this example, I'm sorry if you're not familiar with Elixir syntax, my beloved. You take this process that is defined here for generating thumbnails, which runs in FFmpeg, which could lock up the main server or just not be performed if it doesn't have a GPU. You can wrap it with a flame call, exact same stub function here, and it will return the result as though you just called this on the same box. It's so cool. It's just so far ahead of anything else I've seen for this type of stuff. But we need to be realistic. The negatives, the database reliability just isn't there. Even when I was doing my tutorials and work with them, I had my database just die and fail multiple times throughout. I learned to just not trust the database, as many other Fly customers have. They often move their databases off of fly to their own other alternative services like you know planet scale but during dev it's so convenient like the way that setting things up on fly is so nice it hurts but reality is that the database stuff isn't there and in general reliability just isn't quite where we need it to be. They had a huge outage recently. They likely will again in the future. They have built a lot of their own things and a lot of those things are really really cool. It's why they can do all this cool stuff but it also means they're not as tried by the industry and as a result they're not as reliable. Also note with the DB thing not managed. They don't do managed databases. They just give you an image that is running Postgress. Apparently they now do have managed databases. I did not know that. That's good to hear, but uh the last time I tried it, they didn't. That is a relief. I'm still going to say the reliability isn't good, but the fact they have managed DB is a cool change. And I would also argue that within these options, Fly might be the highest risk of death. I would put them slightly higher than Digital Ocean in terms of this company might run out of money and die. I just have not seen a lot of big customers or revenue numbers or investments or any of the things that would make me confident Fly will still be here at the end of the year or even early next year. Even when I was working with them, the rate at which the people I was talking to suddenly weren't at the company anymore was a bit terrifying. I even went to Elixir in 2024 and was sitting at a table with a bunch of Elixir nerds, including a few that worked at Fly, and watched as they checked their phones and got laid off. That does not inspire confidence. They also deprecate things. Not a lot, but enough to be concerned. Somebody in chat just mentioned that they used to have a managed DB Superbase integration, but that got discontinued. Not the thing I would bet my whole business on right now, personally. One of the most fun platforms I've ever built on. Not confident that they will still be here next year. Take that as you will. And next we have Render, who has this big migrate from Heroku with near zero downtime banner on top. They know exactly what they're doing. Render is used by a ton of big companies. Their revenue is really solid. They've had no issues raising money. They understand modern tech and PHP. Even the founder of Hashi Corp has had nice things to say about Render. Mitchell's a legend. Cool to see. They have a decent free tier. You have to immediately bump to their monthly tier if you want to do more, though. You don't have like boxes you're renting the same way, but they're pretty generous overall. Relatively modern, supports everything, generous free tier, likely staying around. They make enough revenue that I'm not worried about them disappearing anytime soon. Negatives, you pay a sub instead of server pricing. A lot of that pricing is hidden under the enterprise custom tier. They charge a separate monthly fee for setting up cron jobs. That's kind of funny. Oh, look at that. Their GitHub integration is still in a very good state. Last time I used it, it was pretty good. So, that's good to hear. I'll put that in here. Good GitHub integration plus preview environments, which is not guaranteed across these different providers. Apparently, the egress is super expensive as well. Definitely worth noting. Good call out chat. The $20 tier comes with 500 gigs of bandwidth. 15 bucks per additional 100 gigs. Inbound bandwidth is free. Okay, that's cool. So, uploading to it is free. Sending data from it costs money. That's actually a really nice call out. Good [ __ ] I would never fault anyone for going with render. Seems like a really good option. Honestly, like one of the most reliable out of all of these. Like I I would say like other than AWS, least flight risk, too. But now we need to talk about Railway. Obviously more than at any point in here account for bias here. Jake and I have a long history. I was almost hired as engineer number four at Railway all the way back in 2021. I've watched this company's ups and downs. I've used them for that entire 5-year window. I love Railway to death. I have my issues with them, but for the most part, it's a great platform. It's a phenomenal team and I'm very excited for them and all the success that they've been having. Benefits truly modern. It's just you'll feel the difference when you use it. It just works great with everything. The CLI is awesome. The docs are awesome. The GitHub integration is great. It just behaves. It also is one of the best dashboards for actually seeing what's going on and how parts are linked. You can clearly see the different services, how they're linked to each other. The domain setup, all of that really good. The observability is awesome, too. I haven't even bothered setting it up yet cuz this project hasn't needed it. The way they handle different environments is great. You can set up preview environments, things like that relatively well. It does not, as far as I know, have good automatic preview environment creation when you do PRs and things like that. It might be able to be set up, but it's good. I honestly really like the way Addi put it here. Railway makes me smile every time I use it. The pricing is relatively transparent and clear. They drop hard numbers for what each thing costs. There's a little confusion around various different things like the relationship between like how these parts are measured. It's sometimes confusing to figure out what usage you're actually going to get. And then there are interesting things that are free that I'm not confident are going to stay free. So like in the benefits section, egress from their object store is free. But then in the negatives, object store is private only. You cannot do a public bucket. That burned me real bad on a project that I'm now migrating off of railway storage. Free egress is a ticking timer in my opinion. No one offering egress for free can maintain that forever. Like there's always a catch. and I am a little scared of what that catch will be with railway. This is the type of complaint that I might have for other things if I use them more, but as a pretty heavy Railway user, I see the flaws more and the dashboard can get into some weird states, especially around DNS and SSL stuff. You don't buy domains on Railway. I bought mine on Versel, but then I set it up on Railway and SSL was broken forever. The dashboard just wouldn't verify the CNAME. It just it took a while to get that working and I didn't know if I was doing it right last time because the UI didn't really indicate what the current state was very well. Thankfully, I just left it alone for half an hour, went back and it was good. Not clear that was happening though or if it would or wouldn't work. Oh, and the egress does cost 5 cents per gig for services, but the object storage has free egress, but you are paying 1.5 cents per gig per month for the storage. So, know that I got the previous storage price from Jake. He might have just typed it, but 1.5 cents per gig is pretty good price for the storage. I might rethink some things based on that. There's a lot more benefits to them though than we've gotten to here. supports everything. Best DB setup I've ever had. Like the way that you link services together and all of that is just so pleasant. Config is generally great. Perf is insane. They're racking their own servers and they're good servers. I also think that the server firm I'm using for US West is pretty close to me, which makes it feel just absurdly fast. I'm just very happy with Railway. I'll call pricing fair overall. There are very few things on Railway where I'm like, that's too expensive, and the one that I thought was, I was just wrong about. Oh, they do have previews and oneclick roll backs. That's good to know. The one-click rollbacks is huge and has saved me a ton of times. Depending on how you use the platform might even save you a shitload of money. Some customers who were on AWS before were able to cut their cost by 90% by moving to Railway and also get better experience. It's It's really good. I'm super happy with Railway. I bet you will be too. They are probably my top pick here. One last thing on Railway before we get to EC2. They just raised $100 million. They're not going anywhere. They were already nearly profitable before. They might have actually been profitable for a bit. They are not going anywhere. AWS also never going anywhere. Super reliable, like disgustingly reliable, supported by everything, great locations, so you know that they'll network with everything fast. Like every service tries to get themselves into AWS server farms so that you can have low latency with AWS EC2. The amount of integration that they have with like everything is nuts cuz everyone's built it. Platforms like Terraform and Palumi are largely built around EC2 and EKS. And hell, Kubernetes is largely designed around how EKS works at this point. Like everything is building for EC2. Like if it doesn't support EC2, I am sus as hell. Guaranteed SLAs, reliability, all the things you need there. Bargate's dope. There's tons of other services you can integrate alongside EC2 within AWS and externally that are insane. And most importantly, no one's ever been fired for picking AWS. It's the default. And it's the default for a reason. It is good. But there are negatives. cost is surprisingly higher than competition. Their pricing is so annoying that usually you go use another service to look at it because it's just their pricing is God, they hide all this info so deep. Here we go. Sadly, this chart is doing hourly pricing, not monthly. Time 24* 30. And there's a reason why. A 2 gig 1vcpu box with just EBS storage is $22 a month. If we're talking EKS, you're going to want the beefiest nodes you can reasonably fill. So, you can choose 190 core Graviton box. Yeah, it's it's pretty nuts. AWS not only charges a significantly higher price than what I would expect for the tier of hardware, they don't really lower those prices. So, it's kind of just like a fee you're paying forever on a box that's probably 6 plus years old and you're paying as though it's brand new. It's bad. It's crazy. Everybody always advertises like AWS is the cheap option. It's not. In many cases, Versell is actually cheaper than AWS. Just depends on how you're using them. And if you're doing stupid things on either, you can screw yourself. It's no surprise railway comes out cheaper as often as they do. So, yeah, cost is not the thing you are saving. Setup isn't the thing you're saving either. You basically have to build a solution to handle your deployments on AWS. There have been multiple billion plus dollar companies built just because setting up on AWS is too hard. Everything from Terraform to versel is arguably because AWS sucks to config dashboard is Cloudflare tier UX. It at least works though. It's rare on the AWS dashboard and things are just outright broken like they are on Cloudflare, but getting around it is hellish. Oh god, the permissions. I god that's so many throwbacks. I I have been to hell with AM. It's so bad. It's so [ __ ] bad. I I'd put this in the same bucket honestly as I put GCP and Azure. Now, if you're coming to me or a channel in a video like this for advice on where to deploy, don't deploy to AWS. Seriously, don't. We've went over all of these options. You hopefully understand what the values are for each of them. If I was to tier these, I'm going to ignore the ones I wouldn't recommend. I'll say top Rex, the ones that I would absolutely recommend, I think everyone should at least consider, Railway, Versell, and Render. all easy. S tier, you're good. I have a specific need tier. I would put Netlefi if they have some specific integration or their queuing stuff works really well for you. Cloudflare if you're willing to deal with the compromises around not having a proper node environment. Very beneficial. Or you're just trying to microoptimize for costs at crazy scales. Really good option as well. Maybe Hner. It hurts to put it here, but if your goal is to have the cheapest possible thing with insane free egress that's just hosted and you're okay with it being slow and unreliable, it can be fine. I wouldn't confidently tell you like, oh, go move that to Hner, but it is an option worth considering. Oh, and Fly, absolutely Fly.io. While it might not still exist in a year or two, it has some really compelling offerings that nothing else does. There's a good chance you run into a problem Fly uniquely solves. Worth considering if you do. And then I have the you won't listen anyways tier. This is for people who watch these videos for fun but can't realistically take my recommendations for all sorts of different reasons. This is where I'd put most of the AWS offerings like Lambda and EC2. I'd also put GCP in here, Azure, IBM Cloud, things like that. Like if your employer already chose it for you, it's fine. And pretty much everything else, I don't think I can recommend it. Now, if you pick anything here, you're probably well set. If you pick anything here, I hope you have a good reason. And if you pick anything here, I hope it was your boss that picked it, not you. Now, you know how I think about these things. And hopefully you can now better understand why almost everything I deploy is on Versel and Railway. And maybe in the future render as well. Yeah, and we barely even talked about CDNs. What a video. I hope this helps you better understand what these platforms are, what benefits and negatives each have, and maybe, just maybe, you'll have more confidence when you pick the next place you host. Let me know how y'all feel. And until next time, please stop flaming me about Hutner. I really don't care about your $5 VPS."
+}

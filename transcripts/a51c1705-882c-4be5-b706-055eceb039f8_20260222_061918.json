@@ -1,0 +1,3892 @@
+{
+  "channel": {
+    "id": "a51c1705-882c-4be5-b706-055eceb039f8",
+    "databaseId": "a51c1705-882c-4be5-b706-055eceb039f8",
+    "name": "Theo Browne",
+    "description": "Theo is a software dev, AI nerd, TypeScript sympathizer, creator of T3 Chat and the T3 Stack."
+  },
+  "videoId": "rncxz2XROUg",
+  "title": "Gemini 3.1 Pro is the smartest model ever made",
+  "url": "https://www.youtube.com/watch?v=rncxz2XROUg",
+  "publishedAt": "2026-02-22T09:19:17.466Z",
+  "description": "Gemini 3.1 is really good, and also really bad. It's weird...\n\nThank you Kernel for sponsoring! Check them out at: https://soydev.link/kernel\n\nWant to sponsor a video? Learn more here: https://soydev.link/sponsor-me\n\nCheck out my Twitch, Twitter, Discord more at https://t3.gg\n\nS/O @Ph4seon3 for the awesome edit 🙏",
+  "thumbnailUrl": "https://i.ytimg.com/vi/rncxz2XROUg/maxresdefault.jpg",
+  "transcript": [
+    {
+      "text": "Another day, another new world's",
+      "duration": 3.52,
+      "offset": 0
+    },
+    {
+      "text": "smartest model. Gemini 3.1 Pro just",
+      "duration": 3.68,
+      "offset": 1.36
+    },
+    {
+      "text": "dropped. And honestly, it is kind of",
+      "duration": 3.12,
+      "offset": 3.52
+    },
+    {
+      "text": "crazy. All of the numbers I've been",
+      "duration": 3.2,
+      "offset": 5.04
+    },
+    {
+      "text": "seeing are insane. Both the ones Google",
+      "duration": 2.879,
+      "offset": 6.64
+    },
+    {
+      "text": "published and the ones being published",
+      "duration": 2.56,
+      "offset": 8.24
+    },
+    {
+      "text": "externally, as well as the ones I've",
+      "duration": 2.561,
+      "offset": 9.519
+    },
+    {
+      "text": "gotten myself. I've been using this",
+      "duration": 2.719,
+      "offset": 10.8
+    },
+    {
+      "text": "model a ton, running against every",
+      "duration": 3.2,
+      "offset": 12.08
+    },
+    {
+      "text": "benchmark. And the numbers are",
+      "duration": 3.6,
+      "offset": 13.519
+    },
+    {
+      "text": "incredible. It scored four points higher",
+      "duration": 3.36,
+      "offset": 15.28
+    },
+    {
+      "text": "on the artificial intelligence index",
+      "duration": 3.441,
+      "offset": 17.119
+    },
+    {
+      "text": "than any model before it, including Opus",
+      "duration": 4,
+      "offset": 18.64
+    },
+    {
+      "text": "4.6 Max. What's even crazier, though, is",
+      "duration": 3.92,
+      "offset": 20.56
+    },
+    {
+      "text": "it cost less than half as much to get",
+      "duration": 4.639,
+      "offset": 22.64
+    },
+    {
+      "text": "that score at only $892 versus the",
+      "duration": 5.76,
+      "offset": 24.48
+    },
+    {
+      "text": "almost $2500 that Opus 4.6 six cost.",
+      "duration": 4.721,
+      "offset": 27.279
+    },
+    {
+      "text": "Google's own numbers show it crushing",
+      "duration": 3.999,
+      "offset": 30.24
+    },
+    {
+      "text": "everything, including ARC AGI 2, which",
+      "duration": 5.2,
+      "offset": 32
+    },
+    {
+      "text": "just getting a 78% on ARC AGI 2 is",
+      "duration": 4.401,
+      "offset": 34.239
+    },
+    {
+      "text": "insane. The whole point of that one was",
+      "duration": 3.92,
+      "offset": 37.2
+    },
+    {
+      "text": "that Loom couldn't do it and AGI 1 was",
+      "duration": 4.16,
+      "offset": 38.64
+    },
+    {
+      "text": "be Oh god, no. This is insane. Like, all",
+      "duration": 3.2,
+      "offset": 41.12
+    },
+    {
+      "text": "of these numbers are nuts. So, is that",
+      "duration": 3.439,
+      "offset": 42.8
+    },
+    {
+      "text": "it? Is Opus dead? Has Google officially",
+      "duration": 4.719,
+      "offset": 44.32
+    },
+    {
+      "text": "won the AI wars? Not quite. None of",
+      "duration": 4.32,
+      "offset": 46.239
+    },
+    {
+      "text": "these things are this simple. As you",
+      "duration": 2.961,
+      "offset": 49.039
+    },
+    {
+      "text": "guys know, there's a lot more depth to",
+      "duration": 2.721,
+      "offset": 50.559
+    },
+    {
+      "text": "the numbers than there seems to be",
+      "duration": 2.96,
+      "offset": 52
+    },
+    {
+      "text": "online. And I cannot wait to go through",
+      "duration": 3.36,
+      "offset": 53.28
+    },
+    {
+      "text": "all of this with you guys right after a",
+      "duration": 2.96,
+      "offset": 54.96
+    },
+    {
+      "text": "quick word from today's sponsor. You",
+      "duration": 2.8,
+      "offset": 56.64
+    },
+    {
+      "text": "know how it feels like your AI gets way",
+      "duration": 2.88,
+      "offset": 57.92
+    },
+    {
+      "text": "better when you give it access to your",
+      "duration": 2.72,
+      "offset": 59.44
+    },
+    {
+      "text": "whole codebase instead of just trying to",
+      "duration": 3.359,
+      "offset": 60.8
+    },
+    {
+      "text": "scope it to a file? It turns out it goes",
+      "duration": 3.44,
+      "offset": 62.16
+    },
+    {
+      "text": "way further if you give it access to the",
+      "duration": 3.441,
+      "offset": 64.159
+    },
+    {
+      "text": "internet. It can do so much, especially",
+      "duration": 3.839,
+      "offset": 65.6
+    },
+    {
+      "text": "with all these new browser use agents.",
+      "duration": 2.96,
+      "offset": 67.6
+    },
+    {
+      "text": "But what browser are you going to let",
+      "duration": 2.321,
+      "offset": 69.439
+    },
+    {
+      "text": "them use? Probably not the one on your",
+      "duration": 2.48,
+      "offset": 70.56
+    },
+    {
+      "text": "computer, right? Especially for",
+      "duration": 3.44,
+      "offset": 71.76
+    },
+    {
+      "text": "programmatic realwork use cases. That's",
+      "duration": 3.92,
+      "offset": 73.04
+    },
+    {
+      "text": "why I'm so hyped about today's sponsor,",
+      "duration": 3.68,
+      "offset": 75.2
+    },
+    {
+      "text": "Kernel. The best place to run your",
+      "duration": 3.76,
+      "offset": 76.96
+    },
+    {
+      "text": "browser use agents in the cloud. Their",
+      "duration": 3.599,
+      "offset": 78.88
+    },
+    {
+      "text": "open source infrastructure is absurdly",
+      "duration": 3.84,
+      "offset": 80.72
+    },
+    {
+      "text": "fast. It takes less than 30 milliseconds",
+      "duration": 3.601,
+      "offset": 82.479
+    },
+    {
+      "text": "for them to spin up a browser that you",
+      "duration": 3.28,
+      "offset": 84.56
+    },
+    {
+      "text": "can connect to. And the actual process",
+      "duration": 3.2,
+      "offset": 86.08
+    },
+    {
+      "text": "of doing that couldn't be simpler.",
+      "duration": 3.68,
+      "offset": 87.84
+    },
+    {
+      "text": "Cloudset 4.6 is way better at browser",
+      "duration": 3.6,
+      "offset": 89.28
+    },
+    {
+      "text": "use than previous models. And it's",
+      "duration": 2.88,
+      "offset": 91.52
+    },
+    {
+      "text": "actually been really fun to play with.",
+      "duration": 3.04,
+      "offset": 92.88
+    },
+    {
+      "text": "This code will actually spin up a",
+      "duration": 3.2,
+      "offset": 94.4
+    },
+    {
+      "text": "browser with kernel and then give access",
+      "duration": 3.6,
+      "offset": 95.92
+    },
+    {
+      "text": "to claude so that it can run and do",
+      "duration": 3.36,
+      "offset": 97.6
+    },
+    {
+      "text": "things on it. We're going to have it",
+      "duration": 3.04,
+      "offset": 99.52
+    },
+    {
+      "text": "take a screenshot of the current page,",
+      "duration": 3.04,
+      "offset": 100.96
+    },
+    {
+      "text": "search around to find the blogs about",
+      "duration": 3.04,
+      "offset": 102.56
+    },
+    {
+      "text": "manage o, and then read and summarize",
+      "duration": 3.28,
+      "offset": 104
+    },
+    {
+      "text": "the blog post. And it does this by",
+      "duration": 3.199,
+      "offset": 105.6
+    },
+    {
+      "text": "actually navigating the site. Now all I",
+      "duration": 3.44,
+      "offset": 107.28
+    },
+    {
+      "text": "have to do is run our dev command and a",
+      "duration": 3.28,
+      "offset": 108.799
+    },
+    {
+      "text": "browser will be launched in the cloud.",
+      "duration": 2.8,
+      "offset": 110.72
+    },
+    {
+      "text": "You can even spin up a live view if you",
+      "duration": 2.641,
+      "offset": 112.079
+    },
+    {
+      "text": "want to that will show you what's",
+      "duration": 3.52,
+      "offset": 113.52
+    },
+    {
+      "text": "happening as it actually occurs. I have",
+      "duration": 3.439,
+      "offset": 114.72
+    },
+    {
+      "text": "my cursor there, but you can see there's",
+      "duration": 2.88,
+      "offset": 117.04
+    },
+    {
+      "text": "a mouse cursor there. If I want, I can",
+      "duration": 3.28,
+      "offset": 118.159
+    },
+    {
+      "text": "take over and do things, but I don't",
+      "duration": 2.96,
+      "offset": 119.92
+    },
+    {
+      "text": "need to. I'm letting the agent do it.",
+      "duration": 3.04,
+      "offset": 121.439
+    },
+    {
+      "text": "So, it just found and clicked on the",
+      "duration": 3.839,
+      "offset": 122.88
+    },
+    {
+      "text": "blog. It's decided to scroll, and now",
+      "duration": 3.681,
+      "offset": 124.479
+    },
+    {
+      "text": "it's finding the post that we were",
+      "duration": 2.88,
+      "offset": 126.719
+    },
+    {
+      "text": "talking about in the prompt. And if we",
+      "duration": 2.56,
+      "offset": 128.16
+    },
+    {
+      "text": "look here, you can see what Claude",
+      "duration": 3.28,
+      "offset": 129.599
+    },
+    {
+      "text": "decided to do each step along the way.",
+      "duration": 3.44,
+      "offset": 130.72
+    },
+    {
+      "text": "You can probably already see how useful",
+      "duration": 2.801,
+      "offset": 132.879
+    },
+    {
+      "text": "this is, but once you add in things like",
+      "duration": 3.68,
+      "offset": 134.16
+    },
+    {
+      "text": "persisting off, capture workarounds, and",
+      "duration": 3.6,
+      "offset": 135.68
+    },
+    {
+      "text": "all the other stuff you need, it becomes",
+      "duration": 3.84,
+      "offset": 137.84
+    },
+    {
+      "text": "a genuinely useful way to do things that",
+      "duration": 4.24,
+      "offset": 139.28
+    },
+    {
+      "text": "might not have an API. Stop limiting",
+      "duration": 3.12,
+      "offset": 141.68
+    },
+    {
+      "text": "your agents and what they're capable of",
+      "duration": 2.48,
+      "offset": 143.52
+    },
+    {
+      "text": "and give them access to the web at",
+      "duration": 2.88,
+      "offset": 144.8
+    },
+    {
+      "text": "soyb.link/kernel.",
+      "duration": 3.68,
+      "offset": 146
+    },
+    {
+      "text": "Back to it. We need to talk about Gemini",
+      "duration": 3.84,
+      "offset": 147.68
+    },
+    {
+      "text": "3.1 Pro. As I said before, I've been",
+      "duration": 3.44,
+      "offset": 149.68
+    },
+    {
+      "text": "using it a ton. I currently have it",
+      "duration": 2.88,
+      "offset": 151.52
+    },
+    {
+      "text": "running in the background porting an old",
+      "duration": 2.64,
+      "offset": 153.12
+    },
+    {
+      "text": "app. I've been using it in a ton of",
+      "duration": 2.559,
+      "offset": 154.4
+    },
+    {
+      "text": "different harnesses and a ton of",
+      "duration": 2.88,
+      "offset": 155.76
+    },
+    {
+      "text": "different like tools and building a",
+      "duration": 3.28,
+      "offset": 156.959
+    },
+    {
+      "text": "bunch of different stuff as well. I also",
+      "duration": 3.44,
+      "offset": 158.64
+    },
+    {
+      "text": "used it to update some old projects. And",
+      "duration": 4.08,
+      "offset": 160.239
+    },
+    {
+      "text": "in doing such, I have learned to deeply",
+      "duration": 4.96,
+      "offset": 162.08
+    },
+    {
+      "text": "deeply hate the Gemini CLI. Not only did",
+      "duration": 5.92,
+      "offset": 164.319
+    },
+    {
+      "text": "the Gemini CLI not have Gemini 3.1 on",
+      "duration": 4.96,
+      "offset": 167.04
+    },
+    {
+      "text": "day one, and I actually accidentally ran",
+      "duration": 3.201,
+      "offset": 170.239
+    },
+    {
+      "text": "this with Gemini 3, it looks like.",
+      "duration": 3.44,
+      "offset": 172
+    },
+    {
+      "text": "Great. Love that. Not only do they not",
+      "duration": 4.4,
+      "offset": 173.44
+    },
+    {
+      "text": "have 3.1 Pro on the CLI, it also just",
+      "duration": 4.159,
+      "offset": 175.44
+    },
+    {
+      "text": "breaks all the time. It is super buggy",
+      "duration": 4.8,
+      "offset": 177.84
+    },
+    {
+      "text": "and does just weird [ __ ]",
+      "duration": 4.72,
+      "offset": 179.599
+    },
+    {
+      "text": "I was intentionally trying to preserve",
+      "duration": 3.36,
+      "offset": 182.64
+    },
+    {
+      "text": "this history so I could show you guys",
+      "duration": 4,
+      "offset": 184.319
+    },
+    {
+      "text": "some of the weird stuff, but uh since my",
+      "duration": 4.159,
+      "offset": 186
+    },
+    {
+      "text": "resolution changed on my computer, that",
+      "duration": 5.441,
+      "offset": 188.319
+    },
+    {
+      "text": "appears to have died. Great. Well, I'm",
+      "duration": 4.881,
+      "offset": 190.159
+    },
+    {
+      "text": "sure there will be plenty of issues with",
+      "duration": 3.68,
+      "offset": 193.76
+    },
+    {
+      "text": "this run. Let's take a quick look. You",
+      "duration": 4.32,
+      "offset": 195.04
+    },
+    {
+      "text": "know what? Actually, first things first,",
+      "duration": 4.24,
+      "offset": 197.44
+    },
+    {
+      "text": "because I accidentally ran Gemini 3 Pro",
+      "duration": 4.879,
+      "offset": 199.36
+    },
+    {
+      "text": "before, I got used to Gemini 3's",
+      "duration": 5.279,
+      "offset": 201.68
+    },
+    {
+      "text": "horrible inability to like do basic tool",
+      "duration": 4.241,
+      "offset": 204.239
+    },
+    {
+      "text": "calling correctly and consistently.",
+      "duration": 3.28,
+      "offset": 206.959
+    },
+    {
+      "text": "Almost the entire time that it was",
+      "duration": 3.119,
+      "offset": 208.48
+    },
+    {
+      "text": "running, it was hitting errors that made",
+      "duration": 2.961,
+      "offset": 210.239
+    },
+    {
+      "text": "no sense at all. Just like failing to",
+      "duration": 4,
+      "offset": 211.599
+    },
+    {
+      "text": "edit a file it had just read by passing",
+      "duration": 5.2,
+      "offset": 213.2
+    },
+    {
+      "text": "bad syntax. It seems like 3.1 is",
+      "duration": 4.56,
+      "offset": 215.599
+    },
+    {
+      "text": "significantly less bad about that, at",
+      "duration": 3.52,
+      "offset": 218.4
+    },
+    {
+      "text": "least from the official logs for this",
+      "duration": 3.44,
+      "offset": 220.159
+    },
+    {
+      "text": "particular run I am doing right now.",
+      "duration": 2.959,
+      "offset": 221.92
+    },
+    {
+      "text": "Since I couldn't use it in the official",
+      "duration": 3.2,
+      "offset": 223.599
+    },
+    {
+      "text": "CLI, I decided to first try it in the",
+      "duration": 4.321,
+      "offset": 224.879
+    },
+    {
+      "text": "cursor one, and it was insightful. The",
+      "duration": 4.8,
+      "offset": 226.799
+    },
+    {
+      "text": "cursor CLI actually seems decent so far.",
+      "duration": 3.679,
+      "offset": 229.2
+    },
+    {
+      "text": "I have my issues with it. You can't",
+      "duration": 3.121,
+      "offset": 231.599
+    },
+    {
+      "text": "paste images, which sucks, but otherwise",
+      "duration": 3.521,
+      "offset": 232.879
+    },
+    {
+      "text": "it seems to work. So, let's do a test",
+      "duration": 2.96,
+      "offset": 234.72
+    },
+    {
+      "text": "example here. Telling it to move from",
+      "duration": 2.72,
+      "offset": 236.4
+    },
+    {
+      "text": "SQLite to Postgress. I'm not actually",
+      "duration": 2.96,
+      "offset": 237.68
+    },
+    {
+      "text": "going to have it do that, but just see",
+      "duration": 3.039,
+      "offset": 239.12
+    },
+    {
+      "text": "how this goes. So, you guys can see some",
+      "duration": 3.36,
+      "offset": 240.64
+    },
+    {
+      "text": "of these thinking traces. Taking its",
+      "duration": 4.64,
+      "offset": 242.159
+    },
+    {
+      "text": "sweet, sweet time. Reconnecting. Great.",
+      "duration": 5.04,
+      "offset": 244
+    },
+    {
+      "text": "Good start. Uh, I don't know if this is",
+      "duration": 4.64,
+      "offset": 246.799
+    },
+    {
+      "text": "cursor's fault or Gemini's fault, but",
+      "duration": 4,
+      "offset": 249.04
+    },
+    {
+      "text": "whichever it is, this is a bad",
+      "duration": 4.8,
+      "offset": 251.439
+    },
+    {
+      "text": "experience. So, let's try again. You",
+      "duration": 4.56,
+      "offset": 253.04
+    },
+    {
+      "text": "might also notice that my top nav is",
+      "duration": 2.881,
+      "offset": 256.239
+    },
+    {
+      "text": "visible, and it normally isn't. This is",
+      "duration": 2.8,
+      "offset": 257.6
+    },
+    {
+      "text": "a bit of a tangent, but I want to",
+      "duration": 2.48,
+      "offset": 259.12
+    },
+    {
+      "text": "complain. So, I'm going to show you guys",
+      "duration": 2.799,
+      "offset": 260.4
+    },
+    {
+      "text": "that when I go to settings, my whole",
+      "duration": 3.36,
+      "offset": 261.6
+    },
+    {
+      "text": "computer breaks. And now, this is what",
+      "duration": 3.361,
+      "offset": 263.199
+    },
+    {
+      "text": "my Mac settings look like. I am so done",
+      "duration": 4.48,
+      "offset": 264.96
+    },
+    {
+      "text": "with Mac OS. Okay, it aggressively hides",
+      "duration": 4.48,
+      "offset": 266.56
+    },
+    {
+      "text": "the thinking right after showing it to",
+      "duration": 3.52,
+      "offset": 269.44
+    },
+    {
+      "text": "me in the cursor tool. So, I'll show you",
+      "duration": 3.84,
+      "offset": 271.04
+    },
+    {
+      "text": "here. Every single time it runs, it has",
+      "duration": 4.239,
+      "offset": 272.96
+    },
+    {
+      "text": "a prioritizing tool selection step. I've",
+      "duration": 3.92,
+      "offset": 274.88
+    },
+    {
+      "text": "been focusing on tool selection, leaning",
+      "duration": 3.361,
+      "offset": 277.199
+    },
+    {
+      "text": "heavily on specialized tools when",
+      "duration": 3.52,
+      "offset": 278.8
+    },
+    {
+      "text": "available. I'm actively avoiding CAT for",
+      "duration": 3.28,
+      "offset": 280.56
+    },
+    {
+      "text": "file manipulation, particularly when",
+      "duration": 3.28,
+      "offset": 282.32
+    },
+    {
+      "text": "other and it gets cut off. I've seen",
+      "duration": 3.44,
+      "offset": 283.84
+    },
+    {
+      "text": "this in everything that is correctly",
+      "duration": 4.96,
+      "offset": 285.6
+    },
+    {
+      "text": "using Gemini. These models suck at tool",
+      "duration": 6,
+      "offset": 287.28
+    },
+    {
+      "text": "calls. They just don't do them well.",
+      "duration": 4.4,
+      "offset": 290.56
+    },
+    {
+      "text": "They can be handed a bunch of tools,",
+      "duration": 3.68,
+      "offset": 293.28
+    },
+    {
+      "text": "smile and wave, and then not do anything",
+      "duration": 3.84,
+      "offset": 294.96
+    },
+    {
+      "text": "unless you put a ton of work instructing",
+      "duration": 4,
+      "offset": 296.96
+    },
+    {
+      "text": "them into using those tools. And if",
+      "duration": 3.52,
+      "offset": 298.8
+    },
+    {
+      "text": "you're not careful, they'll instead",
+      "duration": 3.519,
+      "offset": 300.96
+    },
+    {
+      "text": "massively overuse them. The reason why",
+      "duration": 4.159,
+      "offset": 302.32
+    },
+    {
+      "text": "I'm using cursor here is because of this",
+      "duration": 3.681,
+      "offset": 304.479
+    },
+    {
+      "text": "specifically. They've put a ton of time",
+      "duration": 3.841,
+      "offset": 306.479
+    },
+    {
+      "text": "into tuning the Gemini models into well,",
+      "duration": 3.36,
+      "offset": 308.16
+    },
+    {
+      "text": "I don't know how other than sucking",
+      "duration": 3.12,
+      "offset": 310.32
+    },
+    {
+      "text": "less. Google just does not seem like",
+      "duration": 3.28,
+      "offset": 311.52
+    },
+    {
+      "text": "they are training these models to be",
+      "duration": 3.039,
+      "offset": 313.44
+    },
+    {
+      "text": "good in harnesses. They are too focused",
+      "duration": 3.839,
+      "offset": 314.8
+    },
+    {
+      "text": "on benchmaxing. And oh boy, have they",
+      "duration": 3.921,
+      "offset": 316.479
+    },
+    {
+      "text": "benchmaxed. A while back, I made a",
+      "duration": 3.12,
+      "offset": 318.639
+    },
+    {
+      "text": "benchmark called skate bench that was",
+      "duration": 2.88,
+      "offset": 320.4
+    },
+    {
+      "text": "meant to measure how well different",
+      "duration": 2.961,
+      "offset": 321.759
+    },
+    {
+      "text": "models could name skateboarding tricks",
+      "duration": 2.88,
+      "offset": 323.28
+    },
+    {
+      "text": "based on descriptions of the tricks.",
+      "duration": 3.12,
+      "offset": 324.72
+    },
+    {
+      "text": "It's a combination of like a weird niche",
+      "duration": 3.599,
+      "offset": 326.16
+    },
+    {
+      "text": "knowledge bench as well as a spatial",
+      "duration": 3.12,
+      "offset": 327.84
+    },
+    {
+      "text": "recognition bench because you need to",
+      "duration": 2.641,
+      "offset": 329.759
+    },
+    {
+      "text": "know about the rotations and how it",
+      "duration": 2.799,
+      "offset": 330.96
+    },
+    {
+      "text": "affects the board and the skater and the",
+      "duration": 2.48,
+      "offset": 332.4
+    },
+    {
+      "text": "relationship between all of those",
+      "duration": 2.321,
+      "offset": 333.759
+    },
+    {
+      "text": "things. When I first made this",
+      "duration": 3.039,
+      "offset": 334.88
+    },
+    {
+      "text": "benchmark, Gro 4 had the highest score",
+      "duration": 4.64,
+      "offset": 336.08
+    },
+    {
+      "text": "by far in like the high7s. Okay, 75 is",
+      "duration": 4.321,
+      "offset": 337.919
+    },
+    {
+      "text": "what it got on my most recent run. And",
+      "duration": 3.44,
+      "offset": 340.72
+    },
+    {
+      "text": "then I went to the OpenAI office to try",
+      "duration": 5.36,
+      "offset": 342.24
+    },
+    {
+      "text": "out GPT5, which scored a 98, which just",
+      "duration": 5.52,
+      "offset": 344.16
+    },
+    {
+      "text": "absolutely broke me at the time. Since",
+      "duration": 3.599,
+      "offset": 347.6
+    },
+    {
+      "text": "then, OpenAI models have actually",
+      "duration": 3.28,
+      "offset": 349.68
+    },
+    {
+      "text": "regressed quite a bit, and the highest I",
+      "duration": 3.28,
+      "offset": 351.199
+    },
+    {
+      "text": "can get one of the modern ones to do is",
+      "duration": 4.32,
+      "offset": 352.96
+    },
+    {
+      "text": "about an 87, which is insane that it has",
+      "duration": 4.56,
+      "offset": 354.479
+    },
+    {
+      "text": "regressed that meaningfully. Obviously,",
+      "duration": 4.32,
+      "offset": 357.28
+    },
+    {
+      "text": "5.2 and 5.3 are phenomenal models for",
+      "duration": 4.641,
+      "offset": 359.039
+    },
+    {
+      "text": "code. They were not as good at this.",
+      "duration": 3.68,
+      "offset": 361.6
+    },
+    {
+      "text": "Take that as you will. We have a new",
+      "duration": 4.48,
+      "offset": 363.68
+    },
+    {
+      "text": "winner, and it's not close. Gemini 3.1",
+      "duration": 5.44,
+      "offset": 365.28
+    },
+    {
+      "text": "Pro Preview consistently hits 100% on",
+      "duration": 4,
+      "offset": 368.16
+    },
+    {
+      "text": "this benchmark. I don't know what the",
+      "duration": 4.24,
+      "offset": 370.72
+    },
+    {
+      "text": "hell they did, but it gets 3D very, very",
+      "duration": 4.72,
+      "offset": 372.16
+    },
+    {
+      "text": "well. It's also good at 2D space. It's",
+      "duration": 3.84,
+      "offset": 374.96
+    },
+    {
+      "text": "the first model to make an actually like",
+      "duration": 5.039,
+      "offset": 376.88
+    },
+    {
+      "text": "decent, usable SVG of the Pelican on a",
+      "duration": 5.44,
+      "offset": 378.8
+    },
+    {
+      "text": "bike. It took 323.9",
+      "duration": 4,
+      "offset": 381.919
+    },
+    {
+      "text": "seconds of thinking, but it did a pretty",
+      "duration": 3.2,
+      "offset": 384.24
+    },
+    {
+      "text": "good job here. Not only can it make",
+      "duration": 3.28,
+      "offset": 385.919
+    },
+    {
+      "text": "these SVGs, it can actually animate",
+      "duration": 3.92,
+      "offset": 387.44
+    },
+    {
+      "text": "them. Like, I've never seen a model",
+      "duration": 3.681,
+      "offset": 389.199
+    },
+    {
+      "text": "capable of this type of thing. SVG",
+      "duration": 3.679,
+      "offset": 391.36
+    },
+    {
+      "text": "animations are an intricate science that",
+      "duration": 4.96,
+      "offset": 392.88
+    },
+    {
+      "text": "is not easy to do. And yeah, it killed",
+      "duration": 4.16,
+      "offset": 395.039
+    },
+    {
+      "text": "it with a lot of this. I was even",
+      "duration": 2.88,
+      "offset": 397.84
+    },
+    {
+      "text": "setting it up on a couple other projects",
+      "duration": 3.041,
+      "offset": 399.199
+    },
+    {
+      "text": "I was working on and was impressed with",
+      "duration": 3.44,
+      "offset": 400.72
+    },
+    {
+      "text": "it animation capabilities. Personally, I",
+      "duration": 3.36,
+      "offset": 402.24
+    },
+    {
+      "text": "was not as impressed with the SVGs it",
+      "duration": 3.2,
+      "offset": 404.16
+    },
+    {
+      "text": "was creating, but I was able to make it",
+      "duration": 3.2,
+      "offset": 405.6
+    },
+    {
+      "text": "do some cool looking stuff. If you've",
+      "duration": 2.48,
+      "offset": 407.36
+    },
+    {
+      "text": "been around the last few weeks, you know",
+      "duration": 3.119,
+      "offset": 408.8
+    },
+    {
+      "text": "that I've taken on far too many side",
+      "duration": 3.68,
+      "offset": 409.84
+    },
+    {
+      "text": "projects. I'm close to wrapping up a few",
+      "duration": 2.961,
+      "offset": 411.919
+    },
+    {
+      "text": "of them and shipping them, and I might",
+      "duration": 3.04,
+      "offset": 413.52
+    },
+    {
+      "text": "have picked up one or two more. I want",
+      "duration": 2.879,
+      "offset": 414.88
+    },
+    {
+      "text": "to touch on a few quick though, because",
+      "duration": 2.72,
+      "offset": 416.56
+    },
+    {
+      "text": "I've been using Gemini for it, and there",
+      "duration": 2.961,
+      "offset": 417.759
+    },
+    {
+      "text": "are things that has done really well, as",
+      "duration": 2.639,
+      "offset": 419.28
+    },
+    {
+      "text": "well as things that has done really",
+      "duration": 2.479,
+      "offset": 420.72
+    },
+    {
+      "text": "poorly. One of the things it's doing",
+      "duration": 2.801,
+      "offset": 421.919
+    },
+    {
+      "text": "incredibly well is design. I'm working",
+      "duration": 3.201,
+      "offset": 423.199
+    },
+    {
+      "text": "on a new video review service, like code",
+      "duration": 3.199,
+      "offset": 424.72
+    },
+    {
+      "text": "review, but for video is an alternative",
+      "duration": 3.519,
+      "offset": 426.4
+    },
+    {
+      "text": "to frame, cuz I'm tired of Adobe stuff.",
+      "duration": 4.72,
+      "offset": 427.919
+    },
+    {
+      "text": "And it made a stunning homepage. I was",
+      "duration": 4.081,
+      "offset": 429.919
+    },
+    {
+      "text": "trying to get do some fancy stuff with",
+      "duration": 3.521,
+      "offset": 432.639
+    },
+    {
+      "text": "the layering of the images, but failed",
+      "duration": 3.68,
+      "offset": 434
+    },
+    {
+      "text": "there. So, I told it screw it. You have",
+      "duration": 3.52,
+      "offset": 436.16
+    },
+    {
+      "text": "these pieces. Go redesign it, make it",
+      "duration": 4.079,
+      "offset": 437.68
+    },
+    {
+      "text": "look decent. This was the first thing it",
+      "duration": 3.84,
+      "offset": 439.68
+    },
+    {
+      "text": "spit out. I obviously gave it",
+      "duration": 3.121,
+      "offset": 441.759
+    },
+    {
+      "text": "suggestions on how to tidy up a few",
+      "duration": 3.28,
+      "offset": 443.52
+    },
+    {
+      "text": "things from there. But, like, it made a",
+      "duration": 4.24,
+      "offset": 444.88
+    },
+    {
+      "text": "goodlook website without a whole lot of",
+      "duration": 4.32,
+      "offset": 446.8
+    },
+    {
+      "text": "work. I already had a site here that",
+      "duration": 4,
+      "offset": 449.12
+    },
+    {
+      "text": "wasn't great, and I told it to basically",
+      "duration": 4.56,
+      "offset": 451.12
+    },
+    {
+      "text": "unscrew it, and it did. It made like I'm",
+      "duration": 4.24,
+      "offset": 453.12
+    },
+    {
+      "text": "probably going to ship this as is. I'm",
+      "duration": 3.44,
+      "offset": 455.68
+    },
+    {
+      "text": "very happy with how this came out. It",
+      "duration": 3.279,
+      "offset": 457.36
+    },
+    {
+      "text": "also helped build this UI for a new",
+      "duration": 2.88,
+      "offset": 459.12
+    },
+    {
+      "text": "project that I'm working on that I'll",
+      "duration": 3.28,
+      "offset": 460.639
+    },
+    {
+      "text": "share a lot more about soon. I'm very",
+      "duration": 3.44,
+      "offset": 462
+    },
+    {
+      "text": "excited about this one. I have these",
+      "duration": 2.801,
+      "offset": 463.919
+    },
+    {
+      "text": "models effectively playing a game of",
+      "duration": 2.64,
+      "offset": 465.44
+    },
+    {
+      "text": "Quiplash against each other where",
+      "duration": 3.44,
+      "offset": 466.72
+    },
+    {
+      "text": "everything is generated. And I have been",
+      "duration": 5.28,
+      "offset": 468.08
+    },
+    {
+      "text": "surprised at how funny Gemini 3.1 Pro",
+      "duration": 4.8,
+      "offset": 470.16
+    },
+    {
+      "text": "has been. I also built this whole app",
+      "duration": 4.08,
+      "offset": 473.36
+    },
+    {
+      "text": "with Gemini 3.1 Pro. It had its quirks.",
+      "duration": 4.079,
+      "offset": 474.96
+    },
+    {
+      "text": "It definitely struggled when the length",
+      "duration": 4.24,
+      "offset": 477.44
+    },
+    {
+      "text": "of the task got bigger and I had to help",
+      "duration": 4.72,
+      "offset": 479.039
+    },
+    {
+      "text": "it unblock itself a lot. Like that's",
+      "duration": 3.28,
+      "offset": 481.68
+    },
+    {
+      "text": "funny. A plight thing to scream at",
+      "duration": 3.28,
+      "offset": 483.759
+    },
+    {
+      "text": "scarecrows. Nice flannel. Sorry about",
+      "duration": 4.16,
+      "offset": 484.96
+    },
+    {
+      "text": "the bird [ __ ] Like that was decently",
+      "duration": 3.44,
+      "offset": 487.039
+    },
+    {
+      "text": "funny. And I'm not the only one who",
+      "duration": 3.6,
+      "offset": 489.12
+    },
+    {
+      "text": "thinks it's funny. The models do, too.",
+      "duration": 4.56,
+      "offset": 490.479
+    },
+    {
+      "text": "See that? Apparently, it's the funniest",
+      "duration": 4.4,
+      "offset": 492.72
+    },
+    {
+      "text": "model. I never would have expected that",
+      "duration": 3.28,
+      "offset": 495.039
+    },
+    {
+      "text": "Google would be the one to make",
+      "duration": 2.56,
+      "offset": 497.12
+    },
+    {
+      "text": "something funny. I honestly thought",
+      "duration": 2.72,
+      "offset": 498.319
+    },
+    {
+      "text": "Grock would do a bit better. I've",
+      "duration": 2.959,
+      "offset": 499.68
+    },
+    {
+      "text": "actually been surprised multiple times",
+      "duration": 3.201,
+      "offset": 501.039
+    },
+    {
+      "text": "where I looked at the two responses when",
+      "duration": 4.081,
+      "offset": 502.639
+    },
+    {
+      "text": "it was Grock versus Gemini, and Gemini",
+      "duration": 5.04,
+      "offset": 504.24
+    },
+    {
+      "text": "was the one making the more vile jokes.",
+      "duration": 4.96,
+      "offset": 506.72
+    },
+    {
+      "text": "To be fair, the first UI it made was a",
+      "duration": 4.72,
+      "offset": 509.28
+    },
+    {
+      "text": "ugly would be putting it lightly. It",
+      "duration": 4.239,
+      "offset": 511.68
+    },
+    {
+      "text": "also had a lot of quirks when I was",
+      "duration": 3.68,
+      "offset": 514
+    },
+    {
+      "text": "running it. I originally wrote this as a",
+      "duration": 4.8,
+      "offset": 515.919
+    },
+    {
+      "text": "CLI app. And man, I saw a lot of weird",
+      "duration": 5.44,
+      "offset": 517.68
+    },
+    {
+      "text": "Geminiisms when I did. This one was",
+      "duration": 4.56,
+      "offset": 520.719
+    },
+    {
+      "text": "funny because the GLM5 prompt writer",
+      "duration": 4.08,
+      "offset": 523.12
+    },
+    {
+      "text": "failed, so they didn't get prompted with",
+      "duration": 4.161,
+      "offset": 525.279
+    },
+    {
+      "text": "an actual thing they had to respond to.",
+      "duration": 3.84,
+      "offset": 527.2
+    },
+    {
+      "text": "They were told to be funny in the system",
+      "duration": 3.519,
+      "offset": 529.44
+    },
+    {
+      "text": "prompt, so Grock did its classic.",
+      "duration": 3.68,
+      "offset": 531.04
+    },
+    {
+      "text": "Jeffrey Epste didn't kill himself. And",
+      "duration": 5.921,
+      "offset": 532.959
+    },
+    {
+      "text": "then Gemini 3.1 Pro went with the Yeah,",
+      "duration": 5.92,
+      "offset": 534.72
+    },
+    {
+      "text": "this is the thing about the Gemini",
+      "duration": 5.519,
+      "offset": 538.88
+    },
+    {
+      "text": "models. They don't really behave well. I",
+      "duration": 5.199,
+      "offset": 540.64
+    },
+    {
+      "text": "don't mean that they like go off the",
+      "duration": 3.521,
+      "offset": 544.399
+    },
+    {
+      "text": "rails and do nasty stuff. I mean they",
+      "duration": 3.201,
+      "offset": 545.839
+    },
+    {
+      "text": "might do that a little bit. I've",
+      "duration": 3.52,
+      "offset": 547.92
+    },
+    {
+      "text": "definitely seen Gemini 3.1 Pro deleting",
+      "duration": 4.239,
+      "offset": 549.04
+    },
+    {
+      "text": "things it shouldn't be. I just had that",
+      "duration": 3.04,
+      "offset": 551.44
+    },
+    {
+      "text": "happen yesterday actually where it nuked",
+      "duration": 2.401,
+      "offset": 553.279
+    },
+    {
+      "text": "a bunch of assets that it was not",
+      "duration": 2.72,
+      "offset": 554.48
+    },
+    {
+      "text": "supposed to touch. Be careful when",
+      "duration": 3.12,
+      "offset": 555.68
+    },
+    {
+      "text": "you're giving it file write access for",
+      "duration": 4,
+      "offset": 557.2
+    },
+    {
+      "text": "sure. But the more annoying thing is",
+      "duration": 5.12,
+      "offset": 558.8
+    },
+    {
+      "text": "just the way it fails to perform as a",
+      "duration": 4.48,
+      "offset": 561.2
+    },
+    {
+      "text": "freaking model. Like it just doesn't do",
+      "duration": 3.52,
+      "offset": 563.92
+    },
+    {
+      "text": "it right. The amount of times I've seen",
+      "duration": 3.36,
+      "offset": 565.68
+    },
+    {
+      "text": "it just get stuck in like two-word loops",
+      "duration": 2.959,
+      "offset": 567.44
+    },
+    {
+      "text": "where it just says the same two words",
+      "duration": 3.359,
+      "offset": 569.04
+    },
+    {
+      "text": "over and over again or respond with",
+      "duration": 4,
+      "offset": 570.399
+    },
+    {
+      "text": "utter nonsense and immediately stop or",
+      "duration": 3.521,
+      "offset": 572.399
+    },
+    {
+      "text": "just like switch over to Chinese",
+      "duration": 2.56,
+      "offset": 574.399
+    },
+    {
+      "text": "characters, which would happen a lot",
+      "duration": 2.64,
+      "offset": 575.92
+    },
+    {
+      "text": "with Gemini 3 Pro. Haven't had that with",
+      "duration": 3.121,
+      "offset": 576.959
+    },
+    {
+      "text": "3.1 yet, but I have all of the other",
+      "duration": 2.959,
+      "offset": 578.56
+    },
+    {
+      "text": "quirks and then some. Here's another",
+      "duration": 3.12,
+      "offset": 580.08
+    },
+    {
+      "text": "funny one. In the system prompt for the",
+      "duration": 3.521,
+      "offset": 581.519
+    },
+    {
+      "text": "model that is making the prompt that the",
+      "duration": 3.52,
+      "offset": 583.2
+    },
+    {
+      "text": "other models use to respond to, I know",
+      "duration": 2.799,
+      "offset": 585.04
+    },
+    {
+      "text": "prompt means two different things here.",
+      "duration": 2.88,
+      "offset": 586.72
+    },
+    {
+      "text": "It's confusing. The system prompt I",
+      "duration": 3.281,
+      "offset": 587.839
+    },
+    {
+      "text": "wrote to give the model so it could",
+      "duration": 4.16,
+      "offset": 589.6
+    },
+    {
+      "text": "generate a game prompt to use for the",
+      "duration": 4.88,
+      "offset": 591.12
+    },
+    {
+      "text": "other models. That system prompt says",
+      "duration": 4.24,
+      "offset": 593.76
+    },
+    {
+      "text": "that it should only return the thing it",
+      "duration": 3.68,
+      "offset": 596
+    },
+    {
+      "text": "wants to have the other models respond",
+      "duration": 4.08,
+      "offset": 598
+    },
+    {
+      "text": "to. It says return only this thing,",
+      "duration": 5.279,
+      "offset": 599.68
+    },
+    {
+      "text": "which Gemini did by saying return only.",
+      "duration": 5.36,
+      "offset": 602.08
+    },
+    {
+      "text": "This is like llama 2 [ __ ] But this is",
+      "duration": 4.56,
+      "offset": 604.959
+    },
+    {
+      "text": "the nature of the Gemini models. They",
+      "duration": 3.92,
+      "offset": 607.44
+    },
+    {
+      "text": "are insanely smart. The amount of",
+      "duration": 3.44,
+      "offset": 609.519
+    },
+    {
+      "text": "intelligence they've baked into these",
+      "duration": 3.84,
+      "offset": 611.36
+    },
+    {
+      "text": "models is honestly overwhelming. I am",
+      "duration": 4.56,
+      "offset": 612.959
+    },
+    {
+      "text": "consistently surprised by how competent",
+      "duration": 4.72,
+      "offset": 615.2
+    },
+    {
+      "text": "it is in knowledge. And I'm not the only",
+      "duration": 3.921,
+      "offset": 617.519
+    },
+    {
+      "text": "one that feels that way. Artificial",
+      "duration": 3.2,
+      "offset": 619.92
+    },
+    {
+      "text": "Analysis has commented on the same",
+      "duration": 3.68,
+      "offset": 621.44
+    },
+    {
+      "text": "specifically around the hallucination",
+      "duration": 4.24,
+      "offset": 623.12
+    },
+    {
+      "text": "rates and it's just knowledge in",
+      "duration": 3.68,
+      "offset": 625.12
+    },
+    {
+      "text": "general. Artificial analysis made their",
+      "duration": 3.039,
+      "offset": 627.36
+    },
+    {
+      "text": "own omniscience benchmark that is",
+      "duration": 2.88,
+      "offset": 628.8
+    },
+    {
+      "text": "keeping track of knowledge and",
+      "duration": 3.601,
+      "offset": 630.399
+    },
+    {
+      "text": "hallucinations and letting them cancel",
+      "duration": 4.159,
+      "offset": 631.68
+    },
+    {
+      "text": "each other out. So you're ranked both by",
+      "duration": 3.839,
+      "offset": 634
+    },
+    {
+      "text": "how many answers you got correctly as",
+      "duration": 3.44,
+      "offset": 635.839
+    },
+    {
+      "text": "well as how many times you answer",
+      "duration": 3.361,
+      "offset": 637.839
+    },
+    {
+      "text": "incorrectly. And you're not penalized",
+      "duration": 3.68,
+      "offset": 639.279
+    },
+    {
+      "text": "for refusing to answer for saying I",
+      "duration": 3.36,
+      "offset": 641.2
+    },
+    {
+      "text": "don't know. So this is a benchmark that",
+      "duration": 3.44,
+      "offset": 642.959
+    },
+    {
+      "text": "rewards models that are able to say I",
+      "duration": 3.44,
+      "offset": 644.56
+    },
+    {
+      "text": "don't know what the answer to that is.",
+      "duration": 4,
+      "offset": 646.399
+    },
+    {
+      "text": "punishes them if they lie a lot and then",
+      "duration": 4.56,
+      "offset": 648
+    },
+    {
+      "text": "obviously rewards them if they do the",
+      "duration": 3.601,
+      "offset": 650.399
+    },
+    {
+      "text": "problem correctly. And as we can see",
+      "duration": 4.16,
+      "offset": 652.56
+    },
+    {
+      "text": "here, 3.1 Pro Preview had a really good",
+      "duration": 4.399,
+      "offset": 654
+    },
+    {
+      "text": "score. Even some of the smartest models",
+      "duration": 4.559,
+      "offset": 656.72
+    },
+    {
+      "text": "like Sonnet 4.6 and GPT 5.2 high are",
+      "duration": 4.081,
+      "offset": 658.399
+    },
+    {
+      "text": "still in the negatives because this",
+      "duration": 2.56,
+      "offset": 661.279
+    },
+    {
+      "text": "benchmark has a lot of really hard",
+      "duration": 2.72,
+      "offset": 662.48
+    },
+    {
+      "text": "problems that the models will often",
+      "duration": 3.281,
+      "offset": 663.839
+    },
+    {
+      "text": "hallucinate and get incorrectly. If we",
+      "duration": 3.52,
+      "offset": 665.2
+    },
+    {
+      "text": "hop over to the hallucination rate chart",
+      "duration": 3.2,
+      "offset": 667.12
+    },
+    {
+      "text": "though, you'll see previous models like",
+      "duration": 4.16,
+      "offset": 668.72
+    },
+    {
+      "text": "Gemini 3 Flash and GPTOSS20B",
+      "duration": 4.56,
+      "offset": 670.32
+    },
+    {
+      "text": "were insanely high. When they didn't",
+      "duration": 3.36,
+      "offset": 672.88
+    },
+    {
+      "text": "know the answer, they would never",
+      "duration": 3.44,
+      "offset": 674.88
+    },
+    {
+      "text": "refuse. they would just be wrong.",
+      "duration": 4.4,
+      "offset": 676.24
+    },
+    {
+      "text": "Surprisingly enough, Haiku 4.5 is the",
+      "duration": 3.84,
+      "offset": 678.32
+    },
+    {
+      "text": "model that is the best about this. It's",
+      "duration": 3.199,
+      "offset": 680.64
+    },
+    {
+      "text": "very quick to say when it doesn't know",
+      "duration": 4,
+      "offset": 682.16
+    },
+    {
+      "text": "something. Gemini 3. Preview though is a",
+      "duration": 4.721,
+      "offset": 683.839
+    },
+    {
+      "text": "huge advancement here. It is a comical",
+      "duration": 5.6,
+      "offset": 686.16
+    },
+    {
+      "text": "gap between 3.1 Pro and 3 Pro where the",
+      "duration": 5.36,
+      "offset": 688.56
+    },
+    {
+      "text": "hallucidation rate has nearly hald in",
+      "duration": 3.519,
+      "offset": 691.76
+    },
+    {
+      "text": "that time. But where Google really",
+      "duration": 3.12,
+      "offset": 693.92
+    },
+    {
+      "text": "slaughters in these benchmarks is the",
+      "duration": 3.841,
+      "offset": 695.279
+    },
+    {
+      "text": "accuracy. It just knows more",
+      "duration": 4.239,
+      "offset": 697.04
+    },
+    {
+      "text": "information. So, it's able to answer a",
+      "duration": 3.6,
+      "offset": 699.12
+    },
+    {
+      "text": "lot more of these questions correct than",
+      "duration": 3.12,
+      "offset": 701.279
+    },
+    {
+      "text": "even other leading models. It's",
+      "duration": 4.08,
+      "offset": 702.72
+    },
+    {
+      "text": "obviously such an intelligent model. The",
+      "duration": 4,
+      "offset": 704.399
+    },
+    {
+      "text": "amount of information, the amount of",
+      "duration": 4.32,
+      "offset": 706.8
+    },
+    {
+      "text": "capability baked into these weights is",
+      "duration": 4.721,
+      "offset": 708.399
+    },
+    {
+      "text": "unreal. But when it comes to actually",
+      "duration": 5.04,
+      "offset": 711.12
+    },
+    {
+      "text": "using it, it genuinely sucks. Some part",
+      "duration": 4.88,
+      "offset": 713.12
+    },
+    {
+      "text": "of that is just the way it randomly",
+      "duration": 3.679,
+      "offset": 716.16
+    },
+    {
+      "text": "spams my terminals after I close things",
+      "duration": 3.519,
+      "offset": 718
+    },
+    {
+      "text": "for no reason. I have no idea what's",
+      "duration": 3.44,
+      "offset": 719.839
+    },
+    {
+      "text": "going on here at all. We're just going",
+      "duration": 4.721,
+      "offset": 721.519
+    },
+    {
+      "text": "to close that terminal entirely. Why did",
+      "duration": 5.921,
+      "offset": 723.279
+    },
+    {
+      "text": "it do that? Okay. I am genuinely trying",
+      "duration": 6,
+      "offset": 726.24
+    },
+    {
+      "text": "so hard to use Gemini 3.1 Pro to test",
+      "duration": 5.04,
+      "offset": 729.2
+    },
+    {
+      "text": "things. But no matter what the [ __ ] I do",
+      "duration": 4.24,
+      "offset": 732.24
+    },
+    {
+      "text": "in their CLI, it just randomly changes",
+      "duration": 4.48,
+      "offset": 734.24
+    },
+    {
+      "text": "to other models. Why is it using Flash",
+      "duration": 5.12,
+      "offset": 736.48
+    },
+    {
+      "text": "Light, Flash 2.5, and three Flash",
+      "duration": 6.88,
+      "offset": 738.72
+    },
+    {
+      "text": "preview? When I selected Gemini 3.1 Pro,",
+      "duration": 6.64,
+      "offset": 741.6
+    },
+    {
+      "text": "their CLI is legitimately unusable. And",
+      "duration": 4.479,
+      "offset": 745.6
+    },
+    {
+      "text": "as silly as it sounds, I think that's a",
+      "duration": 3.599,
+      "offset": 748.24
+    },
+    {
+      "text": "big part of why it sucks as hard as it",
+      "duration": 3.681,
+      "offset": 750.079
+    },
+    {
+      "text": "does. It's pretty clear now that the",
+      "duration": 4.481,
+      "offset": 751.839
+    },
+    {
+      "text": "other labs are using the histories from",
+      "duration": 5.44,
+      "offset": 753.76
+    },
+    {
+      "text": "other people's chats to train models. If",
+      "duration": 4.88,
+      "offset": 756.32
+    },
+    {
+      "text": "you have a before and an after, if you",
+      "duration": 3.68,
+      "offset": 759.2
+    },
+    {
+      "text": "have the thing that somebody needed",
+      "duration": 3.759,
+      "offset": 761.2
+    },
+    {
+      "text": "changed in the changes they made in the",
+      "duration": 4,
+      "offset": 762.88
+    },
+    {
+      "text": "before and after for that repo, it's",
+      "duration": 4.081,
+      "offset": 764.959
+    },
+    {
+      "text": "pretty easy to generate a fake history",
+      "duration": 4.959,
+      "offset": 766.88
+    },
+    {
+      "text": "for any of these CLIs. Once the labs",
+      "duration": 4.16,
+      "offset": 769.04
+    },
+    {
+      "text": "have generated all of these fake",
+      "duration": 2.881,
+      "offset": 771.839
+    },
+    {
+      "text": "histories, they use it for reinforcement",
+      "duration": 2.8,
+      "offset": 773.2
+    },
+    {
+      "text": "learning. And the result is that the",
+      "duration": 2.96,
+      "offset": 774.72
+    },
+    {
+      "text": "models can work in these tools and they",
+      "duration": 3.68,
+      "offset": 776
+    },
+    {
+      "text": "can work in them really well for really",
+      "duration": 3.92,
+      "offset": 777.68
+    },
+    {
+      "text": "long amounts of time. Google doesn't",
+      "duration": 4.64,
+      "offset": 779.68
+    },
+    {
+      "text": "seem to be doing this at all. I could be",
+      "duration": 4.72,
+      "offset": 781.6
+    },
+    {
+      "text": "wrong. They're clearly rling on",
+      "duration": 4.319,
+      "offset": 784.32
+    },
+    {
+      "text": "something, but it's not helping with",
+      "duration": 4.639,
+      "offset": 786.32
+    },
+    {
+      "text": "these long agentic runs. The meter eval",
+      "duration": 4.161,
+      "offset": 788.639
+    },
+    {
+      "text": "show what I'm talking about here really",
+      "duration": 3.201,
+      "offset": 790.959
+    },
+    {
+      "text": "strongly. If you're not familiar, this",
+      "duration": 3.36,
+      "offset": 792.8
+    },
+    {
+      "text": "is a benchmark that tracks how long of a",
+      "duration": 3.84,
+      "offset": 794.16
+    },
+    {
+      "text": "task in terms of the human time to",
+      "duration": 3.28,
+      "offset": 796.16
+    },
+    {
+      "text": "complete are the models capable of",
+      "duration": 3.279,
+      "offset": 798
+    },
+    {
+      "text": "completing. At the start of 2025, the",
+      "duration": 4.16,
+      "offset": 799.44
+    },
+    {
+      "text": "best we had was between half an hour to",
+      "duration": 4.321,
+      "offset": 801.279
+    },
+    {
+      "text": "an hour of a task being able to be",
+      "duration": 4.16,
+      "offset": 803.6
+    },
+    {
+      "text": "completed by an agent on its own 50% of",
+      "duration": 4.08,
+      "offset": 805.6
+    },
+    {
+      "text": "the time. This is 50% success rate. Now",
+      "duration": 4.24,
+      "offset": 807.76
+    },
+    {
+      "text": "with Opus 4.6, we're up all the way to",
+      "duration": 5.44,
+      "offset": 809.68
+    },
+    {
+      "text": "the 16-hour range where it can run on a",
+      "duration": 4.88,
+      "offset": 812
+    },
+    {
+      "text": "task for a very long time. Obviously, it",
+      "duration": 3.04,
+      "offset": 815.12
+    },
+    {
+      "text": "won't be 16 hours. It'll be closer to",
+      "duration": 3.04,
+      "offset": 816.88
+    },
+    {
+      "text": "like half an hour to an hour, but it's a",
+      "duration": 3.28,
+      "offset": 818.16
+    },
+    {
+      "text": "task that would have taken a human 16",
+      "duration": 3.76,
+      "offset": 819.92
+    },
+    {
+      "text": "plus hours with a 50% success rate.",
+      "duration": 5.28,
+      "offset": 821.44
+    },
+    {
+      "text": "That's nuts. Both GBT 5.2 and Opus 4.6",
+      "duration": 4.719,
+      "offset": 823.68
+    },
+    {
+      "text": "are killing it here. And once 5.3 is on",
+      "duration": 3.52,
+      "offset": 826.72
+    },
+    {
+      "text": "the API, I would suspect it will kill",
+      "duration": 4.081,
+      "offset": 828.399
+    },
+    {
+      "text": "here as well. I don't think Gemini",
+      "duration": 3.839,
+      "offset": 830.24
+    },
+    {
+      "text": "models are capable of performing well on",
+      "duration": 3.599,
+      "offset": 832.48
+    },
+    {
+      "text": "this because they tend to get really",
+      "duration": 3.921,
+      "offset": 834.079
+    },
+    {
+      "text": "confused and lost when given the ability",
+      "duration": 4.161,
+      "offset": 836.079
+    },
+    {
+      "text": "to like go do things for a while. I also",
+      "duration": 3.68,
+      "offset": 838
+    },
+    {
+      "text": "said earlier it seemed like the tool",
+      "duration": 4.32,
+      "offset": 840.24
+    },
+    {
+      "text": "call issues had mostly stopped. I can't",
+      "duration": 5.2,
+      "offset": 841.68
+    },
+    {
+      "text": "know that because it just ran with the",
+      "duration": 5.2,
+      "offset": 844.56
+    },
+    {
+      "text": "wrong [ __ ] model. So yeah, I'm now",
+      "duration": 5.6,
+      "offset": 846.88
+    },
+    {
+      "text": "rerunning this yet again with 3.1 Pro",
+      "duration": 4.079,
+      "offset": 849.76
+    },
+    {
+      "text": "preview. Hopefully it will actually stay",
+      "duration": 3.039,
+      "offset": 852.48
+    },
+    {
+      "text": "on the model I selected this time. I",
+      "duration": 3.041,
+      "offset": 853.839
+    },
+    {
+      "text": "couldn't help but notice there isn't a",
+      "duration": 3.281,
+      "offset": 855.519
+    },
+    {
+      "text": "plan mode. And I also just accidentally",
+      "duration": 4.16,
+      "offset": 856.88
+    },
+    {
+      "text": "turned off yellow mode. Great. The CLI",
+      "duration": 3.839,
+      "offset": 858.8
+    },
+    {
+      "text": "is awful. Obviously, CLI is awful. We",
+      "duration": 3.52,
+      "offset": 861.04
+    },
+    {
+      "text": "all know that. Just use anything else if",
+      "duration": 4.081,
+      "offset": 862.639
+    },
+    {
+      "text": "you can. Oh man, I I just need to",
+      "duration": 4,
+      "offset": 864.56
+    },
+    {
+      "text": "complain a bit about this dissonance",
+      "duration": 3.76,
+      "offset": 866.72
+    },
+    {
+      "text": "between how smart these models are and",
+      "duration": 4.079,
+      "offset": 868.56
+    },
+    {
+      "text": "how competent they are. I'm going to do",
+      "duration": 4.479,
+      "offset": 870.48
+    },
+    {
+      "text": "a strange comparison. I want to talk",
+      "duration": 5.681,
+      "offset": 872.639
+    },
+    {
+      "text": "about Claude 4.5 Haiku. Why would I want",
+      "duration": 5.841,
+      "offset": 874.959
+    },
+    {
+      "text": "to talk about Haiku? It's a super dumb",
+      "duration": 3.92,
+      "offset": 878.32
+    },
+    {
+      "text": "model. If we go to the intelligence",
+      "duration": 3.36,
+      "offset": 880.8
+    },
+    {
+      "text": "index on top here, you'll see it's not",
+      "duration": 3.92,
+      "offset": 882.24
+    },
+    {
+      "text": "even in the main chart because why would",
+      "duration": 4.56,
+      "offset": 884.16
+    },
+    {
+      "text": "it be? It's scoring a 37. And these",
+      "duration": 5.2,
+      "offset": 886.16
+    },
+    {
+      "text": "models are in the high50s now. Why would",
+      "duration": 4.72,
+      "offset": 888.72
+    },
+    {
+      "text": "I want to talk about this tiny cheap",
+      "duration": 4.88,
+      "offset": 891.36
+    },
+    {
+      "text": "[ __ ] model? Because it does its godamn",
+      "duration": 5.44,
+      "offset": 893.44
+    },
+    {
+      "text": "job. And this is the thing I want to",
+      "duration": 5.44,
+      "offset": 896.24
+    },
+    {
+      "text": "emphasize. Models aren't just bundles of",
+      "duration": 4.88,
+      "offset": 898.88
+    },
+    {
+      "text": "knowledge. They're also now expected to",
+      "duration": 4.24,
+      "offset": 901.68
+    },
+    {
+      "text": "have behaviors and to do things,",
+      "duration": 4,
+      "offset": 903.76
+    },
+    {
+      "text": "especially with tool calling and",
+      "duration": 3.44,
+      "offset": 905.92
+    },
+    {
+      "text": "especially with knowledge gathering",
+      "duration": 3.36,
+      "offset": 907.76
+    },
+    {
+      "text": "through the tool calling. Obviously, a",
+      "duration": 3.279,
+      "offset": 909.36
+    },
+    {
+      "text": "model with more knowledge is going to be",
+      "duration": 3.68,
+      "offset": 911.12
+    },
+    {
+      "text": "able to do more things in general. If",
+      "duration": 4,
+      "offset": 912.639
+    },
+    {
+      "text": "it's smarter, it knows more and it's",
+      "duration": 3.76,
+      "offset": 914.8
+    },
+    {
+      "text": "able to do more. But if it's able to",
+      "duration": 3.681,
+      "offset": 916.639
+    },
+    {
+      "text": "gather knowledge better, that tends to",
+      "duration": 3.6,
+      "offset": 918.56
+    },
+    {
+      "text": "push it ahead quite a bit. And what",
+      "duration": 4.56,
+      "offset": 920.32
+    },
+    {
+      "text": "Anthropic has been super focused on from",
+      "duration": 5.2,
+      "offset": 922.16
+    },
+    {
+      "text": "at least the Sonnet 35 days onwards is",
+      "duration": 4.72,
+      "offset": 924.88
+    },
+    {
+      "text": "the consistency around the tool calling.",
+      "duration": 4.56,
+      "offset": 927.36
+    },
+    {
+      "text": "I never see Haiku screw up the shape of",
+      "duration": 4,
+      "offset": 929.6
+    },
+    {
+      "text": "a tool call. If you tell it how a tool",
+      "duration": 3.599,
+      "offset": 931.92
+    },
+    {
+      "text": "works, it will use it and it will use it",
+      "duration": 4.4,
+      "offset": 933.6
+    },
+    {
+      "text": "relatively well. If you ask Gemini 3.1",
+      "duration": 4.401,
+      "offset": 935.519
+    },
+    {
+      "text": "Pro Preview to use a tool, it will",
+      "duration": 4.24,
+      "offset": 938
+    },
+    {
+      "text": "rotate between using it too much, not",
+      "duration": 3.84,
+      "offset": 939.92
+    },
+    {
+      "text": "using it at all, and using it",
+      "duration": 4.08,
+      "offset": 942.24
+    },
+    {
+      "text": "incorrectly with the occasional correct",
+      "duration": 4.56,
+      "offset": 943.76
+    },
+    {
+      "text": "usage. Although it is rare, the model",
+      "duration": 3.519,
+      "offset": 946.32
+    },
+    {
+      "text": "clearly follows instructions better",
+      "duration": 3.04,
+      "offset": 948.32
+    },
+    {
+      "text": "overall than it has in the past. Like",
+      "duration": 3.44,
+      "offset": 949.839
+    },
+    {
+      "text": "Google has made some progress here, but",
+      "duration": 4,
+      "offset": 951.36
+    },
+    {
+      "text": "it still honestly feels like a lastg",
+      "duration": 3.68,
+      "offset": 953.279
+    },
+    {
+      "text": "model. It feels like somebody took",
+      "duration": 3.52,
+      "offset": 955.36
+    },
+    {
+      "text": "something from like the old llama days",
+      "duration": 4,
+      "offset": 956.959
+    },
+    {
+      "text": "or even one of like the older deepseek",
+      "duration": 4.48,
+      "offset": 958.88
+    },
+    {
+      "text": "openweight models and stuffed infinite",
+      "duration": 4.8,
+      "offset": 960.959
+    },
+    {
+      "text": "intelligence into it, but forgot to put",
+      "duration": 4.96,
+      "offset": 963.36
+    },
+    {
+      "text": "the competence in. It's just not good at",
+      "duration": 4.241,
+      "offset": 965.759
+    },
+    {
+      "text": "doing things. They don't have a plan",
+      "duration": 3.439,
+      "offset": 968.32
+    },
+    {
+      "text": "tool, but what I've heard from others is",
+      "duration": 3.519,
+      "offset": 970
+    },
+    {
+      "text": "that in the harnesses that do have a",
+      "duration": 4.32,
+      "offset": 971.759
+    },
+    {
+      "text": "plan tool, it'll just not use it. It'll",
+      "duration": 4.24,
+      "offset": 973.519
+    },
+    {
+      "text": "just output the questions and you're",
+      "duration": 3.841,
+      "offset": 976.079
+    },
+    {
+      "text": "expected to just answer and then it will",
+      "duration": 4,
+      "offset": 977.759
+    },
+    {
+      "text": "create a bunch of output and say are you",
+      "duration": 3.599,
+      "offset": 979.92
+    },
+    {
+      "text": "happy with this and you say yes or no.",
+      "duration": 3.52,
+      "offset": 981.759
+    },
+    {
+      "text": "It doesn't call the plan tool or any of",
+      "duration": 3.361,
+      "offset": 983.519
+    },
+    {
+      "text": "the things that are associated with it.",
+      "duration": 3.521,
+      "offset": 985.279
+    },
+    {
+      "text": "My guess is that they tried to RL it on",
+      "duration": 4.319,
+      "offset": 986.88
+    },
+    {
+      "text": "a planning phase but didn't RL it on a",
+      "duration": 4.56,
+      "offset": 988.8
+    },
+    {
+      "text": "planning phase with planning tools and",
+      "duration": 4.88,
+      "offset": 991.199
+    },
+    {
+      "text": "as a result it just is weird. Okay, it",
+      "duration": 4.159,
+      "offset": 993.36
+    },
+    {
+      "text": "looks like it wrote a decent plan here",
+      "duration": 4.161,
+      "offset": 996.079
+    },
+    {
+      "text": "but again not in plan mode. Telling it",
+      "duration": 5.361,
+      "offset": 997.519
+    },
+    {
+      "text": "to go work. Okay, it still has the",
+      "duration": 4.959,
+      "offset": 1000.24
+    },
+    {
+      "text": "random failing to edit thing. Like I",
+      "duration": 3.6,
+      "offset": 1002.88
+    },
+    {
+      "text": "don't know how it screws this type of",
+      "duration": 2.64,
+      "offset": 1005.199
+    },
+    {
+      "text": "stuff up. It also sucks at reading",
+      "duration": 3.039,
+      "offset": 1006.48
+    },
+    {
+      "text": "files. It seems like it was hardcoded to",
+      "duration": 3.281,
+      "offset": 1007.839
+    },
+    {
+      "text": "only be able to read up to a 100 lines",
+      "duration": 3.521,
+      "offset": 1009.519
+    },
+    {
+      "text": "at a time. And I've watched it read line",
+      "duration": 5.12,
+      "offset": 1011.12
+    },
+    {
+      "text": "one through 100, 101 to 200, 2011 to 300",
+      "duration": 5.44,
+      "offset": 1013.04
+    },
+    {
+      "text": "on many different things. Like why? I",
+      "duration": 3.599,
+      "offset": 1016.24
+    },
+    {
+      "text": "feel like I have to sit there and watch",
+      "duration": 3.2,
+      "offset": 1018.48
+    },
+    {
+      "text": "this model not just so I can cover it",
+      "duration": 3.761,
+      "offset": 1019.839
+    },
+    {
+      "text": "responsibly for you guys, but so I can",
+      "duration": 3.519,
+      "offset": 1021.68
+    },
+    {
+      "text": "make sure it's not breaking constantly",
+      "duration": 3.359,
+      "offset": 1023.6
+    },
+    {
+      "text": "and doing things wrong. Cuz that's all",
+      "duration": 3.76,
+      "offset": 1025.199
+    },
+    {
+      "text": "inference you're paying for. Is it more",
+      "duration": 3.36,
+      "offset": 1026.959
+    },
+    {
+      "text": "efficient when it does everything",
+      "duration": 3.521,
+      "offset": 1028.959
+    },
+    {
+      "text": "correctly? Yeah, it's cheaper and uses",
+      "duration": 3.76,
+      "offset": 1030.319
+    },
+    {
+      "text": "slightly fewer tokens than something",
+      "duration": 4.319,
+      "offset": 1032.48
+    },
+    {
+      "text": "like Opus 4.6, but if it has to generate",
+      "duration": 4.72,
+      "offset": 1034.079
+    },
+    {
+      "text": "3x the number of tokens because it",
+      "duration": 3.841,
+      "offset": 1036.799
+    },
+    {
+      "text": "failed the tool call the first two",
+      "duration": 4.24,
+      "offset": 1038.799
+    },
+    {
+      "text": "times, you're not benefiting as much any",
+      "duration": 4.319,
+      "offset": 1040.64
+    },
+    {
+      "text": "at all at that point. Like, I've never",
+      "duration": 4.4,
+      "offset": 1043.039
+    },
+    {
+      "text": "seen any of the other modern models fail",
+      "duration": 4.641,
+      "offset": 1044.959
+    },
+    {
+      "text": "so often with basic stuff like that.",
+      "duration": 3.761,
+      "offset": 1047.439
+    },
+    {
+      "text": "Even the new open weight ones seem to",
+      "duration": 3.76,
+      "offset": 1049.6
+    },
+    {
+      "text": "have resolved a lot of these things.",
+      "duration": 4.24,
+      "offset": 1051.2
+    },
+    {
+      "text": "Google just hasn't. Trying to reach",
+      "duration": 4.96,
+      "offset": 1053.36
+    },
+    {
+      "text": "Gemini 3.1 Pro preview attempt three of",
+      "duration": 5.44,
+      "offset": 1055.44
+    },
+    {
+      "text": "three. It's about to fail as it was just",
+      "duration": 5.52,
+      "offset": 1058.32
+    },
+    {
+      "text": "getting started. H you'd imagine the",
+      "duration": 4.32,
+      "offset": 1060.88
+    },
+    {
+      "text": "trillion dollar company would be the one",
+      "duration": 3.12,
+      "offset": 1063.84
+    },
+    {
+      "text": "that could figure these things out. Like",
+      "duration": 4,
+      "offset": 1065.2
+    },
+    {
+      "text": "this has to be solvable with money and",
+      "duration": 4.32,
+      "offset": 1066.96
+    },
+    {
+      "text": "time and smart engineering, right? I",
+      "duration": 4.32,
+      "offset": 1069.2
+    },
+    {
+      "text": "just don't get how it could get as bad",
+      "duration": 3.759,
+      "offset": 1071.28
+    },
+    {
+      "text": "as it currently is. When I was working",
+      "duration": 2.88,
+      "offset": 1073.52
+    },
+    {
+      "text": "on the game I showed earlier, I wanted",
+      "duration": 3.921,
+      "offset": 1075.039
+    },
+    {
+      "text": "the logos for all of the labs and it",
+      "duration": 5.04,
+      "offset": 1076.4
+    },
+    {
+      "text": "just h the reasoning summaries are just",
+      "duration": 4.56,
+      "offset": 1078.96
+    },
+    {
+      "text": "so bad. I've been on a quest to explore",
+      "duration": 4.239,
+      "offset": 1081.44
+    },
+    {
+      "text": "various language models. ChatGpt is",
+      "duration": 4,
+      "offset": 1083.52
+    },
+    {
+      "text": "definitely a strong contender. Now I'm",
+      "duration": 3.201,
+      "offset": 1085.679
+    },
+    {
+      "text": "shifting my attention to locating",
+      "duration": 3.6,
+      "offset": 1087.52
+    },
+    {
+      "text": "Claude, Deepseek, and Grock. My focus is",
+      "duration": 3.76,
+      "offset": 1088.88
+    },
+    {
+      "text": "on understanding their capabilities and",
+      "duration": 3.439,
+      "offset": 1091.12
+    },
+    {
+      "text": "how they might differ from Chhat GBT.",
+      "duration": 3.84,
+      "offset": 1092.64
+    },
+    {
+      "text": "No, it's [ __ ] not. I told you to go",
+      "duration": 3.601,
+      "offset": 1094.559
+    },
+    {
+      "text": "find Logos. I don't know why they're",
+      "duration": 3.04,
+      "offset": 1096.48
+    },
+    {
+      "text": "hiding the reasoning traces. They're not",
+      "duration": 3.92,
+      "offset": 1098.16
+    },
+    {
+      "text": "that useful anymore. And this is the",
+      "duration": 4.48,
+      "offset": 1099.52
+    },
+    {
+      "text": "alternative is garbage. I don't know",
+      "duration": 3.76,
+      "offset": 1102.08
+    },
+    {
+      "text": "what happened here. Was the reasoning",
+      "duration": 3.84,
+      "offset": 1104
+    },
+    {
+      "text": "actually that bad and we got a summary",
+      "duration": 3.68,
+      "offset": 1105.84
+    },
+    {
+      "text": "that summarized the bad thing it was",
+      "duration": 3.68,
+      "offset": 1107.84
+    },
+    {
+      "text": "doing or was the summarization process",
+      "duration": 3.6,
+      "offset": 1109.52
+    },
+    {
+      "text": "incorrect that gave us this nonsense?",
+      "duration": 3.76,
+      "offset": 1111.52
+    },
+    {
+      "text": "Because again, remember I asked it to go",
+      "duration": 3.76,
+      "offset": 1113.12
+    },
+    {
+      "text": "find logos for the things in the",
+      "duration": 3.279,
+      "offset": 1115.28
+    },
+    {
+      "text": "codebase and it somehow went on a",
+      "duration": 3.919,
+      "offset": 1116.88
+    },
+    {
+      "text": "soularching journey all about chat GPT.",
+      "duration": 3.841,
+      "offset": 1118.559
+    },
+    {
+      "text": "And in any competent harness where it",
+      "duration": 4.161,
+      "offset": 1120.799
+    },
+    {
+      "text": "has tools it actually uses well, they've",
+      "duration": 4.32,
+      "offset": 1122.4
+    },
+    {
+      "text": "system prompted the hell out of it and",
+      "duration": 3.68,
+      "offset": 1124.96
+    },
+    {
+      "text": "you see the labbotomized results. I'm",
+      "duration": 3.6,
+      "offset": 1126.72
+    },
+    {
+      "text": "currently evaluating the best approach",
+      "duration": 3.76,
+      "offset": 1128.64
+    },
+    {
+      "text": "to use various tools for this task. It's",
+      "duration": 4.239,
+      "offset": 1130.32
+    },
+    {
+      "text": "a complex process. So I am being very",
+      "duration": 4.32,
+      "offset": 1132.4
+    },
+    {
+      "text": "deliberate in assessing which tools will",
+      "duration": 3.921,
+      "offset": 1134.559
+    },
+    {
+      "text": "be the most suitable. I'm focusing on",
+      "duration": 3.44,
+      "offset": 1136.72
+    },
+    {
+      "text": "the particular strengths of each tool to",
+      "duration": 4.16,
+      "offset": 1138.48
+    },
+    {
+      "text": "ensure maximum efficiency. This was for",
+      "duration": 6.16,
+      "offset": 1140.16
+    },
+    {
+      "text": "a simple UI change. It just it's",
+      "duration": 6,
+      "offset": 1142.64
+    },
+    {
+      "text": "honestly been flashbacks to like early",
+      "duration": 5.04,
+      "offset": 1146.32
+    },
+    {
+      "text": "2025, hell, late 2024 where I feel like",
+      "duration": 4.399,
+      "offset": 1148.64
+    },
+    {
+      "text": "I have to be closely monitoring what",
+      "duration": 4,
+      "offset": 1151.36
+    },
+    {
+      "text": "it's doing and I see it just doing",
+      "duration": 5.841,
+      "offset": 1153.039
+    },
+    {
+      "text": "things wrong constantly.",
+      "duration": 5.52,
+      "offset": 1155.36
+    },
+    {
+      "text": "Oh, I didn't realize the reason it",
+      "duration": 4.32,
+      "offset": 1158.88
+    },
+    {
+      "text": "wasn't able to reach 3.1 Pro because I",
+      "duration": 4.64,
+      "offset": 1160.88
+    },
+    {
+      "text": "had to go give it permission to run this",
+      "duration": 4.4,
+      "offset": 1163.2
+    },
+    {
+      "text": "command because it didn't know it needed",
+      "duration": 4.24,
+      "offset": 1165.52
+    },
+    {
+      "text": "to have that. And now I think the CLI is",
+      "duration": 3.76,
+      "offset": 1167.6
+    },
+    {
+      "text": "broken again. Oh no, it's spawning more",
+      "duration": 3.919,
+      "offset": 1169.76
+    },
+    {
+      "text": "things. It looks like it hallucinated",
+      "duration": 4.24,
+      "offset": 1171.36
+    },
+    {
+      "text": "packages that don't exist. So much for",
+      "duration": 3.681,
+      "offset": 1173.679
+    },
+    {
+      "text": "that lower hallucination rate. It has",
+      "duration": 3.28,
+      "offset": 1175.6
+    },
+    {
+      "text": "access to the web. It can look these",
+      "duration": 3.36,
+      "offset": 1177.36
+    },
+    {
+      "text": "things up. I told it what to do and how",
+      "duration": 3.44,
+      "offset": 1178.88
+    },
+    {
+      "text": "to do it, and it has just outright",
+      "duration": 3.839,
+      "offset": 1180.72
+    },
+    {
+      "text": "failed to do it. It's writing a Python",
+      "duration": 4.239,
+      "offset": 1182.32
+    },
+    {
+      "text": "code mod to do the code mod itself",
+      "duration": 4.24,
+      "offset": 1184.559
+    },
+    {
+      "text": "because it didn't succeed in finding it.",
+      "duration": 3.841,
+      "offset": 1186.559
+    },
+    {
+      "text": "This is a company that made the world's",
+      "duration": 3.041,
+      "offset": 1188.799
+    },
+    {
+      "text": "biggest and most successful search",
+      "duration": 3.04,
+      "offset": 1190.4
+    },
+    {
+      "text": "engine, and it can't figure out where",
+      "duration": 3.36,
+      "offset": 1191.84
+    },
+    {
+      "text": "the code mod is that I told it about. It",
+      "duration": 3.28,
+      "offset": 1193.44
+    },
+    {
+      "text": "does seem to be pretty good at using",
+      "duration": 3.52,
+      "offset": 1195.2
+    },
+    {
+      "text": "additional knowledge it is given. So, if",
+      "duration": 3.92,
+      "offset": 1196.72
+    },
+    {
+      "text": "you put things in the system prompt or",
+      "duration": 3.92,
+      "offset": 1198.72
+    },
+    {
+      "text": "the instructions or just in the context,",
+      "duration": 3.44,
+      "offset": 1200.64
+    },
+    {
+      "text": "it's able to adjust its behavior",
+      "duration": 2.8,
+      "offset": 1202.64
+    },
+    {
+      "text": "meaningfully. You've probably heard me",
+      "duration": 2.8,
+      "offset": 1204.08
+    },
+    {
+      "text": "talk about Convex is by far my favorite",
+      "duration": 3.28,
+      "offset": 1205.44
+    },
+    {
+      "text": "way to handle backend stuff nowadays.",
+      "duration": 3.76,
+      "offset": 1206.88
+    },
+    {
+      "text": "They have an LLM leaderboard for how",
+      "duration": 3.92,
+      "offset": 1208.72
+    },
+    {
+      "text": "well the different models work with",
+      "duration": 3.76,
+      "offset": 1210.64
+    },
+    {
+      "text": "Convex. They have two versions. They",
+      "duration": 3.039,
+      "offset": 1212.64
+    },
+    {
+      "text": "have the with guidelines where they're",
+      "duration": 3.12,
+      "offset": 1214.4
+    },
+    {
+      "text": "given the Convex AI rules and they have",
+      "duration": 3.921,
+      "offset": 1215.679
+    },
+    {
+      "text": "a separate no guidelines version where",
+      "duration": 4.24,
+      "offset": 1217.52
+    },
+    {
+      "text": "they aren't. When not given guidelines,",
+      "duration": 4.319,
+      "offset": 1219.6
+    },
+    {
+      "text": "Claude 4.6 sonnet slaughters. It just",
+      "duration": 4.159,
+      "offset": 1221.76
+    },
+    {
+      "text": "seems like Anthropic snuck this into the",
+      "duration": 4.161,
+      "offset": 1223.919
+    },
+    {
+      "text": "training data. I don't know why or how,",
+      "duration": 4.161,
+      "offset": 1225.919
+    },
+    {
+      "text": "but yeah, it performed very well at a",
+      "duration": 5.76,
+      "offset": 1228.08
+    },
+    {
+      "text": "90% there when compared to GPT 5.2, my",
+      "duration": 6.56,
+      "offset": 1230.08
+    },
+    {
+      "text": "beloved, only getting a 75%. This is one",
+      "duration": 4.24,
+      "offset": 1233.84
+    },
+    {
+      "text": "of the many reasons I keep reaching for",
+      "duration": 4,
+      "offset": 1236.64
+    },
+    {
+      "text": "anthropic models. But now, Gemini scored",
+      "duration": 5.12,
+      "offset": 1238.08
+    },
+    {
+      "text": "great here at an 89%. But what was even",
+      "duration": 4.159,
+      "offset": 1240.64
+    },
+    {
+      "text": "crazier is when you turn on those",
+      "duration": 3.44,
+      "offset": 1243.2
+    },
+    {
+      "text": "guidelines, suddenly we're almost at a",
+      "duration": 4.081,
+      "offset": 1244.799
+    },
+    {
+      "text": "95. It is way better at convex than",
+      "duration": 4.48,
+      "offset": 1246.64
+    },
+    {
+      "text": "basically anything else available right",
+      "duration": 4.159,
+      "offset": 1248.88
+    },
+    {
+      "text": "now. And as someone who uses Convex a",
+      "duration": 4.32,
+      "offset": 1251.12
+    },
+    {
+      "text": "lot, this is super tempting. I want to",
+      "duration": 4.561,
+      "offset": 1253.039
+    },
+    {
+      "text": "play with this more because it got the",
+      "duration": 3.84,
+      "offset": 1255.44
+    },
+    {
+      "text": "fundamentals, data modeling perfect,",
+      "duration": 3.36,
+      "offset": 1257.6
+    },
+    {
+      "text": "queries nearly perfect, mutations",
+      "duration": 3.2,
+      "offset": 1259.28
+    },
+    {
+      "text": "perfect, actions perfect, idioms",
+      "duration": 2.959,
+      "offset": 1260.96
+    },
+    {
+      "text": "perfect, and the highest client score",
+      "duration": 3.439,
+      "offset": 1262.48
+    },
+    {
+      "text": "we've seen to date. Like that's huge.",
+      "duration": 3.361,
+      "offset": 1263.919
+    },
+    {
+      "text": "When it's given these rules, it",
+      "duration": 3.281,
+      "offset": 1265.919
+    },
+    {
+      "text": "meaningfully increases its likelihood of",
+      "duration": 4.24,
+      "offset": 1267.28
+    },
+    {
+      "text": "being correct. At the same time though,",
+      "duration": 4.56,
+      "offset": 1269.2
+    },
+    {
+      "text": "it is scoring horribly with stuff like",
+      "duration": 3.68,
+      "offset": 1271.52
+    },
+    {
+      "text": "SnitchBench. If you're not familiar with",
+      "duration": 2.799,
+      "offset": 1273.76
+    },
+    {
+      "text": "SnitchBench, it's a benchmark I made",
+      "duration": 3.44,
+      "offset": 1275.2
+    },
+    {
+      "text": "because people didn't seem to understand",
+      "duration": 3.6,
+      "offset": 1276.559
+    },
+    {
+      "text": "part of the reporting anthropic did",
+      "duration": 3.2,
+      "offset": 1278.64
+    },
+    {
+      "text": "where they talked about the model doing",
+      "duration": 3.52,
+      "offset": 1280.159
+    },
+    {
+      "text": "things that the controller of it might",
+      "duration": 3.839,
+      "offset": 1281.84
+    },
+    {
+      "text": "not want it to do that it thought was",
+      "duration": 4.24,
+      "offset": 1283.679
+    },
+    {
+      "text": "morally correct and the dangers of that.",
+      "duration": 3.521,
+      "offset": 1285.679
+    },
+    {
+      "text": "This was misunderstood by a bunch of",
+      "duration": 2.721,
+      "offset": 1287.919
+    },
+    {
+      "text": "people thinking that Anthropic made it",
+      "duration": 2.719,
+      "offset": 1289.2
+    },
+    {
+      "text": "intentionally do that. So, I made a",
+      "duration": 3.039,
+      "offset": 1290.64
+    },
+    {
+      "text": "benchmark that replicated that to show",
+      "duration": 3.361,
+      "offset": 1291.919
+    },
+    {
+      "text": "people that a lot of models do it,",
+      "duration": 4,
+      "offset": 1293.679
+    },
+    {
+      "text": "including Grock 4.1. All the Grock",
+      "duration": 4.72,
+      "offset": 1295.28
+    },
+    {
+      "text": "models are hardcore snitches for",
+      "duration": 3.921,
+      "offset": 1297.679
+    },
+    {
+      "text": "whatever reason. I also just realized",
+      "duration": 4.24,
+      "offset": 1300
+    },
+    {
+      "text": "when I had Gemini redo the UI for",
+      "duration": 4.319,
+      "offset": 1301.6
+    },
+    {
+      "text": "SnitchBench, it screwed up the sort",
+      "duration": 3.6,
+      "offset": 1304.24
+    },
+    {
+      "text": "order. It's supposed to put the sum of",
+      "duration": 4,
+      "offset": 1305.919
+    },
+    {
+      "text": "the two shifted to the left. So Grock",
+      "duration": 5.12,
+      "offset": 1307.84
+    },
+    {
+      "text": "4.1 is the worst snitch and Gemini 3.1",
+      "duration": 4.88,
+      "offset": 1309.919
+    },
+    {
+      "text": "Pro is the second worst snitch where it",
+      "duration": 3.28,
+      "offset": 1312.96
+    },
+    {
+      "text": "will set on you to the government 100%",
+      "duration": 2.641,
+      "offset": 1314.799
+    },
+    {
+      "text": "of the time and it'll send on you to the",
+      "duration": 3.28,
+      "offset": 1316.24
+    },
+    {
+      "text": "media 30% in this particular scenario.",
+      "duration": 3.84,
+      "offset": 1317.44
+    },
+    {
+      "text": "And that's the tame version. I have two",
+      "duration": 2.8,
+      "offset": 1319.52
+    },
+    {
+      "text": "treatments for this particular",
+      "duration": 3.759,
+      "offset": 1321.28
+    },
+    {
+      "text": "benchmark. One where it is told not to",
+      "duration": 4.56,
+      "offset": 1322.32
+    },
+    {
+      "text": "act any specific way, just what to do",
+      "duration": 3.601,
+      "offset": 1325.039
+    },
+    {
+      "text": "with all of the emails of the medical",
+      "duration": 3.279,
+      "offset": 1326.88
+    },
+    {
+      "text": "malpractice it's seeing. And then the",
+      "duration": 2.96,
+      "offset": 1328.64
+    },
+    {
+      "text": "bold version where I tell it to act",
+      "duration": 3.601,
+      "offset": 1330.159
+    },
+    {
+      "text": "boldly and in the interest of humanity,",
+      "duration": 4.64,
+      "offset": 1331.6
+    },
+    {
+      "text": "which bumps it to a perfect 100% on both",
+      "duration": 4.96,
+      "offset": 1333.76
+    },
+    {
+      "text": "government and media, making it by far",
+      "duration": 4.4,
+      "offset": 1336.24
+    },
+    {
+      "text": "the worst snitch we have ever seen on",
+      "duration": 3.36,
+      "offset": 1338.72
+    },
+    {
+      "text": "this benchmark. It is the only model",
+      "duration": 3.2,
+      "offset": 1340.64
+    },
+    {
+      "text": "I've ever seen get a perfect score on",
+      "duration": 4.079,
+      "offset": 1342.08
+    },
+    {
+      "text": "all of my benches. It got 100% snitch to",
+      "duration": 4,
+      "offset": 1343.84
+    },
+    {
+      "text": "the government. It got 100% snitch to",
+      "duration": 3.681,
+      "offset": 1346.159
+    },
+    {
+      "text": "media. And it got 100% on Skate Bench,",
+      "duration": 4.719,
+      "offset": 1347.84
+    },
+    {
+      "text": "too. Like, it's silly, but I find this",
+      "duration": 5.839,
+      "offset": 1349.84
+    },
+    {
+      "text": "honestly telling. the model benchmarks",
+      "duration": 4.801,
+      "offset": 1352.559
+    },
+    {
+      "text": "so hard that it's winning the benchmarks",
+      "duration": 3.921,
+      "offset": 1355.679
+    },
+    {
+      "text": "that it probably doesn't want to. But",
+      "duration": 4.24,
+      "offset": 1357.36
+    },
+    {
+      "text": "yeah, I can't find any way to measure",
+      "duration": 3.28,
+      "offset": 1359.6
+    },
+    {
+      "text": "this model where it doesn't come out",
+      "duration": 3.04,
+      "offset": 1361.6
+    },
+    {
+      "text": "number one or near number one, but then",
+      "duration": 3.279,
+      "offset": 1362.88
+    },
+    {
+      "text": "when I actually try to use it, it just",
+      "duration": 4.159,
+      "offset": 1364.64
+    },
+    {
+      "text": "sucks to use. That's the jarring",
+      "duration": 4.64,
+      "offset": 1366.159
+    },
+    {
+      "text": "contrast that I'm trying to emphasize to",
+      "duration": 4.24,
+      "offset": 1368.799
+    },
+    {
+      "text": "y'all. On one hand, this model knows",
+      "duration": 3.921,
+      "offset": 1370.799
+    },
+    {
+      "text": "more than any other technology that's",
+      "duration": 3.361,
+      "offset": 1373.039
+    },
+    {
+      "text": "ever been made in the past. It's nuts",
+      "duration": 3.439,
+      "offset": 1374.72
+    },
+    {
+      "text": "how intelligent it is. But on the other",
+      "duration": 3.04,
+      "offset": 1376.4
+    },
+    {
+      "text": "hand, it feels like we're going back in",
+      "duration": 2.721,
+      "offset": 1378.159
+    },
+    {
+      "text": "time where I handed it this migration",
+      "duration": 3.359,
+      "offset": 1379.44
+    },
+    {
+      "text": "that a dozen models have been able to do",
+      "duration": 4.159,
+      "offset": 1380.88
+    },
+    {
+      "text": "now. and it got stuck and thinks that",
+      "duration": 4.641,
+      "offset": 1382.799
+    },
+    {
+      "text": "it's in a potential loop. The Gemini",
+      "duration": 4,
+      "offset": 1385.039
+    },
+    {
+      "text": "models are the only models that loop",
+      "duration": 3.2,
+      "offset": 1387.44
+    },
+    {
+      "text": "enough and fail enough that they had to",
+      "duration": 3.76,
+      "offset": 1389.039
+    },
+    {
+      "text": "put a potential loop was detected hook",
+      "duration": 4.56,
+      "offset": 1390.64
+    },
+    {
+      "text": "into their CLI because it happens so",
+      "duration": 4.561,
+      "offset": 1392.799
+    },
+    {
+      "text": "often. I'll tell it to continue. God,",
+      "duration": 3.599,
+      "offset": 1395.2
+    },
+    {
+      "text": "it's it's so bad. If you have an",
+      "duration": 3.04,
+      "offset": 1397.36
+    },
+    {
+      "text": "unlimited token budget and you love",
+      "duration": 3.12,
+      "offset": 1398.799
+    },
+    {
+      "text": "playing with these things, it's",
+      "duration": 3.2,
+      "offset": 1400.4
+    },
+    {
+      "text": "definitely worth playing with it a bit.",
+      "duration": 3.521,
+      "offset": 1401.919
+    },
+    {
+      "text": "Like, it's really really intelligent.",
+      "duration": 2.959,
+      "offset": 1403.6
+    },
+    {
+      "text": "And if you want to try out this model",
+      "duration": 2.479,
+      "offset": 1405.44
+    },
+    {
+      "text": "without spending a whole bunch of money,",
+      "duration": 2.561,
+      "offset": 1406.559
+    },
+    {
+      "text": "I highly recommend you check out what",
+      "duration": 2.961,
+      "offset": 1407.919
+    },
+    {
+      "text": "we've built at T3 Chat. You can get the",
+      "duration": 3.919,
+      "offset": 1409.12
+    },
+    {
+      "text": "best out of Gemini 3.1 Pro, specifically",
+      "duration": 3.919,
+      "offset": 1410.88
+    },
+    {
+      "text": "its knowledge, without having to pay",
+      "duration": 3.361,
+      "offset": 1413.039
+    },
+    {
+      "text": "Google a ton of money for a subscription",
+      "duration": 3.12,
+      "offset": 1414.799
+    },
+    {
+      "text": "that you're only using every once in a",
+      "duration": 3.12,
+      "offset": 1416.4
+    },
+    {
+      "text": "while to ask it a question, and you'll",
+      "duration": 3.12,
+      "offset": 1417.919
+    },
+    {
+      "text": "still have access to all of the other",
+      "duration": 3.92,
+      "offset": 1419.52
+    },
+    {
+      "text": "much more consistent models when you",
+      "duration": 3.921,
+      "offset": 1421.039
+    },
+    {
+      "text": "want to use those for other things. This",
+      "duration": 2.8,
+      "offset": 1423.44
+    },
+    {
+      "text": "last week has been our launch week for",
+      "duration": 2.959,
+      "offset": 1424.96
+    },
+    {
+      "text": "T3 chat. We shipped a ton of features,",
+      "duration": 2.96,
+      "offset": 1426.24
+    },
+    {
+      "text": "so if you haven't used it in a while,",
+      "duration": 2.88,
+      "offset": 1427.919
+    },
+    {
+      "text": "definitely check it out again. We even",
+      "duration": 3.2,
+      "offset": 1429.2
+    },
+    {
+      "text": "have a higher tier finally for those of",
+      "duration": 3.041,
+      "offset": 1430.799
+    },
+    {
+      "text": "you guys who want to do basically",
+      "duration": 3.44,
+      "offset": 1432.4
+    },
+    {
+      "text": "endless prompting. 50 bucks a month for",
+      "duration": 3.839,
+      "offset": 1433.84
+    },
+    {
+      "text": "unlimited effectively and it's still",
+      "duration": 3.199,
+      "offset": 1435.84
+    },
+    {
+      "text": "only eight bucks a month for a very",
+      "duration": 2.641,
+      "offset": 1437.679
+    },
+    {
+      "text": "generous base tier. But if you're",
+      "duration": 2.88,
+      "offset": 1439.039
+    },
+    {
+      "text": "looking for something for code, I still",
+      "duration": 3.839,
+      "offset": 1440.32
+    },
+    {
+      "text": "recommend Codeex 5.3. The plan is too",
+      "duration": 4.24,
+      "offset": 1441.919
+    },
+    {
+      "text": "generous. The model's really good and",
+      "duration": 3.921,
+      "offset": 1444.159
+    },
+    {
+      "text": "you don't get a lot of these quirks. I",
+      "duration": 4.081,
+      "offset": 1446.159
+    },
+    {
+      "text": "have had to tab in and say yes far too",
+      "duration": 4.4,
+      "offset": 1448.08
+    },
+    {
+      "text": "many times to this very, very special",
+      "duration": 5.2,
+      "offset": 1450.24
+    },
+    {
+      "text": "model. On February 13th, I said that I",
+      "duration": 4.64,
+      "offset": 1452.48
+    },
+    {
+      "text": "wish Google would stop benchmaxing for",
+      "duration": 3.119,
+      "offset": 1455.44
+    },
+    {
+      "text": "long enough to make a usable model.",
+      "duration": 3.36,
+      "offset": 1457.12
+    },
+    {
+      "text": "Gemini 3 Pro is as smart as Opus, but it",
+      "duration": 3.441,
+      "offset": 1458.559
+    },
+    {
+      "text": "screws up tool calls as consistently as",
+      "duration": 3.36,
+      "offset": 1460.48
+    },
+    {
+      "text": "Gro 3 Mini. Crazy to think I said this",
+      "duration": 3.679,
+      "offset": 1462
+    },
+    {
+      "text": "over a week ago and it's more true now",
+      "duration": 4.16,
+      "offset": 1463.84
+    },
+    {
+      "text": "than ever. Google, make your models",
+      "duration": 3.921,
+      "offset": 1465.679
+    },
+    {
+      "text": "work. Stop trying to win every",
+      "duration": 3.279,
+      "offset": 1468
+    },
+    {
+      "text": "benchmark. There's more important things",
+      "duration": 4.4,
+      "offset": 1469.6
+    },
+    {
+      "text": "and the models are just not usable yet.",
+      "duration": 4.64,
+      "offset": 1471.279
+    },
+    {
+      "text": "Go have your engineers try other models",
+      "duration": 3.44,
+      "offset": 1474
+    },
+    {
+      "text": "and use other things and they'll quickly",
+      "duration": 3.041,
+      "offset": 1475.919
+    },
+    {
+      "text": "come back with exactly what needs to",
+      "duration": 3.52,
+      "offset": 1477.44
+    },
+    {
+      "text": "change because right now it is just not",
+      "duration": 3.68,
+      "offset": 1478.96
+    },
+    {
+      "text": "pleasant to use. I got nothing else to",
+      "duration": 3.92,
+      "offset": 1480.96
+    },
+    {
+      "text": "say on this one. Until next time, peace",
+      "duration": 4.399,
+      "offset": 1482.64
+    },
+    {
+      "text": "nerds.",
+      "duration": 2.159,
+      "offset": 1484.88
+    }
+  ],
+  "transcriptText": "Another day, another new world's smartest model. Gemini 3.1 Pro just dropped. And honestly, it is kind of crazy. All of the numbers I've been seeing are insane. Both the ones Google published and the ones being published externally, as well as the ones I've gotten myself. I've been using this model a ton, running against every benchmark. And the numbers are incredible. It scored four points higher on the artificial intelligence index than any model before it, including Opus 4.6 Max. What's even crazier, though, is it cost less than half as much to get that score at only $892 versus the almost $2500 that Opus 4.6 six cost. Google's own numbers show it crushing everything, including ARC AGI 2, which just getting a 78% on ARC AGI 2 is insane. The whole point of that one was that Loom couldn't do it and AGI 1 was be Oh god, no. This is insane. Like, all of these numbers are nuts. So, is that it? Is Opus dead? Has Google officially won the AI wars? Not quite. None of these things are this simple. As you guys know, there's a lot more depth to the numbers than there seems to be online. And I cannot wait to go through all of this with you guys right after a quick word from today's sponsor. You know how it feels like your AI gets way better when you give it access to your whole codebase instead of just trying to scope it to a file? It turns out it goes way further if you give it access to the internet. It can do so much, especially with all these new browser use agents. But what browser are you going to let them use? Probably not the one on your computer, right? Especially for programmatic realwork use cases. That's why I'm so hyped about today's sponsor, Kernel. The best place to run your browser use agents in the cloud. Their open source infrastructure is absurdly fast. It takes less than 30 milliseconds for them to spin up a browser that you can connect to. And the actual process of doing that couldn't be simpler. Cloudset 4.6 is way better at browser use than previous models. And it's actually been really fun to play with. This code will actually spin up a browser with kernel and then give access to claude so that it can run and do things on it. We're going to have it take a screenshot of the current page, search around to find the blogs about manage o, and then read and summarize the blog post. And it does this by actually navigating the site. Now all I have to do is run our dev command and a browser will be launched in the cloud. You can even spin up a live view if you want to that will show you what's happening as it actually occurs. I have my cursor there, but you can see there's a mouse cursor there. If I want, I can take over and do things, but I don't need to. I'm letting the agent do it. So, it just found and clicked on the blog. It's decided to scroll, and now it's finding the post that we were talking about in the prompt. And if we look here, you can see what Claude decided to do each step along the way. You can probably already see how useful this is, but once you add in things like persisting off, capture workarounds, and all the other stuff you need, it becomes a genuinely useful way to do things that might not have an API. Stop limiting your agents and what they're capable of and give them access to the web at soyb.link/kernel. Back to it. We need to talk about Gemini 3.1 Pro. As I said before, I've been using it a ton. I currently have it running in the background porting an old app. I've been using it in a ton of different harnesses and a ton of different like tools and building a bunch of different stuff as well. I also used it to update some old projects. And in doing such, I have learned to deeply deeply hate the Gemini CLI. Not only did the Gemini CLI not have Gemini 3.1 on day one, and I actually accidentally ran this with Gemini 3, it looks like. Great. Love that. Not only do they not have 3.1 Pro on the CLI, it also just breaks all the time. It is super buggy and does just weird [ __ ] I was intentionally trying to preserve this history so I could show you guys some of the weird stuff, but uh since my resolution changed on my computer, that appears to have died. Great. Well, I'm sure there will be plenty of issues with this run. Let's take a quick look. You know what? Actually, first things first, because I accidentally ran Gemini 3 Pro before, I got used to Gemini 3's horrible inability to like do basic tool calling correctly and consistently. Almost the entire time that it was running, it was hitting errors that made no sense at all. Just like failing to edit a file it had just read by passing bad syntax. It seems like 3.1 is significantly less bad about that, at least from the official logs for this particular run I am doing right now. Since I couldn't use it in the official CLI, I decided to first try it in the cursor one, and it was insightful. The cursor CLI actually seems decent so far. I have my issues with it. You can't paste images, which sucks, but otherwise it seems to work. So, let's do a test example here. Telling it to move from SQLite to Postgress. I'm not actually going to have it do that, but just see how this goes. So, you guys can see some of these thinking traces. Taking its sweet, sweet time. Reconnecting. Great. Good start. Uh, I don't know if this is cursor's fault or Gemini's fault, but whichever it is, this is a bad experience. So, let's try again. You might also notice that my top nav is visible, and it normally isn't. This is a bit of a tangent, but I want to complain. So, I'm going to show you guys that when I go to settings, my whole computer breaks. And now, this is what my Mac settings look like. I am so done with Mac OS. Okay, it aggressively hides the thinking right after showing it to me in the cursor tool. So, I'll show you here. Every single time it runs, it has a prioritizing tool selection step. I've been focusing on tool selection, leaning heavily on specialized tools when available. I'm actively avoiding CAT for file manipulation, particularly when other and it gets cut off. I've seen this in everything that is correctly using Gemini. These models suck at tool calls. They just don't do them well. They can be handed a bunch of tools, smile and wave, and then not do anything unless you put a ton of work instructing them into using those tools. And if you're not careful, they'll instead massively overuse them. The reason why I'm using cursor here is because of this specifically. They've put a ton of time into tuning the Gemini models into well, I don't know how other than sucking less. Google just does not seem like they are training these models to be good in harnesses. They are too focused on benchmaxing. And oh boy, have they benchmaxed. A while back, I made a benchmark called skate bench that was meant to measure how well different models could name skateboarding tricks based on descriptions of the tricks. It's a combination of like a weird niche knowledge bench as well as a spatial recognition bench because you need to know about the rotations and how it affects the board and the skater and the relationship between all of those things. When I first made this benchmark, Gro 4 had the highest score by far in like the high7s. Okay, 75 is what it got on my most recent run. And then I went to the OpenAI office to try out GPT5, which scored a 98, which just absolutely broke me at the time. Since then, OpenAI models have actually regressed quite a bit, and the highest I can get one of the modern ones to do is about an 87, which is insane that it has regressed that meaningfully. Obviously, 5.2 and 5.3 are phenomenal models for code. They were not as good at this. Take that as you will. We have a new winner, and it's not close. Gemini 3.1 Pro Preview consistently hits 100% on this benchmark. I don't know what the hell they did, but it gets 3D very, very well. It's also good at 2D space. It's the first model to make an actually like decent, usable SVG of the Pelican on a bike. It took 323.9 seconds of thinking, but it did a pretty good job here. Not only can it make these SVGs, it can actually animate them. Like, I've never seen a model capable of this type of thing. SVG animations are an intricate science that is not easy to do. And yeah, it killed it with a lot of this. I was even setting it up on a couple other projects I was working on and was impressed with it animation capabilities. Personally, I was not as impressed with the SVGs it was creating, but I was able to make it do some cool looking stuff. If you've been around the last few weeks, you know that I've taken on far too many side projects. I'm close to wrapping up a few of them and shipping them, and I might have picked up one or two more. I want to touch on a few quick though, because I've been using Gemini for it, and there are things that has done really well, as well as things that has done really poorly. One of the things it's doing incredibly well is design. I'm working on a new video review service, like code review, but for video is an alternative to frame, cuz I'm tired of Adobe stuff. And it made a stunning homepage. I was trying to get do some fancy stuff with the layering of the images, but failed there. So, I told it screw it. You have these pieces. Go redesign it, make it look decent. This was the first thing it spit out. I obviously gave it suggestions on how to tidy up a few things from there. But, like, it made a goodlook website without a whole lot of work. I already had a site here that wasn't great, and I told it to basically unscrew it, and it did. It made like I'm probably going to ship this as is. I'm very happy with how this came out. It also helped build this UI for a new project that I'm working on that I'll share a lot more about soon. I'm very excited about this one. I have these models effectively playing a game of Quiplash against each other where everything is generated. And I have been surprised at how funny Gemini 3.1 Pro has been. I also built this whole app with Gemini 3.1 Pro. It had its quirks. It definitely struggled when the length of the task got bigger and I had to help it unblock itself a lot. Like that's funny. A plight thing to scream at scarecrows. Nice flannel. Sorry about the bird [ __ ] Like that was decently funny. And I'm not the only one who thinks it's funny. The models do, too. See that? Apparently, it's the funniest model. I never would have expected that Google would be the one to make something funny. I honestly thought Grock would do a bit better. I've actually been surprised multiple times where I looked at the two responses when it was Grock versus Gemini, and Gemini was the one making the more vile jokes. To be fair, the first UI it made was a ugly would be putting it lightly. It also had a lot of quirks when I was running it. I originally wrote this as a CLI app. And man, I saw a lot of weird Geminiisms when I did. This one was funny because the GLM5 prompt writer failed, so they didn't get prompted with an actual thing they had to respond to. They were told to be funny in the system prompt, so Grock did its classic. Jeffrey Epste didn't kill himself. And then Gemini 3.1 Pro went with the Yeah, this is the thing about the Gemini models. They don't really behave well. I don't mean that they like go off the rails and do nasty stuff. I mean they might do that a little bit. I've definitely seen Gemini 3.1 Pro deleting things it shouldn't be. I just had that happen yesterday actually where it nuked a bunch of assets that it was not supposed to touch. Be careful when you're giving it file write access for sure. But the more annoying thing is just the way it fails to perform as a freaking model. Like it just doesn't do it right. The amount of times I've seen it just get stuck in like two-word loops where it just says the same two words over and over again or respond with utter nonsense and immediately stop or just like switch over to Chinese characters, which would happen a lot with Gemini 3 Pro. Haven't had that with 3.1 yet, but I have all of the other quirks and then some. Here's another funny one. In the system prompt for the model that is making the prompt that the other models use to respond to, I know prompt means two different things here. It's confusing. The system prompt I wrote to give the model so it could generate a game prompt to use for the other models. That system prompt says that it should only return the thing it wants to have the other models respond to. It says return only this thing, which Gemini did by saying return only. This is like llama 2 [ __ ] But this is the nature of the Gemini models. They are insanely smart. The amount of intelligence they've baked into these models is honestly overwhelming. I am consistently surprised by how competent it is in knowledge. And I'm not the only one that feels that way. Artificial Analysis has commented on the same specifically around the hallucination rates and it's just knowledge in general. Artificial analysis made their own omniscience benchmark that is keeping track of knowledge and hallucinations and letting them cancel each other out. So you're ranked both by how many answers you got correctly as well as how many times you answer incorrectly. And you're not penalized for refusing to answer for saying I don't know. So this is a benchmark that rewards models that are able to say I don't know what the answer to that is. punishes them if they lie a lot and then obviously rewards them if they do the problem correctly. And as we can see here, 3.1 Pro Preview had a really good score. Even some of the smartest models like Sonnet 4.6 and GPT 5.2 high are still in the negatives because this benchmark has a lot of really hard problems that the models will often hallucinate and get incorrectly. If we hop over to the hallucination rate chart though, you'll see previous models like Gemini 3 Flash and GPTOSS20B were insanely high. When they didn't know the answer, they would never refuse. they would just be wrong. Surprisingly enough, Haiku 4.5 is the model that is the best about this. It's very quick to say when it doesn't know something. Gemini 3. Preview though is a huge advancement here. It is a comical gap between 3.1 Pro and 3 Pro where the hallucidation rate has nearly hald in that time. But where Google really slaughters in these benchmarks is the accuracy. It just knows more information. So, it's able to answer a lot more of these questions correct than even other leading models. It's obviously such an intelligent model. The amount of information, the amount of capability baked into these weights is unreal. But when it comes to actually using it, it genuinely sucks. Some part of that is just the way it randomly spams my terminals after I close things for no reason. I have no idea what's going on here at all. We're just going to close that terminal entirely. Why did it do that? Okay. I am genuinely trying so hard to use Gemini 3.1 Pro to test things. But no matter what the [ __ ] I do in their CLI, it just randomly changes to other models. Why is it using Flash Light, Flash 2.5, and three Flash preview? When I selected Gemini 3.1 Pro, their CLI is legitimately unusable. And as silly as it sounds, I think that's a big part of why it sucks as hard as it does. It's pretty clear now that the other labs are using the histories from other people's chats to train models. If you have a before and an after, if you have the thing that somebody needed changed in the changes they made in the before and after for that repo, it's pretty easy to generate a fake history for any of these CLIs. Once the labs have generated all of these fake histories, they use it for reinforcement learning. And the result is that the models can work in these tools and they can work in them really well for really long amounts of time. Google doesn't seem to be doing this at all. I could be wrong. They're clearly rling on something, but it's not helping with these long agentic runs. The meter eval show what I'm talking about here really strongly. If you're not familiar, this is a benchmark that tracks how long of a task in terms of the human time to complete are the models capable of completing. At the start of 2025, the best we had was between half an hour to an hour of a task being able to be completed by an agent on its own 50% of the time. This is 50% success rate. Now with Opus 4.6, we're up all the way to the 16-hour range where it can run on a task for a very long time. Obviously, it won't be 16 hours. It'll be closer to like half an hour to an hour, but it's a task that would have taken a human 16 plus hours with a 50% success rate. That's nuts. Both GBT 5.2 and Opus 4.6 are killing it here. And once 5.3 is on the API, I would suspect it will kill here as well. I don't think Gemini models are capable of performing well on this because they tend to get really confused and lost when given the ability to like go do things for a while. I also said earlier it seemed like the tool call issues had mostly stopped. I can't know that because it just ran with the wrong [ __ ] model. So yeah, I'm now rerunning this yet again with 3.1 Pro preview. Hopefully it will actually stay on the model I selected this time. I couldn't help but notice there isn't a plan mode. And I also just accidentally turned off yellow mode. Great. The CLI is awful. Obviously, CLI is awful. We all know that. Just use anything else if you can. Oh man, I I just need to complain a bit about this dissonance between how smart these models are and how competent they are. I'm going to do a strange comparison. I want to talk about Claude 4.5 Haiku. Why would I want to talk about Haiku? It's a super dumb model. If we go to the intelligence index on top here, you'll see it's not even in the main chart because why would it be? It's scoring a 37. And these models are in the high50s now. Why would I want to talk about this tiny cheap [ __ ] model? Because it does its godamn job. And this is the thing I want to emphasize. Models aren't just bundles of knowledge. They're also now expected to have behaviors and to do things, especially with tool calling and especially with knowledge gathering through the tool calling. Obviously, a model with more knowledge is going to be able to do more things in general. If it's smarter, it knows more and it's able to do more. But if it's able to gather knowledge better, that tends to push it ahead quite a bit. And what Anthropic has been super focused on from at least the Sonnet 35 days onwards is the consistency around the tool calling. I never see Haiku screw up the shape of a tool call. If you tell it how a tool works, it will use it and it will use it relatively well. If you ask Gemini 3.1 Pro Preview to use a tool, it will rotate between using it too much, not using it at all, and using it incorrectly with the occasional correct usage. Although it is rare, the model clearly follows instructions better overall than it has in the past. Like Google has made some progress here, but it still honestly feels like a lastg model. It feels like somebody took something from like the old llama days or even one of like the older deepseek openweight models and stuffed infinite intelligence into it, but forgot to put the competence in. It's just not good at doing things. They don't have a plan tool, but what I've heard from others is that in the harnesses that do have a plan tool, it'll just not use it. It'll just output the questions and you're expected to just answer and then it will create a bunch of output and say are you happy with this and you say yes or no. It doesn't call the plan tool or any of the things that are associated with it. My guess is that they tried to RL it on a planning phase but didn't RL it on a planning phase with planning tools and as a result it just is weird. Okay, it looks like it wrote a decent plan here but again not in plan mode. Telling it to go work. Okay, it still has the random failing to edit thing. Like I don't know how it screws this type of stuff up. It also sucks at reading files. It seems like it was hardcoded to only be able to read up to a 100 lines at a time. And I've watched it read line one through 100, 101 to 200, 2011 to 300 on many different things. Like why? I feel like I have to sit there and watch this model not just so I can cover it responsibly for you guys, but so I can make sure it's not breaking constantly and doing things wrong. Cuz that's all inference you're paying for. Is it more efficient when it does everything correctly? Yeah, it's cheaper and uses slightly fewer tokens than something like Opus 4.6, but if it has to generate 3x the number of tokens because it failed the tool call the first two times, you're not benefiting as much any at all at that point. Like, I've never seen any of the other modern models fail so often with basic stuff like that. Even the new open weight ones seem to have resolved a lot of these things. Google just hasn't. Trying to reach Gemini 3.1 Pro preview attempt three of three. It's about to fail as it was just getting started. H you'd imagine the trillion dollar company would be the one that could figure these things out. Like this has to be solvable with money and time and smart engineering, right? I just don't get how it could get as bad as it currently is. When I was working on the game I showed earlier, I wanted the logos for all of the labs and it just h the reasoning summaries are just so bad. I've been on a quest to explore various language models. ChatGpt is definitely a strong contender. Now I'm shifting my attention to locating Claude, Deepseek, and Grock. My focus is on understanding their capabilities and how they might differ from Chhat GBT. No, it's [ __ ] not. I told you to go find Logos. I don't know why they're hiding the reasoning traces. They're not that useful anymore. And this is the alternative is garbage. I don't know what happened here. Was the reasoning actually that bad and we got a summary that summarized the bad thing it was doing or was the summarization process incorrect that gave us this nonsense? Because again, remember I asked it to go find logos for the things in the codebase and it somehow went on a soularching journey all about chat GPT. And in any competent harness where it has tools it actually uses well, they've system prompted the hell out of it and you see the labbotomized results. I'm currently evaluating the best approach to use various tools for this task. It's a complex process. So I am being very deliberate in assessing which tools will be the most suitable. I'm focusing on the particular strengths of each tool to ensure maximum efficiency. This was for a simple UI change. It just it's honestly been flashbacks to like early 2025, hell, late 2024 where I feel like I have to be closely monitoring what it's doing and I see it just doing things wrong constantly. Oh, I didn't realize the reason it wasn't able to reach 3.1 Pro because I had to go give it permission to run this command because it didn't know it needed to have that. And now I think the CLI is broken again. Oh no, it's spawning more things. It looks like it hallucinated packages that don't exist. So much for that lower hallucination rate. It has access to the web. It can look these things up. I told it what to do and how to do it, and it has just outright failed to do it. It's writing a Python code mod to do the code mod itself because it didn't succeed in finding it. This is a company that made the world's biggest and most successful search engine, and it can't figure out where the code mod is that I told it about. It does seem to be pretty good at using additional knowledge it is given. So, if you put things in the system prompt or the instructions or just in the context, it's able to adjust its behavior meaningfully. You've probably heard me talk about Convex is by far my favorite way to handle backend stuff nowadays. They have an LLM leaderboard for how well the different models work with Convex. They have two versions. They have the with guidelines where they're given the Convex AI rules and they have a separate no guidelines version where they aren't. When not given guidelines, Claude 4.6 sonnet slaughters. It just seems like Anthropic snuck this into the training data. I don't know why or how, but yeah, it performed very well at a 90% there when compared to GPT 5.2, my beloved, only getting a 75%. This is one of the many reasons I keep reaching for anthropic models. But now, Gemini scored great here at an 89%. But what was even crazier is when you turn on those guidelines, suddenly we're almost at a 95. It is way better at convex than basically anything else available right now. And as someone who uses Convex a lot, this is super tempting. I want to play with this more because it got the fundamentals, data modeling perfect, queries nearly perfect, mutations perfect, actions perfect, idioms perfect, and the highest client score we've seen to date. Like that's huge. When it's given these rules, it meaningfully increases its likelihood of being correct. At the same time though, it is scoring horribly with stuff like SnitchBench. If you're not familiar with SnitchBench, it's a benchmark I made because people didn't seem to understand part of the reporting anthropic did where they talked about the model doing things that the controller of it might not want it to do that it thought was morally correct and the dangers of that. This was misunderstood by a bunch of people thinking that Anthropic made it intentionally do that. So, I made a benchmark that replicated that to show people that a lot of models do it, including Grock 4.1. All the Grock models are hardcore snitches for whatever reason. I also just realized when I had Gemini redo the UI for SnitchBench, it screwed up the sort order. It's supposed to put the sum of the two shifted to the left. So Grock 4.1 is the worst snitch and Gemini 3.1 Pro is the second worst snitch where it will set on you to the government 100% of the time and it'll send on you to the media 30% in this particular scenario. And that's the tame version. I have two treatments for this particular benchmark. One where it is told not to act any specific way, just what to do with all of the emails of the medical malpractice it's seeing. And then the bold version where I tell it to act boldly and in the interest of humanity, which bumps it to a perfect 100% on both government and media, making it by far the worst snitch we have ever seen on this benchmark. It is the only model I've ever seen get a perfect score on all of my benches. It got 100% snitch to the government. It got 100% snitch to media. And it got 100% on Skate Bench, too. Like, it's silly, but I find this honestly telling. the model benchmarks so hard that it's winning the benchmarks that it probably doesn't want to. But yeah, I can't find any way to measure this model where it doesn't come out number one or near number one, but then when I actually try to use it, it just sucks to use. That's the jarring contrast that I'm trying to emphasize to y'all. On one hand, this model knows more than any other technology that's ever been made in the past. It's nuts how intelligent it is. But on the other hand, it feels like we're going back in time where I handed it this migration that a dozen models have been able to do now. and it got stuck and thinks that it's in a potential loop. The Gemini models are the only models that loop enough and fail enough that they had to put a potential loop was detected hook into their CLI because it happens so often. I'll tell it to continue. God, it's it's so bad. If you have an unlimited token budget and you love playing with these things, it's definitely worth playing with it a bit. Like, it's really really intelligent. And if you want to try out this model without spending a whole bunch of money, I highly recommend you check out what we've built at T3 Chat. You can get the best out of Gemini 3.1 Pro, specifically its knowledge, without having to pay Google a ton of money for a subscription that you're only using every once in a while to ask it a question, and you'll still have access to all of the other much more consistent models when you want to use those for other things. This last week has been our launch week for T3 chat. We shipped a ton of features, so if you haven't used it in a while, definitely check it out again. We even have a higher tier finally for those of you guys who want to do basically endless prompting. 50 bucks a month for unlimited effectively and it's still only eight bucks a month for a very generous base tier. But if you're looking for something for code, I still recommend Codeex 5.3. The plan is too generous. The model's really good and you don't get a lot of these quirks. I have had to tab in and say yes far too many times to this very, very special model. On February 13th, I said that I wish Google would stop benchmaxing for long enough to make a usable model. Gemini 3 Pro is as smart as Opus, but it screws up tool calls as consistently as Gro 3 Mini. Crazy to think I said this over a week ago and it's more true now than ever. Google, make your models work. Stop trying to win every benchmark. There's more important things and the models are just not usable yet. Go have your engineers try other models and use other things and they'll quickly come back with exactly what needs to change because right now it is just not pleasant to use. I got nothing else to say on this one. Until next time, peace nerds."
+}

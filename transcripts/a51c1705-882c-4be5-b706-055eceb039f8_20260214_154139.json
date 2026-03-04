@@ -1,0 +1,3232 @@
+{
+  "channel": {
+    "id": "a51c1705-882c-4be5-b706-055eceb039f8",
+    "databaseId": "a51c1705-882c-4be5-b706-055eceb039f8",
+    "name": "Theo Browne",
+    "description": "Theo is a software dev, AI nerd, TypeScript sympathizer, creator of T3 Chat and the T3 Stack."
+  },
+  "videoId": "DnTs_D_y1vA",
+  "title": "Fumble of the decade",
+  "url": "https://www.youtube.com/watch?v=DnTs_D_y1vA",
+  "publishedAt": "2026-02-14T18:41:38.472Z",
+  "description": "Heroku is really dead this time. No new features, no new enterprise customers, it's the end of an era...\n\nThank you Kernel for sponsoring! Check them out at: https://soydev.link/kernel\n\nSOURCES\nhttps://www.linkedin.com/posts/mikellindsaar_breaking-tech-news-salesforce-activity-7425331090053025792-w-Ky/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAADBvlUBmlRIuUDY6LEDzik00_f91hgzk0o\nhttps://techcrunch.com/2024/11/14/heroku-ceo-bob-wise-departs/\nhttps://x.com/JustJake/status/2019879128472977408\nhttps://x.com/heroku/status/2019788655095853479\nhttps://www.heroku.com/blog/an-update-on-heroku/\n\nWant to sponsor a video? Learn more here: https://soydev.link/sponsor-me\n\nCheck out my Twitch, Twitter, Discord more at https://t3.gg\n\nS/O @Ph4seon3 for the awesome edit 🙏",
+  "thumbnailUrl": "https://i.ytimg.com/vi_webp/DnTs_D_y1vA/maxresdefault.webp",
+  "transcript": [
+    {
+      "text": "I might be dating myself a bit here, but",
+      "duration": 3.36,
+      "offset": 0
+    },
+    {
+      "text": "Heroku was essential to me getting",
+      "duration": 3.759,
+      "offset": 1.52
+    },
+    {
+      "text": "started as a dev back in the day. It was",
+      "duration": 3.999,
+      "offset": 3.36
+    },
+    {
+      "text": "the easiest place by far to just spin up",
+      "duration": 4.481,
+      "offset": 5.279
+    },
+    {
+      "text": "a server. AWS was revolutionary in that",
+      "duration": 4.081,
+      "offset": 7.359
+    },
+    {
+      "text": "it could allow you to do things like",
+      "duration": 3.6,
+      "offset": 9.76
+    },
+    {
+      "text": "that, but the experience using it just",
+      "duration": 3.6,
+      "offset": 11.44
+    },
+    {
+      "text": "wasn't there. And Heroku was the first",
+      "duration": 3.2,
+      "offset": 13.36
+    },
+    {
+      "text": "platform that really had that magic",
+      "duration": 3.28,
+      "offset": 15.04
+    },
+    {
+      "text": "feeling of linking something to a GitHub",
+      "duration": 4,
+      "offset": 16.56
+    },
+    {
+      "text": "repo and the server just kind of exists.",
+      "duration": 4.08,
+      "offset": 18.32
+    },
+    {
+      "text": "There's a reason that so many developers",
+      "duration": 3.28,
+      "offset": 20.56
+    },
+    {
+      "text": "that you know, love, and learn from",
+      "duration": 3.52,
+      "offset": 22.4
+    },
+    {
+      "text": "today all learned the way they did on",
+      "duration": 4.32,
+      "offset": 23.84
+    },
+    {
+      "text": "top of Heroku. And today we all grieve",
+      "duration": 4.96,
+      "offset": 25.92
+    },
+    {
+      "text": "together because man, Heroku's dead dead",
+      "duration": 4.88,
+      "offset": 28.16
+    },
+    {
+      "text": "now. If you're not familiar, Heroku was",
+      "duration": 4.08,
+      "offset": 30.88
+    },
+    {
+      "text": "by far the easiest way to set up servers",
+      "duration": 4,
+      "offset": 33.04
+    },
+    {
+      "text": "for quite a long time. They also had a",
+      "duration": 3.919,
+      "offset": 34.96
+    },
+    {
+      "text": "very generous free tier for a while.",
+      "duration": 3.519,
+      "offset": 37.04
+    },
+    {
+      "text": "They got acquired by Salesforce because",
+      "duration": 3.52,
+      "offset": 38.879
+    },
+    {
+      "text": "Salesforce, like many companies of that",
+      "duration": 4.32,
+      "offset": 40.559
+    },
+    {
+      "text": "era, was built heavily on top of Heroku.",
+      "duration": 3.84,
+      "offset": 42.399
+    },
+    {
+      "text": "But unlike the other companies,",
+      "duration": 3.441,
+      "offset": 44.879
+    },
+    {
+      "text": "Salesforce hadn't moved off and decided",
+      "duration": 3.921,
+      "offset": 46.239
+    },
+    {
+      "text": "it would probably be cheaper to just buy",
+      "duration": 3.84,
+      "offset": 48.32
+    },
+    {
+      "text": "Heroku and fix the problems we have with",
+      "duration": 3.76,
+      "offset": 50.16
+    },
+    {
+      "text": "it than it would be to move off. At",
+      "duration": 3.68,
+      "offset": 52.16
+    },
+    {
+      "text": "least if you're the size of Salesforce,",
+      "duration": 3.68,
+      "offset": 53.92
+    },
+    {
+      "text": "which is why they did it. Not too long",
+      "duration": 3.359,
+      "offset": 55.84
+    },
+    {
+      "text": "after that acquisition, they realized",
+      "duration": 3.279,
+      "offset": 57.6
+    },
+    {
+      "text": "that the free tier was mostly a money",
+      "duration": 3.68,
+      "offset": 59.199
+    },
+    {
+      "text": "pit, not a way to actually get",
+      "duration": 3.92,
+      "offset": 60.879
+    },
+    {
+      "text": "customers. So, they turned off the free",
+      "duration": 3.761,
+      "offset": 62.879
+    },
+    {
+      "text": "tier, which is one of the most defining",
+      "duration": 3.761,
+      "offset": 64.799
+    },
+    {
+      "text": "things for Heroku. That would be the",
+      "duration": 3.519,
+      "offset": 66.64
+    },
+    {
+      "text": "equivalent of like Twitter turning off",
+      "duration": 4.08,
+      "offset": 68.56
+    },
+    {
+      "text": "the free tier. It's just unimaginable.",
+      "duration": 4,
+      "offset": 70.159
+    },
+    {
+      "text": "It was insane. It was one of my first",
+      "duration": 3.6,
+      "offset": 72.64
+    },
+    {
+      "text": "ever viral videos way back in what was",
+      "duration": 4.161,
+      "offset": 74.159
+    },
+    {
+      "text": "that? Over three years ago. Yeah,",
+      "duration": 4.32,
+      "offset": 76.24
+    },
+    {
+      "text": "September 2022.",
+      "duration": 4.56,
+      "offset": 78.32
+    },
+    {
+      "text": "Wild. And it's basically just been",
+      "duration": 4.559,
+      "offset": 80.56
+    },
+    {
+      "text": "idling since then. And it no longer is",
+      "duration": 3.919,
+      "offset": 82.88
+    },
+    {
+      "text": "spinning around the drain. It is",
+      "duration": 4.32,
+      "offset": 85.119
+    },
+    {
+      "text": "officially going down. Today, Heroku is",
+      "duration": 4,
+      "offset": 86.799
+    },
+    {
+      "text": "transitioning to a sustaining",
+      "duration": 3.521,
+      "offset": 89.439
+    },
+    {
+      "text": "engineering model focused on stability,",
+      "duration": 3.841,
+      "offset": 90.799
+    },
+    {
+      "text": "security, reliability, and laying off",
+      "duration": 4.159,
+      "offset": 92.96
+    },
+    {
+      "text": "our team. Sorry, support. I have a lot",
+      "duration": 4.72,
+      "offset": 94.64
+    },
+    {
+      "text": "of thoughts on this one. both the",
+      "duration": 4.721,
+      "offset": 97.119
+    },
+    {
+      "text": "disaster that is how Heroku is shutting",
+      "duration": 4.16,
+      "offset": 99.36
+    },
+    {
+      "text": "down without shutting down as well as",
+      "duration": 3.279,
+      "offset": 101.84
+    },
+    {
+      "text": "the alternatives that you should explore",
+      "duration": 3.52,
+      "offset": 103.52
+    },
+    {
+      "text": "and how things have shifted over the",
+      "duration": 3.68,
+      "offset": 105.119
+    },
+    {
+      "text": "years as well as answers to some fun",
+      "duration": 3.84,
+      "offset": 107.04
+    },
+    {
+      "text": "questions like I wonder how Verscell can",
+      "duration": 3.921,
+      "offset": 108.799
+    },
+    {
+      "text": "subsidize their free tier covering all",
+      "duration": 3.76,
+      "offset": 110.88
+    },
+    {
+      "text": "of that and more and how much risk your",
+      "duration": 3.6,
+      "offset": 112.72
+    },
+    {
+      "text": "platforms might have but if I'm going to",
+      "duration": 3.519,
+      "offset": 114.64
+    },
+    {
+      "text": "keep offering my content for free",
+      "duration": 3.6,
+      "offset": 116.32
+    },
+    {
+      "text": "someone's got to pay the team and today",
+      "duration": 3.041,
+      "offset": 118.159
+    },
+    {
+      "text": "the only people paying us are the",
+      "duration": 2.64,
+      "offset": 119.92
+    },
+    {
+      "text": "sponsor I've been automating more and",
+      "duration": 2.959,
+      "offset": 121.2
+    },
+    {
+      "text": "more of my work with AI and I'm blown",
+      "duration": 3.44,
+      "offset": 122.56
+    },
+    {
+      "text": "away with what it can do I commonly run",
+      "duration": 4.32,
+      "offset": 124.159
+    },
+    {
+      "text": "into a specific limitation though API",
+      "duration": 4,
+      "offset": 126
+    },
+    {
+      "text": "Well, more importantly, the lack of",
+      "duration": 3.601,
+      "offset": 128.479
+    },
+    {
+      "text": "APIs. There are so many services around",
+      "duration": 4.239,
+      "offset": 130
+    },
+    {
+      "text": "the world that don't have an API to",
+      "duration": 4.239,
+      "offset": 132.08
+    },
+    {
+      "text": "access them. And it's so annoying.",
+      "duration": 3.521,
+      "offset": 134.239
+    },
+    {
+      "text": "Unless you're using today's sponsor,",
+      "duration": 2.961,
+      "offset": 136.319
+    },
+    {
+      "text": "Kernel. If you give your AI a browser,",
+      "duration": 3.52,
+      "offset": 137.76
+    },
+    {
+      "text": "it could suddenly do a whole lot more.",
+      "duration": 3.12,
+      "offset": 139.28
+    },
+    {
+      "text": "There's a lot of companies trying to",
+      "duration": 2.88,
+      "offset": 141.28
+    },
+    {
+      "text": "automate work in categories that just",
+      "duration": 3.68,
+      "offset": 142.4
+    },
+    {
+      "text": "don't have good APIs. Things like",
+      "duration": 3.68,
+      "offset": 144.16
+    },
+    {
+      "text": "government, medical, and more. One of",
+      "duration": 2.96,
+      "offset": 146.08
+    },
+    {
+      "text": "those companies is Novaflow. They're",
+      "duration": 2.8,
+      "offset": 147.84
+    },
+    {
+      "text": "trying to do voice AI agents for medical",
+      "duration": 3.52,
+      "offset": 149.04
+    },
+    {
+      "text": "clinics, but that's not easy because",
+      "duration": 4.239,
+      "offset": 150.64
+    },
+    {
+      "text": "none of their software has APIs. They",
+      "duration": 3.759,
+      "offset": 152.56
+    },
+    {
+      "text": "were previously automating a lot of this",
+      "duration": 3.041,
+      "offset": 154.879
+    },
+    {
+      "text": "work with a different product. That",
+      "duration": 3.28,
+      "offset": 156.319
+    },
+    {
+      "text": "product happened to shut down and when",
+      "duration": 3.12,
+      "offset": 157.92
+    },
+    {
+      "text": "they did their research, it turned out",
+      "duration": 3.201,
+      "offset": 159.599
+    },
+    {
+      "text": "Kernel was the best bet. It was the only",
+      "duration": 3.199,
+      "offset": 161.04
+    },
+    {
+      "text": "option that could handle their scale",
+      "duration": 3.28,
+      "offset": 162.8
+    },
+    {
+      "text": "immediately and complete the migration",
+      "duration": 3.681,
+      "offset": 164.239
+    },
+    {
+      "text": "with zero downtime. They also call that",
+      "duration": 3.6,
+      "offset": 166.08
+    },
+    {
+      "text": "the support has been outstanding and I",
+      "duration": 3.599,
+      "offset": 167.92
+    },
+    {
+      "text": "fully agree. When I first tried Kernel,",
+      "duration": 3.44,
+      "offset": 169.68
+    },
+    {
+      "text": "when we started the sponsor agreement, I",
+      "duration": 3.521,
+      "offset": 171.519
+    },
+    {
+      "text": "sent them like three pages of feedback",
+      "duration": 3.6,
+      "offset": 173.12
+    },
+    {
+      "text": "over email and almost all of it was",
+      "duration": 3.68,
+      "offset": 175.04
+    },
+    {
+      "text": "addressed within the next few days. It",
+      "duration": 3.68,
+      "offset": 176.72
+    },
+    {
+      "text": "was crazy to watch how fast they were.",
+      "duration": 2.879,
+      "offset": 178.72
+    },
+    {
+      "text": "They were responding to my emails at",
+      "duration": 3.68,
+      "offset": 180.4
+    },
+    {
+      "text": "like 11:00 p.m. You know, time I often",
+      "duration": 4.481,
+      "offset": 181.599
+    },
+    {
+      "text": "film. Yeah, it's almost midnight.",
+      "duration": 3.84,
+      "offset": 184.08
+    },
+    {
+      "text": "Forgive me. According to Novaflow, there",
+      "duration": 4.64,
+      "offset": 186.08
+    },
+    {
+      "text": "are over 400 EHRs and EMRs that they",
+      "duration": 4.64,
+      "offset": 187.92
+    },
+    {
+      "text": "have to do work with, and 80% of them",
+      "duration": 4.56,
+      "offset": 190.72
+    },
+    {
+      "text": "have little or no API at all. Since all",
+      "duration": 4.08,
+      "offset": 192.56
+    },
+    {
+      "text": "of these systems live behind web",
+      "duration": 3.2,
+      "offset": 195.28
+    },
+    {
+      "text": "portals, they need a browser. If you're",
+      "duration": 3.44,
+      "offset": 196.64
+    },
+    {
+      "text": "doing work where things live behind web",
+      "duration": 3.28,
+      "offset": 198.48
+    },
+    {
+      "text": "portals, you almost certainly would",
+      "duration": 3.28,
+      "offset": 200.08
+    },
+    {
+      "text": "benefit from a product like Kernel.",
+      "duration": 2.96,
+      "offset": 201.76
+    },
+    {
+      "text": "Since all of their infer is compatible",
+      "duration": 2.959,
+      "offset": 203.36
+    },
+    {
+      "text": "with Playright and Puppeteer, it's a",
+      "duration": 3.28,
+      "offset": 204.72
+    },
+    {
+      "text": "relatively easy swap, even if you're",
+      "duration": 3.2,
+      "offset": 206.319
+    },
+    {
+      "text": "already hosting the browsers yourself.",
+      "duration": 3.68,
+      "offset": 208
+    },
+    {
+      "text": "And if you are doing that, please stop.",
+      "duration": 3.761,
+      "offset": 209.519
+    },
+    {
+      "text": "There are so many little things that",
+      "duration": 3.119,
+      "offset": 211.68
+    },
+    {
+      "text": "make life obnoxious when you're running",
+      "duration": 3.12,
+      "offset": 213.28
+    },
+    {
+      "text": "your own browsers. What happens when you",
+      "duration": 3.36,
+      "offset": 214.799
+    },
+    {
+      "text": "hit a capture? What happens when you're",
+      "duration": 3.199,
+      "offset": 216.4
+    },
+    {
+      "text": "limited based on the network that you're",
+      "duration": 2.961,
+      "offset": 218.159
+    },
+    {
+      "text": "sending the requests from? All of these",
+      "duration": 3.2,
+      "offset": 219.599
+    },
+    {
+      "text": "things and more are handled by kernel.",
+      "duration": 3.119,
+      "offset": 221.12
+    },
+    {
+      "text": "And that's why the move was so seamless",
+      "duration": 3.121,
+      "offset": 222.799
+    },
+    {
+      "text": "for Novaflow. They did the full roll out",
+      "duration": 4.56,
+      "offset": 224.239
+    },
+    {
+      "text": "within 2 days. Yeah, 2 days. Oh, and of",
+      "duration": 4.319,
+      "offset": 225.92
+    },
+    {
+      "text": "course, the pay as you go pricing is a",
+      "duration": 2.881,
+      "offset": 228.799
+    },
+    {
+      "text": "really nice benefit as well. You're only",
+      "duration": 2.881,
+      "offset": 230.239
+    },
+    {
+      "text": "paying for what you're using. I was able",
+      "duration": 2.88,
+      "offset": 231.68
+    },
+    {
+      "text": "to build my first app with kernel in",
+      "duration": 3.039,
+      "offset": 233.12
+    },
+    {
+      "text": "just a few minutes. You can too at",
+      "duration": 3.2,
+      "offset": 234.56
+    },
+    {
+      "text": "soyv.link/kernel.",
+      "duration": 3.201,
+      "offset": 236.159
+    },
+    {
+      "text": "Core questions we want to answer here",
+      "duration": 3.52,
+      "offset": 237.76
+    },
+    {
+      "text": "are what the hell happened? Can you",
+      "duration": 3.68,
+      "offset": 239.36
+    },
+    {
+      "text": "trust free tiers? And where should you",
+      "duration": 3.519,
+      "offset": 241.28
+    },
+    {
+      "text": "move to? Let's start with this blog",
+      "duration": 3.919,
+      "offset": 243.04
+    },
+    {
+      "text": "post. Heroku remains an actively",
+      "duration": 4,
+      "offset": 244.799
+    },
+    {
+      "text": "supported productionready platform with",
+      "duration": 3.521,
+      "offset": 246.959
+    },
+    {
+      "text": "an emphasis on maintaining quality and",
+      "duration": 3.121,
+      "offset": 248.799
+    },
+    {
+      "text": "operational excellence rather than",
+      "duration": 3.2,
+      "offset": 250.48
+    },
+    {
+      "text": "introducing new features. We know",
+      "duration": 3.36,
+      "offset": 251.92
+    },
+    {
+      "text": "changes like this can raise questions.",
+      "duration": 2.959,
+      "offset": 253.68
+    },
+    {
+      "text": "We want to be clear about what this",
+      "duration": 3.28,
+      "offset": 255.28
+    },
+    {
+      "text": "means for customers. Existing customers",
+      "duration": 3.521,
+      "offset": 256.639
+    },
+    {
+      "text": "have no change. Customers who pay via",
+      "duration": 2.88,
+      "offset": 258.56
+    },
+    {
+      "text": "credit card in the Heroku Dash, both",
+      "duration": 2.479,
+      "offset": 260.16
+    },
+    {
+      "text": "existing and new, can continue to use",
+      "duration": 3.199,
+      "offset": 261.44
+    },
+    {
+      "text": "Heroku with no change. One of the things",
+      "duration": 3.921,
+      "offset": 262.639
+    },
+    {
+      "text": "they changed that they barely touched on",
+      "duration": 4.241,
+      "offset": 264.639
+    },
+    {
+      "text": "here is that enterprise contracts won't",
+      "duration": 4.079,
+      "offset": 266.56
+    },
+    {
+      "text": "be offered to new customers and existing",
+      "duration": 3.599,
+      "offset": 268.88
+    },
+    {
+      "text": "ones are going to have to move over to",
+      "duration": 3.761,
+      "offset": 270.639
+    },
+    {
+      "text": "paying via credit card instead of like",
+      "duration": 3.841,
+      "offset": 272.479
+    },
+    {
+      "text": "big long-term invoices like these",
+      "duration": 3.6,
+      "offset": 274.4
+    },
+    {
+      "text": "companies tend to do. Heroku was an",
+      "duration": 3.439,
+      "offset": 276.32
+    },
+    {
+      "text": "interesting product because it came out",
+      "duration": 4.4,
+      "offset": 278
+    },
+    {
+      "text": "before this idea of free tiers and like",
+      "duration": 5.041,
+      "offset": 279.759
+    },
+    {
+      "text": "onboarding people existed. When you were",
+      "duration": 3.68,
+      "offset": 282.4
+    },
+    {
+      "text": "building something that you sold to",
+      "duration": 3.28,
+      "offset": 284.8
+    },
+    {
+      "text": "businesses, you really only focused on",
+      "duration": 4.24,
+      "offset": 286.08
+    },
+    {
+      "text": "the businesses at the time. This idea of",
+      "duration": 4.399,
+      "offset": 288.08
+    },
+    {
+      "text": "an independent developer that also has a",
+      "duration": 3.599,
+      "offset": 290.32
+    },
+    {
+      "text": "job that experiments in their free time",
+      "duration": 3.28,
+      "offset": 292.479
+    },
+    {
+      "text": "and then brings what they use to work",
+      "duration": 3.921,
+      "offset": 293.919
+    },
+    {
+      "text": "did not exist when Heroku started. It's",
+      "duration": 4,
+      "offset": 295.759
+    },
+    {
+      "text": "now very relevant. In fact, most",
+      "duration": 3.359,
+      "offset": 297.84
+    },
+    {
+      "text": "companies have a strategy like that",
+      "duration": 3.041,
+      "offset": 299.759
+    },
+    {
+      "text": "where they make a good compelling",
+      "duration": 3.201,
+      "offset": 301.199
+    },
+    {
+      "text": "product for people to try out on their",
+      "duration": 3.36,
+      "offset": 302.8
+    },
+    {
+      "text": "own and then they bring it to work and",
+      "duration": 4.32,
+      "offset": 304.4
+    },
+    {
+      "text": "then it takes over work. Heroku",
+      "duration": 4.4,
+      "offset": 306.16
+    },
+    {
+      "text": "pioneered that to the point where I was",
+      "duration": 3.84,
+      "offset": 308.72
+    },
+    {
+      "text": "using them for the database for ping all",
+      "duration": 3.919,
+      "offset": 310.56
+    },
+    {
+      "text": "the way back when we started initially.",
+      "duration": 3.919,
+      "offset": 312.56
+    },
+    {
+      "text": "And now I'm thankful I moved off as",
+      "duration": 3.681,
+      "offset": 314.479
+    },
+    {
+      "text": "early as I did because my god, I had so",
+      "duration": 2.56,
+      "offset": 316.479
+    },
+    {
+      "text": "many problems with that database. I",
+      "duration": 2.16,
+      "offset": 318.16
+    },
+    {
+      "text": "don't want to talk about that. I want to",
+      "duration": 2.561,
+      "offset": 319.039
+    },
+    {
+      "text": "talk about this. The other thing they",
+      "duration": 2.96,
+      "offset": 320.32
+    },
+    {
+      "text": "are not mentioning here is that they did",
+      "duration": 4,
+      "offset": 321.6
+    },
+    {
+      "text": "a massive round of layoffs. I think it",
+      "duration": 5.52,
+      "offset": 323.28
+    },
+    {
+      "text": "was over half the team, maybe more. I",
+      "duration": 4.72,
+      "offset": 325.6
+    },
+    {
+      "text": "don't think those numbers are public,",
+      "duration": 4.08,
+      "offset": 328.8
+    },
+    {
+      "text": "but I don't care because this is absurd.",
+      "duration": 4.719,
+      "offset": 330.32
+    },
+    {
+      "text": "There was actually a handful of teams at",
+      "duration": 3.759,
+      "offset": 332.88
+    },
+    {
+      "text": "Heroku that have been working really,",
+      "duration": 3.361,
+      "offset": 335.039
+    },
+    {
+      "text": "really hard to modernize things. They",
+      "duration": 3.12,
+      "offset": 336.639
+    },
+    {
+      "text": "were close to bringing back the free",
+      "duration": 2.96,
+      "offset": 338.4
+    },
+    {
+      "text": "tier. They were introducing features",
+      "duration": 3.201,
+      "offset": 339.759
+    },
+    {
+      "text": "that people expect from other platforms.",
+      "duration": 2.88,
+      "offset": 341.36
+    },
+    {
+      "text": "They were going really hard to try and",
+      "duration": 3.04,
+      "offset": 342.96
+    },
+    {
+      "text": "get Heroku to the point where it could",
+      "duration": 3.04,
+      "offset": 344.24
+    },
+    {
+      "text": "actually make sense for somebody to",
+      "duration": 3.919,
+      "offset": 346
+    },
+    {
+      "text": "start things up with. that's over. They",
+      "duration": 4.32,
+      "offset": 347.28
+    },
+    {
+      "text": "just gave up. And it was like like they",
+      "duration": 3.12,
+      "offset": 349.919
+    },
+    {
+      "text": "were close, not to the finish line, but",
+      "duration": 2.72,
+      "offset": 351.6
+    },
+    {
+      "text": "they were close to getting to the start",
+      "duration": 2.961,
+      "offset": 353.039
+    },
+    {
+      "text": "of the race and right before they walked",
+      "duration": 3.92,
+      "offset": 354.32
+    },
+    {
+      "text": "into the track, they decided to just",
+      "duration": 5.12,
+      "offset": 356
+    },
+    {
+      "text": "shoot themselves. It's It's absurd. This",
+      "duration": 5.2,
+      "offset": 358.24
+    },
+    {
+      "text": "was kind of a long time in the making,",
+      "duration": 5.199,
+      "offset": 361.12
+    },
+    {
+      "text": "though. Back in 2024, Bob Weise, who was",
+      "duration": 5.12,
+      "offset": 363.44
+    },
+    {
+      "text": "the CEO of Heroku at the time, opened a",
+      "duration": 4.401,
+      "offset": 366.319
+    },
+    {
+      "text": "position for a new chief product officer",
+      "duration": 4.8,
+      "offset": 368.56
+    },
+    {
+      "text": "because the previous one moved down to a",
+      "duration": 4.24,
+      "offset": 370.72
+    },
+    {
+      "text": "VP role. I think he ended up leaving",
+      "duration": 3.44,
+      "offset": 373.36
+    },
+    {
+      "text": "soon after that, but they wanted",
+      "duration": 4.239,
+      "offset": 374.96
+    },
+    {
+      "text": "somebody to come in and actually run",
+      "duration": 4.239,
+      "offset": 376.8
+    },
+    {
+      "text": "product. When a company gets to a",
+      "duration": 2.641,
+      "offset": 379.199
+    },
+    {
+      "text": "certain size, especially",
+      "duration": 2.801,
+      "offset": 381.039
+    },
+    {
+      "text": "postacquisition, it's not uncommon for",
+      "duration": 3.919,
+      "offset": 381.84
+    },
+    {
+      "text": "the CEO to have too much random [ __ ]",
+      "duration": 3.84,
+      "offset": 383.84
+    },
+    {
+      "text": "they're doing to actually steer product.",
+      "duration": 3.28,
+      "offset": 385.759
+    },
+    {
+      "text": "I personally experienced this when I was",
+      "duration": 3.2,
+      "offset": 387.68
+    },
+    {
+      "text": "at Twitch. When we got acquired, EMTT",
+      "duration": 3.921,
+      "offset": 389.039
+    },
+    {
+      "text": "Shear, the CEO of Twitch and also known",
+      "duration": 4.159,
+      "offset": 390.88
+    },
+    {
+      "text": "as the temp CEO of OpenAI, focused",
+      "duration": 3.44,
+      "offset": 392.96
+    },
+    {
+      "text": "almost all of his energy on keeping",
+      "duration": 3.201,
+      "offset": 395.039
+    },
+    {
+      "text": "Amazon out of Twitch. He did a great job",
+      "duration": 3.2,
+      "offset": 396.4
+    },
+    {
+      "text": "at that. I never really felt like I was",
+      "duration": 3.12,
+      "offset": 398.24
+    },
+    {
+      "text": "at Amazon for my first few years at",
+      "duration": 3.52,
+      "offset": 399.6
+    },
+    {
+      "text": "Twitch. He forgot to run the company",
+      "duration": 3.52,
+      "offset": 401.36
+    },
+    {
+      "text": "though. Just nothing was happening in",
+      "duration": 3.6,
+      "offset": 403.12
+    },
+    {
+      "text": "product because he wasn't really leading",
+      "duration": 3.599,
+      "offset": 404.88
+    },
+    {
+      "text": "product. He tried and failed to hire a",
+      "duration": 3.919,
+      "offset": 406.72
+    },
+    {
+      "text": "product lead a few different times.",
+      "duration": 4.16,
+      "offset": 408.479
+    },
+    {
+      "text": "Eventually left as CEO, brought someone",
+      "duration": 3.521,
+      "offset": 410.639
+    },
+    {
+      "text": "else in. They still have no product",
+      "duration": 3.84,
+      "offset": 412.639
+    },
+    {
+      "text": "direction. And a lot of that is because",
+      "duration": 4.159,
+      "offset": 414.16
+    },
+    {
+      "text": "the CEO is busy doing other things. And",
+      "duration": 3.28,
+      "offset": 416.479
+    },
+    {
+      "text": "that seems to have been the case for Bob",
+      "duration": 3.6,
+      "offset": 418.319
+    },
+    {
+      "text": "as well. He wanted a good CPO and the",
+      "duration": 4.481,
+      "offset": 419.759
+    },
+    {
+      "text": "existing one wanted to step back like",
+      "duration": 4.481,
+      "offset": 421.919
+    },
+    {
+      "text": "wanted to take a step away from Heroku.",
+      "duration": 3.679,
+      "offset": 424.24
+    },
+    {
+      "text": "He wanted somebody to lean in. And it",
+      "duration": 3.44,
+      "offset": 426.4
+    },
+    {
+      "text": "seems like he never successfully filled",
+      "duration": 5.041,
+      "offset": 427.919
+    },
+    {
+      "text": "this role. In fact, not long after,",
+      "duration": 5.28,
+      "offset": 429.84
+    },
+    {
+      "text": "November of the same year, remember this",
+      "duration": 4.88,
+      "offset": 432.96
+    },
+    {
+      "text": "was in July, four months later, he",
+      "duration": 4.88,
+      "offset": 435.12
+    },
+    {
+      "text": "leaves. Bob Weise has left Salesforce",
+      "duration": 4.16,
+      "offset": 437.84
+    },
+    {
+      "text": "for his next career move. Losing your",
+      "duration": 4.8,
+      "offset": 440
+    },
+    {
+      "text": "CPO and CEO in a four-month window is",
+      "duration": 5.28,
+      "offset": 442
+    },
+    {
+      "text": "basically a guarantee of death. And my",
+      "duration": 4.239,
+      "offset": 444.8
+    },
+    {
+      "text": "honest guess is that what happened at",
+      "duration": 3.84,
+      "offset": 447.28
+    },
+    {
+      "text": "that point is the teams kind of went",
+      "duration": 4.241,
+      "offset": 449.039
+    },
+    {
+      "text": "into fight or flight fend for yourself",
+      "duration": 4.72,
+      "offset": 451.12
+    },
+    {
+      "text": "mode where they just wanted to to build",
+      "duration": 4.24,
+      "offset": 453.28
+    },
+    {
+      "text": "and try to make something useful cuz",
+      "duration": 3.44,
+      "offset": 455.84
+    },
+    {
+      "text": "they didn't have leaders to give them a",
+      "duration": 3.04,
+      "offset": 457.52
+    },
+    {
+      "text": "road map. They also didn't have leaders",
+      "duration": 2.639,
+      "offset": 459.28
+    },
+    {
+      "text": "to tell them they were straying too far",
+      "duration": 2.96,
+      "offset": 460.56
+    },
+    {
+      "text": "from the road map which is why a lot of",
+      "duration": 3.68,
+      "offset": 461.919
+    },
+    {
+      "text": "the developers there started to like I",
+      "duration": 3.44,
+      "offset": 463.52
+    },
+    {
+      "text": "want to say idle cuz it was very",
+      "duration": 2.32,
+      "offset": 465.599
+    },
+    {
+      "text": "different from idling like they were",
+      "duration": 2.72,
+      "offset": 466.96
+    },
+    {
+      "text": "trying really hard to build useful stuff",
+      "duration": 4,
+      "offset": 467.919
+    },
+    {
+      "text": "at the company without enough guidance",
+      "duration": 3.84,
+      "offset": 469.68
+    },
+    {
+      "text": "and leadership to really push it",
+      "duration": 3.68,
+      "offset": 471.919
+    },
+    {
+      "text": "forward. My honest guess is that the",
+      "duration": 3.76,
+      "offset": 473.52
+    },
+    {
+      "text": "layoffs were probably planned from the",
+      "duration": 4,
+      "offset": 475.599
+    },
+    {
+      "text": "moment the CEO left, but it just takes",
+      "duration": 3.68,
+      "offset": 477.28
+    },
+    {
+      "text": "time to do it and there probably wasn't",
+      "duration": 3.521,
+      "offset": 479.599
+    },
+    {
+      "text": "an exec whose job it was to do all of",
+      "duration": 4.079,
+      "offset": 480.96
+    },
+    {
+      "text": "those things. Oh, looks like Nitin is",
+      "duration": 5.04,
+      "offset": 483.12
+    },
+    {
+      "text": "that CPO at Heroku that came in and this",
+      "duration": 4.801,
+      "offset": 485.039
+    },
+    {
+      "text": "is the only post he's ever written on",
+      "duration": 3.039,
+      "offset": 488.16
+    },
+    {
+      "text": "their blog. Okay, it's really funny.",
+      "duration": 2.72,
+      "offset": 489.84
+    },
+    {
+      "text": "They just announced the general",
+      "duration": 2.961,
+      "offset": 491.199
+    },
+    {
+      "text": "availability of the GitHub enterprise",
+      "duration": 3.12,
+      "offset": 492.56
+    },
+    {
+      "text": "server integration. This is again one of",
+      "duration": 2.96,
+      "offset": 494.16
+    },
+    {
+      "text": "those things where like this was a",
+      "duration": 3.12,
+      "offset": 495.68
+    },
+    {
+      "text": "release that was probably planned months",
+      "duration": 3.359,
+      "offset": 497.12
+    },
+    {
+      "text": "in advance and the person who wrote this",
+      "duration": 3.119,
+      "offset": 498.8
+    },
+    {
+      "text": "post probably doesn't even work at the",
+      "duration": 4.16,
+      "offset": 500.479
+    },
+    {
+      "text": "company anymore. Insane. Salesforce laid",
+      "duration": 4.321,
+      "offset": 501.919
+    },
+    {
+      "text": "off nearly a thousand employees and",
+      "duration": 3.521,
+      "offset": 504.639
+    },
+    {
+      "text": "obviously a lot of those are from agent",
+      "duration": 3.92,
+      "offset": 506.24
+    },
+    {
+      "text": "force and more importantly here.",
+      "duration": 4.239,
+      "offset": 508.16
+    },
+    {
+      "text": "Apparently other senior executives have",
+      "duration": 4.559,
+      "offset": 510.16
+    },
+    {
+      "text": "been leaving Salesforce as well. Is is",
+      "duration": 4.161,
+      "offset": 512.399
+    },
+    {
+      "text": "Salesforce actually in that much danger?",
+      "duration": 3.12,
+      "offset": 514.719
+    },
+    {
+      "text": "That's nuts. I never would have thought.",
+      "duration": 3.839,
+      "offset": 516.56
+    },
+    {
+      "text": "It's so far from my world but Jesus.",
+      "duration": 4.161,
+      "offset": 517.839
+    },
+    {
+      "text": "There's some good coverage from Male",
+      "duration": 3.921,
+      "offset": 520.399
+    },
+    {
+      "text": "Lindsar here as well. They consider",
+      "duration": 4.16,
+      "offset": 522
+    },
+    {
+      "text": "Heroku internally to be end of sale for",
+      "duration": 2.959,
+      "offset": 524.32
+    },
+    {
+      "text": "enterprise customers. So they're",
+      "duration": 3.679,
+      "offset": 526.16
+    },
+    {
+      "text": "actively not pursuing new customers that",
+      "duration": 4.481,
+      "offset": 527.279
+    },
+    {
+      "text": "really drive the business. It's full",
+      "duration": 3.68,
+      "offset": 529.839
+    },
+    {
+      "text": "maintenance mode now. Heroku's get push",
+      "duration": 3.84,
+      "offset": 531.76
+    },
+    {
+      "text": "to deploy was a sea change and a",
+      "duration": 3.681,
+      "offset": 533.519
+    },
+    {
+      "text": "fantastic deployment process. Absolutely",
+      "duration": 2.96,
+      "offset": 535.6
+    },
+    {
+      "text": "agree. To this day, I'm still chasing",
+      "duration": 4,
+      "offset": 537.2
+    },
+    {
+      "text": "that high. Over the decade, the $25 per",
+      "duration": 4.16,
+      "offset": 538.56
+    },
+    {
+      "text": "month plan has gotten you the same",
+      "duration": 4.8,
+      "offset": 541.2
+    },
+    {
+      "text": "server with one dyno in 512 megs of RAM",
+      "duration": 5.04,
+      "offset": 542.72
+    },
+    {
+      "text": "per month. Maybe the compute behind the",
+      "duration": 3.839,
+      "offset": 546
+    },
+    {
+      "text": "dinos, but the lack of RAM and",
+      "duration": 3.6,
+      "offset": 547.76
+    },
+    {
+      "text": "flexibility of the stack has driven",
+      "duration": 3.041,
+      "offset": 549.839
+    },
+    {
+      "text": "enterprise clients in other directions.",
+      "duration": 3.36,
+      "offset": 551.36
+    },
+    {
+      "text": "Roku's promise was we take care of the",
+      "duration": 3.2,
+      "offset": 552.88
+    },
+    {
+      "text": "stack and they charge a premium to do",
+      "duration": 3.6,
+      "offset": 554.72
+    },
+    {
+      "text": "so. Doesn't matter anymore. This is",
+      "duration": 3.68,
+      "offset": 556.08
+    },
+    {
+      "text": "actually less useful an article than I",
+      "duration": 2.8,
+      "offset": 558.32
+    },
+    {
+      "text": "thought it would be. Whatever.",
+      "duration": 3.04,
+      "offset": 559.76
+    },
+    {
+      "text": "Hopefully, we've established that Heroku",
+      "duration": 3.44,
+      "offset": 561.12
+    },
+    {
+      "text": "is dead. They were acquired by a company",
+      "duration": 3.52,
+      "offset": 562.8
+    },
+    {
+      "text": "that didn't really know what to do with",
+      "duration": 3.68,
+      "offset": 564.56
+    },
+    {
+      "text": "them beyond make it work for their own",
+      "duration": 4.56,
+      "offset": 566.32
+    },
+    {
+      "text": "use case. They slowly let the company",
+      "duration": 3.84,
+      "offset": 568.24
+    },
+    {
+      "text": "die because they weren't giving it the",
+      "duration": 2.48,
+      "offset": 570.88
+    },
+    {
+      "text": "right focus and attention. And clearly,",
+      "duration": 2.879,
+      "offset": 572.08
+    },
+    {
+      "text": "the leaders were checked out. This is a",
+      "duration": 3.44,
+      "offset": 573.36
+    },
+    {
+      "text": "pretty classic acquisition to checked",
+      "duration": 3.44,
+      "offset": 574.959
+    },
+    {
+      "text": "out leadership pipeline. This happens a",
+      "duration": 3.2,
+      "offset": 576.8
+    },
+    {
+      "text": "lot where a company gets acquired, the",
+      "duration": 3.041,
+      "offset": 578.399
+    },
+    {
+      "text": "leaders just don't care anymore, and",
+      "duration": 3.6,
+      "offset": 580
+    },
+    {
+      "text": "they eventually let the company die in",
+      "duration": 3.76,
+      "offset": 581.44
+    },
+    {
+      "text": "front of them. I've seen this a ton,",
+      "duration": 3.04,
+      "offset": 583.6
+    },
+    {
+      "text": "will continue to happen. You could even",
+      "duration": 2.639,
+      "offset": 585.2
+    },
+    {
+      "text": "argue the same thing's happening to",
+      "duration": 2.8,
+      "offset": 586.64
+    },
+    {
+      "text": "GitHub right now. There are very few",
+      "duration": 2.721,
+      "offset": 587.839
+    },
+    {
+      "text": "people at GitHub that are from",
+      "duration": 2.48,
+      "offset": 589.44
+    },
+    {
+      "text": "pre-acquisition and the ones who are",
+      "duration": 3.04,
+      "offset": 590.56
+    },
+    {
+      "text": "there now, a handful of them care a lot,",
+      "duration": 3.44,
+      "offset": 591.92
+    },
+    {
+      "text": "but it's it's not the same. So, on that",
+      "duration": 4.16,
+      "offset": 593.6
+    },
+    {
+      "text": "note, can we trust free tiers at all?",
+      "duration": 4.24,
+      "offset": 595.36
+    },
+    {
+      "text": "One of the first things somebody asked",
+      "duration": 4.56,
+      "offset": 597.76
+    },
+    {
+      "text": "when I started this was how can Verscell",
+      "duration": 4.64,
+      "offset": 599.6
+    },
+    {
+      "text": "afford their free tier? There's an",
+      "duration": 3.12,
+      "offset": 602.32
+    },
+    {
+      "text": "important thing you need to understand",
+      "duration": 2.8,
+      "offset": 604.24
+    },
+    {
+      "text": "about Versell compared to other",
+      "duration": 3.44,
+      "offset": 605.44
+    },
+    {
+      "text": "products. Okay, compared to things that",
+      "duration": 4.479,
+      "offset": 607.04
+    },
+    {
+      "text": "aren't Netlefi, Cloudflare, and I guess",
+      "duration": 4.959,
+      "offset": 608.88
+    },
+    {
+      "text": "like Dino Deploy, Verscell doesn't give",
+      "duration": 5.041,
+      "offset": 611.519
+    },
+    {
+      "text": "you a server. When you spin up on Heroku",
+      "duration": 6.081,
+      "offset": 613.839
+    },
+    {
+      "text": "or AWS EC2 or other similar platforms,",
+      "duration": 5.2,
+      "offset": 616.56
+    },
+    {
+      "text": "you're getting a box or at least part of",
+      "duration": 5.44,
+      "offset": 619.92
+    },
+    {
+      "text": "a box reserved for you 24/7 at any point",
+      "duration": 5.759,
+      "offset": 621.76
+    },
+    {
+      "text": "in time. You can SSH into it, you can",
+      "duration": 4.159,
+      "offset": 625.36
+    },
+    {
+      "text": "connect to it, the box is running",
+      "duration": 4.401,
+      "offset": 627.519
+    },
+    {
+      "text": "whether or not you have users hitting",
+      "duration": 4.721,
+      "offset": 629.519
+    },
+    {
+      "text": "your service. That is a problem. Not",
+      "duration": 4,
+      "offset": 631.92
+    },
+    {
+      "text": "just because like you're paying when",
+      "duration": 3.68,
+      "offset": 634.24
+    },
+    {
+      "text": "there's no users, but also because you",
+      "duration": 4,
+      "offset": 635.92
+    },
+    {
+      "text": "have to scale in each direction. If your",
+      "duration": 4.24,
+      "offset": 637.92
+    },
+    {
+      "text": "server can handle 50 users and you have",
+      "duration": 4.32,
+      "offset": 639.92
+    },
+    {
+      "text": "51 of them, how do you deal with that?",
+      "duration": 3.76,
+      "offset": 642.16
+    },
+    {
+      "text": "If your server can handle 50 users and",
+      "duration": 3.44,
+      "offset": 644.24
+    },
+    {
+      "text": "you have zero of them, why are you",
+      "duration": 4.08,
+      "offset": 645.92
+    },
+    {
+      "text": "paying for that? That balance is a hard",
+      "duration": 5.04,
+      "offset": 647.68
+    },
+    {
+      "text": "thing to strike, which is why serverless",
+      "duration": 4.56,
+      "offset": 650
+    },
+    {
+      "text": "became a thing. The most popular version",
+      "duration": 3.6,
+      "offset": 652.72
+    },
+    {
+      "text": "of serverless is Lambda functions",
+      "duration": 4.399,
+      "offset": 654.56
+    },
+    {
+      "text": "pioneered by AWS as a way to write a",
+      "duration": 4.959,
+      "offset": 656.32
+    },
+    {
+      "text": "function that is provisioned by Amazon",
+      "duration": 5.44,
+      "offset": 658.959
+    },
+    {
+      "text": "on request rather than on creation. With",
+      "duration": 4.961,
+      "offset": 661.279
+    },
+    {
+      "text": "a traditional server like you know the",
+      "duration": 4.241,
+      "offset": 664.399
+    },
+    {
+      "text": "classic PHP lampstack, you would write",
+      "duration": 4.159,
+      "offset": 666.24
+    },
+    {
+      "text": "all the code, get everything set up, you",
+      "duration": 4.08,
+      "offset": 668.64
+    },
+    {
+      "text": "would FTP connect into a server that's",
+      "duration": 4.161,
+      "offset": 670.399
+    },
+    {
+      "text": "already running and provisioned, dump",
+      "duration": 3.679,
+      "offset": 672.72
+    },
+    {
+      "text": "the files on it, and now users are",
+      "duration": 3.92,
+      "offset": 674.56
+    },
+    {
+      "text": "served the new traffic. The server just",
+      "duration": 4.321,
+      "offset": 676.399
+    },
+    {
+      "text": "stays there though effectively. With",
+      "duration": 4.479,
+      "offset": 678.48
+    },
+    {
+      "text": "serverless, your code is shipped up to",
+      "duration": 3.92,
+      "offset": 680.72
+    },
+    {
+      "text": "some platform and stored in something",
+      "duration": 4,
+      "offset": 682.959
+    },
+    {
+      "text": "like S3. And then when a request comes",
+      "duration": 5.12,
+      "offset": 684.64
+    },
+    {
+      "text": "in, a server is booted, your code is put",
+      "duration": 4.721,
+      "offset": 686.959
+    },
+    {
+      "text": "into it, and then it responds. This",
+      "duration": 2.8,
+      "offset": 689.76
+    },
+    {
+      "text": "means you have to deal with something",
+      "duration": 2.96,
+      "offset": 691.68
+    },
+    {
+      "text": "called a cold start, which is the time",
+      "duration": 3.839,
+      "offset": 692.56
+    },
+    {
+      "text": "it takes for the code to be loaded in",
+      "duration": 4.16,
+      "offset": 694.64
+    },
+    {
+      "text": "and initialize on that Lambda. But as",
+      "duration": 3.601,
+      "offset": 696.399
+    },
+    {
+      "text": "long as someone's hit your thing",
+      "duration": 3.92,
+      "offset": 698.8
+    },
+    {
+      "text": "recently, there's probably a warmed up",
+      "duration": 4.32,
+      "offset": 700
+    },
+    {
+      "text": "lambda sitting there from the previous",
+      "duration": 3.04,
+      "offset": 702.72
+    },
+    {
+      "text": "request because they take a few seconds",
+      "duration": 3.6,
+      "offset": 704.32
+    },
+    {
+      "text": "after completion to die so that it can",
+      "duration": 3.68,
+      "offset": 705.76
+    },
+    {
+      "text": "just take the next request without",
+      "duration": 3.12,
+      "offset": 707.92
+    },
+    {
+      "text": "spinning down. This ends up being a lot",
+      "duration": 3.36,
+      "offset": 709.44
+    },
+    {
+      "text": "cheaper for services that don't get much",
+      "duration": 3.52,
+      "offset": 711.04
+    },
+    {
+      "text": "traffic because the services without",
+      "duration": 4.24,
+      "offset": 712.8
+    },
+    {
+      "text": "traffic don't invoke a whole lot and as",
+      "duration": 4.08,
+      "offset": 714.56
+    },
+    {
+      "text": "a result, you're not going to be build a",
+      "duration": 3.2,
+      "offset": 717.04
+    },
+    {
+      "text": "whole lot. Services that get a lot of",
+      "duration": 3.68,
+      "offset": 718.64
+    },
+    {
+      "text": "traffic tend to spend more money though",
+      "duration": 3.76,
+      "offset": 720.24
+    },
+    {
+      "text": "because you're paying for the cost of",
+      "duration": 3.28,
+      "offset": 722.32
+    },
+    {
+      "text": "the cold start. You're paying for the",
+      "duration": 3.839,
+      "offset": 724
+    },
+    {
+      "text": "cost of Amazon provisioning all of this.",
+      "duration": 4.32,
+      "offset": 725.6
+    },
+    {
+      "text": "you're paying an upcharge for the fact",
+      "duration": 3.201,
+      "offset": 727.839
+    },
+    {
+      "text": "that you're running in this type of",
+      "duration": 2.479,
+      "offset": 729.92
+    },
+    {
+      "text": "provisioned environment and you don't",
+      "duration": 2.799,
+      "offset": 731.04
+    },
+    {
+      "text": "get concurrency benefits because on",
+      "duration": 3.761,
+      "offset": 732.399
+    },
+    {
+      "text": "Lambda, one request equals one Lambda.",
+      "duration": 4,
+      "offset": 733.839
+    },
+    {
+      "text": "So if you have 500 users hitting your",
+      "duration": 3.6,
+      "offset": 736.16
+    },
+    {
+      "text": "site, each of them gets their own Lambda",
+      "duration": 3.68,
+      "offset": 737.839
+    },
+    {
+      "text": "or is hitting one after another person's",
+      "duration": 3.84,
+      "offset": 739.76
+    },
+    {
+      "text": "request finished. That sucked for a ton",
+      "duration": 3.681,
+      "offset": 741.519
+    },
+    {
+      "text": "of reasons. I have a lot of videos",
+      "duration": 3.52,
+      "offset": 743.6
+    },
+    {
+      "text": "talking about this. Just search Theo",
+      "duration": 3.759,
+      "offset": 745.2
+    },
+    {
+      "text": "fluid compute and you'll find a handful",
+      "duration": 3.279,
+      "offset": 747.12
+    },
+    {
+      "text": "of them. Or my Cloudflare versus",
+      "duration": 3.44,
+      "offset": 748.959
+    },
+    {
+      "text": "Verscell video I did mid to late last",
+      "duration": 3.601,
+      "offset": 750.399
+    },
+    {
+      "text": "year. That's a good one, too. For lots",
+      "duration": 3.601,
+      "offset": 752.399
+    },
+    {
+      "text": "of reasons, requests take longer than",
+      "duration": 3.76,
+      "offset": 754
+    },
+    {
+      "text": "they used to. So your request isn't just",
+      "duration": 3.279,
+      "offset": 756
+    },
+    {
+      "text": "hitting the database and giving you a",
+      "duration": 3.28,
+      "offset": 757.76
+    },
+    {
+      "text": "response. Now they're doing things like",
+      "duration": 3.521,
+      "offset": 759.279
+    },
+    {
+      "text": "LLM generation that can take minutes",
+      "duration": 3.76,
+      "offset": 761.04
+    },
+    {
+      "text": "instead of milliseconds. So having a",
+      "duration": 4.24,
+      "offset": 762.8
+    },
+    {
+      "text": "Lambda that is running for one user's",
+      "duration": 5.36,
+      "offset": 764.8
+    },
+    {
+      "text": "one request is it's expensive. Verscell",
+      "duration": 4.64,
+      "offset": 767.04
+    },
+    {
+      "text": "has since built their own thing",
+      "duration": 3.679,
+      "offset": 770.16
+    },
+    {
+      "text": "originally on top of Lambda now similar",
+      "duration": 3.92,
+      "offset": 771.68
+    },
+    {
+      "text": "to Lambda where they have a gateway that",
+      "duration": 3.281,
+      "offset": 773.839
+    },
+    {
+      "text": "allows for multiple requests to be",
+      "duration": 3.52,
+      "offset": 775.6
+    },
+    {
+      "text": "routed to one Lambda at the same time",
+      "duration": 3.6,
+      "offset": 777.12
+    },
+    {
+      "text": "which helps them reduce costs even",
+      "duration": 3.839,
+      "offset": 779.12
+    },
+    {
+      "text": "further. The reality is that when you",
+      "duration": 4.96,
+      "offset": 780.72
+    },
+    {
+      "text": "deploy something on Versell, it costs $0",
+      "duration": 5.041,
+      "offset": 782.959
+    },
+    {
+      "text": "and 0 for Verscell. The only thing that",
+      "duration": 4.159,
+      "offset": 785.68
+    },
+    {
+      "text": "costs money for them effectively is when",
+      "duration": 4.079,
+      "offset": 788
+    },
+    {
+      "text": "you actually go to the site. So their",
+      "duration": 4.481,
+      "offset": 789.839
+    },
+    {
+      "text": "free tier is going to be relatively safe",
+      "duration": 4,
+      "offset": 792.079
+    },
+    {
+      "text": "here. Same with Cloudflare, same with",
+      "duration": 3.84,
+      "offset": 794.32
+    },
+    {
+      "text": "Netleifi, same with any other similar",
+      "duration": 4.161,
+      "offset": 796.079
+    },
+    {
+      "text": "platform that is doing some type of",
+      "duration": 4.239,
+      "offset": 798.16
+    },
+    {
+      "text": "serverless deployments. No traffic means",
+      "duration": 4.399,
+      "offset": 800.24
+    },
+    {
+      "text": "no cost. No cost means nothing to worry",
+      "duration": 4.161,
+      "offset": 802.399
+    },
+    {
+      "text": "about. Obviously, as your services start",
+      "duration": 3.44,
+      "offset": 804.639
+    },
+    {
+      "text": "to get more traffic, they're going to",
+      "duration": 3.12,
+      "offset": 806.56
+    },
+    {
+      "text": "charge you for that because it does cost",
+      "duration": 3.521,
+      "offset": 808.079
+    },
+    {
+      "text": "money to run servers, to distribute",
+      "duration": 4,
+      "offset": 809.68
+    },
+    {
+      "text": "content over CDNs, to handle bandwidth,",
+      "duration": 3.44,
+      "offset": 811.6
+    },
+    {
+      "text": "and all of those things. But the free",
+      "duration": 2.8,
+      "offset": 813.68
+    },
+    {
+      "text": "tiers are super generous because their",
+      "duration": 3.2,
+      "offset": 815.04
+    },
+    {
+      "text": "cost profiles are really low. This is",
+      "duration": 3.039,
+      "offset": 816.48
+    },
+    {
+      "text": "also why things like preview",
+      "duration": 2.719,
+      "offset": 818.24
+    },
+    {
+      "text": "environments are so easy on those",
+      "duration": 3.44,
+      "offset": 819.519
+    },
+    {
+      "text": "platforms because when I put up a PR,",
+      "duration": 4.081,
+      "offset": 820.959
+    },
+    {
+      "text": "all the preview environment is is a",
+      "duration": 4,
+      "offset": 822.959
+    },
+    {
+      "text": "bundle of code getting put on a storage",
+      "duration": 3.68,
+      "offset": 825.04
+    },
+    {
+      "text": "drive somewhere that will be loaded when",
+      "duration": 3.44,
+      "offset": 826.959
+    },
+    {
+      "text": "I go to the URL. As long as you're not",
+      "duration": 3.679,
+      "offset": 828.72
+    },
+    {
+      "text": "on the page, it doesn't cost anything.",
+      "duration": 4.081,
+      "offset": 830.399
+    },
+    {
+      "text": "And that's why the GitHub experience",
+      "duration": 3.68,
+      "offset": 832.399
+    },
+    {
+      "text": "integrations with these platforms are",
+      "duration": 2.96,
+      "offset": 834.48
+    },
+    {
+      "text": "really good as well. So you don't have",
+      "duration": 3.041,
+      "offset": 836.079
+    },
+    {
+      "text": "to worry about the free tier on those",
+      "duration": 4,
+      "offset": 837.44
+    },
+    {
+      "text": "platforms. But there are other platforms",
+      "duration": 4.399,
+      "offset": 839.12
+    },
+    {
+      "text": "that you should be considerate of. Some",
+      "duration": 3.839,
+      "offset": 841.44
+    },
+    {
+      "text": "that have had back and forth with their",
+      "duration": 3.281,
+      "offset": 843.519
+    },
+    {
+      "text": "relationship with the free tier. The",
+      "duration": 3.12,
+      "offset": 845.279
+    },
+    {
+      "text": "ones that come to mind are Railway and",
+      "duration": 4.08,
+      "offset": 846.8
+    },
+    {
+      "text": "Planet Scale. Railway used to have a",
+      "duration": 4.481,
+      "offset": 848.399
+    },
+    {
+      "text": "super super generous free tier. Because",
+      "duration": 4.24,
+      "offset": 850.88
+    },
+    {
+      "text": "of abuse, they had to ramp it down a",
+      "duration": 3.6,
+      "offset": 852.88
+    },
+    {
+      "text": "little bit also because their server",
+      "duration": 2.64,
+      "offset": 855.12
+    },
+    {
+      "text": "costs were crazy when they were building",
+      "duration": 3.68,
+      "offset": 856.48
+    },
+    {
+      "text": "on top of GCP. This pissed off Jake, the",
+      "duration": 4.48,
+      "offset": 857.76
+    },
+    {
+      "text": "founder of Railway so much that he now",
+      "duration": 4.479,
+      "offset": 860.16
+    },
+    {
+      "text": "hosts and racks his own servers in his",
+      "duration": 4.48,
+      "offset": 862.24
+    },
+    {
+      "text": "own farms. They are no longer relying on",
+      "duration": 4.081,
+      "offset": 864.639
+    },
+    {
+      "text": "GCP for their traffic. And since they're",
+      "duration": 3.76,
+      "offset": 866.72
+    },
+    {
+      "text": "running their own servers, their costs",
+      "duration": 3.28,
+      "offset": 868.72
+    },
+    {
+      "text": "are way lower and they were able to make",
+      "duration": 3.52,
+      "offset": 870.48
+    },
+    {
+      "text": "the free tier significantly cheaper.",
+      "duration": 3.839,
+      "offset": 872
+    },
+    {
+      "text": "Railway is also running traditional",
+      "duration": 3.519,
+      "offset": 874
+    },
+    {
+      "text": "servers, which is important to",
+      "duration": 3.201,
+      "offset": 875.839
+    },
+    {
+      "text": "understand the distinction here. When",
+      "duration": 3.281,
+      "offset": 877.519
+    },
+    {
+      "text": "you provision a server on Railway, it is",
+      "duration": 3.359,
+      "offset": 879.04
+    },
+    {
+      "text": "just running. You can set it up to",
+      "duration": 3.52,
+      "offset": 880.8
+    },
+    {
+      "text": "automatically sleep, but chances are",
+      "duration": 3.041,
+      "offset": 882.399
+    },
+    {
+      "text": "when you're using Railway, you have",
+      "duration": 3.28,
+      "offset": 884.32
+    },
+    {
+      "text": "servers that are running 24/7. I like",
+      "duration": 3.759,
+      "offset": 885.44
+    },
+    {
+      "text": "that a lot for a handful of things that",
+      "duration": 3.359,
+      "offset": 887.6
+    },
+    {
+      "text": "I build. Things that benefit from having",
+      "duration": 3.681,
+      "offset": 889.199
+    },
+    {
+      "text": "a persistent connection to the database,",
+      "duration": 4.56,
+      "offset": 890.959
+    },
+    {
+      "text": "a persistent database, just being a real",
+      "duration": 4.079,
+      "offset": 892.88
+    },
+    {
+      "text": "server, especially like websocket type",
+      "duration": 3.44,
+      "offset": 895.519
+    },
+    {
+      "text": "stuff. There's a lot of reasons why you",
+      "duration": 4.161,
+      "offset": 896.959
+    },
+    {
+      "text": "want a real server. Shu, my new off",
+      "duration": 3.601,
+      "offset": 898.959
+    },
+    {
+      "text": "servers that hopefully is coming up very",
+      "duration": 3.279,
+      "offset": 901.12
+    },
+    {
+      "text": "very soon is built on top of Railway.",
+      "duration": 3.04,
+      "offset": 902.56
+    },
+    {
+      "text": "It's been an awesome experience. I've",
+      "duration": 2.481,
+      "offset": 904.399
+    },
+    {
+      "text": "been using Railway for a ton of stuff",
+      "duration": 2.72,
+      "offset": 905.6
+    },
+    {
+      "text": "for a while. They've sponsored one or",
+      "duration": 2.56,
+      "offset": 906.88
+    },
+    {
+      "text": "two videos in the past. They're not",
+      "duration": 2.879,
+      "offset": 908.32
+    },
+    {
+      "text": "sponsoring this one. I just genuinely",
+      "duration": 3.04,
+      "offset": 909.44
+    },
+    {
+      "text": "like the platform a lot. There are other",
+      "duration": 2.721,
+      "offset": 911.199
+    },
+    {
+      "text": "alternatives as well that we'll get to,",
+      "duration": 2.88,
+      "offset": 912.48
+    },
+    {
+      "text": "but I want to talk about these two due",
+      "duration": 3.84,
+      "offset": 913.92
+    },
+    {
+      "text": "to the free tiers. Railways free tier",
+      "duration": 4.56,
+      "offset": 915.36
+    },
+    {
+      "text": "got bad because costs were too high",
+      "duration": 3.439,
+      "offset": 917.76
+    },
+    {
+      "text": "because of the hosting that they were",
+      "duration": 2.479,
+      "offset": 919.92
+    },
+    {
+      "text": "doing. Since they moved to their own",
+      "duration": 2.721,
+      "offset": 921.199
+    },
+    {
+      "text": "infra, their free tier has gotten way",
+      "duration": 3.361,
+      "offset": 922.399
+    },
+    {
+      "text": "more generous. Apparently, it's a 30-day",
+      "duration": 3.919,
+      "offset": 923.92
+    },
+    {
+      "text": "trial with a $5 credit, then $1 per",
+      "duration": 4.24,
+      "offset": 925.76
+    },
+    {
+      "text": "month of free credit. Probably not going",
+      "duration": 3.841,
+      "offset": 927.839
+    },
+    {
+      "text": "to run for the whole month for free on",
+      "duration": 3.12,
+      "offset": 930
+    },
+    {
+      "text": "that, but you're not going to be too far",
+      "duration": 3.599,
+      "offset": 931.68
+    },
+    {
+      "text": "off either. The more disastrous example",
+      "duration": 4.399,
+      "offset": 933.12
+    },
+    {
+      "text": "here is Planet Scale. Planet Scale is a",
+      "duration": 4.401,
+      "offset": 935.279
+    },
+    {
+      "text": "database company that makes your MySQL",
+      "duration": 4.481,
+      "offset": 937.519
+    },
+    {
+      "text": "scale infinitely, and they also finally",
+      "duration": 3.92,
+      "offset": 939.68
+    },
+    {
+      "text": "recently started supporting Postgress as",
+      "duration": 3.44,
+      "offset": 942
+    },
+    {
+      "text": "well. Planet Scales base tier was 30",
+      "duration": 3.12,
+      "offset": 943.6
+    },
+    {
+      "text": "bucks a month because they are running",
+      "duration": 2.639,
+      "offset": 945.44
+    },
+    {
+      "text": "multiple replicas of every single",
+      "duration": 2.88,
+      "offset": 946.72
+    },
+    {
+      "text": "database on the platform which made it",
+      "duration": 3.2,
+      "offset": 948.079
+    },
+    {
+      "text": "inaccessible for somebody experimenting",
+      "duration": 3.2,
+      "offset": 949.6
+    },
+    {
+      "text": "with it. The Planet Scale free tier",
+      "duration": 3.12,
+      "offset": 951.279
+    },
+    {
+      "text": "would let you spin up a database for",
+      "duration": 3.279,
+      "offset": 952.8
+    },
+    {
+      "text": "free that was the exact same as if you",
+      "duration": 3.36,
+      "offset": 954.399
+    },
+    {
+      "text": "were paying 30 bucks which meant that",
+      "duration": 4.401,
+      "offset": 956.079
+    },
+    {
+      "text": "they were eating a lot of cost and you",
+      "duration": 4.561,
+      "offset": 957.759
+    },
+    {
+      "text": "could you could tell when Planet Scale",
+      "duration": 3.2,
+      "offset": 960.48
+    },
+    {
+      "text": "wanted to fix their books to make it",
+      "duration": 2.879,
+      "offset": 962.32
+    },
+    {
+      "text": "easier to run the business in a",
+      "duration": 3.12,
+      "offset": 963.68
+    },
+    {
+      "text": "sustainable way they immediately cut the",
+      "duration": 3.041,
+      "offset": 965.199
+    },
+    {
+      "text": "free tier because it wasn't really",
+      "duration": 2.56,
+      "offset": 966.8
+    },
+    {
+      "text": "getting them the customers they were",
+      "duration": 2.159,
+      "offset": 968.24
+    },
+    {
+      "text": "looking for. they would get their",
+      "duration": 2.56,
+      "offset": 969.36
+    },
+    {
+      "text": "customers by going to big companies that",
+      "duration": 3.281,
+      "offset": 970.399
+    },
+    {
+      "text": "they knew were using SQL and saying,",
+      "duration": 3.76,
+      "offset": 971.92
+    },
+    {
+      "text": "\"Hey, your [ __ ] sucks. We'll make it 10",
+      "duration": 3.599,
+      "offset": 973.68
+    },
+    {
+      "text": "times faster and cheaper.\" So, the free",
+      "duration": 2.959,
+      "offset": 975.68
+    },
+    {
+      "text": "tier wasn't benefiting them a whole lot.",
+      "duration": 3.041,
+      "offset": 977.279
+    },
+    {
+      "text": "So, that one died. If you're worried",
+      "duration": 3.281,
+      "offset": 978.639
+    },
+    {
+      "text": "about losing the free tier, you're going",
+      "duration": 3.199,
+      "offset": 980.32
+    },
+    {
+      "text": "to have to think a lot more about the",
+      "duration": 4.32,
+      "offset": 981.92
+    },
+    {
+      "text": "platform and how it works to know how",
+      "duration": 4.56,
+      "offset": 983.519
+    },
+    {
+      "text": "much risk you're taking on. The first",
+      "duration": 4.399,
+      "offset": 986.24
+    },
+    {
+      "text": "obvious question is how much does this",
+      "duration": 5.12,
+      "offset": 988.079
+    },
+    {
+      "text": "cost them? In the case of Versel, free",
+      "duration": 4.241,
+      "offset": 990.639
+    },
+    {
+      "text": "tier costs them almost nothing for all",
+      "duration": 3.2,
+      "offset": 993.199
+    },
+    {
+      "text": "the reasons I described before. In the",
+      "duration": 3.36,
+      "offset": 994.88
+    },
+    {
+      "text": "case of Railway, they are dedicating a",
+      "duration": 3.761,
+      "offset": 996.399
+    },
+    {
+      "text": "server to you. So that inherently has a",
+      "duration": 4,
+      "offset": 998.24
+    },
+    {
+      "text": "higher cost and with planet scale it's",
+      "duration": 3.84,
+      "offset": 1000.16
+    },
+    {
+      "text": "significantly higher. The next thing you",
+      "duration": 4.08,
+      "offset": 1002.24
+    },
+    {
+      "text": "have to think about is who are they",
+      "duration": 4.72,
+      "offset": 1004
+    },
+    {
+      "text": "actually selling to. Railway's strength",
+      "duration": 5.04,
+      "offset": 1006.32
+    },
+    {
+      "text": "is definitely earlier projects is",
+      "duration": 4,
+      "offset": 1008.72
+    },
+    {
+      "text": "getting more and more capable for bigger",
+      "duration": 2.8,
+      "offset": 1011.36
+    },
+    {
+      "text": "and bigger things and we're seeing big",
+      "duration": 3.28,
+      "offset": 1012.72
+    },
+    {
+      "text": "companies move to it. But railway if you",
+      "duration": 4.16,
+      "offset": 1014.16
+    },
+    {
+      "text": "were to like spectrum out where on like",
+      "duration": 5.759,
+      "offset": 1016
+    },
+    {
+      "text": "the left side here it is a hobby project",
+      "duration": 6.4,
+      "offset": 1018.32
+    },
+    {
+      "text": "and on the right side it's I don't know",
+      "duration": 5.92,
+      "offset": 1021.759
+    },
+    {
+      "text": "Walmart scale or other giant company",
+      "duration": 4.719,
+      "offset": 1024.72
+    },
+    {
+      "text": "scales. If you were to draw like where",
+      "duration": 3.921,
+      "offset": 1027.679
+    },
+    {
+      "text": "railways strengths are and where they",
+      "duration": 4.24,
+      "offset": 1029.439
+    },
+    {
+      "text": "are weakest, I would say the chart looks",
+      "duration": 4.719,
+      "offset": 1031.6
+    },
+    {
+      "text": "something like this. Maybe move this",
+      "duration": 5.441,
+      "offset": 1033.679
+    },
+    {
+      "text": "bump a little there where it's good",
+      "duration": 3.921,
+      "offset": 1036.319
+    },
+    {
+      "text": "right when you're starting a small",
+      "duration": 2.719,
+      "offset": 1039.12
+    },
+    {
+      "text": "thing. I personally prefer Verscell for",
+      "duration": 2.959,
+      "offset": 1040.24
+    },
+    {
+      "text": "the quick deployment experience like",
+      "duration": 3.041,
+      "offset": 1041.839
+    },
+    {
+      "text": "Railway to do a little bit more config,",
+      "duration": 3.921,
+      "offset": 1043.199
+    },
+    {
+      "text": "but once you need the server, it can be",
+      "duration": 4.08,
+      "offset": 1044.88
+    },
+    {
+      "text": "really really nice, but how much you",
+      "duration": 4.799,
+      "offset": 1047.12
+    },
+    {
+      "text": "benefit from Railway decreases as your",
+      "duration": 4.719,
+      "offset": 1048.96
+    },
+    {
+      "text": "thing gets bigger and more complex.",
+      "duration": 3.201,
+      "offset": 1051.919
+    },
+    {
+      "text": "Their pricing is really good. It's a",
+      "duration": 2.961,
+      "offset": 1053.679
+    },
+    {
+      "text": "great platform, but their strengths",
+      "duration": 3.12,
+      "offset": 1055.12
+    },
+    {
+      "text": "definitely more to the left than the",
+      "duration": 2.96,
+      "offset": 1056.64
+    },
+    {
+      "text": "right here. If you were to compare this",
+      "duration": 2.96,
+      "offset": 1058.24
+    },
+    {
+      "text": "with Planet Scale, I would say it's",
+      "duration": 4,
+      "offset": 1059.6
+    },
+    {
+      "text": "almost exactly inversed. Where Planet",
+      "duration": 4.8,
+      "offset": 1061.2
+    },
+    {
+      "text": "Scale's benefits barely affect you early",
+      "duration": 4.48,
+      "offset": 1063.6
+    },
+    {
+      "text": "on. All the people in my comment section",
+      "duration": 4.24,
+      "offset": 1066
+    },
+    {
+      "text": "that are saying things right now like",
+      "duration": 4.16,
+      "offset": 1068.08
+    },
+    {
+      "text": "why not just use a $5 VPS with",
+      "duration": 5.2,
+      "offset": 1070.24
+    },
+    {
+      "text": "Postgress, they're all so chronically in",
+      "duration": 5.04,
+      "offset": 1072.24
+    },
+    {
+      "text": "this area that they have blinded",
+      "duration": 4.16,
+      "offset": 1075.44
+    },
+    {
+      "text": "themselves from reality. none of those",
+      "duration": 3.92,
+      "offset": 1077.28
+    },
+    {
+      "text": "people have scaled the real service or",
+      "duration": 4.16,
+      "offset": 1079.6
+    },
+    {
+      "text": "at the very least they're not the ones",
+      "duration": 4.56,
+      "offset": 1081.2
+    },
+    {
+      "text": "doing the scaling of the service. That",
+      "duration": 3.68,
+      "offset": 1083.76
+    },
+    {
+      "text": "$5 Postgress tier is going to collapse",
+      "duration": 4.159,
+      "offset": 1085.76
+    },
+    {
+      "text": "under basically anything. And that's why",
+      "duration": 4,
+      "offset": 1087.44
+    },
+    {
+      "text": "Planet Scale exists cuz they want to",
+      "duration": 3.681,
+      "offset": 1089.919
+    },
+    {
+      "text": "target the people over here, the cash",
+      "duration": 4.96,
+      "offset": 1091.44
+    },
+    {
+      "text": "apps of the world. That's what they're",
+      "duration": 4.24,
+      "offset": 1093.6
+    },
+    {
+      "text": "trying to target these big big",
+      "duration": 3.519,
+      "offset": 1096.4
+    },
+    {
+      "text": "businesses. So why the [ __ ] would you",
+      "duration": 3.6,
+      "offset": 1097.84
+    },
+    {
+      "text": "trust the free tier product they're",
+      "duration": 3.201,
+      "offset": 1099.919
+    },
+    {
+      "text": "offering here when this isn't where",
+      "duration": 3.119,
+      "offset": 1101.44
+    },
+    {
+      "text": "their focus is? Their focus is over",
+      "duration": 3.84,
+      "offset": 1103.12
+    },
+    {
+      "text": "there. Obviously, in retrospect, that",
+      "duration": 4,
+      "offset": 1104.559
+    },
+    {
+      "text": "free tier has always been on the",
+      "duration": 3.04,
+      "offset": 1106.96
+    },
+    {
+      "text": "chopping block. It's always been at high",
+      "duration": 3.681,
+      "offset": 1108.559
+    },
+    {
+      "text": "risk. Whereas on something like railway,",
+      "duration": 4.16,
+      "offset": 1110
+    },
+    {
+      "text": "the cost is high enough that it's not a",
+      "duration": 3.439,
+      "offset": 1112.24
+    },
+    {
+      "text": "guarantee, but at the very least,",
+      "duration": 2.72,
+      "offset": 1114.16
+    },
+    {
+      "text": "they're transparent about it. And since",
+      "duration": 2.561,
+      "offset": 1115.679
+    },
+    {
+      "text": "their focus is around here, you don't",
+      "duration": 2.56,
+      "offset": 1116.88
+    },
+    {
+      "text": "have to worry as much about the cheap",
+      "duration": 3.04,
+      "offset": 1118.24
+    },
+    {
+      "text": "and free plans disappearing. So, my",
+      "duration": 3.359,
+      "offset": 1119.44
+    },
+    {
+      "text": "original plan is I was going to do a",
+      "duration": 3.6,
+      "offset": 1121.28
+    },
+    {
+      "text": "quick overview of all of the options you",
+      "duration": 4.081,
+      "offset": 1122.799
+    },
+    {
+      "text": "would reasonably want to pick from. And",
+      "duration": 5.52,
+      "offset": 1124.88
+    },
+    {
+      "text": "it very quickly became not reasonable.",
+      "duration": 5.6,
+      "offset": 1126.88
+    },
+    {
+      "text": "I'm going to have a dedicated video in",
+      "duration": 4,
+      "offset": 1130.4
+    },
+    {
+      "text": "the very near future where I break down",
+      "duration": 3.439,
+      "offset": 1132.48
+    },
+    {
+      "text": "all of these options and the benefits",
+      "duration": 3.36,
+      "offset": 1134.4
+    },
+    {
+      "text": "and negatives of each of them. But for",
+      "duration": 4.241,
+      "offset": 1135.919
+    },
+    {
+      "text": "now, I will tell you the simple version,",
+      "duration": 4.159,
+      "offset": 1137.76
+    },
+    {
+      "text": "which is if you can go serverless, you",
+      "duration": 3.84,
+      "offset": 1140.16
+    },
+    {
+      "text": "should. If you can use Verscell, you",
+      "duration": 4.321,
+      "offset": 1141.919
+    },
+    {
+      "text": "should probably try to. It is very good.",
+      "duration": 4.4,
+      "offset": 1144
+    },
+    {
+      "text": "Cloudflare's DX isn't great, but it's",
+      "duration": 4.319,
+      "offset": 1146.24
+    },
+    {
+      "text": "fine. Nellifi is just really good vibes,",
+      "duration": 3.519,
+      "offset": 1148.4
+    },
+    {
+      "text": "but it doesn't offer anything",
+      "duration": 2.801,
+      "offset": 1150.559
+    },
+    {
+      "text": "meaningfully different enough that I",
+      "duration": 3.041,
+      "offset": 1151.919
+    },
+    {
+      "text": "would pick them over Versel right now.",
+      "duration": 3.6,
+      "offset": 1153.36
+    },
+    {
+      "text": "Cloud sucks to set up, but it's cheaper.",
+      "duration": 3.2,
+      "offset": 1154.96
+    },
+    {
+      "text": "Lambda, I wouldn't really recommend",
+      "duration": 2.16,
+      "offset": 1156.96
+    },
+    {
+      "text": "unless you really know what you're",
+      "duration": 3.44,
+      "offset": 1158.16
+    },
+    {
+      "text": "doing. Now, the VPS side. Honestly, only",
+      "duration": 3.76,
+      "offset": 1159.12
+    },
+    {
+      "text": "things here I would recommend",
+      "duration": 3.68,
+      "offset": 1161.6
+    },
+    {
+      "text": "confidently are railway and render.",
+      "duration": 3.919,
+      "offset": 1162.88
+    },
+    {
+      "text": "Everything else has some type of crazy",
+      "duration": 4.32,
+      "offset": 1165.28
+    },
+    {
+      "text": "risk. If you want the full deep dive on",
+      "duration": 5.281,
+      "offset": 1166.799
+    },
+    {
+      "text": "why I feel that way, deep video about",
+      "duration": 4.8,
+      "offset": 1169.6
+    },
+    {
+      "text": "all of that coming very soon. I never",
+      "duration": 3.839,
+      "offset": 1172.08
+    },
+    {
+      "text": "thought I'd see the day Heroku was",
+      "duration": 3.68,
+      "offset": 1174.4
+    },
+    {
+      "text": "actually dead. And it isn't to be clear.",
+      "duration": 3.441,
+      "offset": 1175.919
+    },
+    {
+      "text": "Like, it's still running. People can",
+      "duration": 2.719,
+      "offset": 1178.08
+    },
+    {
+      "text": "still sign up and pay for a server with",
+      "duration": 3.12,
+      "offset": 1179.36
+    },
+    {
+      "text": "a credit card, but it's clear where it's",
+      "duration": 2.961,
+      "offset": 1180.799
+    },
+    {
+      "text": "going. And where it's going is the",
+      "duration": 2.96,
+      "offset": 1182.48
+    },
+    {
+      "text": "drain. I highly recommend if you are",
+      "duration": 3.68,
+      "offset": 1183.76
+    },
+    {
+      "text": "using Heroku that you start moving off.",
+      "duration": 3.84,
+      "offset": 1185.44
+    },
+    {
+      "text": "And the services I recommended today are",
+      "duration": 3.76,
+      "offset": 1187.44
+    },
+    {
+      "text": "all really good, reliable options. I",
+      "duration": 3.279,
+      "offset": 1189.28
+    },
+    {
+      "text": "don't see any of them going anywhere",
+      "duration": 3.44,
+      "offset": 1191.2
+    },
+    {
+      "text": "anytime soon. And it is time to move",
+      "duration": 3.681,
+      "offset": 1192.559
+    },
+    {
+      "text": "because who knows what Salesforce is",
+      "duration": 3.039,
+      "offset": 1194.64
+    },
+    {
+      "text": "going to do to Heroku next. Let me know",
+      "duration": 3.6,
+      "offset": 1196.24
+    },
+    {
+      "text": "how y'all feel. And until next time,",
+      "duration": 4.641,
+      "offset": 1197.679
+    },
+    {
+      "text": "peace nerds.",
+      "duration": 2.48,
+      "offset": 1199.84
+    }
+  ],
+  "transcriptText": "I might be dating myself a bit here, but Heroku was essential to me getting started as a dev back in the day. It was the easiest place by far to just spin up a server. AWS was revolutionary in that it could allow you to do things like that, but the experience using it just wasn't there. And Heroku was the first platform that really had that magic feeling of linking something to a GitHub repo and the server just kind of exists. There's a reason that so many developers that you know, love, and learn from today all learned the way they did on top of Heroku. And today we all grieve together because man, Heroku's dead dead now. If you're not familiar, Heroku was by far the easiest way to set up servers for quite a long time. They also had a very generous free tier for a while. They got acquired by Salesforce because Salesforce, like many companies of that era, was built heavily on top of Heroku. But unlike the other companies, Salesforce hadn't moved off and decided it would probably be cheaper to just buy Heroku and fix the problems we have with it than it would be to move off. At least if you're the size of Salesforce, which is why they did it. Not too long after that acquisition, they realized that the free tier was mostly a money pit, not a way to actually get customers. So, they turned off the free tier, which is one of the most defining things for Heroku. That would be the equivalent of like Twitter turning off the free tier. It's just unimaginable. It was insane. It was one of my first ever viral videos way back in what was that? Over three years ago. Yeah, September 2022. Wild. And it's basically just been idling since then. And it no longer is spinning around the drain. It is officially going down. Today, Heroku is transitioning to a sustaining engineering model focused on stability, security, reliability, and laying off our team. Sorry, support. I have a lot of thoughts on this one. both the disaster that is how Heroku is shutting down without shutting down as well as the alternatives that you should explore and how things have shifted over the years as well as answers to some fun questions like I wonder how Verscell can subsidize their free tier covering all of that and more and how much risk your platforms might have but if I'm going to keep offering my content for free someone's got to pay the team and today the only people paying us are the sponsor I've been automating more and more of my work with AI and I'm blown away with what it can do I commonly run into a specific limitation though API Well, more importantly, the lack of APIs. There are so many services around the world that don't have an API to access them. And it's so annoying. Unless you're using today's sponsor, Kernel. If you give your AI a browser, it could suddenly do a whole lot more. There's a lot of companies trying to automate work in categories that just don't have good APIs. Things like government, medical, and more. One of those companies is Novaflow. They're trying to do voice AI agents for medical clinics, but that's not easy because none of their software has APIs. They were previously automating a lot of this work with a different product. That product happened to shut down and when they did their research, it turned out Kernel was the best bet. It was the only option that could handle their scale immediately and complete the migration with zero downtime. They also call that the support has been outstanding and I fully agree. When I first tried Kernel, when we started the sponsor agreement, I sent them like three pages of feedback over email and almost all of it was addressed within the next few days. It was crazy to watch how fast they were. They were responding to my emails at like 11:00 p.m. You know, time I often film. Yeah, it's almost midnight. Forgive me. According to Novaflow, there are over 400 EHRs and EMRs that they have to do work with, and 80% of them have little or no API at all. Since all of these systems live behind web portals, they need a browser. If you're doing work where things live behind web portals, you almost certainly would benefit from a product like Kernel. Since all of their infer is compatible with Playright and Puppeteer, it's a relatively easy swap, even if you're already hosting the browsers yourself. And if you are doing that, please stop. There are so many little things that make life obnoxious when you're running your own browsers. What happens when you hit a capture? What happens when you're limited based on the network that you're sending the requests from? All of these things and more are handled by kernel. And that's why the move was so seamless for Novaflow. They did the full roll out within 2 days. Yeah, 2 days. Oh, and of course, the pay as you go pricing is a really nice benefit as well. You're only paying for what you're using. I was able to build my first app with kernel in just a few minutes. You can too at soyv.link/kernel. Core questions we want to answer here are what the hell happened? Can you trust free tiers? And where should you move to? Let's start with this blog post. Heroku remains an actively supported productionready platform with an emphasis on maintaining quality and operational excellence rather than introducing new features. We know changes like this can raise questions. We want to be clear about what this means for customers. Existing customers have no change. Customers who pay via credit card in the Heroku Dash, both existing and new, can continue to use Heroku with no change. One of the things they changed that they barely touched on here is that enterprise contracts won't be offered to new customers and existing ones are going to have to move over to paying via credit card instead of like big long-term invoices like these companies tend to do. Heroku was an interesting product because it came out before this idea of free tiers and like onboarding people existed. When you were building something that you sold to businesses, you really only focused on the businesses at the time. This idea of an independent developer that also has a job that experiments in their free time and then brings what they use to work did not exist when Heroku started. It's now very relevant. In fact, most companies have a strategy like that where they make a good compelling product for people to try out on their own and then they bring it to work and then it takes over work. Heroku pioneered that to the point where I was using them for the database for ping all the way back when we started initially. And now I'm thankful I moved off as early as I did because my god, I had so many problems with that database. I don't want to talk about that. I want to talk about this. The other thing they are not mentioning here is that they did a massive round of layoffs. I think it was over half the team, maybe more. I don't think those numbers are public, but I don't care because this is absurd. There was actually a handful of teams at Heroku that have been working really, really hard to modernize things. They were close to bringing back the free tier. They were introducing features that people expect from other platforms. They were going really hard to try and get Heroku to the point where it could actually make sense for somebody to start things up with. that's over. They just gave up. And it was like like they were close, not to the finish line, but they were close to getting to the start of the race and right before they walked into the track, they decided to just shoot themselves. It's It's absurd. This was kind of a long time in the making, though. Back in 2024, Bob Weise, who was the CEO of Heroku at the time, opened a position for a new chief product officer because the previous one moved down to a VP role. I think he ended up leaving soon after that, but they wanted somebody to come in and actually run product. When a company gets to a certain size, especially postacquisition, it's not uncommon for the CEO to have too much random [ __ ] they're doing to actually steer product. I personally experienced this when I was at Twitch. When we got acquired, EMTT Shear, the CEO of Twitch and also known as the temp CEO of OpenAI, focused almost all of his energy on keeping Amazon out of Twitch. He did a great job at that. I never really felt like I was at Amazon for my first few years at Twitch. He forgot to run the company though. Just nothing was happening in product because he wasn't really leading product. He tried and failed to hire a product lead a few different times. Eventually left as CEO, brought someone else in. They still have no product direction. And a lot of that is because the CEO is busy doing other things. And that seems to have been the case for Bob as well. He wanted a good CPO and the existing one wanted to step back like wanted to take a step away from Heroku. He wanted somebody to lean in. And it seems like he never successfully filled this role. In fact, not long after, November of the same year, remember this was in July, four months later, he leaves. Bob Weise has left Salesforce for his next career move. Losing your CPO and CEO in a four-month window is basically a guarantee of death. And my honest guess is that what happened at that point is the teams kind of went into fight or flight fend for yourself mode where they just wanted to to build and try to make something useful cuz they didn't have leaders to give them a road map. They also didn't have leaders to tell them they were straying too far from the road map which is why a lot of the developers there started to like I want to say idle cuz it was very different from idling like they were trying really hard to build useful stuff at the company without enough guidance and leadership to really push it forward. My honest guess is that the layoffs were probably planned from the moment the CEO left, but it just takes time to do it and there probably wasn't an exec whose job it was to do all of those things. Oh, looks like Nitin is that CPO at Heroku that came in and this is the only post he's ever written on their blog. Okay, it's really funny. They just announced the general availability of the GitHub enterprise server integration. This is again one of those things where like this was a release that was probably planned months in advance and the person who wrote this post probably doesn't even work at the company anymore. Insane. Salesforce laid off nearly a thousand employees and obviously a lot of those are from agent force and more importantly here. Apparently other senior executives have been leaving Salesforce as well. Is is Salesforce actually in that much danger? That's nuts. I never would have thought. It's so far from my world but Jesus. There's some good coverage from Male Lindsar here as well. They consider Heroku internally to be end of sale for enterprise customers. So they're actively not pursuing new customers that really drive the business. It's full maintenance mode now. Heroku's get push to deploy was a sea change and a fantastic deployment process. Absolutely agree. To this day, I'm still chasing that high. Over the decade, the $25 per month plan has gotten you the same server with one dyno in 512 megs of RAM per month. Maybe the compute behind the dinos, but the lack of RAM and flexibility of the stack has driven enterprise clients in other directions. Roku's promise was we take care of the stack and they charge a premium to do so. Doesn't matter anymore. This is actually less useful an article than I thought it would be. Whatever. Hopefully, we've established that Heroku is dead. They were acquired by a company that didn't really know what to do with them beyond make it work for their own use case. They slowly let the company die because they weren't giving it the right focus and attention. And clearly, the leaders were checked out. This is a pretty classic acquisition to checked out leadership pipeline. This happens a lot where a company gets acquired, the leaders just don't care anymore, and they eventually let the company die in front of them. I've seen this a ton, will continue to happen. You could even argue the same thing's happening to GitHub right now. There are very few people at GitHub that are from pre-acquisition and the ones who are there now, a handful of them care a lot, but it's it's not the same. So, on that note, can we trust free tiers at all? One of the first things somebody asked when I started this was how can Verscell afford their free tier? There's an important thing you need to understand about Versell compared to other products. Okay, compared to things that aren't Netlefi, Cloudflare, and I guess like Dino Deploy, Verscell doesn't give you a server. When you spin up on Heroku or AWS EC2 or other similar platforms, you're getting a box or at least part of a box reserved for you 24/7 at any point in time. You can SSH into it, you can connect to it, the box is running whether or not you have users hitting your service. That is a problem. Not just because like you're paying when there's no users, but also because you have to scale in each direction. If your server can handle 50 users and you have 51 of them, how do you deal with that? If your server can handle 50 users and you have zero of them, why are you paying for that? That balance is a hard thing to strike, which is why serverless became a thing. The most popular version of serverless is Lambda functions pioneered by AWS as a way to write a function that is provisioned by Amazon on request rather than on creation. With a traditional server like you know the classic PHP lampstack, you would write all the code, get everything set up, you would FTP connect into a server that's already running and provisioned, dump the files on it, and now users are served the new traffic. The server just stays there though effectively. With serverless, your code is shipped up to some platform and stored in something like S3. And then when a request comes in, a server is booted, your code is put into it, and then it responds. This means you have to deal with something called a cold start, which is the time it takes for the code to be loaded in and initialize on that Lambda. But as long as someone's hit your thing recently, there's probably a warmed up lambda sitting there from the previous request because they take a few seconds after completion to die so that it can just take the next request without spinning down. This ends up being a lot cheaper for services that don't get much traffic because the services without traffic don't invoke a whole lot and as a result, you're not going to be build a whole lot. Services that get a lot of traffic tend to spend more money though because you're paying for the cost of the cold start. You're paying for the cost of Amazon provisioning all of this. you're paying an upcharge for the fact that you're running in this type of provisioned environment and you don't get concurrency benefits because on Lambda, one request equals one Lambda. So if you have 500 users hitting your site, each of them gets their own Lambda or is hitting one after another person's request finished. That sucked for a ton of reasons. I have a lot of videos talking about this. Just search Theo fluid compute and you'll find a handful of them. Or my Cloudflare versus Verscell video I did mid to late last year. That's a good one, too. For lots of reasons, requests take longer than they used to. So your request isn't just hitting the database and giving you a response. Now they're doing things like LLM generation that can take minutes instead of milliseconds. So having a Lambda that is running for one user's one request is it's expensive. Verscell has since built their own thing originally on top of Lambda now similar to Lambda where they have a gateway that allows for multiple requests to be routed to one Lambda at the same time which helps them reduce costs even further. The reality is that when you deploy something on Versell, it costs $0 and 0 for Verscell. The only thing that costs money for them effectively is when you actually go to the site. So their free tier is going to be relatively safe here. Same with Cloudflare, same with Netleifi, same with any other similar platform that is doing some type of serverless deployments. No traffic means no cost. No cost means nothing to worry about. Obviously, as your services start to get more traffic, they're going to charge you for that because it does cost money to run servers, to distribute content over CDNs, to handle bandwidth, and all of those things. But the free tiers are super generous because their cost profiles are really low. This is also why things like preview environments are so easy on those platforms because when I put up a PR, all the preview environment is is a bundle of code getting put on a storage drive somewhere that will be loaded when I go to the URL. As long as you're not on the page, it doesn't cost anything. And that's why the GitHub experience integrations with these platforms are really good as well. So you don't have to worry about the free tier on those platforms. But there are other platforms that you should be considerate of. Some that have had back and forth with their relationship with the free tier. The ones that come to mind are Railway and Planet Scale. Railway used to have a super super generous free tier. Because of abuse, they had to ramp it down a little bit also because their server costs were crazy when they were building on top of GCP. This pissed off Jake, the founder of Railway so much that he now hosts and racks his own servers in his own farms. They are no longer relying on GCP for their traffic. And since they're running their own servers, their costs are way lower and they were able to make the free tier significantly cheaper. Railway is also running traditional servers, which is important to understand the distinction here. When you provision a server on Railway, it is just running. You can set it up to automatically sleep, but chances are when you're using Railway, you have servers that are running 24/7. I like that a lot for a handful of things that I build. Things that benefit from having a persistent connection to the database, a persistent database, just being a real server, especially like websocket type stuff. There's a lot of reasons why you want a real server. Shu, my new off servers that hopefully is coming up very very soon is built on top of Railway. It's been an awesome experience. I've been using Railway for a ton of stuff for a while. They've sponsored one or two videos in the past. They're not sponsoring this one. I just genuinely like the platform a lot. There are other alternatives as well that we'll get to, but I want to talk about these two due to the free tiers. Railways free tier got bad because costs were too high because of the hosting that they were doing. Since they moved to their own infra, their free tier has gotten way more generous. Apparently, it's a 30-day trial with a $5 credit, then $1 per month of free credit. Probably not going to run for the whole month for free on that, but you're not going to be too far off either. The more disastrous example here is Planet Scale. Planet Scale is a database company that makes your MySQL scale infinitely, and they also finally recently started supporting Postgress as well. Planet Scales base tier was 30 bucks a month because they are running multiple replicas of every single database on the platform which made it inaccessible for somebody experimenting with it. The Planet Scale free tier would let you spin up a database for free that was the exact same as if you were paying 30 bucks which meant that they were eating a lot of cost and you could you could tell when Planet Scale wanted to fix their books to make it easier to run the business in a sustainable way they immediately cut the free tier because it wasn't really getting them the customers they were looking for. they would get their customers by going to big companies that they knew were using SQL and saying, \"Hey, your [ __ ] sucks. We'll make it 10 times faster and cheaper.\" So, the free tier wasn't benefiting them a whole lot. So, that one died. If you're worried about losing the free tier, you're going to have to think a lot more about the platform and how it works to know how much risk you're taking on. The first obvious question is how much does this cost them? In the case of Versel, free tier costs them almost nothing for all the reasons I described before. In the case of Railway, they are dedicating a server to you. So that inherently has a higher cost and with planet scale it's significantly higher. The next thing you have to think about is who are they actually selling to. Railway's strength is definitely earlier projects is getting more and more capable for bigger and bigger things and we're seeing big companies move to it. But railway if you were to like spectrum out where on like the left side here it is a hobby project and on the right side it's I don't know Walmart scale or other giant company scales. If you were to draw like where railways strengths are and where they are weakest, I would say the chart looks something like this. Maybe move this bump a little there where it's good right when you're starting a small thing. I personally prefer Verscell for the quick deployment experience like Railway to do a little bit more config, but once you need the server, it can be really really nice, but how much you benefit from Railway decreases as your thing gets bigger and more complex. Their pricing is really good. It's a great platform, but their strengths definitely more to the left than the right here. If you were to compare this with Planet Scale, I would say it's almost exactly inversed. Where Planet Scale's benefits barely affect you early on. All the people in my comment section that are saying things right now like why not just use a $5 VPS with Postgress, they're all so chronically in this area that they have blinded themselves from reality. none of those people have scaled the real service or at the very least they're not the ones doing the scaling of the service. That $5 Postgress tier is going to collapse under basically anything. And that's why Planet Scale exists cuz they want to target the people over here, the cash apps of the world. That's what they're trying to target these big big businesses. So why the [ __ ] would you trust the free tier product they're offering here when this isn't where their focus is? Their focus is over there. Obviously, in retrospect, that free tier has always been on the chopping block. It's always been at high risk. Whereas on something like railway, the cost is high enough that it's not a guarantee, but at the very least, they're transparent about it. And since their focus is around here, you don't have to worry as much about the cheap and free plans disappearing. So, my original plan is I was going to do a quick overview of all of the options you would reasonably want to pick from. And it very quickly became not reasonable. I'm going to have a dedicated video in the very near future where I break down all of these options and the benefits and negatives of each of them. But for now, I will tell you the simple version, which is if you can go serverless, you should. If you can use Verscell, you should probably try to. It is very good. Cloudflare's DX isn't great, but it's fine. Nellifi is just really good vibes, but it doesn't offer anything meaningfully different enough that I would pick them over Versel right now. Cloud sucks to set up, but it's cheaper. Lambda, I wouldn't really recommend unless you really know what you're doing. Now, the VPS side. Honestly, only things here I would recommend confidently are railway and render. Everything else has some type of crazy risk. If you want the full deep dive on why I feel that way, deep video about all of that coming very soon. I never thought I'd see the day Heroku was actually dead. And it isn't to be clear. Like, it's still running. People can still sign up and pay for a server with a credit card, but it's clear where it's going. And where it's going is the drain. I highly recommend if you are using Heroku that you start moving off. And the services I recommended today are all really good, reliable options. I don't see any of them going anywhere anytime soon. And it is time to move because who knows what Salesforce is going to do to Heroku next. Let me know how y'all feel. And until next time, peace nerds."
+}

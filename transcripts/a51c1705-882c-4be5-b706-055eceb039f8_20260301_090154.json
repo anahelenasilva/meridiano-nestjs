@@ -1,0 +1,6082 @@
+{
+  "channel": {
+    "id": "a51c1705-882c-4be5-b706-055eceb039f8",
+    "databaseId": "a51c1705-882c-4be5-b706-055eceb039f8",
+    "name": "Theo Browne",
+    "description": "Theo is a software dev, AI nerd, TypeScript sympathizer, creator of T3 Chat and the T3 Stack."
+  },
+  "videoId": "p2aea9dytpE",
+  "title": "Software engineering is dead now",
+  "url": "https://www.youtube.com/watch?v=p2aea9dytpE",
+  "publishedAt": "2026-03-01T12:01:53.982Z",
+  "description": "Block, a massive company responsible Cash App, Square, Tidal, and more just fired half their staff. Things are really starting to change...\n\nThank you CodeRabbit for sponsoring! Check them out at: https://soydev.link/coderabbit\n\nSOURCES\nhttps://x.com/jack/status/2027129697092731343\nhttps://x.com/theo/status/2026861274550906910\nhttps://x.com/theo/status/2026052109767147823\n\nWant to sponsor a video? Learn more here: https://soydev.link/sponsor-me\n\nCheck out my Twitch, Twitter, Discord more at https://t3.gg\n\nS/O @Ph4seon3 for the awesome edit 🙏",
+  "thumbnailUrl": "https://i.ytimg.com/vi/p2aea9dytpE/maxresdefault.jpg",
+  "transcript": [
+    {
+      "text": "I'm sure you've all seen the meme. We're",
+      "duration": 3.679,
+      "offset": 0
+    },
+    {
+      "text": "6 months away from AI taking our jobs as",
+      "duration": 3.92,
+      "offset": 1.439
+    },
+    {
+      "text": "developers forever. And while this is a",
+      "duration": 3.2,
+      "offset": 3.679
+    },
+    {
+      "text": "meme that we've been saying for years,",
+      "duration": 3.681,
+      "offset": 5.359
+    },
+    {
+      "text": "I'm starting to really feel it. There",
+      "duration": 3.76,
+      "offset": 6.879
+    },
+    {
+      "text": "have just been so many signals that",
+      "duration": 3.36,
+      "offset": 9.04
+    },
+    {
+      "text": "things are actually changing now. From",
+      "duration": 3.681,
+      "offset": 10.639
+    },
+    {
+      "text": "baby Keem using OpenClaw to the top",
+      "duration": 4,
+      "offset": 12.4
+    },
+    {
+      "text": "G-Talking [ __ ] on it to Cloudflare",
+      "duration": 4.48,
+      "offset": 14.32
+    },
+    {
+      "text": "rewriting Nex.js JS in a week using AI",
+      "duration": 5.039,
+      "offset": 16.4
+    },
+    {
+      "text": "to CEOs that barely even code building",
+      "duration": 4.319,
+      "offset": 18.8
+    },
+    {
+      "text": "whole apps from scratch cloning",
+      "duration": 3.361,
+      "offset": 21.439
+    },
+    {
+      "text": "billion-dollar companies in just a few",
+      "duration": 4.881,
+      "offset": 23.119
+    },
+    {
+      "text": "days to Jack the original CEO of Twitter",
+      "duration": 5.76,
+      "offset": 24.8
+    },
+    {
+      "text": "laying off 40% of his employees at Block",
+      "duration": 4.16,
+      "offset": 28
+    },
+    {
+      "text": "even though they're profitable and",
+      "duration": 5.04,
+      "offset": 30.56
+    },
+    {
+      "text": "growing. This is this is terrifying. We",
+      "duration": 6.48,
+      "offset": 32.16
+    },
+    {
+      "text": "are there now. I didn't know what this",
+      "duration": 5.2,
+      "offset": 35.6
+    },
+    {
+      "text": "would look like or how it would feel,",
+      "duration": 4.64,
+      "offset": 38.64
+    },
+    {
+      "text": "but it's happening now. It's very clear",
+      "duration": 4.72,
+      "offset": 40.8
+    },
+    {
+      "text": "it is happening now. And I have a lot of",
+      "duration": 4.24,
+      "offset": 43.28
+    },
+    {
+      "text": "thoughts about that. Mostly in a very",
+      "duration": 4.24,
+      "offset": 45.52
+    },
+    {
+      "text": "privileged position here where at least",
+      "duration": 3.92,
+      "offset": 47.52
+    },
+    {
+      "text": "by the looks of it, media doesn't seem",
+      "duration": 3.76,
+      "offset": 49.76
+    },
+    {
+      "text": "to be going anywhere. But that doesn't",
+      "duration": 3.92,
+      "offset": 51.44
+    },
+    {
+      "text": "mean I don't talk to engineers every day",
+      "duration": 3.6,
+      "offset": 53.52
+    },
+    {
+      "text": "and that I don't have hundreds of y'all",
+      "duration": 4.32,
+      "offset": 55.36
+    },
+    {
+      "text": "in my DMs and talking to me across every",
+      "duration": 4.72,
+      "offset": 57.12
+    },
+    {
+      "text": "possible imaginable method telling me",
+      "duration": 4.72,
+      "offset": 59.68
+    },
+    {
+      "text": "just how screwed things are right now.",
+      "duration": 4.88,
+      "offset": 61.84
+    },
+    {
+      "text": "And there is hope. There are places this",
+      "duration": 4.719,
+      "offset": 64.4
+    },
+    {
+      "text": "can go that are good. But right now, the",
+      "duration": 4.719,
+      "offset": 66.72
+    },
+    {
+      "text": "dev world is about to change. Normally,",
+      "duration": 4,
+      "offset": 69.119
+    },
+    {
+      "text": "I would do a joke here about how I need",
+      "duration": 2.881,
+      "offset": 71.439
+    },
+    {
+      "text": "ads because I'm not getting paid to",
+      "duration": 3.281,
+      "offset": 73.119
+    },
+    {
+      "text": "write code anymore. But honestly, things",
+      "duration": 3.439,
+      "offset": 74.32
+    },
+    {
+      "text": "are scary enough right now. It feels a",
+      "duration": 3.359,
+      "offset": 76.4
+    },
+    {
+      "text": "bit inappropriate. So, just know I have",
+      "duration": 3.36,
+      "offset": 77.759
+    },
+    {
+      "text": "to get my team paid. So, we'll do a",
+      "duration": 2.881,
+      "offset": 79.759
+    },
+    {
+      "text": "quick break and then we'll dive in.",
+      "duration": 2.961,
+      "offset": 81.119
+    },
+    {
+      "text": "Going to be real with you guys. I'm vibe",
+      "duration": 3.119,
+      "offset": 82.64
+    },
+    {
+      "text": "coding a bit close to the sun lately.",
+      "duration": 3.52,
+      "offset": 84.08
+    },
+    {
+      "text": "We're shipping so much code for all the",
+      "duration": 3.201,
+      "offset": 85.759
+    },
+    {
+      "text": "projects we're working on and I would",
+      "duration": 2.96,
+      "offset": 87.6
+    },
+    {
+      "text": "probably be shipping a lot more bugs if",
+      "duration": 3.199,
+      "offset": 88.96
+    },
+    {
+      "text": "today's sponsor wasn't a thing. Code",
+      "duration": 2.96,
+      "offset": 90.56
+    },
+    {
+      "text": "Rabbit has reviewed pretty much every",
+      "duration": 3.361,
+      "offset": 92.159
+    },
+    {
+      "text": "line of code I've written in the past",
+      "duration": 4.08,
+      "offset": 93.52
+    },
+    {
+      "text": "few months and it has prevented so many",
+      "duration": 3.76,
+      "offset": 95.52
+    },
+    {
+      "text": "bugs from shipping. I've tried all of",
+      "duration": 3.28,
+      "offset": 97.6
+    },
+    {
+      "text": "these AI code review tools with my team",
+      "duration": 3.04,
+      "offset": 99.28
+    },
+    {
+      "text": "and this is the one my team chooses",
+      "duration": 3.68,
+      "offset": 100.88
+    },
+    {
+      "text": "every single time. And I get why. It",
+      "duration": 4.24,
+      "offset": 102.32
+    },
+    {
+      "text": "seems to just understand these complex",
+      "duration": 3.919,
+      "offset": 104.56
+    },
+    {
+      "text": "code bases better than other tools,",
+      "duration": 3.199,
+      "offset": 106.56
+    },
+    {
+      "text": "especially once you've used it for a bit",
+      "duration": 2.96,
+      "offset": 108.479
+    },
+    {
+      "text": "because it has a good memory tool where",
+      "duration": 3.521,
+      "offset": 109.759
+    },
+    {
+      "text": "it learns when you give it feedback. If",
+      "duration": 3.201,
+      "offset": 111.439
+    },
+    {
+      "text": "you tell it, hey, this thing doesn't",
+      "duration": 2.879,
+      "offset": 113.28
+    },
+    {
+      "text": "matter. It remembers and it won't",
+      "duration": 3.04,
+      "offset": 114.64
+    },
+    {
+      "text": "comment on it in the future, which makes",
+      "duration": 3.521,
+      "offset": 116.159
+    },
+    {
+      "text": "it really easy to reduce the noise and",
+      "duration": 3.759,
+      "offset": 117.68
+    },
+    {
+      "text": "focus in on the signal. For a good",
+      "duration": 3.52,
+      "offset": 119.68
+    },
+    {
+      "text": "example of that signal, here's a mistake",
+      "duration": 3.521,
+      "offset": 121.439
+    },
+    {
+      "text": "that I never would have made in the good",
+      "duration": 3.599,
+      "offset": 123.2
+    },
+    {
+      "text": "old days of handwriting code that an",
+      "duration": 3.84,
+      "offset": 124.96
+    },
+    {
+      "text": "agent will gladly do. This directory",
+      "duration": 3.121,
+      "offset": 126.799
+    },
+    {
+      "text": "should have been git ignored because",
+      "duration": 3.04,
+      "offset": 128.8
+    },
+    {
+      "text": "it's a build directory, but somehow it",
+      "duration": 3.679,
+      "offset": 129.92
+    },
+    {
+      "text": "snuck in here. I mean, I know how the",
+      "duration": 3.039,
+      "offset": 131.84
+    },
+    {
+      "text": "agent had put it in the git ignore and",
+      "duration": 2.881,
+      "offset": 133.599
+    },
+    {
+      "text": "now it's my problem. Being that this PR",
+      "duration": 3.601,
+      "offset": 134.879
+    },
+    {
+      "text": "was like 3,000 lines of code, there's no",
+      "duration": 3.36,
+      "offset": 136.48
+    },
+    {
+      "text": "world in which I would have bothered to",
+      "duration": 2.8,
+      "offset": 138.48
+    },
+    {
+      "text": "read it well enough to catch this type",
+      "duration": 3.039,
+      "offset": 139.84
+    },
+    {
+      "text": "of mistake. But Code Rabbit's more than",
+      "duration": 3.12,
+      "offset": 141.28
+    },
+    {
+      "text": "happy to do that. Calling this out is a",
+      "duration": 3.601,
+      "offset": 142.879
+    },
+    {
+      "text": "major potential issue and that this is a",
+      "duration": 3.68,
+      "offset": 144.4
+    },
+    {
+      "text": "build directory that should have been",
+      "duration": 3.28,
+      "offset": 146.48
+    },
+    {
+      "text": "ignored. Not only does it tell you",
+      "duration": 3.2,
+      "offset": 148.08
+    },
+    {
+      "text": "exactly what's wrong, it gives you a",
+      "duration": 3.119,
+      "offset": 149.76
+    },
+    {
+      "text": "prompt that you can copy paste, which is",
+      "duration": 3.12,
+      "offset": 151.28
+    },
+    {
+      "text": "exactly what I did. I actually went",
+      "duration": 3.121,
+      "offset": 152.879
+    },
+    {
+      "text": "through and found all of the issues that",
+      "duration": 3.6,
+      "offset": 154.4
+    },
+    {
+      "text": "I agreed with in this feedback. Copy",
+      "duration": 3.44,
+      "offset": 156
+    },
+    {
+      "text": "pasted the prompts, had them all fixed,",
+      "duration": 2.879,
+      "offset": 158
+    },
+    {
+      "text": "and then we shipped. This is a big",
+      "duration": 3.36,
+      "offset": 159.44
+    },
+    {
+      "text": "change in a real big repo, too. I'm",
+      "duration": 3.44,
+      "offset": 160.879
+    },
+    {
+      "text": "working on a fun project they'll have",
+      "duration": 3.12,
+      "offset": 162.8
+    },
+    {
+      "text": "more details on soon, I promise. That",
+      "duration": 3.2,
+      "offset": 164.319
+    },
+    {
+      "text": "has everything from Rust and Swift code",
+      "duration": 3.599,
+      "offset": 165.92
+    },
+    {
+      "text": "to TypeScript and Electron. So, uh, case",
+      "duration": 3.36,
+      "offset": 167.519
+    },
+    {
+      "text": "in point, it's a rough codebase to work",
+      "duration": 3.121,
+      "offset": 169.519
+    },
+    {
+      "text": "in, and I swear Code Rabbit's the only",
+      "duration": 3.521,
+      "offset": 170.879
+    },
+    {
+      "text": "thing that seems to actually understand.",
+      "duration": 3.52,
+      "offset": 172.64
+    },
+    {
+      "text": "It even caught a pretty novel bug with",
+      "duration": 3.6,
+      "offset": 174.4
+    },
+    {
+      "text": "async cleanup operations with how we're",
+      "duration": 3.52,
+      "offset": 176.16
+    },
+    {
+      "text": "abusing promises a little bit for our",
+      "duration": 3.519,
+      "offset": 178
+    },
+    {
+      "text": "actual startup script that I don't think",
+      "duration": 3.68,
+      "offset": 179.68
+    },
+    {
+      "text": "any other tool came close to catching.",
+      "duration": 3.36,
+      "offset": 181.519
+    },
+    {
+      "text": "Whether or not you're using AI for code,",
+      "duration": 2.959,
+      "offset": 183.36
+    },
+    {
+      "text": "you should absolutely use it for code",
+      "duration": 2.881,
+      "offset": 184.879
+    },
+    {
+      "text": "review. If you're somehow not doing it",
+      "duration": 3.761,
+      "offset": 186.319
+    },
+    {
+      "text": "yet, fix that today at soyv.link/code",
+      "duration": 4.08,
+      "offset": 187.76
+    },
+    {
+      "text": "rabbit. It's literally just two clicks.",
+      "duration": 3.84,
+      "offset": 190.08
+    },
+    {
+      "text": "There's a lot going on in the industry",
+      "duration": 4.479,
+      "offset": 191.84
+    },
+    {
+      "text": "and I think this post from Jack is going",
+      "duration": 5.36,
+      "offset": 193.92
+    },
+    {
+      "text": "to be a really good place to start from.",
+      "duration": 5.361,
+      "offset": 196.319
+    },
+    {
+      "text": "Generally speaking, Jack tends to be a",
+      "duration": 4.879,
+      "offset": 199.28
+    },
+    {
+      "text": "decent bit ahead of market trends at the",
+      "duration": 4.559,
+      "offset": 201.68
+    },
+    {
+      "text": "very least 6 months to two years ahead",
+      "duration": 4.321,
+      "offset": 204.159
+    },
+    {
+      "text": "overall. And it is incredibly rare for a",
+      "duration": 5.121,
+      "offset": 206.239
+    },
+    {
+      "text": "company to do mass layoffs like this",
+      "duration": 4.479,
+      "offset": 208.48
+    },
+    {
+      "text": "when they are currently in the process",
+      "duration": 4.239,
+      "offset": 211.36
+    },
+    {
+      "text": "of growing and their revenue is going up",
+      "duration": 4.881,
+      "offset": 212.959
+    },
+    {
+      "text": "and their profits are increasing. I have",
+      "duration": 4.56,
+      "offset": 215.599
+    },
+    {
+      "text": "a lot of faith in Jack personally and I",
+      "duration": 4.64,
+      "offset": 217.84
+    },
+    {
+      "text": "understand why he did this. It is his",
+      "duration": 4.401,
+      "offset": 220.159
+    },
+    {
+      "text": "ultimate responsibility to make his",
+      "duration": 4.319,
+      "offset": 222.48
+    },
+    {
+      "text": "business as successful as possible and",
+      "duration": 5.28,
+      "offset": 224.56
+    },
+    {
+      "text": "as likely to succeed as possible. And",
+      "duration": 5.841,
+      "offset": 226.799
+    },
+    {
+      "text": "right now there's a real risk of smaller",
+      "duration": 5.84,
+      "offset": 229.84
+    },
+    {
+      "text": "teams moving faster and overtaking your",
+      "duration": 5.519,
+      "offset": 232.64
+    },
+    {
+      "text": "position for cheaper. It's a silly",
+      "duration": 4.4,
+      "offset": 235.68
+    },
+    {
+      "text": "example here, but I do want to talk",
+      "duration": 4.08,
+      "offset": 238.159
+    },
+    {
+      "text": "about the product I just put out, lawn.",
+      "duration": 4,
+      "offset": 240.08
+    },
+    {
+      "text": "I'm not here to try and sell this to you",
+      "duration": 5.2,
+      "offset": 242.239
+    },
+    {
+      "text": "guys. The MR on it's like $350. It's not",
+      "duration": 5.12,
+      "offset": 244.08
+    },
+    {
+      "text": "going to make real money. It's probably",
+      "duration": 3.681,
+      "offset": 247.439
+    },
+    {
+      "text": "going to lose money, but it's a good",
+      "duration": 4.56,
+      "offset": 249.2
+    },
+    {
+      "text": "example of where things are going. Lawn",
+      "duration": 4.72,
+      "offset": 251.12
+    },
+    {
+      "text": "is an alternative to Frame.io. Frame.io",
+      "duration": 3.759,
+      "offset": 253.76
+    },
+    {
+      "text": "IO is a video review platform kind of",
+      "duration": 3.519,
+      "offset": 255.84
+    },
+    {
+      "text": "like doing code reviews and PRs but for",
+      "duration": 3.601,
+      "offset": 257.519
+    },
+    {
+      "text": "video teams. It's how we have managed",
+      "duration": 3.761,
+      "offset": 259.359
+    },
+    {
+      "text": "our video pipeline for a while. Whenever",
+      "duration": 3.92,
+      "offset": 261.12
+    },
+    {
+      "text": "my editor FaZe finishes an edit, he",
+      "duration": 3.519,
+      "offset": 263.12
+    },
+    {
+      "text": "would upload it onto Frame so that my",
+      "duration": 2.96,
+      "offset": 265.04
+    },
+    {
+      "text": "team could review it. Whenever we have a",
+      "duration": 2.56,
+      "offset": 266.639
+    },
+    {
+      "text": "new ad spot that needs to be approved by",
+      "duration": 3.04,
+      "offset": 268
+    },
+    {
+      "text": "a brand, we put that up on Frame for",
+      "duration": 4.641,
+      "offset": 269.199
+    },
+    {
+      "text": "them to approve. And every single time",
+      "duration": 5.28,
+      "offset": 271.04
+    },
+    {
+      "text": "we just were watching it crumble. I",
+      "duration": 4.079,
+      "offset": 273.84
+    },
+    {
+      "text": "swear I never went to frame.io without",
+      "duration": 3.28,
+      "offset": 276.32
+    },
+    {
+      "text": "having to resign in cuz they broke off",
+      "duration": 3.681,
+      "offset": 277.919
+    },
+    {
+      "text": "all the time. The share links were an",
+      "duration": 4.159,
+      "offset": 279.6
+    },
+    {
+      "text": "absolute mess. I never knew when",
+      "duration": 4.159,
+      "offset": 281.6
+    },
+    {
+      "text": "something got to one of the companies we",
+      "duration": 3.201,
+      "offset": 283.759
+    },
+    {
+      "text": "were working with if they had responded",
+      "duration": 3.681,
+      "offset": 285.759
+    },
+    {
+      "text": "or not. It was just a rough time. So I",
+      "duration": 5.04,
+      "offset": 286.96
+    },
+    {
+      "text": "decided to make my own alternative",
+      "duration": 5.44,
+      "offset": 289.44
+    },
+    {
+      "text": "largely just to explore the space and",
+      "duration": 5.28,
+      "offset": 292
+    },
+    {
+      "text": "play around with these AI dev tools. I",
+      "duration": 4.8,
+      "offset": 294.88
+    },
+    {
+      "text": "really didn't think we would ship this.",
+      "duration": 5.68,
+      "offset": 297.28
+    },
+    {
+      "text": "I really didn't. But it just kept going.",
+      "duration": 5.04,
+      "offset": 299.68
+    },
+    {
+      "text": "And I didn't sit and work on this",
+      "duration": 4.079,
+      "offset": 302.96
+    },
+    {
+      "text": "full-time. Obviously I'm very busy. I",
+      "duration": 4.64,
+      "offset": 304.72
+    },
+    {
+      "text": "have a company to run. I have a lot of",
+      "duration": 3.761,
+      "offset": 307.039
+    },
+    {
+      "text": "other product that we're shipping. I",
+      "duration": 4,
+      "offset": 309.36
+    },
+    {
+      "text": "have a channel to run. I employ like 15",
+      "duration": 4.16,
+      "offset": 310.8
+    },
+    {
+      "text": "people across all these surfaces. I",
+      "duration": 2.8,
+      "offset": 313.36
+    },
+    {
+      "text": "don't have time to sit there and code",
+      "duration": 3.36,
+      "offset": 314.96
+    },
+    {
+      "text": "for eight hours a day. If I did, I would",
+      "duration": 3.68,
+      "offset": 316.16
+    },
+    {
+      "text": "guess this product would have taken me",
+      "duration": 3.84,
+      "offset": 318.32
+    },
+    {
+      "text": "about a month or two to make and then a",
+      "duration": 4,
+      "offset": 319.84
+    },
+    {
+      "text": "couple more months to refine and get all",
+      "duration": 3.84,
+      "offset": 322.16
+    },
+    {
+      "text": "the core pieces in properly. I was able",
+      "duration": 3.76,
+      "offset": 323.84
+    },
+    {
+      "text": "to build it in 2 weeks. I was able to",
+      "duration": 4.08,
+      "offset": 326
+    },
+    {
+      "text": "build it in two weeks in the background",
+      "duration": 5.439,
+      "offset": 327.6
+    },
+    {
+      "text": "as I did other things. That's crazy. I",
+      "duration": 4.8,
+      "offset": 330.08
+    },
+    {
+      "text": "have not written a single line of code",
+      "duration": 3.841,
+      "offset": 333.039
+    },
+    {
+      "text": "in this project. I've read a little bit",
+      "duration": 4.24,
+      "offset": 334.88
+    },
+    {
+      "text": "of it. I structured a bunch of APIs and",
+      "duration": 5.52,
+      "offset": 336.88
+    },
+    {
+      "text": "like core application logic stuff with",
+      "duration": 5.12,
+      "offset": 339.12
+    },
+    {
+      "text": "the AI where I described how it should",
+      "duration": 3.359,
+      "offset": 342.4
+    },
+    {
+      "text": "be structured, watched it write a",
+      "duration": 2.799,
+      "offset": 344.24
+    },
+    {
+      "text": "proposal like that looks good, go use",
+      "duration": 3.121,
+      "offset": 345.759
+    },
+    {
+      "text": "that everywhere. But I didn't write the",
+      "duration": 5.681,
+      "offset": 347.039
+    },
+    {
+      "text": "code and it's not bad code. For proof, I",
+      "duration": 5.44,
+      "offset": 348.88
+    },
+    {
+      "text": "actually decided to open source it,",
+      "duration": 3.68,
+      "offset": 352.72
+    },
+    {
+      "text": "which is a weird decision for a bunch of",
+      "duration": 4.319,
+      "offset": 354.32
+    },
+    {
+      "text": "reasons, but the main one that I think",
+      "duration": 4.16,
+      "offset": 356.4
+    },
+    {
+      "text": "makes it so strange is that it makes it",
+      "duration": 4.481,
+      "offset": 358.639
+    },
+    {
+      "text": "easy to clone and go build your own. So,",
+      "duration": 4.56,
+      "offset": 360.56
+    },
+    {
+      "text": "it's already low revenue, but if",
+      "duration": 3.68,
+      "offset": 363.12
+    },
+    {
+      "text": "somebody wants to be really cheap, they",
+      "duration": 3.359,
+      "offset": 365.12
+    },
+    {
+      "text": "can go clone it themselves and host it,",
+      "duration": 4,
+      "offset": 366.8
+    },
+    {
+      "text": "and then I get no revenue for it. But to",
+      "duration": 3.921,
+      "offset": 368.479
+    },
+    {
+      "text": "be frank, that could have happened",
+      "duration": 4,
+      "offset": 370.8
+    },
+    {
+      "text": "anyways. And that's what's so crazy.",
+      "duration": 4.4,
+      "offset": 372.4
+    },
+    {
+      "text": "Ideas haven't been valuable for a long",
+      "duration": 4.16,
+      "offset": 374.8
+    },
+    {
+      "text": "time. And I say that all the time. Ideas",
+      "duration": 4.72,
+      "offset": 376.8
+    },
+    {
+      "text": "are cheap. Somehow ideas got more and",
+      "duration": 5.12,
+      "offset": 378.96
+    },
+    {
+      "text": "less valuable at the same time. where",
+      "duration": 4.399,
+      "offset": 381.52
+    },
+    {
+      "text": "dropping something novel and coming up",
+      "duration": 3.76,
+      "offset": 384.08
+    },
+    {
+      "text": "with a good idea is really powerful now",
+      "duration": 4.081,
+      "offset": 385.919
+    },
+    {
+      "text": "because the speed you can go from idea",
+      "duration": 4.96,
+      "offset": 387.84
+    },
+    {
+      "text": "to usable product has never been lower.",
+      "duration": 4.96,
+      "offset": 390
+    },
+    {
+      "text": "But it also means cloning someone else's",
+      "duration": 4.56,
+      "offset": 392.8
+    },
+    {
+      "text": "product and idea is way more trivial",
+      "duration": 4.16,
+      "offset": 394.96
+    },
+    {
+      "text": "than it's ever been. You might look at",
+      "duration": 3.76,
+      "offset": 397.36
+    },
+    {
+      "text": "this and think, well video review can't",
+      "duration": 3.68,
+      "offset": 399.12
+    },
+    {
+      "text": "be that big a market. Like you're only",
+      "duration": 5.12,
+      "offset": 401.12
+    },
+    {
+      "text": "making what 350 a month isn't $350 a",
+      "duration": 4.88,
+      "offset": 402.8
+    },
+    {
+      "text": "month. Well Frame.io",
+      "duration": 6.48,
+      "offset": 406.24
+    },
+    {
+      "text": "got acquired by Adobe in 2021 for $1.3",
+      "duration": 6.799,
+      "offset": 407.68
+    },
+    {
+      "text": "billion.",
+      "duration": 4.72,
+      "offset": 412.72
+    },
+    {
+      "text": "It took them years to build 1.3 bill and",
+      "duration": 5.28,
+      "offset": 414.479
+    },
+    {
+      "text": "I was able to replicate the majority of",
+      "duration": 4.64,
+      "offset": 417.44
+    },
+    {
+      "text": "the functionality part-time in an app",
+      "duration": 4.961,
+      "offset": 419.759
+    },
+    {
+      "text": "that genuinely feels better to use in 2",
+      "duration": 6,
+      "offset": 422.08
+    },
+    {
+      "text": "weeks. Everything has changed. I don't",
+      "duration": 5.12,
+      "offset": 424.72
+    },
+    {
+      "text": "care about your silly examples of",
+      "duration": 4.08,
+      "offset": 428.08
+    },
+    {
+      "text": "co-pilot screwing up in a giant C",
+      "duration": 4.479,
+      "offset": 429.84
+    },
+    {
+      "text": "codebase because I can rewrite that",
+      "duration": 4.56,
+      "offset": 432.16
+    },
+    {
+      "text": "codebase in different tech in a week.",
+      "duration": 4.32,
+      "offset": 434.319
+    },
+    {
+      "text": "Everything is different now. And it's",
+      "duration": 3.759,
+      "offset": 436.72
+    },
+    {
+      "text": "not even slop. Like, yeah, the whole",
+      "duration": 3.521,
+      "offset": 438.639
+    },
+    {
+      "text": "thing's vibe coded. Even the UI, even",
+      "duration": 4,
+      "offset": 440.479
+    },
+    {
+      "text": "the background image, all AI generated,",
+      "duration": 4.319,
+      "offset": 442.16
+    },
+    {
+      "text": "but once you start using it, it feels",
+      "duration": 4.641,
+      "offset": 444.479
+    },
+    {
+      "text": "great. Things fly. I'm real time right",
+      "duration": 4.56,
+      "offset": 446.479
+    },
+    {
+      "text": "now. I'm going to click right now.",
+      "duration": 3.44,
+      "offset": 449.12
+    },
+    {
+      "text": "Instantly loads. I'm going to click this",
+      "duration": 3.841,
+      "offset": 451.039
+    },
+    {
+      "text": "video. Instantly loads. The video stream",
+      "duration": 3.84,
+      "offset": 452.56
+    },
+    {
+      "text": "has to take a sec to start cuz streaming",
+      "duration": 3.439,
+      "offset": 454.88
+    },
+    {
+      "text": "video is hard. I go back to the team",
+      "duration": 6.56,
+      "offset": 456.4
+    },
+    {
+      "text": "page. Instant. Instant. Instant. Leave a",
+      "duration": 6.641,
+      "offset": 458.319
+    },
+    {
+      "text": "comment. Hit the send. instantly",
+      "duration": 5.76,
+      "offset": 462.96
+    },
+    {
+      "text": "appears. It flies. I had to come up with",
+      "duration": 5.6,
+      "offset": 464.96
+    },
+    {
+      "text": "some specific data loading patterns to",
+      "duration": 3.68,
+      "offset": 468.72
+    },
+    {
+      "text": "make it feel so good around pre-warming",
+      "duration": 3.68,
+      "offset": 470.56
+    },
+    {
+      "text": "and subscriptions on hover. But once I",
+      "duration": 3.84,
+      "offset": 472.4
+    },
+    {
+      "text": "had established that pattern and",
+      "duration": 5.04,
+      "offset": 474.24
+    },
+    {
+      "text": "mentioned it in the agent MD, it kind of",
+      "duration": 6,
+      "offset": 476.24
+    },
+    {
+      "text": "just took care of itself. Like it hit",
+      "duration": 4.88,
+      "offset": 479.28
+    },
+    {
+      "text": "everything in the codebase and once or",
+      "duration": 3.679,
+      "offset": 482.24
+    },
+    {
+      "text": "twice it would miss a link. Like for a",
+      "duration": 4.159,
+      "offset": 484.16
+    },
+    {
+      "text": "bit it missed this T3 team link up here",
+      "duration": 4.481,
+      "offset": 485.919
+    },
+    {
+      "text": "and I told it, hey, one of the links in",
+      "duration": 4,
+      "offset": 488.319
+    },
+    {
+      "text": "the topnav doesn't have pre-warming",
+      "duration": 4.4,
+      "offset": 490.4
+    },
+    {
+      "text": "working. and it went and found that and",
+      "duration": 5.44,
+      "offset": 492.319
+    },
+    {
+      "text": "fixed it. And it just feels great to",
+      "duration": 5.119,
+      "offset": 494.8
+    },
+    {
+      "text": "use. Like, this is a product that is",
+      "duration": 4.56,
+      "offset": 497.759
+    },
+    {
+      "text": "genuinely more joyful to use than the",
+      "duration": 4,
+      "offset": 499.919
+    },
+    {
+      "text": "thing that I'm paying lots of money for",
+      "duration": 3.28,
+      "offset": 502.319
+    },
+    {
+      "text": "that it's replacing. And this is the",
+      "duration": 3.521,
+      "offset": 503.919
+    },
+    {
+      "text": "worst it's ever going to be, guys. These",
+      "duration": 3.521,
+      "offset": 505.599
+    },
+    {
+      "text": "tools are going to keep getting better.",
+      "duration": 2.879,
+      "offset": 507.44
+    },
+    {
+      "text": "Building things like this is going to",
+      "duration": 3.44,
+      "offset": 509.12
+    },
+    {
+      "text": "keep getting easier. Sure, part of why",
+      "duration": 3.84,
+      "offset": 510.319
+    },
+    {
+      "text": "this feels so good is because I'm an",
+      "duration": 3.44,
+      "offset": 512.56
+    },
+    {
+      "text": "engineer with a long background in video",
+      "duration": 3.76,
+      "offset": 514.159
+    },
+    {
+      "text": "product that understands the restraints,",
+      "duration": 3.2,
+      "offset": 516
+    },
+    {
+      "text": "the requirements, and all the weird",
+      "duration": 2.8,
+      "offset": 517.919
+    },
+    {
+      "text": "things that you need to do this. But if",
+      "duration": 2.959,
+      "offset": 519.2
+    },
+    {
+      "text": "you asked the model what to do, it would",
+      "duration": 3.44,
+      "offset": 520.719
+    },
+    {
+      "text": "have given you at least like half of the",
+      "duration": 4.641,
+      "offset": 522.159
+    },
+    {
+      "text": "things that I said. Just for comparison,",
+      "duration": 4.561,
+      "offset": 524.159
+    },
+    {
+      "text": "here's the monstrosity that is frame.",
+      "duration": 3.2,
+      "offset": 526.8
+    },
+    {
+      "text": "I'm surprised it didn't make me do a",
+      "duration": 3.84,
+      "offset": 528.72
+    },
+    {
+      "text": "signin. Clicked edits. Takes forever to",
+      "duration": 5.04,
+      "offset": 530
+    },
+    {
+      "text": "load. Click a video. By default, when",
+      "duration": 3.839,
+      "offset": 532.56
+    },
+    {
+      "text": "you click a video, it goes into select",
+      "duration": 3.12,
+      "offset": 535.04
+    },
+    {
+      "text": "and not the video, which I love. You",
+      "duration": 4.401,
+      "offset": 536.399
+    },
+    {
+      "text": "have to double click it to get to it.",
+      "duration": 4.88,
+      "offset": 538.16
+    },
+    {
+      "text": "Also takes forever to load. Works. It's",
+      "duration": 5.28,
+      "offset": 540.8
+    },
+    {
+      "text": "fine, but things are not fast.",
+      "duration": 4.88,
+      "offset": 543.04
+    },
+    {
+      "text": "UX is really strange. There's too much",
+      "duration": 3.199,
+      "offset": 546.08
+    },
+    {
+      "text": "going on. And the folders are high",
+      "duration": 2.88,
+      "offset": 547.92
+    },
+    {
+      "text": "priority for some reason and the actual",
+      "duration": 2.641,
+      "offset": 549.279
+    },
+    {
+      "text": "videos I care about are too low",
+      "duration": 2.24,
+      "offset": 550.8
+    },
+    {
+      "text": "priority. I don't even really like",
+      "duration": 2.96,
+      "offset": 551.92
+    },
+    {
+      "text": "folders for this, but might not want",
+      "duration": 3.2,
+      "offset": 553.04
+    },
+    {
+      "text": "that in the future. Wouldn't even be",
+      "duration": 3.68,
+      "offset": 554.88
+    },
+    {
+      "text": "hard to here. I'll show you. You can see",
+      "duration": 3.84,
+      "offset": 556.24
+    },
+    {
+      "text": "most of the prompts I used for building",
+      "duration": 3.36,
+      "offset": 558.56
+    },
+    {
+      "text": "this here. Let's make a new thread.",
+      "duration": 3.84,
+      "offset": 560.08
+    },
+    {
+      "text": "Let's do some whisper flowing for this",
+      "duration": 3.52,
+      "offset": 561.92
+    },
+    {
+      "text": "just to show how absurdly easy these",
+      "duration": 4.56,
+      "offset": 563.92
+    },
+    {
+      "text": "things are. I want to add a folder style",
+      "duration": 6.079,
+      "offset": 565.44
+    },
+    {
+      "text": "structure for projects so that users can",
+      "duration": 6,
+      "offset": 568.48
+    },
+    {
+      "text": "optionally put given files inside of",
+      "duration": 5.76,
+      "offset": 571.519
+    },
+    {
+      "text": "folders. It should be easy to move a",
+      "duration": 5.2,
+      "offset": 574.48
+    },
+    {
+      "text": "file to a folder via drag and drop. And",
+      "duration": 3.921,
+      "offset": 577.279
+    },
+    {
+      "text": "it should be easy to see all of the",
+      "duration": 4.159,
+      "offset": 579.68
+    },
+    {
+      "text": "folders and open them and navigate the",
+      "duration": 4.96,
+      "offset": 581.2
+    },
+    {
+      "text": "hierarchy of what folder you are in.",
+      "duration": 3.761,
+      "offset": 583.839
+    },
+    {
+      "text": "Write up a plan for how we will",
+      "duration": 3.2,
+      "offset": 586.16
+    },
+    {
+      "text": "implement this and what the UX will look",
+      "duration": 3.44,
+      "offset": 587.6
+    },
+    {
+      "text": "like. And then we can implement soon",
+      "duration": 4.24,
+      "offset": 589.36
+    },
+    {
+      "text": "after. By the way, T3 Code, the app I'm",
+      "duration": 4.56,
+      "offset": 591.04
+    },
+    {
+      "text": "using for this, is another example of an",
+      "duration": 4.4,
+      "offset": 593.6
+    },
+    {
+      "text": "app that I and my team built because we",
+      "duration": 4.4,
+      "offset": 595.6
+    },
+    {
+      "text": "were unhappy with the alternatives and",
+      "duration": 4.32,
+      "offset": 598
+    },
+    {
+      "text": "it was easier to just build our own than",
+      "duration": 4.24,
+      "offset": 600
+    },
+    {
+      "text": "get the others fixed. I used to spend a",
+      "duration": 3.84,
+      "offset": 602.32
+    },
+    {
+      "text": "lot of time talking to companies trying",
+      "duration": 4.08,
+      "offset": 604.24
+    },
+    {
+      "text": "to convince them, hey, this features",
+      "duration": 3.52,
+      "offset": 606.16
+    },
+    {
+      "text": "brokered or hey, we need this thing",
+      "duration": 3.28,
+      "offset": 608.32
+    },
+    {
+      "text": "implemented. And now I don't even bother",
+      "duration": 3.599,
+      "offset": 609.68
+    },
+    {
+      "text": "half the time. Okay, usually I will once",
+      "duration": 4,
+      "offset": 611.6
+    },
+    {
+      "text": "or twice, but like one of the companies",
+      "duration": 3.921,
+      "offset": 613.279
+    },
+    {
+      "text": "building one of these style tools, one",
+      "duration": 4.72,
+      "offset": 615.6
+    },
+    {
+      "text": "of these GUIs for using the CLI, it had",
+      "duration": 4.879,
+      "offset": 617.2
+    },
+    {
+      "text": "a lot of random problems and we hit them",
+      "duration": 3.36,
+      "offset": 620.32
+    },
+    {
+      "text": "up about it. In particular, the codec",
+      "duration": 3.521,
+      "offset": 622.079
+    },
+    {
+      "text": "support was atrocious. And we kind of",
+      "duration": 4.08,
+      "offset": 623.68
+    },
+    {
+      "text": "got shrugged off and told, \"Yeah, uh,",
+      "duration": 3.44,
+      "offset": 625.6
+    },
+    {
+      "text": "we're a cloud house. We don't really",
+      "duration": 2.88,
+      "offset": 627.76
+    },
+    {
+      "text": "care that much about codec support.\" And",
+      "duration": 3.52,
+      "offset": 629.04
+    },
+    {
+      "text": "that was the moment I decided to build",
+      "duration": 3.92,
+      "offset": 630.64
+    },
+    {
+      "text": "my own because it's not worth trying to",
+      "duration": 3.44,
+      "offset": 632.56
+    },
+    {
+      "text": "convince somebody when I can just out",
+      "duration": 3.2,
+      "offset": 634.56
+    },
+    {
+      "text": "build them now. It's insane. Like like",
+      "duration": 3.44,
+      "offset": 636
+    },
+    {
+      "text": "everything's changed from that alone.",
+      "duration": 3.519,
+      "offset": 637.76
+    },
+    {
+      "text": "Like a lot of my time used to be spent",
+      "duration": 3.839,
+      "offset": 639.44
+    },
+    {
+      "text": "trying to convince other products, other",
+      "duration": 4.401,
+      "offset": 641.279
+    },
+    {
+      "text": "founders, other leads at other companies",
+      "duration": 4.961,
+      "offset": 643.279
+    },
+    {
+      "text": "to build the things I need. Now I just",
+      "duration": 4.88,
+      "offset": 645.68
+    },
+    {
+      "text": "build it myself. And I can barely even",
+      "duration": 3.92,
+      "offset": 648.24
+    },
+    {
+      "text": "justify spending time coding cuz I got",
+      "duration": 3.2,
+      "offset": 650.56
+    },
+    {
+      "text": "way too much [ __ ] going on. Yet here I",
+      "duration": 4.239,
+      "offset": 652.16
+    },
+    {
+      "text": "am with like over a dozen lawn threads",
+      "duration": 4.56,
+      "offset": 653.76
+    },
+    {
+      "text": "with a bunch more for quip slop that I",
+      "duration": 4.321,
+      "offset": 656.399
+    },
+    {
+      "text": "also vibe code on the side. shoe which I",
+      "duration": 4.24,
+      "offset": 658.32
+    },
+    {
+      "text": "built mostly in other things. Bunch of",
+      "duration": 3.76,
+      "offset": 660.72
+    },
+    {
+      "text": "T3 code stuff I was working on in T3",
+      "duration": 3.839,
+      "offset": 662.56
+    },
+    {
+      "text": "code. I'm building a lot. And whenever",
+      "duration": 3.599,
+      "offset": 664.48
+    },
+    {
+      "text": "something bothers me, I just go build",
+      "duration": 4.161,
+      "offset": 666.399
+    },
+    {
+      "text": "alternatives now. And that's crazy. And",
+      "duration": 4.561,
+      "offset": 668.079
+    },
+    {
+      "text": "that's me on an individual level. What's",
+      "duration": 3.44,
+      "offset": 670.56
+    },
+    {
+      "text": "much scarier is when you start thinking",
+      "duration": 2.639,
+      "offset": 672.64
+    },
+    {
+      "text": "about this on a company level, which is",
+      "duration": 2.88,
+      "offset": 674
+    },
+    {
+      "text": "what Jack is doing today. Should",
+      "duration": 4.161,
+      "offset": 675.279
+    },
+    {
+      "text": "probably talk about what Block is. Block",
+      "duration": 4.8,
+      "offset": 676.88
+    },
+    {
+      "text": "is the company that Jack made after",
+      "duration": 4.48,
+      "offset": 679.44
+    },
+    {
+      "text": "Twitter. They operate Square, Cash App,",
+      "duration": 4.48,
+      "offset": 681.68
+    },
+    {
+      "text": "Afterpay, Tidal, which is my beloved",
+      "duration": 4.479,
+      "offset": 683.92
+    },
+    {
+      "text": "music app. I still use Tidal for my",
+      "duration": 3.84,
+      "offset": 686.16
+    },
+    {
+      "text": "listening every single day. I'm going to",
+      "duration": 3.041,
+      "offset": 688.399
+    },
+    {
+      "text": "submit them some prompts that I want",
+      "duration": 3.2,
+      "offset": 690
+    },
+    {
+      "text": "them to implement ASAP. I love Tidal. I",
+      "duration": 2.959,
+      "offset": 691.44
+    },
+    {
+      "text": "hope that the Title team doesn't get hit",
+      "duration": 2.879,
+      "offset": 693.2
+    },
+    {
+      "text": "too hard with these layoffs. Bit Key,",
+      "duration": 2.88,
+      "offset": 694.399
+    },
+    {
+      "text": "which is a new one. I think it's a",
+      "duration": 3.281,
+      "offset": 696.079
+    },
+    {
+      "text": "crypto like hardware wallet. And then",
+      "duration": 5.041,
+      "offset": 697.279
+    },
+    {
+      "text": "Proto, which is some type of server rack",
+      "duration": 4.719,
+      "offset": 699.36
+    },
+    {
+      "text": "stuff. Not as familiar with those, but",
+      "duration": 3.519,
+      "offset": 702.32
+    },
+    {
+      "text": "Square and Cash App are slaughtering.",
+      "duration": 3.361,
+      "offset": 704.079
+    },
+    {
+      "text": "These two make a ton of money and fund",
+      "duration": 2.961,
+      "offset": 705.839
+    },
+    {
+      "text": "most of the business. Another thing",
+      "duration": 2.8,
+      "offset": 707.44
+    },
+    {
+      "text": "worth noting for most of these",
+      "duration": 3.599,
+      "offset": 708.8
+    },
+    {
+      "text": "businesses is they're not things you can",
+      "duration": 3.76,
+      "offset": 710.24
+    },
+    {
+      "text": "go reimplement. You're not going to just",
+      "duration": 3.201,
+      "offset": 712.399
+    },
+    {
+      "text": "go vibe code an alternative to Square,",
+      "duration": 2.959,
+      "offset": 714
+    },
+    {
+      "text": "Cash App, or Afterpay because these are",
+      "duration": 2.88,
+      "offset": 715.6
+    },
+    {
+      "text": "as much about the weird agreements and",
+      "duration": 3.521,
+      "offset": 716.959
+    },
+    {
+      "text": "process with financial companies as they",
+      "duration": 4.08,
+      "offset": 718.48
+    },
+    {
+      "text": "are the actual code that was written.",
+      "duration": 4,
+      "offset": 720.48
+    },
+    {
+      "text": "The code for all of these absolutely",
+      "duration": 3.279,
+      "offset": 722.56
+    },
+    {
+      "text": "could be rewritten in days and they",
+      "duration": 2.96,
+      "offset": 724.48
+    },
+    {
+      "text": "might even do that now themselves. But",
+      "duration": 3.761,
+      "offset": 725.839
+    },
+    {
+      "text": "the infrastructure, the partnerships,",
+      "duration": 3.28,
+      "offset": 727.44
+    },
+    {
+      "text": "the deals with the credit card",
+      "duration": 2.88,
+      "offset": 729.6
+    },
+    {
+      "text": "providers, all of that that can't be",
+      "duration": 3.679,
+      "offset": 730.72
+    },
+    {
+      "text": "remade. Same deal with title, the",
+      "duration": 3.599,
+      "offset": 732.48
+    },
+    {
+      "text": "negotiations they have done in order to",
+      "duration": 3.44,
+      "offset": 734.399
+    },
+    {
+      "text": "build up the library they have, the",
+      "duration": 3.76,
+      "offset": 736.079
+    },
+    {
+      "text": "payment structures and systems to pay",
+      "duration": 4.081,
+      "offset": 737.839
+    },
+    {
+      "text": "artists when their music is played.",
+      "duration": 3.921,
+      "offset": 739.839
+    },
+    {
+      "text": "those things. Also, their credit system",
+      "duration": 3.2,
+      "offset": 741.92
+    },
+    {
+      "text": "is insane. Like, they have the most",
+      "duration": 3.04,
+      "offset": 743.76
+    },
+    {
+      "text": "in-depth credits of any streaming",
+      "duration": 4,
+      "offset": 745.12
+    },
+    {
+      "text": "platform. That's partnerships and data",
+      "duration": 3.76,
+      "offset": 746.8
+    },
+    {
+      "text": "are not things you can replace via vibe",
+      "duration": 2.88,
+      "offset": 749.12
+    },
+    {
+      "text": "coding. You can replace the code, but",
+      "duration": 3.2,
+      "offset": 750.56
+    },
+    {
+      "text": "nothing else. So, anybody whose product",
+      "duration": 4,
+      "offset": 752
+    },
+    {
+      "text": "is built entirely on top of code,",
+      "duration": 3.92,
+      "offset": 753.76
+    },
+    {
+      "text": "they're a little bit screwed. Despite",
+      "duration": 4.24,
+      "offset": 756
+    },
+    {
+      "text": "knowing that as the CEO, like Jack knows",
+      "duration": 5.12,
+      "offset": 757.68
+    },
+    {
+      "text": "they aren't as displaceable due to the",
+      "duration": 4,
+      "offset": 760.24
+    },
+    {
+      "text": "nature of their product and the",
+      "duration": 3.76,
+      "offset": 762.8
+    },
+    {
+      "text": "partnerships and deals and space that",
+      "duration": 4.719,
+      "offset": 764.24
+    },
+    {
+      "text": "they are in. Despite all of that, he is",
+      "duration": 4.48,
+      "offset": 766.56
+    },
+    {
+      "text": "still choosing to make this decision.",
+      "duration": 3.761,
+      "offset": 768.959
+    },
+    {
+      "text": "And I'll give you my thoughts as to why",
+      "duration": 3.76,
+      "offset": 771.04
+    },
+    {
+      "text": "after we read what he says. Today, we're",
+      "duration": 3.2,
+      "offset": 772.72
+    },
+    {
+      "text": "making one of the hardest decisions in",
+      "duration": 2.479,
+      "offset": 774.8
+    },
+    {
+      "text": "the history of our company. We're",
+      "duration": 3.2,
+      "offset": 775.92
+    },
+    {
+      "text": "reducing our organization by nearly half",
+      "duration": 4,
+      "offset": 777.279
+    },
+    {
+      "text": "from over 10,000 people to just under",
+      "duration": 4.64,
+      "offset": 779.12
+    },
+    {
+      "text": "6,000. That means over 4,000 of you are",
+      "duration": 4,
+      "offset": 781.279
+    },
+    {
+      "text": "being asked to leave or you're entering",
+      "duration": 3.12,
+      "offset": 783.76
+    },
+    {
+      "text": "into consultation. I'll be straight",
+      "duration": 3.36,
+      "offset": 785.279
+    },
+    {
+      "text": "about what's happening, why, and what it",
+      "duration": 3.68,
+      "offset": 786.88
+    },
+    {
+      "text": "means for everyone. First off, if you're",
+      "duration": 3.2,
+      "offset": 788.639
+    },
+    {
+      "text": "one of the people affected, you'll",
+      "duration": 3.12,
+      "offset": 790.56
+    },
+    {
+      "text": "receive your salary for 20 weeks, plus",
+      "duration": 4,
+      "offset": 791.839
+    },
+    {
+      "text": "an additional week per year of tenure,",
+      "duration": 4.719,
+      "offset": 793.68
+    },
+    {
+      "text": "equity vested through the end of May, 6",
+      "duration": 4.081,
+      "offset": 795.839
+    },
+    {
+      "text": "months of healthcare, your corporate",
+      "duration": 3.841,
+      "offset": 798.399
+    },
+    {
+      "text": "devices, and $5,000 to put towards",
+      "duration": 4.08,
+      "offset": 799.92
+    },
+    {
+      "text": "whatever you need to help you in this",
+      "duration": 3.2,
+      "offset": 802.24
+    },
+    {
+      "text": "transition. If you're outside of the US,",
+      "duration": 2.48,
+      "offset": 804
+    },
+    {
+      "text": "you'll receive similar support, but",
+      "duration": 2.24,
+      "offset": 805.44
+    },
+    {
+      "text": "exact details are going to vary based on",
+      "duration": 2.24,
+      "offset": 806.48
+    },
+    {
+      "text": "local requirements. Yep, different",
+      "duration": 2.159,
+      "offset": 807.68
+    },
+    {
+      "text": "countries have different rules around",
+      "duration": 3.84,
+      "offset": 808.72
+    },
+    {
+      "text": "what layoffs entail and what offers",
+      "duration": 4.081,
+      "offset": 809.839
+    },
+    {
+      "text": "you're able to give employees as they",
+      "duration": 2.88,
+      "offset": 812.56
+    },
+    {
+      "text": "are let go. But this is actually a",
+      "duration": 2.64,
+      "offset": 813.92
+    },
+    {
+      "text": "really good offer. There's a lot of",
+      "duration": 2.72,
+      "offset": 815.44
+    },
+    {
+      "text": "little pieces here I like about it. The",
+      "duration": 3.839,
+      "offset": 816.56
+    },
+    {
+      "text": "20 weeks is a really good base starting",
+      "duration": 4.32,
+      "offset": 818.16
+    },
+    {
+      "text": "point. That's effectively five months of",
+      "duration": 3.601,
+      "offset": 820.399
+    },
+    {
+      "text": "salary. Gives you a lot of time to",
+      "duration": 3.039,
+      "offset": 822.48
+    },
+    {
+      "text": "figure things out. The additional week",
+      "duration": 3.839,
+      "offset": 824
+    },
+    {
+      "text": "per year of tenure is a huge assist to",
+      "duration": 4.56,
+      "offset": 825.519
+    },
+    {
+      "text": "people who have been there for 6 to 10",
+      "duration": 4,
+      "offset": 827.839
+    },
+    {
+      "text": "years. That's an additional couple",
+      "duration": 3.921,
+      "offset": 830.079
+    },
+    {
+      "text": "months of support. Very much like that.",
+      "duration": 3.361,
+      "offset": 831.839
+    },
+    {
+      "text": "So, they're rewarding employees that",
+      "duration": 2.72,
+      "offset": 834
+    },
+    {
+      "text": "have been there for a long time. They're",
+      "duration": 3.28,
+      "offset": 835.2
+    },
+    {
+      "text": "giving everybody a really solid buffer",
+      "duration": 3.44,
+      "offset": 836.72
+    },
+    {
+      "text": "here. Equity vested through the end of",
+      "duration": 3.599,
+      "offset": 838.48
+    },
+    {
+      "text": "May is another huge deal. Making sure",
+      "duration": 5.119,
+      "offset": 840.16
+    },
+    {
+      "text": "that people who are near an equity grant",
+      "duration": 4.961,
+      "offset": 842.079
+    },
+    {
+      "text": "can get it. If there's somebody whose",
+      "duration": 5.201,
+      "offset": 845.279
+    },
+    {
+      "text": "equity vests like June 3rd or so, I",
+      "duration": 4.479,
+      "offset": 847.04
+    },
+    {
+      "text": "would hope they're able to negotiate",
+      "duration": 2.56,
+      "offset": 850.48
+    },
+    {
+      "text": "with the company to do something to get",
+      "duration": 3.361,
+      "offset": 851.519
+    },
+    {
+      "text": "that through end of May is totally fine,",
+      "duration": 3.52,
+      "offset": 853.04
+    },
+    {
+      "text": "though. Six months of healthcare is",
+      "duration": 3.12,
+      "offset": 854.88
+    },
+    {
+      "text": "huge. This is one of the most annoying",
+      "duration": 3.12,
+      "offset": 856.56
+    },
+    {
+      "text": "things. When I quit Twitch, having to",
+      "duration": 3.519,
+      "offset": 858
+    },
+    {
+      "text": "fight Cobra to get health insurance was",
+      "duration": 2.88,
+      "offset": 859.68
+    },
+    {
+      "text": "one of the most annoying things I've",
+      "duration": 2.801,
+      "offset": 861.519
+    },
+    {
+      "text": "ever done in my life. It it radicalized",
+      "duration": 3.12,
+      "offset": 862.56
+    },
+    {
+      "text": "me. I'll talk a lot about that in the",
+      "duration": 3.28,
+      "offset": 864.32
+    },
+    {
+      "text": "future, but uh the TLDDR, my stance here",
+      "duration": 3.36,
+      "offset": 865.68
+    },
+    {
+      "text": "is that healthcare is so [ __ ] in the",
+      "duration": 3.12,
+      "offset": 867.6
+    },
+    {
+      "text": "US that it's making the job market less",
+      "duration": 3.599,
+      "offset": 869.04
+    },
+    {
+      "text": "competitive. And I can make capitalist",
+      "duration": 3.919,
+      "offset": 870.72
+    },
+    {
+      "text": "arguments towards healthcare for all",
+      "duration": 3.601,
+      "offset": 872.639
+    },
+    {
+      "text": "because like that being healthcare being",
+      "duration": 3.521,
+      "offset": 874.639
+    },
+    {
+      "text": "tied to your job just makes everything",
+      "duration": 3.92,
+      "offset": 876.24
+    },
+    {
+      "text": "shitty for no reason. Obnoxious.",
+      "duration": 3.6,
+      "offset": 878.16
+    },
+    {
+      "text": "Anyways, corporate devices is another",
+      "duration": 3.76,
+      "offset": 880.16
+    },
+    {
+      "text": "huge one. For a lot of people, losing",
+      "duration": 4.56,
+      "offset": 881.76
+    },
+    {
+      "text": "the one computer you have is the worst",
+      "duration": 4.479,
+      "offset": 883.92
+    },
+    {
+      "text": "thing ever. I know so many people whose",
+      "duration": 4.24,
+      "offset": 886.32
+    },
+    {
+      "text": "only computer is the one they have from",
+      "duration": 4.481,
+      "offset": 888.399
+    },
+    {
+      "text": "work. So letting them keep it is a huge",
+      "duration": 4.24,
+      "offset": 890.56
+    },
+    {
+      "text": "deal for a ton of people. Just a big",
+      "duration": 4.639,
+      "offset": 892.88
+    },
+    {
+      "text": "stress relief. And similarly, the $5,000",
+      "duration": 5.279,
+      "offset": 894.8
+    },
+    {
+      "text": "of extra here is huge. Like if you're",
+      "duration": 5.521,
+      "offset": 897.519
+    },
+    {
+      "text": "making 300K a year, the 20 weeks is",
+      "duration": 4.721,
+      "offset": 900.079
+    },
+    {
+      "text": "going to give you a lot of money. But if",
+      "duration": 3.359,
+      "offset": 903.04
+    },
+    {
+      "text": "you're like a support person that's",
+      "duration": 4.08,
+      "offset": 904.8
+    },
+    {
+      "text": "doing 30K a year, your 20 weeks is only",
+      "duration": 4.481,
+      "offset": 906.399
+    },
+    {
+      "text": "going to be a few thousand. So an extra",
+      "duration": 4.8,
+      "offset": 908.88
+    },
+    {
+      "text": "5K on top is a huge benefit to people",
+      "duration": 4.88,
+      "offset": 910.88
+    },
+    {
+      "text": "who are lower income. So that's what I",
+      "duration": 3.68,
+      "offset": 913.68
+    },
+    {
+      "text": "like about this structure here. The",
+      "duration": 3.439,
+      "offset": 915.76
+    },
+    {
+      "text": "first part very good for people who are",
+      "duration": 3.68,
+      "offset": 917.36
+    },
+    {
+      "text": "high income. This part very good for",
+      "duration": 3.601,
+      "offset": 919.199
+    },
+    {
+      "text": "people who are long tenure. This part",
+      "duration": 3.68,
+      "offset": 921.04
+    },
+    {
+      "text": "very good for the people who have large",
+      "duration": 3.839,
+      "offset": 922.8
+    },
+    {
+      "text": "equity grants that are probably also",
+      "duration": 3.919,
+      "offset": 924.72
+    },
+    {
+      "text": "higher income. Six months of healthcare,",
+      "duration": 4,
+      "offset": 926.639
+    },
+    {
+      "text": "good for everyone, just makes it less",
+      "duration": 4.081,
+      "offset": 928.639
+    },
+    {
+      "text": "stressful to be out of the job and",
+      "duration": 4.241,
+      "offset": 930.639
+    },
+    {
+      "text": "between jobs. Corporate devices, huge,",
+      "duration": 3.76,
+      "offset": 932.72
+    },
+    {
+      "text": "especially for people who are lower",
+      "duration": 4.16,
+      "offset": 934.88
+    },
+    {
+      "text": "income. And the $5,000 put towards the",
+      "duration": 4.479,
+      "offset": 936.48
+    },
+    {
+      "text": "transition, again, very helpful for",
+      "duration": 3.919,
+      "offset": 939.04
+    },
+    {
+      "text": "people who are of lower income. It also",
+      "duration": 3.44,
+      "offset": 940.959
+    },
+    {
+      "text": "makes sense they call it the US part",
+      "duration": 3.521,
+      "offset": 942.959
+    },
+    {
+      "text": "here in particular because a lot of like",
+      "duration": 3.68,
+      "offset": 944.399
+    },
+    {
+      "text": "offshore support that might be hit by",
+      "duration": 3.44,
+      "offset": 946.48
+    },
+    {
+      "text": "this, for example, benefits greatly from",
+      "duration": 3.281,
+      "offset": 948.079
+    },
+    {
+      "text": "that. Also, saying everybody will be",
+      "duration": 2.56,
+      "offset": 949.92
+    },
+    {
+      "text": "notified today whether they're being",
+      "duration": 3.039,
+      "offset": 951.36
+    },
+    {
+      "text": "asked to leave, consult, or stay. I've",
+      "duration": 4,
+      "offset": 952.48
+    },
+    {
+      "text": "seen this done so wrong where people",
+      "duration": 3.841,
+      "offset": 954.399
+    },
+    {
+      "text": "didn't know what side they were on and",
+      "duration": 3.039,
+      "offset": 956.48
+    },
+    {
+      "text": "then the next day we're still stressed",
+      "duration": 3.12,
+      "offset": 958.24
+    },
+    {
+      "text": "and the demoralization over time was",
+      "duration": 3.44,
+      "offset": 959.519
+    },
+    {
+      "text": "horrifying. We're not making this",
+      "duration": 3.2,
+      "offset": 961.36
+    },
+    {
+      "text": "decision because we're in trouble. Our",
+      "duration": 3.44,
+      "offset": 962.959
+    },
+    {
+      "text": "business is strong. Gross profit",
+      "duration": 3.6,
+      "offset": 964.56
+    },
+    {
+      "text": "continues to grow. We continue to serve",
+      "duration": 2.961,
+      "offset": 966.399
+    },
+    {
+      "text": "more and more customers and",
+      "duration": 2.96,
+      "offset": 968.16
+    },
+    {
+      "text": "profitability is improving. But",
+      "duration": 3.44,
+      "offset": 969.36
+    },
+    {
+      "text": "something has changed. We're already",
+      "duration": 3.519,
+      "offset": 971.12
+    },
+    {
+      "text": "seeing that the intelligence tools we're",
+      "duration": 3.76,
+      "offset": 972.8
+    },
+    {
+      "text": "creating and using paired with smaller",
+      "duration": 3.921,
+      "offset": 974.639
+    },
+    {
+      "text": "and flatter teams are enabling a new way",
+      "duration": 3.68,
+      "offset": 976.56
+    },
+    {
+      "text": "of working which fundamentally changes",
+      "duration": 3.68,
+      "offset": 978.56
+    },
+    {
+      "text": "what it means to build and run a",
+      "duration": 3.839,
+      "offset": 980.24
+    },
+    {
+      "text": "company. and that's accelerating",
+      "duration": 3.599,
+      "offset": 982.24
+    },
+    {
+      "text": "rapidly. We'll talk more about this",
+      "duration": 3.68,
+      "offset": 984.079
+    },
+    {
+      "text": "paragraph in a little bit. I had two",
+      "duration": 3.92,
+      "offset": 985.839
+    },
+    {
+      "text": "options. Cut gradually over months or",
+      "duration": 3.921,
+      "offset": 987.759
+    },
+    {
+      "text": "years as the shift plays out or be",
+      "duration": 4.241,
+      "offset": 989.759
+    },
+    {
+      "text": "honest about where we are and act on it",
+      "duration": 4.64,
+      "offset": 991.68
+    },
+    {
+      "text": "now. I chose the latter. Repeated rounds",
+      "duration": 4.56,
+      "offset": 994
+    },
+    {
+      "text": "of cuts are destructive to morale to",
+      "duration": 4.4,
+      "offset": 996.32
+    },
+    {
+      "text": "focus and to the trust that customers",
+      "duration": 3.92,
+      "offset": 998.56
+    },
+    {
+      "text": "and shareholders place in our ability to",
+      "duration": 3.44,
+      "offset": 1000.72
+    },
+    {
+      "text": "lead. I'd rather take a hard clear",
+      "duration": 3.68,
+      "offset": 1002.48
+    },
+    {
+      "text": "action now and build from a position",
+      "duration": 4.479,
+      "offset": 1004.16
+    },
+    {
+      "text": "that we believe in than manage a slow",
+      "duration": 4.479,
+      "offset": 1006.16
+    },
+    {
+      "text": "reduction of people towards the same",
+      "duration": 4.161,
+      "offset": 1008.639
+    },
+    {
+      "text": "outcome. A smaller company also gives us",
+      "duration": 3.601,
+      "offset": 1010.639
+    },
+    {
+      "text": "the space to grow our business in the",
+      "duration": 3.44,
+      "offset": 1012.8
+    },
+    {
+      "text": "right way on our own terms instead of",
+      "duration": 4.399,
+      "offset": 1014.24
+    },
+    {
+      "text": "constantly reacting to market pressures.",
+      "duration": 3.839,
+      "offset": 1016.24
+    },
+    {
+      "text": "Another really important sentence that",
+      "duration": 3.2,
+      "offset": 1018.639
+    },
+    {
+      "text": "we'll get back to in a sec. A decision",
+      "duration": 3.68,
+      "offset": 1020.079
+    },
+    {
+      "text": "at this scale carries risk, but so does",
+      "duration": 3.84,
+      "offset": 1021.839
+    },
+    {
+      "text": "standing still. We've done a full review",
+      "duration": 4.08,
+      "offset": 1023.759
+    },
+    {
+      "text": "to determine the roles and people we",
+      "duration": 3.76,
+      "offset": 1025.679
+    },
+    {
+      "text": "require to reliably grow the business",
+      "duration": 3.041,
+      "offset": 1027.839
+    },
+    {
+      "text": "from here. And we've pressure tested",
+      "duration": 3.52,
+      "offset": 1029.439
+    },
+    {
+      "text": "these decisions from multiple angles. I",
+      "duration": 3.36,
+      "offset": 1030.88
+    },
+    {
+      "text": "accept that we may have gotten some of",
+      "duration": 2.801,
+      "offset": 1032.959
+    },
+    {
+      "text": "these wrong and we've built in",
+      "duration": 2.959,
+      "offset": 1034.24
+    },
+    {
+      "text": "flexibility to account for that and do",
+      "duration": 3.12,
+      "offset": 1035.76
+    },
+    {
+      "text": "the right thing for our customers. We're",
+      "duration": 3.281,
+      "offset": 1037.199
+    },
+    {
+      "text": "not going to just disappear people from",
+      "duration": 3.12,
+      "offset": 1038.88
+    },
+    {
+      "text": "Slack and email and pretend they were",
+      "duration": 2.959,
+      "offset": 1040.48
+    },
+    {
+      "text": "never here. Communication channels will",
+      "duration": 3.199,
+      "offset": 1042
+    },
+    {
+      "text": "stay open through Thursday evening so",
+      "duration": 3.36,
+      "offset": 1043.439
+    },
+    {
+      "text": "everyone can say goodbye properly and",
+      "duration": 3.201,
+      "offset": 1045.199
+    },
+    {
+      "text": "share whatever you wish. I'll also be",
+      "duration": 2.961,
+      "offset": 1046.799
+    },
+    {
+      "text": "hosting a live video session to thank",
+      "duration": 3.76,
+      "offset": 1048.4
+    },
+    {
+      "text": "everyone at 3:35 p.m. Pacific. I know",
+      "duration": 4,
+      "offset": 1049.76
+    },
+    {
+      "text": "doing it this way might feel awkward.",
+      "duration": 3.04,
+      "offset": 1052.16
+    },
+    {
+      "text": "I'd rather it feel awkward and human",
+      "duration": 4.48,
+      "offset": 1053.76
+    },
+    {
+      "text": "than efficient and cold. I love this. I",
+      "duration": 5.2,
+      "offset": 1055.2
+    },
+    {
+      "text": "When I left Twitch, I was in my goodbye",
+      "duration": 4.799,
+      "offset": 1058.24
+    },
+    {
+      "text": "call when right at 5:00 p.m. on the dot,",
+      "duration": 4.24,
+      "offset": 1060.4
+    },
+    {
+      "text": "they disabled my Google account and I",
+      "duration": 4.081,
+      "offset": 1063.039
+    },
+    {
+      "text": "got booted from the call. I much prefer",
+      "duration": 4.64,
+      "offset": 1064.64
+    },
+    {
+      "text": "this human way of doing things and like",
+      "duration": 3.679,
+      "offset": 1067.12
+    },
+    {
+      "text": "letting people be in Slack and have the",
+      "duration": 2.88,
+      "offset": 1069.28
+    },
+    {
+      "text": "conversation, not just like watching",
+      "duration": 3.521,
+      "offset": 1070.799
+    },
+    {
+      "text": "names drop from the list as I've heard",
+      "duration": 4.16,
+      "offset": 1072.16
+    },
+    {
+      "text": "so many stories about. Jack's doing this",
+      "duration": 3.76,
+      "offset": 1074.32
+    },
+    {
+      "text": "very responsibly. To those of you",
+      "duration": 3.44,
+      "offset": 1076.32
+    },
+    {
+      "text": "leaving, I'm grateful for you and I'm",
+      "duration": 3.28,
+      "offset": 1078.08
+    },
+    {
+      "text": "sorry to put you through this. You built",
+      "duration": 3.52,
+      "offset": 1079.76
+    },
+    {
+      "text": "what the company is today. That's a fact",
+      "duration": 3.6,
+      "offset": 1081.36
+    },
+    {
+      "text": "I'll honor forever. This decision is not",
+      "duration": 3.04,
+      "offset": 1083.28
+    },
+    {
+      "text": "a reflection of what you contributed.",
+      "duration": 2.8,
+      "offset": 1084.96
+    },
+    {
+      "text": "You will be a great contributor to any",
+      "duration": 3.2,
+      "offset": 1086.32
+    },
+    {
+      "text": "organization going forward. To those",
+      "duration": 3.76,
+      "offset": 1087.76
+    },
+    {
+      "text": "staying, I made this decision and I'll",
+      "duration": 3.84,
+      "offset": 1089.52
+    },
+    {
+      "text": "own it. What I'm asking of you is to",
+      "duration": 3.6,
+      "offset": 1091.52
+    },
+    {
+      "text": "build with me. This is a big deal. I",
+      "duration": 2.8,
+      "offset": 1093.36
+    },
+    {
+      "text": "know a lot of people who have like",
+      "duration": 2.72,
+      "offset": 1095.12
+    },
+    {
+      "text": "survivor guilt when they survive these",
+      "duration": 3.6,
+      "offset": 1096.16
+    },
+    {
+      "text": "types of layoffs and feel as though like",
+      "duration": 3.199,
+      "offset": 1097.84
+    },
+    {
+      "text": "they might have done something wrong or",
+      "duration": 3.039,
+      "offset": 1099.76
+    },
+    {
+      "text": "they're somehow to blame for this and",
+      "duration": 3.201,
+      "offset": 1101.039
+    },
+    {
+      "text": "they're not there with their peers that",
+      "duration": 3.601,
+      "offset": 1102.799
+    },
+    {
+      "text": "they're watching drop out. Jack owning",
+      "duration": 4.24,
+      "offset": 1104.24
+    },
+    {
+      "text": "this is huge rather than saying like we",
+      "duration": 4.48,
+      "offset": 1106.4
+    },
+    {
+      "text": "had to or the shareholders made us or",
+      "duration": 4.16,
+      "offset": 1108.48
+    },
+    {
+      "text": "any of those things. Jack's saying, \"No,",
+      "duration": 4.48,
+      "offset": 1110.88
+    },
+    {
+      "text": "I chose to do this. This is mine. Blame",
+      "duration": 5.76,
+      "offset": 1112.64
+    },
+    {
+      "text": "me. I'm the one who is taking this hit.\"",
+      "duration": 4.72,
+      "offset": 1115.36
+    },
+    {
+      "text": "That I have a lot of respect for Jack.",
+      "duration": 3.519,
+      "offset": 1118.4
+    },
+    {
+      "text": "Even I didn't have the balls to do that",
+      "duration": 3.36,
+      "offset": 1120.08
+    },
+    {
+      "text": "when I had to do the layoffs where I let",
+      "duration": 2.961,
+      "offset": 1121.919
+    },
+    {
+      "text": "go a majority of my team a few years",
+      "duration": 3.359,
+      "offset": 1123.44
+    },
+    {
+      "text": "ago. I said that I screwed up hiring",
+      "duration": 3.44,
+      "offset": 1124.88
+    },
+    {
+      "text": "them, but I didn't take the ownership of",
+      "duration": 3.921,
+      "offset": 1126.799
+    },
+    {
+      "text": "the the dropping them the same way here.",
+      "duration": 3.84,
+      "offset": 1128.32
+    },
+    {
+      "text": "I I already like Jack a lot as a leader,",
+      "duration": 2.88,
+      "offset": 1130.72
+    },
+    {
+      "text": "but this this put him above and beyond",
+      "duration": 2.72,
+      "offset": 1132.16
+    },
+    {
+      "text": "for me. We're going to build this",
+      "duration": 3.28,
+      "offset": 1133.6
+    },
+    {
+      "text": "company with intelligence at the core of",
+      "duration": 3.84,
+      "offset": 1134.88
+    },
+    {
+      "text": "everything we do, how we work, how we",
+      "duration": 3.84,
+      "offset": 1136.88
+    },
+    {
+      "text": "create, how we serve our customers. Our",
+      "duration": 3.6,
+      "offset": 1138.72
+    },
+    {
+      "text": "customers will feel the shift, too, and",
+      "duration": 2.88,
+      "offset": 1140.72
+    },
+    {
+      "text": "we're going to help them navigate it",
+      "duration": 2.479,
+      "offset": 1142.32
+    },
+    {
+      "text": "towards a future where they can build",
+      "duration": 2.959,
+      "offset": 1143.6
+    },
+    {
+      "text": "their own features directly composed of",
+      "duration": 3.521,
+      "offset": 1144.799
+    },
+    {
+      "text": "our capabilities and serve through our",
+      "duration": 3.521,
+      "offset": 1146.559
+    },
+    {
+      "text": "interfaces. That's what I'm focused on",
+      "duration": 3.68,
+      "offset": 1148.32
+    },
+    {
+      "text": "now. Expect a note from me tomorrow.",
+      "duration": 3.599,
+      "offset": 1150.08
+    },
+    {
+      "text": "Great note. I have a lot of things I",
+      "duration": 3.12,
+      "offset": 1152
+    },
+    {
+      "text": "want to talk about here. The first part",
+      "duration": 3.041,
+      "offset": 1153.679
+    },
+    {
+      "text": "I want to talk about here is the smaller",
+      "duration": 3.84,
+      "offset": 1155.12
+    },
+    {
+      "text": "and flatter teams bit. It is very clear",
+      "duration": 4.959,
+      "offset": 1156.72
+    },
+    {
+      "text": "that this is where things are going. Big",
+      "duration": 5.36,
+      "offset": 1158.96
+    },
+    {
+      "text": "teams don't move faster. I've talked",
+      "duration": 4.561,
+      "offset": 1161.679
+    },
+    {
+      "text": "about this for a long time. Hopefully",
+      "duration": 3.92,
+      "offset": 1164.32
+    },
+    {
+      "text": "y'all have heard of the mythical man",
+      "duration": 4,
+      "offset": 1166.24
+    },
+    {
+      "text": "month. The classic story where adding",
+      "duration": 4.4,
+      "offset": 1168.24
+    },
+    {
+      "text": "more people makes the project take more",
+      "duration": 5.04,
+      "offset": 1170.24
+    },
+    {
+      "text": "time, not less. That's a real problem in",
+      "duration": 5.2,
+      "offset": 1172.64
+    },
+    {
+      "text": "software. And the problem just got",
+      "duration": 3.68,
+      "offset": 1175.28
+    },
+    {
+      "text": "worse.",
+      "duration": 4.4,
+      "offset": 1177.84
+    },
+    {
+      "text": "like significantly worse. We have so",
+      "duration": 5.44,
+      "offset": 1178.96
+    },
+    {
+      "text": "many PRs open on basically any of our",
+      "duration": 6,
+      "offset": 1182.24
+    },
+    {
+      "text": "surfaces. Like in T3 code alone, we have",
+      "duration": 6.32,
+      "offset": 1184.4
+    },
+    {
+      "text": "13 PRs that Julius has opened that I",
+      "duration": 4.48,
+      "offset": 1188.24
+    },
+    {
+      "text": "haven't had any chance to go look at or",
+      "duration": 4.72,
+      "offset": 1190.72
+    },
+    {
+      "text": "test anything in. More people does not",
+      "duration": 4.24,
+      "offset": 1192.72
+    },
+    {
+      "text": "mean more review getting done. It means",
+      "duration": 3.92,
+      "offset": 1195.44
+    },
+    {
+      "text": "more PRs and more orchestration to make",
+      "duration": 3.92,
+      "offset": 1196.96
+    },
+    {
+      "text": "sure people don't step on each other's",
+      "duration": 2.72,
+      "offset": 1199.36
+    },
+    {
+      "text": "toes and that things don't break in",
+      "duration": 3.84,
+      "offset": 1200.88
+    },
+    {
+      "text": "egregious ways. More people slows down",
+      "duration": 4.959,
+      "offset": 1202.08
+    },
+    {
+      "text": "the iteration here. The workflow Julius",
+      "duration": 4.319,
+      "offset": 1204.72
+    },
+    {
+      "text": "and I have taken for T3 code is",
+      "duration": 4.561,
+      "offset": 1207.039
+    },
+    {
+      "text": "effectively on any given day or any",
+      "duration": 4.961,
+      "offset": 1209.039
+    },
+    {
+      "text": "given time, we choose who owns Maine and",
+      "duration": 4.16,
+      "offset": 1211.6
+    },
+    {
+      "text": "who doesn't. And the person who owns",
+      "duration": 4.48,
+      "offset": 1214
+    },
+    {
+      "text": "Maine just shifts to Maine all day and",
+      "duration": 4.96,
+      "offset": 1215.76
+    },
+    {
+      "text": "the other person does other [ __ ] That's",
+      "duration": 4.24,
+      "offset": 1218.48
+    },
+    {
+      "text": "such a huge shift in how we build and",
+      "duration": 4.24,
+      "offset": 1220.72
+    },
+    {
+      "text": "it's letting us out build open AI with",
+      "duration": 4.079,
+      "offset": 1222.72
+    },
+    {
+      "text": "their equivalent with the codeex app,",
+      "duration": 3.76,
+      "offset": 1224.96
+    },
+    {
+      "text": "which is a team of significantly more",
+      "duration": 3.36,
+      "offset": 1226.799
+    },
+    {
+      "text": "people. I know it's at least 20 because",
+      "duration": 2.72,
+      "offset": 1228.72
+    },
+    {
+      "text": "I met a bunch of them. The fact that",
+      "duration": 3.041,
+      "offset": 1230.159
+    },
+    {
+      "text": "Jill and I can ship at a similar speed",
+      "duration": 3.76,
+      "offset": 1231.44
+    },
+    {
+      "text": "with just us two taking turns on the",
+      "duration": 5.12,
+      "offset": 1233.2
+    },
+    {
+      "text": "project shows just how much the smaller",
+      "duration": 6.24,
+      "offset": 1235.2
+    },
+    {
+      "text": "focus team matters here. Lines of code",
+      "duration": 6.8,
+      "offset": 1238.32
+    },
+    {
+      "text": "are no longer the bottleneck. This is a",
+      "duration": 6.4,
+      "offset": 1241.44
+    },
+    {
+      "text": "absurd shift in how everything in our",
+      "duration": 4.72,
+      "offset": 1245.12
+    },
+    {
+      "text": "industry works. This is hard to put into",
+      "duration": 4.079,
+      "offset": 1247.84
+    },
+    {
+      "text": "words just how much [ __ ] has changed as",
+      "duration": 3.36,
+      "offset": 1249.84
+    },
+    {
+      "text": "a result. This is the equivalent of",
+      "duration": 2.801,
+      "offset": 1251.919
+    },
+    {
+      "text": "software no longer being distributed on",
+      "duration": 4.24,
+      "offset": 1253.2
+    },
+    {
+      "text": "discs, but probably bigger. I don't even",
+      "duration": 4.48,
+      "offset": 1254.72
+    },
+    {
+      "text": "have a gut feel for how much code is in",
+      "duration": 3.2,
+      "offset": 1257.44
+    },
+    {
+      "text": "any given project. Let's see what we",
+      "duration": 4.32,
+      "offset": 1259.2
+    },
+    {
+      "text": "have in lawn. So lawn is about 16k lines",
+      "duration": 5.279,
+      "offset": 1260.64
+    },
+    {
+      "text": "of code, 15k or typescript. T3 chat's",
+      "duration": 5.12,
+      "offset": 1263.52
+    },
+    {
+      "text": "nearing 100,000 lines of code. T3 code,",
+      "duration": 5.201,
+      "offset": 1265.919
+    },
+    {
+      "text": "which again vibe coded by Julius and me,",
+      "duration": 5.36,
+      "offset": 1268.64
+    },
+    {
+      "text": "already at 52,581",
+      "duration": 5.039,
+      "offset": 1271.12
+    },
+    {
+      "text": "lines of code. In just like 2 to 3",
+      "duration": 4.64,
+      "offset": 1274
+    },
+    {
+      "text": "weeks, T3 code is already half the size",
+      "duration": 4.561,
+      "offset": 1276.159
+    },
+    {
+      "text": "of T3 chat. Lines of code doesn't matter",
+      "duration": 4.08,
+      "offset": 1278.64
+    },
+    {
+      "text": "anymore. Lines of code effectively are",
+      "duration": 3.92,
+      "offset": 1280.72
+    },
+    {
+      "text": "free now. Tests matter. Tests matter a",
+      "duration": 3.28,
+      "offset": 1282.72
+    },
+    {
+      "text": "lot. And there's a whole dedicated video",
+      "duration": 2.88,
+      "offset": 1284.64
+    },
+    {
+      "text": "for that in the near future, but uh",
+      "duration": 4.72,
+      "offset": 1286
+    },
+    {
+      "text": "lines of code don't. And the only thing",
+      "duration": 6.32,
+      "offset": 1287.52
+    },
+    {
+      "text": "morege helps with is lines of code.",
+      "duration": 4.959,
+      "offset": 1290.72
+    },
+    {
+      "text": "Historically, more engineers meant more",
+      "duration": 4.8,
+      "offset": 1293.84
+    },
+    {
+      "text": "code. That was how we would hire. When",
+      "duration": 4.721,
+      "offset": 1295.679
+    },
+    {
+      "text": "we had all of the things we knew we",
+      "duration": 3.76,
+      "offset": 1298.64
+    },
+    {
+      "text": "needed to do, we had a road map of",
+      "duration": 3.68,
+      "offset": 1300.4
+    },
+    {
+      "text": "things we had to add to the product and",
+      "duration": 3.2,
+      "offset": 1302.4
+    },
+    {
+      "text": "we just didn't have the manpower to",
+      "duration": 3.28,
+      "offset": 1304.08
+    },
+    {
+      "text": "write all the code for it. That's when",
+      "duration": 3.68,
+      "offset": 1305.6
+    },
+    {
+      "text": "we would start hiring up teams. Things",
+      "duration": 4.16,
+      "offset": 1307.36
+    },
+    {
+      "text": "were so crazy that companies would hire",
+      "duration": 3.92,
+      "offset": 1309.28
+    },
+    {
+      "text": "great engineers just to keep other",
+      "duration": 2.8,
+      "offset": 1311.52
+    },
+    {
+      "text": "companies from getting them, even if",
+      "duration": 2.959,
+      "offset": 1313.2
+    },
+    {
+      "text": "they didn't have work for them to do.",
+      "duration": 3.2,
+      "offset": 1314.32
+    },
+    {
+      "text": "That was a real thing that used to",
+      "duration": 2.801,
+      "offset": 1316.159
+    },
+    {
+      "text": "happen in the early fang days between",
+      "duration": 3.84,
+      "offset": 1317.52
+    },
+    {
+      "text": "Amazon, Google, Microsoft, and others.",
+      "duration": 4.079,
+      "offset": 1318.96
+    },
+    {
+      "text": "Trying to keep the best engineers away",
+      "duration": 3.36,
+      "offset": 1321.36
+    },
+    {
+      "text": "from the other companies. Now that's",
+      "duration": 4,
+      "offset": 1323.039
+    },
+    {
+      "text": "changed. Not because more engineers",
+      "duration": 4.56,
+      "offset": 1324.72
+    },
+    {
+      "text": "doesn't mean more lines of code, but the",
+      "duration": 4.081,
+      "offset": 1327.039
+    },
+    {
+      "text": "process for how you deal with the code",
+      "duration": 3.759,
+      "offset": 1329.28
+    },
+    {
+      "text": "matters a lot more. Now there's a",
+      "duration": 4.4,
+      "offset": 1331.12
+    },
+    {
+      "text": "pipeline of how features ship. You know",
+      "duration": 4.321,
+      "offset": 1333.039
+    },
+    {
+      "text": "what? We're going to do this downwards",
+      "duration": 4.159,
+      "offset": 1335.52
+    },
+    {
+      "text": "where at the top there is user problem,",
+      "duration": 4.24,
+      "offset": 1337.36
+    },
+    {
+      "text": "whatever the issue is that the user has.",
+      "duration": 4.961,
+      "offset": 1339.679
+    },
+    {
+      "text": "At the bottom is shipped solution. And",
+      "duration": 5.36,
+      "offset": 1341.6
+    },
+    {
+      "text": "there are always steps along the way",
+      "duration": 4,
+      "offset": 1344.64
+    },
+    {
+      "text": "here. I just wrote all the steps quick",
+      "duration": 3.04,
+      "offset": 1346.96
+    },
+    {
+      "text": "because it's easier that way. You",
+      "duration": 2.64,
+      "offset": 1348.64
+    },
+    {
+      "text": "describe the problem, identify a",
+      "duration": 2.72,
+      "offset": 1350
+    },
+    {
+      "text": "solution, scope and assign the work,",
+      "duration": 2.72,
+      "offset": 1351.28
+    },
+    {
+      "text": "write the code, review the code, test",
+      "duration": 2.64,
+      "offset": 1352.72
+    },
+    {
+      "text": "the code, plan the release, and then do",
+      "duration": 3.76,
+      "offset": 1354
+    },
+    {
+      "text": "the release. Generally speaking, more",
+      "duration": 6,
+      "offset": 1355.36
+    },
+    {
+      "text": "engineers helps here and here. Maybe",
+      "duration": 5.44,
+      "offset": 1357.76
+    },
+    {
+      "text": "there's like two dimensions to this",
+      "duration": 3.439,
+      "offset": 1361.36
+    },
+    {
+      "text": "column though. There's how much is this",
+      "duration": 3.28,
+      "offset": 1363.2
+    },
+    {
+      "text": "happening and how long does it take for",
+      "duration": 3.76,
+      "offset": 1364.799
+    },
+    {
+      "text": "any one particular piece of work? Like",
+      "duration": 3.84,
+      "offset": 1366.48
+    },
+    {
+      "text": "500 problems that users have, you'll be",
+      "duration": 3.921,
+      "offset": 1368.559
+    },
+    {
+      "text": "lucky to clearly describe a hundred of",
+      "duration": 4.16,
+      "offset": 1370.32
+    },
+    {
+      "text": "them. You'll be even luckier to identify",
+      "duration": 4.079,
+      "offset": 1372.48
+    },
+    {
+      "text": "solutions to 50 of them. You'll",
+      "duration": 4.319,
+      "offset": 1374.48
+    },
+    {
+      "text": "eventually scope out an assign work for",
+      "duration": 4.081,
+      "offset": 1376.559
+    },
+    {
+      "text": "15 of them. You'll actually get people",
+      "duration": 4.801,
+      "offset": 1378.799
+    },
+    {
+      "text": "to write code for five of them. And then",
+      "duration": 5.279,
+      "offset": 1380.64
+    },
+    {
+      "text": "from here down, things tend to stay",
+      "duration": 3.52,
+      "offset": 1383.6
+    },
+    {
+      "text": "pretty consistent. Like by the time",
+      "duration": 2.961,
+      "offset": 1385.919
+    },
+    {
+      "text": "people are writing code, since the code",
+      "duration": 3.439,
+      "offset": 1387.12
+    },
+    {
+      "text": "is so expensive, the majority of the",
+      "duration": 3.2,
+      "offset": 1388.88
+    },
+    {
+      "text": "code people write at a company where",
+      "duration": 3.441,
+      "offset": 1390.559
+    },
+    {
+      "text": "they're paid to gets through everything",
+      "duration": 3.68,
+      "offset": 1392.08
+    },
+    {
+      "text": "else till it eventually comes out. This",
+      "duration": 4,
+      "offset": 1394
+    },
+    {
+      "text": "part was too expensive to be lossy. We",
+      "duration": 5.039,
+      "offset": 1395.76
+    },
+    {
+      "text": "put a lot of work from the top down to",
+      "duration": 5.12,
+      "offset": 1398
+    },
+    {
+      "text": "refine the things that made it to ENGE",
+      "duration": 4.161,
+      "offset": 1400.799
+    },
+    {
+      "text": "because if it made it to ENGE and wasn't",
+      "duration": 3.679,
+      "offset": 1403.12
+    },
+    {
+      "text": "actually worth it, you just wasted a",
+      "duration": 4.32,
+      "offset": 1404.96
+    },
+    {
+      "text": "shitload of time. Now you can literally",
+      "duration": 4.321,
+      "offset": 1406.799
+    },
+    {
+      "text": "take the user problem, paste the",
+      "duration": 4.16,
+      "offset": 1409.28
+    },
+    {
+      "text": "screenshot into the agent, and skip all",
+      "duration": 4.559,
+      "offset": 1411.12
+    },
+    {
+      "text": "the way down to here. That's insane.",
+      "duration": 4,
+      "offset": 1413.44
+    },
+    {
+      "text": "That changes [ __ ] everything. If I",
+      "duration": 3.841,
+      "offset": 1415.679
+    },
+    {
+      "text": "can take a user problem, just take a",
+      "duration": 4,
+      "offset": 1417.44
+    },
+    {
+      "text": "screenshot of them tweeting at me, paste",
+      "duration": 3.76,
+      "offset": 1419.52
+    },
+    {
+      "text": "it into cloud code, and get the bug",
+      "duration": 4.16,
+      "offset": 1421.44
+    },
+    {
+      "text": "fixed, this whole pipeline has been",
+      "duration": 5.2,
+      "offset": 1423.28
+    },
+    {
+      "text": "destroyed. and the stronghold we had",
+      "duration": 5.6,
+      "offset": 1425.6
+    },
+    {
+      "text": "here where everything from here down was",
+      "duration": 5.76,
+      "offset": 1428.48
+    },
+    {
+      "text": "too expensive to [ __ ] up and also too",
+      "duration": 6.4,
+      "offset": 1431.2
+    },
+    {
+      "text": "high skill to easily staff up in. So if",
+      "duration": 4.559,
+      "offset": 1434.24
+    },
+    {
+      "text": "you wanted to increase the amount of",
+      "duration": 3.12,
+      "offset": 1437.6
+    },
+    {
+      "text": "work getting done, you had to hire more",
+      "duration": 3.76,
+      "offset": 1438.799
+    },
+    {
+      "text": "people to do the code writing. That's",
+      "duration": 4.079,
+      "offset": 1440.72
+    },
+    {
+      "text": "just over now. The person who scopes and",
+      "duration": 4.161,
+      "offset": 1442.559
+    },
+    {
+      "text": "assigns the work can do the writing now",
+      "duration": 4.081,
+      "offset": 1444.799
+    },
+    {
+      "text": "by kicking it off to an AI. And if you",
+      "duration": 3.839,
+      "offset": 1446.72
+    },
+    {
+      "text": "help them scale up a bit in how they",
+      "duration": 3.84,
+      "offset": 1448.88
+    },
+    {
+      "text": "spec out the work, the AI can get better",
+      "duration": 4.161,
+      "offset": 1450.559
+    },
+    {
+      "text": "at writing it. I would argue that the",
+      "duration": 5.04,
+      "offset": 1452.72
+    },
+    {
+      "text": "role of devs is shifting down here where",
+      "duration": 4.959,
+      "offset": 1454.72
+    },
+    {
+      "text": "we'll do more and more of the review.",
+      "duration": 3.44,
+      "offset": 1457.76
+    },
+    {
+      "text": "It's that's even slipping due to all the",
+      "duration": 2.88,
+      "offset": 1459.679
+    },
+    {
+      "text": "AI review tools and now we're stuck",
+      "duration": 3.2,
+      "offset": 1461.2
+    },
+    {
+      "text": "doing the testing and manually verifying",
+      "duration": 3.681,
+      "offset": 1462.559
+    },
+    {
+      "text": "the stuff. There's a real chance that",
+      "duration": 3.92,
+      "offset": 1464.4
+    },
+    {
+      "text": "somewhere on this computer I have a",
+      "duration": 4.319,
+      "offset": 1466.24
+    },
+    {
+      "text": "groundbreaking developer experience",
+      "duration": 4.16,
+      "offset": 1468.32
+    },
+    {
+      "text": "sitting there because I have dozens of",
+      "duration": 3.921,
+      "offset": 1470.559
+    },
+    {
+      "text": "work trees trying out theories that I",
+      "duration": 3.76,
+      "offset": 1472.48
+    },
+    {
+      "text": "forget about before I ever test them.",
+      "duration": 3.679,
+      "offset": 1474.48
+    },
+    {
+      "text": "There are multiple projects on this",
+      "duration": 3.52,
+      "offset": 1476.24
+    },
+    {
+      "text": "machine that I'm very excited about that",
+      "duration": 3.52,
+      "offset": 1478.159
+    },
+    {
+      "text": "I spun up terminals to go build on",
+      "duration": 3.76,
+      "offset": 1479.76
+    },
+    {
+      "text": "forever ago that I then had to reboot",
+      "duration": 3.6,
+      "offset": 1481.679
+    },
+    {
+      "text": "and I forgot where they are and haven't",
+      "duration": 4.08,
+      "offset": 1483.52
+    },
+    {
+      "text": "even bothered to go double check. Like",
+      "duration": 5.441,
+      "offset": 1485.279
+    },
+    {
+      "text": "that's insane that there is work on my",
+      "duration": 4.319,
+      "offset": 1487.6
+    },
+    {
+      "text": "computer that might actually be really",
+      "duration": 2.88,
+      "offset": 1490.72
+    },
+    {
+      "text": "useful to me and others that I haven't",
+      "duration": 3.841,
+      "offset": 1491.919
+    },
+    {
+      "text": "even checked yet because the checking is",
+      "duration": 4,
+      "offset": 1493.6
+    },
+    {
+      "text": "the expensive part. Now, are you ready",
+      "duration": 4.48,
+      "offset": 1495.76
+    },
+    {
+      "text": "for the harshest reality check here?",
+      "duration": 4.88,
+      "offset": 1497.6
+    },
+    {
+      "text": "Most engineers are really bad at this.",
+      "duration": 4.799,
+      "offset": 1500.24
+    },
+    {
+      "text": "Even like the best engineers I know are",
+      "duration": 5.92,
+      "offset": 1502.48
+    },
+    {
+      "text": "atrocious at QA. I cannot tell you how",
+      "duration": 6.321,
+      "offset": 1505.039
+    },
+    {
+      "text": "many times I got to work with like top",
+      "duration": 5.2,
+      "offset": 1508.4
+    },
+    {
+      "text": "100 in the world type engineers. They",
+      "duration": 3.76,
+      "offset": 1511.36
+    },
+    {
+      "text": "ship something that looked really good,",
+      "duration": 3.52,
+      "offset": 1513.6
+    },
+    {
+      "text": "seemed really good, made a lot of sense,",
+      "duration": 4.32,
+      "offset": 1515.12
+    },
+    {
+      "text": "was well aligned with the goal of the",
+      "duration": 4.159,
+      "offset": 1517.12
+    },
+    {
+      "text": "project and I try and it just doesn't",
+      "duration": 3.44,
+      "offset": 1519.44
+    },
+    {
+      "text": "[ __ ] work at all. And that's not even",
+      "duration": 3.921,
+      "offset": 1521.279
+    },
+    {
+      "text": "just like writing unit tests, writing",
+      "duration": 3.84,
+      "offset": 1522.88
+    },
+    {
+      "text": "integration tests or anything like that.",
+      "duration": 4.079,
+      "offset": 1525.2
+    },
+    {
+      "text": "It's using the [ __ ] thing. Most",
+      "duration": 4.24,
+      "offset": 1526.72
+    },
+    {
+      "text": "engineers are terrible at that. And",
+      "duration": 3.52,
+      "offset": 1529.279
+    },
+    {
+      "text": "historically that's been okay because",
+      "duration": 4.24,
+      "offset": 1530.96
+    },
+    {
+      "text": "there was such a desperation to fill the",
+      "duration": 4.48,
+      "offset": 1532.799
+    },
+    {
+      "text": "hole that was writing code that we would",
+      "duration": 4.4,
+      "offset": 1535.2
+    },
+    {
+      "text": "do anything for it. And now that's over.",
+      "duration": 3.76,
+      "offset": 1537.279
+    },
+    {
+      "text": "Another way to think of this is as a",
+      "duration": 3.92,
+      "offset": 1539.6
+    },
+    {
+      "text": "funnel. At the top we have like every",
+      "duration": 3.841,
+      "offset": 1541.039
+    },
+    {
+      "text": "single thing that's gone wrong in our",
+      "duration": 3.12,
+      "offset": 1543.52
+    },
+    {
+      "text": "product for every user. And then all the",
+      "duration": 4.08,
+      "offset": 1544.88
+    },
+    {
+      "text": "way to the bottom here we have shipped",
+      "duration": 3.84,
+      "offset": 1546.64
+    },
+    {
+      "text": "stuff. So has to make it all the way to",
+      "duration": 2.959,
+      "offset": 1548.96
+    },
+    {
+      "text": "the bottom not fall out of the funnel",
+      "duration": 4.799,
+      "offset": 1550.48
+    },
+    {
+      "text": "along the way. And each step along here",
+      "duration": 5.681,
+      "offset": 1551.919
+    },
+    {
+      "text": "required some level of refinement. So",
+      "duration": 4.801,
+      "offset": 1555.279
+    },
+    {
+      "text": "describe problem, write code, you get",
+      "duration": 4.64,
+      "offset": 1557.6
+    },
+    {
+      "text": "the idea. The funnel, we've all seen a",
+      "duration": 4.079,
+      "offset": 1560.08
+    },
+    {
+      "text": "funnel like this before. This is just",
+      "duration": 3.84,
+      "offset": 1562.24
+    },
+    {
+      "text": "kind of what reality looks like, at",
+      "duration": 4.241,
+      "offset": 1564.159
+    },
+    {
+      "text": "least looked like. As you go further and",
+      "duration": 3.92,
+      "offset": 1566.08
+    },
+    {
+      "text": "further down, the number of things left",
+      "duration": 4.399,
+      "offset": 1568.4
+    },
+    {
+      "text": "would decrease. And the really [ __ ]",
+      "duration": 5.2,
+      "offset": 1570
+    },
+    {
+      "text": "strange thing that is going on right now",
+      "duration": 5.041,
+      "offset": 1572.799
+    },
+    {
+      "text": "is that this looks like this now. There",
+      "duration": 5.28,
+      "offset": 1575.2
+    },
+    {
+      "text": "is no longer a funnel at the line that",
+      "duration": 6.24,
+      "offset": 1577.84
+    },
+    {
+      "text": "we own as devs. That's over. That is a",
+      "duration": 6.079,
+      "offset": 1580.48
+    },
+    {
+      "text": "very different world we live in where if",
+      "duration": 3.92,
+      "offset": 1584.08
+    },
+    {
+      "text": "you've gotten to the point where you can",
+      "duration": 3.441,
+      "offset": 1586.559
+    },
+    {
+      "text": "describe the work as tickets, you've",
+      "duration": 3.679,
+      "offset": 1588
+    },
+    {
+      "text": "gotten to the point where the work can",
+      "duration": 4,
+      "offset": 1590
+    },
+    {
+      "text": "be completed for the vast majority of",
+      "duration": 4.081,
+      "offset": 1591.679
+    },
+    {
+      "text": "development work the vast majority of",
+      "duration": 4.08,
+      "offset": 1594
+    },
+    {
+      "text": "the time. The majority of apps are just",
+      "duration": 4.32,
+      "offset": 1595.76
+    },
+    {
+      "text": "shitty crud apps that need small one-off",
+      "duration": 4.079,
+      "offset": 1598.08
+    },
+    {
+      "text": "bug fixes and features done constantly.",
+      "duration": 4.24,
+      "offset": 1600.08
+    },
+    {
+      "text": "And for almost all work, things just",
+      "duration": 4.721,
+      "offset": 1602.159
+    },
+    {
+      "text": "shifted fundamentally. And if you have",
+      "duration": 5.2,
+      "offset": 1604.32
+    },
+    {
+      "text": "had this realization, you know that this",
+      "duration": 5.12,
+      "offset": 1606.88
+    },
+    {
+      "text": "step here, writing the code is no longer",
+      "duration": 4.72,
+      "offset": 1609.52
+    },
+    {
+      "text": "the edge. That having enough engineers",
+      "duration": 5.2,
+      "offset": 1612
+    },
+    {
+      "text": "is your win. That like realistically",
+      "duration": 5.84,
+      "offset": 1614.24
+    },
+    {
+      "text": "speaking, I could not have competed with",
+      "duration": 5.599,
+      "offset": 1617.2
+    },
+    {
+      "text": "Frame.io 2 years ago. It would have been",
+      "duration": 4.4,
+      "offset": 1620.08
+    },
+    {
+      "text": "way too much work for me and my team to",
+      "duration": 3.36,
+      "offset": 1622.799
+    },
+    {
+      "text": "build and maintain, especially all the",
+      "duration": 2.88,
+      "offset": 1624.48
+    },
+    {
+      "text": "integrations across all the different",
+      "duration": 2.961,
+      "offset": 1626.159
+    },
+    {
+      "text": "platforms. Like if it turned out that",
+      "duration": 3.679,
+      "offset": 1627.36
+    },
+    {
+      "text": "product could do well and I wanted to go",
+      "duration": 3.76,
+      "offset": 1629.12
+    },
+    {
+      "text": "build the integrations for things like",
+      "duration": 3.76,
+      "offset": 1631.039
+    },
+    {
+      "text": "Premiere Pro and Final Cut and other",
+      "duration": 3.84,
+      "offset": 1632.88
+    },
+    {
+      "text": "editors, that type of thing just wasn't",
+      "duration": 4,
+      "offset": 1634.799
+    },
+    {
+      "text": "worth it before. And suddenly it",
+      "duration": 5.28,
+      "offset": 1636.72
+    },
+    {
+      "text": "absolutely is. If anything, having the",
+      "duration": 5.12,
+      "offset": 1638.799
+    },
+    {
+      "text": "smaller team puts me at an advantage.",
+      "duration": 4.24,
+      "offset": 1642
+    },
+    {
+      "text": "Since Frame.io is part of Adobe and has",
+      "duration": 4.721,
+      "offset": 1643.919
+    },
+    {
+      "text": "a giant team, every change requires",
+      "duration": 4.08,
+      "offset": 1646.24
+    },
+    {
+      "text": "touching lots of different teams things",
+      "duration": 3.44,
+      "offset": 1648.64
+    },
+    {
+      "text": "and getting all of them to approve. If",
+      "duration": 3.52,
+      "offset": 1650.32
+    },
+    {
+      "text": "you have more engineers, there are more",
+      "duration": 3.04,
+      "offset": 1652.08
+    },
+    {
+      "text": "people that have to give you a thumbs up",
+      "duration": 2.88,
+      "offset": 1653.84
+    },
+    {
+      "text": "before you're allowed to ship the thing.",
+      "duration": 3.6,
+      "offset": 1655.12
+    },
+    {
+      "text": "So if writing code is free now let's",
+      "duration": 3.36,
+      "offset": 1656.72
+    },
+    {
+      "text": "take this diagram because this is what a",
+      "duration": 3.04,
+      "offset": 1658.72
+    },
+    {
+      "text": "lot of companies are about to look like.",
+      "duration": 3.839,
+      "offset": 1660.08
+    },
+    {
+      "text": "So the writing code step is now flat. So",
+      "duration": 4.159,
+      "offset": 1661.76
+    },
+    {
+      "text": "we now have the straight lines there.",
+      "duration": 4,
+      "offset": 1663.919
+    },
+    {
+      "text": "But with the devs having to approve",
+      "duration": 4.401,
+      "offset": 1665.919
+    },
+    {
+      "text": "things it's going to look like this.",
+      "duration": 3.921,
+      "offset": 1667.919
+    },
+    {
+      "text": "It's going to be an even steeper",
+      "duration": 3.92,
+      "offset": 1670.32
+    },
+    {
+      "text": "gradient making it even harder to",
+      "duration": 3.92,
+      "offset": 1671.84
+    },
+    {
+      "text": "actually ship the things that have been",
+      "duration": 3.6,
+      "offset": 1674.24
+    },
+    {
+      "text": "made. And this is going to piss off",
+      "duration": 4.96,
+      "offset": 1675.76
+    },
+    {
+      "text": "everyone. Every product manager, every",
+      "duration": 6.48,
+      "offset": 1677.84
+    },
+    {
+      "text": "exec, every person at a company that",
+      "duration": 4.8,
+      "offset": 1680.72
+    },
+    {
+      "text": "knows anything about what their",
+      "duration": 2.959,
+      "offset": 1684.32
+    },
+    {
+      "text": "competition is doing is going to look at",
+      "duration": 2.879,
+      "offset": 1685.52
+    },
+    {
+      "text": "this. They're going to experience this.",
+      "duration": 2.161,
+      "offset": 1687.279
+    },
+    {
+      "text": "They're going to feel this and they're",
+      "duration": 3.121,
+      "offset": 1688.399
+    },
+    {
+      "text": "going to realize, wait, writing code",
+      "duration": 4.64,
+      "offset": 1689.44
+    },
+    {
+      "text": "just got so much cheaper. Everything we",
+      "duration": 4.96,
+      "offset": 1691.52
+    },
+    {
+      "text": "spec gets written. Why is none of this",
+      "duration": 4.64,
+      "offset": 1694.08
+    },
+    {
+      "text": "shipping? And more than anything here, I",
+      "duration": 4.16,
+      "offset": 1696.48
+    },
+    {
+      "text": "am saying this part out of experience",
+      "duration": 4.16,
+      "offset": 1698.72
+    },
+    {
+      "text": "because we had this happen, too. We had",
+      "duration": 4.56,
+      "offset": 1700.64
+    },
+    {
+      "text": "users report problems in T3 chat. We",
+      "duration": 4.08,
+      "offset": 1702.88
+    },
+    {
+      "text": "clearly described what the problem was.",
+      "duration": 4.24,
+      "offset": 1705.2
+    },
+    {
+      "text": "We came up with a solution. We started",
+      "duration": 4,
+      "offset": 1706.96
+    },
+    {
+      "text": "planning out that work. We would not",
+      "duration": 2.719,
+      "offset": 1709.44
+    },
+    {
+      "text": "necessarily always make tickets. We",
+      "duration": 2.24,
+      "offset": 1710.96
+    },
+    {
+      "text": "don't always use linear for things.",
+      "duration": 2.561,
+      "offset": 1712.159
+    },
+    {
+      "text": "Sometimes we just use notion and write",
+      "duration": 2.64,
+      "offset": 1713.2
+    },
+    {
+      "text": "out what we want to do. Sometimes we",
+      "duration": 2.559,
+      "offset": 1714.72
+    },
+    {
+      "text": "just message each other on Discord. We",
+      "duration": 3.04,
+      "offset": 1715.84
+    },
+    {
+      "text": "would get pretty far in and then",
+      "duration": 2.88,
+      "offset": 1717.279
+    },
+    {
+      "text": "eventually when an engine had the time",
+      "duration": 2.799,
+      "offset": 1718.88
+    },
+    {
+      "text": "they would go write the code. Then we",
+      "duration": 3.12,
+      "offset": 1720.159
+    },
+    {
+      "text": "just started kicking those things off in",
+      "duration": 3.36,
+      "offset": 1721.679
+    },
+    {
+      "text": "the background and ended up with",
+      "duration": 4.241,
+      "offset": 1723.279
+    },
+    {
+      "text": "hundreds of PRs just kind of sitting",
+      "duration": 4.321,
+      "offset": 1725.039
+    },
+    {
+      "text": "there not shipping because everything",
+      "duration": 4,
+      "offset": 1727.52
+    },
+    {
+      "text": "else didn't get easier. And having more",
+      "duration": 3.679,
+      "offset": 1729.36
+    },
+    {
+      "text": "people that have to approve of things",
+      "duration": 3.68,
+      "offset": 1731.52
+    },
+    {
+      "text": "made it even less likely to ship. So we",
+      "duration": 4.64,
+      "offset": 1733.039
+    },
+    {
+      "text": "had to make changes to our process. We",
+      "duration": 4.32,
+      "offset": 1735.2
+    },
+    {
+      "text": "had to decide how much do we actually",
+      "duration": 3.36,
+      "offset": 1737.679
+    },
+    {
+      "text": "care about the thoroughess of the review",
+      "duration": 3.519,
+      "offset": 1739.52
+    },
+    {
+      "text": "of our code. We had to decide what",
+      "duration": 3.601,
+      "offset": 1741.039
+    },
+    {
+      "text": "cadence do we want to ship at? What do",
+      "duration": 2.801,
+      "offset": 1743.039
+    },
+    {
+      "text": "we want our rollback systems to look",
+      "duration": 2.8,
+      "offset": 1744.64
+    },
+    {
+      "text": "like when we do break things? How do we",
+      "duration": 3.439,
+      "offset": 1745.84
+    },
+    {
+      "text": "get more prepared for the way our",
+      "duration": 3.68,
+      "offset": 1747.44
+    },
+    {
+      "text": "workflows are shifting here? And that's",
+      "duration": 3.201,
+      "offset": 1749.279
+    },
+    {
+      "text": "also why we did the launch week a few",
+      "duration": 2.96,
+      "offset": 1751.12
+    },
+    {
+      "text": "weeks ago because we wanted to get all",
+      "duration": 3.919,
+      "offset": 1752.48
+    },
+    {
+      "text": "this stuff out. In order to do that, we",
+      "duration": 3.68,
+      "offset": 1754.08
+    },
+    {
+      "text": "needed different process, different",
+      "duration": 3.041,
+      "offset": 1756.399
+    },
+    {
+      "text": "deadlines, different incentives. I had",
+      "duration": 3.919,
+      "offset": 1757.76
+    },
+    {
+      "text": "to rethink everything below the writing",
+      "duration": 3.76,
+      "offset": 1759.44
+    },
+    {
+      "text": "code part in order for us to actually",
+      "duration": 2.88,
+      "offset": 1761.679
+    },
+    {
+      "text": "ship the things that were being",
+      "duration": 3.199,
+      "offset": 1763.2
+    },
+    {
+      "text": "generated. And that's a lot harder when",
+      "duration": 4.641,
+      "offset": 1764.559
+    },
+    {
+      "text": "you have a big team. Big teams are kind",
+      "duration": 4.801,
+      "offset": 1766.399
+    },
+    {
+      "text": "of like aircraft carriers where they can",
+      "duration": 5.359,
+      "offset": 1769.2
+    },
+    {
+      "text": "ship a ton of stuff at once, insane",
+      "duration": 6.32,
+      "offset": 1771.2
+    },
+    {
+      "text": "distances in relatively absurd speeds.",
+      "duration": 4.48,
+      "offset": 1774.559
+    },
+    {
+      "text": "But if they have to change course, if",
+      "duration": 3.44,
+      "offset": 1777.52
+    },
+    {
+      "text": "they have to change direction, it takes",
+      "duration": 4.721,
+      "offset": 1779.039
+    },
+    {
+      "text": "days for them to just do a turn because",
+      "duration": 5.599,
+      "offset": 1780.96
+    },
+    {
+      "text": "the ship has so much inertia that",
+      "duration": 5.519,
+      "offset": 1783.76
+    },
+    {
+      "text": "shifting becomes n impossible. But if",
+      "duration": 4.561,
+      "offset": 1786.559
+    },
+    {
+      "text": "you have a small team, that type of",
+      "duration": 3.76,
+      "offset": 1789.279
+    },
+    {
+      "text": "shifting becomes much easier. When",
+      "duration": 4.159,
+      "offset": 1791.12
+    },
+    {
+      "text": "individual things have a person who owns",
+      "duration": 4.401,
+      "offset": 1793.039
+    },
+    {
+      "text": "them instead of a team who owns them and",
+      "duration": 4.481,
+      "offset": 1795.279
+    },
+    {
+      "text": "that person owns more and more, things",
+      "duration": 4.32,
+      "offset": 1797.44
+    },
+    {
+      "text": "get easier. Like if T3 code had",
+      "duration": 3.44,
+      "offset": 1799.76
+    },
+    {
+      "text": "different parts of the codebase that",
+      "duration": 3.279,
+      "offset": 1801.76
+    },
+    {
+      "text": "different people owned and we wanted to",
+      "duration": 3.44,
+      "offset": 1803.2
+    },
+    {
+      "text": "do a big feature change, getting that",
+      "duration": 3.12,
+      "offset": 1805.039
+    },
+    {
+      "text": "approved is going to suck. But if we",
+      "duration": 3.519,
+      "offset": 1806.64
+    },
+    {
+      "text": "take turns owning it and one person can",
+      "duration": 3.841,
+      "offset": 1808.159
+    },
+    {
+      "text": "come in and change a bunch of [ __ ] in",
+      "duration": 3.76,
+      "offset": 1810.159
+    },
+    {
+      "text": "one day and the next day someone else",
+      "duration": 3.6,
+      "offset": 1812
+    },
+    {
+      "text": "can come in and change a bunch of [ __ ]",
+      "duration": 4.24,
+      "offset": 1813.919
+    },
+    {
+      "text": "then we can ship fast. And all of our",
+      "duration": 5.04,
+      "offset": 1815.6
+    },
+    {
+      "text": "process is built for a world where the",
+      "duration": 5.201,
+      "offset": 1818.159
+    },
+    {
+      "text": "only really expensive part was writing",
+      "duration": 4.48,
+      "offset": 1820.64
+    },
+    {
+      "text": "code. Writing code went from the most",
+      "duration": 3.6,
+      "offset": 1823.36
+    },
+    {
+      "text": "expensive to the cheapest part of this",
+      "duration": 3.76,
+      "offset": 1825.12
+    },
+    {
+      "text": "process. Everything is going to change",
+      "duration": 4.079,
+      "offset": 1826.96
+    },
+    {
+      "text": "as a result. I don't know what that's",
+      "duration": 3.6,
+      "offset": 1828.88
+    },
+    {
+      "text": "going to look like. I'm not going to sit",
+      "duration": 3.281,
+      "offset": 1831.039
+    },
+    {
+      "text": "here and tell you that our jobs are",
+      "duration": 3.76,
+      "offset": 1832.48
+    },
+    {
+      "text": "going away or that we're totally fine. I",
+      "duration": 3.76,
+      "offset": 1834.32
+    },
+    {
+      "text": "don't know yet. I don't know what the",
+      "duration": 3.919,
+      "offset": 1836.24
+    },
+    {
+      "text": "world looks like after code becomes so",
+      "duration": 3.92,
+      "offset": 1838.08
+    },
+    {
+      "text": "cheap it's nearly free. I know a lot of",
+      "duration": 3.681,
+      "offset": 1840.159
+    },
+    {
+      "text": "the things that are valuable now like",
+      "duration": 4.72,
+      "offset": 1842
+    },
+    {
+      "text": "turning user problems into clear concise",
+      "duration": 5.6,
+      "offset": 1843.84
+    },
+    {
+      "text": "plans, making sure written code is ready",
+      "duration": 5.04,
+      "offset": 1846.72
+    },
+    {
+      "text": "to ship, having good methods and good",
+      "duration": 4.239,
+      "offset": 1849.44
+    },
+    {
+      "text": "alerting systems to do automatic roll",
+      "duration": 4,
+      "offset": 1851.76
+    },
+    {
+      "text": "backs, and having good safety nets in",
+      "duration": 3.521,
+      "offset": 1853.679
+    },
+    {
+      "text": "place for when things do go wrong,",
+      "duration": 3.519,
+      "offset": 1855.76
+    },
+    {
+      "text": "writing really thorough tests, and doing",
+      "duration": 4.479,
+      "offset": 1857.2
+    },
+    {
+      "text": "really thorough QA. All of these things",
+      "duration": 4.481,
+      "offset": 1859.279
+    },
+    {
+      "text": "are more valuable now than ever, and",
+      "duration": 4.88,
+      "offset": 1861.679
+    },
+    {
+      "text": "developers hate all of them. The average",
+      "duration": 5.2,
+      "offset": 1863.76
+    },
+    {
+      "text": "developer is going to have a really",
+      "duration": 4.561,
+      "offset": 1866.559
+    },
+    {
+      "text": "rough time. This isn't because vibe",
+      "duration": 3.839,
+      "offset": 1868.96
+    },
+    {
+      "text": "coding isn't fun. To be clear, I've seen",
+      "duration": 3.039,
+      "offset": 1871.12
+    },
+    {
+      "text": "a lot of people saying they missed the",
+      "duration": 3.521,
+      "offset": 1872.799
+    },
+    {
+      "text": "craft. I don't think they do. I",
+      "duration": 4,
+      "offset": 1874.159
+    },
+    {
+      "text": "genuinely believe they're wrong. I think",
+      "duration": 3.28,
+      "offset": 1876.32
+    },
+    {
+      "text": "if you were to rank all the stuff that",
+      "duration": 3.681,
+      "offset": 1878.159
+    },
+    {
+      "text": "we do in a given day as a developer,",
+      "duration": 3.92,
+      "offset": 1879.6
+    },
+    {
+      "text": "writing code is one of the more fun",
+      "duration": 3.68,
+      "offset": 1881.84
+    },
+    {
+      "text": "ones, reviewing code is one of the less",
+      "duration": 4,
+      "offset": 1883.52
+    },
+    {
+      "text": "fun ones. So, if we have shifted",
+      "duration": 3.6,
+      "offset": 1885.52
+    },
+    {
+      "text": "everything so that we're writing code",
+      "duration": 3.279,
+      "offset": 1887.52
+    },
+    {
+      "text": "way less, and now we're reviewing code",
+      "duration": 3.84,
+      "offset": 1889.12
+    },
+    {
+      "text": "way more. Yeah, that's going to feel",
+      "duration": 4.88,
+      "offset": 1890.799
+    },
+    {
+      "text": "worse. Not because writing code was the",
+      "duration": 4.64,
+      "offset": 1892.96
+    },
+    {
+      "text": "fun part and we lost it. Just because we",
+      "duration": 3.921,
+      "offset": 1895.679
+    },
+    {
+      "text": "have shifted meaningfully in where our",
+      "duration": 3.36,
+      "offset": 1897.6
+    },
+    {
+      "text": "interests are and where our time is",
+      "duration": 3.679,
+      "offset": 1899.6
+    },
+    {
+      "text": "spent. Our time is now spent much more",
+      "duration": 4.559,
+      "offset": 1900.96
+    },
+    {
+      "text": "so dealing with the consequences of our",
+      "duration": 4.321,
+      "offset": 1903.279
+    },
+    {
+      "text": "code because the code got so much easier",
+      "duration": 3.76,
+      "offset": 1905.519
+    },
+    {
+      "text": "to put out. But if you can flip that in",
+      "duration": 3.199,
+      "offset": 1907.6
+    },
+    {
+      "text": "your head a bit, it becomes really",
+      "duration": 3.28,
+      "offset": 1909.279
+    },
+    {
+      "text": "empowering. I personally have never",
+      "duration": 4.161,
+      "offset": 1910.799
+    },
+    {
+      "text": "enjoyed writing code more. Yeah, I'm not",
+      "duration": 4.081,
+      "offset": 1912.559
+    },
+    {
+      "text": "writing the code myself, but there's",
+      "duration": 4.4,
+      "offset": 1914.96
+    },
+    {
+      "text": "something so rewarding about cracking",
+      "duration": 4.96,
+      "offset": 1916.64
+    },
+    {
+      "text": "the code, so to speak, finding the right",
+      "duration": 4.159,
+      "offset": 1919.36
+    },
+    {
+      "text": "combination of description of the",
+      "duration": 3.84,
+      "offset": 1921.6
+    },
+    {
+      "text": "problem, technologies that the agents",
+      "duration": 3.841,
+      "offset": 1923.519
+    },
+    {
+      "text": "can use, harnesses that can be steered",
+      "duration": 3.2,
+      "offset": 1925.44
+    },
+    {
+      "text": "in a way to build in the right",
+      "duration": 3.199,
+      "offset": 1927.36
+    },
+    {
+      "text": "direction, ending in a product that's",
+      "duration": 4.32,
+      "offset": 1928.64
+    },
+    {
+      "text": "actually useful. I've never built more.",
+      "duration": 4,
+      "offset": 1930.559
+    },
+    {
+      "text": "I have so many projects that I'm working",
+      "duration": 3.04,
+      "offset": 1932.96
+    },
+    {
+      "text": "on right now, and I'm going to actually",
+      "duration": 3.921,
+      "offset": 1934.559
+    },
+    {
+      "text": "ship a bunch of them. I'm so hyped. But",
+      "duration": 4.48,
+      "offset": 1936
+    },
+    {
+      "text": "you have to change your mindset a ton",
+      "duration": 4,
+      "offset": 1938.48
+    },
+    {
+      "text": "for that. And not just you and me as",
+      "duration": 3.919,
+      "offset": 1940.48
+    },
+    {
+      "text": "devs, the people running these companies",
+      "duration": 4.24,
+      "offset": 1942.48
+    },
+    {
+      "text": "and paying us our salaries, too. That's",
+      "duration": 4.4,
+      "offset": 1944.399
+    },
+    {
+      "text": "a big deal. And that's where the next",
+      "duration": 4.48,
+      "offset": 1946.72
+    },
+    {
+      "text": "paragraph in the statement comes in.",
+      "duration": 4.801,
+      "offset": 1948.799
+    },
+    {
+      "text": "Jack had two options. Cut gradually over",
+      "duration": 4.319,
+      "offset": 1951.2
+    },
+    {
+      "text": "months or years as the shift plays out,",
+      "duration": 3.76,
+      "offset": 1953.6
+    },
+    {
+      "text": "or be honest about where they are and",
+      "duration": 3.921,
+      "offset": 1955.519
+    },
+    {
+      "text": "act on it. Now, this is something I",
+      "duration": 4.64,
+      "offset": 1957.36
+    },
+    {
+      "text": "really like about the way he chose to do",
+      "duration": 5.119,
+      "offset": 1959.44
+    },
+    {
+      "text": "this. It is clear that this is where",
+      "duration": 4.799,
+      "offset": 1962
+    },
+    {
+      "text": "things are going. that having too many",
+      "duration": 4.48,
+      "offset": 1964.559
+    },
+    {
+      "text": "people in the pipeline approving things",
+      "duration": 4.48,
+      "offset": 1966.799
+    },
+    {
+      "text": "is going to make you slower, not faster.",
+      "duration": 3.601,
+      "offset": 1969.039
+    },
+    {
+      "text": "That the benefit of having a lot of",
+      "duration": 3.76,
+      "offset": 1971.279
+    },
+    {
+      "text": "engineers being a lot more code is no",
+      "duration": 4.399,
+      "offset": 1972.64
+    },
+    {
+      "text": "longer that valuable at all. So they",
+      "duration": 3.441,
+      "offset": 1975.039
+    },
+    {
+      "text": "could slowly realize this and have",
+      "duration": 3.201,
+      "offset": 1977.039
+    },
+    {
+      "text": "individual teams and orgs realize this",
+      "duration": 4.319,
+      "offset": 1978.48
+    },
+    {
+      "text": "and every few months lay off 5 to 10% of",
+      "duration": 4.48,
+      "offset": 1980.24
+    },
+    {
+      "text": "people and never actually see the",
+      "duration": 3.921,
+      "offset": 1982.799
+    },
+    {
+      "text": "benefits. Because if your team goes from",
+      "duration": 4.48,
+      "offset": 1984.72
+    },
+    {
+      "text": "10 people to eight people, your process",
+      "duration": 3.92,
+      "offset": 1986.72
+    },
+    {
+      "text": "isn't going to change much. You're just",
+      "duration": 3.28,
+      "offset": 1989.2
+    },
+    {
+      "text": "going to move around assignments. But if",
+      "duration": 3.919,
+      "offset": 1990.64
+    },
+    {
+      "text": "your team goes from 10 people to two",
+      "duration": 4,
+      "offset": 1992.48
+    },
+    {
+      "text": "people, you're going to start rethinking",
+      "duration": 4.561,
+      "offset": 1994.559
+    },
+    {
+      "text": "[ __ ] That's that's what he's going for",
+      "duration": 4,
+      "offset": 1996.48
+    },
+    {
+      "text": "here. And I have a lot of respect for",
+      "duration": 2.799,
+      "offset": 1999.12
+    },
+    {
+      "text": "the way he did it because the",
+      "duration": 3.36,
+      "offset": 2000.48
+    },
+    {
+      "text": "alternatives just aren't going to move",
+      "duration": 4.161,
+      "offset": 2001.919
+    },
+    {
+      "text": "that fast. Let's use GitHub as an",
+      "duration": 4.4,
+      "offset": 2003.84
+    },
+    {
+      "text": "example. GitHub's a relatively big",
+      "duration": 5.04,
+      "offset": 2006.08
+    },
+    {
+      "text": "organization. If a new AI model drops,",
+      "duration": 4.559,
+      "offset": 2008.24
+    },
+    {
+      "text": "there's an approval process that has to",
+      "duration": 3.12,
+      "offset": 2011.12
+    },
+    {
+      "text": "be gone through before they can ship",
+      "duration": 4.321,
+      "offset": 2012.799
+    },
+    {
+      "text": "that in Copilot. When Gemini 3.1 Pro",
+      "duration": 5.2,
+      "offset": 2014.24
+    },
+    {
+      "text": "came out, they managed to sneak it in",
+      "duration": 5.039,
+      "offset": 2017.12
+    },
+    {
+      "text": "relatively quickly into Cop-lot. I was",
+      "duration": 3.76,
+      "offset": 2019.44
+    },
+    {
+      "text": "impressed that they actually got this",
+      "duration": 3.601,
+      "offset": 2022.159
+    },
+    {
+      "text": "out this fast. You could use Gemini 3.1",
+      "duration": 5.199,
+      "offset": 2023.2
+    },
+    {
+      "text": "Pro in the Copilot extension thing built",
+      "duration": 4.639,
+      "offset": 2025.76
+    },
+    {
+      "text": "into VS Code. I was trying to find a way",
+      "duration": 5.28,
+      "offset": 2028.399
+    },
+    {
+      "text": "to use Gemini 3.1 Pro reliably cuz there",
+      "duration": 5.041,
+      "offset": 2030.399
+    },
+    {
+      "text": "were issues with provisioning for it.",
+      "duration": 4.24,
+      "offset": 2033.679
+    },
+    {
+      "text": "Even the official Gemini CLI could not",
+      "duration": 4.16,
+      "offset": 2035.44
+    },
+    {
+      "text": "use it because again, Google's a massive",
+      "duration": 3.281,
+      "offset": 2037.919
+    },
+    {
+      "text": "company. Getting things updated is",
+      "duration": 3.439,
+      "offset": 2039.6
+    },
+    {
+      "text": "nearly impossible there. Microsoft is",
+      "duration": 4.24,
+      "offset": 2041.2
+    },
+    {
+      "text": "similar. Somebody told me that even the",
+      "duration": 5.921,
+      "offset": 2043.039
+    },
+    {
+      "text": "co-pilot CLI has 3.1 Pro. They lied. I",
+      "duration": 5.12,
+      "offset": 2045.44
+    },
+    {
+      "text": "just moved from the C-pilot CLI to",
+      "duration": 4,
+      "offset": 2048.96
+    },
+    {
+      "text": "Gemini because it didn't have it. I",
+      "duration": 4.079,
+      "offset": 2050.56
+    },
+    {
+      "text": "tagged Burke, who's one of the higher up",
+      "duration": 3.6,
+      "offset": 2052.96
+    },
+    {
+      "text": "people working on VS Code and Copilot",
+      "duration": 3.921,
+      "offset": 2054.639
+    },
+    {
+      "text": "stuff at Microsoft, asking for help. He",
+      "duration": 3.839,
+      "offset": 2056.56
+    },
+    {
+      "text": "said it should be there for you. Tagged",
+      "duration": 3.68,
+      "offset": 2058.56
+    },
+    {
+      "text": "in two additional people who work on the",
+      "duration": 4.641,
+      "offset": 2060.399
+    },
+    {
+      "text": "CLI to help saying what tier I'm on. How",
+      "duration": 4,
+      "offset": 2062.24
+    },
+    {
+      "text": "can we make sure it's there for him day",
+      "duration": 3.599,
+      "offset": 2065.04
+    },
+    {
+      "text": "zero? Unfortunately, this model is only",
+      "duration": 3.839,
+      "offset": 2066.24
+    },
+    {
+      "text": "available in VS Code and not in the",
+      "duration": 3.601,
+      "offset": 2068.639
+    },
+    {
+      "text": "Copilot CLI. We are working on it, but",
+      "duration": 4.08,
+      "offset": 2070.079
+    },
+    {
+      "text": "not an easy thing. I'm not trying to",
+      "duration": 3.359,
+      "offset": 2072.24
+    },
+    {
+      "text": "call out Evan here. I'm not trying to",
+      "duration": 3.601,
+      "offset": 2074.159
+    },
+    {
+      "text": "shame any employees or anything here. I",
+      "duration": 5.04,
+      "offset": 2075.599
+    },
+    {
+      "text": "just need us to have an honest moment.",
+      "duration": 4.639,
+      "offset": 2077.76
+    },
+    {
+      "text": "What the [ __ ] do you mean it's not an",
+      "duration": 4.081,
+      "offset": 2080.639
+    },
+    {
+      "text": "easy thing? What the [ __ ] does that even",
+      "duration": 4.96,
+      "offset": 2082.399
+    },
+    {
+      "text": "mean? I know what it means. It means the",
+      "duration": 4.56,
+      "offset": 2084.72
+    },
+    {
+      "text": "company's too big. It means that there",
+      "duration": 3.841,
+      "offset": 2087.359
+    },
+    {
+      "text": "are 10erson teams when there should be a",
+      "duration": 4.24,
+      "offset": 2089.28
+    },
+    {
+      "text": "one person managing the three other",
+      "duration": 4.32,
+      "offset": 2091.2
+    },
+    {
+      "text": "projects. Not only is this addition one",
+      "duration": 3.599,
+      "offset": 2093.52
+    },
+    {
+      "text": "prompt away, it's one line of [ __ ]",
+      "duration": 4.079,
+      "offset": 2095.52
+    },
+    {
+      "text": "code. I hate to put it this way, but",
+      "duration": 4.48,
+      "offset": 2097.119
+    },
+    {
+      "text": "Jack's ahead of them right now. There's",
+      "duration": 4.641,
+      "offset": 2099.599
+    },
+    {
+      "text": "a very real future coming soon where the",
+      "duration": 4.24,
+      "offset": 2101.599
+    },
+    {
+      "text": "entire team is laid off and replaced",
+      "duration": 3.28,
+      "offset": 2104.24
+    },
+    {
+      "text": "with two people that can submit the",
+      "duration": 3.28,
+      "offset": 2105.839
+    },
+    {
+      "text": "right prompt to prevent [ __ ] like this",
+      "duration": 4.319,
+      "offset": 2107.52
+    },
+    {
+      "text": "from happening. This is a very real case",
+      "duration": 5.441,
+      "offset": 2109.119
+    },
+    {
+      "text": "where more people is making the thing",
+      "duration": 4.721,
+      "offset": 2111.839
+    },
+    {
+      "text": "less likely to ship. And this is just",
+      "duration": 3.6,
+      "offset": 2114.56
+    },
+    {
+      "text": "one I encountered a few days ago. There",
+      "duration": 2.88,
+      "offset": 2116.56
+    },
+    {
+      "text": "are hundreds of these every [ __ ] day",
+      "duration": 3.12,
+      "offset": 2118.16
+    },
+    {
+      "text": "at every [ __ ] company. I promise. And",
+      "duration": 3.84,
+      "offset": 2119.44
+    },
+    {
+      "text": "to be even harsher with this, the",
+      "duration": 3.68,
+      "offset": 2121.28
+    },
+    {
+      "text": "companies that don't make this change",
+      "duration": 3.52,
+      "offset": 2123.28
+    },
+    {
+      "text": "are going to get absolutely lapped by",
+      "duration": 4.48,
+      "offset": 2124.96
+    },
+    {
+      "text": "the ones that do. My little threeperson",
+      "duration": 4.72,
+      "offset": 2126.8
+    },
+    {
+      "text": "dev team should not be able to out ship",
+      "duration": 4.72,
+      "offset": 2129.44
+    },
+    {
+      "text": "OpenAI on web with chatgpt in the",
+      "duration": 5.12,
+      "offset": 2131.52
+    },
+    {
+      "text": "desktop app with codeex app versus T3",
+      "duration": 3.84,
+      "offset": 2134.16
+    },
+    {
+      "text": "code. Just wait. We're going to ship so",
+      "duration": 2.88,
+      "offset": 2136.64
+    },
+    {
+      "text": "much faster once we drop. I want to make",
+      "duration": 3.28,
+      "offset": 2138
+    },
+    {
+      "text": "sure that we're at feature parody for",
+      "duration": 3.36,
+      "offset": 2139.52
+    },
+    {
+      "text": "the core things before we launch and",
+      "duration": 3.04,
+      "offset": 2141.28
+    },
+    {
+      "text": "then we're going to way outpace them.",
+      "duration": 2.719,
+      "offset": 2142.88
+    },
+    {
+      "text": "The fact that we're now out shipping",
+      "duration": 3.36,
+      "offset": 2144.32
+    },
+    {
+      "text": "frame.io. I'm sorry. And this is all",
+      "duration": 5.601,
+      "offset": 2145.599
+    },
+    {
+      "text": "just us three hopping between [ __ ] The",
+      "duration": 5.28,
+      "offset": 2147.68
+    },
+    {
+      "text": "shape of teams has to change if these",
+      "duration": 3.44,
+      "offset": 2151.2
+    },
+    {
+      "text": "big companies want to maintain pace with",
+      "duration": 3.76,
+      "offset": 2152.96
+    },
+    {
+      "text": "the smaller ones. And to be more blunt,",
+      "duration": 3.52,
+      "offset": 2154.64
+    },
+    {
+      "text": "most places have not figured this out",
+      "duration": 3.68,
+      "offset": 2156.72
+    },
+    {
+      "text": "yet. For every company like Block that",
+      "duration": 4.32,
+      "offset": 2158.16
+    },
+    {
+      "text": "realiz this is where we're going and has",
+      "duration": 4.16,
+      "offset": 2160.4
+    },
+    {
+      "text": "made this change, there's 10 that",
+      "duration": 3.92,
+      "offset": 2162.48
+    },
+    {
+      "text": "haven't, and they're going to be",
+      "duration": 4.4,
+      "offset": 2164.56
+    },
+    {
+      "text": "screwed. The few companies that don't do",
+      "duration": 4.56,
+      "offset": 2166.4
+    },
+    {
+      "text": "this should be looked at very closely by",
+      "duration": 4.879,
+      "offset": 2168.96
+    },
+    {
+      "text": "you as opportunity. Any company that",
+      "duration": 4.56,
+      "offset": 2170.96
+    },
+    {
+      "text": "hasn't entirely rethought their",
+      "duration": 3.681,
+      "offset": 2173.839
+    },
+    {
+      "text": "engineering or by the end of this year",
+      "duration": 3.44,
+      "offset": 2175.52
+    },
+    {
+      "text": "is a company you should build an",
+      "duration": 3.36,
+      "offset": 2177.52
+    },
+    {
+      "text": "alternative to because you will ship",
+      "duration": 3.52,
+      "offset": 2178.96
+    },
+    {
+      "text": "faster than them. The structure of",
+      "duration": 4.16,
+      "offset": 2180.88
+    },
+    {
+      "text": "companies that worked last year is a",
+      "duration": 4,
+      "offset": 2182.48
+    },
+    {
+      "text": "structure that puts them behind this",
+      "duration": 3.6,
+      "offset": 2185.04
+    },
+    {
+      "text": "year. You got to take the opportunity.",
+      "duration": 4.24,
+      "offset": 2186.48
+    },
+    {
+      "text": "There is so much room up for grabs right",
+      "duration": 4.719,
+      "offset": 2188.64
+    },
+    {
+      "text": "now. This is arguably comparable to the",
+      "duration": 4.32,
+      "offset": 2190.72
+    },
+    {
+      "text": "internet where like Amazon crushed",
+      "duration": 3.121,
+      "offset": 2193.359
+    },
+    {
+      "text": "Barnes & Noble and then crushed",
+      "duration": 4.559,
+      "offset": 2195.04
+    },
+    {
+      "text": "everyone. I think we are at that moment",
+      "duration": 6.24,
+      "offset": 2196.48
+    },
+    {
+      "text": "again. And that means our jobs at",
+      "duration": 5.76,
+      "offset": 2199.599
+    },
+    {
+      "text": "existing industries are not sacred like",
+      "duration": 4.399,
+      "offset": 2202.72
+    },
+    {
+      "text": "they used to be. If your company",
+      "duration": 3.361,
+      "offset": 2205.359
+    },
+    {
+      "text": "currently has more engineers than they",
+      "duration": 3.681,
+      "offset": 2207.119
+    },
+    {
+      "text": "had last year, there's a very high",
+      "duration": 3.84,
+      "offset": 2208.72
+    },
+    {
+      "text": "chance there will be layoffs by the end",
+      "duration": 4.16,
+      "offset": 2210.8
+    },
+    {
+      "text": "of the year. Everything is changing.",
+      "duration": 4.96,
+      "offset": 2212.56
+    },
+    {
+      "text": "Block is just the start here. We're at",
+      "duration": 4.56,
+      "offset": 2214.96
+    },
+    {
+      "text": "the beginning of the end. I don't know",
+      "duration": 3.36,
+      "offset": 2217.52
+    },
+    {
+      "text": "what is ending and I don't know what",
+      "duration": 3.839,
+      "offset": 2219.52
+    },
+    {
+      "text": "it'll be replaced with. I just want to",
+      "duration": 4.32,
+      "offset": 2220.88
+    },
+    {
+      "text": "make sure I raise the alarm bells cuz I",
+      "duration": 4.081,
+      "offset": 2223.359
+    },
+    {
+      "text": "know other creators just make memes",
+      "duration": 5.04,
+      "offset": 2225.2
+    },
+    {
+      "text": "about how we're like we're 36 months",
+      "duration": 5.44,
+      "offset": 2227.44
+    },
+    {
+      "text": "into 6 months until NG is dead. Being",
+      "duration": 5.599,
+      "offset": 2230.24
+    },
+    {
+      "text": "paid to type in lines of code is over.",
+      "duration": 4.56,
+      "offset": 2232.88
+    },
+    {
+      "text": "Any place that hasn't realized that is",
+      "duration": 3.601,
+      "offset": 2235.839
+    },
+    {
+      "text": "just behind now. And that includes the",
+      "duration": 4.08,
+      "offset": 2237.44
+    },
+    {
+      "text": "major labs, too. To be fully clear. I'm",
+      "duration": 3.76,
+      "offset": 2239.44
+    },
+    {
+      "text": "very thankful to be at a threeperson",
+      "duration": 4.48,
+      "offset": 2241.52
+    },
+    {
+      "text": "startup and maintaining about 15 people",
+      "duration": 5.04,
+      "offset": 2243.2
+    },
+    {
+      "text": "across all of my teams instead of one of",
+      "duration": 5.119,
+      "offset": 2246
+    },
+    {
+      "text": "these 10,000 plus person companies that",
+      "duration": 5.359,
+      "offset": 2248.24
+    },
+    {
+      "text": "needs to rethink everything. Yeah, I",
+      "duration": 4.48,
+      "offset": 2251.119
+    },
+    {
+      "text": "don't got any wisdom here. I just I want",
+      "duration": 3.361,
+      "offset": 2253.599
+    },
+    {
+      "text": "to make sure we are being realistic",
+      "duration": 4.081,
+      "offset": 2255.599
+    },
+    {
+      "text": "about where shit's going. And I'm really",
+      "duration": 4.32,
+      "offset": 2256.96
+    },
+    {
+      "text": "not interested in the takes of the",
+      "duration": 3.28,
+      "offset": 2259.68
+    },
+    {
+      "text": "unemployed and people who aren't in",
+      "duration": 3.28,
+      "offset": 2261.28
+    },
+    {
+      "text": "industry and aren't watching this as it",
+      "duration": 3.36,
+      "offset": 2262.96
+    },
+    {
+      "text": "changes. I'm telling you guys this from",
+      "duration": 3.2,
+      "offset": 2264.56
+    },
+    {
+      "text": "the ground floor. I'm telling you this",
+      "duration": 2.88,
+      "offset": 2266.32
+    },
+    {
+      "text": "is somebody who spends a lot of time",
+      "duration": 4,
+      "offset": 2267.76
+    },
+    {
+      "text": "talking to startups and big businesses",
+      "duration": 4.24,
+      "offset": 2269.2
+    },
+    {
+      "text": "with all of the teams building all of",
+      "duration": 4.079,
+      "offset": 2271.76
+    },
+    {
+      "text": "these things and how clear it is which",
+      "duration": 4.48,
+      "offset": 2273.44
+    },
+    {
+      "text": "ones understand and which ones don't and",
+      "duration": 4,
+      "offset": 2275.839
+    },
+    {
+      "text": "how [ __ ] the ones who don't understand",
+      "duration": 3.84,
+      "offset": 2277.92
+    },
+    {
+      "text": "currently are. If your company isn't",
+      "duration": 3.76,
+      "offset": 2279.839
+    },
+    {
+      "text": "forcing you to adopt tools like cloud",
+      "duration": 3.44,
+      "offset": 2281.76
+    },
+    {
+      "text": "code, codeex, cursor, and other things",
+      "duration": 3.52,
+      "offset": 2283.599
+    },
+    {
+      "text": "like that, they're already doomed and",
+      "duration": 4.32,
+      "offset": 2285.2
+    },
+    {
+      "text": "you should start hunting. Like it, we",
+      "duration": 4.72,
+      "offset": 2287.119
+    },
+    {
+      "text": "are there. Shout out to Jack for pushing",
+      "duration": 4.559,
+      "offset": 2289.52
+    },
+    {
+      "text": "me over the line here and making it even",
+      "duration": 4.561,
+      "offset": 2291.839
+    },
+    {
+      "text": "more obvious where things have gotten.",
+      "duration": 3.921,
+      "offset": 2294.079
+    },
+    {
+      "text": "And to all the devs in my audience,",
+      "duration": 3.199,
+      "offset": 2296.4
+    },
+    {
+      "text": "start talking to your users more. Start",
+      "duration": 3.04,
+      "offset": 2298
+    },
+    {
+      "text": "talking to your designers, your product",
+      "duration": 3.361,
+      "offset": 2299.599
+    },
+    {
+      "text": "team more. Start getting more involved",
+      "duration": 3.76,
+      "offset": 2301.04
+    },
+    {
+      "text": "in the release process. Start getting",
+      "duration": 3.92,
+      "offset": 2302.96
+    },
+    {
+      "text": "more involved in the systems that allow",
+      "duration": 3.76,
+      "offset": 2304.8
+    },
+    {
+      "text": "these things to work. and start trying",
+      "duration": 3.6,
+      "offset": 2306.88
+    },
+    {
+      "text": "to automate your own job because through",
+      "duration": 3.519,
+      "offset": 2308.56
+    },
+    {
+      "text": "the automation of your work, you will",
+      "duration": 3.44,
+      "offset": 2310.48
+    },
+    {
+      "text": "find everything around it and you'll be",
+      "duration": 3.681,
+      "offset": 2312.079
+    },
+    {
+      "text": "able to do more and more of that. Have",
+      "duration": 4.4,
+      "offset": 2313.92
+    },
+    {
+      "text": "more agency. Yes, this is the one thing",
+      "duration": 5.12,
+      "offset": 2315.76
+    },
+    {
+      "text": "the agents will never have. It's silly",
+      "duration": 4.96,
+      "offset": 2318.32
+    },
+    {
+      "text": "that agents won't have agency, but they",
+      "duration": 4.479,
+      "offset": 2320.88
+    },
+    {
+      "text": "won't. They won't have the initiative.",
+      "duration": 3.44,
+      "offset": 2323.28
+    },
+    {
+      "text": "They won't have the ownership. They",
+      "duration": 4.081,
+      "offset": 2325.359
+    },
+    {
+      "text": "won't have the focus, so to speak. They",
+      "duration": 4.48,
+      "offset": 2326.72
+    },
+    {
+      "text": "have to be given all of those things.",
+      "duration": 3.76,
+      "offset": 2329.44
+    },
+    {
+      "text": "And as long as you can provide that for",
+      "duration": 3.36,
+      "offset": 2331.2
+    },
+    {
+      "text": "them and as long as you have enough",
+      "duration": 2.96,
+      "offset": 2333.2
+    },
+    {
+      "text": "understanding to build the right",
+      "duration": 3.039,
+      "offset": 2334.56
+    },
+    {
+      "text": "environment for it, as long as you use",
+      "duration": 3.199,
+      "offset": 2336.16
+    },
+    {
+      "text": "the product enough to identify the",
+      "duration": 3.281,
+      "offset": 2337.599
+    },
+    {
+      "text": "problems when it doesn't do things",
+      "duration": 2.881,
+      "offset": 2339.359
+    },
+    {
+      "text": "right, as long as you're just [ __ ]",
+      "duration": 3.12,
+      "offset": 2340.88
+    },
+    {
+      "text": "locked in enough, you will turn this",
+      "duration": 4.4,
+      "offset": 2342.24
+    },
+    {
+      "text": "into a win. But the reality is that most",
+      "duration": 4.4,
+      "offset": 2344
+    },
+    {
+      "text": "devs won't do that. Not only are most",
+      "duration": 3.68,
+      "offset": 2346.64
+    },
+    {
+      "text": "devs working on product that they don't",
+      "duration": 4.16,
+      "offset": 2348.4
+    },
+    {
+      "text": "use, they don't even like their users.",
+      "duration": 4.16,
+      "offset": 2350.32
+    },
+    {
+      "text": "They don't even know their users. I've",
+      "duration": 3.92,
+      "offset": 2352.56
+    },
+    {
+      "text": "talked to so many devs that can't even",
+      "duration": 4.56,
+      "offset": 2354.48
+    },
+    {
+      "text": "name one of their customers. It's",
+      "duration": 4.96,
+      "offset": 2356.48
+    },
+    {
+      "text": "hilarious. And those people are [ __ ]",
+      "duration": 3.76,
+      "offset": 2359.04
+    },
+    {
+      "text": "If the agent knows more about your",
+      "duration": 3.12,
+      "offset": 2361.44
+    },
+    {
+      "text": "customers than you do, you don't have a",
+      "duration": 5.039,
+      "offset": 2362.8
+    },
+    {
+      "text": "job anymore. Get on it. I have no idea",
+      "duration": 4.799,
+      "offset": 2364.56
+    },
+    {
+      "text": "how this video is going to feel or what",
+      "duration": 4.561,
+      "offset": 2367.839
+    },
+    {
+      "text": "this sentiment's going to be. I just I'm",
+      "duration": 4.881,
+      "offset": 2369.359
+    },
+    {
+      "text": "going through it with this myself even.",
+      "duration": 3.52,
+      "offset": 2372.4
+    },
+    {
+      "text": "It's just that so much is changing,",
+      "duration": 4.8,
+      "offset": 2374.24
+    },
+    {
+      "text": "guys. I don't think anyone even I fully",
+      "duration": 5.52,
+      "offset": 2375.92
+    },
+    {
+      "text": "comprehend how much this is happening.",
+      "duration": 3.92,
+      "offset": 2379.04
+    },
+    {
+      "text": "But when I look at a product that I've",
+      "duration": 3.36,
+      "offset": 2381.44
+    },
+    {
+      "text": "used for years that I could rebuild in",
+      "duration": 3.84,
+      "offset": 2382.96
+    },
+    {
+      "text": "two weeks and then I check Twitter and",
+      "duration": 4,
+      "offset": 2384.8
+    },
+    {
+      "text": "see one of my favorite CEOs laying off",
+      "duration": 4,
+      "offset": 2386.8
+    },
+    {
+      "text": "half their company due to the same",
+      "duration": 3.84,
+      "offset": 2388.8
+    },
+    {
+      "text": "things I'm working on on the side. I",
+      "duration": 3.039,
+      "offset": 2390.8
+    },
+    {
+      "text": "can't just sit here and pretend",
+      "duration": 2.479,
+      "offset": 2392.64
+    },
+    {
+      "text": "everything's going to be the same. We",
+      "duration": 3.121,
+      "offset": 2393.839
+    },
+    {
+      "text": "all just have different slightly jobs in",
+      "duration": 4.321,
+      "offset": 2395.119
+    },
+    {
+      "text": "the dev. No, everything is changing and",
+      "duration": 4,
+      "offset": 2396.96
+    },
+    {
+      "text": "we need to be realistic about it. We're",
+      "duration": 2.72,
+      "offset": 2399.44
+    },
+    {
+      "text": "not in the middle. We're at the end.",
+      "duration": 2.48,
+      "offset": 2400.96
+    },
+    {
+      "text": "We're at the end of something. I don't",
+      "duration": 3.199,
+      "offset": 2402.16
+    },
+    {
+      "text": "know what it is yet, but I want to make",
+      "duration": 4,
+      "offset": 2403.44
+    },
+    {
+      "text": "sure we all know that at the very least",
+      "duration": 3.681,
+      "offset": 2405.359
+    },
+    {
+      "text": "so that we can be prepared for whatever",
+      "duration": 3.44,
+      "offset": 2407.44
+    },
+    {
+      "text": "ends up being next. Let me know how",
+      "duration": 4.4,
+      "offset": 2409.04
+    },
+    {
+      "text": "y'all feel. Am I going insane or is this",
+      "duration": 6.16,
+      "offset": 2410.88
+    },
+    {
+      "text": "actually change happening now?",
+      "duration": 3.6,
+      "offset": 2413.44
+    }
+  ],
+  "transcriptText": "I'm sure you've all seen the meme. We're 6 months away from AI taking our jobs as developers forever. And while this is a meme that we've been saying for years, I'm starting to really feel it. There have just been so many signals that things are actually changing now. From baby Keem using OpenClaw to the top G-Talking [ __ ] on it to Cloudflare rewriting Nex.js JS in a week using AI to CEOs that barely even code building whole apps from scratch cloning billion-dollar companies in just a few days to Jack the original CEO of Twitter laying off 40% of his employees at Block even though they're profitable and growing. This is this is terrifying. We are there now. I didn't know what this would look like or how it would feel, but it's happening now. It's very clear it is happening now. And I have a lot of thoughts about that. Mostly in a very privileged position here where at least by the looks of it, media doesn't seem to be going anywhere. But that doesn't mean I don't talk to engineers every day and that I don't have hundreds of y'all in my DMs and talking to me across every possible imaginable method telling me just how screwed things are right now. And there is hope. There are places this can go that are good. But right now, the dev world is about to change. Normally, I would do a joke here about how I need ads because I'm not getting paid to write code anymore. But honestly, things are scary enough right now. It feels a bit inappropriate. So, just know I have to get my team paid. So, we'll do a quick break and then we'll dive in. Going to be real with you guys. I'm vibe coding a bit close to the sun lately. We're shipping so much code for all the projects we're working on and I would probably be shipping a lot more bugs if today's sponsor wasn't a thing. Code Rabbit has reviewed pretty much every line of code I've written in the past few months and it has prevented so many bugs from shipping. I've tried all of these AI code review tools with my team and this is the one my team chooses every single time. And I get why. It seems to just understand these complex code bases better than other tools, especially once you've used it for a bit because it has a good memory tool where it learns when you give it feedback. If you tell it, hey, this thing doesn't matter. It remembers and it won't comment on it in the future, which makes it really easy to reduce the noise and focus in on the signal. For a good example of that signal, here's a mistake that I never would have made in the good old days of handwriting code that an agent will gladly do. This directory should have been git ignored because it's a build directory, but somehow it snuck in here. I mean, I know how the agent had put it in the git ignore and now it's my problem. Being that this PR was like 3,000 lines of code, there's no world in which I would have bothered to read it well enough to catch this type of mistake. But Code Rabbit's more than happy to do that. Calling this out is a major potential issue and that this is a build directory that should have been ignored. Not only does it tell you exactly what's wrong, it gives you a prompt that you can copy paste, which is exactly what I did. I actually went through and found all of the issues that I agreed with in this feedback. Copy pasted the prompts, had them all fixed, and then we shipped. This is a big change in a real big repo, too. I'm working on a fun project they'll have more details on soon, I promise. That has everything from Rust and Swift code to TypeScript and Electron. So, uh, case in point, it's a rough codebase to work in, and I swear Code Rabbit's the only thing that seems to actually understand. It even caught a pretty novel bug with async cleanup operations with how we're abusing promises a little bit for our actual startup script that I don't think any other tool came close to catching. Whether or not you're using AI for code, you should absolutely use it for code review. If you're somehow not doing it yet, fix that today at soyv.link/code rabbit. It's literally just two clicks. There's a lot going on in the industry and I think this post from Jack is going to be a really good place to start from. Generally speaking, Jack tends to be a decent bit ahead of market trends at the very least 6 months to two years ahead overall. And it is incredibly rare for a company to do mass layoffs like this when they are currently in the process of growing and their revenue is going up and their profits are increasing. I have a lot of faith in Jack personally and I understand why he did this. It is his ultimate responsibility to make his business as successful as possible and as likely to succeed as possible. And right now there's a real risk of smaller teams moving faster and overtaking your position for cheaper. It's a silly example here, but I do want to talk about the product I just put out, lawn. I'm not here to try and sell this to you guys. The MR on it's like $350. It's not going to make real money. It's probably going to lose money, but it's a good example of where things are going. Lawn is an alternative to Frame.io. Frame.io IO is a video review platform kind of like doing code reviews and PRs but for video teams. It's how we have managed our video pipeline for a while. Whenever my editor FaZe finishes an edit, he would upload it onto Frame so that my team could review it. Whenever we have a new ad spot that needs to be approved by a brand, we put that up on Frame for them to approve. And every single time we just were watching it crumble. I swear I never went to frame.io without having to resign in cuz they broke off all the time. The share links were an absolute mess. I never knew when something got to one of the companies we were working with if they had responded or not. It was just a rough time. So I decided to make my own alternative largely just to explore the space and play around with these AI dev tools. I really didn't think we would ship this. I really didn't. But it just kept going. And I didn't sit and work on this full-time. Obviously I'm very busy. I have a company to run. I have a lot of other product that we're shipping. I have a channel to run. I employ like 15 people across all these surfaces. I don't have time to sit there and code for eight hours a day. If I did, I would guess this product would have taken me about a month or two to make and then a couple more months to refine and get all the core pieces in properly. I was able to build it in 2 weeks. I was able to build it in two weeks in the background as I did other things. That's crazy. I have not written a single line of code in this project. I've read a little bit of it. I structured a bunch of APIs and like core application logic stuff with the AI where I described how it should be structured, watched it write a proposal like that looks good, go use that everywhere. But I didn't write the code and it's not bad code. For proof, I actually decided to open source it, which is a weird decision for a bunch of reasons, but the main one that I think makes it so strange is that it makes it easy to clone and go build your own. So, it's already low revenue, but if somebody wants to be really cheap, they can go clone it themselves and host it, and then I get no revenue for it. But to be frank, that could have happened anyways. And that's what's so crazy. Ideas haven't been valuable for a long time. And I say that all the time. Ideas are cheap. Somehow ideas got more and less valuable at the same time. where dropping something novel and coming up with a good idea is really powerful now because the speed you can go from idea to usable product has never been lower. But it also means cloning someone else's product and idea is way more trivial than it's ever been. You might look at this and think, well video review can't be that big a market. Like you're only making what 350 a month isn't $350 a month. Well Frame.io got acquired by Adobe in 2021 for $1.3 billion. It took them years to build 1.3 bill and I was able to replicate the majority of the functionality part-time in an app that genuinely feels better to use in 2 weeks. Everything has changed. I don't care about your silly examples of co-pilot screwing up in a giant C codebase because I can rewrite that codebase in different tech in a week. Everything is different now. And it's not even slop. Like, yeah, the whole thing's vibe coded. Even the UI, even the background image, all AI generated, but once you start using it, it feels great. Things fly. I'm real time right now. I'm going to click right now. Instantly loads. I'm going to click this video. Instantly loads. The video stream has to take a sec to start cuz streaming video is hard. I go back to the team page. Instant. Instant. Instant. Leave a comment. Hit the send. instantly appears. It flies. I had to come up with some specific data loading patterns to make it feel so good around pre-warming and subscriptions on hover. But once I had established that pattern and mentioned it in the agent MD, it kind of just took care of itself. Like it hit everything in the codebase and once or twice it would miss a link. Like for a bit it missed this T3 team link up here and I told it, hey, one of the links in the topnav doesn't have pre-warming working. and it went and found that and fixed it. And it just feels great to use. Like, this is a product that is genuinely more joyful to use than the thing that I'm paying lots of money for that it's replacing. And this is the worst it's ever going to be, guys. These tools are going to keep getting better. Building things like this is going to keep getting easier. Sure, part of why this feels so good is because I'm an engineer with a long background in video product that understands the restraints, the requirements, and all the weird things that you need to do this. But if you asked the model what to do, it would have given you at least like half of the things that I said. Just for comparison, here's the monstrosity that is frame. I'm surprised it didn't make me do a signin. Clicked edits. Takes forever to load. Click a video. By default, when you click a video, it goes into select and not the video, which I love. You have to double click it to get to it. Also takes forever to load. Works. It's fine, but things are not fast. UX is really strange. There's too much going on. And the folders are high priority for some reason and the actual videos I care about are too low priority. I don't even really like folders for this, but might not want that in the future. Wouldn't even be hard to here. I'll show you. You can see most of the prompts I used for building this here. Let's make a new thread. Let's do some whisper flowing for this just to show how absurdly easy these things are. I want to add a folder style structure for projects so that users can optionally put given files inside of folders. It should be easy to move a file to a folder via drag and drop. And it should be easy to see all of the folders and open them and navigate the hierarchy of what folder you are in. Write up a plan for how we will implement this and what the UX will look like. And then we can implement soon after. By the way, T3 Code, the app I'm using for this, is another example of an app that I and my team built because we were unhappy with the alternatives and it was easier to just build our own than get the others fixed. I used to spend a lot of time talking to companies trying to convince them, hey, this features brokered or hey, we need this thing implemented. And now I don't even bother half the time. Okay, usually I will once or twice, but like one of the companies building one of these style tools, one of these GUIs for using the CLI, it had a lot of random problems and we hit them up about it. In particular, the codec support was atrocious. And we kind of got shrugged off and told, \"Yeah, uh, we're a cloud house. We don't really care that much about codec support.\" And that was the moment I decided to build my own because it's not worth trying to convince somebody when I can just out build them now. It's insane. Like like everything's changed from that alone. Like a lot of my time used to be spent trying to convince other products, other founders, other leads at other companies to build the things I need. Now I just build it myself. And I can barely even justify spending time coding cuz I got way too much [ __ ] going on. Yet here I am with like over a dozen lawn threads with a bunch more for quip slop that I also vibe code on the side. shoe which I built mostly in other things. Bunch of T3 code stuff I was working on in T3 code. I'm building a lot. And whenever something bothers me, I just go build alternatives now. And that's crazy. And that's me on an individual level. What's much scarier is when you start thinking about this on a company level, which is what Jack is doing today. Should probably talk about what Block is. Block is the company that Jack made after Twitter. They operate Square, Cash App, Afterpay, Tidal, which is my beloved music app. I still use Tidal for my listening every single day. I'm going to submit them some prompts that I want them to implement ASAP. I love Tidal. I hope that the Title team doesn't get hit too hard with these layoffs. Bit Key, which is a new one. I think it's a crypto like hardware wallet. And then Proto, which is some type of server rack stuff. Not as familiar with those, but Square and Cash App are slaughtering. These two make a ton of money and fund most of the business. Another thing worth noting for most of these businesses is they're not things you can go reimplement. You're not going to just go vibe code an alternative to Square, Cash App, or Afterpay because these are as much about the weird agreements and process with financial companies as they are the actual code that was written. The code for all of these absolutely could be rewritten in days and they might even do that now themselves. But the infrastructure, the partnerships, the deals with the credit card providers, all of that that can't be remade. Same deal with title, the negotiations they have done in order to build up the library they have, the payment structures and systems to pay artists when their music is played. those things. Also, their credit system is insane. Like, they have the most in-depth credits of any streaming platform. That's partnerships and data are not things you can replace via vibe coding. You can replace the code, but nothing else. So, anybody whose product is built entirely on top of code, they're a little bit screwed. Despite knowing that as the CEO, like Jack knows they aren't as displaceable due to the nature of their product and the partnerships and deals and space that they are in. Despite all of that, he is still choosing to make this decision. And I'll give you my thoughts as to why after we read what he says. Today, we're making one of the hardest decisions in the history of our company. We're reducing our organization by nearly half from over 10,000 people to just under 6,000. That means over 4,000 of you are being asked to leave or you're entering into consultation. I'll be straight about what's happening, why, and what it means for everyone. First off, if you're one of the people affected, you'll receive your salary for 20 weeks, plus an additional week per year of tenure, equity vested through the end of May, 6 months of healthcare, your corporate devices, and $5,000 to put towards whatever you need to help you in this transition. If you're outside of the US, you'll receive similar support, but exact details are going to vary based on local requirements. Yep, different countries have different rules around what layoffs entail and what offers you're able to give employees as they are let go. But this is actually a really good offer. There's a lot of little pieces here I like about it. The 20 weeks is a really good base starting point. That's effectively five months of salary. Gives you a lot of time to figure things out. The additional week per year of tenure is a huge assist to people who have been there for 6 to 10 years. That's an additional couple months of support. Very much like that. So, they're rewarding employees that have been there for a long time. They're giving everybody a really solid buffer here. Equity vested through the end of May is another huge deal. Making sure that people who are near an equity grant can get it. If there's somebody whose equity vests like June 3rd or so, I would hope they're able to negotiate with the company to do something to get that through end of May is totally fine, though. Six months of healthcare is huge. This is one of the most annoying things. When I quit Twitch, having to fight Cobra to get health insurance was one of the most annoying things I've ever done in my life. It it radicalized me. I'll talk a lot about that in the future, but uh the TLDDR, my stance here is that healthcare is so [ __ ] in the US that it's making the job market less competitive. And I can make capitalist arguments towards healthcare for all because like that being healthcare being tied to your job just makes everything shitty for no reason. Obnoxious. Anyways, corporate devices is another huge one. For a lot of people, losing the one computer you have is the worst thing ever. I know so many people whose only computer is the one they have from work. So letting them keep it is a huge deal for a ton of people. Just a big stress relief. And similarly, the $5,000 of extra here is huge. Like if you're making 300K a year, the 20 weeks is going to give you a lot of money. But if you're like a support person that's doing 30K a year, your 20 weeks is only going to be a few thousand. So an extra 5K on top is a huge benefit to people who are lower income. So that's what I like about this structure here. The first part very good for people who are high income. This part very good for people who are long tenure. This part very good for the people who have large equity grants that are probably also higher income. Six months of healthcare, good for everyone, just makes it less stressful to be out of the job and between jobs. Corporate devices, huge, especially for people who are lower income. And the $5,000 put towards the transition, again, very helpful for people who are of lower income. It also makes sense they call it the US part here in particular because a lot of like offshore support that might be hit by this, for example, benefits greatly from that. Also, saying everybody will be notified today whether they're being asked to leave, consult, or stay. I've seen this done so wrong where people didn't know what side they were on and then the next day we're still stressed and the demoralization over time was horrifying. We're not making this decision because we're in trouble. Our business is strong. Gross profit continues to grow. We continue to serve more and more customers and profitability is improving. But something has changed. We're already seeing that the intelligence tools we're creating and using paired with smaller and flatter teams are enabling a new way of working which fundamentally changes what it means to build and run a company. and that's accelerating rapidly. We'll talk more about this paragraph in a little bit. I had two options. Cut gradually over months or years as the shift plays out or be honest about where we are and act on it now. I chose the latter. Repeated rounds of cuts are destructive to morale to focus and to the trust that customers and shareholders place in our ability to lead. I'd rather take a hard clear action now and build from a position that we believe in than manage a slow reduction of people towards the same outcome. A smaller company also gives us the space to grow our business in the right way on our own terms instead of constantly reacting to market pressures. Another really important sentence that we'll get back to in a sec. A decision at this scale carries risk, but so does standing still. We've done a full review to determine the roles and people we require to reliably grow the business from here. And we've pressure tested these decisions from multiple angles. I accept that we may have gotten some of these wrong and we've built in flexibility to account for that and do the right thing for our customers. We're not going to just disappear people from Slack and email and pretend they were never here. Communication channels will stay open through Thursday evening so everyone can say goodbye properly and share whatever you wish. I'll also be hosting a live video session to thank everyone at 3:35 p.m. Pacific. I know doing it this way might feel awkward. I'd rather it feel awkward and human than efficient and cold. I love this. I When I left Twitch, I was in my goodbye call when right at 5:00 p.m. on the dot, they disabled my Google account and I got booted from the call. I much prefer this human way of doing things and like letting people be in Slack and have the conversation, not just like watching names drop from the list as I've heard so many stories about. Jack's doing this very responsibly. To those of you leaving, I'm grateful for you and I'm sorry to put you through this. You built what the company is today. That's a fact I'll honor forever. This decision is not a reflection of what you contributed. You will be a great contributor to any organization going forward. To those staying, I made this decision and I'll own it. What I'm asking of you is to build with me. This is a big deal. I know a lot of people who have like survivor guilt when they survive these types of layoffs and feel as though like they might have done something wrong or they're somehow to blame for this and they're not there with their peers that they're watching drop out. Jack owning this is huge rather than saying like we had to or the shareholders made us or any of those things. Jack's saying, \"No, I chose to do this. This is mine. Blame me. I'm the one who is taking this hit.\" That I have a lot of respect for Jack. Even I didn't have the balls to do that when I had to do the layoffs where I let go a majority of my team a few years ago. I said that I screwed up hiring them, but I didn't take the ownership of the the dropping them the same way here. I I already like Jack a lot as a leader, but this this put him above and beyond for me. We're going to build this company with intelligence at the core of everything we do, how we work, how we create, how we serve our customers. Our customers will feel the shift, too, and we're going to help them navigate it towards a future where they can build their own features directly composed of our capabilities and serve through our interfaces. That's what I'm focused on now. Expect a note from me tomorrow. Great note. I have a lot of things I want to talk about here. The first part I want to talk about here is the smaller and flatter teams bit. It is very clear that this is where things are going. Big teams don't move faster. I've talked about this for a long time. Hopefully y'all have heard of the mythical man month. The classic story where adding more people makes the project take more time, not less. That's a real problem in software. And the problem just got worse. like significantly worse. We have so many PRs open on basically any of our surfaces. Like in T3 code alone, we have 13 PRs that Julius has opened that I haven't had any chance to go look at or test anything in. More people does not mean more review getting done. It means more PRs and more orchestration to make sure people don't step on each other's toes and that things don't break in egregious ways. More people slows down the iteration here. The workflow Julius and I have taken for T3 code is effectively on any given day or any given time, we choose who owns Maine and who doesn't. And the person who owns Maine just shifts to Maine all day and the other person does other [ __ ] That's such a huge shift in how we build and it's letting us out build open AI with their equivalent with the codeex app, which is a team of significantly more people. I know it's at least 20 because I met a bunch of them. The fact that Jill and I can ship at a similar speed with just us two taking turns on the project shows just how much the smaller focus team matters here. Lines of code are no longer the bottleneck. This is a absurd shift in how everything in our industry works. This is hard to put into words just how much [ __ ] has changed as a result. This is the equivalent of software no longer being distributed on discs, but probably bigger. I don't even have a gut feel for how much code is in any given project. Let's see what we have in lawn. So lawn is about 16k lines of code, 15k or typescript. T3 chat's nearing 100,000 lines of code. T3 code, which again vibe coded by Julius and me, already at 52,581 lines of code. In just like 2 to 3 weeks, T3 code is already half the size of T3 chat. Lines of code doesn't matter anymore. Lines of code effectively are free now. Tests matter. Tests matter a lot. And there's a whole dedicated video for that in the near future, but uh lines of code don't. And the only thing morege helps with is lines of code. Historically, more engineers meant more code. That was how we would hire. When we had all of the things we knew we needed to do, we had a road map of things we had to add to the product and we just didn't have the manpower to write all the code for it. That's when we would start hiring up teams. Things were so crazy that companies would hire great engineers just to keep other companies from getting them, even if they didn't have work for them to do. That was a real thing that used to happen in the early fang days between Amazon, Google, Microsoft, and others. Trying to keep the best engineers away from the other companies. Now that's changed. Not because more engineers doesn't mean more lines of code, but the process for how you deal with the code matters a lot more. Now there's a pipeline of how features ship. You know what? We're going to do this downwards where at the top there is user problem, whatever the issue is that the user has. At the bottom is shipped solution. And there are always steps along the way here. I just wrote all the steps quick because it's easier that way. You describe the problem, identify a solution, scope and assign the work, write the code, review the code, test the code, plan the release, and then do the release. Generally speaking, more engineers helps here and here. Maybe there's like two dimensions to this column though. There's how much is this happening and how long does it take for any one particular piece of work? Like 500 problems that users have, you'll be lucky to clearly describe a hundred of them. You'll be even luckier to identify solutions to 50 of them. You'll eventually scope out an assign work for 15 of them. You'll actually get people to write code for five of them. And then from here down, things tend to stay pretty consistent. Like by the time people are writing code, since the code is so expensive, the majority of the code people write at a company where they're paid to gets through everything else till it eventually comes out. This part was too expensive to be lossy. We put a lot of work from the top down to refine the things that made it to ENGE because if it made it to ENGE and wasn't actually worth it, you just wasted a shitload of time. Now you can literally take the user problem, paste the screenshot into the agent, and skip all the way down to here. That's insane. That changes [ __ ] everything. If I can take a user problem, just take a screenshot of them tweeting at me, paste it into cloud code, and get the bug fixed, this whole pipeline has been destroyed. and the stronghold we had here where everything from here down was too expensive to [ __ ] up and also too high skill to easily staff up in. So if you wanted to increase the amount of work getting done, you had to hire more people to do the code writing. That's just over now. The person who scopes and assigns the work can do the writing now by kicking it off to an AI. And if you help them scale up a bit in how they spec out the work, the AI can get better at writing it. I would argue that the role of devs is shifting down here where we'll do more and more of the review. It's that's even slipping due to all the AI review tools and now we're stuck doing the testing and manually verifying the stuff. There's a real chance that somewhere on this computer I have a groundbreaking developer experience sitting there because I have dozens of work trees trying out theories that I forget about before I ever test them. There are multiple projects on this machine that I'm very excited about that I spun up terminals to go build on forever ago that I then had to reboot and I forgot where they are and haven't even bothered to go double check. Like that's insane that there is work on my computer that might actually be really useful to me and others that I haven't even checked yet because the checking is the expensive part. Now, are you ready for the harshest reality check here? Most engineers are really bad at this. Even like the best engineers I know are atrocious at QA. I cannot tell you how many times I got to work with like top 100 in the world type engineers. They ship something that looked really good, seemed really good, made a lot of sense, was well aligned with the goal of the project and I try and it just doesn't [ __ ] work at all. And that's not even just like writing unit tests, writing integration tests or anything like that. It's using the [ __ ] thing. Most engineers are terrible at that. And historically that's been okay because there was such a desperation to fill the hole that was writing code that we would do anything for it. And now that's over. Another way to think of this is as a funnel. At the top we have like every single thing that's gone wrong in our product for every user. And then all the way to the bottom here we have shipped stuff. So has to make it all the way to the bottom not fall out of the funnel along the way. And each step along here required some level of refinement. So describe problem, write code, you get the idea. The funnel, we've all seen a funnel like this before. This is just kind of what reality looks like, at least looked like. As you go further and further down, the number of things left would decrease. And the really [ __ ] strange thing that is going on right now is that this looks like this now. There is no longer a funnel at the line that we own as devs. That's over. That is a very different world we live in where if you've gotten to the point where you can describe the work as tickets, you've gotten to the point where the work can be completed for the vast majority of development work the vast majority of the time. The majority of apps are just shitty crud apps that need small one-off bug fixes and features done constantly. And for almost all work, things just shifted fundamentally. And if you have had this realization, you know that this step here, writing the code is no longer the edge. That having enough engineers is your win. That like realistically speaking, I could not have competed with Frame.io 2 years ago. It would have been way too much work for me and my team to build and maintain, especially all the integrations across all the different platforms. Like if it turned out that product could do well and I wanted to go build the integrations for things like Premiere Pro and Final Cut and other editors, that type of thing just wasn't worth it before. And suddenly it absolutely is. If anything, having the smaller team puts me at an advantage. Since Frame.io is part of Adobe and has a giant team, every change requires touching lots of different teams things and getting all of them to approve. If you have more engineers, there are more people that have to give you a thumbs up before you're allowed to ship the thing. So if writing code is free now let's take this diagram because this is what a lot of companies are about to look like. So the writing code step is now flat. So we now have the straight lines there. But with the devs having to approve things it's going to look like this. It's going to be an even steeper gradient making it even harder to actually ship the things that have been made. And this is going to piss off everyone. Every product manager, every exec, every person at a company that knows anything about what their competition is doing is going to look at this. They're going to experience this. They're going to feel this and they're going to realize, wait, writing code just got so much cheaper. Everything we spec gets written. Why is none of this shipping? And more than anything here, I am saying this part out of experience because we had this happen, too. We had users report problems in T3 chat. We clearly described what the problem was. We came up with a solution. We started planning out that work. We would not necessarily always make tickets. We don't always use linear for things. Sometimes we just use notion and write out what we want to do. Sometimes we just message each other on Discord. We would get pretty far in and then eventually when an engine had the time they would go write the code. Then we just started kicking those things off in the background and ended up with hundreds of PRs just kind of sitting there not shipping because everything else didn't get easier. And having more people that have to approve of things made it even less likely to ship. So we had to make changes to our process. We had to decide how much do we actually care about the thoroughess of the review of our code. We had to decide what cadence do we want to ship at? What do we want our rollback systems to look like when we do break things? How do we get more prepared for the way our workflows are shifting here? And that's also why we did the launch week a few weeks ago because we wanted to get all this stuff out. In order to do that, we needed different process, different deadlines, different incentives. I had to rethink everything below the writing code part in order for us to actually ship the things that were being generated. And that's a lot harder when you have a big team. Big teams are kind of like aircraft carriers where they can ship a ton of stuff at once, insane distances in relatively absurd speeds. But if they have to change course, if they have to change direction, it takes days for them to just do a turn because the ship has so much inertia that shifting becomes n impossible. But if you have a small team, that type of shifting becomes much easier. When individual things have a person who owns them instead of a team who owns them and that person owns more and more, things get easier. Like if T3 code had different parts of the codebase that different people owned and we wanted to do a big feature change, getting that approved is going to suck. But if we take turns owning it and one person can come in and change a bunch of [ __ ] in one day and the next day someone else can come in and change a bunch of [ __ ] then we can ship fast. And all of our process is built for a world where the only really expensive part was writing code. Writing code went from the most expensive to the cheapest part of this process. Everything is going to change as a result. I don't know what that's going to look like. I'm not going to sit here and tell you that our jobs are going away or that we're totally fine. I don't know yet. I don't know what the world looks like after code becomes so cheap it's nearly free. I know a lot of the things that are valuable now like turning user problems into clear concise plans, making sure written code is ready to ship, having good methods and good alerting systems to do automatic roll backs, and having good safety nets in place for when things do go wrong, writing really thorough tests, and doing really thorough QA. All of these things are more valuable now than ever, and developers hate all of them. The average developer is going to have a really rough time. This isn't because vibe coding isn't fun. To be clear, I've seen a lot of people saying they missed the craft. I don't think they do. I genuinely believe they're wrong. I think if you were to rank all the stuff that we do in a given day as a developer, writing code is one of the more fun ones, reviewing code is one of the less fun ones. So, if we have shifted everything so that we're writing code way less, and now we're reviewing code way more. Yeah, that's going to feel worse. Not because writing code was the fun part and we lost it. Just because we have shifted meaningfully in where our interests are and where our time is spent. Our time is now spent much more so dealing with the consequences of our code because the code got so much easier to put out. But if you can flip that in your head a bit, it becomes really empowering. I personally have never enjoyed writing code more. Yeah, I'm not writing the code myself, but there's something so rewarding about cracking the code, so to speak, finding the right combination of description of the problem, technologies that the agents can use, harnesses that can be steered in a way to build in the right direction, ending in a product that's actually useful. I've never built more. I have so many projects that I'm working on right now, and I'm going to actually ship a bunch of them. I'm so hyped. But you have to change your mindset a ton for that. And not just you and me as devs, the people running these companies and paying us our salaries, too. That's a big deal. And that's where the next paragraph in the statement comes in. Jack had two options. Cut gradually over months or years as the shift plays out, or be honest about where they are and act on it. Now, this is something I really like about the way he chose to do this. It is clear that this is where things are going. that having too many people in the pipeline approving things is going to make you slower, not faster. That the benefit of having a lot of engineers being a lot more code is no longer that valuable at all. So they could slowly realize this and have individual teams and orgs realize this and every few months lay off 5 to 10% of people and never actually see the benefits. Because if your team goes from 10 people to eight people, your process isn't going to change much. You're just going to move around assignments. But if your team goes from 10 people to two people, you're going to start rethinking [ __ ] That's that's what he's going for here. And I have a lot of respect for the way he did it because the alternatives just aren't going to move that fast. Let's use GitHub as an example. GitHub's a relatively big organization. If a new AI model drops, there's an approval process that has to be gone through before they can ship that in Copilot. When Gemini 3.1 Pro came out, they managed to sneak it in relatively quickly into Cop-lot. I was impressed that they actually got this out this fast. You could use Gemini 3.1 Pro in the Copilot extension thing built into VS Code. I was trying to find a way to use Gemini 3.1 Pro reliably cuz there were issues with provisioning for it. Even the official Gemini CLI could not use it because again, Google's a massive company. Getting things updated is nearly impossible there. Microsoft is similar. Somebody told me that even the co-pilot CLI has 3.1 Pro. They lied. I just moved from the C-pilot CLI to Gemini because it didn't have it. I tagged Burke, who's one of the higher up people working on VS Code and Copilot stuff at Microsoft, asking for help. He said it should be there for you. Tagged in two additional people who work on the CLI to help saying what tier I'm on. How can we make sure it's there for him day zero? Unfortunately, this model is only available in VS Code and not in the Copilot CLI. We are working on it, but not an easy thing. I'm not trying to call out Evan here. I'm not trying to shame any employees or anything here. I just need us to have an honest moment. What the [ __ ] do you mean it's not an easy thing? What the [ __ ] does that even mean? I know what it means. It means the company's too big. It means that there are 10erson teams when there should be a one person managing the three other projects. Not only is this addition one prompt away, it's one line of [ __ ] code. I hate to put it this way, but Jack's ahead of them right now. There's a very real future coming soon where the entire team is laid off and replaced with two people that can submit the right prompt to prevent [ __ ] like this from happening. This is a very real case where more people is making the thing less likely to ship. And this is just one I encountered a few days ago. There are hundreds of these every [ __ ] day at every [ __ ] company. I promise. And to be even harsher with this, the companies that don't make this change are going to get absolutely lapped by the ones that do. My little threeperson dev team should not be able to out ship OpenAI on web with chatgpt in the desktop app with codeex app versus T3 code. Just wait. We're going to ship so much faster once we drop. I want to make sure that we're at feature parody for the core things before we launch and then we're going to way outpace them. The fact that we're now out shipping frame.io. I'm sorry. And this is all just us three hopping between [ __ ] The shape of teams has to change if these big companies want to maintain pace with the smaller ones. And to be more blunt, most places have not figured this out yet. For every company like Block that realiz this is where we're going and has made this change, there's 10 that haven't, and they're going to be screwed. The few companies that don't do this should be looked at very closely by you as opportunity. Any company that hasn't entirely rethought their engineering or by the end of this year is a company you should build an alternative to because you will ship faster than them. The structure of companies that worked last year is a structure that puts them behind this year. You got to take the opportunity. There is so much room up for grabs right now. This is arguably comparable to the internet where like Amazon crushed Barnes & Noble and then crushed everyone. I think we are at that moment again. And that means our jobs at existing industries are not sacred like they used to be. If your company currently has more engineers than they had last year, there's a very high chance there will be layoffs by the end of the year. Everything is changing. Block is just the start here. We're at the beginning of the end. I don't know what is ending and I don't know what it'll be replaced with. I just want to make sure I raise the alarm bells cuz I know other creators just make memes about how we're like we're 36 months into 6 months until NG is dead. Being paid to type in lines of code is over. Any place that hasn't realized that is just behind now. And that includes the major labs, too. To be fully clear. I'm very thankful to be at a threeperson startup and maintaining about 15 people across all of my teams instead of one of these 10,000 plus person companies that needs to rethink everything. Yeah, I don't got any wisdom here. I just I want to make sure we are being realistic about where shit's going. And I'm really not interested in the takes of the unemployed and people who aren't in industry and aren't watching this as it changes. I'm telling you guys this from the ground floor. I'm telling you this is somebody who spends a lot of time talking to startups and big businesses with all of the teams building all of these things and how clear it is which ones understand and which ones don't and how [ __ ] the ones who don't understand currently are. If your company isn't forcing you to adopt tools like cloud code, codeex, cursor, and other things like that, they're already doomed and you should start hunting. Like it, we are there. Shout out to Jack for pushing me over the line here and making it even more obvious where things have gotten. And to all the devs in my audience, start talking to your users more. Start talking to your designers, your product team more. Start getting more involved in the release process. Start getting more involved in the systems that allow these things to work. and start trying to automate your own job because through the automation of your work, you will find everything around it and you'll be able to do more and more of that. Have more agency. Yes, this is the one thing the agents will never have. It's silly that agents won't have agency, but they won't. They won't have the initiative. They won't have the ownership. They won't have the focus, so to speak. They have to be given all of those things. And as long as you can provide that for them and as long as you have enough understanding to build the right environment for it, as long as you use the product enough to identify the problems when it doesn't do things right, as long as you're just [ __ ] locked in enough, you will turn this into a win. But the reality is that most devs won't do that. Not only are most devs working on product that they don't use, they don't even like their users. They don't even know their users. I've talked to so many devs that can't even name one of their customers. It's hilarious. And those people are [ __ ] If the agent knows more about your customers than you do, you don't have a job anymore. Get on it. I have no idea how this video is going to feel or what this sentiment's going to be. I just I'm going through it with this myself even. It's just that so much is changing, guys. I don't think anyone even I fully comprehend how much this is happening. But when I look at a product that I've used for years that I could rebuild in two weeks and then I check Twitter and see one of my favorite CEOs laying off half their company due to the same things I'm working on on the side. I can't just sit here and pretend everything's going to be the same. We all just have different slightly jobs in the dev. No, everything is changing and we need to be realistic about it. We're not in the middle. We're at the end. We're at the end of something. I don't know what it is yet, but I want to make sure we all know that at the very least so that we can be prepared for whatever ends up being next. Let me know how y'all feel. Am I going insane or is this actually change happening now?"
+}

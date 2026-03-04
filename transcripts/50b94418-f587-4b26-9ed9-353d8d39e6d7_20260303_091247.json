@@ -1,0 +1,787 @@
+{
+  "channel": {
+    "id": "50b94418-f587-4b26-9ed9-353d8d39e6d7",
+    "databaseId": "50b94418-f587-4b26-9ed9-353d8d39e6d7",
+    "name": "Waldemar Neto - Dev Lab",
+    "description": "On this channel, you’ll find advanced content about software development, technical leadership, and software architecture, presented in a practical and accessible way."
+  },
+  "videoId": "nNKvl6hQPok",
+  "title": "AGENTS.md e CLAUDE.md são Inúteis?",
+  "url": "https://www.youtube.com/watch?v=nNKvl6hQPok",
+  "publishedAt": "2026-03-03T12:12:46.348Z",
+  "description": "Um paper testou AGENTS.md e CLAUDE.md em projetos reais com IA, e os resultados são mais complexos do que o pessoal tá divulgando. Antes de deletar esses arquivos do seu repositório, assista a esse vídeo.\n\n💎 Lidere a transformação da IA, venha para a Tech Leads club https://tinyurl.com/3h88a742\n\n📄 Link do paper https://arxiv.org/pdf/2602.11988\n\nCapitulos\n00:00 – O paper que está gerando polêmica\n00:41 – Os 3 cenários testados (humano, IA e sem contexto)\n01:24 – Os resultados reais de taxa de sucesso\n02:04 – Por que o agente fica mais lento e mais caro\n02:24 – O que o paper não avaliou (e é crítico)\n03:27 – Como o agente alucina sem instrução clara\n03:47 – O erro mais comum: contexto desnecessário\n04:07 – Como estruturar seus arquivos do jeito certo",
+  "thumbnailUrl": "https://i.ytimg.com/vi/nNKvl6hQPok/maxresdefault.jpg",
+  "transcript": [
+    {
+      "text": "Bom, se tu viu gente falando desse paper",
+      "duration": 5.199,
+      "offset": 0.08
+    },
+    {
+      "text": "aqui, que agents.m e cloud.md não servem",
+      "duration": 5.8,
+      "offset": 1.959
+    },
+    {
+      "text": "para nada, que eles custam mais e são",
+      "duration": 4.28,
+      "offset": 5.279
+    },
+    {
+      "text": "ineficientes e tu pensou em deletar",
+      "duration": 3.441,
+      "offset": 7.759
+    },
+    {
+      "text": "esses arquivos do teu repositório com",
+      "duration": 4.361,
+      "offset": 9.559
+    },
+    {
+      "text": "IA, pensa bem, assiste esse vídeo antes",
+      "duration": 4.399,
+      "offset": 11.2
+    },
+    {
+      "text": "de deletar, porque tem muita coisa",
+      "duration": 2.52,
+      "offset": 13.92
+    },
+    {
+      "text": "interessante que a gente tem que",
+      "duration": 3.321,
+      "offset": 15.599
+    },
+    {
+      "text": "aprender aqui. Esse paper, ele avalia",
+      "duration": 4.28,
+      "offset": 16.44
+    },
+    {
+      "text": "performance e é isso que é a coisa",
+      "duration": 3.279,
+      "offset": 18.92
+    },
+    {
+      "text": "fundamental que todo mundo tá deixando",
+      "duration": 3.12,
+      "offset": 20.72
+    },
+    {
+      "text": "passar aqui. E eu vou te explicar no",
+      "duration": 3.08,
+      "offset": 22.199
+    },
+    {
+      "text": "detalhe quais são os aprendizados",
+      "duration": 3.4,
+      "offset": 23.84
+    },
+    {
+      "text": "importantes desse paper e o que que tu",
+      "duration": 4.121,
+      "offset": 25.279
+    },
+    {
+      "text": "deve fazer nos teus projetos com IA.",
+      "duration": 3.56,
+      "offset": 27.24
+    },
+    {
+      "text": "Bom, esse paper aqui deu bastante",
+      "duration": 3.28,
+      "offset": 29.4
+    },
+    {
+      "text": "repercussão. Ele é da Universidade de",
+      "duration": 4.56,
+      "offset": 30.8
+    },
+    {
+      "text": "Zurik, onde o pessoal comparou eh",
+      "duration": 5.6,
+      "offset": 32.68
+    },
+    {
+      "text": "repositórios com agents. MD gerado por",
+      "duration": 6.24,
+      "offset": 35.36
+    },
+    {
+      "text": "humano, gerado por IA e não tendo nada",
+      "duration": 4.92,
+      "offset": 38.28
+    },
+    {
+      "text": "neles. E os resultados são bem",
+      "duration": 2.68,
+      "offset": 41.6
+    },
+    {
+      "text": "interessantes que eu vou te mostrar",
+      "duration": 2.359,
+      "offset": 43.2
+    },
+    {
+      "text": "aqui. Bom, a primeira coisa que a gente",
+      "duration": 2.759,
+      "offset": 44.28
+    },
+    {
+      "text": "tem que entender é o método de avaliação",
+      "duration": 3.32,
+      "offset": 45.559
+    },
+    {
+      "text": "que eles usaram. Eles usaram um método",
+      "duration": 3.68,
+      "offset": 47.039
+    },
+    {
+      "text": "que eles pegaram vários repositórios do",
+      "duration": 3.881,
+      "offset": 48.879
+    },
+    {
+      "text": "GitHub em Python, um deles famoso é o",
+      "duration": 4.441,
+      "offset": 50.719
+    },
+    {
+      "text": "Ensible, pegaram o P request que tava",
+      "duration": 5.279,
+      "offset": 52.76
+    },
+    {
+      "text": "lá, transformaram ele em uma issue e",
+      "duration": 5.359,
+      "offset": 55.16
+    },
+    {
+      "text": "geraram quatro, três soluções para ele.",
+      "duration": 5.601,
+      "offset": 58.039
+    },
+    {
+      "text": "Uma sem um arquivo de contexto, tipo sem",
+      "duration": 7.001,
+      "offset": 60.519
+    },
+    {
+      "text": "um um cloud.md ou sem um e um agents.md,",
+      "duration": 6.76,
+      "offset": 63.64
+    },
+    {
+      "text": "um com arquivo gerado por ll com arquivo",
+      "duration": 5.16,
+      "offset": 67.52
+    },
+    {
+      "text": "gerado por humano. E eles avaliaram o",
+      "duration": 4.32,
+      "offset": 70.4
+    },
+    {
+      "text": "quão rápido ele chegava na solução,",
+      "duration": 3.92,
+      "offset": 72.68
+    },
+    {
+      "text": "quanto custava e quantas vezes ele teve",
+      "duration": 4.12,
+      "offset": 74.72
+    },
+    {
+      "text": "que interar. até chegar naquela solução",
+      "duration": 3.68,
+      "offset": 76.6
+    },
+    {
+      "text": "lá. E qual foi o resultado? Com o",
+      "duration": 3.919,
+      "offset": 78.84
+    },
+    {
+      "text": "arquivo gerado com LLM, ele teve uma",
+      "duration": 4.4,
+      "offset": 80.28
+    },
+    {
+      "text": "taxa de sucesso comparada a não ten nada",
+      "duration": 6.04,
+      "offset": 82.759
+    },
+    {
+      "text": "de -3% e um custo de 20% a mais com",
+      "duration": 6.439,
+      "offset": 84.68
+    },
+    {
+      "text": "gerado por humano, ou seja, um arquivo",
+      "duration": 4.36,
+      "offset": 88.799
+    },
+    {
+      "text": "mais direto gerado por humano. E como",
+      "duration": 3.081,
+      "offset": 91.119
+    },
+    {
+      "text": "que eles sabem que foi gerado por",
+      "duration": 2.92,
+      "offset": 93.159
+    },
+    {
+      "text": "humano? Na verdade eles não sabem. Eles",
+      "duration": 3.599,
+      "offset": 94.2
+    },
+    {
+      "text": "pegaram no repositório e assumiram. Se",
+      "duration": 3.961,
+      "offset": 96.079
+    },
+    {
+      "text": "já existe um arquivo no repositório, foi",
+      "duration": 4.201,
+      "offset": 97.799
+    },
+    {
+      "text": "o humano que gerou. Mas isso aí pode ter",
+      "duration": 4.119,
+      "offset": 100.04
+    },
+    {
+      "text": "sido uma LM que gerou também. Então é um",
+      "duration": 4.079,
+      "offset": 102
+    },
+    {
+      "text": "furo que tem ali no paper. Mas beleza,",
+      "duration": 4.24,
+      "offset": 104.159
+    },
+    {
+      "text": "nesse eles tiveram uma taxa de sucesso",
+      "duration": 5.08,
+      "offset": 106.079
+    },
+    {
+      "text": "4% a mais do que não ter arquivo e um",
+      "duration": 5.561,
+      "offset": 108.399
+    },
+    {
+      "text": "custo de 19% a mais. Por que que isso",
+      "duration": 4.801,
+      "offset": 111.159
+    },
+    {
+      "text": "acontece, galera? Porque quando tu dá um",
+      "duration": 4.04,
+      "offset": 113.96
+    },
+    {
+      "text": "arquivo de contexto, tem mais coisa que",
+      "duration": 3.56,
+      "offset": 115.96
+    },
+    {
+      "text": "a LM vai ter que pensar. Ela tem que",
+      "duration": 2.719,
+      "offset": 118
+    },
+    {
+      "text": "seguir mais regras, ela tem que",
+      "duration": 3.239,
+      "offset": 119.52
+    },
+    {
+      "text": "interpretar, ela tem que pensar mais,",
+      "duration": 4.04,
+      "offset": 120.719
+    },
+    {
+      "text": "ela tem que buscar mais arquivos. Isso é",
+      "duration": 3.841,
+      "offset": 122.759
+    },
+    {
+      "text": "esperado porque tu tá dando um contexto",
+      "duration": 3.56,
+      "offset": 124.759
+    },
+    {
+      "text": "maior, mais coisas para ela pensar.",
+      "duration": 4.359,
+      "offset": 126.6
+    },
+    {
+      "text": "Então esse aqui é o grande aprendizado",
+      "duration": 5.041,
+      "offset": 128.319
+    },
+    {
+      "text": "que eh a gente tira daqui. Só que o que",
+      "duration": 4.121,
+      "offset": 130.959
+    },
+    {
+      "text": "que é interessante, a métoda, o método",
+      "duration": 4.12,
+      "offset": 133.36
+    },
+    {
+      "text": "de avaliação deles era fazer os testes",
+      "duration": 4.6,
+      "offset": 135.08
+    },
+    {
+      "text": "passarem. Essa que era a métrica deles.",
+      "duration": 4,
+      "offset": 137.48
+    },
+    {
+      "text": "E aí eles avaliavam o quão rápido foi,",
+      "duration": 3.559,
+      "offset": 139.68
+    },
+    {
+      "text": "quantas interações teve. Mas o mais",
+      "duration": 3.08,
+      "offset": 141.48
+    },
+    {
+      "text": "interessante aqui, galera, o que que o",
+      "duration": 3.601,
+      "offset": 143.239
+    },
+    {
+      "text": "paper não avaliou e eles deixam isso bem",
+      "duration": 3.92,
+      "offset": 144.56
+    },
+    {
+      "text": "claro. Bom, e antes da gente continuar,",
+      "duration": 2.96,
+      "offset": 146.84
+    },
+    {
+      "text": "se não me conhece ainda, eu sou Valdemar",
+      "duration": 2.96,
+      "offset": 148.48
+    },
+    {
+      "text": "Neto, fala sobre conteúdo avançado,",
+      "duration": 4.079,
+      "offset": 149.8
+    },
+    {
+      "text": "sobre o desenvolvimento, arquitetura e",
+      "duration": 4.84,
+      "offset": 151.44
+    },
+    {
+      "text": "agora sobre a e eu também sou cofundador",
+      "duration": 4.08,
+      "offset": 153.879
+    },
+    {
+      "text": "da Tech Leads Club, uma comunidade para",
+      "duration": 4.319,
+      "offset": 156.28
+    },
+    {
+      "text": "pessoas snior mais que tem mais de 2.000",
+      "duration": 5.241,
+      "offset": 157.959
+    },
+    {
+      "text": "membros ativos e mais de 70% desses",
+      "duration": 4.841,
+      "offset": 160.599
+    },
+    {
+      "text": "membros são pessoas sénior. Se tu quer",
+      "duration": 3.8,
+      "offset": 163.2
+    },
+    {
+      "text": "estar à frente na evolução da IA com",
+      "duration": 3.519,
+      "offset": 165.44
+    },
+    {
+      "text": "conteúdo de verdade para te aplicar no",
+      "duration": 3.959,
+      "offset": 167
+    },
+    {
+      "text": "teu time, aplicar na tua empresa, vem",
+      "duration": 3.28,
+      "offset": 168.959
+    },
+    {
+      "text": "com a gente para ter aquele clube. vai",
+      "duration": 2.841,
+      "offset": 170.959
+    },
+    {
+      "text": "ser bem massa de ter com nós e vamos",
+      "duration": 3.28,
+      "offset": 172.239
+    },
+    {
+      "text": "voltar pro vídeo. O paper não avaliou",
+      "duration": 3.6,
+      "offset": 173.8
+    },
+    {
+      "text": "além da resolução da Tesc, além de",
+      "duration": 3.121,
+      "offset": 175.519
+    },
+    {
+      "text": "chegar na resposta, não avaliou a",
+      "duration": 3,
+      "offset": 177.4
+    },
+    {
+      "text": "qualidade, não avaliou a segurança, não",
+      "duration": 3.28,
+      "offset": 178.64
+    },
+    {
+      "text": "avaliou a implementação, não avaliou",
+      "duration": 3.8,
+      "offset": 180.4
+    },
+    {
+      "text": "design patterns. E ele também não",
+      "duration": 5.64,
+      "offset": 181.92
+    },
+    {
+      "text": "avaliou muito se as instruções foram bem",
+      "duration": 5.08,
+      "offset": 184.2
+    },
+    {
+      "text": "seguidas. Inclusive, ele fala aqui que",
+      "duration": 3.44,
+      "offset": 187.56
+    },
+    {
+      "text": "quando tem um arquivo de contexto,",
+      "duration": 4.12,
+      "offset": 189.28
+    },
+    {
+      "text": "tipicamente os agentes seguem as regras",
+      "duration": 4,
+      "offset": 191
+    },
+    {
+      "text": "que estão lá e os guidelines. Ou seja,",
+      "duration": 3.919,
+      "offset": 193.4
+    },
+    {
+      "text": "sem um arquivo, a chance dele alucinar é",
+      "duration": 4.4,
+      "offset": 195
+    },
+    {
+      "text": "muito maior. Então o que que o paper",
+      "duration": 3.881,
+      "offset": 197.319
+    },
+    {
+      "text": "avaliou foi o quão rápido chega até lá.",
+      "duration": 3.6,
+      "offset": 199.4
+    },
+    {
+      "text": "não se chegou da maneira certa ou não. E",
+      "duration": 3.24,
+      "offset": 201.2
+    },
+    {
+      "text": "o que vocês vão notar nos projetos de",
+      "duration": 3.12,
+      "offset": 203
+    },
+    {
+      "text": "vocês, que vocês removerem esses",
+      "duration": 3.359,
+      "offset": 204.44
+    },
+    {
+      "text": "arquivos, ele vai tomar decisões",
+      "duration": 3.399,
+      "offset": 206.12
+    },
+    {
+      "text": "malucas. Às vezes ele vai até deletar os",
+      "duration": 3.841,
+      "offset": 207.799
+    },
+    {
+      "text": "testes ou fazer uns testes só para",
+      "duration": 3.44,
+      "offset": 209.519
+    },
+    {
+      "text": "passar o código, porque ele não tem uma",
+      "duration": 2.799,
+      "offset": 211.64
+    },
+    {
+      "text": "instrução clara que diga o que que ele",
+      "duration": 2.801,
+      "offset": 212.959
+    },
+    {
+      "text": "tem que fazer. Bom, e quais são os",
+      "duration": 2.52,
+      "offset": 214.439
+    },
+    {
+      "text": "aprendizados que a gente tirou desse",
+      "duration": 4.36,
+      "offset": 215.76
+    },
+    {
+      "text": "paper? Primeiro, o os agents.md seguem",
+      "duration": 4.84,
+      "offset": 216.959
+    },
+    {
+      "text": "extremamente necessários. Eles dão um",
+      "duration": 3.839,
+      "offset": 220.12
+    },
+    {
+      "text": "contexto que o agente não tem e faz ele",
+      "duration": 4.16,
+      "offset": 221.799
+    },
+    {
+      "text": "seguir as regras, mas eles têm um custo,",
+      "duration": 3.881,
+      "offset": 223.959
+    },
+    {
+      "text": "ou seja, colocar coisas desnecessárias",
+      "duration": 3.48,
+      "offset": 225.959
+    },
+    {
+      "text": "nele vai fazer tu pagar mais e vai ser",
+      "duration": 2.959,
+      "offset": 227.84
+    },
+    {
+      "text": "mais lento. Então isso não é uma coisa",
+      "duration": 3.401,
+      "offset": 229.439
+    },
+    {
+      "text": "boa. Então o que que se faz? Já mostrei",
+      "duration": 3.561,
+      "offset": 230.799
+    },
+    {
+      "text": "em vários vídeos meus aqui. No",
+      "duration": 3.92,
+      "offset": 232.84
+    },
+    {
+      "text": "teuegids.m, cloud.md PMD ou asos rules",
+      "duration": 5.599,
+      "offset": 234.36
+    },
+    {
+      "text": "do cursor, tu coloca só o base, que que",
+      "duration": 5.08,
+      "offset": 236.76
+    },
+    {
+      "text": "é o extremamente necessário e linka para",
+      "duration": 4.401,
+      "offset": 239.959
+    },
+    {
+      "text": "outros arquivos que tu acha que precisem",
+      "duration": 4.2,
+      "offset": 241.84
+    },
+    {
+      "text": "ser aplicados em certas partes do teu",
+      "duration": 3.599,
+      "offset": 244.36
+    },
+    {
+      "text": "código. Então, ah, eu tenho uma API",
+      "duration": 3.479,
+      "offset": 246.04
+    },
+    {
+      "text": "standards, esse tipo de coisa, coloca em",
+      "duration": 2.961,
+      "offset": 247.959
+    },
+    {
+      "text": "outros arquivos e menciona no teu",
+      "duration": 2.761,
+      "offset": 249.519
+    },
+    {
+      "text": "arquivo principal. Dessa maneira ele vai",
+      "duration": 3.44,
+      "offset": 250.92
+    },
+    {
+      "text": "carregar sob demanda. Muito importante.",
+      "duration": 4.76,
+      "offset": 252.28
+    },
+    {
+      "text": "Só o que precisa. Outra coisa, Tooling.",
+      "duration": 4.76,
+      "offset": 254.36
+    },
+    {
+      "text": "Se tu vê o que o agente alucinou, usou",
+      "duration": 3.479,
+      "offset": 257.04
+    },
+    {
+      "text": "uma ferramenta errada, vai lá e bota:",
+      "duration": 3.88,
+      "offset": 259.12
+    },
+    {
+      "text": "\"Use ferramenta X, use comando tal\".",
+      "duration": 4.281,
+      "offset": 260.519
+    },
+    {
+      "text": "Essas coisas são importantes. Ou seja,",
+      "duration": 4.36,
+      "offset": 263
+    },
+    {
+      "text": "só vai listando quando ele alucina o que",
+      "duration": 4.48,
+      "offset": 264.8
+    },
+    {
+      "text": "realmente importa e deixa o mínimo",
+      "duration": 3.64,
+      "offset": 267.36
+    },
+    {
+      "text": "possível ali. Dessa maneira, tu vai ter",
+      "duration": 3.88,
+      "offset": 269.28
+    },
+    {
+      "text": "um arquivo link, que vai ser só o que tu",
+      "duration": 3.68,
+      "offset": 271
+    },
+    {
+      "text": "precisa, que não vai aumentar muito o",
+      "duration": 3.44,
+      "offset": 273.16
+    },
+    {
+      "text": "teu custo, mas remover o arquivo todo",
+      "duration": 3.92,
+      "offset": 274.68
+    },
+    {
+      "text": "vai fazer tu ficar dando vários promps",
+      "duration": 4.2,
+      "offset": 276.6
+    },
+    {
+      "text": "para corrigir soluções. E não é isso que",
+      "duration": 3.48,
+      "offset": 278.6
+    },
+    {
+      "text": "a gente quer. A gente quer chegar na",
+      "duration": 3.2,
+      "offset": 280.8
+    },
+    {
+      "text": "solução certa o mais rápido possível.",
+      "duration": 3.44,
+      "offset": 282.08
+    },
+    {
+      "text": "Beleza? Espero que vocês tenham gostado.",
+      "duration": 3.16,
+      "offset": 284
+    },
+    {
+      "text": "Comentem aqui se vocês estão usando",
+      "duration": 3.76,
+      "offset": 285.52
+    },
+    {
+      "text": "agents.m, como tá sendo a experiência de",
+      "duration": 4.08,
+      "offset": 287.16
+    },
+    {
+      "text": "vocês, se vocês testaram tirar ele,",
+      "duration": 4.44,
+      "offset": 289.28
+    },
+    {
+      "text": "comparar como ficou também. Eu testei",
+      "duration": 4.239,
+      "offset": 291.24
+    },
+    {
+      "text": "várias vezes aqui no meu, ele",
+      "duration": 3.56,
+      "offset": 293.72
+    },
+    {
+      "text": "simplesmente alucinou total, começou a",
+      "duration": 3.361,
+      "offset": 295.479
+    },
+    {
+      "text": "implementar as coisas nada a ver, porque",
+      "duration": 3.84,
+      "offset": 297.28
+    },
+    {
+      "text": "meus códigos são grandes aqui e tem",
+      "duration": 4.199,
+      "offset": 298.84
+    },
+    {
+      "text": "bastante convenções próprias. Então, fiz",
+      "duration": 3.6,
+      "offset": 301.12
+    },
+    {
+      "text": "vários testes até chegar nessa resposta",
+      "duration": 4.681,
+      "offset": 303.039
+    },
+    {
+      "text": "e foi bem interessante.",
+      "duration": 3,
+      "offset": 304.72
+    }
+  ],
+  "transcriptText": "Bom, se tu viu gente falando desse paper aqui, que agents.m e cloud.md não servem para nada, que eles custam mais e são ineficientes e tu pensou em deletar esses arquivos do teu repositório com IA, pensa bem, assiste esse vídeo antes de deletar, porque tem muita coisa interessante que a gente tem que aprender aqui. Esse paper, ele avalia performance e é isso que é a coisa fundamental que todo mundo tá deixando passar aqui. E eu vou te explicar no detalhe quais são os aprendizados importantes desse paper e o que que tu deve fazer nos teus projetos com IA. Bom, esse paper aqui deu bastante repercussão. Ele é da Universidade de Zurik, onde o pessoal comparou eh repositórios com agents. MD gerado por humano, gerado por IA e não tendo nada neles. E os resultados são bem interessantes que eu vou te mostrar aqui. Bom, a primeira coisa que a gente tem que entender é o método de avaliação que eles usaram. Eles usaram um método que eles pegaram vários repositórios do GitHub em Python, um deles famoso é o Ensible, pegaram o P request que tava lá, transformaram ele em uma issue e geraram quatro, três soluções para ele. Uma sem um arquivo de contexto, tipo sem um um cloud.md ou sem um e um agents.md, um com arquivo gerado por ll com arquivo gerado por humano. E eles avaliaram o quão rápido ele chegava na solução, quanto custava e quantas vezes ele teve que interar. até chegar naquela solução lá. E qual foi o resultado? Com o arquivo gerado com LLM, ele teve uma taxa de sucesso comparada a não ten nada de -3% e um custo de 20% a mais com gerado por humano, ou seja, um arquivo mais direto gerado por humano. E como que eles sabem que foi gerado por humano? Na verdade eles não sabem. Eles pegaram no repositório e assumiram. Se já existe um arquivo no repositório, foi o humano que gerou. Mas isso aí pode ter sido uma LM que gerou também. Então é um furo que tem ali no paper. Mas beleza, nesse eles tiveram uma taxa de sucesso 4% a mais do que não ter arquivo e um custo de 19% a mais. Por que que isso acontece, galera? Porque quando tu dá um arquivo de contexto, tem mais coisa que a LM vai ter que pensar. Ela tem que seguir mais regras, ela tem que interpretar, ela tem que pensar mais, ela tem que buscar mais arquivos. Isso é esperado porque tu tá dando um contexto maior, mais coisas para ela pensar. Então esse aqui é o grande aprendizado que eh a gente tira daqui. Só que o que que é interessante, a métoda, o método de avaliação deles era fazer os testes passarem. Essa que era a métrica deles. E aí eles avaliavam o quão rápido foi, quantas interações teve. Mas o mais interessante aqui, galera, o que que o paper não avaliou e eles deixam isso bem claro. Bom, e antes da gente continuar, se não me conhece ainda, eu sou Valdemar Neto, fala sobre conteúdo avançado, sobre o desenvolvimento, arquitetura e agora sobre a e eu também sou cofundador da Tech Leads Club, uma comunidade para pessoas snior mais que tem mais de 2.000 membros ativos e mais de 70% desses membros são pessoas sénior. Se tu quer estar à frente na evolução da IA com conteúdo de verdade para te aplicar no teu time, aplicar na tua empresa, vem com a gente para ter aquele clube. vai ser bem massa de ter com nós e vamos voltar pro vídeo. O paper não avaliou além da resolução da Tesc, além de chegar na resposta, não avaliou a qualidade, não avaliou a segurança, não avaliou a implementação, não avaliou design patterns. E ele também não avaliou muito se as instruções foram bem seguidas. Inclusive, ele fala aqui que quando tem um arquivo de contexto, tipicamente os agentes seguem as regras que estão lá e os guidelines. Ou seja, sem um arquivo, a chance dele alucinar é muito maior. Então o que que o paper avaliou foi o quão rápido chega até lá. não se chegou da maneira certa ou não. E o que vocês vão notar nos projetos de vocês, que vocês removerem esses arquivos, ele vai tomar decisões malucas. Às vezes ele vai até deletar os testes ou fazer uns testes só para passar o código, porque ele não tem uma instrução clara que diga o que que ele tem que fazer. Bom, e quais são os aprendizados que a gente tirou desse paper? Primeiro, o os agents.md seguem extremamente necessários. Eles dão um contexto que o agente não tem e faz ele seguir as regras, mas eles têm um custo, ou seja, colocar coisas desnecessárias nele vai fazer tu pagar mais e vai ser mais lento. Então isso não é uma coisa boa. Então o que que se faz? Já mostrei em vários vídeos meus aqui. No teuegids.m, cloud.md PMD ou asos rules do cursor, tu coloca só o base, que que é o extremamente necessário e linka para outros arquivos que tu acha que precisem ser aplicados em certas partes do teu código. Então, ah, eu tenho uma API standards, esse tipo de coisa, coloca em outros arquivos e menciona no teu arquivo principal. Dessa maneira ele vai carregar sob demanda. Muito importante. Só o que precisa. Outra coisa, Tooling. Se tu vê o que o agente alucinou, usou uma ferramenta errada, vai lá e bota: \"Use ferramenta X, use comando tal\". Essas coisas são importantes. Ou seja, só vai listando quando ele alucina o que realmente importa e deixa o mínimo possível ali. Dessa maneira, tu vai ter um arquivo link, que vai ser só o que tu precisa, que não vai aumentar muito o teu custo, mas remover o arquivo todo vai fazer tu ficar dando vários promps para corrigir soluções. E não é isso que a gente quer. A gente quer chegar na solução certa o mais rápido possível. Beleza? Espero que vocês tenham gostado. Comentem aqui se vocês estão usando agents.m, como tá sendo a experiência de vocês, se vocês testaram tirar ele, comparar como ficou também. Eu testei várias vezes aqui no meu, ele simplesmente alucinou total, começou a implementar as coisas nada a ver, porque meus códigos são grandes aqui e tem bastante convenções próprias. Então, fiz vários testes até chegar nessa resposta e foi bem interessante."
+}

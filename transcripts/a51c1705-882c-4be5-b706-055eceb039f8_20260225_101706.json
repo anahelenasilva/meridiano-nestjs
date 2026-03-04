@@ -1,0 +1,1952 @@
+{
+  "channel": {
+    "id": "a51c1705-882c-4be5-b706-055eceb039f8",
+    "databaseId": "a51c1705-882c-4be5-b706-055eceb039f8",
+    "name": "Theo Browne",
+    "description": "Theo is a software dev, AI nerd, TypeScript sympathizer, creator of T3 Chat and the T3 Stack."
+  },
+  "videoId": "9iUd2Ik-bBI",
+  "title": "My new app is really stupid (I wrote none of the code)",
+  "url": "https://www.youtube.com/watch?v=9iUd2Ik-bBI",
+  "publishedAt": "2026-02-25T13:17:05.313Z",
+  "description": "So I made a new thing...\n\nThank you Blacksmith for sponsoring! Check them out at: https://soydev.link/blacksmith\n\nEnjoy: https://quipslop.com/\nCheck out the 24/7 twitch stream: https://www.twitch.tv/quipslop\n\nAlso go checkout t3 chat: https://t3.chat/settings/subscription?discount=LAUNCHWEEK\n\nWant to sponsor a video? Learn more here: https://soydev.link/sponsor-me\n\nCheck out my Twitch, Twitter, Discord more at https://t3.gg\n\nS/O @Ph4seon3 for the awesome edit 🙏",
+  "thumbnailUrl": "https://i.ytimg.com/vi/9iUd2Ik-bBI/maxresdefault.jpg",
+  "transcript": [
+    {
+      "text": "As you guys have probably seen in my",
+      "duration": 2.879,
+      "offset": 0
+    },
+    {
+      "text": "recent videos, I've been vibe coding a",
+      "duration": 3.201,
+      "offset": 1.199
+    },
+    {
+      "text": "bunch of stuff, but I haven't released",
+      "duration": 4,
+      "offset": 2.879
+    },
+    {
+      "text": "any of it. Well, not yet. That changes",
+      "duration": 3.84,
+      "offset": 4.4
+    },
+    {
+      "text": "now, though, because I just put out one",
+      "duration": 2.961,
+      "offset": 6.879
+    },
+    {
+      "text": "of my favorite side projects that I've",
+      "duration": 2.88,
+      "offset": 8.24
+    },
+    {
+      "text": "been working on for a bit. It was an",
+      "duration": 3.12,
+      "offset": 9.84
+    },
+    {
+      "text": "idea I've had for months now, but I only",
+      "duration": 3.679,
+      "offset": 11.12
+    },
+    {
+      "text": "just recently found the time to actually",
+      "duration": 3.68,
+      "offset": 12.96
+    },
+    {
+      "text": "build it, and I couldn't be happier with",
+      "duration": 3.441,
+      "offset": 14.799
+    },
+    {
+      "text": "what we've built. So, without further",
+      "duration": 3.92,
+      "offset": 16.64
+    },
+    {
+      "text": "ado, I would love to reveal No, ignore",
+      "duration": 5.199,
+      "offset": 18.24
+    },
+    {
+      "text": "that one. Quip slop. We can finally",
+      "duration": 5.28,
+      "offset": 20.56
+    },
+    {
+      "text": "learn once and for all which AI is",
+      "duration": 4.241,
+      "offset": 23.439
+    },
+    {
+      "text": "funniest. This is a game idea I had",
+      "duration": 3.359,
+      "offset": 25.84
+    },
+    {
+      "text": "forever ago to take something like",
+      "duration": 3.839,
+      "offset": 27.68
+    },
+    {
+      "text": "Quiplash, the game from Jackbox, and try",
+      "duration": 4.561,
+      "offset": 29.199
+    },
+    {
+      "text": "to recreate it with AI. The flow is",
+      "duration": 4.321,
+      "offset": 31.519
+    },
+    {
+      "text": "pretty simple. One model creates a",
+      "duration": 4.24,
+      "offset": 33.76
+    },
+    {
+      "text": "prompt that the other two models have to",
+      "duration": 4.16,
+      "offset": 35.84
+    },
+    {
+      "text": "respond to in a funny way. It can be a",
+      "duration": 3.84,
+      "offset": 38
+    },
+    {
+      "text": "fill-in- thelank. It can be a question",
+      "duration": 3.76,
+      "offset": 40
+    },
+    {
+      "text": "about a title for a thing. Just all",
+      "duration": 3.84,
+      "offset": 41.84
+    },
+    {
+      "text": "sorts of funny prompts that are then",
+      "duration": 4.24,
+      "offset": 43.76
+    },
+    {
+      "text": "meant to let the model make a funnier",
+      "duration": 4.32,
+      "offset": 45.68
+    },
+    {
+      "text": "response. Two models are picked to give",
+      "duration": 3.6,
+      "offset": 48
+    },
+    {
+      "text": "their responses and then all the other",
+      "duration": 3.84,
+      "offset": 50
+    },
+    {
+      "text": "models vote and the winner gets a point",
+      "duration": 4,
+      "offset": 51.6
+    },
+    {
+      "text": "and they are ranked in the leaderboard.",
+      "duration": 3.52,
+      "offset": 53.84
+    },
+    {
+      "text": "We also just set it up so the viewers",
+      "duration": 3.36,
+      "offset": 55.6
+    },
+    {
+      "text": "can vote, too. So, if you're watching on",
+      "duration": 3.76,
+      "offset": 57.36
+    },
+    {
+      "text": "Twitch at twitch.tv/quipslop,",
+      "duration": 4.88,
+      "offset": 58.96
+    },
+    {
+      "text": "you can vote as you go. This project has",
+      "duration": 6.24,
+      "offset": 61.12
+    },
+    {
+      "text": "sent us down some pretty absurd paths,",
+      "duration": 4.88,
+      "offset": 63.84
+    },
+    {
+      "text": "and this is not the first time I've",
+      "duration": 3.68,
+      "offset": 67.36
+    },
+    {
+      "text": "tried filming this video. In fact, we",
+      "duration": 4.24,
+      "offset": 68.72
+    },
+    {
+      "text": "are now 4 hours past the first time I",
+      "duration": 4.24,
+      "offset": 71.04
+    },
+    {
+      "text": "tried to film this video. We have been",
+      "duration": 4.799,
+      "offset": 72.96
+    },
+    {
+      "text": "in utter chaos now for hours, and I",
+      "duration": 3.839,
+      "offset": 75.28
+    },
+    {
+      "text": "can't wait to break all of it down for",
+      "duration": 2.961,
+      "offset": 77.759
+    },
+    {
+      "text": "you. From how we built this to what went",
+      "duration": 3.441,
+      "offset": 79.119
+    },
+    {
+      "text": "wrong to how we scaled it to tens of",
+      "duration": 4.32,
+      "offset": 80.72
+    },
+    {
+      "text": "thousands of users, all live on Twitch.",
+      "duration": 4.16,
+      "offset": 82.56
+    },
+    {
+      "text": "But after seeing a preview of my open",
+      "duration": 3.04,
+      "offset": 85.04
+    },
+    {
+      "text": "router bill, we're going to take a quick",
+      "duration": 2.96,
+      "offset": 86.72
+    },
+    {
+      "text": "break for today's sponsor. Stop me if",
+      "duration": 2.719,
+      "offset": 88.08
+    },
+    {
+      "text": "you've heard this one before. You're",
+      "duration": 2.399,
+      "offset": 89.68
+    },
+    {
+      "text": "wasting your time waiting for builds,",
+      "duration": 2.161,
+      "offset": 90.799
+    },
+    {
+      "text": "which is why you should move to",
+      "duration": 2.641,
+      "offset": 92.079
+    },
+    {
+      "text": "Blacksmith, today's sponsor. I've done",
+      "duration": 3.199,
+      "offset": 92.96
+    },
+    {
+      "text": "this spiel a whole bunch. I use them",
+      "duration": 2.96,
+      "offset": 94.72
+    },
+    {
+      "text": "every day. Blacksmith is great. Cool.",
+      "duration": 2.96,
+      "offset": 96.159
+    },
+    {
+      "text": "You get it. Thankfully, they've given me",
+      "duration": 2.56,
+      "offset": 97.68
+    },
+    {
+      "text": "no guidance on what I'm supposed to say",
+      "duration": 2.64,
+      "offset": 99.119
+    },
+    {
+      "text": "in these ads because they trust me to do",
+      "duration": 3.12,
+      "offset": 100.24
+    },
+    {
+      "text": "them justice. And I'm going to push the",
+      "duration": 2.881,
+      "offset": 101.759
+    },
+    {
+      "text": "limits a bit by telling you all the",
+      "duration": 3.039,
+      "offset": 103.36
+    },
+    {
+      "text": "reasons you should not use Blacksmith.",
+      "duration": 4.159,
+      "offset": 104.64
+    },
+    {
+      "text": "Reason one, you love long build times.",
+      "duration": 3.841,
+      "offset": 106.399
+    },
+    {
+      "text": "Maybe that's when you go to refill your",
+      "duration": 3.121,
+      "offset": 108.799
+    },
+    {
+      "text": "coffee or go to the bathroom. If you",
+      "duration": 3.199,
+      "offset": 110.24
+    },
+    {
+      "text": "really like having build times that take",
+      "duration": 3.04,
+      "offset": 111.92
+    },
+    {
+      "text": "10 minutes instead of 30 seconds,",
+      "duration": 2.801,
+      "offset": 113.439
+    },
+    {
+      "text": "Blacksmith's going to be terrible and",
+      "duration": 2.56,
+      "offset": 114.96
+    },
+    {
+      "text": "you're going to hate your time using it.",
+      "duration": 2.72,
+      "offset": 116.24
+    },
+    {
+      "text": "Another reason you might just love",
+      "duration": 3.44,
+      "offset": 117.52
+    },
+    {
+      "text": "giving Microsoft money. I get it. I have",
+      "duration": 3.36,
+      "offset": 118.96
+    },
+    {
+      "text": "friends that work at Microsoft and you",
+      "duration": 3.04,
+      "offset": 120.96
+    },
+    {
+      "text": "might work at Microsoft yourself. Maybe",
+      "duration": 3.04,
+      "offset": 122.32
+    },
+    {
+      "text": "you just want them to have way more",
+      "duration": 2.96,
+      "offset": 124
+    },
+    {
+      "text": "money. Personally, I like the fact that",
+      "duration": 3.679,
+      "offset": 125.36
+    },
+    {
+      "text": "Blacksmith is 50% cheaper and also takes",
+      "duration": 3.84,
+      "offset": 126.96
+    },
+    {
+      "text": "less than half the time to run. So, it's",
+      "duration": 4.401,
+      "offset": 129.039
+    },
+    {
+      "text": "over a 70% discount for most users. Just",
+      "duration": 4.48,
+      "offset": 130.8
+    },
+    {
+      "text": "me, though. I can relate to this one. If",
+      "duration": 3.6,
+      "offset": 133.44
+    },
+    {
+      "text": "you enjoy when debugging your CI feels",
+      "duration": 3.2,
+      "offset": 135.28
+    },
+    {
+      "text": "like a murder mystery trying to go",
+      "duration": 2.8,
+      "offset": 137.04
+    },
+    {
+      "text": "through all the logs to find the thing",
+      "duration": 2.399,
+      "offset": 138.48
+    },
+    {
+      "text": "you're looking for because search",
+      "duration": 2.24,
+      "offset": 139.84
+    },
+    {
+      "text": "doesn't work. You're going to hate",
+      "duration": 2.241,
+      "offset": 140.879
+    },
+    {
+      "text": "Blacksmith and their awesome",
+      "duration": 2.799,
+      "offset": 142.08
+    },
+    {
+      "text": "observability dashboard, working search",
+      "duration": 3.92,
+      "offset": 143.12
+    },
+    {
+      "text": "logs, and more. It's so much easier to",
+      "duration": 3.761,
+      "offset": 144.879
+    },
+    {
+      "text": "get by that you're going to hate it if",
+      "duration": 3.04,
+      "offset": 147.04
+    },
+    {
+      "text": "you want your job to be hard. And one",
+      "duration": 2.959,
+      "offset": 148.64
+    },
+    {
+      "text": "last thing, if you hate open source,",
+      "duration": 2.96,
+      "offset": 150.08
+    },
+    {
+      "text": "definitely don't use Blacksmith because",
+      "duration": 3.201,
+      "offset": 151.599
+    },
+    {
+      "text": "they're sponsoring a ton of useful open",
+      "duration": 3.199,
+      "offset": 153.04
+    },
+    {
+      "text": "source projects, including the browser",
+      "duration": 3.519,
+      "offset": 154.8
+    },
+    {
+      "text": "I'm using here, Zen, which was built on",
+      "duration": 3.521,
+      "offset": 156.239
+    },
+    {
+      "text": "Blacksmith. If none of this applies to",
+      "duration": 2.321,
+      "offset": 158.319
+    },
+    {
+      "text": "you, you should probably go check out",
+      "duration": 3.36,
+      "offset": 159.76
+    },
+    {
+      "text": "the free trial at soyv.link/blsmith.",
+      "duration": 4.4,
+      "offset": 160.64
+    },
+    {
+      "text": "Shout out to my editor for finding a way",
+      "duration": 3.44,
+      "offset": 163.12
+    },
+    {
+      "text": "to turn this all into a video. By the",
+      "duration": 2.8,
+      "offset": 165.04
+    },
+    {
+      "text": "way, he's probably going to have to pull",
+      "duration": 3.2,
+      "offset": 166.56
+    },
+    {
+      "text": "things out of that 4-hour mess to fit",
+      "duration": 3.6,
+      "offset": 167.84
+    },
+    {
+      "text": "them in here, but I'll do my best to",
+      "duration": 3.44,
+      "offset": 169.76
+    },
+    {
+      "text": "cover things from the top. When I first",
+      "duration": 3.36,
+      "offset": 171.44
+    },
+    {
+      "text": "started building this project, I started",
+      "duration": 3.28,
+      "offset": 173.2
+    },
+    {
+      "text": "with a CLI because I wanted it to be",
+      "duration": 3.76,
+      "offset": 174.8
+    },
+    {
+      "text": "easy to see everything working. Like the",
+      "duration": 4.32,
+      "offset": 176.48
+    },
+    {
+      "text": "original core was just this pattern of",
+      "duration": 4.08,
+      "offset": 178.56
+    },
+    {
+      "text": "model one makes a prompt, two other",
+      "duration": 4.159,
+      "offset": 180.8
+    },
+    {
+      "text": "models respond, all of the models vote.",
+      "duration": 4.16,
+      "offset": 182.64
+    },
+    {
+      "text": "Doing that in a UI and managing all of",
+      "duration": 2.961,
+      "offset": 184.959
+    },
+    {
+      "text": "the connections, everything for it would",
+      "duration": 2.32,
+      "offset": 186.8
+    },
+    {
+      "text": "just not have been pleasant. So, I",
+      "duration": 3.599,
+      "offset": 187.92
+    },
+    {
+      "text": "started by vibe coding yet another CLI.",
+      "duration": 3.68,
+      "offset": 189.12
+    },
+    {
+      "text": "Ignore the logging. I added that during",
+      "duration": 2.961,
+      "offset": 191.519
+    },
+    {
+      "text": "debugging. The main parts here with the",
+      "duration": 3.439,
+      "offset": 192.8
+    },
+    {
+      "text": "prompt, the answers, and all of that,",
+      "duration": 3.52,
+      "offset": 194.48
+    },
+    {
+      "text": "that is all working as expected.",
+      "duration": 3.441,
+      "offset": 196.239
+    },
+    {
+      "text": "Deepseek opened here with the only thing",
+      "duration": 2.959,
+      "offset": 198
+    },
+    {
+      "text": "toddlers are unexpectedly good at",
+      "duration": 3.839,
+      "offset": 199.68
+    },
+    {
+      "text": "painting with is. And we get the answers",
+      "duration": 5.2,
+      "offset": 200.959
+    },
+    {
+      "text": "you would expect. Pretty solid overall.",
+      "duration": 3.761,
+      "offset": 203.519
+    },
+    {
+      "text": "One of the things that's made this",
+      "duration": 3.121,
+      "offset": 206.159
+    },
+    {
+      "text": "project so fun is trying to find clever",
+      "duration": 3.599,
+      "offset": 207.28
+    },
+    {
+      "text": "solutions to the problems that these",
+      "duration": 3.84,
+      "offset": 209.28
+    },
+    {
+      "text": "models just can't stop throwing at me",
+      "duration": 4.161,
+      "offset": 210.879
+    },
+    {
+      "text": "throughout the process of building it.",
+      "duration": 4.24,
+      "offset": 213.12
+    },
+    {
+      "text": "And they have thrown a lot of problems",
+      "duration": 4.24,
+      "offset": 215.04
+    },
+    {
+      "text": "at me throughout. One of the first ones",
+      "duration": 3.68,
+      "offset": 217.36
+    },
+    {
+      "text": "was the randomness of this initial",
+      "duration": 3.44,
+      "offset": 219.28
+    },
+    {
+      "text": "prompt. As I was hinting at before, when",
+      "duration": 3.199,
+      "offset": 221.04
+    },
+    {
+      "text": "I first started this, I had a pretty",
+      "duration": 3.439,
+      "offset": 222.72
+    },
+    {
+      "text": "simple system prompt for the original",
+      "duration": 3.841,
+      "offset": 224.239
+    },
+    {
+      "text": "prompt where I would hand a bunch of",
+      "duration": 3.521,
+      "offset": 226.159
+    },
+    {
+      "text": "examples to the model through the system",
+      "duration": 4,
+      "offset": 228.08
+    },
+    {
+      "text": "prompt of existing whiplash quotes and",
+      "duration": 4.32,
+      "offset": 229.68
+    },
+    {
+      "text": "example prompts. And what I found is",
+      "duration": 4.239,
+      "offset": 232.08
+    },
+    {
+      "text": "that that fixed set kept causing the",
+      "duration": 5.36,
+      "offset": 234
+    },
+    {
+      "text": "models to give like the exact same set",
+      "duration": 4.801,
+      "offset": 236.319
+    },
+    {
+      "text": "of things over and over. I had three",
+      "duration": 4.079,
+      "offset": 239.36
+    },
+    {
+      "text": "times in a row with different models",
+      "duration": 4.24,
+      "offset": 241.12
+    },
+    {
+      "text": "where they were about your grandma. I",
+      "duration": 3.44,
+      "offset": 243.439
+    },
+    {
+      "text": "had four in a row where it was about",
+      "duration": 3.92,
+      "offset": 245.36
+    },
+    {
+      "text": "things in funeral homes. It just wasn't",
+      "duration": 5.36,
+      "offset": 246.879
+    },
+    {
+      "text": "really random. and it sucked. So, I",
+      "duration": 5.12,
+      "offset": 249.28
+    },
+    {
+      "text": "tried a pretty crazy thing for this. The",
+      "duration": 3.521,
+      "offset": 252.239
+    },
+    {
+      "text": "first thing I did was get more than 60",
+      "duration": 5.359,
+      "offset": 254.4
+    },
+    {
+      "text": "prompts. In fact, we got about 870 of",
+      "duration": 5.92,
+      "offset": 255.76
+    },
+    {
+      "text": "them. Obviously, handing all of these to",
+      "duration": 3.44,
+      "offset": 259.759
+    },
+    {
+      "text": "the model is not going to give us",
+      "duration": 3.6,
+      "offset": 261.68
+    },
+    {
+      "text": "anything of value. So, what I chose to",
+      "duration": 4.72,
+      "offset": 263.199
+    },
+    {
+      "text": "do instead was randomly shuffle them and",
+      "duration": 5.28,
+      "offset": 265.28
+    },
+    {
+      "text": "select 60 or 80 in this case for every",
+      "duration": 5.121,
+      "offset": 267.919
+    },
+    {
+      "text": "single time this runs. So, every model",
+      "duration": 4.72,
+      "offset": 270.56
+    },
+    {
+      "text": "gets a unique system prompt for each",
+      "duration": 4.719,
+      "offset": 273.04
+    },
+    {
+      "text": "run, which results in a unique set of",
+      "duration": 4.72,
+      "offset": 275.28
+    },
+    {
+      "text": "answers, significantly more so than we",
+      "duration": 4.481,
+      "offset": 277.759
+    },
+    {
+      "text": "had prior. And then things are honestly",
+      "duration": 4.88,
+      "offset": 280
+    },
+    {
+      "text": "not that bad. The system prompt for the",
+      "duration": 4,
+      "offset": 282.24
+    },
+    {
+      "text": "responses is pretty simple. You're",
+      "duration": 2.64,
+      "offset": 284.88
+    },
+    {
+      "text": "playing whiplash. You'll be given a",
+      "duration": 2.64,
+      "offset": 286.24
+    },
+    {
+      "text": "fill-in- thelank prompt. Give the",
+      "duration": 2.88,
+      "offset": 287.52
+    },
+    {
+      "text": "funniest possible answer. Be creative,",
+      "duration": 3.039,
+      "offset": 288.88
+    },
+    {
+      "text": "edgy, unexpected, and concise. Reply",
+      "duration": 3.12,
+      "offset": 290.4
+    },
+    {
+      "text": "only with your answer. No quotes, no",
+      "duration": 3.201,
+      "offset": 291.919
+    },
+    {
+      "text": "explanations, no preamble. Keep it",
+      "duration": 3.2,
+      "offset": 293.52
+    },
+    {
+      "text": "short, under 12 words. Keep it concise",
+      "duration": 3.359,
+      "offset": 295.12
+    },
+    {
+      "text": "and witty. You get the idea. I didn't",
+      "duration": 3.36,
+      "offset": 296.72
+    },
+    {
+      "text": "have to do a lot to format the responses",
+      "duration": 3.121,
+      "offset": 298.479
+    },
+    {
+      "text": "because they randomly put quotes and",
+      "duration": 3.2,
+      "offset": 300.08
+    },
+    {
+      "text": "[ __ ] around. That was a lot of the work",
+      "duration": 3.28,
+      "offset": 301.6
+    },
+    {
+      "text": "honestly. Also, making sure that the",
+      "duration": 3.6,
+      "offset": 303.28
+    },
+    {
+      "text": "result is an actual string, not empty",
+      "duration": 4.24,
+      "offset": 304.88
+    },
+    {
+      "text": "string. So, I could force it to retry in",
+      "duration": 3.599,
+      "offset": 306.88
+    },
+    {
+      "text": "those cases. That ended up being a lot",
+      "duration": 3.44,
+      "offset": 309.12
+    },
+    {
+      "text": "of work, too. Also, cleaning up the vote",
+      "duration": 4.081,
+      "offset": 310.479
+    },
+    {
+      "text": "that they make between A and B, and",
+      "duration": 3.76,
+      "offset": 312.56
+    },
+    {
+      "text": "randomizing which they see as A and",
+      "duration": 2.96,
+      "offset": 314.56
+    },
+    {
+      "text": "which they see as B in order to make",
+      "duration": 3.68,
+      "offset": 316.32
+    },
+    {
+      "text": "sure that works. Also fun challenge, but",
+      "duration": 4.08,
+      "offset": 317.52
+    },
+    {
+      "text": "it all ended up working and eventually I",
+      "duration": 4.16,
+      "offset": 320
+    },
+    {
+      "text": "had a CLI that was pretty dang reliable.",
+      "duration": 4.56,
+      "offset": 321.6
+    },
+    {
+      "text": "So, next was the web UI. I originally",
+      "duration": 3.52,
+      "offset": 324.16
+    },
+    {
+      "text": "just had a simple websocket server",
+      "duration": 3.2,
+      "offset": 326.16
+    },
+    {
+      "text": "hosted in bun on railway that you would",
+      "duration": 3.04,
+      "offset": 327.68
+    },
+    {
+      "text": "connect to handle everything like the",
+      "duration": 3.279,
+      "offset": 329.36
+    },
+    {
+      "text": "votes and whatnot in the web UI. But",
+      "duration": 4.56,
+      "offset": 330.72
+    },
+    {
+      "text": "after dealing with utter hell trying to",
+      "duration": 4.56,
+      "offset": 332.639
+    },
+    {
+      "text": "figure out who was who there cuz the IP",
+      "duration": 4.479,
+      "offset": 335.28
+    },
+    {
+      "text": "address spoofing is a very real problem",
+      "duration": 3.84,
+      "offset": 337.199
+    },
+    {
+      "text": "eventually we gave up and did it all",
+      "duration": 2.88,
+      "offset": 339.759
+    },
+    {
+      "text": "through Twitch instead so I could avoid",
+      "duration": 3.201,
+      "offset": 341.039
+    },
+    {
+      "text": "O and whatnot there too. So after",
+      "duration": 3.12,
+      "offset": 342.639
+    },
+    {
+      "text": "everything we've described so far I had",
+      "duration": 4,
+      "offset": 344.24
+    },
+    {
+      "text": "a working CLI. I had a working web UI. I",
+      "duration": 4.561,
+      "offset": 345.759
+    },
+    {
+      "text": "had it deployed and mostly functioning.",
+      "duration": 3.679,
+      "offset": 348.24
+    },
+    {
+      "text": "But I wanted to go further because I",
+      "duration": 3.52,
+      "offset": 350.32
+    },
+    {
+      "text": "really wanted to have the Twitch stream.",
+      "duration": 4.241,
+      "offset": 351.919
+    },
+    {
+      "text": "But you can't just send an HTML page to",
+      "duration": 4.24,
+      "offset": 353.84
+    },
+    {
+      "text": "Twitch. You got to stream it somehow.",
+      "duration": 3.2,
+      "offset": 356.16
+    },
+    {
+      "text": "And thankfully, I have a lot of",
+      "duration": 3.2,
+      "offset": 358.08
+    },
+    {
+      "text": "experience doing weird stuff with FFmpeg",
+      "duration": 3.52,
+      "offset": 359.36
+    },
+    {
+      "text": "and streaming to Twitch with it. I had",
+      "duration": 3.6,
+      "offset": 361.28
+    },
+    {
+      "text": "to do a lot of back and forth with a lot",
+      "duration": 3.599,
+      "offset": 362.88
+    },
+    {
+      "text": "of different models to get this working",
+      "duration": 3.439,
+      "offset": 364.88
+    },
+    {
+      "text": "how I wanted it to. The way this is",
+      "duration": 4.081,
+      "offset": 366.479
+    },
+    {
+      "text": "working is by rendering a pixel perfect",
+      "duration": 4.32,
+      "offset": 368.319
+    },
+    {
+      "text": "canvas in the browser with the exact",
+      "duration": 4,
+      "offset": 370.56
+    },
+    {
+      "text": "content that I want. So once that",
+      "duration": 3.601,
+      "offset": 372.639
+    },
+    {
+      "text": "browser's been spun up and has that",
+      "duration": 3.28,
+      "offset": 374.56
+    },
+    {
+      "text": "canvas page, which I'm doing is like a",
+      "duration": 3.6,
+      "offset": 376.24
+    },
+    {
+      "text": "headless Chromium instance. A lot of",
+      "duration": 3.6,
+      "offset": 377.84
+    },
+    {
+      "text": "environment variables here that I can",
+      "duration": 3.359,
+      "offset": 379.84
+    },
+    {
+      "text": "pass things to. I need to knock the max",
+      "duration": 3.599,
+      "offset": 381.44
+    },
+    {
+      "text": "bit rate down probably, but we're not",
+      "duration": 3.601,
+      "offset": 383.199
+    },
+    {
+      "text": "even getting close to it, so it's fine.",
+      "duration": 3.361,
+      "offset": 385.039
+    },
+    {
+      "text": "Once we have music, I'll probably have",
+      "duration": 3.92,
+      "offset": 386.8
+    },
+    {
+      "text": "to knock that down.",
+      "duration": 4.72,
+      "offset": 388.4
+    },
+    {
+      "text": "I create the ffmpeg command, which has a",
+      "duration": 4.24,
+      "offset": 390.72
+    },
+    {
+      "text": "lot of fun things. I actually know a lot",
+      "duration": 3.44,
+      "offset": 393.12
+    },
+    {
+      "text": "about streaming to Twitch from FFmpeg",
+      "duration": 2.64,
+      "offset": 394.96
+    },
+    {
+      "text": "because that's how I stream to Twitch",
+      "duration": 2.72,
+      "offset": 396.56
+    },
+    {
+      "text": "when I worked at Twitch for marathon",
+      "duration": 3.2,
+      "offset": 397.6
+    },
+    {
+      "text": "content. I've thought a lot about",
+      "duration": 4.16,
+      "offset": 399.28
+    },
+    {
+      "text": "generative content with ffmpeg streaming",
+      "duration": 4.16,
+      "offset": 400.8
+    },
+    {
+      "text": "straight to Twitch. This is a thing I've",
+      "duration": 3.759,
+      "offset": 403.44
+    },
+    {
+      "text": "had to do a weird amount. We make sure",
+      "duration": 4.079,
+      "offset": 404.96
+    },
+    {
+      "text": "that we can actually reach the URL. I",
+      "duration": 4,
+      "offset": 407.199
+    },
+    {
+      "text": "spin up FFmpeg.",
+      "duration": 4,
+      "offset": 409.039
+    },
+    {
+      "text": "I create the readable stream that I can",
+      "duration": 3.601,
+      "offset": 411.199
+    },
+    {
+      "text": "pipe things to. Oh, this is for the dry",
+      "duration": 3.681,
+      "offset": 413.039
+    },
+    {
+      "text": "run mode. Yeah. So, in dry run mode, it",
+      "duration": 3.76,
+      "offset": 414.8
+    },
+    {
+      "text": "just plays the video on my computer so I",
+      "duration": 3.68,
+      "offset": 416.72
+    },
+    {
+      "text": "can be sure that it works. FF play is",
+      "duration": 4,
+      "offset": 418.56
+    },
+    {
+      "text": "such an underrated thing. I use it all",
+      "duration": 3.919,
+      "offset": 420.4
+    },
+    {
+      "text": "the time for various [ __ ] Like if you",
+      "duration": 3.44,
+      "offset": 422.56
+    },
+    {
+      "text": "guys want to see it, I can show you. bun",
+      "duration": 5.041,
+      "offset": 424.319
+    },
+    {
+      "text": "run start web bun run start stream dry",
+      "duration": 5.44,
+      "offset": 426
+    },
+    {
+      "text": "run and f of play just creates this",
+      "duration": 4.559,
+      "offset": 429.36
+    },
+    {
+      "text": "video player frame that I can look at to",
+      "duration": 4.159,
+      "offset": 431.44
+    },
+    {
+      "text": "make sure things look correct. This is",
+      "duration": 3.12,
+      "offset": 433.919
+    },
+    {
+      "text": "how I built and debugged the whole",
+      "duration": 3.521,
+      "offset": 435.599
+    },
+    {
+      "text": "thing. Somebody said that calling ffmpeg",
+      "duration": 4.481,
+      "offset": 437.039
+    },
+    {
+      "text": "underrated is wild. I promise you no",
+      "duration": 4.16,
+      "offset": 439.12
+    },
+    {
+      "text": "it's not. Like a lot of people know that",
+      "duration": 4.32,
+      "offset": 441.52
+    },
+    {
+      "text": "ffmpeg exists but not a lot of people",
+      "duration": 5.28,
+      "offset": 443.28
+    },
+    {
+      "text": "understand how powerful ffmpeg is and",
+      "duration": 4.56,
+      "offset": 445.84
+    },
+    {
+      "text": "like all the things you can do with it.",
+      "duration": 3.6,
+      "offset": 448.56
+    },
+    {
+      "text": "Like obviously it's great for doing",
+      "duration": 4.48,
+      "offset": 450.4
+    },
+    {
+      "text": "video stuff, but you can do crazy things",
+      "duration": 5.12,
+      "offset": 452.16
+    },
+    {
+      "text": "like stream from it, access devices on",
+      "duration": 4.159,
+      "offset": 454.88
+    },
+    {
+      "text": "your computer that have media capability",
+      "duration": 3.919,
+      "offset": 457.28
+    },
+    {
+      "text": "from it. It's so fun. And the way we",
+      "duration": 3.521,
+      "offset": 459.039
+    },
+    {
+      "text": "create the browser is with a local",
+      "duration": 3.361,
+      "offset": 461.199
+    },
+    {
+      "text": "puppeteer instance. I had to disable a",
+      "duration": 3.199,
+      "offset": 462.56
+    },
+    {
+      "text": "bunch of [ __ ] so it could access the",
+      "duration": 3.52,
+      "offset": 464.56
+    },
+    {
+      "text": "external network. I create a web socket",
+      "duration": 5.361,
+      "offset": 465.759
+    },
+    {
+      "text": "locally in this ffmpeg wrapper instance",
+      "duration": 5.2,
+      "offset": 468.08
+    },
+    {
+      "text": "that can be connected to from that",
+      "duration": 3.84,
+      "offset": 471.12
+    },
+    {
+      "text": "browser instance. We're setting all",
+      "duration": 3.52,
+      "offset": 473.28
+    },
+    {
+      "text": "these search params to the URL so that",
+      "duration": 3.679,
+      "offset": 474.96
+    },
+    {
+      "text": "we can access them in the page. And then",
+      "duration": 3.519,
+      "offset": 476.8
+    },
+    {
+      "text": "we finally start getting chunks that I",
+      "duration": 3.68,
+      "offset": 478.639
+    },
+    {
+      "text": "can pipe into ffmpeg to start the",
+      "duration": 4.641,
+      "offset": 480.319
+    },
+    {
+      "text": "stream. So once things start running, we",
+      "duration": 5.121,
+      "offset": 482.319
+    },
+    {
+      "text": "create an array buffer socket type. Look",
+      "duration": 4,
+      "offset": 484.96
+    },
+    {
+      "text": "at the different options we have that",
+      "duration": 3.28,
+      "offset": 487.44
+    },
+    {
+      "text": "are supported for media recorder in this",
+      "duration": 3.04,
+      "offset": 488.96
+    },
+    {
+      "text": "browser. We should know cuz we control",
+      "duration": 2.879,
+      "offset": 490.72
+    },
+    {
+      "text": "the puppeteer version, but this is a",
+      "duration": 3.039,
+      "offset": 492
+    },
+    {
+      "text": "good practice when you're building for",
+      "duration": 3.04,
+      "offset": 493.599
+    },
+    {
+      "text": "real browsers, not just one that you",
+      "duration": 3.681,
+      "offset": 495.039
+    },
+    {
+      "text": "own. Didn't care cuz I barely read the",
+      "duration": 3.361,
+      "offset": 496.639
+    },
+    {
+      "text": "code when I wrote it. As you guys can",
+      "duration": 4.08,
+      "offset": 498.72
+    },
+    {
+      "text": "guess, we set a bit rate quick. Here we",
+      "duration": 4.56,
+      "offset": 500
+    },
+    {
+      "text": "create the recorder device which another",
+      "duration": 3.36,
+      "offset": 502.8
+    },
+    {
+      "text": "fun thing a lot of people don't know is",
+      "duration": 3.12,
+      "offset": 504.56
+    },
+    {
+      "text": "that you can create a media recorder",
+      "duration": 4.159,
+      "offset": 506.16
+    },
+    {
+      "text": "device in the browser and connect it to",
+      "duration": 5.599,
+      "offset": 507.68
+    },
+    {
+      "text": "the canvas and create media from a",
+      "duration": 5.121,
+      "offset": 510.319
+    },
+    {
+      "text": "canvas in the browser. So here whenever",
+      "duration": 4.56,
+      "offset": 513.279
+    },
+    {
+      "text": "there's data available from this media",
+      "duration": 4.64,
+      "offset": 515.44
+    },
+    {
+      "text": "recorder we send the chunk as an array",
+      "duration": 4.161,
+      "offset": 517.839
+    },
+    {
+      "text": "buffer down the stream which then gets",
+      "duration": 4.16,
+      "offset": 520.08
+    },
+    {
+      "text": "picked up by the ffmpeg process and then",
+      "duration": 4.08,
+      "offset": 522
+    },
+    {
+      "text": "piped over to Twitch. And capturing the",
+      "duration": 3.44,
+      "offset": 524.24
+    },
+    {
+      "text": "stream is super easy too. You just call",
+      "duration": 4.319,
+      "offset": 526.08
+    },
+    {
+      "text": "canvas.capture stream. I am amazed how",
+      "duration": 4.64,
+      "offset": 527.68
+    },
+    {
+      "text": "few people know how abusable this is.",
+      "duration": 3.841,
+      "offset": 530.399
+    },
+    {
+      "text": "Even the models didn't know this. Every",
+      "duration": 3.44,
+      "offset": 532.32
+    },
+    {
+      "text": "time I was trying to build this, the",
+      "duration": 5.44,
+      "offset": 534.24
+    },
+    {
+      "text": "model insisted. It tried so hard to do",
+      "duration": 6.96,
+      "offset": 535.76
+    },
+    {
+      "text": "window capture in Mac OS, which was so",
+      "duration": 5.599,
+      "offset": 539.68
+    },
+    {
+      "text": "much worse. So much worse. And I just",
+      "duration": 4.4,
+      "offset": 542.72
+    },
+    {
+      "text": "had to like tell it, \"No, I know we can",
+      "duration": 3.761,
+      "offset": 545.279
+    },
+    {
+      "text": "do this via a stream from the canvas.",
+      "duration": 3.68,
+      "offset": 547.12
+    },
+    {
+      "text": "Just make it that way.\" And eventually",
+      "duration": 3.28,
+      "offset": 549.04
+    },
+    {
+      "text": "it did. And now it works great. And",
+      "duration": 3.12,
+      "offset": 550.8
+    },
+    {
+      "text": "after all that was set up, things were",
+      "duration": 3.6,
+      "offset": 552.32
+    },
+    {
+      "text": "almost smooth if you don't count the",
+      "duration": 4.08,
+      "offset": 553.92
+    },
+    {
+      "text": "fact that we got dodoed so hard that the",
+      "duration": 4,
+      "offset": 555.92
+    },
+    {
+      "text": "server went down with apparently 10,000",
+      "duration": 3.519,
+      "offset": 558
+    },
+    {
+      "text": "plus people connected. They were fake",
+      "duration": 5.2,
+      "offset": 559.92
+    },
+    {
+      "text": "people obviously. Go spam quips.com.",
+      "duration": 6.081,
+      "offset": 561.519
+    },
+    {
+      "text": "Don't like dodos it or anything. We got",
+      "duration": 4.56,
+      "offset": 565.12
+    },
+    {
+      "text": "5,300 people connected right now",
+      "duration": 3.679,
+      "offset": 567.6
+    },
+    {
+      "text": "apparently and they're all about to get",
+      "duration": 4.24,
+      "offset": 569.68
+    },
+    {
+      "text": "DCD once this goes live. Any info on why",
+      "duration": 4.321,
+      "offset": 571.279
+    },
+    {
+      "text": "that connection's failing? See what",
+      "duration": 4.08,
+      "offset": 573.92
+    },
+    {
+      "text": "might be causing that? Okay, somebody is",
+      "duration": 4.96,
+      "offset": 575.6
+    },
+    {
+      "text": "spamming with their IP address like",
+      "duration": 4.24,
+      "offset": 578
+    },
+    {
+      "text": "trying to connect hundreds of times at",
+      "duration": 4.399,
+      "offset": 580.56
+    },
+    {
+      "text": "once, so we're just getting DDoS. Okay,",
+      "duration": 5.76,
+      "offset": 582.24
+    },
+    {
+      "text": "the genuinely absurd number of PRs we",
+      "duration": 5.281,
+      "offset": 584.959
+    },
+    {
+      "text": "already have people submitting. 19 PRs,",
+      "duration": 3.6,
+      "offset": 588
+    },
+    {
+      "text": "11 issues, and it's growing fast. I'm",
+      "duration": 2.64,
+      "offset": 590.24
+    },
+    {
+      "text": "sure by the time this video is out, it",
+      "duration": 3.2,
+      "offset": 591.6
+    },
+    {
+      "text": "will be absurd. Two environment variable",
+      "duration": 3.28,
+      "offset": 592.88
+    },
+    {
+      "text": "leaks as well, because of course,",
+      "duration": 3.12,
+      "offset": 594.8
+    },
+    {
+      "text": "nothing's ever as easy as it should be.",
+      "duration": 2.799,
+      "offset": 596.16
+    },
+    {
+      "text": "As long as I don't leak environment",
+      "duration": 2.32,
+      "offset": 597.92
+    },
+    {
+      "text": "variables, which is very easy in this",
+      "duration": 3.201,
+      "offset": 598.959
+    },
+    {
+      "text": "particular project. Oh, that's great.",
+      "duration": 4.8,
+      "offset": 600.24
+    },
+    {
+      "text": "That leaked my stream key. I love that.",
+      "duration": 6.56,
+      "offset": 602.16
+    },
+    {
+      "text": "Let's go reset that",
+      "duration": 7.96,
+      "offset": 605.04
+    },
+    {
+      "text": "vibe coding. Not even once.",
+      "duration": 4.28,
+      "offset": 608.72
+    },
+    {
+      "text": "I just realized that was a stream key",
+      "duration": 3.36,
+      "offset": 613.36
+    },
+    {
+      "text": "again. [ __ ] me. Give me a sec. I thought",
+      "duration": 3.679,
+      "offset": 614.72
+    },
+    {
+      "text": "I wasn't screen sharing that time. My",
+      "duration": 3.2,
+      "offset": 616.72
+    },
+    {
+      "text": "bad. I wasn't screen sharing when I did",
+      "duration": 3.521,
+      "offset": 618.399
+    },
+    {
+      "text": "the ENV thing, right? Was I Did I have",
+      "duration": 4.96,
+      "offset": 619.92
+    },
+    {
+      "text": "that open when I did that? [ __ ] me. H I",
+      "duration": 4.96,
+      "offset": 621.92
+    },
+    {
+      "text": "have to reset everything. [ __ ] me. Give",
+      "duration": 5.12,
+      "offset": 624.88
+    },
+    {
+      "text": "me a sec. And a ton of formatting fixes",
+      "duration": 4.639,
+      "offset": 626.88
+    },
+    {
+      "text": "because this version is rendered in that",
+      "duration": 3.04,
+      "offset": 630
+    },
+    {
+      "text": "canvas as I mentioned before. Getting",
+      "duration": 4.241,
+      "offset": 631.519
+    },
+    {
+      "text": "that right. obnoxious, but we did it. It",
+      "duration": 5.44,
+      "offset": 633.04
+    },
+    {
+      "text": "works. I made the world's greatest slop",
+      "duration": 5.12,
+      "offset": 635.76
+    },
+    {
+      "text": "monster. It's fun. I enjoy [ __ ]",
+      "duration": 3.919,
+      "offset": 638.48
+    },
+    {
+      "text": "around with these types of things. I",
+      "duration": 3.44,
+      "offset": 640.88
+    },
+    {
+      "text": "enjoy testing the limits of my vibe",
+      "duration": 4,
+      "offset": 642.399
+    },
+    {
+      "text": "coding tools. All of these prompts were",
+      "duration": 4.639,
+      "offset": 644.32
+    },
+    {
+      "text": "done live as I was filming the video,",
+      "duration": 4.88,
+      "offset": 646.399
+    },
+    {
+      "text": "fixing things as we went. Ignore the top",
+      "duration": 4,
+      "offset": 648.959
+    },
+    {
+      "text": "left corner there. Might have some more",
+      "duration": 3.521,
+      "offset": 651.279
+    },
+    {
+      "text": "launches this week. And if you want to",
+      "duration": 3.601,
+      "offset": 652.959
+    },
+    {
+      "text": "see how funny these models are yourself",
+      "duration": 3.36,
+      "offset": 654.8
+    },
+    {
+      "text": "with your own prompts, we have a",
+      "duration": 2.719,
+      "offset": 656.56
+    },
+    {
+      "text": "solution for that, too. If you haven't",
+      "duration": 2.96,
+      "offset": 658.16
+    },
+    {
+      "text": "heard of T3 Chat, I highly recommend it.",
+      "duration": 3.521,
+      "offset": 659.279
+    },
+    {
+      "text": "We've been putting a ton of time into",
+      "duration": 3.92,
+      "offset": 661.12
+    },
+    {
+      "text": "it. Last week, we launched so many new",
+      "duration": 3.44,
+      "offset": 662.8
+    },
+    {
+      "text": "features that it's going to be hard for",
+      "duration": 2.72,
+      "offset": 665.04
+    },
+    {
+      "text": "me to even remember them all. My",
+      "duration": 3.52,
+      "offset": 666.24
+    },
+    {
+      "text": "personal favorite too are the new $50",
+      "duration": 3.36,
+      "offset": 667.76
+    },
+    {
+      "text": "tier, but don't worry, we still have the",
+      "duration": 4.48,
+      "offset": 669.76
+    },
+    {
+      "text": "$8 tier, but also the canvas mode, which",
+      "duration": 5.2,
+      "offset": 671.12
+    },
+    {
+      "text": "is the best image generation experience",
+      "duration": 4.24,
+      "offset": 674.24
+    },
+    {
+      "text": "I've found. I know that cuz I built it",
+      "duration": 3.84,
+      "offset": 676.32
+    },
+    {
+      "text": "myself. Nothing worked quite how I",
+      "duration": 3.039,
+      "offset": 678.48
+    },
+    {
+      "text": "wanted, and now I have my perfect",
+      "duration": 3.359,
+      "offset": 680.16
+    },
+    {
+      "text": "solution. Every image can be used as a",
+      "duration": 3.281,
+      "offset": 681.519
+    },
+    {
+      "text": "conversation if you want to change",
+      "duration": 3.281,
+      "offset": 683.519
+    },
+    {
+      "text": "things about it. So, here I'll say make",
+      "duration": 5.68,
+      "offset": 684.8
+    },
+    {
+      "text": "the hoodie pink and get rid of the eye",
+      "duration": 5.76,
+      "offset": 686.8
+    },
+    {
+      "text": "glow. Tell it to use Nano Banana Pro and",
+      "duration": 4.16,
+      "offset": 690.48
+    },
+    {
+      "text": "GPT image, the two models for that",
+      "duration": 3.76,
+      "offset": 692.56
+    },
+    {
+      "text": "refinement. You have a good UI for",
+      "duration": 3.439,
+      "offset": 694.64
+    },
+    {
+      "text": "managing all of this. It has been a",
+      "duration": 3.519,
+      "offset": 696.32
+    },
+    {
+      "text": "lifecher for me. I have a feeling many",
+      "duration": 3.361,
+      "offset": 698.079
+    },
+    {
+      "text": "of you guys will agree if you like image",
+      "duration": 3.12,
+      "offset": 699.839
+    },
+    {
+      "text": "gen stuff. And there will be a link in",
+      "duration": 3.12,
+      "offset": 701.44
+    },
+    {
+      "text": "the description that applies the launch",
+      "duration": 3.12,
+      "offset": 702.959
+    },
+    {
+      "text": "week discount if you want to get your",
+      "duration": 3.519,
+      "offset": 704.56
+    },
+    {
+      "text": "first 3 months for 50% off on the new",
+      "duration": 4.161,
+      "offset": 706.079
+    },
+    {
+      "text": "high tier. That's 25 bucks a month for",
+      "duration": 4.161,
+      "offset": 708.079
+    },
+    {
+      "text": "basically unlimited image generation.",
+      "duration": 3.279,
+      "offset": 710.24
+    },
+    {
+      "text": "Good luck beating that, especially if",
+      "duration": 3.2,
+      "offset": 712.24
+    },
+    {
+      "text": "you want access to all of the models and",
+      "duration": 3.281,
+      "offset": 713.519
+    },
+    {
+      "text": "the ability to generate with multiple of",
+      "duration": 3.2,
+      "offset": 715.44
+    },
+    {
+      "text": "them at once. And also, of course, come",
+      "duration": 3.92,
+      "offset": 716.8
+    },
+    {
+      "text": "join us in the Quip Slop Twitch stream.",
+      "duration": 3.52,
+      "offset": 718.64
+    },
+    {
+      "text": "We'll be hanging out there a bunch. It",
+      "duration": 3.2,
+      "offset": 720.72
+    },
+    {
+      "text": "should be very fun. I made something",
+      "duration": 3.359,
+      "offset": 722.16
+    },
+    {
+      "text": "chaotic and I'm excited to see where it",
+      "duration": 2.88,
+      "offset": 723.92
+    },
+    {
+      "text": "goes. I think that's all I have for",
+      "duration": 2.641,
+      "offset": 725.519
+    },
+    {
+      "text": "y'all today. Let me know how you feel",
+      "duration": 2.88,
+      "offset": 726.8
+    },
+    {
+      "text": "about my new slop generator and",
+      "duration": 3.119,
+      "offset": 728.16
+    },
+    {
+      "text": "hopefully you won't spam me with slop in",
+      "duration": 3.04,
+      "offset": 729.68
+    },
+    {
+      "text": "the comments as punishment for the sins",
+      "duration": 2.881,
+      "offset": 731.279
+    },
+    {
+      "text": "that I've committed here. Until next",
+      "duration": 4.64,
+      "offset": 732.72
+    },
+    {
+      "text": "time, he nerds.",
+      "duration": 3.2,
+      "offset": 734.16
+    }
+  ],
+  "transcriptText": "As you guys have probably seen in my recent videos, I've been vibe coding a bunch of stuff, but I haven't released any of it. Well, not yet. That changes now, though, because I just put out one of my favorite side projects that I've been working on for a bit. It was an idea I've had for months now, but I only just recently found the time to actually build it, and I couldn't be happier with what we've built. So, without further ado, I would love to reveal No, ignore that one. Quip slop. We can finally learn once and for all which AI is funniest. This is a game idea I had forever ago to take something like Quiplash, the game from Jackbox, and try to recreate it with AI. The flow is pretty simple. One model creates a prompt that the other two models have to respond to in a funny way. It can be a fill-in- thelank. It can be a question about a title for a thing. Just all sorts of funny prompts that are then meant to let the model make a funnier response. Two models are picked to give their responses and then all the other models vote and the winner gets a point and they are ranked in the leaderboard. We also just set it up so the viewers can vote, too. So, if you're watching on Twitch at twitch.tv/quipslop, you can vote as you go. This project has sent us down some pretty absurd paths, and this is not the first time I've tried filming this video. In fact, we are now 4 hours past the first time I tried to film this video. We have been in utter chaos now for hours, and I can't wait to break all of it down for you. From how we built this to what went wrong to how we scaled it to tens of thousands of users, all live on Twitch. But after seeing a preview of my open router bill, we're going to take a quick break for today's sponsor. Stop me if you've heard this one before. You're wasting your time waiting for builds, which is why you should move to Blacksmith, today's sponsor. I've done this spiel a whole bunch. I use them every day. Blacksmith is great. Cool. You get it. Thankfully, they've given me no guidance on what I'm supposed to say in these ads because they trust me to do them justice. And I'm going to push the limits a bit by telling you all the reasons you should not use Blacksmith. Reason one, you love long build times. Maybe that's when you go to refill your coffee or go to the bathroom. If you really like having build times that take 10 minutes instead of 30 seconds, Blacksmith's going to be terrible and you're going to hate your time using it. Another reason you might just love giving Microsoft money. I get it. I have friends that work at Microsoft and you might work at Microsoft yourself. Maybe you just want them to have way more money. Personally, I like the fact that Blacksmith is 50% cheaper and also takes less than half the time to run. So, it's over a 70% discount for most users. Just me, though. I can relate to this one. If you enjoy when debugging your CI feels like a murder mystery trying to go through all the logs to find the thing you're looking for because search doesn't work. You're going to hate Blacksmith and their awesome observability dashboard, working search logs, and more. It's so much easier to get by that you're going to hate it if you want your job to be hard. And one last thing, if you hate open source, definitely don't use Blacksmith because they're sponsoring a ton of useful open source projects, including the browser I'm using here, Zen, which was built on Blacksmith. If none of this applies to you, you should probably go check out the free trial at soyv.link/blsmith. Shout out to my editor for finding a way to turn this all into a video. By the way, he's probably going to have to pull things out of that 4-hour mess to fit them in here, but I'll do my best to cover things from the top. When I first started building this project, I started with a CLI because I wanted it to be easy to see everything working. Like the original core was just this pattern of model one makes a prompt, two other models respond, all of the models vote. Doing that in a UI and managing all of the connections, everything for it would just not have been pleasant. So, I started by vibe coding yet another CLI. Ignore the logging. I added that during debugging. The main parts here with the prompt, the answers, and all of that, that is all working as expected. Deepseek opened here with the only thing toddlers are unexpectedly good at painting with is. And we get the answers you would expect. Pretty solid overall. One of the things that's made this project so fun is trying to find clever solutions to the problems that these models just can't stop throwing at me throughout the process of building it. And they have thrown a lot of problems at me throughout. One of the first ones was the randomness of this initial prompt. As I was hinting at before, when I first started this, I had a pretty simple system prompt for the original prompt where I would hand a bunch of examples to the model through the system prompt of existing whiplash quotes and example prompts. And what I found is that that fixed set kept causing the models to give like the exact same set of things over and over. I had three times in a row with different models where they were about your grandma. I had four in a row where it was about things in funeral homes. It just wasn't really random. and it sucked. So, I tried a pretty crazy thing for this. The first thing I did was get more than 60 prompts. In fact, we got about 870 of them. Obviously, handing all of these to the model is not going to give us anything of value. So, what I chose to do instead was randomly shuffle them and select 60 or 80 in this case for every single time this runs. So, every model gets a unique system prompt for each run, which results in a unique set of answers, significantly more so than we had prior. And then things are honestly not that bad. The system prompt for the responses is pretty simple. You're playing whiplash. You'll be given a fill-in- thelank prompt. Give the funniest possible answer. Be creative, edgy, unexpected, and concise. Reply only with your answer. No quotes, no explanations, no preamble. Keep it short, under 12 words. Keep it concise and witty. You get the idea. I didn't have to do a lot to format the responses because they randomly put quotes and [ __ ] around. That was a lot of the work honestly. Also, making sure that the result is an actual string, not empty string. So, I could force it to retry in those cases. That ended up being a lot of work, too. Also, cleaning up the vote that they make between A and B, and randomizing which they see as A and which they see as B in order to make sure that works. Also fun challenge, but it all ended up working and eventually I had a CLI that was pretty dang reliable. So, next was the web UI. I originally just had a simple websocket server hosted in bun on railway that you would connect to handle everything like the votes and whatnot in the web UI. But after dealing with utter hell trying to figure out who was who there cuz the IP address spoofing is a very real problem eventually we gave up and did it all through Twitch instead so I could avoid O and whatnot there too. So after everything we've described so far I had a working CLI. I had a working web UI. I had it deployed and mostly functioning. But I wanted to go further because I really wanted to have the Twitch stream. But you can't just send an HTML page to Twitch. You got to stream it somehow. And thankfully, I have a lot of experience doing weird stuff with FFmpeg and streaming to Twitch with it. I had to do a lot of back and forth with a lot of different models to get this working how I wanted it to. The way this is working is by rendering a pixel perfect canvas in the browser with the exact content that I want. So once that browser's been spun up and has that canvas page, which I'm doing is like a headless Chromium instance. A lot of environment variables here that I can pass things to. I need to knock the max bit rate down probably, but we're not even getting close to it, so it's fine. Once we have music, I'll probably have to knock that down. I create the ffmpeg command, which has a lot of fun things. I actually know a lot about streaming to Twitch from FFmpeg because that's how I stream to Twitch when I worked at Twitch for marathon content. I've thought a lot about generative content with ffmpeg streaming straight to Twitch. This is a thing I've had to do a weird amount. We make sure that we can actually reach the URL. I spin up FFmpeg. I create the readable stream that I can pipe things to. Oh, this is for the dry run mode. Yeah. So, in dry run mode, it just plays the video on my computer so I can be sure that it works. FF play is such an underrated thing. I use it all the time for various [ __ ] Like if you guys want to see it, I can show you. bun run start web bun run start stream dry run and f of play just creates this video player frame that I can look at to make sure things look correct. This is how I built and debugged the whole thing. Somebody said that calling ffmpeg underrated is wild. I promise you no it's not. Like a lot of people know that ffmpeg exists but not a lot of people understand how powerful ffmpeg is and like all the things you can do with it. Like obviously it's great for doing video stuff, but you can do crazy things like stream from it, access devices on your computer that have media capability from it. It's so fun. And the way we create the browser is with a local puppeteer instance. I had to disable a bunch of [ __ ] so it could access the external network. I create a web socket locally in this ffmpeg wrapper instance that can be connected to from that browser instance. We're setting all these search params to the URL so that we can access them in the page. And then we finally start getting chunks that I can pipe into ffmpeg to start the stream. So once things start running, we create an array buffer socket type. Look at the different options we have that are supported for media recorder in this browser. We should know cuz we control the puppeteer version, but this is a good practice when you're building for real browsers, not just one that you own. Didn't care cuz I barely read the code when I wrote it. As you guys can guess, we set a bit rate quick. Here we create the recorder device which another fun thing a lot of people don't know is that you can create a media recorder device in the browser and connect it to the canvas and create media from a canvas in the browser. So here whenever there's data available from this media recorder we send the chunk as an array buffer down the stream which then gets picked up by the ffmpeg process and then piped over to Twitch. And capturing the stream is super easy too. You just call canvas.capture stream. I am amazed how few people know how abusable this is. Even the models didn't know this. Every time I was trying to build this, the model insisted. It tried so hard to do window capture in Mac OS, which was so much worse. So much worse. And I just had to like tell it, \"No, I know we can do this via a stream from the canvas. Just make it that way.\" And eventually it did. And now it works great. And after all that was set up, things were almost smooth if you don't count the fact that we got dodoed so hard that the server went down with apparently 10,000 plus people connected. They were fake people obviously. Go spam quips.com. Don't like dodos it or anything. We got 5,300 people connected right now apparently and they're all about to get DCD once this goes live. Any info on why that connection's failing? See what might be causing that? Okay, somebody is spamming with their IP address like trying to connect hundreds of times at once, so we're just getting DDoS. Okay, the genuinely absurd number of PRs we already have people submitting. 19 PRs, 11 issues, and it's growing fast. I'm sure by the time this video is out, it will be absurd. Two environment variable leaks as well, because of course, nothing's ever as easy as it should be. As long as I don't leak environment variables, which is very easy in this particular project. Oh, that's great. That leaked my stream key. I love that. Let's go reset that vibe coding. Not even once. I just realized that was a stream key again. [ __ ] me. Give me a sec. I thought I wasn't screen sharing that time. My bad. I wasn't screen sharing when I did the ENV thing, right? Was I Did I have that open when I did that? [ __ ] me. H I have to reset everything. [ __ ] me. Give me a sec. And a ton of formatting fixes because this version is rendered in that canvas as I mentioned before. Getting that right. obnoxious, but we did it. It works. I made the world's greatest slop monster. It's fun. I enjoy [ __ ] around with these types of things. I enjoy testing the limits of my vibe coding tools. All of these prompts were done live as I was filming the video, fixing things as we went. Ignore the top left corner there. Might have some more launches this week. And if you want to see how funny these models are yourself with your own prompts, we have a solution for that, too. If you haven't heard of T3 Chat, I highly recommend it. We've been putting a ton of time into it. Last week, we launched so many new features that it's going to be hard for me to even remember them all. My personal favorite too are the new $50 tier, but don't worry, we still have the $8 tier, but also the canvas mode, which is the best image generation experience I've found. I know that cuz I built it myself. Nothing worked quite how I wanted, and now I have my perfect solution. Every image can be used as a conversation if you want to change things about it. So, here I'll say make the hoodie pink and get rid of the eye glow. Tell it to use Nano Banana Pro and GPT image, the two models for that refinement. You have a good UI for managing all of this. It has been a lifecher for me. I have a feeling many of you guys will agree if you like image gen stuff. And there will be a link in the description that applies the launch week discount if you want to get your first 3 months for 50% off on the new high tier. That's 25 bucks a month for basically unlimited image generation. Good luck beating that, especially if you want access to all of the models and the ability to generate with multiple of them at once. And also, of course, come join us in the Quip Slop Twitch stream. We'll be hanging out there a bunch. It should be very fun. I made something chaotic and I'm excited to see where it goes. I think that's all I have for y'all today. Let me know how you feel about my new slop generator and hopefully you won't spam me with slop in the comments as punishment for the sins that I've committed here. Until next time, he nerds."
+}
