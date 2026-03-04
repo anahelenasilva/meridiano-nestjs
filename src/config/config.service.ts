@@ -270,6 +270,23 @@ export class ConfigService {
     return value === 'true' || value === '1' || value === undefined;
   }
 
+  isExternalArticleSubmissionEnabled(): boolean {
+    const value = process.env.TELEGRAM_INTEGRATION_ENABLED;
+    return value === 'true' || value === '1';
+  }
+
+  /**
+   * Get external API tokens from environment variable.
+   * Tokens are comma-separated in EXTERNAL_API_TOKENS environment variable.
+   */
+  getExternalApiTokens(): string[] {
+    const tokensEnv = process.env.EXTERNAL_API_TOKENS;
+    if (!tokensEnv) {
+      return [];
+    }
+    return tokensEnv.split(',').map(t => t.trim()).filter(Boolean);
+  }
+
   getEnabledChatModel(): ValidChatModel {
     const envValue = process.env.ENABLED_CHAT_MODEL;
     if (envValue) {

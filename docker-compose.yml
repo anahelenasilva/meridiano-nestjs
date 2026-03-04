@@ -49,11 +49,34 @@ services:
     networks:
       - meridiano-network
 
+  # Node-RED for Telegram Bot Integration
+  nodered:
+    image: nodered/node-red:latest
+    container_name: meridiano-nodered-${COMPOSE_PROFILE:-local}
+    restart: unless-stopped
+    profiles:
+      - local
+      - staging
+      - production
+    ports:
+      - "1880:1880"
+    volumes:
+      - nodered_data:/data
+    environment:
+      - MERIDIANO_API_URL=http://api:3000
+      # Note: Set EXTERNAL_API_TOKEN via Node-RED flow settings or secrets
+    networks:
+      - meridiano-network
+    depends_on:
+      - api
+
 volumes:
   postgres_data:
     name: meridiano-postgres-data-${COMPOSE_PROFILE:-local}
   redis_data:
     name: meridiano-redis-data-${COMPOSE_PROFILE:-local}
+  nodered_data:
+    name: meridiano-nodered-data-${COMPOSE_PROFILE:-local}
 
 networks:
   meridiano-network:

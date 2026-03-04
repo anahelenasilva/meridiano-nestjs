@@ -1,4 +1,5 @@
 import { AuthModule as LibsAuthModule } from '@libs/auth';
+import { RateLimitGuard } from '@libs/auth/rate-limit/rate-limit.guard';
 import { UserLookupProvider } from '@libs/auth/interfaces/user-lookup-provider.interface';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -8,23 +9,26 @@ import { mock, MockProxy } from 'jest-mock-extended';
 import request from 'supertest';
 import { App } from 'supertest/types';
 import { AuthController } from '../src/auth/auth.controller';
+import { User } from '../src/users/user.entity';
 
 // Test fixture data
 const MOCK_USER_PASSWORD = 'TestPass123';
 const MOCK_USER_HASHED_PASSWORD = bcrypt.hashSync(MOCK_USER_PASSWORD, 10);
 
-const mockUser = {
+const mockUser: User = {
   id: 'test-user-id-123',
   email: 'test@example.com',
   username: 'testuser',
   password: MOCK_USER_HASHED_PASSWORD,
+  isEmailVerified: true,
   created_at: new Date('2024-01-01'),
 };
 
 // User without password (for non-existent user scenarios)
-const mockUserWithoutPassword = {
+const mockUserWithoutPassword: User = {
   ...mockUser,
   password: undefined,
+  isEmailVerified: false,
 };
 
 // Factory function for creating fresh mock instances
@@ -74,7 +78,12 @@ describe('Authentication (e2e)', () => {
         }),
       ],
       controllers: [AuthController],
-    }).compile();
+    })
+      .overrideGuard(RateLimitGuard)
+      .useValue({
+        canActivate: () => true, // Bypass rate limiting in tests
+      })
+      .compile();
 
     app = moduleFixture.createNestApplication();
 
@@ -127,13 +136,20 @@ describe('Authentication (e2e)', () => {
       const token = response.body.access_token;
       expect(token).toMatch(/^[\w-]+\.[\w-]+\.[\w-]+$/);
 
-      // Decode and verify token payload
+      // Verify token signature and payload
       const jwtService = moduleFixture.get<JwtService>(JwtService);
-      const decoded = jwtService.decode(token);
-      expect(decoded).toHaveProperty('sub', mockUser.id);
-      expect(decoded).toHaveProperty('email', mockUser.email);
-      expect(decoded).toHaveProperty('iat'); // issued at
-      expect(decoded).toHaveProperty('exp'); // expiration
+      const verified = jwtService.verify<{
+        sub: string;
+        email: string;
+        iat: number;
+        exp: number;
+      }>(token, {
+        secret: process.env.JWT_SECRET,
+      });
+      expect(verified).toHaveProperty('sub', mockUser.id);
+      expect(verified).toHaveProperty('email', mockUser.email);
+      expect(verified).toHaveProperty('iat');
+      expect(verified).toHaveProperty('exp');
 
       // Assert user data
       expect(response.body.user).toEqual({

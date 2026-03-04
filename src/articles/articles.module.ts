@@ -10,9 +10,13 @@ import { ProfilesModule } from '../profiles/profiles.module';
 import { ScraperModule } from '../scraper/scraper.module';
 import { ArticlesController } from './articles.controller';
 import { ArticlesService } from './articles.service';
+import { ExternalArticlesController } from './external-articles.controller';
 import { MarkdownArticleProcessor } from './processors/markdown-article.processor';
 import { GetArticleByIdQuery } from './queries/get-article-by-id.query';
 import { ListArticlesQuery } from './queries/list-articles.query';
+import { TelegramSubmissionService } from './services/telegram-submission.service';
+import { RateLimitService } from '@libs/auth/rate-limit/rate-limit.service';
+import { RateLimitGuard } from '@libs/auth/rate-limit/rate-limit.guard';
 
 @Module({
   imports: [
@@ -31,8 +35,11 @@ import { ListArticlesQuery } from './queries/list-articles.query';
     ListArticlesQuery,
     GetArticleByIdQuery,
     MarkdownArticleProcessor,
+    TelegramSubmissionService,
+    RateLimitService,
+    RateLimitGuard,
   ],
-  controllers: [ArticlesController],
-  exports: [ArticlesService],
+  controllers: [ArticlesController, ExternalArticlesController],
+  exports: [ArticlesService, TelegramSubmissionService],
 })
 export class ArticlesModule {}
