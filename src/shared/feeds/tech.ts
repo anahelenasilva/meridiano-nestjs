@@ -121,6 +121,13 @@ export const techRSSFeeds: RSSFeed[] = [
     description: 'Keep up with tech in 5 minutes',
     enabled: true,
   },
+  {
+    url: 'https://akitaonrails.com/index.xml',
+    name: 'Fabio Akita',
+    category: 'tech',
+    description: 'Blog do Fabio Akita do Canal do YouTube Akitando falando sobre tecnologia, carreira e coisas geek',
+    enabled: true,
+  },
 ];
 
 export const techPrompts = {
