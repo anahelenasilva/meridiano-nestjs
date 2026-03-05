@@ -191,9 +191,14 @@ export class AiService implements OnModuleInit {
 
     try {
       const modelName = this.resolveEmbeddingModel(model);
-      const safeInput = this.prepareEmbeddingInput(text, modelName);
       const tokenLimit = this.getModelTokenLimit(modelName);
-      const safeChunkTokenLimit = Math.max(64, Math.floor(tokenLimit * 0.8));
+      // Use more conservative limit for E5 models (512 token max)
+      const isE5 = this.isE5Model(modelName);
+      const safetyFactor = isE5 ? 0.5 : 0.75;
+      const safeChunkTokenLimit = Math.max(64, Math.floor(tokenLimit * safetyFactor));
+      
+      // Prepare input after calculating limits to properly account for prefix
+      const safeInput = this.prepareEmbeddingInput(text, modelName);
       const chunks = this.splitTextByEstimatedTokens(
         safeInput,
         safeChunkTokenLimit,
@@ -278,7 +283,9 @@ export class AiService implements OnModuleInit {
     const results: (number[] | null)[] = new Array(texts.length).fill(null);
     const modelName = this.resolveEmbeddingModel(model);
     const tokenLimit = this.getModelTokenLimit(modelName);
-    const safeChunkTokenLimit = Math.max(64, Math.floor(tokenLimit * 0.8));
+    const isE5 = this.isE5Model(modelName);
+    const safetyFactor = isE5 ? 0.5 : 0.75;
+    const safeChunkTokenLimit = Math.max(64, Math.floor(tokenLimit * safetyFactor));
     const batchSize = 10;
     const shortInputs: Array<{ index: number; input: string; original: string }> = [];
     const longInputs: Array<{ index: number; original: string }> = [];
@@ -459,30 +466,24 @@ export class AiService implements OnModuleInit {
   }
 
   private estimateTokenCount(text: string): number {
-    // More accurate token estimation:
-    // - Words with punctuation typically count as separate tokens
-    // - Code/math symbols may be split
-    // - This estimation is conservative to prevent token limit exceeded errors
+    // Conservative token estimation for embedding models
+    // Embedding models (especially E5) are more sensitive to token limits
     if (!text || text.length === 0) {
       return 0;
     }
 
-    // Count words (whitespace-separated)
-    const words = text.trim().split(/\s+/).length;
+    // Method 1: Character-based (most conservative for non-English/large tokens)
+    // Average 2-4 chars per token, use 2.5 for safety margin
+    const charEstimate = Math.ceil(text.length / 2.5);
 
-    // Count punctuation that often becomes separate tokens
+    // Method 2: Word-based with padding for punctuation
+    const words = text.trim().split(/\s+/).length;
     const punctuationMatches = text.match(/[.,!?;:"'()[\]{}]/g);
     const punctuationCount = punctuationMatches ? punctuationMatches.length : 0;
+    const wordEstimate = words + Math.ceil(punctuationCount * 0.5);
 
-    // Count uppercase sequences (acronyms often become separate tokens)
-    const uppercaseMatches = text.match(/[A-Z]{2,}/g);
-    const uppercaseCount = uppercaseMatches ? uppercaseMatches.length : 0;
-
-    // Base estimate: words + punctuation + some padding
-    const baseEstimate = words + punctuationCount * 0.5 + uppercaseCount * 0.3;
-
-    // Apply safety multiplier and ensure we don't underestimate
-    return Math.ceil(baseEstimate * 1.2);
+    // Use the MORE conservative estimate
+    return Math.max(charEstimate, wordEstimate);
   }
 
   private async getSingleEmbedding(
@@ -495,9 +496,20 @@ export class AiService implements OnModuleInit {
       );
     }
 
+    // Hard safety: truncate if still too long after chunking
+    let safeText = text;
+    
+    // For E5 models, be extra conservative - truncate to ~400 tokens worth of chars
+    if (this.isE5Model(modelName)) {
+      const maxChars = 800; // ~400 tokens at 2 chars/token average
+      if (text.length > maxChars) {
+        safeText = text.substring(0, maxChars);
+      }
+    }
+
     const response = await this.embeddingClient.embeddings.create({
       model: modelName,
-      input: [text],
+      input: [safeText],
     });
 
     if (!response.data || response.data.length === 0) {
