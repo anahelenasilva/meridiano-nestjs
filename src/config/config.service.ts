@@ -7,6 +7,7 @@ import {
   ArticleEmailsNotifications,
   AudioFailureNotification,
   Config,
+  EmbeddingFailureNotification,
   VALID_CHAT_MODELS,
   VALID_TTS_MODELS,
   ValidChatModel,
@@ -243,6 +244,24 @@ export class ConfigService {
     if (!from) {
       return null;
     }
+    return { to, from };
+  }
+
+  getEmbeddingFailureNotificationEmail(): EmbeddingFailureNotification | null {
+    const to = process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL?.trim() || '';
+    if (!to) {
+      return null;
+    }
+
+    const from =
+      process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL_FROM?.trim() ||
+      process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM?.trim() ||
+      '';
+
+    if (!from) {
+      return null;
+    }
+
     return { to, from };
   }
 
