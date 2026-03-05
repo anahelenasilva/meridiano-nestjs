@@ -10,6 +10,11 @@ export type AudioFailureNotification = {
   from: string;
 };
 
+export type EmbeddingFailureNotification = {
+  to: string;
+  from: string;
+};
+
 export const VALID_CHAT_MODELS = {
   openai: 'gpt-4o-mini',
   deepseek: 'deepseek-chat',

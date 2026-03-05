@@ -117,6 +117,53 @@ describe('ConfigService', () => {
     });
   });
 
+  describe('getEmbeddingFailureNotificationEmail', () => {
+    it('should return config when both to and from are set', () => {
+      process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL = 'embedding@example.com';
+      process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL_FROM = 'noreply@example.com';
+
+      const result = service.getEmbeddingFailureNotificationEmail();
+
+      expect(result).toEqual({ to: 'embedding@example.com', from: 'noreply@example.com' });
+
+      delete process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL;
+      delete process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL_FROM;
+    });
+
+    it('should fall back to ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM when EMBEDDING_FAILURE_NOTIFICATION_EMAIL_FROM is not set', () => {
+      process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL = 'embedding@example.com';
+      process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM = 'article-from@example.com';
+
+      const result = service.getEmbeddingFailureNotificationEmail();
+
+      expect(result).toEqual({ to: 'embedding@example.com', from: 'article-from@example.com' });
+
+      delete process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL;
+      delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM;
+    });
+
+    it('should return null when EMBEDDING_FAILURE_NOTIFICATION_EMAIL is not set', () => {
+      delete process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL;
+      delete process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL_FROM;
+
+      const result = service.getEmbeddingFailureNotificationEmail();
+
+      expect(result).toBeNull();
+    });
+
+    it('should return null when from is not configured', () => {
+      process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL = 'embedding@example.com';
+      delete process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL_FROM;
+      delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM;
+
+      const result = service.getEmbeddingFailureNotificationEmail();
+
+      expect(result).toBeNull();
+
+      delete process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL;
+    });
+  });
+
   describe('getPresignedUrlExpirySeconds', () => {
     it('should return 3600 when env var is not set', () => {
       delete process.env.PRESIGNED_URL_EXPIRY_SECONDS;

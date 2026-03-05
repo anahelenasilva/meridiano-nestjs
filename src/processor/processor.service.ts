@@ -1,4 +1,5 @@
 import { AudioJobService } from '@libs/audio';
+import { EmailService } from '@libs/email';
 import { Injectable, Logger } from '@nestjs/common';
 import { AiService } from '../ai/ai.service';
 import { ArticleCategory, DBArticle } from '../articles/article.entity';
@@ -18,7 +19,8 @@ export class ProcessorService {
     private readonly configService: ConfigService,
     private readonly profilesService: ProfilesService,
     private readonly audioJobService: AudioJobService,
-  ) {}
+    private readonly emailService: EmailService,
+  ) { }
 
   async processArticles(
     feedProfile: FeedProfile,
@@ -66,11 +68,11 @@ export class ProcessorService {
       try {
         const summaryPrompt = profilePrompts.articleSummary
           ? this.configService.formatPrompt(profilePrompts.articleSummary, {
-              article_content: article.raw_content.substring(0, 4000),
-            })
+            article_content: article.raw_content.substring(0, 4000),
+          })
           : this.configService.getArticleSummaryPrompt(
-              article.raw_content.substring(0, 4000),
-            );
+            article.raw_content.substring(0, 4000),
+          );
 
         const summary = await this.aiService.callChat(summaryPrompt);
 
@@ -84,12 +86,26 @@ export class ProcessorService {
 
         const finalSummary = `${summary}\n\nSource: [${article.title}](${article.url})`;
 
-        const embedding = await this.aiService.getEmbedding(finalSummary);
+        let embedding: number[] | null = null;
+        try {
+          embedding = await this.aiService.getEmbedding(finalSummary);
+        } catch (embeddingError) {
+          const errorMessage = embeddingError instanceof Error ? embeddingError.message : String(embeddingError);
+          this.logger.error(
+            `Embedding generation failed for article ${article.id} (${article.title}): ${errorMessage}`,
+          );
 
-        if (!embedding) {
-          console.log(`Skipping article ${article.id} due to embedding error.`);
           stats.errors++;
-          continue;
+          await this.notifyEmbeddingFailure(article, errorMessage);
+        }
+
+        if (!embedding && !stats.errors) {
+          this.logger.error(
+            `Embedding generation returned null for article ${article.id} (${article.title})`,
+          );
+
+          stats.errors++;
+          await this.notifyEmbeddingFailure(article, 'Embedding returned null');
         }
 
         await this.articlesService.updateArticleProcessing(
@@ -97,15 +113,16 @@ export class ProcessorService {
           finalSummary,
           embedding,
         );
+
         stats.articlesProcessed++;
         console.log(`Successfully processed article ID: ${article.id}`);
 
-        // Generate audio if flag is enabled
         if (generateAudio) {
           try {
             console.log(
               `Enqueuing audio generation for article ID: ${article.id}...`,
             );
+
             const jobInfo = await this.audioJobService.enqueueAudioJob({
               sourceType: 'article',
               sourceId: article.id,
@@ -114,6 +131,7 @@ export class ProcessorService {
                 ? new Date(article.published_date)
                 : new Date(),
             });
+
             console.log(`Audio generation job enqueued: ${jobInfo.jobId}`);
           } catch (audioError) {
             console.error(
@@ -136,6 +154,41 @@ export class ProcessorService {
     );
 
     return stats;
+  }
+
+  private async notifyEmbeddingFailure(article: DBArticle, errorMessage: string): Promise<void> {
+    const emailConfig = this.configService.getEmbeddingFailureNotificationEmail();
+
+    if (emailConfig) {
+      try {
+        await this.emailService.sendEmail({
+          from: emailConfig.from,
+          to: emailConfig.to,
+          subject: 'Embedding Generation Failed',
+          text: `Embedding generation failed for an article during processing.
+
+Details:
+- Article ID: ${article.id}
+- Article Title: ${article.title}
+- Article URL: ${article.url}
+- Error: ${errorMessage}
+- Timestamp: ${new Date().toISOString()}
+
+The article summary was successfully generated but embedding generation failed. The article processing will continue without embedding.`,
+        });
+
+        this.logger.log(`Embedding failure notification email sent to ${emailConfig.to} for article ${article.id}`);
+      } catch (emailError) {
+        this.logger.error(
+          `Failed to send embedding failure notification email for article ${article.id}:`,
+          emailError instanceof Error ? emailError.message : String(emailError),
+        );
+      }
+    } else {
+      this.logger.warn(
+        `Embedding generation failed for article ${article.id}, but EMBEDDING_FAILURE_NOTIFICATION_EMAIL (and EMBEDDING_FAILURE_NOTIFICATION_EMAIL_FROM or ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM) is not configured.`,
+      );
+    }
   }
 
   async rateArticles(
@@ -186,8 +239,8 @@ export class ProcessorService {
       try {
         const ratingPrompt = profilePrompts.impactRating
           ? this.configService.formatPrompt(profilePrompts.impactRating, {
-              summary: article.processed_content,
-            })
+            summary: article.processed_content,
+          })
           : this.configService.getImpactRatingPrompt(article.processed_content);
 
         const ratingResponse = await this.aiService.callChat(ratingPrompt);

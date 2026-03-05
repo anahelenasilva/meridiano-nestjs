@@ -117,7 +117,7 @@ export class ArticlesService {
   async updateArticleProcessing(
     articleId: string,
     processedContent: string,
-    embedding: number[],
+    embedding?: number[] | null,
   ): Promise<void> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
@@ -129,7 +129,7 @@ export class ArticlesService {
       `);
 
       stmt.run(
-        [processedContent, JSON.stringify(embedding), articleId],
+        [processedContent, embedding ? JSON.stringify(embedding) : null, articleId],
         (err) => {
           if (err) {
             reject(err);

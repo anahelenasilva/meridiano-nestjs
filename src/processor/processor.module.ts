@@ -1,4 +1,5 @@
 import { AudioModule } from '@libs/audio';
+import { EmailModule } from '@libs/email';
 import { forwardRef, Module } from '@nestjs/common';
 import { AiModule } from '../ai/ai.module';
 import { ArticlesModule } from '../articles/articles.module';
@@ -13,6 +14,7 @@ import { ProcessorService } from './processor.service';
     AiModule,
     ConfigModule,
     ProfilesModule,
+    EmailModule.forRoot(),
   ],
   providers: [ProcessorService],
   exports: [ProcessorService],
