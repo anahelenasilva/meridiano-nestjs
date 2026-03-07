@@ -99,10 +99,16 @@ export class AiService implements OnModuleInit {
     const messages: ChatMessage[] = [];
 
     if (systemPrompt) {
-      messages.push({ role: 'system', content: systemPrompt });
+      messages.push({
+        role: 'system',
+        content: this.sanitizeChatMessageContent(systemPrompt),
+      });
     }
 
-    messages.push({ role: 'user', content: prompt });
+    messages.push({
+      role: 'user',
+      content: this.sanitizeChatMessageContent(prompt),
+    });
 
     try {
       const modelName =
@@ -137,10 +143,16 @@ export class AiService implements OnModuleInit {
     const messages: ChatMessage[] = [];
 
     if (systemPrompt) {
-      messages.push({ role: 'system', content: systemPrompt });
+      messages.push({
+        role: 'system',
+        content: this.sanitizeChatMessageContent(systemPrompt),
+      });
     }
 
-    messages.push({ role: 'user', content: prompt });
+    messages.push({
+      role: 'user',
+      content: this.sanitizeChatMessageContent(prompt),
+    });
 
     try {
       const modelName =
@@ -534,6 +546,15 @@ export class AiService implements OnModuleInit {
     }
 
     return sums.map((sum) => sum / embeddings.length);
+  }
+
+  private sanitizeChatMessageContent(content: string): string {
+    return content
+      .replace(/\r\n/g, '\n')
+      .replace(/\r/g, '\n')
+      .split('\u0000')
+      .join('')
+      .replace(/\\(?!["\\/bfnrtu])/g, '\\\\');
   }
 
   async generateAudio(text: string, voice?: string): Promise<Buffer> {
