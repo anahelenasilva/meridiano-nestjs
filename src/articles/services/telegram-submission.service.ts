@@ -339,21 +339,22 @@ export class TelegramSubmissionService {
         const count = typeof row.count === 'number'
           ? row.count
           : (parseInt(String(row.count), 10) || 0);
+
         if (isNaN(count)) continue;
 
         stats.total += count;
         switch (row.submission_status) {
           case 'success':
-            stats.success = count;
+            stats.success += count;
             break;
           case 'failed':
-            stats.failed = count;
+            stats.failed += count;
             break;
           case 'duplicate':
-            stats.duplicate = count;
+            stats.duplicate += count;
             break;
           case 'pending':
-            stats.pending = count;
+            stats.pending += count;
             break;
         }
       }
