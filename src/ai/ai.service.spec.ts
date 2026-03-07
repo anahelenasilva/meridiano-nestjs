@@ -5,15 +5,22 @@ import { ConfigService } from '../config/config.service';
 describe('AiService', () => {
   let service: AiService;
   let embeddingsCreate: jest.Mock;
+  let deepseekChatCreate: jest.Mock;
 
   const configService = {
     getModelConfig: jest.fn(() => ({
       embeddingModel: 'intfloat/multilingual-e5-large-instruct',
+      deepseekChatModel: 'deepseek-chat',
+      openaiChatModel: 'gpt-4o-mini',
+      maxTokens: 2048,
+      temperature: 0.7,
     })),
+    getEnabledChatModel: jest.fn(() => 'deepseek'),
   };
 
   beforeEach(async () => {
     embeddingsCreate = jest.fn();
+    deepseekChatCreate = jest.fn();
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -31,6 +38,17 @@ describe('AiService', () => {
       value: {
         embeddings: {
           create: embeddingsCreate,
+        },
+      },
+      writable: true,
+    });
+
+    Object.defineProperty(service, 'deepseekClient', {
+      value: {
+        chat: {
+          completions: {
+            create: deepseekChatCreate,
+          },
         },
       },
       writable: true,
@@ -188,6 +206,10 @@ describe('AiService', () => {
     it('does not add passage prefix for non-E5 models', async () => {
       configService.getModelConfig.mockReturnValueOnce({
         embeddingModel: 'some-other-model',
+        deepseekChatModel: 'deepseek-chat',
+        openaiChatModel: 'gpt-4o-mini',
+        maxTokens: 2048,
+        temperature: 0.7,
       });
 
       embeddingsCreate.mockResolvedValue({
@@ -300,6 +322,28 @@ describe('AiService', () => {
       expect(result).toBeDefined();
       expect(Array.isArray(result)).toBe(true);
       expect(embeddingsCreate).toHaveBeenCalled();
+    });
+  });
+
+  describe('callDeepseekChat', () => {
+    it('sanitizes invalid backslash escapes in prompt content', async () => {
+      deepseekChatCreate.mockResolvedValue({
+        choices: [{ message: { content: 'ok' } }],
+      });
+
+      await service.callDeepseekChat('Path with invalid escape: \\x and \\q');
+
+      expect(deepseekChatCreate).toHaveBeenCalledTimes(1);
+      expect(deepseekChatCreate).toHaveBeenCalledWith(
+        expect.objectContaining({
+          messages: [
+            {
+              role: 'user',
+              content: 'Path with invalid escape: \\\\x and \\\\q',
+            },
+          ],
+        }),
+      );
     });
   });
 });
