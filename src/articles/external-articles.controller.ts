@@ -1,3 +1,4 @@
+import { Public } from '@libs/auth';
 import { RateLimitGuard } from '@libs/auth/rate-limit/rate-limit.guard';
 import { RateLimit } from '@libs/auth/rate-limit/rate-limit.decorator';
 import { RateLimitRequest } from '@libs/auth/rate-limit/rate-limit.types';
@@ -46,6 +47,7 @@ const resolveExternalRateLimitKey = (request: RateLimitRequest): string => {
 };
 
 @Controller('api/articles/external')
+@Public()
 @UseGuards(RateLimitGuard, ExternalTokenGuard)
 export class ExternalArticlesController {
   private readonly logger = new Logger(ExternalArticlesController.name);
