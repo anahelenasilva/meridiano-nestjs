@@ -42,7 +42,7 @@ pnpm install
 cp .env.sample .env
 
 # Edit .env with your configuration
-# Required: DATABASE_URL, JWT_SECRET, DEEPSEEK_API_KEY
+# Required: DATABASE_HOST, DATABASE_PORT, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME, JWT_SECRET, DEEPSEEK_API_KEY
 # Optional: OPENAI_API_KEY, GROQ_API_KEY, etc.
 
 # Start infrastructure services
@@ -61,15 +61,15 @@ pnpm run start:dev
 ### Verify Setup
 
 ```bash
-# Check API is running
-curl http://localhost:3000/api/health
+# Check API is running (default local port is 3001)
+curl http://localhost:3001/api/health
 
 # Login (create a user first, then login)
-curl -X POST http://localhost:3000/api/users \
+curl -X POST http://localhost:3001/api/users \
   -H "Content-Type: application/json" \
   -d '{"email":"test@example.com","username":"testuser","password":"password123"}'
 
-curl -X POST http://localhost:3000/api/auth/login \
+curl -X POST http://localhost:3001/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"test@example.com","password":"password123"}'
 ```
@@ -641,8 +641,8 @@ docker ps | grep postgres
 # Check logs
 docker logs meridiano-postgres-local
 
-# Verify connection string
-psql $DATABASE_URL -c "\dt"
+# Verify database connection
+PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -c "\dt"
 ```
 
 #### Redis Connection Failed
@@ -718,7 +718,11 @@ docker-compose logs -f postgres
 
 | Variable | Description | Example |
 |----------|-------------|---------|
-| `DATABASE_URL` | PostgreSQL connection string | `postgresql://user:pass@localhost:5432/meridian` |
+| `DATABASE_HOST` | PostgreSQL host | `localhost` |
+| `DATABASE_PORT` | PostgreSQL port | `5432` |
+| `DATABASE_USER` | PostgreSQL user | `postgres` |
+| `DATABASE_PASSWORD` | PostgreSQL password | `postgres` |
+| `DATABASE_NAME` | PostgreSQL database name | `meridian` |
 | `JWT_SECRET` | Secret for JWT signing | `your-secret-key-min-32-chars` |
 | `DEEPSEEK_API_KEY` | DeepSeek AI API key | `sk-...` |
 | `EMBEDDING_API_KEY` | Together.xyz API key | `...` |
@@ -729,7 +733,7 @@ docker-compose logs -f postgres
 |----------|-------------|---------|
 | `OPENAI_API_KEY` | OpenAI API key | - |
 | `GROQ_API_KEY` | Groq API key | - |
-| `REDIS_HOST` | Redis hostname | `localhost` |
+| `REDIS_HOST` | Redis hostname | `redis` |
 | `REDIS_PORT` | Redis port | `6379` |
 | `S3_ARTICLES_BUCKET_NAME` | S3 bucket for articles | - |
 | `MAILGUN_API_KEY` | Mailgun API key | - |

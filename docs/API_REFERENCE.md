@@ -1,165 +1,164 @@
 # Meridiano API Reference
 
-Complete API documentation for the Meridiano REST API.
+Reference for the currently implemented HTTP endpoints.
 
-**Base URL**: `http://localhost:3000/api`
+## Base URL
 
-**Authentication**: All endpoints require JWT authentication via `Authorization: Bearer <token>` header, except those marked with 🔓.
+- Default local server: `http://localhost:3001`
+- Most endpoints are under `/api/*`
 
----
+## Authentication
 
-## 📑 Table of Contents
+- Protected endpoints require `Authorization: Bearer <jwt>`
+- Public endpoints:
+  - `GET /`
+  - `GET /api/health`
+  - `POST /api/auth/login`
+  - `POST /api/users`
+  - `POST /api/articles/external` (public route, but requires `X-External-Token`)
 
-- [Authentication](#authentication)
-- [Articles](#articles)
-- [Briefings](#briefings)
-- [YouTube Transcriptions](#youtube-transcriptions)
-- [YouTube Channels](#youtube-channels)
-- [Bookmarks](#bookmarks)
-- [Users](#users)
+## Health
 
----
+### `GET /api/health` (public)
 
-## 🔐 Authentication
+Returns API health status.
 
-### Login
-
-**Endpoint**: `POST /auth/login` 🔓
-
-Authenticate a user and receive a JWT token.
-
-**Request Body**:
 ```json
 {
-  "email": "user@example.com",
-  "password": "password123"
+  "status": "ok",
+  "timestamp": "2026-03-10T18:55:00.000Z"
 }
 ```
 
-**Response** (200 OK):
+## Root
+
+### `GET /` (public)
+
+Returns a simple hello message.
+
+```json
+"Hello World!"
+```
+
+## Auth
+
+### `POST /api/auth/login` (public, rate-limited)
+
+Authenticates a user and returns a JWT.
+
+- Rate limit: 5 attempts per 15 minutes
+- Request body:
+
 ```json
 {
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "email": "user@example.com",
+  "password": "Password123"
+}
+```
+
+- Response:
+
+```json
+{
+  "access_token": "jwt-token",
   "user": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "id": "uuid",
     "email": "user@example.com",
     "username": "johndoe"
   }
 }
 ```
 
-**Error Responses**:
-- `401 Unauthorized` - Invalid credentials
-- `429 Too Many Requests` - Rate limit exceeded
+- Common errors:
+  - `401 Unauthorized` for invalid credentials or unverified email
+  - `429 Too Many Requests` when login rate limit is exceeded
 
----
+## Profiles
 
-## 📰 Articles
+### `GET /api/profiles`
 
-### List Articles
+Returns the available feed profiles currently configured in the app.
 
-**Endpoint**: `GET /articles`
+```json
+["technology", "brasil", "teclas", "politics"]
+```
 
-Retrieve a paginated list of articles with optional filtering.
+## Articles
 
-**Query Parameters**:
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `page` | number | No | Page number (default: 1) |
-| `per_page` | number | No | Items per page (default: 20, max: 100) |
-| `feedProfile` | string | No | Filter by feed profile (e.g., "technology", "brasil") |
-| `search` | string | No | Search query for title and content |
-| `category` | string | No | Filter by category |
-| `fromDate` | string | No | Filter from date (ISO 8601) |
-| `toDate` | string | No | Filter to date (ISO 8601) |
-| `sortBy` | string | No | Sort field: "published_date", "impact", "created_at" |
-| `sortOrder` | string | No | Sort order: "asc", "desc" |
+### `GET /api/articles`
 
-**Response** (200 OK):
+Lists articles with filters and pagination.
+
+- Query params:
+  - `page` (default `1`)
+  - `perPage` (default `20`)
+  - `sortBy` (default `published_date`)
+  - `direction` (`asc` or `desc`, default `desc`)
+  - `feedProfile`
+  - `searchTerm`
+  - `startDate`
+  - `endDate`
+  - `preset` (`yesterday`, `last_week`, `last_30d`, `last_3m`, `last_12m`)
+  - `category`
+
+- Response shape:
+
 ```json
 {
-  "articles": [
-    {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "title": "Article Title",
-      "url": "https://example.com/article",
-      "source": "Example Source",
-      "published_date": "2026-03-01T00:00:00.000Z",
-      "impact": 8,
-      "category": "technology",
-      "feed_profile": "technology",
-      "processed_content": "Article summary...",
-      "raw_content": "Full article content...",
-      "image_url": "https://example.com/image.jpg",
-      "created_at": "2026-03-01T12:00:00.000Z",
-      "updated_at": "2026-03-01T12:00:00.000Z"
-    }
-  ],
+  "articles": [],
   "pagination": {
-    "total": 150,
     "page": 1,
-    "perPage": 20,
-    "totalPages": 8
-  }
+    "per_page": 20,
+    "total_pages": 3,
+    "total_articles": 59
+  },
+  "filters": {
+    "sort_by": "published_date",
+    "direction": "desc",
+    "feed_profile": "technology",
+    "search_term": "",
+    "start_date": "",
+    "end_date": "",
+    "preset": "",
+    "category": ""
+  },
+  "available_profiles": ["technology", "brasil"],
+  "available_categories": ["news", "research"]
 }
 ```
 
----
+### `GET /api/articles/:id`
 
-### Get Article by ID
+Gets an article by ID and returns related articles.
 
-**Endpoint**: `GET /articles/:id`
+- Path param: `id` (UUID)
+- Optional query param: `includeAudio=true`
+- Response shape:
 
-Retrieve a single article by its UUID.
-
-**Path Parameters**:
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `id` | UUID | Article unique identifier |
-
-**Query Parameters**:
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `includeAudio` | boolean | Include associated audio file metadata |
-
-**Response** (200 OK):
 ```json
 {
   "article": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "title": "Article Title",
-    "url": "https://example.com/article",
-    "source": "Example Source",
-    "published_date": "2026-03-01T00:00:00.000Z",
-    "impact": 8,
-    "category": "technology",
-    "feed_profile": "technology",
-    "processed_content": "Article summary...",
-    "raw_content": "Full article content...",
-    "image_url": "https://example.com/image.jpg",
-    "created_at": "2026-03-01T12:00:00.000Z",
-    "updated_at": "2026-03-01T12:00:00.000Z"
+    "id": "uuid",
+    "title": "Article title",
+    "audio": {
+      "id": "audio-uuid",
+      "s3_key": "audio/file.mp3",
+      "file_size_bytes": 1024,
+      "duration_seconds": 90,
+      "presigned_url": "https://..."
+    },
+    "audio_error": "Audio not available for this resource"
   },
-  "audio": {
-    "id": "550e8400-e29b-41d4-a716-446655440001",
-    "url": "https://s3.amazonaws.com/bucket/audio.mp3",
-    "expires_at": "2026-03-01T13:00:00.000Z"
-  }
+  "related_articles": []
 }
 ```
 
-**Error Responses**:
-- `404 Not Found` - Article not found
+`audio` and `audio_error` are only evaluated when `includeAudio=true`.
 
----
+### `POST /api/articles`
 
-### Create Article
+Scrapes one article and queues processing.
 
-**Endpoint**: `POST /articles`
-
-Scrape and add a new article from a URL.
-
-**Request Body**:
 ```json
 {
   "url": "https://example.com/article",
@@ -167,557 +166,412 @@ Scrape and add a new article from a URL.
 }
 ```
 
-**Response** (201 Created):
+Response includes queue metadata:
+
 ```json
 {
-  "jobId": "job-123456",
+  "success": true,
+  "jobId": "123",
+  "articleFileKey": "article-uuid",
   "message": "Article scraped and queued for processing"
 }
 ```
 
-**Error Responses**:
-- `400 Bad Request` - Invalid URL or article already exists
-- `409 Conflict` - Article already exists in database
+### `DELETE /api/articles/:id`
 
----
+Deletes an article.
 
-### Delete Article
-
-**Endpoint**: `DELETE /articles/:id`
-
-Delete an article by its UUID.
-
-**Path Parameters**:
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `id` | UUID | Article unique identifier |
-
-**Response** (200 OK):
 ```json
 {
   "success": true
 }
 ```
 
----
+### `POST /api/articles/upload-url`
 
-### Generate Upload URL
+Generates a presigned POST for markdown upload.
 
-**Endpoint**: `POST /articles/upload-url`
-
-Generate a presigned URL for uploading a markdown file directly to S3.
-
-**Request Body**:
 ```json
 {
-  "articleFileName": "article-123.md",
-  "s3Bucket": "my-bucket",
+  "articleFileName": "article.md",
+  "s3Bucket": "optional-bucket-name",
   "contentType": "text/markdown",
   "fileSize": 1024
 }
 ```
 
-**Response** (200 OK):
+`contentType` accepted values: `text/markdown`, `text/plain`.
+
+### `POST /api/articles/markdown`
+
+Queues a markdown article stored in S3.
+
 ```json
 {
-  "url": "https://s3.amazonaws.com/my-bucket",
-  "fields": {
-    "key": "article-123.md",
-    "bucket": "my-bucket",
-    "X-Amz-Algorithm": "AWS4-HMAC-SHA256",
-    "X-Amz-Credential": "...",
-    "X-Amz-Date": "20260301T000000Z",
-    "X-Amz-Signature": "..."
-  }
-}
-```
-
----
-
-### Process Markdown Article
-
-**Endpoint**: `POST /articles/markdown`
-
-Queue a markdown file from S3 for processing.
-
-**Request Body**:
-```json
-{
-  "s3Key": "article-123.md",
+  "s3Key": "article.md",
   "feedProfile": "technology",
-  "s3Bucket": "my-bucket"
+  "s3Bucket": "optional-bucket-name"
 }
 ```
 
-**Response** (202 Accepted):
+Response:
+
 ```json
 {
-  "jobId": "job-123456",
+  "success": true,
+  "jobId": "123",
+  "articleFileKey": "article.md",
   "message": "Markdown article queued for processing"
 }
 ```
 
----
+### `GET /api/articles/jobs/:jobId`
 
-### Get Job Status
+Returns article-processing job status.
 
-**Endpoint**: `GET /articles/jobs/:jobId`
-
-Check the status of a background job.
-
-**Path Parameters**:
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `jobId` | string | Job identifier |
-
-**Response** (200 OK):
 ```json
 {
-  "jobId": "job-123456",
+  "jobId": "123",
   "state": "completed",
   "progress": 100,
-  "result": {
-    "articleId": "550e8400-e29b-41d4-a716-446655440000"
-  }
+  "result": {},
+  "error": null,
+  "data": {}
 }
 ```
 
-**Job States**: `waiting`, `active`, `completed`, `failed`
+### `POST /api/articles/:id/audio`
 
----
+Queues audio generation for an article (`202 Accepted`).
 
-### Generate Audio for Article
-
-**Endpoint**: `POST /articles/:id/audio`
-
-Queue audio generation for an article.
-
-**Path Parameters**:
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `id` | UUID | Article unique identifier |
-
-**Response** (202 Accepted):
 ```json
 {
-  "jobId": "audio-job-123456",
+  "jobId": "audio-job-id",
   "message": "Audio generation queued successfully"
 }
 ```
 
-**Error Responses**:
-- `404 Not Found` - Article not found
-- `409 Conflict` - Audio already exists or generation in progress
-- `400 Bad Request` - Article has no content for audio generation
+### `GET /api/articles/:id/audio/status/:jobId`
 
----
+Gets audio generation status for an article.
 
-### Get Audio Job Status
-
-**Endpoint**: `GET /articles/:id/audio/status/:jobId`
-
-Check the status of an audio generation job.
-
-**Path Parameters**:
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `id` | UUID | Article unique identifier |
-| `jobId` | string | Audio job identifier |
-
-**Response** (200 OK):
 ```json
 {
-  "jobId": "audio-job-123456",
+  "jobId": "audio-job-id",
   "state": "completed",
+  "progress": 100,
+  "result": {},
+  "error": null,
   "data": {
-    "sourceId": "550e8400-e29b-41d4-a716-446655440000",
-    "sourceType": "article"
-  },
-  "result": {
-    "audioId": "550e8400-e29b-41d4-a716-446655440001"
+    "sourceType": "article",
+    "sourceId": "uuid",
+    "text": "..."
   }
 }
 ```
 
----
+## External Article Submission
 
-## 📊 Briefings
+### `POST /api/articles/external` (public, token-protected, rate-limited)
 
-### List Briefings
+Public endpoint for external sources (for example bots) to submit article URLs.
 
-**Endpoint**: `GET /briefings`
+- Required header: `X-External-Token: <token>`
+- Rate limit: 10 requests per minute per token/IP
+- Request body:
 
-Retrieve all briefing metadata.
+```json
+{
+  "url": "https://example.com/news",
+  "feedProfile": "technology",
+  "source": "telegram",
+  "metadata": {
+    "chatId": "12345",
+    "messageId": "67890",
+    "username": "bot-user",
+    "note": "optional context"
+  }
+}
+```
 
-**Query Parameters**:
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `feedProfile` | string | No | Filter by feed profile |
+- Success response:
 
-**Response** (200 OK):
+```json
+{
+  "success": true,
+  "jobId": "123",
+  "articleId": "uuid",
+  "message": "Article submitted successfully and queued for processing"
+}
+```
+
+- Error format:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "INVALID_URL",
+    "message": "The URL you provided doesn't seem valid. Please check and try again."
+  }
+}
+```
+
+Error codes:
+- `INVALID_URL`
+- `INVALID_FEED_PROFILE`
+- `UNAUTHORIZED`
+- `RATE_LIMIT_EXCEEDED`
+- `ARTICLE_EXISTS`
+- `SCRAPE_FAILED`
+- `INTERNAL_ERROR`
+
+## Briefings
+
+### `GET /api/briefings`
+
+Lists briefing metadata.
+
+- Optional query param: `feedProfile`
+- Response shape:
+
 ```json
 {
   "briefings": [
     {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "title": "Tech Briefing - March 1, 2026",
-      "feed_profile": "technology",
-      "created_at": "2026-03-01T08:00:00.000Z",
-      "article_count": 15
-    }
-  ]
-}
-```
-
----
-
-### Get Briefing by ID
-
-**Endpoint**: `GET /briefings/:id`
-
-Retrieve a full briefing with content.
-
-**Path Parameters**:
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `id` | UUID | Briefing unique identifier |
-
-**Response** (200 OK):
-```json
-{
-  "id": "550e8400-e29b-41d4-a716-446655440000",
-  "title": "Tech Briefing - March 1, 2026",
-  "feed_profile": "technology",
-  "content": "# Today's Technology Briefing\n\n## Key Stories\n\n### 1. AI Breakthrough...",
-  "articles": [
-    {
-      "id": "550e8400-e29b-41d4-a716-446655440001",
-      "title": "Related Article",
-      "url": "https://example.com/article"
+      "id": "uuid",
+      "generated_at": "2026-03-10T18:55:00.000Z",
+      "feed_profile": "technology"
     }
   ],
-  "created_at": "2026-03-01T08:00:00.000Z"
+  "current_feed_profile": "technology",
+  "available_profiles": ["technology", "brasil"]
 }
 ```
 
----
+### `GET /api/briefings/:id`
 
-## 🎬 YouTube Transcriptions
+Gets a briefing by ID.
 
-### List Transcriptions
-
-**Endpoint**: `GET /youtube/transcriptions`
-
-Retrieve all YouTube transcriptions.
-
-**Response** (200 OK):
 ```json
 {
-  "transcriptions": [
+  "id": "uuid",
+  "brief_markdown": "# Brief content",
+  "generated_at": "2026-03-10T18:55:00.000Z",
+  "feed_profile": "technology"
+}
+```
+
+When not found, current implementation returns:
+
+```json
+{
+  "error": "Briefing not found"
+}
+```
+
+## YouTube Transcriptions
+
+### `GET /api/youtube/transcriptions`
+
+Lists all transcriptions plus available channel filters.
+
+```json
+{
+  "transcriptions": [],
+  "available_channels": [
     {
-      "id": "550e8400-e29b-41d4-a716-446655440000",
-      "videoId": "dQw4w9WgXcQ",
-      "title": "Video Title",
-      "channelId": "channel-123",
-      "channelName": "Channel Name",
-      "thumbnailUrl": "https://img.youtube.com/vi/...",
-      "postedAt": "2026-03-01T00:00:00.000Z",
-      "transcriptionText": "Full transcript text...",
-      "transcriptionSummary": "AI-generated summary...",
-      "created_at": "2026-03-01T12:00:00.000Z"
+      "id": "channel-id",
+      "name": "Channel name"
     }
   ]
 }
 ```
 
----
+### `POST /api/youtube/transcriptions`
 
-### Get Transcription by ID
+Processes one video URL and stores transcription.
 
-**Endpoint**: `GET /youtube/transcriptions/:id`
-
-Retrieve a single transcription.
-
-**Path Parameters**:
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `id` | UUID | Transcription unique identifier |
-
-**Query Parameters**:
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `includeAudio` | boolean | Include associated audio file metadata |
-
-**Response** (200 OK):
 ```json
 {
-  "transcription": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "videoId": "dQw4w9WgXcQ",
-    "title": "Video Title",
-    "channelId": "channel-123",
-    "channelName": "Channel Name",
-    "thumbnailUrl": "https://img.youtube.com/vi/...",
-    "postedAt": "2026-03-01T00:00:00.000Z",
-    "transcriptionText": "Full transcript text...",
-    "transcriptionSummary": "AI-generated summary...",
-    "created_at": "2026-03-01T12:00:00.000Z"
-  },
-  "audio": {
-    "id": "550e8400-e29b-41d4-a716-446655440001",
-    "url": "https://s3.amazonaws.com/bucket/audio.mp3",
-    "expires_at": "2026-03-01T13:00:00.000Z"
-  }
+  "url": "https://www.youtube.com/watch?v=abc123",
+  "channelId": "channel-id"
 }
 ```
 
----
-
-### Create Transcription
-
-**Endpoint**: `POST /youtube/transcriptions`
-
-Extract and process a YouTube video transcript.
-
-**Request Body**:
-```json
-{
-  "url": "https://youtube.com/watch?v=dQw4w9WgXcQ",
-  "channelId": "channel-123"
-}
-```
-
-**Response** (201 Created):
-```json
-{
-  "id": "550e8400-e29b-41d4-a716-446655440000",
-  "videoId": "dQw4w9WgXcQ",
-  "title": "Video Title",
-  "channelId": "channel-123",
-  "message": "Transcription queued for processing"
-}
-```
-
----
-
-### Delete Transcription
-
-**Endpoint**: `DELETE /youtube/transcriptions/:id`
-
-Delete a transcription by its UUID.
-
-**Path Parameters**:
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `id` | UUID | Transcription unique identifier |
-
-**Response** (200 OK):
 ```json
 {
   "success": true,
-  "message": "Transcription deleted successfully"
+  "transcriptionId": "uuid",
+  "message": "Video transcription saved successfully"
 }
 ```
 
----
+### `GET /api/youtube/transcriptions/:id`
 
-### Generate Audio for Transcription
+Gets one transcription.
 
-**Endpoint**: `POST /youtube/transcriptions/:id/audio`
+- Path param: `id` (UUID)
+- Optional query param: `includeAudio=true`
 
-Queue audio generation for a transcription.
-
-**Path Parameters**:
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `id` | UUID | Transcription unique identifier |
-
-**Response** (202 Accepted):
 ```json
 {
-  "jobId": "audio-job-123456",
+  "transcription": {
+    "id": "uuid",
+    "channelId": "channel-id",
+    "channelName": "Channel",
+    "videoTitle": "Video title",
+    "videoUrl": "https://www.youtube.com/watch?v=abc123",
+    "processedAt": "2026-03-10T18:55:00.000Z",
+    "transcriptionText": "...",
+    "transcriptionSummary": "...",
+    "thumbnailUrl": "https://..."
+  },
+  "audio": {
+    "id": "audio-uuid",
+    "s3_key": "audio/file.mp3",
+    "file_size_bytes": 1024,
+    "duration_seconds": 90,
+    "presigned_url": "https://..."
+  },
+  "audio_error": "Audio not available for this resource"
+}
+```
+
+### `DELETE /api/youtube/transcriptions/:id`
+
+Deletes one transcription.
+
+```json
+{
+  "sucess": true
+}
+```
+
+Note: response key is currently spelled `sucess` in implementation.
+
+### `POST /api/youtube/transcriptions/:id/audio`
+
+Queues audio generation for a transcription (`202 Accepted`).
+
+```json
+{
+  "jobId": "audio-job-id",
   "message": "Audio generation queued successfully"
 }
 ```
 
----
+## YouTube Channels
 
-## 📺 YouTube Channels
+### `GET /api/youtube/channels`
 
-### List Channels
+Lists channels.
 
-**Endpoint**: `GET /youtube/channels`
-
-Retrieve all configured YouTube channels.
-
-**Response** (200 OK):
 ```json
-{
-  "channels": [
-    {
-      "id": "channel-123",
-      "name": "Tech Channel",
-      "url": "https://youtube.com/c/techchannel",
-      "description": "Technology news and reviews",
-      "enabled": true,
-      "maxVideos": 10,
-      "created_at": "2026-01-01T00:00:00.000Z"
-    }
-  ]
-}
+[
+  {
+    "id": "uuid",
+    "channelId": "UCxxxx",
+    "url": "https://youtube.com/@name",
+    "name": "Channel Name",
+    "description": "Description",
+    "enabled": true,
+    "maxVideos": 10
+  }
+]
 ```
 
----
+### `POST /api/youtube/channels`
 
-### Create Channel
+Creates a channel.
 
-**Endpoint**: `POST /youtube/channels`
-
-Add a new YouTube channel for monitoring.
-
-**Request Body**:
 ```json
 {
-  "channelId": "UCxxxxxxxxxxxxxxxxxxx",
+  "channelId": "UCxxxx",
   "name": "Channel Name",
-  "url": "https://youtube.com/c/channelname",
-  "description": "Channel description",
+  "url": "https://youtube.com/@name",
+  "description": "Description",
   "enabled": true,
   "maxVideos": 10
 }
 ```
 
-**Response** (201 Created):
 ```json
 {
-  "id": "UCxxxxxxxxxxxxxxxxxxx",
+  "id": "uuid",
+  "channelId": "UCxxxx",
   "name": "Channel Name",
-  "url": "https://youtube.com/c/channelname",
-  "description": "Channel description",
+  "url": "https://youtube.com/@name",
+  "description": "Description",
   "enabled": true,
   "maxVideos": 10,
-  "created_at": "2026-03-01T12:00:00.000Z"
+  "createdAt": "2026-03-10T18:55:00.000Z",
+  "updatedAt": "2026-03-10T18:55:00.000Z"
 }
 ```
 
----
+### `PATCH /api/youtube/channels/:channelId`
 
-### Update Channel Status
+Enables/disables a channel.
 
-**Endpoint**: `PATCH /youtube/channels/:channelId`
-
-Enable or disable a channel.
-
-**Path Parameters**:
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `channelId` | string | YouTube channel ID |
-
-**Request Body**:
 ```json
 {
   "enabled": false
 }
 ```
 
-**Response** (200 OK):
 ```json
 {
-  "id": "UCxxxxxxxxxxxxxxxxxxx",
-  "name": "Channel Name",
-  "enabled": false,
-  "updated_at": "2026-03-01T12:00:00.000Z"
+  "success": true,
+  "message": "Channel disabled successfully"
 }
 ```
 
----
+## Bookmarks
 
-## 🔖 Bookmarks
+### `POST /api/bookmarks`
 
-### Add Bookmark
+Creates a bookmark.
 
-**Endpoint**: `POST /bookmarks`
-
-Save an article to bookmarks.
-
-**Request Body**:
 ```json
 {
-  "user_id": "550e8400-e29b-41d4-a716-446655440000",
-  "article_id": "550e8400-e29b-41d4-a716-446655440001"
+  "user_id": "user-uuid",
+  "article_id": "article-uuid"
 }
 ```
 
-**Response** (201 Created):
 ```json
 {
-  "id": "550e8400-e29b-41d4-a716-446655440002",
-  "user_id": "550e8400-e29b-41d4-a716-446655440000",
-  "article_id": "550e8400-e29b-41d4-a716-446655440001",
-  "created_at": "2026-03-01T12:00:00.000Z"
+  "id": "bookmark-uuid",
+  "user_id": "user-uuid",
+  "article_id": "article-uuid",
+  "created_at": "2026-03-10T18:55:00.000Z"
 }
 ```
 
-**Error Responses**:
-- `404 Not Found` - User or article not found
-- `400 Bad Request` - Article already bookmarked
+### `GET /api/bookmarks`
 
----
+Lists bookmarks for a user.
 
-### List Bookmarks
+- Required query param: `user_id`
+- Optional: `page`, `per_page`
 
-**Endpoint**: `GET /bookmarks`
-
-Retrieve user's bookmarked articles.
-
-**Query Parameters**:
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `user_id` | UUID | Yes | User unique identifier |
-| `page` | number | No | Page number (default: 1) |
-| `per_page` | number | No | Items per page (default: 20, max: 100) |
-
-**Response** (200 OK):
 ```json
 {
-  "bookmarks": [
-    {
-      "id": "550e8400-e29b-41d4-a716-446655440002",
-      "user_id": "550e8400-e29b-41d4-a716-446655440000",
-      "article_id": "550e8400-e29b-41d4-a716-446655440001",
-      "article": {
-        "id": "550e8400-e29b-41d4-a716-446655440001",
-        "title": "Article Title",
-        "url": "https://example.com/article",
-        "source": "Example Source",
-        "published_date": "2026-03-01T00:00:00.000Z",
-        "impact": 8
-      },
-      "created_at": "2026-03-01T12:00:00.000Z"
-    }
-  ],
-  "total": 50,
+  "bookmarks": [],
+  "total": 12,
   "page": 1,
   "perPage": 20,
-  "totalPages": 3
+  "totalPages": 1
 }
 ```
 
----
+### `DELETE /api/bookmarks`
 
-### Remove Bookmark
+Deletes a bookmark.
 
-**Endpoint**: `DELETE /bookmarks`
+- Required query params: `user_id`, `article_id`
 
-Remove an article from bookmarks.
-
-**Query Parameters**:
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `user_id` | UUID | Yes | User unique identifier |
-| `article_id` | UUID | Yes | Article unique identifier |
-
-**Response** (200 OK):
 ```json
 {
   "success": true,
@@ -725,157 +579,88 @@ Remove an article from bookmarks.
 }
 ```
 
-**Error Responses**:
-- `404 Not Found` - Bookmark not found
+### `GET /api/bookmarks/check/:articleId`
 
----
+Checks bookmark status for a given user/article pair.
 
-### Check Bookmark Status
+- Path param: `articleId`
+- Required query param: `user_id`
 
-**Endpoint**: `GET /bookmarks/check/:articleId`
-
-Check if an article is bookmarked by a user.
-
-**Path Parameters**:
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `articleId` | UUID | Article unique identifier |
-
-**Query Parameters**:
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `user_id` | UUID | Yes | User unique identifier |
-
-**Response** (200 OK):
 ```json
 {
   "bookmarked": true
 }
 ```
 
----
+### `GET /api/bookmarks/count`
 
-### Get Bookmark Count
+Returns bookmark count for a user.
 
-**Endpoint**: `GET /bookmarks/count`
+- Required query param: `user_id`
 
-Get the total number of bookmarks for a user.
-
-**Query Parameters**:
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `user_id` | UUID | Yes | User unique identifier |
-
-**Response** (200 OK):
 ```json
 {
   "count": 42
 }
 ```
 
----
+## Users
 
-## 👤 Users
+### `POST /api/users` (public)
 
-### Create User
+Creates a user.
 
-**Endpoint**: `POST /users` 🔓
-
-Register a new user account.
-
-**Request Body**:
 ```json
 {
   "email": "user@example.com",
   "username": "johndoe",
-  "password": "securePassword123"
+  "password": "Password123"
 }
 ```
 
-**Validation Rules**:
-- `email`: Valid email format
-- `username`: Alphanumeric, underscores, hyphens only
-- `password`: Minimum 8 characters
+Password rules:
+- minimum 8 chars
+- at least one letter
+- at least one uppercase letter
+- at least one number
 
-**Response** (201 Created):
 ```json
 {
-  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "id": "uuid",
   "email": "user@example.com",
   "username": "johndoe",
-  "created_at": "2026-03-01T12:00:00.000Z"
+  "created_at": "2026-03-10T18:55:00.000Z"
 }
 ```
 
-**Error Responses**:
-- `400 Bad Request` - Invalid input or user already exists
-- `409 Conflict` - Email or username already taken
+### `GET /api/users/:id`
 
----
+Gets user by ID.
 
-### Get User by ID
-
-**Endpoint**: `GET /users/:id`
-
-Retrieve user information.
-
-**Path Parameters**:
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `id` | UUID | User unique identifier |
-
-**Response** (200 OK):
 ```json
 {
-  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "id": "uuid",
   "email": "user@example.com",
   "username": "johndoe",
-  "created_at": "2026-03-01T12:00:00.000Z"
+  "created_at": "2026-03-10T18:55:00.000Z"
 }
 ```
 
-**Error Responses**:
-- `404 Not Found` - User not found
+Common error: `404 Not Found` with message `Invalid user`.
 
----
+## Feed Profile Values
 
-## 📊 HTTP Status Codes
+These values are accepted by endpoints that require `feedProfile`:
 
-| Code | Description |
-|------|-------------|
-| `200` | OK - Request succeeded |
-| `201` | Created - Resource created successfully |
-| `202` | Accepted - Request accepted for processing |
-| `400` | Bad Request - Invalid input or parameters |
-| `401` | Unauthorized - Authentication required or invalid |
-| `404` | Not Found - Resource not found |
-| `409` | Conflict - Resource conflict (e.g., already exists) |
-| `429` | Too Many Requests - Rate limit exceeded |
-| `500` | Internal Server Error - Server error |
+- `default`
+- `technology`
+- `politics`
+- `business`
+- `health`
+- `science`
+- `brasil`
+- `teclas`
 
----
+## Last Updated
 
-## 🔑 Authentication Header
-
-All protected endpoints require the JWT token in the Authorization header:
-
-```
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-```
-
----
-
-## 📅 Date Formats
-
-All dates are returned in ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.sssZ`
-
----
-
-## 📄 Content Types
-
-- **Request**: `application/json`
-- **Response**: `application/json`
-
----
-
-*Last updated: March 2026*
+March 2026

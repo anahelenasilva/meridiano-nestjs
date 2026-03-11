@@ -1,78 +1,90 @@
 # Cursor + OpenCode Quick Reference
 
+## Current Canonical Docs
+
+- Workflow guide: `docs/features/opencode/CURSOR_OPENCODE_WORKFLOW.md`
+- Setup guide: `docs/features/opencode/OPENCODE_SETUP.md`
+- Helper script: `scripts/opencode-helpers.sh`
+- Ralph guide: `scripts/ralph/README.md`
+
 ## When to Use Which Tool
 
-| Task | Tool | How |
-|------|------|-----|
-| Quick question | Cursor | Direct chat |
-| Small code fix | Cursor | Direct chat |
-| Code review | Cursor | `@filename` |
-| File navigation | Cursor | `@filename` |
-| Large refactoring | OpenCode | `ocu "task"` |
-| Multi-file changes | OpenCode | `ocu "task"` |
-| Complex feature | OpenCode | `ocu "task"` |
-| Deep exploration | OpenCode | `ocu "task"` |
-| PRD-based work | Cursor | `/ralph` |
+| Task                                      | Recommended Tool | Fastest Entry Point              |
+| ----------------------------------------- | ---------------- | -------------------------------- |
+| Quick question, code explanation          | Cursor           | Direct chat                      |
+| Single-file/small-scope fix               | Cursor           | Direct chat with file references |
+| Code review and local navigation          | Cursor           | `@filename` or `@folder`         |
+| Multi-file refactor                       | OpenCode         | `ocu "task"`                     |
+| Complex implementation with orchestration | OpenCode         | `ocu "task"`                     |
+| Architecture-heavy debugging              | OpenCode         | `oc-oracle "task"`               |
+| Broad codebase exploration                | OpenCode         | `oc-explore "task"`              |
+| Planner-first work                        | OpenCode         | `oc-plan "task"`                 |
+| PRD-driven implementation                 | Cursor           | `/generate-prd` and `/ralph`     |
 
 ## Quick Commands
 
 ### Cursor Chat
-```
-@filename              # Reference a file
-/generate-prd <task>   # Generate PRD
-/ralph convert <file>  # Convert PRD to Ralph format
-```
-
-### OpenCode (via helpers)
-```bash
-ocp                    # Launch OpenCode
-ocu "task"             # Task with ultrawork
-oc-status              # Check configuration
-oc-help                # Show all commands
+```text
+@filename               # Reference a file
+@folder/                # Reference a folder
+/generate-prd <task>    # Generate PRD
+/ralph convert <file>   # Convert PRD to Ralph JSON format
 ```
 
-### OpenCode Agents
+### OpenCode Helpers (from `scripts/opencode-helpers.sh`)
 ```bash
-oc-sisyphus "task"     # Main orchestrator
-oc-oracle "task"       # Architecture/debugging
-oc-librarian "task"    # Docs/code search
-oc-explore "task"      # Fast codebase grep
-oc-plan "task"         # Planner mode
+ocp                     # Launch OpenCode in project context
+ocu "task"              # Run task with ultrawork orchestration
+oc-status               # Show OpenCode setup status
+oc-help                 # List helper commands and examples
 ```
+
+### Agent-Specific Helpers
+```bash
+oc-sisyphus "task"      # Main orchestrator
+oc-oracle "task"        # Architecture and debugging
+oc-librarian "task"     # Docs/code research
+oc-explore "task"       # Fast exploration
+oc-plan "task"          # Planner mode (Prometheus)
+```
+
+## Setup Reminder
+
+If helper commands are not available, source the script:
+
+```bash
+source scripts/opencode-helpers.sh
+```
+
+For permanent setup, follow `docs/features/opencode/OPENCODE_SETUP.md`.
 
 ## Common Workflows
 
-### Adding a Feature
-1. **Cursor**: Generate PRD → `/generate-prd add email notifications`
-2. **OpenCode**: Implement → `ocu "add email notifications"`
-3. **Cursor**: Review → Check changes, test, refine
+### New Feature
+1. Cursor: `/generate-prd <feature>`
+2. Cursor (optional): `/ralph convert <prd-file>`
+3. OpenCode: `ocu "<implement feature>"` for multi-file execution
+4. Cursor: review, test, and refine
 
-### Large Refactoring
-1. **Cursor**: Understand scope → Ask about current patterns
-2. **OpenCode**: Execute → `ocu "refactor to use services"`
-3. **Cursor**: Verify → Check edge cases, fix issues
+### Large Refactor
+1. Cursor: map scope and constraints
+2. OpenCode: `ocu "<refactor task>"`
+3. Cursor: verify edge cases and types
 
 ### Bug Fixing
-1. **Cursor**: Investigate → Quick exploration
-2. **OpenCode**: Complex fix → `ocu "fix bug description"` (if multi-file)
-3. **Cursor**: Simple fix → Direct chat (if single file)
+1. Cursor: reproduce and isolate
+2. OpenCode: use `ocu` if fix spans multiple files
+3. Cursor: finalize with focused validation
 
-## Magic Keywords
+## Keywords That Matter
 
-- **Cursor**: `@filename`, `/generate-prd`, `/ralph`
-- **OpenCode**: `ultrawork` or `ulw` (automatic orchestration)
+- Cursor: `@filename`, `/generate-prd`, `/ralph`
+- OpenCode: `ultrawork` (auto-orchestration through `ocu`)
 
-## Tips
+## Practical Guidelines
 
-1. **Start with Cursor** for most tasks
-2. **Switch to OpenCode** when task is complex or multi-file
-3. **Review everything** OpenCode does in Cursor
-4. **Use Git branches** to separate work
-5. **Iterate** between both tools
-
-## Getting Help
-
-- **Workflow Guide**: `docs/CURSOR_OPENCODE_WORKFLOW.md`
-- **Setup Guide**: `docs/OPENCODE_SETUP.md`
-- **OpenCode Help**: `oc-help`
-- **Ralph Guide**: `scripts/ralph/README.md`
+1. Start in Cursor by default.
+2. Switch to OpenCode once changes are broad or multi-step.
+3. Review all generated changes before commit.
+4. Keep branch scope tight per task.
+5. Alternate tools intentionally: plan -> execute -> verify.
