@@ -262,12 +262,14 @@ export class YoutubeTranscriptionsService {
    * @param videoUrl - The YouTube video URL
    * @param channelId - The channel ID from config
    * @param proxyUrl - Optional proxy URL for transcript fetching
+   * @param customPrompt - Optional custom prompt for summary (max 500 chars)
    * @returns The transcription ID or null if video already exists
    */
   async processSingleVideoUrl(
     videoUrl: string,
     channelId: string,
     proxyUrl?: string,
+    customPrompt?: string,
   ): Promise<string | null> {
     try {
       console.log(`\n========================================`);
@@ -396,8 +398,11 @@ export class YoutubeTranscriptionsService {
 
       await this.storageService.saveTranscript(channelId, videoWithTranscript);
 
-      // Save transcription to database first without summary
-      const transcriptionId = await this.addTranscription(videoWithTranscript);
+      const transcriptionId = await this.addTranscription(
+        videoWithTranscript,
+        undefined,
+        customPrompt,
+      );
 
       if (transcriptionId === null) {
         console.log('Video already exists in database');
@@ -429,11 +434,13 @@ export class YoutubeTranscriptionsService {
    * Save a transcription to the database
    * @param videoData - The video with transcript data
    * @param transcriptionSummary - Optional summary of the transcription
+   * @param customPrompt - Optional custom prompt for summary (max 500 chars)
    * @returns The inserted ID or null on error
    */
   async addTranscription(
     videoData: VideoWithTranscript,
     transcriptionSummary?: string,
+    customPrompt?: string,
   ): Promise<string | null> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
@@ -441,9 +448,9 @@ export class YoutubeTranscriptionsService {
       const stmt = db.prepare(`
         INSERT INTO youtube_transcriptions (
           channel_id, channel_name, video_title, posted_at, video_url,
-          processed_at, transcription_text, transcription_summary, thumbnail_url
+          processed_at, transcription_text, transcription_summary, thumbnail_url, custom_prompt
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
 
       stmt.run(
@@ -457,6 +464,7 @@ export class YoutubeTranscriptionsService {
           videoData.transcriptText,
           transcriptionSummary || null,
           videoData.thumbnailUrl || null,
+          customPrompt || null,
         ],
         function (this: { lastID?: string }, err: Error | null) {
           if (err) {
@@ -647,7 +655,8 @@ export class YoutubeTranscriptionsService {
           processed_at AS "processedAt",
           transcription_text AS "transcriptionText",
           transcription_summary AS "transcriptionSummary",
-          thumbnail_url AS "thumbnailUrl"
+          thumbnail_url AS "thumbnailUrl",
+          custom_prompt
         FROM youtube_transcriptions
         WHERE id = ?
       `;
