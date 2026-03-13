@@ -158,6 +158,7 @@ describe('Telegram Article Submission E2E Flow', () => {
       expect(mockScraperService.scrapeSingleArticle).toHaveBeenCalledWith(
         TEST_URL,
         FeedProfile.TECHNOLOGY,
+        undefined,
       );
 
       expect(mockQueueService.addArticleProcessingJob).toHaveBeenCalledWith(
@@ -252,7 +253,11 @@ describe('Telegram Article Submission E2E Flow', () => {
           });
 
         expect(response.status).toBe(201);
-        expect(mockScraperService.scrapeSingleArticle).toHaveBeenCalledWith(TEST_URL, profile);
+        expect(mockScraperService.scrapeSingleArticle).toHaveBeenCalledWith(
+          TEST_URL,
+          profile,
+          undefined,
+        );
 
         // Add small delay between requests to prevent socket hang up
         await new Promise((resolve) => setTimeout(resolve, 50));
