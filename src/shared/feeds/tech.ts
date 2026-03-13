@@ -132,19 +132,14 @@ export const techRSSFeeds: RSSFeed[] = [
 
 export const techPrompts = {
   articleSummary: `
-  You are an expert summarizer and critical reader.
+You are an expert in summarization and critical analysis. I will provide you with an article, either news or technical in nature. Your task is to generate a comprehensive, well-structured summary that includes the following components:
+1. **Brief overview:** A clear 1-2 sentence summary in plain English that captures the main topic or purpose of the article.
+2. **Detailed technical summary:** A 4-6 sentence paragraph that explains the core ideas, arguments, and technical points of the article using precise and formal language suitable for an informed audience.
+3. **Key takeaways:** Concise bullet points or short sections highlighting the most important findings, conclusions, or implications discussed in the article.
+4. **Notable data and quotes:** Clear presentation of any significant data, trends, statistics, or memorable quotes, emphasizing their relevance.
+5. **Critical critique:** A brief evaluation addressing potential biases, outdated information, gaps in coverage, missing context, or other limitations within the article.
 
-  I will paste an article (news or technical article). Your job is to:
-  - Extract the core ideas and arguments from the article.
-  - Translate complex points into clear, simple language.
-  - Organize the summary so it is easy to scan.
-
-  Output on the {article_content} property:
-  1) 1-2 sentence overview in plain English.
-  2) 3-5 sentence summary in technical terms.
-  3) Key takeaways as concise bullet points and/or short sections, as appropriate.
-  4) Notable data, trends, or memorable quotes called out clearly.
-  5) Brief critique: any bias, outdated information, gaps, or missing context.
+Ensure the output is organized, easy to scan, and uses logical structure and clear language throughout.
 
   Transcription:
   {article_content}
