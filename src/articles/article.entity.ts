@@ -53,6 +53,7 @@ export interface DBArticle {
   image_url?: string | null;
   created_at: Date;
   categories?: ArticleCategory[] | null;
+  custom_prompt?: string | null;
 }
 
 export interface ArticleContent {

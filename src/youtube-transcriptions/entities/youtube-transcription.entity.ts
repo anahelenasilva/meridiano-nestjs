@@ -9,6 +9,7 @@ export interface DBYoutubeTranscription {
   transcriptionText: string;
   transcriptionSummary?: string;
   thumbnailUrl?: string;
+  custom_prompt?: string | null;
 }
 
 export interface YoutubeTranscription {
@@ -22,4 +23,5 @@ export interface YoutubeTranscription {
   transcriptionText: string;
   transcriptionSummary?: string;
   thumbnailUrl?: string;
+  custom_prompt?: string | null;
 }
