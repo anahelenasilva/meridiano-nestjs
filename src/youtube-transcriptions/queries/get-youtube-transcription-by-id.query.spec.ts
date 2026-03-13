@@ -98,6 +98,39 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
     expect(mockS3Service.generatePresignedGetUrl).not.toHaveBeenCalled();
   });
 
+  it('should include custom_prompt in response when transcription has custom_prompt null (backward compat)', async () => {
+    const transcriptionWithNullCustomPrompt = {
+      ...mockTranscription,
+      custom_prompt: null as string | null,
+    };
+    mockService.getTranscriptionById.mockResolvedValue(
+      transcriptionWithNullCustomPrompt,
+    );
+
+    const result = await query.execute(transcriptionId, false);
+
+    expect(result).not.toBeNull();
+    expect(result?.transcription).toHaveProperty('custom_prompt', null);
+  });
+
+  it('should include custom_prompt in response when transcription has custom_prompt set', async () => {
+    const transcriptionWithCustomPrompt = {
+      ...mockTranscription,
+      custom_prompt: 'Focus on technical details.',
+    };
+    mockService.getTranscriptionById.mockResolvedValue(
+      transcriptionWithCustomPrompt,
+    );
+
+    const result = await query.execute(transcriptionId, false);
+
+    expect(result).not.toBeNull();
+    expect(result?.transcription).toHaveProperty(
+      'custom_prompt',
+      'Focus on technical details.',
+    );
+  });
+
   it('should return null when transcription does not exist', async () => {
     mockService.getTranscriptionById.mockResolvedValue(null);
 

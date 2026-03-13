@@ -64,6 +64,61 @@ describe('ProcessorService', () => {
     jest.clearAllMocks();
   });
 
+  describe('processArticles - backward compatibility (custom prompt)', () => {
+    it('sends base prompt to AI when article has no custom_prompt', async () => {
+      const articleWithoutCustomPrompt: DBArticle = {
+        ...mockArticle,
+        custom_prompt: undefined,
+      };
+      mockArticlesService.getUnprocessedArticles.mockResolvedValue([
+        articleWithoutCustomPrompt,
+      ]);
+      mockAiService.callChat.mockResolvedValue('Article summary');
+      mockAiService.getEmbedding.mockResolvedValue([0.1, 0.2, 0.3]);
+
+      await service.processArticles(FeedProfile.DEFAULT, 10);
+
+      expect(mockAiService.callChat).toHaveBeenCalledWith('summary prompt');
+      expect(mockAiService.callChat).not.toHaveBeenCalledWith(
+        expect.stringContaining('Additional instructions:'),
+      );
+    });
+
+    it('sends base prompt to AI when article has custom_prompt null', async () => {
+      const articleWithNullCustomPrompt: DBArticle = {
+        ...mockArticle,
+        custom_prompt: null,
+      };
+      mockArticlesService.getUnprocessedArticles.mockResolvedValue([
+        articleWithNullCustomPrompt,
+      ]);
+      mockAiService.callChat.mockResolvedValue('Article summary');
+      mockAiService.getEmbedding.mockResolvedValue([0.1, 0.2, 0.3]);
+
+      await service.processArticles(FeedProfile.DEFAULT, 10);
+
+      expect(mockAiService.callChat).toHaveBeenCalledWith('summary prompt');
+    });
+
+    it('appends custom prompt when article has custom_prompt set', async () => {
+      const articleWithCustomPrompt: DBArticle = {
+        ...mockArticle,
+        custom_prompt: 'Focus on security implications.',
+      };
+      mockArticlesService.getUnprocessedArticles.mockResolvedValue([
+        articleWithCustomPrompt,
+      ]);
+      mockAiService.callChat.mockResolvedValue('Article summary');
+      mockAiService.getEmbedding.mockResolvedValue([0.1, 0.2, 0.3]);
+
+      await service.processArticles(FeedProfile.DEFAULT, 10);
+
+      expect(mockAiService.callChat).toHaveBeenCalledWith(
+        'summary prompt\n\nAdditional instructions: Focus on security implications.',
+      );
+    });
+  });
+
   describe('processArticles - embedding failure isolation', () => {
     it('should continue processing when embedding fails and save article without embedding', async () => {
       mockAiService.callChat.mockResolvedValue('Article summary');

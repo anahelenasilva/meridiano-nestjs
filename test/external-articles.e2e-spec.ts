@@ -239,10 +239,11 @@ describe('External Articles Integration Tests', () => {
         expect(response.body).toHaveProperty('jobId', TEST_JOB_ID);
         expect(response.body).toHaveProperty('message');
 
-        // Verify services were called
+        // Verify services were called (customPrompt undefined when not provided - backward compat)
         expect(mockScraperService.scrapeSingleArticle).toHaveBeenCalledWith(
           TEST_URL,
           FeedProfile.TECHNOLOGY,
+          undefined,
         );
         expect(mockQueueService.addArticleProcessingJob).toHaveBeenCalledWith(
           TEST_ARTICLE_ID,
