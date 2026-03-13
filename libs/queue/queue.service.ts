@@ -281,11 +281,13 @@ Please investigate the issue.`,
     s3Bucket: string,
     s3Key: string,
     feedProfile: FeedProfile,
+    customPrompt?: string,
   ): Promise<JobInfo> {
     const jobData: ProcessMarkdownArticleJobData = {
       s3Bucket,
       s3Key,
       feedProfile,
+      customPrompt,
     };
 
     const job = await this.markdownArticleQueue.add(

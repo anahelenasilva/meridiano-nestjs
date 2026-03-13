@@ -5,9 +5,12 @@ import {
   IsOptional,
   IsString,
   IsUrl,
+  MaxLength,
   ValidateNested,
 } from 'class-validator';
 import { FeedProfile } from '../../shared/types/feed';
+
+const CUSTOM_PROMPT_MAX_LENGTH = 500;
 
 export class ExternalSubmissionMetadataDto {
   @IsOptional()
@@ -39,6 +42,13 @@ export class ExternalCreateArticleDto {
   @IsOptional()
   @IsString()
   source?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(CUSTOM_PROMPT_MAX_LENGTH, {
+    message: `customPrompt must not exceed ${CUSTOM_PROMPT_MAX_LENGTH} characters`,
+  })
+  customPrompt?: string;
 
   @IsOptional()
   @ValidateNested()

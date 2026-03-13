@@ -109,6 +109,9 @@ describe('MarkdownArticleProcessor', () => {
         'S3 Upload',
         markdownContent,
         FeedProfile.DEFAULT,
+        undefined,
+        undefined,
+        undefined,
       );
       expect(mockProcessorService.processArticles).toHaveBeenCalledWith(
         FeedProfile.DEFAULT,

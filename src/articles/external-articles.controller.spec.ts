@@ -124,6 +124,7 @@ describe('ExternalArticlesController', () => {
       expect(scraperService.scrapeSingleArticle).toHaveBeenCalledWith(
         validDto.url,
         validDto.feedProfile,
+        undefined,
       );
       expect(queueService.addArticleProcessingJob).toHaveBeenCalledWith(
         articleId,
