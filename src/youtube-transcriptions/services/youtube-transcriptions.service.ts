@@ -539,7 +539,8 @@ export class YoutubeTranscriptionsService {
            processed_at AS "processedAt",
            transcription_text AS "transcriptionText",
            transcription_summary AS "transcriptionSummary",
-           thumbnail_url AS "thumbnailUrl"
+           thumbnail_url AS "thumbnailUrl",
+           custom_prompt
            FROM youtube_transcriptions
            ORDER BY processed_at DESC`,
         [],
@@ -769,7 +770,8 @@ export class YoutubeTranscriptionsService {
           processed_at AS "processedAt",
           transcription_text AS "transcriptionText",
           transcription_summary AS "transcriptionSummary",
-          thumbnail_url AS "thumbnailUrl"
+          thumbnail_url AS "thumbnailUrl",
+          custom_prompt
         FROM youtube_transcriptions
         WHERE 1=1
       `;
