@@ -77,7 +77,7 @@ export class ExternalArticlesController {
       });
     }
 
-    const { url, feedProfile, source = 'external', metadata } = dto;
+    const { url, feedProfile, customPrompt, source = 'external', metadata } = dto;
     this.assertSafeExternalUrl(url);
 
     const submissionMetadata = {
@@ -108,7 +108,12 @@ export class ExternalArticlesController {
       this.logger.error('Failed to create submission record', error);
     }
 
-    const articleId = await this.scrapeArticleOrThrow(url, feedProfile, submissionId);
+    const articleId = await this.scrapeArticleOrThrow(
+      url,
+      feedProfile,
+      submissionId,
+      customPrompt,
+    );
 
     if (articleId === null) {
       if (submissionId) {
@@ -124,7 +129,11 @@ export class ExternalArticlesController {
       });
     }
 
-    const jobInfo = await this.enqueueArticleOrThrow(articleId, feedProfile, submissionId);
+    const jobInfo = await this.enqueueArticleOrThrow(
+      articleId,
+      feedProfile,
+      submissionId,
+    );
 
     if (submissionId) {
       await this.safeUpdateSubmissionStatus(submissionId, 'success', {
@@ -308,9 +317,14 @@ export class ExternalArticlesController {
     url: string,
     feedProfile: FeedProfile,
     submissionId: string | null,
+    customPrompt?: string,
   ): Promise<string | null> {
     try {
-      return await this.scraperService.scrapeSingleArticle(url, feedProfile);
+      return await this.scraperService.scrapeSingleArticle(
+        url,
+        feedProfile,
+        customPrompt,
+      );
     } catch (error) {
       await this.handleError(error, submissionId, {
         code: ExternalArticleErrorCode.SCRAPE_FAILED,

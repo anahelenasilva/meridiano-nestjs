@@ -59,7 +59,7 @@ export class MarkdownArticleProcessor implements OnModuleInit, OnModuleDestroy {
   async processMarkdownArticle(
     job: Job<ProcessMarkdownArticleJobData>,
   ): Promise<{ success: boolean; message: string }> {
-    const { s3Bucket, s3Key, feedProfile } = job.data;
+    const { s3Bucket, s3Key, feedProfile, customPrompt } = job.data;
 
     console.log(
       `\n>>> Processing markdown article from S3 (Job ${job.id}) <<<`,
@@ -84,6 +84,9 @@ export class MarkdownArticleProcessor implements OnModuleInit, OnModuleDestroy {
         'S3 Upload',
         parsedArticle.content,
         feedProfile,
+        undefined,
+        undefined,
+        customPrompt,
       );
 
       if (!articleId) {

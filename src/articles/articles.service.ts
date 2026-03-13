@@ -21,6 +21,7 @@ interface ArticleRow {
   feed_profile: string;
   image_url?: string | null;
   categories?: string | null;
+  custom_prompt?: string | null;
   created_at: string;
   content?: string;
 }
@@ -42,13 +43,14 @@ export class ArticlesService {
     feedProfile: FeedProfile,
     imageUrl?: string,
     categories?: ArticleCategory[],
+    customPrompt?: string,
   ): Promise<string | null> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
       const stmt = db.prepare(`
-        INSERT INTO articles (url, title, published_date, feed_source, raw_content, feed_profile, image_url, categories)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO articles (url, title, published_date, feed_source, raw_content, feed_profile, image_url, categories, custom_prompt)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
 
       stmt.run(
@@ -61,6 +63,7 @@ export class ArticlesService {
           feedProfile,
           imageUrl,
           categories ? JSON.stringify(categories) : null,
+          customPrompt || null,
         ],
         function (this: { lastID?: string }, err: Error | null) {
           if (err) {
@@ -321,7 +324,7 @@ export class ArticlesService {
         SELECT
           id, url, title, published_date, feed_source, feed_profile,
           raw_content as content, processed_content, impact_rating,
-          image_url, categories, created_at
+          image_url, categories, custom_prompt, created_at
         FROM articles
         WHERE id = ?
       `;
@@ -435,7 +438,7 @@ export class ArticlesService {
         SELECT
           id, url, title, published_date, feed_source, feed_profile,
           raw_content as content, processed_content, impact_rating,
-          image_url, categories, created_at
+          image_url, categories, custom_prompt, created_at
         FROM articles
         WHERE 1=1
       `;
@@ -592,7 +595,7 @@ export class ArticlesService {
           SELECT
             id, url, title, published_date, feed_source, feed_profile,
             raw_content as content, processed_content, impact_rating,
-            image_url, categories, created_at
+            image_url, categories, custom_prompt, created_at
           FROM articles
           WHERE feed_profile = ?
           AND id != ?

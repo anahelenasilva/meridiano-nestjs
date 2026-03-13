@@ -6,6 +6,7 @@ import { ArticleCategory, DBArticle } from '../articles/article.entity';
 import { ArticlesService } from '../articles/articles.service';
 import { ConfigService } from '../config/config.service';
 import { ProfilesService } from '../profiles/profiles.service';
+import { buildFinalPrompt } from '../shared/helpers/build-final-prompt';
 import { ProcessingStats } from '../shared/types/ai';
 import { FeedProfile } from '../shared/types/feed';
 
@@ -66,13 +67,18 @@ export class ProcessorService {
       console.log(`Processing article ID: ${article.id} - ${article.title}...`);
 
       try {
-        const summaryPrompt = profilePrompts.articleSummary
+        const baseSummaryPrompt = profilePrompts.articleSummary
           ? this.configService.formatPrompt(profilePrompts.articleSummary, {
             article_content: article.raw_content.substring(0, 4000),
           })
           : this.configService.getArticleSummaryPrompt(
             article.raw_content.substring(0, 4000),
           );
+
+        const summaryPrompt = buildFinalPrompt(
+          baseSummaryPrompt,
+          article.custom_prompt,
+        );
 
         const summary = await this.aiService.callChat(summaryPrompt);
 

@@ -150,6 +150,7 @@ export class ScraperService {
   async scrapeSingleArticle(
     url: string,
     feedProfile: FeedProfile,
+    customPrompt?: string,
   ): Promise<string | null> {
     // console.log(`\n--- Scraping single article: ${url} ---`);
 
@@ -197,7 +198,6 @@ export class ScraperService {
     const publishedDate = new Date();
     const feedSource = 'Manual';
 
-    // console.log(`Adding article: ${title}`);
     const articleId = await this.articlesService.addArticle(
       url,
       title,
@@ -206,6 +206,8 @@ export class ScraperService {
       rawContent,
       feedProfile,
       ogImageUrl || undefined,
+      undefined,
+      customPrompt,
     );
 
     if (articleId) {
