@@ -8,6 +8,7 @@ import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions
 export type CreateYoutubeTranscriptionCommandInput = {
   url: string;
   channelId: string;
+  customPrompt?: string;
 };
 
 export type CreateYoutubeTranscriptionCommandResponse = {
@@ -23,12 +24,14 @@ export class CreateYoutubeTranscriptionCommand {
   async execute(
     input: CreateYoutubeTranscriptionCommandInput,
   ): Promise<CreateYoutubeTranscriptionCommandResponse> {
-    const { url, channelId } = input;
+    const { url, channelId, customPrompt } = input;
 
     try {
       const transcriptionId = await this.service.processSingleVideoUrl(
         url,
         channelId,
+        undefined,
+        customPrompt,
       );
 
       if (transcriptionId === null) {

@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUrl,
+  MaxLength,
+} from 'class-validator';
 
 export class CreateYoutubeTranscriptionDto {
   @IsNotEmpty()
@@ -8,4 +14,11 @@ export class CreateYoutubeTranscriptionDto {
   @IsNotEmpty()
   @IsString()
   channelId: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(500, {
+    message: 'customPrompt must not exceed 500 characters',
+  })
+  customPrompt?: string;
 }

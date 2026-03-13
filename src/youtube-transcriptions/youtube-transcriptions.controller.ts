@@ -42,6 +42,7 @@ export class YoutubeTranscriptionsController {
     return await this.createYoutubeTranscriptionCommand.execute({
       url: dto.url,
       channelId: dto.channelId,
+      customPrompt: dto.customPrompt,
     });
   }
 

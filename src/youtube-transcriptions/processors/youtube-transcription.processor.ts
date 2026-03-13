@@ -8,6 +8,7 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Job, Worker } from 'bullmq';
 import { AiService } from '../../ai/ai.service';
 import { ConfigService } from '../../config/config.service';
+import { buildFinalPrompt } from '../../shared/helpers/build-final-prompt';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 
 @Injectable()
@@ -67,8 +68,16 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
     );
 
     try {
-      const summaryPrompt =
+      const transcription =
+        await this.youtubeTranscriptionsService.getTranscriptionById(
+          transcriptionId,
+        );
+      const basePrompt =
         this.configService.getTranscriptionSummaryPrompt(transcriptText);
+      const summaryPrompt = buildFinalPrompt(
+        basePrompt,
+        transcription?.custom_prompt ?? null,
+      );
 
       console.log(`Generating summary for transcription ${transcriptionId}...`);
       const summary = await this.aiService.callDeepseekChat(summaryPrompt);
