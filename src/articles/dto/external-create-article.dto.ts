@@ -1,5 +1,6 @@
 import { Type } from 'class-transformer';
 import {
+  IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsOptional,
@@ -49,6 +50,10 @@ export class ExternalCreateArticleDto {
     message: `customPrompt must not exceed ${CUSTOM_PROMPT_MAX_LENGTH} characters`,
   })
   customPrompt?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  generateAudio?: boolean;
 
   @IsOptional()
   @ValidateNested()

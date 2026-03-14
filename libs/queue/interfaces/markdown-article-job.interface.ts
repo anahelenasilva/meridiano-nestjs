@@ -5,4 +5,5 @@ export interface ProcessMarkdownArticleJobData {
   s3Key: string;
   feedProfile: FeedProfile;
   customPrompt?: string;
+  generateAudio?: boolean;
 }

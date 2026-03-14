@@ -162,9 +162,12 @@ Scrapes one article and queues processing.
 ```json
 {
   "url": "https://example.com/article",
-  "feedProfile": "technology"
+  "feedProfile": "technology",
+  "generateAudio": true
 }
 ```
+
+`generateAudio` is optional. When `true`, the processing pipeline also enqueues article audio generation.
 
 Response includes queue metadata:
 
@@ -210,9 +213,12 @@ Queues a markdown article stored in S3.
 {
   "s3Key": "article.md",
   "feedProfile": "technology",
-  "s3Bucket": "optional-bucket-name"
+  "s3Bucket": "optional-bucket-name",
+  "generateAudio": true
 }
 ```
+
+`generateAudio` is optional. When `true`, the processing pipeline also enqueues article audio generation.
 
 Response:
 
@@ -284,6 +290,7 @@ Public endpoint for external sources (for example bots) to submit article URLs.
 {
   "url": "https://example.com/news",
   "feedProfile": "technology",
+  "generateAudio": true,
   "source": "telegram",
   "metadata": {
     "chatId": "12345",
@@ -293,6 +300,8 @@ Public endpoint for external sources (for example bots) to submit article URLs.
   }
 }
 ```
+
+`generateAudio` is optional. When `true`, the processing pipeline also enqueues article audio generation.
 
 - Success response:
 
@@ -395,9 +404,12 @@ Processes one video URL and stores transcription.
 ```json
 {
   "url": "https://www.youtube.com/watch?v=abc123",
-  "channelId": "channel-id"
+  "channelId": "channel-id",
+  "generateAudio": true
 }
 ```
+
+`generateAudio` is optional. When `true`, audio generation is enqueued after transcription summary processing.
 
 ```json
 {

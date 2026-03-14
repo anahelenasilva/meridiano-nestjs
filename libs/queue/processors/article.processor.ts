@@ -51,7 +51,7 @@ export class ArticleProcessor implements OnModuleInit, OnModuleDestroy {
   async processArticle(
     job: Job<ProcessArticleJobData>,
   ): Promise<{ success: boolean; message: string }> {
-    const { articleFileKey: articleId, feedProfile } = job.data;
+    const { articleFileKey: articleId, feedProfile, generateAudio } = job.data;
 
     console.log(
       `\n>>> Processing article ID ${articleId} from queue (Job ${job.id}) <<<`,
@@ -64,6 +64,7 @@ export class ArticleProcessor implements OnModuleInit, OnModuleDestroy {
         feedProfile,
         1,
         articleId,
+        generateAudio,
       );
 
       if (processStats.errors > 0 || processStats.articlesProcessed === 0) {

@@ -117,6 +117,7 @@ describe('MarkdownArticleProcessor', () => {
         FeedProfile.DEFAULT,
         1,
         articleId,
+        undefined,
       );
       expect(mockProcessorService.rateArticles).toHaveBeenCalledWith(
         FeedProfile.DEFAULT,
@@ -308,6 +309,7 @@ describe('MarkdownArticleProcessor', () => {
         FeedProfile.TECHNOLOGY,
         1,
         articleId,
+        undefined,
       );
       expect(mockProcessorService.rateArticles).toHaveBeenCalledWith(
         FeedProfile.TECHNOLOGY,

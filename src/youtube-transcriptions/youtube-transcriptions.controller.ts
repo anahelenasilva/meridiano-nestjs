@@ -43,6 +43,7 @@ export class YoutubeTranscriptionsController {
       url: dto.url,
       channelId: dto.channelId,
       customPrompt: dto.customPrompt,
+      generateAudio: dto.generateAudio,
     });
   }
 
