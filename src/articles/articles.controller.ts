@@ -1,10 +1,9 @@
-import { AudioJobService, AUDIO_GENERATION_SUCCESS_MESSAGE } from '@libs/audio';
+import { AudioJobService } from '@libs/audio';
 import { QueueService } from '@libs/queue';
 import { S3Service } from '@libs/s3';
 import {
   BadRequestException,
   Body,
-  ConflictException,
   Controller,
   Delete,
   Get,
@@ -18,8 +17,8 @@ import {
   forwardRef,
 } from '@nestjs/common';
 import { parseIncludeAudio } from '../shared/helpers/parse-include-audio';
-import { AudioFilesService } from '../audio-files/audio-files.service';
 import { ScraperService } from '../scraper/scraper.service';
+import { GenerateArticleAudioCommand } from './commands/generate-article-audio.command';
 import type { PaginatedArticleInput } from './article.entity';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
@@ -39,7 +38,7 @@ export class ArticlesController {
     private readonly queueService: QueueService,
     private readonly s3Service: S3Service,
     private readonly audioJobService: AudioJobService,
-    private readonly audioFilesService: AudioFilesService,
+    private readonly generateArticleAudioCommand: GenerateArticleAudioCommand,
   ) {}
 
   @Post()
@@ -195,49 +194,7 @@ export class ArticlesController {
   @Post(':id/audio')
   @HttpCode(202)
   async generateAudio(@Param('id', ParseUUIDPipe) id: string) {
-    const article = await this.articlesService.getArticleById(id);
-
-    if (!article) {
-      throw new NotFoundException('Article not found');
-    }
-
-    const existingAudio = await this.audioFilesService.getAudioFileBySource(
-      'article',
-      id,
-    );
-
-    if (existingAudio) {
-      throw new ConflictException(
-        'Audio already exists for this resource. Use the detail endpoint with includeAudio=true to fetch the audio.',
-      );
-    }
-
-    // Determine the text to use for TTS: prefer processed_content, fall back to raw_content
-    const text = article.processed_content || article.raw_content;
-
-    if (!text) {
-      throw new BadRequestException(
-        'Article has no content available for audio generation',
-      );
-    }
-
-    const jobInfo = await this.audioJobService.enqueueAudioJobIfNotDuplicate({
-      sourceType: 'article',
-      sourceId: id,
-      text,
-      date: article.published_date,
-    });
-
-    if (!jobInfo) {
-      throw new ConflictException(
-        'Audio generation is already in progress for this resource.',
-      );
-    }
-
-    return {
-      jobId: jobInfo.jobId,
-      message: AUDIO_GENERATION_SUCCESS_MESSAGE,
-    };
+    return await this.generateArticleAudioCommand.execute(id);
   }
 
   @Get(':id/audio/status/:jobId')
