@@ -3,60 +3,67 @@
   "label": "Telegram Article Submission",
   "nodes": [
     {
-      "id": "telegram-receiver",
-      "type": "telegram receiver",
-      "z": "telegram-article-submission-flow",
-      "name": "Telegram Bot",
-      "bot": "telegram-bot-config",
-      "saveDataDir": "",
-      "filterCommands": false,
-      "x": 100,
-      "y": 200,
-      "wires": [
-        ["message-parser"]
-      ]
-    },
-    {
       "id": "message-parser",
       "type": "function",
-      "z": "telegram-article-submission-flow",
-      "name": "Parse Message (Option B)",
+      "z": "10dda1b4e0b691b0",
+      "name": "Parse Message",
       "func": "// Message parsing function for Option B (Structured Format)\n// Format:\n// URL: https://example.com/article\n// Feed: technology\n// Note: Optional description\n\nconst messageText = msg.payload.content || msg.payload.message.text;\nconst chatId = msg.payload.chatId || msg.payload.message.chat.id;\nconst messageId = msg.payload.messageId || msg.payload.message.message_id;\nconst username = msg.payload.from?.username || msg.payload.message?.from?.username;\n\n// Store chat info for later\nmsg.chatId = chatId;\nmsg.messageId = messageId;\nmsg.username = username;\n\n// If it's a command, ignore it\nif (msg.payload.content && msg.payload.content.startsWith('/')) {\n  msg.payload = {\n    isCommand: true,\n    command: msg.payload.content.split(' ')[0]\n  };\n  return [null, msg];\n}\n\nconst lines = (messageText || '').split('\\n');\n\n// Initialize variables\nlet url = null;\nlet feedProfile = null;\nlet note = null;\nconst errors = [];\n\n// Parse each line for key-value pairs\nlines.forEach(line => {\n  const trimmedLine = line.trim();\n\n  // Match URL: label (case-insensitive)\n  const urlMatch = trimmedLine.match(/^URL:\\s*(.+)$/i);\n  if (urlMatch) {\n    url = urlMatch[1].trim();\n  }\n\n  // Match Feed: label (case-insensitive)\n  const feedMatch = trimmedLine.match(/^Feed:\\s*(.+)$/i);\n  if (feedMatch) {\n    feedProfile = feedMatch[1].trim().toLowerCase();\n  }\n\n  // Match Note: label (optional, case-insensitive)\n  const noteMatch = trimmedLine.match(/^Note:\\s*(.+)$/i);\n  if (noteMatch) {\n    note = noteMatch[1].trim();\n  }\n});\n\n// Validation\nif (!url) {\n  errors.push(\"❌ URL is required. Please include a URL: line.\");\n}\n\nif (!feedProfile) {\n  errors.push(\"❌ Feed profile is required. Please include a Feed: line.\");\n}\n\n// URL format validation\nif (url && !url.match(/^https?:\\/\\/.+/i)) {\n  errors.push(\"❌ The URL doesn't appear to be valid. Please check and try again.\");\n}\n\n// Feed profile validation\nconst validFeeds = ['default', 'technology', 'politics', 'business', 'health', 'science', 'brasil', 'teclas'];\nif (feedProfile && !validFeeds.includes(feedProfile)) {\n  errors.push(`❌ Feed '${feedProfile}' doesn't exist. Available feeds: ${validFeeds.join(', ')}`);\n}\n\n// Set payload for next node\nif (errors.length > 0) {\n  msg.payload = {\n    url: url,\n    feedProfile: feedProfile,\n    note: note,\n    errors: errors,\n    isValid: false\n  };\n  return [null, msg];\n}\n\nmsg.payload = {\n  url: url,\n  feedProfile: feedProfile,\n  note: note,\n  errors: null,\n  isValid: true,\n  metadata: {\n    chatId: chatId.toString(),\n    messageId: messageId.toString(),\n    username: username || undefined\n  }\n};\n\nreturn [msg, null];\n",
       "outputs": 2,
-      "x": 280,
-      "y": 200,
+      "timeout": "",
+      "noerr": 0,
+      "initialize": "",
+      "finalize": "",
+      "libs": [],
+      "x": 320,
+      "y": 480,
       "wires": [
-        ["api-request"], ["validation-error"]
+        [
+          "api-request"
+        ],
+        [
+          "validation-error"
+        ]
       ]
     },
     {
       "id": "validation-error",
       "type": "function",
-      "z": "telegram-article-submission-flow",
+      "z": "10dda1b4e0b691b0",
       "name": "Format Validation Error",
       "func": "// Format validation errors for Telegram\nconst errors = msg.payload.errors || [];\nlet errorMessage = \"❌ Submission failed:\\n\\n\";\n\nerrors.forEach(err => {\n  errorMessage += err + \"\\n\";\n});\n\nerrorMessage += \"\\n📝 Use this format:\\nURL: https://example.com\\nFeed: technology\";\n\nmsg.payload = {\n  chatId: msg.chatId,\n  type: \"message\",\n  content: errorMessage\n};\n\nreturn msg;",
-      "x": 500,
-      "y": 320,
+      "outputs": 1,
+      "x": 660,
+      "y": 580,
       "wires": [
-        ["telegram-sender"]
+        [
+          "telegram-sender"
+        ]
       ]
     },
     {
       "id": "api-request",
       "type": "function",
-      "z": "telegram-article-submission-flow",
+      "z": "10dda1b4e0b691b0",
       "name": "Prepare API Request",
-      "func": "// Prepare the API request payload\nconst payload = msg.payload;\n\nmsg.url = flow.get('MERIDIANO_API_URL') || 'http://localhost:3000/api/articles/external';\nmsg.method = 'POST';\nmsg.headers = {\n  'Content-Type': 'application/json',\n  'X-External-Token': flow.get('EXTERNAL_API_TOKEN') || process.env.EXTERNAL_API_TOKEN\n};\n\nmsg.payload = {\n  url: payload.url,\n  feedProfile: payload.feedProfile,\n  source: 'telegram',\n  metadata: payload.metadata\n};\n\n// If there's a note, add it to metadata\nif (payload.note) {\n  msg.payload.metadata.note = payload.note;\n}\n\nreturn msg;",
-      "x": 500,
-      "y": 200,
+      "func": "// Prepare the API request payload\nconst payload = msg.payload;\n\nmsg.url = env.get('MERIDIANO_API_URL') || 'http://100.127.158.111:3001/api/articles/external';\nmsg.headers = {\n  'Content-Type': 'application/json',\n  'X-External-Token': flow.get('EXTERNAL_API_TOKEN') || env.get('EXTERNAL_API_TOKEN')\n};\n\nmsg.payload = {\n  url: payload.url,\n  feedProfile: payload.feedProfile,\n  source: 'telegram',\n  metadata: payload.metadata\n};\n\nif (payload.note) {\n  msg.payload.metadata.note = payload.note;\n}\n\nreturn msg;",
+      "outputs": 1,
+      "timeout": "",
+      "noerr": 0,
+      "initialize": "",
+      "finalize": "",
+      "libs": [],
+      "x": 600,
+      "y": 440,
       "wires": [
-        ["http-request"]
+        [
+          "http-request"
+        ]
       ]
     },
     {
       "id": "http-request",
       "type": "http request",
-      "z": "telegram-article-submission-flow",
+      "z": "10dda1b4e0b691b0",
       "name": "Submit to Meridiano API",
       "method": "POST",
       "ret": "obj",
@@ -68,16 +75,19 @@
       "insecureHTTPParser": false,
       "authType": "none",
       "senderr": true,
-      "x": 720,
-      "y": 200,
+      "x": 830,
+      "y": 500,
       "wires": [
-        ["api-response-handler"]
+        [
+          "api-response-handler",
+          "dd6a14ac4f962985"
+        ]
       ]
     },
     {
       "id": "api-response-handler",
       "type": "switch",
-      "z": "telegram-article-submission-flow",
+      "z": "10dda1b4e0b691b0",
       "name": "Check Response Status",
       "property": "statusCode",
       "propertyType": "msg",
@@ -85,12 +95,12 @@
         {
           "t": "eq",
           "v": "201",
-          "vt": "str"
+          "vt": "num"
         },
         {
           "t": "eq",
           "v": "200",
-          "vt": "str"
+          "vt": "num"
         },
         {
           "t": "else"
@@ -98,44 +108,64 @@
       ],
       "checkall": "false",
       "repair": false,
-      "x": 920,
-      "y": 200,
+      "outputs": 3,
+      "x": 1130,
+      "y": 480,
       "wires": [
-        ["success-handler"], ["success-handler"], ["error-handler"]
+        [
+          "success-handler",
+          "2afd153ae833611e"
+        ],
+        [
+          "success-handler",
+          "2afd153ae833611e"
+        ],
+        [
+          "error-handler",
+          "2afd153ae833611e"
+        ]
       ]
     },
     {
       "id": "success-handler",
       "type": "function",
-      "z": "telegram-article-submission-flow",
+      "z": "10dda1b4e0b691b0",
       "name": "Format Success Response",
       "func": "// Format success message for Telegram\nconst response = msg.payload;\n\nlet successMessage = \"✅ Article submitted successfully!\\n\\n\";\n\nif (response.message) {\n  successMessage += response.message + \"\\n\\n\";\n}\n\nif (response.jobId) {\n  successMessage += `🆔 Job ID: \\`${response.jobId}\\`\\n`;\n}\n\nif (response.articleId) {\n  successMessage += `📄 Article ID: \\`${response.articleId}\\`\\n`;\n}\n\nsuccessMessage += \"\\n⏳ Your article is being processed and will be available soon.\";\n\nmsg.payload = {\n  chatId: msg.chatId,\n  type: \"message\",\n  content: successMessage\n};\n\nreturn msg;",
-      "x": 1120,
-      "y": 160,
+      "outputs": 1,
+      "x": 1500,
+      "y": 320,
       "wires": [
-        ["telegram-sender"]
+        [
+          "telegram-sender"
+        ]
       ]
     },
     {
       "id": "error-handler",
       "type": "function",
-      "z": "telegram-article-submission-flow",
+      "z": "10dda1b4e0b691b0",
       "name": "Format Error Response",
       "func": "// Format error message for Telegram based on error code\nconst response = msg.payload;\nconst statusCode = msg.statusCode;\n\n// Error message formatting based on error codes\nconst errorMessages = {\n  INVALID_URL: \"❌ The URL you provided doesn't seem valid. Please check and try again.\",\n  INVALID_FEED_PROFILE: \"❌ Invalid feed profile. Use one of: default, technology, politics, business, health, science, brasil, teclas\",\n  UNAUTHORIZED: \"⚠️ Authentication error. Please contact support.\",\n  RATE_LIMIT_EXCEEDED: \"⏳ You're submitting too fast. Please wait a minute before trying again.\",\n  ARTICLE_EXISTS: \"ℹ️ This article has already been submitted before.\",\n  SCRAPE_FAILED: \"❌ Couldn't access the article. Is the URL correct and accessible?\",\n  INTERNAL_ERROR: \"🔥 Something went wrong on our end. Please try again later.\"\n};\n\n// Try to extract error code from response\nlet errorCode = 'INTERNAL_ERROR';\nlet errorMessage = 'An error occurred. Please try again later.';\n\nif (response && response.error && response.error.code) {\n  errorCode = response.error.code;\n  errorMessage = errorMessages[errorCode] || response.error.message || errorMessages.INTERNAL_ERROR;\n} else if (statusCode === 401) {\n  errorCode = 'UNAUTHORIZED';\n  errorMessage = errorMessages.UNAUTHORIZED;\n} else if (statusCode === 429) {\n  errorCode = 'RATE_LIMIT_EXCEEDED';\n  errorMessage = errorMessages.RATE_LIMIT_EXCEEDED;\n} else if (statusCode === 409) {\n  errorCode = 'ARTICLE_EXISTS';\n  errorMessage = errorMessages.ARTICLE_EXISTS;\n} else if (statusCode === 502 || statusCode === 503) {\n  errorCode = 'SCRAPE_FAILED';\n  errorMessage = errorMessages.SCRAPE_FAILED;\n}\n\nmsg.payload = {\n  chatId: msg.chatId,\n  type: \"message\",\n  content: errorMessage\n};\n\nreturn msg;",
-      "x": 1120,
-      "y": 260,
+      "outputs": 1,
+      "x": 1230,
+      "y": 600,
       "wires": [
-        ["telegram-sender"]
+        [
+          "telegram-sender"
+        ]
       ]
     },
     {
       "id": "telegram-sender",
       "type": "telegram sender",
-      "z": "telegram-article-submission-flow",
+      "z": "10dda1b4e0b691b0",
       "name": "Send Reply",
-      "bot": "telegram-bot-config",
-      "x": 1320,
-      "y": 200,
+      "bot": "6fdbb9b9406083b4",
+      "haserroroutput": false,
+      "outputs": 1,
+      "x": 1530,
+      "y": 560,
       "wires": [
         []
       ]
@@ -143,37 +173,121 @@
     {
       "id": "help-command",
       "type": "function",
-      "z": "telegram-article-submission-flow",
+      "z": "10dda1b4e0b691b0",
       "name": "Help Command Handler",
       "func": "// Handle /help command\nconst helpMessage = `📚 *Article Submission Bot Help*\\n\\n` +\n  `Send me an article to add it to your feed. Use this format:\\n\\n` +\n  `\\`\\`\\`\\n` +\n  `URL: https://example.com/article\\n` +\n  `Feed: technology\\n` +\n  `Note: Optional description\\n` +\n  `\\`\\`\\`\\n\\n` +\n  `*Available Feeds:*\\n` +\n  `• default\\n` +\n  `• technology\\n` +\n  `• politics\\n` +\n  `• business\\n` +\n  `• health\\n` +\n  `• science\\n` +\n  `• brasil\\n` +\n  `• teclas\\n\\n` +\n  `*Example:*\\n` +\n  `\\`\\`\\`\\n` +\n  `URL: https://addyosmani.com/blog/self-improving-agents/\\n` +\n  `Feed: technology\\n` +\n  `\\`\\`\\``;\n\nmsg.payload = {\n  chatId: msg.chatId,\n  type: \"message\",\n  content: helpMessage\n};\n\nreturn msg;",
-      "x": 280,
-      "y": 80,
+      "outputs": 1,
+      "x": 1250,
+      "y": 740,
       "wires": [
-        ["telegram-sender"]
+        [
+          "telegram-sender"
+        ]
       ]
     },
     {
       "id": "start-command",
       "type": "function",
-      "z": "telegram-article-submission-flow",
+      "z": "10dda1b4e0b691b0",
       "name": "Start Command Handler",
       "func": "// Handle /start command\nconst startMessage = `👋 *Welcome to Meridiano Article Bot!*\\n\\n` +\n  `I can help you submit articles for processing.\\n\\n` +\n  `*How to use:*\\n` +\n  `1. Send me a URL with a feed profile\\n` +\n  `2. I'll submit it for processing\\n` +\n  `3. You'll get notified when it's ready\\n\\n` +\n  `Type /help for more information.`;\n\nmsg.payload = {\n  chatId: msg.chatId,\n  type: \"message\",\n  content: startMessage\n};\n\nreturn msg;",
-      "x": 280,
-      "y": 40,
+      "outputs": 1,
+      "x": 1250,
+      "y": 700,
       "wires": [
-        ["telegram-sender"]
+        [
+          "telegram-sender"
+        ]
       ]
     },
     {
-      "id": "telegram-bot-config",
-      "type": "telegram bot credentials",
-      "botname": "Meridiano Article Bot",
-      "usertoken": "",
-      "chatId": "",
-      "split": false,
-      "x": 100,
-      "y": 40,
+      "id": "5f4e6756cc6875d7",
+      "type": "telegram receiver",
+      "z": "10dda1b4e0b691b0",
+      "name": "Article Submission Bot",
+      "bot": "6fdbb9b9406083b4",
+      "saveDataDir": "",
+      "filterCommands": false,
+      "hasinput": false,
+      "inputs": 0,
+      "handleallupdates": false,
+      "x": 120,
+      "y": 400,
+      "wires": [
+        [
+          "message-parser"
+        ],
+        []
+      ]
+    },
+    {
+      "id": "2afd153ae833611e",
+      "type": "debug",
+      "z": "10dda1b4e0b691b0",
+      "name": "check response debug",
+      "active": true,
+      "tosidebar": true,
+      "console": false,
+      "tostatus": false,
+      "complete": "true",
+      "targetType": "full",
+      "statusVal": "",
+      "statusType": "auto",
+      "x": 1220,
+      "y": 200,
       "wires": []
+    },
+    {
+      "id": "dd6a14ac4f962985",
+      "type": "debug",
+      "z": "10dda1b4e0b691b0",
+      "name": "after send api",
+      "active": true,
+      "tosidebar": true,
+      "console": false,
+      "tostatus": false,
+      "complete": "true",
+      "targetType": "full",
+      "statusVal": "",
+      "statusType": "auto",
+      "x": 930,
+      "y": 320,
+      "wires": []
+    },
+    {
+      "id": "6fdbb9b9406083b4",
+      "type": "telegram bot",
+      "botname": "article_submission_bot",
+      "usernames": "",
+      "chatids": "",
+      "baseapiurl": "",
+      "testenvironment": false,
+      "updatemode": "polling",
+      "pollinterval": 300,
+      "usesocks": false,
+      "sockshost": "",
+      "socksprotocol": "socks5",
+      "socksport": 6667,
+      "socksusername": "anonymous",
+      "sockspassword": "",
+      "bothost": "",
+      "botpath": "",
+      "localbothost": "0.0.0.0",
+      "localbotport": 8443,
+      "publicbotport": 8443,
+      "privatekey": "",
+      "certificate": "",
+      "useselfsignedcertificate": false,
+      "sslterminated": false,
+      "verboselogging": false
+    },
+    {
+      "id": "00fdf62ee89169a0",
+      "type": "global-config",
+      "env": [],
+      "modules": {
+        "node-red-contrib-telegrambot": "17.0.5"
+      }
     }
   ]
 }
