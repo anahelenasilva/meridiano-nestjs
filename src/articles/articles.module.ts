@@ -8,6 +8,7 @@ import { AudioFilesModule } from '../audio-files/audio-files.module';
 import { ProcessorModule } from '../processor/processor.module';
 import { ProfilesModule } from '../profiles/profiles.module';
 import { ScraperModule } from '../scraper/scraper.module';
+import { GenerateArticleAudioCommand } from './commands/generate-article-audio.command';
 import { ArticlesController } from './articles.controller';
 import { ArticlesService } from './articles.service';
 import { ExternalArticlesController } from './external-articles.controller';
@@ -32,6 +33,7 @@ import { RateLimitGuard } from '@libs/auth/rate-limit/rate-limit.guard';
   ],
   providers: [
     ArticlesService,
+    GenerateArticleAudioCommand,
     ListArticlesQuery,
     GetArticleByIdQuery,
     MarkdownArticleProcessor,
