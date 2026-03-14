@@ -404,9 +404,12 @@ Processes one video URL and stores transcription.
 ```json
 {
   "url": "https://www.youtube.com/watch?v=abc123",
-  "channelId": "channel-id"
+  "channelId": "channel-id",
+  "generateAudio": true
 }
 ```
+
+`generateAudio` is optional. When `true`, audio generation is enqueued after transcription summary processing.
 
 ```json
 {

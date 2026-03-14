@@ -9,6 +9,7 @@ export type CreateYoutubeTranscriptionCommandInput = {
   url: string;
   channelId: string;
   customPrompt?: string;
+  generateAudio?: boolean;
 };
 
 export type CreateYoutubeTranscriptionCommandResponse = {
@@ -24,7 +25,7 @@ export class CreateYoutubeTranscriptionCommand {
   async execute(
     input: CreateYoutubeTranscriptionCommandInput,
   ): Promise<CreateYoutubeTranscriptionCommandResponse> {
-    const { url, channelId, customPrompt } = input;
+    const { url, channelId, customPrompt, generateAudio } = input;
 
     try {
       const transcriptionId = await this.service.processSingleVideoUrl(
@@ -32,6 +33,7 @@ export class CreateYoutubeTranscriptionCommand {
         channelId,
         undefined,
         customPrompt,
+        generateAudio,
       );
 
       if (transcriptionId === null) {

@@ -70,6 +70,36 @@ describe('YoutubeTranscriptionsController', () => {
     expect(controller).toBeDefined();
   });
 
+  describe('createTranscription', () => {
+    it('should pass generateAudio to create command flow', async () => {
+      mockYoutubeTranscriptionsService.processSingleVideoUrl.mockResolvedValue(
+        transcriptionId,
+      );
+
+      const result = await controller.createTranscription({
+        url: 'https://www.youtube.com/watch?v=abc123',
+        channelId: 'channel-1',
+        customPrompt: 'Focus on backend architecture',
+        generateAudio: true,
+      });
+
+      expect(result).toEqual({
+        success: true,
+        transcriptionId,
+        message: 'Video transcription saved successfully',
+      });
+      expect(
+        mockYoutubeTranscriptionsService.processSingleVideoUrl,
+      ).toHaveBeenCalledWith(
+        'https://www.youtube.com/watch?v=abc123',
+        'channel-1',
+        undefined,
+        'Focus on backend architecture',
+        true,
+      );
+    });
+  });
+
   describe('getTranscription', () => {
     it('should return transcription without audio when includeAudio is falsy', async () => {
       mockYoutubeTranscriptionsService.getTranscriptionById.mockResolvedValue(

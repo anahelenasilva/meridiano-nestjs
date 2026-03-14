@@ -263,6 +263,7 @@ export class YoutubeTranscriptionsService {
    * @param channelId - The channel ID from config
    * @param proxyUrl - Optional proxy URL for transcript fetching
    * @param customPrompt - Optional custom prompt for summary (max 500 chars)
+   * @param generateAudio - Optional flag to enqueue audio generation after summary
    * @returns The transcription ID or null if video already exists
    */
   async processSingleVideoUrl(
@@ -270,6 +271,7 @@ export class YoutubeTranscriptionsService {
     channelId: string,
     proxyUrl?: string,
     customPrompt?: string,
+    generateAudio?: boolean,
   ): Promise<string | null> {
     try {
       console.log(`\n========================================`);
@@ -416,6 +418,7 @@ export class YoutubeTranscriptionsService {
         transcriptionId,
         transcriptText.substring(0, 8000), // Limit text length
         videoWithTranscript.title,
+        generateAudio,
       );
 
       console.log(

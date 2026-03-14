@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -21,4 +22,8 @@ export class CreateYoutubeTranscriptionDto {
     message: 'customPrompt must not exceed 500 characters',
   })
   customPrompt?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  generateAudio?: boolean;
 }
