@@ -129,6 +129,7 @@ describe('ExternalArticlesController', () => {
       expect(queueService.addArticleProcessingJob).toHaveBeenCalledWith(
         articleId,
         validDto.feedProfile,
+        undefined,
       );
     });
 

@@ -254,10 +254,12 @@ Please investigate the issue.`,
   async addArticleProcessingJob(
     articleFileKey: string,
     feedProfile: FeedProfile,
+    generateAudio?: boolean,
   ): Promise<JobInfo> {
     const jobData: ProcessArticleJobData = {
       articleFileKey,
       feedProfile,
+      generateAudio,
     };
 
     const job = await this.articleQueue.add(PROCESS_ARTICLE_JOB, jobData);
@@ -282,12 +284,14 @@ Please investigate the issue.`,
     s3Key: string,
     feedProfile: FeedProfile,
     customPrompt?: string,
+    generateAudio?: boolean,
   ): Promise<JobInfo> {
     const jobData: ProcessMarkdownArticleJobData = {
       s3Bucket,
       s3Key,
       feedProfile,
       customPrompt,
+      generateAudio,
     };
 
     const job = await this.markdownArticleQueue.add(

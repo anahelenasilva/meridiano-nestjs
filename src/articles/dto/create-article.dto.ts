@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsOptional,
@@ -26,4 +27,8 @@ export class CreateArticleDto {
     message: `customPrompt must not exceed ${CUSTOM_PROMPT_MAX_LENGTH} characters`,
   })
   customPrompt?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  generateAudio?: boolean;
 }

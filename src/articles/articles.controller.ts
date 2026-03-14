@@ -43,7 +43,7 @@ export class ArticlesController {
 
   @Post()
   async create(@Body() createArticleDto: CreateArticleDto) {
-    const { url, feedProfile, customPrompt } = createArticleDto;
+    const { url, feedProfile, customPrompt, generateAudio } = createArticleDto;
 
     try {
       const articleId = await this.scraperService.scrapeSingleArticle(
@@ -59,6 +59,7 @@ export class ArticlesController {
       const jobInfo = await this.queueService.addArticleProcessingJob(
         articleId,
         feedProfile,
+        generateAudio,
       );
 
       return {
@@ -116,7 +117,7 @@ export class ArticlesController {
 
   @Post('markdown')
   async processMarkdownArticle(@Body() dto: ProcessMarkdownArticleDto) {
-    const { s3Key, feedProfile, s3Bucket, customPrompt } = dto;
+    const { s3Key, feedProfile, s3Bucket, customPrompt, generateAudio } = dto;
 
     try {
       const bucketName = s3Bucket || process.env.S3_ARTICLES_BUCKET_NAME;
@@ -132,6 +133,7 @@ export class ArticlesController {
         s3Key,
         feedProfile,
         customPrompt,
+        generateAudio,
       );
 
       return {

@@ -77,7 +77,14 @@ export class ExternalArticlesController {
       });
     }
 
-    const { url, feedProfile, customPrompt, source = 'external', metadata } = dto;
+    const {
+      url,
+      feedProfile,
+      customPrompt,
+      generateAudio,
+      source = 'external',
+      metadata,
+    } = dto;
     this.assertSafeExternalUrl(url);
 
     const submissionMetadata = {
@@ -133,6 +140,7 @@ export class ExternalArticlesController {
       articleId,
       feedProfile,
       submissionId,
+      generateAudio,
     );
 
     if (submissionId) {
@@ -338,9 +346,14 @@ export class ExternalArticlesController {
     articleId: string,
     feedProfile: FeedProfile,
     submissionId: string | null,
+    generateAudio?: boolean,
   ): Promise<Awaited<ReturnType<QueueService['addArticleProcessingJob']>>> {
     try {
-      return await this.queueService.addArticleProcessingJob(articleId, feedProfile);
+      return await this.queueService.addArticleProcessingJob(
+        articleId,
+        feedProfile,
+        generateAudio,
+      );
     } catch (error) {
       await this.handleError(error, submissionId, {
         code: ExternalArticleErrorCode.INTERNAL_ERROR,
