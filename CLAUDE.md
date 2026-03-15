@@ -57,3 +57,35 @@ alwaysApply: true
 - Check Docker logs: `pnpm run docker:logs`
 - Verify Redis is running: `redis-cli ping`
 - Check for TypeScript errors: `pnpm run build`
+
+## Implementation Standards
+
+### Testing Requirements
+- Every new service class MUST have a corresponding `.spec.ts` test file
+- Test file must be created alongside the implementation
+- Minimum coverage: all public methods, error cases, and edge cases
+- Test fallback paths, not just happy paths
+
+### Abstraction Layer Consistency
+- NEVER call provider-specific methods directly (e.g., `callDeepseekChat`)
+- ALWAYS use the abstraction layer (`callChat`) that respects config
+- If an abstraction exists, use it—don't reach around it
+
+### API Limits Safety
+- BEFORE sending data to any AI/external API, check for size limits
+- If input could exceed limits, truncate or chunk BEFORE the API call
+- Document the limit and the mitigation in code comments
+
+### Parameter Propagation
+- When a function accepts a parameter (e.g., `customPrompt`), it MUST be:
+  - Applied consistently to ALL code paths (single-pass, chunked, fallback)
+  - Passed to all subprocesses that could use it
+- Test each code path with the parameter to verify it's applied
+
+### Error Handling Standards
+- NEVER silently ignore a null/error return from an operation
+- ALWAYS either:
+  - Throw a descriptive error with context (include IDs, operation name)
+  - Store partial results for retry (if applicable)
+  - Log the failure with structured data
+- Empty catch blocks are FORBIDDEN
