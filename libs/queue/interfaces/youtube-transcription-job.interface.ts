@@ -3,4 +3,5 @@ export interface ProcessTranscriptionSummaryJobData {
   transcriptText: string;
   videoTitle: string;
   generateAudio?: boolean;
+  channelId?: string;
 }

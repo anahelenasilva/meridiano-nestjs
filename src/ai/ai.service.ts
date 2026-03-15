@@ -3,6 +3,7 @@ import Groq from 'groq-sdk';
 import OpenAI from 'openai';
 import { ConfigService } from '../config/config.service';
 import { ChatMessage } from '../shared/types/ai';
+import { estimateTokenCount } from '../shared/helpers/token-estimation';
 
 @Injectable()
 export class AiService implements OnModuleInit {
@@ -304,7 +305,7 @@ export class AiService implements OnModuleInit {
 
     texts.forEach((text, index) => {
       const preparedInput = this.prepareEmbeddingInput(text, modelName);
-      if (this.estimateTokenCount(preparedInput) <= safeChunkTokenLimit) {
+      if (estimateTokenCount(preparedInput) <= safeChunkTokenLimit) {
         shortInputs.push({ index, input: preparedInput, original: text });
         return;
       }
@@ -404,7 +405,7 @@ export class AiService implements OnModuleInit {
       return [];
     }
 
-    if (this.estimateTokenCount(normalizedText) <= maxTokens) {
+    if (estimateTokenCount(normalizedText) <= maxTokens) {
       return [normalizedText];
     }
 
@@ -415,7 +416,7 @@ export class AiService implements OnModuleInit {
     for (const sentence of sentences) {
       const candidate = currentChunk ? `${currentChunk} ${sentence}` : sentence;
 
-      if (this.estimateTokenCount(candidate) <= maxTokens) {
+      if (estimateTokenCount(candidate) <= maxTokens) {
         currentChunk = candidate;
         continue;
       }
@@ -424,7 +425,7 @@ export class AiService implements OnModuleInit {
         chunks.push(currentChunk);
       }
 
-      if (this.estimateTokenCount(sentence) <= maxTokens) {
+      if (estimateTokenCount(sentence) <= maxTokens) {
         currentChunk = sentence;
         continue;
       }
@@ -451,14 +452,14 @@ export class AiService implements OnModuleInit {
 
     for (const word of words) {
       const candidate = currentChunk ? `${currentChunk} ${word}` : word;
-      if (this.estimateTokenCount(candidate) <= maxTokens) {
+      if (estimateTokenCount(candidate) <= maxTokens) {
         currentChunk = candidate;
       } else {
         if (currentChunk) {
           chunks.push(currentChunk);
         }
         // Safety check: if a single word exceeds maxTokens, truncate it
-        if (this.estimateTokenCount(word) > maxTokens) {
+        if (estimateTokenCount(word) > maxTokens) {
           // Truncate word to safe length and add as its own chunk
           const safeLength = Math.floor(maxTokens * 3); // Approx 3 chars per token
           const truncatedWord = word.substring(0, safeLength);
@@ -475,27 +476,6 @@ export class AiService implements OnModuleInit {
     }
 
     return chunks;
-  }
-
-  private estimateTokenCount(text: string): number {
-    // Conservative token estimation for embedding models
-    // Embedding models (especially E5) are more sensitive to token limits
-    if (!text || text.length === 0) {
-      return 0;
-    }
-
-    // Method 1: Character-based (most conservative for non-English/large tokens)
-    // Average 2-4 chars per token, use 2.5 for safety margin
-    const charEstimate = Math.ceil(text.length / 2.5);
-
-    // Method 2: Word-based with padding for punctuation
-    const words = text.trim().split(/\s+/).length;
-    const punctuationMatches = text.match(/[.,!?;:"'()[\]{}]/g);
-    const punctuationCount = punctuationMatches ? punctuationMatches.length : 0;
-    const wordEstimate = words + Math.ceil(punctuationCount * 0.5);
-
-    // Use the MORE conservative estimate
-    return Math.max(charEstimate, wordEstimate);
   }
 
   private async getSingleEmbedding(

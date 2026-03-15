@@ -27,6 +27,8 @@ export const VALID_TTS_MODELS = {
 } as const;
 export type ValidTtsModel = keyof typeof VALID_TTS_MODELS;
 
+export type ProcessingMode = 'chunked' | 'full-context';
+
 export type Config = {
   prompts: {
     articleSummary: string;
@@ -71,5 +73,10 @@ export type Config = {
       };
     };
     maxVideosPerChannel: number;
+    maxTranscriptionTokens: number;
+    transcriptionChunkSize: number;
+    transcriptionChunkOverlap: number;
+    defaultProcessingMode: ProcessingMode;
+    fullContextChannels: string[];
   };
 };
