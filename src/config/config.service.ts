@@ -8,6 +8,7 @@ import {
   AudioFailureNotification,
   Config,
   EmbeddingFailureNotification,
+  ProcessingMode,
   VALID_CHAT_MODELS,
   VALID_TTS_MODELS,
   ValidChatModel,
@@ -70,6 +71,11 @@ export class ConfigService {
     youtubeTranscriptions: {
       channels: {}, // Now loaded from database
       maxVideosPerChannel: 1,
+      maxTranscriptionTokens: 100000,
+      transcriptionChunkSize: 50000,
+      transcriptionChunkOverlap: 500,
+      defaultProcessingMode: 'chunked',
+      fullContextChannels: [],
     },
   };
 
@@ -201,6 +207,30 @@ export class ConfigService {
       maxVideosPerChannel:
         this.CONFIGS.youtubeTranscriptions.maxVideosPerChannel,
     };
+  }
+
+  getYoutubeTranscriptionsChunkingConfig() {
+    const config = this.CONFIGS.youtubeTranscriptions;
+
+    if (config.transcriptionChunkSize >= config.maxTranscriptionTokens) {
+      throw new Error(
+        'transcriptionChunkSize must be less than maxTranscriptionTokens',
+      );
+    }
+
+    return {
+      maxTranscriptionTokens: config.maxTranscriptionTokens,
+      transcriptionChunkSize: config.transcriptionChunkSize,
+      transcriptionChunkOverlap: config.transcriptionChunkOverlap,
+    };
+  }
+
+  getProcessingModeForChannel(channelId: string): ProcessingMode {
+    const config = this.CONFIGS.youtubeTranscriptions;
+    if (config.fullContextChannels.includes(channelId)) {
+      return 'full-context';
+    }
+    return config.defaultProcessingMode;
   }
 
   getPresignedUrlExpirySeconds(): number {

@@ -17,6 +17,7 @@ import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcri
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
 import { ListYoutubeTranscriptionsQuery } from './queries/list-youtube-transcriptions.query';
 import { StorageService } from './services/storage.service';
+import { TranscriptChunkingService } from './services/transcript-chunking.service';
 import { TranscriptService } from './services/transcript.service';
 import { YoutubeTranscriptionsAlternativeService } from './services/youtube-transcriptions-alternative.service';
 import { YoutubeTranscriptionsService } from './services/youtube-transcriptions.service';
@@ -48,6 +49,7 @@ import { ProcessTranscriptionFilesUseCase } from './usecases/process-transcripti
     StorageService,
     AiService,
     ConfigService,
+    TranscriptChunkingService,
     ListYoutubeTranscriptionsQuery,
     ListAllYoutubeTranscriptionsQuery,
     GetYoutubeTranscriptionByIdQuery,

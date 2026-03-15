@@ -4,6 +4,7 @@ import { mock } from 'jest-mock-extended';
 import { Job } from 'bullmq';
 import { AiService } from '../../ai/ai.service';
 import { ConfigService } from '../../config/config.service';
+import { TranscriptChunkingService } from '../services/transcript-chunking.service';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 import { YoutubeTranscriptionProcessor } from './youtube-transcription.processor';
 
@@ -13,6 +14,7 @@ describe('YoutubeTranscriptionProcessor', () => {
   const mockAiService = mock<AiService>();
   const mockConfigService = mock<ConfigService>();
   const mockAudioJobService = mock<AudioJobService>();
+  const mockTranscriptChunkingService = mock<TranscriptChunkingService>();
 
   const basePrompt = 'Summarize this transcription.';
   const transcriptionId = 'transcription-uuid-123';
@@ -39,10 +41,12 @@ describe('YoutubeTranscriptionProcessor', () => {
       mockAiService,
       mockConfigService,
       mockAudioJobService,
+      mockTranscriptChunkingService,
     );
 
     mockConfigService.getTranscriptionSummaryPrompt.mockReturnValue(basePrompt);
     mockYoutubeTranscriptionsService.updateTranscriptionSummary.mockResolvedValue();
+    mockTranscriptChunkingService.needsChunking.mockReturnValue(false);
   });
 
   afterEach(() => {
@@ -55,12 +59,12 @@ describe('YoutubeTranscriptionProcessor', () => {
         id: transcriptionId,
         custom_prompt: undefined,
       } as never);
-      mockAiService.callDeepseekChat.mockResolvedValue('Generated summary');
+      mockAiService.callChat.mockResolvedValue('Generated summary');
 
       await processor.processTranscriptionSummary(createJob());
 
-      expect(mockAiService.callDeepseekChat).toHaveBeenCalledWith(basePrompt);
-      expect(mockAiService.callDeepseekChat).not.toHaveBeenCalledWith(
+      expect(mockAiService.callChat).toHaveBeenCalledWith(basePrompt);
+      expect(mockAiService.callChat).not.toHaveBeenCalledWith(
         expect.stringContaining('Additional instructions:'),
       );
     });
@@ -70,11 +74,11 @@ describe('YoutubeTranscriptionProcessor', () => {
         id: transcriptionId,
         custom_prompt: null,
       } as never);
-      mockAiService.callDeepseekChat.mockResolvedValue('Generated summary');
+      mockAiService.callChat.mockResolvedValue('Generated summary');
 
       await processor.processTranscriptionSummary(createJob());
 
-      expect(mockAiService.callDeepseekChat).toHaveBeenCalledWith(basePrompt);
+      expect(mockAiService.callChat).toHaveBeenCalledWith(basePrompt);
     });
 
     it('appends custom prompt when transcription has custom_prompt set', async () => {
@@ -82,11 +86,11 @@ describe('YoutubeTranscriptionProcessor', () => {
         id: transcriptionId,
         custom_prompt: 'Focus on actionable takeaways.',
       } as never);
-      mockAiService.callDeepseekChat.mockResolvedValue('Generated summary');
+      mockAiService.callChat.mockResolvedValue('Generated summary');
 
       await processor.processTranscriptionSummary(createJob());
 
-      expect(mockAiService.callDeepseekChat).toHaveBeenCalledWith(
+      expect(mockAiService.callChat).toHaveBeenCalledWith(
         `${basePrompt}\n\nAdditional instructions: Focus on actionable takeaways.`,
       );
     });

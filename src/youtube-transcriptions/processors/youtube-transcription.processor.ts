@@ -9,6 +9,7 @@ import { Job, Worker } from 'bullmq';
 import { AiService } from '../../ai/ai.service';
 import { ConfigService } from '../../config/config.service';
 import { buildFinalPrompt } from '../../shared/helpers/build-final-prompt';
+import { TranscriptChunkingService } from '../services/transcript-chunking.service';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 
 @Injectable()
@@ -21,6 +22,7 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
     private readonly aiService: AiService,
     private readonly configService: ConfigService,
     private readonly audioJobService: AudioJobService,
+    private readonly transcriptChunkingService: TranscriptChunkingService,
   ) {}
 
   onModuleInit() {
@@ -61,7 +63,7 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
   async processTranscriptionSummary(
     job: Job<ProcessTranscriptionSummaryJobData>,
   ): Promise<{ success: boolean; message: string }> {
-    const { transcriptionId, transcriptText, videoTitle } = job.data;
+    const { transcriptionId, transcriptText, videoTitle, channelId } = job.data;
 
     console.log(
       `\n>>> Processing transcription summary for ID ${transcriptionId} (${videoTitle}) from queue (Job ${job.id}) <<<`,
@@ -72,6 +74,53 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
         await this.youtubeTranscriptionsService.getTranscriptionById(
           transcriptionId,
         );
+
+      // Check if chunking is needed
+      if (this.transcriptChunkingService.needsChunking(transcriptText)) {
+        console.log(
+          `Transcript exceeds token limit, using chunked processing for ${transcriptionId}...`,
+        );
+
+        const summary = await this.transcriptChunkingService.processTranscript(
+          transcriptText,
+          transcriptionId,
+          String(job.id),
+          channelId || '',
+          transcription?.custom_prompt,
+        );
+
+        if (!summary) {
+          console.log(
+            `Warning: Failed to generate summary for transcription ${transcriptionId}. Transcription saved without summary.`,
+          );
+          return {
+            success: true,
+            message: `Transcription ${transcriptionId} saved without summary (AI did not generate summary)`,
+          };
+        }
+
+        console.log(`Updating transcription ${transcriptionId} with summary...`);
+        await this.youtubeTranscriptionsService.updateTranscriptionSummary(
+          transcriptionId,
+          summary,
+        );
+
+        console.log(
+          `✓ Transcription ${transcriptionId} summary generated and saved successfully (Job ${job.id})`,
+        );
+
+        // Generate audio if flag is enabled
+        if (job.data.generateAudio) {
+          await this.enqueueAudioGeneration(transcriptionId, summary);
+        }
+
+        return {
+          success: true,
+          message: `Transcription ${transcriptionId} summary generated and saved successfully`,
+        };
+      }
+
+      // Single-pass processing for short transcripts
       const basePrompt =
         this.configService.getTranscriptionSummaryPrompt(transcriptText);
       const summaryPrompt = buildFinalPrompt(
@@ -80,7 +129,7 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
       );
 
       console.log(`Generating summary for transcription ${transcriptionId}...`);
-      const summary = await this.aiService.callDeepseekChat(summaryPrompt);
+      const summary = await this.aiService.callChat(summaryPrompt);
 
       if (!summary) {
         console.log(
@@ -104,30 +153,7 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
 
       // Generate audio if flag is enabled
       if (job.data.generateAudio) {
-        try {
-          console.log(
-            `Enqueuing audio generation for transcription ID: ${transcriptionId}...`,
-          );
-          const transcription =
-            await this.youtubeTranscriptionsService.getTranscriptionById(
-              transcriptionId,
-            );
-
-          if (transcription) {
-            const jobInfo = await this.audioJobService.enqueueAudioJob({
-              sourceType: 'transcription',
-              sourceId: transcriptionId,
-              text: summary,
-              date: transcription.processedAt,
-            });
-            console.log(`Audio generation job enqueued: ${jobInfo.jobId}`);
-          }
-        } catch (audioError) {
-          console.error(
-            `Error enqueuing audio generation for transcription ID: ${transcriptionId}:`,
-            audioError,
-          );
-        }
+        await this.enqueueAudioGeneration(transcriptionId, summary);
       }
 
       return {
@@ -143,6 +169,36 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
       );
       throw new Error(
         `Failed to process transcription summary ${transcriptionId}: ${errorMessage}`,
+      );
+    }
+  }
+
+  private async enqueueAudioGeneration(
+    transcriptionId: string,
+    summary: string,
+  ): Promise<void> {
+    try {
+      console.log(
+        `Enqueuing audio generation for transcription ID: ${transcriptionId}...`,
+      );
+      const transcription =
+        await this.youtubeTranscriptionsService.getTranscriptionById(
+          transcriptionId,
+        );
+
+      if (transcription) {
+        const jobInfo = await this.audioJobService.enqueueAudioJob({
+          sourceType: 'transcription',
+          sourceId: transcriptionId,
+          text: summary,
+          date: transcription.processedAt,
+        });
+        console.log(`Audio generation job enqueued: ${jobInfo.jobId}`);
+      }
+    } catch (audioError) {
+      console.error(
+        `Error enqueuing audio generation for transcription ID: ${transcriptionId}:`,
+        audioError,
       );
     }
   }

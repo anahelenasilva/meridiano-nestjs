@@ -319,6 +319,8 @@ Please investigate the issue.`,
    * @param transcriptionId - The ID of the transcription
    * @param transcriptText - The transcript text to summarize
    * @param videoTitle - The video title (for logging)
+   * @param generateAudio - Whether to generate audio after summary
+   * @param channelId - The YouTube channel ID for processing mode selection
    * @returns Job information including job ID
    */
   async addTranscriptionSummaryJob(
@@ -326,12 +328,14 @@ Please investigate the issue.`,
     transcriptText: string,
     videoTitle: string,
     generateAudio?: boolean,
+    channelId?: string,
   ): Promise<JobInfo> {
     const jobData: ProcessTranscriptionSummaryJobData = {
       transcriptionId,
       transcriptText,
       videoTitle,
       generateAudio,
+      channelId,
     };
 
     const job = await this.transcriptionSummaryQueue.add(

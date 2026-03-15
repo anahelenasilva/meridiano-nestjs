@@ -416,9 +416,10 @@ export class YoutubeTranscriptionsService {
       );
       await this.queueService.addTranscriptionSummaryJob(
         transcriptionId,
-        transcriptText.substring(0, 8000), // Limit text length
+        transcriptText,
         videoWithTranscript.title,
         generateAudio,
+        channelId,
       );
 
       console.log(
@@ -620,9 +621,10 @@ export class YoutubeTranscriptionsService {
       );
       await this.queueService.addTranscriptionSummaryJob(
         insertedId,
-        videoData.transcriptText.substring(0, 8000), // Limit text length
+        videoData.transcriptText,
         videoData.title,
         generateAudio,
+        videoData.channel.id,
       );
 
       console.log(
