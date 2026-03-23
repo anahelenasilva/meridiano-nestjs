@@ -67,13 +67,19 @@ export class ProcessorService {
       console.log(`Processing article ID: ${article.id} - ${article.title}...`);
 
       try {
-        const baseSummaryPrompt = profilePrompts.articleSummary
-          ? this.configService.formatPrompt(profilePrompts.articleSummary, {
+        const articleTitle = article.title || article.feed_source || 'Untitled';
+        let baseSummaryPrompt: string;
+
+        if (profilePrompts.articleSummary) {
+          baseSummaryPrompt = this.configService.formatPrompt(profilePrompts.articleSummary, {
             article_content: article.raw_content.substring(0, 4000),
-          })
-          : this.configService.getArticleSummaryPrompt(
+            article_title: articleTitle,
+          });
+        } else {
+          baseSummaryPrompt = this.configService.getArticleSummaryPrompt(
             article.raw_content.substring(0, 4000),
           );
+        }
 
         const summaryPrompt = buildFinalPrompt(
           baseSummaryPrompt,

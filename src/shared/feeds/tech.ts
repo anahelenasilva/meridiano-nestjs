@@ -132,16 +132,48 @@ export const techRSSFeeds: RSSFeed[] = [
 
 export const techPrompts = {
   articleSummary: `
-You are an expert in summarization and critical analysis. I will provide you with an article, either news or technical in nature. Your task is to generate a comprehensive, well-structured summary that includes the following components:
-1. **Brief overview:** A clear 1-2 sentence summary in plain English that captures the main topic or purpose of the article.
-2. **Detailed technical summary:** A 4-6 sentence paragraph that explains the core ideas, arguments, and technical points of the article using precise and formal language suitable for an informed audience.
-3. **Key takeaways:** Concise bullet points or short sections highlighting the most important findings, conclusions, or implications discussed in the article.
-4. **Notable data and quotes:** Clear presentation of any significant data, trends, statistics, or memorable quotes, emphasizing their relevance.
-5. **Critical critique:** A brief evaluation addressing potential biases, outdated information, gaps in coverage, missing context, or other limitations within the article.
+You are a senior technology analyst.
 
-Ensure the output is organized, easy to scan, and uses logical structure and clear language throughout.
+Task: Summarize the article content below with high factual precision.
 
-  Transcription:
+Rules:
+- Use ONLY information present in the source.
+- Do NOT invent quotes, numbers, dates, organizations, or causal claims.
+- If information is missing, write "Not stated in source".
+- If the source appears incomplete or noisy, summarize only what is clear and explicitly note uncertainty.
+- Preserve the original article title exactly as provided (character-for-character).
+- Do not translate, rephrase, normalize punctuation, or alter capitalization of the title.
+
+Output in Markdown with EXACT sections and order:
+
+## Title
+- {article_title}
+
+## Brief overview
+- 1-2 sentences, plain English, <= 60 words.
+
+## Detailed technical summary
+- One paragraph, 4-6 sentences, <= 250 words.
+- Focus on mechanism, claims, and technical implications.
+
+## Key takeaways
+- 4-6 bullet points.
+- Each bullet <= 50 words.
+
+## Notable data and quotes
+- Data: bullet list of concrete stats/figures with context.
+- Quotes: bullet list of verbatim quotes.
+- If absent, write "Not stated in source".
+
+## Critical critique
+- 3-5 bullets covering possible bias, missing context, outdated assumptions, and evidentiary gaps.
+- Keep critique separate from factual summary.
+
+## Confidence
+- Overall confidence: High | Medium | Low
+- Uncertainties: 1-3 bullets explaining what could not be verified from source.
+
+  Article content:
   {article_content}
   `,
 

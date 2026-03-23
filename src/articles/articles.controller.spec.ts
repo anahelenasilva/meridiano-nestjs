@@ -1,5 +1,6 @@
 import { AUDIO_GENERATION_SUCCESS_MESSAGE } from '@libs/audio';
 import { IS_PUBLIC_KEY } from '@libs/auth';
+import { ConflictException, NotFoundException } from '@nestjs/common';
 import { mock } from 'jest-mock-extended';
 import { ArticlesController } from './articles.controller';
 import { GenerateArticleAudioCommand } from './commands/generate-article-audio.command';
@@ -54,7 +55,6 @@ describe('ArticlesController', () => {
     });
 
     it('should propagate NotFoundException from command', async () => {
-      const { NotFoundException } = await import('@nestjs/common');
       mockGenerateArticleAudioCommand.execute.mockRejectedValue(
         new NotFoundException('Article not found'),
       );
@@ -76,7 +76,6 @@ describe('ArticlesController', () => {
     });
 
     it('should propagate ConflictException from command', async () => {
-      const { ConflictException } = await import('@nestjs/common');
       mockGenerateArticleAudioCommand.execute.mockRejectedValue(
         new ConflictException('Audio already exists for this resource.'),
       );

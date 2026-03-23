@@ -26,6 +26,40 @@ describe('ConfigService', () => {
     expect(service).toBeDefined();
   });
 
+  describe('formatPrompt', () => {
+    it('should replace both {article_content} and {article_title} placeholders', () => {
+      const template = '## Title\n- {article_title}\n\nContent:\n{article_content}';
+      const result = service.formatPrompt(template, {
+        article_content: 'Some article text',
+        article_title: 'My Article Title',
+      });
+
+      expect(result).toBe('## Title\n- My Article Title\n\nContent:\nSome article text');
+      expect(result).not.toContain('{article_title}');
+      expect(result).not.toContain('{article_content}');
+    });
+
+    it('should replace {article_title} with empty string when value is explicitly undefined', () => {
+      const template = '## Title\n- {article_title}\n\nContent:\n{article_content}';
+      const result = service.formatPrompt(template, {
+        article_content: 'Some text',
+        article_title: undefined,
+      });
+
+      expect(result).toContain('## Title\n- \n');
+    });
+
+    it('should handle templates without {article_title} placeholder', () => {
+      const template = 'Content:\n{article_content}';
+      const result = service.formatPrompt(template, {
+        article_content: 'Some text',
+        article_title: 'Title',
+      });
+
+      expect(result).toBe('Content:\nSome text');
+    });
+  });
+
   describe('getArticleEmailsNotifications', () => {
     it('should return email from environment variable when set', () => {
       process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL = 'test@example.com';
