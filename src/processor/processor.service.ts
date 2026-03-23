@@ -72,12 +72,12 @@ export class ProcessorService {
 
         if (profilePrompts.articleSummary) {
           baseSummaryPrompt = this.configService.formatPrompt(profilePrompts.articleSummary, {
-            article_content: article.raw_content,
+            article_content: article.raw_content.substring(0, 4000),
             article_title: articleTitle,
           });
         } else {
           baseSummaryPrompt = this.configService.getArticleSummaryPrompt(
-            article.raw_content,
+            article.raw_content.substring(0, 4000),
           );
         }
 
