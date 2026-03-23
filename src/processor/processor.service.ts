@@ -67,9 +67,11 @@ export class ProcessorService {
       console.log(`Processing article ID: ${article.id} - ${article.title}...`);
 
       try {
+        const articleTitle = article.title || article.feed_source || 'Untitled';
         const baseSummaryPrompt = profilePrompts.articleSummary
           ? this.configService.formatPrompt(profilePrompts.articleSummary, {
             article_content: article.raw_content.substring(0, 4000),
+            article_title: articleTitle,
           })
           : this.configService.getArticleSummaryPrompt(
             article.raw_content.substring(0, 4000),

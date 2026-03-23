@@ -64,6 +64,74 @@ describe('ProcessorService', () => {
     jest.clearAllMocks();
   });
 
+  describe('processArticles - article_title placeholder', () => {
+    it('passes article title to formatPrompt when profile has articleSummary', async () => {
+      mockProfilesService.getPromptsForProfile.mockReturnValue({
+        articleSummary: 'Summarize {article_title}: {article_content}',
+        impactRating: undefined,
+      });
+      mockConfigService.formatPrompt.mockReturnValue('formatted prompt');
+      mockAiService.callChat.mockResolvedValue('Article summary');
+      mockAiService.getEmbedding.mockResolvedValue([0.1, 0.2, 0.3]);
+
+      await service.processArticles(FeedProfile.DEFAULT, 10);
+
+      expect(mockConfigService.formatPrompt).toHaveBeenCalledWith(
+        'Summarize {article_title}: {article_content}',
+        {
+          article_content: 'Test content',
+          article_title: 'Test Article',
+        },
+      );
+    });
+
+    it('uses feed_source as fallback when article title is empty', async () => {
+      const articleNoTitle: DBArticle = {
+        ...mockArticle,
+        title: '',
+        feed_source: 'test-feed',
+      };
+      mockArticlesService.getUnprocessedArticles.mockResolvedValue([articleNoTitle]);
+      mockProfilesService.getPromptsForProfile.mockReturnValue({
+        articleSummary: '{article_title}: {article_content}',
+        impactRating: undefined,
+      });
+      mockConfigService.formatPrompt.mockReturnValue('formatted prompt');
+      mockAiService.callChat.mockResolvedValue('Article summary');
+      mockAiService.getEmbedding.mockResolvedValue([0.1, 0.2, 0.3]);
+
+      await service.processArticles(FeedProfile.DEFAULT, 10);
+
+      expect(mockConfigService.formatPrompt).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.objectContaining({ article_title: 'test-feed' }),
+      );
+    });
+
+    it('uses "Untitled" when both title and feed_source are empty', async () => {
+      const articleNoTitleNoFeed: DBArticle = {
+        ...mockArticle,
+        title: '',
+        feed_source: '',
+      };
+      mockArticlesService.getUnprocessedArticles.mockResolvedValue([articleNoTitleNoFeed]);
+      mockProfilesService.getPromptsForProfile.mockReturnValue({
+        articleSummary: '{article_title}: {article_content}',
+        impactRating: undefined,
+      });
+      mockConfigService.formatPrompt.mockReturnValue('formatted prompt');
+      mockAiService.callChat.mockResolvedValue('Article summary');
+      mockAiService.getEmbedding.mockResolvedValue([0.1, 0.2, 0.3]);
+
+      await service.processArticles(FeedProfile.DEFAULT, 10);
+
+      expect(mockConfigService.formatPrompt).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.objectContaining({ article_title: 'Untitled' }),
+      );
+    });
+  });
+
   describe('processArticles - backward compatibility (custom prompt)', () => {
     it('sends base prompt to AI when article has no custom_prompt', async () => {
       const articleWithoutCustomPrompt: DBArticle = {

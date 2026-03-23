@@ -2,6 +2,7 @@ export type ImpactRating = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 export interface PromptVariables {
   article_content?: string;
+  article_title?: string;
   summary?: string;
   title?: string;
   content?: string;
