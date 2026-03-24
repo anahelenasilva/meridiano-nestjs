@@ -7,9 +7,11 @@ export class AddVectorExtensionAndEmbeddingColumn1774000000000
     await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS vector`);
 
     await queryRunner.query(
-      `ALTER TABLE articles ADD COLUMN embedding_vector vector(1024)`,
+      `ALTER TABLE articles ADD COLUMN embedding_vector vector(1024) DEFAULT NULL`,
     );
 
+    // IVFFlat index with lists=1 is optimal for initial sparse data (<1000 rows).
+    // As the dataset grows, consider rebuilding with lists ≈ sqrt(rows) for better performance.
     await queryRunner.query(`
       CREATE INDEX idx_articles_embedding_vector
       ON articles USING ivfflat (embedding_vector vector_cosine_ops)
