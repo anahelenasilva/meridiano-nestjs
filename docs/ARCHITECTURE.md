@@ -30,7 +30,7 @@ At a high level:
 
 - `ConfigModule`, `DatabaseModule`, `AuthModule`, `AiModule`
 - `ArticlesModule`, `AudioFilesModule`, `BriefingsModule`, `BriefingModule`
-- `ProfilesModule`, `ScraperModule`, `ProcessorModule`, `TechModule`
+- `ProfilesModule`, `ScraperModule`, `ProcessorModule`
 - `YoutubeChannelsModule`, `YoutubeTranscriptionsModule`
 - `QueueModule`, `UsersModule`, `BookmarksModule`, `S3Module`
 
@@ -55,7 +55,6 @@ Security baseline:
 | `bookmarks` | User-to-article bookmarking |
 | `profiles` | Feed profile access |
 | `auth` | Auth API composition around `@libs/auth` |
-| `tech` | Technical placeholder module/controller |
 
 ## Infrastructure Libraries (`libs/`)
 
@@ -82,7 +81,6 @@ Security baseline:
 | `/api/profiles` | `ProfilesController` |
 | `/api/youtube` | `YoutubeTranscriptionsController` |
 | `/api/youtube/channels` | `YoutubeChannelsController` |
-| `/tech` | `TechController` |
 
 ## Async Queue Architecture
 
@@ -95,9 +93,11 @@ Defined queue names:
 
 ### Queue Producers
 
-- `ArticlesController` enqueues article and markdown processing jobs.
-- `YoutubeTranscriptionsController` and `YoutubeTranscriptionProcessor` can enqueue audio jobs.
-- `AudioJobService` handles deduping/locking for audio enqueue.
+- `ArticlesController` -> `article-processing`, `markdown-article-processing`.
+- `ExternalArticlesController` -> `article-processing`.
+- `YoutubeTranscriptionsService` -> `youtube-transcription-summary`.
+- `YoutubeTranscriptionsController` and `YoutubeTranscriptionProcessor` request audio generation through `AudioJobService`.
+- `AudioJobService` -> `audio-generation` (with dedupe/locking).
 
 ### Queue Consumers
 

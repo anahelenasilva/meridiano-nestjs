@@ -24,7 +24,7 @@ Meridiano currently supports:
 
 | Layer              | Main Responsibility                                                                      |
 | ------------------ | ---------------------------------------------------------------------------------------- |
-| API                | NestJS controllers under `/api/*` (plus `/` and `/tech`)                                 |
+| API                | NestJS controllers under `/api/*` (plus `/` for the root hello endpoint)                  |
 | Application/Domain | Services, commands, queries, and use cases in `src/`                                     |
 | Async Processing   | BullMQ queues and workers for long-running workflows                                     |
 | Infrastructure     | Shared modules in `libs/` (`auth`, `database`, `queue`, `redis`, `s3`, `email`, `audio`) |
@@ -35,7 +35,7 @@ Meridiano currently supports:
 `src/app.module.ts` wires:
 
 - Core: `ConfigModule`, `DatabaseModule`, `AuthModule`, `AiModule`
-- Domains: `ArticlesModule`, `BriefingsModule`, `BriefingModule`, `YoutubeTranscriptionsModule`, `YoutubeChannelsModule`, `AudioFilesModule`, `UsersModule`, `BookmarksModule`, `ProfilesModule`, `ScraperModule`, `ProcessorModule`, `TechModule`
+- Domains: `ArticlesModule`, `BriefingsModule`, `BriefingModule`, `YoutubeTranscriptionsModule`, `YoutubeChannelsModule`, `AudioFilesModule`, `UsersModule`, `BookmarksModule`, `ProfilesModule`, `ScraperModule`, `ProcessorModule`
 - Infra: `QueueModule`, `S3Module`
 
 Security baseline:

@@ -149,7 +149,6 @@ meridiano-nestjs/
 │   ├── youtube-channels/         # YouTube channel config
 │   ├── youtube-transcriptions/   # YouTube transcript handling
 │   ├── ai/                       # AI service abstraction
-│   ├── tech/                     # Technical utilities
 │   ├── app.module.ts             # Root module
 │   └── main.ts                   # Application entry point
 │
