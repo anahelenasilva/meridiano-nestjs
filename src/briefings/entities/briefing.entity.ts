@@ -1,4 +1,4 @@
-import { FeedProfile } from '../shared/types/feed';
+import { FeedProfile } from '../../shared/types/feed';
 
 export interface BriefingOptions {
   feedProfile?: FeedProfile;

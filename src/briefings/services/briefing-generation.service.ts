@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { kmeans } from 'ml-kmeans';
-import { AiService } from '../ai/ai.service';
-import { ClusterAnalysis, DBArticle } from '../articles/article.entity';
-import { ArticlesService } from '../articles/articles.service';
+import { AiService } from '../../ai/ai.service';
+import { ClusterAnalysis, DBArticle } from '../../articles/article.entity';
+import { ArticlesService } from '../../articles/articles.service';
+import { ConfigService } from '../../config/config.service';
+import { ProfilesService } from '../../profiles/profiles.service';
+import { FeedProfile } from '../../shared/types/feed';
 import {
   BriefGenerationOptions,
   GenerateBriefResult,
   SimpleBriefResult,
-} from './briefing.entity';
-import { BriefingsService } from '../briefings/briefings.service';
-import { ConfigService } from '../config/config.service';
-import { ProfilesService } from '../profiles/profiles.service';
-import { FeedProfile } from '../shared/types/feed';
+} from '../entities/briefing.entity';
+import { BriefingsService } from '../briefings.service';
 
 @Injectable()
-export class BriefingService {
+export class BriefingGenerationService {
   constructor(
     private readonly articlesService: ArticlesService,
     private readonly briefingsService: BriefingsService,

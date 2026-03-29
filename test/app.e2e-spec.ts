@@ -29,8 +29,13 @@ describe('AppController (e2e)', () => {
 
   it('/ (GET)', () => {
     return request(app.getHttpServer())
-      .get('/')
+      .get('/api/health')
       .expect(200)
-      .expect('Hello World!');
+      .expect((res) => {
+        expect(res.body).toEqual({
+          status: 'ok',
+          timestamp: expect.any(String),
+        });
+      });
   });
 });

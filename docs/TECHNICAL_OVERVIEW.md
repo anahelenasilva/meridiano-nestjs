@@ -35,8 +35,7 @@ Feature-specific business logic organized by domain:
 | Module                    | Purpose                                                |
 | ------------------------- | ------------------------------------------------------ |
 | `articles/`               | Article CRUD, processing, search                       |
-| `briefings/`              | Briefing persistence and retrieval                     |
-| `briefing/`               | Briefing generation logic (clustering, AI synthesis)   |
+| `briefings/`              | Briefing persistence, generation (clustering, AI), API   |
 | `youtube-transcriptions/` | YouTube transcript extraction, listing, and processing |
 | `youtube-channels/`       | Channel configuration management                       |
 | `users/`                  | User management                                        |

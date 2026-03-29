@@ -1,8 +1,7 @@
 import { DatabaseModule } from '@libs/database';
-import { Module, forwardRef } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AiModule } from '../ai/ai.module';
-import { ArticlesService } from '../articles/articles.service';
-import { BriefingModule } from '../briefing/briefing.module';
+import { ArticlesModule } from '../articles/articles.module';
 import { ConfigModule } from '../config/config.module';
 import { ProcessorModule } from '../processor/processor.module';
 import { ProfilesModule } from '../profiles/profiles.module';
@@ -10,8 +9,8 @@ import { ScraperModule } from '../scraper/scraper.module';
 import { BriefingsController } from './briefings.controller';
 import { BriefingsService } from './briefings.service';
 import { ListBriefingsQuery } from './queries/list-briefings.query';
+import { BriefingGenerationService } from './services/briefing-generation.service';
 
-// Usecases
 import { CategorizeArticlesUseCase } from './usecases/categorize-articles.usecase';
 import { GenerateBriefUseCase } from './usecases/generate-brief.usecase';
 import { GenerateSimpleBriefUseCase } from './usecases/generate-simple-brief.usecase';
@@ -23,7 +22,7 @@ import { ScrapeArticlesUseCase } from './usecases/scrape-articles.usecase';
 @Module({
   imports: [
     DatabaseModule,
-    forwardRef(() => BriefingModule),
+    ArticlesModule,
     ProcessorModule,
     ProfilesModule,
     ScraperModule,
@@ -32,9 +31,8 @@ import { ScrapeArticlesUseCase } from './usecases/scrape-articles.usecase';
   ],
   providers: [
     BriefingsService,
-    ArticlesService,
+    BriefingGenerationService,
     ListBriefingsQuery,
-    // Briefing usecases
     CategorizeArticlesUseCase,
     GenerateBriefUseCase,
     GenerateSimpleBriefUseCase,
@@ -46,7 +44,7 @@ import { ScrapeArticlesUseCase } from './usecases/scrape-articles.usecase';
   controllers: [BriefingsController],
   exports: [
     BriefingsService,
-    // Export usecases for external use
+    BriefingGenerationService,
     CategorizeArticlesUseCase,
     GenerateBriefUseCase,
     GenerateSimpleBriefUseCase,

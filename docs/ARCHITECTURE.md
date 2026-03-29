@@ -14,6 +14,16 @@ At a high level:
 4. Workers process jobs and persist results in PostgreSQL.
 5. Files (markdown/audio) are stored in S3, with Redis used for queues and rate limiting.
 
+## Architectural Patterns (CQRS-style)
+
+Several domains keep controllers thin by splitting reads and writes into small `@Injectable()` classes:
+
+- **Commands** (`commands/*.command.ts`): state-changing operations (for example article audio generation).
+- **Queries** (`queries/*.query.ts`): reads and list/detail assembly.
+- **Use cases** (`usecases/*.usecase.ts`): multi-step orchestration (for example `RunBriefingUseCase`, briefing generation, scraping pipelines).
+
+These live next to their feature module under `src/<feature>/` rather than in a shared “use cases” module. Naming follows `*Command`, `*Query`, `*UseCase`, each with an `execute()` method.
+
 ## Runtime Layers
 
 | Layer | Main Components |
@@ -29,7 +39,7 @@ At a high level:
 `src/app.module.ts` composes the application from:
 
 - `ConfigModule`, `DatabaseModule`, `AuthModule`, `AiModule`
-- `ArticlesModule`, `AudioFilesModule`, `BriefingsModule`, `BriefingModule`
+- `ArticlesModule`, `AudioFilesModule`, `BriefingsModule`
 - `ProfilesModule`, `ScraperModule`, `ProcessorModule`
 - `YoutubeChannelsModule`, `YoutubeTranscriptionsModule`
 - `QueueModule`, `UsersModule`, `BookmarksModule`, `S3Module`
@@ -43,11 +53,10 @@ Security baseline:
 
 | Module | Responsibility |
 |---|---|
-| `articles` | Article CRUD/list/detail, external ingestion endpoint, markdown upload flow, article audio enqueue |
+| `articles` | Article CRUD/list/detail, external ingestion endpoint, markdown upload flow, article audio enqueue, Telegram-oriented submission tracking (`TelegramSubmissionService` + `telegram_submissions`) |
 | `scraper` | URL/RSS scraping and article ingestion |
 | `processor` | Article enrichment pipeline (summarize, embedding, rate, categorize) |
-| `briefing` | Brief synthesis/orchestration logic |
-| `briefings` | Briefing retrieval/listing and briefing-oriented use cases |
+| `briefings` | Briefing persistence (`BriefingsService`), generation (`BriefingGenerationService`), listing/detail API, and briefing-oriented use cases |
 | `youtube-transcriptions` | Transcript ingestion, summary flow, transcription audio enqueue |
 | `youtube-channels` | Manage YouTube channel configuration |
 | `audio-files` | Generate/store audio metadata and S3 references |
@@ -55,6 +64,16 @@ Security baseline:
 | `bookmarks` | User-to-article bookmarking |
 | `profiles` | Feed profile access |
 | `auth` | Auth API composition around `@libs/auth` |
+
+## External submission flow (Telegram / automation)
+
+External clients (for example Node-RED in front of Telegram) POST to `/api/articles/external` when `TELEGRAM_INTEGRATION_ENABLED` is true.
+
+1. Optional metadata (`chatId`, `messageId`, `username`, note) is stored via `TelegramSubmissionService` in `telegram_submissions` (status transitions: pending, success, failed, duplicate).
+2. `ScraperService` ingests the URL; on success the article is queued for processing.
+3. Submission rows are updated with the resulting `articleId` or failure/duplicate information. If persisting the submission row fails, ingestion can still proceed (degraded tracking).
+
+The same endpoint uses `X-External-Token` (`EXTERNAL_API_TOKENS`) plus Redis-backed rate limiting (per-token or per-IP key).
 
 ## Infrastructure Libraries (`libs/`)
 
@@ -195,10 +214,11 @@ Environment toggles are used for behavior such as:
 - `TELEGRAM_INTEGRATION_ENABLED`
 - Email notification addresses for queue and processing failures (for example queue handlers and embedding failure alerts)
 
-## Current Transitional Notes
+## Database access (transitional)
 
-- Data access is PostgreSQL-backed, but many services still use a SQLite-style callback/placeholder API through the `DatabaseService` abstraction.
-- Some naming in domain code still carries legacy wording (`databaseFile`, old comments, and mixed naming conventions), while runtime storage is PostgreSQL.
+Runtime storage is PostgreSQL. `DatabaseService` exposes a **SQLite-shaped API** (`prepare`, `run`, `all`, `get`, callbacks) implemented by `PostgresDatabaseService`, so domain services can keep legacy-style query code while executing against PostgreSQL.
+
+TypeORM is used for migrations (`typeorm_migrations`); entity classes are not the primary application data layer for most features.
 
 ---
 

@@ -136,8 +136,7 @@ meridiano-nestjs/
 │   ├── audio-files/              # Audio file management
 │   ├── auth/                     # Authentication controller
 │   ├── bookmarks/                # Article bookmarking system
-│   ├── briefing/                 # Briefing generation logic
-│   ├── briefings/                # Briefing persistence
+│   ├── briefings/                # Briefing generation, persistence, API
 │   ├── config/                   # Application configuration
 │   ├── database/                 # Database entities and migrations
 │   ├── processor/                # Job processors
@@ -204,18 +203,21 @@ meridiano-nestjs/
 
 ---
 
-### Briefing Module (`src/briefing/`)
-**Purpose**: Intelligence briefing generation
+### Briefings Module (`src/briefings/`)
+**Purpose**: Intelligence briefing persistence, generation, and HTTP API
 
 **Key Components**:
-- `briefing.service.ts` - Briefing generation orchestration
-- `clustering.service.ts` - K-means article clustering
-- `briefing.controller.ts` - API endpoints
+- `briefings.service.ts` - Read/write `briefings` table
+- `services/briefing-generation.service.ts` - K-means clustering and AI synthesis
+- `entities/briefing.entity.ts` - Types for briefing metadata and generation results
+- `queries/list-briefings.query.ts` - List briefings for the API
+- `briefings.controller.ts` - REST endpoints under `/api/briefings`
+- `usecases/` - Orchestration (run pipeline, generate brief, scrape, etc.)
 
 **Features**:
 - K-means clustering on article embeddings
-- AI-powered cluster analysis
-- Profile-specific briefings
+- AI-powered cluster analysis and synthesis
+- Profile-specific briefings via `ProfilesService`
 - Configurable lookback periods
 
 **CLI Commands**:

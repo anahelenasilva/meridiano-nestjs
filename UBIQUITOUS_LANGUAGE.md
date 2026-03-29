@@ -67,7 +67,7 @@
 ## Flagged ambiguities
 
 - **"processed_content" vs "summary"** — In the database schema, `processed_content` stores the summary. In code comments and variable names, both terms are used. Prefer **summary** when discussing the AI-generated output, and **processed_content** when referring to the database field.
-- **"briefing" vs "brief"** — Both terms appear interchangeably. The database table is `briefings`, the service is `BriefingService`, but method names use "brief" (e.g., `saveBrief`, `generateBrief`). Prefer **Briefing** as the noun for the domain object; "brief" is acceptable in compound method names.
+- **"briefing" vs "brief"** — Both terms appear interchangeably. The database table is `briefings`; generation uses `BriefingGenerationService`, persistence uses `BriefingsService`; method names use "brief" (e.g., `saveBrief`, `generateBrief`). Prefer **Briefing** as the noun for the domain object; "brief" is acceptable in compound method names.
 - **"transcription" vs "youtube transcription"** — The entity is `YoutubeTranscription` but often referred to as just "transcription". Since no other transcription types exist, "transcription" is acceptable, but **Transcription** (capitalized) should refer to the domain entity.
 - **"feed_profile" vs "profile"** — `FeedProfile` is the enum, but shorthand "profile" is common. Acceptable when context is clear, but **Feed Profile** is the canonical term for the domain concept.
-- **Two separate briefing modules** — The codebase has `src/briefing/` and `src/briefings/`. The first contains `BriefingService` (generation logic), the second contains `BriefingsService` (persistence). This is a structural split, not a domain distinction — both work with the same **Briefing** concept.
+- **Briefings module** — `src/briefings/` holds both persistence (`BriefingsService`) and generation (`BriefingGenerationService`) for the same **Briefing** concept.

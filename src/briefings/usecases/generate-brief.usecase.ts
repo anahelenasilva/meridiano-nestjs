@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '../../config/config.service';
-import { BriefingService } from '../../briefing/briefing.service';
+import { BriefingGenerationService } from '../services/briefing-generation.service';
 import {
   GenerateBriefInputDto,
   GenerateBriefOutputDto,
@@ -9,7 +9,7 @@ import {
 @Injectable()
 export class GenerateBriefUseCase {
   constructor(
-    private readonly briefingService: BriefingService,
+    private readonly briefingGenerationService: BriefingGenerationService,
     private readonly configService: ConfigService,
   ) {}
 
@@ -24,7 +24,7 @@ export class GenerateBriefUseCase {
       };
     }
 
-    const result = await this.briefingService.generateBrief(input.feedProfile);
+    const result = await this.briefingGenerationService.generateBrief(input.feedProfile);
 
     return {
       success: result.success,

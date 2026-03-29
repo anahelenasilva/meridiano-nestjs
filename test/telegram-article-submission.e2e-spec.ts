@@ -164,6 +164,7 @@ describe('Telegram Article Submission E2E Flow', () => {
       expect(mockQueueService.addArticleProcessingJob).toHaveBeenCalledWith(
         TEST_ARTICLE_ID,
         FeedProfile.TECHNOLOGY,
+        undefined,
       );
 
       expect(mockTelegramSubmissionService.updateSubmissionStatus).toHaveBeenCalledWith(

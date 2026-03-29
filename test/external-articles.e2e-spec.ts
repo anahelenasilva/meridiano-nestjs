@@ -5,18 +5,18 @@
  * For Telegram-specific flow (message format, metadata, Node-RED integration) see
  * telegram-article-submission.e2e-spec.ts.
  */
+import { RateLimitGuard } from '@libs/auth/rate-limit/rate-limit.guard';
+import { QueueService } from '@libs/queue';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock, MockProxy } from 'jest-mock-extended';
 import request from 'supertest';
 import { App } from 'supertest/types';
-import { QueueService } from '@libs/queue';
-import { RateLimitGuard } from '@libs/auth/rate-limit/rate-limit.guard';
 import { ExternalArticlesController } from '../src/articles/external-articles.controller';
-import { ScraperService } from '../src/scraper/scraper.service';
 import { TelegramSubmissionService } from '../src/articles/services/telegram-submission.service';
-import { FeedProfile } from '../src/shared/types/feed';
 import { ConfigService } from '../src/config/config.service';
+import { ScraperService } from '../src/scraper/scraper.service';
+import { FeedProfile } from '../src/shared/types/feed';
 
 describe('External Articles Integration Tests', () => {
   let app: INestApplication<App>;
@@ -248,6 +248,7 @@ describe('External Articles Integration Tests', () => {
         expect(mockQueueService.addArticleProcessingJob).toHaveBeenCalledWith(
           TEST_ARTICLE_ID,
           FeedProfile.TECHNOLOGY,
+          undefined,
         );
         expect(mockTelegramSubmissionService.createSubmission).toHaveBeenCalled();
       });

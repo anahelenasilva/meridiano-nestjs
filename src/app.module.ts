@@ -11,7 +11,6 @@ import { ArticlesModule } from './articles/articles.module';
 import { AudioFilesModule } from './audio-files/audio-files.module';
 import { AuthModule } from './auth/auth.module';
 import { BookmarksModule } from './bookmarks/bookmarks.module';
-import { BriefingModule } from './briefing/briefing.module';
 import { BriefingsModule } from './briefings/briefings.module';
 import { ConfigModule } from './config/config.module';
 import { ProcessorModule } from './processor/processor.module';
@@ -33,7 +32,6 @@ import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-tr
     ProfilesModule,
     ScraperModule,
     ProcessorModule,
-    BriefingModule,
     YoutubeChannelsModule,
     YoutubeTranscriptionsModule,
     QueueModule,

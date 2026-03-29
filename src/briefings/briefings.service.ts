@@ -4,7 +4,7 @@ import {
   BriefsMetadata,
   GetBriefByIdResult,
   ProcessingStatsResult,
-} from '../briefing/briefing.entity';
+} from './entities/briefing.entity';
 import { FeedProfile } from '../shared/types/feed';
 
 interface BriefingRow {

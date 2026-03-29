@@ -35,8 +35,10 @@ Meridiano currently supports:
 `src/app.module.ts` wires:
 
 - Core: `ConfigModule`, `DatabaseModule`, `AuthModule`, `AiModule`
-- Domains: `ArticlesModule`, `BriefingsModule`, `BriefingModule`, `YoutubeTranscriptionsModule`, `YoutubeChannelsModule`, `AudioFilesModule`, `UsersModule`, `BookmarksModule`, `ProfilesModule`, `ScraperModule`, `ProcessorModule`
+- Domains: `ArticlesModule`, `BriefingsModule`, `YoutubeTranscriptionsModule`, `YoutubeChannelsModule`, `AudioFilesModule`, `UsersModule`, `BookmarksModule`, `ProfilesModule`, `ScraperModule`, `ProcessorModule`
 - Infra: `QueueModule`, `S3Module`
+
+`BriefingsModule` (`src/briefings/`) owns briefing persistence (`BriefingsService`), generation (`BriefingGenerationService`), `/api/briefings`, and briefing use cases. There is no separate `BriefingModule`.
 
 Security baseline:
 
@@ -152,7 +154,7 @@ Provider choice is configuration-driven, allowing runtime switching without API 
 
 - `docs/ARCHITECTURE.md` - module and runtime architecture details
 - `docs/API_REFERENCE.md` - endpoint-level contracts and examples
-- `docs/project/TECHNICAL_OVERVIEW.md` - implementation-oriented technical snapshot
+- `docs/TECHNICAL_OVERVIEW.md` - implementation-oriented technical snapshot
 
 ---
 
