@@ -1,8 +1,3 @@
----
-description: Instructions for Cursor Agent mode operations
-alwaysApply: true
----
-
 # Agent Mode Instructions
 
 ## Package Manager
@@ -31,7 +26,7 @@ alwaysApply: true
 
 ## Development Server
 - Start dev server: `pnpm run start:dev`
-- The server runs on port 3000 by default
+- The server runs on port 3005 by default
 - API endpoints are prefixed with `/api/`
 
 ## Environment
@@ -59,6 +54,15 @@ alwaysApply: true
 - Check for TypeScript errors: `pnpm run build`
 
 ## Implementation Standards
+
+### Documentation
+- Whenever you change a pattern or architecture, update the corresponding documentation.
+- All documentation is in the `docs/` directory. The main documentation file is `docs/PROJECT_DOCUMENTATION_INDEX.md`.
+- For architecture changes, update the [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) file.
+- For library changes, update the [docs/LIBRARIES.md](docs/LIBRARIES.md) file.
+- For API changes, update the [docs/API_REFERENCE.md](docs/API_REFERENCE.md) file.
+- For development changes, update the [docs/DEVELOPER_GUIDE.md](docs/DEVELOPER_GUIDE.md) file.
+- For project changes, update the [docs/PROJECT_OVERVIEW.md](docs/PROJECT_OVERVIEW.md) file.
 
 ### Testing Requirements
 - Every new service class MUST have a corresponding `.spec.ts` test file
