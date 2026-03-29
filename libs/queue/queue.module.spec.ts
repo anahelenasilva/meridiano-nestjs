@@ -119,18 +119,6 @@ jest.mock('./processors/audio-generation.processor', () => {
   };
 });
 
-// Mock AudioJobService to avoid dependencies
-jest.mock('./services/audio-job.service', () => {
-  return {
-    AudioJobService: class MockAudioJobService {
-      enqueueAudioJob = jest.fn();
-      getJobStatus = jest.fn();
-      getJobsBySource = jest.fn();
-      cancelJob = jest.fn();
-    },
-  };
-});
-
 // Mock QueueService to avoid ConfigService dependency
 jest.mock('./queue.service', () => {
   return {
