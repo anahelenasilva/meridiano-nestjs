@@ -1,0 +1,26 @@
+# Meridiano Architecture
+
+## Table of Contents
+
+- [Meridiano Architecture](#table-of-contents)
+  - [System View](./system-view.md)
+  - [Architectural Patterns (CQRS-style)](./architectural-patterns-cqrs-style.md)
+  - [Runtime Layers](./runtime-layers.md)
+  - [App Module Composition](./app-module-composition.md)
+  - [Domain Modules ()](#domain-modules)
+  - [External submission flow (Telegram / automation)](./external-submission-flow-telegram-automation.md)
+  - [Infrastructure Libraries ()](#infrastructure-libraries)
+  - [API Surface (Current Controllers)](./api-surface-current-controllers.md)
+  - [Async Queue Architecture](./async-queue-architecture.md)
+    - [Queue Producers](./async-queue-architecture.md#queue-producers)
+    - [Queue Consumers](./async-queue-architecture.md#queue-consumers)
+  - [Core Processing Flows](./core-processing-flows.md)
+    - [Article flow](./core-processing-flows.md#article-flow)
+    - [Markdown article flow](./core-processing-flows.md#markdown-article-flow)
+    - [YouTube transcription flow](./core-processing-flows.md#youtube-transcription-flow)
+    - [Briefing generation flow](./core-processing-flows.md#briefing-generation-flow)
+  - [Persistence Model](./persistence-model.md)
+  - [AI Provider Architecture](./ai-provider-architecture.md)
+  - [Security Architecture](./security-architecture.md)
+  - [Configuration Model](./configuration-model.md)
+  - [Database access (transitional)](./database-access-transitional.md)
