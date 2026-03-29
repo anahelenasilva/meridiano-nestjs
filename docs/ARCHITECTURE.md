@@ -8,7 +8,7 @@ Meridiano is a modular NestJS backend that ingests content (RSS, manual URLs, Yo
 
 At a high level:
 
-1. HTTP controllers receive requests under `/api/*`.
+1. HTTP controllers receive requests primarily under `/api/*`, with additional root/platform routes (for example `/`).
 2. Services and use cases orchestrate domain behavior.
 3. Async workloads are pushed to BullMQ queues.
 4. Workers process jobs and persist results in PostgreSQL.
@@ -18,7 +18,7 @@ At a high level:
 
 | Layer | Main Components |
 |---|---|
-| API | NestJS controllers in `src/*/*.controller.ts` |
+| API | NestJS controllers in `src/**/*.controller.ts` (including root-level controllers like `src/app.controller.ts`) |
 | Domain/Application | Services, commands, queries, and use cases in `src/` modules |
 | Async Processing | BullMQ queues in `libs/queue` and workers in `libs/queue/processors`, `src/articles/processors`, `src/youtube-transcriptions/processors` |
 | Infrastructure | `libs/database`, `libs/redis`, `libs/queue`, `libs/s3`, `libs/email`, `libs/auth`, `libs/audio` |
@@ -81,6 +81,8 @@ Security baseline:
 | `/api/profiles` | `ProfilesController` |
 | `/api/youtube` | `YoutubeTranscriptionsController` |
 | `/api/youtube/channels` | `YoutubeChannelsController` |
+| `/api/health` | `AppController` |
+| `/` | `AppController` |
 
 ## Async Queue Architecture
 
@@ -96,6 +98,7 @@ Defined queue names:
 - `ArticlesController` -> `article-processing`, `markdown-article-processing`.
 - `ExternalArticlesController` -> `article-processing`.
 - `YoutubeTranscriptionsService` -> `youtube-transcription-summary`.
+- `ProcessorService` and article-audio command handlers can request audio generation through `AudioJobService`.
 - `YoutubeTranscriptionsController` and `YoutubeTranscriptionProcessor` request audio generation through `AudioJobService`.
 - `AudioJobService` -> `audio-generation` (with dedupe/locking).
 
@@ -190,7 +193,7 @@ Environment toggles are used for behavior such as:
 
 - `ENABLED_CHAT_MODEL`, `ENABLED_TTS_MODEL`
 - `TELEGRAM_INTEGRATION_ENABLED`
-- Email notification addresses for queue failures
+- Email notification addresses for queue and processing failures (for example queue handlers and embedding failure alerts)
 
 ## Current Transitional Notes
 
