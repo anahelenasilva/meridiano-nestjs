@@ -5,16 +5,12 @@
 - Install packages: `pnpm add <package>` or `pnpm add -D <package>`
 - Run scripts: `pnpm run <script>`
 
-## Before Making Changes
-1. Ensure Docker containers are running: `pnpm run docker:up`
-2. If modifying database schema, create a migration first
-
 ## Testing
 - Run unit tests before completing any task: `pnpm test`
 - Run specific unit test file: `pnpm test <filename>`
 - Run E2E tests: `pnpm test:e2e`
 - Run specific E2E test file: `pnpm test:e2e -- <filename>`
-- If tests fail, fix them before moving on
+- If a test fails, fix it before moving on
 
 ## Database Migrations
 - After modifying entity interfaces that map to DB tables:
@@ -24,13 +20,7 @@
 - To run pending migrations: `pnpm run migration:run`
 - Never manually edit migration files after they've been run
 
-## Development Server
-- Start dev server: `pnpm run start:dev`
-- The server runs on port 3005 by default
-- API endpoints are prefixed with `/api/`
-
 ## Environment
-- Never commit `.env` files, except the ones with names that ends with `.sample` (e.g. `.env.prod.sample`)
 - Required env vars are documented in `README.md`
 - For local dev, copy from `.env.example` if it exists
 
@@ -52,6 +42,36 @@
 - Check Docker logs: `pnpm run docker:logs`
 - Verify Redis is running: `redis-cli ping`
 - Check for TypeScript errors: `pnpm run build`
+
+## Architecture Patterns
+
+- Reduce coupling when possible
+- Never create the "god module" anti-pattern, for example: never create a centralized Module such as UsecasesModule. Modules are supposed to be about contexts like Articles, Audio, Users, etc. When in doubt, ask the user what should be done
+- Shared infrastructure modules and cross-cutting concerns are organized in `libs/` at the project root
+
+**What belongs in `libs/`:**
+- Shared infrastructure modules (S3, email, auth, database, queue)
+- Reusable utilities used across multiple domain modules
+- Cross-cutting concerns that don't belong to a specific domain
+
+**What stays in `src/`:**
+- Domain-specific modules (articles, users, briefings, etc.)
+- Business logic and use cases
+- API controllers and routes
+- Domain entities and DTOs
+
+**Import Conventions:**
+- Use `@libs/*` path aliases for all libs imports
+- Prefer barrel exports: `import { S3Module, S3Service } from '@libs/s3'`
+- Direct file imports also work: `import { S3Module } from '@libs/s3/s3.module'`
+- Avoid relative paths like `../../libs/s3` - use `@libs/s3` instead
+
+### CQRS Pattern
+- **Commands**: Write operations that modify state (`commands/*.command.ts`)
+- **Queries**: Read operations that retrieve data (`queries/*.query.ts`)
+- **Usecases**: Complex business logic orchestration (`src/usecases/`)
+- All should be `@Injectable()` classes with an `execute()` method
+
 
 ## Implementation Standards
 
@@ -93,3 +113,23 @@
   - Store partial results for retry (if applicable)
   - Log the failure with structured data
 - Empty catch blocks are FORBIDDEN
+
+## 1. Don't add unnecessary comments in the code for obvious things
+Examples of bad comments that must be avoided:
+```typescript
+/**
+ * Error types for audio generation jobs
+ */
+type ErrorType = 'retryable' | 'fatal';
+```
+
+```typescript
+// Validate input data
+if (!text || text.trim().length === 0) {
+  throw new Error('Invalid input: text is required and cannot be empty');
+}
+```
+
+## 2. Don't use SQLite (project migrated to PostgreSQL)
+
+This is a PostgreSQL project, so we should use PostgreSQL for all database operations.
