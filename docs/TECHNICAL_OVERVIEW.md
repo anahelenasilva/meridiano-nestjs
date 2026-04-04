@@ -66,7 +66,7 @@ Reusable cross-cutting concerns:
 
 **Queue Architecture**: Each heavy operation (article processing, transcription summary, audio generation) has its own queue with dedicated processors. Jobs are added via `QueueService` and processed by processor classes.
 
-**AI Service Abstraction**: Single `AiService` with methods for different providers (`callDeepseekChat`, `callOpenAIChat`, `getEmbedding`, `generateAudio`). Provider selection via config.
+**AI Service Abstraction**: Single `AiService`. Application code should call `callChat` for chat completions so the configured provider (`ENABLED_CHAT_MODEL`: DeepSeek or OpenAI) is respected. Direct `callDeepseekChat` / `callOpenAIChat` exist for lower-level use; `getEmbedding` and `generateAudio` cover other capabilities.
 
 **Briefing Generation Pipeline**:
 1. Fetch recent articles with embeddings
