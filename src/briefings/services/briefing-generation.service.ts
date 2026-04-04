@@ -82,7 +82,7 @@ export class BriefingGenerationService {
     });
 
     const clusterAnalysis =
-      await this.aiService.callDeepseekChat(analysisPrompt);
+      await this.aiService.callChat(analysisPrompt);
 
     if (!clusterAnalysis) {
       return null;
@@ -228,7 +228,7 @@ export class BriefingGenerationService {
     });
 
     const finalBriefMarkdown =
-      await this.aiService.callDeepseekChat(briefSynthesisPrompt);
+      await this.aiService.callChat(briefSynthesisPrompt);
 
     if (!finalBriefMarkdown) {
       const error = 'Could not synthesize final brief.';
@@ -304,7 +304,7 @@ Format as a professional briefing with:
 
 Use Markdown formatting.`;
 
-    const briefContent = await this.aiService.callDeepseekChat(briefPrompt);
+    const briefContent = await this.aiService.callChat(briefPrompt);
 
     if (!briefContent) {
       return { success: false, error: 'Failed to generate brief content' };
