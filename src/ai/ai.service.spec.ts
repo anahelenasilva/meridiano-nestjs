@@ -622,6 +622,26 @@ describe('AiService', () => {
       expect(openaiSpeechCreate.mock.calls.length).toBeGreaterThanOrEqual(2);
     });
 
+    it('concatenates chunk audio in original order', async () => {
+      const longText = 'A'.repeat(5000);
+      const chunk1 = new TextEncoder().encode('OPENAI_CHUNK_1');
+      const chunk2 = new TextEncoder().encode('OPENAI_CHUNK_2');
+      openaiSpeechCreate
+        .mockResolvedValueOnce({
+          arrayBuffer: () => Promise.resolve(chunk1.buffer),
+        })
+        .mockResolvedValueOnce({
+          arrayBuffer: () => Promise.resolve(chunk2.buffer),
+        });
+
+      const result = await service.generateOpenAiAudio(longText);
+      const expected = Buffer.concat([Buffer.from(chunk1), Buffer.from(chunk2)]);
+
+      expect(openaiSpeechCreate).toHaveBeenCalledTimes(2);
+      expect(result.equals(expected)).toBe(true);
+      expect(result.toString()).toBe('OPENAI_CHUNK_1OPENAI_CHUNK_2');
+    });
+
     it('throws when openaiTtsClient is not initialized', async () => {
       Object.defineProperty(service, 'openaiTtsClient', {
         value: null,
@@ -698,6 +718,34 @@ describe('AiService', () => {
 
       expect(result).toBeInstanceOf(Buffer);
       expect(groqSpeechCreate.mock.calls.length).toBeGreaterThanOrEqual(2);
+    });
+
+    it('concatenates chunk audio in original order', async () => {
+      const longText = 'This is a test sentence. '.repeat(20);
+      const chunk1 = new TextEncoder().encode('GROQ_CHUNK_1');
+      const chunk2 = new TextEncoder().encode('GROQ_CHUNK_2');
+      const chunk3 = new TextEncoder().encode('GROQ_CHUNK_3');
+      groqSpeechCreate
+        .mockResolvedValueOnce({
+          arrayBuffer: () => Promise.resolve(chunk1.buffer),
+        })
+        .mockResolvedValueOnce({
+          arrayBuffer: () => Promise.resolve(chunk2.buffer),
+        })
+        .mockResolvedValueOnce({
+          arrayBuffer: () => Promise.resolve(chunk3.buffer),
+        });
+
+      const result = await service.generateGroqAudio(longText);
+      const expected = Buffer.concat([
+        Buffer.from(chunk1),
+        Buffer.from(chunk2),
+        Buffer.from(chunk3),
+      ]);
+
+      expect(groqSpeechCreate).toHaveBeenCalledTimes(3);
+      expect(result.equals(expected)).toBe(true);
+      expect(result.toString()).toBe('GROQ_CHUNK_1GROQ_CHUNK_2GROQ_CHUNK_3');
     });
 
     it('throws when groqClient is not initialized', async () => {
