@@ -67,7 +67,7 @@ describe('BriefingsService', () => {
       const result = await service.getAllBriefsMetadata();
 
       expect(mockRepo.find).toHaveBeenCalledWith(
-        expect.objectContaining({ where: {} }),
+        expect.objectContaining({ where: {}, take: 50 }),
       );
       expect(result).toEqual([
         { id: 'id-1', generated_at: new Date('2025-01-02'), feed_profile: 'default' },
@@ -83,6 +83,7 @@ describe('BriefingsService', () => {
       expect(mockRepo.find).toHaveBeenCalledWith(
         expect.objectContaining({
           where: { feedProfile: FeedProfile.DEFAULT },
+          take: 50,
         }),
       );
     });

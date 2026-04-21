@@ -16,7 +16,7 @@ export class BriefingEntity {
   @Column('simple-json', { name: 'article_ids' })
   articleIds: string[];
 
-  @Column({ name: 'feed_profile' })
+  @Column({ name: 'feed_profile', type: 'text' })
   feedProfile: string;
 
   @CreateDateColumn({ name: 'created_at' })

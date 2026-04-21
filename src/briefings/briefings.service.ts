@@ -28,11 +28,13 @@ export class BriefingsService {
 
   async getAllBriefsMetadata(
     feedProfile?: FeedProfile,
+    limit = 50,
   ): Promise<BriefsMetadata[]> {
     const entities = await this.briefingRepository.find({
       where: feedProfile ? { feedProfile } : {},
       order: { createdAt: 'DESC' },
       select: { id: true, createdAt: true, feedProfile: true },
+      take: limit,
     });
 
     return entities.map((e) => ({

@@ -7,6 +7,7 @@ export interface BriefingOptions {
   customPrompts?: Partial<{
     clusterAnalysis: string;
     briefSynthesis: string;
+    simpleBriefing: string;
   }>;
 }
 
