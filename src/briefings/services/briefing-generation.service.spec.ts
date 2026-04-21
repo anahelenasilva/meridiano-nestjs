@@ -104,6 +104,10 @@ describe('BriefingGenerationService', () => {
       processed_content: 'Summary text for the article.',
     });
     mockArticlesService.getArticlesForBriefing.mockResolvedValue([article]);
+    mockProfilesService.getPromptsForProfile.mockReturnValue({});
+    mockConfigService.getSimpleBriefPrompt.mockReturnValue(
+      "Create a concise briefing for the 'default' profile based on these recent articles:\n\n1. **Headline Alpha**",
+    );
     mockAiService.callChat.mockResolvedValue('# Brief\n\nExecutive summary.');
     mockBriefingsService.saveBrief.mockResolvedValue('briefing-uuid');
 

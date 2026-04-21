@@ -9,6 +9,7 @@ export interface PromptVariables {
   feed_profile?: string;
   cluster_summaries_text?: string;
   cluster_analyses_text?: string;
+  summaries_text?: string;
 }
 
 export interface EmbeddingResponse {

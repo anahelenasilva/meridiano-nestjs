@@ -10,7 +10,7 @@ import {
   BriefGenerationOptions,
   GenerateBriefResult,
   SimpleBriefResult,
-} from '../entities/briefing.entity';
+} from '../entities/briefing.types';
 import { BriefingsService } from '../briefings.service';
 
 @Injectable()
@@ -306,16 +306,12 @@ export class BriefingGenerationService {
       )
       .join('\n');
 
-    const briefPrompt = `Create a concise briefing for the '${feedProfile}' profile based on these recent articles:
-
-${summariesText}
-
-Format as a professional briefing with:
-1. Executive Summary (2-3 key themes)
-2. Key Developments (bullet points)
-3. Analysis and Implications
-
-Use Markdown formatting.`;
+    const profilePrompts = this.profilesService.getPromptsForProfile(feedProfile);
+    const briefPrompt = this.configService.getSimpleBriefPrompt(
+      feedProfile,
+      summariesText,
+      profilePrompts.simpleBriefing,
+    );
 
     const briefContent = await this.aiService.callChat(briefPrompt);
 
