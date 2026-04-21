@@ -1,4 +1,11 @@
-import { Controller, Get, Param, ParseUUIDPipe, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  ParseUUIDPipe,
+  Query,
+} from '@nestjs/common';
 import type { FeedProfile } from '../shared/types/feed';
 import { BriefingsService } from './briefings.service';
 import { ListBriefingsQuery } from './queries/list-briefings.query';
@@ -12,10 +19,6 @@ export class BriefingsController {
 
   @Get()
   async listBriefings(@Query('feedProfile') feedProfile?: FeedProfile) {
-    // const briefings =
-    //   await this.briefingsService.getAllBriefsMetadata(feedProfile);
-    // return briefings;
-
     return this.listBriefingsQuery.execute(feedProfile);
   }
 
@@ -23,7 +26,7 @@ export class BriefingsController {
   async getBriefing(@Param('id', ParseUUIDPipe) id: string) {
     const briefing = await this.briefingsService.getBriefById(id);
     if (!briefing) {
-      return { error: 'Briefing not found' };
+      throw new NotFoundException('Briefing not found');
     }
     return briefing;
   }
