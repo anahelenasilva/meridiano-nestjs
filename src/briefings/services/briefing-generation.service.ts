@@ -71,6 +71,10 @@ export class BriefingGenerationService {
       .map((article) => `- ${article.processed_content}`)
       .join('\n\n');
 
+    if (!clusterSummariesText) {
+      return null;
+    }
+
     const profilePrompts =
       this.profilesService.getPromptsForProfile(feedProfile);
     const promptToUse =

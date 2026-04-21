@@ -154,6 +154,33 @@ describe('BriefingGenerationService', () => {
     }
   });
 
+  it('analyzeCluster returns null without calling AI when all articles have null processed_content', async () => {
+    const embedding = (x: number, y: number) =>
+      JSON.stringify([x, y, x + 0.1, y + 0.1]);
+
+    const articles = [
+      createArticle({ id: 'a1', processed_content: null, embedding: embedding(0.1, 0.2) }),
+      createArticle({ id: 'a2', processed_content: null, embedding: embedding(0.3, 0.4) }),
+      createArticle({ id: 'a3', processed_content: undefined, embedding: embedding(0.5, 0.6) }),
+      createArticle({ id: 'a4', processed_content: undefined, embedding: embedding(0.7, 0.8) }),
+    ];
+
+    mockConfigService.getBriefingConfig.mockReturnValue({
+      feedProfile: FeedProfile.DEFAULT,
+      lookbackHours: 24,
+      minArticles: 2,
+      clustersQtd: 2,
+      articlesPerPage: 15,
+      customPrompts: undefined,
+    });
+    mockArticlesService.getArticlesForBriefing.mockResolvedValue(articles);
+
+    const result = await service.generateBrief(FeedProfile.DEFAULT);
+
+    expect(result.success).toBe(false);
+    expect(mockAiService.callChat).not.toHaveBeenCalled();
+  });
+
   it('generateSimpleBrief returns error when callChat returns null', async () => {
     mockConfigService.getProcessingConfig.mockReturnValue({
       briefingArticleLookbackHours: 24,
