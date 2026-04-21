@@ -56,6 +56,25 @@ describe('BriefingGenerationService', () => {
     expect(service).toBeDefined();
   });
 
+  it('generateSimpleBrief returns error when all articles have null processed_content', async () => {
+    mockConfigService.getProcessingConfig.mockReturnValue({
+      briefingArticleLookbackHours: 24,
+      minArticlesForBriefing: 5,
+      articlesPerPage: 15,
+      clustersQtd: 10,
+    });
+    mockArticlesService.getArticlesForBriefing.mockResolvedValue([
+      createArticle({ id: 'a1', processed_content: null }),
+      createArticle({ id: 'a2', processed_content: undefined }),
+    ]);
+
+    const result = await service.generateSimpleBrief(FeedProfile.DEFAULT);
+
+    expect(result.success).toBe(false);
+    expect(result.error).toBe('No articles with processed content found');
+    expect(mockAiService.callChat).not.toHaveBeenCalled();
+  });
+
   it('generateSimpleBrief returns error when no articles', async () => {
     mockConfigService.getProcessingConfig.mockReturnValue({
       briefingArticleLookbackHours: 24,

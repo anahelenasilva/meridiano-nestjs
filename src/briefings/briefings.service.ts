@@ -1,4 +1,4 @@
-import { DatabaseService } from '@libs/database';
+import { DatabaseService, RunCallbackContext } from '@libs/database';
 import { Injectable } from '@nestjs/common';
 import { BriefsMetadata, GetBriefByIdResult } from './entities/briefing.entity';
 import { FeedProfile } from '../shared/types/feed';
@@ -29,7 +29,7 @@ export class BriefingsService {
 
       stmt.run(
         [content, JSON.stringify(articleIds), feedProfile],
-        function (this: { lastID?: string }, err: Error | null) {
+        function (this: RunCallbackContext, err: Error | null) {
           if (err) {
             reject(err);
           } else if (!this.lastID) {

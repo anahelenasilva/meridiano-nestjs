@@ -291,7 +291,15 @@ export class BriefingGenerationService {
       .sort((a, b) => (b.impact_rating || 0) - (a.impact_rating || 0))
       .slice(0, maxArticles);
 
-    const summariesText = selectedArticles
+    const articlesWithContent = selectedArticles.filter(
+      (a) => a.processed_content != null,
+    );
+
+    if (articlesWithContent.length === 0) {
+      return { success: false, error: 'No articles with processed content found' };
+    }
+
+    const summariesText = articlesWithContent
       .map(
         (article, index) =>
           `${index + 1}. **${article.title}** (Impact: ${article.impact_rating || 'N/A'})\n   ${article.processed_content}\n`,
