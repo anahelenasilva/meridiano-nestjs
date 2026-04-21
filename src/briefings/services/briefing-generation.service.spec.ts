@@ -99,6 +99,61 @@ describe('BriefingGenerationService', () => {
     expect(mockAiService.callOpenAIChat).not.toHaveBeenCalled();
   });
 
+  it('analyzeCluster filters articles with null processed_content before building prompt', async () => {
+    const embedding = (x: number, y: number) =>
+      JSON.stringify([x, y, x + 0.1, y + 0.1]);
+
+    const validArticle = (id: string, x: number, y: number) =>
+      createArticle({
+        id,
+        processed_content: `content-${id}`,
+        embedding: embedding(x, y),
+      });
+
+    const articles = [
+      validArticle('a1', 0.1, 0.2),
+      validArticle('a2', 0.3, 0.4),
+      createArticle({ id: 'a3', processed_content: null, embedding: embedding(0.5, 0.6) }),
+      createArticle({ id: 'a4', processed_content: undefined, embedding: embedding(0.7, 0.8) }),
+    ];
+
+    mockConfigService.getBriefingConfig.mockReturnValue({
+      feedProfile: FeedProfile.DEFAULT,
+      lookbackHours: 24,
+      minArticles: 2,
+      clustersQtd: 2,
+      articlesPerPage: 15,
+      customPrompts: undefined,
+    });
+    mockArticlesService.getArticlesForBriefing.mockResolvedValue(articles);
+    mockProfilesService.getPromptsForProfile.mockReturnValue({
+      clusterAnalysis: null,
+      briefSynthesis: null,
+    });
+    mockConfigService.getPrompt.mockReturnValue('{cluster_summaries_text}');
+    mockConfigService.formatPrompt.mockImplementation((template, vars) =>
+      template.replace(
+        '{cluster_summaries_text}',
+        (vars as Record<string, string>).cluster_summaries_text ?? '',
+      ).replace(
+        '{cluster_analyses_text}',
+        (vars as Record<string, string>).cluster_analyses_text ?? '',
+      ).replace('{feed_profile}', ''),
+    );
+    mockAiService.callChat.mockResolvedValue('cluster-analysis-text');
+    mockBriefingsService.saveBrief.mockResolvedValue('brief-uuid');
+
+    await service.generateBrief(FeedProfile.DEFAULT);
+
+    const clusterAnalysisCalls = mockAiService.callChat.mock.calls.filter(
+      ([prompt]) => !prompt.includes('cluster-analysis-text'),
+    );
+    for (const [prompt] of clusterAnalysisCalls) {
+      expect(prompt).not.toContain('- null');
+      expect(prompt).not.toContain('- undefined');
+    }
+  });
+
   it('generateSimpleBrief returns error when callChat returns null', async () => {
     mockConfigService.getProcessingConfig.mockReturnValue({
       briefingArticleLookbackHours: 24,

@@ -67,6 +67,7 @@ export class BriefingGenerationService {
     const selectedArticles = clusterArticles.slice(0, maxSummariesPerCluster);
 
     const clusterSummariesText = selectedArticles
+      .filter((article) => article.processed_content != null)
       .map((article) => `- ${article.processed_content}`)
       .join('\n\n');
 
