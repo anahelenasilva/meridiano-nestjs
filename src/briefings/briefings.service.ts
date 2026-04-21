@@ -1,10 +1,6 @@
-import { DatabaseService } from '@libs/database';
+import { DatabaseService, RunCallbackContext } from '@libs/database';
 import { Injectable } from '@nestjs/common';
-import {
-  BriefsMetadata,
-  GetBriefByIdResult,
-  ProcessingStatsResult,
-} from './entities/briefing.entity';
+import { BriefsMetadata, GetBriefByIdResult } from './entities/briefing.entity';
 import { FeedProfile } from '../shared/types/feed';
 
 interface BriefingRow {
@@ -12,14 +8,6 @@ interface BriefingRow {
   generated_at: string;
   feed_profile: string;
   brief_markdown?: string;
-}
-
-interface CountRow {
-  count: number;
-}
-
-interface AvgRow {
-  avg: number | null;
 }
 
 @Injectable()
@@ -41,11 +29,13 @@ export class BriefingsService {
 
       stmt.run(
         [content, JSON.stringify(articleIds), feedProfile],
-        function (this: { lastID?: string }, err: Error | null) {
+        function (this: RunCallbackContext, err: Error | null) {
           if (err) {
             reject(err);
+          } else if (!this.lastID) {
+            reject(new Error('saveBrief: insert succeeded but no lastID returned'));
           } else {
-            resolve(this.lastID ?? '');
+            resolve(this.lastID);
           }
           stmt.finalize();
         },
@@ -111,81 +101,4 @@ export class BriefingsService {
     });
   }
 
-  async getStats(feedProfile: FeedProfile): Promise<ProcessingStatsResult> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
-
-      const queries = [
-        'SELECT COUNT(*) as count FROM articles WHERE feed_profile = ?',
-        'SELECT COUNT(*) as count FROM articles WHERE feed_profile = ? AND processed_content IS NOT NULL',
-        'SELECT COUNT(*) as count FROM articles WHERE feed_profile = ? AND impact_rating IS NOT NULL',
-        'SELECT AVG(impact_rating) as avg FROM articles WHERE feed_profile = ? AND impact_rating IS NOT NULL',
-      ];
-
-      const results: (CountRow | AvgRow)[] = [];
-      let completed = 0;
-
-      queries.forEach((query, index) => {
-        if (index === 3) {
-          db.get(query, [feedProfile], (err, row: AvgRow | undefined) => {
-            if (err) {
-              reject(err);
-              return;
-            }
-
-            results[index] = row || { avg: null };
-            completed++;
-
-            if (completed === queries.length) {
-              const total = (results[0] as CountRow).count;
-              const processed = (results[1] as CountRow).count;
-              const rated = (results[2] as CountRow).count;
-              const averageRating = (results[3] as AvgRow).avg;
-
-              const stats: ProcessingStatsResult = {
-                total,
-                processed,
-                rated,
-                unprocessed: total - processed,
-                unrated: processed - rated,
-                averageRating: averageRating
-                  ? Math.round(averageRating * 100) / 100
-                  : undefined,
-              };
-              resolve(stats);
-            }
-          });
-        } else {
-          db.get(query, [feedProfile], (err, row: CountRow | undefined) => {
-            if (err) {
-              reject(err);
-              return;
-            }
-
-            results[index] = row || { count: 0 };
-            completed++;
-
-            if (completed === queries.length) {
-              const total = (results[0] as CountRow).count;
-              const processed = (results[1] as CountRow).count;
-              const rated = (results[2] as CountRow).count;
-              const averageRating = (results[3] as AvgRow).avg;
-
-              const stats: ProcessingStatsResult = {
-                total,
-                processed,
-                rated,
-                unprocessed: total - processed,
-                unrated: processed - rated,
-                averageRating: averageRating
-                  ? Math.round(averageRating * 100) / 100
-                  : undefined,
-              };
-              resolve(stats);
-            }
-          });
-        }
-      });
-    });
-  }
 }
