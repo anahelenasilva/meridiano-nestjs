@@ -108,10 +108,11 @@ describe('CustomBriefingProcessor', () => {
   });
 
   describe('processCustomBriefing', () => {
-    it('generates a custom briefing and returns the briefing id', async () => {
+    it('generates a custom briefing and returns the briefing id with custom title', async () => {
       mockBriefingGenerationService.generateCustomBrief.mockResolvedValue({
         success: true,
         briefingId: 'briefing-uuid',
+        customTitle: 'Generated Title',
       });
 
       const result = await processor.processCustomBriefing({
@@ -128,7 +129,30 @@ describe('CustomBriefingProcessor', () => {
         FeedProfile.DEFAULT,
         'Focus on impact',
       );
-      expect(result).toEqual({ briefingId: 'briefing-uuid' });
+      expect(result).toEqual({
+        briefingId: 'briefing-uuid',
+        customTitle: 'Generated Title',
+      });
+    });
+
+    it('returns null custom title when generation did not produce one', async () => {
+      mockBriefingGenerationService.generateCustomBrief.mockResolvedValue({
+        success: true,
+        briefingId: 'briefing-uuid',
+      });
+
+      const result = await processor.processCustomBriefing({
+        id: 'job-123',
+        data: {
+          articleIds: ['article-1', 'article-2'],
+          feedProfile: FeedProfile.DEFAULT,
+        },
+      } as Job);
+
+      expect(result).toEqual({
+        briefingId: 'briefing-uuid',
+        customTitle: null,
+      });
     });
 
     it('throws when custom briefing generation fails', async () => {

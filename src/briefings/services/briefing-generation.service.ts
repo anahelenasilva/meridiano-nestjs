@@ -405,6 +405,7 @@ export class BriefingGenerationService {
         success: true,
         briefingId,
         content: briefContent,
+        customTitle: customTitle ?? null,
       };
     } catch (error) {
       return {

@@ -15,6 +15,7 @@ export interface SimpleBriefResult {
   success: boolean;
   briefingId?: string;
   content?: string;
+  customTitle?: string | null;
   error?: string;
 }
 

@@ -249,11 +249,41 @@ describe('BriefingGenerationService', () => {
     );
 
     expect(result.success).toBe(true);
+    expect(result.customTitle).toBeNull();
     expect(mockBriefingsService.saveBrief).toHaveBeenCalledWith(
       '# Custom Brief',
       ['article-1', 'article-2'],
       FeedProfile.DEFAULT,
       { isCustom: true, customTitle: undefined },
+    );
+  });
+
+  it('generateCustomBrief returns the generated custom title in the result', async () => {
+    mockArticlesService.getArticlesByIds.mockResolvedValue([
+      createArticle({ id: 'article-1', title: 'First' }),
+      createArticle({ id: 'article-2', title: 'Second' }),
+    ]);
+    mockProfilesService.getPromptsForProfile.mockReturnValue({
+      simpleBriefing: 'Default custom brief prompt',
+    });
+    mockConfigService.getSimpleBriefPrompt.mockReturnValue('brief prompt');
+    mockAiService.callChat
+      .mockResolvedValueOnce('# Custom Brief')
+      .mockResolvedValueOnce('AI Briefing Highlights');
+    mockBriefingsService.saveBrief.mockResolvedValue('brief-uuid');
+
+    const result = await service.generateCustomBrief(
+      ['article-1', 'article-2'],
+      FeedProfile.DEFAULT,
+    );
+
+    expect(result.success).toBe(true);
+    expect(result.customTitle).toBe('AI Briefing Highlights');
+    expect(mockBriefingsService.saveBrief).toHaveBeenCalledWith(
+      '# Custom Brief',
+      ['article-1', 'article-2'],
+      FeedProfile.DEFAULT,
+      { isCustom: true, customTitle: 'AI Briefing Highlights' },
     );
   });
 });

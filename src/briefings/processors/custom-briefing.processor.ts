@@ -74,7 +74,7 @@ export class CustomBriefingProcessor implements OnModuleInit, OnModuleDestroy {
 
   async processCustomBriefing(
     job: Job<CustomBriefingJobData>,
-  ): Promise<{ briefingId: string }> {
+  ): Promise<{ briefingId: string; customTitle: string | null }> {
     const { articleIds, feedProfile, customPrompt } = job.data;
 
     this.logger.log(
@@ -91,7 +91,10 @@ export class CustomBriefingProcessor implements OnModuleInit, OnModuleDestroy {
       throw new Error(result.error || 'Failed to generate custom briefing');
     }
 
-    return { briefingId: result.briefingId };
+    return {
+      briefingId: result.briefingId,
+      customTitle: result.customTitle ?? null,
+    };
   }
 
   async onModuleDestroy() {
