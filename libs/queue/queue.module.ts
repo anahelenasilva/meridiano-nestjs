@@ -1,31 +1,22 @@
-import { AudioModule } from '@libs/audio';
 import { EmailModule } from '@libs/email';
 import { RedisModule, RedisService } from '@libs/redis';
-import { S3Module } from '@libs/s3';
-import { Module, forwardRef } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { Queue } from 'bullmq';
-import { AudioFilesModule } from '../../src/audio-files/audio-files.module';
 import { ConfigModule } from '../../src/config/config.module';
-import { ProcessorModule } from '../../src/processor/processor.module';
 import {
   ARTICLE_PROCESSING_QUEUE,
+  AUDIO_GENERATION_QUEUE,
   CUSTOM_BRIEFING_GENERATION_QUEUE,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE
 } from './constants/queue.constants';
-import { ArticleProcessor } from './processors/article.processor';
-import { AudioGenerationProcessor } from './processors/audio-generation.processor';
 import { QueueService } from './queue.service';
 
 @Module({
   imports: [
-    forwardRef(() => ProcessorModule),
-    forwardRef(() => AudioFilesModule), // Resolves circular dependency
     ConfigModule,
     EmailModule.forRoot(),
-    S3Module,
     RedisModule,
-    AudioModule, // Import AudioModule to get AUDIO_GENERATION_QUEUE
   ],
   providers: [
     {
@@ -64,8 +55,21 @@ import { QueueService } from './queue.service';
       },
       inject: [RedisService],
     },
-    ArticleProcessor,
-    AudioGenerationProcessor,
+    {
+      provide: AUDIO_GENERATION_QUEUE,
+      useFactory: (redisService: RedisService) => {
+        return new Queue(AUDIO_GENERATION_QUEUE, {
+          connection: redisService.getClient(),
+          defaultJobOptions: {
+            attempts: 2,
+            backoff: { type: 'exponential', delay: 2000 },
+            removeOnComplete: { count: 100 },
+            removeOnFail: { count: 500 },
+          },
+        });
+      },
+      inject: [RedisService],
+    },
     QueueService,
   ],
   exports: [
@@ -73,6 +77,7 @@ import { QueueService } from './queue.service';
     MARKDOWN_ARTICLE_PROCESSING_QUEUE,
     YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
     CUSTOM_BRIEFING_GENERATION_QUEUE,
+    AUDIO_GENERATION_QUEUE,
     QueueService,
   ],
 })
