@@ -7,6 +7,8 @@ import { FeedProfile } from '../../src/shared/types/feed';
 import {
   ARTICLE_PROCESSING_QUEUE,
   AUDIO_GENERATION_QUEUE,
+  CUSTOM_BRIEFING_GENERATION_QUEUE,
+  GENERATE_CUSTOM_BRIEFING_JOB,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
   PROCESS_ARTICLE_JOB,
   PROCESS_MARKDOWN_ARTICLE_JOB,
@@ -15,6 +17,7 @@ import {
 } from './constants/queue.constants';
 import type { ProcessArticleJobData } from './interfaces/article-job.interface';
 import type { GenerateAudioJobData } from './interfaces/audio-job.interface';
+import type { CustomBriefingJobData } from './interfaces/custom-briefing-job.interface';
 import type { ProcessMarkdownArticleJobData } from './interfaces/markdown-article-job.interface';
 import type { ProcessTranscriptionSummaryJobData } from './interfaces/youtube-transcription-job.interface';
 
@@ -51,6 +54,8 @@ export class QueueService implements OnModuleInit, OnModuleDestroy {
     private readonly transcriptionSummaryQueue: Queue,
     @Inject(AUDIO_GENERATION_QUEUE)
     private readonly audioQueue: Queue,
+    @Inject(CUSTOM_BRIEFING_GENERATION_QUEUE)
+    private readonly customBriefingQueue: Queue,
     private readonly configService: ConfigService,
     private readonly emailService: EmailService,
     private readonly redisService: RedisService,
@@ -359,6 +364,38 @@ Please investigate the issue.`,
    */
   async getJobStatus(jobId: string): Promise<JobStatus> {
     const job = await this.articleQueue.getJob(jobId);
+
+    if (!job) {
+      throw new NotFoundException('Job not found');
+    }
+
+    const state = await job.getState();
+    const progress = job.progress;
+    const returnValue = job.returnvalue;
+    const failedReason = job.failedReason;
+
+    return {
+      jobId: job.id as string,
+      state,
+      progress,
+      result: returnValue,
+      error: failedReason,
+      data: job.data,
+    };
+  }
+
+  async addCustomBriefingJob(
+    data: CustomBriefingJobData,
+  ): Promise<{ jobId: string }> {
+    const job = await this.customBriefingQueue.add(
+      GENERATE_CUSTOM_BRIEFING_JOB,
+      data,
+    );
+    return { jobId: job.id as string };
+  }
+
+  async getCustomBriefingJobStatus(jobId: string): Promise<JobStatus> {
+    const job = await this.customBriefingQueue.getJob(jobId);
 
     if (!job) {
       throw new NotFoundException('Job not found');

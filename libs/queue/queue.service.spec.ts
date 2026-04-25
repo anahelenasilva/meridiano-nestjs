@@ -8,6 +8,7 @@ import { ConfigService } from '../../src/config/config.service';
 import {
   ARTICLE_PROCESSING_QUEUE,
   AUDIO_GENERATION_QUEUE,
+  CUSTOM_BRIEFING_GENERATION_QUEUE,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from './constants/queue.constants';
@@ -21,6 +22,7 @@ describe('QueueService', () => {
   const mockMarkdownArticleQueue = mock<Queue>();
   const mockTranscriptionSummaryQueue = mock<Queue>();
   const mockAudioQueue = mock<Queue>();
+  const mockCustomBriefingQueue = mock<Queue>();
   const mockConfigService = mock<ConfigService>();
   const mockEmailService = mock<EmailService>();
   const mockRedisService = mock<RedisService>();
@@ -31,6 +33,7 @@ describe('QueueService', () => {
     mockReset(mockMarkdownArticleQueue);
     mockReset(mockTranscriptionSummaryQueue);
     mockReset(mockAudioQueue);
+    mockReset(mockCustomBriefingQueue);
     mockReset(mockConfigService);
     mockReset(mockEmailService);
     mockReset(mockRedisService);
@@ -56,6 +59,10 @@ describe('QueueService', () => {
         {
           provide: AUDIO_GENERATION_QUEUE,
           useValue: mockAudioQueue,
+        },
+        {
+          provide: CUSTOM_BRIEFING_GENERATION_QUEUE,
+          useValue: mockCustomBriefingQueue,
         },
         {
           provide: ConfigService,

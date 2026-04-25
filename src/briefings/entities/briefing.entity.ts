@@ -19,6 +19,12 @@ export class BriefingEntity {
   @Column({ name: 'feed_profile', type: 'text' })
   feedProfile: string;
 
+  @Column({ name: 'is_custom', type: 'boolean', default: false })
+  isCustom: boolean;
+
+  @Column({ name: 'custom_title', type: 'text', nullable: true })
+  customTitle: string | null;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 }

@@ -9,6 +9,7 @@ import { ConfigModule } from '../../src/config/config.module';
 import { ProcessorModule } from '../../src/processor/processor.module';
 import {
   ARTICLE_PROCESSING_QUEUE,
+  CUSTOM_BRIEFING_GENERATION_QUEUE,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE
 } from './constants/queue.constants';
@@ -54,6 +55,15 @@ import { QueueService } from './queue.service';
       },
       inject: [RedisService],
     },
+    {
+      provide: CUSTOM_BRIEFING_GENERATION_QUEUE,
+      useFactory: (redisService: RedisService) => {
+        return new Queue(CUSTOM_BRIEFING_GENERATION_QUEUE, {
+          connection: redisService.getClient(),
+        });
+      },
+      inject: [RedisService],
+    },
     ArticleProcessor,
     AudioGenerationProcessor,
     QueueService,
@@ -62,6 +72,7 @@ import { QueueService } from './queue.service';
     ARTICLE_PROCESSING_QUEUE,
     MARKDOWN_ARTICLE_PROCESSING_QUEUE,
     YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
+    CUSTOM_BRIEFING_GENERATION_QUEUE,
     QueueService,
   ],
 })

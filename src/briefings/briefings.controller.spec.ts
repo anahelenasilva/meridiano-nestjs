@@ -1,17 +1,21 @@
 import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
+import { QueueService } from '../../libs/queue/queue.service';
 import { FeedProfile } from '../shared/types/feed';
 import { BriefingsController } from './briefings.controller';
 import { BriefingsService } from './briefings.service';
 import { ListBriefingsQuery } from './queries/list-briefings.query';
 import { GenerateBriefUseCase } from './usecases/generate-brief.usecase';
+import { GenerateCustomBriefUseCase } from './usecases/generate-custom-brief.usecase';
 
 describe('BriefingsController', () => {
   let controller: BriefingsController;
   const mockBriefingsService = mock<BriefingsService>();
   const mockListBriefingsQuery = mock<ListBriefingsQuery>();
   const mockGenerateBriefUseCase = mock<GenerateBriefUseCase>();
+  const mockGenerateCustomBriefUseCase = mock<GenerateCustomBriefUseCase>();
+  const mockQueueService = mock<QueueService>();
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -20,6 +24,8 @@ describe('BriefingsController', () => {
         { provide: BriefingsService, useValue: mockBriefingsService },
         { provide: ListBriefingsQuery, useValue: mockListBriefingsQuery },
         { provide: GenerateBriefUseCase, useValue: mockGenerateBriefUseCase },
+        { provide: GenerateCustomBriefUseCase, useValue: mockGenerateCustomBriefUseCase },
+        { provide: QueueService, useValue: mockQueueService },
       ],
     }).compile();
 
@@ -104,6 +110,8 @@ describe('BriefingsController', () => {
         brief_markdown: '# Brief',
         generated_at: new Date('2025-01-01'),
         feed_profile: FeedProfile.DEFAULT,
+        isCustom: false,
+        customTitle: null,
       };
       mockBriefingsService.getBriefById.mockResolvedValue(briefing);
 

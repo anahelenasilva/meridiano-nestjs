@@ -344,4 +344,66 @@ export class BriefingGenerationService {
       };
     }
   }
+
+  async generateCustomBrief(
+    articleIds: string[],
+    feedProfile: FeedProfile,
+    customPrompt?: string,
+  ): Promise<SimpleBriefResult> {
+    this.logger.log(`Generating Custom Brief [${feedProfile}] with ${articleIds.length} articles`);
+
+    const articles = await this.articlesService.getArticlesByIds(articleIds);
+
+    const articlesWithContent = articles.filter(
+      (a) => a.processed_content != null,
+    );
+
+    if (articlesWithContent.length === 0) {
+      return { success: false, error: 'No articles with processed content found' };
+    }
+
+    const summariesText = articlesWithContent
+      .map(
+        (article, index) =>
+          `${index + 1}. **${article.title}** (Impact: ${article.impact_rating || 'N/A'})\n   ${article.processed_content}\n`,
+      )
+      .join('\n');
+
+    const profilePrompts = this.profilesService.getPromptsForProfile(feedProfile);
+    const promptToUse = customPrompt || profilePrompts.simpleBriefing;
+    const briefPrompt = this.configService.getSimpleBriefPrompt(
+      feedProfile,
+      summariesText,
+      promptToUse,
+    );
+
+    const briefContent = await this.aiService.callChat(briefPrompt);
+
+    if (!briefContent) {
+      return { success: false, error: 'Failed to generate brief content' };
+    }
+
+    const titlePrompt = `Give this briefing a short title (max 8 words): \n\n${briefContent.slice(0, 500)}`;
+    const customTitle = await this.aiService.callChat(titlePrompt);
+
+    try {
+      const briefingId = await this.briefingsService.saveBrief(
+        briefContent,
+        articleIds,
+        feedProfile,
+        { isCustom: true, customTitle: customTitle || undefined },
+      );
+
+      return {
+        success: true,
+        briefingId,
+        content: briefContent,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to save brief',
+      };
+    }
+  }
 }

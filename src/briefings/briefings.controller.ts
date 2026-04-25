@@ -5,14 +5,18 @@ import {
   NotFoundException,
   Param,
   ParseUUIDPipe,
+  Patch,
   Post,
   Query,
 } from '@nestjs/common';
+import { QueueService } from '../../libs/queue/queue.service';
 import type { FeedProfile } from '../shared/types/feed';
 import { BriefingsService } from './briefings.service';
 import { ListBriefingsQuery } from './queries/list-briefings.query';
 import { GenerateBriefInputDto } from './usecases/dto/generate-brief.dto';
+import type { GenerateCustomBriefInputDto } from './usecases/dto/generate-custom-brief.dto';
 import { GenerateBriefUseCase } from './usecases/generate-brief.usecase';
+import { GenerateCustomBriefUseCase } from './usecases/generate-custom-brief.usecase';
 
 @Controller('api/briefings')
 export class BriefingsController {
@@ -20,6 +24,8 @@ export class BriefingsController {
     private readonly briefingsService: BriefingsService,
     private readonly listBriefingsQuery: ListBriefingsQuery,
     private readonly generateBriefUseCase: GenerateBriefUseCase,
+    private readonly generateCustomBriefUseCase: GenerateCustomBriefUseCase,
+    private readonly queueService: QueueService,
   ) {}
 
   private static readonly MAX_LIMIT = 100;
@@ -49,5 +55,24 @@ export class BriefingsController {
   @Post('generate')
   async generateBriefing(@Body() input: GenerateBriefInputDto) {
     return this.generateBriefUseCase.execute(input);
+  }
+
+  @Post('custom')
+  async generateCustomBriefing(@Body() input: GenerateCustomBriefInputDto) {
+    return this.generateCustomBriefUseCase.execute(input);
+  }
+
+  @Get('jobs/:jobId')
+  async getCustomBriefingJobStatus(@Param('jobId') jobId: string) {
+    return this.queueService.getCustomBriefingJobStatus(jobId);
+  }
+
+  @Patch(':id/title')
+  async updateBriefTitle(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() body: { customTitle: string },
+  ) {
+    await this.briefingsService.updateBriefTitle(id, body.customTitle);
+    return { success: true };
   }
 }

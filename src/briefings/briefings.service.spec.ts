@@ -42,6 +42,8 @@ describe('BriefingsService', () => {
         content: 'content',
         articleIds: ['article-1'],
         feedProfile: FeedProfile.DEFAULT,
+        isCustom: false,
+        customTitle: null,
       });
       expect(result).toBe('new-uuid');
     });
