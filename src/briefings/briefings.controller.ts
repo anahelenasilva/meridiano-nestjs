@@ -17,9 +17,19 @@ export class BriefingsController {
     private readonly listBriefingsQuery: ListBriefingsQuery,
   ) {}
 
+  private static readonly MAX_LIMIT = 100;
+
   @Get()
-  async listBriefings(@Query('feedProfile') feedProfile?: FeedProfile) {
-    return this.listBriefingsQuery.execute(feedProfile);
+  async listBriefings(
+    @Query('feedProfile') feedProfile?: FeedProfile,
+    @Query('limit') limit?: string,
+  ) {
+    const parsed = limit !== undefined ? parseInt(limit, 10) : undefined;
+    const parsedLimit =
+      parsed !== undefined && !isNaN(parsed)
+        ? Math.min(parsed, BriefingsController.MAX_LIMIT)
+        : undefined;
+    return this.listBriefingsQuery.execute(feedProfile, parsedLimit);
   }
 
   @Get(':id')

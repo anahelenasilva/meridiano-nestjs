@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { BriefingOptions } from '../briefings/entities/briefing.entity';
+import { BriefingOptions } from '../shared/types/briefing-options';
 import { ImpactRating, PromptVariables } from '../shared/types/ai';
 import { FeedProfile } from '../shared/types/feed';
 import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
@@ -20,6 +20,7 @@ import {
   categoryClassificationPrompt,
   clusterAnalysisPrompt,
   impactRatingPrompt,
+  simpleBriefingPrompt,
   transcriptionAnalysisPrompt,
   transcriptionClassificationPrompt,
   transcriptionSummaryPrompt,
@@ -38,6 +39,7 @@ export class ConfigService {
       categoryClassification: categoryClassificationPrompt,
       clusterAnalysis: clusterAnalysisPrompt,
       briefSynthesis: briefSynthesisPrompt,
+      simpleBriefing: simpleBriefingPrompt,
       transcriptionSummary: transcriptionSummaryPrompt,
       transcriptionClassification: transcriptionClassificationPrompt,
       transcriptionAnalysis: transcriptionAnalysisPrompt,
@@ -139,6 +141,18 @@ export class ConfigService {
     return this.formatPrompt(template, {
       feed_profile: feedProfile,
       cluster_analyses_text: clusterAnalysesText,
+    });
+  }
+
+  getSimpleBriefPrompt(
+    feedProfile: FeedProfile,
+    summariesText: string,
+    customPrompt?: string,
+  ): string {
+    const template = customPrompt || this.CONFIGS.prompts.simpleBriefing;
+    return this.formatPrompt(template, {
+      feed_profile: feedProfile,
+      summaries_text: summariesText,
     });
   }
 

@@ -38,7 +38,7 @@ describe('BriefingsController', () => {
 
       const result = await controller.listBriefings();
 
-      expect(mockListBriefingsQuery.execute).toHaveBeenCalledWith(undefined);
+      expect(mockListBriefingsQuery.execute).toHaveBeenCalledWith(undefined, undefined);
       expect(result).toBe(expected);
     });
 
@@ -53,7 +53,44 @@ describe('BriefingsController', () => {
 
       expect(mockListBriefingsQuery.execute).toHaveBeenCalledWith(
         FeedProfile.DEFAULT,
+        undefined,
       );
+    });
+
+    it('parses numeric limit and caps at 100', async () => {
+      mockListBriefingsQuery.execute.mockResolvedValue({
+        briefings: [],
+        current_feed_profile: undefined,
+        available_profiles: [],
+      });
+
+      await controller.listBriefings(undefined, '200');
+
+      expect(mockListBriefingsQuery.execute).toHaveBeenCalledWith(undefined, 100);
+    });
+
+    it('passes parsed limit when within max', async () => {
+      mockListBriefingsQuery.execute.mockResolvedValue({
+        briefings: [],
+        current_feed_profile: undefined,
+        available_profiles: [],
+      });
+
+      await controller.listBriefings(undefined, '25');
+
+      expect(mockListBriefingsQuery.execute).toHaveBeenCalledWith(undefined, 25);
+    });
+
+    it('treats non-numeric limit as undefined', async () => {
+      mockListBriefingsQuery.execute.mockResolvedValue({
+        briefings: [],
+        current_feed_profile: undefined,
+        available_profiles: [],
+      });
+
+      await controller.listBriefings(undefined, 'abc');
+
+      expect(mockListBriefingsQuery.execute).toHaveBeenCalledWith(undefined, undefined);
     });
   });
 

@@ -1,5 +1,5 @@
-import { DatabaseModule } from '@libs/database';
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AiModule } from '../ai/ai.module';
 import { ArticlesModule } from '../articles/articles.module';
 import { ConfigModule } from '../config/config.module';
@@ -8,9 +8,9 @@ import { ProfilesModule } from '../profiles/profiles.module';
 import { ScraperModule } from '../scraper/scraper.module';
 import { BriefingsController } from './briefings.controller';
 import { BriefingsService } from './briefings.service';
+import { BriefingEntity } from './entities/briefing.entity';
 import { ListBriefingsQuery } from './queries/list-briefings.query';
 import { BriefingGenerationService } from './services/briefing-generation.service';
-
 import { CategorizeArticlesUseCase } from './usecases/categorize-articles.usecase';
 import { GenerateBriefUseCase } from './usecases/generate-brief.usecase';
 import { GenerateSimpleBriefUseCase } from './usecases/generate-simple-brief.usecase';
@@ -21,7 +21,7 @@ import { ScrapeArticlesUseCase } from './usecases/scrape-articles.usecase';
 
 @Module({
   imports: [
-    DatabaseModule,
+    TypeOrmModule.forFeature([BriefingEntity]),
     ArticlesModule,
     ProcessorModule,
     ProfilesModule,
@@ -42,16 +42,6 @@ import { ScrapeArticlesUseCase } from './usecases/scrape-articles.usecase';
     ScrapeArticlesUseCase,
   ],
   controllers: [BriefingsController],
-  exports: [
-    BriefingsService,
-    BriefingGenerationService,
-    CategorizeArticlesUseCase,
-    GenerateBriefUseCase,
-    GenerateSimpleBriefUseCase,
-    ProcessArticlesUseCase,
-    RateArticlesUseCase,
-    RunBriefingUseCase,
-    ScrapeArticlesUseCase,
-  ],
+  exports: [BriefingsService, BriefingGenerationService],
 })
 export class BriefingsModule {}

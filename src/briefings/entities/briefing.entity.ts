@@ -1,72 +1,24 @@
-import { FeedProfile } from '../../shared/types/feed';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
-export interface BriefingOptions {
-  feedProfile?: FeedProfile;
-  lookbackHours?: number;
-  minArticles?: number;
-  customPrompts?: Partial<{
-    clusterAnalysis: string;
-    briefSynthesis: string;
-  }>;
-}
-
-export interface BriefGenerationOptions {
-  feedProfile: FeedProfile;
-  lookbackHours?: number;
-  minArticles?: number;
-  clustersQtd?: number;
-  customPrompts?: {
-    clusterAnalysis?: string;
-    briefSynthesis?: string;
-  };
-}
-
-export interface SimpleBriefResult {
-  success: boolean;
-  briefingId?: string;
-  content?: string;
-  error?: string;
-}
-
-export interface RecentBriefingResult {
+@Entity('briefings')
+export class BriefingEntity {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column('text')
   content: string;
-  articleCount: number;
+
+  @Column('simple-json', { name: 'article_ids' })
+  articleIds: string[];
+
+  @Column({ name: 'feed_profile', type: 'text' })
+  feedProfile: string;
+
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
-}
-
-export interface GetBriefingTrendsResult {
-  totalBriefings: number;
-  avgArticlesPerBrief: number;
-  briefingsPerDay: Array<BriefingsPerDay>;
-}
-
-export interface BriefingsPerDay {
-  date: string;
-  count: number;
-}
-
-export interface GenerateBriefResult {
-  success: boolean;
-  briefingId?: string;
-  content?: string;
-  error?: string;
-  stats?: {
-    articlesAnalyzed: number;
-    clustersGenerated: number;
-    clustersUsed: number;
-  };
-}
-
-export interface GetBriefByIdResult {
-  id: string;
-  brief_markdown: string;
-  generated_at: Date;
-  feed_profile: string;
-}
-
-export interface BriefsMetadata {
-  id: string;
-  generated_at: Date;
-  feed_profile: string;
 }
