@@ -17,7 +17,7 @@ export type EmbeddingFailureNotification = {
 
 export const VALID_CHAT_MODELS = {
   openai: 'gpt-4o-mini',
-  deepseek: 'deepseek-chat',
+  deepseek: 'deepseek-v4-flash',
 } as const;
 export type ValidChatModel = keyof typeof VALID_CHAT_MODELS;
 

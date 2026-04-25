@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { BriefingOptions } from '../shared/types/briefing-options';
 import { ImpactRating, PromptVariables } from '../shared/types/ai';
+import { BriefingOptions } from '../shared/types/briefing-options';
 import { FeedProfile } from '../shared/types/feed';
 import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
 import {
@@ -54,7 +54,7 @@ export class ConfigService {
     },
 
     models: {
-      deepseekChatModel: 'deepseek-chat',
+      deepseekChatModel: 'deepseek-v4-flash',
       openaiChatModel: 'gpt-4o-mini',
       embeddingModel: 'intfloat/multilingual-e5-large-instruct',
       enabledChatModel: 'deepseek',
