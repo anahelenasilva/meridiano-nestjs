@@ -62,6 +62,7 @@ describe('BriefingGenerationService', () => {
       minArticlesForBriefing: 5,
       articlesPerPage: 15,
       clustersQtd: 10,
+      clusterAnalysisDelayMs: 0,
     });
     mockArticlesService.getArticlesForBriefing.mockResolvedValue([
       createArticle({ id: 'a1', processed_content: null }),
@@ -81,6 +82,7 @@ describe('BriefingGenerationService', () => {
       minArticlesForBriefing: 5,
       articlesPerPage: 15,
       clustersQtd: 10,
+      clusterAnalysisDelayMs: 0,
     });
     mockArticlesService.getArticlesForBriefing.mockResolvedValue([]);
 
@@ -96,6 +98,7 @@ describe('BriefingGenerationService', () => {
       minArticlesForBriefing: 5,
       articlesPerPage: 15,
       clustersQtd: 10,
+      clusterAnalysisDelayMs: 0,
     });
 
     const article = createArticle({
@@ -210,6 +213,7 @@ describe('BriefingGenerationService', () => {
       minArticlesForBriefing: 5,
       articlesPerPage: 15,
       clustersQtd: 10,
+      clusterAnalysisDelayMs: 0,
     });
     mockArticlesService.getArticlesForBriefing.mockResolvedValue([
       createArticle(),

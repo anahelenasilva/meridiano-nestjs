@@ -50,6 +50,7 @@ export class ConfigService {
       minArticlesForBriefing: 5,
       articlesPerPage: 15,
       clustersQtd: 10,
+      clusterAnalysisDelayMs: 0,
     },
 
     models: {
@@ -175,7 +176,15 @@ export class ConfigService {
   }
 
   getProcessingConfig() {
-    return { ...this.CONFIGS.processing };
+    const config = { ...this.CONFIGS.processing };
+    const envDelay = process.env.CLUSTER_ANALYSIS_DELAY_MS;
+    if (envDelay !== undefined && envDelay !== '') {
+      const parsed = parseInt(envDelay, 10);
+      if (!Number.isNaN(parsed) && parsed >= 0) {
+        config.clusterAnalysisDelayMs = parsed;
+      }
+    }
+    return config;
   }
 
   getModelConfig() {

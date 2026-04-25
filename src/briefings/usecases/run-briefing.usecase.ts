@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '../../config/config.service';
 import { ProfilesService } from '../../profiles/profiles.service';
 import { CategorizeArticlesUseCase } from './categorize-articles.usecase';
@@ -13,6 +13,8 @@ import { ScrapeArticlesUseCase } from './scrape-articles.usecase';
 
 @Injectable()
 export class RunBriefingUseCase {
+  private readonly logger = new Logger(RunBriefingUseCase.name);
+
   constructor(
     private readonly scrapeArticlesUseCase: ScrapeArticlesUseCase,
     private readonly processArticlesUseCase: ProcessArticlesUseCase,
@@ -31,7 +33,7 @@ export class RunBriefingUseCase {
     );
 
     if (enabledFeeds.length === 0) {
-      console.log(`No enabled feeds found for profile '${input.feedProfile}'.`);
+      this.logger.warn(`No enabled feeds found for profile '${input.feedProfile}'.`);
 
       return {
         success: false,
@@ -42,35 +44,30 @@ export class RunBriefingUseCase {
 
     const feedUrls = enabledFeeds.map((f) => f.url);
 
-    // Stage 1: Scraping
     const scrapingStats = await this.scrapeArticlesUseCase.execute({
       feedProfile: input.feedProfile,
       feedUrls,
     });
 
-    // Stage 2: Processing
     const processingStats = await this.processArticlesUseCase.execute({
       feedProfile: input.feedProfile,
     });
 
-    // Stage 3: Rating
     const ratingStats = await this.rateArticlesUseCase.execute({
       feedProfile: input.feedProfile,
     });
 
-    // Stage 4: Categorization
     const categorizationStats = await this.categorizeArticlesUseCase.execute({
       feedProfile: input.feedProfile,
     });
 
-    // Stage 5: Brief Generation
     let briefResult;
     if (this.configService.isBriefingsGenerationEnabled()) {
       briefResult = await this.generateBriefUseCase.execute({
         feedProfile: input.feedProfile,
       });
     } else {
-      console.log(
+      this.logger.warn(
         'Briefings generation is disabled. Skipping brief generation stage.',
       );
       briefResult = {
