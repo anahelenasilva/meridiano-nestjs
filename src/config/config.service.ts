@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { BriefingOptions } from '../briefings/entities/briefing.types';
+import { BriefingOptions } from '../shared/types/briefing-options';
 import { ImpactRating, PromptVariables } from '../shared/types/ai';
 import { FeedProfile } from '../shared/types/feed';
 import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';

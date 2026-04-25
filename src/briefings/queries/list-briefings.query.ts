@@ -10,12 +10,12 @@ export class ListBriefingsQuery {
     private readonly briefingsService: BriefingsService,
   ) {}
 
-  async execute(feedProfile?: FeedProfile) {
+  async execute(feedProfile?: FeedProfile, limit?: number) {
     const availableProfiles =
       await this.articleService.getDistinctFeedProfiles();
 
     const briefings =
-      await this.briefingsService.getAllBriefsMetadata(feedProfile);
+      await this.briefingsService.getAllBriefsMetadata(feedProfile, limit);
 
     return {
       briefings,

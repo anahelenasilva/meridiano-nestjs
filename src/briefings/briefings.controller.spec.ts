@@ -38,7 +38,7 @@ describe('BriefingsController', () => {
 
       const result = await controller.listBriefings();
 
-      expect(mockListBriefingsQuery.execute).toHaveBeenCalledWith(undefined);
+      expect(mockListBriefingsQuery.execute).toHaveBeenCalledWith(undefined, undefined);
       expect(result).toBe(expected);
     });
 
@@ -53,6 +53,7 @@ describe('BriefingsController', () => {
 
       expect(mockListBriefingsQuery.execute).toHaveBeenCalledWith(
         FeedProfile.DEFAULT,
+        undefined,
       );
     });
   });

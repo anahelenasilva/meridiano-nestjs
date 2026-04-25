@@ -1,16 +1,5 @@
 import { FeedProfile } from '../../shared/types/feed';
 
-export interface BriefingOptions {
-  feedProfile?: FeedProfile;
-  lookbackHours?: number;
-  minArticles?: number;
-  customPrompts?: Partial<{
-    clusterAnalysis: string;
-    briefSynthesis: string;
-    simpleBriefing: string;
-  }>;
-}
-
 export interface BriefGenerationOptions {
   feedProfile: FeedProfile;
   lookbackHours?: number;

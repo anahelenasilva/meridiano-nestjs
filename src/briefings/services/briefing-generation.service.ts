@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { kmeans } from 'ml-kmeans';
 import { AiService } from '../../ai/ai.service';
 import { ClusterAnalysis, DBArticle } from '../../articles/article.entity';
@@ -15,6 +15,8 @@ import { BriefingsService } from '../briefings.service';
 
 @Injectable()
 export class BriefingGenerationService {
+  private readonly logger = new Logger(BriefingGenerationService.name);
+
   constructor(
     private readonly articlesService: ArticlesService,
     private readonly briefingsService: BriefingsService,
@@ -44,7 +46,7 @@ export class BriefingGenerationService {
       const result = kmeans(embeddings, effectiveClusters, {});
       return result.clusters;
     } catch (error) {
-      console.error('Error during clustering:', error);
+      this.logger.error('Error during clustering:', error);
       return embeddings.map(() => 0);
     }
   }
@@ -59,7 +61,7 @@ export class BriefingGenerationService {
       return null;
     }
 
-    console.log(
+    this.logger.log(
       `  Analyzing Cluster ${clusterIndex} (${clusterArticles.length} articles)`,
     );
 
@@ -112,7 +114,7 @@ export class BriefingGenerationService {
     feedProfile: FeedProfile,
     options: Partial<BriefGenerationOptions> = {},
   ): Promise<GenerateBriefResult> {
-    console.log(`\n--- Starting Brief Generation [${feedProfile}] ---`);
+    this.logger.log(`Starting Brief Generation [${feedProfile}]`);
 
     const briefingConfig = this.configService.getBriefingConfig({
       feedProfile,
@@ -128,24 +130,24 @@ export class BriefingGenerationService {
 
     if (!articles || articles.length < briefingConfig.minArticles) {
       const error = `Not enough recent articles (${articles?.length || 0}) for profile '${feedProfile}'. Min required: ${briefingConfig.minArticles}.`;
-      console.log(error);
+      this.logger.warn(error);
       return { success: false, error };
     }
 
-    console.log(`Generating brief from ${articles.length} articles.`);
+    this.logger.log(`Generating brief from ${articles.length} articles.`);
 
     const articleIds = articles.map((a) => a.id);
     const articlesWithEmbeddings = articles.filter((a) => a.embedding);
 
     if (articlesWithEmbeddings.length !== articles.length) {
-      console.log(
-        `Warning: ${articles.length - articlesWithEmbeddings.length} articles are missing embeddings. Proceeding with available ones.`,
+      this.logger.warn(
+        `${articles.length - articlesWithEmbeddings.length} articles missing embeddings. Proceeding with available ones.`,
       );
     }
 
     if (articlesWithEmbeddings.length < briefingConfig.minArticles) {
       const error = `Not enough articles (${articlesWithEmbeddings.length}) with embeddings to cluster. Min required: ${briefingConfig.minArticles}.`;
-      console.log(error);
+      this.logger.warn(error);
       return { success: false, error };
     }
 
@@ -158,7 +160,7 @@ export class BriefingGenerationService {
     );
 
     if (clustersQtd < 2) {
-      console.log(
+      this.logger.warn(
         'Not enough articles to form meaningful clusters. Skipping clustering.',
       );
       return {
@@ -167,7 +169,7 @@ export class BriefingGenerationService {
       };
     }
 
-    console.log(
+    this.logger.log(
       `Clustering ${embeddings.length} articles into ${clustersQtd} clusters...`,
     );
 
@@ -183,7 +185,7 @@ export class BriefingGenerationService {
       }
     });
 
-    console.log('Analyzing clusters...');
+    this.logger.log('Analyzing clusters...');
     const clusterAnalyses: ClusterAnalysis[] = [];
 
     for (let index = 0; index < clusterGroups.length; index++) {
@@ -207,7 +209,7 @@ export class BriefingGenerationService {
 
     if (clusterAnalyses.length === 0) {
       const error = 'No meaningful clusters found or analyzed.';
-      console.log(error);
+      this.logger.warn(error);
       return { success: false, error };
     }
 
@@ -237,7 +239,7 @@ export class BriefingGenerationService {
 
     if (!finalBriefMarkdown) {
       const error = 'Could not synthesize final brief.';
-      console.log(`--- Brief Generation Failed [${feedProfile}]: ${error} ---`);
+      this.logger.warn(`Brief Generation Failed [${feedProfile}]: ${error}`);
       return { success: false, error };
     }
 
@@ -248,9 +250,7 @@ export class BriefingGenerationService {
         feedProfile,
       );
 
-      console.log(
-        `--- Brief Generation Finished Successfully [${feedProfile}] ---`,
-      );
+      this.logger.log(`Brief Generation Finished Successfully [${feedProfile}]`);
 
       return {
         success: true,
@@ -274,7 +274,7 @@ export class BriefingGenerationService {
     feedProfile: FeedProfile,
     maxArticles: number = 10,
   ): Promise<SimpleBriefResult> {
-    console.log(`\n--- Generating Simple Brief [${feedProfile}] ---`);
+    this.logger.log(`Generating Simple Brief [${feedProfile}]`);
 
     const lookbackHours =
       this.configService.getProcessingConfig().briefingArticleLookbackHours;

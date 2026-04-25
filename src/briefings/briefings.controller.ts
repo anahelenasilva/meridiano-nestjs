@@ -18,8 +18,12 @@ export class BriefingsController {
   ) {}
 
   @Get()
-  async listBriefings(@Query('feedProfile') feedProfile?: FeedProfile) {
-    return this.listBriefingsQuery.execute(feedProfile);
+  async listBriefings(
+    @Query('feedProfile') feedProfile?: FeedProfile,
+    @Query('limit') limit?: string,
+  ) {
+    const parsedLimit = limit ? parseInt(limit, 10) || undefined : undefined;
+    return this.listBriefingsQuery.execute(feedProfile, parsedLimit);
   }
 
   @Get(':id')
