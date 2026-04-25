@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { mock } from 'jest-mock-extended';
@@ -42,6 +43,8 @@ describe('BriefingsService', () => {
         content: 'content',
         articleIds: ['article-1'],
         feedProfile: FeedProfile.DEFAULT,
+        isCustom: false,
+        customTitle: null,
       });
       expect(result).toBe('new-uuid');
     });
@@ -59,8 +62,20 @@ describe('BriefingsService', () => {
   describe('getAllBriefsMetadata', () => {
     it('returns mapped metadata for all profiles when no filter', async () => {
       const entities: Partial<BriefingEntity>[] = [
-        { id: 'id-1', createdAt: new Date('2025-01-02'), feedProfile: 'default' },
-        { id: 'id-2', createdAt: new Date('2025-01-01'), feedProfile: 'tech' },
+        {
+          id: 'id-1',
+          createdAt: new Date('2025-01-02'),
+          feedProfile: 'default',
+          isCustom: false,
+          customTitle: null,
+        },
+        {
+          id: 'id-2',
+          createdAt: new Date('2025-01-01'),
+          feedProfile: 'tech',
+          isCustom: false,
+          customTitle: null,
+        },
       ];
       mockRepo.find.mockResolvedValue(entities as BriefingEntity[]);
 
@@ -70,8 +85,20 @@ describe('BriefingsService', () => {
         expect.objectContaining({ where: {}, take: 50 }),
       );
       expect(result).toEqual([
-        { id: 'id-1', generated_at: new Date('2025-01-02'), feed_profile: 'default' },
-        { id: 'id-2', generated_at: new Date('2025-01-01'), feed_profile: 'tech' },
+        {
+          id: 'id-1',
+          generated_at: new Date('2025-01-02'),
+          feed_profile: 'default',
+          isCustom: false,
+          customTitle: null,
+        },
+        {
+          id: 'id-2',
+          generated_at: new Date('2025-01-01'),
+          feed_profile: 'tech',
+          isCustom: false,
+          customTitle: null,
+        },
       ]);
     });
 
@@ -96,6 +123,8 @@ describe('BriefingsService', () => {
         content: '# Brief',
         createdAt: new Date('2025-01-01'),
         feedProfile: 'default',
+        isCustom: false,
+        customTitle: null,
       };
       mockRepo.findOne.mockResolvedValue(entity as BriefingEntity);
 
@@ -106,6 +135,8 @@ describe('BriefingsService', () => {
         brief_markdown: '# Brief',
         generated_at: new Date('2025-01-01'),
         feed_profile: 'default',
+        isCustom: false,
+        customTitle: null,
       });
     });
 
@@ -115,6 +146,27 @@ describe('BriefingsService', () => {
       const result = await service.getBriefById('missing-id');
 
       expect(result).toBeNull();
+    });
+  });
+
+  describe('updateBriefTitle', () => {
+    it('updates only custom briefings', async () => {
+      mockRepo.update.mockResolvedValue({ affected: 1, raw: {}, generatedMaps: [] });
+
+      await service.updateBriefTitle('brief-uuid', 'New Title');
+
+      expect(mockRepo.update).toHaveBeenCalledWith(
+        { id: 'brief-uuid', isCustom: true },
+        { customTitle: 'New Title' },
+      );
+    });
+
+    it('throws NotFoundException when no custom briefing is updated', async () => {
+      mockRepo.update.mockResolvedValue({ affected: 0, raw: {}, generatedMaps: [] });
+
+      await expect(
+        service.updateBriefTitle('brief-uuid', 'New Title'),
+      ).rejects.toThrow(NotFoundException);
     });
   });
 });

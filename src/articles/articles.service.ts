@@ -257,6 +257,45 @@ export class ArticlesService {
     });
   }
 
+  async getArticlesByIds(ids: string[]): Promise<DBArticle[]> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      if (!ids || ids.length === 0) {
+        resolve([]);
+        return;
+      }
+
+      const query = `
+        SELECT
+          id, url, title, published_date, feed_source, feed_profile,
+          raw_content as content, processed_content, impact_rating,
+          image_url, categories, custom_prompt, created_at
+        FROM articles
+        WHERE id = ANY(?::uuid[])
+        ORDER BY array_position(?::uuid[], id)
+      `;
+
+      db.all(query, [ids, ids], (err, rows: ArticleRow[]) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        const articles: DBArticle[] = rows.map((row) => ({
+          ...row,
+          published_date: new Date(row.published_date),
+          created_at: new Date(row.created_at),
+          categories: row.categories
+            ? (JSON.parse(row.categories) as ArticleCategory[])
+            : undefined,
+        }));
+
+        resolve(articles);
+      });
+    });
+  }
+
   async getArticlesForBriefing(
     lookbackHours: number,
     feedProfile: FeedProfile,

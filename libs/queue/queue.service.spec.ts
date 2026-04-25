@@ -5,9 +5,11 @@ import { Job, Queue } from 'bullmq';
 import Redis from 'ioredis';
 import { mock, mockReset } from 'jest-mock-extended';
 import { ConfigService } from '../../src/config/config.service';
+import { FeedProfile } from '../../src/shared/types/feed';
 import {
   ARTICLE_PROCESSING_QUEUE,
   AUDIO_GENERATION_QUEUE,
+  CUSTOM_BRIEFING_GENERATION_QUEUE,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from './constants/queue.constants';
@@ -21,6 +23,7 @@ describe('QueueService', () => {
   const mockMarkdownArticleQueue = mock<Queue>();
   const mockTranscriptionSummaryQueue = mock<Queue>();
   const mockAudioQueue = mock<Queue>();
+  const mockCustomBriefingQueue = mock<Queue>();
   const mockConfigService = mock<ConfigService>();
   const mockEmailService = mock<EmailService>();
   const mockRedisService = mock<RedisService>();
@@ -31,6 +34,7 @@ describe('QueueService', () => {
     mockReset(mockMarkdownArticleQueue);
     mockReset(mockTranscriptionSummaryQueue);
     mockReset(mockAudioQueue);
+    mockReset(mockCustomBriefingQueue);
     mockReset(mockConfigService);
     mockReset(mockEmailService);
     mockReset(mockRedisService);
@@ -58,6 +62,10 @@ describe('QueueService', () => {
           useValue: mockAudioQueue,
         },
         {
+          provide: CUSTOM_BRIEFING_GENERATION_QUEUE,
+          useValue: mockCustomBriefingQueue,
+        },
+        {
           provide: ConfigService,
           useValue: mockConfigService,
         },
@@ -81,6 +89,40 @@ describe('QueueService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  describe('addCustomBriefingJob', () => {
+    it('adds retry options from custom briefing queue config', async () => {
+      mockConfigService.getCustomBriefingQueueConfig.mockReturnValue({
+        concurrency: 2,
+        attempts: 4,
+        backoffDelayMs: 7000,
+      });
+      mockCustomBriefingQueue.add.mockResolvedValue({ id: 'job-123' } as Job);
+
+      const result = await service.addCustomBriefingJob({
+        articleIds: ['article-1', 'article-2'],
+        feedProfile: FeedProfile.DEFAULT,
+        customPrompt: 'Focus on risks',
+      });
+
+      expect(mockCustomBriefingQueue.add).toHaveBeenCalledWith(
+        'generate-custom-briefing',
+        {
+          articleIds: ['article-1', 'article-2'],
+          feedProfile: FeedProfile.DEFAULT,
+          customPrompt: 'Focus on risks',
+        },
+        {
+          attempts: 4,
+          backoff: {
+            type: 'exponential',
+            delay: 7000,
+          },
+        },
+      );
+      expect(result).toEqual({ jobId: 'job-123' });
+    });
   });
 
   describe('handleAudioGenerationFailure', () => {

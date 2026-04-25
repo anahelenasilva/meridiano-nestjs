@@ -15,6 +15,7 @@ export interface SimpleBriefResult {
   success: boolean;
   briefingId?: string;
   content?: string;
+  customTitle?: string | null;
   error?: string;
 }
 
@@ -53,10 +54,14 @@ export interface GetBriefByIdResult {
   brief_markdown: string;
   generated_at: Date;
   feed_profile: string;
+  isCustom: boolean;
+  customTitle: string | null;
 }
 
 export interface BriefsMetadata {
   id: string;
   generated_at: Date;
   feed_profile: string;
+  isCustom: boolean;
+  customTitle: string | null;
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { FeedProfile } from '../shared/types/feed';
@@ -16,11 +16,14 @@ export class BriefingsService {
     content: string,
     articleIds: string[],
     feedProfile: FeedProfile,
+    opts?: { isCustom?: boolean; customTitle?: string },
   ): Promise<string> {
     const entity = this.briefingRepository.create({
       content,
       articleIds,
       feedProfile,
+      isCustom: opts?.isCustom ?? false,
+      customTitle: opts?.customTitle ?? null,
     });
     const saved = await this.briefingRepository.save(entity);
     return saved.id;
@@ -33,7 +36,7 @@ export class BriefingsService {
     const entities = await this.briefingRepository.find({
       where: feedProfile ? { feedProfile } : {},
       order: { createdAt: 'DESC' },
-      select: { id: true, createdAt: true, feedProfile: true },
+      select: { id: true, createdAt: true, feedProfile: true, isCustom: true, customTitle: true },
       take: limit,
     });
 
@@ -41,6 +44,8 @@ export class BriefingsService {
       id: e.id,
       generated_at: e.createdAt,
       feed_profile: e.feedProfile,
+      isCustom: e.isCustom,
+      customTitle: e.customTitle,
     }));
   }
 
@@ -58,6 +63,19 @@ export class BriefingsService {
       brief_markdown: entity.content,
       generated_at: entity.createdAt,
       feed_profile: entity.feedProfile,
+      isCustom: entity.isCustom,
+      customTitle: entity.customTitle,
     };
+  }
+
+  async updateBriefTitle(id: string, customTitle: string): Promise<void> {
+    const result = await this.briefingRepository.update(
+      { id, isCustom: true },
+      { customTitle },
+    );
+
+    if (!result.affected) {
+      throw new NotFoundException('Custom briefing not found');
+    }
   }
 }

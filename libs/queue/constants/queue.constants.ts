@@ -9,3 +9,6 @@ export const PROCESS_TRANSCRIPTION_SUMMARY_JOB = 'process-transcription-summary'
 
 export const AUDIO_GENERATION_QUEUE = 'audio-generation';
 export const GENERATE_AUDIO_JOB = 'generate-audio';
+
+export const CUSTOM_BRIEFING_GENERATION_QUEUE = 'custom-briefing-generation';
+export const GENERATE_CUSTOM_BRIEFING_JOB = 'generate-custom-briefing';
