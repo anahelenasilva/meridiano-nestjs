@@ -716,28 +716,28 @@ docker-compose logs -f postgres
 
 ### Required
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `DATABASE_HOST` | PostgreSQL host | `localhost` |
-| `DATABASE_PORT` | PostgreSQL port | `5432` |
-| `DATABASE_USER` | PostgreSQL user | `postgres` |
-| `DATABASE_PASSWORD` | PostgreSQL password | `postgres` |
-| `DATABASE_NAME` | PostgreSQL database name | `meridian` |
-| `JWT_SECRET` | Secret for JWT signing | `your-secret-key-min-32-chars` |
-| `DEEPSEEK_API_KEY` | DeepSeek AI API key | `sk-...` |
-| `EMBEDDING_API_KEY` | Together.xyz API key | `...` |
+| Variable            | Description              | Example                        |
+| ------------------- | ------------------------ | ------------------------------ |
+| `DATABASE_HOST`     | PostgreSQL host          | `localhost`                    |
+| `DATABASE_PORT`     | PostgreSQL port          | `5432`                         |
+| `DATABASE_USER`     | PostgreSQL user          | `postgres`                     |
+| `DATABASE_PASSWORD` | PostgreSQL password      | `postgres`                     |
+| `DATABASE_NAME`     | PostgreSQL database name | `meridian`                     |
+| `JWT_SECRET`        | Secret for JWT signing   | `your-secret-key-min-32-chars` |
+| `DEEPSEEK_API_KEY`  | DeepSeek AI API key      | `sk-...`                       |
+| `EMBEDDING_API_KEY` | Together.xyz API key     | `...`                          |
 
 ### Optional
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `OPENAI_API_KEY` | OpenAI API key | - |
-| `GROQ_API_KEY` | Groq API key | - |
-| `REDIS_HOST` | Redis hostname | `redis` |
-| `REDIS_PORT` | Redis port | `6379` |
-| `S3_ARTICLES_BUCKET_NAME` | S3 bucket for articles | - |
-| `MAILGUN_API_KEY` | Mailgun API key | - |
-| `MAILGUN_DOMAIN` | Mailgun domain | - |
+| Variable                  | Description            | Default |
+| ------------------------- | ---------------------- | ------- |
+| `OPENAI_API_KEY`          | OpenAI API key         | -       |
+| `GROQ_API_KEY`            | Groq API key           | -       |
+| `REDIS_HOST`              | Redis hostname         | `redis` |
+| `REDIS_PORT`              | Redis port             | `6379`  |
+| `S3_ARTICLES_BUCKET_NAME` | S3 bucket for articles | -       |
+| `MAILGUN_API_KEY`         | Mailgun API key        | -       |
+| `MAILGUN_DOMAIN`          | Mailgun domain         | -       |
 
 ---
 
@@ -834,9 +834,6 @@ async create(@Body() dto: CreateArticleDto): Promise<JobInfo> {
 
 ## Resources
 
-- [Project Documentation Index](./PROJECT_DOCUMENTATION_INDEX.md)
-- [API Reference](./API_REFERENCE.md)
-- [Architecture Guide](./ARCHITECTURE.md)
 - [Libraries Guide](./LIBRARIES.md)
 - [NestJS Documentation](https://docs.nestjs.com)
 - [TypeORM Documentation](https://typeorm.io)
