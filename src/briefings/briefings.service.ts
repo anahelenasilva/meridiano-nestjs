@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { FeedProfile } from '../shared/types/feed';
@@ -69,6 +69,13 @@ export class BriefingsService {
   }
 
   async updateBriefTitle(id: string, customTitle: string): Promise<void> {
-    await this.briefingRepository.update(id, { customTitle });
+    const result = await this.briefingRepository.update(
+      { id, isCustom: true },
+      { customTitle },
+    );
+
+    if (!result.affected) {
+      throw new NotFoundException('Custom briefing not found');
+    }
   }
 }

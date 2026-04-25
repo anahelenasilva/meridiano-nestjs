@@ -1,3 +1,4 @@
+import { JwtAuthGuard } from '@libs/auth';
 import {
   Body,
   Controller,
@@ -8,6 +9,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { QueueService } from '../../libs/queue/queue.service';
 import type { FeedProfile } from '../shared/types/feed';
@@ -68,6 +70,7 @@ export class BriefingsController {
   }
 
   @Patch(':id/title')
+  @UseGuards(JwtAuthGuard)
   async updateBriefTitle(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() body: { customTitle: string },

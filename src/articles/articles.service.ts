@@ -266,17 +266,17 @@ export class ArticlesService {
         return;
       }
 
-      const placeholders = ids.map((_, i) => `$${i + 1}`).join(', ');
       const query = `
         SELECT
           id, url, title, published_date, feed_source, feed_profile,
           raw_content as content, processed_content, impact_rating,
           image_url, categories, custom_prompt, created_at
         FROM articles
-        WHERE id IN (${placeholders})
+        WHERE id = ANY(?::uuid[])
+        ORDER BY array_position(?::uuid[], id)
       `;
 
-      db.all(query, ids, (err, rows: ArticleRow[]) => {
+      db.all(query, [ids, ids], (err, rows: ArticleRow[]) => {
         if (err) {
           reject(err);
           return;

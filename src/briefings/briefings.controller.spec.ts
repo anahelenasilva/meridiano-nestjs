@@ -1,3 +1,4 @@
+import { IS_PUBLIC_KEY } from '@libs/auth';
 import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
@@ -154,6 +155,65 @@ describe('BriefingsController', () => {
       await controller.generateBriefing(input);
 
       expect(mockGenerateBriefUseCase.execute).toHaveBeenCalledWith(input);
+    });
+  });
+
+  describe('generateCustomBriefing', () => {
+    it('delegates to GenerateCustomBriefUseCase and returns job id', async () => {
+      const expected = { jobId: 'job-123' };
+      const input = {
+        articleIds: ['article-1', 'article-2'],
+        feedProfile: FeedProfile.DEFAULT,
+      };
+      mockGenerateCustomBriefUseCase.execute.mockResolvedValue(expected);
+
+      const result = await controller.generateCustomBriefing(input);
+
+      expect(mockGenerateCustomBriefUseCase.execute).toHaveBeenCalledWith(input);
+      expect(result).toBe(expected);
+    });
+  });
+
+  describe('getCustomBriefingJobStatus', () => {
+    it('delegates to QueueService', async () => {
+      const expected = {
+        jobId: 'job-123',
+        state: 'completed',
+        progress: 100,
+        result: { briefingId: 'briefing-uuid' },
+        error: undefined,
+        data: {},
+      };
+      mockQueueService.getCustomBriefingJobStatus.mockResolvedValue(expected);
+
+      const result = await controller.getCustomBriefingJobStatus('job-123');
+
+      expect(mockQueueService.getCustomBriefingJobStatus).toHaveBeenCalledWith(
+        'job-123',
+      );
+      expect(result).toBe(expected);
+    });
+  });
+
+  describe('updateBriefTitle', () => {
+    it('is not marked public', () => {
+      const isPublic = Reflect.getMetadata(
+        IS_PUBLIC_KEY,
+        BriefingsController.prototype,
+        'updateBriefTitle',
+      );
+      expect(isPublic).toBeUndefined();
+    });
+
+    it('updates the title through BriefingsService', async () => {
+      await controller.updateBriefTitle('briefing-uuid', {
+        customTitle: 'Updated Title',
+      });
+
+      expect(mockBriefingsService.updateBriefTitle).toHaveBeenCalledWith(
+        'briefing-uuid',
+        'Updated Title',
+      );
     });
   });
 });

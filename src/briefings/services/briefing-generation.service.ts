@@ -383,8 +383,15 @@ export class BriefingGenerationService {
       return { success: false, error: 'Failed to generate brief content' };
     }
 
-    const titlePrompt = `Give this briefing a short title (max 8 words): \n\n${briefContent.slice(0, 500)}`;
-    const customTitle = await this.aiService.callChat(titlePrompt);
+    let customTitle: string | undefined;
+    try {
+      const titlePrompt = `Give this briefing a short title (max 8 words): \n\n${briefContent.slice(0, 500)}`;
+      customTitle = (await this.aiService.callChat(titlePrompt)) || undefined;
+    } catch (error) {
+      this.logger.warn(
+        `Custom brief title generation failed for [${feedProfile}]: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
 
     try {
       const briefingId = await this.briefingsService.saveBrief(

@@ -3,7 +3,6 @@ import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { Job, Worker } from 'bullmq';
 import { CUSTOM_BRIEFING_GENERATION_QUEUE } from '../../../libs/queue/constants/queue.constants';
 import { CustomBriefingJobData } from '../../../libs/queue/interfaces/custom-briefing-job.interface';
-import { FeedProfile } from '../../shared/types/feed';
 import { BriefingGenerationService } from '../services/briefing-generation.service';
 
 @Injectable()
@@ -56,7 +55,7 @@ export class CustomBriefingProcessor implements OnModuleInit, OnModuleDestroy {
 
     const result = await this.briefingGenerationService.generateCustomBrief(
       articleIds,
-      feedProfile as FeedProfile,
+      feedProfile,
       customPrompt,
     );
 

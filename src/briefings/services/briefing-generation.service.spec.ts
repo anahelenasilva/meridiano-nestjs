@@ -228,4 +228,32 @@ describe('BriefingGenerationService', () => {
     expect(mockAiService.callDeepseekChat).not.toHaveBeenCalled();
     expect(mockAiService.callOpenAIChat).not.toHaveBeenCalled();
   });
+
+  it('generateCustomBrief saves the brief when title generation fails', async () => {
+    mockArticlesService.getArticlesByIds.mockResolvedValue([
+      createArticle({ id: 'article-1', title: 'First' }),
+      createArticle({ id: 'article-2', title: 'Second' }),
+    ]);
+    mockProfilesService.getPromptsForProfile.mockReturnValue({
+      simpleBriefing: 'Default custom brief prompt',
+    });
+    mockConfigService.getSimpleBriefPrompt.mockReturnValue('brief prompt');
+    mockAiService.callChat
+      .mockResolvedValueOnce('# Custom Brief')
+      .mockRejectedValueOnce(new Error('title model unavailable'));
+    mockBriefingsService.saveBrief.mockResolvedValue('brief-uuid');
+
+    const result = await service.generateCustomBrief(
+      ['article-1', 'article-2'],
+      FeedProfile.DEFAULT,
+    );
+
+    expect(result.success).toBe(true);
+    expect(mockBriefingsService.saveBrief).toHaveBeenCalledWith(
+      '# Custom Brief',
+      ['article-1', 'article-2'],
+      FeedProfile.DEFAULT,
+      { isCustom: true, customTitle: undefined },
+    );
+  });
 });
