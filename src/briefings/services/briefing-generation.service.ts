@@ -46,7 +46,9 @@ export class BriefingGenerationService {
       const result = kmeans(embeddings, effectiveClusters, {});
       return result.clusters;
     } catch (error) {
-      this.logger.error('Error during clustering:', error);
+      this.logger.warn(
+        `Clustering failed (k=${effectiveClusters}), falling back to single cluster: ${error instanceof Error ? error.message : error}`,
+      );
       return embeddings.map(() => 0);
     }
   }
@@ -187,6 +189,8 @@ export class BriefingGenerationService {
 
     this.logger.log('Analyzing clusters...');
     const clusterAnalyses: ClusterAnalysis[] = [];
+    // AI API rate-limit guard between cluster calls; skipped after the last cluster
+    const { clusterAnalysisDelayMs } = this.configService.getProcessingConfig();
 
     for (let index = 0; index < clusterGroups.length; index++) {
       const clusterArticles = clusterGroups[index];
@@ -204,7 +208,9 @@ export class BriefingGenerationService {
         clusterAnalyses.push(analysis);
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      if (clusterAnalysisDelayMs > 0 && index < clusterGroups.length - 1) {
+        await new Promise((resolve) => setTimeout(resolve, clusterAnalysisDelayMs));
+      }
     }
 
     if (clusterAnalyses.length === 0) {
