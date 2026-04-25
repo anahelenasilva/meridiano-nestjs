@@ -5,12 +5,7 @@
 
 ## Documentation
 - Whenever you change a pattern or architecture, update the corresponding documentation.
-- All documentation is in the `docs/` directory. The main documentation file is `docs/PROJECT_DOCUMENTATION_INDEX.md`.
-- For architecture changes, update the [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) file.
 - For library changes, update the [docs/LIBRARIES.md](docs/LIBRARIES.md) file.
-- For API changes, update the [docs/API_REFERENCE.md](docs/API_REFERENCE.md) file.
-- For development changes, update the [docs/DEVELOPER_GUIDE.md](docs/DEVELOPER_GUIDE.md) file.
-- For project changes, update the [docs/PROJECT_OVERVIEW.md](docs/PROJECT_OVERVIEW.md) file.
 
 ## Error Handling
 - NEVER silently ignore a null/error return from an operation
