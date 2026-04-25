@@ -387,9 +387,18 @@ Please investigate the issue.`,
   async addCustomBriefingJob(
     data: CustomBriefingJobData,
   ): Promise<{ jobId: string }> {
+    const { attempts, backoffDelayMs } =
+      this.configService.getCustomBriefingQueueConfig();
     const job = await this.customBriefingQueue.add(
       GENERATE_CUSTOM_BRIEFING_JOB,
       data,
+      {
+        attempts,
+        backoff: {
+          type: 'exponential',
+          delay: backoffDelayMs,
+        },
+      },
     );
     return { jobId: job.id as string };
   }

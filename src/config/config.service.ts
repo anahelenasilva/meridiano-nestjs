@@ -276,6 +276,35 @@ export class ConfigService {
     };
   }
 
+  getCustomBriefingQueueConfig() {
+    return {
+      concurrency: this.getPositiveInteger(
+        process.env.CUSTOM_BRIEFING_WORKER_CONCURRENCY,
+        1,
+      ),
+      attempts: this.getPositiveInteger(
+        process.env.CUSTOM_BRIEFING_JOB_ATTEMPTS,
+        3,
+      ),
+      backoffDelayMs: this.getPositiveInteger(
+        process.env.CUSTOM_BRIEFING_JOB_BACKOFF_DELAY_MS,
+        5000,
+      ),
+    };
+  }
+
+  private getPositiveInteger(
+    value: string | undefined,
+    defaultValue: number,
+  ): number {
+    if (value === undefined || value === '') {
+      return defaultValue;
+    }
+
+    const parsed = parseInt(value, 10);
+    return Number.isInteger(parsed) && parsed > 0 ? parsed : defaultValue;
+  }
+
   getArticleEmailsNotifications(): ArticleEmailsNotifications {
     return {
       failureNotificationEmail:

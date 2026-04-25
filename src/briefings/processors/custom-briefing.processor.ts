@@ -1,20 +1,25 @@
 import { RedisService } from '@libs/redis';
-import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { Job, Worker } from 'bullmq';
 import { CUSTOM_BRIEFING_GENERATION_QUEUE } from '../../../libs/queue/constants/queue.constants';
 import { CustomBriefingJobData } from '../../../libs/queue/interfaces/custom-briefing-job.interface';
+import { ConfigService } from '../../config/config.service';
 import { BriefingGenerationService } from '../services/briefing-generation.service';
 
 @Injectable()
 export class CustomBriefingProcessor implements OnModuleInit, OnModuleDestroy {
   private worker: Worker;
+  private readonly logger = new Logger(CustomBriefingProcessor.name);
 
   constructor(
     private readonly redisService: RedisService,
     private readonly briefingGenerationService: BriefingGenerationService,
+    private readonly configService: ConfigService,
   ) { }
 
   onModuleInit() {
+    const { concurrency } = this.configService.getCustomBriefingQueueConfig();
+
     this.worker = new Worker(
       CUSTOM_BRIEFING_GENERATION_QUEUE,
       async (job: Job<CustomBriefingJobData>) => {
@@ -22,26 +27,49 @@ export class CustomBriefingProcessor implements OnModuleInit, OnModuleDestroy {
       },
       {
         connection: this.redisService.getClient(),
-        concurrency: 1,
+        concurrency,
       },
     );
 
     this.worker.on('completed', (job) => {
-      console.log(`Custom briefing job ${job.id} completed successfully`);
+      this.logger.log(`Custom briefing job ${job.id} completed successfully`);
     });
 
     this.worker.on('failed', (job, err) => {
-      console.error(`Custom briefing job ${job?.id} failed with error:`, err);
+      this.handleFailedJob(job, err);
     });
 
     this.worker.on('error', (err: Error) => {
       if (err.message?.includes('ECONNRESET') || err.message?.includes('closed')) {
         return;
       }
-      console.error('Custom briefing processor worker error:', err);
+      this.logger.error('Custom briefing processor worker error', err.stack);
     });
 
-    console.log('Custom briefing processor worker initialized');
+    this.logger.log(
+      `Custom briefing processor worker initialized with concurrency ${concurrency}`,
+    );
+  }
+
+  private handleFailedJob(
+    job: Job<CustomBriefingJobData> | undefined,
+    err: Error,
+  ): void {
+    const attemptsMade = job?.attemptsMade ?? 0;
+    const maxAttempts = job?.opts.attempts ?? 1;
+    const jobId = job?.id ?? 'unknown';
+
+    if (attemptsMade >= maxAttempts) {
+      this.logger.error(
+        `Custom briefing job ${jobId} failed after ${attemptsMade}/${maxAttempts} attempts`,
+        err.stack,
+      );
+      return;
+    }
+
+    this.logger.warn(
+      `Custom briefing job ${jobId} failed attempt ${attemptsMade}/${maxAttempts}; retry scheduled: ${err.message}`,
+    );
   }
 
   async processCustomBriefing(
@@ -49,7 +77,7 @@ export class CustomBriefingProcessor implements OnModuleInit, OnModuleDestroy {
   ): Promise<{ briefingId: string }> {
     const { articleIds, feedProfile, customPrompt } = job.data;
 
-    console.log(
+    this.logger.log(
       `\n>>> Processing custom briefing (Job ${job.id}) for profile ${feedProfile} with ${articleIds.length} articles <<<`,
     );
 

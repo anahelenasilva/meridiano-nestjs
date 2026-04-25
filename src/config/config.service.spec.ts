@@ -238,6 +238,46 @@ describe('ConfigService', () => {
     });
   });
 
+  describe('getCustomBriefingQueueConfig', () => {
+    afterEach(() => {
+      delete process.env.CUSTOM_BRIEFING_WORKER_CONCURRENCY;
+      delete process.env.CUSTOM_BRIEFING_JOB_ATTEMPTS;
+      delete process.env.CUSTOM_BRIEFING_JOB_BACKOFF_DELAY_MS;
+    });
+
+    it('returns defaults when custom briefing env vars are not set', () => {
+      expect(service.getCustomBriefingQueueConfig()).toEqual({
+        concurrency: 1,
+        attempts: 3,
+        backoffDelayMs: 5000,
+      });
+    });
+
+    it('returns positive integer env values when set', () => {
+      process.env.CUSTOM_BRIEFING_WORKER_CONCURRENCY = '4';
+      process.env.CUSTOM_BRIEFING_JOB_ATTEMPTS = '5';
+      process.env.CUSTOM_BRIEFING_JOB_BACKOFF_DELAY_MS = '10000';
+
+      expect(service.getCustomBriefingQueueConfig()).toEqual({
+        concurrency: 4,
+        attempts: 5,
+        backoffDelayMs: 10000,
+      });
+    });
+
+    it('falls back to defaults for invalid env values', () => {
+      process.env.CUSTOM_BRIEFING_WORKER_CONCURRENCY = 'invalid';
+      process.env.CUSTOM_BRIEFING_JOB_ATTEMPTS = '0';
+      process.env.CUSTOM_BRIEFING_JOB_BACKOFF_DELAY_MS = '-1';
+
+      expect(service.getCustomBriefingQueueConfig()).toEqual({
+        concurrency: 1,
+        attempts: 3,
+        backoffDelayMs: 5000,
+      });
+    });
+  });
+
   describe('getEnabledChatModel', () => {
     it('should return environment variable value when ENABLED_CHAT_MODEL is set', () => {
       process.env.ENABLED_CHAT_MODEL = 'deepseek';

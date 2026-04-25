@@ -5,6 +5,7 @@ import { Job, Queue } from 'bullmq';
 import Redis from 'ioredis';
 import { mock, mockReset } from 'jest-mock-extended';
 import { ConfigService } from '../../src/config/config.service';
+import { FeedProfile } from '../../src/shared/types/feed';
 import {
   ARTICLE_PROCESSING_QUEUE,
   AUDIO_GENERATION_QUEUE,
@@ -88,6 +89,40 @@ describe('QueueService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  describe('addCustomBriefingJob', () => {
+    it('adds retry options from custom briefing queue config', async () => {
+      mockConfigService.getCustomBriefingQueueConfig.mockReturnValue({
+        concurrency: 2,
+        attempts: 4,
+        backoffDelayMs: 7000,
+      });
+      mockCustomBriefingQueue.add.mockResolvedValue({ id: 'job-123' } as Job);
+
+      const result = await service.addCustomBriefingJob({
+        articleIds: ['article-1', 'article-2'],
+        feedProfile: FeedProfile.DEFAULT,
+        customPrompt: 'Focus on risks',
+      });
+
+      expect(mockCustomBriefingQueue.add).toHaveBeenCalledWith(
+        'generate-custom-briefing',
+        {
+          articleIds: ['article-1', 'article-2'],
+          feedProfile: FeedProfile.DEFAULT,
+          customPrompt: 'Focus on risks',
+        },
+        {
+          attempts: 4,
+          backoff: {
+            type: 'exponential',
+            delay: 7000,
+          },
+        },
+      );
+      expect(result).toEqual({ jobId: 'job-123' });
+    });
   });
 
   describe('handleAudioGenerationFailure', () => {
