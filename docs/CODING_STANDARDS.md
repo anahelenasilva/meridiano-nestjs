@@ -6,7 +6,6 @@
 ## Documentation
 - Whenever you change a pattern or architecture, update the corresponding documentation.
 - For library changes, update the [docs/LIBRARIES.md](docs/LIBRARIES.md) file.
-- For development changes, update the [docs/DEVELOPER_GUIDE.md](docs/DEVELOPER_GUIDE.md) file.
 
 ## Error Handling
 - NEVER silently ignore a null/error return from an operation

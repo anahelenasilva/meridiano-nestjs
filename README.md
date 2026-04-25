@@ -454,7 +454,6 @@ The skill includes:
 
 For detailed API documentation, see:
 
-- **[🔧 Developer Guide](docs/DEVELOPER_GUIDE.md)** - Comprehensive development guide
 - **[📦 Libraries Guide](docs/LIBRARIES.md)** - Infrastructure library documentation
-- [Technical Overview](docs/project/TECHNICAL_OVERVIEW.md) - Technical architecture details
+- [Technical Overview](docs/TECHNICAL_OVERVIEW.md) - Technical architecture details
 - [Libraries Documentation](libs/README.md) - Infrastructure libraries guide
