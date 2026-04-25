@@ -24,7 +24,6 @@ Welcome to the comprehensive documentation for **Meridiano** - Your Personal Int
 - **[API Reference](API_REFERENCE.md)** - Complete API documentation
 - **[Architecture Guide](ARCHITECTURE.md)** - System architecture and design patterns
 - **[Libraries Guide](LIBRARIES.md)** - Infrastructure library documentation
-- **[Environment Setup](features/opencode/OPENCODE_SETUP.md)** - OpenCode-specific setup instructions
 - **[Quick Reference](QUICK_REFERENCE.md)** - Common commands and shortcuts
 
 ### Prerequisites
@@ -278,7 +277,7 @@ pnpm run list-transcriptions        # List existing transcriptions
 - `GET /api/bookmarks/check` - Check bookmark status
 - `GET /api/bookmarks/count` - Get bookmark count
 
-**Documentation**: [Bookmarks API](features/bookmarks/BOOKMARKS_API.md)
+**Documentation**: See module source at `src/bookmarks/`
 
 ---
 
@@ -527,12 +526,12 @@ Test collections available in [`bruno-collections/`](../bruno-collections/):
 
 | Endpoint Group | Description | Documentation |
 |----------------|-------------|---------------|
-| `/api/auth` | Authentication | [Auth Guide](features/auth/AUTH_IMPLEMENTATION.md) |
+| `/api/auth` | Authentication | See module docs |
 | `/api/articles` | Article management | See module docs |
 | `/api/briefings` | Briefing retrieval | See module docs |
 | `/api/youtube/transcriptions` | Transcription management | See module docs |
 | `/api/youtube/channels` | Channel configuration | See module docs |
-| `/api/bookmarks` | Bookmark management | [Bookmarks API](features/bookmarks/BOOKMARKS_API.md) |
+| `/api/bookmarks` | Bookmark management | See module docs |
 | `/api/audio-files` | Audio generation | See module docs |
 | `/api/users` | User management | See module docs |
 
@@ -599,9 +598,6 @@ pnpm run docker:down
 
 ### Workflow Guides
 
-- **[Cursor + OpenCode Workflow](features/opencode/CURSOR_OPENCODE_WORKFLOW.md)** - Using Cursor and OpenCode together
-- **[Auth Implementation](features/auth/AUTH_IMPLEMENTATION.md)** - Authentication setup guide
-- **[Bookmarks Guide](features/bookmarks/BOOKMARKS_QUICK_START.md)** - Bookmarks feature quick start
 
 ---
 

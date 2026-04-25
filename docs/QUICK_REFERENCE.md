@@ -2,8 +2,6 @@
 
 ## Current Canonical Docs
 
-- Workflow guide: `docs/features/opencode/CURSOR_OPENCODE_WORKFLOW.md`
-- Setup guide: `docs/features/opencode/OPENCODE_SETUP.md`
 - Helper script: `scripts/opencode-helpers.sh`
 - Ralph guide: `scripts/ralph/README.md`
 
@@ -56,7 +54,7 @@ If helper commands are not available, source the script:
 source scripts/opencode-helpers.sh
 ```
 
-For permanent setup, follow `docs/features/opencode/OPENCODE_SETUP.md`.
+For permanent setup, add the source command to your shell profile.
 
 ## Common Workflows
 

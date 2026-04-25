@@ -415,12 +415,6 @@ This project supports using both Cursor and OpenCode together for maximum produc
 - **Cursor**: Quick edits, code review, file navigation, immediate feedback
 - **OpenCode**: Complex multi-step tasks, orchestrated agent workflows with `ultrawork`
 
-See the [Cursor + OpenCode Workflow Guide](./docs/CURSOR_OPENCODE_WORKFLOW.md) for:
-- When to use which tool
-- Workflow patterns and examples
-- Helper scripts and shortcuts
-- Best practices
-
 Quick start: Source the helper script and use `ocu <task>` for ultrawork tasks:
 ```bash
 source scripts/opencode-helpers.sh
@@ -559,7 +553,6 @@ For detailed API documentation, see:
 - **[📡 API Reference](docs/API_REFERENCE.md)** - Complete API documentation with examples
 - **[🏗️ Architecture Guide](docs/ARCHITECTURE.md)** - System architecture and design patterns
 - **[📦 Libraries Guide](docs/LIBRARIES.md)** - Infrastructure library documentation
-- [Bookmarks API Documentation](docs/bookmarks/BOOKMARKS_API.md) - Complete guide for users and bookmarks endpoints
 - [Project Overview](docs/project/PROJECT_OVERVIEW.md) - High-level project overview
 - [Technical Overview](docs/project/TECHNICAL_OVERVIEW.md) - Technical architecture details
 - [Libraries Documentation](libs/README.md) - Infrastructure libraries guide
