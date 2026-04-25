@@ -5,11 +5,13 @@ import { FeedProfile } from '../shared/types/feed';
 import { BriefingsController } from './briefings.controller';
 import { BriefingsService } from './briefings.service';
 import { ListBriefingsQuery } from './queries/list-briefings.query';
+import { GenerateBriefUseCase } from './usecases/generate-brief.usecase';
 
 describe('BriefingsController', () => {
   let controller: BriefingsController;
   const mockBriefingsService = mock<BriefingsService>();
   const mockListBriefingsQuery = mock<ListBriefingsQuery>();
+  const mockGenerateBriefUseCase = mock<GenerateBriefUseCase>();
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -17,6 +19,7 @@ describe('BriefingsController', () => {
       providers: [
         { provide: BriefingsService, useValue: mockBriefingsService },
         { provide: ListBriefingsQuery, useValue: mockListBriefingsQuery },
+        { provide: GenerateBriefUseCase, useValue: mockGenerateBriefUseCase },
       ],
     }).compile();
 
@@ -115,6 +118,34 @@ describe('BriefingsController', () => {
       await expect(
         controller.getBriefing('00000000-0000-0000-0000-000000000000'),
       ).rejects.toThrow(NotFoundException);
+    });
+  });
+
+  describe('generateBriefing', () => {
+    it('delegates to GenerateBriefUseCase and returns result', async () => {
+      const expected = { success: true, briefingId: 'brief-uuid' };
+      mockGenerateBriefUseCase.execute.mockResolvedValue(expected);
+
+      const result = await controller.generateBriefing({
+        feedProfile: FeedProfile.DEFAULT,
+      });
+
+      expect(mockGenerateBriefUseCase.execute).toHaveBeenCalledWith({
+        feedProfile: FeedProfile.DEFAULT,
+      });
+      expect(result).toBe(expected);
+    });
+
+    it('forwards customPrompts to use case', async () => {
+      mockGenerateBriefUseCase.execute.mockResolvedValue({ success: true });
+      const input = {
+        feedProfile: FeedProfile.DEFAULT,
+        customPrompts: { briefSynthesis: 'Custom prompt' },
+      };
+
+      await controller.generateBriefing(input);
+
+      expect(mockGenerateBriefUseCase.execute).toHaveBeenCalledWith(input);
     });
   });
 });

@@ -24,7 +24,9 @@ export class GenerateBriefUseCase {
       };
     }
 
-    const result = await this.briefingGenerationService.generateBrief(input.feedProfile);
+    const result = await this.briefingGenerationService.generateBrief(input.feedProfile, {
+      customPrompts: input.customPrompts,
+    });
 
     return {
       success: result.success,

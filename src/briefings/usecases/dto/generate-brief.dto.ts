@@ -1,5 +1,16 @@
-import { IsBoolean, IsEnum, IsOptional } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsBoolean, IsEnum, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { FeedProfile } from '../../../shared/types/feed';
+
+export class CustomPromptsDto {
+  @IsOptional()
+  @IsString()
+  clusterAnalysis?: string;
+
+  @IsOptional()
+  @IsString()
+  briefSynthesis?: string;
+}
 
 export class GenerateBriefInputDto {
   @IsEnum(FeedProfile)
@@ -8,6 +19,11 @@ export class GenerateBriefInputDto {
   @IsOptional()
   @IsBoolean()
   simple?: boolean;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => CustomPromptsDto)
+  customPrompts?: CustomPromptsDto;
 }
 
 export interface GenerateBriefOutputDto {
