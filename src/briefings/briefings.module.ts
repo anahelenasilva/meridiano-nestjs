@@ -1,3 +1,4 @@
+import { RedisModule } from '@libs/redis';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { QueueModule } from '../../libs/queue/queue.module';
@@ -32,6 +33,7 @@ import { ScrapeArticlesUseCase } from './usecases/scrape-articles.usecase';
     ConfigModule,
     AiModule,
     QueueModule,
+    RedisModule,
   ],
   providers: [
     BriefingsService,
