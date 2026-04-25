@@ -1,4 +1,4 @@
-import { Module, forwardRef } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { QueueModule } from '../../libs/queue/queue.module';
 import { AiModule } from '../ai/ai.module';
@@ -10,8 +10,8 @@ import { ScraperModule } from '../scraper/scraper.module';
 import { BriefingsController } from './briefings.controller';
 import { BriefingsService } from './briefings.service';
 import { BriefingEntity } from './entities/briefing.entity';
-import { ListBriefingsQuery } from './queries/list-briefings.query';
 import { CustomBriefingProcessor } from './processors/custom-briefing.processor';
+import { ListBriefingsQuery } from './queries/list-briefings.query';
 import { BriefingGenerationService } from './services/briefing-generation.service';
 import { CategorizeArticlesUseCase } from './usecases/categorize-articles.usecase';
 import { GenerateBriefUseCase } from './usecases/generate-brief.usecase';
@@ -50,4 +50,4 @@ import { ScrapeArticlesUseCase } from './usecases/scrape-articles.usecase';
   controllers: [BriefingsController],
   exports: [BriefingsService, BriefingGenerationService],
 })
-export class BriefingsModule {}
+export class BriefingsModule { }
