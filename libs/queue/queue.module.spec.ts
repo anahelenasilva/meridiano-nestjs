@@ -66,25 +66,6 @@ jest.mock('@libs/database', () => {
   };
 });
 
-// Mock AudioFilesModule to prevent it from loading real dependencies
-jest.mock('../../src/audio-files/audio-files.module', () => {
-  return {
-    AudioFilesModule: class MockAudioFilesModule { },
-  };
-});
-
-// Mock ProcessorModule to prevent loading the full dependency chain
-jest.mock('../../src/processor/processor.module', () => {
-  return {
-    ProcessorModule: class MockProcessorModule { },
-    ProcessorService: class MockProcessorService {
-      processArticles = jest.fn().mockResolvedValue({ articlesProcessed: 1, errors: 0 });
-      rateArticles = jest.fn().mockResolvedValue({ articlesRated: 1, errors: 0 });
-      categorizeArticles = jest.fn().mockResolvedValue({ articlesCategorized: 1, errors: 0 });
-    },
-  };
-});
-
 // Mock ConfigModule to prevent loading the full dependency chain
 jest.mock('../../src/config/config.module', () => {
   return {
@@ -95,26 +76,6 @@ jest.mock('../../src/config/config.module', () => {
         failureNotificationEmail: 'test@example.com',
         failureNotificationEmailFrom: 'from@example.com',
       });
-    },
-  };
-});
-
-// Mock the ArticleProcessor to avoid the ProcessorService dependency
-jest.mock('./processors/article.processor', () => {
-  return {
-    ArticleProcessor: class MockArticleProcessor {
-      onModuleInit = jest.fn();
-      onModuleDestroy = jest.fn();
-    },
-  };
-});
-
-// Mock AudioGenerationProcessor to avoid dependencies
-jest.mock('./processors/audio-generation.processor', () => {
-  return {
-    AudioGenerationProcessor: class MockAudioGenerationProcessor {
-      onModuleInit = jest.fn();
-      onModuleDestroy = jest.fn();
     },
   };
 });

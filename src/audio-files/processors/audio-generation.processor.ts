@@ -1,11 +1,9 @@
+import { AUDIO_GENERATION_QUEUE } from '@libs/queue';
 import { RedisService } from '@libs/redis';
 import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { Job, Queue, Worker } from 'bullmq';
-import { GenerateAudioUseCase } from '../../../src/audio-files/usecases/generate-audio.usecase';
-import {
-  AUDIO_GENERATION_QUEUE
-} from '../constants/queue.constants';
-import { GenerateAudioJobData } from '../interfaces/audio-job.interface';
+import { GenerateAudioUseCase } from '../usecases/generate-audio.usecase';
+import { GenerateAudioJobData } from '@libs/queue/interfaces/audio-job.interface';
 
 type ErrorType = 'retryable' | 'fatal';
 
@@ -105,11 +103,6 @@ export class AudioGenerationProcessor implements OnModuleInit {
     this.logger.log('Audio generation processor worker initialized');
   }
 
-  /**
-   * Process an audio generation job
-   * @param job - The BullMQ job containing audio generation data
-   * @returns The result of the audio generation
-   */
   async processAudioGeneration(
     job: Job<GenerateAudioJobData>,
   ): Promise<{ success: boolean; audioFileId?: string; error?: string }> {
@@ -218,11 +211,6 @@ export class AudioGenerationProcessor implements OnModuleInit {
     }
   }
 
-  /**
-   * Classify an error as retryable or fatal
-   * @param errorMessage - The error message to classify
-   * @returns Error classification
-   */
   private classifyError(errorMessage: string): ErrorClassification {
     for (const pattern of this.fatalPatterns) {
       if (pattern.test(errorMessage)) {
@@ -239,10 +227,6 @@ export class AudioGenerationProcessor implements OnModuleInit {
     return { type: 'retryable', shouldRetry: true };
   }
 
-  /**
-   * Get queue metrics for monitoring
-   * @returns Queue metrics
-   */
   async getQueueMetrics(): Promise<{
     waiting: number;
     active: number;
@@ -256,7 +240,6 @@ export class AudioGenerationProcessor implements OnModuleInit {
     const completed = await this.audioQueue.getCompletedCount();
     const failed = await this.audioQueue.getFailedCount();
     const delayed = await this.audioQueue.getDelayedCount();
-    // paused count is not directly available on Queue, default to 0
     const paused = 0;
 
     return {
