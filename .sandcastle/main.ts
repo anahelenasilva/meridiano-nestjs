@@ -1,4 +1,4 @@
-import { run, claudeCode, createWorktree } from "@ai-hero/sandcastle";
+import { claudeCode, run } from "@ai-hero/sandcastle";
 import { docker } from "@ai-hero/sandcastle/sandboxes/docker";
 import { join } from "node:path";
 
@@ -11,7 +11,7 @@ await run({
   promptFile,
 });
 
-// Parallel worktree example (uncomment and adapt as needed):
+// Parallel worktree example (import createWorktree, then uncomment and adapt as needed):
 // const worktrees = await Promise.all([
 //   createWorktree({ branchStrategy: { type: "branch", branchName: "feature/a" } }),
 //   createWorktree({ branchStrategy: { type: "branch", branchName: "feature/b" } }),
