@@ -1,16 +1,6 @@
-import { run, claudeCode, createWorktree } from "@ai-hero/sandcastle";
+import { claudeCode, run } from "@ai-hero/sandcastle";
 import { docker } from "@ai-hero/sandcastle/sandboxes/docker";
 import { join } from "node:path";
-import {
-  logEventToConsole,
-  notifySlackStart,
-  notifySlackToolCall,
-  notifySlackComplete,
-  notifySlackError,
-  recordNotionSuccess,
-  recordNotionError,
-  type RunContext,
-} from "./observers.ts";
 
 const task = process.env.TASK ?? "plan";
 const promptFile = join(import.meta.dirname, `${task}-prompt.md`);
@@ -22,41 +12,13 @@ for (const key of ["ISSUE_NUMBER", "ISSUE_TITLE", "BRANCH", "BRANCHES", "ISSUES"
   if (process.env[key]) promptArgs[key] = process.env[key]!;
 }
 
-const ctx: RunContext = {
-  task,
-  branch: process.env.BRANCH ?? "",
-  issueNumber: process.env.ISSUE_NUMBER,
-  logPath,
-};
-
-const start = Date.now();
-notifySlackStart(ctx);
-
-try {
-  const result = await run({
-    agent: claudeCode("claude-sonnet-4-6"),
-    sandbox: docker(),
-    promptFile,
-    promptArgs,
-    logging: {
-      type: "file",
-      path: logPath,
-      onAgentStreamEvent: (event) => {
-        logEventToConsole(event);
-        if (event.type === "toolCall") notifySlackToolCall(event);
-      },
-    },
-  });
-
-  const durationSec = Math.round((Date.now() - start) / 1000);
-  notifySlackComplete(ctx, durationSec, result.commits.length, result.iterations.length);
-  recordNotionSuccess(ctx, durationSec, result.commits.length, result.iterations.length);
-} catch (err) {
-  const durationSec = Math.round((Date.now() - start) / 1000);
-  notifySlackError(ctx, durationSec, err);
-  recordNotionError(ctx, durationSec, err);
-  throw err;
-}
+await run({
+  agent: claudeCode("claude-sonnet-4-6"),
+  sandbox: docker(),
+  promptFile,
+  promptArgs,
+  logging: { type: "file", path: logPath },
+});
 
 // Parallel worktree example (uncomment and adapt as needed):
 // const worktrees = await Promise.all([
