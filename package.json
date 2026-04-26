@@ -42,7 +42,11 @@
     "docker:down": "docker-compose down",
     "docker:logs": "docker-compose logs -f postgres",
     "ralph": "ts-node scripts/ralph/ralph.ts",
-    "ralph:single": "ts-node scripts/ralph/ralph.ts --single"
+    "ralph:single": "ts-node scripts/ralph/ralph.ts --single",
+    "sandbox:tests": "TASK=tests npx tsx .sandcastle/main.ts",
+    "sandbox:feature": "TASK=feature npx tsx .sandcastle/main.ts",
+    "sandbox:refactor": "TASK=refactor npx tsx .sandcastle/main.ts",
+    "sandbox:review": "TASK=review npx tsx .sandcastle/main.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.985.0",
