@@ -43,6 +43,7 @@
     "docker:logs": "docker-compose logs -f postgres",
     "ralph": "ts-node scripts/ralph/ralph.ts",
     "ralph:single": "ts-node scripts/ralph/ralph.ts --single",
+    "sandbox:build": "docker build -t sandcastle:meridiano-nestjs --build-arg HOST_UID=$(id -u) --build-arg HOST_GID=$(id -g) .sandcastle/",
     "sandbox:plan": "TASK=plan npx tsx .sandcastle/main.ts",
     "sandbox:implement": "TASK=implement npx tsx .sandcastle/main.ts",
     "sandbox:review": "TASK=review npx tsx .sandcastle/main.ts",
