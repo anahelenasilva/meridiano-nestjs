@@ -313,10 +313,10 @@ export class BriefingGenerationService {
       .join('\n');
 
     const profilePrompts = this.profilesService.getPromptsForProfile(feedProfile);
-    const briefPrompt = this.configService.getSimpleBriefPrompt(
+    const briefPrompt = this.configService.getCustomBriefPrompt(
       feedProfile,
       summariesText,
-      profilePrompts.simpleBriefing,
+      profilePrompts.customBriefing,
     );
 
     const briefContent = await this.aiService.callChat(briefPrompt);
@@ -370,8 +370,8 @@ export class BriefingGenerationService {
       .join('\n');
 
     const profilePrompts = this.profilesService.getPromptsForProfile(feedProfile);
-    const promptToUse = customPrompt || profilePrompts.simpleBriefing;
-    const briefPrompt = this.configService.getSimpleBriefPrompt(
+    const promptToUse = customPrompt || profilePrompts.customBriefing;
+    const briefPrompt = this.configService.getCustomBriefPrompt(
       feedProfile,
       summariesText,
       promptToUse,

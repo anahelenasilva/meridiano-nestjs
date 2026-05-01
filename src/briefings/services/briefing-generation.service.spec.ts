@@ -108,7 +108,7 @@ describe('BriefingGenerationService', () => {
     });
     mockArticlesService.getArticlesForBriefing.mockResolvedValue([article]);
     mockProfilesService.getPromptsForProfile.mockReturnValue({});
-    mockConfigService.getSimpleBriefPrompt.mockReturnValue(
+    mockConfigService.getCustomBriefPrompt.mockReturnValue(
       "Create a concise briefing for the 'default' profile based on these recent articles:\n\n1. **Headline Alpha**",
     );
     mockAiService.callChat.mockResolvedValue('# Brief\n\nExecutive summary.');
@@ -155,7 +155,7 @@ describe('BriefingGenerationService', () => {
     mockProfilesService.getPromptsForProfile.mockReturnValue({
       clusterAnalysis: undefined,
       briefSynthesis: undefined,
-      simpleBriefing: undefined,
+      customBriefing: undefined,
     });
     mockConfigService.getPrompt.mockReturnValue('{cluster_summaries_text}');
     mockConfigService.formatPrompt.mockImplementation((template, vars) =>
@@ -236,9 +236,9 @@ describe('BriefingGenerationService', () => {
       createArticle({ id: 'article-2', title: 'Second' }),
     ]);
     mockProfilesService.getPromptsForProfile.mockReturnValue({
-      simpleBriefing: 'Default custom brief prompt',
+      customBriefing: 'Default custom brief prompt',
     });
-    mockConfigService.getSimpleBriefPrompt.mockReturnValue('brief prompt');
+    mockConfigService.getCustomBriefPrompt.mockReturnValue('brief prompt');
     mockAiService.callChat
       .mockResolvedValueOnce('# Custom Brief')
       .mockRejectedValueOnce(new Error('title model unavailable'));
@@ -265,9 +265,9 @@ describe('BriefingGenerationService', () => {
       createArticle({ id: 'article-2', title: 'Second' }),
     ]);
     mockProfilesService.getPromptsForProfile.mockReturnValue({
-      simpleBriefing: 'Default custom brief prompt',
+      customBriefing: 'Default custom brief prompt',
     });
-    mockConfigService.getSimpleBriefPrompt.mockReturnValue('brief prompt');
+    mockConfigService.getCustomBriefPrompt.mockReturnValue('brief prompt');
     mockAiService.callChat
       .mockResolvedValueOnce('# Custom Brief')
       .mockResolvedValueOnce('AI Briefing Highlights');
