@@ -61,7 +61,6 @@ export type Config = {
   };
   app: {
     defaultFeedProfile: FeedProfile;
-    databaseFile: string;
     maxArticlesForScrapping: number;
   };
   youtubeTranscriptions: {

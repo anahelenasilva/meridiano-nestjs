@@ -67,7 +67,6 @@ export class ConfigService {
 
     app: {
       defaultFeedProfile: FeedProfile.DEFAULT,
-      databaseFile: 'meridian.db',
       maxArticlesForScrapping: 50,
     },
 

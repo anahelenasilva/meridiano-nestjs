@@ -52,7 +52,6 @@ describe('External Articles Integration Tests', () => {
     mockTelegramSubmissionService.updateSubmissionStatus.mockReturnValue(Promise.resolve());
     mockConfigService.getAppConfig.mockReturnValue({
       defaultFeedProfile: FeedProfile.DEFAULT,
-      databaseFile: ':memory:',
       maxArticlesForScrapping: 100,
     });
     mockConfigService.isExternalArticleSubmissionEnabled.mockReturnValue(true);
