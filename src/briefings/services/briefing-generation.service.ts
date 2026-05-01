@@ -6,12 +6,12 @@ import { ArticlesService } from '../../articles/articles.service';
 import { ConfigService } from '../../config/config.service';
 import { ProfilesService } from '../../profiles/profiles.service';
 import { FeedProfile } from '../../shared/types/feed';
+import { BriefingsService } from '../briefings.service';
 import {
   BriefGenerationOptions,
   GenerateBriefResult,
   SimpleBriefResult,
 } from '../entities/briefing.types';
-import { BriefingsService } from '../briefings.service';
 
 @Injectable()
 export class BriefingGenerationService {
@@ -23,7 +23,7 @@ export class BriefingGenerationService {
     private readonly aiService: AiService,
     private readonly configService: ConfigService,
     private readonly profilesService: ProfilesService,
-  ) {}
+  ) { }
 
   private clusterArticles(
     embeddings: number[][],
@@ -267,75 +267,6 @@ export class BriefingGenerationService {
           clustersGenerated: clustersQtd,
           clustersUsed: clusterAnalyses.length,
         },
-      };
-    } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to save brief',
-      };
-    }
-  }
-
-  async generateSimpleBrief(
-    feedProfile: FeedProfile,
-    maxArticles: number = 10,
-  ): Promise<SimpleBriefResult> {
-    this.logger.log(`Generating Simple Brief [${feedProfile}]`);
-
-    const lookbackHours =
-      this.configService.getProcessingConfig().briefingArticleLookbackHours;
-    const articles = await this.articlesService.getArticlesForBriefing(
-      lookbackHours,
-      feedProfile,
-    );
-
-    if (!articles || articles.length === 0) {
-      return { success: false, error: 'No articles found for briefing' };
-    }
-
-    const selectedArticles = articles
-      .sort((a, b) => (b.impact_rating || 0) - (a.impact_rating || 0))
-      .slice(0, maxArticles);
-
-    const articlesWithContent = selectedArticles.filter(
-      (a) => a.processed_content != null,
-    );
-
-    if (articlesWithContent.length === 0) {
-      return { success: false, error: 'No articles with processed content found' };
-    }
-
-    const summariesText = articlesWithContent
-      .map(
-        (article, index) =>
-          `${index + 1}. **${article.title}** (Impact: ${article.impact_rating || 'N/A'})\n   ${article.processed_content}\n`,
-      )
-      .join('\n');
-
-    const profilePrompts = this.profilesService.getPromptsForProfile(feedProfile);
-    const briefPrompt = this.configService.getCustomBriefPrompt(
-      feedProfile,
-      summariesText,
-      profilePrompts.customBriefing,
-    );
-
-    const briefContent = await this.aiService.callChat(briefPrompt);
-
-    if (!briefContent) {
-      return { success: false, error: 'Failed to generate brief content' };
-    }
-
-    try {
-      const briefingId = await this.briefingsService.saveBrief(
-        briefContent,
-        selectedArticles.map((a) => a.id),
-        feedProfile,
-      );
-
-      return {
-        success: true,
-        briefingId,
-        content: briefContent,
       };
     } catch (error) {
       return {

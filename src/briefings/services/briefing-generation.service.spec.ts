@@ -56,75 +56,6 @@ describe('BriefingGenerationService', () => {
     expect(service).toBeDefined();
   });
 
-  it('generateSimpleBrief returns error when all articles have null processed_content', async () => {
-    mockConfigService.getProcessingConfig.mockReturnValue({
-      briefingArticleLookbackHours: 24,
-      minArticlesForBriefing: 5,
-      articlesPerPage: 15,
-      clustersQtd: 10,
-      clusterAnalysisDelayMs: 0,
-    });
-    mockArticlesService.getArticlesForBriefing.mockResolvedValue([
-      createArticle({ id: 'a1', processed_content: null }),
-      createArticle({ id: 'a2', processed_content: undefined }),
-    ]);
-
-    const result = await service.generateSimpleBrief(FeedProfile.DEFAULT);
-
-    expect(result.success).toBe(false);
-    expect(result.error).toBe('No articles with processed content found');
-    expect(mockAiService.callChat).not.toHaveBeenCalled();
-  });
-
-  it('generateSimpleBrief returns error when no articles', async () => {
-    mockConfigService.getProcessingConfig.mockReturnValue({
-      briefingArticleLookbackHours: 24,
-      minArticlesForBriefing: 5,
-      articlesPerPage: 15,
-      clustersQtd: 10,
-      clusterAnalysisDelayMs: 0,
-    });
-    mockArticlesService.getArticlesForBriefing.mockResolvedValue([]);
-
-    const result = await service.generateSimpleBrief(FeedProfile.DEFAULT);
-
-    expect(result.success).toBe(false);
-    expect(result.error).toBe('No articles found for briefing');
-  });
-
-  it('generateSimpleBrief uses callChat only (DeepSeek vs OpenAI is chosen inside AiService)', async () => {
-    mockConfigService.getProcessingConfig.mockReturnValue({
-      briefingArticleLookbackHours: 24,
-      minArticlesForBriefing: 5,
-      articlesPerPage: 15,
-      clustersQtd: 10,
-      clusterAnalysisDelayMs: 0,
-    });
-
-    const article = createArticle({
-      id: 'a1',
-      title: 'Headline Alpha',
-      processed_content: 'Summary text for the article.',
-    });
-    mockArticlesService.getArticlesForBriefing.mockResolvedValue([article]);
-    mockProfilesService.getPromptsForProfile.mockReturnValue({});
-    mockConfigService.getCustomBriefPrompt.mockReturnValue(
-      "Create a concise briefing for the 'default' profile based on these recent articles:\n\n1. **Headline Alpha**",
-    );
-    mockAiService.callChat.mockResolvedValue('# Brief\n\nExecutive summary.');
-    mockBriefingsService.saveBrief.mockResolvedValue('briefing-uuid');
-
-    const result = await service.generateSimpleBrief(FeedProfile.DEFAULT);
-
-    expect(result.success).toBe(true);
-    expect(mockAiService.callChat).toHaveBeenCalledTimes(1);
-    const [prompt] = mockAiService.callChat.mock.calls[0];
-    expect(prompt).toContain('Headline Alpha');
-    expect(prompt).toContain('Create a concise briefing');
-    expect(mockAiService.callDeepseekChat).not.toHaveBeenCalled();
-    expect(mockAiService.callOpenAIChat).not.toHaveBeenCalled();
-  });
-
   it('analyzeCluster filters articles with null processed_content before building prompt', async () => {
     const embedding = (x: number, y: number) =>
       JSON.stringify([x, y, x + 0.1, y + 0.1]);
@@ -150,6 +81,13 @@ describe('BriefingGenerationService', () => {
       clustersQtd: 2,
       articlesPerPage: 15,
       customPrompts: undefined,
+    });
+    mockConfigService.getProcessingConfig.mockReturnValue({
+      briefingArticleLookbackHours: 24,
+      minArticlesForBriefing: 2,
+      articlesPerPage: 15,
+      clustersQtd: 2,
+      clusterAnalysisDelayMs: 0,
     });
     mockArticlesService.getArticlesForBriefing.mockResolvedValue(articles);
     mockProfilesService.getPromptsForProfile.mockReturnValue({
@@ -200,34 +138,19 @@ describe('BriefingGenerationService', () => {
       articlesPerPage: 15,
       customPrompts: undefined,
     });
+    mockConfigService.getProcessingConfig.mockReturnValue({
+      briefingArticleLookbackHours: 24,
+      minArticlesForBriefing: 2,
+      articlesPerPage: 15,
+      clustersQtd: 2,
+      clusterAnalysisDelayMs: 0,
+    });
     mockArticlesService.getArticlesForBriefing.mockResolvedValue(articles);
 
     const result = await service.generateBrief(FeedProfile.DEFAULT);
 
     expect(result.success).toBe(false);
     expect(mockAiService.callChat).not.toHaveBeenCalled();
-  });
-
-  it('generateSimpleBrief returns error when callChat returns null', async () => {
-    mockConfigService.getProcessingConfig.mockReturnValue({
-      briefingArticleLookbackHours: 24,
-      minArticlesForBriefing: 5,
-      articlesPerPage: 15,
-      clustersQtd: 10,
-      clusterAnalysisDelayMs: 0,
-    });
-    mockArticlesService.getArticlesForBriefing.mockResolvedValue([
-      createArticle(),
-    ]);
-    mockAiService.callChat.mockResolvedValue(null);
-
-    const result = await service.generateSimpleBrief(FeedProfile.DEFAULT);
-
-    expect(result.success).toBe(false);
-    expect(result.error).toBe('Failed to generate brief content');
-    expect(mockAiService.callChat).toHaveBeenCalledTimes(1);
-    expect(mockAiService.callDeepseekChat).not.toHaveBeenCalled();
-    expect(mockAiService.callOpenAIChat).not.toHaveBeenCalled();
   });
 
   it('generateCustomBrief saves the brief when title generation fails', async () => {

@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsBoolean, IsEnum, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { IsEnum, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { FeedProfile } from '../../../shared/types/feed';
 
 export class CustomPromptsDto {
@@ -15,10 +15,6 @@ export class CustomPromptsDto {
 export class GenerateBriefInputDto {
   @IsEnum(FeedProfile)
   feedProfile: FeedProfile;
-
-  @IsOptional()
-  @IsBoolean()
-  simple?: boolean;
 
   @IsOptional()
   @ValidateNested()

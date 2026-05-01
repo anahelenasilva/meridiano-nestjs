@@ -5,7 +5,6 @@ import * as dotenv from 'dotenv';
 import { AppModule } from '../app.module';
 import { CategorizeArticlesUseCase } from '../briefings/usecases/categorize-articles.usecase';
 import { GenerateBriefUseCase } from '../briefings/usecases/generate-brief.usecase';
-import { GenerateSimpleBriefUseCase } from '../briefings/usecases/generate-simple-brief.usecase';
 import { ProcessArticlesUseCase } from '../briefings/usecases/process-articles.usecase';
 import { RateArticlesUseCase } from '../briefings/usecases/rate-articles.usecase';
 import { RunBriefingUseCase } from '../briefings/usecases/run-briefing.usecase';
@@ -25,7 +24,6 @@ interface Services {
   rateArticlesUseCase: RateArticlesUseCase;
   categorizeArticlesUseCase: CategorizeArticlesUseCase;
   generateBriefUseCase: GenerateBriefUseCase;
-  generateSimpleBriefUseCase: GenerateSimpleBriefUseCase;
   profilesService: ProfilesService;
 }
 
@@ -39,7 +37,6 @@ async function initialize(): Promise<Services> {
     rateArticlesUseCase: app.get(RateArticlesUseCase),
     categorizeArticlesUseCase: app.get(CategorizeArticlesUseCase),
     generateBriefUseCase: app.get(GenerateBriefUseCase),
-    generateSimpleBriefUseCase: app.get(GenerateSimpleBriefUseCase),
     profilesService: app.get(ProfilesService),
   };
 }
@@ -62,7 +59,6 @@ program
   .option('--categorize', 'Run only the article categorization stage')
   .option('--generate', 'Run only the brief generation stage')
   .option('--all', 'Run all stages sequentially (default behavior)')
-  .option('--simple-brief', 'Generate a simple brief without clustering')
   .option('--generate-audio', 'Generate audio for article summaries');
 
 program.parse();
@@ -75,7 +71,6 @@ interface ProgramOptions {
   categorize?: boolean;
   generate?: boolean;
   all?: boolean;
-  simpleBrief?: boolean;
   generateAudio?: boolean;
 }
 
@@ -108,21 +103,7 @@ async function main(): Promise<void> {
 
     const shouldRunAll = options.all || !hasSpecificStage;
 
-    if (options.simpleBrief) {
-      console.log('\n>>> Generating Simple Brief <<<');
-      const result = await services.generateSimpleBriefUseCase.execute({
-        feedProfile,
-      });
-      if (result.success) {
-        console.log(
-          `Simple brief generated successfully. ID: ${result.briefingId}`,
-        );
-      } else {
-        console.error(
-          `Simple brief generation failed: ${result.error || 'Unknown error'}`,
-        );
-      }
-    } else if (shouldRunAll) {
+    if (shouldRunAll) {
       console.log(`\n>>> Running ALL stages for [${feedProfile}] <<<`);
 
       try {
