@@ -84,3 +84,5 @@ docs/plans/personal/**
 # bmad
 _bmad/
 _bmad-output/
+
+.pnpm-store/
