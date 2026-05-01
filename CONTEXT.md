@@ -12,7 +12,7 @@ _Avoid_: regular briefing, auto briefing, normal briefing
 
 **Curated Briefing**:
 A briefing where the user explicitly selected which articles to include.
-_Avoid_: custom briefing (too vague — "custom" in the code means curated)
+_Avoid_: custom briefing — the codebase used "custom" for this flow (`isCustom`, `CustomBriefingProcessor`), but "custom" also appeared for prompt overrides; "curated" is unambiguous
 
 **Feed Profile**:
 A named topic category that drives article selection and AI prompt tuning for Standard Briefings. Profiles include general topics (`TECHNOLOGY`, `POLITICS`, `BUSINESS`, `HEALTH`, `SCIENCE`), regional news (`BRASIL` — Brazilian news), and branded sources (`TECLAS` — technology and labour-class politics, sourced from the Teclas newsletter/YouTube channel). `DEFAULT` is the fallback profile.
