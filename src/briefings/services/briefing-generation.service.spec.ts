@@ -153,8 +153,9 @@ describe('BriefingGenerationService', () => {
     });
     mockArticlesService.getArticlesForBriefing.mockResolvedValue(articles);
     mockProfilesService.getPromptsForProfile.mockReturnValue({
-      clusterAnalysis: null,
-      briefSynthesis: null,
+      clusterAnalysis: undefined,
+      briefSynthesis: undefined,
+      simpleBriefing: undefined,
     });
     mockConfigService.getPrompt.mockReturnValue('{cluster_summaries_text}');
     mockConfigService.formatPrompt.mockImplementation((template, vars) =>

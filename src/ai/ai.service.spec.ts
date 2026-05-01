@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AiService } from './ai.service';
 import { ConfigService } from '../config/config.service';
+import { AiService } from './ai.service';
 
 describe('AiService', () => {
   let service: AiService;
@@ -252,6 +252,8 @@ describe('AiService', () => {
         openaiChatModel: 'gpt-4o-mini',
         maxTokens: 2048,
         temperature: 0.7,
+        openaiTtsVoice: 'alloy',
+        groqTtsVoice: 'hannah',
       });
 
       embeddingsCreate.mockResolvedValue({
