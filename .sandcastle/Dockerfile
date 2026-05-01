@@ -1,9 +1,5 @@
 FROM node:22-bookworm
 
-# Build args to match host UID/GID (required on macOS where host UID != 1000)
-ARG HOST_UID=1000
-ARG HOST_GID=1000
-
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
   git \
@@ -19,28 +15,52 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
   && apt-get update && apt-get install -y gh \
   && rm -rf /var/lib/apt/lists/*
 
-# Rename the base image's "node" user to "agent" and align UID/GID with host.
-# On macOS the host user is typically UID 501 / GID 20 (staff).
-# GID 20 is "dialout" on Debian — move it aside first if needed.
-RUN usermod -d /home/agent -m -l agent node \
-    && if [ "${HOST_GID}" != "1000" ]; then \
-         existing=$(getent group ${HOST_GID} | cut -d: -f1); \
-         if [ -n "$existing" ]; then groupmod -g 9${HOST_GID} "$existing"; fi; \
-         groupadd -g ${HOST_GID} hostgroup; \
-       fi \
-    && if [ "${HOST_UID}" != "1000" ]; then \
-         usermod -u ${HOST_UID} agent; \
-       fi \
-    && if [ "${HOST_GID}" != "1000" ]; then \
-         usermod -g ${HOST_GID} agent; \
-       fi \
-    && chown -R ${HOST_UID}:${HOST_GID} /home/agent
+# Preinstall the repo's package manager directly so sandbox hooks do not depend
+# on Corepack downloads or prompts at runtime.
+RUN npm install -g pnpm@10
+
+# Rename the base image's "node" user to "agent" and align it with the host
+# UID/GID Sandcastle uses when starting Docker containers.
+ARG HOST_UID=1000
+ARG HOST_GID=1000
+RUN set -eux; \
+  if getent group "${HOST_GID}" >/dev/null; then \
+  :; \
+  else \
+  groupadd -g "${HOST_GID}" agenthost; \
+  fi; \
+  usermod -u "${HOST_UID}" -g "${HOST_GID}" -d /home/agent -m -l agent node
 USER agent
 
 # Install Claude Code CLI
 RUN curl -fsSL https://claude.ai/install.sh | bash
 
-# Add Claude to PATH
+# Sandcastle starts the container with the host UID/GID, which often does not
+# exist in the image on macOS. Make the home directory writable for arbitrary
+# runtime users, and pre-create the common state directories they need.
+USER root
+RUN mkdir -p \
+  /home/agent/.cache \
+  /home/agent/.claude \
+  /home/agent/.config \
+  /home/agent/.local/share/pnpm \
+  /home/agent/.local/state \
+  /home/agent/.npm \
+  && chmod 1777 /home/agent \
+  && chmod -R a+rwX \
+  /home/agent/.cache \
+  /home/agent/.claude \
+  /home/agent/.config \
+  /home/agent/.local/share \
+  /home/agent/.local/state \
+  /home/agent/.npm \
+  && chmod -R a+rX /home/agent/.local
+USER agent
+
+# HOME must be explicit: when Docker runs as an arbitrary host UID (no /etc/passwd entry),
+# it does not derive HOME from the image's user record, so it falls back to /.
+# pnpm's store and config dirs are under $HOME, so an unset HOME breaks installs.
+ENV HOME="/home/agent"
 ENV PATH="/home/agent/.local/bin:$PATH"
 
 WORKDIR /home/agent
