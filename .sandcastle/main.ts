@@ -6,6 +6,7 @@ const task = process.env.TASK ?? "plan";
 const promptFile = join(import.meta.dirname, `${task}-prompt.md`);
 const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
 const logPath = join(import.meta.dirname, "logs", `${task}-${timestamp}.log`);
+const branch = process.env.BRANCH;
 
 const promptArgs: Record<string, string> = {};
 for (const key of ["ISSUE_NUMBER", "ISSUE_TITLE", "BRANCH", "BRANCHES", "ISSUES"]) {
@@ -15,6 +16,7 @@ for (const key of ["ISSUE_NUMBER", "ISSUE_TITLE", "BRANCH", "BRANCHES", "ISSUES"
 await run({
   agent: claudeCode("claude-sonnet-4-6"),
   sandbox: docker(),
+  branchStrategy: branch ? { type: "branch", branch } : undefined,
   promptFile,
   promptArgs,
   logging: { type: "file", path: logPath },
