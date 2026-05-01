@@ -20,7 +20,7 @@ import {
   categoryClassificationPrompt,
   clusterAnalysisPrompt,
   impactRatingPrompt,
-  simpleBriefingPrompt,
+  customBriefingPrompt,
   transcriptionAnalysisPrompt,
   transcriptionClassificationPrompt,
   transcriptionSummaryPrompt,
@@ -39,7 +39,7 @@ export class ConfigService {
       categoryClassification: categoryClassificationPrompt,
       clusterAnalysis: clusterAnalysisPrompt,
       briefSynthesis: briefSynthesisPrompt,
-      simpleBriefing: simpleBriefingPrompt,
+      customBriefing: customBriefingPrompt,
       transcriptionSummary: transcriptionSummaryPrompt,
       transcriptionClassification: transcriptionClassificationPrompt,
       transcriptionAnalysis: transcriptionAnalysisPrompt,
@@ -145,12 +145,12 @@ export class ConfigService {
     });
   }
 
-  getSimpleBriefPrompt(
+  getCustomBriefPrompt(
     feedProfile: FeedProfile,
     summariesText: string,
     customPrompt?: string,
   ): string {
-    const template = customPrompt || this.CONFIGS.prompts.simpleBriefing;
+    const template = customPrompt || this.CONFIGS.prompts.customBriefing;
     return this.formatPrompt(template, {
       feed_profile: feedProfile,
       summaries_text: summariesText,

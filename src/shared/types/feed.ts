@@ -25,7 +25,7 @@ export interface FeedConfiguration {
     impactRating?: string;
     clusterAnalysis?: string;
     briefSynthesis?: string;
-    simpleBriefing?: string;
+    customBriefing?: string;
   };
   settings?: {
     priority?: number;

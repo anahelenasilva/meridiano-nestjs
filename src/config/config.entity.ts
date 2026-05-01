@@ -36,7 +36,7 @@ export type Config = {
     categoryClassification: string;
     clusterAnalysis: string;
     briefSynthesis: string;
-    simpleBriefing: string;
+    customBriefing: string;
     transcriptionSummary: string;
     transcriptionAnalysis: string;
     transcriptionClassification: string;
