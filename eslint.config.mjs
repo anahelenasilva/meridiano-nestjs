@@ -29,7 +29,9 @@ export default tseslint.config(
       },
       sourceType: 'commonjs',
       parserOptions: {
-        projectService: true,
+        projectService: {
+          allowDefaultProject: ['.sandcastle/main.ts'],
+        },
         tsconfigRootDir: import.meta.dirname,
       },
     },
