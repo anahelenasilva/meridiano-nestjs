@@ -7,6 +7,8 @@ export BRANCH="sandcastle/issue-70-$(echo "$ISSUE_TITLE" | tr '[:upper:]' '[:low
 pnpm sandbox:implement
 ```
 
+`BRANCH` is now wired to Sandcastle `branchStrategy` in `.sandcastle/main.ts`, so runs execute on that explicit branch instead of defaulting to `head`.
+
 ---
 
 **When to rebuild** (`pnpm sandbox:build`):
@@ -25,6 +27,7 @@ pnpm sandbox:implement
 | `Unable to find image`                  | `pnpm sandbox:build`                                                                                 |
 | `Permission denied` on `.gitconfig`     | `docker rmi sandcastle:meridiano-nestjs` then `pnpm sandbox:build` (UID mismatch — never use `sudo`) |
 | `Prompt argument has no matching value` | `export` the env vars before running                                                                 |
+| Agent wrote to current branch           | Set `export BRANCH=...` before `pnpm sandbox:implement` so Sandcastle uses branch strategy           |
 | `Container already exists`              | `docker rm -f $(docker ps -aq --filter name=sandcastle)`                                             |
 | API credit error                        | Anthropic billing issue, unrelated to setup                                                          |
 
