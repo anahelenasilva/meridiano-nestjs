@@ -20,10 +20,8 @@ export class AiService implements OnModuleInit {
   }
 
   private initializeClients(): void {
-    const deepseekApiKey = process.env.DEEPSEEK_API_KEY;
-    const embeddingApiKey = process.env.EMBEDDING_API_KEY;
-    const openaiApiKey = process.env.OPENAI_API_KEY;
-    const groqApiKey = process.env.GROQ_API_KEY;
+    const { deepseekApiKey, embeddingApiKey, openaiApiKey, groqApiKey } =
+      this.configService.getApiKeys();
 
     if (!deepseekApiKey) {
       throw new BadRequestException(

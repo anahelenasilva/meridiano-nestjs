@@ -1,3 +1,4 @@
+import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigService } from '../config/config.service';
 import { AiService } from './ai.service';
@@ -22,6 +23,12 @@ describe('AiService', () => {
     })),
     getEnabledChatModel: jest.fn(() => 'deepseek'),
     getEnabledTtsModel: jest.fn(() => 'openai'),
+    getApiKeys: jest.fn(() => ({
+      deepseekApiKey: 'test-deepseek-key',
+      embeddingApiKey: 'test-embedding-key',
+      openaiApiKey: 'test-openai-key',
+      groqApiKey: 'test-groq-key',
+    })),
   };
 
   beforeEach(async () => {
@@ -861,6 +868,62 @@ describe('AiService', () => {
       expect(result.deepseek).toBe(false);
       expect(result.embedding).toBe(false);
       expect(result.errors.length).toBe(2);
+    });
+  });
+
+  describe('initializeClients', () => {
+    const makeModule = (apiKeys: Record<string, string | undefined>) =>
+      Test.createTestingModule({
+        providers: [
+          AiService,
+          {
+            provide: ConfigService,
+            useValue: {
+              getModelConfig: jest.fn(() => ({
+                embeddingModel: 'intfloat/multilingual-e5-large-instruct',
+                deepseekChatModel: 'deepseek-chat',
+                openaiChatModel: 'gpt-4o-mini',
+                openaiTtsVoice: 'alloy',
+                groqTtsVoice: 'hannah',
+                maxTokens: 2048,
+                temperature: 0.7,
+              })),
+              getEnabledChatModel: jest.fn(() => 'deepseek'),
+              getEnabledTtsModel: jest.fn(() => 'openai'),
+              getApiKeys: jest.fn(() => apiKeys),
+            },
+          },
+        ],
+      }).compile();
+
+    it('throws BadRequestException when deepseekApiKey is missing', async () => {
+      const mod = await makeModule({
+        deepseekApiKey: undefined,
+        embeddingApiKey: 'emb-key',
+        openaiApiKey: undefined,
+        groqApiKey: undefined,
+      });
+      await expect(mod.init()).rejects.toThrow(BadRequestException);
+    });
+
+    it('throws BadRequestException when embeddingApiKey is missing', async () => {
+      const mod = await makeModule({
+        deepseekApiKey: 'ds-key',
+        embeddingApiKey: undefined,
+        openaiApiKey: undefined,
+        groqApiKey: undefined,
+      });
+      await expect(mod.init()).rejects.toThrow(BadRequestException);
+    });
+
+    it('initializes successfully when required keys are present', async () => {
+      const mod = await makeModule({
+        deepseekApiKey: 'ds-key',
+        embeddingApiKey: 'emb-key',
+        openaiApiKey: undefined,
+        groqApiKey: undefined,
+      });
+      await expect(mod.init()).resolves.toBeDefined();
     });
   });
 });

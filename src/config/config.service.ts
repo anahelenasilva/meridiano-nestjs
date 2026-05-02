@@ -390,6 +390,15 @@ export class ConfigService {
     );
   }
 
+  getApiKeys() {
+    return {
+      deepseekApiKey: process.env.DEEPSEEK_API_KEY,
+      embeddingApiKey: process.env.EMBEDDING_API_KEY,
+      openaiApiKey: process.env.OPENAI_API_KEY,
+      groqApiKey: process.env.GROQ_API_KEY,
+    };
+  }
+
   getEnabledTtsModel(): ValidTtsModel {
     const envValue = process.env.ENABLED_TTS_MODEL;
     if (envValue) {
