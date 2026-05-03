@@ -1,11 +1,13 @@
-// Sequential Reviewer — implement-then-review loop
+// Sequential Reviewer — implement-then-review-then-merge loop
 //
-// This template drives a two-phase workflow per issue:
+// This template drives a three-phase workflow per issue:
 //   Phase 1 (Implement): A sonnet agent picks an open GitHub issue, works on it
 //                        on a dedicated branch, commits the changes, and signals
 //                        completion.
 //   Phase 2 (Review):    A second sonnet agent reviews the branch diff and either
 //                        approves it or makes corrections directly on the branch.
+//   Phase 3 (Merge):     A third agent merges the reviewed branch into main,
+//                        resolves any conflicts, verifies tests, and closes the issue.
 //
 // The outer loop repeats up to MAX_ITERATIONS times, processing one issue per
 // iteration. This is a middle-complexity option between the simple-loop (no review
@@ -38,7 +40,7 @@ const hooks = {
     onSandboxReady: [
       {
         command: "CI=true pnpm install --frozen-lockfile --prefer-offline",
-        timeoutMs: 300_000,
+        timeoutMs: 500_000,
       },
     ],
   },
@@ -73,6 +75,8 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
   // The agent signals completion via <promise>COMPLETE</promise> when done.
   // The result contains the branch name the agent worked on.
   // -------------------------------------------------------------------------
+  const implementBranch = `sandcastle/impl/${new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19)}`;
+
   const implement = await sandcastle.run({
     hooks,
     copyToWorktree,
@@ -84,16 +88,21 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
         },
       ],
     }),
-    branchStrategy: { type: "merge-to-head" },
+    branchStrategy: { type: "branch", branch: implementBranch },
     name: "implementer",
     maxIterations: MAX_ITERATIONS,
-    idleTimeoutSeconds: 300,
+    idleTimeoutSeconds: 420,
     agent: sandcastle.claudeCode("claude-sonnet-4-6"),
     promptFile: "./.sandcastle/implement-prompt.md",
   });
 
-  // Extract the branch the agent worked on so the reviewer can target it.
+  // Extract the branch and issue ID the agent worked on.
   const branch = implement.branch;
+  const issueMatch = implement.stdout.match(/<issue>(\d+)<\/issue>/);
+  const issueId = issueMatch?.[1];
+  if (!issueId) {
+    console.warn("Warning: implementer did not output an <issue> tag. The issue will not be closed after merge.");
+  }
 
   if (!implement.commits.length) {
     console.log("Implementation agent made no commits. Skipping review.");
@@ -134,6 +143,36 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
   });
 
   console.log("\nReview complete.");
+
+  // -------------------------------------------------------------------------
+  // Phase 3: Merge
+  //
+  // A third agent merges the reviewed feature branch back into the head branch,
+  // resolving any conflicts and verifying tests pass.
+  // -------------------------------------------------------------------------
+  await sandcastle.run({
+    hooks,
+    copyToWorktree,
+    sandbox: docker({
+      mounts: [
+        {
+          hostPath: pnpmStoreDir,
+          sandboxPath: "~/.local/share/pnpm/store",
+        },
+      ],
+    }),
+    branchStrategy: { type: "merge-to-head" },
+    name: "merger",
+    maxIterations: 1,
+    agent: sandcastle.claudeCode("claude-sonnet-4-6"),
+    promptFile: "./.sandcastle/merge-prompt.md",
+    promptArgs: {
+      BRANCH: branch,
+      ISSUE_ID: issueId ?? "",
+    },
+  });
+
+  console.log("\nMerge complete.");
 }
 
 console.log("\nAll done.");
