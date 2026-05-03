@@ -42,7 +42,8 @@
     "docker:up": "docker-compose --profile local up -d",
     "docker:down": "docker-compose down",
     "docker:logs": "docker-compose logs -f postgres",
-    "sandcastle": "npx tsx .sandcastle/main.mts"
+    "sandcastle:run": "npx tsx .sandcastle/main.mts",
+    "sandcastle:build": "docker build -t sandcastle:meridiano-nestjs --build-arg HOST_UID=\"$(id -u)\" --build-arg HOST_GID=\"$(id -g)\" .sandcastle/"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.985.0",

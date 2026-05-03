@@ -311,21 +311,6 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
-# Parse Markdown Article Function Regex
-
-The regex pattern to parse an article markdown is:
-
-```
-/^#[ \t]+([^\r\n]*)/m
-```
-
-Breaking down this regex parttern:
-
-- `^#` - matches # at the start of a line
-- `[ \t]+` - matches one or more spaces/tabs (required whitespace after # in markdown)
-- `([^\r\n]*)` - captures zero or more non-newline characters (everything else on the line)
-- `m` flag - enables multiline mode
-
 # To-dos (not necessarily in order)
 
 - [x] Check if youtube transcription already exists in database before adding it and process it
@@ -362,93 +347,18 @@ Breaking down this regex parttern:
 - [x] Add github actions (or alternative like depot)
 - [ ] Add embedding search on articles and on youtube transcriptions (e.g. search for "github actions alternatives")
 - [ ] Possibility to add comments to an article or youtube transcription (goal: add my notes to them)
-- [ ] Add a PR pre check to validate if the file CLAUDE.md needs to be updated
 - [ ] Move the processor module to articles module
 
-# How to use Ralph in this project
+# How to use Sandcastle in this project
 
-Ralph is an autonomous coding agent that works through user stories in a PRD (Product Requirements Document) iteratively.
-
-It reads a `prd.json` file containing user stories, then executes them one by one following the instructions in `prompt.md`. After each story is completed, it moves to the next highest priority story until all are done.
-
-## 1. How to generate the PRD file
-
-In Cursor chat, use the PRD skill to generate a detailed requirements document:
-
-```plaintext
-/generate-prd create a PRD for [feature name]
-```
-
-Answer the clarifying questions. The skill saves output to `tasks/prd-[feature-name].md`.
-
-## 2. How to convert PRD to Ralph format
-
-In Cursor chat, use the Ralph skill to convert the markdown PRD to JSON:
-
-```plaintext
-/ralph convert tasks/prd-[feature-name].md to prd.json
-```
-
-## 3. Run Ralph
-
-In Cursor chat, simply reference the script:
-
-```plaintext
-@scripts/ralph/ralph.ts
-```
-
-This will load the script and execute one iteration, showing you:
-
-- The current status (completed/total stories)
-- The next story to work on
-- The full prompt instructions
-- Current progress log
-
-Then you (or the AI assistant) can execute the instructions to implement the story.
-
-For more information, access [Ralph documentation here](./scripts/ralph/README.md).
-
-# Cursor + OpenCode Workflow
-
-This project supports using both Cursor and OpenCode together for maximum productivity.
-
-- **Cursor**: Quick edits, code review, file navigation, immediate feedback
-- **OpenCode**: Complex multi-step tasks, orchestrated agent workflows with `ultrawork`
-
-Quick start: Source the helper script and use `ocu <task>` for ultrawork tasks:
-```bash
-source scripts/opencode-helpers.sh
-ocu "add authentication to articles endpoint"
-```
-
-# How to use the `generate-commit-message` skill for better commit messages
-
-The skill will automatically trigger when you:
-- Ask for a commit message
-- Ask to commit changes
-- Need help writing commit messages
-
-You can also explicitly invoke it:
-```
-/generate-commit-message
-```
-
-Or ask:
-- "Generate a commit message for my changes"
-- "What commit message should I use?"
-- "Help me write a commit message"
-
-**Location**: `.cursor/skills/generate-commit-message/SKILL.md`
-
-The skill includes:
-
-1. **Process workflow**: Steps to analyze git changes and generate commit messages
-2. **Type reference**: Table of all Conventional Commits types with examples
-3. **Scope guidelines**: How to identify and format scopes
-4. **Description best practices**: Imperative mood, length, formatting
-5. **Breaking changes**: How to indicate breaking changes
-6. **Examples**: Real-world examples for different scenarios
-7. **Analysis tips**: How to interpret diffs and identify types/scopes
+1. Build the image:
+   ```bash
+   pnpm run sandcastle:build
+   ```
+2. Run sandcastle:
+   ```bash
+   pnpm run sandcastle:run
+   ```
 
 # API Documentation
 
