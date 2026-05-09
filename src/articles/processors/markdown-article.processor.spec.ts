@@ -3,6 +3,7 @@ import { RedisService } from '@libs/redis';
 import { S3Service } from '@libs/s3';
 import { Job, Worker } from 'bullmq';
 import { mock } from 'jest-mock-extended';
+import { AiService } from '../../ai/ai.service';
 import { ProcessorService } from '../../processor/processor.service';
 import { FeedProfile } from '../../shared/types/feed';
 import { ArticlesService } from '../articles.service';
@@ -16,6 +17,7 @@ describe('MarkdownArticleProcessor', () => {
   const mockS3Service = mock<S3Service>();
   const mockArticlesService = mock<ArticlesService>();
   const mockProcessorService = mock<ProcessorService>();
+  const mockAiService = mock<AiService>();
   const mockWorker = mock<Worker>();
 
   beforeEach(() => {
@@ -26,6 +28,7 @@ describe('MarkdownArticleProcessor', () => {
       mockS3Service,
       mockArticlesService,
       mockProcessorService,
+      mockAiService,
     );
   });
 
@@ -65,10 +68,11 @@ describe('MarkdownArticleProcessor', () => {
       data: mockJobData,
     } as Job<ProcessMarkdownArticleJobData>;
 
-    it('should successfully process markdown article', async () => {
+    it('should successfully process markdown article using Unknown when AI finds no author', async () => {
       const markdownContent = '# Test Title\n\nTest content.';
       const articleId = 'article-123';
 
+      mockAiService.callChat.mockResolvedValueOnce(null);
       mockS3Service.downloadMarkdownFile.mockResolvedValueOnce(markdownContent);
       mockArticlesService.addArticle.mockResolvedValueOnce(articleId);
       mockProcessorService.processArticles.mockResolvedValueOnce({
@@ -106,7 +110,7 @@ describe('MarkdownArticleProcessor', () => {
         's3://test-bucket/test-file.md',
         'Test Title',
         expect.any(Date),
-        'S3 Upload',
+        'Unknown',
         markdownContent,
         FeedProfile.DEFAULT,
         undefined,
@@ -133,6 +137,104 @@ describe('MarkdownArticleProcessor', () => {
         success: true,
         message: expect.stringContaining('test-file.md'),
       });
+    });
+
+    it('should use AI-extracted author as article source', async () => {
+      const markdownContent =
+        '# My Article\n\n**Author:** João Silva\n\nTest content.';
+      const articleId = 'article-456';
+
+      mockAiService.callChat.mockResolvedValueOnce('João Silva');
+      mockS3Service.downloadMarkdownFile.mockResolvedValueOnce(markdownContent);
+      mockArticlesService.addArticle.mockResolvedValueOnce(articleId);
+      mockProcessorService.processArticles.mockResolvedValueOnce({
+        feedProfile: FeedProfile.DEFAULT,
+        articlesProcessed: 1,
+        articlesRated: 0,
+        articlesCategorized: 0,
+        errors: 0,
+        startTime: new Date(),
+      });
+      mockProcessorService.rateArticles.mockResolvedValueOnce({
+        feedProfile: FeedProfile.DEFAULT,
+        articlesProcessed: 0,
+        articlesRated: 1,
+        articlesCategorized: 0,
+        errors: 0,
+        startTime: new Date(),
+      });
+      mockProcessorService.categorizeArticles.mockResolvedValueOnce({
+        feedProfile: FeedProfile.DEFAULT,
+        articlesProcessed: 0,
+        articlesRated: 0,
+        articlesCategorized: 1,
+        errors: 0,
+        startTime: new Date(),
+      });
+
+      await processor.processMarkdownArticle({
+        ...mockJob,
+        data: { ...mockJobData },
+      } as Job<ProcessMarkdownArticleJobData>);
+
+      expect(mockArticlesService.addArticle).toHaveBeenCalledWith(
+        expect.any(String),
+        'My Article',
+        expect.any(Date),
+        'João Silva',
+        markdownContent,
+        FeedProfile.DEFAULT,
+        undefined,
+        undefined,
+        undefined,
+      );
+    });
+
+    it('should use Unknown as article source when AI returns empty string', async () => {
+      const markdownContent = '# Test Title\n\nTest content.';
+      const articleId = 'article-123';
+
+      mockAiService.callChat.mockResolvedValueOnce('');
+      mockS3Service.downloadMarkdownFile.mockResolvedValueOnce(markdownContent);
+      mockArticlesService.addArticle.mockResolvedValueOnce(articleId);
+      mockProcessorService.processArticles.mockResolvedValueOnce({
+        feedProfile: FeedProfile.DEFAULT,
+        articlesProcessed: 1,
+        articlesRated: 0,
+        articlesCategorized: 0,
+        errors: 0,
+        startTime: new Date(),
+      });
+      mockProcessorService.rateArticles.mockResolvedValueOnce({
+        feedProfile: FeedProfile.DEFAULT,
+        articlesProcessed: 0,
+        articlesRated: 1,
+        articlesCategorized: 0,
+        errors: 0,
+        startTime: new Date(),
+      });
+      mockProcessorService.categorizeArticles.mockResolvedValueOnce({
+        feedProfile: FeedProfile.DEFAULT,
+        articlesProcessed: 0,
+        articlesRated: 0,
+        articlesCategorized: 1,
+        errors: 0,
+        startTime: new Date(),
+      });
+
+      await processor.processMarkdownArticle(mockJob);
+
+      expect(mockArticlesService.addArticle).toHaveBeenCalledWith(
+        expect.any(String),
+        'Test Title',
+        expect.any(Date),
+        'Unknown',
+        markdownContent,
+        FeedProfile.DEFAULT,
+        undefined,
+        undefined,
+        undefined,
+      );
     });
 
     it('should handle S3 download failure', async () => {
