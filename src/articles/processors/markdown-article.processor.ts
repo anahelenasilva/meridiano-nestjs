@@ -6,6 +6,8 @@ import { RedisService } from '@libs/redis';
 import { S3Service } from '@libs/s3';
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { Job, Worker } from 'bullmq';
+import { articleSourceExtractionPrompt } from '../../config/prompts';
+import { AiService } from '../../ai/ai.service';
 import { ProcessorService } from '../../processor/processor.service';
 import { ArticlesService } from '../articles.service';
 import { parseMarkdownArticle } from '../helpers/parse-markdown';
@@ -19,6 +21,7 @@ export class MarkdownArticleProcessor implements OnModuleInit, OnModuleDestroy {
     private readonly s3Service: S3Service,
     private readonly articlesService: ArticlesService,
     private readonly processorService: ProcessorService,
+    private readonly aiService: AiService,
   ) {}
 
   onModuleInit() {
@@ -77,12 +80,15 @@ export class MarkdownArticleProcessor implements OnModuleInit, OnModuleDestroy {
       console.log(`Step 2: Parsing markdown...`);
       const parsedArticle = parseMarkdownArticle(markdownContent);
 
+      console.log(`Step 2.5: Extracting article source...`);
+      const articleSource = await this.extractArticleSource(markdownContent);
+
       console.log(`Step 3: Creating article in database...`);
       const articleId = await this.articlesService.addArticle(
         `s3://${s3Bucket}/${s3Key}`,
         parsedArticle.title,
         parsedArticle.publishedDate,
-        'S3 Upload',
+        articleSource,
         parsedArticle.content,
         feedProfile,
         undefined,
@@ -154,6 +160,13 @@ export class MarkdownArticleProcessor implements OnModuleInit, OnModuleDestroy {
         `Markdown article processing failed for ${s3Key}: ${errorMessage}`,
       );
     }
+  }
+
+  private async extractArticleSource(content: string): Promise<string> {
+    const result = await this.aiService.callChat(
+      articleSourceExtractionPrompt + content.substring(0, 2000),
+    );
+    return result?.trim() || 'Unknown';
   }
 
   async onModuleDestroy() {

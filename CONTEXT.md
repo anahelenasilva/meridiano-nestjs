@@ -57,6 +57,10 @@ _Avoid_: audio briefing, audio file, TTS file
 A piece of written content ingested into the platform. Sources include RSS feeds, website URLs (scraped), and uploaded markdown files (for non-public or unscrappable sites). YouTube transcriptions are not Articles.
 _Avoid_: content item, post (unless quoting a source)
 
+**Article Source**:
+The publication or author attribution stored on an Article. For RSS-ingested articles it is the feed name (e.g. `"Will Larson"`, `"TechCrunch"`). For manually scraped URLs it is `"Manual"`. For uploaded markdown articles it is extracted from the document content via AI; falls back to `"Unknown"` when no author can be identified. `"Unknown"` is a meaningful sentinel — it means extraction was attempted and failed, distinct from legacy `"S3 Upload"` records created before this feature existed.
+_Avoid_: author (too narrow — covers publications, not just people), feed_source (implementation column name)
+
 **Bookmark**:
 An article saved by the user to read later. Not a saved briefing.
 _Avoid_: saved article, favourite, starred
