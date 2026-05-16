@@ -8,6 +8,7 @@ import { ConfigModule } from '../config/config.module';
 import { ProcessorModule } from '../processor/processor.module';
 import { ProfilesModule } from '../profiles/profiles.module';
 import { ScraperModule } from '../scraper/scraper.module';
+import { ArticleClusterer } from './article-clusterer';
 import { BriefingsController } from './briefings.controller';
 import { BriefingsService } from './briefings.service';
 import { BriefingEntity } from './entities/briefing.entity';
@@ -37,6 +38,7 @@ import { ScrapeArticlesUseCase } from './usecases/scrape-articles.usecase';
   providers: [
     BriefingsService,
     BriefingGenerationService,
+    ArticleClusterer,
     ListBriefingsQuery,
     CustomBriefingProcessor,
     CategorizeArticlesUseCase,

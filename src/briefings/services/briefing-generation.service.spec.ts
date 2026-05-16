@@ -6,6 +6,7 @@ import { ArticlesService } from '../../articles/articles.service';
 import { ConfigService } from '../../config/config.service';
 import { ProfilesService } from '../../profiles/profiles.service';
 import { FeedProfile } from '../../shared/types/feed';
+import { ArticleClusterer } from '../article-clusterer';
 import { BriefingsService } from '../briefings.service';
 import { BriefingGenerationService } from './briefing-generation.service';
 
@@ -37,6 +38,7 @@ describe('BriefingGenerationService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         BriefingGenerationService,
+        ArticleClusterer,
         { provide: ArticlesService, useValue: mockArticlesService },
         { provide: BriefingsService, useValue: mockBriefingsService },
         { provide: AiService, useValue: mockAiService },
