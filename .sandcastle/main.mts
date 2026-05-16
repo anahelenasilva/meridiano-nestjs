@@ -100,7 +100,7 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
           },
         ],
       }),
-      branchStrategy: { type: "branch", branch: implementBranch },
+      branch: implementBranch,
     });
 
     // -----------------------------------------------------------------------
@@ -114,7 +114,6 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
         idleTimeoutSeconds: 420,
         agent: sandcastle.claudeCode("claude-sonnet-4-6"),
         promptFile: "./.sandcastle/implement-prompt.md",
-        output: sandcastle.Output.string({ tag: "issue" }),
         signal: controller.signal,
       });
     } catch (err) {
@@ -136,8 +135,8 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
       console.warn(`Recovered from idle timeout: branch ${branch}`);
     }
 
-    branch = implementResult?.branch ?? branch;
-    issueId = implementResult?.output;
+    branch = implementResult != null ? sandbox.branch : branch;
+    issueId = implementResult?.stdout.match(/<issue>([\s\S]*?)<\/issue>/)?.[1]?.trim();
 
     if (!issueId) {
       console.warn("Warning: implementer did not output an <issue> tag. The issue will not be closed after merge.");
