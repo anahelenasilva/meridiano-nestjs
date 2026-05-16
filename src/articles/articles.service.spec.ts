@@ -19,6 +19,108 @@ describe('ArticlesService', () => {
     jest.clearAllMocks();
   });
 
+  describe('getYesterdayArticlesByProfile', () => {
+    it('queries with TECHNOLOGY feed_profile, non-null impact_rating, and descending order', async () => {
+      mockDb.all.mockImplementationOnce((query, params, callback) => {
+        callback(null, []);
+      });
+
+      await service.getYesterdayArticlesByProfile();
+
+      const [query, params] = mockDb.all.mock.calls[0];
+      expect(query).toContain('feed_profile = ?');
+      expect(query).toContain('impact_rating IS NOT NULL');
+      expect(query).toContain('published_date >= ?');
+      expect(query).toContain('published_date < ?');
+      expect(query).toContain('ORDER BY impact_rating DESC');
+      expect(params[0]).toBe(FeedProfile.TECHNOLOGY);
+    });
+
+    it('sets a 24-hour date range ending at today midnight BRT (UTC-3)', async () => {
+      const BRT_OFFSET_MS = 3 * 60 * 60 * 1000;
+      const callTime = new Date();
+
+      mockDb.all.mockImplementationOnce((query, params, callback) => {
+        callback(null, []);
+      });
+
+      await service.getYesterdayArticlesByProfile();
+
+      const [, params] = mockDb.all.mock.calls[0];
+      const startParam = new Date(params[1] as string);
+      const endParam = new Date(params[2] as string);
+
+      // interval must be exactly 24 hours
+      expect(endParam.getTime() - startParam.getTime()).toBe(24 * 60 * 60 * 1000);
+
+      // end must be today's midnight in BRT — UTC hour must be 3 and minutes/seconds 0
+      expect(endParam.getUTCHours()).toBe(3);
+      expect(endParam.getUTCMinutes()).toBe(0);
+      expect(endParam.getUTCSeconds()).toBe(0);
+
+      // end date in BRT must equal today's date in BRT at the time of the call
+      const nowBrt = new Date(callTime.getTime() - BRT_OFFSET_MS);
+      expect(endParam.getUTCFullYear()).toBe(nowBrt.getUTCFullYear());
+      expect(endParam.getUTCMonth()).toBe(nowBrt.getUTCMonth());
+      // allow same day or next (edge case if test runs near midnight BRT)
+      expect([nowBrt.getUTCDate(), nowBrt.getUTCDate() + 1]).toContain(
+        endParam.getUTCDate(),
+      );
+    });
+
+    it('maps rows to DBArticle with parsed dates and categories', async () => {
+      const row = {
+        id: 'aaaa-1111',
+        url: 'https://example.com/tech',
+        title: 'Tech news',
+        published_date: '2026-05-15T10:00:00.000Z',
+        feed_source: 'TechFeed',
+        raw_content: 'content',
+        processed_content: 'processed',
+        impact_rating: 7,
+        feed_profile: FeedProfile.TECHNOLOGY,
+        image_url: null,
+        categories: '["tech","ai"]',
+        custom_prompt: null,
+        created_at: '2026-05-15T11:00:00.000Z',
+      };
+      mockDb.all.mockImplementationOnce((query, params, callback) => {
+        callback(null, [row]);
+      });
+
+      const result = await service.getYesterdayArticlesByProfile();
+
+      expect(result).toEqual([
+        expect.objectContaining({
+          id: 'aaaa-1111',
+          title: 'Tech news',
+          impact_rating: 7,
+          published_date: new Date('2026-05-15T10:00:00.000Z'),
+          created_at: new Date('2026-05-15T11:00:00.000Z'),
+          categories: ['tech', 'ai'],
+        }),
+      ]);
+    });
+
+    it('returns empty array when no articles match', async () => {
+      mockDb.all.mockImplementationOnce((query, params, callback) => {
+        callback(null, []);
+      });
+
+      await expect(service.getYesterdayArticlesByProfile()).resolves.toEqual([]);
+    });
+
+    it('rejects when the database query fails', async () => {
+      mockDb.all.mockImplementationOnce((query, params, callback) => {
+        callback(new Error('db error'));
+      });
+
+      await expect(service.getYesterdayArticlesByProfile()).rejects.toThrow(
+        'db error',
+      );
+    });
+  });
+
   describe('getArticlesByIds', () => {
     it('returns an empty array without querying when ids are empty', async () => {
       await expect(service.getArticlesByIds([])).resolves.toEqual([]);

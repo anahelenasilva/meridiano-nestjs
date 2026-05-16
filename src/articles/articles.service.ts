@@ -738,6 +738,62 @@ export class ArticlesService {
     });
   }
 
+  async getYesterdayArticlesByProfile(): Promise<DBArticle[]> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      const BRT_OFFSET_MS = 3 * 60 * 60 * 1000;
+      const now = new Date();
+      const nowBrt = new Date(now.getTime() - BRT_OFFSET_MS);
+      const todayMidnightBrt = new Date(
+        Date.UTC(
+          nowBrt.getUTCFullYear(),
+          nowBrt.getUTCMonth(),
+          nowBrt.getUTCDate(),
+        ),
+      );
+      const startOfTodayBrt = new Date(
+        todayMidnightBrt.getTime() + BRT_OFFSET_MS,
+      );
+      const startOfYesterdayBrt = new Date(
+        startOfTodayBrt.getTime() - 24 * 60 * 60 * 1000,
+      );
+
+      const query = `
+        SELECT * FROM articles
+        WHERE feed_profile = ?
+          AND impact_rating IS NOT NULL
+          AND published_date >= ?
+          AND published_date < ?
+        ORDER BY impact_rating DESC
+      `;
+
+      db.all(
+        query,
+        [
+          FeedProfile.TECHNOLOGY,
+          startOfYesterdayBrt.toISOString(),
+          startOfTodayBrt.toISOString(),
+        ],
+        (err, rows: ArticleRow[]) => {
+          if (err) {
+            reject(err);
+          } else {
+            const articles: DBArticle[] = rows.map((row) => ({
+              ...row,
+              published_date: new Date(row.published_date),
+              created_at: new Date(row.created_at),
+              categories: row.categories
+                ? (JSON.parse(row.categories) as ArticleCategory[])
+                : undefined,
+            }));
+            resolve(articles);
+          }
+        },
+      );
+    });
+  }
+
   async getUncategorizedArticleById(
     articleId: string,
   ): Promise<DBArticle | null> {
