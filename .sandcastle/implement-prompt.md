@@ -39,21 +39,13 @@ Pick the highest-priority open issue that is not blocked by another open issue.
 
 ## Rules
 
-- Work on **exactly one issue per session**. Pick the highest-priority actionable issue, implement it, commit, close it, then stop.
+- Work on **one issue per iteration**. Do not attempt multiple issues in a single iteration.
 - Do not close an issue until you have committed the fix and verified tests pass.
 - Do not leave commented-out code or TODO comments in committed code.
-- If you are blocked (missing context, failing tests you cannot fix, external dependency), leave a comment on the issue and do not close it.
+- If you are blocked (missing context, failing tests you cannot fix, external dependency), leave a comment on the issue and move on — do not close it.
 
 # Done
 
-After completing (or being blocked on) the single issue you picked, output the issue number followed by the completion signal:
-
-<issue>NUMBER</issue>
-
-<promise>COMPLETE</promise>
-
-If there are no actionable issues at all, output:
-
-<issue></issue>
+When all actionable issues are complete (or you are blocked on all remaining ones), output the completion signal:
 
 <promise>COMPLETE</promise>
