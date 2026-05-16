@@ -124,15 +124,15 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
         throw err;
       }
       const worktreePath = error["preservedWorktreePath"] as string | undefined;
-      if (!worktreePath) {
-        console.warn("Idle timeout with no preserved worktree path — skipping iteration.");
-        continue;
+      if (worktreePath) {
+        recoveredWorktreePath = worktreePath;
+        branch = execFileSync("git", ["-C", worktreePath, "rev-parse", "--abbrev-ref", "HEAD"], {
+          encoding: "utf8",
+        }).trim();
+        console.warn(`Recovered from idle timeout: branch ${branch}`);
+      } else {
+        console.warn(`Idle timeout — no preserved worktree path, will check branch ${branch} for commits.`);
       }
-      recoveredWorktreePath = worktreePath;
-      branch = execFileSync("git", ["-C", worktreePath, "rev-parse", "--abbrev-ref", "HEAD"], {
-        encoding: "utf8",
-      }).trim();
-      console.warn(`Recovered from idle timeout: branch ${branch}`);
     }
 
     branch = implementResult != null ? sandbox.branch : branch;
