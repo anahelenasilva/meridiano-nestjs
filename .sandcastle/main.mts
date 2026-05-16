@@ -20,7 +20,7 @@
 
 import * as sandcastle from "@ai-hero/sandcastle";
 import { docker } from "@ai-hero/sandcastle/sandboxes/docker";
-import { execSync } from "node:child_process";
+import { execFileSync } from "node:child_process";
 import { mkdirSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
@@ -109,27 +109,36 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
         output: sandcastle.Output.string({ tag: "issue" }),
       });
     } catch (err) {
-      const isIdleTimeout =
-        typeof err === "object" &&
-        err !== null &&
-        (err as Record<string, unknown>)["_tag"] === "AgentIdleTimeoutError";
-      if (!isIdleTimeout) throw err;
-      console.warn("\nImplementer hit idle timeout. Checking branch for commits before continuing...");
+      const error = err as Record<string, unknown>;
+      if (error["_tag"] !== "AgentIdleTimeoutError") {
+        const sandboxInfo = (error["preservedWorktreePath"] ?? error["containerId"] ?? "(unavailable)") as string;
+        console.error(`Implementer failed. Sandbox: ${sandboxInfo}`, err);
+        throw err;
+      }
+      const worktreePath = error["preservedWorktreePath"] as string | undefined;
+      if (!worktreePath) {
+        console.warn("Idle timeout with no preserved worktree path — skipping iteration.");
+        continue;
+      }
+      branch = execFileSync("git", ["-C", worktreePath, "rev-parse", "--abbrev-ref", "HEAD"], {
+        encoding: "utf8",
+      }).trim();
+      console.warn(`Recovered from idle timeout: branch ${branch}`);
     }
 
-    branch = implementResult?.branch ?? implementBranch;
+    branch = implementResult?.branch ?? branch;
     issueId = implementResult?.output;
 
     if (!issueId) {
       console.warn("Warning: implementer did not output an <issue> tag. The issue will not be closed after merge.");
     }
 
-    // When implementResult is undefined (idle timeout), read commits from git.
+    // When implementResult is undefined (idle timeout recovery), count commits directly.
     const commits =
       implementResult?.commits ??
       (() => {
         try {
-          const out = execSync(`git log ${branch} --not main --oneline`, {
+          const out = execFileSync("git", ["log", branch, "--not", "main", "--oneline"], {
             encoding: "utf8",
           }).trim();
           return out ? out.split("\n") : [];
