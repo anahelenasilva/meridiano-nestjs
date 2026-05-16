@@ -29,9 +29,13 @@ import { join } from "node:path";
 // Configuration
 // ---------------------------------------------------------------------------
 
-// Maximum number of implement→review cycles to run before stopping.
-// Each cycle works on one issue. Raise this to process more issues per run.
-const MAX_ITERATIONS = 1;
+// Safety cap on implement→review→merge cycles. Each cycle handles one issue.
+// The loop exits naturally when the implementer makes no commits (no more open issues).
+const MAX_CYCLES = 20;
+
+// How many times sandcastle may restart Claude Code within a single implementer
+// session if it exits without emitting <promise>COMPLETE</promise>.
+const IMPLEMENTER_MAX_ITERATIONS = 1;
 
 // Hooks run inside the sandbox before the agent starts each iteration.
 // Use the repo's package manager and allow enough time to rebuild Linux
@@ -63,8 +67,8 @@ const copyToWorktree: string[] = [];
 // Main loop
 // ---------------------------------------------------------------------------
 
-for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
-  console.log(`\n=== Iteration ${iteration}/${MAX_ITERATIONS} ===\n`);
+for (let cycle = 1; cycle <= MAX_CYCLES; cycle++) {
+  console.log(`\n=== Cycle ${cycle} ===\n`);
 
   // -------------------------------------------------------------------------
   // Phase 1: Implement
@@ -93,7 +97,7 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
       }),
       branchStrategy: { type: "branch", branch: implementBranch },
       name: "implementer",
-      maxIterations: MAX_ITERATIONS,
+      maxIterations: IMPLEMENTER_MAX_ITERATIONS,
       idleTimeoutSeconds: 420,
       agent: sandcastle.claudeCode("claude-sonnet-4-6"),
       promptFile: "./.sandcastle/implement-prompt.md",
@@ -148,8 +152,8 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
       }
     })();
   if (!commits.length) {
-    console.log("Implementation agent made no commits. Skipping review.");
-    continue;
+    console.log("Implementation agent made no commits. No more issues to process.");
+    break;
   }
 
   console.log(`\nImplementation complete on branch: ${branch}`);
