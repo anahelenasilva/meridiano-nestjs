@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { kmeans } from 'ml-kmeans';
 
 export interface EmbeddedArticle {
@@ -13,6 +13,8 @@ export interface ArticleCluster {
 
 @Injectable()
 export class ArticleClusterer {
+  private readonly logger = new Logger(ArticleClusterer.name);
+
   cluster(articles: EmbeddedArticle[], k: number): ArticleCluster[] {
     if (articles.length === 0) {
       return [];
@@ -33,17 +35,22 @@ export class ArticleClusterer {
       const embeddings = articles.map((a) => a.embedding);
       const result = kmeans(embeddings, effectiveK, {});
       clusterLabels = result.clusters;
-    } catch {
+    } catch (error) {
+      this.logger.warn(
+        `Clustering failed (k=${effectiveK}), falling back to single cluster: ${error instanceof Error ? error.message : error}`,
+      );
       return [{ label: 0, articleIds: articles.map((a) => a.id) }];
     }
 
     const clusterMap = new Map<number, string[]>();
     articles.forEach((article, index) => {
       const label = clusterLabels[index];
-      if (!clusterMap.has(label)) {
-        clusterMap.set(label, []);
+      let ids = clusterMap.get(label);
+      if (ids === undefined) {
+        ids = [];
+        clusterMap.set(label, ids);
       }
-      clusterMap.get(label)!.push(article.id);
+      ids.push(article.id);
     });
 
     return Array.from(clusterMap.entries())
