@@ -133,7 +133,8 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
             encoding: "utf8",
           }).trim();
           return out ? out.split("\n") : [];
-        } catch {
+        } catch (err) {
+          console.warn(`git log failed for branch ${branch}:`, err);
           return [];
         }
       })();
