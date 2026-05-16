@@ -79,6 +79,7 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
   // Hoist so the merge phase (outside the block) can read these.
   let branch = implementBranch;
   let issueId: string | undefined;
+  let recoveredWorktreePath: string | undefined;
 
   {
     await using sandbox = await sandcastle.createSandbox({
@@ -111,8 +112,8 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
     } catch (err) {
       const error = err as Record<string, unknown>;
       if (error["_tag"] !== "AgentIdleTimeoutError") {
-        const sandboxInfo = (error["preservedWorktreePath"] ?? error["containerId"] ?? "(unavailable)") as string;
-        console.error(`Implementer failed. Sandbox: ${sandboxInfo}`, err);
+        const sandboxInfo = (error["containerId"] ?? "(unavailable)") as string;
+        console.error(`Implementer failed. Container: ${sandboxInfo}`, err);
         throw err;
       }
       const worktreePath = error["preservedWorktreePath"] as string | undefined;
@@ -120,6 +121,7 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
         console.warn("Idle timeout with no preserved worktree path — skipping iteration.");
         continue;
       }
+      recoveredWorktreePath = worktreePath;
       branch = execFileSync("git", ["-C", worktreePath, "rev-parse", "--abbrev-ref", "HEAD"], {
         encoding: "utf8",
       }).trim();
@@ -138,9 +140,10 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
       implementResult?.commits ??
       (() => {
         try {
-          const out = execFileSync("git", ["log", branch, "--not", "main", "--oneline"], {
-            encoding: "utf8",
-          }).trim();
+          const gitArgs = recoveredWorktreePath
+            ? ["-C", recoveredWorktreePath, "log", branch, "--not", "main", "--oneline"]
+            : ["log", branch, "--not", "main", "--oneline"];
+          const out = execFileSync("git", gitArgs, { encoding: "utf8" }).trim();
           return out ? out.split("\n") : [];
         } catch (err) {
           console.warn(`git log failed for branch ${branch}:`, err);
