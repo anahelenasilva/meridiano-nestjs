@@ -47,6 +47,12 @@ _Avoid_: relevance score, priority score
 A transcript of a YouTube video, processed independently from the article pipeline. Never included in Standard or Curated Briefings — a separate content type with its own flow.
 _Avoid_: article, content item (when referring to transcriptions)
 
+### Email Delivery
+
+**Daily Digest**:
+A scheduled email containing the top 10 TECHNOLOGY articles from the previous day, selected by AI based on a personal relevance prompt. Not a Briefing — no Briefing entity is created. Delivered to the owner each morning; the app UI is not involved in rendering or displaying it.
+_Avoid_: briefing digest, news briefing (it is not a Briefing in the domain sense)
+
 ### Articles & Reading
 
 **Audio Summary**:
