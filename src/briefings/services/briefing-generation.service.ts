@@ -1,11 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { kmeans } from 'ml-kmeans';
 import { AiService } from '../../ai/ai.service';
 import { ClusterAnalysis, DBArticle } from '../../articles/article.entity';
 import { ArticlesService } from '../../articles/articles.service';
 import { ConfigService } from '../../config/config.service';
 import { ProfilesService } from '../../profiles/profiles.service';
 import { FeedProfile } from '../../shared/types/feed';
+import { ArticleClusterer } from '../article-clusterer';
 import { BriefingsService } from '../briefings.service';
 import {
   BriefGenerationOptions,
@@ -23,35 +23,8 @@ export class BriefingGenerationService {
     private readonly aiService: AiService,
     private readonly configService: ConfigService,
     private readonly profilesService: ProfilesService,
+    private readonly articleClusterer: ArticleClusterer,
   ) { }
-
-  private clusterArticles(
-    embeddings: number[][],
-    clustersQtd: number,
-  ): number[] {
-    if (embeddings.length < 2) {
-      return embeddings.map(() => 0);
-    }
-
-    const effectiveClusters = Math.min(
-      clustersQtd,
-      Math.floor(embeddings.length / 2),
-    );
-
-    if (effectiveClusters < 2) {
-      return embeddings.map(() => 0);
-    }
-
-    try {
-      const result = kmeans(embeddings, effectiveClusters, {});
-      return result.clusters;
-    } catch (error) {
-      this.logger.warn(
-        `Clustering failed (k=${effectiveClusters}), falling back to single cluster: ${error instanceof Error ? error.message : error}`,
-      );
-      return embeddings.map(() => 0);
-    }
-  }
 
   private async analyzeCluster(
     clusterArticles: DBArticle[],
@@ -153,9 +126,6 @@ export class BriefingGenerationService {
       return { success: false, error };
     }
 
-    const embeddings = articlesWithEmbeddings.map(
-      (a) => JSON.parse(a.embedding!) as number[],
-    );
     const clustersQtd = Math.min(
       briefingConfig.clustersQtd,
       Math.floor(articlesWithEmbeddings.length / 2),
@@ -172,20 +142,21 @@ export class BriefingGenerationService {
     }
 
     this.logger.log(
-      `Clustering ${embeddings.length} articles into ${clustersQtd} clusters...`,
+      `Clustering ${articlesWithEmbeddings.length} articles into ${clustersQtd} clusters...`,
     );
 
-    const clusterLabels = this.clusterArticles(embeddings, clustersQtd);
-    const clusterGroups: DBArticle[][] = Array(clustersQtd)
-      .fill(null)
-      .map(() => []);
+    const embeddedArticles = articlesWithEmbeddings.map((a) => ({
+      id: a.id,
+      embedding: JSON.parse(a.embedding!) as number[],
+    }));
+    const clusters = this.articleClusterer.cluster(embeddedArticles, clustersQtd);
 
-    articlesWithEmbeddings.forEach((article, index) => {
-      const clusterLabel = clusterLabels[index];
-      if (clusterLabel >= 0 && clusterLabel < clustersQtd) {
-        clusterGroups[clusterLabel].push(article);
-      }
-    });
+    const articleById = new Map(articlesWithEmbeddings.map((a) => [a.id, a]));
+    const clusterGroups = clusters.map((cluster) =>
+      cluster.articleIds
+        .map((id) => articleById.get(id))
+        .filter((a): a is DBArticle => a !== undefined),
+    );
 
     this.logger.log('Analyzing clusters...');
     const clusterAnalyses: ClusterAnalysis[] = [];
