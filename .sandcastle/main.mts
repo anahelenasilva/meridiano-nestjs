@@ -20,6 +20,7 @@
 
 import * as sandcastle from "@ai-hero/sandcastle";
 import { docker } from "@ai-hero/sandcastle/sandboxes/docker";
+import { execSync } from "node:child_process";
 import { mkdirSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
@@ -77,40 +78,66 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
   // -------------------------------------------------------------------------
   const implementBranch = `sandcastle/impl/${new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19)}`;
 
-  const implement = await sandcastle.run({
-    hooks,
-    copyToWorktree,
-    sandbox: docker({
-      mounts: [
-        {
-          hostPath: pnpmStoreDir,
-          sandboxPath: "~/.local/share/pnpm/store",
-        },
-      ],
-    }),
-    branchStrategy: { type: "branch", branch: implementBranch },
-    name: "implementer",
-    maxIterations: MAX_ITERATIONS,
-    idleTimeoutSeconds: 420,
-    agent: sandcastle.claudeCode("claude-sonnet-4-6"),
-    promptFile: "./.sandcastle/implement-prompt.md",
-  });
+  let implement: Awaited<ReturnType<typeof sandcastle.run>> | undefined;
+  try {
+    implement = await sandcastle.run({
+      hooks,
+      copyToWorktree,
+      sandbox: docker({
+        mounts: [
+          {
+            hostPath: pnpmStoreDir,
+            sandboxPath: "~/.local/share/pnpm/store",
+          },
+        ],
+      }),
+      branchStrategy: { type: "branch", branch: implementBranch },
+      name: "implementer",
+      maxIterations: MAX_ITERATIONS,
+      idleTimeoutSeconds: 420,
+      agent: sandcastle.claudeCode("claude-sonnet-4-6"),
+      promptFile: "./.sandcastle/implement-prompt.md",
+    });
+  } catch (err) {
+    const isIdleTimeout =
+      typeof err === "object" &&
+      err !== null &&
+      (err as Record<string, unknown>)["_tag"] === "AgentIdleTimeoutError";
+    if (!isIdleTimeout) throw err;
+    console.warn("\nImplementer hit idle timeout. Checking branch for commits before continuing...");
+  }
 
-  // Extract the branch and issue ID the agent worked on.
-  const branch = implement.branch;
-  const issueMatch = implement.stdout.match(/<issue>(\d+)<\/issue>/);
+  // When recovering from an idle timeout, implement is undefined — fall back to
+  // the pre-computed branch name and read commits directly from git.
+  const branch = implement?.branch ?? implementBranch;
+  const stdout = implement?.stdout ?? "";
+  const issueMatch = stdout.match(/<issue>(\d+)<\/issue>/);
   const issueId = issueMatch?.[1];
   if (!issueId) {
     console.warn("Warning: implementer did not output an <issue> tag. The issue will not be closed after merge.");
   }
 
-  if (!implement.commits.length) {
+  // When implement is undefined (idle timeout recovery), count commits on the
+  // branch directly rather than trusting the (missing) sandcastle result.
+  const commits =
+    implement?.commits ??
+    (() => {
+      try {
+        const out = execSync(`git log ${branch} --not main --oneline`, {
+          encoding: "utf8",
+        }).trim();
+        return out ? out.split("\n") : [];
+      } catch {
+        return [];
+      }
+    })();
+  if (!commits.length) {
     console.log("Implementation agent made no commits. Skipping review.");
     continue;
   }
 
   console.log(`\nImplementation complete on branch: ${branch}`);
-  console.log(`Commits: ${implement.commits.length}`);
+  console.log(`Commits: ${commits.length}`);
 
   // -------------------------------------------------------------------------
   // Phase 2: Review
