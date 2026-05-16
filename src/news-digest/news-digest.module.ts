@@ -2,9 +2,11 @@ import { Logger, Module, OnModuleInit } from '@nestjs/common';
 import { ArticlesModule } from '../articles/articles.module';
 import { ConfigService } from '../config/config.service';
 import { EmailModule } from '../email/email.module';
+import { DigestEmailComposerService } from './digest-email-composer.service';
 
 @Module({
   imports: [ArticlesModule, EmailModule],
+  providers: [DigestEmailComposerService],
 })
 export class NewsDigestModule implements OnModuleInit {
   private readonly logger = new Logger(NewsDigestModule.name);
