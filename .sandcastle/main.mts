@@ -21,7 +21,7 @@
 import * as sandcastle from "@ai-hero/sandcastle";
 import { docker } from "@ai-hero/sandcastle/sandboxes/docker";
 import { execSync } from "node:child_process";
-import { mkdirSync } from "node:fs";
+import { mkdirSync, readFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 
@@ -111,8 +111,24 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
   // the pre-computed branch name and read commits directly from git.
   const branch = implement?.branch ?? implementBranch;
   const stdout = implement?.stdout ?? "";
-  const issueMatch = stdout.match(/<issue>(\d+)<\/issue>/);
-  const issueId = issueMatch?.[1];
+  let issueId = stdout.match(/<issue>(\d+)<\/issue>/)?.[1];
+  if (!issueId) {
+    // Fallback: scrape the log file. The path is deterministic — sandcastle
+    // replaces /\:*?"<>| with - and appends the agent name.
+    const sanitize = (s: string) => s.replace(/[/\\:*?"<>|]/g, "-");
+    const logPath = join(
+      process.cwd(),
+      ".sandcastle",
+      "logs",
+      `${sanitize(implementBranch)}-implementer.log`,
+    );
+    try {
+      const logContent = readFileSync(logPath, "utf8");
+      issueId = logContent.match(/<issue>(\d+)<\/issue>/)?.[1];
+    } catch {
+      // log not found or unreadable — issueId stays undefined
+    }
+  }
   if (!issueId) {
     console.warn("Warning: implementer did not output an <issue> tag. The issue will not be closed after merge.");
   }
