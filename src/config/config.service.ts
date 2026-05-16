@@ -399,6 +399,18 @@ export class ConfigService {
     };
   }
 
+  getNewsDigestPrompt(): string {
+    return process.env.NEWS_DIGEST_PROMPT?.trim() || '';
+  }
+
+  getNewsDigestToEmail(): string {
+    return process.env.NEWS_DIGEST_TO_EMAIL?.trim() || '';
+  }
+
+  getNewsDigestFromEmail(): string {
+    return process.env.NEWS_DIGEST_FROM_EMAIL?.trim() || '';
+  }
+
   getEnabledTtsModel(): ValidTtsModel {
     const envValue = process.env.ENABLED_TTS_MODEL;
     if (envValue) {

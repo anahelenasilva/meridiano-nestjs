@@ -278,6 +278,40 @@ describe('ConfigService', () => {
     });
   });
 
+  describe('getNewsDigestConfig', () => {
+    afterEach(() => {
+      delete process.env.NEWS_DIGEST_PROMPT;
+      delete process.env.NEWS_DIGEST_TO_EMAIL;
+      delete process.env.NEWS_DIGEST_FROM_EMAIL;
+    });
+
+    it('returns env var values when all three are set', () => {
+      process.env.NEWS_DIGEST_PROMPT = 'Focus on AI and cloud infrastructure';
+      process.env.NEWS_DIGEST_TO_EMAIL = 'reader@example.com';
+      process.env.NEWS_DIGEST_FROM_EMAIL = 'digest@mg.example.com';
+
+      expect(service.getNewsDigestPrompt()).toBe('Focus on AI and cloud infrastructure');
+      expect(service.getNewsDigestToEmail()).toBe('reader@example.com');
+      expect(service.getNewsDigestFromEmail()).toBe('digest@mg.example.com');
+    });
+
+    it('returns empty string when env vars are not set', () => {
+      expect(service.getNewsDigestPrompt()).toBe('');
+      expect(service.getNewsDigestToEmail()).toBe('');
+      expect(service.getNewsDigestFromEmail()).toBe('');
+    });
+
+    it('returns empty string when env vars are set to empty string', () => {
+      process.env.NEWS_DIGEST_PROMPT = '';
+      process.env.NEWS_DIGEST_TO_EMAIL = '';
+      process.env.NEWS_DIGEST_FROM_EMAIL = '';
+
+      expect(service.getNewsDigestPrompt()).toBe('');
+      expect(service.getNewsDigestToEmail()).toBe('');
+      expect(service.getNewsDigestFromEmail()).toBe('');
+    });
+  });
+
   describe('getEnabledChatModel', () => {
     it('should return environment variable value when ENABLED_CHAT_MODEL is set', () => {
       process.env.ENABLED_CHAT_MODEL = 'deepseek';

@@ -17,6 +17,7 @@ import { ProcessorModule } from './processor/processor.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import { ScraperModule } from './scraper/scraper.module';
 import { UsersModule } from './users/users.module';
+import { NewsDigestModule } from './news-digest/news-digest.module';
 import { YoutubeChannelsModule } from './youtube-channels/youtube-channels.module';
 import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-transcriptions.module';
 
@@ -38,6 +39,7 @@ import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-tr
     UsersModule,
     BookmarksModule,
     S3Module,
+    NewsDigestModule,
   ],
   controllers: [AppController],
   providers: [
