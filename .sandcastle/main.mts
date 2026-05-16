@@ -60,6 +60,13 @@ mkdirSync(pnpmStoreDir, { recursive: true });
 const copyToWorktree: string[] = [];
 
 // ---------------------------------------------------------------------------
+// Graceful cancellation
+// ---------------------------------------------------------------------------
+
+const controller = new AbortController();
+process.on("SIGINT", () => controller.abort());
+
+// ---------------------------------------------------------------------------
 // Main loop
 // ---------------------------------------------------------------------------
 
@@ -108,6 +115,7 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
         agent: sandcastle.claudeCode("claude-sonnet-4-6"),
         promptFile: "./.sandcastle/implement-prompt.md",
         output: sandcastle.Output.string({ tag: "issue" }),
+        signal: controller.signal,
       });
     } catch (err) {
       const error = err as Record<string, unknown>;
@@ -171,6 +179,7 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
         BRANCH: branch,
         SOURCE_BRANCH: "main",
       },
+      signal: controller.signal,
     });
 
     console.log("\nReview complete.");
@@ -203,6 +212,7 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
       BRANCH: branch,
       ISSUE_ID: issueId ?? "",
     },
+    signal: controller.signal,
   });
 
   console.log("\nMerge complete.");
