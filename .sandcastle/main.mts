@@ -21,7 +21,7 @@
 import * as sandcastle from "@ai-hero/sandcastle";
 import { docker } from "@ai-hero/sandcastle/sandboxes/docker";
 import { execSync } from "node:child_process";
-import { mkdirSync, readFileSync } from "node:fs";
+import { mkdirSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 
@@ -67,20 +67,21 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
   console.log(`\n=== Iteration ${iteration}/${MAX_ITERATIONS} ===\n`);
 
   // -------------------------------------------------------------------------
-  // Phase 1: Implement
+  // Phases 1 + 2: Implement → Review (shared Docker container)
   //
-  // A sonnet agent picks the next open GitHub issue, creates a branch, writes
-  // the implementation (using RGR: Red → Green → Repeat → Refactor), and
-  // commits the result.
-  //
-  // The agent signals completion via <promise>COMPLETE</promise> when done.
-  // The result contains the branch name the agent worked on.
+  // A single sandbox spans both phases so that the container is started once
+  // and reused, saving the pnpm install overhead on the second agent.
+  // sandbox[Symbol.asyncDispose] runs exactly once when this block exits,
+  // even if an exception is thrown mid-phase.
   // -------------------------------------------------------------------------
   const implementBranch = `sandcastle/impl/${new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19)}`;
 
-  let implement: Awaited<ReturnType<typeof sandcastle.run>> | undefined;
-  try {
-    implement = await sandcastle.run({
+  // Hoist so the merge phase (outside the block) can read these.
+  let branch = implementBranch;
+  let issueId: string | undefined;
+
+  {
+    await using sandbox = await sandcastle.createSandbox({
       hooks,
       copyToWorktree,
       sandbox: docker({
@@ -92,107 +93,82 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
         ],
       }),
       branchStrategy: { type: "branch", branch: implementBranch },
-      name: "implementer",
-      maxIterations: MAX_ITERATIONS,
-      idleTimeoutSeconds: 420,
-      agent: sandcastle.claudeCode("claude-sonnet-4-6"),
-      promptFile: "./.sandcastle/implement-prompt.md",
     });
-  } catch (err) {
-    const isIdleTimeout =
-      typeof err === "object" &&
-      err !== null &&
-      (err as Record<string, unknown>)["_tag"] === "AgentIdleTimeoutError";
-    if (!isIdleTimeout) throw err;
-    console.warn("\nImplementer hit idle timeout. Checking branch for commits before continuing...");
-  }
 
-  // When recovering from an idle timeout, implement is undefined — fall back to
-  // the pre-computed branch name and read commits directly from git.
-  const branch = implement?.branch ?? implementBranch;
-  const stdout = implement?.stdout ?? "";
-  let issueId = stdout.match(/<issue>(\d+)<\/issue>/)?.[1];
-  if (!issueId) {
-    // Fallback: scrape the log file. The path is deterministic — sandcastle
-    // replaces /\:*?"<>| with - and appends the agent name.
-    const sanitize = (s: string) => s.replace(/[/\\:*?"<>|]/g, "-");
-    const logPath = join(
-      process.cwd(),
-      ".sandcastle",
-      "logs",
-      `${sanitize(implementBranch)}-implementer.log`,
-    );
+    // -----------------------------------------------------------------------
+    // Phase 1: Implement
+    // -----------------------------------------------------------------------
+    let implementResult: Awaited<ReturnType<typeof sandbox.run>> | undefined;
     try {
-      const logContent = readFileSync(logPath, "utf8");
-      issueId = logContent.match(/<issue>(\d+)<\/issue>/)?.[1];
-    } catch {
-      // log not found or unreadable — issueId stays undefined
+      implementResult = await sandbox.run({
+        name: "implementer",
+        maxIterations: 1,
+        idleTimeoutSeconds: 420,
+        agent: sandcastle.claudeCode("claude-sonnet-4-6"),
+        promptFile: "./.sandcastle/implement-prompt.md",
+        output: sandcastle.Output.string({ tag: "issue" }),
+      });
+    } catch (err) {
+      const isIdleTimeout =
+        typeof err === "object" &&
+        err !== null &&
+        (err as Record<string, unknown>)["_tag"] === "AgentIdleTimeoutError";
+      if (!isIdleTimeout) throw err;
+      console.warn("\nImplementer hit idle timeout. Checking branch for commits before continuing...");
     }
+
+    branch = implementResult?.branch ?? implementBranch;
+    issueId = implementResult?.output;
+
+    if (!issueId) {
+      console.warn("Warning: implementer did not output an <issue> tag. The issue will not be closed after merge.");
+    }
+
+    // When implementResult is undefined (idle timeout), read commits from git.
+    const commits =
+      implementResult?.commits ??
+      (() => {
+        try {
+          const out = execSync(`git log ${branch} --not main --oneline`, {
+            encoding: "utf8",
+          }).trim();
+          return out ? out.split("\n") : [];
+        } catch {
+          return [];
+        }
+      })();
+
+    if (!commits.length) {
+      console.log("Implementation agent made no commits. Skipping review.");
+      continue;
+    }
+
+    console.log(`\nImplementation complete on branch: ${branch}`);
+    console.log(`Commits: ${commits.length}`);
+
+    // -----------------------------------------------------------------------
+    // Phase 2: Review
+    // -----------------------------------------------------------------------
+    await sandbox.run({
+      name: "reviewer",
+      maxIterations: 1,
+      agent: sandcastle.claudeCode("claude-sonnet-4-6"),
+      promptFile: "./.sandcastle/review-prompt.md",
+      promptArgs: {
+        BRANCH: branch,
+        SOURCE_BRANCH: "main",
+      },
+    });
+
+    console.log("\nReview complete.");
   }
-  if (!issueId) {
-    console.warn("Warning: implementer did not output an <issue> tag. The issue will not be closed after merge.");
-  }
-
-  // When implement is undefined (idle timeout recovery), count commits on the
-  // branch directly rather than trusting the (missing) sandcastle result.
-  const commits =
-    implement?.commits ??
-    (() => {
-      try {
-        const out = execSync(`git log ${branch} --not main --oneline`, {
-          encoding: "utf8",
-        }).trim();
-        return out ? out.split("\n") : [];
-      } catch {
-        return [];
-      }
-    })();
-  if (!commits.length) {
-    console.log("Implementation agent made no commits. Skipping review.");
-    continue;
-  }
-
-  console.log(`\nImplementation complete on branch: ${branch}`);
-  console.log(`Commits: ${commits.length}`);
-
-  // -------------------------------------------------------------------------
-  // Phase 2: Review
-  //
-  // A second sonnet agent reviews the diff of the branch produced by Phase 1.
-  // It uses the {{BRANCH}} prompt argument to inspect the right branch, and
-  // either approves or makes corrections directly on the branch.
-  // -------------------------------------------------------------------------
-  await sandcastle.run({
-    hooks,
-    copyToWorktree,
-    sandbox: docker({
-      mounts: [
-        {
-          hostPath: pnpmStoreDir,
-          sandboxPath: "~/.local/share/pnpm/store",
-        },
-      ],
-    }),
-    branchStrategy: { type: "branch", branch },
-    name: "reviewer",
-    maxIterations: 1,
-    agent: sandcastle.claudeCode("claude-sonnet-4-6"),
-    promptFile: "./.sandcastle/review-prompt.md",
-    // Prompt arguments substitute {{BRANCH}} in review-prompt.md before the
-    // agent sees the prompt.
-    promptArgs: {
-      BRANCH: branch,
-      SOURCE_BRANCH: "main",
-    },
-  });
-
-  console.log("\nReview complete.");
+  // sandbox disposed here — one container for both phases above.
 
   // -------------------------------------------------------------------------
   // Phase 3: Merge
   //
-  // A third agent merges the reviewed feature branch back into the head branch,
-  // resolving any conflicts and verifying tests pass.
+  // Separate top-level sandcastle.run() so the merger targets the head branch
+  // from a clean worktree via branchStrategy: merge-to-head.
   // -------------------------------------------------------------------------
   await sandcastle.run({
     hooks,
