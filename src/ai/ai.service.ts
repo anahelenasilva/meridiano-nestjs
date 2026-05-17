@@ -72,11 +72,10 @@ export class AiService implements OnModuleInit {
     this.embedPolicyService = new AiPolicyService(this.togetherAiAdapter, chunkTokenLimit);
 
     if (openaiApiKey) {
-      const openaiChatClient = new OpenAI({ apiKey: openaiApiKey });
-      const openaiTtsClient = new OpenAI({ apiKey: openaiApiKey });
+      const openaiClient = new OpenAI({ apiKey: openaiApiKey });
       this.openaiAdapter = new OpenAIAdapter(
-        openaiChatClient,
-        openaiTtsClient,
+        openaiClient,
+        openaiClient,
         config.openaiChatModel,
         config.maxTokens,
         config.temperature,
