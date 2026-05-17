@@ -18,6 +18,7 @@ import { ProfilesModule } from './profiles/profiles.module';
 import { ScraperModule } from './scraper/scraper.module';
 import { UsersModule } from './users/users.module';
 import { NewsDigestModule } from './news-digest/news-digest.module';
+import { NotesModule } from './notes/notes.module';
 import { YoutubeChannelsModule } from './youtube-channels/youtube-channels.module';
 import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-transcriptions.module';
 
@@ -40,6 +41,7 @@ import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-tr
     BookmarksModule,
     S3Module,
     NewsDigestModule,
+    NotesModule,
   ],
   controllers: [AppController],
   providers: [
