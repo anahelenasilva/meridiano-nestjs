@@ -7,6 +7,7 @@ describe('ArticlesService', () => {
   const mockDatabaseService = mock<DatabaseService>();
   const mockDb = {
     all: jest.fn(),
+    get: jest.fn(),
   };
   let service: ArticlesService;
 
@@ -118,6 +119,59 @@ describe('ArticlesService', () => {
       await expect(service.getYesterdayArticlesByProfile()).rejects.toThrow(
         'db error',
       );
+    });
+  });
+
+  describe('getArticleByUrl', () => {
+    it('returns the matching article when found', async () => {
+      const row = {
+        id: 'bbbb-2222',
+        url: 'https://example.com/found',
+        title: 'Found article',
+        published_date: '2026-05-10T08:00:00.000Z',
+        feed_source: 'RSS Feed',
+        content: 'article content',
+        processed_content: null,
+        impact_rating: null,
+        feed_profile: FeedProfile.TECHNOLOGY,
+        image_url: null,
+        categories: '["news"]',
+        custom_prompt: null,
+        created_at: '2026-05-10T08:01:00.000Z',
+      };
+      mockDb.get.mockImplementationOnce((query, params, callback) => {
+        callback(null, row);
+      });
+
+      const result = await service.getArticleByUrl('https://example.com/found');
+
+      expect(result).toEqual(
+        expect.objectContaining({
+          id: 'bbbb-2222',
+          url: 'https://example.com/found',
+          published_date: new Date('2026-05-10T08:00:00.000Z'),
+          created_at: new Date('2026-05-10T08:01:00.000Z'),
+          categories: ['news'],
+        }),
+      );
+    });
+
+    it('returns null when no article matches the URL', async () => {
+      mockDb.get.mockImplementationOnce((query, params, callback) => {
+        callback(null, undefined);
+      });
+
+      const result = await service.getArticleByUrl('https://example.com/missing');
+
+      expect(result).toBeNull();
+    });
+
+    it('rejects when the database query fails', async () => {
+      mockDb.get.mockImplementationOnce((query, params, callback) => {
+        callback(new Error('db error'));
+      });
+
+      await expect(service.getArticleByUrl('https://example.com/error')).rejects.toThrow('db error');
     });
   });
 

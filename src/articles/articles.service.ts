@@ -606,6 +606,41 @@ export class ArticlesService {
     });
   }
 
+  async getArticleByUrl(url: string): Promise<DBArticle | null> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      const query = `
+        SELECT
+          id, url, title, published_date, feed_source, feed_profile,
+          raw_content as content, processed_content, impact_rating,
+          image_url, categories, custom_prompt, created_at
+        FROM articles
+        WHERE url = ?
+      `;
+
+      db.get(query, [url], (err, row: ArticleRow | undefined) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        if (row) {
+          resolve({
+            ...row,
+            published_date: new Date(row.published_date),
+            created_at: new Date(row.created_at),
+            categories: row.categories
+              ? (JSON.parse(row.categories) as ArticleCategory[])
+              : undefined,
+          });
+        } else {
+          resolve(null);
+        }
+      });
+    });
+  }
+
   async getRelatedArticles(
     articleId: string,
     limit: number = 5,
