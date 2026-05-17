@@ -28,15 +28,11 @@ export class NewsDigestService implements OnModuleInit, OnModuleDestroy {
 
     this.queue = new Queue(NEWS_DIGEST_QUEUE, { connection });
 
-    void this.seedRepeatableJob();
+    this.seedRepeatableJob().catch((err: Error) => {
+      this.logger.error('Failed to seed news digest repeatable job', err.stack);
+    });
 
-    this.worker = new Worker(
-      NEWS_DIGEST_QUEUE,
-      async () => {
-        await this.runDigest();
-      },
-      { connection },
-    );
+    this.worker = new Worker(NEWS_DIGEST_QUEUE, () => this.runDigest(), { connection });
 
     this.worker.on('completed', (job) => {
       this.logger.log(`News digest job ${job.id} completed successfully`);
@@ -48,6 +44,7 @@ export class NewsDigestService implements OnModuleInit, OnModuleDestroy {
 
     this.worker.on('error', (err: Error) => {
       if (err.message?.includes('ECONNRESET') || err.message?.includes('closed')) {
+        this.logger.debug(`News digest worker connection error: ${err.message}`);
         return;
       }
       this.logger.error('News digest worker error', err.stack);

@@ -97,6 +97,20 @@ describe('NewsDigestService', () => {
       );
     });
 
+    it('logs error when seed fails', async () => {
+      const loggerErrorSpy = jest.spyOn(Logger.prototype, 'error').mockImplementation();
+      mockQueue.add.mockRejectedValueOnce(new Error('Redis unavailable'));
+
+      service.onModuleInit();
+      await Promise.resolve();
+      await Promise.resolve();
+
+      expect(loggerErrorSpy).toHaveBeenCalledWith(
+        'Failed to seed news digest repeatable job',
+        expect.anything(),
+      );
+    });
+
     it('logs error when retries are exhausted', () => {
       const loggerErrorSpy = jest.spyOn(Logger.prototype, 'error').mockImplementation();
 
