@@ -1,13 +1,15 @@
+import { EmailModule } from '@libs/email';
+import { RedisModule } from '@libs/redis';
 import { Logger, Module, OnModuleInit } from '@nestjs/common';
 import { ArticlesModule } from '../articles/articles.module';
 import { ConfigService } from '../config/config.service';
-import { EmailModule } from '../email/email.module';
 import { DigestArticleSelectorService } from './digest-article-selector.service';
 import { DigestEmailComposerService } from './digest-email-composer.service';
+import { NewsDigestService } from './news-digest.service';
 
 @Module({
-  imports: [ArticlesModule, EmailModule],
-  providers: [DigestArticleSelectorService, DigestEmailComposerService],
+  imports: [ArticlesModule, EmailModule.forRoot(), RedisModule],
+  providers: [DigestArticleSelectorService, DigestEmailComposerService, NewsDigestService],
 })
 export class NewsDigestModule implements OnModuleInit {
   private readonly logger = new Logger(NewsDigestModule.name);
