@@ -12,3 +12,6 @@ export const GENERATE_AUDIO_JOB = 'generate-audio';
 
 export const CUSTOM_BRIEFING_GENERATION_QUEUE = 'custom-briefing-generation';
 export const GENERATE_CUSTOM_BRIEFING_JOB = 'generate-custom-briefing';
+
+export const NEWS_DIGEST_QUEUE = 'news-digest';
+export const NEWS_DIGEST_JOB = 'news-digest-job';
