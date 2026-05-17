@@ -10,12 +10,10 @@ import {
   Controller,
   HttpException,
   HttpStatus,
-  Inject,
   Logger,
   Post,
   ServiceUnavailableException,
   UseGuards,
-  forwardRef,
 } from '@nestjs/common';
 import { isIP } from 'net';
 import { ConfigService } from '../config/config.service';
@@ -54,7 +52,6 @@ export class ExternalArticlesController {
 
   constructor(
     private readonly scraperService: ScraperService,
-    @Inject(forwardRef(() => QueueService))
     private readonly queueService: QueueService,
     private readonly telegramSubmissionService: TelegramSubmissionService,
     private readonly configService: ConfigService,

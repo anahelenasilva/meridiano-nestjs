@@ -28,6 +28,10 @@ export class ArticleIngestionService {
     private readonly aiService: AiService,
   ) {}
 
+  async articleExists(url: string): Promise<boolean> {
+    return this.articlesService.articleExists(url);
+  }
+
   async ingest(rawArticle: RawArticleInput): Promise<DBArticle> {
     const existing = await this.articlesService.getArticleByUrl(rawArticle.url);
     if (existing) {

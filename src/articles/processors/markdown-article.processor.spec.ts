@@ -3,21 +3,32 @@ import { RedisService } from '@libs/redis';
 import { S3Service } from '@libs/s3';
 import { Job, Worker } from 'bullmq';
 import { mock } from 'jest-mock-extended';
-import { AiService } from '../../ai/ai.service';
 import { ProcessorService } from '../../processor/processor.service';
 import { FeedProfile } from '../../shared/types/feed';
-import { ArticlesService } from '../articles.service';
+import { DBArticle } from '../article.entity';
+import { ArticleIngestionService } from '../ingestion/article-ingestion.service';
 import { MarkdownArticleProcessor } from './markdown-article.processor';
 
 jest.mock('bullmq');
+
+const makeArticle = (overrides: Partial<DBArticle> = {}): DBArticle => ({
+  id: 'article-123',
+  url: 's3://test-bucket/test-file.md',
+  title: 'Test Title',
+  published_date: new Date(),
+  feed_source: 'Unknown',
+  raw_content: '# Test Title\n\nTest content.',
+  feed_profile: FeedProfile.DEFAULT,
+  created_at: new Date(),
+  ...overrides,
+});
 
 describe('MarkdownArticleProcessor', () => {
   let processor: MarkdownArticleProcessor;
   const mockRedisService = mock<RedisService>();
   const mockS3Service = mock<S3Service>();
-  const mockArticlesService = mock<ArticlesService>();
+  const mockIngestionService = mock<ArticleIngestionService>();
   const mockProcessorService = mock<ProcessorService>();
-  const mockAiService = mock<AiService>();
   const mockWorker = mock<Worker>();
 
   beforeEach(() => {
@@ -26,9 +37,8 @@ describe('MarkdownArticleProcessor', () => {
     processor = new MarkdownArticleProcessor(
       mockRedisService,
       mockS3Service,
-      mockArticlesService,
+      mockIngestionService,
       mockProcessorService,
-      mockAiService,
     );
   });
 
@@ -68,13 +78,12 @@ describe('MarkdownArticleProcessor', () => {
       data: mockJobData,
     } as Job<ProcessMarkdownArticleJobData>;
 
-    it('should successfully process markdown article using Unknown when AI finds no author', async () => {
+    it('should successfully process a markdown article', async () => {
       const markdownContent = '# Test Title\n\nTest content.';
-      const articleId = 'article-123';
+      const article = makeArticle();
 
-      mockAiService.callChat.mockResolvedValueOnce(null);
       mockS3Service.downloadMarkdownFile.mockResolvedValueOnce(markdownContent);
-      mockArticlesService.addArticle.mockResolvedValueOnce(articleId);
+      mockIngestionService.ingest.mockResolvedValueOnce(article);
       mockProcessorService.processArticles.mockResolvedValueOnce({
         feedProfile: FeedProfile.DEFAULT,
         articlesProcessed: 1,
@@ -106,32 +115,30 @@ describe('MarkdownArticleProcessor', () => {
         'test-bucket',
         'test-file.md',
       );
-      expect(mockArticlesService.addArticle).toHaveBeenCalledWith(
-        's3://test-bucket/test-file.md',
-        'Test Title',
-        expect.any(Date),
-        'Unknown',
-        markdownContent,
-        FeedProfile.DEFAULT,
-        undefined,
-        undefined,
-        undefined,
-      );
+      expect(mockIngestionService.ingest).toHaveBeenCalledWith({
+        url: 's3://test-bucket/test-file.md',
+        title: 'Test Title',
+        publishedDate: expect.any(Date),
+        content: markdownContent,
+        feedProfile: FeedProfile.DEFAULT,
+        source: { type: 'markdown' },
+        customPrompt: undefined,
+      });
       expect(mockProcessorService.processArticles).toHaveBeenCalledWith(
         FeedProfile.DEFAULT,
         1,
-        articleId,
+        article.id,
         undefined,
       );
       expect(mockProcessorService.rateArticles).toHaveBeenCalledWith(
         FeedProfile.DEFAULT,
         1,
-        articleId,
+        article.id,
       );
       expect(mockProcessorService.categorizeArticles).toHaveBeenCalledWith(
         FeedProfile.DEFAULT,
         1,
-        articleId,
+        article.id,
       );
       expect(result).toEqual({
         success: true,
@@ -139,14 +146,12 @@ describe('MarkdownArticleProcessor', () => {
       });
     });
 
-    it('should use AI-extracted author as article source', async () => {
-      const markdownContent =
-        '# My Article\n\n**Author:** João Silva\n\nTest content.';
-      const articleId = 'article-456';
+    it('should pass customPrompt to ingest', async () => {
+      const markdownContent = '# My Article\n\nTest content.';
+      const article = makeArticle({ id: 'article-456' });
 
-      mockAiService.callChat.mockResolvedValueOnce('João Silva');
       mockS3Service.downloadMarkdownFile.mockResolvedValueOnce(markdownContent);
-      mockArticlesService.addArticle.mockResolvedValueOnce(articleId);
+      mockIngestionService.ingest.mockResolvedValueOnce(article);
       mockProcessorService.processArticles.mockResolvedValueOnce({
         feedProfile: FeedProfile.DEFAULT,
         articlesProcessed: 1,
@@ -172,68 +177,15 @@ describe('MarkdownArticleProcessor', () => {
         startTime: new Date(),
       });
 
-      await processor.processMarkdownArticle({
+      const jobWithPrompt = {
         ...mockJob,
-        data: { ...mockJobData },
-      } as Job<ProcessMarkdownArticleJobData>);
+        data: { ...mockJobData, customPrompt: 'focus on AI ethics' },
+      } as Job<ProcessMarkdownArticleJobData>;
 
-      expect(mockArticlesService.addArticle).toHaveBeenCalledWith(
-        expect.any(String),
-        'My Article',
-        expect.any(Date),
-        'João Silva',
-        markdownContent,
-        FeedProfile.DEFAULT,
-        undefined,
-        undefined,
-        undefined,
-      );
-    });
+      await processor.processMarkdownArticle(jobWithPrompt);
 
-    it('should use Unknown as article source when AI returns empty string', async () => {
-      const markdownContent = '# Test Title\n\nTest content.';
-      const articleId = 'article-123';
-
-      mockAiService.callChat.mockResolvedValueOnce('');
-      mockS3Service.downloadMarkdownFile.mockResolvedValueOnce(markdownContent);
-      mockArticlesService.addArticle.mockResolvedValueOnce(articleId);
-      mockProcessorService.processArticles.mockResolvedValueOnce({
-        feedProfile: FeedProfile.DEFAULT,
-        articlesProcessed: 1,
-        articlesRated: 0,
-        articlesCategorized: 0,
-        errors: 0,
-        startTime: new Date(),
-      });
-      mockProcessorService.rateArticles.mockResolvedValueOnce({
-        feedProfile: FeedProfile.DEFAULT,
-        articlesProcessed: 0,
-        articlesRated: 1,
-        articlesCategorized: 0,
-        errors: 0,
-        startTime: new Date(),
-      });
-      mockProcessorService.categorizeArticles.mockResolvedValueOnce({
-        feedProfile: FeedProfile.DEFAULT,
-        articlesProcessed: 0,
-        articlesRated: 0,
-        articlesCategorized: 1,
-        errors: 0,
-        startTime: new Date(),
-      });
-
-      await processor.processMarkdownArticle(mockJob);
-
-      expect(mockArticlesService.addArticle).toHaveBeenCalledWith(
-        expect.any(String),
-        'Test Title',
-        expect.any(Date),
-        'Unknown',
-        markdownContent,
-        FeedProfile.DEFAULT,
-        undefined,
-        undefined,
-        undefined,
+      expect(mockIngestionService.ingest).toHaveBeenCalledWith(
+        expect.objectContaining({ customPrompt: 'focus on AI ethics' }),
       );
     });
 
@@ -245,7 +197,7 @@ describe('MarkdownArticleProcessor', () => {
         'Markdown article processing failed for test-file.md',
       );
 
-      expect(mockArticlesService.addArticle).not.toHaveBeenCalled();
+      expect(mockIngestionService.ingest).not.toHaveBeenCalled();
     });
 
     it('should handle markdown parsing failure', async () => {
@@ -254,37 +206,27 @@ describe('MarkdownArticleProcessor', () => {
 
       await expect(processor.processMarkdownArticle(mockJob)).rejects.toThrow();
 
-      expect(mockArticlesService.addArticle).not.toHaveBeenCalled();
+      expect(mockIngestionService.ingest).not.toHaveBeenCalled();
     });
 
-    it('should handle article creation failure when returns null', async () => {
+    it('should handle ingestion failure', async () => {
       const markdownContent = '# Test Title\n\nTest content.';
+      const error = new Error('Failed to persist article: s3://test-bucket/test-file.md');
       mockS3Service.downloadMarkdownFile.mockResolvedValueOnce(markdownContent);
-      mockArticlesService.addArticle.mockResolvedValueOnce(null);
+      mockIngestionService.ingest.mockRejectedValueOnce(error);
 
       await expect(processor.processMarkdownArticle(mockJob)).rejects.toThrow(
-        'Failed to create article (duplicate or database error)',
+        'Markdown article processing failed for test-file.md',
       );
-
-      expect(mockProcessorService.processArticles).not.toHaveBeenCalled();
-    });
-
-    it('should handle article creation failure when throws error', async () => {
-      const markdownContent = '# Test Title\n\nTest content.';
-      const error = new Error('Database error');
-      mockS3Service.downloadMarkdownFile.mockResolvedValueOnce(markdownContent);
-      mockArticlesService.addArticle.mockRejectedValueOnce(error);
-
-      await expect(processor.processMarkdownArticle(mockJob)).rejects.toThrow();
 
       expect(mockProcessorService.processArticles).not.toHaveBeenCalled();
     });
 
     it('should handle processing failure', async () => {
       const markdownContent = '# Test Title\n\nTest content.';
-      const articleId = 'article-123';
+      const article = makeArticle();
       mockS3Service.downloadMarkdownFile.mockResolvedValueOnce(markdownContent);
-      mockArticlesService.addArticle.mockResolvedValueOnce(articleId);
+      mockIngestionService.ingest.mockResolvedValueOnce(article);
       mockProcessorService.processArticles.mockResolvedValueOnce({
         feedProfile: FeedProfile.DEFAULT,
         articlesProcessed: 0,
@@ -303,9 +245,9 @@ describe('MarkdownArticleProcessor', () => {
 
     it('should handle rating failure', async () => {
       const markdownContent = '# Test Title\n\nTest content.';
-      const articleId = 'article-123';
+      const article = makeArticle();
       mockS3Service.downloadMarkdownFile.mockResolvedValueOnce(markdownContent);
-      mockArticlesService.addArticle.mockResolvedValueOnce(articleId);
+      mockIngestionService.ingest.mockResolvedValueOnce(article);
       mockProcessorService.processArticles.mockResolvedValueOnce({
         feedProfile: FeedProfile.DEFAULT,
         articlesProcessed: 1,
@@ -332,9 +274,9 @@ describe('MarkdownArticleProcessor', () => {
 
     it('should handle categorization failure', async () => {
       const markdownContent = '# Test Title\n\nTest content.';
-      const articleId = 'article-123';
+      const article = makeArticle();
       mockS3Service.downloadMarkdownFile.mockResolvedValueOnce(markdownContent);
-      mockArticlesService.addArticle.mockResolvedValueOnce(articleId);
+      mockIngestionService.ingest.mockResolvedValueOnce(article);
       mockProcessorService.processArticles.mockResolvedValueOnce({
         feedProfile: FeedProfile.DEFAULT,
         articlesProcessed: 1,
@@ -376,10 +318,10 @@ describe('MarkdownArticleProcessor', () => {
       } as Job<ProcessMarkdownArticleJobData>;
 
       const markdownContent = '# Tech Article\n\nTech content.';
-      const articleId = 'article-456';
+      const article = makeArticle({ id: 'article-456', feed_profile: FeedProfile.TECHNOLOGY });
 
       mockS3Service.downloadMarkdownFile.mockResolvedValueOnce(markdownContent);
-      mockArticlesService.addArticle.mockResolvedValueOnce(articleId);
+      mockIngestionService.ingest.mockResolvedValueOnce(article);
       mockProcessorService.processArticles.mockResolvedValueOnce({
         feedProfile: FeedProfile.TECHNOLOGY,
         articlesProcessed: 1,
@@ -407,21 +349,14 @@ describe('MarkdownArticleProcessor', () => {
 
       await processor.processMarkdownArticle(jobWithDifferentProfile);
 
+      expect(mockIngestionService.ingest).toHaveBeenCalledWith(
+        expect.objectContaining({ feedProfile: FeedProfile.TECHNOLOGY }),
+      );
       expect(mockProcessorService.processArticles).toHaveBeenCalledWith(
         FeedProfile.TECHNOLOGY,
         1,
-        articleId,
+        article.id,
         undefined,
-      );
-      expect(mockProcessorService.rateArticles).toHaveBeenCalledWith(
-        FeedProfile.TECHNOLOGY,
-        1,
-        articleId,
-      );
-      expect(mockProcessorService.categorizeArticles).toHaveBeenCalledWith(
-        FeedProfile.TECHNOLOGY,
-        1,
-        articleId,
       );
     });
   });

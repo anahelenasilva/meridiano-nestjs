@@ -42,6 +42,18 @@ describe('ArticleIngestionService', () => {
     jest.clearAllMocks();
   });
 
+  describe('articleExists', () => {
+    it('returns true when articlesService reports the url exists', async () => {
+      articlesService.articleExists.mockResolvedValue(true);
+      expect(await service.articleExists('https://example.com/article')).toBe(true);
+    });
+
+    it('returns false when articlesService reports the url does not exist', async () => {
+      articlesService.articleExists.mockResolvedValue(false);
+      expect(await service.articleExists('https://example.com/article')).toBe(false);
+    });
+  });
+
   describe('deduplication', () => {
     it('returns existing article and skips persistence when URL already exists', async () => {
       const existing = makeArticle();

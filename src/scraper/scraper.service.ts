@@ -4,7 +4,7 @@ import axios from 'axios';
 import { JSDOM } from 'jsdom';
 import Parser from 'rss-parser';
 import { ArticleContent } from '../articles/article.entity';
-import { ArticlesService } from '../articles/articles.service';
+import { ArticleIngestionService } from '../articles/ingestion/article-ingestion.service';
 import { ConfigService } from '../config/config.service';
 import { ProfilesService } from '../profiles/profiles.service';
 import { FeedProfile } from '../shared/types/feed';
@@ -49,7 +49,7 @@ const rssParser = new Parser({
 @Injectable()
 export class ScraperService {
   constructor(
-    private readonly articlesService: ArticlesService,
+    private readonly ingestionService: ArticleIngestionService,
     private readonly profilesService: ProfilesService,
     private readonly configService: ConfigService,
   ) {}
@@ -154,7 +154,7 @@ export class ScraperService {
   ): Promise<string | null> {
     // console.log(`\n--- Scraping single article: ${url} ---`);
 
-    if (await this.articlesService.articleExists(url)) {
+    if (await this.ingestionService.articleExists(url)) {
       console.log('Article already exists in database');
       return null;
     }
@@ -194,27 +194,21 @@ export class ScraperService {
       console.warn('Failed to extract title, using default', error);
     }
 
-    // Use current date as published date
     const publishedDate = new Date();
-    const feedSource = 'Manual';
 
-    const articleId = await this.articlesService.addArticle(
+    const article = await this.ingestionService.ingest({
       url,
       title,
+      content: rawContent,
       publishedDate,
-      feedSource,
-      rawContent,
       feedProfile,
-      ogImageUrl || undefined,
-      undefined,
+      source: { type: 'manual' },
+      imageUrl: ogImageUrl || undefined,
       customPrompt,
-    );
+    });
 
-    if (articleId) {
-      console.log(`Article added successfully with ID: ${articleId}`);
-    }
-
-    return articleId;
+    console.log(`Article added successfully with ID: ${article.id}`);
+    return article.id;
   }
 
   async scrapeArticles(
@@ -275,7 +269,7 @@ export class ScraperService {
             continue;
           }
 
-          if (await this.articlesService.articleExists(url)) {
+          if (await this.ingestionService.articleExists(url)) {
             continue;
           }
 
@@ -309,19 +303,17 @@ export class ScraperService {
           //   console.log('  No image found in RSS or OG tags.');
           // }
 
-          const articleId = await this.articlesService.addArticle(
+          await this.ingestionService.ingest({
             url,
             title,
+            content: rawContent,
             publishedDate,
-            feedSource,
-            rawContent,
             feedProfile,
-            finalImageUrl || undefined,
-          );
+            source: { type: 'rss', feedName: feedSource },
+            imageUrl: finalImageUrl || undefined,
+          });
 
-          if (articleId) {
-            stats.newArticles++;
-          }
+          stats.newArticles++;
 
           await new Promise((resolve) => setTimeout(resolve, 500));
         }
