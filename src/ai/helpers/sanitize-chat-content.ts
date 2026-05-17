@@ -1,0 +1,8 @@
+export function sanitizeChatContent(content: string): string {
+  return content
+    .replace(/\r\n/g, '\n')
+    .replace(/\r/g, '\n')
+    .split('\x00')
+    .join('')
+    .replace(/\\(?!["\\/bfnrtu])/g, '\\\\');
+}
