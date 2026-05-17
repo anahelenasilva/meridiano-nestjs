@@ -78,7 +78,7 @@ export class MarkdownArticleProcessor implements OnModuleInit, OnModuleDestroy {
       const parsedArticle = parseMarkdownArticle(markdownContent);
 
       console.log(`Step 3: Creating article in database...`);
-      const article = await this.ingestionService.ingest({
+      const { id: articleId } = await this.ingestionService.ingest({
         url: `s3://${s3Bucket}/${s3Key}`,
         title: parsedArticle.title,
         publishedDate: parsedArticle.publishedDate,
@@ -88,7 +88,6 @@ export class MarkdownArticleProcessor implements OnModuleInit, OnModuleDestroy {
         customPrompt,
       });
 
-      const articleId = article.id;
       console.log(`Article created with ID: ${articleId}`);
 
       console.log(`Step 4: Processing article ${articleId}...`);
