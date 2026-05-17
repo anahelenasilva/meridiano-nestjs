@@ -237,7 +237,7 @@ export class AiService implements OnModuleInit {
         );
         for (let j = 0; j < batch.length; j++) {
           const item = batch[j];
-          results[item.index] = await this.embedPolicyService!.embed(item.original);
+          results[item.index] = await this.embedPolicyService.embed(item.original);
           if (j < batch.length - 1) {
             await new Promise((resolve) => setTimeout(resolve, 200));
           }
@@ -246,7 +246,7 @@ export class AiService implements OnModuleInit {
     }
 
     for (const item of longInputs) {
-      results[item.index] = await this.embedPolicyService!.embed(item.original);
+      results[item.index] = await this.embedPolicyService.embed(item.original);
     }
 
     return results;
