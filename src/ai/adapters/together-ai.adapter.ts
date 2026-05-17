@@ -64,7 +64,15 @@ export class TogetherAiAdapter implements AiAdapter {
       model: this.model,
       input: inputs,
     });
-    return response.data.map((d) => d.embedding);
+    if (!response.data || response.data.length === 0) {
+      throw new Error('Together.ai returned empty batch embedding response');
+    }
+    return response.data.map((d) => {
+      if (!d.embedding) {
+        throw new Error(`Together.ai returned null embedding for batch item at index ${d.index}`);
+      }
+      return d.embedding;
+    });
   }
 
   generateAudio(_text: string, _voice: string): Promise<Buffer> {

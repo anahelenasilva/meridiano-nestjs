@@ -1,5 +1,5 @@
 import OpenAI from 'openai';
-import { sanitizeChatContent } from '../helpers/sanitize-chat-content';
+import { openaiCompatibleChat } from '../helpers/openai-compatible-chat';
 import { splitTextIntoChunks } from '../helpers/split-text-into-chunks';
 import { AiAdapter } from './ai-adapter.interface';
 
@@ -16,26 +16,16 @@ export class OpenAIAdapter implements AiAdapter {
     private readonly defaultVoice: string,
   ) {}
 
-  async chat(prompt: string, systemPrompt?: string, model?: string): Promise<string> {
-    const messages: Array<{ role: 'system' | 'user'; content: string }> = [];
-
-    if (systemPrompt) {
-      messages.push({ role: 'system', content: sanitizeChatContent(systemPrompt) });
-    }
-    messages.push({ role: 'user', content: sanitizeChatContent(prompt) });
-
-    const response = await this.chatClient.chat.completions.create({
-      model: model || this.defaultChatModel,
-      messages,
-      max_tokens: this.maxTokens,
-      temperature: this.temperature,
-    });
-
-    const content = response.choices[0]?.message?.content?.trim();
-    if (!content) {
-      throw new Error('OpenAI returned empty response');
-    }
-    return content;
+  chat(prompt: string, systemPrompt?: string, model?: string): Promise<string> {
+    return openaiCompatibleChat(
+      this.chatClient,
+      prompt,
+      systemPrompt,
+      model ?? this.defaultChatModel,
+      this.maxTokens,
+      this.temperature,
+      'OpenAI',
+    );
   }
 
   embed(_text: string): Promise<number[]> {

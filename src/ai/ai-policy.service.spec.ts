@@ -1,3 +1,4 @@
+import { averageEmbeddings } from './helpers/average-embeddings';
 import { AiPolicyService } from './ai-policy.service';
 import { AiAdapter } from './adapters/ai-adapter.interface';
 
@@ -142,9 +143,7 @@ describe('AiPolicyService', () => {
 
   describe('averageEmbeddings', () => {
     it('averages two known vectors element-wise', () => {
-      const svc = new AiPolicyService(makeFakeAdapter());
-
-      const result = svc.averageEmbeddings([
+      const result = averageEmbeddings([
         [1.0, 3.0],
         [3.0, 1.0],
       ]);
@@ -153,17 +152,13 @@ describe('AiPolicyService', () => {
     });
 
     it('returns the single vector unchanged', () => {
-      const svc = new AiPolicyService(makeFakeAdapter());
-
-      const result = svc.averageEmbeddings([[0.5, 0.5]]);
+      const result = averageEmbeddings([[0.5, 0.5]]);
 
       expect(result).toEqual([0.5, 0.5]);
     });
 
     it('averages three vectors correctly', () => {
-      const svc = new AiPolicyService(makeFakeAdapter());
-
-      const result = svc.averageEmbeddings([
+      const result = averageEmbeddings([
         [1.0, 2.0],
         [2.0, 4.0],
         [3.0, 6.0],
@@ -174,9 +169,7 @@ describe('AiPolicyService', () => {
     });
 
     it('throws on empty array', () => {
-      const svc = new AiPolicyService(makeFakeAdapter());
-
-      expect(() => svc.averageEmbeddings([])).toThrow('Cannot average empty');
+      expect(() => averageEmbeddings([])).toThrow('Cannot average empty');
     });
   });
 

@@ -4,6 +4,7 @@ import { AiAdapter } from './ai-adapter.interface';
 
 const GROQ_VALID_VOICES = ['autumn', 'diana', 'hannah', 'austin', 'daniel', 'troy'];
 const GROQ_TTS_MAX_CHARS = 200;
+const GROQ_TTS_MODEL = 'canopylabs/orpheus-v1-english';
 
 export class GroqAdapter implements AiAdapter {
   constructor(
@@ -28,7 +29,7 @@ export class GroqAdapter implements AiAdapter {
       const chunk = chunks[i];
       try {
         const response = await this.client.audio.speech.create({
-          model: 'canopylabs/orpheus-v1-english',
+          model: GROQ_TTS_MODEL,
           voice: selectedVoice,
           input: chunk,
           response_format: 'wav',

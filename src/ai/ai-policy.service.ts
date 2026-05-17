@@ -1,3 +1,4 @@
+import { averageEmbeddings } from './helpers/average-embeddings';
 import { estimateTokenCount } from '../shared/helpers/token-estimation';
 import { AiAdapter } from './adapters/ai-adapter.interface';
 
@@ -47,7 +48,7 @@ export class AiPolicyService {
       return null;
     }
 
-    return this.averageEmbeddings(vectors);
+    return averageEmbeddings(vectors);
   }
 
   async generateAudio(text: string, voice: string): Promise<Buffer> {
@@ -155,20 +156,4 @@ export class AiPolicyService {
     return chunks;
   }
 
-  averageEmbeddings(embeddings: number[][]): number[] {
-    if (!embeddings || embeddings.length === 0) {
-      throw new Error('Cannot average empty embeddings array');
-    }
-
-    const vectorSize = embeddings[0].length;
-    const sums = new Array<number>(vectorSize).fill(0);
-
-    for (const embedding of embeddings) {
-      for (let i = 0; i < vectorSize; i++) {
-        sums[i] += embedding[i];
-      }
-    }
-
-    return sums.map((sum) => sum / embeddings.length);
-  }
 }
