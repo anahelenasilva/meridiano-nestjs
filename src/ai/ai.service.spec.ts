@@ -178,6 +178,12 @@ describe('AiService', () => {
       expect(result).toBeNull();
       consoleSpy.mockRestore();
     });
+
+    it('throws BadRequestException when chatPolicyService is null', async () => {
+      Object.defineProperty(service, 'chatPolicyService', { value: null, writable: true });
+
+      await expect(service.callChat('test')).rejects.toThrow(BadRequestException);
+    });
   });
 
   describe('getEmbedding', () => {

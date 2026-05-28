@@ -41,6 +41,22 @@ describe('AiPolicyService', () => {
       consoleSpy.mockRestore();
     });
 
+    it('retries N=2 and returns result on third attempt', async () => {
+      const adapter = makeFakeAdapter();
+      const consoleSpy = jest.spyOn(console, 'warn').mockImplementation();
+      (adapter.chat as jest.Mock)
+        .mockRejectedValueOnce(new Error('rate limit 429'))
+        .mockRejectedValueOnce(new Error('timeout'))
+        .mockResolvedValueOnce('ok');
+      const svc = new AiPolicyService(adapter);
+
+      const result = await svc.chat('prompt');
+
+      expect(result).toBe('ok');
+      expect(adapter.chat).toHaveBeenCalledTimes(3);
+      consoleSpy.mockRestore();
+    });
+
     it('does not retry on non-retryable error', async () => {
       const adapter = makeFakeAdapter();
       const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
@@ -109,8 +125,7 @@ describe('AiPolicyService', () => {
       const result = await svc.embed(longText);
 
       expect(adapter.embed).toHaveBeenCalledTimes(2);
-      expect(result).toBeDefined();
-      expect(Array.isArray(result)).toBe(true);
+      expect(result).toEqual([0.5, 0.5]);
     });
 
     it('retries on retryable embedding error and returns eventual result', async () => {
