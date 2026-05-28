@@ -174,15 +174,7 @@ export class AiService implements OnModuleInit {
         'Embedding client not initialized. Call initializeClients() first.',
       );
     }
-    try {
-      return await this.embedPolicyService.embed(text);
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      console.error(
-        `Error calling Embedding API for text (${text.length} chars): ${errorMessage}`,
-      );
-      return null;
-    }
+    return await this.embedPolicyService.embed(text);
   }
 
   async getBatchEmbeddings(

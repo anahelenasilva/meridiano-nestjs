@@ -204,6 +204,12 @@ describe('AiService', () => {
       expect(result).toBeNull();
     });
 
+    it('propagates error when policy throws', async () => {
+      mockEmbedPolicy.embed.mockRejectedValue(new Error('auth error'));
+
+      await expect(service.getEmbedding('text')).rejects.toThrow('auth error');
+    });
+
     it('throws when embedPolicyService is null', async () => {
       Object.defineProperty(service, 'embedPolicyService', { value: null, writable: true });
 
