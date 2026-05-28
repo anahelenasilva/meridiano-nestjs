@@ -130,7 +130,7 @@ describe('ArticlesService', () => {
         title: 'Found article',
         published_date: '2026-05-10T08:00:00.000Z',
         feed_source: 'RSS Feed',
-        content: 'article content',
+        raw_content: 'article raw content',
         processed_content: null,
         impact_rating: null,
         feed_profile: FeedProfile.TECHNOLOGY,
@@ -149,6 +149,7 @@ describe('ArticlesService', () => {
         expect.objectContaining({
           id: 'bbbb-2222',
           url: 'https://example.com/found',
+          raw_content: 'article raw content',
           published_date: new Date('2026-05-10T08:00:00.000Z'),
           created_at: new Date('2026-05-10T08:01:00.000Z'),
           categories: ['news'],

@@ -23,7 +23,6 @@ interface ArticleRow {
   categories?: string | null;
   custom_prompt?: string | null;
   created_at: string;
-  content?: string;
 }
 
 interface CountRow {
@@ -269,7 +268,7 @@ export class ArticlesService {
       const query = `
         SELECT
           id, url, title, published_date, feed_source, feed_profile,
-          raw_content as content, processed_content, impact_rating,
+          raw_content, processed_content, impact_rating,
           image_url, categories, custom_prompt, created_at
         FROM articles
         WHERE id = ANY(?::uuid[])
@@ -362,7 +361,7 @@ export class ArticlesService {
       const query = `
         SELECT
           id, url, title, published_date, feed_source, feed_profile,
-          raw_content as content, processed_content, impact_rating,
+          raw_content, processed_content, impact_rating,
           image_url, categories, custom_prompt, created_at
         FROM articles
         WHERE id = ?
@@ -476,7 +475,7 @@ export class ArticlesService {
       let query = `
         SELECT
           id, url, title, published_date, feed_source, feed_profile,
-          raw_content as content, processed_content, impact_rating,
+          raw_content, processed_content, impact_rating,
           image_url, categories, custom_prompt, created_at
         FROM articles
         WHERE 1=1
@@ -613,7 +612,7 @@ export class ArticlesService {
       const query = `
         SELECT
           id, url, title, published_date, feed_source, feed_profile,
-          raw_content as content, processed_content, impact_rating,
+          raw_content, processed_content, impact_rating,
           image_url, categories, custom_prompt, created_at
         FROM articles
         WHERE url = ?
@@ -668,7 +667,7 @@ export class ArticlesService {
         const relatedQuery = `
           SELECT
             id, url, title, published_date, feed_source, feed_profile,
-            raw_content as content, processed_content, impact_rating,
+            raw_content, processed_content, impact_rating,
             image_url, categories, custom_prompt, created_at
           FROM articles
           WHERE feed_profile = ?
