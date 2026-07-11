@@ -1,5 +1,6 @@
 import { DatabaseService } from '@libs/database';
 import { Injectable } from '@nestjs/common';
+import { NotesCleanupService } from '../notes/notes-cleanup.service';
 import { FeedProfile } from '../shared/types/feed';
 import {
   ArticleCategory,
@@ -31,7 +32,10 @@ interface CountRow {
 
 @Injectable()
 export class ArticlesService {
-  constructor(private readonly databaseService: DatabaseService) {}
+  constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly notesCleanupService: NotesCleanupService,
+  ) {}
 
   async addArticle(
     url: string,
@@ -338,7 +342,7 @@ export class ArticlesService {
   }
 
   async deleteArticleById(articleId: string): Promise<void> {
-    return new Promise((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
       const stmt = db.prepare(`DELETE FROM articles WHERE id = ?`);
 
@@ -352,6 +356,8 @@ export class ArticlesService {
         stmt.finalize();
       });
     });
+
+    await this.notesCleanupService.purgeNotesForSource('article', articleId);
   }
 
   async getArticleById(articleId: string): Promise<DBArticle | null> {

@@ -1,19 +1,26 @@
 import { DatabaseService } from '@libs/database';
 import { mock } from 'jest-mock-extended';
+import { NotesCleanupService } from '../notes/notes-cleanup.service';
 import { FeedProfile } from '../shared/types/feed';
 import { ArticlesService } from './articles.service';
 
 describe('ArticlesService', () => {
   const mockDatabaseService = mock<DatabaseService>();
+  const mockNotesCleanupService = mock<NotesCleanupService>();
   const mockDb = {
     all: jest.fn(),
     get: jest.fn(),
+    prepare: jest.fn(),
   };
   let service: ArticlesService;
 
   beforeEach(() => {
     mockDatabaseService.getDbConnection.mockReturnValue(mockDb as never);
-    service = new ArticlesService(mockDatabaseService);
+    mockNotesCleanupService.purgeNotesForSource.mockResolvedValue(0);
+    service = new ArticlesService(
+      mockDatabaseService,
+      mockNotesCleanupService,
+    );
   });
 
   afterEach(() => {
@@ -237,6 +244,52 @@ describe('ArticlesService', () => {
       await expect(
         service.getArticlesByIds(['11111111-1111-1111-1111-111111111111']),
       ).rejects.toThrow('database failed');
+    });
+  });
+
+  describe('deleteArticleById', () => {
+    const articleId = '11111111-1111-1111-1111-111111111111';
+
+    const stubDeleteSuccess = () => {
+      const stmt = {
+        run: jest.fn((params: unknown[], callback: (err: Error | null) => void) => {
+          callback(null);
+        }),
+        finalize: jest.fn(),
+      };
+      mockDb.prepare.mockReturnValue(stmt);
+      return stmt;
+    };
+
+    it('purges every note for the article after deleting it', async () => {
+      const stmt = stubDeleteSuccess();
+
+      await service.deleteArticleById(articleId);
+
+      expect(stmt.run).toHaveBeenCalledWith(
+        [articleId],
+        expect.any(Function),
+      );
+      expect(
+        mockNotesCleanupService.purgeNotesForSource,
+      ).toHaveBeenCalledWith('article', articleId);
+    });
+
+    it('does not purge notes when the article delete fails', async () => {
+      const stmt = {
+        run: jest.fn((params: unknown[], callback: (err: Error | null) => void) => {
+          callback(new Error('delete failed'));
+        }),
+        finalize: jest.fn(),
+      };
+      mockDb.prepare.mockReturnValue(stmt);
+
+      await expect(service.deleteArticleById(articleId)).rejects.toThrow(
+        'delete failed',
+      );
+      expect(
+        mockNotesCleanupService.purgeNotesForSource,
+      ).not.toHaveBeenCalled();
     });
   });
 });
