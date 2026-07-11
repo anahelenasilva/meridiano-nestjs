@@ -1,6 +1,7 @@
 import { DatabaseService } from '@libs/database';
 import { QueueService } from '@libs/queue';
 import { Inject, Injectable, forwardRef } from '@nestjs/common';
+import { NotesCleanupService } from '../../notes/notes-cleanup.service';
 import { ChannelConfig } from '../../shared/types/channel';
 import { TranscriptItem, VideoWithTranscript } from '../../shared/types/video';
 import { YoutubeChannelsService } from '../../youtube-channels/youtube-channels.service';
@@ -57,6 +58,7 @@ export class YoutubeTranscriptionsService {
     @Inject(forwardRef(() => QueueService))
     private readonly queueService: QueueService,
     private readonly youtubeChannelsService: YoutubeChannelsService,
+    private readonly notesCleanupService: NotesCleanupService,
   ) {}
 
   /**
@@ -907,7 +909,7 @@ export class YoutubeTranscriptionsService {
   }
 
   async delete(id: string): Promise<void> {
-    return new Promise((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
       const stmt = db.prepare(
         `DELETE FROM youtube_transcriptions WHERE id = ?`,
@@ -924,5 +926,7 @@ export class YoutubeTranscriptionsService {
         stmt.finalize();
       });
     });
+
+    await this.notesCleanupService.purgeNotesForSource('transcription', id);
   }
 }
