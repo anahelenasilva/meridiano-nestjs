@@ -2,6 +2,8 @@ import { S3Service } from '@libs/s3';
 import { mock } from 'jest-mock-extended';
 import { ConfigService } from '../../config/config.service';
 import { AudioFilesService } from '../../audio-files/audio-files.service';
+import { Note } from '../../notes/note.entity';
+import { NotesReadService } from '../../notes/notes-read.service';
 import { YoutubeTranscription } from '../entities/youtube-transcription.entity';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 import { GetYoutubeTranscriptionByIdQuery } from './get-youtube-transcription-by-id.query';
@@ -11,7 +13,9 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
   const mockAudioFilesService = mock<AudioFilesService>();
   const mockS3Service = mock<S3Service>();
   const mockConfigService = mock<ConfigService>();
+  const mockNotesReadService = mock<NotesReadService>();
 
+  const userId = 'user-1';
   const transcriptionId = '11111111-1111-1111-1111-111111111111';
   const mockTranscription: YoutubeTranscription = {
     id: transcriptionId,
@@ -30,20 +34,24 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockConfigService.getPresignedUrlExpirySeconds.mockReturnValue(3600);
+    mockNotesReadService.getActiveNote.mockResolvedValue(null);
     query = new GetYoutubeTranscriptionByIdQuery(
       mockService,
       mockAudioFilesService,
       mockS3Service,
       mockConfigService,
+      mockNotesReadService,
     );
   });
 
   it('should return transcription without audio when includeAudio is false', async () => {
     mockService.getTranscriptionById.mockResolvedValue(mockTranscription);
 
-    const result = await query.execute(transcriptionId, false);
+    const result = await query.execute(transcriptionId, userId);
 
-    expect(result).toEqual({ transcription: mockTranscription });
+    expect(result).toEqual({
+      transcription: { ...mockTranscription, note: null },
+    });
     expect(mockAudioFilesService.getAudioFileBySource).not.toHaveBeenCalled();
   });
 
@@ -63,10 +71,12 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
       'https://s3.example.com/presigned',
     );
 
-    const result = await query.execute(transcriptionId, true);
+    const result = await query.execute(transcriptionId, userId, {
+      includeAudio: true,
+    });
 
     expect(result).toEqual({
-      transcription: mockTranscription,
+      transcription: { ...mockTranscription, note: null },
       audio: {
         id: 'audio-1',
         s3_key: 'audio/key.mp3',
@@ -85,10 +95,12 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
     mockService.getTranscriptionById.mockResolvedValue(mockTranscription);
     mockAudioFilesService.getAudioFileBySource.mockResolvedValue(null);
 
-    const result = await query.execute(transcriptionId, true);
+    const result = await query.execute(transcriptionId, userId, {
+      includeAudio: true,
+    });
 
     expect(result).toEqual({
-      transcription: mockTranscription,
+      transcription: { ...mockTranscription, note: null },
       audio_error: 'Audio not available for this resource',
     });
     expect(mockAudioFilesService.getAudioFileBySource).toHaveBeenCalledWith(
@@ -96,6 +108,73 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
       transcriptionId,
     );
     expect(mockS3Service.generatePresignedGetUrl).not.toHaveBeenCalled();
+  });
+
+  it('embeds the owner active note on the transcription using the stable shape', async () => {
+    mockService.getTranscriptionById.mockResolvedValue(mockTranscription);
+    mockNotesReadService.getActiveNote.mockResolvedValue({
+      id: 'note-1',
+      user_id: userId,
+      source_type: 'transcription',
+      source_id: transcriptionId,
+      content: 'My private note',
+      created_at: new Date('2026-05-17T12:00:00.000Z'),
+      updated_at: new Date('2026-05-17T12:05:00.000Z'),
+    } as Note);
+
+    const result = await query.execute(transcriptionId, userId);
+
+    expect(mockNotesReadService.getActiveNote).toHaveBeenCalledWith(
+      userId,
+      'transcription',
+      transcriptionId,
+    );
+    expect(result?.transcription.note).toEqual({
+      id: 'note-1',
+      content: 'My private note',
+      created_at: new Date('2026-05-17T12:00:00.000Z'),
+      updated_at: new Date('2026-05-17T12:05:00.000Z'),
+    });
+    // The embedded shape must not leak ownership internals.
+    expect(result?.transcription.note).not.toHaveProperty('user_id');
+    expect(result?.transcription.note).not.toHaveProperty('source_id');
+    expect(result?.transcription.note).not.toHaveProperty('source_type');
+  });
+
+  it('sets note to null when the transcription has no active note', async () => {
+    mockService.getTranscriptionById.mockResolvedValue(mockTranscription);
+    mockNotesReadService.getActiveNote.mockResolvedValue(null);
+
+    const result = await query.execute(transcriptionId, userId);
+
+    expect(result?.transcription).toHaveProperty('note', null);
+  });
+
+  it('skips note lookup when note embedding is disabled', async () => {
+    mockService.getTranscriptionById.mockResolvedValue(mockTranscription);
+    mockNotesReadService.getActiveNote.mockRejectedValue(
+      new Error('notes db unavailable'),
+    );
+
+    const result = await query.execute(transcriptionId, userId, {
+      embedOwnerNote: false,
+    });
+
+    expect(result).toEqual({
+      transcription: { ...mockTranscription, note: null },
+    });
+    expect(mockNotesReadService.getActiveNote).not.toHaveBeenCalled();
+  });
+
+  it('surfaces note lookup failures when note embedding is required', async () => {
+    mockService.getTranscriptionById.mockResolvedValue(mockTranscription);
+    mockNotesReadService.getActiveNote.mockRejectedValue(
+      new Error('notes db unavailable'),
+    );
+
+    await expect(query.execute(transcriptionId, userId)).rejects.toThrow(
+      'notes db unavailable',
+    );
   });
 
   it('should include custom_prompt in response when transcription has custom_prompt null (backward compat)', async () => {
@@ -107,7 +186,7 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
       transcriptionWithNullCustomPrompt,
     );
 
-    const result = await query.execute(transcriptionId, false);
+    const result = await query.execute(transcriptionId, userId);
 
     expect(result).not.toBeNull();
     expect(result?.transcription).toHaveProperty('custom_prompt', null);
@@ -122,7 +201,7 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
       transcriptionWithCustomPrompt,
     );
 
-    const result = await query.execute(transcriptionId, false);
+    const result = await query.execute(transcriptionId, userId);
 
     expect(result).not.toBeNull();
     expect(result?.transcription).toHaveProperty(
@@ -134,10 +213,11 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
   it('should return null when transcription does not exist', async () => {
     mockService.getTranscriptionById.mockResolvedValue(null);
 
-    const result = await query.execute(transcriptionId);
+    const result = await query.execute(transcriptionId, userId);
 
     expect(result).toBeNull();
     expect(mockAudioFilesService.getAudioFileBySource).not.toHaveBeenCalled();
+    expect(mockNotesReadService.getActiveNote).not.toHaveBeenCalled();
   });
 
   it('should return transcription with audio_error when audio fetch throws', async () => {
@@ -146,10 +226,12 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
       new Error('DB connection failed'),
     );
 
-    const result = await query.execute(transcriptionId, true);
+    const result = await query.execute(transcriptionId, userId, {
+      includeAudio: true,
+    });
 
     expect(result).toEqual({
-      transcription: mockTranscription,
+      transcription: { ...mockTranscription, note: null },
       audio_error: 'Failed to fetch audio',
     });
     expect(mockS3Service.generatePresignedGetUrl).not.toHaveBeenCalled();
@@ -171,7 +253,9 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
       'https://s3.example.com/presigned',
     );
 
-    const result = await query.execute(transcriptionId, true);
+    const result = await query.execute(transcriptionId, userId, {
+      includeAudio: true,
+    });
 
     expect(result).not.toBeNull();
     expect(result?.audio).toBeDefined();

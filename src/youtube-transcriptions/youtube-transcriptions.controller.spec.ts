@@ -9,6 +9,8 @@ import {
 import { mock } from 'jest-mock-extended';
 import { ConfigService } from '../config/config.service';
 import { AudioFilesService } from '../audio-files/audio-files.service';
+import { NotesReadService } from '../notes/notes-read.service';
+import type { AuthenticatedRequest } from '../shared/types/authenticated-request';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
 import { YoutubeTranscription } from './entities/youtube-transcription.entity';
@@ -25,7 +27,10 @@ describe('YoutubeTranscriptionsController', () => {
   const mockAudioFilesService = mock<AudioFilesService>();
   const mockS3Service = mock<S3Service>();
   const mockConfigService = mock<ConfigService>();
+  const mockNotesReadService = mock<NotesReadService>();
 
+  const userId = 'user-1';
+  const mockRequest = { user: { id: userId } } as AuthenticatedRequest;
   const transcriptionId = '11111111-1111-1111-1111-111111111111';
   const mockTranscription: YoutubeTranscription = {
     id: transcriptionId,
@@ -42,14 +47,20 @@ describe('YoutubeTranscriptionsController', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
+    mockNotesReadService.getActiveNote.mockResolvedValue(null);
+    mockNotesReadService.getActiveNotesBySourceIds.mockResolvedValue(new Map());
     const mockListAllYoutubeTranscriptionsQuery =
-      new ListAllYoutubeTranscriptionsQuery(mockYoutubeTranscriptionsService);
+      new ListAllYoutubeTranscriptionsQuery(
+        mockYoutubeTranscriptionsService,
+        mockNotesReadService,
+      );
     mockConfigService.getPresignedUrlExpirySeconds.mockReturnValue(3600);
     mockGetYoutubeTranscriptionByIdQuery = new GetYoutubeTranscriptionByIdQuery(
       mockYoutubeTranscriptionsService,
       mockAudioFilesService,
       mockS3Service,
       mockConfigService,
+      mockNotesReadService,
     );
     const mockDeleteYoutubeTranscriptionCommand =
       new DeleteYoutubeTranscriptionCommand(mockYoutubeTranscriptionsService);
@@ -106,9 +117,14 @@ describe('YoutubeTranscriptionsController', () => {
         mockTranscription,
       );
 
-      const result = await controller.getTranscription(transcriptionId);
+      const result = await controller.getTranscription(
+        mockRequest,
+        transcriptionId,
+      );
 
-      expect(result).toEqual({ transcription: mockTranscription });
+      expect(result).toEqual({
+        transcription: { ...mockTranscription, note: null },
+      });
       expect(
         mockYoutubeTranscriptionsService.getTranscriptionById,
       ).toHaveBeenCalledWith(transcriptionId);
@@ -140,12 +156,13 @@ describe('YoutubeTranscriptionsController', () => {
       );
 
       const result = await controller.getTranscription(
+        mockRequest,
         transcriptionId,
         'true',
       );
 
       expect(result).toEqual({
-        transcription: mockTranscription,
+        transcription: { ...mockTranscription, note: null },
         audio: mockAudio,
       });
       expect(mockAudioFilesService.getAudioFileBySource).toHaveBeenCalledWith(
@@ -173,6 +190,7 @@ describe('YoutubeTranscriptionsController', () => {
       );
 
       const result = await controller.getTranscription(
+        mockRequest,
         transcriptionId,
         '1',
       );
@@ -202,6 +220,7 @@ describe('YoutubeTranscriptionsController', () => {
       );
 
       const result = await controller.getTranscription(
+        mockRequest,
         transcriptionId,
         'yes',
       );
@@ -216,6 +235,7 @@ describe('YoutubeTranscriptionsController', () => {
 
       await expect(
         controller.getTranscription(
+          mockRequest,
           '00000000-0000-0000-0000-000000000000',
         ),
       ).rejects.toThrow(NotFoundException);
@@ -251,7 +271,10 @@ describe('YoutubeTranscriptionsController', () => {
         status: 'queued',
       });
 
-      const result = await controller.generateAudio(transcriptionId);
+      const result = await controller.generateAudio(
+        mockRequest,
+        transcriptionId,
+      );
 
       expect(result).toEqual({
         jobId: 'job-123',
@@ -265,6 +288,7 @@ describe('YoutubeTranscriptionsController', () => {
         text: mockTranscription.transcriptionSummary,
         date: mockTranscription.postedAt,
       });
+      expect(mockNotesReadService.getActiveNote).not.toHaveBeenCalled();
     });
 
     it('should use transcriptionText when transcriptionSummary is empty', async () => {
@@ -281,7 +305,7 @@ describe('YoutubeTranscriptionsController', () => {
         status: 'queued',
       });
 
-      await controller.generateAudio(transcriptionId);
+      await controller.generateAudio(mockRequest, transcriptionId);
 
       expect(
         mockAudioJobService.enqueueAudioJobIfNotDuplicate,
@@ -299,7 +323,10 @@ describe('YoutubeTranscriptionsController', () => {
       );
 
       await expect(
-        controller.generateAudio('00000000-0000-0000-0000-000000000000'),
+        controller.generateAudio(
+          mockRequest,
+          '00000000-0000-0000-0000-000000000000',
+        ),
       ).rejects.toThrow(NotFoundException);
 
       expect(
@@ -321,7 +348,7 @@ describe('YoutubeTranscriptionsController', () => {
         created_at: new Date(),
       });
 
-      const result = controller.generateAudio(transcriptionId);
+      const result = controller.generateAudio(mockRequest, transcriptionId);
 
       await expect(result).rejects.toThrow(ConflictException);
       await expect(result).rejects.toMatchObject({
@@ -345,9 +372,9 @@ describe('YoutubeTranscriptionsController', () => {
       );
       mockAudioFilesService.getAudioFileBySource.mockResolvedValue(null);
 
-      await expect(controller.generateAudio(transcriptionId)).rejects.toThrow(
-        BadRequestException,
-      );
+      await expect(
+        controller.generateAudio(mockRequest, transcriptionId),
+      ).rejects.toThrow(BadRequestException);
 
       expect(
         mockAudioJobService.enqueueAudioJobIfNotDuplicate,
@@ -361,7 +388,7 @@ describe('YoutubeTranscriptionsController', () => {
       mockAudioFilesService.getAudioFileBySource.mockResolvedValue(null);
       mockAudioJobService.enqueueAudioJobIfNotDuplicate.mockResolvedValue(null);
 
-      const result = controller.generateAudio(transcriptionId);
+      const result = controller.generateAudio(mockRequest, transcriptionId);
 
       await expect(result).rejects.toThrow(ConflictException);
       await expect(result).rejects.toMatchObject({

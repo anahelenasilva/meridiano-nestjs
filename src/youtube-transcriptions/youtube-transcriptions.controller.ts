@@ -12,8 +12,10 @@ import {
   ParseUUIDPipe,
   Post,
   Query,
+  Req,
 } from '@nestjs/common';
 import { AudioFilesService } from '../audio-files/audio-files.service';
+import type { AuthenticatedRequest } from '../shared/types/authenticated-request';
 import { parseIncludeAudio } from '../shared/helpers/parse-include-audio';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
@@ -30,11 +32,13 @@ export class YoutubeTranscriptionsController {
     private readonly createYoutubeTranscriptionCommand: CreateYoutubeTranscriptionCommand,
     private readonly audioJobService: AudioJobService,
     private readonly audioFilesService: AudioFilesService,
-  ) { }
+  ) {}
 
   @Get('transcriptions')
-  async listTranscriptions() {
-    return await this.listAllYoutubeTranscriptionsQuery.execute();
+  async listTranscriptions(@Req() request: AuthenticatedRequest) {
+    return await this.listAllYoutubeTranscriptionsQuery.execute(
+      request.user.id,
+    );
   }
 
   @Post('transcriptions')
@@ -49,13 +53,15 @@ export class YoutubeTranscriptionsController {
 
   @Get('transcriptions/:id')
   async getTranscription(
+    @Req() request: AuthenticatedRequest,
     @Param('id', ParseUUIDPipe) id: string,
     @Query('includeAudio') includeAudio?: string,
   ) {
     const shouldIncludeAudio = parseIncludeAudio(includeAudio);
     const data = await this.getYoutubeTranscriptionByIdQuery.execute(
       id,
-      shouldIncludeAudio,
+      request.user.id,
+      { includeAudio: shouldIncludeAudio },
     );
 
     if (!data || !data.transcription) {
@@ -73,8 +79,15 @@ export class YoutubeTranscriptionsController {
 
   @Post('transcriptions/:id/audio')
   @HttpCode(202)
-  async generateAudio(@Param('id', ParseUUIDPipe) id: string) {
-    const data = await this.getYoutubeTranscriptionByIdQuery.execute(id);
+  async generateAudio(
+    @Req() request: AuthenticatedRequest,
+    @Param('id', ParseUUIDPipe) id: string,
+  ) {
+    const data = await this.getYoutubeTranscriptionByIdQuery.execute(
+      id,
+      request.user.id,
+      { embedOwnerNote: false },
+    );
 
     if (!data || !data.transcription) {
       throw new NotFoundException('YouTube transcription not found');
