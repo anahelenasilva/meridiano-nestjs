@@ -50,4 +50,54 @@ export class NotesReadService {
       );
     });
   }
+
+  /**
+   * Returns the active (non-soft-deleted) notes owned by `userId` for the given
+   * `sourceType` and collection of `sourceId`s, keyed by `source_id`.
+   *
+   * Runs a single query regardless of how many ids are requested, so callers can
+   * embed notes onto a page of items without an N+1 lookup pattern. Ids with no
+   * active note are simply absent from the returned map. The unique active-note
+   * index guarantees at most one active note per `(user, source_type, source_id)`,
+   * so keying by `source_id` never collides. An empty `sourceIds` short-circuits
+   * to an empty map without touching the database.
+   */
+  async getActiveNotesBySourceIds(
+    userId: string,
+    sourceType: NoteSourceType,
+    sourceIds: readonly string[],
+  ): Promise<Map<string, Note>> {
+    if (sourceIds.length === 0) {
+      return new Map();
+    }
+
+    // De-duplicate so a page with repeated ids still binds a clean id array.
+    const uniqueSourceIds = [...new Set(sourceIds)];
+    const db = this.databaseService.getDbConnection();
+
+    return new Promise((resolve, reject) => {
+      db.all(
+        `
+          SELECT id, user_id, source_type, source_id, content, created_at, updated_at
+          FROM notes
+          WHERE user_id = ? AND source_type = ? AND source_id = ANY(?::uuid[]) AND deleted_at IS NULL
+        `,
+        [userId, sourceType, uniqueSourceIds],
+        (err: Error | null, rows?: NoteRow[]) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          const notesBySourceId = new Map<string, Note>();
+          for (const row of rows ?? []) {
+            const note = mapRowToNote(row);
+            notesBySourceId.set(note.source_id, note);
+          }
+
+          resolve(notesBySourceId);
+        },
+      );
+    });
+  }
 }
