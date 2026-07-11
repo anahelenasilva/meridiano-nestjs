@@ -8,20 +8,13 @@ import {
 import { ArticlesService } from '../articles/articles.service';
 import { YoutubeTranscriptionsService } from '../youtube-transcriptions/services/youtube-transcriptions.service';
 import {
+  mapRowToNote,
   Note,
+  NoteRow,
   NoteSourceType,
   SaveNoteDto,
 } from './note.entity';
-
-interface NoteRow {
-  id: string;
-  user_id: string;
-  source_type: NoteSourceType;
-  source_id: string;
-  content: string;
-  created_at: string;
-  updated_at: string;
-}
+import { NotesReadService } from './notes-read.service';
 
 @Injectable()
 export class NotesService {
@@ -29,6 +22,7 @@ export class NotesService {
     private readonly databaseService: DatabaseService,
     private readonly articlesService: ArticlesService,
     private readonly youtubeTranscriptionsService: YoutubeTranscriptionsService,
+    private readonly notesReadService: NotesReadService,
   ) {}
 
   async saveNote(userId: string, input: SaveNoteDto): Promise<Note | null> {
@@ -106,27 +100,7 @@ export class NotesService {
     sourceType: NoteSourceType,
     sourceId: string,
   ): Promise<Note | null> {
-    const db = this.databaseService.getDbConnection();
-
-    return new Promise((resolve, reject) => {
-      db.get(
-        `
-          SELECT id, user_id, source_type, source_id, content, created_at, updated_at
-          FROM notes
-          WHERE user_id = ? AND source_type = ? AND source_id = ? AND deleted_at IS NULL
-          LIMIT 1
-        `,
-        [userId, sourceType, sourceId],
-        (err: Error | null, row?: NoteRow) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-
-          resolve(row ? this.mapRowToNote(row) : null);
-        },
-      );
-    });
+    return this.notesReadService.getActiveNote(userId, sourceType, sourceId);
   }
 
   private async insertNote(
@@ -156,7 +130,7 @@ export class NotesService {
             return;
           }
 
-          resolve(this.mapRowToNote(row));
+          resolve(mapRowToNote(row));
         },
       );
     });
@@ -185,7 +159,7 @@ export class NotesService {
             return;
           }
 
-          resolve(this.mapRowToNote(row));
+          resolve(mapRowToNote(row));
         },
       );
     });
@@ -212,18 +186,6 @@ export class NotesService {
         },
       );
     });
-  }
-
-  private mapRowToNote(row: NoteRow): Note {
-    return {
-      id: row.id,
-      user_id: row.user_id,
-      source_type: row.source_type,
-      source_id: row.source_id,
-      content: row.content,
-      created_at: new Date(row.created_at),
-      updated_at: new Date(row.updated_at),
-    };
   }
 
   private isUniqueViolation(error: unknown): boolean {

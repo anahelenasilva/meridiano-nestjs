@@ -13,6 +13,7 @@ import {
   ParseUUIDPipe,
   Post,
   Query,
+  Req,
 } from '@nestjs/common';
 import { parseIncludeAudio } from '../shared/helpers/parse-include-audio';
 import { ScraperService } from '../scraper/scraper.service';
@@ -24,6 +25,12 @@ import { GenerateUploadUrlDto } from './dto/generate-upload-url.dto';
 import { ProcessMarkdownArticleDto } from './dto/process-markdown-article.dto';
 import { GetArticleByIdQuery } from './queries/get-article-by-id.query';
 import { ListArticlesQuery } from './queries/list-articles.query';
+
+type AuthenticatedRequest = {
+  user: {
+    id: string;
+  };
+};
 
 @Controller('api/articles')
 export class ArticlesController {
@@ -171,11 +178,16 @@ export class ArticlesController {
 
   @Get(':id')
   async getArticle(
+    @Req() request: AuthenticatedRequest,
     @Param('id', ParseUUIDPipe) id: string,
     @Query('includeAudio') includeAudio?: string,
   ) {
     const shouldIncludeAudio = parseIncludeAudio(includeAudio);
-    const data = await this.getArticleByIdQuery.execute(id, shouldIncludeAudio);
+    const data = await this.getArticleByIdQuery.execute(
+      id,
+      request.user.id,
+      shouldIncludeAudio,
+    );
 
     if (!data || !data.article) {
       throw new NotFoundException('Article not found');
