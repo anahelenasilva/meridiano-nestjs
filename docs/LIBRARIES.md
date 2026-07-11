@@ -35,7 +35,7 @@ Path mapping is configured in:
 
 | Library | Main role | Typical import |
 | --- | --- | --- |
-| `@libs/auth` | JWT auth + auth helpers + rate limiting | `AuthModule`, `AuthService`, `JwtAuthGuard` |
+| `@libs/auth` | JWT auth + auth helpers + rate limiting | `AuthModule`, `AuthService`, `JwtAuthGuard`, `CurrentUser` |
 | `@libs/audio` | Audio generation queue orchestration | `AudioModule`, `AudioJobService` |
 | `@libs/database` | Postgres access + TypeORM bootstrapping | `DatabaseModule`, `DatabaseService` |
 | `@libs/email` | Provider-based email sending (Mailgun currently) | `EmailModule.forRoot()`, `EmailService` |
@@ -52,6 +52,8 @@ Path mapping is configured in:
 - `AuthModule`
 - `AuthService`
 - `USER_LOOKUP_PROVIDER_TOKEN`
+- `CurrentUser`
+- `AuthenticatedUser` (type)
 - `JwtAuthGuard`
 - `JwtStrategy`
 - `Public`, `IS_PUBLIC_KEY`
@@ -67,6 +69,11 @@ Path mapping is configured in:
 - `AuthModule.forRootAsync({ useFactory, inject, imports })`
 
 `JWT_SECRET` is required and validated during module initialization.
+
+### Request-scoped auth helpers
+
+- `CurrentUser`: controller param decorator that injects the authenticated JWT user
+- `AuthenticatedUser`: shared type for the authenticated user payload currently exposed to controllers
 
 ### User lookup contract
 
