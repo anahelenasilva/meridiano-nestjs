@@ -59,8 +59,11 @@ export class BookmarksController {
   @Delete()
   async removeBookmark(
     @CurrentUser() user: AuthenticatedUser,
+    @Query() query: Record<string, string | undefined>,
     @Query('article_id', ParseUUIDPipe) articleId: string,
   ) {
+    this.rejectClientSuppliedUserId(query);
+
     const removed = await this.bookmarksService.removeBookmark(
       user.id,
       articleId,
@@ -76,9 +79,12 @@ export class BookmarksController {
   @Get()
   async getBookmarks(
     @CurrentUser() user: AuthenticatedUser,
+    @Query() query: Record<string, string | undefined>,
     @Query('page') page?: string,
     @Query('per_page') perPage?: string,
   ) {
+    this.rejectClientSuppliedUserId(query);
+
     const pageNum = page ? parseInt(page, 10) : 1;
     const perPageNum = perPage ? parseInt(perPage, 10) : 20;
 
@@ -108,8 +114,11 @@ export class BookmarksController {
   @Get('check/:articleId')
   async checkBookmark(
     @CurrentUser() user: AuthenticatedUser,
+    @Query() query: Record<string, string | undefined>,
     @Param('articleId', ParseUUIDPipe) articleId: string,
   ) {
+    this.rejectClientSuppliedUserId(query);
+
     const isBookmarked = await this.bookmarksService.isBookmarked(
       user.id,
       articleId,
@@ -119,9 +128,20 @@ export class BookmarksController {
   }
 
   @Get('count')
-  async getBookmarkCount(@CurrentUser() user: AuthenticatedUser) {
+  async getBookmarkCount(
+    @CurrentUser() user: AuthenticatedUser,
+    @Query() query: Record<string, string | undefined>,
+  ) {
+    this.rejectClientSuppliedUserId(query);
+
     const count = await this.bookmarksService.getBookmarkCount(user.id);
 
     return { count };
+  }
+
+  private rejectClientSuppliedUserId(query: Record<string, string | undefined>) {
+    if (query.user_id !== undefined) {
+      throw new BadRequestException('property user_id should not exist');
+    }
   }
 }

@@ -82,6 +82,7 @@ describe('BookmarksController', () => {
 
       const result = await controller.removeBookmark(
         { id: OWNER_ID },
+        { article_id: ARTICLE_ID },
         ARTICLE_ID,
       );
 
@@ -92,6 +93,20 @@ describe('BookmarksController', () => {
       expect(result).toEqual({
         success: true,
         message: 'Bookmark removed successfully',
+      });
+    });
+
+    it('rejects a client-supplied user_id query param', async () => {
+      await expect(
+        controller.removeBookmark(
+          { id: OWNER_ID },
+          { article_id: ARTICLE_ID, user_id: ATTACKER_ID },
+          ARTICLE_ID,
+        ),
+      ).rejects.toMatchObject({
+        response: {
+          message: 'property user_id should not exist',
+        },
       });
     });
   });
@@ -105,13 +120,23 @@ describe('BookmarksController', () => {
         perPage: 20,
       });
 
-      await controller.getBookmarks({ id: OWNER_ID });
+      await controller.getBookmarks({ id: OWNER_ID }, {});
 
       expect(mockBookmarksService.getBookmarks).toHaveBeenCalledWith(
         OWNER_ID,
         1,
         20,
       );
+    });
+
+    it('rejects a client-supplied user_id query param', async () => {
+      await expect(
+        controller.getBookmarks({ id: OWNER_ID }, { user_id: ATTACKER_ID }),
+      ).rejects.toMatchObject({
+        response: {
+          message: 'property user_id should not exist',
+        },
+      });
     });
   });
 
@@ -121,6 +146,7 @@ describe('BookmarksController', () => {
 
       const result = await controller.checkBookmark(
         { id: OWNER_ID },
+        {},
         ARTICLE_ID,
       );
 
@@ -130,18 +156,45 @@ describe('BookmarksController', () => {
       );
       expect(result).toEqual({ bookmarked: true });
     });
+
+    it('rejects a client-supplied user_id query param', async () => {
+      await expect(
+        controller.checkBookmark(
+          { id: OWNER_ID },
+          { user_id: ATTACKER_ID },
+          ARTICLE_ID,
+        ),
+      ).rejects.toMatchObject({
+        response: {
+          message: 'property user_id should not exist',
+        },
+      });
+    });
   });
 
   describe('getBookmarkCount', () => {
     it('counts bookmarks for the authenticated user', async () => {
       mockBookmarksService.getBookmarkCount.mockResolvedValue(3);
 
-      const result = await controller.getBookmarkCount({ id: OWNER_ID });
+      const result = await controller.getBookmarkCount({ id: OWNER_ID }, {});
 
       expect(mockBookmarksService.getBookmarkCount).toHaveBeenCalledWith(
         OWNER_ID,
       );
       expect(result).toEqual({ count: 3 });
+    });
+
+    it('rejects a client-supplied user_id query param', async () => {
+      await expect(
+        controller.getBookmarkCount(
+          { id: OWNER_ID },
+          { user_id: ATTACKER_ID },
+        ),
+      ).rejects.toMatchObject({
+        response: {
+          message: 'property user_id should not exist',
+        },
+      });
     });
   });
 });
