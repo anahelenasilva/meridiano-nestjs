@@ -1,3 +1,4 @@
+import { CurrentUser, type AuthenticatedUser } from '@libs/auth';
 import {
   BadRequestException,
   Body,
@@ -11,7 +12,6 @@ import {
   Query,
 } from '@nestjs/common';
 import { ArticlesService } from '../articles/articles.service';
-import { UsersService } from '../users/users.service';
 import {
   BookmarkResponseDto,
   BookmarkWithArticleResponseDto,
@@ -23,17 +23,14 @@ import { BookmarksService } from './bookmarks.service';
 export class BookmarksController {
   constructor(
     private readonly bookmarksService: BookmarksService,
-    private readonly usersService: UsersService,
     private readonly articlesService: ArticlesService,
   ) {}
 
   @Post()
-  async addBookmark(@Body() createBookmarkDto: CreateBookmarkDto) {
-    const user = await this.usersService.getUserById(createBookmarkDto.user_id);
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
-
+  async addBookmark(
+    @CurrentUser() user: AuthenticatedUser,
+    @Body() createBookmarkDto: CreateBookmarkDto,
+  ) {
     const article = await this.articlesService.getArticleById(
       createBookmarkDto.article_id,
     );
@@ -43,7 +40,7 @@ export class BookmarksController {
 
     try {
       const bookmark = await this.bookmarksService.addBookmark(
-        createBookmarkDto.user_id,
+        user.id,
         createBookmarkDto.article_id,
       );
 
@@ -61,11 +58,14 @@ export class BookmarksController {
 
   @Delete()
   async removeBookmark(
-    @Query('user_id', ParseUUIDPipe) userId: string,
+    @CurrentUser() user: AuthenticatedUser,
+    @Query() query: Record<string, string | undefined>,
     @Query('article_id', ParseUUIDPipe) articleId: string,
   ) {
+    this.rejectClientSuppliedUserId(query);
+
     const removed = await this.bookmarksService.removeBookmark(
-      userId,
+      user.id,
       articleId,
     );
 
@@ -78,10 +78,13 @@ export class BookmarksController {
 
   @Get()
   async getBookmarks(
-    @Query('user_id', ParseUUIDPipe) userId: string,
+    @CurrentUser() user: AuthenticatedUser,
+    @Query() query: Record<string, string | undefined>,
     @Query('page') page?: string,
     @Query('per_page') perPage?: string,
   ) {
+    this.rejectClientSuppliedUserId(query);
+
     const pageNum = page ? parseInt(page, 10) : 1;
     const perPageNum = perPage ? parseInt(perPage, 10) : 20;
 
@@ -92,7 +95,7 @@ export class BookmarksController {
     }
 
     const result = await this.bookmarksService.getBookmarks(
-      userId,
+      user.id,
       pageNum,
       perPageNum,
     );
@@ -110,11 +113,14 @@ export class BookmarksController {
 
   @Get('check/:articleId')
   async checkBookmark(
+    @CurrentUser() user: AuthenticatedUser,
+    @Query() query: Record<string, string | undefined>,
     @Param('articleId', ParseUUIDPipe) articleId: string,
-    @Query('user_id', ParseUUIDPipe) userId: string,
   ) {
+    this.rejectClientSuppliedUserId(query);
+
     const isBookmarked = await this.bookmarksService.isBookmarked(
-      userId,
+      user.id,
       articleId,
     );
 
@@ -122,9 +128,20 @@ export class BookmarksController {
   }
 
   @Get('count')
-  async getBookmarkCount(@Query('user_id', ParseUUIDPipe) userId: string) {
-    const count = await this.bookmarksService.getBookmarkCount(userId);
+  async getBookmarkCount(
+    @CurrentUser() user: AuthenticatedUser,
+    @Query() query: Record<string, string | undefined>,
+  ) {
+    this.rejectClientSuppliedUserId(query);
+
+    const count = await this.bookmarksService.getBookmarkCount(user.id);
 
     return { count };
+  }
+
+  private rejectClientSuppliedUserId(query: Record<string, string | undefined>) {
+    if (query.user_id !== undefined) {
+      throw new BadRequestException('property user_id should not exist');
+    }
   }
 }

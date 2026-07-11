@@ -40,9 +40,7 @@ describe('NotesController', () => {
 
     const result = await controller.saveNote(
       {
-        user: {
-          id: '11111111-1111-1111-1111-111111111111',
-        },
+        id: '11111111-1111-1111-1111-111111111111',
       },
       {
         source_type: 'article',

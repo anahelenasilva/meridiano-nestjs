@@ -1,5 +1,5 @@
-import { Body, Controller, Post, Req } from '@nestjs/common';
-import type { AuthenticatedRequest } from '../shared/types/authenticated-request';
+import { CurrentUser, type AuthenticatedUser } from '@libs/auth';
+import { Body, Controller, Post } from '@nestjs/common';
 import { SaveNoteDto, SaveNoteResponseDto } from './note.entity';
 import { NotesService } from './notes.service';
 
@@ -9,10 +9,10 @@ export class NotesController {
 
   @Post()
   async saveNote(
-    @Req() request: AuthenticatedRequest,
+    @CurrentUser() user: AuthenticatedUser,
     @Body() dto: SaveNoteDto,
   ): Promise<SaveNoteResponseDto> {
-    const note = await this.notesService.saveNote(request.user.id, dto);
+    const note = await this.notesService.saveNote(user.id, dto);
     return new SaveNoteResponseDto(note);
   }
 }
