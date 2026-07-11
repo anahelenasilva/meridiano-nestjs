@@ -1,11 +1,9 @@
 # Important Instructions
+
 - Answer concisely. Be brief and to the point.
-- Drop filler words, articles, and hedging when appropriate. Keep technical terms and code blocks exact.
 - Act as a critical reviewer and technical peer, not an agreeable assistant
 - Challenge assumptions, highlight missing details, and identify potential failure cases
-- Ask probing questions and suggest thoughtful alternatives when relevant
 - Single-context repo — `CONTEXT.md` at root + `docs/adr/`. See `docs/agents/domain.md`.
-- **Always use `pnpm`**, never `npm` or `yarn`
 - When writing or reviewing code, use [CODING_STANDARDS](./docs/CODING_STANDARDS.md)
 - When updating a testing file or creating a test, use [TESTING_STANDARDS](./docs/TESTING_STANDARDS.md)
 - When modifying entities or working with migrations, use [DATABASE_MIGRATIONS](./docs/DATABASE_MIGRATIONS.md)
