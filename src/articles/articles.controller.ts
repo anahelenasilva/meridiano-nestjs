@@ -16,6 +16,7 @@ import {
   Req,
 } from '@nestjs/common';
 import { parseIncludeAudio } from '../shared/helpers/parse-include-audio';
+import type { AuthenticatedRequest } from '../shared/types/authenticated-request';
 import { ScraperService } from '../scraper/scraper.service';
 import { GenerateArticleAudioCommand } from './commands/generate-article-audio.command';
 import type { PaginatedArticleInput } from './article.entity';
@@ -25,12 +26,6 @@ import { GenerateUploadUrlDto } from './dto/generate-upload-url.dto';
 import { ProcessMarkdownArticleDto } from './dto/process-markdown-article.dto';
 import { GetArticleByIdQuery } from './queries/get-article-by-id.query';
 import { ListArticlesQuery } from './queries/list-articles.query';
-
-type AuthenticatedRequest = {
-  user: {
-    id: string;
-  };
-};
 
 @Controller('api/articles')
 export class ArticlesController {
