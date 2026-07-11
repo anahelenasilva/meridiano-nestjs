@@ -15,6 +15,28 @@ export interface Note {
   updated_at: Date;
 }
 
+export interface NoteRow {
+  id: string;
+  user_id: string;
+  source_type: NoteSourceType;
+  source_id: string;
+  content: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export function mapRowToNote(row: NoteRow): Note {
+  return {
+    id: row.id,
+    user_id: row.user_id,
+    source_type: row.source_type,
+    source_id: row.source_id,
+    content: row.content,
+    created_at: new Date(row.created_at),
+    updated_at: new Date(row.updated_at),
+  };
+}
+
 export class SaveNoteDto {
   @IsIn(NOTE_SOURCE_TYPES, {
     message: `source_type must be one of: ${NOTE_SOURCE_TYPES.join(', ')}`,

@@ -90,6 +90,50 @@ describe('ExternalArticlesController', () => {
     expect(controller).toBeDefined();
   });
 
+  // Guards issue #122: private notes must never leak through the public/external
+  // article API. These are regression tripwires — the isolation currently holds
+  // by construction, and these tests fail loudly if a future change wires note
+  // data into this endpoint.
+  describe('note data isolation (issue #122)', () => {
+    it('does not inject any Notes provider into the external controller', () => {
+      const paramTypes: Array<{ name?: string }> =
+        Reflect.getMetadata('design:paramtypes', ExternalArticlesController) ?? [];
+      const dependencyNames = paramTypes.map((type) => type?.name ?? '');
+
+      // Guard against the assertion passing vacuously if metadata is missing.
+      expect(dependencyNames.length).toBeGreaterThan(0);
+      expect(dependencyNames).not.toContain('');
+      expect(
+        dependencyNames.some((name) => /note/i.test(name)),
+      ).toBe(false);
+    });
+
+    it('does not expose a note field on the successful submission response', async () => {
+      telegramSubmissionService.createSubmission.mockResolvedValue('submission-uuid');
+      scraperService.scrapeSingleArticle.mockResolvedValue('article-uuid-123');
+      queueService.addArticleProcessingJob.mockResolvedValue({
+        success: true,
+        articleFileKey: 'article-uuid-123',
+        jobId: 'job-uuid-456',
+        message: 'Article queued',
+      });
+
+      const result = await controller.createExternal({
+        url: 'https://example.com/article',
+        feedProfile: FeedProfile.TECHNOLOGY,
+        source: 'telegram',
+        metadata: {
+          chatId: '123456789',
+          messageId: '456',
+          username: '@testuser',
+          note: 'Great article about AI',
+        },
+      });
+
+      expect(result).not.toHaveProperty('note');
+    });
+  });
+
   describe('createExternal', () => {
     const validDto = {
       url: 'https://example.com/article',

@@ -1,12 +1,7 @@
 import { Body, Controller, Post, Req } from '@nestjs/common';
+import type { AuthenticatedRequest } from '../shared/types/authenticated-request';
 import { SaveNoteDto, SaveNoteResponseDto } from './note.entity';
 import { NotesService } from './notes.service';
-
-type AuthenticatedRequest = {
-  user: {
-    id: string;
-  };
-};
 
 @Controller('api/notes')
 export class NotesController {
