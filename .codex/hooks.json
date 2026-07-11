@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // \"\"' | { read -r f; case \"$f\" in *.sample|*.example|*.test) exit 0 ;; *.env*) echo \"Blocked: editing .env files is not allowed\" >&2; exit 1 ;; esac; }"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // \"\"' | { read -r f; [[ \"$f\" == *.ts ]] && pnpm prettier --write \"$f\" 2>/dev/null && pnpm eslint \"$f\" --fix --no-warn-ignored 2>/dev/null || true; }"
+          }
+        ]
+      }
+    ]
+  }
+}
