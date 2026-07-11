@@ -61,7 +61,7 @@ export class YoutubeTranscriptionsController {
     const data = await this.getYoutubeTranscriptionByIdQuery.execute(
       id,
       request.user.id,
-      shouldIncludeAudio,
+      { includeAudio: shouldIncludeAudio },
     );
 
     if (!data || !data.transcription) {
@@ -86,6 +86,7 @@ export class YoutubeTranscriptionsController {
     const data = await this.getYoutubeTranscriptionByIdQuery.execute(
       id,
       request.user.id,
+      { embedOwnerNote: false },
     );
 
     if (!data || !data.transcription) {

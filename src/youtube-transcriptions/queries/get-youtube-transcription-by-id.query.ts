@@ -21,6 +21,11 @@ export type GetYoutubeTranscriptionByIdResponse = {
   audio_error?: string;
 };
 
+type GetYoutubeTranscriptionByIdOptions = {
+  includeAudio?: boolean;
+  embedOwnerNote?: boolean;
+};
+
 @Injectable()
 export class GetYoutubeTranscriptionByIdQuery {
   private readonly logger = new Logger(GetYoutubeTranscriptionByIdQuery.name);
@@ -36,28 +41,34 @@ export class GetYoutubeTranscriptionByIdQuery {
   async execute(
     id: string,
     userId: string,
-    includeAudio: boolean = false,
+    options: GetYoutubeTranscriptionByIdOptions = {},
   ): Promise<GetYoutubeTranscriptionByIdResponse | null> {
+    const { includeAudio = false, embedOwnerNote = true } = options;
     const transcription = await this.service.getTranscriptionById(id);
 
     if (!transcription) {
       return null;
     }
 
-    // Embed the owner's active private note on the transcription, mirroring the
-    // Article-detail contract (issue #124): note is a field of the resource.
-    const activeNote = await this.notesReadService.getActiveNote(
-      userId,
-      'transcription',
-      id,
-    );
-
     const response: GetYoutubeTranscriptionByIdResponse = {
       transcription: {
         ...transcription,
-        note: activeNote ? new NoteResponseDto(activeNote) : null,
+        note: null,
       },
     };
+
+    if (embedOwnerNote) {
+      // Embed the owner's active private note on the transcription, mirroring
+      // the Article-detail contract (issue #124): note is a field of the resource.
+      const activeNote = await this.notesReadService.getActiveNote(
+        userId,
+        'transcription',
+        id,
+      );
+      response.transcription.note = activeNote
+        ? new NoteResponseDto(activeNote)
+        : null;
+    }
 
     if (includeAudio) {
       try {

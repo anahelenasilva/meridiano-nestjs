@@ -47,7 +47,7 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
   it('should return transcription without audio when includeAudio is false', async () => {
     mockService.getTranscriptionById.mockResolvedValue(mockTranscription);
 
-    const result = await query.execute(transcriptionId, userId, false);
+    const result = await query.execute(transcriptionId, userId);
 
     expect(result).toEqual({
       transcription: { ...mockTranscription, note: null },
@@ -71,7 +71,9 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
       'https://s3.example.com/presigned',
     );
 
-    const result = await query.execute(transcriptionId, userId, true);
+    const result = await query.execute(transcriptionId, userId, {
+      includeAudio: true,
+    });
 
     expect(result).toEqual({
       transcription: { ...mockTranscription, note: null },
@@ -93,7 +95,9 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
     mockService.getTranscriptionById.mockResolvedValue(mockTranscription);
     mockAudioFilesService.getAudioFileBySource.mockResolvedValue(null);
 
-    const result = await query.execute(transcriptionId, userId, true);
+    const result = await query.execute(transcriptionId, userId, {
+      includeAudio: true,
+    });
 
     expect(result).toEqual({
       transcription: { ...mockTranscription, note: null },
@@ -118,7 +122,7 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
       updated_at: new Date('2026-05-17T12:05:00.000Z'),
     } as Note);
 
-    const result = await query.execute(transcriptionId, userId, false);
+    const result = await query.execute(transcriptionId, userId);
 
     expect(mockNotesReadService.getActiveNote).toHaveBeenCalledWith(
       userId,
@@ -141,9 +145,36 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
     mockService.getTranscriptionById.mockResolvedValue(mockTranscription);
     mockNotesReadService.getActiveNote.mockResolvedValue(null);
 
-    const result = await query.execute(transcriptionId, userId, false);
+    const result = await query.execute(transcriptionId, userId);
 
     expect(result?.transcription).toHaveProperty('note', null);
+  });
+
+  it('skips note lookup when note embedding is disabled', async () => {
+    mockService.getTranscriptionById.mockResolvedValue(mockTranscription);
+    mockNotesReadService.getActiveNote.mockRejectedValue(
+      new Error('notes db unavailable'),
+    );
+
+    const result = await query.execute(transcriptionId, userId, {
+      embedOwnerNote: false,
+    });
+
+    expect(result).toEqual({
+      transcription: { ...mockTranscription, note: null },
+    });
+    expect(mockNotesReadService.getActiveNote).not.toHaveBeenCalled();
+  });
+
+  it('surfaces note lookup failures when note embedding is required', async () => {
+    mockService.getTranscriptionById.mockResolvedValue(mockTranscription);
+    mockNotesReadService.getActiveNote.mockRejectedValue(
+      new Error('notes db unavailable'),
+    );
+
+    await expect(query.execute(transcriptionId, userId)).rejects.toThrow(
+      'notes db unavailable',
+    );
   });
 
   it('should include custom_prompt in response when transcription has custom_prompt null (backward compat)', async () => {
@@ -155,7 +186,7 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
       transcriptionWithNullCustomPrompt,
     );
 
-    const result = await query.execute(transcriptionId, userId, false);
+    const result = await query.execute(transcriptionId, userId);
 
     expect(result).not.toBeNull();
     expect(result?.transcription).toHaveProperty('custom_prompt', null);
@@ -170,7 +201,7 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
       transcriptionWithCustomPrompt,
     );
 
-    const result = await query.execute(transcriptionId, userId, false);
+    const result = await query.execute(transcriptionId, userId);
 
     expect(result).not.toBeNull();
     expect(result?.transcription).toHaveProperty(
@@ -195,7 +226,9 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
       new Error('DB connection failed'),
     );
 
-    const result = await query.execute(transcriptionId, userId, true);
+    const result = await query.execute(transcriptionId, userId, {
+      includeAudio: true,
+    });
 
     expect(result).toEqual({
       transcription: { ...mockTranscription, note: null },
@@ -220,7 +253,9 @@ describe('GetYoutubeTranscriptionByIdQuery', () => {
       'https://s3.example.com/presigned',
     );
 
-    const result = await query.execute(transcriptionId, userId, true);
+    const result = await query.execute(transcriptionId, userId, {
+      includeAudio: true,
+    });
 
     expect(result).not.toBeNull();
     expect(result?.audio).toBeDefined();

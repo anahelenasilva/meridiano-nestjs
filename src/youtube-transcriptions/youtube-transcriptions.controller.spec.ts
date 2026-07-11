@@ -288,6 +288,7 @@ describe('YoutubeTranscriptionsController', () => {
         text: mockTranscription.transcriptionSummary,
         date: mockTranscription.postedAt,
       });
+      expect(mockNotesReadService.getActiveNote).not.toHaveBeenCalled();
     });
 
     it('should use transcriptionText when transcriptionSummary is empty', async () => {
