@@ -10,6 +10,7 @@ import { AiService } from '../ai/ai.service';
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
 import { NotesCleanupModule } from '../notes/notes-cleanup.module';
+import { NotesReadModule } from '../notes/notes-read.module';
 import { YoutubeChannelsModule } from '../youtube-channels/youtube-channels.module';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
@@ -42,6 +43,7 @@ import { ProcessTranscriptionFilesUseCase } from './usecases/process-transcripti
     forwardRef(() => QueueModule),
     AudioModule,
     NotesCleanupModule,
+    NotesReadModule,
   ],
   providers: [
     YoutubeTranscriptionsService,

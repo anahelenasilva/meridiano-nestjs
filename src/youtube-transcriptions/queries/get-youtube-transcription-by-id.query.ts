@@ -2,6 +2,8 @@ import { S3Service } from '@libs/s3';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '../../config/config.service';
 import { AudioFilesService } from '../../audio-files/audio-files.service';
+import { NoteResponseDto } from '../../notes/note.entity';
+import { NotesReadService } from '../../notes/notes-read.service';
 import { YoutubeTranscription } from '../entities/youtube-transcription.entity';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 
@@ -14,7 +16,7 @@ export type TranscriptionAudioMetadata = {
 };
 
 export type GetYoutubeTranscriptionByIdResponse = {
-  transcription: YoutubeTranscription;
+  transcription: YoutubeTranscription & { note: NoteResponseDto | null };
   audio?: TranscriptionAudioMetadata;
   audio_error?: string;
 };
@@ -28,10 +30,12 @@ export class GetYoutubeTranscriptionByIdQuery {
     private readonly audioFilesService: AudioFilesService,
     private readonly s3Service: S3Service,
     private readonly configService: ConfigService,
+    private readonly notesReadService: NotesReadService,
   ) {}
 
   async execute(
     id: string,
+    userId: string,
     includeAudio: boolean = false,
   ): Promise<GetYoutubeTranscriptionByIdResponse | null> {
     const transcription = await this.service.getTranscriptionById(id);
@@ -40,8 +44,19 @@ export class GetYoutubeTranscriptionByIdQuery {
       return null;
     }
 
+    // Embed the owner's active private note on the transcription, mirroring the
+    // Article-detail contract (issue #124): note is a field of the resource.
+    const activeNote = await this.notesReadService.getActiveNote(
+      userId,
+      'transcription',
+      id,
+    );
+
     const response: GetYoutubeTranscriptionByIdResponse = {
-      transcription,
+      transcription: {
+        ...transcription,
+        note: activeNote ? new NoteResponseDto(activeNote) : null,
+      },
     };
 
     if (includeAudio) {
