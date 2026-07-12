@@ -2,6 +2,7 @@ import { BadRequestException, NotFoundException, ValidationPipe } from '@nestjs/
 import { mock } from 'jest-mock-extended';
 import { ArticlesService } from '../articles/articles.service';
 import { DBArticle } from '../articles/article.entity';
+import { NotesReadService } from '../notes/notes-read.service';
 import { CreateBookmarkDto } from './bookmark.entity';
 import { BookmarksController } from './bookmarks.controller';
 import { BookmarksService } from './bookmarks.service';
@@ -13,9 +14,11 @@ const ARTICLE_ID = '22222222-2222-2222-2222-222222222222';
 describe('BookmarksController', () => {
   const mockBookmarksService = mock<BookmarksService>();
   const mockArticlesService = mock<ArticlesService>();
+  const mockNotesReadService = mock<NotesReadService>();
   const controller = new BookmarksController(
     mockBookmarksService,
     mockArticlesService,
+    mockNotesReadService,
   );
   const validationPipe = new ValidationPipe({
     whitelist: true,
@@ -25,6 +28,7 @@ describe('BookmarksController', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    mockNotesReadService.getActiveNotesBySourceIds.mockResolvedValue(new Map());
   });
 
   describe('addBookmark', () => {
@@ -178,6 +182,126 @@ describe('BookmarksController', () => {
         1,
         20,
       );
+      expect(mockNotesReadService.getActiveNotesBySourceIds).toHaveBeenCalledWith(
+        OWNER_ID,
+        'article',
+        [],
+      );
+    });
+
+    it('embeds article notes via a single bulk lookup and keeps the note nested under article', async () => {
+      mockBookmarksService.getBookmarks.mockResolvedValue({
+        bookmarks: [
+          {
+            id: 'bookmark-1',
+            user_id: OWNER_ID,
+            article_id: ARTICLE_ID,
+            created_at: new Date('2026-05-17T12:10:00.000Z'),
+            article: {
+              id: ARTICLE_ID,
+              url: 'https://example.com/article',
+              title: 'Saved article',
+              published_date: new Date('2026-05-17T10:00:00.000Z'),
+              feed_source: 'Source',
+              raw_content: 'raw',
+              processed_content: 'processed',
+              embedding: null,
+              impact_rating: 5,
+              feed_profile: 'TECHNOLOGY',
+              image_url: null,
+              created_at: new Date('2026-05-17T10:00:00.000Z'),
+              categories: null,
+            },
+          },
+        ],
+        total: 1,
+        page: 1,
+        perPage: 20,
+      });
+      mockNotesReadService.getActiveNotesBySourceIds.mockResolvedValue(
+        new Map([
+          [
+            ARTICLE_ID,
+            {
+              id: 'note-1',
+              user_id: OWNER_ID,
+              source_type: 'article',
+              source_id: ARTICLE_ID,
+              content: 'Saved thought',
+              created_at: new Date('2026-05-17T12:00:00.000Z'),
+              updated_at: new Date('2026-05-17T12:05:00.000Z'),
+            },
+          ],
+        ]),
+      );
+
+      const result = await controller.getBookmarks({ id: OWNER_ID }, {});
+
+      expect(
+        mockNotesReadService.getActiveNotesBySourceIds,
+      ).toHaveBeenCalledTimes(1);
+      expect(mockNotesReadService.getActiveNotesBySourceIds).toHaveBeenCalledWith(
+        OWNER_ID,
+        'article',
+        [ARTICLE_ID],
+      );
+      const articleWithNote = result.bookmarks[0].article as DBArticle & {
+        note: {
+          id: string;
+          content: string;
+          created_at: Date;
+          updated_at: Date;
+        } | null;
+      };
+      expect(articleWithNote.note).toEqual({
+        id: 'note-1',
+        content: 'Saved thought',
+        created_at: new Date('2026-05-17T12:00:00.000Z'),
+        updated_at: new Date('2026-05-17T12:05:00.000Z'),
+      });
+      expect(result.bookmarks[0]).not.toHaveProperty('note');
+      expect(articleWithNote.note).not.toHaveProperty('user_id');
+      expect(articleWithNote.note).not.toHaveProperty('source_id');
+      expect(articleWithNote.note).not.toHaveProperty('source_type');
+    });
+
+    it('sets article.note to null when the bookmark article has no active note', async () => {
+      mockBookmarksService.getBookmarks.mockResolvedValue({
+        bookmarks: [
+          {
+            id: 'bookmark-1',
+            user_id: OWNER_ID,
+            article_id: ARTICLE_ID,
+            created_at: new Date('2026-05-17T12:10:00.000Z'),
+            article: {
+              id: ARTICLE_ID,
+              url: 'https://example.com/article',
+              title: 'Saved article',
+              published_date: new Date('2026-05-17T10:00:00.000Z'),
+              feed_source: 'Source',
+              raw_content: 'raw',
+              processed_content: 'processed',
+              embedding: null,
+              impact_rating: 5,
+              feed_profile: 'TECHNOLOGY',
+              image_url: null,
+              created_at: new Date('2026-05-17T10:00:00.000Z'),
+              categories: null,
+            },
+          },
+        ],
+        total: 1,
+        page: 1,
+        perPage: 20,
+      });
+      mockNotesReadService.getActiveNotesBySourceIds.mockResolvedValue(new Map());
+
+      const result = await controller.getBookmarks({ id: OWNER_ID }, {});
+      const articleWithNote = result.bookmarks[0].article as DBArticle & {
+        note: null;
+      };
+
+      expect(articleWithNote.note).toBeNull();
     });
 
     it('rejects a client-supplied user_id query param', async () => {

@@ -1,3 +1,4 @@
+import { CurrentUser, type AuthenticatedUser } from '@libs/auth';
 import { AudioJobService } from '@libs/audio';
 import { QueueService } from '@libs/queue';
 import { S3Service } from '@libs/s3';
@@ -13,10 +14,8 @@ import {
   ParseUUIDPipe,
   Post,
   Query,
-  Req,
 } from '@nestjs/common';
 import { parseIncludeAudio } from '../shared/helpers/parse-include-audio';
-import type { AuthenticatedRequest } from '../shared/types/authenticated-request';
 import { ScraperService } from '../scraper/scraper.service';
 import { GenerateArticleAudioCommand } from './commands/generate-article-audio.command';
 import type { PaginatedArticleInput } from './article.entity';
@@ -167,20 +166,23 @@ export class ArticlesController {
   }
 
   @Get()
-  async listArticles(@Query() input: PaginatedArticleInput) {
-    return await this.listArticlesQuery.execute(input);
+  async listArticles(
+    @CurrentUser() user: AuthenticatedUser,
+    @Query() input: PaginatedArticleInput,
+  ) {
+    return await this.listArticlesQuery.execute(user.id, input);
   }
 
   @Get(':id')
   async getArticle(
-    @Req() request: AuthenticatedRequest,
+    @CurrentUser() user: AuthenticatedUser,
     @Param('id', ParseUUIDPipe) id: string,
     @Query('includeAudio') includeAudio?: string,
   ) {
     const shouldIncludeAudio = parseIncludeAudio(includeAudio);
     const data = await this.getArticleByIdQuery.execute(
       id,
-      request.user.id,
+      user.id,
       shouldIncludeAudio,
     );
 

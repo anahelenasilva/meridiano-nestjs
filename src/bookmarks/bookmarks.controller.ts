@@ -13,6 +13,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { ArticlesService } from '../articles/articles.service';
+import { attachNotes } from '../notes/attach-notes';
+import { NotesReadService } from '../notes/notes-read.service';
 import {
   AddBookmarkResponseDto,
   BookmarkWithArticleResponseDto,
@@ -25,6 +27,7 @@ export class BookmarksController {
   constructor(
     private readonly bookmarksService: BookmarksService,
     private readonly articlesService: ArticlesService,
+    private readonly notesReadService: NotesReadService,
   ) {}
 
   @Post()
@@ -100,10 +103,24 @@ export class BookmarksController {
       pageNum,
       perPageNum,
     );
+    const notesBySourceId = await this.notesReadService.getActiveNotesBySourceIds(
+      user.id,
+      'article',
+      result.bookmarks.map((bookmark) => bookmark.article.id),
+    );
+    const articlesWithNotes = attachNotes(
+      result.bookmarks.map((bookmark) => bookmark.article),
+      (article) => article.id,
+      notesBySourceId,
+    );
 
     return {
       bookmarks: result.bookmarks.map(
-        (bookmark) => new BookmarkWithArticleResponseDto(bookmark),
+        (bookmark, index) =>
+          new BookmarkWithArticleResponseDto({
+            ...bookmark,
+            article: articlesWithNotes[index],
+          }),
       ),
       total: result.total,
       page: result.page,
