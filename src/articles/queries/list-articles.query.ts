@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { attachNotes } from '../../notes/attach-notes';
+import { attachNotes, WithNote } from '../../notes/attach-notes';
 import { NotesReadService } from '../../notes/notes-read.service';
 import moment from 'moment';
 import { ProfilesService } from '../../profiles/profiles.service';
@@ -19,8 +19,10 @@ export type ListArticlesRequest = {
   category?: string;
 };
 
+type ListArticleItem = WithNote<Awaited<ReturnType<typeof prepareArticleContent>>>;
+
 export type ListArticlesResponse = {
-  articles: any[];
+  articles: ListArticleItem[];
   pagination: {
     page: number;
     per_page: number;
