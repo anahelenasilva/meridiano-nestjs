@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { attachNotes, WithNote } from '../../notes/attach-notes';
+import { NotesReadService } from '../../notes/notes-read.service';
 import moment from 'moment';
 import { ProfilesService } from '../../profiles/profiles.service';
 import { ArticlesService } from '../articles.service';
@@ -17,8 +19,10 @@ export type ListArticlesRequest = {
   category?: string;
 };
 
+type ListArticleItem = WithNote<Awaited<ReturnType<typeof prepareArticleContent>>>;
+
 export type ListArticlesResponse = {
-  articles: any[];
+  articles: ListArticleItem[];
   pagination: {
     page: number;
     per_page: number;
@@ -44,9 +48,11 @@ export class ListArticlesQuery {
   constructor(
     private readonly service: ArticlesService,
     private readonly profilesService: ProfilesService,
+    private readonly notesReadService: NotesReadService,
   ) {}
 
   async execute(
+    userId: string,
     request: ListArticlesRequest,
   ): Promise<ListArticlesResponse | null> {
     const {
@@ -105,9 +111,18 @@ export class ListArticlesQuery {
     const preparedArticles = await Promise.all(
       articles.map((article) => prepareArticleContent(article)),
     );
+    const notesBySourceId = await this.notesReadService.getActiveNotesBySourceIds(
+      userId,
+      'article',
+      preparedArticles.map((article) => article.id),
+    );
 
     return {
-      articles: preparedArticles,
+      articles: attachNotes(
+        preparedArticles,
+        (article) => article.id,
+        notesBySourceId,
+      ),
       pagination: {
         page,
         per_page: perPage,
