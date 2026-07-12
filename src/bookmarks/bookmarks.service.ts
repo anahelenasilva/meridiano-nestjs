@@ -1,7 +1,7 @@
 import { DatabaseService } from '@libs/database';
 import { Injectable } from '@nestjs/common';
 import { ArticleCategory, DBArticle } from '../articles/article.entity';
-import { Bookmark, BookmarkWithArticle } from './bookmark.entity';
+import { AddBookmarkResult, BookmarkWithArticle } from './bookmark.entity';
 
 interface BookmarkRow {
   id: string;
@@ -36,7 +36,7 @@ export class BookmarksService {
   async addBookmark(
     userId: string,
     articleId: string,
-  ): Promise<Bookmark | null> {
+  ): Promise<AddBookmarkResult> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
@@ -70,10 +70,13 @@ export class BookmarksService {
                     );
                   } else {
                     resolve({
-                      id: row.id,
-                      user_id: row.user_id,
-                      article_id: row.article_id,
-                      created_at: new Date(row.created_at),
+                      bookmark: {
+                        id: row.id,
+                        user_id: row.user_id,
+                        article_id: row.article_id,
+                        created_at: new Date(row.created_at),
+                      },
+                      wasCreated: false,
                     });
                   }
                 },
@@ -93,10 +96,13 @@ export class BookmarksService {
                   reject(new Error('Bookmark not found after creation'));
                 } else {
                   resolve({
-                    id: row.id,
-                    user_id: row.user_id,
-                    article_id: row.article_id,
-                    created_at: new Date(row.created_at),
+                    bookmark: {
+                      id: row.id,
+                      user_id: row.user_id,
+                      article_id: row.article_id,
+                      created_at: new Date(row.created_at),
+                    },
+                    wasCreated: true,
                   });
                 }
               },

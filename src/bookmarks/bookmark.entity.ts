@@ -8,6 +8,11 @@ export interface Bookmark {
   created_at: Date;
 }
 
+export interface AddBookmarkResult {
+  bookmark: Bookmark;
+  wasCreated: boolean;
+}
+
 export class CreateBookmarkDto {
   @IsUUID('4', { message: 'Invalid article ID format' })
   @IsNotEmpty({ message: 'Article ID is required' })
@@ -23,6 +28,15 @@ export class BookmarkResponseDto {
     this.id = bookmark.id;
     this.article_id = bookmark.article_id;
     this.created_at = bookmark.created_at;
+  }
+}
+
+export class AddBookmarkResponseDto extends BookmarkResponseDto {
+  already_bookmarked: boolean;
+
+  constructor(bookmark: Bookmark, alreadyBookmarked: boolean) {
+    super(bookmark);
+    this.already_bookmarked = alreadyBookmarked;
   }
 }
 
