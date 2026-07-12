@@ -5,11 +5,12 @@ import { mock } from 'jest-mock-extended';
 import { ArticlesController } from './articles.controller';
 import { GenerateArticleAudioCommand } from './commands/generate-article-audio.command';
 import { GetArticleByIdQuery } from './queries/get-article-by-id.query';
-import type { AuthenticatedRequest } from '../shared/types/authenticated-request';
+import { ListArticlesQuery } from './queries/list-articles.query';
 
 describe('ArticlesController', () => {
   const mockGenerateArticleAudioCommand = mock<GenerateArticleAudioCommand>();
   const mockGetArticleByIdQuery = mock<GetArticleByIdQuery>();
+  const mockListArticlesQuery = mock<ListArticlesQuery>();
 
   it('should not have @Public() on generateAudio endpoint', () => {
     const isPublic = Reflect.getMetadata(
@@ -32,7 +33,6 @@ describe('ArticlesController', () => {
   describe('getArticle', () => {
     const articleId = '11111111-1111-1111-1111-111111111111';
     const userId = 'user-1';
-    const mockRequest = { user: { id: userId } } as AuthenticatedRequest;
 
     beforeEach(() => {
       jest.clearAllMocks();
@@ -41,7 +41,7 @@ describe('ArticlesController', () => {
     function buildController() {
       return new ArticlesController(
         mock(),
-        mock(),
+        mockListArticlesQuery,
         mockGetArticleByIdQuery,
         mock(),
         mock(),
@@ -62,11 +62,7 @@ describe('ArticlesController', () => {
 
       const controller = buildController();
 
-      const result = await controller.getArticle(
-        mockRequest,
-        articleId,
-        'true',
-      );
+      const result = await controller.getArticle({ id: userId }, articleId, 'true');
 
       expect(result).toEqual(expectedResponse);
       expect(mockGetArticleByIdQuery.execute).toHaveBeenCalledWith(
@@ -84,7 +80,7 @@ describe('ArticlesController', () => {
 
       const controller = buildController();
 
-      await controller.getArticle(mockRequest, articleId, undefined);
+      await controller.getArticle({ id: userId }, articleId, undefined);
 
       expect(mockGetArticleByIdQuery.execute).toHaveBeenCalledWith(
         articleId,
@@ -99,7 +95,7 @@ describe('ArticlesController', () => {
       const controller = buildController();
 
       await expect(
-        controller.getArticle(mockRequest, articleId, undefined),
+        controller.getArticle({ id: userId }, articleId, undefined),
       ).rejects.toThrow(NotFoundException);
     });
 
@@ -112,8 +108,52 @@ describe('ArticlesController', () => {
       const controller = buildController();
 
       await expect(
-        controller.getArticle(mockRequest, articleId, undefined),
+        controller.getArticle({ id: userId }, articleId, undefined),
       ).rejects.toThrow(NotFoundException);
+    });
+  });
+
+  describe('listArticles', () => {
+    it('forwards the authenticated user id into the list query', async () => {
+      const response = {
+        articles: [],
+        pagination: {
+          page: 1,
+          per_page: 20,
+          total_pages: 0,
+          total_articles: 0,
+        },
+        filters: {
+          sort_by: 'published_date',
+          direction: 'desc',
+          feed_profile: '',
+          search_term: '',
+          start_date: '',
+          end_date: '',
+          preset: '',
+          category: '',
+        },
+        available_profiles: [],
+        available_categories: [],
+      };
+      mockListArticlesQuery.execute.mockResolvedValue(response as never);
+
+      const controller = new ArticlesController(
+        mock(),
+        mockListArticlesQuery,
+        mock(),
+        mock(),
+        mock(),
+        mock(),
+        mock(),
+        mock(),
+      );
+      const input = { page: 2, perPage: 10 };
+
+      const result = await controller.listArticles({ id: 'user-1' }, input);
+
+      expect(result).toEqual(response);
+      expect(mockListArticlesQuery.execute).toHaveBeenCalledWith('user-1', input);
     });
   });
 
@@ -128,7 +168,7 @@ describe('ArticlesController', () => {
 
       const controller = new ArticlesController(
         mock(),
-        mock(),
+        mockListArticlesQuery,
         mock(),
         mock(),
         mock(),
@@ -152,7 +192,7 @@ describe('ArticlesController', () => {
 
       const controller = new ArticlesController(
         mock(),
-        mock(),
+        mockListArticlesQuery,
         mock(),
         mock(),
         mock(),
@@ -173,7 +213,7 @@ describe('ArticlesController', () => {
 
       const controller = new ArticlesController(
         mock(),
-        mock(),
+        mockListArticlesQuery,
         mock(),
         mock(),
         mock(),
