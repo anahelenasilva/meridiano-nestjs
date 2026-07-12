@@ -5,6 +5,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
   NotFoundException,
   Param,
   ParseUUIDPipe,
@@ -13,7 +14,7 @@ import {
 } from '@nestjs/common';
 import { ArticlesService } from '../articles/articles.service';
 import {
-  BookmarkResponseDto,
+  AddBookmarkResponseDto,
   BookmarkWithArticleResponseDto,
   CreateBookmarkDto,
 } from './bookmark.entity';
@@ -39,17 +40,17 @@ export class BookmarksController {
     }
 
     try {
-      const bookmark = await this.bookmarksService.addBookmark(
+      const { bookmark, wasCreated } = await this.bookmarksService.addBookmark(
         user.id,
         createBookmarkDto.article_id,
       );
 
-      if (!bookmark) {
-        throw new BadRequestException('Article is already bookmarked');
+      return new AddBookmarkResponseDto(bookmark, !wasCreated);
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
       }
 
-      return new BookmarkResponseDto(bookmark);
-    } catch (error) {
       console.error('Error adding bookmark:', error);
 
       throw new BadRequestException('Failed to add bookmark');

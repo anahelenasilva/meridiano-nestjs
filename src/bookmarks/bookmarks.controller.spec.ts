@@ -1,4 +1,4 @@
-import { ValidationPipe } from '@nestjs/common';
+import { BadRequestException, NotFoundException, ValidationPipe } from '@nestjs/common';
 import { mock } from 'jest-mock-extended';
 import { ArticlesService } from '../articles/articles.service';
 import { DBArticle } from '../articles/article.entity';
@@ -28,15 +28,21 @@ describe('BookmarksController', () => {
   });
 
   describe('addBookmark', () => {
-    it('derives ownership from the authenticated user, not the request body', async () => {
+    beforeEach(() => {
       mockArticlesService.getArticleById.mockResolvedValue({
         id: ARTICLE_ID,
       } as DBArticle);
+    });
+
+    it('derives ownership from the authenticated user, not the request body', async () => {
       mockBookmarksService.addBookmark.mockResolvedValue({
-        id: 'bookmark-1',
-        user_id: OWNER_ID,
-        article_id: ARTICLE_ID,
-        created_at: new Date('2026-05-17T12:00:00.000Z'),
+        bookmark: {
+          id: 'bookmark-1',
+          user_id: OWNER_ID,
+          article_id: ARTICLE_ID,
+          created_at: new Date('2026-05-17T12:00:00.000Z'),
+        },
+        wasCreated: true,
       });
 
       const result = await controller.addBookmark(
@@ -52,8 +58,53 @@ describe('BookmarksController', () => {
         id: 'bookmark-1',
         article_id: ARTICLE_ID,
         created_at: new Date('2026-05-17T12:00:00.000Z'),
+        already_bookmarked: false,
       });
       expect(result).not.toHaveProperty('user_id');
+    });
+
+    it('returns already_bookmarked: true with the existing bookmark on a duplicate, without erroring', async () => {
+      mockBookmarksService.addBookmark.mockResolvedValue({
+        bookmark: {
+          id: 'bookmark-1',
+          user_id: OWNER_ID,
+          article_id: ARTICLE_ID,
+          created_at: new Date('2026-05-17T12:00:00.000Z'),
+        },
+        wasCreated: false,
+      });
+
+      const result = await controller.addBookmark(
+        { id: OWNER_ID },
+        { article_id: ARTICLE_ID },
+      );
+
+      expect(result).toEqual({
+        id: 'bookmark-1',
+        article_id: ARTICLE_ID,
+        created_at: new Date('2026-05-17T12:00:00.000Z'),
+        already_bookmarked: true,
+      });
+    });
+
+    it('propagates a known HttpException unchanged instead of masking it', async () => {
+      mockBookmarksService.addBookmark.mockRejectedValue(
+        new NotFoundException('User not found'),
+      );
+
+      await expect(
+        controller.addBookmark({ id: OWNER_ID }, { article_id: ARTICLE_ID }),
+      ).rejects.toThrow(NotFoundException);
+    });
+
+    it('wraps an unexpected error as a generic BadRequestException', async () => {
+      mockBookmarksService.addBookmark.mockRejectedValue(
+        new Error('connection reset'),
+      );
+
+      await expect(
+        controller.addBookmark({ id: OWNER_ID }, { article_id: ARTICLE_ID }),
+      ).rejects.toThrow(new BadRequestException('Failed to add bookmark'));
     });
 
     it('rejects a client-supplied user_id at validation time', async () => {
