@@ -5,6 +5,7 @@ import { YoutubeTranscriptionsModule } from '../youtube-transcriptions/youtube-t
 import { NotesController } from './notes.controller';
 import { NotesReadModule } from './notes-read.module';
 import { NotesService } from './notes.service';
+import { NOTES_SERVICE } from './notes.tokens';
 
 @Module({
   imports: [
@@ -13,7 +14,13 @@ import { NotesService } from './notes.service';
     ArticlesModule,
     YoutubeTranscriptionsModule,
   ],
-  providers: [NotesService],
+  providers: [
+    NotesService,
+    {
+      provide: NOTES_SERVICE,
+      useExisting: NotesService,
+    },
+  ],
   controllers: [NotesController],
   exports: [NotesService],
 })

@@ -1,13 +1,19 @@
 import { CurrentUser, type AuthenticatedUser } from '@libs/auth';
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Inject, Post } from '@nestjs/common';
+import { ApiCreatedResponse, ApiOperation } from '@nestjs/swagger';
 import { SaveNoteDto, SaveNoteResponseDto } from './note.entity';
-import { NotesService } from './notes.service';
+import { NOTES_SERVICE, type NotesWriter } from './notes.tokens';
 
 @Controller('api/notes')
 export class NotesController {
-  constructor(private readonly notesService: NotesService) {}
+  constructor(
+    @Inject(NOTES_SERVICE)
+    private readonly notesService: NotesWriter,
+  ) {}
 
   @Post()
+  @ApiOperation({ summary: 'Save an authenticated user note' })
+  @ApiCreatedResponse({ type: SaveNoteResponseDto })
   async saveNote(
     @CurrentUser() user: AuthenticatedUser,
     @Body() dto: SaveNoteDto,
