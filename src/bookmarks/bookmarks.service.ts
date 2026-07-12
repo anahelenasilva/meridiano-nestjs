@@ -1,11 +1,7 @@
 import { DatabaseService } from '@libs/database';
 import { Injectable } from '@nestjs/common';
 import { ArticleCategory, DBArticle } from '../articles/article.entity';
-import {
-  AddBookmarkResult,
-  Bookmark,
-  BookmarkWithArticle,
-} from './bookmark.entity';
+import { AddBookmarkResult, BookmarkWithArticle } from './bookmark.entity';
 
 interface BookmarkRow {
   id: string;
