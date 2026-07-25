@@ -1,17 +1,20 @@
 import { mock } from 'jest-mock-extended';
-import { ArticlesService } from '../articles/articles.service';
-import { DBArticle } from '../articles/article.entity';
-import { FeedsService, FEED_DEFAULT_ITEM_LIMIT } from './feeds.service';
+import { ArticlesService } from '../../articles/articles.service';
+import { DBArticle } from '../../articles/article.entity';
+import {
+  GetArticlesFeedQuery,
+  FEED_DEFAULT_ITEM_LIMIT,
+} from './get-articles-feed.query';
 
-describe('FeedsService', () => {
+describe('GetArticlesFeedQuery', () => {
   const mockArticlesService = mock<ArticlesService>();
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  function buildService() {
-    return new FeedsService(mockArticlesService);
+  function buildQuery() {
+    return new GetArticlesFeedQuery(mockArticlesService);
   }
 
   function buildArticle(overrides: Partial<DBArticle> = {}): DBArticle {
@@ -32,8 +35,8 @@ describe('FeedsService', () => {
   it('requests the latest articles ordered by published date descending, bounded by the default limit', async () => {
     mockArticlesService.getArticlesPaginated.mockResolvedValue([]);
 
-    const service = buildService();
-    await service.getArticlesRssFeed('https://api.example.com/feeds/articles.xml');
+    const query = buildQuery();
+    await query.execute('https://api.example.com/feeds/articles.xml');
 
     expect(mockArticlesService.getArticlesPaginated).toHaveBeenCalledWith({
       page: 1,
@@ -46,8 +49,8 @@ describe('FeedsService', () => {
   it('renders valid RSS XML with the given channel link', async () => {
     mockArticlesService.getArticlesPaginated.mockResolvedValue([]);
 
-    const service = buildService();
-    const xml = await service.getArticlesRssFeed(
+    const query = buildQuery();
+    const xml = await query.execute(
       'https://api.example.com/feeds/articles.xml',
     );
 
@@ -61,8 +64,8 @@ describe('FeedsService', () => {
     const article = buildArticle();
     mockArticlesService.getArticlesPaginated.mockResolvedValue([article]);
 
-    const service = buildService();
-    const xml = await service.getArticlesRssFeed(
+    const query = buildQuery();
+    const xml = await query.execute(
       'https://api.example.com/feeds/articles.xml',
     );
 
@@ -78,8 +81,8 @@ describe('FeedsService', () => {
     const article = buildArticle({ processed_content: 'processed body' });
     mockArticlesService.getArticlesPaginated.mockResolvedValue([article]);
 
-    const service = buildService();
-    const xml = await service.getArticlesRssFeed(
+    const query = buildQuery();
+    const xml = await query.execute(
       'https://api.example.com/feeds/articles.xml',
     );
 
@@ -90,8 +93,8 @@ describe('FeedsService', () => {
     const article = buildArticle({ processed_content: null });
     mockArticlesService.getArticlesPaginated.mockResolvedValue([article]);
 
-    const service = buildService();
-    const xml = await service.getArticlesRssFeed(
+    const query = buildQuery();
+    const xml = await query.execute(
       'https://api.example.com/feeds/articles.xml',
     );
 
@@ -104,8 +107,8 @@ describe('FeedsService', () => {
     });
     mockArticlesService.getArticlesPaginated.mockResolvedValue([article]);
 
-    const service = buildService();
-    const xml = await service.getArticlesRssFeed(
+    const query = buildQuery();
+    const xml = await query.execute(
       'https://api.example.com/feeds/articles.xml',
     );
 
@@ -118,8 +121,8 @@ describe('FeedsService', () => {
   it('returns an empty item list when there are no articles', async () => {
     mockArticlesService.getArticlesPaginated.mockResolvedValue([]);
 
-    const service = buildService();
-    const xml = await service.getArticlesRssFeed(
+    const query = buildQuery();
+    const xml = await query.execute(
       'https://api.example.com/feeds/articles.xml',
     );
 
@@ -131,10 +134,10 @@ describe('FeedsService', () => {
       new Error('db unavailable'),
     );
 
-    const service = buildService();
+    const query = buildQuery();
 
     await expect(
-      service.getArticlesRssFeed('https://api.example.com/feeds/articles.xml'),
+      query.execute('https://api.example.com/feeds/articles.xml'),
     ).rejects.toThrow('db unavailable');
   });
 });

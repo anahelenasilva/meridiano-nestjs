@@ -2,18 +2,18 @@ import { IS_PUBLIC_KEY } from '@libs/auth';
 import { HEADERS_METADATA } from '@nestjs/common/constants';
 import { mock } from 'jest-mock-extended';
 import { FeedsController } from './feeds.controller';
-import { FeedsService } from './feeds.service';
+import { GetArticlesFeedQuery } from './queries/get-articles-feed.query';
 import { FeedRequest } from './feeds.types';
 
 describe('FeedsController', () => {
-  const mockFeedsService = mock<FeedsService>();
+  const mockGetArticlesFeedQuery = mock<GetArticlesFeedQuery>();
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   function buildController() {
-    return new FeedsController(mockFeedsService);
+    return new FeedsController(mockGetArticlesFeedQuery);
   }
 
   function buildRequest(overrides: Partial<FeedRequest> = {}): FeedRequest {
@@ -44,9 +44,9 @@ describe('FeedsController', () => {
     });
   });
 
-  it('delegates to FeedsService with a channel link built from the request', async () => {
+  it('delegates to GetArticlesFeedQuery with a channel link built from the request', async () => {
     const xml = '<rss version="2.0"></rss>';
-    mockFeedsService.getArticlesRssFeed.mockResolvedValue(xml);
+    mockGetArticlesFeedQuery.execute.mockResolvedValue(xml);
 
     const controller = buildController();
     const request = buildRequest();
@@ -54,13 +54,13 @@ describe('FeedsController', () => {
     const result = await controller.getArticlesFeed(request);
 
     expect(result).toBe(xml);
-    expect(mockFeedsService.getArticlesRssFeed).toHaveBeenCalledWith(
+    expect(mockGetArticlesFeedQuery.execute).toHaveBeenCalledWith(
       'https://api.example.com/feeds/articles.xml',
     );
   });
 
   it('builds the channel link from the request protocol, host, and original URL', async () => {
-    mockFeedsService.getArticlesRssFeed.mockResolvedValue('<rss></rss>');
+    mockGetArticlesFeedQuery.execute.mockResolvedValue('<rss></rss>');
 
     const controller = buildController();
     const request = buildRequest({
@@ -71,13 +71,13 @@ describe('FeedsController', () => {
 
     await controller.getArticlesFeed(request);
 
-    expect(mockFeedsService.getArticlesRssFeed).toHaveBeenCalledWith(
+    expect(mockGetArticlesFeedQuery.execute).toHaveBeenCalledWith(
       'http://localhost:3001/feeds/articles.xml?feedProfile=technology',
     );
   });
 
-  it('propagates errors from FeedsService', async () => {
-    mockFeedsService.getArticlesRssFeed.mockRejectedValue(
+  it('propagates errors from GetArticlesFeedQuery', async () => {
+    mockGetArticlesFeedQuery.execute.mockRejectedValue(
       new Error('feed generation failed'),
     );
 
