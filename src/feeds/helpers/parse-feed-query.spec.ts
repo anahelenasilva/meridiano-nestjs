@@ -44,6 +44,10 @@ describe('parseFeedLimit', () => {
   it('truncates decimal values to an integer', () => {
     expect(parseFeedLimit('7.9')).toBe(7);
   });
+
+  it('returns the default limit when the value has a numeric prefix followed by non-numeric characters', () => {
+    expect(parseFeedLimit('5abc')).toBe(FEED_DEFAULT_ITEM_LIMIT);
+  });
 });
 
 describe('parseFeedProfile', () => {

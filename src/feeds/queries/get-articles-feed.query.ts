@@ -5,7 +5,6 @@ import { buildRssFeed, RssFeedItem } from '../helpers/build-rss-feed';
 import { FeedQueryOptions } from '../feeds.types';
 import { FEED_DEFAULT_ITEM_LIMIT } from '../helpers/parse-feed-query';
 
-export { FEED_DEFAULT_ITEM_LIMIT };
 export const FEED_CHANNEL_TITLE = 'Meridiano Articles';
 export const FEED_CHANNEL_DESCRIPTION =
   'Latest Articles curated by Meridiano';

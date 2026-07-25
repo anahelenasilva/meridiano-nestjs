@@ -2,10 +2,8 @@ import { mock } from 'jest-mock-extended';
 import { ArticlesService } from '../../articles/articles.service';
 import { DBArticle } from '../../articles/article.entity';
 import { FeedProfile } from '../../shared/types/feed';
-import {
-  GetArticlesFeedQuery,
-  FEED_DEFAULT_ITEM_LIMIT,
-} from './get-articles-feed.query';
+import { FEED_DEFAULT_ITEM_LIMIT } from '../helpers/parse-feed-query';
+import { GetArticlesFeedQuery } from './get-articles-feed.query';
 
 describe('GetArticlesFeedQuery', () => {
   const mockArticlesService = mock<ArticlesService>();

@@ -5,14 +5,22 @@ export const FEED_MAX_ITEM_LIMIT = 100;
 
 const VALID_FEED_PROFILES = new Set<string>(Object.values(FeedProfile));
 
+const NUMERIC_LIMIT_PATTERN = /^\d+(\.\d+)?$/;
+
 export function parseFeedLimit(value: string | undefined): number {
-  if (typeof value !== 'string' || value.trim() === '') {
+  if (typeof value !== 'string') {
     return FEED_DEFAULT_ITEM_LIMIT;
   }
 
-  const parsed = Number.parseInt(value, 10);
+  const trimmed = value.trim();
 
-  if (!Number.isFinite(parsed) || parsed <= 0) {
+  if (!NUMERIC_LIMIT_PATTERN.test(trimmed)) {
+    return FEED_DEFAULT_ITEM_LIMIT;
+  }
+
+  const parsed = Math.trunc(Number(trimmed));
+
+  if (parsed <= 0) {
     return FEED_DEFAULT_ITEM_LIMIT;
   }
 
