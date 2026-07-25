@@ -67,6 +67,50 @@
           "note"
         ],
         "type": "object"
+      },
+      "UnauthorizedResponseDto": {
+        "properties": {
+          "message": {
+            "example": "Unauthorized",
+            "type": "string"
+          },
+          "statusCode": {
+            "example": 401,
+            "type": "number"
+          }
+        },
+        "required": [
+          "statusCode",
+          "message"
+        ],
+        "type": "object"
+      },
+      "ValidationErrorResponseDto": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string"
+          },
+          "message": {
+            "example": [
+              "source_id must be a valid UUID"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "statusCode": {
+            "example": 400,
+            "type": "number"
+          }
+        },
+        "required": [
+          "statusCode",
+          "message",
+          "error"
+        ],
+        "type": "object"
       }
     }
   },
@@ -102,6 +146,26 @@
               }
             },
             "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
           }
         },
         "summary": "Save an authenticated user note",
