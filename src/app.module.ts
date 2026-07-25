@@ -13,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
 import { BookmarksModule } from './bookmarks/bookmarks.module';
 import { BriefingsModule } from './briefings/briefings.module';
 import { ConfigModule } from './config/config.module';
+import { FeedsModule } from './feeds/feeds.module';
 import { ProcessorModule } from './processor/processor.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import { ScraperModule } from './scraper/scraper.module';
@@ -31,6 +32,7 @@ import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-tr
     ArticlesModule,
     AudioFilesModule,
     BriefingsModule,
+    FeedsModule,
     ProfilesModule,
     ScraperModule,
     ProcessorModule,
