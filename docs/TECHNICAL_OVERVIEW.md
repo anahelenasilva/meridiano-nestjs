@@ -92,17 +92,18 @@ TypeORM migrations in `src/database/migrations/`. Run via `pnpm run migration:ru
 
 All endpoints prefixed with `/api/`. Authentication required globally except explicitly marked public routes.
 
-| Endpoint Group                | Key Operations                                                                    |
-| ----------------------------- | --------------------------------------------------------------------------------- |
-| `/api/auth`                   | Login (public)                                                                    |
-| `/api/users`                  | Create user (public), get user                                                    |
-| `/api/profiles`               | List available feed profiles                                                      |
-| `/api/articles`               | List/detail/create/delete, markdown upload flow, job status, audio enqueue/status |
-| `/api/articles/external`      | Public external submission (token-protected, rate-limited)                        |
-| `/api/briefings`              | List, get                                                                         |
-| `/api/youtube/transcriptions` | List, get, process video, delete, audio enqueue                                   |
-| `/api/youtube/channels`       | List, create, enable/disable                                                      |
-| `/api/bookmarks`              | Create, list, delete, check, count                                                |
+| Endpoint Group                | Key Operations                                                                                                  |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `/api/auth`                   | Login (public)                                                                                                  |
+| `/api/users`                  | Create user (public), get user                                                                                  |
+| `/api/profiles`               | List available feed profiles                                                                                    |
+| `/api/articles`               | List/detail/create/delete, markdown upload flow, job status, audio enqueue/status                               |
+| `/api/articles/external`      | Public external submission (token-protected, rate-limited)                                                      |
+| `/api/briefings`              | List, get                                                                                                       |
+| `/api/youtube/transcriptions` | List, get, process video, delete, audio enqueue                                                                 |
+| `/api/youtube/channels`       | List, create, enable/disable                                                                                    |
+| `/api/bookmarks`              | Create, list, delete, check, count                                                                              |
+| `/feeds/articles.xml`         | Public RSS feed of Articles (no `/api` prefix, no auth) — see [Nextcloud News setup](./NEXTCLOUD_NEWS_SETUP.md) |
 
 ## Configuration
 
@@ -135,3 +136,4 @@ Environment-based via `ConfigService`. Key configs:
 - Docker Compose with environment profiles (local, staging, production)
 - AWS CDK for S3 infrastructure
 - Railway deployment supported
+- Raspberry Pi deployment, reachable over Tailscale — see [Nextcloud News setup](./NEXTCLOUD_NEWS_SETUP.md) for consuming the Articles feed from that environment
