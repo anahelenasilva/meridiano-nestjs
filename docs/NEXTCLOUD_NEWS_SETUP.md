@@ -12,8 +12,10 @@ behind it.
 http://<meridiano-api-host>:<port>/feeds/articles.xml
 ```
 
-Note the path is `/feeds/articles.xml`, **not** `/api/feeds/articles.xml` — unlike the rest of the
-API, the feeds route is not under the `/api` prefix (see `src/main.ts`).
+Note the path is `/feeds/articles.xml`, **not** `/api/feeds/articles.xml` — unlike other
+controllers, which declare `@Controller('api/...')`, `FeedsController` declares
+`@Controller('feeds')` (see `src/feeds/feeds.controller.ts`), so the feed route is not under the
+`/api` prefix.
 
 `<meridiano-api-host>:<port>` is whatever host and port the API is reachable at in your deployment
 (for example a Tailscale MagicDNS name or IP and the configured `PORT`, default `3001`).
@@ -22,10 +24,10 @@ API, the feeds route is not under the `/api` prefix (see `src/main.ts`).
 
 Both are optional; invalid values fall back to the defaults below rather than erroring.
 
-| Parameter     | Values                                                                                       | Default |
-| ------------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `limit`       | Positive integer, capped at 100                                                                 | 20      |
-| `feedProfile` | One of `default`, `technology`, `politics`, `business`, `health`, `science`, `brasil`, `teclas` | all profiles |
+| Parameter     | Values                                                                                          | Default      |
+| ------------- | ------------------------------------------------------------------------------------------------ | ------------ |
+| `limit`       | Positive integer, capped at 100                                                                  | 20           |
+| `feedProfile` | One of `default`, `technology`, `politics`, `business`, `health`, `science`, `brasil`, `teclas`   | all profiles |
 
 Example — latest 10 Articles from the `technology` Feed Profile only:
 
@@ -37,9 +39,11 @@ The endpoint is public (`@Public()`) — no `Authorization` header is needed or 
 
 ## Public-hosting and TLS considerations
 
-The current Raspberry Pi deployment is not exposed on the public internet with a TLS certificate;
-the API is reached over Tailscale on plain HTTP (see `meridiano-frontend/README.md` for the
-Tailscale-based access pattern used elsewhere in the stack). Two cases follow from that:
+The PRD for this feed (#149) places the API, website, and Nextcloud instance on the same Raspberry
+Pi environment. Elsewhere in the stack, the frontend reaches the API over plain `http://` using
+Tailscale IPs/MagicDNS names rather than a public HTTPS domain (see the Tailscale access pattern
+described in `meridiano-frontend/README.md`). Assuming the API is exposed the same way for this
+feed, two cases follow:
 
 - **Nextcloud runs on the same Tailscale tailnet as the Raspberry Pi** (e.g. Nextcloud is also
   hosted on the Pi, or on another device joined to the same tailnet): subscribe using the API's
