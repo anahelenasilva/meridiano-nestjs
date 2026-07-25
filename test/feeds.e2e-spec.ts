@@ -87,5 +87,41 @@ describe('Feeds (e2e)', () => {
         .unset('Authorization')
         .expect(200);
     });
+
+    it('filters by feedProfile when given', async () => {
+      mockArticlesService.getArticlesPaginated.mockResolvedValue([]);
+
+      await request(app.getHttpServer())
+        .get('/feeds/articles.xml?feedProfile=technology')
+        .expect(200);
+
+      expect(mockArticlesService.getArticlesPaginated).toHaveBeenCalledWith(
+        expect.objectContaining({ feedProfile: 'technology' }),
+      );
+    });
+
+    it('bounds the item count to the given limit', async () => {
+      mockArticlesService.getArticlesPaginated.mockResolvedValue([]);
+
+      await request(app.getHttpServer())
+        .get('/feeds/articles.xml?limit=5')
+        .expect(200);
+
+      expect(mockArticlesService.getArticlesPaginated).toHaveBeenCalledWith(
+        expect.objectContaining({ perPage: 5 }),
+      );
+    });
+
+    it('falls back to safe defaults when given invalid query values', async () => {
+      mockArticlesService.getArticlesPaginated.mockResolvedValue([]);
+
+      await request(app.getHttpServer())
+        .get('/feeds/articles.xml?limit=not-a-number&feedProfile=bogus')
+        .expect(200);
+
+      expect(mockArticlesService.getArticlesPaginated).toHaveBeenCalledWith(
+        expect.objectContaining({ perPage: 20, feedProfile: undefined }),
+      );
+    });
   });
 });

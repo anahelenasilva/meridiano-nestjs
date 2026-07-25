@@ -1,10 +1,9 @@
 import { mock } from 'jest-mock-extended';
 import { ArticlesService } from '../../articles/articles.service';
 import { DBArticle } from '../../articles/article.entity';
-import {
-  GetArticlesFeedQuery,
-  FEED_DEFAULT_ITEM_LIMIT,
-} from './get-articles-feed.query';
+import { FeedProfile } from '../../shared/types/feed';
+import { FEED_DEFAULT_ITEM_LIMIT } from '../helpers/parse-feed-query';
+import { GetArticlesFeedQuery } from './get-articles-feed.query';
 
 describe('GetArticlesFeedQuery', () => {
   const mockArticlesService = mock<ArticlesService>();
@@ -43,7 +42,34 @@ describe('GetArticlesFeedQuery', () => {
       perPage: FEED_DEFAULT_ITEM_LIMIT,
       sortBy: 'published_date',
       direction: 'desc',
+      feedProfile: undefined,
     });
+  });
+
+  it('requests articles bounded by the given limit', async () => {
+    mockArticlesService.getArticlesPaginated.mockResolvedValue([]);
+
+    const query = buildQuery();
+    await query.execute('https://api.example.com/feeds/articles.xml', {
+      limit: 5,
+    });
+
+    expect(mockArticlesService.getArticlesPaginated).toHaveBeenCalledWith(
+      expect.objectContaining({ perPage: 5 }),
+    );
+  });
+
+  it('filters by feed profile when given', async () => {
+    mockArticlesService.getArticlesPaginated.mockResolvedValue([]);
+
+    const query = buildQuery();
+    await query.execute('https://api.example.com/feeds/articles.xml', {
+      feedProfile: FeedProfile.TECHNOLOGY,
+    });
+
+    expect(mockArticlesService.getArticlesPaginated).toHaveBeenCalledWith(
+      expect.objectContaining({ feedProfile: FeedProfile.TECHNOLOGY }),
+    );
   });
 
   it('renders valid RSS XML with the given channel link', async () => {
