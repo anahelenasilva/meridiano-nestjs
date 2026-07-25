@@ -53,6 +53,7 @@ async function bootstrap() {
     `   GET /api/youtube/transcriptions/:id - Get youtube transcription details`,
   );
   console.log(`   GET /api/health - Health check`);
+  console.log(`   GET /feeds/articles.xml - Public Articles RSS feed`);
 }
 
 void bootstrap();
