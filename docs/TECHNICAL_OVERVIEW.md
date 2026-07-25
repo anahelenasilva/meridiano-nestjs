@@ -103,6 +103,7 @@ All endpoints prefixed with `/api/`. Authentication required globally except exp
 | `/api/youtube/transcriptions` | List, get, process video, delete, audio enqueue                                   |
 | `/api/youtube/channels`       | List, create, enable/disable                                                      |
 | `/api/bookmarks`              | Create, list, delete, check, count                                                |
+| `/feeds/articles.xml`         | Public RSS feed of Articles (no `/api` prefix, no auth) — see [Nextcloud News setup](./NEXTCLOUD_NEWS_SETUP.md) |
 
 ## Configuration
 
@@ -135,3 +136,4 @@ Environment-based via `ConfigService`. Key configs:
 - Docker Compose with environment profiles (local, staging, production)
 - AWS CDK for S3 infrastructure
 - Railway deployment supported
+- Raspberry Pi deployment, reachable over Tailscale — see [Nextcloud News setup](./NEXTCLOUD_NEWS_SETUP.md) for consuming the Articles feed from that environment
