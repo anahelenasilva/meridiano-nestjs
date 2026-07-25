@@ -4,6 +4,8 @@ import { mock } from 'jest-mock-extended';
 import { FeedsController } from './feeds.controller';
 import { GetArticlesFeedQuery } from './queries/get-articles-feed.query';
 import { FeedRequest } from './feeds.types';
+import { FeedProfile } from '../shared/types/feed';
+import { FEED_DEFAULT_ITEM_LIMIT } from './helpers/parse-feed-query';
 
 describe('FeedsController', () => {
   const mockGetArticlesFeedQuery = mock<GetArticlesFeedQuery>();
@@ -56,6 +58,35 @@ describe('FeedsController', () => {
     expect(result).toBe(xml);
     expect(mockGetArticlesFeedQuery.execute).toHaveBeenCalledWith(
       'https://api.example.com/feeds/articles.xml',
+      { limit: FEED_DEFAULT_ITEM_LIMIT, feedProfile: undefined },
+    );
+  });
+
+  it('parses the limit and feedProfile query params and passes them through', async () => {
+    mockGetArticlesFeedQuery.execute.mockResolvedValue('<rss></rss>');
+
+    const controller = buildController();
+    const request = buildRequest();
+
+    await controller.getArticlesFeed(request, '5', 'technology');
+
+    expect(mockGetArticlesFeedQuery.execute).toHaveBeenCalledWith(
+      'https://api.example.com/feeds/articles.xml',
+      { limit: 5, feedProfile: FeedProfile.TECHNOLOGY },
+    );
+  });
+
+  it('falls back to safe defaults for invalid limit and feedProfile query values', async () => {
+    mockGetArticlesFeedQuery.execute.mockResolvedValue('<rss></rss>');
+
+    const controller = buildController();
+    const request = buildRequest();
+
+    await controller.getArticlesFeed(request, 'not-a-number', 'not-a-profile');
+
+    expect(mockGetArticlesFeedQuery.execute).toHaveBeenCalledWith(
+      'https://api.example.com/feeds/articles.xml',
+      { limit: FEED_DEFAULT_ITEM_LIMIT, feedProfile: undefined },
     );
   });
 
@@ -73,6 +104,7 @@ describe('FeedsController', () => {
 
     expect(mockGetArticlesFeedQuery.execute).toHaveBeenCalledWith(
       'http://localhost:3001/feeds/articles.xml?feedProfile=technology',
+      { limit: FEED_DEFAULT_ITEM_LIMIT, feedProfile: undefined },
     );
   });
 
