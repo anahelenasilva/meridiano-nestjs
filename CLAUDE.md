@@ -9,3 +9,4 @@
 - When modifying entities or working with migrations, use [DATABASE_MIGRATIONS](./docs/DATABASE_MIGRATIONS.md)
 - Issues live in GitHub Issues (`gh` CLI). See `docs/agents/issue-tracker.md`.
 - Default five-label vocabulary (needs-triage, needs-info, ready-for-agent, ready-for-human, wontfix). See `docs/agents/triage-labels.md`.
+- PR descriptions must follow `.github/PULL_REQUEST_TEMPLATE.md` exactly — no "Generated with Claude Code" footer or session link in the body. Attribution belongs in commit trailers only (`Co-Authored-By` / `Claude-Session`).
