@@ -1,4 +1,3 @@
-import { JwtAuthGuard } from '@libs/auth';
 import { INestApplication, Type } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { Test } from '@nestjs/testing';
@@ -30,11 +29,6 @@ const requireFromDist = createRequire(
   join(process.cwd(), 'dist/src/scripts/generateOpenApi.js'),
 );
 
-interface CompiledNotesOpenApiModule {
-  NotesController: Type<unknown>;
-  NOTES_SERVICE: symbol;
-}
-
 async function buildCompiledSwaggerMetadata(): Promise<void> {
   await execFileAsync('pnpm', ['exec', 'nest', 'build'], {
     cwd: process.cwd(),
@@ -42,17 +36,262 @@ async function buildCompiledSwaggerMetadata(): Promise<void> {
   });
 }
 
-function loadCompiledNotesOpenApiModule(): CompiledNotesOpenApiModule {
-  const { NotesController } = requireFromDist(
-    '../notes/notes.controller.js',
-  ) as {
-    NotesController: Type<unknown>;
-  };
-  const { NOTES_SERVICE } = requireFromDist('../notes/notes.tokens.js') as {
-    NOTES_SERVICE: symbol;
-  };
+/**
+ * Loads a named export from the *compiled* dist output rather than via a
+ * static ts-node import. Nest's DI matches provider tokens by reference, and
+ * a controller loaded from dist carries `design:paramtypes`/`@Inject` tokens
+ * pointing at the dist copies of its dependencies — a separately
+ * ts-node-compiled copy of the "same" class would be a different reference
+ * and would fail to resolve.
+ */
+function loadDistExport<T>(distRelativePath: string, exportName: string): T {
+  return (requireFromDist(distRelativePath) as Record<string, unknown>)[
+    exportName
+  ] as T;
+}
 
-  return { NotesController, NOTES_SERVICE };
+async function createOpenApiApp(): Promise<INestApplication> {
+  const NotesController = loadDistExport<Type<unknown>>(
+    '../notes/notes.controller.js',
+    'NotesController',
+  );
+  const NOTES_SERVICE = loadDistExport<symbol>(
+    '../notes/notes.tokens.js',
+    'NOTES_SERVICE',
+  );
+  const AppController = loadDistExport<Type<unknown>>(
+    '../app.controller.js',
+    'AppController',
+  );
+  const ArticlesController = loadDistExport<Type<unknown>>(
+    '../articles/articles.controller.js',
+    'ArticlesController',
+  );
+  const ExternalArticlesController = loadDistExport<Type<unknown>>(
+    '../articles/external-articles.controller.js',
+    'ExternalArticlesController',
+  );
+  const AuthController = loadDistExport<Type<unknown>>(
+    '../auth/auth.controller.js',
+    'AuthController',
+  );
+  const BookmarksController = loadDistExport<Type<unknown>>(
+    '../bookmarks/bookmarks.controller.js',
+    'BookmarksController',
+  );
+  const BriefingsController = loadDistExport<Type<unknown>>(
+    '../briefings/briefings.controller.js',
+    'BriefingsController',
+  );
+  const FeedsController = loadDistExport<Type<unknown>>(
+    '../feeds/feeds.controller.js',
+    'FeedsController',
+  );
+  const ProfilesController = loadDistExport<Type<unknown>>(
+    '../profiles/profiles.controller.js',
+    'ProfilesController',
+  );
+  const UsersController = loadDistExport<Type<unknown>>(
+    '../users/users.controller.js',
+    'UsersController',
+  );
+  const YoutubeChannelsController = loadDistExport<Type<unknown>>(
+    '../youtube-channels/youtube-channels.controller.js',
+    'YoutubeChannelsController',
+  );
+  const YoutubeTranscriptionsController = loadDistExport<Type<unknown>>(
+    '../youtube-transcriptions/youtube-transcriptions.controller.js',
+    'YoutubeTranscriptionsController',
+  );
+
+  const ArticlesService = loadDistExport<Type<unknown>>(
+    '../articles/articles.service.js',
+    'ArticlesService',
+  );
+  const ListArticlesQuery = loadDistExport<Type<unknown>>(
+    '../articles/queries/list-articles.query.js',
+    'ListArticlesQuery',
+  );
+  const GetArticleByIdQuery = loadDistExport<Type<unknown>>(
+    '../articles/queries/get-article-by-id.query.js',
+    'GetArticleByIdQuery',
+  );
+  const ScraperService = loadDistExport<Type<unknown>>(
+    '../scraper/scraper.service.js',
+    'ScraperService',
+  );
+  const GenerateArticleAudioCommand = loadDistExport<Type<unknown>>(
+    '../articles/commands/generate-article-audio.command.js',
+    'GenerateArticleAudioCommand',
+  );
+  const TelegramSubmissionService = loadDistExport<Type<unknown>>(
+    '../articles/services/telegram-submission.service.js',
+    'TelegramSubmissionService',
+  );
+  const ConfigService = loadDistExport<Type<unknown>>(
+    '../config/config.service.js',
+    'ConfigService',
+  );
+  const BookmarksService = loadDistExport<Type<unknown>>(
+    '../bookmarks/bookmarks.service.js',
+    'BookmarksService',
+  );
+  const NotesReadService = loadDistExport<Type<unknown>>(
+    '../notes/notes-read.service.js',
+    'NotesReadService',
+  );
+  const BriefingsService = loadDistExport<Type<unknown>>(
+    '../briefings/briefings.service.js',
+    'BriefingsService',
+  );
+  const ListBriefingsQuery = loadDistExport<Type<unknown>>(
+    '../briefings/queries/list-briefings.query.js',
+    'ListBriefingsQuery',
+  );
+  const GenerateBriefUseCase = loadDistExport<Type<unknown>>(
+    '../briefings/usecases/generate-brief.usecase.js',
+    'GenerateBriefUseCase',
+  );
+  const GenerateCustomBriefUseCase = loadDistExport<Type<unknown>>(
+    '../briefings/usecases/generate-custom-brief.usecase.js',
+    'GenerateCustomBriefUseCase',
+  );
+  const GetArticlesFeedQuery = loadDistExport<Type<unknown>>(
+    '../feeds/queries/get-articles-feed.query.js',
+    'GetArticlesFeedQuery',
+  );
+  const ProfilesService = loadDistExport<Type<unknown>>(
+    '../profiles/profiles.service.js',
+    'ProfilesService',
+  );
+  const UsersService = loadDistExport<Type<unknown>>(
+    '../users/users.service.js',
+    'UsersService',
+  );
+  const GetYoutubeChannelsQuery = loadDistExport<Type<unknown>>(
+    '../youtube-channels/queries/get-youtube-channels.query.js',
+    'GetYoutubeChannelsQuery',
+  );
+  const UpdateChannelEnabledCommand = loadDistExport<Type<unknown>>(
+    '../youtube-channels/commands/update-channel-enabled.command.js',
+    'UpdateChannelEnabledCommand',
+  );
+  const CreateYoutubeChannelCommand = loadDistExport<Type<unknown>>(
+    '../youtube-channels/commands/create-youtube-channel.command.js',
+    'CreateYoutubeChannelCommand',
+  );
+  const ListAllYoutubeTranscriptionsQuery = loadDistExport<Type<unknown>>(
+    '../youtube-transcriptions/queries/list-all-youtube-transcriptions.query.js',
+    'ListAllYoutubeTranscriptionsQuery',
+  );
+  const GetYoutubeTranscriptionByIdQuery = loadDistExport<Type<unknown>>(
+    '../youtube-transcriptions/queries/get-youtube-transcription-by-id.query.js',
+    'GetYoutubeTranscriptionByIdQuery',
+  );
+  const DeleteYoutubeTranscriptionCommand = loadDistExport<Type<unknown>>(
+    '../youtube-transcriptions/commands/delete-youtube-transcription.command.js',
+    'DeleteYoutubeTranscriptionCommand',
+  );
+  const CreateYoutubeTranscriptionCommand = loadDistExport<Type<unknown>>(
+    '../youtube-transcriptions/commands/create-youtube-transcription.command.js',
+    'CreateYoutubeTranscriptionCommand',
+  );
+  const AudioFilesService = loadDistExport<Type<unknown>>(
+    '../audio-files/audio-files.service.js',
+    'AudioFilesService',
+  );
+
+  const QueueService = loadDistExport<Type<unknown>>(
+    '../../libs/queue/queue.service.js',
+    'QueueService',
+  );
+  const S3Service = loadDistExport<Type<unknown>>(
+    '../../libs/s3/s3.service.js',
+    'S3Service',
+  );
+  const AudioJobService = loadDistExport<Type<unknown>>(
+    '../../libs/audio/services/audio-job.service.js',
+    'AudioJobService',
+  );
+  const AuthService = loadDistExport<Type<unknown>>(
+    '../../libs/auth/auth.service.js',
+    'AuthService',
+  );
+  const JwtAuthGuard = loadDistExport<Type<unknown>>(
+    '../../libs/auth/guards/jwt-auth.guard.js',
+    'JwtAuthGuard',
+  );
+  const RateLimitGuard = loadDistExport<Type<unknown>>(
+    '../../libs/auth/rate-limit/rate-limit.guard.js',
+    'RateLimitGuard',
+  );
+  const ExternalTokenGuard = loadDistExport<Type<unknown>>(
+    '../articles/guards/external-token.guard.js',
+    'ExternalTokenGuard',
+  );
+
+  const moduleRef = await Test.createTestingModule({
+    controllers: [
+      AppController,
+      ArticlesController,
+      ExternalArticlesController,
+      AuthController,
+      BookmarksController,
+      BriefingsController,
+      FeedsController,
+      NotesController,
+      ProfilesController,
+      UsersController,
+      YoutubeChannelsController,
+      YoutubeTranscriptionsController,
+    ],
+    providers: [
+      { provide: NOTES_SERVICE, useValue: notesServiceStub },
+      { provide: ArticlesService, useValue: {} },
+      { provide: ListArticlesQuery, useValue: {} },
+      { provide: GetArticleByIdQuery, useValue: {} },
+      { provide: ScraperService, useValue: {} },
+      { provide: GenerateArticleAudioCommand, useValue: {} },
+      { provide: TelegramSubmissionService, useValue: {} },
+      { provide: ConfigService, useValue: {} },
+      { provide: BookmarksService, useValue: {} },
+      { provide: NotesReadService, useValue: {} },
+      { provide: BriefingsService, useValue: {} },
+      { provide: ListBriefingsQuery, useValue: {} },
+      { provide: GenerateBriefUseCase, useValue: {} },
+      { provide: GenerateCustomBriefUseCase, useValue: {} },
+      { provide: GetArticlesFeedQuery, useValue: {} },
+      { provide: ProfilesService, useValue: {} },
+      { provide: UsersService, useValue: {} },
+      { provide: GetYoutubeChannelsQuery, useValue: {} },
+      { provide: UpdateChannelEnabledCommand, useValue: {} },
+      { provide: CreateYoutubeChannelCommand, useValue: {} },
+      { provide: ListAllYoutubeTranscriptionsQuery, useValue: {} },
+      { provide: GetYoutubeTranscriptionByIdQuery, useValue: {} },
+      { provide: DeleteYoutubeTranscriptionCommand, useValue: {} },
+      { provide: CreateYoutubeTranscriptionCommand, useValue: {} },
+      { provide: AudioFilesService, useValue: {} },
+      { provide: QueueService, useValue: {} },
+      { provide: S3Service, useValue: {} },
+      { provide: AudioJobService, useValue: {} },
+      { provide: AuthService, useValue: {} },
+      {
+        provide: APP_GUARD,
+        useClass: JwtAuthGuard,
+      },
+    ],
+  })
+    .overrideGuard(JwtAuthGuard)
+    .useValue({ canActivate: () => true })
+    .overrideGuard(RateLimitGuard)
+    .useValue({ canActivate: () => true })
+    .overrideGuard(ExternalTokenGuard)
+    .useValue({ canActivate: () => true })
+    .compile();
+
+  const app = moduleRef.createNestApplication();
+  await app.init();
+  return app;
 }
 
 function sortJsonKeys(value: JsonValue): JsonValue {
@@ -72,36 +311,10 @@ function sortJsonKeys(value: JsonValue): JsonValue {
   return value;
 }
 
-async function createOpenApiApp(
-  compiledModule: CompiledNotesOpenApiModule,
-): Promise<INestApplication> {
-  const moduleRef = await Test.createTestingModule({
-    controllers: [compiledModule.NotesController],
-    providers: [
-      {
-        provide: compiledModule.NOTES_SERVICE,
-        useValue: notesServiceStub,
-      },
-      {
-        provide: APP_GUARD,
-        useClass: JwtAuthGuard,
-      },
-    ],
-  })
-    .overrideGuard(JwtAuthGuard)
-    .useValue({ canActivate: () => true })
-    .compile();
-
-  const app = moduleRef.createNestApplication();
-  await app.init();
-  return app;
-}
-
 async function main(): Promise<void> {
   await buildCompiledSwaggerMetadata();
 
-  const compiledModule = loadCompiledNotesOpenApiModule();
-  const app = await createOpenApiApp(compiledModule);
+  const app = await createOpenApiApp();
 
   try {
     const config = new DocumentBuilder()

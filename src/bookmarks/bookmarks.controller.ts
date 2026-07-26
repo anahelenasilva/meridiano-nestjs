@@ -12,6 +12,16 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import {
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+} from '@nestjs/swagger';
+import {
+  ApiAuthErrorResponse,
+  ApiValidationErrorResponse,
+} from '../shared/swagger/api-error-response.decorators';
 import { ArticlesService } from '../articles/articles.service';
 import { attachNotes } from '../notes/attach-notes';
 import { NotesReadService } from '../notes/notes-read.service';
@@ -23,6 +33,7 @@ import {
 import { BookmarksService } from './bookmarks.service';
 
 @Controller('api/bookmarks')
+@ApiAuthErrorResponse()
 export class BookmarksController {
   constructor(
     private readonly bookmarksService: BookmarksService,
@@ -31,6 +42,10 @@ export class BookmarksController {
   ) {}
 
   @Post()
+  @ApiOperation({ summary: 'Bookmark an article for the authenticated user' })
+  @ApiCreatedResponse({ type: AddBookmarkResponseDto })
+  @ApiValidationErrorResponse()
+  @ApiNotFoundResponse({ description: 'Article not found' })
   async addBookmark(
     @CurrentUser() user: AuthenticatedUser,
     @Body() createBookmarkDto: CreateBookmarkDto,
@@ -61,6 +76,9 @@ export class BookmarksController {
   }
 
   @Delete()
+  @ApiOperation({ summary: 'Remove a bookmark for the authenticated user' })
+  @ApiOkResponse({ description: 'Bookmark removed successfully' })
+  @ApiNotFoundResponse({ description: 'Bookmark not found' })
   async removeBookmark(
     @CurrentUser() user: AuthenticatedUser,
     @Query() query: Record<string, string | undefined>,
@@ -81,6 +99,8 @@ export class BookmarksController {
   }
 
   @Get()
+  @ApiOperation({ summary: "List the authenticated user's bookmarks" })
+  @ApiOkResponse({ description: 'Paginated list of bookmarks with their articles' })
   async getBookmarks(
     @CurrentUser() user: AuthenticatedUser,
     @Query() query: Record<string, string | undefined>,
@@ -130,6 +150,8 @@ export class BookmarksController {
   }
 
   @Get('check/:articleId')
+  @ApiOperation({ summary: 'Check whether an article is bookmarked by the authenticated user' })
+  @ApiOkResponse({ description: 'Bookmark status for the article' })
   async checkBookmark(
     @CurrentUser() user: AuthenticatedUser,
     @Query() query: Record<string, string | undefined>,
@@ -146,6 +168,8 @@ export class BookmarksController {
   }
 
   @Get('count')
+  @ApiOperation({ summary: "Get the authenticated user's total bookmark count" })
+  @ApiOkResponse({ description: 'Bookmark count' })
   async getBookmarkCount(
     @CurrentUser() user: AuthenticatedUser,
     @Query() query: Record<string, string | undefined>,
