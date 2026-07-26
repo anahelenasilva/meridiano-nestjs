@@ -15,6 +15,17 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import {
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiResponse,
+} from '@nestjs/swagger';
+import {
+  ApiAuthErrorResponse,
+  ApiValidationErrorResponse,
+} from '../shared/swagger/api-error-response.decorators';
 import { parseIncludeAudio } from '../shared/helpers/parse-include-audio';
 import { ScraperService } from '../scraper/scraper.service';
 import { GenerateArticleAudioCommand } from './commands/generate-article-audio.command';
@@ -27,6 +38,7 @@ import { GetArticleByIdQuery } from './queries/get-article-by-id.query';
 import { ListArticlesQuery } from './queries/list-articles.query';
 
 @Controller('api/articles')
+@ApiAuthErrorResponse()
 export class ArticlesController {
   constructor(
     private readonly articlesService: ArticlesService,
@@ -40,6 +52,9 @@ export class ArticlesController {
   ) {}
 
   @Post()
+  @ApiOperation({ summary: 'Scrape a URL and queue the resulting article for processing' })
+  @ApiCreatedResponse({ description: 'Article scraped and queued for processing' })
+  @ApiValidationErrorResponse()
   async create(@Body() createArticleDto: CreateArticleDto) {
     const { url, feedProfile, customPrompt, generateAudio } = createArticleDto;
 
@@ -79,6 +94,9 @@ export class ArticlesController {
   }
 
   @Post('upload-url')
+  @ApiOperation({ summary: 'Generate a presigned S3 upload URL for an article file' })
+  @ApiCreatedResponse({ description: 'Presigned upload URL generated' })
+  @ApiValidationErrorResponse()
   async generateUploadUrl(@Body() dto: GenerateUploadUrlDto) {
     const { articleFileName, s3Bucket, contentType, fileSize } = dto;
 
@@ -114,6 +132,9 @@ export class ArticlesController {
   }
 
   @Post('markdown')
+  @ApiOperation({ summary: 'Queue a markdown article stored in S3 for processing' })
+  @ApiCreatedResponse({ description: 'Markdown article queued for processing' })
+  @ApiValidationErrorResponse()
   async processMarkdownArticle(@Body() dto: ProcessMarkdownArticleDto) {
     const { s3Key, feedProfile, s3Bucket, customPrompt, generateAudio } = dto;
 
@@ -153,6 +174,9 @@ export class ArticlesController {
   }
 
   @Get('jobs/:jobId')
+  @ApiOperation({ summary: 'Get the status of an article processing job' })
+  @ApiOkResponse({ description: 'Job status retrieved' })
+  @ApiNotFoundResponse({ description: 'Job not found' })
   async getJobStatus(@Param('jobId') jobId: string) {
     try {
       return await this.queueService.getJobStatus(jobId);
@@ -166,6 +190,8 @@ export class ArticlesController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'List the authenticated user\'s articles' })
+  @ApiOkResponse({ description: 'Paginated list of articles' })
   async listArticles(
     @CurrentUser() user: AuthenticatedUser,
     @Query() input: PaginatedArticleInput,
@@ -174,6 +200,9 @@ export class ArticlesController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Get an article by id' })
+  @ApiOkResponse({ description: 'Article retrieved' })
+  @ApiNotFoundResponse({ description: 'Article not found' })
   async getArticle(
     @CurrentUser() user: AuthenticatedUser,
     @Param('id', ParseUUIDPipe) id: string,
@@ -194,6 +223,8 @@ export class ArticlesController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete an article by id' })
+  @ApiOkResponse({ description: 'Article deleted' })
   async deleteArticle(@Param('id', ParseUUIDPipe) id: string) {
     await this.articlesService.deleteArticleById(id);
     return { success: true };
@@ -201,11 +232,16 @@ export class ArticlesController {
 
   @Post(':id/audio')
   @HttpCode(202)
+  @ApiOperation({ summary: 'Generate audio for an article' })
+  @ApiResponse({ status: 202, description: 'Audio generation job accepted' })
   async generateAudio(@Param('id', ParseUUIDPipe) id: string) {
     return await this.generateArticleAudioCommand.execute(id);
   }
 
   @Get(':id/audio/status/:jobId')
+  @ApiOperation({ summary: 'Get the status of an article audio generation job' })
+  @ApiOkResponse({ description: 'Audio job status retrieved' })
+  @ApiNotFoundResponse({ description: 'Audio job not found' })
   async getAudioJobStatus(
     @Param('id', ParseUUIDPipe) id: string,
     @Param('jobId') jobId: string,

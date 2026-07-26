@@ -14,6 +14,17 @@ import {
   Query,
   Req,
 } from '@nestjs/common';
+import {
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiResponse,
+} from '@nestjs/swagger';
+import {
+  ApiAuthErrorResponse,
+  ApiValidationErrorResponse,
+} from '../shared/swagger/api-error-response.decorators';
 import { AudioFilesService } from '../audio-files/audio-files.service';
 import type { AuthenticatedRequest } from '../shared/types/authenticated-request';
 import { parseIncludeAudio } from '../shared/helpers/parse-include-audio';
@@ -24,6 +35,7 @@ import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcri
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
 
 @Controller('api/youtube')
+@ApiAuthErrorResponse()
 export class YoutubeTranscriptionsController {
   constructor(
     private readonly listAllYoutubeTranscriptionsQuery: ListAllYoutubeTranscriptionsQuery,
@@ -35,6 +47,8 @@ export class YoutubeTranscriptionsController {
   ) {}
 
   @Get('transcriptions')
+  @ApiOperation({ summary: "List the authenticated user's YouTube transcriptions" })
+  @ApiOkResponse({ description: 'List of YouTube transcriptions' })
   async listTranscriptions(@Req() request: AuthenticatedRequest) {
     return await this.listAllYoutubeTranscriptionsQuery.execute(
       request.user.id,
@@ -42,6 +56,9 @@ export class YoutubeTranscriptionsController {
   }
 
   @Post('transcriptions')
+  @ApiOperation({ summary: 'Create a transcription for a YouTube video' })
+  @ApiCreatedResponse({ description: 'Transcription created' })
+  @ApiValidationErrorResponse()
   async createTranscription(@Body() dto: CreateYoutubeTranscriptionDto) {
     return await this.createYoutubeTranscriptionCommand.execute({
       url: dto.url,
@@ -52,6 +69,9 @@ export class YoutubeTranscriptionsController {
   }
 
   @Get('transcriptions/:id')
+  @ApiOperation({ summary: 'Get a YouTube transcription by id' })
+  @ApiOkResponse({ description: 'Transcription retrieved' })
+  @ApiNotFoundResponse({ description: 'YouTube transcription not found' })
   async getTranscription(
     @Req() request: AuthenticatedRequest,
     @Param('id', ParseUUIDPipe) id: string,
@@ -72,6 +92,8 @@ export class YoutubeTranscriptionsController {
   }
 
   @Delete('transcriptions/:id')
+  @ApiOperation({ summary: 'Delete a YouTube transcription' })
+  @ApiOkResponse({ description: 'Transcription deleted' })
   async delete(@Param('id', ParseUUIDPipe) id: string) {
     const data = await this.deleteYoutubeTranscriptionCommand.execute(id);
     return data;
@@ -79,6 +101,11 @@ export class YoutubeTranscriptionsController {
 
   @Post('transcriptions/:id/audio')
   @HttpCode(202)
+  @ApiOperation({ summary: 'Generate audio for a YouTube transcription' })
+  @ApiResponse({ status: 202, description: 'Audio generation job accepted' })
+  @ApiNotFoundResponse({ description: 'YouTube transcription not found' })
+  @ApiResponse({ status: 400, description: 'Transcription has no content available for audio generation' })
+  @ApiResponse({ status: 409, description: 'Audio already exists or generation already in progress' })
   async generateAudio(
     @Req() request: AuthenticatedRequest,
     @Param('id', ParseUUIDPipe) id: string,

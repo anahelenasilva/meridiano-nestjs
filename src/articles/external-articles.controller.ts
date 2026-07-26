@@ -15,7 +15,14 @@ import {
   ServiceUnavailableException,
   UseGuards,
 } from '@nestjs/common';
+import {
+  ApiCreatedResponse,
+  ApiOperation,
+  ApiResponse,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { isIP } from 'net';
+import { ApiValidationErrorResponse } from '../shared/swagger/api-error-response.decorators';
 import { ConfigService } from '../config/config.service';
 import { ScraperService } from '../scraper/scraper.service';
 import { FeedProfile } from '../shared/types/feed';
@@ -63,6 +70,13 @@ export class ExternalArticlesController {
     maxAttempts: 10,
     keyGenerator: resolveExternalRateLimitKey,
   })
+  @ApiOperation({ summary: 'Submit an external article URL for scraping and processing' })
+  @ApiCreatedResponse({ description: 'Article submitted successfully and queued for processing' })
+  @ApiValidationErrorResponse()
+  @ApiUnauthorizedResponse({ description: 'Missing or invalid X-External-Token header' })
+  @ApiResponse({ status: 409, description: 'Article already exists' })
+  @ApiResponse({ status: 429, description: 'Rate limit exceeded' })
+  @ApiResponse({ status: 503, description: 'External article submission is currently disabled' })
   async createExternal(@Body() dto: ExternalCreateArticleDto): Promise<ExternalArticleResponse> {
     if (!this.isFeatureEnabled()) {
       throw new ServiceUnavailableException({

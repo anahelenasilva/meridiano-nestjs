@@ -1,6 +1,315 @@
 {
   "components": {
     "schemas": {
+      "AddBookmarkResponseDto": {
+        "properties": {
+          "already_bookmarked": {
+            "type": "boolean"
+          },
+          "article_id": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "already_bookmarked",
+          "id",
+          "article_id",
+          "created_at"
+        ],
+        "type": "object"
+      },
+      "CreateArticleDto": {
+        "properties": {
+          "customPrompt": {
+            "maxLength": 500,
+            "type": "string"
+          },
+          "feedProfile": {
+            "enum": [
+              "default",
+              "technology",
+              "politics",
+              "business",
+              "health",
+              "science",
+              "brasil",
+              "teclas"
+            ],
+            "type": "string"
+          },
+          "generateAudio": {
+            "type": "boolean"
+          },
+          "url": {
+            "format": "uri",
+            "type": "string"
+          }
+        },
+        "required": [
+          "url",
+          "feedProfile"
+        ],
+        "type": "object"
+      },
+      "CreateBookmarkDto": {
+        "properties": {
+          "article_id": {
+            "format": "uuid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "article_id"
+        ],
+        "type": "object"
+      },
+      "CreateUserDto": {
+        "properties": {
+          "email": {
+            "format": "email",
+            "type": "string"
+          },
+          "password": {
+            "minLength": 8,
+            "pattern": "^(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*\\d).+$",
+            "type": "string"
+          },
+          "username": {
+            "maxLength": 30,
+            "minLength": 3,
+            "pattern": "^[a-zA-Z0-9_-]+$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "username",
+          "password"
+        ],
+        "type": "object"
+      },
+      "CreateYoutubeChannelDto": {
+        "properties": {
+          "channelId": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "maxVideos": {
+            "minimum": 1,
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "format": "uri",
+            "type": "string"
+          }
+        },
+        "required": [
+          "channelId",
+          "name",
+          "url",
+          "description",
+          "enabled"
+        ],
+        "type": "object"
+      },
+      "CreateYoutubeTranscriptionDto": {
+        "properties": {
+          "channelId": {
+            "type": "string"
+          },
+          "customPrompt": {
+            "maxLength": 500,
+            "type": "string"
+          },
+          "generateAudio": {
+            "type": "boolean"
+          },
+          "url": {
+            "format": "uri",
+            "type": "string"
+          }
+        },
+        "required": [
+          "url",
+          "channelId"
+        ],
+        "type": "object"
+      },
+      "CustomPromptsDto": {
+        "properties": {
+          "briefSynthesis": {
+            "type": "string"
+          },
+          "clusterAnalysis": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ExternalCreateArticleDto": {
+        "properties": {
+          "customPrompt": {
+            "maxLength": 500,
+            "type": "string"
+          },
+          "feedProfile": {
+            "enum": [
+              "default",
+              "technology",
+              "politics",
+              "business",
+              "health",
+              "science",
+              "brasil",
+              "teclas"
+            ],
+            "type": "string"
+          },
+          "generateAudio": {
+            "type": "boolean"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/ExternalSubmissionMetadataDto"
+          },
+          "source": {
+            "type": "string"
+          },
+          "url": {
+            "format": "uri",
+            "type": "string"
+          }
+        },
+        "required": [
+          "url",
+          "feedProfile"
+        ],
+        "type": "object"
+      },
+      "ExternalSubmissionMetadataDto": {
+        "properties": {
+          "chatId": {
+            "type": "string"
+          },
+          "messageId": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "GenerateBriefInputDto": {
+        "properties": {
+          "customPrompts": {
+            "$ref": "#/components/schemas/CustomPromptsDto"
+          },
+          "feedProfile": {
+            "enum": [
+              "default",
+              "technology",
+              "politics",
+              "business",
+              "health",
+              "science",
+              "brasil",
+              "teclas"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "feedProfile"
+        ],
+        "type": "object"
+      },
+      "GenerateUploadUrlDto": {
+        "properties": {
+          "articleFileName": {
+            "type": "string"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "fileSize": {
+            "type": "number"
+          },
+          "s3Bucket": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "articleFileName"
+        ],
+        "type": "object"
+      },
+      "LoginDto": {
+        "properties": {
+          "email": {
+            "format": "email",
+            "type": "string"
+          },
+          "password": {
+            "minLength": 8,
+            "pattern": "^(?=.*[a-zA-Z])(?=.*\\d).+$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object"
+      },
+      "LoginResponseDto": {
+        "properties": {
+          "access_token": {
+            "type": "string"
+          },
+          "user": {
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "email",
+              "username"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "access_token",
+          "user"
+        ],
+        "type": "object"
+      },
       "NoteResponseDto": {
         "properties": {
           "content": {
@@ -23,6 +332,41 @@
           "content",
           "created_at",
           "updated_at"
+        ],
+        "type": "object"
+      },
+      "ProcessMarkdownArticleDto": {
+        "properties": {
+          "customPrompt": {
+            "maxLength": 500,
+            "type": "string"
+          },
+          "feedProfile": {
+            "enum": [
+              "default",
+              "technology",
+              "politics",
+              "business",
+              "health",
+              "science",
+              "brasil",
+              "teclas"
+            ],
+            "type": "string"
+          },
+          "generateAudio": {
+            "type": "boolean"
+          },
+          "s3Bucket": {
+            "type": "string"
+          },
+          "s3Key": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "s3Key",
+          "feedProfile"
         ],
         "type": "object"
       },
@@ -85,6 +429,41 @@
         ],
         "type": "object"
       },
+      "UpdateChannelEnabledDto": {
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "enabled"
+        ],
+        "type": "object"
+      },
+      "UserResponseDto": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "username",
+          "created_at"
+        ],
+        "type": "object"
+      },
       "ValidationErrorResponseDto": {
         "properties": {
           "error": {
@@ -111,6 +490,52 @@
           "error"
         ],
         "type": "object"
+      },
+      "YoutubeChannelResponseDto": {
+        "properties": {
+          "channelId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "maxVideos": {
+            "nullable": true,
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "channelId",
+          "name",
+          "url",
+          "description",
+          "enabled",
+          "maxVideos",
+          "createdAt",
+          "updatedAt"
+        ],
+        "type": "object"
       }
     }
   },
@@ -122,6 +547,873 @@
   },
   "openapi": "3.0.0",
   "paths": {
+    "/api/articles": {
+      "get": {
+        "operationId": "ArticlesController_listArticles",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Paginated list of articles"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "List the authenticated user's articles",
+        "tags": [
+          "Articles"
+        ]
+      },
+      "post": {
+        "operationId": "ArticlesController_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateArticleDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Article scraped and queued for processing"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "Scrape a URL and queue the resulting article for processing",
+        "tags": [
+          "Articles"
+        ]
+      }
+    },
+    "/api/articles/external": {
+      "post": {
+        "operationId": "ExternalArticlesController_createExternal",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExternalCreateArticleDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Article submitted successfully and queued for processing"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
+          },
+          "401": {
+            "description": "Missing or invalid X-External-Token header"
+          },
+          "409": {
+            "description": "Article already exists"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          },
+          "503": {
+            "description": "External article submission is currently disabled"
+          }
+        },
+        "summary": "Submit an external article URL for scraping and processing",
+        "tags": [
+          "ExternalArticles"
+        ]
+      }
+    },
+    "/api/articles/jobs/{jobId}": {
+      "get": {
+        "operationId": "ArticlesController_getJobStatus",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "jobId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job status retrieved"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          },
+          "404": {
+            "description": "Job not found"
+          }
+        },
+        "summary": "Get the status of an article processing job",
+        "tags": [
+          "Articles"
+        ]
+      }
+    },
+    "/api/articles/markdown": {
+      "post": {
+        "operationId": "ArticlesController_processMarkdownArticle",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProcessMarkdownArticleDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Markdown article queued for processing"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "Queue a markdown article stored in S3 for processing",
+        "tags": [
+          "Articles"
+        ]
+      }
+    },
+    "/api/articles/upload-url": {
+      "post": {
+        "operationId": "ArticlesController_generateUploadUrl",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateUploadUrlDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Presigned upload URL generated"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "Generate a presigned S3 upload URL for an article file",
+        "tags": [
+          "Articles"
+        ]
+      }
+    },
+    "/api/articles/{id}": {
+      "delete": {
+        "operationId": "ArticlesController_deleteArticle",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Article deleted"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "Delete an article by id",
+        "tags": [
+          "Articles"
+        ]
+      },
+      "get": {
+        "operationId": "ArticlesController_getArticle",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "includeAudio",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Article retrieved"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          },
+          "404": {
+            "description": "Article not found"
+          }
+        },
+        "summary": "Get an article by id",
+        "tags": [
+          "Articles"
+        ]
+      }
+    },
+    "/api/articles/{id}/audio": {
+      "post": {
+        "operationId": "ArticlesController_generateAudio",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Audio generation job accepted"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "Generate audio for an article",
+        "tags": [
+          "Articles"
+        ]
+      }
+    },
+    "/api/articles/{id}/audio/status/{jobId}": {
+      "get": {
+        "operationId": "ArticlesController_getAudioJobStatus",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "jobId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Audio job status retrieved"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          },
+          "404": {
+            "description": "Audio job not found"
+          }
+        },
+        "summary": "Get the status of an article audio generation job",
+        "tags": [
+          "Articles"
+        ]
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "operationId": "AuthController_login",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
+          },
+          "401": {
+            "description": "Invalid email or password"
+          },
+          "429": {
+            "description": "Too many login attempts"
+          }
+        },
+        "summary": "Authenticate a user and obtain a JWT access token",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/bookmarks": {
+      "delete": {
+        "operationId": "BookmarksController_removeBookmark",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "article_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bookmark removed successfully"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          },
+          "404": {
+            "description": "Bookmark not found"
+          }
+        },
+        "summary": "Remove a bookmark for the authenticated user",
+        "tags": [
+          "Bookmarks"
+        ]
+      },
+      "get": {
+        "operationId": "BookmarksController_getBookmarks",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of bookmarks with their articles"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "List the authenticated user's bookmarks",
+        "tags": [
+          "Bookmarks"
+        ]
+      },
+      "post": {
+        "operationId": "BookmarksController_addBookmark",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBookmarkDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddBookmarkResponseDto"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          },
+          "404": {
+            "description": "Article not found"
+          }
+        },
+        "summary": "Bookmark an article for the authenticated user",
+        "tags": [
+          "Bookmarks"
+        ]
+      }
+    },
+    "/api/bookmarks/check/{articleId}": {
+      "get": {
+        "operationId": "BookmarksController_checkBookmark",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "articleId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bookmark status for the article"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "Check whether an article is bookmarked by the authenticated user",
+        "tags": [
+          "Bookmarks"
+        ]
+      }
+    },
+    "/api/bookmarks/count": {
+      "get": {
+        "operationId": "BookmarksController_getBookmarkCount",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Bookmark count"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "Get the authenticated user's total bookmark count",
+        "tags": [
+          "Bookmarks"
+        ]
+      }
+    },
+    "/api/briefings": {
+      "get": {
+        "operationId": "BriefingsController_listBriefings",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "feedProfile",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of briefings"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "List briefings, optionally filtered by feed profile",
+        "tags": [
+          "Briefings"
+        ]
+      }
+    },
+    "/api/briefings/custom": {
+      "post": {
+        "operationId": "BriefingsController_generateCustomBriefing",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Generated custom briefing"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "Generate a custom briefing from a specific set of articles",
+        "tags": [
+          "Briefings"
+        ]
+      }
+    },
+    "/api/briefings/generate": {
+      "post": {
+        "operationId": "BriefingsController_generateBriefing",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateBriefInputDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Generated briefing"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "Generate a briefing for a feed profile",
+        "tags": [
+          "Briefings"
+        ]
+      }
+    },
+    "/api/briefings/jobs/{jobId}": {
+      "get": {
+        "operationId": "BriefingsController_getCustomBriefingJobStatus",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "jobId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Job status retrieved"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "Get the status of a custom briefing generation job",
+        "tags": [
+          "Briefings"
+        ]
+      }
+    },
+    "/api/briefings/{id}": {
+      "get": {
+        "operationId": "BriefingsController_getBriefing",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Briefing retrieved"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          },
+          "404": {
+            "description": "Briefing not found"
+          }
+        },
+        "summary": "Get a briefing by id",
+        "tags": [
+          "Briefings"
+        ]
+      }
+    },
+    "/api/briefings/{id}/title": {
+      "patch": {
+        "operationId": "BriefingsController_updateBriefTitle",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Brief title updated"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "Update the custom title of a briefing",
+        "tags": [
+          "Briefings"
+        ]
+      }
+    },
+    "/api/health": {
+      "get": {
+        "operationId": "AppController_getHealth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Service is healthy"
+          }
+        },
+        "summary": "Check API health",
+        "tags": [
+          "App"
+        ]
+      }
+    },
     "/api/notes": {
       "post": {
         "operationId": "NotesController_saveNote",
@@ -171,6 +1463,473 @@
         "summary": "Save an authenticated user note",
         "tags": [
           "Notes"
+        ]
+      }
+    },
+    "/api/profiles": {
+      "get": {
+        "operationId": "ProfilesController_getAvailableProfiles",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Available feed profiles"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "List the available feed profiles",
+        "tags": [
+          "Profiles"
+        ]
+      }
+    },
+    "/api/users": {
+      "post": {
+        "operationId": "UsersController_createUser",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponseDto"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
+          }
+        },
+        "summary": "Create a new user account",
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/users/{id}": {
+      "get": {
+        "operationId": "UsersController_getUserById",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponseDto"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          },
+          "404": {
+            "description": "Invalid user"
+          }
+        },
+        "summary": "Get a user by id",
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/youtube/channels": {
+      "get": {
+        "operationId": "YoutubeChannelsController_getChannels",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List of YouTube channels"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "List YouTube channels",
+        "tags": [
+          "YoutubeChannels"
+        ]
+      },
+      "post": {
+        "operationId": "YoutubeChannelsController_createChannel",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateYoutubeChannelDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/YoutubeChannelResponseDto"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "Register a new YouTube channel",
+        "tags": [
+          "YoutubeChannels"
+        ]
+      }
+    },
+    "/api/youtube/channels/{channelId}": {
+      "patch": {
+        "operationId": "YoutubeChannelsController_updateChannelEnabled",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "channelId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateChannelEnabledDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Channel enabled state updated"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "Enable or disable a YouTube channel",
+        "tags": [
+          "YoutubeChannels"
+        ]
+      }
+    },
+    "/api/youtube/transcriptions": {
+      "get": {
+        "operationId": "YoutubeTranscriptionsController_listTranscriptions",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List of YouTube transcriptions"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "List the authenticated user's YouTube transcriptions",
+        "tags": [
+          "YoutubeTranscriptions"
+        ]
+      },
+      "post": {
+        "operationId": "YoutubeTranscriptionsController_createTranscription",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateYoutubeTranscriptionDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Transcription created"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "Create a transcription for a YouTube video",
+        "tags": [
+          "YoutubeTranscriptions"
+        ]
+      }
+    },
+    "/api/youtube/transcriptions/{id}": {
+      "delete": {
+        "operationId": "YoutubeTranscriptionsController_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transcription deleted"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "Delete a YouTube transcription",
+        "tags": [
+          "YoutubeTranscriptions"
+        ]
+      },
+      "get": {
+        "operationId": "YoutubeTranscriptionsController_getTranscription",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "includeAudio",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transcription retrieved"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          },
+          "404": {
+            "description": "YouTube transcription not found"
+          }
+        },
+        "summary": "Get a YouTube transcription by id",
+        "tags": [
+          "YoutubeTranscriptions"
+        ]
+      }
+    },
+    "/api/youtube/transcriptions/{id}/audio": {
+      "post": {
+        "operationId": "YoutubeTranscriptionsController_generateAudio",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Audio generation job accepted"
+          },
+          "400": {
+            "description": "Transcription has no content available for audio generation"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          },
+          "404": {
+            "description": "YouTube transcription not found"
+          },
+          "409": {
+            "description": "Audio already exists or generation already in progress"
+          }
+        },
+        "summary": "Generate audio for a YouTube transcription",
+        "tags": [
+          "YoutubeTranscriptions"
+        ]
+      }
+    },
+    "/feeds/articles.xml": {
+      "get": {
+        "operationId": "FeedsController_getArticlesFeed",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "feedProfile",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/rss+xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "RSS XML feed"
+          }
+        },
+        "summary": "Get the public RSS feed of articles",
+        "tags": [
+          "Feeds"
         ]
       }
     }
