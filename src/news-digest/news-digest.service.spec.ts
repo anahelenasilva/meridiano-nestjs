@@ -1,4 +1,5 @@
 import { EmailService } from '@libs/email';
+import { NEWS_DIGEST_JOB, NEWS_DIGEST_QUEUE } from '@libs/queue/constants/queue.constants';
 import { RedisService } from '@libs/redis';
 import { Logger } from '@nestjs/common';
 import { Job, Queue, Worker } from 'bullmq';
@@ -73,9 +74,9 @@ describe('NewsDigestService', () => {
     it('creates queue and worker with the redis connection', () => {
       service.onModuleInit();
 
-      expect(Queue).toHaveBeenCalledWith('news-digest', { connection: redisClient });
+      expect(Queue).toHaveBeenCalledWith(NEWS_DIGEST_QUEUE, { connection: redisClient });
       expect(Worker).toHaveBeenCalledWith(
-        'news-digest',
+        NEWS_DIGEST_QUEUE,
         expect.any(Function),
         { connection: redisClient },
       );
@@ -87,7 +88,7 @@ describe('NewsDigestService', () => {
       await Promise.resolve();
 
       expect(mockQueue.add).toHaveBeenCalledWith(
-        'news-digest-job',
+        NEWS_DIGEST_JOB,
         {},
         {
           repeat: { pattern: '0 10 * * *' },

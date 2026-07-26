@@ -11,7 +11,7 @@ Uploaded markdown files often contain the author or publication in the body — 
 ## Decision
 Before saving an uploaded article to the database, run a dedicated AI call to extract the Article Source from the markdown content. If extraction succeeds, use the result as `feed_source`. If the AI cannot identify a source, fall back to `'Unknown'`.
 
-This extraction is scoped to the markdown upload pipeline only (`MarkdownArticleProcessor`). RSS and manual scrape ingestion paths are unaffected.
+This extraction is scoped to the markdown upload path only, via `ArticleIngestionService.resolveSource` (branching on `ArticleSource.type === 'markdown'`). RSS ingestion resolves the source from the feed name, and manual scrape ingestion uses a fixed `'Manual'` value — neither AI call path is affected. `ArticleIngestionService` now owns source resolution for all ingestion paths (RSS, manual, markdown), replacing the earlier per-processor scoping to `MarkdownArticleProcessor`.
 
 ## Alternatives considered
 
