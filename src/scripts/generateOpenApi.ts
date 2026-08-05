@@ -160,6 +160,10 @@ async function createOpenApiApp(): Promise<INestApplication> {
     '../feeds/queries/get-articles-feed.query.js',
     'GetArticlesFeedQuery',
   );
+  const GetYoutubeFeedQuery = loadDistExport<Type<unknown>>(
+    '../feeds/queries/get-youtube-feed.query.js',
+    'GetYoutubeFeedQuery',
+  );
   const ProfilesService = loadDistExport<Type<unknown>>(
     '../profiles/profiles.service.js',
     'ProfilesService',
@@ -261,6 +265,7 @@ async function createOpenApiApp(): Promise<INestApplication> {
       { provide: GenerateBriefUseCase, useValue: {} },
       { provide: GenerateCustomBriefUseCase, useValue: {} },
       { provide: GetArticlesFeedQuery, useValue: {} },
+      { provide: GetYoutubeFeedQuery, useValue: {} },
       { provide: ProfilesService, useValue: {} },
       { provide: UsersService, useValue: {} },
       { provide: GetYoutubeChannelsQuery, useValue: {} },
