@@ -10,3 +10,8 @@ export interface FeedQueryOptions {
   limit?: number;
   feedProfile?: FeedProfile;
 }
+
+export interface YoutubeFeedQueryOptions {
+  limit?: number;
+  channelId?: string;
+}

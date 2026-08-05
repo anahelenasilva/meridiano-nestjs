@@ -40,3 +40,13 @@ export function parseFeedProfile(
     ? (normalized as FeedProfile)
     : undefined;
 }
+
+export function parseChannelId(value: string | undefined): string | undefined {
+  if (typeof value !== 'string') {
+    return undefined;
+  }
+
+  const trimmed = value.trim();
+
+  return trimmed === '' ? undefined : trimmed;
+}
