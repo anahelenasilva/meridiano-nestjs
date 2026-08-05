@@ -2,6 +2,7 @@ import { FeedProfile } from '../../shared/types/feed';
 import {
   FEED_DEFAULT_ITEM_LIMIT,
   FEED_MAX_ITEM_LIMIT,
+  parseChannelId,
   parseFeedLimit,
   parseFeedProfile,
 } from './parse-feed-query';
@@ -76,5 +77,26 @@ describe('parseFeedProfile', () => {
 
   it('normalizes case and surrounding whitespace', () => {
     expect(parseFeedProfile('  TECHNOLOGY  ')).toBe(FeedProfile.TECHNOLOGY);
+  });
+});
+
+describe('parseChannelId', () => {
+  it('returns undefined when the value is undefined', () => {
+    expect(parseChannelId(undefined)).toBeUndefined();
+  });
+
+  it('returns undefined when the value is empty or blank', () => {
+    expect(parseChannelId('')).toBeUndefined();
+    expect(parseChannelId('   ')).toBeUndefined();
+  });
+
+  it('returns undefined when the value is an array (repeated query key)', () => {
+    expect(
+      parseChannelId(['channel-1', 'channel-2'] as unknown as string),
+    ).toBeUndefined();
+  });
+
+  it('trims surrounding whitespace and returns the channel id', () => {
+    expect(parseChannelId('  channel-1  ')).toBe('channel-1');
   });
 });

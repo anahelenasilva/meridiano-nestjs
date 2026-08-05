@@ -1932,6 +1932,45 @@
           "Feeds"
         ]
       }
+    },
+    "/feeds/youtube.xml": {
+      "get": {
+        "operationId": "FeedsController_getYoutubeFeed",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "channelId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/rss+xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "RSS XML feed"
+          }
+        },
+        "summary": "Get the public RSS feed of YouTube transcriptions",
+        "tags": [
+          "Feeds"
+        ]
+      }
     }
   },
   "servers": [],

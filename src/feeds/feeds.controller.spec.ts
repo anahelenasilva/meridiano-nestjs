@@ -3,19 +3,24 @@ import { HEADERS_METADATA } from '@nestjs/common/constants';
 import { mock } from 'jest-mock-extended';
 import { FeedsController } from './feeds.controller';
 import { GetArticlesFeedQuery } from './queries/get-articles-feed.query';
+import { GetYoutubeFeedQuery } from './queries/get-youtube-feed.query';
 import { FeedRequest } from './feeds.types';
 import { FeedProfile } from '../shared/types/feed';
 import { FEED_DEFAULT_ITEM_LIMIT } from './helpers/parse-feed-query';
 
 describe('FeedsController', () => {
   const mockGetArticlesFeedQuery = mock<GetArticlesFeedQuery>();
+  const mockGetYoutubeFeedQuery = mock<GetYoutubeFeedQuery>();
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   function buildController() {
-    return new FeedsController(mockGetArticlesFeedQuery);
+    return new FeedsController(
+      mockGetArticlesFeedQuery,
+      mockGetYoutubeFeedQuery,
+    );
   }
 
   function buildRequest(overrides: Partial<FeedRequest> = {}): FeedRequest {
@@ -117,6 +122,81 @@ describe('FeedsController', () => {
 
     await expect(
       controller.getArticlesFeed(buildRequest()),
+    ).rejects.toThrow('feed generation failed');
+  });
+
+  it('has @Public() on the getYoutubeFeed endpoint', () => {
+    const isPublic = Reflect.getMetadata(
+      IS_PUBLIC_KEY,
+      FeedsController.prototype.getYoutubeFeed,
+    );
+    expect(isPublic).toBe(true);
+  });
+
+  it('sets the youtube response content type to application/rss+xml', () => {
+    const headers = Reflect.getMetadata(
+      HEADERS_METADATA,
+      FeedsController.prototype.getYoutubeFeed,
+    );
+    expect(headers).toContainEqual({
+      name: 'Content-Type',
+      value: 'application/rss+xml; charset=utf-8',
+    });
+  });
+
+  it('delegates to GetYoutubeFeedQuery with a channel link built from the request', async () => {
+    const xml = '<rss version="2.0"></rss>';
+    mockGetYoutubeFeedQuery.execute.mockResolvedValue(xml);
+
+    const controller = buildController();
+    const request = buildRequest({ originalUrl: '/feeds/youtube.xml' });
+
+    const result = await controller.getYoutubeFeed(request);
+
+    expect(result).toBe(xml);
+    expect(mockGetYoutubeFeedQuery.execute).toHaveBeenCalledWith(
+      'https://api.example.com/feeds/youtube.xml',
+      { limit: FEED_DEFAULT_ITEM_LIMIT, channelId: undefined },
+    );
+  });
+
+  it('parses the limit and channelId query params and passes them through', async () => {
+    mockGetYoutubeFeedQuery.execute.mockResolvedValue('<rss></rss>');
+
+    const controller = buildController();
+    const request = buildRequest({ originalUrl: '/feeds/youtube.xml' });
+
+    await controller.getYoutubeFeed(request, '5', 'channel-1');
+
+    expect(mockGetYoutubeFeedQuery.execute).toHaveBeenCalledWith(
+      'https://api.example.com/feeds/youtube.xml',
+      { limit: 5, channelId: 'channel-1' },
+    );
+  });
+
+  it('falls back to safe defaults for invalid limit and blank channelId query values', async () => {
+    mockGetYoutubeFeedQuery.execute.mockResolvedValue('<rss></rss>');
+
+    const controller = buildController();
+    const request = buildRequest({ originalUrl: '/feeds/youtube.xml' });
+
+    await controller.getYoutubeFeed(request, 'not-a-number', '   ');
+
+    expect(mockGetYoutubeFeedQuery.execute).toHaveBeenCalledWith(
+      'https://api.example.com/feeds/youtube.xml',
+      { limit: FEED_DEFAULT_ITEM_LIMIT, channelId: undefined },
+    );
+  });
+
+  it('propagates errors from GetYoutubeFeedQuery', async () => {
+    mockGetYoutubeFeedQuery.execute.mockRejectedValue(
+      new Error('feed generation failed'),
+    );
+
+    const controller = buildController();
+
+    await expect(
+      controller.getYoutubeFeed(buildRequest({ originalUrl: '/feeds/youtube.xml' })),
     ).rejects.toThrow('feed generation failed');
   });
 });
