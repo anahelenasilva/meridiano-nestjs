@@ -1,3 +1,4 @@
+import { ApiKeyAllowed } from '@libs/auth';
 import { AUDIO_GENERATION_SUCCESS_MESSAGE, AudioJobService } from '@libs/audio';
 import {
   BadRequestException,
@@ -56,6 +57,7 @@ export class YoutubeTranscriptionsController {
   }
 
   @Post('transcriptions')
+  @ApiKeyAllowed()
   @ApiOperation({ summary: 'Create a transcription for a YouTube video' })
   @ApiCreatedResponse({ description: 'Transcription created' })
   @ApiValidationErrorResponse()
