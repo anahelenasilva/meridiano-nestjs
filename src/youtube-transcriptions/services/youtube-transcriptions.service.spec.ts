@@ -413,4 +413,22 @@ describe('YoutubeTranscriptionsService', () => {
       ).not.toHaveBeenCalled();
     });
   });
+
+  describe('processSingleVideoUrl', () => {
+    it('resolves the channel by its channelId string, not the uuid PK', async () => {
+      mockYoutubeChannelsService.getChannelByChannelId.mockResolvedValue(null);
+
+      await expect(
+        service.processSingleVideoUrl(
+          'https://youtu.be/abc',
+          'UCRYY7IEbkHLH_ScJCu9eWDQ',
+        ),
+      ).rejects.toThrow('not found in configuration');
+
+      expect(
+        mockYoutubeChannelsService.getChannelByChannelId,
+      ).toHaveBeenCalledWith('UCRYY7IEbkHLH_ScJCu9eWDQ');
+      expect(mockYoutubeChannelsService.getChannelById).not.toHaveBeenCalled();
+    });
+  });
 });
