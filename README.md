@@ -66,6 +66,14 @@ REDIS_PORT=6379
 # JWT Authentication
 JWT_SECRET=your-secret-key-change-in-production
 
+# Meridiano CLI scoped API key (optional)
+# Long-lived static secret sent via the `x-api-key` header. Accepted on exactly
+# two routes — POST /api/youtube/transcriptions and GET /api/youtube/channels —
+# so an unattended CLI can call them without a JWT. Every other route stays
+# JWT-only. If unset/empty the key path is inert. Rotate by changing the value
+# and restarting the service.
+MERIDIANO_API_KEY=
+
 # AI API Keys
 DEEPSEEK_API_KEY=your-deepseek-api-key
 EMBEDDING_API_KEY=your-embedding-api-key

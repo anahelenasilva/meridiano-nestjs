@@ -57,6 +57,7 @@ Path mapping is configured in:
 - `JwtAuthGuard`
 - `JwtStrategy`
 - `Public`, `IS_PUBLIC_KEY`
+- `ApiKeyAllowed`, `API_KEY_ALLOWED_KEY`
 - `LoginDto`, `LoginResponseDto`
 - `RateLimit`, `RateLimitGuard`, `RateLimitService`
 - `RateLimitOptions` (type)
@@ -85,6 +86,7 @@ The auth lib expects a provider implementing `UserLookupProvider`:
 ### Environment variables
 
 - `JWT_SECRET`
+- `MERIDIANO_API_KEY` — optional scoped static key. When set, `JwtAuthGuard` accepts it via the `x-api-key` header on routes marked `@ApiKeyAllowed()`; unset/empty makes the key path inert (JWT-only).
 
 ## Database Library
 

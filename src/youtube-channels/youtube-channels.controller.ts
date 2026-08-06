@@ -1,3 +1,4 @@
+import { ApiKeyAllowed } from '@libs/auth';
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import {
@@ -23,6 +24,7 @@ export class YoutubeChannelsController {
   ) {}
 
   @Get()
+  @ApiKeyAllowed()
   @ApiOperation({ summary: 'List YouTube channels' })
   @ApiOkResponse({ description: 'List of YouTube channels' })
   async getChannels() {
