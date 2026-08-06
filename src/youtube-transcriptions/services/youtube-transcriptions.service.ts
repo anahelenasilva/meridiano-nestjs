@@ -280,7 +280,7 @@ export class YoutubeTranscriptionsService {
       console.log(`Processing single video: ${videoUrl}`);
 
       const channelConfig =
-        await this.youtubeChannelsService.getChannelById(channelId);
+        await this.youtubeChannelsService.getChannelByChannelId(channelId);
 
       if (!channelConfig) {
         throw new Error(`Channel ${channelId} not found in configuration`);

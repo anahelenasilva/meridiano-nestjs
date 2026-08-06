@@ -109,6 +109,45 @@ export class YoutubeChannelsService {
     });
   }
 
+  async getChannelByChannelId(
+    channelId: string,
+  ): Promise<YoutubeChannel | null> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      db.all(
+        'SELECT id, channel_id, name, url, description, enabled, max_videos, created_at, updated_at FROM youtube_channels WHERE channel_id = ?',
+        [channelId],
+        (err: Error | null, rows: any[]) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          if (!rows || rows.length === 0) {
+            resolve(null);
+            return;
+          }
+
+          const row = rows[0];
+          const channel: YoutubeChannel = {
+            id: row.id,
+            channelId: row.channel_id,
+            name: row.name,
+            url: row.url,
+            description: row.description,
+            enabled: row.enabled,
+            maxVideos: row.max_videos,
+            createdAt: new Date(row.created_at),
+            updatedAt: new Date(row.updated_at),
+          };
+
+          resolve(channel);
+        },
+      );
+    });
+  }
+
   async updateChannelEnabled(
     channelId: string,
     enabled: boolean,
