@@ -81,6 +81,12 @@ describe('ListAllYoutubeTranscriptionsQuery', () => {
     });
     // Items without an active note get note: null.
     expect(result?.transcriptions[1].note).toBeNull();
+    // Heavy free-text fields are excluded from the list payload; they are only
+    // returned by the detail endpoint.
+    expect(result?.transcriptions[0]).not.toHaveProperty('transcriptionText');
+    expect(result?.transcriptions[0]).not.toHaveProperty(
+      'transcriptionSummary',
+    );
     // Embedded shape must not leak ownership internals.
     expect(result?.transcriptions[0].note).not.toHaveProperty('user_id');
     expect(result?.transcriptions[0].note).not.toHaveProperty('source_id');
