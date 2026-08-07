@@ -35,7 +35,8 @@ export class ListAllYoutubeTranscriptionsQuery {
     // Strip the heavy free-text fields from the list payload. Callers fetch the
     // full text/summary from the detail endpoint when a transcription is opened.
     const listItems: YoutubeTranscriptionListItem[] = transcriptions.map(
-      ({ transcriptionText, transcriptionSummary, ...rest }) => rest,
+      ({ transcriptionText: _text, transcriptionSummary: _summary, ...rest }) =>
+        rest,
     );
 
     // Bulk-resolve the owner's active notes in a single query and attach them,
