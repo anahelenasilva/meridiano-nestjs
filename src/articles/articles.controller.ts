@@ -1,4 +1,4 @@
-import { CurrentUser, type AuthenticatedUser } from '@libs/auth';
+import { ApiKeyAllowed, CurrentUser, type AuthenticatedUser } from '@libs/auth';
 import { AudioJobService } from '@libs/audio';
 import { QueueService } from '@libs/queue';
 import { S3Service } from '@libs/s3';
@@ -52,6 +52,7 @@ export class ArticlesController {
   ) {}
 
   @Post()
+  @ApiKeyAllowed()
   @ApiOperation({ summary: 'Scrape a URL and queue the resulting article for processing' })
   @ApiCreatedResponse({ description: 'Article scraped and queued for processing' })
   @ApiValidationErrorResponse()
