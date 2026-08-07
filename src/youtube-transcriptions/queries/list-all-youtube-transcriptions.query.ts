@@ -5,9 +5,8 @@ import { DBYoutubeTranscription } from '../entities/youtube-transcription.entity
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 
 /**
- * List-item shape for transcriptions. Omits the heavy free-text fields
- * (`transcriptionText`, `transcriptionSummary`) — those are only returned by the
- * detail endpoint (`GET /api/youtube/transcriptions/:id`) to keep the list light.
+ * Omits the heavy free-text fields — those are only returned by the detail
+ * endpoint (`GET /api/youtube/transcriptions/:id`), keeping the list light.
  */
 export type YoutubeTranscriptionListItem = Omit<
   DBYoutubeTranscription,
@@ -32,8 +31,6 @@ export class ListAllYoutubeTranscriptionsQuery {
     const transcriptions = await this.service.getAllTranscriptions();
     const availableChannels = await this.service.getDistinctChannels();
 
-    // Strip the heavy free-text fields from the list payload. Callers fetch the
-    // full text/summary from the detail endpoint when a transcription is opened.
     const listItems: YoutubeTranscriptionListItem[] = transcriptions.map(
       ({ transcriptionText: _text, transcriptionSummary: _summary, ...rest }) =>
         rest,
