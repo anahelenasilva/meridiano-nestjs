@@ -4,8 +4,18 @@ import { NotesReadService } from '../../notes/notes-read.service';
 import { DBYoutubeTranscription } from '../entities/youtube-transcription.entity';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 
+/**
+ * List-item shape for transcriptions. Omits the heavy free-text fields
+ * (`transcriptionText`, `transcriptionSummary`) — those are only returned by the
+ * detail endpoint (`GET /api/youtube/transcriptions/:id`) to keep the list light.
+ */
+export type YoutubeTranscriptionListItem = Omit<
+  DBYoutubeTranscription,
+  'transcriptionText' | 'transcriptionSummary'
+>;
+
 export type ListAllYoutubeTranscriptionsResponse = {
-  transcriptions: WithNote<DBYoutubeTranscription>[];
+  transcriptions: WithNote<YoutubeTranscriptionListItem>[];
   available_channels: { id: string; name: string }[];
 };
 
@@ -22,6 +32,12 @@ export class ListAllYoutubeTranscriptionsQuery {
     const transcriptions = await this.service.getAllTranscriptions();
     const availableChannels = await this.service.getDistinctChannels();
 
+    // Strip the heavy free-text fields from the list payload. Callers fetch the
+    // full text/summary from the detail endpoint when a transcription is opened.
+    const listItems: YoutubeTranscriptionListItem[] = transcriptions.map(
+      ({ transcriptionText, transcriptionSummary, ...rest }) => rest,
+    );
+
     // Bulk-resolve the owner's active notes in a single query and attach them,
     // avoiding an N+1 lookup while preserving the unpaginated list behavior.
     const notesBySourceId =
@@ -33,7 +49,7 @@ export class ListAllYoutubeTranscriptionsQuery {
 
     return {
       transcriptions: attachNotes(
-        transcriptions,
+        listItems,
         (transcription) => transcription.id,
         notesBySourceId,
       ),
