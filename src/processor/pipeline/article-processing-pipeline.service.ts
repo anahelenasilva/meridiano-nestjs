@@ -167,7 +167,7 @@ export class ArticleProcessingPipelineService {
       : this.configService.getImpactRatingPrompt(summary);
 
     const response = await this.callChat(ratingPrompt, 'rate');
-    const scoreMatch = response?.trim().match(/\d+/);
+    const scoreMatch = response.trim().match(/\d+/);
     if (!scoreMatch) {
       throw new PipelineStepError(
         'rate',
@@ -207,8 +207,9 @@ export class ArticleProcessingPipelineService {
     let response: string | null = null;
     try {
       response = await this.callChat(categoryPrompt, 'categorise');
-    } catch {
-      response = null;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      this.logger.warn(`Category classification call failed: ${message}`);
     }
 
     const parsed = this.parseCategories(response);
@@ -243,24 +244,17 @@ export class ArticleProcessingPipelineService {
     }
   }
 
-  /**
-   * Normalises adapter behaviour to the pipeline's needs: a null return means
-   * "no content" for callers to branch on, while a genuine adapter throw during
-   * a hard step surfaces as a step failure.
-   */
+  // Surfaces an adapter failure as a typed step failure. Steps that tolerate a
+  // failed call (categorise) catch this themselves rather than having callChat
+  // hand back a null.
   private async callChat(
     prompt: string,
     step: ProcessingStep,
-  ): Promise<string | null> {
+  ): Promise<string> {
     try {
       return await this.ai.chat(prompt);
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      if (step === 'categorise') {
-        // Categorisation tolerates a failed call and falls back to OTHER.
-        this.logger.warn(`Category classification call failed: ${message}`);
-        return null;
-      }
       throw new PipelineStepError(step, message);
     }
   }
