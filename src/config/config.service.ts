@@ -174,6 +174,19 @@ export class ConfigService {
     return Number.isInteger(rating) && rating >= 1 && rating <= 10;
   }
 
+  // Rate-limiting delay between successive AI calls in the article processing
+  // pipeline. Kept configurable so tests can drive it to 0 and production can
+  // tune it against provider limits without touching the pipeline code.
+  getArticleProcessingDelayMs(): number {
+    const DEFAULT_DELAY_MS = 1000;
+    const raw = process.env.ARTICLE_PROCESSING_DELAY_MS;
+    if (raw === undefined || raw === '') {
+      return DEFAULT_DELAY_MS;
+    }
+    const parsed = parseInt(raw, 10);
+    return !Number.isNaN(parsed) && parsed >= 0 ? parsed : DEFAULT_DELAY_MS;
+  }
+
   getProcessingConfig() {
     const config = { ...this.CONFIGS.processing };
     const envDelay = process.env.CLUSTER_ANALYSIS_DELAY_MS;

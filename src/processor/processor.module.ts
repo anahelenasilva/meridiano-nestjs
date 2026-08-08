@@ -9,6 +9,7 @@ import { ArticleIngestionModule } from '../articles/ingestion/article-ingestion.
 import { MarkdownArticleProcessor } from '../articles/processors/markdown-article.processor';
 import { ConfigModule } from '../config/config.module';
 import { ProfilesModule } from '../profiles/profiles.module';
+import { ArticleProcessingPipelineModule } from './pipeline/article-processing-pipeline.module';
 import { ArticleProcessor } from './processors/article.processor';
 import { ProcessorService } from './processor.service';
 
@@ -16,6 +17,7 @@ import { ProcessorService } from './processor.service';
   imports: [
     ArticlesModule,
     ArticleIngestionModule,
+    ArticleProcessingPipelineModule,
     S3Module,
     AudioModule,
     AiModule,
