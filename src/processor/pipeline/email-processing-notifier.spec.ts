@@ -1,22 +1,8 @@
 import { EmailService } from '@libs/email';
 import { mock } from 'jest-mock-extended';
-import { DBArticle } from '../../articles/article.entity';
 import { ConfigService } from '../../config/config.service';
 import { EmailProcessingNotifier } from './email-processing-notifier';
-
-function makeArticle(overrides: Partial<DBArticle> = {}): DBArticle {
-  return {
-    id: 'article-1',
-    url: 'https://example.com/a',
-    title: 'An Article',
-    published_date: new Date('2026-01-01'),
-    feed_source: 'Example Feed',
-    raw_content: 'raw',
-    feed_profile: 'general',
-    created_at: new Date('2026-01-01'),
-    ...overrides,
-  };
-}
+import { makeArticle } from './test-helpers';
 
 describe('EmailProcessingNotifier', () => {
   let emailService: ReturnType<typeof mock<EmailService>>;

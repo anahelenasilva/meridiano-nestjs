@@ -57,7 +57,7 @@ export class ArticleProcessor implements OnModuleInit, OnModuleDestroy {
     this.logger.log('Article processor worker initialized');
   }
 
-  private async handleJob(
+  async handleJob(
     job: Job<ProcessArticleJobData>,
   ): Promise<{ success: boolean; message: string }> {
     const { articleFileKey: articleId, generateAudio } = job.data;

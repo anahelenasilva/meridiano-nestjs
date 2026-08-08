@@ -20,6 +20,8 @@ import type { Sleeper } from './sleeper';
 const SUMMARY_CONTENT_LIMIT = 4000;
 const CATEGORY_CONTENT_LIMIT = 2000;
 
+type ProfilePrompts = ReturnType<ProfilesService['getPromptsForProfile']>;
+
 /**
  * Signals that a pipeline step failed. Carries the step identity and any output
  * earlier steps already produced so the caller's failure result keeps it.
@@ -58,15 +60,18 @@ export class ArticleProcessingPipelineService {
 
   async processArticle(article: DBArticle): Promise<ProcessingResult> {
     const delayMs = this.configService.getArticleProcessingDelayMs();
+    const prompts = this.profilesService.getPromptsForProfile(
+      article.feed_profile as FeedProfile,
+    );
 
     let summary: string | undefined;
     let rating: ImpactRating | undefined;
 
     try {
-      summary = await this.summarise(article);
+      summary = await this.summarise(article, prompts);
       await this.sleeper.sleep(delayMs);
 
-      rating = await this.rate(article, summary);
+      rating = await this.rate(article, summary, prompts);
       await this.sleeper.sleep(delayMs);
 
       const categories = await this.categorise(article, summary);
@@ -97,10 +102,10 @@ export class ArticleProcessingPipelineService {
    * even when embedding fails preserves prior behaviour: the summary is not lost,
    * but the article still counts as failed so the job is retried.
    */
-  private async summarise(article: DBArticle): Promise<string> {
-    const prompts = this.profilesService.getPromptsForProfile(
-      article.feed_profile as FeedProfile,
-    );
+  private async summarise(
+    article: DBArticle,
+    prompts: ProfilePrompts,
+  ): Promise<string> {
     const articleTitle = article.title || article.feed_source || 'Untitled';
 
     const baseSummaryPrompt = prompts.articleSummary
@@ -152,11 +157,11 @@ export class ArticleProcessingPipelineService {
     return summary;
   }
 
-  private async rate(article: DBArticle, summary: string): Promise<ImpactRating> {
-    const prompts = this.profilesService.getPromptsForProfile(
-      article.feed_profile as FeedProfile,
-    );
-
+  private async rate(
+    article: DBArticle,
+    summary: string,
+    prompts: ProfilePrompts,
+  ): Promise<ImpactRating> {
     const ratingPrompt = prompts.impactRating
       ? this.configService.formatPrompt(prompts.impactRating, { summary })
       : this.configService.getImpactRatingPrompt(summary);

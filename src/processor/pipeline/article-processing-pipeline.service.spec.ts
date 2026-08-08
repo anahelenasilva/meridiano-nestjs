@@ -1,26 +1,13 @@
 import { mock } from 'jest-mock-extended';
 import { AiAdapter } from '../../ai/adapters/ai-adapter.interface';
-import { ArticleCategory, DBArticle } from '../../articles/article.entity';
+import { ArticleCategory } from '../../articles/article.entity';
 import { ArticlesService } from '../../articles/articles.service';
 import { ConfigService } from '../../config/config.service';
 import { ProfilesService } from '../../profiles/profiles.service';
 import { ArticleProcessingPipelineService } from './article-processing-pipeline.service';
 import { ProcessingNotifier } from './processing-notifier';
 import { Sleeper } from './sleeper';
-
-function makeArticle(overrides: Partial<DBArticle> = {}): DBArticle {
-  return {
-    id: 'article-1',
-    url: 'https://example.com/a',
-    title: 'An Article',
-    published_date: new Date('2026-01-01'),
-    feed_source: 'Example Feed',
-    raw_content: 'raw content body',
-    feed_profile: 'general',
-    created_at: new Date('2026-01-01'),
-    ...overrides,
-  };
-}
+import { makeArticle } from './test-helpers';
 
 describe('ArticleProcessingPipelineService', () => {
   const DELAY_MS = 500;
