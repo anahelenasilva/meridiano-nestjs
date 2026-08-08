@@ -51,6 +51,7 @@ export class ConfigService {
       articlesPerPage: 15,
       clustersQtd: 10,
       clusterAnalysisDelayMs: 0,
+      articleProcessingDelayMs: 1000,
     },
 
     models: {
@@ -172,6 +173,21 @@ export class ConfigService {
 
   isValidImpactRating(rating: number): rating is ImpactRating {
     return Number.isInteger(rating) && rating >= 1 && rating <= 10;
+  }
+
+  // Rate-limiting delay between successive AI calls in the article processing
+  // pipeline. Kept configurable so tests can drive it to 0 and production can
+  // tune it against provider limits without touching the pipeline code. Default
+  // lives in CONFIGS.processing alongside the other pipeline delays; the env var
+  // overrides it, mirroring getProcessingConfig's CLUSTER_ANALYSIS_DELAY_MS.
+  getArticleProcessingDelayMs(): number {
+    const fallback = this.CONFIGS.processing.articleProcessingDelayMs;
+    const raw = process.env.ARTICLE_PROCESSING_DELAY_MS;
+    if (raw === undefined || raw === '') {
+      return fallback;
+    }
+    const parsed = parseInt(raw, 10);
+    return !Number.isNaN(parsed) && parsed >= 0 ? parsed : fallback;
   }
 
   getProcessingConfig() {

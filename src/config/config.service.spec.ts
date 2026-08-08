@@ -238,6 +238,36 @@ describe('ConfigService', () => {
     });
   });
 
+  describe('getArticleProcessingDelayMs', () => {
+    afterEach(() => {
+      delete process.env.ARTICLE_PROCESSING_DELAY_MS;
+    });
+
+    it('defaults to 1000 when env var is not set', () => {
+      delete process.env.ARTICLE_PROCESSING_DELAY_MS;
+
+      expect(service.getArticleProcessingDelayMs()).toBe(1000);
+    });
+
+    it('returns the env var value when set', () => {
+      process.env.ARTICLE_PROCESSING_DELAY_MS = '250';
+
+      expect(service.getArticleProcessingDelayMs()).toBe(250);
+    });
+
+    it('allows 0 to disable the delay', () => {
+      process.env.ARTICLE_PROCESSING_DELAY_MS = '0';
+
+      expect(service.getArticleProcessingDelayMs()).toBe(0);
+    });
+
+    it('falls back to 1000 when the env var is invalid', () => {
+      process.env.ARTICLE_PROCESSING_DELAY_MS = 'nope';
+
+      expect(service.getArticleProcessingDelayMs()).toBe(1000);
+    });
+  });
+
   describe('getCustomBriefingQueueConfig', () => {
     afterEach(() => {
       delete process.env.CUSTOM_BRIEFING_WORKER_CONCURRENCY;

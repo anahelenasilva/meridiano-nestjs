@@ -90,6 +90,7 @@ describe('BriefingGenerationService', () => {
       articlesPerPage: 15,
       clustersQtd: 2,
       clusterAnalysisDelayMs: 0,
+      articleProcessingDelayMs: 1000,
     });
     mockArticlesService.getArticlesForBriefing.mockResolvedValue(articles);
     mockProfilesService.getPromptsForProfile.mockReturnValue({
@@ -146,6 +147,7 @@ describe('BriefingGenerationService', () => {
       articlesPerPage: 15,
       clustersQtd: 2,
       clusterAnalysisDelayMs: 0,
+      articleProcessingDelayMs: 1000,
     });
     mockArticlesService.getArticlesForBriefing.mockResolvedValue(articles);
 

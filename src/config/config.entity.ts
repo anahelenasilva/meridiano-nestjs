@@ -47,6 +47,7 @@ export type Config = {
     articlesPerPage: number;
     clustersQtd: number;
     clusterAnalysisDelayMs: number;
+    articleProcessingDelayMs: number;
   };
   models: {
     deepseekChatModel: string;
