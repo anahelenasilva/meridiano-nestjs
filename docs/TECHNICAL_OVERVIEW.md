@@ -81,6 +81,7 @@ Reusable cross-cutting concerns:
 ### Core Tables
 - `articles` - RSS articles with content, embeddings, impact ratings, categories
 - `briefings` - Generated briefings with Markdown content
+- `digests` - Immutable snapshots of each daily News Digest run
 - `youtube_transcriptions` - Video transcripts with summaries
 - `users` - User accounts with hashed passwords
 - `bookmarks` - User-article relationships

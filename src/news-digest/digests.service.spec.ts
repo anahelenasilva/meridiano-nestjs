@@ -43,5 +43,17 @@ describe('DigestsService', () => {
       expect(mockRepository.create).toHaveBeenCalledWith({ items: [] });
       expect(result).toBe('digest-2');
     });
+
+    it('propagates the error when the repository fails to save', async () => {
+      const items: DigestItem[] = [
+        { articleId: 'a1', title: 'Title 1', feedSource: 'Source 1', url: 'https://example.com/1' },
+      ];
+      const created = { items } as DigestEntity;
+
+      mockRepository.create.mockReturnValue(created);
+      mockRepository.save.mockRejectedValue(new Error('DB connection lost'));
+
+      await expect(service.saveDigest(items)).rejects.toThrow('DB connection lost');
+    });
   });
 });
