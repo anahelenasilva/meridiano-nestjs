@@ -9,6 +9,7 @@ import { ConfigService } from '../config/config.service';
 import { DBArticle } from '../articles/article.entity';
 import { DigestArticleSelectorService } from './digest-article-selector.service';
 import { DigestEmailComposerService } from './digest-email-composer.service';
+import { DigestsService } from './digests.service';
 import { NewsDigestService } from './news-digest.service';
 
 jest.mock('bullmq');
@@ -33,6 +34,7 @@ describe('NewsDigestService', () => {
   let mockArticlesService: ReturnType<typeof mock<ArticlesService>>;
   let mockSelectorService: ReturnType<typeof mock<DigestArticleSelectorService>>;
   let mockComposerService: ReturnType<typeof mock<DigestEmailComposerService>>;
+  let mockDigestsService: ReturnType<typeof mock<DigestsService>>;
   let mockEmailService: ReturnType<typeof mock<EmailService>>;
   let mockConfigService: ReturnType<typeof mock<ConfigService>>;
   let mockQueue: ReturnType<typeof mock<Queue>>;
@@ -44,6 +46,7 @@ describe('NewsDigestService', () => {
     mockArticlesService = mock<ArticlesService>();
     mockSelectorService = mock<DigestArticleSelectorService>();
     mockComposerService = mock<DigestEmailComposerService>();
+    mockDigestsService = mock<DigestsService>();
     mockEmailService = mock<EmailService>();
     mockConfigService = mock<ConfigService>();
     mockQueue = mock<Queue>();
@@ -61,6 +64,7 @@ describe('NewsDigestService', () => {
       mockArticlesService,
       mockSelectorService,
       mockComposerService,
+      mockDigestsService,
       mockEmailService,
       mockConfigService,
     );
@@ -152,11 +156,53 @@ describe('NewsDigestService', () => {
     });
   });
 
+  describe('buildDigest', () => {
+    it('maps articles to Digest Items', () => {
+      const articles = [
+        makeArticle({
+          id: 'a1',
+          title: 'Title 1',
+          feed_source: 'Source 1',
+          url: 'https://example.com/1',
+        }),
+      ];
+
+      expect(service.buildDigest(articles)).toEqual([
+        {
+          articleId: 'a1',
+          title: 'Title 1',
+          feedSource: 'Source 1',
+          url: 'https://example.com/1',
+        },
+      ]);
+    });
+
+    it('coerces missing fields to empty string', () => {
+      const articles = [
+        makeArticle({
+          id: undefined as unknown as string,
+          title: undefined as unknown as string,
+          feed_source: undefined as unknown as string,
+          url: undefined as unknown as string,
+        }),
+      ];
+
+      expect(service.buildDigest(articles)).toEqual([
+        { articleId: '', title: '', feedSource: '', url: '' },
+      ]);
+    });
+
+    it('returns an empty array for no articles', () => {
+      expect(service.buildDigest([])).toEqual([]);
+    });
+  });
+
   describe('runDigest', () => {
-    it('fetches articles, selects top 10, composes body, and sends email', async () => {
+    it('fetches articles, selects top 10, persists the digest, composes body, and sends email', async () => {
       const articles = [makeArticle({ id: 'a1' }), makeArticle({ id: 'a2' })];
       mockArticlesService.getYesterdayArticlesByProfile.mockResolvedValue(articles);
       mockSelectorService.selectTopArticles.mockResolvedValue(articles);
+      mockDigestsService.saveDigest.mockResolvedValue('digest-1');
       mockComposerService.compose.mockReturnValue('Digest body');
       mockEmailService.sendEmail.mockResolvedValue({ success: true });
 
@@ -164,6 +210,7 @@ describe('NewsDigestService', () => {
 
       expect(mockArticlesService.getYesterdayArticlesByProfile).toHaveBeenCalled();
       expect(mockSelectorService.selectTopArticles).toHaveBeenCalledWith(articles);
+      expect(mockDigestsService.saveDigest).toHaveBeenCalledWith(service.buildDigest(articles));
       expect(mockComposerService.compose).toHaveBeenCalledWith(articles);
       expect(mockEmailService.sendEmail).toHaveBeenCalledWith({
         from: 'digest@example.com',
@@ -173,14 +220,26 @@ describe('NewsDigestService', () => {
       });
     });
 
-    it('skips email when no articles are selected', async () => {
+    it('skips persistence and email when no articles are selected', async () => {
       mockArticlesService.getYesterdayArticlesByProfile.mockResolvedValue([makeArticle()]);
       mockSelectorService.selectTopArticles.mockResolvedValue([]);
 
       await service.runDigest();
 
+      expect(mockDigestsService.saveDigest).not.toHaveBeenCalled();
       expect(mockEmailService.sendEmail).not.toHaveBeenCalled();
       expect(mockComposerService.compose).not.toHaveBeenCalled();
+    });
+
+    it('throws when saveDigest fails, allowing BullMQ to retry, and does not send email', async () => {
+      const articles = [makeArticle({ id: 'a1' })];
+      mockArticlesService.getYesterdayArticlesByProfile.mockResolvedValue(articles);
+      mockSelectorService.selectTopArticles.mockResolvedValue(articles);
+      mockDigestsService.saveDigest.mockRejectedValue(new Error('DB error'));
+
+      await expect(service.runDigest()).rejects.toThrow('DB error');
+      expect(mockComposerService.compose).not.toHaveBeenCalled();
+      expect(mockEmailService.sendEmail).not.toHaveBeenCalled();
     });
 
     it('throws when selectTopArticles fails, allowing BullMQ to retry', async () => {
