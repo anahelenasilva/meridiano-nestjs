@@ -4,9 +4,12 @@ import { Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/commo
 import { Job, Queue, Worker } from 'bullmq';
 import { NEWS_DIGEST_JOB, NEWS_DIGEST_QUEUE } from '@libs/queue/constants/queue.constants';
 import { ArticlesService } from '../articles/articles.service';
+import { DBArticle } from '../articles/article.entity';
 import { ConfigService } from '../config/config.service';
 import { DigestArticleSelectorService } from './digest-article-selector.service';
 import { DigestEmailComposerService } from './digest-email-composer.service';
+import { DigestsService } from './digests.service';
+import { DigestItem } from './entities/digest.types';
 
 @Injectable()
 export class NewsDigestService implements OnModuleInit, OnModuleDestroy {
@@ -19,6 +22,7 @@ export class NewsDigestService implements OnModuleInit, OnModuleDestroy {
     private readonly articlesService: ArticlesService,
     private readonly digestArticleSelectorService: DigestArticleSelectorService,
     private readonly digestEmailComposerService: DigestEmailComposerService,
+    private readonly digestsService: DigestsService,
     private readonly emailService: EmailService,
     private readonly configService: ConfigService,
   ) {}
@@ -84,6 +88,15 @@ export class NewsDigestService implements OnModuleInit, OnModuleDestroy {
     );
   }
 
+  buildDigest(articles: DBArticle[]): DigestItem[] {
+    return articles.map((article) => ({
+      articleId: article.id ?? '',
+      title: article.title ?? '',
+      feedSource: article.feed_source ?? '',
+      url: article.url ?? '',
+    }));
+  }
+
   async runDigest(): Promise<void> {
     const articles = await this.articlesService.getYesterdayArticlesByProfile();
     const selected = await this.digestArticleSelectorService.selectTopArticles(articles);
@@ -92,6 +105,8 @@ export class NewsDigestService implements OnModuleInit, OnModuleDestroy {
       this.logger.log('No articles selected; skipping digest email');
       return;
     }
+
+    await this.digestsService.saveDigest(this.buildDigest(selected));
 
     const body = this.digestEmailComposerService.compose(selected);
     await this.emailService.sendEmail({
