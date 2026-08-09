@@ -56,4 +56,37 @@ describe('DigestsService', () => {
       await expect(service.saveDigest(items)).rejects.toThrow('DB connection lost');
     });
   });
+
+  describe('findLatest', () => {
+    it('returns the newest digest ordered by created_at DESC', async () => {
+      const items: DigestItem[] = [
+        { articleId: 'a1', title: 'Title 1', feedSource: 'Source 1', url: 'https://example.com/1' },
+      ];
+      const latest = { id: 'digest-1', items, createdAt: new Date() } as DigestEntity;
+
+      mockRepository.find.mockResolvedValue([latest]);
+
+      const result = await service.findLatest();
+
+      expect(mockRepository.find).toHaveBeenCalledWith({
+        order: { createdAt: 'DESC' },
+        take: 1,
+      });
+      expect(result).toBe(latest);
+    });
+
+    it('returns null when no digest exists', async () => {
+      mockRepository.find.mockResolvedValue([]);
+
+      const result = await service.findLatest();
+
+      expect(result).toBeNull();
+    });
+
+    it('propagates the error when the repository fails to query', async () => {
+      mockRepository.find.mockRejectedValue(new Error('DB connection lost'));
+
+      await expect(service.findLatest()).rejects.toThrow('DB connection lost');
+    });
+  });
 });

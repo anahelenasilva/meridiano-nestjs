@@ -8,6 +8,7 @@ import { DigestArticleSelectorService } from './digest-article-selector.service'
 import { DigestEmailComposerService } from './digest-email-composer.service';
 import { DigestsService } from './digests.service';
 import { DigestEntity } from './entities/digest.entity';
+import { NewsDigestController } from './news-digest.controller';
 import { NewsDigestService } from './news-digest.service';
 
 @Module({
@@ -17,6 +18,7 @@ import { NewsDigestService } from './news-digest.service';
     RedisModule,
     TypeOrmModule.forFeature([DigestEntity]),
   ],
+  controllers: [NewsDigestController],
   providers: [
     DigestArticleSelectorService,
     DigestEmailComposerService,

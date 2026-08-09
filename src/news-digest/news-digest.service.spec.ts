@@ -287,6 +287,32 @@ describe('NewsDigestService', () => {
     });
   });
 
+  describe('getLatestDigest', () => {
+    it('returns the latest digest items', async () => {
+      const items = [
+        { articleId: 'a1', title: 'Title 1', feedSource: 'Source 1', url: 'https://example.com/1' },
+      ];
+      mockDigestsService.findLatest.mockResolvedValue({
+        id: 'digest-1',
+        items,
+        createdAt: new Date(),
+      } as never);
+
+      const result = await service.getLatestDigest();
+
+      expect(mockDigestsService.findLatest).toHaveBeenCalled();
+      expect(result).toBe(items);
+    });
+
+    it('returns an empty array when no digest exists', async () => {
+      mockDigestsService.findLatest.mockResolvedValue(null);
+
+      const result = await service.getLatestDigest();
+
+      expect(result).toEqual([]);
+    });
+  });
+
   describe('onModuleDestroy', () => {
     it('closes worker and queue on destroy', async () => {
       service.onModuleInit();
