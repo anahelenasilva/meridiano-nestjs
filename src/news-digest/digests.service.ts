@@ -16,4 +16,12 @@ export class DigestsService {
     const saved = await this.digestRepository.save(entity);
     return saved.id;
   }
+
+  async findLatest(): Promise<DigestEntity | null> {
+    const [latest] = await this.digestRepository.find({
+      order: { createdAt: 'DESC' },
+      take: 1,
+    });
+    return latest ?? null;
+  }
 }

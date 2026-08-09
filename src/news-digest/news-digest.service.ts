@@ -119,6 +119,11 @@ export class NewsDigestService implements OnModuleInit, OnModuleDestroy {
     this.logger.log(`Digest email sent to ${this.configService.getNewsDigestToEmail()}`);
   }
 
+  async getLatestDigest(): Promise<DigestItem[]> {
+    const latest = await this.digestsService.findLatest();
+    return latest?.items ?? [];
+  }
+
   async onModuleDestroy(): Promise<void> {
     await this.worker?.close();
     await this.queue?.close();
