@@ -270,7 +270,7 @@ export class YoutubeTranscriptionsService {
    */
   async processSingleVideoUrl(
     videoUrl: string,
-    channelId: string,
+    channelDbId: string,
     proxyUrl?: string,
     customPrompt?: string,
     generateAudio?: boolean,
@@ -280,14 +280,14 @@ export class YoutubeTranscriptionsService {
       console.log(`Processing single video: ${videoUrl}`);
 
       const channelConfig =
-        await this.youtubeChannelsService.getChannelByChannelId(channelId);
+        await this.youtubeChannelsService.getChannelById(channelDbId);
 
       if (!channelConfig) {
-        throw new Error(`Channel ${channelId} not found in configuration`);
+        throw new Error(`Channel ${channelDbId} not found in configuration`);
       }
 
       if (channelConfig.enabled === false) {
-        throw new Error(`Channel ${channelId} is disabled`);
+        throw new Error(`Channel ${channelDbId} is disabled`);
       }
 
       const { extractVideoId } = await import('../helpers/extract-video-id.js');
@@ -299,7 +299,7 @@ export class YoutubeTranscriptionsService {
 
       const videoMetadata = await this.youtubeService.getVideoMetadata(
         videoId,
-        channelId,
+        channelConfig.channelId,
         channelConfig.name,
         channelConfig.description || '',
         channelConfig.id,
@@ -400,7 +400,7 @@ export class YoutubeTranscriptionsService {
         transcriptText,
       };
 
-      await this.storageService.saveTranscript(channelId, videoWithTranscript);
+      await this.storageService.saveTranscript(channelDbId, videoWithTranscript);
 
       const transcriptionId = await this.addTranscription(
         videoWithTranscript,
@@ -421,7 +421,7 @@ export class YoutubeTranscriptionsService {
         transcriptText,
         videoWithTranscript.title,
         generateAudio,
-        channelId,
+        channelDbId,
       );
 
       console.log(

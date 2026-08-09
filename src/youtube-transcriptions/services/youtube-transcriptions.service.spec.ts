@@ -415,20 +415,17 @@ describe('YoutubeTranscriptionsService', () => {
   });
 
   describe('processSingleVideoUrl', () => {
-    it('resolves the channel by its channelId string, not the uuid PK', async () => {
-      mockYoutubeChannelsService.getChannelByChannelId.mockResolvedValue(null);
+    it('resolves the channel by its database uuid, not the youtube channelId', async () => {
+      const channelDbId = 'c23fe6f0-ae5c-409d-910a-2581c7232359';
+      mockYoutubeChannelsService.getChannelById.mockResolvedValue(null);
 
       await expect(
-        service.processSingleVideoUrl(
-          'https://youtu.be/abc',
-          'UCRYY7IEbkHLH_ScJCu9eWDQ',
-        ),
+        service.processSingleVideoUrl('https://youtu.be/abc', channelDbId),
       ).rejects.toThrow('not found in configuration');
 
-      expect(
-        mockYoutubeChannelsService.getChannelByChannelId,
-      ).toHaveBeenCalledWith('UCRYY7IEbkHLH_ScJCu9eWDQ');
-      expect(mockYoutubeChannelsService.getChannelById).not.toHaveBeenCalled();
+      expect(mockYoutubeChannelsService.getChannelById).toHaveBeenCalledWith(
+        channelDbId,
+      );
     });
   });
 });

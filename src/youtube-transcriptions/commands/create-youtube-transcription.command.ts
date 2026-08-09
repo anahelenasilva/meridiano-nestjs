@@ -7,7 +7,7 @@ import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions
 
 export type CreateYoutubeTranscriptionCommandInput = {
   url: string;
-  channelId: string;
+  channelDbId: string;
   customPrompt?: string;
   generateAudio?: boolean;
 };
@@ -25,12 +25,12 @@ export class CreateYoutubeTranscriptionCommand {
   async execute(
     input: CreateYoutubeTranscriptionCommandInput,
   ): Promise<CreateYoutubeTranscriptionCommandResponse> {
-    const { url, channelId, customPrompt, generateAudio } = input;
+    const { url, channelDbId, customPrompt, generateAudio } = input;
 
     try {
       const transcriptionId = await this.service.processSingleVideoUrl(
         url,
-        channelId,
+        channelDbId,
         undefined,
         customPrompt,
         generateAudio,
