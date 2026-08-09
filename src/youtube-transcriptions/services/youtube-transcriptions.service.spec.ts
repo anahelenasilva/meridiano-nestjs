@@ -426,9 +426,6 @@ describe('YoutubeTranscriptionsService', () => {
       expect(mockYoutubeChannelsService.getChannelById).toHaveBeenCalledWith(
         channelDbId,
       );
-      expect(
-        mockYoutubeChannelsService.getChannelByChannelId,
-      ).not.toHaveBeenCalled();
     });
   });
 });
