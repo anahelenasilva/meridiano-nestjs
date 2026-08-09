@@ -41,6 +41,16 @@ _Avoid_: processed_content, processed article
 An AI-assigned editorial score indicating how important an article is, based on criteria defined in the feed profile's impact prompt. Not a relevance-to-profile score — it reflects newsworthiness/significance as the domain expert would judge it.
 _Avoid_: relevance score, priority score
 
+### News Digest
+
+**News Digest**:
+A daily, AI-selected shortlist of the previous day's most relevant articles, delivered by email on a scheduled queue job. Distinct from a Briefing: it is not synthesised prose but a ranked list of articles, and it is not tied to a single feed profile. Each run is persisted as an immutable snapshot so it can be read back without re-running the selection.
+_Avoid_: daily briefing, digest email (the email is the delivery channel, not the digest itself)
+
+**Digest Item**:
+A single entry in a News Digest — one selected article captured as a snapshot at selection time: its article id, title, feed source, and url. Because it is a snapshot, later deleting or re-processing the source article does not change a past digest.
+_Avoid_: digest article, digest entry
+
 ### YouTube
 
 **YouTube Transcription**:
