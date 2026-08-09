@@ -64,7 +64,7 @@ export class YoutubeTranscriptionsController {
   async createTranscription(@Body() dto: CreateYoutubeTranscriptionDto) {
     return await this.createYoutubeTranscriptionCommand.execute({
       url: dto.url,
-      channelId: dto.channelId,
+      channelDbId: dto.channelId,
       customPrompt: dto.customPrompt,
       generateAudio: dto.generateAudio,
     });
