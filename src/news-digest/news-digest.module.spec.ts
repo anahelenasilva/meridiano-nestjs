@@ -16,40 +16,24 @@ describe('NewsDigestModule.onModuleInit', () => {
     jest.clearAllMocks();
   });
 
-  function makeModule(overrides: {
-    prompt?: string;
-    to?: string;
-    from?: string;
-  }) {
+  function makeModule(overrides: { prompt?: string }) {
     const mockConfig = mock<ConfigService>();
     mockConfig.getNewsDigestPrompt.mockReturnValue(overrides.prompt ?? 'prompt');
-    mockConfig.getNewsDigestToEmail.mockReturnValue(overrides.to ?? 'to@example.com');
-    mockConfig.getNewsDigestFromEmail.mockReturnValue(overrides.from ?? 'from@example.com');
     return new NewsDigestModule(mockConfig);
   }
 
-  it('does not warn when all three env vars are set', () => {
+  it('does not warn when NEWS_DIGEST_PROMPT is set', () => {
     makeModule({}).onModuleInit();
     expect(warnSpy).not.toHaveBeenCalled();
   });
 
-  it('warns with all three var names when none are set', () => {
-    makeModule({ prompt: '', to: '', from: '' }).onModuleInit();
+  it('warns naming only NEWS_DIGEST_PROMPT when it is missing', () => {
+    makeModule({ prompt: '' }).onModuleInit();
 
     expect(warnSpy).toHaveBeenCalledTimes(1);
     const message = warnSpy.mock.calls[0][0] as string;
     expect(message).toContain('NEWS_DIGEST_PROMPT');
-    expect(message).toContain('NEWS_DIGEST_TO_EMAIL');
-    expect(message).toContain('NEWS_DIGEST_FROM_EMAIL');
-  });
-
-  it('warns naming only the missing var when just one is absent', () => {
-    makeModule({ to: '' }).onModuleInit();
-
-    expect(warnSpy).toHaveBeenCalledTimes(1);
-    const message = warnSpy.mock.calls[0][0] as string;
-    expect(message).toContain('NEWS_DIGEST_TO_EMAIL');
-    expect(message).not.toContain('NEWS_DIGEST_PROMPT');
+    expect(message).not.toContain('NEWS_DIGEST_TO_EMAIL');
     expect(message).not.toContain('NEWS_DIGEST_FROM_EMAIL');
   });
 });

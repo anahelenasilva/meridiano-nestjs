@@ -1,14 +1,11 @@
-import { EmailService } from '@libs/email';
 import { NEWS_DIGEST_JOB, NEWS_DIGEST_QUEUE } from '@libs/queue/constants/queue.constants';
 import { RedisService } from '@libs/redis';
 import { Logger } from '@nestjs/common';
 import { Job, Queue, Worker } from 'bullmq';
 import { mock } from 'jest-mock-extended';
 import { ArticlesService } from '../articles/articles.service';
-import { ConfigService } from '../config/config.service';
 import { DBArticle } from '../articles/article.entity';
 import { DigestArticleSelectorService } from './digest-article-selector.service';
-import { DigestEmailComposerService } from './digest-email-composer.service';
 import { DigestsService } from './digests.service';
 import { NewsDigestService } from './news-digest.service';
 
@@ -33,10 +30,7 @@ describe('NewsDigestService', () => {
   let mockRedisService: ReturnType<typeof mock<RedisService>>;
   let mockArticlesService: ReturnType<typeof mock<ArticlesService>>;
   let mockSelectorService: ReturnType<typeof mock<DigestArticleSelectorService>>;
-  let mockComposerService: ReturnType<typeof mock<DigestEmailComposerService>>;
   let mockDigestsService: ReturnType<typeof mock<DigestsService>>;
-  let mockEmailService: ReturnType<typeof mock<EmailService>>;
-  let mockConfigService: ReturnType<typeof mock<ConfigService>>;
   let mockQueue: ReturnType<typeof mock<Queue>>;
   let mockWorker: ReturnType<typeof mock<Worker>>;
   const redisClient = {};
@@ -45,10 +39,7 @@ describe('NewsDigestService', () => {
     mockRedisService = mock<RedisService>();
     mockArticlesService = mock<ArticlesService>();
     mockSelectorService = mock<DigestArticleSelectorService>();
-    mockComposerService = mock<DigestEmailComposerService>();
     mockDigestsService = mock<DigestsService>();
-    mockEmailService = mock<EmailService>();
-    mockConfigService = mock<ConfigService>();
     mockQueue = mock<Queue>();
     mockWorker = mock<Worker>();
 
@@ -56,17 +47,12 @@ describe('NewsDigestService', () => {
     (Worker as unknown as jest.Mock).mockImplementation(() => mockWorker);
 
     mockRedisService.getClient.mockReturnValue(redisClient as never);
-    mockConfigService.getNewsDigestFromEmail.mockReturnValue('digest@example.com');
-    mockConfigService.getNewsDigestToEmail.mockReturnValue('user@example.com');
 
     service = new NewsDigestService(
       mockRedisService,
       mockArticlesService,
       mockSelectorService,
-      mockComposerService,
       mockDigestsService,
-      mockEmailService,
-      mockConfigService,
     );
   });
 
@@ -198,48 +184,35 @@ describe('NewsDigestService', () => {
   });
 
   describe('runDigest', () => {
-    it('fetches articles, selects top 10, persists the digest, composes body, and sends email', async () => {
+    it('fetches articles, selects top 10, and persists the digest without sending any email', async () => {
       const articles = [makeArticle({ id: 'a1' }), makeArticle({ id: 'a2' })];
       mockArticlesService.getYesterdayArticlesByProfile.mockResolvedValue(articles);
       mockSelectorService.selectTopArticles.mockResolvedValue(articles);
       mockDigestsService.saveDigest.mockResolvedValue('digest-1');
-      mockComposerService.compose.mockReturnValue('Digest body');
-      mockEmailService.sendEmail.mockResolvedValue({ success: true });
 
       await service.runDigest();
 
       expect(mockArticlesService.getYesterdayArticlesByProfile).toHaveBeenCalled();
       expect(mockSelectorService.selectTopArticles).toHaveBeenCalledWith(articles);
       expect(mockDigestsService.saveDigest).toHaveBeenCalledWith(service.buildDigest(articles));
-      expect(mockComposerService.compose).toHaveBeenCalledWith(articles);
-      expect(mockEmailService.sendEmail).toHaveBeenCalledWith({
-        from: 'digest@example.com',
-        to: 'user@example.com',
-        subject: 'Daily News Digest',
-        text: 'Digest body',
-      });
     });
 
-    it('skips persistence and email when no articles are selected', async () => {
+    it('skips persistence when no articles are selected', async () => {
       mockArticlesService.getYesterdayArticlesByProfile.mockResolvedValue([makeArticle()]);
       mockSelectorService.selectTopArticles.mockResolvedValue([]);
 
       await service.runDigest();
 
       expect(mockDigestsService.saveDigest).not.toHaveBeenCalled();
-      expect(mockEmailService.sendEmail).not.toHaveBeenCalled();
-      expect(mockComposerService.compose).not.toHaveBeenCalled();
     });
 
-    it('throws when saveDigest fails, allowing BullMQ to retry, and does not send email', async () => {
+    it('throws when saveDigest fails, allowing BullMQ to retry', async () => {
       const articles = [makeArticle({ id: 'a1' })];
       mockArticlesService.getYesterdayArticlesByProfile.mockResolvedValue(articles);
       mockSelectorService.selectTopArticles.mockResolvedValue(articles);
       mockDigestsService.saveDigest.mockRejectedValue(new Error('DB error'));
 
       await expect(service.runDigest()).rejects.toThrow('DB error');
-      expect(mockComposerService.compose).not.toHaveBeenCalled();
-      expect(mockEmailService.sendEmail).not.toHaveBeenCalled();
     });
 
     it('throws when selectTopArticles fails, allowing BullMQ to retry', async () => {
@@ -247,7 +220,7 @@ describe('NewsDigestService', () => {
       mockSelectorService.selectTopArticles.mockRejectedValue(new Error('AI service error'));
 
       await expect(service.runDigest()).rejects.toThrow('AI service error');
-      expect(mockEmailService.sendEmail).not.toHaveBeenCalled();
+      expect(mockDigestsService.saveDigest).not.toHaveBeenCalled();
     });
 
     it('succeeds on second call after AI failure, simulating BullMQ retry', async () => {
@@ -256,23 +229,12 @@ describe('NewsDigestService', () => {
       mockSelectorService.selectTopArticles
         .mockRejectedValueOnce(new Error('AI service error'))
         .mockResolvedValueOnce(articles);
-      mockComposerService.compose.mockReturnValue('Digest body');
-      mockEmailService.sendEmail.mockResolvedValue({ success: true });
+      mockDigestsService.saveDigest.mockResolvedValue('digest-1');
 
       await expect(service.runDigest()).rejects.toThrow('AI service error');
       await expect(service.runDigest()).resolves.toBeUndefined();
 
-      expect(mockEmailService.sendEmail).toHaveBeenCalledTimes(1);
-    });
-
-    it('throws when sendEmail fails, allowing BullMQ to retry', async () => {
-      const articles = [makeArticle({ id: 'a1' })];
-      mockArticlesService.getYesterdayArticlesByProfile.mockResolvedValue(articles);
-      mockSelectorService.selectTopArticles.mockResolvedValue(articles);
-      mockComposerService.compose.mockReturnValue('Digest body');
-      mockEmailService.sendEmail.mockRejectedValue(new Error('Mailgun error'));
-
-      await expect(service.runDigest()).rejects.toThrow('Mailgun error');
+      expect(mockDigestsService.saveDigest).toHaveBeenCalledTimes(1);
     });
 
     it('propagates failure after exhausted retries (total failure scenario)', async () => {
@@ -283,7 +245,7 @@ describe('NewsDigestService', () => {
       await expect(service.runDigest()).rejects.toThrow('AI permanently down');
       await expect(service.runDigest()).rejects.toThrow('AI permanently down');
 
-      expect(mockEmailService.sendEmail).not.toHaveBeenCalled();
+      expect(mockDigestsService.saveDigest).not.toHaveBeenCalled();
     });
   });
 
