@@ -25,7 +25,9 @@ const FEED_SOURCE_MAX_LENGTH = 255;
 export class UpdateArticleDto {
   @ValidateIf((_, value) => value !== undefined)
   @IsString()
-  @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
+  @Transform(({ value }: { value: unknown }) =>
+    typeof value === 'string' ? value.trim() : value,
+  )
   @IsNotEmpty()
   @MaxLength(TITLE_MAX_LENGTH)
   title?: string;
@@ -40,7 +42,9 @@ export class UpdateArticleDto {
 
   @ValidateIf((_, value) => value !== undefined)
   @IsString()
-  @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
+  @Transform(({ value }: { value: unknown }) =>
+    typeof value === 'string' ? value.trim() : value,
+  )
   @IsNotEmpty()
   @MaxLength(FEED_SOURCE_MAX_LENGTH)
   feedSource?: string;
