@@ -23,8 +23,6 @@ describe('S3Module', () => {
 
   beforeEach(async () => {
     mockConfigService.getAwsConfig.mockReturnValue({
-      accessKeyId: undefined,
-      secretAccessKey: undefined,
       credentials: undefined,
       region: 'us-east-1',
     });

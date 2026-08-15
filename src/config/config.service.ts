@@ -471,8 +471,6 @@ export class ConfigService {
     const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
     const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
     return {
-      accessKeyId,
-      secretAccessKey,
       credentials:
         accessKeyId && secretAccessKey
           ? { accessKeyId, secretAccessKey }
@@ -493,10 +491,6 @@ export class ConfigService {
 
   getMeridianoApiKey(): string | undefined {
     return process.env.MERIDIANO_API_KEY || undefined;
-  }
-
-  getEmailProvider(): string {
-    return process.env.EMAIL_PROVIDER || 'mailgun';
   }
 
   getMailgunConfig() {

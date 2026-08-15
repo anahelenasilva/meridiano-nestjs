@@ -455,8 +455,6 @@ describe('ConfigService', () => {
       delete process.env.AWS_REGION;
 
       expect(service.getAwsConfig()).toEqual({
-        accessKeyId: undefined,
-        secretAccessKey: undefined,
         credentials: undefined,
         region: 'us-east-1',
       });
@@ -468,8 +466,6 @@ describe('ConfigService', () => {
       process.env.AWS_REGION = 'eu-west-1';
 
       expect(service.getAwsConfig()).toEqual({
-        accessKeyId: 'key-id',
-        secretAccessKey: 'secret',
         credentials: { accessKeyId: 'key-id', secretAccessKey: 'secret' },
         region: 'eu-west-1',
       });
@@ -563,24 +559,6 @@ describe('ConfigService', () => {
       process.env.MERIDIANO_API_KEY = 'secret-key';
 
       expect(service.getMeridianoApiKey()).toBe('secret-key');
-    });
-  });
-
-  describe('getEmailProvider', () => {
-    afterEach(() => {
-      delete process.env.EMAIL_PROVIDER;
-    });
-
-    it('defaults to mailgun', () => {
-      delete process.env.EMAIL_PROVIDER;
-
-      expect(service.getEmailProvider()).toBe('mailgun');
-    });
-
-    it('returns the configured provider', () => {
-      process.env.EMAIL_PROVIDER = 'sendgrid';
-
-      expect(service.getEmailProvider()).toBe('sendgrid');
     });
   });
 
