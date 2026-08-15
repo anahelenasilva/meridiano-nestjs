@@ -12,6 +12,7 @@ import {
   NotFoundException,
   Param,
   ParseUUIDPipe,
+  Patch,
   Post,
   Query,
 } from '@nestjs/common';
@@ -34,6 +35,7 @@ import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { GenerateUploadUrlDto } from './dto/generate-upload-url.dto';
 import { ProcessMarkdownArticleDto } from './dto/process-markdown-article.dto';
+import { UpdateArticleDto } from './dto/update-article.dto';
 import { GetArticleByIdQuery } from './queries/get-article-by-id.query';
 import { ListArticlesQuery } from './queries/list-articles.query';
 
@@ -221,6 +223,24 @@ export class ArticlesController {
     }
 
     return data;
+  }
+
+  @Patch(':id')
+  @ApiOperation({ summary: 'Update editable metadata of an article' })
+  @ApiOkResponse({ description: 'Article updated' })
+  @ApiNotFoundResponse({ description: 'Article not found' })
+  @ApiValidationErrorResponse()
+  async updateArticle(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() dto: UpdateArticleDto,
+  ) {
+    const article = await this.articlesService.updateArticle(id, dto);
+
+    if (!article) {
+      throw new NotFoundException('Article not found');
+    }
+
+    return article;
   }
 
   @Delete(':id')
