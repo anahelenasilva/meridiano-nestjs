@@ -1,7 +1,9 @@
 import { S3Client } from '@aws-sdk/client-s3';
 import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
 import { Test, TestingModule } from '@nestjs/testing';
+import { mock } from 'jest-mock-extended';
 import { Readable } from 'stream';
+import { ConfigService } from '../../src/config/config.service';
 import { S3Service } from './s3.service';
 
 jest.mock('@aws-sdk/client-s3');
@@ -10,6 +12,7 @@ jest.mock('@aws-sdk/s3-presigned-post');
 describe('S3Service', () => {
   let service: S3Service;
   let mockSend: jest.Mock;
+  const mockConfigService = mock<ConfigService>();
 
   beforeEach(async () => {
     jest.clearAllMocks();
@@ -19,8 +22,18 @@ describe('S3Service', () => {
       send: mockSend,
     }));
 
+    mockConfigService.getAwsConfig.mockReturnValue({
+      accessKeyId: undefined,
+      secretAccessKey: undefined,
+      credentials: undefined,
+      region: 'us-east-1',
+    });
+
     const module: TestingModule = await Test.createTestingModule({
-      providers: [S3Service],
+      providers: [
+        S3Service,
+        { provide: ConfigService, useValue: mockConfigService },
+      ],
     }).compile();
 
     service = module.get<S3Service>(S3Service);

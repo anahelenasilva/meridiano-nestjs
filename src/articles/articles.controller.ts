@@ -28,6 +28,7 @@ import {
   ApiValidationErrorResponse,
 } from '../shared/swagger/api-error-response.decorators';
 import { parseIncludeAudio } from '../shared/helpers/parse-include-audio';
+import { ConfigService } from '../config/config.service';
 import { ScraperService } from '../scraper/scraper.service';
 import { GenerateArticleAudioCommand } from './commands/generate-article-audio.command';
 import type { PaginatedArticleInput } from './article.entity';
@@ -51,6 +52,7 @@ export class ArticlesController {
     private readonly s3Service: S3Service,
     private readonly audioJobService: AudioJobService,
     private readonly generateArticleAudioCommand: GenerateArticleAudioCommand,
+    private readonly configService: ConfigService,
   ) {}
 
   @Post()
@@ -104,7 +106,7 @@ export class ArticlesController {
     const { articleFileName, s3Bucket, contentType, fileSize } = dto;
 
     try {
-      const bucketName = s3Bucket || process.env.S3_ARTICLES_BUCKET_NAME;
+      const bucketName = s3Bucket || this.configService.getS3ArticlesBucketName();
 
       if (!bucketName) {
         throw new BadRequestException(
@@ -142,7 +144,7 @@ export class ArticlesController {
     const { s3Key, feedProfile, s3Bucket, customPrompt, generateAudio } = dto;
 
     try {
-      const bucketName = s3Bucket || process.env.S3_ARTICLES_BUCKET_NAME;
+      const bucketName = s3Bucket || this.configService.getS3ArticlesBucketName();
 
       if (!bucketName) {
         throw new BadRequestException(

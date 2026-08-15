@@ -1,5 +1,6 @@
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import Redis from 'ioredis';
+import { ConfigService } from '../../src/config/config.service';
 
 @Injectable()
 export class RedisService implements OnModuleInit, OnModuleDestroy {
@@ -7,7 +8,7 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
   private errorHandler?: (error: Error) => void;
   private connectHandler?: () => void;
 
-  constructor() {
+  constructor(private readonly configService: ConfigService) {
     this.client = this.createClient();
   }
 
@@ -57,11 +58,11 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
   }
 
   private createClient(): Redis {
-    const redisUrl = process.env.REDIS_URL || process.env.REDISCLOUD_URL;
+    const { url, host, port, password } = this.configService.getRedisConfig();
 
-    if (redisUrl) {
+    if (url) {
       console.log('[RedisService] Initializing Redis client - Using Redis URL');
-      return new Redis(redisUrl, {
+      return new Redis(url, {
         maxRetriesPerRequest: null,
         enableReadyCheck: true,
         connectTimeout: 10000,
@@ -75,16 +76,12 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
       });
     }
 
-    const redisHost = process.env.REDIS_HOST || 'localhost';
-    const redisPort = parseInt(process.env.REDIS_PORT || '6379', 10);
-    const redisPassword = process.env.REDIS_PASSWORD || undefined;
-
-    console.log(`[RedisService] Initializing Redis client - Connecting to ${redisHost}:${redisPort}`);
+    console.log(`[RedisService] Initializing Redis client - Connecting to ${host}:${port}`);
 
     return new Redis({
-      host: redisHost,
-      port: redisPort,
-      password: redisPassword,
+      host,
+      port,
+      password,
       maxRetriesPerRequest: null,
       enableReadyCheck: true,
       connectTimeout: 10000,

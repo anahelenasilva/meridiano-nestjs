@@ -2,6 +2,7 @@ import { ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
 import { timingSafeEqual } from 'crypto';
+import { ConfigService } from '../../../src/config/config.service';
 import { API_KEY_ALLOWED_KEY } from '../decorators/api-key-allowed.decorator';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
 
@@ -14,8 +15,7 @@ class ApiKeyCredential {
   private constructor(private readonly value: Buffer) {}
 
   /** The configured key, or null when `MERIDIANO_API_KEY` is unset/empty. */
-  static fromEnv(): ApiKeyCredential | null {
-    const configured = process.env.MERIDIANO_API_KEY;
+  static from(configured: string | undefined): ApiKeyCredential | null {
     return configured ? new ApiKeyCredential(Buffer.from(configured)) : null;
   }
 
@@ -36,7 +36,10 @@ class ApiKeyCredential {
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
-  constructor(private reflector: Reflector) {
+  constructor(
+    private reflector: Reflector,
+    private readonly configService: ConfigService,
+  ) {
     super();
   }
 
@@ -69,7 +72,9 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
    * JWT check — missing config is never treated as an open door.
    */
   private hasValidApiKey(context: ExecutionContext): boolean {
-    const credential = ApiKeyCredential.fromEnv();
+    const credential = ApiKeyCredential.from(
+      this.configService.getMeridianoApiKey(),
+    );
     if (!credential) {
       return false;
     }

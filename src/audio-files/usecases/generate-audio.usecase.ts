@@ -30,7 +30,7 @@ export class GenerateAudioUseCase {
       const dateStr = input.date.toISOString().split('T')[0];
       const s3Key = `audio/${dateStr}/${input.sourceType}-${input.sourceId}.mp3`;
 
-      const s3Bucket = process.env.S3_ARTICLES_BUCKET_NAME;
+      const s3Bucket = this.configService.getS3ArticlesBucketName();
       if (!s3Bucket) {
         return {
           success: false,

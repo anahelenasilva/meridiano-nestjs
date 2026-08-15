@@ -24,13 +24,12 @@ describe('ExternalArticlesController', () => {
   let scraperService: jest.Mocked<ScraperService>;
   let queueService: jest.Mocked<QueueService>;
   let telegramSubmissionService: jest.Mocked<TelegramSubmissionService>;
-
-  const originalEnv = process.env;
+  let mockConfigService: {
+    getAppConfig: jest.Mock;
+    isExternalArticleSubmissionEnabled: jest.Mock;
+  };
 
   beforeEach(async () => {
-    process.env = { ...originalEnv };
-    process.env.TELEGRAM_INTEGRATION_ENABLED = 'true';
-
     const mockScraperService = {
       scrapeSingleArticle: jest.fn(),
     };
@@ -44,11 +43,9 @@ describe('ExternalArticlesController', () => {
       updateSubmissionStatus: jest.fn().mockResolvedValue(undefined),
     };
 
-    const mockConfigService = {
+    mockConfigService = {
       getAppConfig: jest.fn().mockReturnValue({}),
-      isExternalArticleSubmissionEnabled: jest.fn(
-        () => process.env.TELEGRAM_INTEGRATION_ENABLED === 'true',
-      ),
+      isExternalArticleSubmissionEnabled: jest.fn().mockReturnValue(true),
     };
 
     const module: TestingModule = await Test.createTestingModule({
@@ -80,10 +77,6 @@ describe('ExternalArticlesController', () => {
     scraperService = module.get(ScraperService);
     queueService = module.get(QueueService);
     telegramSubmissionService = module.get(TelegramSubmissionService);
-  });
-
-  afterEach(() => {
-    process.env = originalEnv;
   });
 
   it('should be defined', () => {
@@ -209,7 +202,7 @@ describe('ExternalArticlesController', () => {
     });
 
     it('should handle feature disabled', async () => {
-      process.env.TELEGRAM_INTEGRATION_ENABLED = 'false';
+      mockConfigService.isExternalArticleSubmissionEnabled.mockReturnValue(false);
 
       await expect(controller.createExternal(validDto)).rejects.toThrow(
         ServiceUnavailableException,
