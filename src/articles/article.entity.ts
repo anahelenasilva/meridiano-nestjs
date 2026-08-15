@@ -56,6 +56,14 @@ export interface DBArticle {
   custom_prompt?: string | null;
 }
 
+export interface UpdateArticlePatch {
+  title?: string;
+  publishedDate?: Date;
+  feedSource?: string;
+  feedProfile?: FeedProfile;
+  categories?: ArticleCategory[];
+}
+
 export interface ArticleContent {
   content: string | null;
   ogImage: string | null;

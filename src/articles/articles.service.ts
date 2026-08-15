@@ -7,6 +7,7 @@ import {
   CountTotalArticlesInput,
   DBArticle,
   PaginatedArticleInput,
+  UpdateArticlePatch,
 } from './article.entity';
 
 interface ArticleRow {
@@ -256,6 +257,88 @@ export class ArticlesService {
           resolve();
         }
         stmt.finalize();
+      });
+    });
+  }
+
+  /**
+   * Partial in-place metadata correction. Builds a dynamic SET clause over only
+   * the keys present in `patch`, so an omitted field is never written. Returns
+   * the updated row via `RETURNING`, or null when no article matches `id`.
+   *
+   * `categories` is stored JSON-stringified (matching the column format) and is
+   * de-duplicated here; `[]` persists as the string "[]" (non-null), which keeps
+   * a manual category edit from being re-picked by the auto-categorisation job
+   * (it selects only rows where `categories IS NULL`).
+   */
+  async updateArticle(
+    articleId: string,
+    patch: UpdateArticlePatch,
+  ): Promise<DBArticle | null> {
+    const setClauses: string[] = [];
+    const params: unknown[] = [];
+
+    if (patch.title !== undefined) {
+      setClauses.push('title = ?');
+      params.push(patch.title);
+    }
+    if (patch.publishedDate !== undefined) {
+      setClauses.push('published_date = ?');
+      params.push(patch.publishedDate.toISOString());
+    }
+    if (patch.feedSource !== undefined) {
+      setClauses.push('feed_source = ?');
+      params.push(patch.feedSource);
+    }
+    if (patch.feedProfile !== undefined) {
+      setClauses.push('feed_profile = ?');
+      params.push(patch.feedProfile);
+    }
+    if (patch.categories !== undefined) {
+      const deduped = [...new Set(patch.categories)];
+      setClauses.push('categories = ?');
+      params.push(JSON.stringify(deduped));
+    }
+
+    if (setClauses.length === 0) {
+      return this.getArticleById(articleId);
+    }
+
+    params.push(articleId);
+
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      const query = `
+        UPDATE articles
+        SET ${setClauses.join(', ')}
+        WHERE id = ?
+        RETURNING
+          id, url, title, published_date, feed_source, feed_profile,
+          raw_content, processed_content, impact_rating,
+          image_url, categories, custom_prompt, created_at
+      `;
+
+      db.get(query, params, (err, row: ArticleRow | undefined) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        if (!row) {
+          resolve(null);
+          return;
+        }
+
+        const article: DBArticle = {
+          ...row,
+          published_date: new Date(row.published_date),
+          created_at: new Date(row.created_at),
+          categories: row.categories
+            ? (JSON.parse(row.categories) as ArticleCategory[])
+            : undefined,
+        };
+        resolve(article);
       });
     });
   }

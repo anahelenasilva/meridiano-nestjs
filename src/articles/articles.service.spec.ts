@@ -2,6 +2,7 @@ import { DatabaseService } from '@libs/database';
 import { mock } from 'jest-mock-extended';
 import { NotesCleanupService } from '../notes/notes-cleanup.service';
 import { FeedProfile } from '../shared/types/feed';
+import { ArticleCategory } from './article.entity';
 import { ArticlesService } from './articles.service';
 
 describe('ArticlesService', () => {
@@ -290,6 +291,115 @@ describe('ArticlesService', () => {
       expect(
         mockNotesCleanupService.purgeNotesForSource,
       ).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('updateArticle', () => {
+    const articleId = '11111111-1111-1111-1111-111111111111';
+
+    const captureGet = () => {
+      let captured: { query: string; params: unknown[] } | undefined;
+      mockDb.get.mockImplementationOnce(
+        (
+          query: string,
+          params: unknown[],
+          callback: (err: Error | null, row?: unknown) => void,
+        ) => {
+          captured = { query, params };
+          callback(null, {
+            id: articleId,
+            url: 'https://example.com',
+            title: 'title',
+            published_date: '2024-01-01T00:00:00.000Z',
+            feed_source: 'source',
+            feed_profile: FeedProfile.TECHNOLOGY,
+            raw_content: 'raw',
+            categories: '[]',
+            created_at: '2024-01-01T00:00:00.000Z',
+          });
+        },
+      );
+      return () => captured!;
+    };
+
+    it('builds a SET clause over only the provided keys', async () => {
+      const get = captureGet();
+
+      await service.updateArticle(articleId, { title: 'New title' });
+
+      const { query, params } = get();
+      expect(query).toContain('title = ?');
+      expect(query).not.toContain('feed_source = ?');
+      expect(query).not.toContain('feed_profile = ?');
+      expect(query).not.toContain('published_date = ?');
+      expect(query).not.toContain('categories = ?');
+      // title value first, article id last (WHERE)
+      expect(params).toEqual(['New title', articleId]);
+    });
+
+    it('stores categories JSON-stringified and de-duplicated', async () => {
+      const get = captureGet();
+
+      await service.updateArticle(articleId, {
+        categories: [
+          ArticleCategory.NEWS,
+          ArticleCategory.NEWS,
+          ArticleCategory.BLOG,
+        ],
+      });
+
+      const { params } = get();
+      expect(params[0]).toBe(
+        JSON.stringify([ArticleCategory.NEWS, ArticleCategory.BLOG]),
+      );
+    });
+
+    it('persists an empty category list as the non-null string "[]"', async () => {
+      const get = captureGet();
+
+      await service.updateArticle(articleId, { categories: [] });
+
+      const { query, params } = get();
+      expect(query).toContain('categories = ?');
+      expect(params[0]).toBe('[]');
+    });
+
+    it('serialises publishedDate to an ISO string', async () => {
+      const get = captureGet();
+      const date = new Date('2023-05-01T10:00:00.000Z');
+
+      await service.updateArticle(articleId, { publishedDate: date });
+
+      const { params } = get();
+      expect(params[0]).toBe(date.toISOString());
+    });
+
+    it('short-circuits to a plain fetch when the patch has no keys', async () => {
+      const getById = jest
+        .spyOn(service, 'getArticleById')
+        .mockResolvedValue(null);
+
+      await service.updateArticle(articleId, {});
+
+      expect(getById).toHaveBeenCalledWith(articleId);
+      expect(mockDb.get).not.toHaveBeenCalled();
+      getById.mockRestore();
+    });
+
+    it('resolves null when no row is returned', async () => {
+      mockDb.get.mockImplementationOnce(
+        (
+          _query: string,
+          _params: unknown[],
+          callback: (err: Error | null, row?: unknown) => void,
+        ) => {
+          callback(null, undefined);
+        },
+      );
+
+      await expect(
+        service.updateArticle(articleId, { title: 'x' }),
+      ).resolves.toBeNull();
     });
   });
 });
