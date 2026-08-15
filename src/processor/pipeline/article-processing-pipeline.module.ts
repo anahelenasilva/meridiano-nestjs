@@ -16,8 +16,10 @@ import { RealSleeper, SLEEPER } from './sleeper';
  * Binds the pipeline's seams to production implementations. AI_ADAPTER wraps
  * `AiService` (retaining provider selection, chunking, and retry policy) behind
  * the {@link AiAdapter} interface so the pipeline never depends on the concrete
- * service; `chat`/`embed` throw on a null result so failures reach the pipeline
- * as step failures rather than silent nulls.
+ * service. `chat` delegates to `callChatOrThrow`, so the underlying provider
+ * error (including `finish_reason`) propagates into the pipeline's typed step
+ * failure verbatim rather than being collapsed to a generic message; `embed`
+ * still throws on a null result so failures reach the pipeline as step failures.
  */
 @Module({
   imports: [
@@ -34,13 +36,8 @@ import { RealSleeper, SLEEPER } from './sleeper';
     {
       provide: AI_ADAPTER,
       useFactory: (ai: AiService): AiAdapter => ({
-        async chat(prompt, systemPrompt, model) {
-          const result = await ai.callChat(prompt, model, systemPrompt);
-          if (result === null) {
-            throw new Error('AI chat returned no content');
-          }
-          return result;
-        },
+        chat: (prompt, systemPrompt, model) =>
+          ai.callChatOrThrow(prompt, model, systemPrompt),
         async embed(text) {
           const result = await ai.getEmbedding(text);
           if (result === null) {

@@ -127,7 +127,6 @@ export class AiService implements OnModuleInit {
       return await this.deepseekAdapter.chat(prompt, systemPrompt, model);
     } catch (error) {
       console.error('Error calling Deepseek Chat API:', error);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       return null;
     }
   }
@@ -146,7 +145,6 @@ export class AiService implements OnModuleInit {
       return await this.openaiAdapter.chat(prompt, systemPrompt, model);
     } catch (error) {
       console.error('Error calling OpenAI Chat API:', error);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       return null;
     }
   }
@@ -163,9 +161,33 @@ export class AiService implements OnModuleInit {
       return await this.chatPolicyService.chat(prompt, systemPrompt, model);
     } catch (error) {
       console.error('Error calling Chat API:', error);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       return null;
     }
+  }
+
+  /**
+   * Throwing sibling of {@link callChat}. Calls the same chat policy service but
+   * does not catch: any error (already retry-exhausted by `AiPolicyService`)
+   * propagates verbatim, preserving the provider message and `finish_reason`.
+   *
+   * Use where a hard failure with a diagnosable cause is wanted — notably the
+   * article-processing pipeline, where the error must reach `PipelineStepError`
+   * instead of being collapsed to a generic message. Every other caller keeps
+   * using the null-returning `callChat` and its graceful-degradation contract.
+   *
+   * The full 16-caller refactor (making `callChat` itself throw) is
+   * deliberately deferred, not done here; see issue #194 (Out of Scope) for
+   * the rationale.
+   */
+  async callChatOrThrow(
+    prompt: string,
+    model?: string,
+    systemPrompt?: string,
+  ): Promise<string> {
+    if (!this.chatPolicyService) {
+      throw new BadRequestException('Chat service not initialized.');
+    }
+    return await this.chatPolicyService.chat(prompt, systemPrompt, model);
   }
 
   async getEmbedding(text: string, _model?: string): Promise<number[] | null> {
