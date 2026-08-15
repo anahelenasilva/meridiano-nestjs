@@ -429,6 +429,51 @@
         ],
         "type": "object"
       },
+      "UpdateArticleDto": {
+        "properties": {
+          "categories": {
+            "items": {
+              "enum": [
+                "news",
+                "blog",
+                "research",
+                "nodejs",
+                "typescript",
+                "tutorial",
+                "other"
+              ],
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "feedProfile": {
+            "enum": [
+              "default",
+              "technology",
+              "politics",
+              "business",
+              "health",
+              "science",
+              "brasil",
+              "teclas"
+            ],
+            "type": "string"
+          },
+          "feedSource": {
+            "maxLength": 255,
+            "type": "string"
+          },
+          "publishedDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "title": {
+            "maxLength": 500,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "UpdateChannelEnabledDto": {
         "properties": {
           "enabled": {
@@ -861,6 +906,61 @@
           }
         },
         "summary": "Get an article by id",
+        "tags": [
+          "Articles"
+        ]
+      },
+      "patch": {
+        "operationId": "ArticlesController_updateArticle",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateArticleDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Article updated"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          },
+          "404": {
+            "description": "Article not found"
+          }
+        },
+        "summary": "Update editable metadata of an article",
         "tags": [
           "Articles"
         ]
