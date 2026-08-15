@@ -186,6 +186,39 @@ describe('AiService', () => {
     });
   });
 
+  describe('callChatOrThrow', () => {
+    it('delegates to chatPolicyService and returns result', async () => {
+      mockChatPolicy.chat.mockResolvedValue('policy response');
+
+      const result = await service.callChatOrThrow('prompt', 'model', 'system');
+
+      expect(result).toBe('policy response');
+      expect(mockChatPolicy.chat).toHaveBeenCalledWith('prompt', 'system', 'model');
+    });
+
+    it('propagates the provider error verbatim, preserving finish_reason', async () => {
+      const providerError = new Error(
+        'AI chat returned no content (finish_reason=length)',
+      );
+      mockChatPolicy.chat.mockRejectedValue(providerError);
+
+      await expect(service.callChatOrThrow('prompt')).rejects.toBe(
+        providerError,
+      );
+      await expect(service.callChatOrThrow('prompt')).rejects.toThrow(
+        'finish_reason=length',
+      );
+    });
+
+    it('throws BadRequestException when chatPolicyService is null', async () => {
+      Object.defineProperty(service, 'chatPolicyService', { value: null, writable: true });
+
+      await expect(service.callChatOrThrow('test')).rejects.toThrow(
+        BadRequestException,
+      );
+    });
+  });
+
   describe('getEmbedding', () => {
     it('delegates to embedPolicyService and returns result', async () => {
       mockEmbedPolicy.embed.mockResolvedValue([0.1, 0.2]);
