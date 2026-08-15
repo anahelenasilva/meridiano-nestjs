@@ -3,6 +3,7 @@ import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
 import { QueueService } from '../../libs/queue/queue.service';
+import { ConfigService } from '../config/config.service';
 import { FeedProfile } from '../shared/types/feed';
 import { BriefingsController } from './briefings.controller';
 import { BriefingsService } from './briefings.service';
@@ -27,6 +28,7 @@ describe('BriefingsController', () => {
         { provide: GenerateBriefUseCase, useValue: mockGenerateBriefUseCase },
         { provide: GenerateCustomBriefUseCase, useValue: mockGenerateCustomBriefUseCase },
         { provide: QueueService, useValue: mockQueueService },
+        { provide: ConfigService, useValue: mock<ConfigService>() },
       ],
     }).compile();
 

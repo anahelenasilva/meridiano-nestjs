@@ -1,38 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { mock } from 'jest-mock-extended';
+import { ConfigService } from '../../src/config/config.service';
 import { EmailModule } from './email.module';
-import { EmailService } from './email.service';
+import { EmailService, EMAIL_PROVIDER_TOKEN } from './email.service';
+import { MailgunProvider } from './providers/mailgun.provider';
 
 describe('EmailModule', () => {
-  let module: TestingModule;
   let originalEnvState: {
     EMAIL_PROVIDER: { value: string; existed: boolean };
-    MAILGUN_API_KEY: { value: string; existed: boolean };
-    MAILGUN_DOMAIN: { value: string; existed: boolean };
   };
 
-  beforeEach(async () => {
+  beforeEach(() => {
     originalEnvState = {
       EMAIL_PROVIDER: {
         value: process.env.EMAIL_PROVIDER ?? '',
         existed: 'EMAIL_PROVIDER' in process.env,
       },
-      MAILGUN_API_KEY: {
-        value: process.env.MAILGUN_API_KEY ?? '',
-        existed: 'MAILGUN_API_KEY' in process.env,
-      },
-      MAILGUN_DOMAIN: {
-        value: process.env.MAILGUN_DOMAIN ?? '',
-        existed: 'MAILGUN_DOMAIN' in process.env,
-      },
     };
-
-    process.env.EMAIL_PROVIDER = 'mailgun';
-    process.env.MAILGUN_API_KEY = 'test-key';
-    process.env.MAILGUN_DOMAIN = 'test-domain.com';
-
-    module = await Test.createTestingModule({
-      imports: [EmailModule.forRoot()],
-    }).compile();
   });
 
   afterEach(() => {
@@ -41,32 +25,56 @@ describe('EmailModule', () => {
     } else {
       delete process.env.EMAIL_PROVIDER;
     }
-
-    if (originalEnvState.MAILGUN_API_KEY.existed) {
-      process.env.MAILGUN_API_KEY = originalEnvState.MAILGUN_API_KEY.value;
-    } else {
-      delete process.env.MAILGUN_API_KEY;
-    }
-
-    if (originalEnvState.MAILGUN_DOMAIN.existed) {
-      process.env.MAILGUN_DOMAIN = originalEnvState.MAILGUN_DOMAIN.value;
-    } else {
-      delete process.env.MAILGUN_DOMAIN;
-    }
   });
 
-  it('should compile successfully', () => {
-    expect(module).toBeDefined();
+  describe('forRoot', () => {
+    it('wires EMAIL_PROVIDER_TOKEN to MailgunProvider by default', () => {
+      delete process.env.EMAIL_PROVIDER;
+
+      const dynamicModule = EmailModule.forRoot();
+
+      expect(dynamicModule.providers).toContainEqual(
+        expect.objectContaining({
+          provide: EMAIL_PROVIDER_TOKEN,
+          useClass: MailgunProvider,
+        }),
+      );
+      expect(dynamicModule.exports).toContain(EmailService);
+    });
+
+    it('throws for an unsupported provider', () => {
+      process.env.EMAIL_PROVIDER = 'sendgrid';
+
+      expect(() => EmailModule.forRoot()).toThrow(
+        'Unsupported email provider: sendgrid. Supported providers: mailgun',
+      );
+    });
   });
 
-  it('should provide EmailService', () => {
-    const service = module.get<EmailService>(EmailService);
-    expect(service).toBeDefined();
-    expect(service).toBeInstanceOf(EmailService);
-  });
+  describe('DI wiring', () => {
+    let testingModule: TestingModule;
+    const mockConfigService = mock<ConfigService>();
 
-  it('should export EmailService', () => {
-    const service = module.get<EmailService>(EmailService);
-    expect(service).toBeDefined();
+    beforeEach(async () => {
+      mockConfigService.getMailgunConfig.mockReturnValue({
+        apiKey: 'test-key',
+        domain: 'test-domain.com',
+        url: undefined,
+      });
+
+      testingModule = await Test.createTestingModule({
+        providers: [
+          { provide: EMAIL_PROVIDER_TOKEN, useClass: MailgunProvider },
+          { provide: ConfigService, useValue: mockConfigService },
+          EmailService,
+        ],
+      }).compile();
+    });
+
+    it('provides EmailService backed by MailgunProvider using ConfigService secrets', () => {
+      const service = testingModule.get<EmailService>(EmailService);
+      expect(service).toBeInstanceOf(EmailService);
+      expect(mockConfigService.getMailgunConfig).toHaveBeenCalled();
+    });
   });
 });

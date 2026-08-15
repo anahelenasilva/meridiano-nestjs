@@ -2,6 +2,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import * as dotenv from 'dotenv';
 import { AppModule } from './app.module';
+import { ConfigService } from './config/config.service';
 
 // Load environment variables from .env file (only if not already set)
 // This ensures Docker Compose environment variables take precedence
@@ -9,6 +10,7 @@ dotenv.config({ override: false });
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService);
 
   // Enable validation globally
   app.useGlobalPipes(
@@ -21,10 +23,10 @@ async function bootstrap() {
 
   // Configure CORS
   // If CORS_ORIGINS is set, use it; otherwise allow all origins (for Tailscale/local flexibility)
-  const corsOrigins = process.env.CORS_ORIGINS;
+  const corsOrigins = configService.getCorsOrigins();
   const corsConfig = corsOrigins
     ? {
-        origin: corsOrigins.split(',').map((origin) => origin.trim()),
+        origin: corsOrigins,
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
         allowedHeaders: ['Content-Type', 'Authorization'],
       }
@@ -36,7 +38,7 @@ async function bootstrap() {
 
   app.enableCors(corsConfig);
 
-  const port = process.env.PORT || 3001;
+  const port = configService.getPort();
   await app.listen(port, '0.0.0.0');
 
   console.log(`🚀 Meridiano API server running on http://0.0.0.0:${port}`);

@@ -2,6 +2,7 @@ import { ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
+import { ConfigService } from '../../../src/config/config.service';
 import { API_KEY_ALLOWED_KEY } from '../decorators/api-key-allowed.decorator';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -10,7 +11,7 @@ describe('JwtAuthGuard', () => {
   let guard: JwtAuthGuard;
   const mockReflector = mock<Reflector>();
   const mockExecutionContext = mock<ExecutionContext>();
-  const originalApiKey = process.env.MERIDIANO_API_KEY;
+  const mockConfigService = mock<ConfigService>();
 
   /**
    * Wire the reflector so IS_PUBLIC_KEY / API_KEY_ALLOWED_KEY lookups resolve
@@ -45,6 +46,10 @@ describe('JwtAuthGuard', () => {
           provide: Reflector,
           useValue: mockReflector,
         },
+        {
+          provide: ConfigService,
+          useValue: mockConfigService,
+        },
       ],
     }).compile();
 
@@ -53,11 +58,6 @@ describe('JwtAuthGuard', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
-    if (originalApiKey === undefined) {
-      delete process.env.MERIDIANO_API_KEY;
-    } else {
-      process.env.MERIDIANO_API_KEY = originalApiKey;
-    }
   });
 
   it('should be defined', () => {
@@ -104,7 +104,7 @@ describe('JwtAuthGuard', () => {
     });
 
     it('admits an api-key-allowed route with a matching x-api-key and no JWT', () => {
-      process.env.MERIDIANO_API_KEY = 'secret-key';
+      mockConfigService.getMeridianoApiKey.mockReturnValue('secret-key');
       setMetadata({ apiKeyAllowed: true });
       setRequestHeaders({ 'x-api-key': 'secret-key' });
 
@@ -113,7 +113,7 @@ describe('JwtAuthGuard', () => {
     });
 
     it('falls through to JWT when the x-api-key is wrong', () => {
-      process.env.MERIDIANO_API_KEY = 'secret-key';
+      mockConfigService.getMeridianoApiKey.mockReturnValue('secret-key');
       setMetadata({ apiKeyAllowed: true });
       setRequestHeaders({ 'x-api-key': 'wrong-key' });
 
@@ -122,7 +122,7 @@ describe('JwtAuthGuard', () => {
     });
 
     it('falls through to JWT when the x-api-key header is absent', () => {
-      process.env.MERIDIANO_API_KEY = 'secret-key';
+      mockConfigService.getMeridianoApiKey.mockReturnValue('secret-key');
       setMetadata({ apiKeyAllowed: true });
       setRequestHeaders({});
 
@@ -131,7 +131,7 @@ describe('JwtAuthGuard', () => {
     });
 
     it('falls through to JWT when MERIDIANO_API_KEY is unset (key path inert)', () => {
-      delete process.env.MERIDIANO_API_KEY;
+      mockConfigService.getMeridianoApiKey.mockReturnValue(undefined);
       setMetadata({ apiKeyAllowed: true });
       setRequestHeaders({ 'x-api-key': 'anything' });
 
@@ -140,7 +140,7 @@ describe('JwtAuthGuard', () => {
     });
 
     it('falls through to JWT when MERIDIANO_API_KEY is empty', () => {
-      process.env.MERIDIANO_API_KEY = '';
+      mockConfigService.getMeridianoApiKey.mockReturnValue('');
       setMetadata({ apiKeyAllowed: true });
       setRequestHeaders({ 'x-api-key': '' });
 
@@ -149,7 +149,7 @@ describe('JwtAuthGuard', () => {
     });
 
     it('ignores a valid x-api-key on a route that is not api-key-allowed', () => {
-      process.env.MERIDIANO_API_KEY = 'secret-key';
+      mockConfigService.getMeridianoApiKey.mockReturnValue('secret-key');
       setMetadata({ apiKeyAllowed: false });
       setRequestHeaders({ 'x-api-key': 'secret-key' });
 

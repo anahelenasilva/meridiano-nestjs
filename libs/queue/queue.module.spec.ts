@@ -66,18 +66,42 @@ jest.mock('@libs/database', () => {
   };
 });
 
-// Mock ConfigModule to prevent loading the full dependency chain
+// Mock ConfigModule to prevent loading the full dependency chain (the real
+// ConfigModule pulls in YoutubeChannelsService and its TypeORM repositories).
+// Backs the real ConfigService token with a mock value so RedisModule/
+// EmailModule (which import ConfigService directly from config.service, not
+// config.module) still resolve it to the same token.
 jest.mock('../../src/config/config.module', () => {
-  return {
-    ConfigModule: class MockConfigModule { },
-    ConfigService: class MockConfigService {
-      get = jest.fn().mockReturnValue('mock-value');
-      getArticleEmailsNotifications = jest.fn().mockReturnValue({
-        failureNotificationEmail: 'test@example.com',
-        failureNotificationEmailFrom: 'from@example.com',
-      });
-    },
+  // eslint-disable-next-line @typescript-eslint/no-require-imports -- jest.mock factories can't reference out-of-scope imports
+  const { Global, Module } = require('@nestjs/common');
+  // eslint-disable-next-line @typescript-eslint/no-require-imports -- jest.mock factories can't reference out-of-scope imports
+  const { ConfigService } = require('../../src/config/config.service');
+
+  const mockConfigService = {
+    get: jest.fn().mockReturnValue('mock-value'),
+    getArticleEmailsNotifications: jest.fn().mockReturnValue({
+      failureNotificationEmail: 'test@example.com',
+      failureNotificationEmailFrom: 'from@example.com',
+    }),
+    getRedisConfig: jest.fn().mockReturnValue({
+      url: undefined,
+      host: 'localhost',
+      port: 6379,
+      password: undefined,
+    }),
   };
+
+  // @Global() to match the real ConfigModule: RedisModule/EmailModule no
+  // longer import ConfigModule themselves (see redis.module.ts), so they
+  // only see ConfigService if it's registered globally, same as production.
+  @Global()
+  @Module({
+    providers: [{ provide: ConfigService, useValue: mockConfigService }],
+    exports: [ConfigService],
+  })
+  class MockConfigModule {}
+
+  return { ConfigModule: MockConfigModule };
 });
 
 // Mock QueueService to avoid ConfigService dependency

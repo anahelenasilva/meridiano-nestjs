@@ -156,6 +156,11 @@ class PostgresPreparedStatement implements PreparedStatement {
   }
 }
 
+// Reads process.env directly rather than going through ConfigService:
+// ConfigService depends on YoutubeChannelsService, which depends on
+// DatabaseService (this file's caller), so importing ConfigService here
+// creates a circular import (Nest resolves the constructor param as `Object`
+// and DI fails). Mirrors the same constraint in typeorm.config.ts.
 @Injectable()
 export class PostgresDatabaseService extends AbstractDatabaseService {
   private pool: Pool | null = null;

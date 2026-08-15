@@ -378,4 +378,220 @@ describe('ConfigService', () => {
       ).CONFIGS.models.enabledChatModel = originalValue;
     });
   });
+
+  describe('getCorsOrigins', () => {
+    afterEach(() => {
+      delete process.env.CORS_ORIGINS;
+    });
+
+    it('returns undefined when CORS_ORIGINS is not set', () => {
+      delete process.env.CORS_ORIGINS;
+
+      expect(service.getCorsOrigins()).toBeUndefined();
+    });
+
+    it('splits and trims a comma-separated list of origins', () => {
+      process.env.CORS_ORIGINS = 'https://a.com, https://b.com';
+
+      expect(service.getCorsOrigins()).toEqual([
+        'https://a.com',
+        'https://b.com',
+      ]);
+    });
+  });
+
+  describe('getPort', () => {
+    afterEach(() => {
+      delete process.env.PORT;
+    });
+
+    it('defaults to 3001 when PORT is not set', () => {
+      delete process.env.PORT;
+
+      expect(service.getPort()).toBe(3001);
+    });
+
+    it('returns the parsed PORT value when set', () => {
+      process.env.PORT = '4000';
+
+      expect(service.getPort()).toBe(4000);
+    });
+
+    it('falls back to 3001 when PORT is invalid', () => {
+      process.env.PORT = 'nope';
+
+      expect(service.getPort()).toBe(3001);
+    });
+  });
+
+  describe('getS3ArticlesBucketName', () => {
+    afterEach(() => {
+      delete process.env.S3_ARTICLES_BUCKET_NAME;
+    });
+
+    it('returns undefined when not set', () => {
+      delete process.env.S3_ARTICLES_BUCKET_NAME;
+
+      expect(service.getS3ArticlesBucketName()).toBeUndefined();
+    });
+
+    it('returns the configured bucket name', () => {
+      process.env.S3_ARTICLES_BUCKET_NAME = 'my-bucket';
+
+      expect(service.getS3ArticlesBucketName()).toBe('my-bucket');
+    });
+  });
+
+  describe('getAwsConfig', () => {
+    afterEach(() => {
+      delete process.env.AWS_ACCESS_KEY_ID;
+      delete process.env.AWS_SECRET_ACCESS_KEY;
+      delete process.env.AWS_REGION;
+    });
+
+    it('defaults region to us-east-1 and omits credentials when unset', () => {
+      delete process.env.AWS_ACCESS_KEY_ID;
+      delete process.env.AWS_SECRET_ACCESS_KEY;
+      delete process.env.AWS_REGION;
+
+      expect(service.getAwsConfig()).toEqual({
+        credentials: undefined,
+        region: 'us-east-1',
+      });
+    });
+
+    it('returns credentials when both keys are set', () => {
+      process.env.AWS_ACCESS_KEY_ID = 'key-id';
+      process.env.AWS_SECRET_ACCESS_KEY = 'secret';
+      process.env.AWS_REGION = 'eu-west-1';
+
+      expect(service.getAwsConfig()).toEqual({
+        credentials: { accessKeyId: 'key-id', secretAccessKey: 'secret' },
+        region: 'eu-west-1',
+      });
+    });
+  });
+
+  describe('getRedisConfig', () => {
+    afterEach(() => {
+      delete process.env.REDIS_URL;
+      delete process.env.REDISCLOUD_URL;
+      delete process.env.REDIS_HOST;
+      delete process.env.REDIS_PORT;
+      delete process.env.REDIS_PASSWORD;
+    });
+
+    it('prefers REDIS_URL over REDISCLOUD_URL', () => {
+      process.env.REDIS_URL = 'redis://primary';
+      process.env.REDISCLOUD_URL = 'redis://fallback';
+
+      expect(service.getRedisConfig().url).toBe('redis://primary');
+    });
+
+    it('falls back to REDISCLOUD_URL when REDIS_URL is unset', () => {
+      delete process.env.REDIS_URL;
+      process.env.REDISCLOUD_URL = 'redis://fallback';
+
+      expect(service.getRedisConfig().url).toBe('redis://fallback');
+    });
+
+    it('defaults host/port when unset', () => {
+      delete process.env.REDIS_URL;
+      delete process.env.REDISCLOUD_URL;
+      delete process.env.REDIS_HOST;
+      delete process.env.REDIS_PORT;
+
+      expect(service.getRedisConfig()).toEqual({
+        url: undefined,
+        host: 'localhost',
+        port: 6379,
+        password: undefined,
+      });
+    });
+  });
+
+  describe('getJwtSecret', () => {
+    afterEach(() => {
+      delete process.env.JWT_SECRET;
+    });
+
+    it('returns the configured secret', () => {
+      process.env.JWT_SECRET = 'super-secret';
+
+      expect(service.getJwtSecret()).toBe('super-secret');
+    });
+
+    it('throws when JWT_SECRET is unset', () => {
+      delete process.env.JWT_SECRET;
+
+      expect(() => service.getJwtSecret()).toThrow(
+        'JWT_SECRET is required but not found in environment variables',
+      );
+    });
+
+    it('throws when JWT_SECRET is blank', () => {
+      process.env.JWT_SECRET = '   ';
+
+      expect(() => service.getJwtSecret()).toThrow(
+        'JWT_SECRET is required but not found in environment variables',
+      );
+    });
+  });
+
+  describe('getMeridianoApiKey', () => {
+    afterEach(() => {
+      delete process.env.MERIDIANO_API_KEY;
+    });
+
+    it('returns undefined when unset', () => {
+      delete process.env.MERIDIANO_API_KEY;
+
+      expect(service.getMeridianoApiKey()).toBeUndefined();
+    });
+
+    it('returns undefined when empty', () => {
+      process.env.MERIDIANO_API_KEY = '';
+
+      expect(service.getMeridianoApiKey()).toBeUndefined();
+    });
+
+    it('returns the configured key', () => {
+      process.env.MERIDIANO_API_KEY = 'secret-key';
+
+      expect(service.getMeridianoApiKey()).toBe('secret-key');
+    });
+  });
+
+  describe('getMailgunConfig', () => {
+    afterEach(() => {
+      delete process.env.MAILGUN_API_KEY;
+      delete process.env.MAILGUN_DOMAIN;
+      delete process.env.MAILGUN_URL;
+    });
+
+    it('returns the configured mailgun settings', () => {
+      process.env.MAILGUN_API_KEY = 'key';
+      process.env.MAILGUN_DOMAIN = 'domain.com';
+      process.env.MAILGUN_URL = 'https://api.eu.mailgun.net';
+
+      expect(service.getMailgunConfig()).toEqual({
+        apiKey: 'key',
+        domain: 'domain.com',
+        url: 'https://api.eu.mailgun.net',
+      });
+    });
+
+    it('returns undefined fields when unset', () => {
+      delete process.env.MAILGUN_API_KEY;
+      delete process.env.MAILGUN_DOMAIN;
+      delete process.env.MAILGUN_URL;
+
+      expect(service.getMailgunConfig()).toEqual({
+        apiKey: undefined,
+        domain: undefined,
+        url: undefined,
+      });
+    });
+  });
+
 });

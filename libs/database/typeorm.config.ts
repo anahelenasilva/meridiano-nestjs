@@ -1,6 +1,9 @@
 import * as dotenv from 'dotenv';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
+// Reads process.env directly: this file is loaded by the TypeORM CLI
+// (migration:generate/run/revert) outside of Nest's DI container, so there
+// is no ConfigService instance to inject.
 dotenv.config({ override: false });
 
 const connectionString =

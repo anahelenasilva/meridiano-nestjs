@@ -297,6 +297,7 @@ export class ConfigService {
 
   getRedisConfig() {
     return {
+      url: process.env.REDIS_URL || process.env.REDISCLOUD_URL || undefined,
       host: process.env.REDIS_HOST || 'localhost',
       port: parseInt(process.env.REDIS_PORT || '6379', 10),
       password: process.env.REDIS_PASSWORD || undefined,
@@ -451,5 +452,52 @@ export class ConfigService {
     throw new BadRequestException(
       'No enabled TTS model found in environment variables or config file',
     );
+  }
+
+  getCorsOrigins(): string[] | undefined {
+    return process.env.CORS_ORIGINS?.split(',').map((origin) => origin.trim());
+  }
+
+  getPort(): number {
+    const parsed = parseInt(process.env.PORT || '', 10);
+    return Number.isInteger(parsed) && parsed > 0 ? parsed : 3001;
+  }
+
+  getS3ArticlesBucketName(): string | undefined {
+    return process.env.S3_ARTICLES_BUCKET_NAME;
+  }
+
+  getAwsConfig() {
+    const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+    const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+    return {
+      credentials:
+        accessKeyId && secretAccessKey
+          ? { accessKeyId, secretAccessKey }
+          : undefined,
+      region: process.env.AWS_REGION || 'us-east-1',
+    };
+  }
+
+  getJwtSecret(): string {
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret || jwtSecret.trim() === '') {
+      throw new Error(
+        'JWT_SECRET is required but not found in environment variables',
+      );
+    }
+    return jwtSecret;
+  }
+
+  getMeridianoApiKey(): string | undefined {
+    return process.env.MERIDIANO_API_KEY || undefined;
+  }
+
+  getMailgunConfig() {
+    return {
+      apiKey: process.env.MAILGUN_API_KEY,
+      domain: process.env.MAILGUN_DOMAIN,
+      url: process.env.MAILGUN_URL,
+    };
   }
 }

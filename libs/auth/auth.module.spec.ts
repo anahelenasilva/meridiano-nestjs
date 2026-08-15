@@ -26,33 +26,6 @@ class MockUserLookupProvider implements UserLookupProvider {
 }
 
 describe('AuthModule', () => {
-  let originalEnvState: {
-    JWT_SECRET: { value: string; existed: boolean };
-  };
-
-  beforeEach(() => {
-    originalEnvState = {
-      JWT_SECRET: {
-        value: process.env.JWT_SECRET ?? '',
-        existed: 'JWT_SECRET' in process.env,
-      },
-    };
-
-    process.env.JWT_SECRET = 'test-secret-key';
-  });
-
-  afterEach(() => {
-    if (originalEnvState.JWT_SECRET.existed) {
-      process.env.JWT_SECRET = originalEnvState.JWT_SECRET.value;
-    } else {
-      delete process.env.JWT_SECRET;
-    }
-  });
-
-  it('should have valid JWT_SECRET configured', () => {
-    expect(process.env.JWT_SECRET).toBe('test-secret-key');
-  });
-
   it('should have mock user lookup provider interface implemented', () => {
     const provider = new MockUserLookupProvider();
     expect(provider.getUserById).toBeDefined();

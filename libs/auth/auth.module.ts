@@ -2,26 +2,29 @@ import { DynamicModule, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { RedisModule } from '@libs/redis';
+import { ConfigService } from '../../src/config/config.service';
 import { AuthService, USER_LOOKUP_PROVIDER_TOKEN } from './auth.service';
 import { RateLimitGuard } from './rate-limit/rate-limit.guard';
 import { RateLimitService } from './rate-limit/rate-limit.service';
 import type { UserLookupProvider } from './interfaces/user-lookup-provider.interface';
 
+// No ConfigModule import anywhere in this file: ConfigService is @Global()
+// (registered once via AppModule). Importing ConfigModule here would create
+// a require() cycle: ConfigModule -> YoutubeChannelsModule -> its controller
+// -> @libs/auth (this file).
 @Module({})
 export class AuthModule {
   static forRoot(userLookupProvider: new () => UserLookupProvider): DynamicModule {
-    const jwtSecret = process.env.JWT_SECRET;
-    if (!jwtSecret || jwtSecret.trim() === '') {
-      throw new Error('JWT_SECRET is required but not found in environment variables');
-    }
-
     return {
       module: AuthModule,
       imports: [
         PassportModule,
-        JwtModule.register({
-          secret: jwtSecret,
-          signOptions: { expiresIn: '24h' },
+        JwtModule.registerAsync({
+          useFactory: (configService: ConfigService) => ({
+            secret: configService.getJwtSecret(),
+            signOptions: { expiresIn: '24h' },
+          }),
+          inject: [ConfigService],
         }),
         RedisModule,
       ],
@@ -43,18 +46,16 @@ export class AuthModule {
     inject?: any[];
     imports?: any[];
   }): DynamicModule {
-    const jwtSecret = process.env.JWT_SECRET;
-    if (!jwtSecret || jwtSecret.trim() === '') {
-      throw new Error('JWT_SECRET is required but not found in environment variables');
-    }
-
     return {
       module: AuthModule,
       imports: [
         PassportModule,
-        JwtModule.register({
-          secret: jwtSecret,
-          signOptions: { expiresIn: '24h' },
+        JwtModule.registerAsync({
+          useFactory: (configService: ConfigService) => ({
+            secret: configService.getJwtSecret(),
+            signOptions: { expiresIn: '24h' },
+          }),
+          inject: [ConfigService],
         }),
         RedisModule,
         ...(options.imports || []),

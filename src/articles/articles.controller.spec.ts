@@ -48,6 +48,7 @@ describe('ArticlesController', () => {
         mock(),
         mock(),
         mock(),
+        mock(),
       );
     }
 
@@ -147,6 +148,7 @@ describe('ArticlesController', () => {
         mock(),
         mock(),
         mock(),
+        mock(),
       );
       const input = { page: 2, perPage: 10 };
 
@@ -175,6 +177,7 @@ describe('ArticlesController', () => {
         mock(),
         mock(),
         mockGenerateArticleAudioCommand,
+        mock(),
       );
 
       const result = await controller.generateAudio(articleId);
@@ -199,6 +202,7 @@ describe('ArticlesController', () => {
         mock(),
         mock(),
         mockGenerateArticleAudioCommand,
+        mock(),
       );
 
       await expect(
@@ -220,6 +224,7 @@ describe('ArticlesController', () => {
         mock(),
         mock(),
         mockGenerateArticleAudioCommand,
+        mock(),
       );
 
       await expect(
