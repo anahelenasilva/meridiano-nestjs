@@ -80,6 +80,16 @@ EMBEDDING_API_KEY=your-embedding-api-key
 # Required for text-to-speech audio generation
 OPENAI_API_KEY=your-openai-api-key
 
+# AI Model Configuration (optional overrides)
+# Chat model provider: 'deepseek' or 'openai' (default: deepseek)
+ENABLED_CHAT_MODEL=deepseek
+# DeepSeek chat model (default: deepseek-v4-flash)
+DEEPSEEK_CHAT_MODEL=
+# Chat completion token budget (default: 8192). deepseek-v4-flash is a reasoning
+# model whose reasoning tokens count against this budget. See
+# docs/adr/0008-deepseek-thinking-disabled-and-reasoning-token-budget.md
+CHAT_MAX_TOKENS=
+
 # Presigned URL expiry in seconds for audio playback (default: 3600)
 PRESIGNED_URL_EXPIRY_SECONDS=3600
 ```
