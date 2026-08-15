@@ -48,6 +48,7 @@ export interface DBArticle {
   raw_content: string;
   processed_content?: string | null;
   embedding?: string | null; // JSON string
+  embedding_vector?: number[] | null;
   impact_rating?: number | null;
   feed_profile: string;
   image_url?: string | null;
