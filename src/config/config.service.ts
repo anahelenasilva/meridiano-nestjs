@@ -62,7 +62,7 @@ export class ConfigService {
       enabledTtsModel: 'openai',
       openaiTtsVoice: 'alloy',
       groqTtsVoice: 'hannah',
-      maxTokens: 2048,
+      maxTokens: 8192,
       temperature: 0.7,
     },
 
@@ -205,10 +205,22 @@ export class ConfigService {
   getModelConfig() {
     const embeddingModel =
       process.env.EMBEDDING_MODEL || this.CONFIGS.models.embeddingModel;
+    const deepseekChatModel =
+      process.env.DEEPSEEK_CHAT_MODEL || this.CONFIGS.models.deepseekChatModel;
+    // deepseek-v4-flash is a reasoning model: reasoning tokens count against
+    // max_tokens, so a starved budget yields an empty completion. Keep it
+    // env-tunable without a rebuild.
+    const parsedMaxTokens = Number(process.env.CHAT_MAX_TOKENS);
+    const maxTokens =
+      Number.isFinite(parsedMaxTokens) && parsedMaxTokens > 0
+        ? parsedMaxTokens
+        : this.CONFIGS.models.maxTokens;
 
     return {
       ...this.CONFIGS.models,
       embeddingModel,
+      deepseekChatModel,
+      maxTokens,
     };
   }
 

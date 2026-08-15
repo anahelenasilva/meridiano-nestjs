@@ -24,9 +24,15 @@ export async function openaiCompatibleChat(
     temperature,
   });
 
-  const content = response.choices[0]?.message?.content?.trim();
+  const choice = response.choices[0];
+  const content = choice?.message?.content?.trim();
   if (!content) {
-    throw new Error(`${adapterName} returned empty response`);
+    // finish_reason distinguishes budget exhaustion (`length` -> reasoning
+    // models spend max_tokens on CoT, leaving no content) from a genuine
+    // empty completion. Without it this fault is undiagnosable from logs.
+    throw new Error(
+      `${adapterName} returned empty response (finish_reason=${choice?.finish_reason})`,
+    );
   }
   return content;
 }
