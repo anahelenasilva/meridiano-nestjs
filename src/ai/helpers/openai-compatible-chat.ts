@@ -9,6 +9,9 @@ export async function openaiCompatibleChat(
   maxTokens: number,
   temperature: number,
   adapterName: string,
+  // Provider-specific body fields (e.g. DeepSeek's `thinking`). Kept generic so
+  // this helper stays provider-agnostic and the OpenAI path never receives them.
+  extraBody: Record<string, unknown> = {},
 ): Promise<string> {
   const messages: Array<{ role: 'system' | 'user'; content: string }> = [];
 
@@ -22,7 +25,8 @@ export async function openaiCompatibleChat(
     messages,
     max_tokens: maxTokens,
     temperature,
-  });
+    ...extraBody,
+  } as OpenAI.Chat.ChatCompletionCreateParamsNonStreaming);
 
   const choice = response.choices[0];
   const content = choice?.message?.content?.trim();
