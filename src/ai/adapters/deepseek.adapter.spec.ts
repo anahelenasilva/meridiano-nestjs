@@ -29,6 +29,18 @@ describe('DeepseekAdapter', () => {
       );
     });
 
+    it('disables thinking by default', async () => {
+      mockCreate.mockResolvedValue({
+        choices: [{ message: { content: 'ok' } }],
+      });
+
+      await adapter.chat('test prompt');
+
+      expect(mockCreate).toHaveBeenCalledWith(
+        expect.objectContaining({ thinking: { type: 'disabled' } }),
+      );
+    });
+
     it('includes system prompt when provided', async () => {
       mockCreate.mockResolvedValue({
         choices: [{ message: { content: 'ok' } }],

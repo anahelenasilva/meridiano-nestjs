@@ -9,6 +9,9 @@ export async function openaiCompatibleChat(
   maxTokens: number,
   temperature: number,
   adapterName: string,
+  // Provider-specific body fields (e.g. DeepSeek's `thinking`). Kept generic so
+  // this helper stays provider-agnostic and the OpenAI path never receives them.
+  extraBody: Record<string, unknown> = {},
 ): Promise<string> {
   const messages: Array<{ role: 'system' | 'user'; content: string }> = [];
 
@@ -22,11 +25,18 @@ export async function openaiCompatibleChat(
     messages,
     max_tokens: maxTokens,
     temperature,
-  });
+    ...extraBody,
+  } as OpenAI.Chat.ChatCompletionCreateParamsNonStreaming);
 
-  const content = response.choices[0]?.message?.content?.trim();
+  const choice = response.choices[0];
+  const content = choice?.message?.content?.trim();
   if (!content) {
-    throw new Error(`${adapterName} returned empty response`);
+    // finish_reason distinguishes budget exhaustion (`length` -> reasoning
+    // models spend max_tokens on CoT, leaving no content) from a genuine
+    // empty completion. Without it this fault is undiagnosable from logs.
+    throw new Error(
+      `${adapterName} returned empty response (finish_reason=${choice?.finish_reason})`,
+    );
   }
   return content;
 }

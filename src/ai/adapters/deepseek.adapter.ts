@@ -11,6 +11,11 @@ export class DeepseekAdapter implements AiAdapter {
   ) {}
 
   chat(prompt: string, systemPrompt?: string, model?: string): Promise<string> {
+    // Thinking is off by default: every current caller is a summarise/extract/
+    // classify task that needs no chain-of-thought, and on reasoning models CoT
+    // is billed against max_tokens (starving the response) and can leak into
+    // JSON outputs. Re-enable per call by omitting this extraBody when a future
+    // caller actually benefits from reasoning.
     return openaiCompatibleChat(
       this.client,
       prompt,
@@ -19,6 +24,7 @@ export class DeepseekAdapter implements AiAdapter {
       this.maxTokens,
       this.temperature,
       'Deepseek',
+      { thinking: { type: 'disabled' } },
     );
   }
 
