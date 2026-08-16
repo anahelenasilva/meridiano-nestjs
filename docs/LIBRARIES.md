@@ -135,16 +135,19 @@ Supported configuration paths:
   - `YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE`
   - `AUDIO_GENERATION_QUEUE`
   - `NEWS_DIGEST_QUEUE`
+  - `TRANSCRIPT_BACKUP_QUEUE`
 - Job names:
   - `PROCESS_ARTICLE_JOB`
   - `PROCESS_MARKDOWN_ARTICLE_JOB`
   - `PROCESS_TRANSCRIPTION_SUMMARY_JOB`
   - `GENERATE_AUDIO_JOB`
   - `NEWS_DIGEST_JOB`
+  - `BACKUP_TRANSCRIPT_JOB`
 - Job payload types:
   - `ProcessArticleJobData`
   - `ProcessMarkdownArticleJobData`
   - `ProcessTranscriptionSummaryJobData`
+  - `BackupTranscriptJobData`
 
 ### Behavior
 

@@ -11,6 +11,7 @@ import {
   AUDIO_GENERATION_QUEUE,
   CUSTOM_BRIEFING_GENERATION_QUEUE,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
+  TRANSCRIPT_BACKUP_QUEUE,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from './constants/queue.constants';
 import { QueueService } from './queue.service';
@@ -24,6 +25,7 @@ describe('QueueService', () => {
   const mockTranscriptionSummaryQueue = mock<Queue>();
   const mockAudioQueue = mock<Queue>();
   const mockCustomBriefingQueue = mock<Queue>();
+  const mockTranscriptBackupQueue = mock<Queue>();
   const mockConfigService = mock<ConfigService>();
   const mockEmailService = mock<EmailService>();
   const mockRedisService = mock<RedisService>();
@@ -35,6 +37,7 @@ describe('QueueService', () => {
     mockReset(mockTranscriptionSummaryQueue);
     mockReset(mockAudioQueue);
     mockReset(mockCustomBriefingQueue);
+    mockReset(mockTranscriptBackupQueue);
     mockReset(mockConfigService);
     mockReset(mockEmailService);
     mockReset(mockRedisService);
@@ -64,6 +67,10 @@ describe('QueueService', () => {
         {
           provide: CUSTOM_BRIEFING_GENERATION_QUEUE,
           useValue: mockCustomBriefingQueue,
+        },
+        {
+          provide: TRANSCRIPT_BACKUP_QUEUE,
+          useValue: mockTranscriptBackupQueue,
         },
         {
           provide: ConfigService,
@@ -122,6 +129,26 @@ describe('QueueService', () => {
         },
       );
       expect(result).toEqual({ jobId: 'job-123' });
+    });
+  });
+
+  describe('addTranscriptBackupJob', () => {
+    it('enqueues a backup job with the file path and channel id', async () => {
+      mockTranscriptBackupQueue.add.mockResolvedValue({ id: 'backup-1' } as Job);
+
+      const result = await service.addTranscriptBackupJob({
+        filePath: 'transcripts/UC123_20260816_120000.json',
+        channelId: 'UC123',
+      });
+
+      expect(mockTranscriptBackupQueue.add).toHaveBeenCalledWith(
+        'backup-transcript',
+        {
+          filePath: 'transcripts/UC123_20260816_120000.json',
+          channelId: 'UC123',
+        },
+      );
+      expect(result).toEqual({ jobId: 'backup-1' });
     });
   });
 
