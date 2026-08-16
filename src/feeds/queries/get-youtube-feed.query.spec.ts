@@ -22,6 +22,7 @@ describe('GetYoutubeFeedQuery', () => {
       id: 'transcription-1',
       channelId: 'channel-1',
       channelName: 'Channel One',
+      channelExternalId: 'UC-channel-1-external',
       videoTitle: 'Video One',
       postedAt: new Date('2026-07-25T12:00:00.000Z'),
       videoUrl: 'https://www.youtube.com/watch?v=abc123',
@@ -78,7 +79,9 @@ describe('GetYoutubeFeedQuery', () => {
 
     expect(
       mockYoutubeTranscriptionsService.getTranscriptionsPaginated,
-    ).toHaveBeenCalledWith(expect.objectContaining({ channel_id: 'channel-1' }));
+    ).toHaveBeenCalledWith(
+      expect.objectContaining({ channel_id: 'channel-1' }),
+    );
   });
 
   it('renders valid RSS XML with the given channel link', async () => {
