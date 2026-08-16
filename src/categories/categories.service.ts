@@ -73,7 +73,7 @@ export class CategoriesService {
       db.all(
         'SELECT DISTINCT color FROM categories',
         [],
-        (err: Error | null, rows?: any[]) => {
+        (err: Error | null, rows?: { color: string }[]) => {
           if (err) {
             reject(err);
             return;

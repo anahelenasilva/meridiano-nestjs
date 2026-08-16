@@ -116,8 +116,8 @@ describe('Categories (e2e)', () => {
 
   describe('POST /api/youtube/categories', () => {
     it('creates a category and returns its assigned color', async () => {
-      service.createCategory.mockImplementation(async (name, color) =>
-        buildCategory({ id: 'new', name, color }),
+      service.createCategory.mockImplementation((name, color) =>
+        Promise.resolve(buildCategory({ id: 'new', name, color })),
       );
 
       const response = await request(app.getHttpServer())
@@ -142,8 +142,8 @@ describe('Categories (e2e)', () => {
         CATEGORY_COLORS.amber,
         CATEGORY_COLORS.violet,
       ]);
-      service.createCategory.mockImplementation(async (name, color) =>
-        buildCategory({ name, color }),
+      service.createCategory.mockImplementation((name, color) =>
+        Promise.resolve(buildCategory({ name, color })),
       );
 
       await request(app.getHttpServer())
