@@ -5,8 +5,12 @@ import { ConfigService } from '../config/config.service';
 import { estimateTokenCount } from '../shared/helpers/token-estimation';
 import { AiPolicyService } from './ai-policy.service';
 import { DeepseekAdapter } from './adapters/deepseek.adapter';
-import { GroqAdapter } from './adapters/groq.adapter';
-import { OpenAIAdapter } from './adapters/openai.adapter';
+import {
+  GroqAdapter,
+  GROQ_TTS_MAX_CHARS,
+  GROQ_TTS_INTER_CHUNK_DELAY_MS,
+} from './adapters/groq.adapter';
+import { OpenAIAdapter, OPENAI_TTS_MAX_CHARS } from './adapters/openai.adapter';
 import {
   TogetherAiAdapter,
   getEmbeddingTokenLimit,
@@ -22,6 +26,8 @@ export class AiService implements OnModuleInit {
 
   private chatPolicyService: AiPolicyService | null = null;
   private embedPolicyService: AiPolicyService | null = null;
+  private openaiTtsPolicyService: AiPolicyService | null = null;
+  private groqTtsPolicyService: AiPolicyService | null = null;
 
   constructor(private readonly configService: ConfigService) {}
 
@@ -63,13 +69,19 @@ export class AiService implements OnModuleInit {
       apiKey: embeddingApiKey,
       baseURL: 'https://api.together.xyz/v1',
     });
-    this.togetherAiAdapter = new TogetherAiAdapter(embeddingClient, config.embeddingModel);
+    this.togetherAiAdapter = new TogetherAiAdapter(
+      embeddingClient,
+      config.embeddingModel,
+    );
 
     const isE5 = isE5Model(config.embeddingModel);
     const tokenLimit = getEmbeddingTokenLimit(config.embeddingModel);
     const safetyFactor = isE5 ? 0.5 : 0.75;
     const chunkTokenLimit = Math.max(64, Math.floor(tokenLimit * safetyFactor));
-    this.embedPolicyService = new AiPolicyService(this.togetherAiAdapter, chunkTokenLimit);
+    this.embedPolicyService = new AiPolicyService(
+      this.togetherAiAdapter,
+      chunkTokenLimit,
+    );
 
     if (openaiApiKey) {
       const openaiClient = new OpenAI({ apiKey: openaiApiKey });
@@ -81,11 +93,16 @@ export class AiService implements OnModuleInit {
         config.temperature,
         config.openaiTtsVoice,
       );
+      this.openaiTtsPolicyService = new AiPolicyService(
+        this.openaiAdapter,
+        undefined,
+        OPENAI_TTS_MAX_CHARS,
+      );
       console.log('OpenAI TTS and Chat clients initialized successfully');
     } else if (enabledChatModel === 'openai') {
       throw new BadRequestException(
         'Configuration error: ENABLED_CHAT_MODEL is set to "openai" but OPENAI_API_KEY is not defined. ' +
-        'Please set the OPENAI_API_KEY environment variable or change ENABLED_CHAT_MODEL to "deepseek".',
+          'Please set the OPENAI_API_KEY environment variable or change ENABLED_CHAT_MODEL to "deepseek".',
       );
     } else {
       console.warn(
@@ -98,6 +115,12 @@ export class AiService implements OnModuleInit {
         new Groq({ apiKey: groqApiKey }),
         config.groqTtsVoice,
       );
+      this.groqTtsPolicyService = new AiPolicyService(
+        this.groqAdapter,
+        undefined,
+        GROQ_TTS_MAX_CHARS,
+        GROQ_TTS_INTER_CHUNK_DELAY_MS,
+      );
       console.log('Groq TTS client initialized successfully');
     } else {
       console.warn(
@@ -105,9 +128,10 @@ export class AiService implements OnModuleInit {
       );
     }
 
-    const chatAdapter = enabledChatModel === 'openai' && this.openaiAdapter
-      ? this.openaiAdapter
-      : this.deepseekAdapter;
+    const chatAdapter =
+      enabledChatModel === 'openai' && this.openaiAdapter
+        ? this.openaiAdapter
+        : this.deepseekAdapter;
     this.chatPolicyService = new AiPolicyService(chatAdapter);
 
     console.log('API clients initialized successfully');
@@ -223,9 +247,12 @@ export class AiService implements OnModuleInit {
 
     texts.forEach((text, index) => {
       const normalized = (text || '').trim().replace(/\s+/g, ' ');
-      const prepared = isE5 && !normalized.startsWith('passage:') && !normalized.startsWith('query:')
-        ? `passage: ${normalized}`
-        : normalized;
+      const prepared =
+        isE5 &&
+        !normalized.startsWith('passage:') &&
+        !normalized.startsWith('query:')
+          ? `passage: ${normalized}`
+          : normalized;
 
       if (estimateTokenCount(prepared) <= chunkTokenLimit) {
         shortInputs.push({ index, original: text });
@@ -250,7 +277,9 @@ export class AiService implements OnModuleInit {
         );
         for (let j = 0; j < batch.length; j++) {
           const item = batch[j];
-          results[item.index] = await this.embedPolicyService.embed(item.original);
+          results[item.index] = await this.embedPolicyService.embed(
+            item.original,
+          );
           if (j < batch.length - 1) {
             await new Promise((resolve) => setTimeout(resolve, 200));
           }
@@ -279,13 +308,13 @@ export class AiService implements OnModuleInit {
   }
 
   async generateOpenAiAudio(text: string, voice?: string): Promise<Buffer> {
-    if (!this.openaiAdapter) {
+    if (!this.openaiTtsPolicyService) {
       throw new Error(
         'OpenAI TTS client not initialized. OPENAI_API_KEY may be missing.',
       );
     }
     try {
-      return await this.openaiAdapter.generateAudio(text, voice || '');
+      return await this.openaiTtsPolicyService.generateAudio(text, voice || '');
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       throw new Error(`OpenAI TTS failed: ${message}`);
@@ -293,17 +322,14 @@ export class AiService implements OnModuleInit {
   }
 
   async generateGroqAudio(text: string, voice?: string): Promise<Buffer> {
-    if (!this.groqAdapter) {
+    if (!this.groqTtsPolicyService) {
       throw new Error(
         'Groq client not initialized. GROQ_API_KEY may be missing.',
       );
     }
     try {
-      return await this.groqAdapter.generateAudio(text, voice || '');
+      return await this.groqTtsPolicyService.generateAudio(text, voice || '');
     } catch (error) {
-      if (error instanceof Error && error.message.startsWith('Groq TTS failed')) {
-        throw error;
-      }
       const message = error instanceof Error ? error.message : String(error);
       throw new Error(`Groq TTS failed: ${message}`);
     }
@@ -319,8 +345,11 @@ export class AiService implements OnModuleInit {
     let embeddingWorking = false;
 
     try {
-      if (!this.deepseekAdapter) throw new Error('Deepseek adapter not initialized');
-      const response = await this.deepseekAdapter.chat('Respond with "OK" if you can read this.');
+      if (!this.deepseekAdapter)
+        throw new Error('Deepseek adapter not initialized');
+      const response = await this.deepseekAdapter.chat(
+        'Respond with "OK" if you can read this.',
+      );
       deepseekWorking = !!response;
       if (!deepseekWorking) {
         errors.push('Deepseek API returned null response');
@@ -330,8 +359,11 @@ export class AiService implements OnModuleInit {
     }
 
     try {
-      if (!this.embedPolicyService) throw new Error('Embedding adapter not initialized');
-      const embedding = await this.embedPolicyService.embed('This is a test for embedding API connectivity.');
+      if (!this.embedPolicyService)
+        throw new Error('Embedding adapter not initialized');
+      const embedding = await this.embedPolicyService.embed(
+        'This is a test for embedding API connectivity.',
+      );
       embeddingWorking = Array.isArray(embedding) && embedding.length > 0;
       if (!embeddingWorking) {
         errors.push('Embedding API returned null or empty embedding');

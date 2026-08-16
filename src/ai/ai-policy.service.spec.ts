@@ -2,7 +2,9 @@ import { averageEmbeddings } from './helpers/average-embeddings';
 import { AiPolicyService } from './ai-policy.service';
 import { AiAdapter } from './adapters/ai-adapter.interface';
 
-function makeFakeAdapter(overrides: Partial<AiAdapter> = {}): jest.Mocked<AiAdapter> {
+function makeFakeAdapter(
+  overrides: Partial<AiAdapter> = {},
+): jest.Mocked<AiAdapter> {
   return {
     chat: jest.fn(),
     embed: jest.fn(),
@@ -60,7 +62,9 @@ describe('AiPolicyService', () => {
     it('does not retry on non-retryable error', async () => {
       const adapter = makeFakeAdapter();
       const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
-      (adapter.chat as jest.Mock).mockRejectedValue(new Error('invalid API key'));
+      (adapter.chat as jest.Mock).mockRejectedValue(
+        new Error('invalid API key'),
+      );
       const svc = new AiPolicyService(adapter);
 
       await expect(svc.chat('prompt')).rejects.toThrow('invalid API key');
@@ -189,16 +193,84 @@ describe('AiPolicyService', () => {
   });
 
   describe('generateAudio', () => {
-    it('delegates directly to the adapter', async () => {
+    it('makes a single adapter call for text within the char limit', async () => {
       const mockBuffer = Buffer.from('audio');
       const adapter = makeFakeAdapter();
       (adapter.generateAudio as jest.Mock).mockResolvedValue(mockBuffer);
-      const svc = new AiPolicyService(adapter);
+      const svc = new AiPolicyService(adapter, undefined, 4096);
 
       const result = await svc.generateAudio('Hello', 'alloy');
 
-      expect(result).toBe(mockBuffer);
+      expect(adapter.generateAudio).toHaveBeenCalledTimes(1);
       expect(adapter.generateAudio).toHaveBeenCalledWith('Hello', 'alloy');
+      expect(result.equals(mockBuffer)).toBe(true);
+    });
+
+    it('chunks text past the char limit and concatenates audio in order', async () => {
+      const adapter = makeFakeAdapter();
+      (adapter.generateAudio as jest.Mock).mockImplementation((chunk: string) =>
+        Promise.resolve(Buffer.from(chunk)),
+      );
+      const svc = new AiPolicyService(adapter, undefined, 20);
+      const longText = 'First sentence here. Second sentence here.';
+
+      const result = await svc.generateAudio(longText, 'alloy');
+
+      const sentChunks = (adapter.generateAudio as jest.Mock).mock.calls.map(
+        (call) => call[0] as string,
+      );
+      expect(sentChunks.length).toBeGreaterThan(1);
+      expect(
+        result.equals(Buffer.concat(sentChunks.map((c) => Buffer.from(c)))),
+      ).toBe(true);
+    });
+
+    it('paces multi-chunk audio with the configured inter-chunk delay', async () => {
+      const adapter = makeFakeAdapter();
+      (adapter.generateAudio as jest.Mock).mockImplementation((chunk: string) =>
+        Promise.resolve(Buffer.from(chunk)),
+      );
+      const timeoutSpy = jest.spyOn(global, 'setTimeout');
+      const svc = new AiPolicyService(adapter, undefined, 20, 100);
+      const longText = 'First sentence here. Second sentence here.';
+
+      await svc.generateAudio(longText, 'alloy');
+
+      const chunkCount = (adapter.generateAudio as jest.Mock).mock.calls.length;
+      const pacingCalls = timeoutSpy.mock.calls.filter(([, ms]) => ms === 100);
+      // One pause between each pair of chunks, none after the last.
+      expect(pacingCalls).toHaveLength(chunkCount - 1);
+      timeoutSpy.mockRestore();
+    });
+
+    it('does not pace when the inter-chunk delay is zero', async () => {
+      const adapter = makeFakeAdapter();
+      (adapter.generateAudio as jest.Mock).mockImplementation((chunk: string) =>
+        Promise.resolve(Buffer.from(chunk)),
+      );
+      const timeoutSpy = jest.spyOn(global, 'setTimeout');
+      const svc = new AiPolicyService(adapter, undefined, 20);
+      const longText = 'First sentence here. Second sentence here.';
+
+      await svc.generateAudio(longText, 'alloy');
+
+      expect(timeoutSpy).not.toHaveBeenCalled();
+      timeoutSpy.mockRestore();
+    });
+
+    it('retries a chunk on a retryable error', async () => {
+      const consoleSpy = jest.spyOn(console, 'warn').mockImplementation();
+      const adapter = makeFakeAdapter();
+      (adapter.generateAudio as jest.Mock)
+        .mockRejectedValueOnce(new Error('rate limit 429'))
+        .mockResolvedValueOnce(Buffer.from('ok'));
+      const svc = new AiPolicyService(adapter, undefined, 4096);
+
+      const result = await svc.generateAudio('Hello', 'alloy');
+
+      expect(adapter.generateAudio).toHaveBeenCalledTimes(2);
+      expect(result.equals(Buffer.from('ok'))).toBe(true);
+      consoleSpy.mockRestore();
     });
   });
 });

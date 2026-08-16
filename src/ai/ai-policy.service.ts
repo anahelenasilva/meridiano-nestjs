@@ -1,8 +1,16 @@
 import { averageEmbeddings } from './helpers/average-embeddings';
+import { splitTextIntoChunks } from './helpers/split-text-into-chunks';
 import { estimateTokenCount } from '../shared/helpers/token-estimation';
 import { AiAdapter } from './adapters/ai-adapter.interface';
 
-const RETRYABLE_PATTERNS = ['429', 'rate', 'timeout', 'ECONN', 'ETIMEDOUT', 'ECONNRESET'];
+const RETRYABLE_PATTERNS = [
+  '429',
+  'rate',
+  'timeout',
+  'ECONN',
+  'ETIMEDOUT',
+  'ECONNRESET',
+];
 const MAX_RETRIES = 2;
 const RETRY_DELAY_MS = 500;
 
@@ -10,9 +18,17 @@ export class AiPolicyService {
   constructor(
     private readonly adapter: AiAdapter,
     private readonly embeddingChunkTokenLimit: number = 256,
+    private readonly ttsMaxChars: number = 4096,
+    // Proactive pause between TTS chunk calls; guards providers that rate-limit
+    // rapid successive requests (e.g. Groq/Orpheus). 0 = fire back-to-back.
+    private readonly ttsInterChunkDelayMs: number = 0,
   ) {}
 
-  async chat(prompt: string, systemPrompt?: string, model?: string): Promise<string> {
+  async chat(
+    prompt: string,
+    systemPrompt?: string,
+    model?: string,
+  ): Promise<string> {
     return this.withRetry(() => this.adapter.chat(prompt, systemPrompt, model));
   }
 
@@ -33,7 +49,9 @@ export class AiPolicyService {
 
     for (let i = 0; i < chunks.length; i++) {
       try {
-        const vector = await this.withRetry(() => this.adapter.embed(chunks[i]));
+        const vector = await this.withRetry(() =>
+          this.adapter.embed(chunks[i]),
+        );
         vectors.push(vector);
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
@@ -52,7 +70,24 @@ export class AiPolicyService {
   }
 
   async generateAudio(text: string, voice: string): Promise<Buffer> {
-    return this.adapter.generateAudio(text, voice);
+    const chunks = splitTextIntoChunks(text, this.ttsMaxChars);
+    const audioBuffers: Buffer[] = [];
+
+    for (let i = 0; i < chunks.length; i++) {
+      audioBuffers.push(
+        await this.withRetry(() =>
+          this.adapter.generateAudio(chunks[i], voice),
+        ),
+      );
+
+      if (this.ttsInterChunkDelayMs > 0 && i < chunks.length - 1) {
+        await new Promise((resolve) =>
+          setTimeout(resolve, this.ttsInterChunkDelayMs),
+        );
+      }
+    }
+
+    return Buffer.concat(audioBuffers);
   }
 
   private async withRetry<T>(fn: () => Promise<T>): Promise<T> {
@@ -71,7 +106,9 @@ export class AiPolicyService {
 
         lastError = error;
         if (attempt < MAX_RETRIES) {
-          console.warn(`Attempt ${attempt + 1}/${MAX_RETRIES + 1} failed, retrying...`);
+          console.warn(
+            `Attempt ${attempt + 1}/${MAX_RETRIES + 1} failed, retrying...`,
+          );
           await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
         }
       }
@@ -84,7 +121,10 @@ export class AiPolicyService {
     return RETRYABLE_PATTERNS.some((pattern) => message.includes(pattern));
   }
 
-  private splitTextByEstimatedTokens(text: string, maxTokens: number): string[] {
+  private splitTextByEstimatedTokens(
+    text: string,
+    maxTokens: number,
+  ): string[] {
     if (!text) return [];
 
     if (estimateTokenCount(text) <= maxTokens) {
@@ -124,7 +164,10 @@ export class AiPolicyService {
     return chunks;
   }
 
-  private splitSentenceIntoWordChunks(sentence: string, maxTokens: number): string[] {
+  private splitSentenceIntoWordChunks(
+    sentence: string,
+    maxTokens: number,
+  ): string[] {
     const words = sentence.split(/\s+/);
     const chunks: string[] = [];
     let currentChunk = '';
@@ -155,5 +198,4 @@ export class AiPolicyService {
 
     return chunks;
   }
-
 }
