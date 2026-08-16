@@ -8,6 +8,7 @@ import {
   AUDIO_GENERATION_QUEUE,
   CUSTOM_BRIEFING_GENERATION_QUEUE,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
+  TRANSCRIPT_BACKUP_QUEUE,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE
 } from './constants/queue.constants';
 import { QueueService } from './queue.service';
@@ -70,6 +71,21 @@ import { QueueService } from './queue.service';
       },
       inject: [RedisService],
     },
+    {
+      provide: TRANSCRIPT_BACKUP_QUEUE,
+      useFactory: (redisService: RedisService) => {
+        return new Queue(TRANSCRIPT_BACKUP_QUEUE, {
+          connection: redisService.getClient(),
+          defaultJobOptions: {
+            attempts: 3,
+            backoff: { type: 'exponential', delay: 5000 },
+            removeOnComplete: true,
+            removeOnFail: false,
+          },
+        });
+      },
+      inject: [RedisService],
+    },
     QueueService,
   ],
   exports: [
@@ -78,6 +94,7 @@ import { QueueService } from './queue.service';
     YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
     CUSTOM_BRIEFING_GENERATION_QUEUE,
     AUDIO_GENERATION_QUEUE,
+    TRANSCRIPT_BACKUP_QUEUE,
     QueueService,
   ],
 })

@@ -14,6 +14,7 @@ import { NotesReadModule } from '../notes/notes-read.module';
 import { YoutubeChannelsModule } from '../youtube-channels/youtube-channels.module';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
+import { TranscriptBackupProcessor } from './processors/transcript-backup.processor';
 import { YoutubeTranscriptionProcessor } from './processors/youtube-transcription.processor';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
@@ -60,6 +61,7 @@ import { ProcessTranscriptionFilesUseCase } from './usecases/process-transcripti
     DeleteYoutubeTranscriptionCommand,
     CreateYoutubeTranscriptionCommand,
     YoutubeTranscriptionProcessor,
+    TranscriptBackupProcessor,
     // YouTube transcription usecases
     ExtractYoutubeTranscriptsUseCase,
     ListTranscriptionsUseCase,

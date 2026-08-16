@@ -7,18 +7,21 @@ import { FeedProfile } from '../../src/shared/types/feed';
 import {
   ARTICLE_PROCESSING_QUEUE,
   AUDIO_GENERATION_QUEUE,
+  BACKUP_TRANSCRIPT_JOB,
   CUSTOM_BRIEFING_GENERATION_QUEUE,
   GENERATE_CUSTOM_BRIEFING_JOB,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
   PROCESS_ARTICLE_JOB,
   PROCESS_MARKDOWN_ARTICLE_JOB,
   PROCESS_TRANSCRIPTION_SUMMARY_JOB,
+  TRANSCRIPT_BACKUP_QUEUE,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from './constants/queue.constants';
 import type { ProcessArticleJobData } from './interfaces/article-job.interface';
 import type { GenerateAudioJobData } from './interfaces/audio-job.interface';
 import type { CustomBriefingJobData } from './interfaces/custom-briefing-job.interface';
 import type { ProcessMarkdownArticleJobData } from './interfaces/markdown-article-job.interface';
+import type { BackupTranscriptJobData } from './interfaces/transcript-backup-job.interface';
 import type { ProcessTranscriptionSummaryJobData } from './interfaces/youtube-transcription-job.interface';
 
 export interface JobInfo {
@@ -56,6 +59,8 @@ export class QueueService implements OnModuleInit, OnModuleDestroy {
     private readonly audioQueue: Queue,
     @Inject(CUSTOM_BRIEFING_GENERATION_QUEUE)
     private readonly customBriefingQueue: Queue,
+    @Inject(TRANSCRIPT_BACKUP_QUEUE)
+    private readonly transcriptBackupQueue: Queue,
     private readonly configService: ConfigService,
     private readonly emailService: EmailService,
     private readonly redisService: RedisService,
@@ -354,6 +359,21 @@ Please investigate the issue.`,
       jobId: job.id as string,
       message: 'Transcription summary queued for processing',
     };
+  }
+
+  /**
+   * Enqueue a best-effort backup of an on-disk transcript JSON file to S3.
+   * Retry/backoff/retention come from the queue's default job options.
+   */
+  async addTranscriptBackupJob(
+    data: BackupTranscriptJobData,
+  ): Promise<{ jobId: string }> {
+    const job = await this.transcriptBackupQueue.add(
+      BACKUP_TRANSCRIPT_JOB,
+      data,
+    );
+
+    return { jobId: job.id as string };
   }
 
   /**

@@ -1,13 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { QueueService } from '@libs/queue';
+import { Injectable, Logger } from '@nestjs/common';
 import * as fs from 'fs/promises';
 import * as path from 'path';
+import { ConfigService } from '../../config/config.service';
 import { VideoWithTranscript } from '../../shared/types/video';
 
 @Injectable()
 export class StorageService {
+  private readonly logger = new Logger(StorageService.name);
   private outputDir: string;
 
-  constructor() {
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly queueService: QueueService,
+  ) {
     this.outputDir = './transcripts';
   }
 
@@ -56,12 +62,42 @@ export class StorageService {
       await fs.writeFile(filePath, data, 'utf-8');
 
       console.log(`Saved transcript to: ${filePath}`);
+
+      await this.enqueueBackup(filePath, channelId);
     } catch (error) {
       console.error(
         `Error saving transcript for video ${videoData.videoId}:`,
         error,
       );
       throw error;
+    }
+  }
+
+  /**
+   * Best-effort S3 backup of a just-written transcript file. Skips (with a
+   * warning) when the backup bucket is unconfigured, and never throws into the
+   * processing flow: a backup failure must not roll back a saved transcript.
+   */
+  private async enqueueBackup(
+    filePath: string,
+    channelId: string,
+  ): Promise<void> {
+    const bucketName = this.configService.getTranscriptsBackupBucketName();
+
+    if (!bucketName) {
+      this.logger.warn(
+        `TRANSCRIPTS_BACKUP_BUCKET_NAME is not set; skipping S3 backup for ${filePath}`,
+      );
+      return;
+    }
+
+    try {
+      await this.queueService.addTranscriptBackupJob({ filePath, channelId });
+    } catch (error) {
+      this.logger.error(
+        `Failed to enqueue transcript backup for ${filePath}:`,
+        error instanceof Error ? error.message : String(error),
+      );
     }
   }
 

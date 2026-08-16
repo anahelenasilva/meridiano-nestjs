@@ -467,6 +467,10 @@ export class ConfigService {
     return process.env.S3_ARTICLES_BUCKET_NAME;
   }
 
+  getTranscriptsBackupBucketName(): string | undefined {
+    return process.env.TRANSCRIPTS_BACKUP_BUCKET_NAME;
+  }
+
   getAwsConfig() {
     const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
     const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
