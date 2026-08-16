@@ -1,4 +1,4 @@
-import { S3Client } from '@aws-sdk/client-s3';
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
@@ -160,7 +160,8 @@ describe('S3Service', () => {
     it('should download file with special characters in content', async () => {
       const bucketName = 'test-bucket';
       const key = 'special-chars.md';
-      const fileContent = '# Título com Acentuação\n\n© 2024 • Special chars: é, ñ, ü';
+      const fileContent =
+        '# Título com Acentuação\n\n© 2024 • Special chars: é, ñ, ü';
 
       const mockStream = Readable.from([fileContent]);
 
@@ -211,7 +212,9 @@ describe('S3Service', () => {
   });
 
   describe('generatePresignedPostUrl', () => {
-    const mockCreatePresignedPost = createPresignedPost as jest.MockedFunction<typeof createPresignedPost>;
+    const mockCreatePresignedPost = createPresignedPost as jest.MockedFunction<
+      typeof createPresignedPost
+    >;
 
     beforeEach(() => {
       mockCreatePresignedPost.mockClear();
@@ -419,6 +422,53 @@ describe('S3Service', () => {
         expect.objectContaining({
           Expires: 300,
         }),
+      );
+    });
+  });
+
+  describe('uploadFile', () => {
+    const mockPutObjectCommand = PutObjectCommand as jest.MockedClass<
+      typeof PutObjectCommand
+    >;
+
+    it('should send a PutObjectCommand with the given bucket, key, body, and content type', async () => {
+      const bucketName = 'test-bucket';
+      const key = 'transcripts/processed.json';
+      const body = JSON.stringify({ transcript: 'hello world' });
+      const contentType = 'application/json';
+
+      mockSend.mockResolvedValueOnce({});
+
+      const result = await service.uploadFile(
+        bucketName,
+        key,
+        body,
+        contentType,
+      );
+
+      expect(result).toBe(key);
+      expect(mockPutObjectCommand).toHaveBeenCalledWith({
+        Bucket: bucketName,
+        Key: key,
+        Body: body,
+        ContentType: contentType,
+      });
+      expect(mockSend).toHaveBeenCalledTimes(1);
+      expect(mockSend).toHaveBeenCalledWith(expect.any(mockPutObjectCommand));
+    });
+
+    it('should propagate errors as an upload failure', async () => {
+      const bucketName = 'test-bucket';
+      const key = 'transcripts/processed.json';
+      const body = '{}';
+      const contentType = 'application/json';
+
+      mockSend.mockRejectedValueOnce(new Error('AccessDenied'));
+
+      await expect(
+        service.uploadFile(bucketName, key, body, contentType),
+      ).rejects.toThrow(
+        `Failed to upload file ${key} to bucket ${bucketName}: AccessDenied`,
       );
     });
   });
