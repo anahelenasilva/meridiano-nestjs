@@ -212,6 +212,7 @@ Supported configuration paths:
 - `downloadMarkdownFile(bucketName, key)`
 - `generatePresignedPostUrl(bucketName, key, contentType?, maxFileSize?)`
 - `uploadAudioFile(bucketName, key, audioBuffer, contentType?)`
+- `uploadFile(bucketName, key, body, contentType)`
 - `generatePresignedGetUrl(bucketName, key, expiresIn?)`
 
 ### Environment variables

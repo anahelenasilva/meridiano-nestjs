@@ -1,4 +1,9 @@
-import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import {
+  GetObjectCommand,
+  PutObjectCommand,
+  PutObjectCommandInput,
+  S3Client,
+} from '@aws-sdk/client-s3';
 import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { Injectable } from '@nestjs/common';
@@ -18,10 +23,7 @@ export class S3Service {
     });
   }
 
-  async downloadMarkdownFile(
-    bucketName: string,
-    key: string,
-  ): Promise<string> {
+  async downloadMarkdownFile(bucketName: string, key: string): Promise<string> {
     try {
       const command = new GetObjectCommand({
         Bucket: bucketName,
@@ -81,15 +83,20 @@ export class S3Service {
     key: string,
     contentType?: string,
     maxFileSize?: number,
-  ): Promise<{ url: string; fields: Record<string, string>; expiresIn: number }> {
+  ): Promise<{
+    url: string;
+    fields: Record<string, string>;
+    expiresIn: number;
+  }> {
     const fiveMB = 5 * 1024 * 1024;
     const fileSizeLimit = maxFileSize || fiveMB;
     const expiresIn = 300;
 
     const allowedContentTypes = ['text/markdown', 'text/plain'];
-    const finalContentType = contentType && allowedContentTypes.includes(contentType)
-      ? contentType
-      : 'text/markdown';
+    const finalContentType =
+      contentType && allowedContentTypes.includes(contentType)
+        ? contentType
+        : 'text/markdown';
 
     try {
       const { url, fields } = await createPresignedPost(this.s3Client, {
@@ -149,6 +156,37 @@ export class S3Service {
     }
   }
 
+  /**
+   * Overwrite semantics: plain PutObject, no existence check. Use
+   * uploadAudioFile for audio; this is the content-type-agnostic path.
+   */
+  async uploadFile(
+    bucketName: string,
+    key: string,
+    body: PutObjectCommandInput['Body'],
+    contentType: string,
+  ): Promise<string> {
+    try {
+      const command = new PutObjectCommand({
+        Bucket: bucketName,
+        Key: key,
+        Body: body,
+        ContentType: contentType,
+      });
+
+      await this.s3Client.send(command);
+
+      return key;
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+
+      throw new Error(
+        `Failed to upload file ${key} to bucket ${bucketName}: ${errorMessage}`,
+      );
+    }
+  }
+
   async generatePresignedGetUrl(
     bucketName: string,
     key: string,
@@ -160,16 +198,14 @@ export class S3Service {
         Key: key,
       });
 
-      const presignedUrl = await getSignedUrl(
-        this.s3Client,
-        command,
-        {
-          expiresIn,
-        },
-      );
+      const presignedUrl = await getSignedUrl(this.s3Client, command, {
+        expiresIn,
+      });
 
       if (typeof presignedUrl !== 'string') {
-        throw new Error('Failed to generate presigned URL: invalid response type');
+        throw new Error(
+          'Failed to generate presigned URL: invalid response type',
+        );
       }
 
       return presignedUrl;
