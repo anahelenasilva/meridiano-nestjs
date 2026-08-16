@@ -24,7 +24,15 @@ export class NewsDigestService implements OnModuleInit, OnModuleDestroy {
   onModuleInit() {
     const connection = this.redisService.getClient();
 
-    this.queue = new Queue(NEWS_DIGEST_QUEUE, { connection });
+    // Retry options must live on defaultJobOptions: BullMQ ignores attempts/backoff
+    // passed to add() for repeatable jobs.
+    this.queue = new Queue(NEWS_DIGEST_QUEUE, {
+      connection,
+      defaultJobOptions: {
+        attempts: 2,
+        backoff: { type: 'fixed', delay: 600_000 },
+      },
+    });
 
     this.seedRepeatableJob().catch((err: Error) => {
       this.logger.error('Failed to seed news digest repeatable job', err.stack);
@@ -57,8 +65,6 @@ export class NewsDigestService implements OnModuleInit, OnModuleDestroy {
       {},
       {
         repeat: { pattern: '0 10 * * *' },
-        attempts: 2,
-        backoff: { type: 'fixed', delay: 600_000 },
       },
     );
     this.logger.log('News digest repeatable job seeded at 10:00 UTC daily');

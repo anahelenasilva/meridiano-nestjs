@@ -61,10 +61,16 @@ describe('NewsDigestService', () => {
   });
 
   describe('onModuleInit', () => {
-    it('creates queue and worker with the redis connection', () => {
+    it('creates queue with retry config in defaultJobOptions and worker with the redis connection', () => {
       service.onModuleInit();
 
-      expect(Queue).toHaveBeenCalledWith(NEWS_DIGEST_QUEUE, { connection: redisClient });
+      expect(Queue).toHaveBeenCalledWith(NEWS_DIGEST_QUEUE, {
+        connection: redisClient,
+        defaultJobOptions: {
+          attempts: 2,
+          backoff: { type: 'fixed', delay: 600_000 },
+        },
+      });
       expect(Worker).toHaveBeenCalledWith(
         NEWS_DIGEST_QUEUE,
         expect.any(Function),
@@ -72,7 +78,7 @@ describe('NewsDigestService', () => {
       );
     });
 
-    it('seeds a daily repeatable job at 10:00 UTC with retry config', async () => {
+    it('seeds a daily repeatable job at 10:00 UTC without retry options on add', async () => {
       service.onModuleInit();
 
       await Promise.resolve();
@@ -82,8 +88,6 @@ describe('NewsDigestService', () => {
         {},
         {
           repeat: { pattern: '0 10 * * *' },
-          attempts: 2,
-          backoff: { type: 'fixed', delay: 600_000 },
         },
       );
     });
