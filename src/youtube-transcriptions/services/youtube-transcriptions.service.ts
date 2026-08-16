@@ -400,7 +400,10 @@ export class YoutubeTranscriptionsService {
         transcriptText,
       };
 
-      await this.storageService.saveTranscript(channelDbId, videoWithTranscript);
+      await this.storageService.saveTranscript(
+        channelDbId,
+        videoWithTranscript,
+      );
 
       const transcriptionId = await this.addTranscription(
         videoWithTranscript,
@@ -453,16 +456,15 @@ export class YoutubeTranscriptionsService {
 
       const stmt = db.prepare(`
         INSERT INTO youtube_transcriptions (
-          channel_id, channel_name, video_title, posted_at, video_url,
+          channel_id, video_title, posted_at, video_url,
           processed_at, transcription_text, transcription_summary, thumbnail_url, custom_prompt
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
 
       stmt.run(
         [
           videoData.channel.databaseId,
-          videoData.channel.name,
           videoData.title,
           videoData.publishedAt !== 'Unknown' ? videoData.publishedAt : null,
           videoData.url,
@@ -536,19 +538,20 @@ export class YoutubeTranscriptionsService {
 
       db.all(
         `SELECT
-           id,
-           channel_id AS "channelId",
-           channel_name AS "channelName",
-           video_title AS "videoTitle",
-           posted_at AS "postedAt",
-           video_url AS "videoUrl",
-           processed_at AS "processedAt",
-           transcription_text AS "transcriptionText",
-           transcription_summary AS "transcriptionSummary",
-           thumbnail_url AS "thumbnailUrl",
-           custom_prompt
-           FROM youtube_transcriptions
-           ORDER BY processed_at DESC`,
+           yt.id,
+           yt.channel_id AS "channelId",
+           c.name AS "channelName",
+           yt.video_title AS "videoTitle",
+           yt.posted_at AS "postedAt",
+           yt.video_url AS "videoUrl",
+           yt.processed_at AS "processedAt",
+           yt.transcription_text AS "transcriptionText",
+           yt.transcription_summary AS "transcriptionSummary",
+           yt.thumbnail_url AS "thumbnailUrl",
+           yt.custom_prompt
+           FROM youtube_transcriptions yt
+           JOIN youtube_channels c ON c.id = yt.channel_id
+           ORDER BY yt.processed_at DESC`,
         [],
         (err: Error | null, rows: YoutubeTranscription[]) => {
           if (err) {
@@ -654,19 +657,20 @@ export class YoutubeTranscriptionsService {
 
       const query = `
         SELECT
-          id,
-          channel_id AS "channelId",
-          channel_name AS "channelName",
-          video_title AS "videoTitle",
-          posted_at AS "postedAt",
-          video_url AS "videoUrl",
-          processed_at AS "processedAt",
-          transcription_text AS "transcriptionText",
-          transcription_summary AS "transcriptionSummary",
-          thumbnail_url AS "thumbnailUrl",
-          custom_prompt
-        FROM youtube_transcriptions
-        WHERE id = ?
+          yt.id,
+          yt.channel_id AS "channelId",
+          c.name AS "channelName",
+          yt.video_title AS "videoTitle",
+          yt.posted_at AS "postedAt",
+          yt.video_url AS "videoUrl",
+          yt.processed_at AS "processedAt",
+          yt.transcription_text AS "transcriptionText",
+          yt.transcription_summary AS "transcriptionSummary",
+          yt.thumbnail_url AS "thumbnailUrl",
+          yt.custom_prompt
+        FROM youtube_transcriptions yt
+        JOIN youtube_channels c ON c.id = yt.channel_id
+        WHERE yt.id = ?
       `;
 
       db.get(
@@ -699,7 +703,21 @@ export class YoutubeTranscriptionsService {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
       db.get(
-        'SELECT * FROM youtube_transcriptions WHERE video_url = ?',
+        `SELECT
+           yt.id,
+           yt.channel_id AS "channelId",
+           c.name AS "channelName",
+           yt.video_title AS "videoTitle",
+           yt.posted_at AS "postedAt",
+           yt.video_url AS "videoUrl",
+           yt.processed_at AS "processedAt",
+           yt.transcription_text AS "transcriptionText",
+           yt.transcription_summary AS "transcriptionSummary",
+           yt.thumbnail_url AS "thumbnailUrl",
+           yt.custom_prompt
+         FROM youtube_transcriptions yt
+         JOIN youtube_channels c ON c.id = yt.channel_id
+         WHERE yt.video_url = ?`,
         [videoUrl],
         (err: Error | null, row: YoutubeTranscription | undefined) => {
           if (err) {
@@ -721,7 +739,10 @@ export class YoutubeTranscriptionsService {
       const db = this.databaseService.getDbConnection();
 
       db.all(
-        'SELECT DISTINCT channel_id, channel_name FROM youtube_transcriptions ORDER BY channel_name',
+        `SELECT DISTINCT yt.channel_id, c.name AS channel_name
+         FROM youtube_transcriptions yt
+         JOIN youtube_channels c ON c.id = yt.channel_id
+         ORDER BY c.name`,
         [],
         (
           err: Error | null,
@@ -768,58 +789,59 @@ export class YoutubeTranscriptionsService {
 
       let query = `
         SELECT
-          id,
-          channel_id AS "channelId",
-          channel_name AS "channelName",
-          video_title AS "videoTitle",
-          posted_at AS "postedAt",
-          video_url AS "videoUrl",
-          processed_at AS "processedAt",
-          transcription_text AS "transcriptionText",
-          transcription_summary AS "transcriptionSummary",
-          thumbnail_url AS "thumbnailUrl",
-          custom_prompt
-        FROM youtube_transcriptions
+          yt.id,
+          yt.channel_id AS "channelId",
+          c.name AS "channelName",
+          yt.video_title AS "videoTitle",
+          yt.posted_at AS "postedAt",
+          yt.video_url AS "videoUrl",
+          yt.processed_at AS "processedAt",
+          yt.transcription_text AS "transcriptionText",
+          yt.transcription_summary AS "transcriptionSummary",
+          yt.thumbnail_url AS "thumbnailUrl",
+          yt.custom_prompt
+        FROM youtube_transcriptions yt
+        JOIN youtube_channels c ON c.id = yt.channel_id
         WHERE 1=1
       `;
       const params: (string | number)[] = [];
 
       if (channel_id) {
-        query += ' AND channel_id = ?';
+        query += ' AND yt.channel_id = ?';
         params.push(channel_id);
       }
 
       if (channel_name) {
-        query += ' AND channel_name = ?';
+        query += ' AND c.name = ?';
         params.push(channel_name);
       }
 
       if (search) {
         query +=
-          ' AND (video_title LIKE ? OR transcription_text LIKE ? OR transcription_summary LIKE ?)';
+          ' AND (yt.video_title LIKE ? OR yt.transcription_text LIKE ? OR yt.transcription_summary LIKE ?)';
         const searchPattern = `%${search}%`;
         params.push(searchPattern, searchPattern, searchPattern);
       }
 
       if (start_date) {
-        query += ' AND DATE(posted_at) >= ?';
+        query += ' AND DATE(yt.posted_at) >= ?';
         params.push(start_date);
       }
 
       if (end_date) {
-        query += ' AND DATE(posted_at) <= ?';
+        query += ' AND DATE(yt.posted_at) <= ?';
         params.push(end_date);
       }
 
-      const validSortColumns = [
-        'posted_at',
-        'video_title',
-        'processed_at',
-        'channel_name',
-      ];
-      const sortColumn = validSortColumns.includes(sort_by)
-        ? sort_by
-        : 'posted_at';
+      // Map the client sort key to a qualified column; channel_name now lives
+      // on the joined channels table.
+      const sortColumnMap: Record<string, string> = {
+        posted_at: 'yt.posted_at',
+        video_title: 'yt.video_title',
+        processed_at: 'yt.processed_at',
+        channel_name: 'c.name',
+      };
+      const sortColumn = sortColumnMap[sort_by] ?? 'yt.posted_at';
       const sortDirection = direction === 'asc' ? 'ASC' : 'DESC';
       query += ` ORDER BY ${sortColumn} ${sortDirection}`;
 
@@ -862,34 +884,37 @@ export class YoutubeTranscriptionsService {
       const { channel_id, channel_name, search, start_date, end_date } =
         options;
 
-      let query =
-        'SELECT COUNT(*) as count FROM youtube_transcriptions WHERE 1=1';
+      let query = `
+        SELECT COUNT(*) as count
+        FROM youtube_transcriptions yt
+        JOIN youtube_channels c ON c.id = yt.channel_id
+        WHERE 1=1`;
       const params: (string | number)[] = [];
 
       if (channel_id) {
-        query += ' AND channel_id = ?';
+        query += ' AND yt.channel_id = ?';
         params.push(channel_id);
       }
 
       if (channel_name) {
-        query += ' AND channel_name = ?';
+        query += ' AND c.name = ?';
         params.push(channel_name);
       }
 
       if (search) {
         query +=
-          ' AND (video_title LIKE ? OR transcription_text LIKE ? OR transcription_summary LIKE ?)';
+          ' AND (yt.video_title LIKE ? OR yt.transcription_text LIKE ? OR yt.transcription_summary LIKE ?)';
         const searchPattern = `%${search}%`;
         params.push(searchPattern, searchPattern, searchPattern);
       }
 
       if (start_date) {
-        query += ' AND DATE(posted_at) >= ?';
+        query += ' AND DATE(yt.posted_at) >= ?';
         params.push(start_date);
       }
 
       if (end_date) {
-        query += ' AND DATE(posted_at) <= ?';
+        query += ' AND DATE(yt.posted_at) <= ?';
         params.push(end_date);
       }
 
