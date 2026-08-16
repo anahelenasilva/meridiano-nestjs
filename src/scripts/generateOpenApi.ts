@@ -103,6 +103,10 @@ async function createOpenApiApp(): Promise<INestApplication> {
     '../youtube-transcriptions/youtube-transcriptions.controller.js',
     'YoutubeTranscriptionsController',
   );
+  const CategoriesController = loadDistExport<Type<unknown>>(
+    '../categories/categories.controller.js',
+    'CategoriesController',
+  );
 
   const ArticlesService = loadDistExport<Type<unknown>>(
     '../articles/articles.service.js',
@@ -204,6 +208,22 @@ async function createOpenApiApp(): Promise<INestApplication> {
     '../audio-files/audio-files.service.js',
     'AudioFilesService',
   );
+  const ListCategoriesQuery = loadDistExport<Type<unknown>>(
+    '../categories/queries/list-categories.query.js',
+    'ListCategoriesQuery',
+  );
+  const CreateCategoryCommand = loadDistExport<Type<unknown>>(
+    '../categories/commands/create-category.command.js',
+    'CreateCategoryCommand',
+  );
+  const RenameCategoryCommand = loadDistExport<Type<unknown>>(
+    '../categories/commands/rename-category.command.js',
+    'RenameCategoryCommand',
+  );
+  const DeleteCategoryCommand = loadDistExport<Type<unknown>>(
+    '../categories/commands/delete-category.command.js',
+    'DeleteCategoryCommand',
+  );
 
   const QueueService = loadDistExport<Type<unknown>>(
     '../../libs/queue/queue.service.js',
@@ -248,6 +268,7 @@ async function createOpenApiApp(): Promise<INestApplication> {
       UsersController,
       YoutubeChannelsController,
       YoutubeTranscriptionsController,
+      CategoriesController,
     ],
     providers: [
       { provide: NOTES_SERVICE, useValue: notesServiceStub },
@@ -276,6 +297,10 @@ async function createOpenApiApp(): Promise<INestApplication> {
       { provide: DeleteYoutubeTranscriptionCommand, useValue: {} },
       { provide: CreateYoutubeTranscriptionCommand, useValue: {} },
       { provide: AudioFilesService, useValue: {} },
+      { provide: ListCategoriesQuery, useValue: {} },
+      { provide: CreateCategoryCommand, useValue: {} },
+      { provide: RenameCategoryCommand, useValue: {} },
+      { provide: DeleteCategoryCommand, useValue: {} },
       { provide: QueueService, useValue: {} },
       { provide: S3Service, useValue: {} },
       { provide: AudioJobService, useValue: {} },

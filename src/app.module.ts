@@ -12,6 +12,7 @@ import { AudioFilesModule } from './audio-files/audio-files.module';
 import { AuthModule } from './auth/auth.module';
 import { BookmarksModule } from './bookmarks/bookmarks.module';
 import { BriefingsModule } from './briefings/briefings.module';
+import { CategoriesModule } from './categories/categories.module';
 import { ConfigModule } from './config/config.module';
 import { FeedsModule } from './feeds/feeds.module';
 import { ProcessorModule } from './processor/processor.module';
@@ -38,6 +39,7 @@ import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-tr
     ProcessorModule,
     YoutubeChannelsModule,
     YoutubeTranscriptionsModule,
+    CategoriesModule,
     QueueModule,
     UsersModule,
     BookmarksModule,
