@@ -28,6 +28,30 @@ type YouTubeTranscriptSegment = {
   };
 };
 
+// Shared projection for transcription reads. channel_name and the external
+// channel id come from the joined channels table now that youtube_transcriptions
+// only stores the internal channel UUID (the FK). Kept in one place so the
+// column set changes in a single site rather than across every read query.
+const TRANSCRIPTION_COLUMNS = `
+  yt.id,
+  yt.channel_id AS "channelId",
+  c.name AS "channelName",
+  c.channel_id AS "channelExternalId",
+  yt.video_title AS "videoTitle",
+  yt.posted_at AS "postedAt",
+  yt.video_url AS "videoUrl",
+  yt.processed_at AS "processedAt",
+  yt.transcription_text AS "transcriptionText",
+  yt.transcription_summary AS "transcriptionSummary",
+  yt.thumbnail_url AS "thumbnailUrl",
+  yt.custom_prompt
+`;
+
+const TRANSCRIPTION_FROM_JOIN = `
+  FROM youtube_transcriptions yt
+  JOIN youtube_channels c ON c.id = yt.channel_id
+`;
+
 /**
  * Convert YouTube transcript segments to TranscriptItem format
  * @param segments - Array of YouTube transcript segments
@@ -537,20 +561,7 @@ export class YoutubeTranscriptionsService {
       const db = this.databaseService.getDbConnection();
 
       db.all(
-        `SELECT
-           yt.id,
-           yt.channel_id AS "channelId",
-           c.name AS "channelName",
-           yt.video_title AS "videoTitle",
-           yt.posted_at AS "postedAt",
-           yt.video_url AS "videoUrl",
-           yt.processed_at AS "processedAt",
-           yt.transcription_text AS "transcriptionText",
-           yt.transcription_summary AS "transcriptionSummary",
-           yt.thumbnail_url AS "thumbnailUrl",
-           yt.custom_prompt
-           FROM youtube_transcriptions yt
-           JOIN youtube_channels c ON c.id = yt.channel_id
+        `SELECT ${TRANSCRIPTION_COLUMNS} ${TRANSCRIPTION_FROM_JOIN}
            ORDER BY yt.processed_at DESC`,
         [],
         (err: Error | null, rows: YoutubeTranscription[]) => {
@@ -656,20 +667,7 @@ export class YoutubeTranscriptionsService {
       const db = this.databaseService.getDbConnection();
 
       const query = `
-        SELECT
-          yt.id,
-          yt.channel_id AS "channelId",
-          c.name AS "channelName",
-          yt.video_title AS "videoTitle",
-          yt.posted_at AS "postedAt",
-          yt.video_url AS "videoUrl",
-          yt.processed_at AS "processedAt",
-          yt.transcription_text AS "transcriptionText",
-          yt.transcription_summary AS "transcriptionSummary",
-          yt.thumbnail_url AS "thumbnailUrl",
-          yt.custom_prompt
-        FROM youtube_transcriptions yt
-        JOIN youtube_channels c ON c.id = yt.channel_id
+        SELECT ${TRANSCRIPTION_COLUMNS} ${TRANSCRIPTION_FROM_JOIN}
         WHERE yt.id = ?
       `;
 
@@ -703,20 +701,7 @@ export class YoutubeTranscriptionsService {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
       db.get(
-        `SELECT
-           yt.id,
-           yt.channel_id AS "channelId",
-           c.name AS "channelName",
-           yt.video_title AS "videoTitle",
-           yt.posted_at AS "postedAt",
-           yt.video_url AS "videoUrl",
-           yt.processed_at AS "processedAt",
-           yt.transcription_text AS "transcriptionText",
-           yt.transcription_summary AS "transcriptionSummary",
-           yt.thumbnail_url AS "thumbnailUrl",
-           yt.custom_prompt
-         FROM youtube_transcriptions yt
-         JOIN youtube_channels c ON c.id = yt.channel_id
+        `SELECT ${TRANSCRIPTION_COLUMNS} ${TRANSCRIPTION_FROM_JOIN}
          WHERE yt.video_url = ?`,
         [videoUrl],
         (err: Error | null, row: YoutubeTranscription | undefined) => {
@@ -788,20 +773,7 @@ export class YoutubeTranscriptionsService {
       } = options;
 
       let query = `
-        SELECT
-          yt.id,
-          yt.channel_id AS "channelId",
-          c.name AS "channelName",
-          yt.video_title AS "videoTitle",
-          yt.posted_at AS "postedAt",
-          yt.video_url AS "videoUrl",
-          yt.processed_at AS "processedAt",
-          yt.transcription_text AS "transcriptionText",
-          yt.transcription_summary AS "transcriptionSummary",
-          yt.thumbnail_url AS "thumbnailUrl",
-          yt.custom_prompt
-        FROM youtube_transcriptions yt
-        JOIN youtube_channels c ON c.id = yt.channel_id
+        SELECT ${TRANSCRIPTION_COLUMNS} ${TRANSCRIPTION_FROM_JOIN}
         WHERE 1=1
       `;
       const params: (string | number)[] = [];

@@ -63,6 +63,10 @@ export class AddChannelFkToTranscriptions1787000000000
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    // Lossy by design: this restores the column shape but not the original
+    // data. Rows whose channel_id was rewritten from an external YouTube id keep
+    // the internal UUID, so the split Augusto/PewDiePie channels stay
+    // consolidated and their former external-id keys are not recovered.
     await queryRunner.query(
       `ALTER TABLE youtube_transcriptions ADD COLUMN channel_name TEXT`,
     );

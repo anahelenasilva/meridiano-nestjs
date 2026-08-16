@@ -36,6 +36,7 @@ describe('YoutubeTranscriptionsController', () => {
     id: transcriptionId,
     channelId: 'channel-1',
     channelName: 'Test Channel',
+    channelExternalId: 'UC-test-channel-external',
     videoTitle: 'Test Video',
     videoUrl: 'https://youtube.com/watch?v=abc',
     processedAt: new Date('2024-01-01'),

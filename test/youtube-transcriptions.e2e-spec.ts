@@ -1,12 +1,12 @@
 /**
  * E2E for the transcriptions list HTTP contract after the channels FK refactor.
  *
- * Asserts the response still carries `channelId`/`channelName` per transcription
- * and that split channels surface as a single consolidated group. The raw SQL
- * consolidation (DISTINCT over the internal id + join) is exercised by the
- * migration and the `resolveChannelIds` unit test; here the service is mocked to
- * return the post-backfill shape, so this pins the boundary contract the
- * frontend depends on.
+ * The raw SQL consolidation (DISTINCT over the internal id + join) lives in the
+ * service and cannot be exercised without a database, so it is covered by the
+ * `resolveChannelIds` unit test and the migration. These tests mock the service
+ * at its post-backfill shape and assert only the controller boundary contract:
+ * that the endpoint faithfully surfaces `channelId`/`channelName` and the merged
+ * `available_channels` the service returns, without regrouping or reshaping them.
  */
 import { INestApplication } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
@@ -41,6 +41,7 @@ describe('YouTube Transcriptions list (e2e)', () => {
       id: 'transcription-1',
       channelId: augustoInternalId,
       channelName: 'Augusto Galego',
+      channelExternalId: 'UCLW51-XEzuOm5RwPMChHBMw',
       videoTitle: 'Video A',
       videoUrl: 'https://youtube.com/watch?v=a',
       processedAt: new Date('2026-01-01T00:00:00.000Z'),
@@ -90,7 +91,7 @@ describe('YouTube Transcriptions list (e2e)', () => {
     await moduleFixture.close();
   });
 
-  it('returns channelId and channelName per transcription', async () => {
+  it('surfaces channelId, channelName and the joined external id per transcription', async () => {
     mockService.getAllTranscriptions.mockResolvedValue([buildTranscription()]);
     mockService.getDistinctChannels.mockResolvedValue([
       { id: augustoInternalId, name: 'Augusto Galego' },
@@ -103,10 +104,11 @@ describe('YouTube Transcriptions list (e2e)', () => {
     expect(response.body.transcriptions[0]).toMatchObject({
       channelId: augustoInternalId,
       channelName: 'Augusto Galego',
+      channelExternalId: 'UCLW51-XEzuOm5RwPMChHBMw',
     });
   });
 
-  it('consolidates a split channel into a single group keyed by channel identity', async () => {
+  it('surfaces a single channelId and available_channels entry when the service reports a consolidated channel', async () => {
     // Post-backfill: both videos of the previously split "Augusto Galego"
     // channel now resolve to the same internal id.
     mockService.getAllTranscriptions.mockResolvedValue([
