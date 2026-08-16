@@ -122,7 +122,7 @@ describe('OpenAIAdapter', () => {
       );
     });
 
-    it('chunks text longer than 4096 chars', async () => {
+    it('makes a single SDK call regardless of text length', async () => {
       const longText = 'A'.repeat(5000);
       mockSpeechCreate.mockResolvedValue({
         arrayBuffer: () => Promise.resolve(mockArrayBuffer),
@@ -130,21 +130,10 @@ describe('OpenAIAdapter', () => {
 
       await adapter.generateAudio(longText, 'alloy');
 
-      expect(mockSpeechCreate.mock.calls.length).toBeGreaterThanOrEqual(2);
-    });
-
-    it('concatenates chunk audio in order', async () => {
-      const longText = 'A'.repeat(5000);
-      const chunk1 = new TextEncoder().encode('CHUNK1');
-      const chunk2 = new TextEncoder().encode('CHUNK2');
-      mockSpeechCreate
-        .mockResolvedValueOnce({ arrayBuffer: () => Promise.resolve(chunk1.buffer) })
-        .mockResolvedValueOnce({ arrayBuffer: () => Promise.resolve(chunk2.buffer) });
-
-      const result = await adapter.generateAudio(longText, 'alloy');
-      const expected = Buffer.concat([Buffer.from(chunk1), Buffer.from(chunk2)]);
-
-      expect(result.equals(expected)).toBe(true);
+      expect(mockSpeechCreate).toHaveBeenCalledTimes(1);
+      expect(mockSpeechCreate).toHaveBeenCalledWith(
+        expect.objectContaining({ input: longText }),
+      );
     });
   });
 });

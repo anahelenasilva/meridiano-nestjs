@@ -37,6 +37,8 @@ describe('AiService', () => {
   let mockGroqAdapter: jest.Mocked<GroqAdapter>;
   let mockChatPolicy: jest.Mocked<AiPolicyService>;
   let mockEmbedPolicy: jest.Mocked<AiPolicyService>;
+  let mockOpenaiTtsPolicy: jest.Mocked<AiPolicyService>;
+  let mockGroqTtsPolicy: jest.Mocked<AiPolicyService>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -87,12 +89,50 @@ describe('AiService', () => {
       averageEmbeddings: jest.fn(),
     } as any;
 
-    Object.defineProperty(service, 'deepseekAdapter', { value: mockDeepseekAdapter, writable: true });
-    Object.defineProperty(service, 'openaiAdapter', { value: mockOpenaiAdapter, writable: true });
-    Object.defineProperty(service, 'togetherAiAdapter', { value: mockTogetherAiAdapter, writable: true });
-    Object.defineProperty(service, 'groqAdapter', { value: mockGroqAdapter, writable: true });
-    Object.defineProperty(service, 'chatPolicyService', { value: mockChatPolicy, writable: true });
-    Object.defineProperty(service, 'embedPolicyService', { value: mockEmbedPolicy, writable: true });
+    mockOpenaiTtsPolicy = {
+      chat: jest.fn(),
+      embed: jest.fn(),
+      generateAudio: jest.fn(),
+    } as any;
+
+    mockGroqTtsPolicy = {
+      chat: jest.fn(),
+      embed: jest.fn(),
+      generateAudio: jest.fn(),
+    } as any;
+
+    Object.defineProperty(service, 'deepseekAdapter', {
+      value: mockDeepseekAdapter,
+      writable: true,
+    });
+    Object.defineProperty(service, 'openaiAdapter', {
+      value: mockOpenaiAdapter,
+      writable: true,
+    });
+    Object.defineProperty(service, 'togetherAiAdapter', {
+      value: mockTogetherAiAdapter,
+      writable: true,
+    });
+    Object.defineProperty(service, 'groqAdapter', {
+      value: mockGroqAdapter,
+      writable: true,
+    });
+    Object.defineProperty(service, 'chatPolicyService', {
+      value: mockChatPolicy,
+      writable: true,
+    });
+    Object.defineProperty(service, 'embedPolicyService', {
+      value: mockEmbedPolicy,
+      writable: true,
+    });
+    Object.defineProperty(service, 'openaiTtsPolicyService', {
+      value: mockOpenaiTtsPolicy,
+      writable: true,
+    });
+    Object.defineProperty(service, 'groqTtsPolicyService', {
+      value: mockGroqTtsPolicy,
+      writable: true,
+    });
   });
 
   afterEach(() => jest.clearAllMocks());
@@ -101,10 +141,18 @@ describe('AiService', () => {
     it('delegates to deepseekAdapter.chat and returns result', async () => {
       mockDeepseekAdapter.chat.mockResolvedValue('deepseek response');
 
-      const result = await service.callDeepseekChat('prompt', 'model', 'system');
+      const result = await service.callDeepseekChat(
+        'prompt',
+        'model',
+        'system',
+      );
 
       expect(result).toBe('deepseek response');
-      expect(mockDeepseekAdapter.chat).toHaveBeenCalledWith('prompt', 'system', 'model');
+      expect(mockDeepseekAdapter.chat).toHaveBeenCalledWith(
+        'prompt',
+        'system',
+        'model',
+      );
     });
 
     it('returns null and logs error when adapter throws', async () => {
@@ -122,9 +170,14 @@ describe('AiService', () => {
     });
 
     it('throws when deepseekAdapter is null', async () => {
-      Object.defineProperty(service, 'deepseekAdapter', { value: null, writable: true });
+      Object.defineProperty(service, 'deepseekAdapter', {
+        value: null,
+        writable: true,
+      });
 
-      await expect(service.callDeepseekChat('test')).rejects.toThrow(BadRequestException);
+      await expect(service.callDeepseekChat('test')).rejects.toThrow(
+        BadRequestException,
+      );
     });
   });
 
@@ -135,7 +188,11 @@ describe('AiService', () => {
       const result = await service.callOpenAIChat('prompt', 'gpt-4', 'system');
 
       expect(result).toBe('openai response');
-      expect(mockOpenaiAdapter.chat).toHaveBeenCalledWith('prompt', 'system', 'gpt-4');
+      expect(mockOpenaiAdapter.chat).toHaveBeenCalledWith(
+        'prompt',
+        'system',
+        'gpt-4',
+      );
     });
 
     it('returns null and logs error when adapter throws', async () => {
@@ -153,9 +210,14 @@ describe('AiService', () => {
     });
 
     it('throws when openaiAdapter is null', async () => {
-      Object.defineProperty(service, 'openaiAdapter', { value: null, writable: true });
+      Object.defineProperty(service, 'openaiAdapter', {
+        value: null,
+        writable: true,
+      });
 
-      await expect(service.callOpenAIChat('test')).rejects.toThrow(BadRequestException);
+      await expect(service.callOpenAIChat('test')).rejects.toThrow(
+        BadRequestException,
+      );
     });
   });
 
@@ -166,7 +228,11 @@ describe('AiService', () => {
       const result = await service.callChat('prompt', 'model', 'system');
 
       expect(result).toBe('policy response');
-      expect(mockChatPolicy.chat).toHaveBeenCalledWith('prompt', 'system', 'model');
+      expect(mockChatPolicy.chat).toHaveBeenCalledWith(
+        'prompt',
+        'system',
+        'model',
+      );
     });
 
     it('returns null and logs on error', async () => {
@@ -180,9 +246,14 @@ describe('AiService', () => {
     });
 
     it('throws BadRequestException when chatPolicyService is null', async () => {
-      Object.defineProperty(service, 'chatPolicyService', { value: null, writable: true });
+      Object.defineProperty(service, 'chatPolicyService', {
+        value: null,
+        writable: true,
+      });
 
-      await expect(service.callChat('test')).rejects.toThrow(BadRequestException);
+      await expect(service.callChat('test')).rejects.toThrow(
+        BadRequestException,
+      );
     });
   });
 
@@ -193,7 +264,11 @@ describe('AiService', () => {
       const result = await service.callChatOrThrow('prompt', 'model', 'system');
 
       expect(result).toBe('policy response');
-      expect(mockChatPolicy.chat).toHaveBeenCalledWith('prompt', 'system', 'model');
+      expect(mockChatPolicy.chat).toHaveBeenCalledWith(
+        'prompt',
+        'system',
+        'model',
+      );
     });
 
     it('propagates the provider error verbatim, preserving finish_reason', async () => {
@@ -211,7 +286,10 @@ describe('AiService', () => {
     });
 
     it('throws BadRequestException when chatPolicyService is null', async () => {
-      Object.defineProperty(service, 'chatPolicyService', { value: null, writable: true });
+      Object.defineProperty(service, 'chatPolicyService', {
+        value: null,
+        writable: true,
+      });
 
       await expect(service.callChatOrThrow('test')).rejects.toThrow(
         BadRequestException,
@@ -244,24 +322,37 @@ describe('AiService', () => {
     });
 
     it('throws when embedPolicyService is null', async () => {
-      Object.defineProperty(service, 'embedPolicyService', { value: null, writable: true });
+      Object.defineProperty(service, 'embedPolicyService', {
+        value: null,
+        writable: true,
+      });
 
-      await expect(service.getEmbedding('text')).rejects.toThrow(BadRequestException);
+      await expect(service.getEmbedding('text')).rejects.toThrow(
+        BadRequestException,
+      );
     });
   });
 
   describe('getBatchEmbeddings', () => {
     it('batches short inputs in a single request', async () => {
-      mockTogetherAiAdapter.batchEmbed.mockResolvedValue([[0.1, 0.2], [0.3, 0.4]]);
+      mockTogetherAiAdapter.batchEmbed.mockResolvedValue([
+        [0.1, 0.2],
+        [0.3, 0.4],
+      ]);
 
       const results = await service.getBatchEmbeddings(['first', 'second']);
 
-      expect(results).toEqual([[0.1, 0.2], [0.3, 0.4]]);
+      expect(results).toEqual([
+        [0.1, 0.2],
+        [0.3, 0.4],
+      ]);
       expect(mockTogetherAiAdapter.batchEmbed).toHaveBeenCalledTimes(1);
     });
 
     it('falls back to per-item embedding when batch fails', async () => {
-      mockTogetherAiAdapter.batchEmbed.mockRejectedValue(new Error('batch failure'));
+      mockTogetherAiAdapter.batchEmbed.mockRejectedValue(
+        new Error('batch failure'),
+      );
       mockEmbedPolicy.embed
         .mockResolvedValueOnce([5, 6])
         .mockResolvedValueOnce([7, 8]);
@@ -269,7 +360,10 @@ describe('AiService', () => {
 
       const results = await service.getBatchEmbeddings(['alpha', 'beta']);
 
-      expect(results).toEqual([[5, 6], [7, 8]]);
+      expect(results).toEqual([
+        [5, 6],
+        [7, 8],
+      ]);
       consoleSpy.mockRestore();
     });
 
@@ -286,9 +380,14 @@ describe('AiService', () => {
     });
 
     it('throws when adapters are null', async () => {
-      Object.defineProperty(service, 'togetherAiAdapter', { value: null, writable: true });
+      Object.defineProperty(service, 'togetherAiAdapter', {
+        value: null,
+        writable: true,
+      });
 
-      await expect(service.getBatchEmbeddings(['text'])).rejects.toThrow(BadRequestException);
+      await expect(service.getBatchEmbeddings(['text'])).rejects.toThrow(
+        BadRequestException,
+      );
     });
   });
 
@@ -297,57 +396,65 @@ describe('AiService', () => {
 
     it('routes to OpenAI when TTS model is openai', async () => {
       configService.getEnabledTtsModel.mockReturnValue('openai');
-      mockOpenaiAdapter.generateAudio.mockResolvedValue(mockBuffer);
+      mockOpenaiTtsPolicy.generateAudio.mockResolvedValue(mockBuffer);
 
       const result = await service.generateAudio('Hello');
 
       expect(result).toBe(mockBuffer);
-      expect(mockOpenaiAdapter.generateAudio).toHaveBeenCalledTimes(1);
-      expect(mockGroqAdapter.generateAudio).not.toHaveBeenCalled();
+      expect(mockOpenaiTtsPolicy.generateAudio).toHaveBeenCalledTimes(1);
+      expect(mockGroqTtsPolicy.generateAudio).not.toHaveBeenCalled();
     });
 
     it('routes to Groq when TTS model is groq', async () => {
       configService.getEnabledTtsModel.mockReturnValue('groq');
-      mockGroqAdapter.generateAudio.mockResolvedValue(mockBuffer);
+      mockGroqTtsPolicy.generateAudio.mockResolvedValue(mockBuffer);
 
       const result = await service.generateAudio('Hello');
 
       expect(result).toBe(mockBuffer);
-      expect(mockGroqAdapter.generateAudio).toHaveBeenCalledTimes(1);
-      expect(mockOpenaiAdapter.generateAudio).not.toHaveBeenCalled();
+      expect(mockGroqTtsPolicy.generateAudio).toHaveBeenCalledTimes(1);
+      expect(mockOpenaiTtsPolicy.generateAudio).not.toHaveBeenCalled();
     });
 
     it('defaults to OpenAI for unknown TTS provider', async () => {
       configService.getEnabledTtsModel.mockReturnValue('unknown' as any);
-      mockOpenaiAdapter.generateAudio.mockResolvedValue(mockBuffer);
+      mockOpenaiTtsPolicy.generateAudio.mockResolvedValue(mockBuffer);
 
       await service.generateAudio('Hello');
 
-      expect(mockOpenaiAdapter.generateAudio).toHaveBeenCalledTimes(1);
+      expect(mockOpenaiTtsPolicy.generateAudio).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('generateOpenAiAudio', () => {
-    it('delegates to openaiAdapter and returns buffer', async () => {
+    it('delegates to the OpenAI TTS policy and returns buffer', async () => {
       const mockBuffer = Buffer.from('openai-audio');
-      mockOpenaiAdapter.generateAudio.mockResolvedValue(mockBuffer);
+      mockOpenaiTtsPolicy.generateAudio.mockResolvedValue(mockBuffer);
 
       const result = await service.generateOpenAiAudio('text', 'nova');
 
       expect(result).toBe(mockBuffer);
-      expect(mockOpenaiAdapter.generateAudio).toHaveBeenCalledWith('text', 'nova');
+      expect(mockOpenaiTtsPolicy.generateAudio).toHaveBeenCalledWith(
+        'text',
+        'nova',
+      );
     });
 
-    it('throws when openaiAdapter is null', async () => {
-      Object.defineProperty(service, 'openaiAdapter', { value: null, writable: true });
+    it('throws when the OpenAI TTS policy is null', async () => {
+      Object.defineProperty(service, 'openaiTtsPolicyService', {
+        value: null,
+        writable: true,
+      });
 
       await expect(service.generateOpenAiAudio('text')).rejects.toThrow(
         'OpenAI TTS client not initialized',
       );
     });
 
-    it('wraps adapter error with descriptive message', async () => {
-      mockOpenaiAdapter.generateAudio.mockRejectedValue(new Error('quota exceeded'));
+    it('wraps policy error with descriptive message', async () => {
+      mockOpenaiTtsPolicy.generateAudio.mockRejectedValue(
+        new Error('quota exceeded'),
+      );
 
       await expect(service.generateOpenAiAudio('text')).rejects.toThrow(
         'OpenAI TTS failed: quota exceeded',
@@ -356,36 +463,34 @@ describe('AiService', () => {
   });
 
   describe('generateGroqAudio', () => {
-    it('delegates to groqAdapter and returns buffer', async () => {
+    it('delegates to the Groq TTS policy and returns buffer', async () => {
       const mockBuffer = Buffer.from('groq-audio');
-      mockGroqAdapter.generateAudio.mockResolvedValue(mockBuffer);
+      mockGroqTtsPolicy.generateAudio.mockResolvedValue(mockBuffer);
 
       const result = await service.generateGroqAudio('text', 'troy');
 
       expect(result).toBe(mockBuffer);
-      expect(mockGroqAdapter.generateAudio).toHaveBeenCalledWith('text', 'troy');
+      expect(mockGroqTtsPolicy.generateAudio).toHaveBeenCalledWith(
+        'text',
+        'troy',
+      );
     });
 
-    it('throws when groqAdapter is null', async () => {
-      Object.defineProperty(service, 'groqAdapter', { value: null, writable: true });
+    it('throws when the Groq TTS policy is null', async () => {
+      Object.defineProperty(service, 'groqTtsPolicyService', {
+        value: null,
+        writable: true,
+      });
 
       await expect(service.generateGroqAudio('text')).rejects.toThrow(
         'Groq client not initialized',
       );
     });
 
-    it('rethrows Groq TTS failed errors unchanged', async () => {
-      mockGroqAdapter.generateAudio.mockRejectedValue(
-        new Error('Groq TTS failed on chunk 1/1: service down'),
+    it('wraps policy error with Groq TTS failed prefix', async () => {
+      mockGroqTtsPolicy.generateAudio.mockRejectedValue(
+        new Error('unknown error'),
       );
-
-      await expect(service.generateGroqAudio('text')).rejects.toThrow(
-        'Groq TTS failed on chunk 1/1: service down',
-      );
-    });
-
-    it('wraps other errors with Groq TTS failed prefix', async () => {
-      mockGroqAdapter.generateAudio.mockRejectedValue(new Error('unknown error'));
 
       await expect(service.generateGroqAudio('text')).rejects.toThrow(
         'Groq TTS failed: unknown error',
@@ -424,7 +529,9 @@ describe('AiService', () => {
 
       expect(result.deepseek).toBe(true);
       expect(result.embedding).toBe(false);
-      expect(result.errors).toContain('Embedding API returned null or empty embedding');
+      expect(result.errors).toContain(
+        'Embedding API returned null or empty embedding',
+      );
     });
 
     it('handles total failure when both throw', async () => {
