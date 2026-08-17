@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
+import { CategoryResponseDto } from '../../categories/entities/category.entity';
 import { attachNotes, WithNote } from '../../notes/attach-notes';
 import { NotesReadService } from '../../notes/notes-read.service';
+import { ChannelCategoriesService } from '../../youtube-channels/channel-categories.service';
 import { DBYoutubeTranscription } from '../entities/youtube-transcription.entity';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 
@@ -15,7 +17,11 @@ export type YoutubeTranscriptionListItem = Omit<
 
 export type ListAllYoutubeTranscriptionsResponse = {
   transcriptions: WithNote<YoutubeTranscriptionListItem>[];
-  available_channels: { id: string; name: string }[];
+  available_channels: {
+    id: string;
+    name: string;
+    categories: CategoryResponseDto[];
+  }[];
 };
 
 @Injectable()
@@ -23,6 +29,7 @@ export class ListAllYoutubeTranscriptionsQuery {
   constructor(
     private readonly service: YoutubeTranscriptionsService,
     private readonly notesReadService: NotesReadService,
+    private readonly channelCategoriesService: ChannelCategoriesService,
   ) {}
 
   async execute(
@@ -30,6 +37,10 @@ export class ListAllYoutubeTranscriptionsQuery {
   ): Promise<ListAllYoutubeTranscriptionsResponse | null> {
     const transcriptions = await this.service.getAllTranscriptions();
     const availableChannels = await this.service.getDistinctChannels();
+    const categoriesByChannel =
+      await this.channelCategoriesService.getCategoriesForChannels(
+        availableChannels.map((channel) => channel.id),
+      );
 
     const listItems: YoutubeTranscriptionListItem[] = transcriptions.map(
       ({ transcriptionText: _text, transcriptionSummary: _summary, ...rest }) =>
@@ -51,7 +62,12 @@ export class ListAllYoutubeTranscriptionsQuery {
         (transcription) => transcription.id,
         notesBySourceId,
       ),
-      available_channels: availableChannels,
+      available_channels: availableChannels.map((channel) => ({
+        ...channel,
+        categories: (categoriesByChannel.get(channel.id) ?? []).map(
+          (category) => new CategoryResponseDto(category),
+        ),
+      })),
     };
   }
 }

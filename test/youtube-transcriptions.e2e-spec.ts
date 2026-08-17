@@ -7,8 +7,13 @@
  * at its post-backfill shape and assert only the controller boundary contract:
  * that the endpoint faithfully surfaces `channelId`/`channelName` and the merged
  * `available_channels` the service returns, without regrouping or reshaping them.
+ *
+ * The category-editing tests (issue #209) additionally wire in the real
+ * YouTube channels controller/command so a PUT against the assignment endpoint
+ * and a subsequent GET against the transcriptions list share the same
+ * ChannelCategoriesService mock, proving an edit is reflected on the list.
  */
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { ExecutionContext } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -17,7 +22,18 @@ import request from 'supertest';
 import { App } from 'supertest/types';
 import { AudioJobService } from '@libs/audio';
 import { AudioFilesService } from '../src/audio-files/audio-files.service';
+import { CATEGORY_COLORS } from '../src/categories/category-colors';
+import { FindOrCreateCategoriesCommand } from '../src/categories/commands/find-or-create-categories.command';
+import { Category } from '../src/categories/domain/category';
 import { NotesReadService } from '../src/notes/notes-read.service';
+import { ChannelCategoriesService } from '../src/youtube-channels/channel-categories.service';
+import { AssignChannelCategoriesCommand } from '../src/youtube-channels/commands/assign-channel-categories.command';
+import { CreateYoutubeChannelCommand } from '../src/youtube-channels/commands/create-youtube-channel.command';
+import { UpdateChannelEnabledCommand } from '../src/youtube-channels/commands/update-channel-enabled.command';
+import { YoutubeChannel } from '../src/youtube-channels/domain/youtube-channel';
+import { GetYoutubeChannelsQuery } from '../src/youtube-channels/queries/get-youtube-channels.query';
+import { YoutubeChannelsController } from '../src/youtube-channels/youtube-channels.controller';
+import { YoutubeChannelsService } from '../src/youtube-channels/youtube-channels.service';
 import { CreateYoutubeTranscriptionCommand } from '../src/youtube-transcriptions/commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from '../src/youtube-transcriptions/commands/delete-youtube-transcription.command';
 import { DBYoutubeTranscription } from '../src/youtube-transcriptions/entities/youtube-transcription.entity';
@@ -31,8 +47,37 @@ describe('YouTube Transcriptions list (e2e)', () => {
   let moduleFixture: TestingModule;
   let mockService: MockProxy<YoutubeTranscriptionsService>;
   let mockNotesReadService: MockProxy<NotesReadService>;
+  let channelCategoriesService: MockProxy<ChannelCategoriesService>;
+  let youtubeChannelsService: MockProxy<YoutubeChannelsService>;
+  let findOrCreateCategoriesCommand: MockProxy<FindOrCreateCategoriesCommand>;
 
   const augustoInternalId = '11111111-1111-1111-1111-111111111111';
+
+  function buildCategory(overrides: Partial<Category> = {}): Category {
+    return {
+      id: 'category-1',
+      name: 'tech',
+      color: CATEGORY_COLORS.blue,
+      createdAt: new Date('2026-08-16T12:00:00.000Z'),
+      updatedAt: new Date('2026-08-16T12:00:00.000Z'),
+      ...overrides,
+    };
+  }
+
+  function buildChannel(overrides: Partial<YoutubeChannel> = {}): YoutubeChannel {
+    return {
+      id: augustoInternalId,
+      channelId: 'UCLW51-XEzuOm5RwPMChHBMw',
+      name: 'Augusto Galego',
+      url: 'https://www.youtube.com/@augustogalego',
+      description: 'Tech channel',
+      enabled: true,
+      maxVideos: null,
+      createdAt: new Date('2026-08-16T12:00:00.000Z'),
+      updatedAt: new Date('2026-08-16T12:00:00.000Z'),
+      ...overrides,
+    };
+  }
 
   function buildTranscription(
     overrides: Partial<DBYoutubeTranscription> = {},
@@ -53,13 +98,29 @@ describe('YouTube Transcriptions list (e2e)', () => {
   beforeAll(async () => {
     mockService = mock<YoutubeTranscriptionsService>();
     mockNotesReadService = mock<NotesReadService>();
+    channelCategoriesService = mock<ChannelCategoriesService>();
+    youtubeChannelsService = mock<YoutubeChannelsService>();
+    findOrCreateCategoriesCommand = mock<FindOrCreateCategoriesCommand>();
 
     moduleFixture = await Test.createTestingModule({
-      controllers: [YoutubeTranscriptionsController],
+      controllers: [YoutubeTranscriptionsController, YoutubeChannelsController],
       providers: [
         ListAllYoutubeTranscriptionsQuery,
+        AssignChannelCategoriesCommand,
+        { provide: GetYoutubeChannelsQuery, useValue: mock() },
+        { provide: UpdateChannelEnabledCommand, useValue: mock() },
+        { provide: CreateYoutubeChannelCommand, useValue: mock() },
         { provide: YoutubeTranscriptionsService, useValue: mockService },
         { provide: NotesReadService, useValue: mockNotesReadService },
+        {
+          provide: ChannelCategoriesService,
+          useValue: channelCategoriesService,
+        },
+        { provide: YoutubeChannelsService, useValue: youtubeChannelsService },
+        {
+          provide: FindOrCreateCategoriesCommand,
+          useValue: findOrCreateCategoriesCommand,
+        },
         { provide: GetYoutubeTranscriptionByIdQuery, useValue: mock() },
         { provide: DeleteYoutubeTranscriptionCommand, useValue: mock() },
         { provide: CreateYoutubeTranscriptionCommand, useValue: mock() },
@@ -78,12 +139,22 @@ describe('YouTube Transcriptions list (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    app.useGlobalPipes(
+      new ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        transform: true,
+      }),
+    );
     await app.init();
   });
 
   beforeEach(() => {
     jest.clearAllMocks();
     mockNotesReadService.getActiveNotesBySourceIds.mockResolvedValue(new Map());
+    channelCategoriesService.getCategoriesForChannels.mockResolvedValue(
+      new Map(),
+    );
   });
 
   afterAll(async () => {
@@ -137,7 +208,92 @@ describe('YouTube Transcriptions list (e2e)', () => {
     );
     expect(channelIds).toEqual(new Set([augustoInternalId]));
     expect(response.body.available_channels).toEqual([
+      { id: augustoInternalId, name: 'Augusto Galego', categories: [] },
+    ]);
+  });
+
+  it('surfaces each channel\'s categories in available_channels', async () => {
+    const tech = buildCategory({ id: 'category-1', name: 'tech' });
+
+    mockService.getAllTranscriptions.mockResolvedValue([buildTranscription()]);
+    mockService.getDistinctChannels.mockResolvedValue([
       { id: augustoInternalId, name: 'Augusto Galego' },
+    ]);
+    channelCategoriesService.getCategoriesForChannels.mockResolvedValue(
+      new Map([[augustoInternalId, [tech]]]),
+    );
+
+    const response = await request(app.getHttpServer())
+      .get('/api/youtube/transcriptions')
+      .expect(200);
+
+    expect(response.body.available_channels).toEqual([
+      {
+        id: augustoInternalId,
+        name: 'Augusto Galego',
+        categories: [
+          { id: 'category-1', name: 'tech', color: CATEGORY_COLORS.blue },
+        ],
+      },
+    ]);
+  });
+
+  it('reflects a category edit made through the assignment endpoint on the transcriptions list', async () => {
+    // In-memory store standing in for the channel_categories join table, shared
+    // by both the PUT (write) and GET (read) mocks below.
+    const categoriesByChannel = new Map<string, Category[]>();
+
+    mockService.getAllTranscriptions.mockResolvedValue([buildTranscription()]);
+    mockService.getDistinctChannels.mockResolvedValue([
+      { id: augustoInternalId, name: 'Augusto Galego' },
+    ]);
+    channelCategoriesService.getCategoriesForChannels.mockImplementation(
+      (channelIds) =>
+        Promise.resolve(
+          new Map(
+            channelIds.map((id) => [id, categoriesByChannel.get(id) ?? []]),
+          ),
+        ),
+    );
+
+    const before = await request(app.getHttpServer())
+      .get('/api/youtube/transcriptions')
+      .expect(200);
+    expect(before.body.available_channels[0].categories).toEqual([]);
+
+    const tech = buildCategory({ id: 'category-1', name: 'tech' });
+    youtubeChannelsService.getChannelById.mockResolvedValue(buildChannel());
+    findOrCreateCategoriesCommand.execute.mockResolvedValue([tech]);
+    channelCategoriesService.replaceChannelCategories.mockImplementation(
+      (channelId, categoryIds) => {
+        categoriesByChannel.set(
+          channelId,
+          categoryIds.map((id) => (id === tech.id ? tech : buildCategory({ id }))),
+        );
+        return Promise.resolve();
+      },
+    );
+    channelCategoriesService.getCategoriesForChannel.mockImplementation(
+      (channelId) => Promise.resolve(categoriesByChannel.get(channelId) ?? []),
+    );
+
+    await request(app.getHttpServer())
+      .put(`/api/youtube/channels/${augustoInternalId}/categories`)
+      .send({ categoryNames: ['tech'] })
+      .expect(200);
+
+    const after = await request(app.getHttpServer())
+      .get('/api/youtube/transcriptions')
+      .expect(200);
+
+    expect(after.body.available_channels).toEqual([
+      {
+        id: augustoInternalId,
+        name: 'Augusto Galego',
+        categories: [
+          { id: 'category-1', name: 'tech', color: CATEGORY_COLORS.blue },
+        ],
+      },
     ]);
   });
 });

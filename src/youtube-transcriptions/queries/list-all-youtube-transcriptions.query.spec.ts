@@ -1,6 +1,7 @@
 import { mock } from 'jest-mock-extended';
 import { Note } from '../../notes/note.entity';
 import { NotesReadService } from '../../notes/notes-read.service';
+import { ChannelCategoriesService } from '../../youtube-channels/channel-categories.service';
 import { DBYoutubeTranscription } from '../entities/youtube-transcription.entity';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 import { ListAllYoutubeTranscriptionsQuery } from './list-all-youtube-transcriptions.query';
@@ -8,6 +9,7 @@ import { ListAllYoutubeTranscriptionsQuery } from './list-all-youtube-transcript
 describe('ListAllYoutubeTranscriptionsQuery', () => {
   const mockService = mock<YoutubeTranscriptionsService>();
   const mockNotesReadService = mock<NotesReadService>();
+  const mockChannelCategoriesService = mock<ChannelCategoriesService>();
 
   const userId = 'user-1';
   const transcriptionA: DBYoutubeTranscription = {
@@ -38,9 +40,13 @@ describe('ListAllYoutubeTranscriptionsQuery', () => {
     jest.clearAllMocks();
     mockService.getDistinctChannels.mockResolvedValue(availableChannels);
     mockNotesReadService.getActiveNotesBySourceIds.mockResolvedValue(new Map());
+    mockChannelCategoriesService.getCategoriesForChannels.mockResolvedValue(
+      new Map(),
+    );
     query = new ListAllYoutubeTranscriptionsQuery(
       mockService,
       mockNotesReadService,
+      mockChannelCategoriesService,
     );
   });
 
@@ -93,7 +99,45 @@ describe('ListAllYoutubeTranscriptionsQuery', () => {
     expect(result?.transcriptions[0].note).not.toHaveProperty('user_id');
     expect(result?.transcriptions[0].note).not.toHaveProperty('source_id');
     expect(result?.transcriptions[0].note).not.toHaveProperty('source_type');
-    expect(result?.available_channels).toEqual(availableChannels);
+    expect(result?.available_channels).toEqual([
+      { ...availableChannels[0], categories: [] },
+    ]);
+  });
+
+  it("attaches each channel's categories to available_channels", async () => {
+    mockService.getAllTranscriptions.mockResolvedValue([
+      transcriptionA,
+      transcriptionB,
+    ]);
+    mockChannelCategoriesService.getCategoriesForChannels.mockResolvedValue(
+      new Map([
+        [
+          'channel-1',
+          [
+            {
+              id: 'category-1',
+              name: 'tech',
+              color: '#000000',
+              createdAt: new Date('2026-01-01'),
+              updatedAt: new Date('2026-01-01'),
+            },
+          ],
+        ],
+      ]),
+    );
+
+    const result = await query.execute(userId);
+
+    expect(
+      mockChannelCategoriesService.getCategoriesForChannels,
+    ).toHaveBeenCalledWith(['channel-1']);
+    expect(result?.available_channels).toEqual([
+      {
+        id: 'channel-1',
+        name: 'Channel One',
+        categories: [{ id: 'category-1', name: 'tech', color: '#000000' }],
+      },
+    ]);
   });
 
   it('sets note to null for every item when no active notes exist', async () => {
