@@ -1,6 +1,6 @@
 ---
 name: land
-description: Lands the cleanup after a PR merges — verify the merge, remove the worktree/branch, fast-forward the default branch, and close the linked issue. If the issue is a sub-issue and every sibling is now closed too, asks before closing the parent. Use when the user says a PR merged or landed, asks to clean up a branch after merging, or wants an issue closed once its PR is in.
+description: Use when the user says a PR merged or landed, asks to clean up a branch after merging, or wants an issue closed once its PR is in.
 ---
 
 A PR has **landed** once its merge is confirmed on GitHub — every step below runs off that fact, never off "it's probably merged."
