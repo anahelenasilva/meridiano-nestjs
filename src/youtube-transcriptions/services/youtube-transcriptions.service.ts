@@ -249,6 +249,7 @@ export class YoutubeTranscriptionsService {
         error instanceof Error ? error.message : String(error);
       this.logger.error(
         `Error processing channel ${channel.channelName} [channelId=${channel.channelId}]: ${errorMessage}`,
+        error instanceof Error ? error.stack : undefined,
       );
       throw error;
     }
@@ -277,6 +278,7 @@ export class YoutubeTranscriptionsService {
           error instanceof Error ? error.message : String(error);
         this.logger.error(
           `Total failed: ${totalFailure} to process channel: ${channel.channelName} [channelId=${channel.channelId}]: ${errorMessage}`,
+          error instanceof Error ? error.stack : undefined,
         );
       }
     }
@@ -306,7 +308,9 @@ export class YoutubeTranscriptionsService {
     generateAudio?: boolean,
   ): Promise<string | null> {
     try {
-      this.logger.log(`Processing single video: ${videoUrl}`);
+      this.logger.log(
+        `Processing single video: ${videoUrl} [channelId=${channelDbId}]`,
+      );
 
       const channelConfig =
         await this.youtubeChannelsService.getChannelById(channelDbId);
@@ -472,7 +476,8 @@ export class YoutubeTranscriptionsService {
       const errorMessage =
         error instanceof Error ? error.message : String(error);
       this.logger.error(
-        `Error processing video URL ${videoUrl}: ${errorMessage}`,
+        `Error processing video URL ${videoUrl} [channelId=${channelDbId}]: ${errorMessage}`,
+        error instanceof Error ? error.stack : undefined,
       );
       throw error;
     }
@@ -932,6 +937,7 @@ export class YoutubeTranscriptionsService {
         if (err) {
           this.logger.error(
             `Error deleting youtube_transcriptions [id=${id}]: ${err.message}`,
+            err.stack,
           );
           reject(err);
         } else {
