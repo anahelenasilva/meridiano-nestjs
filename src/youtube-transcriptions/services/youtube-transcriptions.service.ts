@@ -1,6 +1,6 @@
 import { DatabaseService } from '@libs/database';
 import { QueueService } from '@libs/queue';
-import { Inject, Injectable, forwardRef } from '@nestjs/common';
+import { Inject, Injectable, Logger, forwardRef } from '@nestjs/common';
 import { NotesCleanupService } from '../../notes/notes-cleanup.service';
 import { ChannelConfig } from '../../shared/types/channel';
 import { TranscriptItem, VideoWithTranscript } from '../../shared/types/video';
@@ -73,6 +73,8 @@ const convertYouTubeSegmentsToTranscriptItems = (
 
 @Injectable()
 export class YoutubeTranscriptionsService {
+  private readonly logger = new Logger(YoutubeTranscriptionsService.name);
+
   constructor(
     private readonly youtubeService: YouTubeService,
     private readonly transcriptService: TranscriptService,
@@ -90,17 +92,17 @@ export class YoutubeTranscriptionsService {
    * @param channel - The channel configuration
    */
   async extractChannelTranscripts(channel: ChannelConfig) {
-    console.log(`\n========================================`);
-    console.log(`Processing channel: `, {
-      channelName: channel.channelName,
-      maxVideos: channel.maxVideos,
-    });
+    this.logger.log(
+      `Processing channel: ${channel.channelName} [channelId=${channel.channelId}, maxVideos=${channel.maxVideos}]`,
+    );
 
     try {
       const videos = await this.youtubeService.getChannelVideos(channel);
 
       if (videos.length === 0) {
-        console.log(`No videos found for channel: ${channel.channelName}`);
+        this.logger.log(
+          `No videos found for channel: ${channel.channelName} [channelId=${channel.channelId}]`,
+        );
         return;
       }
 
@@ -109,15 +111,17 @@ export class YoutubeTranscriptionsService {
 
       for (const video of videos) {
         try {
-          console.log(`\nProcessing: ${video.title}`);
+          this.logger.log(
+            `Processing: ${video.title} [videoId=${video.videoId}, channelId=${channel.channelId}]`,
+          );
 
           // Get transcript with fallback mechanism
           let transcript: TranscriptItem[] = [];
 
           try {
             // Try alternative service first (youtube-transcript-plus)
-            console.log(
-              'Attempting to fetch transcript using alternative service...',
+            this.logger.log(
+              `Attempting to fetch transcript using alternative service... [videoId=${video.videoId}]`,
             );
             transcript =
               await this.youtubeTranscriptionsAlternativeService.fetchTranscript(
@@ -128,25 +132,25 @@ export class YoutubeTranscriptionsService {
               throw new Error('Alternative service returned empty transcript');
             }
 
-            console.log(
-              `✓ Successfully fetched transcript using alternative service (${transcript.length} items)`,
+            this.logger.log(
+              `✓ Successfully fetched transcript using alternative service (${transcript.length} items) [videoId=${video.videoId}]`,
             );
           } catch (alternativeServiceError) {
             // Fallback to primary method (TranscriptService)
-            console.log(
-              'Alternative service failed, attempting primary method...',
+            this.logger.log(
+              `Alternative service failed, attempting primary method... [videoId=${video.videoId}]`,
             );
             const alternativeServiceErrorMessage =
               alternativeServiceError instanceof Error
                 ? alternativeServiceError.message
                 : String(alternativeServiceError);
-            console.log(
-              `  Alternative service error: ${alternativeServiceErrorMessage}`,
+            this.logger.log(
+              `  Alternative service error: ${alternativeServiceErrorMessage} [videoId=${video.videoId}]`,
             );
 
             try {
-              console.log(
-                'Attempting to fetch transcript using primary method...',
+              this.logger.log(
+                `Attempting to fetch transcript using primary method... [videoId=${video.videoId}]`,
               );
               transcript = await this.transcriptService.getTranscript(
                 video.videoId,
@@ -156,19 +160,21 @@ export class YoutubeTranscriptionsService {
                 throw new Error('Primary method returned empty transcript');
               }
 
-              console.log(
-                `✓ Successfully fetched transcript using primary method (${transcript.length} items)`,
+              this.logger.log(
+                `✓ Successfully fetched transcript using primary method (${transcript.length} items) [videoId=${video.videoId}]`,
               );
             } catch (primaryError) {
               // Fallback to innertube method
-              console.log(
-                'Primary method failed, attempting innertube method...',
+              this.logger.log(
+                `Primary method failed, attempting innertube method... [videoId=${video.videoId}]`,
               );
               const primaryErrorMessage =
                 primaryError instanceof Error
                   ? primaryError.message
                   : String(primaryError);
-              console.log(`  Primary error: ${primaryErrorMessage}`);
+              this.logger.log(
+                `  Primary error: ${primaryErrorMessage} [videoId=${video.videoId}]`,
+              );
 
               try {
                 const innertubeSegments = await fetchTranscriptViaInnertube(
@@ -181,8 +187,8 @@ export class YoutubeTranscriptionsService {
                   throw new Error('Innertube method returned empty transcript');
                 }
 
-                console.log(
-                  `✓ Successfully fetched transcript using innertube method (${transcript.length} items)`,
+                this.logger.log(
+                  `✓ Successfully fetched transcript using innertube method (${transcript.length} items) [videoId=${video.videoId}]`,
                 );
               } catch (innertubeError) {
                 // All three methods failed
@@ -190,12 +196,9 @@ export class YoutubeTranscriptionsService {
                   innertubeError instanceof Error
                     ? innertubeError.message
                     : String(innertubeError);
-                console.error('All transcript methods failed:');
-                console.error(
-                  `  Alternative service: ${alternativeServiceErrorMessage}`,
+                this.logger.error(
+                  `All transcript methods failed [videoId=${video.videoId}]: alternative service: ${alternativeServiceErrorMessage}. Primary: ${primaryErrorMessage}. Innertube: ${innertubeErrorMessage}`,
                 );
-                console.error(`  Primary: ${primaryErrorMessage}`);
-                console.error(`  Innertube: ${innertubeErrorMessage}`);
 
                 throw new Error(
                   `Failed to fetch transcript using all methods. Alternative service: ${alternativeServiceErrorMessage}. Primary: ${primaryErrorMessage}. Innertube: ${innertubeErrorMessage}`,
@@ -219,22 +222,22 @@ export class YoutubeTranscriptionsService {
           );
 
           successCount++;
-          console.log(`✓ Successfully processed video: ${video.title}`);
+          this.logger.log(
+            `✓ Successfully processed video: ${video.title} [videoId=${video.videoId}, channelId=${channel.channelId}]`,
+          );
         } catch (error) {
           failureCount++;
-          console.error(`✗ Failed to process video: ${video.title}`);
           const errorMessage =
             error instanceof Error ? error.message : String(error);
-          console.error(`  Error: ${errorMessage}`);
+          this.logger.error(
+            `✗ Failed to process video: ${video.title} [videoId=${video.videoId}, channelId=${channel.channelId}]: ${errorMessage}`,
+          );
         }
       }
 
-      console.log(`\n========================================`);
-      console.log(`Channel processing complete: `, {
-        channelName: channel.channelName,
-        success: successCount,
-        failed: failureCount,
-      });
+      this.logger.log(
+        `Channel processing complete: ${channel.channelName} [channelId=${channel.channelId}, success=${successCount}, failed=${failureCount}]`,
+      );
 
       if (successCount === 0) {
         throw new Error(
@@ -242,7 +245,11 @@ export class YoutubeTranscriptionsService {
         );
       }
     } catch (error) {
-      console.error(`Error processing channel ${channel.channelName}:`, error);
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      this.logger.error(
+        `Error processing channel ${channel.channelName} [channelId=${channel.channelId}]: ${errorMessage}`,
+      );
       throw error;
     }
   }
@@ -252,8 +259,8 @@ export class YoutubeTranscriptionsService {
    * @param channels - Array of channel configurations
    */
   async extractAll(channels: ChannelConfig[]) {
-    console.log(
-      `\n🚀 Starting transcript extraction for ${channels.length} channel(s)...\n`,
+    this.logger.log(
+      `🚀 Starting transcript extraction for ${channels.length} channel(s)...`,
     );
 
     const startTime = Date.now();
@@ -266,9 +273,10 @@ export class YoutubeTranscriptionsService {
         totalSuccess++;
       } catch (error) {
         totalFailure++;
-        console.error(
-          `Total failed: ${totalFailure} to process channel: ${channel.channelName}`,
-          error,
+        const errorMessage =
+          error instanceof Error ? error.message : String(error);
+        this.logger.error(
+          `Total failed: ${totalFailure} to process channel: ${channel.channelName} [channelId=${channel.channelId}]: ${errorMessage}`,
         );
       }
     }
@@ -276,11 +284,9 @@ export class YoutubeTranscriptionsService {
     const endTime = Date.now();
     const duration = ((endTime - startTime) / 1000).toFixed(2);
 
-    console.log(`\n========================================`);
-    console.log(`🎉 Extraction complete!`);
-    console.log(`Total channels processed: ${totalSuccess}/${channels.length}`);
-    console.log(`Total time: ${duration}s`);
-    console.log(`========================================\n`);
+    this.logger.log(
+      `🎉 Extraction complete! Total channels processed: ${totalSuccess}/${channels.length}, total time: ${duration}s`,
+    );
   }
 
   /**
@@ -300,8 +306,7 @@ export class YoutubeTranscriptionsService {
     generateAudio?: boolean,
   ): Promise<string | null> {
     try {
-      console.log(`\n========================================`);
-      console.log(`Processing single video: ${videoUrl}`);
+      this.logger.log(`Processing single video: ${videoUrl}`);
 
       const channelConfig =
         await this.youtubeChannelsService.getChannelById(channelDbId);
@@ -334,8 +339,8 @@ export class YoutubeTranscriptionsService {
 
       try {
         // Try alternative service first (youtube-transcript-plus)
-        console.log(
-          'Attempting to fetch transcript using alternative service...',
+        this.logger.log(
+          `Attempting to fetch transcript using alternative service... [videoId=${videoId}, channelId=${channelDbId}]`,
         );
         transcript =
           await this.youtubeTranscriptionsAlternativeService.fetchTranscript(
@@ -346,39 +351,47 @@ export class YoutubeTranscriptionsService {
           throw new Error('Alternative service returned empty transcript');
         }
 
-        console.log(
-          `✓ Successfully fetched transcript using alternative service (${transcript.length} items)`,
+        this.logger.log(
+          `✓ Successfully fetched transcript using alternative service (${transcript.length} items) [videoId=${videoId}]`,
         );
       } catch (alternativeServiceError) {
         // Fallback to primary method (TranscriptService)
-        console.log('Alternative service failed, attempting primary method...');
+        this.logger.log(
+          `Alternative service failed, attempting primary method... [videoId=${videoId}, channelId=${channelDbId}]`,
+        );
         const alternativeServiceErrorMessage =
           alternativeServiceError instanceof Error
             ? alternativeServiceError.message
             : String(alternativeServiceError);
-        console.log(
-          `  Alternative service error: ${alternativeServiceErrorMessage}`,
+        this.logger.log(
+          `  Alternative service error: ${alternativeServiceErrorMessage} [videoId=${videoId}]`,
         );
 
         try {
-          console.log('Attempting to fetch transcript using primary method...');
+          this.logger.log(
+            `Attempting to fetch transcript using primary method... [videoId=${videoId}, channelId=${channelDbId}]`,
+          );
           transcript = await this.transcriptService.getTranscript(videoId);
 
           if (!transcript || transcript.length === 0) {
             throw new Error('Primary method returned empty transcript');
           }
 
-          console.log(
-            `✓ Successfully fetched transcript using primary method (${transcript.length} items)`,
+          this.logger.log(
+            `✓ Successfully fetched transcript using primary method (${transcript.length} items) [videoId=${videoId}]`,
           );
         } catch (primaryError) {
           // Fallback to innertube method
-          console.log('Primary method failed, attempting innertube method...');
+          this.logger.log(
+            `Primary method failed, attempting innertube method... [videoId=${videoId}, channelId=${channelDbId}]`,
+          );
           const primaryErrorMessage =
             primaryError instanceof Error
               ? primaryError.message
               : String(primaryError);
-          console.log(`  Primary error: ${primaryErrorMessage}`);
+          this.logger.log(
+            `  Primary error: ${primaryErrorMessage} [videoId=${videoId}]`,
+          );
 
           try {
             const innertubeSegments = await fetchTranscriptViaInnertube(
@@ -392,8 +405,8 @@ export class YoutubeTranscriptionsService {
               throw new Error('Innertube method returned empty transcript');
             }
 
-            console.log(
-              `✓ Successfully fetched transcript using innertube method (${transcript.length} items)`,
+            this.logger.log(
+              `✓ Successfully fetched transcript using innertube method (${transcript.length} items) [videoId=${videoId}]`,
             );
           } catch (innertubeError) {
             // All three methods failed
@@ -401,12 +414,9 @@ export class YoutubeTranscriptionsService {
               innertubeError instanceof Error
                 ? innertubeError.message
                 : String(innertubeError);
-            console.error('All transcript methods failed:');
-            console.error(
-              `  Alternative service: ${alternativeServiceErrorMessage}`,
+            this.logger.error(
+              `All transcript methods failed [videoId=${videoId}, channelId=${channelDbId}]: alternative service: ${alternativeServiceErrorMessage}. Primary: ${primaryErrorMessage}. Innertube: ${innertubeErrorMessage}`,
             );
-            console.error(`  Primary: ${primaryErrorMessage}`);
-            console.error(`  Innertube: ${innertubeErrorMessage}`);
 
             throw new Error(
               `Failed to fetch transcript using all methods. Alternative service: ${alternativeServiceErrorMessage}. Primary: ${primaryErrorMessage}. Innertube: ${innertubeErrorMessage}`,
@@ -436,12 +446,14 @@ export class YoutubeTranscriptionsService {
       );
 
       if (transcriptionId === null) {
-        console.log('Video already exists in database');
+        this.logger.log(
+          `Video already exists in database [videoId=${videoId}, channelId=${channelDbId}]`,
+        );
         return null;
       }
 
-      console.log(
-        `Enqueueing summary generation for transcription ID ${transcriptionId}...`,
+      this.logger.log(
+        `Enqueueing summary generation for transcription ID ${transcriptionId}... [videoId=${videoId}, channelId=${channelDbId}]`,
       );
       await this.queueService.addTranscriptionSummaryJob(
         transcriptionId,
@@ -451,14 +463,17 @@ export class YoutubeTranscriptionsService {
         channelDbId,
       );
 
-      console.log(
-        `✓ Successfully processed video: ${videoMetadata.title} (ID: ${transcriptionId})`,
+      this.logger.log(
+        `✓ Successfully processed video: ${videoMetadata.title} (ID: ${transcriptionId}) [videoId=${videoId}, channelId=${channelDbId}]`,
       );
-      console.log(`========================================\n`);
 
       return transcriptionId;
     } catch (error) {
-      console.error(`Error processing video URL ${videoUrl}:`, error);
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      this.logger.error(
+        `Error processing video URL ${videoUrl}: ${errorMessage}`,
+      );
       throw error;
     }
   }
@@ -475,6 +490,7 @@ export class YoutubeTranscriptionsService {
     transcriptionSummary?: string,
     customPrompt?: string,
   ): Promise<string | null> {
+    const logger = this.logger;
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
@@ -506,8 +522,8 @@ export class YoutubeTranscriptionsService {
               err.message.includes('duplicate key value') ||
               errorWithCode.code === '23505'
             ) {
-              console.log(
-                `Transcription already exists for video: ${videoData.title}`,
+              logger.log(
+                `Transcription already exists for video: ${videoData.title} [videoId=${videoData.videoId}, channelId=${videoData.channel?.id}]`,
               );
               resolve(null);
             } else {
@@ -618,8 +634,8 @@ export class YoutubeTranscriptionsService {
         };
       }
 
-      console.log(
-        `  Processing transcription for: ${videoData.title} by ${videoData.channel.name}`,
+      this.logger.log(
+        `Processing transcription for: ${videoData.title} by ${videoData.channel.name} [videoId=${videoData.videoId}, channelId=${videoData.channel.id}]`,
       );
 
       // Save transcription to database first without summary
@@ -632,8 +648,8 @@ export class YoutubeTranscriptionsService {
         };
       }
 
-      console.log(
-        `  Enqueueing summary generation for transcription ID ${insertedId}...`,
+      this.logger.log(
+        `Enqueueing summary generation for transcription ID ${insertedId}... [videoId=${videoData.videoId}, channelId=${videoData.channel.id}]`,
       );
       await this.queueService.addTranscriptionSummaryJob(
         insertedId,
@@ -643,8 +659,8 @@ export class YoutubeTranscriptionsService {
         videoData.channel.id,
       );
 
-      console.log(
-        `  ✓ Successfully processed and saved transcription (ID: ${insertedId})`,
+      this.logger.log(
+        `✓ Successfully processed and saved transcription (ID: ${insertedId}) [videoId=${videoData.videoId}, channelId=${videoData.channel.id}]`,
       );
       return { success: true };
     } catch (error) {
@@ -912,9 +928,11 @@ export class YoutubeTranscriptionsService {
         `DELETE FROM youtube_transcriptions WHERE id = ?`,
       );
 
-      stmt.run([id], function (err) {
+      stmt.run([id], (err) => {
         if (err) {
-          console.error('Error deleting youtube_transcriptions:', err);
+          this.logger.error(
+            `Error deleting youtube_transcriptions [id=${id}]: ${err.message}`,
+          );
           reject(err);
         } else {
           resolve();
