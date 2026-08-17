@@ -6,6 +6,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Category, CategoryWithChannelCount } from './domain/category';
+import { mapCategoryRow as mapRow } from './domain/map-category-row';
 
 function isUniqueViolation(err: Error): boolean {
   const withCode = err as Error & { code?: string };
@@ -14,16 +15,6 @@ function isUniqueViolation(err: Error): boolean {
     err.message.includes('duplicate key value') ||
     err.message.includes('UNIQUE constraint')
   );
-}
-
-function mapRow(row: any): Category {
-  return {
-    id: row.id,
-    name: row.name,
-    color: row.color,
-    createdAt: new Date(row.created_at),
-    updatedAt: new Date(row.updated_at),
-  };
 }
 
 @Injectable()
@@ -61,6 +52,27 @@ export class CategoriesService {
               channelCount: Number(row.channel_count),
             })),
           );
+        },
+      );
+    });
+  }
+
+  async getCategoryByName(name: string): Promise<Category | null> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      db.get(
+        'SELECT id, name, color, created_at, updated_at FROM categories WHERE LOWER(name) = LOWER(?)',
+        [name],
+        (err: Error | null, row?: any) => {
+          if (err) {
+            reject(
+              new InternalServerErrorException('Failed to look up category'),
+            );
+            return;
+          }
+
+          resolve(row ? mapRow(row) : null);
         },
       );
     });
