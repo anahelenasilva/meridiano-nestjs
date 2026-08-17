@@ -1,12 +1,15 @@
 import { ApiKeyAllowed } from '@libs/auth';
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import { CategoryResponseDto } from '../categories/entities/category.entity';
 import {
   ApiAuthErrorResponse,
   ApiValidationErrorResponse,
 } from '../shared/swagger/api-error-response.decorators';
+import { AssignChannelCategoriesCommand } from './commands/assign-channel-categories.command';
 import { CreateYoutubeChannelCommand } from './commands/create-youtube-channel.command';
 import { UpdateChannelEnabledCommand } from './commands/update-channel-enabled.command';
+import { SetChannelCategoriesDto } from './dto/set-channel-categories.dto';
 import { UpdateChannelEnabledDto } from './dto/update-channel-enabled.dto';
 import {
   CreateYoutubeChannelDto,
@@ -21,6 +24,7 @@ export class YoutubeChannelsController {
     private readonly getYoutubeChannelsQuery: GetYoutubeChannelsQuery,
     private readonly updateChannelEnabledCommand: UpdateChannelEnabledCommand,
     private readonly createYoutubeChannelCommand: CreateYoutubeChannelCommand,
+    private readonly assignChannelCategoriesCommand: AssignChannelCategoriesCommand,
   ) {}
 
   @Get()
@@ -43,9 +47,10 @@ export class YoutubeChannelsController {
       description: dto.description,
       enabled: dto.enabled,
       maxVideos: dto.maxVideos,
+      categoryNames: dto.categoryNames,
     });
 
-    return new YoutubeChannelResponseDto(result.channel);
+    return new YoutubeChannelResponseDto(result.channel, result.categories);
   }
 
   @Patch(':channelId')
@@ -60,5 +65,24 @@ export class YoutubeChannelsController {
       channelId,
       enabled: dto.enabled,
     });
+  }
+
+  @Put(':channelId/categories')
+  @ApiOperation({
+    summary:
+      "Replace a channel's category assignments with the submitted set",
+  })
+  @ApiOkResponse({ type: CategoryResponseDto, isArray: true })
+  @ApiValidationErrorResponse()
+  async setChannelCategories(
+    @Param('channelId') channelId: string,
+    @Body() dto: SetChannelCategoriesDto,
+  ) {
+    const categories = await this.assignChannelCategoriesCommand.execute(
+      channelId,
+      dto.categoryNames,
+    );
+
+    return categories.map((category) => new CategoryResponseDto(category));
   }
 }

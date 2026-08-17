@@ -188,6 +188,10 @@ async function createOpenApiApp(): Promise<INestApplication> {
     '../youtube-channels/commands/create-youtube-channel.command.js',
     'CreateYoutubeChannelCommand',
   );
+  const AssignChannelCategoriesCommand = loadDistExport<Type<unknown>>(
+    '../youtube-channels/commands/assign-channel-categories.command.js',
+    'AssignChannelCategoriesCommand',
+  );
   const ListAllYoutubeTranscriptionsQuery = loadDistExport<Type<unknown>>(
     '../youtube-transcriptions/queries/list-all-youtube-transcriptions.query.js',
     'ListAllYoutubeTranscriptionsQuery',
@@ -292,6 +296,7 @@ async function createOpenApiApp(): Promise<INestApplication> {
       { provide: GetYoutubeChannelsQuery, useValue: {} },
       { provide: UpdateChannelEnabledCommand, useValue: {} },
       { provide: CreateYoutubeChannelCommand, useValue: {} },
+      { provide: AssignChannelCategoriesCommand, useValue: {} },
       { provide: ListAllYoutubeTranscriptionsQuery, useValue: {} },
       { provide: GetYoutubeTranscriptionByIdQuery, useValue: {} },
       { provide: DeleteYoutubeTranscriptionCommand, useValue: {} },

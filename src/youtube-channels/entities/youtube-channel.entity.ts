@@ -7,6 +7,11 @@ import {
   IsUrl,
   Min,
 } from 'class-validator';
+import { IsCategoryNamesArray } from '../../categories/dto/category-names.decorator';
+import {
+  CategoryResponseDto,
+} from '../../categories/entities/category.entity';
+import { Category } from '../../categories/domain/category';
 import { YoutubeChannel } from '../domain/youtube-channel';
 
 export class CreateYoutubeChannelDto {
@@ -33,6 +38,10 @@ export class CreateYoutubeChannelDto {
   @IsInt({ message: 'Max videos must be an integer' })
   @Min(1, { message: 'Max videos must be at least 1' })
   maxVideos?: number;
+
+  @IsOptional()
+  @IsCategoryNamesArray()
+  categoryNames?: string[];
 }
 
 export class YoutubeChannelResponseDto {
@@ -45,8 +54,9 @@ export class YoutubeChannelResponseDto {
   maxVideos: number | null;
   createdAt: Date;
   updatedAt: Date;
+  categories: CategoryResponseDto[];
 
-  constructor(channel: YoutubeChannel) {
+  constructor(channel: YoutubeChannel, categories: Category[] = []) {
     this.id = channel.id;
     this.channelId = channel.channelId;
     this.name = channel.name;
@@ -56,5 +66,8 @@ export class YoutubeChannelResponseDto {
     this.maxVideos = channel.maxVideos;
     this.createdAt = channel.createdAt;
     this.updatedAt = channel.updatedAt;
+    this.categories = categories.map(
+      (category) => new CategoryResponseDto(category),
+    );
   }
 }
