@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import { averageEmbeddings } from './helpers/average-embeddings';
 import { splitTextIntoChunks } from './helpers/split-text-into-chunks';
 import { estimateTokenCount } from '../shared/helpers/token-estimation';
@@ -15,6 +16,8 @@ const MAX_RETRIES = 2;
 const RETRY_DELAY_MS = 500;
 
 export class AiPolicyService {
+  private readonly logger = new Logger(AiPolicyService.name);
+
   constructor(
     private readonly adapter: AiAdapter,
     private readonly embeddingChunkTokenLimit: number = 256,
@@ -34,7 +37,7 @@ export class AiPolicyService {
 
   async embed(text: string): Promise<number[] | null> {
     if (!text || !text.trim()) {
-      console.warn('Empty or whitespace-only text provided to embed');
+      this.logger.warn('Empty or whitespace-only text provided to embed');
       return null;
     }
 
@@ -55,14 +58,14 @@ export class AiPolicyService {
         vectors.push(vector);
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
-        console.warn(
-          `Warning: Failed to get embedding for chunk ${i + 1}/${chunks.length} after ${MAX_RETRIES} retries: ${message}`,
+        this.logger.warn(
+          `Failed to get embedding for chunk ${i + 1}/${chunks.length} after ${MAX_RETRIES} retries: ${message}`,
         );
       }
     }
 
     if (vectors.length === 0) {
-      console.warn('Warning: No embedding returned for text.');
+      this.logger.warn('No embedding returned for text.');
       return null;
     }
 
@@ -100,13 +103,13 @@ export class AiPolicyService {
         const message = error instanceof Error ? error.message : String(error);
 
         if (!this.isRetryable(message)) {
-          console.error(`Non-retryable error: ${message}`);
+          this.logger.error(`Non-retryable error: ${message}`);
           throw error;
         }
 
         lastError = error;
         if (attempt < MAX_RETRIES) {
-          console.warn(
+          this.logger.warn(
             `Attempt ${attempt + 1}/${MAX_RETRIES + 1} failed, retrying...`,
           );
           await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));

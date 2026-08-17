@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import { averageEmbeddings } from './helpers/average-embeddings';
 import { AiPolicyService } from './ai-policy.service';
 import { AiAdapter } from './adapters/ai-adapter.interface';
@@ -30,7 +31,7 @@ describe('AiPolicyService', () => {
 
     it('retries on retryable error and returns eventual result', async () => {
       const adapter = makeFakeAdapter();
-      const consoleSpy = jest.spyOn(console, 'warn').mockImplementation();
+      const consoleSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
       (adapter.chat as jest.Mock)
         .mockRejectedValueOnce(new Error('rate limit 429'))
         .mockResolvedValueOnce('ok');
@@ -45,7 +46,7 @@ describe('AiPolicyService', () => {
 
     it('retries N=2 and returns result on third attempt', async () => {
       const adapter = makeFakeAdapter();
-      const consoleSpy = jest.spyOn(console, 'warn').mockImplementation();
+      const consoleSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
       (adapter.chat as jest.Mock)
         .mockRejectedValueOnce(new Error('rate limit 429'))
         .mockRejectedValueOnce(new Error('timeout'))
@@ -61,7 +62,7 @@ describe('AiPolicyService', () => {
 
     it('does not retry on non-retryable error', async () => {
       const adapter = makeFakeAdapter();
-      const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+      const consoleSpy = jest.spyOn(Logger.prototype, 'error').mockImplementation();
       (adapter.chat as jest.Mock).mockRejectedValue(
         new Error('invalid API key'),
       );
@@ -74,7 +75,7 @@ describe('AiPolicyService', () => {
 
     it('exhausts retries and throws after max retries', async () => {
       const adapter = makeFakeAdapter();
-      const consoleSpy = jest.spyOn(console, 'warn').mockImplementation();
+      const consoleSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
       (adapter.chat as jest.Mock).mockRejectedValue(new Error('timeout'));
       const svc = new AiPolicyService(adapter);
 
@@ -87,7 +88,7 @@ describe('AiPolicyService', () => {
   describe('embed', () => {
     it('returns null for empty text', async () => {
       const adapter = makeFakeAdapter();
-      const consoleSpy = jest.spyOn(console, 'warn').mockImplementation();
+      const consoleSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
       const svc = new AiPolicyService(adapter);
 
       const result = await svc.embed('');
@@ -99,7 +100,7 @@ describe('AiPolicyService', () => {
 
     it('returns null for whitespace-only text', async () => {
       const adapter = makeFakeAdapter();
-      const consoleSpy = jest.spyOn(console, 'warn').mockImplementation();
+      const consoleSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
       const svc = new AiPolicyService(adapter);
 
       expect(await svc.embed('   ')).toBeNull();
@@ -134,7 +135,7 @@ describe('AiPolicyService', () => {
 
     it('retries on retryable embedding error and returns eventual result', async () => {
       const adapter = makeFakeAdapter();
-      const consoleSpy = jest.spyOn(console, 'warn').mockImplementation();
+      const consoleSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
       (adapter.embed as jest.Mock)
         .mockRejectedValueOnce(new Error('rate limit 429'))
         .mockResolvedValueOnce([0.5, 0.5]);
@@ -149,7 +150,7 @@ describe('AiPolicyService', () => {
 
     it('returns null when all chunks fail', async () => {
       const adapter = makeFakeAdapter();
-      const consoleSpy = jest.spyOn(console, 'warn').mockImplementation();
+      const consoleSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
       (adapter.embed as jest.Mock).mockRejectedValue(new Error('timeout'));
       const svc = new AiPolicyService(adapter, 1000);
 
@@ -259,7 +260,7 @@ describe('AiPolicyService', () => {
     });
 
     it('retries a chunk on a retryable error', async () => {
-      const consoleSpy = jest.spyOn(console, 'warn').mockImplementation();
+      const consoleSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
       const adapter = makeFakeAdapter();
       (adapter.generateAudio as jest.Mock)
         .mockRejectedValueOnce(new Error('rate limit 429'))
