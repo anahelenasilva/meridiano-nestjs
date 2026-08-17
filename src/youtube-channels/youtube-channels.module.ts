@@ -22,6 +22,7 @@ import { YoutubeChannelsService } from './youtube-channels.service';
   controllers: [YoutubeChannelsController],
   exports: [
     YoutubeChannelsService,
+    ChannelCategoriesService,
     GetYoutubeChannelsQuery,
     UpdateChannelEnabledCommand,
     CreateYoutubeChannelCommand,

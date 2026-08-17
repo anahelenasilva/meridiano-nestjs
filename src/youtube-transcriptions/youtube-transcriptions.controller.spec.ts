@@ -11,6 +11,7 @@ import { ConfigService } from '../config/config.service';
 import { AudioFilesService } from '../audio-files/audio-files.service';
 import { NotesReadService } from '../notes/notes-read.service';
 import type { AuthenticatedRequest } from '../shared/types/authenticated-request';
+import { ChannelCategoriesService } from '../youtube-channels/channel-categories.service';
 import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
 import { YoutubeTranscription } from './entities/youtube-transcription.entity';
@@ -28,6 +29,7 @@ describe('YoutubeTranscriptionsController', () => {
   const mockS3Service = mock<S3Service>();
   const mockConfigService = mock<ConfigService>();
   const mockNotesReadService = mock<NotesReadService>();
+  const mockChannelCategoriesService = mock<ChannelCategoriesService>();
 
   const userId = 'user-1';
   const mockRequest = { user: { id: userId } } as AuthenticatedRequest;
@@ -50,10 +52,14 @@ describe('YoutubeTranscriptionsController', () => {
 
     mockNotesReadService.getActiveNote.mockResolvedValue(null);
     mockNotesReadService.getActiveNotesBySourceIds.mockResolvedValue(new Map());
+    mockChannelCategoriesService.getCategoriesForChannels.mockResolvedValue(
+      new Map(),
+    );
     const mockListAllYoutubeTranscriptionsQuery =
       new ListAllYoutubeTranscriptionsQuery(
         mockYoutubeTranscriptionsService,
         mockNotesReadService,
+        mockChannelCategoriesService,
       );
     mockConfigService.getPresignedUrlExpirySeconds.mockReturnValue(3600);
     mockGetYoutubeTranscriptionByIdQuery = new GetYoutubeTranscriptionByIdQuery(
