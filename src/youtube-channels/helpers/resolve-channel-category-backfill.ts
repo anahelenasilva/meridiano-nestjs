@@ -5,7 +5,11 @@
  * internal UUID), since that is the only stable identifier available ahead of
  * time. A mapped channel absent from the local `youtube_channels` table is
  * skipped rather than erroring, so the same migration works unmodified across
- * environments that only have a subset of the known channels.
+ * environments that only have a subset of the known channels. An unmatched
+ * category name is different: the starter categories are seeded by an earlier
+ * migration and always exist, so a mismatch means a typo in this file's own
+ * mapping, not an environment difference. That is reported back rather than
+ * silently dropped, mirroring `resolveChannelIds`'s orphan-reporting.
  */
 
 export interface ChannelCategoryMapping {
@@ -32,11 +36,17 @@ export interface ChannelCategoryPair {
   categoryId: string;
 }
 
+export interface ChannelCategoryBackfillResolution {
+  pairs: ChannelCategoryPair[];
+  /** Category names in the mapping that matched no known category. */
+  unmatchedCategoryNames: string[];
+}
+
 export function resolveChannelCategoryBackfill(
   mappings: readonly ChannelCategoryMapping[],
   channels: readonly ChannelRow[],
   categories: readonly CategoryRow[],
-): ChannelCategoryPair[] {
+): ChannelCategoryBackfillResolution {
   const internalIdByExternalChannelId = new Map(
     channels.map((channel) => [channel.channelId, channel.id] as const),
   );
@@ -45,6 +55,7 @@ export function resolveChannelCategoryBackfill(
   );
 
   const pairs: ChannelCategoryPair[] = [];
+  const unmatchedCategoryNames: string[] = [];
 
   for (const mapping of mappings) {
     const internalChannelId = internalIdByExternalChannelId.get(mapping.channelId);
@@ -52,11 +63,14 @@ export function resolveChannelCategoryBackfill(
 
     for (const categoryName of mapping.categoryNames) {
       const categoryId = categoryIdByLowerName.get(categoryName.toLowerCase());
-      if (!categoryId) continue;
+      if (!categoryId) {
+        unmatchedCategoryNames.push(categoryName);
+        continue;
+      }
 
       pairs.push({ channelId: internalChannelId, categoryId });
     }
   }
 
-  return pairs;
+  return { pairs, unmatchedCategoryNames };
 }

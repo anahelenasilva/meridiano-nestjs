@@ -26,7 +26,16 @@ export class BackfillChannelCategories1788000000000
   name = 'BackfillChannelCategories1788000000000';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
-    const pairs = await resolvePairs(queryRunner);
+    const { pairs, unmatchedCategoryNames } = await resolvePairs(queryRunner);
+
+    // Unlike a missing channel, an unmatched category name means a typo in
+    // this file's own mapping (the starter categories always exist by this
+    // point) -> fail loud instead of silently seeding nothing for that entry.
+    if (unmatchedCategoryNames.length > 0) {
+      throw new Error(
+        `Cannot backfill channel categories: ${unmatchedCategoryNames.length} category name(s) in STARTER_CATEGORY_MAPPING match no known category: ${unmatchedCategoryNames.join(', ')}`,
+      );
+    }
 
     for (const pair of pairs) {
       await queryRunner.query(
@@ -42,7 +51,7 @@ export class BackfillChannelCategories1788000000000
     // Blunt by design, mirroring SeedCategories's down: this removes exactly
     // the rows this mapping produces, even if an admin independently created
     // the identical association by hand.
-    const pairs = await resolvePairs(queryRunner);
+    const { pairs } = await resolvePairs(queryRunner);
 
     for (const pair of pairs) {
       await queryRunner.query(
