@@ -1,7 +1,7 @@
 import { AuthModule as LibsAuthModule } from '@libs/auth';
 import { RateLimitGuard } from '@libs/auth/rate-limit/rate-limit.guard';
 import { UserLookupProvider } from '@libs/auth/interfaces/user-lookup-provider.interface';
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { DynamicModule, INestApplication, Module, ValidationPipe } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as bcrypt from 'bcrypt';
@@ -9,6 +9,7 @@ import { mock, MockProxy } from 'jest-mock-extended';
 import request from 'supertest';
 import { App } from 'supertest/types';
 import { AuthController } from '../src/auth/auth.controller';
+import { ConfigService } from '../src/config/config.service';
 import { User } from '../src/users/user.entity';
 
 // Test fixture data
@@ -55,6 +56,23 @@ const createMockUserLookupProvider = (): MockProxy<UserLookupProvider> => {
   return mockProvider;
 };
 
+// AuthModule.forRootAsync() imports JwtModule and RedisModule, both of which
+// inject ConfigService but deliberately don't import ConfigModule themselves
+// (see the comments in libs/auth/auth.module.ts and libs/redis/redis.module.ts —
+// ConfigService is @Global(), normally registered once via AppModule). This
+// stands in for that global registration, the same way AppModule does in prod.
+@Module({})
+class MockConfigModule {}
+
+const buildMockConfigModule = (
+  mockConfigService: MockProxy<ConfigService>,
+): DynamicModule => ({
+  module: MockConfigModule,
+  global: true,
+  providers: [{ provide: ConfigService, useValue: mockConfigService }],
+  exports: [ConfigService],
+});
+
 describe('Authentication (e2e)', () => {
   let app: INestApplication<App>;
   let moduleFixture: TestingModule;
@@ -71,8 +89,26 @@ describe('Authentication (e2e)', () => {
     // Create fresh mock instance
     mockUserLookupProvider = createMockUserLookupProvider();
 
+    const mockConfigService = mock<ConfigService>();
+    mockConfigService.getJwtSecret.mockImplementation(() => {
+      const secret = process.env.JWT_SECRET;
+      if (!secret) {
+        throw new Error(
+          'JWT_SECRET is required but not found in environment variables',
+        );
+      }
+      return secret;
+    });
+    mockConfigService.getRedisConfig.mockReturnValue({
+      url: process.env.REDIS_URL || process.env.REDISCLOUD_URL || undefined,
+      host: process.env.REDIS_HOST || 'localhost',
+      port: parseInt(process.env.REDIS_PORT || '6379', 10),
+      password: process.env.REDIS_PASSWORD || undefined,
+    });
+
     moduleFixture = await Test.createTestingModule({
       imports: [
+        buildMockConfigModule(mockConfigService),
         LibsAuthModule.forRootAsync({
           useFactory: () => mockUserLookupProvider,
         }),

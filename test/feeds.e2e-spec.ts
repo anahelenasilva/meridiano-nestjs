@@ -7,8 +7,10 @@ import request from 'supertest';
 import { App } from 'supertest/types';
 import { ArticlesService } from '../src/articles/articles.service';
 import { DBArticle } from '../src/articles/article.entity';
+import { ConfigService } from '../src/config/config.service';
 import { FeedsController } from '../src/feeds/feeds.controller';
 import { GetArticlesFeedQuery } from '../src/feeds/queries/get-articles-feed.query';
+import { GetYoutubeFeedQuery } from '../src/feeds/queries/get-youtube-feed.query';
 
 describe('Feeds (e2e)', () => {
   let app: INestApplication<App>;
@@ -41,7 +43,9 @@ describe('Feeds (e2e)', () => {
       providers: [
         GetArticlesFeedQuery,
         { provide: ArticlesService, useValue: mockArticlesService },
+        { provide: GetYoutubeFeedQuery, useValue: mock<GetYoutubeFeedQuery>() },
         { provide: APP_GUARD, useClass: JwtAuthGuard },
+        { provide: ConfigService, useValue: mock<ConfigService>() },
       ],
     }).compile();
 

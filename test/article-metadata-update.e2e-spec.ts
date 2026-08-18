@@ -25,6 +25,7 @@ import { ArticlesService } from '../src/articles/articles.service';
 import { GenerateArticleAudioCommand } from '../src/articles/commands/generate-article-audio.command';
 import { GetArticleByIdQuery } from '../src/articles/queries/get-article-by-id.query';
 import { ListArticlesQuery } from '../src/articles/queries/list-articles.query';
+import { ConfigService } from '../src/config/config.service';
 import { ScraperService } from '../src/scraper/scraper.service';
 import { FeedProfile } from '../src/shared/types/feed';
 
@@ -68,6 +69,7 @@ describe('PATCH /api/articles/:id (e2e)', () => {
           provide: GenerateArticleAudioCommand,
           useValue: mock<GenerateArticleAudioCommand>(),
         },
+        { provide: ConfigService, useValue: mock<ConfigService>() },
       ],
     }).compile();
 
