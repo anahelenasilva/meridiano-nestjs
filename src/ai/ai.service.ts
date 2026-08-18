@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable, OnModuleInit } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  OnModuleInit,
+} from '@nestjs/common';
 import Groq from 'groq-sdk';
 import OpenAI from 'openai';
 import { ConfigService } from '../config/config.service';
@@ -19,6 +24,8 @@ import {
 
 @Injectable()
 export class AiService implements OnModuleInit {
+  private readonly logger = new Logger(AiService.name);
+
   private deepseekAdapter: DeepseekAdapter | null = null;
   private openaiAdapter: OpenAIAdapter | null = null;
   private togetherAiAdapter: TogetherAiAdapter | null = null;
@@ -98,14 +105,16 @@ export class AiService implements OnModuleInit {
         undefined,
         OPENAI_TTS_MAX_CHARS,
       );
-      console.log('OpenAI TTS and Chat clients initialized successfully');
+      this.logger.log(
+        `OpenAI TTS and Chat clients initialized successfully (provider: openai, model: ${config.openaiChatModel})`,
+      );
     } else if (enabledChatModel === 'openai') {
       throw new BadRequestException(
         'Configuration error: ENABLED_CHAT_MODEL is set to "openai" but OPENAI_API_KEY is not defined. ' +
           'Please set the OPENAI_API_KEY environment variable or change ENABLED_CHAT_MODEL to "deepseek".',
       );
     } else {
-      console.warn(
+      this.logger.warn(
         'OPENAI_API_KEY not found in environment variables. TTS and OpenAI chat functionality will not be available.',
       );
     }
@@ -121,9 +130,11 @@ export class AiService implements OnModuleInit {
         GROQ_TTS_MAX_CHARS,
         GROQ_TTS_INTER_CHUNK_DELAY_MS,
       );
-      console.log('Groq TTS client initialized successfully');
+      this.logger.log(
+        `Groq TTS client initialized successfully (provider: groq, voice: ${config.groqTtsVoice})`,
+      );
     } else {
-      console.warn(
+      this.logger.warn(
         'GROQ_API_KEY not found in environment variables. Groq TTS functionality will not be available.',
       );
     }
@@ -134,7 +145,13 @@ export class AiService implements OnModuleInit {
         : this.deepseekAdapter;
     this.chatPolicyService = new AiPolicyService(chatAdapter);
 
-    console.log('API clients initialized successfully');
+    const chatModel =
+      enabledChatModel === 'openai' && this.openaiAdapter
+        ? config.openaiChatModel
+        : config.deepseekChatModel;
+    this.logger.log(
+      `API clients initialized successfully (chat provider: ${enabledChatModel}, model: ${chatModel})`,
+    );
   }
 
   async callDeepseekChat(
@@ -150,7 +167,10 @@ export class AiService implements OnModuleInit {
     try {
       return await this.deepseekAdapter.chat(prompt, systemPrompt, model);
     } catch (error) {
-      console.error('Error calling Deepseek Chat API:', error);
+      this.logger.error(
+        'Error calling Deepseek Chat API',
+        error instanceof Error ? error.stack : String(error),
+      );
       return null;
     }
   }
@@ -168,7 +188,10 @@ export class AiService implements OnModuleInit {
     try {
       return await this.openaiAdapter.chat(prompt, systemPrompt, model);
     } catch (error) {
-      console.error('Error calling OpenAI Chat API:', error);
+      this.logger.error(
+        'Error calling OpenAI Chat API',
+        error instanceof Error ? error.stack : String(error),
+      );
       return null;
     }
   }
@@ -184,7 +207,10 @@ export class AiService implements OnModuleInit {
     try {
       return await this.chatPolicyService.chat(prompt, systemPrompt, model);
     } catch (error) {
-      console.error('Error calling Chat API:', error);
+      this.logger.error(
+        'Error calling Chat API',
+        error instanceof Error ? error.stack : String(error),
+      );
       return null;
     }
   }
@@ -271,9 +297,9 @@ export class AiService implements OnModuleInit {
           results[item.index] = embeddings[itemIndex] ?? null;
         });
       } catch (error) {
-        console.error(
-          `Error getting batch embeddings for batch ${i} (items: ${batch.length}):`,
-          error,
+        this.logger.error(
+          `Error getting batch embeddings for batch ${i} (items: ${batch.length})`,
+          error instanceof Error ? error.stack : String(error),
         );
         for (let j = 0; j < batch.length; j++) {
           const item = batch[j];
