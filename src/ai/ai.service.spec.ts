@@ -156,17 +156,19 @@ describe('AiService', () => {
     });
 
     it('returns null and logs error when adapter throws', async () => {
-      const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+      const loggerSpy = jest
+        .spyOn(service['logger'], 'error')
+        .mockImplementation();
       mockDeepseekAdapter.chat.mockRejectedValue(new Error('API failure'));
 
       const result = await service.callDeepseekChat('prompt');
 
       expect(result).toBeNull();
-      expect(consoleSpy).toHaveBeenCalledWith(
-        'Error calling Deepseek Chat API:',
-        expect.any(Error),
+      expect(loggerSpy).toHaveBeenCalledWith(
+        'Error calling Deepseek Chat API',
+        expect.any(String),
       );
-      consoleSpy.mockRestore();
+      loggerSpy.mockRestore();
     });
 
     it('throws when deepseekAdapter is null', async () => {
@@ -196,17 +198,19 @@ describe('AiService', () => {
     });
 
     it('returns null and logs error when adapter throws', async () => {
-      const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+      const loggerSpy = jest
+        .spyOn(service['logger'], 'error')
+        .mockImplementation();
       mockOpenaiAdapter.chat.mockRejectedValue(new Error('quota exceeded'));
 
       const result = await service.callOpenAIChat('prompt');
 
       expect(result).toBeNull();
-      expect(consoleSpy).toHaveBeenCalledWith(
-        'Error calling OpenAI Chat API:',
-        expect.any(Error),
+      expect(loggerSpy).toHaveBeenCalledWith(
+        'Error calling OpenAI Chat API',
+        expect.any(String),
       );
-      consoleSpy.mockRestore();
+      loggerSpy.mockRestore();
     });
 
     it('throws when openaiAdapter is null', async () => {
@@ -236,13 +240,15 @@ describe('AiService', () => {
     });
 
     it('returns null and logs on error', async () => {
-      const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+      const loggerSpy = jest
+        .spyOn(service['logger'], 'error')
+        .mockImplementation();
       mockChatPolicy.chat.mockRejectedValue(new Error('chat failure'));
 
       const result = await service.callChat('prompt');
 
       expect(result).toBeNull();
-      consoleSpy.mockRestore();
+      loggerSpy.mockRestore();
     });
 
     it('throws BadRequestException when chatPolicyService is null', async () => {
@@ -356,7 +362,9 @@ describe('AiService', () => {
       mockEmbedPolicy.embed
         .mockResolvedValueOnce([5, 6])
         .mockResolvedValueOnce([7, 8]);
-      const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+      const loggerSpy = jest
+        .spyOn(service['logger'], 'error')
+        .mockImplementation();
 
       const results = await service.getBatchEmbeddings(['alpha', 'beta']);
 
@@ -364,7 +372,7 @@ describe('AiService', () => {
         [5, 6],
         [7, 8],
       ]);
-      consoleSpy.mockRestore();
+      loggerSpy.mockRestore();
     });
 
     it('uses per-item embedding for long inputs', async () => {

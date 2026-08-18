@@ -29,8 +29,6 @@ export class ProcessorService {
     articleId?: string,
     generateAudio?: boolean,
   ): Promise<ProcessingStats> {
-    // console.log('\n--- Starting Article Processing ---');
-
     const stats: ProcessingStats = {
       feedProfile,
       articlesProcessed: 0,
@@ -53,18 +51,18 @@ export class ProcessorService {
     }
 
     if (unprocessedArticles.length === 0) {
-      console.log('No new articles to process.');
+      this.logger.log('No new articles to process.');
       stats.endTime = new Date();
       return stats;
     }
 
-    console.log(`Found ${unprocessedArticles.length} articles to process.`);
+    this.logger.log(`Found ${unprocessedArticles.length} articles to process.`);
 
     const profilePrompts =
       this.profilesService.getPromptsForProfile(feedProfile);
 
     for (const article of unprocessedArticles) {
-      console.log(`Processing article ID: ${article.id} - ${article.title}...`);
+      this.logger.log(`Processing article ID: ${article.id} - ${article.title}...`);
 
       try {
         const articleTitle = article.title || article.feed_source || 'Untitled';
@@ -89,7 +87,7 @@ export class ProcessorService {
         const summary = await this.aiService.callChat(summaryPrompt);
 
         if (!summary) {
-          console.log(
+          this.logger.warn(
             `Skipping article ${article.id} due to summarization error.`,
           );
           stats.errors++;
@@ -127,11 +125,11 @@ export class ProcessorService {
         );
 
         stats.articlesProcessed++;
-        console.log(`Successfully processed article ID: ${article.id}`);
+        this.logger.log(`Successfully processed article ID: ${article.id}`);
 
         if (generateAudio) {
           try {
-            console.log(
+            this.logger.log(
               `Enqueuing audio generation for article ID: ${article.id}...`,
             );
 
@@ -144,24 +142,27 @@ export class ProcessorService {
                 : new Date(),
             });
 
-            console.log(`Audio generation job enqueued: ${jobInfo.jobId}`);
+            this.logger.log(`Audio generation job enqueued: ${jobInfo.jobId}`);
           } catch (audioError) {
-            console.error(
-              `Error enqueuing audio generation for article ID: ${article.id}:`,
-              audioError,
+            this.logger.error(
+              `Error enqueuing audio generation for article ID: ${article.id}`,
+              audioError instanceof Error ? audioError.stack : String(audioError),
             );
           }
         }
 
         await new Promise((resolve) => setTimeout(resolve, 1000));
       } catch (error) {
-        console.error(`Error processing article ${article.id}:`, error);
+        this.logger.error(
+          `Error processing article ${article.id}`,
+          error instanceof Error ? error.stack : String(error),
+        );
         stats.errors++;
       }
     }
 
     stats.endTime = new Date();
-    console.log(
+    this.logger.log(
       `--- Processing Finished. Processed ${stats.articlesProcessed} articles. ---`,
     );
 
@@ -230,21 +231,21 @@ The article summary was successfully generated but embedding generation failed. 
     }
 
     if (unratedArticles.length === 0) {
-      console.log('No new articles to rate.');
+      this.logger.log('No new articles to rate.');
       stats.endTime = new Date();
       return stats;
     }
 
-    console.log(`Found ${unratedArticles.length} processed articles to rate.`);
+    this.logger.log(`Found ${unratedArticles.length} processed articles to rate.`);
 
     const profilePrompts =
       this.profilesService.getPromptsForProfile(feedProfile);
 
     for (const article of unratedArticles) {
-      console.log(`Rating article ID: ${article.id}: ${article.title}...`);
+      this.logger.log(`Rating article ID: ${article.id}: ${article.title}...`);
 
       if (!article.processed_content) {
-        console.log(`  Skipping article ${article.id} - no summary found.`);
+        this.logger.warn(`Skipping article ${article.id} - no summary found.`);
         continue;
       }
 
@@ -270,40 +271,46 @@ The article summary was successfully generated but embedding generation failed. 
                 );
                 stats.articlesRated++;
               } else {
-                console.log(
-                  `  Warning: Rating ${score} for article ${article.id} is out of range (1-10).`,
+                this.logger.warn(
+                  `Rating ${score} for article ${article.id} is out of range (1-10).`,
                 );
                 stats.errors++;
               }
             } else {
-              console.log(
-                `  Warning: Could not extract numeric rating from response '${ratingResponse}' for article ${article.id}.`,
+              this.logger.warn(
+                `Could not extract numeric rating from response '${ratingResponse}' for article ${article.id}.`,
               );
               stats.errors++;
             }
           } catch (error) {
-            console.error(`Error rating article ${article.id}:`, error);
-            console.log(
-              `  Warning: Could not parse rating from response '${ratingResponse}' for article ${article.id}.`,
+            this.logger.error(
+              `Error rating article ${article.id}`,
+              error instanceof Error ? error.stack : String(error),
+            );
+            this.logger.warn(
+              `Could not parse rating from response '${ratingResponse}' for article ${article.id}.`,
             );
             stats.errors++;
           }
         } else {
-          console.log(
-            `  Warning: No rating response received for article ${article.id}.`,
+          this.logger.warn(
+            `No rating response received for article ${article.id}.`,
           );
           stats.errors++;
         }
 
         await new Promise((resolve) => setTimeout(resolve, 1000));
       } catch (error) {
-        console.error(`Error rating article ${article.id}:`, error);
+        this.logger.error(
+          `Error rating article ${article.id}`,
+          error instanceof Error ? error.stack : String(error),
+        );
         stats.errors++;
       }
     }
 
     stats.endTime = new Date();
-    console.log(
+    this.logger.log(
       `--- Rating Finished. Rated ${stats.articlesRated} articles. ---`,
     );
 
@@ -335,19 +342,19 @@ The article summary was successfully generated but embedding generation failed. 
     }
 
     if (uncategorizedArticles.length === 0) {
-      console.log('No new articles to categorize.');
+      this.logger.log('No new articles to categorize.');
       stats.endTime = new Date();
       return stats;
     }
 
-    console.log(
+    this.logger.log(
       `Found ${uncategorizedArticles.length} processed articles to categorize.`,
     );
 
     for (const article of uncategorizedArticles) {
       if (!article.processed_content) {
-        console.log(
-          `  Skipping article ${article.id} - no processed content found.`,
+        this.logger.warn(
+          `Skipping article ${article.id} - no processed content found.`,
         );
         continue;
       }
@@ -379,8 +386,8 @@ The article summary was successfully generated but embedding generation failed. 
                 );
                 stats.articlesCategorized++;
               } else {
-                console.log(
-                  `  Warning: No valid categories found in response for article ${article.id}.`,
+                this.logger.warn(
+                  `No valid categories found in response for article ${article.id}.`,
                 );
                 await this.articlesService.updateArticleCategories(article.id, [
                   ArticleCategory.OTHER,
@@ -388,8 +395,8 @@ The article summary was successfully generated but embedding generation failed. 
                 stats.articlesCategorized++;
               }
             } else {
-              console.log(
-                `  Warning: Invalid category array format for article ${article.id}.`,
+              this.logger.warn(
+                `Invalid category array format for article ${article.id}.`,
               );
               await this.articlesService.updateArticleCategories(article.id, [
                 ArticleCategory.OTHER,
@@ -397,12 +404,12 @@ The article summary was successfully generated but embedding generation failed. 
               stats.articlesCategorized++;
             }
           } catch (parseError) {
-            console.error(
-              `Error parsing category response for article ${article.id}:`,
-              parseError,
+            this.logger.error(
+              `Error parsing category response for article ${article.id}`,
+              parseError instanceof Error ? parseError.stack : String(parseError),
             );
-            console.log(
-              `  Warning: Could not parse category response '${categoryResponse}' for article ${article.id}.`,
+            this.logger.warn(
+              `Could not parse category response '${categoryResponse}' for article ${article.id}.`,
             );
             await this.articlesService.updateArticleCategories(article.id, [
               ArticleCategory.OTHER,
@@ -410,8 +417,8 @@ The article summary was successfully generated but embedding generation failed. 
             stats.articlesCategorized++;
           }
         } else {
-          console.log(
-            `  Warning: No category response received for article ${article.id}.`,
+          this.logger.warn(
+            `No category response received for article ${article.id}.`,
           );
           await this.articlesService.updateArticleCategories(article.id, [
             ArticleCategory.OTHER,
@@ -421,13 +428,16 @@ The article summary was successfully generated but embedding generation failed. 
 
         await new Promise((resolve) => setTimeout(resolve, 1000));
       } catch (error) {
-        console.error(`Error categorizing article ${article.id}:`, error);
+        this.logger.error(
+          `Error categorizing article ${article.id}`,
+          error instanceof Error ? error.stack : String(error),
+        );
         stats.errors++;
       }
     }
 
     stats.endTime = new Date();
-    console.log(
+    this.logger.log(
       `--- Categorization Finished. Categorized ${stats.articlesCategorized} articles. ---`,
     );
 
