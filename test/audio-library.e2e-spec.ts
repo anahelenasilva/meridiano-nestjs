@@ -86,7 +86,7 @@ async function restoreAudioFiles(
         ],
       );
     } catch (err) {
-      // eslint-disable-next-line no-console
+       
       console.error(`Failed to restore audio_files row ${row.id}`, err);
     }
   }
@@ -237,7 +237,7 @@ describe('GET /api/audio (e2e)', () => {
       try {
         await restoreAudioFiles(db, preexistingAudioFiles);
       } catch (err) {
-        // eslint-disable-next-line no-console
+         
         console.error('Failed to restore audio_files snapshot', err);
       }
     }
@@ -249,7 +249,7 @@ describe('GET /api/audio (e2e)', () => {
         await runQuery(db, `DELETE FROM articles WHERE id = ?`, [articleId]);
         await runQuery(db, `DELETE FROM users WHERE id = ?`, [userId]);
       } catch (err) {
-        // eslint-disable-next-line no-console
+         
         console.error('Failed to clean up seeded rows', err);
       }
     }

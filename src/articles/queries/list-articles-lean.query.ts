@@ -16,20 +16,19 @@ export type ListArticlesLeanRequest = {
 // processed_content and the derived has_audio flag. Deliberately omits the
 // heavy fields the frontend needs (raw_content, embedding, rendered HTML,
 // summary/impact/image/categories) so a CLI list stays cheap to fetch.
-const LEAN_FIELDS = [
-  'id',
-  'url',
-  'title',
-  'published_date',
-  'feed_source',
-  'feed_profile',
-  'custom_prompt',
-  'created_at',
-  'has_audio',
-  'processed_content',
-] as const;
-
-type LeanArticle = Pick<ArticleListRow, (typeof LEAN_FIELDS)[number]>;
+type LeanArticle = Pick<
+  ArticleListRow,
+  | 'id'
+  | 'url'
+  | 'title'
+  | 'published_date'
+  | 'feed_source'
+  | 'feed_profile'
+  | 'custom_prompt'
+  | 'created_at'
+  | 'has_audio'
+  | 'processed_content'
+>;
 type LeanArticleItem = WithNote<LeanArticle>;
 
 export type ListArticlesLeanResponse = {
