@@ -837,6 +837,31 @@
         ]
       }
     },
+    "/api/articles/lean": {
+      "get": {
+        "operationId": "ArticlesController_listArticlesLean",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Paginated lean list of articles"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "List articles with a lean field set for CLI listings (all articles are global; per-user notes attach only for a JWT user)",
+        "tags": [
+          "Articles"
+        ]
+      }
+    },
     "/api/articles/markdown": {
       "post": {
         "operationId": "ArticlesController_processMarkdownArticle",

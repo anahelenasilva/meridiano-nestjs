@@ -120,6 +120,10 @@ async function createOpenApiApp(): Promise<INestApplication> {
     '../articles/queries/list-articles.query.js',
     'ListArticlesQuery',
   );
+  const ListArticlesLeanQuery = loadDistExport<Type<unknown>>(
+    '../articles/queries/list-articles-lean.query.js',
+    'ListArticlesLeanQuery',
+  );
   const GetArticleByIdQuery = loadDistExport<Type<unknown>>(
     '../articles/queries/get-article-by-id.query.js',
     'GetArticleByIdQuery',
@@ -287,6 +291,7 @@ async function createOpenApiApp(): Promise<INestApplication> {
       { provide: NOTES_SERVICE, useValue: notesServiceStub },
       { provide: ArticlesService, useValue: {} },
       { provide: ListArticlesQuery, useValue: {} },
+    { provide: ListArticlesLeanQuery, useValue: {} },
       { provide: GetArticleByIdQuery, useValue: {} },
       { provide: ScraperService, useValue: {} },
       { provide: GenerateArticleAudioCommand, useValue: {} },
