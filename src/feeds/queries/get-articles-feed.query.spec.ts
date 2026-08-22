@@ -1,6 +1,5 @@
 import { mock } from 'jest-mock-extended';
-import { ArticlesService } from '../../articles/articles.service';
-import { DBArticle } from '../../articles/article.entity';
+import { ArticleListRow, ArticlesService } from '../../articles/articles.service';
 import { FeedProfile } from '../../shared/types/feed';
 import { FEED_DEFAULT_ITEM_LIMIT } from '../helpers/parse-feed-query';
 import { GetArticlesFeedQuery } from './get-articles-feed.query';
@@ -16,7 +15,9 @@ describe('GetArticlesFeedQuery', () => {
     return new GetArticlesFeedQuery(mockArticlesService);
   }
 
-  function buildArticle(overrides: Partial<DBArticle> = {}): DBArticle {
+  // The RSS feed does not render has_audio; it is only present here to
+  // satisfy getArticlesPaginated's return type.
+  function buildArticle(overrides: Partial<ArticleListRow> = {}): ArticleListRow {
     return {
       id: 'article-1',
       url: 'https://source.example.com/article-1',
@@ -27,6 +28,7 @@ describe('GetArticlesFeedQuery', () => {
       processed_content: 'processed body',
       feed_profile: 'technology',
       created_at: new Date('2026-07-25T12:00:00.000Z'),
+      has_audio: false,
       ...overrides,
     };
   }

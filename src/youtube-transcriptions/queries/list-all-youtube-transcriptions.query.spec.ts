@@ -2,8 +2,10 @@ import { mock } from 'jest-mock-extended';
 import { Note } from '../../notes/note.entity';
 import { NotesReadService } from '../../notes/notes-read.service';
 import { ChannelCategoriesService } from '../../youtube-channels/channel-categories.service';
-import { DBYoutubeTranscription } from '../entities/youtube-transcription.entity';
-import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
+import {
+  YoutubeTranscriptionListRow,
+  YoutubeTranscriptionsService,
+} from '../services/youtube-transcriptions.service';
 import { ListAllYoutubeTranscriptionsQuery } from './list-all-youtube-transcriptions.query';
 
 describe('ListAllYoutubeTranscriptionsQuery', () => {
@@ -12,7 +14,7 @@ describe('ListAllYoutubeTranscriptionsQuery', () => {
   const mockChannelCategoriesService = mock<ChannelCategoriesService>();
 
   const userId = 'user-1';
-  const transcriptionA: DBYoutubeTranscription = {
+  const transcriptionA: YoutubeTranscriptionListRow = {
     id: '11111111-1111-1111-1111-111111111111',
     channelId: 'channel-1',
     channelName: 'Channel One',
@@ -21,8 +23,9 @@ describe('ListAllYoutubeTranscriptionsQuery', () => {
     videoUrl: 'https://youtube.com/watch?v=a',
     processedAt: new Date('2024-01-01'),
     transcriptionText: 'Text A',
+    has_audio: true,
   };
-  const transcriptionB: DBYoutubeTranscription = {
+  const transcriptionB: YoutubeTranscriptionListRow = {
     id: '22222222-2222-2222-2222-222222222222',
     channelId: 'channel-1',
     channelName: 'Channel One',
@@ -31,6 +34,7 @@ describe('ListAllYoutubeTranscriptionsQuery', () => {
     videoUrl: 'https://youtube.com/watch?v=b',
     processedAt: new Date('2024-01-02'),
     transcriptionText: 'Text B',
+    has_audio: false,
   };
   const availableChannels = [{ id: 'channel-1', name: 'Channel One' }];
 
@@ -163,5 +167,19 @@ describe('ListAllYoutubeTranscriptionsQuery', () => {
       'transcription',
       [],
     );
+  });
+
+  it('passes has_audio through unchanged from the service row to each response item', async () => {
+    mockService.getAllTranscriptions.mockResolvedValue([
+      transcriptionA,
+      transcriptionB,
+    ]);
+
+    const result = await query.execute(userId);
+
+    expect(result?.transcriptions.map((t) => t.has_audio)).toEqual([
+      true,
+      false,
+    ]);
   });
 });

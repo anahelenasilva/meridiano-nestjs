@@ -66,8 +66,12 @@ _Avoid_: briefing digest, news briefing (it is not a Briefing in the domain sens
 ### Articles & Reading
 
 **Audio Summary**:
-A text-to-speech audio rendering of an Article Summary. Belongs to an article, not a briefing.
-_Avoid_: audio briefing, audio file, TTS file
+A text-to-speech rendering of an Article Summary or of a YouTube Transcription's summary. At most one per source. Generated on demand, not at ingestion of the source itself. Once stored it is persisted and playable.
+_Avoid_: audio briefing, audio file, TTS file, and any use covering generation that has not finished (that is an Audio Generation Job)
+
+**Audio Generation Job**:
+One queued, running, or failed attempt to produce an Audio Summary. Lives in the BullMQ queue, not in the database, and is transient.
+_Avoid_: audio status (blurs the durable fact with the transient one), pending audio
 
 **Article**:
 A piece of written content ingested into the platform. Sources include RSS feeds, website URLs (scraped), and uploaded markdown files (for non-public or unscrappable sites). YouTube transcriptions are not Articles.
@@ -92,7 +96,8 @@ Meridiano is intentionally single-user. The owner is the only operator; there is
 - A **Standard Briefing** draws from **Articles** filtered and grouped into **Article Clusters** by **Feed Profile**
 - A **Curated Briefing** draws from an explicit set of **Articles** supplied by the user
 - A **Bookmark** references an **Article**
-- A **YouTube Transcription** is independent — it shares no pipeline with **Articles** or **Briefings**
+- A **YouTube Transcription** has one optional **Audio Summary**
+- A **YouTube Transcription** is processed independently from **Articles** and **Briefings**, sharing no briefing pipeline
 
 ## Example dialogue
 

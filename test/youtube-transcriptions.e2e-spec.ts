@@ -36,10 +36,12 @@ import { YoutubeChannelsController } from '../src/youtube-channels/youtube-chann
 import { YoutubeChannelsService } from '../src/youtube-channels/youtube-channels.service';
 import { CreateYoutubeTranscriptionCommand } from '../src/youtube-transcriptions/commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from '../src/youtube-transcriptions/commands/delete-youtube-transcription.command';
-import { DBYoutubeTranscription } from '../src/youtube-transcriptions/entities/youtube-transcription.entity';
 import { GetYoutubeTranscriptionByIdQuery } from '../src/youtube-transcriptions/queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from '../src/youtube-transcriptions/queries/list-all-youtube-transcriptions.query';
-import { YoutubeTranscriptionsService } from '../src/youtube-transcriptions/services/youtube-transcriptions.service';
+import {
+  YoutubeTranscriptionListRow,
+  YoutubeTranscriptionsService,
+} from '../src/youtube-transcriptions/services/youtube-transcriptions.service';
 import { YoutubeTranscriptionsController } from '../src/youtube-transcriptions/youtube-transcriptions.controller';
 
 describe('YouTube Transcriptions list (e2e)', () => {
@@ -80,8 +82,8 @@ describe('YouTube Transcriptions list (e2e)', () => {
   }
 
   function buildTranscription(
-    overrides: Partial<DBYoutubeTranscription> = {},
-  ): DBYoutubeTranscription {
+    overrides: Partial<YoutubeTranscriptionListRow> = {},
+  ): YoutubeTranscriptionListRow {
     return {
       id: 'transcription-1',
       channelId: augustoInternalId,
@@ -91,6 +93,7 @@ describe('YouTube Transcriptions list (e2e)', () => {
       videoUrl: 'https://youtube.com/watch?v=a',
       processedAt: new Date('2026-01-01T00:00:00.000Z'),
       transcriptionText: 'Text A',
+      has_audio: false,
       ...overrides,
     };
   }
