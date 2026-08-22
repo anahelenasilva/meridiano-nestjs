@@ -23,6 +23,51 @@ interface AudioFileRow {
   created_at: string;
 }
 
+/**
+ * One row of the audio library: an audio file joined back to the Article or
+ * YouTube Transcription it was generated from.
+ */
+export interface AudioLibraryEntry {
+  audio_id: string;
+  source_type: 'article' | 'transcription';
+  source_id: string;
+  s3_bucket: string;
+  s3_key: string;
+  file_size_bytes: number;
+  duration_seconds?: number;
+  created_at: Date;
+  title: string;
+  source_label: string;
+  published_at: string | null;
+}
+
+interface AudioLibraryRow {
+  audio_id: string;
+  source_type: 'article' | 'transcription';
+  source_id: string;
+  s3_bucket: string;
+  s3_key: string;
+  file_size_bytes: number;
+  duration_seconds?: number | null;
+  created_at: string;
+  title: string;
+  source_label: string;
+  published_at: string | null;
+}
+
+/**
+ * Audio rows are not deleted with their source, so every library read joins
+ * back to Articles / YouTube Transcriptions and drops orphaned audio.
+ */
+const AUDIO_LIBRARY_JOIN = `
+  FROM audio_files af
+  LEFT JOIN articles a
+    ON af.source_type = 'article' AND a.id = af.source_id
+  LEFT JOIN youtube_transcriptions t
+    ON af.source_type = 'transcription' AND t.id = af.source_id
+  WHERE COALESCE(a.id, t.id) IS NOT NULL
+`;
+
 @Injectable()
 export class AudioFilesService {
   constructor(private readonly databaseService: DatabaseService) {}
@@ -103,6 +148,72 @@ export class AudioFilesService {
           } else {
             resolve(null);
           }
+        },
+      );
+    });
+  }
+
+  /**
+   * Reads the unified audio library, newest generated audio first.
+   * `id` breaks ties so pagination stays stable across pages.
+   */
+  async listAudioLibrary(limit: number, offset: number): Promise<AudioLibraryEntry[]> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      const query = `
+        SELECT
+          af.id AS audio_id,
+          af.source_type,
+          af.source_id,
+          af.s3_bucket,
+          af.s3_key,
+          af.file_size_bytes,
+          af.duration_seconds,
+          af.created_at,
+          COALESCE(a.title, t.video_title) AS title,
+          COALESCE(a.feed_source, t.channel_name) AS source_label,
+          COALESCE(a.published_date::text, t.posted_at) AS published_at
+        ${AUDIO_LIBRARY_JOIN}
+        ORDER BY af.created_at DESC, af.id DESC
+        LIMIT ? OFFSET ?
+      `;
+
+      db.all(
+        query,
+        [limit, offset],
+        (err, rows: AudioLibraryRow[] = []) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(
+            rows.map((row) => ({
+              ...row,
+              created_at: new Date(row.created_at),
+              duration_seconds: row.duration_seconds ?? undefined,
+            })),
+          );
+        },
+      );
+    });
+  }
+
+  async countAudioLibrary(): Promise<number> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      db.get(
+        `SELECT COUNT(*) AS total ${AUDIO_LIBRARY_JOIN}`,
+        [],
+        (err, row: { total: number | string } | undefined) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(Number(row?.total ?? 0));
         },
       );
     });
