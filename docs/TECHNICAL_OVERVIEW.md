@@ -100,11 +100,44 @@ All endpoints prefixed with `/api/`. Authentication required globally except exp
 | `/api/profiles`               | List available feed profiles                                                                                    |
 | `/api/articles`               | List/detail/create/delete, markdown upload flow, job status, audio enqueue/status                               |
 | `/api/articles/external`      | Public external submission (token-protected, rate-limited)                                                      |
+| `/api/audio`                  | Get unified audio library (paginated, newest-generated-first, presigned URLs)                                   |
 | `/api/briefings`              | List, get                                                                                                       |
 | `/api/youtube/transcriptions` | List, get, process video, delete, audio enqueue                                                                 |
 | `/api/youtube/channels`       | List, create, enable/disable                                                                                    |
 | `/api/bookmarks`              | Create, list, delete, check, count                                                                              |
 | `/feeds/articles.xml`         | Public RSS feed of Articles (no `/api` prefix, no auth) — see [Nextcloud News setup](./NEXTCLOUD_NEWS_SETUP.md) |
+
+### Unified Audio Library: GET /api/audio
+
+Paginated read of generated audio drawn from Articles and YouTube Transcriptions. Audio-only (every item is playable), ordered newest-generated-first. One presigned S3 URL per item. Query params: `page`, `perPage`.
+
+Response envelope:
+```json
+{
+  "audios": [
+    {
+      "audio_id": "string",
+      "source_type": "article | transcription",
+      "source_id": "string",
+      "title": "string",
+      "source_label": "string",
+      "published_at": "string | null",
+      "audio": {
+        "duration_seconds": "number (optional)",
+        "file_size_bytes": "number",
+        "presigned_url": "string",
+        "created_at": "string"
+      }
+    }
+  ],
+  "pagination": {
+    "page": "number",
+    "per_page": "number",
+    "total_pages": "number",
+    "total_audios": "number"
+  }
+}
+```
 
 ## Configuration
 

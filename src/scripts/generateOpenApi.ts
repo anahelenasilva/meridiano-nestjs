@@ -107,6 +107,10 @@ async function createOpenApiApp(): Promise<INestApplication> {
     '../categories/categories.controller.js',
     'CategoriesController',
   );
+  const AudioController = loadDistExport<Type<unknown>>(
+    '../audio-files/audio-files.controller.js',
+    'AudioController',
+  );
 
   const ArticlesService = loadDistExport<Type<unknown>>(
     '../articles/articles.service.js',
@@ -212,6 +216,10 @@ async function createOpenApiApp(): Promise<INestApplication> {
     '../audio-files/audio-files.service.js',
     'AudioFilesService',
   );
+  const ListAudioLibraryQuery = loadDistExport<Type<unknown>>(
+    '../audio-files/queries/list-audio-library.query.js',
+    'ListAudioLibraryQuery',
+  );
   const ListCategoriesQuery = loadDistExport<Type<unknown>>(
     '../categories/queries/list-categories.query.js',
     'ListCategoriesQuery',
@@ -273,6 +281,7 @@ async function createOpenApiApp(): Promise<INestApplication> {
       YoutubeChannelsController,
       YoutubeTranscriptionsController,
       CategoriesController,
+      AudioController,
     ],
     providers: [
       { provide: NOTES_SERVICE, useValue: notesServiceStub },
@@ -302,6 +311,7 @@ async function createOpenApiApp(): Promise<INestApplication> {
       { provide: DeleteYoutubeTranscriptionCommand, useValue: {} },
       { provide: CreateYoutubeTranscriptionCommand, useValue: {} },
       { provide: AudioFilesService, useValue: {} },
+      { provide: ListAudioLibraryQuery, useValue: {} },
       { provide: ListCategoriesQuery, useValue: {} },
       { provide: CreateCategoryCommand, useValue: {} },
       { provide: RenameCategoryCommand, useValue: {} },
