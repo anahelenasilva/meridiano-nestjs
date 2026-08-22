@@ -1138,6 +1138,31 @@
         ]
       }
     },
+    "/api/audio": {
+      "get": {
+        "operationId": "AudioController_listAudio",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Paginated list of generated audio"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "List generated audio from Articles and YouTube Transcriptions in one place",
+        "tags": [
+          "Audio"
+        ]
+      }
+    },
     "/api/auth/login": {
       "post": {
         "operationId": "AuthController_login",
