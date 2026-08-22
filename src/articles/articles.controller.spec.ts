@@ -157,6 +157,30 @@ describe('ArticlesController', () => {
       expect(result).toEqual(response);
       expect(mockListArticlesQuery.execute).toHaveBeenCalledWith('user-1', input);
     });
+
+    it('forwards undefined user id on the api-key path (no authenticated user)', async () => {
+      mockListArticlesQuery.execute.mockResolvedValue({ articles: [] } as never);
+
+      const controller = new ArticlesController(
+        mock(),
+        mockListArticlesQuery,
+        mock(),
+        mock(),
+        mock(),
+        mock(),
+        mock(),
+        mock(),
+        mock(),
+      );
+      const input = { page: 1, perPage: 20 };
+
+      await controller.listArticles(undefined, input);
+
+      expect(mockListArticlesQuery.execute).toHaveBeenCalledWith(
+        undefined,
+        input,
+      );
+    });
   });
 
   describe('generateAudio', () => {

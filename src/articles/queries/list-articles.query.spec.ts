@@ -103,4 +103,18 @@ describe('ListArticlesQuery', () => {
       null,
     ]);
   });
+
+  it('skips the note lookup and returns null notes when there is no user (api-key path)', async () => {
+    mockService.getArticlesPaginated.mockResolvedValue([articleA, articleB]);
+
+    const result = await query.execute(undefined, {});
+
+    expect(
+      mockNotesReadService.getActiveNotesBySourceIds,
+    ).not.toHaveBeenCalled();
+    expect(result?.articles.map((article) => article.note)).toEqual([
+      null,
+      null,
+    ]);
+  });
 });
