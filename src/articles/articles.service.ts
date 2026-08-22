@@ -1,5 +1,6 @@
 import { DatabaseService } from '@libs/database';
 import { Injectable } from '@nestjs/common';
+import { AudioFilesCleanupService } from '../audio-files/audio-files-cleanup.service';
 import { NotesCleanupService } from '../notes/notes-cleanup.service';
 import { FeedProfile } from '../shared/types/feed';
 import {
@@ -36,6 +37,7 @@ export class ArticlesService {
   constructor(
     private readonly databaseService: DatabaseService,
     private readonly notesCleanupService: NotesCleanupService,
+    private readonly audioFilesCleanupService: AudioFilesCleanupService,
   ) {}
 
   async addArticle(
@@ -441,6 +443,10 @@ export class ArticlesService {
     });
 
     await this.notesCleanupService.purgeNotesForSource('article', articleId);
+    await this.audioFilesCleanupService.purgeAudioForSource(
+      'article',
+      articleId,
+    );
   }
 
   async getArticleById(articleId: string): Promise<DBArticle | null> {

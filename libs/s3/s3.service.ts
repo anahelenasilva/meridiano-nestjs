@@ -1,4 +1,5 @@
 import {
+  DeleteObjectCommand,
   GetObjectCommand,
   PutObjectCommand,
   PutObjectCommandInput,
@@ -183,6 +184,29 @@ export class S3Service {
 
       throw new Error(
         `Failed to upload file ${key} to bucket ${bucketName}: ${errorMessage}`,
+      );
+    }
+  }
+
+  /**
+   * Removes a single object. Scoped to the exact key passed in, so callers
+   * control the blast radius (never a prefix delete). S3 DeleteObject is
+   * idempotent: deleting a missing key still resolves successfully.
+   */
+  async deleteObject(bucketName: string, key: string): Promise<void> {
+    try {
+      const command = new DeleteObjectCommand({
+        Bucket: bucketName,
+        Key: key,
+      });
+
+      await this.s3Client.send(command);
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+
+      throw new Error(
+        `Failed to delete object ${key} from bucket ${bucketName}: ${errorMessage}`,
       );
     }
   }

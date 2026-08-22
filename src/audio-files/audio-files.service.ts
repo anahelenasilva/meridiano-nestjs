@@ -123,6 +123,32 @@ export class AudioFilesService {
     });
   }
 
+  /**
+   * Returns the number of rows deleted so callers can tell whether a record
+   * actually existed for the source.
+   */
+  async deleteAudioFileBySource(
+    sourceType: 'article' | 'transcription',
+    sourceId: string,
+  ): Promise<number> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      db.run(
+        `DELETE FROM audio_files WHERE source_type = ? AND source_id = ?`,
+        [sourceType, sourceId],
+        function (this: { changes?: number }, err: Error | null) {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(this.changes ?? 0);
+        },
+      );
+    });
+  }
+
   async getAudioFileBySource(
     sourceType: 'article' | 'transcription',
     sourceId: string,

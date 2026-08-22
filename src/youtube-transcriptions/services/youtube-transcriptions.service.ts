@@ -1,6 +1,7 @@
 import { DatabaseService } from '@libs/database';
 import { QueueService } from '@libs/queue';
 import { Inject, Injectable, Logger, forwardRef } from '@nestjs/common';
+import { AudioFilesCleanupService } from '../../audio-files/audio-files-cleanup.service';
 import { NotesCleanupService } from '../../notes/notes-cleanup.service';
 import { ChannelConfig } from '../../shared/types/channel';
 import { TranscriptItem, VideoWithTranscript } from '../../shared/types/video';
@@ -85,6 +86,7 @@ export class YoutubeTranscriptionsService {
     private readonly queueService: QueueService,
     private readonly youtubeChannelsService: YoutubeChannelsService,
     private readonly notesCleanupService: NotesCleanupService,
+    private readonly audioFilesCleanupService: AudioFilesCleanupService,
   ) {}
 
   /**
@@ -949,5 +951,9 @@ export class YoutubeTranscriptionsService {
     });
 
     await this.notesCleanupService.purgeNotesForSource('transcription', id);
+    await this.audioFilesCleanupService.purgeAudioForSource(
+      'transcription',
+      id,
+    );
   }
 }
