@@ -18,7 +18,6 @@ import { TranscriptBackupProcessor } from './processors/transcript-backup.proces
 import { YoutubeTranscriptionProcessor } from './processors/youtube-transcription.processor';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
-import { ListYoutubeTranscriptionsQuery } from './queries/list-youtube-transcriptions.query';
 import { StorageService } from './services/storage.service';
 import { TranscriptChunkingService } from './services/transcript-chunking.service';
 import { TranscriptService } from './services/transcript.service';
@@ -55,7 +54,6 @@ import { ProcessTranscriptionFilesUseCase } from './usecases/process-transcripti
     AiService,
     ConfigService,
     TranscriptChunkingService,
-    ListYoutubeTranscriptionsQuery,
     ListAllYoutubeTranscriptionsQuery,
     GetYoutubeTranscriptionByIdQuery,
     DeleteYoutubeTranscriptionCommand,
