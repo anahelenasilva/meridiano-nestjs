@@ -1,3 +1,4 @@
+import { AudioJobService } from '@libs/audio';
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import { ApiAuthErrorResponse } from '../shared/swagger/api-error-response.decorators';
@@ -9,7 +10,10 @@ import type { ListAudioLibraryRequest } from './queries/list-audio-library.query
 @Controller('api/audio')
 @ApiAuthErrorResponse()
 export class AudioController {
-  constructor(private readonly listAudioLibraryQuery: ListAudioLibraryQuery) {}
+  constructor(
+    private readonly listAudioLibraryQuery: ListAudioLibraryQuery,
+    private readonly audioJobService: AudioJobService,
+  ) {}
 
   @Get()
   @ApiOperation({
@@ -19,5 +23,17 @@ export class AudioController {
   @ApiOkResponse({ description: 'Paginated list of generated audio' })
   async listAudio(@Query() input: ListAudioLibraryRequest) {
     return await this.listAudioLibraryQuery.execute(input);
+  }
+
+  // Declared before any future @Get(':id') so 'jobs' is never captured as a
+  // route param.
+  @Get('jobs')
+  @ApiOperation({
+    summary:
+      'List in-flight and recently-failed audio generation jobs, keyed by source',
+  })
+  @ApiOkResponse({ description: 'Queued, generating, and failed audio jobs' })
+  async listJobs() {
+    return { jobs: await this.audioJobService.listActiveAndFailedJobs() };
   }
 }
