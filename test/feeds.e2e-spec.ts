@@ -5,8 +5,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { mock, MockProxy } from 'jest-mock-extended';
 import request from 'supertest';
 import { App } from 'supertest/types';
-import { ArticlesService } from '../src/articles/articles.service';
-import { DBArticle } from '../src/articles/article.entity';
+import { ArticleListRow, ArticlesService } from '../src/articles/articles.service';
 import { ConfigService } from '../src/config/config.service';
 import { FeedsController } from '../src/feeds/feeds.controller';
 import { GetArticlesFeedQuery } from '../src/feeds/queries/get-articles-feed.query';
@@ -17,7 +16,9 @@ describe('Feeds (e2e)', () => {
   let moduleFixture: TestingModule;
   let mockArticlesService: MockProxy<ArticlesService>;
 
-  function buildArticle(overrides: Partial<DBArticle> = {}): DBArticle {
+  // The RSS feed does not render has_audio; it is only present here to
+  // satisfy getArticlesPaginated's return type.
+  function buildArticle(overrides: Partial<ArticleListRow> = {}): ArticleListRow {
     return {
       id: 'article-1',
       url: 'https://source.example.com/article-1',
@@ -28,6 +29,7 @@ describe('Feeds (e2e)', () => {
       processed_content: 'processed body',
       feed_profile: 'technology',
       created_at: new Date('2026-07-25T12:00:00.000Z'),
+      has_audio: false,
       ...overrides,
     };
   }

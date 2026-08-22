@@ -20,7 +20,14 @@ export type ListArticlesRequest = {
   category?: string;
 };
 
-type ListArticleItem = WithNote<Awaited<ReturnType<typeof prepareArticleContent>>>;
+// has_audio is added after prepareArticleContent (whose declared parameter
+// type is DBArticle, not the has_audio-carrying read model) rather than
+// folded into its return type.
+type PreparedArticle = Awaited<ReturnType<typeof prepareArticleContent>> & {
+  has_audio: boolean;
+};
+
+type ListArticleItem = WithNote<PreparedArticle>;
 
 export type ListArticlesResponse = {
   articles: ListArticleItem[];
@@ -110,9 +117,14 @@ export class ListArticlesQuery {
       category: category,
     });
 
-    // Prepare articles with HTML content
-    const preparedArticles = await Promise.all(
-      articles.map((article) => prepareArticleContent(article)),
+    // Prepare articles with HTML content. prepareArticleContent's declared
+    // parameter type is DBArticle, so has_audio (present at runtime via the
+    // row spread) is re-attached explicitly to keep it in the static type too.
+    const preparedArticles: PreparedArticle[] = await Promise.all(
+      articles.map(async (article) => ({
+        ...(await prepareArticleContent(article)),
+        has_audio: article.has_audio,
+      })),
     );
     const notesBySourceId = userId
       ? await this.notesReadService.getActiveNotesBySourceIds(

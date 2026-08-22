@@ -32,6 +32,15 @@ interface CountRow {
   count: number;
 }
 
+// Row shape for getArticlesPaginated only: has_audio comes from an EXISTS
+// subquery, not a real articles column, so it stays out of the shared
+// ArticleRow used by every other query in this service.
+type ArticleListDbRow = ArticleRow & { has_audio: boolean };
+
+// Per-query read model: has_audio is derived (EXISTS against audio_files),
+// not a schema column, so it lives here rather than on DBArticle.
+export type ArticleListRow = DBArticle & { has_audio: boolean };
+
 @Injectable()
 export class ArticlesService {
   constructor(
@@ -551,7 +560,7 @@ export class ArticlesService {
 
   async getArticlesPaginated(
     options: PaginatedArticleInput,
-  ): Promise<DBArticle[]> {
+  ): Promise<ArticleListRow[]> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
@@ -571,7 +580,11 @@ export class ArticlesService {
         SELECT
           id, url, title, published_date, feed_source, feed_profile,
           raw_content, processed_content, impact_rating,
-          image_url, categories, custom_prompt, created_at
+          image_url, categories, custom_prompt, created_at,
+          EXISTS (
+            SELECT 1 FROM audio_files af
+            WHERE af.source_type = 'article' AND af.source_id = articles.id
+          ) AS has_audio
         FROM articles
         WHERE 1=1
       `;
@@ -620,19 +633,22 @@ export class ArticlesService {
       query += ' LIMIT ? OFFSET ?';
       params.push(perPage, offset);
 
-      db.all(query, params, (err, rows: ArticleRow[]) => {
+      db.all(query, params, (err, rows: ArticleListDbRow[]) => {
         if (err) {
           reject(err);
           return;
         }
 
-        const articles: DBArticle[] = rows.map((row) => ({
+        // Postgres returns EXISTS as a real boolean (see youtube_channels.enabled
+        // for the same driver behavior on a plain boolean column), so no coercion.
+        const articles: ArticleListRow[] = rows.map((row) => ({
           ...row,
           published_date: new Date(row.published_date),
           created_at: new Date(row.created_at),
           categories: row.categories
             ? (JSON.parse(row.categories) as ArticleCategory[])
             : undefined,
+          has_audio: row.has_audio,
         }));
 
         resolve(articles);
