@@ -106,6 +106,15 @@ describe('ListAudioLibraryQuery', () => {
     expect(mockAudioFilesService.listAudioLibrary).toHaveBeenCalledWith(10, 10);
   });
 
+  it('clamps perPage to the maximum of 100', async () => {
+    mockAudioFilesService.countAudioLibrary.mockResolvedValue(0);
+    mockAudioFilesService.listAudioLibrary.mockResolvedValue([]);
+
+    await query.execute({ page: 1, perPage: 10000000 });
+
+    expect(mockAudioFilesService.listAudioLibrary).toHaveBeenCalledWith(100, 0);
+  });
+
   it('computes total_pages by ceiling division', async () => {
     mockAudioFilesService.countAudioLibrary.mockResolvedValue(41);
     mockAudioFilesService.listAudioLibrary.mockResolvedValue([]);

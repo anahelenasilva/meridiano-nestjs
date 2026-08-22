@@ -3,6 +3,9 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '../../config/config.service';
 import { AudioFilesService } from '../audio-files.service';
 
+// Caps page size so one request cannot force an unbounded scan + per-row presign.
+const MAX_PER_PAGE = 100;
+
 export type ListAudioLibraryRequest = {
   page?: number;
   perPage?: number;
@@ -46,7 +49,7 @@ export class ListAudioLibraryQuery {
   ): Promise<ListAudioLibraryResponse> {
     // Query-string params arrive as strings; Number() normalizes both forms.
     const page = Math.max(1, Number(request.page) || 1);
-    const perPage = Math.max(1, Number(request.perPage) || 20);
+    const perPage = Math.min(MAX_PER_PAGE, Math.max(1, Number(request.perPage) || 20));
     const offset = (page - 1) * perPage;
 
     const totalAudios = await this.audioFilesService.countAudioLibrary();
