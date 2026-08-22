@@ -5,6 +5,7 @@ import { S3Module } from '@libs/s3';
 import { Module } from '@nestjs/common';
 import { AiModule } from '../ai/ai.module';
 import { ConfigModule } from '../config/config.module';
+import { AudioFilesCleanupService } from './audio-files-cleanup.service';
 import { AudioController } from './audio-files.controller';
 import { AudioFilesService } from './audio-files.service';
 import { AudioGenerationProcessor } from './processors/audio-generation.processor';
@@ -16,10 +17,11 @@ import { GenerateAudioUseCase } from './usecases/generate-audio.usecase';
   controllers: [AudioController],
   providers: [
     AudioFilesService,
+    AudioFilesCleanupService,
     GenerateAudioUseCase,
     AudioGenerationProcessor,
     ListAudioLibraryQuery,
   ],
-  exports: [AudioFilesService, GenerateAudioUseCase],
+  exports: [AudioFilesService, AudioFilesCleanupService, GenerateAudioUseCase],
 })
 export class AudioFilesModule {}

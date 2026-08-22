@@ -1,4 +1,8 @@
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import {
+  DeleteObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from '@aws-sdk/client-s3';
 import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
@@ -469,6 +473,41 @@ describe('S3Service', () => {
         service.uploadFile(bucketName, key, body, contentType),
       ).rejects.toThrow(
         `Failed to upload file ${key} to bucket ${bucketName}: AccessDenied`,
+      );
+    });
+  });
+
+  describe('deleteObject', () => {
+    const mockDeleteObjectCommand = DeleteObjectCommand as jest.MockedClass<
+      typeof DeleteObjectCommand
+    >;
+
+    it('sends a DeleteObjectCommand scoped to the exact bucket and key', async () => {
+      const bucketName = 'meridiano-articles';
+      const key = 'audio/2026-08-22/article-abc.mp3';
+
+      mockSend.mockResolvedValueOnce({});
+
+      await service.deleteObject(bucketName, key);
+
+      expect(mockDeleteObjectCommand).toHaveBeenCalledWith({
+        Bucket: bucketName,
+        Key: key,
+      });
+      expect(mockSend).toHaveBeenCalledTimes(1);
+      expect(mockSend).toHaveBeenCalledWith(
+        expect.any(mockDeleteObjectCommand),
+      );
+    });
+
+    it('propagates errors as a delete failure', async () => {
+      const bucketName = 'meridiano-articles';
+      const key = 'audio/2026-08-22/article-abc.mp3';
+
+      mockSend.mockRejectedValueOnce(new Error('AccessDenied'));
+
+      await expect(service.deleteObject(bucketName, key)).rejects.toThrow(
+        `Failed to delete object ${key} from bucket ${bucketName}: AccessDenied`,
       );
     });
   });

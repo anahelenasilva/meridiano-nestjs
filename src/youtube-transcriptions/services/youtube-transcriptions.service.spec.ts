@@ -8,6 +8,7 @@ import { ChannelConfig } from '../../shared/types/channel';
 import { VideoMetadata } from '../../shared/types/video';
 import { YoutubeChannel } from '../../youtube-channels/domain/youtube-channel';
 import { YoutubeChannelsService } from '../../youtube-channels/youtube-channels.service';
+import { AudioFilesCleanupService } from '../../audio-files/audio-files-cleanup.service';
 import { NotesCleanupService } from '../../notes/notes-cleanup.service';
 import { StorageService } from '../services/storage.service';
 import { TranscriptService } from '../services/transcript.service';
@@ -29,6 +30,7 @@ describe('YoutubeTranscriptionsService', () => {
   const mockQueueService = mock<QueueService>();
   const mockYoutubeChannelsService = mock<YoutubeChannelsService>();
   const mockNotesCleanupService = mock<NotesCleanupService>();
+  const mockAudioFilesCleanupService = mock<AudioFilesCleanupService>();
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -66,6 +68,10 @@ describe('YoutubeTranscriptionsService', () => {
           provide: NotesCleanupService,
           useValue: mockNotesCleanupService,
         },
+        {
+          provide: AudioFilesCleanupService,
+          useValue: mockAudioFilesCleanupService,
+        },
       ],
     }).compile();
 
@@ -87,6 +93,8 @@ describe('YoutubeTranscriptionsService', () => {
     mockReset(mockYoutubeChannelsService);
     mockReset(mockNotesCleanupService);
     mockNotesCleanupService.purgeNotesForSource.mockResolvedValue(0);
+    mockReset(mockAudioFilesCleanupService);
+    mockAudioFilesCleanupService.purgeAudioForSource.mockResolvedValue();
   });
 
   afterEach(() => {
@@ -393,7 +401,26 @@ describe('YoutubeTranscriptionsService', () => {
       ).toHaveBeenCalledWith('transcription', transcriptionId);
     });
 
-    it('does not purge notes when the transcription delete fails', async () => {
+    it('purges the transcription audio after deleting it', async () => {
+      const stmt = {
+        run: jest.fn(
+          (params: unknown[], callback: (err: Error | null) => void) => {
+            callback(null);
+          },
+        ),
+        finalize: jest.fn(),
+      };
+      const mockDb = { prepare: jest.fn().mockReturnValue(stmt) };
+      mockDatabaseService.getDbConnection.mockReturnValue(mockDb as never);
+
+      await service.delete(transcriptionId);
+
+      expect(
+        mockAudioFilesCleanupService.purgeAudioForSource,
+      ).toHaveBeenCalledWith('transcription', transcriptionId);
+    });
+
+    it('does not purge notes or audio when the transcription delete fails', async () => {
       const stmt = {
         run: jest.fn(
           (params: unknown[], callback: (err: Error | null) => void) => {
@@ -410,6 +437,9 @@ describe('YoutubeTranscriptionsService', () => {
       );
       expect(
         mockNotesCleanupService.purgeNotesForSource,
+      ).not.toHaveBeenCalled();
+      expect(
+        mockAudioFilesCleanupService.purgeAudioForSource,
       ).not.toHaveBeenCalled();
     });
   });

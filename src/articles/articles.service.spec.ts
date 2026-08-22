@@ -1,5 +1,6 @@
 import { DatabaseService } from '@libs/database';
 import { mock } from 'jest-mock-extended';
+import { AudioFilesCleanupService } from '../audio-files/audio-files-cleanup.service';
 import { NotesCleanupService } from '../notes/notes-cleanup.service';
 import { FeedProfile } from '../shared/types/feed';
 import { ArticleCategory } from './article.entity';
@@ -8,6 +9,7 @@ import { ArticlesService } from './articles.service';
 describe('ArticlesService', () => {
   const mockDatabaseService = mock<DatabaseService>();
   const mockNotesCleanupService = mock<NotesCleanupService>();
+  const mockAudioFilesCleanupService = mock<AudioFilesCleanupService>();
   const mockDb = {
     all: jest.fn(),
     get: jest.fn(),
@@ -18,9 +20,11 @@ describe('ArticlesService', () => {
   beforeEach(() => {
     mockDatabaseService.getDbConnection.mockReturnValue(mockDb as never);
     mockNotesCleanupService.purgeNotesForSource.mockResolvedValue(0);
+    mockAudioFilesCleanupService.purgeAudioForSource.mockResolvedValue();
     service = new ArticlesService(
       mockDatabaseService,
       mockNotesCleanupService,
+      mockAudioFilesCleanupService,
     );
   });
 
@@ -276,7 +280,17 @@ describe('ArticlesService', () => {
       ).toHaveBeenCalledWith('article', articleId);
     });
 
-    it('does not purge notes when the article delete fails', async () => {
+    it('purges the article audio after deleting it', async () => {
+      stubDeleteSuccess();
+
+      await service.deleteArticleById(articleId);
+
+      expect(
+        mockAudioFilesCleanupService.purgeAudioForSource,
+      ).toHaveBeenCalledWith('article', articleId);
+    });
+
+    it('does not purge notes or audio when the article delete fails', async () => {
       const stmt = {
         run: jest.fn((params: unknown[], callback: (err: Error | null) => void) => {
           callback(new Error('delete failed'));
@@ -290,6 +304,9 @@ describe('ArticlesService', () => {
       );
       expect(
         mockNotesCleanupService.purgeNotesForSource,
+      ).not.toHaveBeenCalled();
+      expect(
+        mockAudioFilesCleanupService.purgeAudioForSource,
       ).not.toHaveBeenCalled();
     });
   });

@@ -216,6 +216,7 @@ Supported configuration paths:
 - `generatePresignedPostUrl(bucketName, key, contentType?, maxFileSize?)`
 - `uploadAudioFile(bucketName, key, audioBuffer, contentType?)`
 - `uploadFile(bucketName, key, body, contentType)`
+- `deleteObject(bucketName, key)`
 - `generatePresignedGetUrl(bucketName, key, expiresIn?)`
 
 ### Environment variables
