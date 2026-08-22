@@ -53,6 +53,24 @@ const TRANSCRIPTION_FROM_JOIN = `
   JOIN youtube_channels c ON c.id = yt.channel_id
 `;
 
+// List-only projection: adds the has_audio EXISTS check on top of the shared
+// TRANSCRIPTION_COLUMNS. Kept separate so getTranscriptionById and the other
+// single/paginated readers below don't pay for a correlated subquery they
+// don't need.
+const TRANSCRIPTION_LIST_COLUMNS = `
+  ${TRANSCRIPTION_COLUMNS},
+  EXISTS (
+    SELECT 1 FROM audio_files af
+    WHERE af.source_type = 'transcription' AND af.source_id = yt.id
+  ) AS has_audio
+`;
+
+// Per-query read model: has_audio is derived (EXISTS against audio_files),
+// not a schema column, so it lives here rather than on DBYoutubeTranscription.
+export type YoutubeTranscriptionListRow = DBYoutubeTranscription & {
+  has_audio: boolean;
+};
+
 /**
  * Convert YouTube transcript segments to TranscriptItem format
  * @param segments - Array of YouTube transcript segments
@@ -579,23 +597,28 @@ export class YoutubeTranscriptionsService {
    * Get all transcriptions from the database
    * @returns Array of all transcription records
    */
-  async getAllTranscriptions(): Promise<DBYoutubeTranscription[]> {
+  async getAllTranscriptions(): Promise<YoutubeTranscriptionListRow[]> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
       db.all(
-        `SELECT ${TRANSCRIPTION_COLUMNS} ${TRANSCRIPTION_FROM_JOIN}
+        `SELECT ${TRANSCRIPTION_LIST_COLUMNS} ${TRANSCRIPTION_FROM_JOIN}
            ORDER BY yt.processed_at DESC`,
         [],
-        (err: Error | null, rows: YoutubeTranscription[]) => {
+        (err: Error | null, rows: YoutubeTranscriptionListRow[]) => {
           if (err) {
             reject(err);
           } else {
-            const transcriptions: YoutubeTranscription[] = rows.map((row) => ({
-              ...row,
-              postedAt: row.postedAt ? new Date(row.postedAt) : undefined,
-              processedAt: new Date(row.processedAt),
-            }));
+            // Postgres returns EXISTS as a real boolean (see youtube_channels.enabled
+            // for the same driver behavior on a plain boolean column), so no coercion.
+            const transcriptions: YoutubeTranscriptionListRow[] = rows.map(
+              (row) => ({
+                ...row,
+                postedAt: row.postedAt ? new Date(row.postedAt) : undefined,
+                processedAt: new Date(row.processedAt),
+                has_audio: row.has_audio,
+              }),
+            );
             resolve(transcriptions);
           }
         },

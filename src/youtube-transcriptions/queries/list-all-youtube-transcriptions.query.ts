@@ -9,11 +9,13 @@ import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions
 /**
  * Omits the heavy free-text fields — those are only returned by the detail
  * endpoint (`GET /api/youtube/transcriptions/:id`), keeping the list light.
+ * has_audio is added back since it belongs to the list-only read model
+ * (see YoutubeTranscriptionListRow), not DBYoutubeTranscription.
  */
 export type YoutubeTranscriptionListItem = Omit<
   DBYoutubeTranscription,
   'transcriptionText' | 'transcriptionSummary'
->;
+> & { has_audio: boolean };
 
 export type ListAllYoutubeTranscriptionsResponse = {
   transcriptions: WithNote<YoutubeTranscriptionListItem>[];
