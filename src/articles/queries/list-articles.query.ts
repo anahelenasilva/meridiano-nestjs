@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { attachNotes, WithNote } from '../../notes/attach-notes';
 import { NotesReadService } from '../../notes/notes-read.service';
+import { Note } from '../../notes/note.entity';
 import moment from 'moment';
 import { ProfilesService } from '../../profiles/profiles.service';
 import { ArticlesService } from '../articles.service';
@@ -52,7 +53,9 @@ export class ListArticlesQuery {
   ) {}
 
   async execute(
-    userId: string,
+    // Undefined on the api-key path (CLI/ops), which has no user. Notes are the
+    // only user-scoped part of the response, so a missing user just means none.
+    userId: string | undefined,
     request: ListArticlesRequest,
   ): Promise<ListArticlesResponse | null> {
     const {
@@ -111,11 +114,13 @@ export class ListArticlesQuery {
     const preparedArticles = await Promise.all(
       articles.map((article) => prepareArticleContent(article)),
     );
-    const notesBySourceId = await this.notesReadService.getActiveNotesBySourceIds(
-      userId,
-      'article',
-      preparedArticles.map((article) => article.id),
-    );
+    const notesBySourceId = userId
+      ? await this.notesReadService.getActiveNotesBySourceIds(
+          userId,
+          'article',
+          preparedArticles.map((article) => article.id),
+        )
+      : new Map<string, Note>();
 
     return {
       articles: attachNotes(

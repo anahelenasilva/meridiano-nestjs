@@ -195,13 +195,16 @@ export class ArticlesController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'List the authenticated user\'s articles' })
+  @ApiKeyAllowed()
+  @ApiOperation({ summary: 'List articles (all articles are global; per-user notes attach only for a JWT user)' })
   @ApiOkResponse({ description: 'Paginated list of articles' })
   async listArticles(
-    @CurrentUser() user: AuthenticatedUser,
+    // Optional: the JWT path sets a user, the api-key path (CLI/ops) does not.
+    // Articles are global either way; `user?.id` only gates note attachment.
+    @CurrentUser() user: AuthenticatedUser | undefined,
     @Query() input: PaginatedArticleInput,
   ) {
-    return await this.listArticlesQuery.execute(user.id, input);
+    return await this.listArticlesQuery.execute(user?.id, input);
   }
 
   @Get(':id')

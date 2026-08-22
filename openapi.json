@@ -704,7 +704,7 @@
             "description": "Missing or invalid bearer token"
           }
         },
-        "summary": "List the authenticated user's articles",
+        "summary": "List articles (all articles are global; per-user notes attach only for a JWT user)",
         "tags": [
           "Articles"
         ]
