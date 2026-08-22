@@ -5,12 +5,14 @@ import { mock } from 'jest-mock-extended';
 import { ArticlesController } from './articles.controller';
 import { GenerateArticleAudioCommand } from './commands/generate-article-audio.command';
 import { GetArticleByIdQuery } from './queries/get-article-by-id.query';
+import { ListArticlesLeanQuery } from './queries/list-articles-lean.query';
 import { ListArticlesQuery } from './queries/list-articles.query';
 
 describe('ArticlesController', () => {
   const mockGenerateArticleAudioCommand = mock<GenerateArticleAudioCommand>();
   const mockGetArticleByIdQuery = mock<GetArticleByIdQuery>();
   const mockListArticlesQuery = mock<ListArticlesQuery>();
+  const mockListArticlesLeanQuery = mock<ListArticlesLeanQuery>();
 
   it('should not have @Public() on generateAudio endpoint', () => {
     const isPublic = Reflect.getMetadata(
@@ -42,6 +44,7 @@ describe('ArticlesController', () => {
       return new ArticlesController(
         mock(),
         mockListArticlesQuery,
+        mockListArticlesLeanQuery,
         mockGetArticleByIdQuery,
         mock(),
         mock(),
@@ -142,6 +145,7 @@ describe('ArticlesController', () => {
       const controller = new ArticlesController(
         mock(),
         mockListArticlesQuery,
+        mockListArticlesLeanQuery,
         mock(),
         mock(),
         mock(),
@@ -164,6 +168,7 @@ describe('ArticlesController', () => {
       const controller = new ArticlesController(
         mock(),
         mockListArticlesQuery,
+        mockListArticlesLeanQuery,
         mock(),
         mock(),
         mock(),
@@ -183,6 +188,51 @@ describe('ArticlesController', () => {
     });
   });
 
+  describe('listArticlesLean', () => {
+    function buildController() {
+      return new ArticlesController(
+        mock(),
+        mockListArticlesQuery,
+        mockListArticlesLeanQuery,
+        mock(),
+        mock(),
+        mock(),
+        mock(),
+        mock(),
+        mock(),
+        mock(),
+      );
+    }
+
+    it('forwards the authenticated user id and input into the lean query', async () => {
+      mockListArticlesLeanQuery.execute.mockResolvedValue({
+        articles: [],
+      } as never);
+      const input = { page: 2, perPage: 10 };
+
+      await buildController().listArticlesLean({ id: 'user-1' }, input);
+
+      expect(mockListArticlesLeanQuery.execute).toHaveBeenCalledWith(
+        'user-1',
+        input,
+      );
+    });
+
+    it('forwards undefined user id on the api-key path', async () => {
+      mockListArticlesLeanQuery.execute.mockResolvedValue({
+        articles: [],
+      } as never);
+      const input = { page: 1, perPage: 20 };
+
+      await buildController().listArticlesLean(undefined, input);
+
+      expect(mockListArticlesLeanQuery.execute).toHaveBeenCalledWith(
+        undefined,
+        input,
+      );
+    });
+  });
+
   describe('generateAudio', () => {
     it('should delegate to GenerateArticleAudioCommand and return response contract', async () => {
       const articleId = '11111111-1111-1111-1111-111111111111';
@@ -195,6 +245,7 @@ describe('ArticlesController', () => {
       const controller = new ArticlesController(
         mock(),
         mockListArticlesQuery,
+        mockListArticlesLeanQuery,
         mock(),
         mock(),
         mock(),
@@ -220,6 +271,7 @@ describe('ArticlesController', () => {
       const controller = new ArticlesController(
         mock(),
         mockListArticlesQuery,
+        mockListArticlesLeanQuery,
         mock(),
         mock(),
         mock(),
@@ -242,6 +294,7 @@ describe('ArticlesController', () => {
       const controller = new ArticlesController(
         mock(),
         mockListArticlesQuery,
+        mockListArticlesLeanQuery,
         mock(),
         mock(),
         mock(),

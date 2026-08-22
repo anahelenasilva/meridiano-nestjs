@@ -10,6 +10,7 @@ import { ProfilesModule } from '../profiles/profiles.module';
 import { GenerateArticleAudioCommand } from './commands/generate-article-audio.command';
 import { ArticlesService } from './articles.service';
 import { GetArticleByIdQuery } from './queries/get-article-by-id.query';
+import { ListArticlesLeanQuery } from './queries/list-articles-lean.query';
 import { ListArticlesQuery } from './queries/list-articles.query';
 import { TelegramSubmissionService } from './services/telegram-submission.service';
 
@@ -28,6 +29,7 @@ import { TelegramSubmissionService } from './services/telegram-submission.servic
     ArticlesService,
     GenerateArticleAudioCommand,
     ListArticlesQuery,
+    ListArticlesLeanQuery,
     GetArticleByIdQuery,
     TelegramSubmissionService,
   ],

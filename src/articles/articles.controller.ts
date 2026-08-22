@@ -38,6 +38,7 @@ import { GenerateUploadUrlDto } from './dto/generate-upload-url.dto';
 import { ProcessMarkdownArticleDto } from './dto/process-markdown-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { GetArticleByIdQuery } from './queries/get-article-by-id.query';
+import { ListArticlesLeanQuery } from './queries/list-articles-lean.query';
 import { ListArticlesQuery } from './queries/list-articles.query';
 
 @Controller('api/articles')
@@ -46,6 +47,7 @@ export class ArticlesController {
   constructor(
     private readonly articlesService: ArticlesService,
     private readonly listArticlesQuery: ListArticlesQuery,
+    private readonly listArticlesLeanQuery: ListArticlesLeanQuery,
     private readonly getArticleByIdQuery: GetArticleByIdQuery,
     private readonly scraperService: ScraperService,
     private readonly queueService: QueueService,
@@ -205,6 +207,22 @@ export class ArticlesController {
     @Query() input: PaginatedArticleInput,
   ) {
     return await this.listArticlesQuery.execute(user?.id, input);
+  }
+
+  // Declared before @Get(':id') so the literal path is matched first and the
+  // ':id' handler does not swallow a request for /lean.
+  @Get('lean')
+  @ApiKeyAllowed()
+  @ApiOperation({
+    summary:
+      'List articles with a lean field set for CLI listings (all articles are global; per-user notes attach only for a JWT user)',
+  })
+  @ApiOkResponse({ description: 'Paginated lean list of articles' })
+  async listArticlesLean(
+    @CurrentUser() user: AuthenticatedUser | undefined,
+    @Query() input: PaginatedArticleInput,
+  ) {
+    return await this.listArticlesLeanQuery.execute(user?.id, input);
   }
 
   @Get(':id')
