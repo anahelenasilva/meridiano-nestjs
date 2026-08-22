@@ -38,6 +38,7 @@ import { TelegramSubmissionService } from './services/telegram-submission.servic
     TelegramSubmissionService,
     GenerateArticleAudioCommand,
     ListArticlesQuery,
+    ListArticlesLeanQuery,
     GetArticleByIdQuery,
   ],
 })
