@@ -1,3 +1,4 @@
+import { AudioModule } from '@libs/audio';
 import { DatabaseModule } from '@libs/database';
 import { QueueModule } from '@libs/queue';
 import { RedisModule } from '@libs/redis';
@@ -13,7 +14,10 @@ import { ListAudioLibraryQuery } from './queries/list-audio-library.query';
 import { GenerateAudioUseCase } from './usecases/generate-audio.usecase';
 
 @Module({
-  imports: [DatabaseModule, S3Module, AiModule, ConfigModule, RedisModule, QueueModule],
+  // AudioModule provides AudioJobService (queue job status/listing), matching how
+  // other feature modules (articles, youtube-transcriptions, processor, scraper)
+  // consume @libs/audio: import the module rather than re-registering the provider.
+  imports: [DatabaseModule, S3Module, AiModule, ConfigModule, RedisModule, QueueModule, AudioModule],
   controllers: [AudioController],
   providers: [
     AudioFilesService,

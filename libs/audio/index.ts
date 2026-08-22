@@ -1,6 +1,7 @@
 export { AUDIO_GENERATION_SUCCESS_MESSAGE } from './constants/audio.constants';
 export { AudioModule } from './audio.module';
 export type {
+  AudioJobDescriptor,
   AudioJobStatus,
   EnqueueOptions,
   GenerateAudioJobData,

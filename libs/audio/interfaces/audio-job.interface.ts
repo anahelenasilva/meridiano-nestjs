@@ -28,3 +28,13 @@ export interface EnqueueOptions {
   waitForCompletion?: boolean;
   timeout?: number;
 }
+
+// Snapshot of one non-completed queue job, used by GET /api/audio/jobs. Separate
+// from AudioJobStatus (which mapJobToStatus produces for the single-job lookup
+// endpoints and cannot distinguish queued from generating).
+export interface AudioJobDescriptor {
+  source_type: 'article' | 'transcription';
+  source_id: string;
+  state: 'queued' | 'generating' | 'failed';
+  error: string | null;
+}

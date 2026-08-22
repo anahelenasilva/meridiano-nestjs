@@ -6,6 +6,7 @@ import { RedisService } from '@libs/redis';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Job, Queue } from 'bullmq';
 import {
+  AudioJobDescriptor,
   AudioJobStatus,
   EnqueueOptions,
   GenerateAudioJobData,
@@ -256,6 +257,79 @@ export class AudioJobService {
       });
       return false;
     }
+  }
+
+  /**
+   * List in-flight and recently-failed audio generation jobs, keyed by source,
+   * from a single queue scan. Backs GET /api/audio/jobs. Completed jobs are
+   * deliberately excluded: has_audio (the DB row) is the durable source of
+   * truth for "audio exists", so echoing completed from Redis too would be a
+   * second, driftable source of the same fact.
+   * @returns Source-keyed job descriptors for waiting/active/delayed/paused/failed jobs
+   */
+  async listActiveAndFailedJobs(): Promise<AudioJobDescriptor[]> {
+    try {
+      const jobs = await this.audioQueue.getJobs([
+        'waiting',
+        'active',
+        'delayed',
+        'paused',
+        'failed',
+      ]);
+
+      const descriptors = await Promise.all(
+        jobs.map((job) => this.mapJobToDescriptor(job)),
+      );
+
+      return descriptors.filter(
+        (descriptor): descriptor is AudioJobDescriptor => descriptor !== null,
+      );
+    } catch (error) {
+      this.logger.error({
+        operation: 'listActiveAndFailedJobs',
+        error: error instanceof Error ? error.message : String(error),
+        errorObject: error,
+      });
+      return [];
+    }
+  }
+
+  /**
+   * Map a BullMQ job to an AudioJobDescriptor, or null if the job turns out to
+   * be completed (defensive; the scan in listActiveAndFailedJobs already
+   * excludes 'completed', but state can change between getJobs and getState).
+   * @param job - The BullMQ job
+   * @returns The audio job descriptor, or null to omit the job
+   */
+  private async mapJobToDescriptor(
+    job: Job,
+  ): Promise<AudioJobDescriptor | null> {
+    const data = job.data as GenerateAudioJobData;
+    const bullState = await job.getState();
+
+    if (bullState === 'completed') {
+      return null;
+    }
+
+    let state: 'queued' | 'generating' | 'failed';
+    if (bullState === 'active') {
+      state = 'generating';
+    } else if (bullState === 'failed') {
+      state = 'failed';
+    } else {
+      // BullMQ's JobState type has no 'paused' member: a job in a paused queue
+      // still reports 'waiting' via getState(). This branch also covers
+      // 'delayed', 'prioritized' and 'waiting-children', which are all
+      // "not started yet" from the caller's perspective.
+      state = 'queued';
+    }
+
+    return {
+      source_type: data.sourceType,
+      source_id: data.sourceId,
+      state,
+      error: state === 'failed' ? job.failedReason ?? null : null,
+    };
   }
 
   /**
