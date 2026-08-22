@@ -1163,6 +1163,31 @@
         ]
       }
     },
+    "/api/audio/jobs": {
+      "get": {
+        "operationId": "AudioController_listJobs",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Queued, generating, and failed audio jobs"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "List in-flight and recently-failed audio generation jobs, keyed by source",
+        "tags": [
+          "Audio"
+        ]
+      }
+    },
     "/api/auth/login": {
       "post": {
         "operationId": "AuthController_login",
