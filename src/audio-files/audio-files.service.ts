@@ -58,6 +58,10 @@ interface AudioLibraryRow {
 /**
  * Audio rows are not deleted with their source, so every library read joins
  * back to Articles / YouTube Transcriptions and drops orphaned audio.
+ *
+ * youtube_transcriptions no longer carries its own channel_name (migration
+ * AddChannelFkToTranscriptions dropped it in favor of a channel_id FK), so the
+ * transcription's label comes from a further join to youtube_channels.
  */
 const AUDIO_LIBRARY_JOIN = `
   FROM audio_files af
@@ -65,6 +69,8 @@ const AUDIO_LIBRARY_JOIN = `
     ON af.source_type = 'article' AND a.id = af.source_id
   LEFT JOIN youtube_transcriptions t
     ON af.source_type = 'transcription' AND t.id = af.source_id
+  LEFT JOIN youtube_channels c
+    ON c.id = t.channel_id
   WHERE COALESCE(a.id, t.id) IS NOT NULL
 `;
 
@@ -172,7 +178,7 @@ export class AudioFilesService {
           af.duration_seconds,
           af.created_at,
           COALESCE(a.title, t.video_title) AS title,
-          COALESCE(a.feed_source, t.channel_name) AS source_label,
+          COALESCE(a.feed_source, c.name) AS source_label,
           COALESCE(a.published_date::text, t.posted_at) AS published_at
         ${AUDIO_LIBRARY_JOIN}
         ORDER BY af.created_at DESC, af.id DESC
