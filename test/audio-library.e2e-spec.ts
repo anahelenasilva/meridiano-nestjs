@@ -58,17 +58,59 @@ interface AudioFileRow {
   created_at: string;
 }
 
+// Restores the audio_files snapshot captured in beforeAll. Runs the reinsert
+// row-by-row with ON CONFLICT DO NOTHING and swallows per-row errors so that
+// one bad row (duplicate key, transient DB error) cannot abort the rest of the
+// restore, or the cleanup steps in afterAll that run after it.
+async function restoreAudioFiles(
+  db: DatabaseConnection,
+  rows: AudioFileRow[],
+): Promise<void> {
+  await runQuery(db, `DELETE FROM audio_files`, []);
+  for (const row of rows) {
+    try {
+      await runQuery(
+        db,
+        `INSERT INTO audio_files (id, source_type, source_id, s3_bucket, s3_key, file_size_bytes, duration_seconds, created_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+         ON CONFLICT (id) DO NOTHING`,
+        [
+          row.id,
+          row.source_type,
+          row.source_id,
+          row.s3_bucket,
+          row.s3_key,
+          row.file_size_bytes,
+          row.duration_seconds,
+          row.created_at,
+        ],
+      );
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(`Failed to restore audio_files row ${row.id}`, err);
+    }
+  }
+}
+
 describe('GET /api/audio (e2e)', () => {
-  let app: INestApplication<App>;
-  let moduleFixture: TestingModule;
-  let db: DatabaseConnection;
+  let app: INestApplication<App> | undefined;
+  let moduleFixture: TestingModule | undefined;
+  let db: DatabaseConnection | undefined;
   let originalJwtSecret: string | undefined;
   let token: string;
-  // GET /api/audio lists the whole audio_files table with no filters, so a
-  // shared local dev database with pre-existing rows would break the exact
-  // total_audios assertions below. Snapshot whatever is there, wipe it for
-  // the duration of the test, and put it back verbatim in afterAll.
+  // GET /api/audio reads the whole audio_files table with no filters, so the
+  // exact total_audios assertions below require an empty baseline. This
+  // snapshots real local rows before wiping the table and restores them
+  // verbatim afterward, rather than standing up an isolated test database
+  // (out of scope for this PR). Residual risk: a hard process kill (SIGKILL)
+  // between the wipe and the afterAll restore leaves the local audio_files
+  // table empty until manually reseeded; the real fix is a disposable e2e DB.
   let preexistingAudioFiles: AudioFileRow[] = [];
+  // Gates the afterAll restore: only true once the snapshot below has been
+  // captured AND the table wiped, so a beforeAll failure before that point
+  // (nothing backed up, nothing deleted) leaves afterAll a no-op on this table
+  // instead of deleting rows it never snapshotted.
+  let audioFilesWiped = false;
 
   const userId = randomUUID();
   const channelId = randomUUID();
@@ -102,6 +144,8 @@ describe('GET /api/audio (e2e)', () => {
 
     db = moduleFixture.get(DatabaseService).getDbConnection();
 
+    // Snapshot must fully land before any DELETE runs: if the SELECT throws,
+    // execution never reaches the DELETE below, so nothing is lost.
     preexistingAudioFiles = await allQuery<AudioFileRow>(
       db,
       `SELECT id, source_type, source_id, s3_bucket, s3_key, file_size_bytes, duration_seconds, created_at
@@ -109,6 +153,7 @@ describe('GET /api/audio (e2e)', () => {
       [],
     );
     await runQuery(db, `DELETE FROM audio_files`, []);
+    audioFilesWiped = true;
 
     await runQuery(
       db,
@@ -185,28 +230,29 @@ describe('GET /api/audio (e2e)', () => {
   });
 
   afterAll(async () => {
-    await runQuery(db, `DELETE FROM audio_files`, []);
-    for (const row of preexistingAudioFiles) {
-      await runQuery(
-        db,
-        `INSERT INTO audio_files (id, source_type, source_id, s3_bucket, s3_key, file_size_bytes, duration_seconds, created_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-        [
-          row.id,
-          row.source_type,
-          row.source_id,
-          row.s3_bucket,
-          row.s3_key,
-          row.file_size_bytes,
-          row.duration_seconds,
-          row.created_at,
-        ],
-      );
+    // Restore is best-effort and must never throw past this block: a failure
+    // here must not prevent the seeded-row cleanup or app/module teardown
+    // below from running.
+    if (db && audioFilesWiped) {
+      try {
+        await restoreAudioFiles(db, preexistingAudioFiles);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error('Failed to restore audio_files snapshot', err);
+      }
     }
-    await runQuery(db, `DELETE FROM youtube_transcriptions WHERE id = ?`, [transcriptionId]);
-    await runQuery(db, `DELETE FROM youtube_channels WHERE id = ?`, [channelId]);
-    await runQuery(db, `DELETE FROM articles WHERE id = ?`, [articleId]);
-    await runQuery(db, `DELETE FROM users WHERE id = ?`, [userId]);
+
+    if (db) {
+      try {
+        await runQuery(db, `DELETE FROM youtube_transcriptions WHERE id = ?`, [transcriptionId]);
+        await runQuery(db, `DELETE FROM youtube_channels WHERE id = ?`, [channelId]);
+        await runQuery(db, `DELETE FROM articles WHERE id = ?`, [articleId]);
+        await runQuery(db, `DELETE FROM users WHERE id = ?`, [userId]);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error('Failed to clean up seeded rows', err);
+      }
+    }
 
     if (originalJwtSecret === undefined) {
       delete process.env.JWT_SECRET;
@@ -214,16 +260,21 @@ describe('GET /api/audio (e2e)', () => {
       process.env.JWT_SECRET = originalJwtSecret;
     }
 
-    await app.close();
-    await moduleFixture.close();
+    if (app) {
+      await app.close();
+    }
+    if (moduleFixture) {
+      await moduleFixture.close();
+    }
   });
 
   it('returns 401 without a bearer token', async () => {
-    await request(app.getHttpServer()).get('/api/audio').expect(401);
+    // beforeAll always assigns app before any `it` runs; Jest guarantees the order.
+    await request(app!.getHttpServer()).get('/api/audio').expect(401);
   });
 
   it('returns the joined library, newest generated audio first, orphan dropped', async () => {
-    const response = await request(app.getHttpServer())
+    const response = await request(app!.getHttpServer())
       .get('/api/audio')
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
@@ -270,7 +321,7 @@ describe('GET /api/audio (e2e)', () => {
   });
 
   it('paginates with perPage=1, orphan not counted toward total', async () => {
-    const response = await request(app.getHttpServer())
+    const response = await request(app!.getHttpServer())
       .get('/api/audio')
       .query({ page: 1, perPage: 1 })
       .set('Authorization', `Bearer ${token}`)
