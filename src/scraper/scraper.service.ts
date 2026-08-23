@@ -57,6 +57,7 @@ export class ScraperService {
   async fetchArticleContentAndOgImage(url: string): Promise<ArticleContent> {
     let content: string | null = null;
     let ogImage: string | null = null;
+    let title: string | null = null;
 
     try {
       const headers = {
@@ -101,14 +102,27 @@ export class ScraperService {
         }
       }
 
-      return { content, ogImage };
+      const ogTitle = dom.window.document
+        .querySelector('meta[property="og:title"]')
+        ?.getAttribute('content');
+      if (ogTitle) {
+        title = ogTitle;
+      } else {
+        const titleText =
+          dom.window.document.querySelector('title')?.textContent;
+        if (titleText) {
+          title = titleText.trim();
+        }
+      }
+
+      return { content, ogImage, title };
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         console.error(`Error fetching ${url}:`, error.message);
       } else {
         console.error(`Error processing content/og:image from ${url}:`, error);
       }
-      return { content, ogImage: null };
+      return { content, ogImage: null, title: null };
     }
   }
 
