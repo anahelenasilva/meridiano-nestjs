@@ -1,4 +1,9 @@
-import { FeedConfiguration, FeedProfile, RSSFeed } from '../types/feed';
+import {
+  FeedConfiguration,
+  FeedProfile,
+  RSSFeed,
+  SitemapSource,
+} from '../types/feed';
 
 export const techRSSFeeds: RSSFeed[] = [
   {
@@ -130,6 +135,21 @@ export const techRSSFeeds: RSSFeed[] = [
   },
 ];
 
+export const techSitemapSources: SitemapSource[] = [
+  {
+    sitemapUrl: 'https://claude.com/sitemap.xml',
+    urlPrefix: 'https://claude.com/blog/',
+    name: 'Claude Blog',
+    enabled: true,
+  },
+  {
+    sitemapUrl: 'https://www.anthropic.com/sitemap.xml',
+    urlPrefix: 'https://www.anthropic.com/news/',
+    name: 'Anthropic News',
+    enabled: true,
+  },
+];
+
 export const techPrompts = {
   articleSummary: `
 You are an expert summarizer and critical reader.
@@ -194,6 +214,7 @@ Analyzed News Clusters (Most significant first):
 export const techFeedConfig: FeedConfiguration = {
   profile: FeedProfile.TECHNOLOGY,
   rssFeeds: techRSSFeeds,
+  sitemapSources: techSitemapSources,
   prompts: techPrompts,
   settings: {
     priority: 1,
