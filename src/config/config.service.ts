@@ -2,7 +2,6 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { ImpactRating, PromptVariables } from '../shared/types/ai';
 import { BriefingOptions } from '../shared/types/briefing-options';
 import { FeedProfile } from '../shared/types/feed';
-import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
 import {
   ArticleEmailsNotifications,
   AudioFailureNotification,
@@ -28,10 +27,6 @@ import {
 
 @Injectable()
 export class ConfigService {
-  constructor(
-    private readonly youtubeChannelsService: YoutubeChannelsService,
-  ) { }
-
   private readonly CONFIGS: Config = {
     prompts: {
       articleSummary: articleSummaryPrompt,
@@ -226,37 +221,6 @@ export class ConfigService {
 
   getAppConfig() {
     return { ...this.CONFIGS.app };
-  }
-
-  async getYoutubeChannelsConfig() {
-    const channels = await this.youtubeChannelsService.getAllChannels();
-
-    const channelsObj: Record<
-      string,
-      {
-        name: string;
-        url: string;
-        description: string;
-        enabled: boolean;
-        maxVideos?: number;
-      }
-    > = {};
-
-    channels.forEach((channel) => {
-      channelsObj[channel.channelId] = {
-        name: channel.name,
-        url: channel.url,
-        description: channel.description || '',
-        enabled: channel.enabled,
-        ...(channel.maxVideos ? { maxVideos: channel.maxVideos } : {}),
-      };
-    });
-
-    return {
-      channels: channelsObj,
-      maxVideosPerChannel:
-        this.CONFIGS.youtubeTranscriptions.maxVideosPerChannel,
-    };
   }
 
   getYoutubeTranscriptionsChunkingConfig() {
