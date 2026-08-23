@@ -7,6 +7,7 @@ import {
   RunCallback,
   RunCallbackContext,
   RunResult,
+  SqlParams,
 } from './database.interface';
 
 // Helper function to convert ? placeholders to PostgreSQL-style $1, $2, etc.
@@ -25,7 +26,7 @@ class PostgresConnection implements DatabaseConnection {
     return new PostgresPreparedStatement(this.pool, sql);
   }
 
-  run(sql: string, params?: any[], callback?: RunCallback): RunResult {
+  run(sql: string, params?: SqlParams, callback?: RunCallback): RunResult {
     const result: RunResult = {};
 
     let querySql = sql;
@@ -59,10 +60,10 @@ class PostgresConnection implements DatabaseConnection {
     return result;
   }
 
-  all(
+  all<T = unknown>(
     sql: string,
-    params?: any[],
-    callback?: (err: Error | null, rows?: any[]) => void,
+    params?: SqlParams,
+    callback?: (err: Error | null, rows?: T[]) => void,
   ): void {
     const querySql = convertPlaceholders(sql);
 
@@ -71,16 +72,16 @@ class PostgresConnection implements DatabaseConnection {
       params || [],
       (err: Error | null, res?: QueryResult) => {
         if (callback) {
-          callback(err, err ? undefined : res?.rows);
+          callback(err, err ? undefined : (res?.rows as T[] | undefined));
         }
       },
     );
   }
 
-  get(
+  get<T = unknown>(
     sql: string,
-    params?: any[],
-    callback?: (err: Error | null, row?: any) => void,
+    params?: SqlParams,
+    callback?: (err: Error | null, row?: T) => void,
   ): void {
     const querySql = convertPlaceholders(sql);
 
@@ -114,7 +115,7 @@ class PostgresPreparedStatement implements PreparedStatement {
     private sql: string,
   ) { }
 
-  run(params: any[], callback?: RunCallback): RunResult {
+  run(params: SqlParams, callback?: RunCallback): RunResult {
     const result: RunResult = {};
 
     // Modify SQL to include RETURNING id for INSERT statements

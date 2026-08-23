@@ -17,7 +17,7 @@
  * from any pre-existing local data with a unique searchTerm marker embedded in
  * both titles.
  */
-import { DatabaseConnection, DatabaseService } from '@libs/database';
+import { DatabaseConnection, DatabaseService, SqlParams } from '@libs/database';
 import { randomUUID } from 'crypto';
 import { INestApplication } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -29,7 +29,7 @@ import { AppModule } from '../src/app.module';
 function runQuery(
   db: DatabaseConnection,
   sql: string,
-  params: unknown[],
+  params: SqlParams,
 ): Promise<void> {
   return new Promise((resolve, reject) => {
     db.run(sql, params, (err) => (err ? reject(err) : resolve()));

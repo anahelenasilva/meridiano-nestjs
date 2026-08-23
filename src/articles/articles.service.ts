@@ -1,4 +1,4 @@
-import { DatabaseService } from '@libs/database';
+import { DatabaseService, SqlParams } from '@libs/database';
 import { Injectable } from '@nestjs/common';
 import { AudioFilesCleanupService } from '../audio-files/audio-files-cleanup.service';
 import { NotesCleanupService } from '../notes/notes-cleanup.service';
@@ -287,7 +287,7 @@ export class ArticlesService {
     patch: UpdateArticlePatch,
   ): Promise<DBArticle | null> {
     const setClauses: string[] = [];
-    const params: unknown[] = [];
+    const params: SqlParams = [];
 
     if (patch.title !== undefined) {
       setClauses.push('title = ?');

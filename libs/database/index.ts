@@ -5,7 +5,9 @@ export type {
   PreparedStatement,
   RunCallback,
   RunCallbackContext,
-  RunResult
+  RunResult,
+  SqlParam,
+  SqlParams
 } from './database.interface';
 export { DatabaseModule } from './database.module';
 export { DatabaseService } from './database.service';
