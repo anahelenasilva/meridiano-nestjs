@@ -22,6 +22,7 @@ import { ProcessArticlesUseCase } from './usecases/process-articles.usecase';
 import { RateArticlesUseCase } from './usecases/rate-articles.usecase';
 import { RunBriefingUseCase } from './usecases/run-briefing.usecase';
 import { ScrapeArticlesUseCase } from './usecases/scrape-articles.usecase';
+import { ScrapeSitemapsUseCase } from './usecases/scrape-sitemaps.usecase';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { ScrapeArticlesUseCase } from './usecases/scrape-articles.usecase';
     RateArticlesUseCase,
     RunBriefingUseCase,
     ScrapeArticlesUseCase,
+    ScrapeSitemapsUseCase,
   ],
   controllers: [BriefingsController],
   exports: [BriefingsService, BriefingGenerationService],

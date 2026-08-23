@@ -7,8 +7,9 @@ import { ArticleContent } from '../articles/article.entity';
 import { ArticleIngestionService } from '../articles/ingestion/article-ingestion.service';
 import { ConfigService } from '../config/config.service';
 import { ProfilesService } from '../profiles/profiles.service';
-import { FeedProfile } from '../shared/types/feed';
+import { FeedProfile, SitemapSource } from '../shared/types/feed';
 import { ScrapingStats } from './scrapper.entity';
+import { fetchSitemapEntries } from './sitemap-fetcher';
 
 interface RSSEnclosure {
   type?: string;
@@ -57,6 +58,7 @@ export class ScraperService {
   async fetchArticleContentAndOgImage(url: string): Promise<ArticleContent> {
     let content: string | null = null;
     let ogImage: string | null = null;
+    let title: string | null = null;
 
     try {
       const headers = {
@@ -101,14 +103,27 @@ export class ScraperService {
         }
       }
 
-      return { content, ogImage };
+      const ogTitle = dom.window.document
+        .querySelector('meta[property="og:title"]')
+        ?.getAttribute('content');
+      if (ogTitle) {
+        title = ogTitle;
+      } else {
+        const titleText =
+          dom.window.document.querySelector('title')?.textContent;
+        if (titleText) {
+          title = titleText.trim();
+        }
+      }
+
+      return { content, ogImage, title };
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         console.error(`Error fetching ${url}:`, error.message);
       } else {
         console.error(`Error processing content/og:image from ${url}:`, error);
       }
-      return { content, ogImage: null };
+      return { content, ogImage: null, title: null };
     }
   }
 
@@ -326,6 +341,87 @@ export class ScraperService {
     stats.endTime = new Date();
     console.log(
       `--- Scraping Finished [${feedProfile}]. Added ${stats.newArticles} new articles. ---`,
+    );
+
+    return stats;
+  }
+
+  async scrapeSitemaps(
+    feedProfile: FeedProfile,
+    sources?: SitemapSource[],
+  ): Promise<ScrapingStats> {
+    const stats: ScrapingStats = {
+      feedProfile,
+      totalFeeds: 0,
+      newArticles: 0,
+      errors: 0,
+      startTime: new Date(),
+    };
+
+    const sitemapSources =
+      sources ??
+      this.profilesService.getEnabledSitemapSourcesForProfile(feedProfile);
+
+    if (sitemapSources.length === 0) {
+      stats.endTime = new Date();
+      return stats;
+    }
+
+    stats.totalFeeds = sitemapSources.length;
+    const appConfig = this.configService.getAppConfig();
+    const maxArticles = appConfig.maxArticlesForScrapping || 15;
+
+    for (const source of sitemapSources) {
+      try {
+        const entries = await fetchSitemapEntries(
+          source.sitemapUrl,
+          source.urlPrefix,
+        );
+
+        const capped = [...entries]
+          .sort(
+            (a, b) => (b.lastmod?.getTime() ?? 0) - (a.lastmod?.getTime() ?? 0),
+          )
+          .slice(0, maxArticles);
+
+        for (const entry of capped) {
+          if (await this.ingestionService.articleExists(entry.url)) {
+            continue;
+          }
+
+          const { content, ogImage, title } =
+            await this.fetchArticleContentAndOgImage(entry.url);
+
+          if (!content) {
+            console.log(
+              `  Skipping sitemap article, failed to extract content: ${entry.url}`,
+            );
+            stats.errors++;
+            continue;
+          }
+
+          await this.ingestionService.ingest({
+            url: entry.url,
+            title: title || entry.url,
+            content,
+            publishedDate: entry.lastmod ?? new Date(),
+            feedProfile,
+            source: { type: 'sitemap', feedName: source.name },
+            imageUrl: ogImage || undefined,
+          });
+
+          stats.newArticles++;
+          await new Promise((resolve) => setTimeout(resolve, 500));
+        }
+      } catch (error) {
+        console.error(`Error processing sitemap ${source.sitemapUrl}:`, error);
+        stats.errors++;
+      }
+    }
+
+    stats.endTime = new Date();
+    console.log(
+      `--- Sitemap scraping finished [${feedProfile}]. Added ${stats.newArticles} new articles. ---`,
     );
 
     return stats;

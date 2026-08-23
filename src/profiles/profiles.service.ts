@@ -3,7 +3,12 @@ import { brasilFeedConfig } from '../shared/feeds/brasil';
 import { politicsFeedConfig } from '../shared/feeds/politics';
 import { techFeedConfig } from '../shared/feeds/tech';
 import { teclasFeedConfig } from '../shared/feeds/teclas';
-import { FeedConfiguration, FeedProfile, RSSFeed } from '../shared/types/feed';
+import {
+  FeedConfiguration,
+  FeedProfile,
+  RSSFeed,
+  SitemapSource,
+} from '../shared/types/feed';
 
 @Injectable()
 export class ProfilesService {
@@ -36,6 +41,17 @@ export class ProfilesService {
   getEnabledFeedsForProfile(profile: FeedProfile): RSSFeed[] {
     const feeds = this.getFeedsForProfile(profile);
     return feeds.filter((feed) => feed.enabled !== false);
+  }
+
+  getSitemapSourcesForProfile(profile: FeedProfile): SitemapSource[] {
+    const config = this.getFeedConfig(profile);
+    return config?.sitemapSources || [];
+  }
+
+  getEnabledSitemapSourcesForProfile(profile: FeedProfile): SitemapSource[] {
+    return this.getSitemapSourcesForProfile(profile).filter(
+      (source) => source.enabled !== false,
+    );
   }
 
   getPromptsForProfile(profile: FeedProfile) {

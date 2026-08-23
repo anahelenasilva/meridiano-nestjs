@@ -158,6 +158,24 @@ describe('ArticleIngestionService', () => {
         undefined,
       );
     });
+
+    it('uses feed name for sitemap source', async () => {
+      await service.ingest(
+        makeInput({ source: { type: 'sitemap', feedName: 'Claude Blog' } }),
+      );
+
+      expect(articlesService.addArticle).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.any(String),
+        expect.any(Date),
+        'Claude Blog',
+        expect.any(String),
+        expect.any(String),
+        undefined,
+        undefined,
+        undefined,
+      );
+    });
   });
 
   describe('persistence', () => {

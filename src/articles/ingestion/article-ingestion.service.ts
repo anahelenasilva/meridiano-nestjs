@@ -7,6 +7,7 @@ import { ArticlesService } from '../articles.service';
 
 export type ArticleSource =
   | { type: 'rss'; feedName: string }
+  | { type: 'sitemap'; feedName: string }
   | { type: 'manual' }
   | { type: 'markdown' };
 
@@ -72,6 +73,8 @@ export class ArticleIngestionService {
   private async resolveSource(rawArticle: RawArticleInput): Promise<string> {
     switch (rawArticle.source.type) {
       case 'rss':
+        return rawArticle.source.feedName;
+      case 'sitemap':
         return rawArticle.source.feedName;
       case 'manual':
         return 'Manual';

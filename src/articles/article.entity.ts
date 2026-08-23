@@ -67,6 +67,7 @@ export interface UpdateArticlePatch {
 export interface ArticleContent {
   content: string | null;
   ogImage: string | null;
+  title: string | null;
 }
 
 export interface ClusterAnalysis {

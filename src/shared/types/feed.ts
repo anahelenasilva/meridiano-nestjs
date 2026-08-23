@@ -17,9 +17,17 @@ export interface RSSFeed {
   enabled?: boolean;
 }
 
+export interface SitemapSource {
+  sitemapUrl: string;
+  urlPrefix: string;
+  name: string;
+  enabled?: boolean;
+}
+
 export interface FeedConfiguration {
   profile: FeedProfile;
   rssFeeds: RSSFeed[];
+  sitemapSources?: SitemapSource[];
   prompts?: {
     articleSummary?: string;
     impactRating?: string;
