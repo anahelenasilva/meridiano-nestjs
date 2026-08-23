@@ -21,6 +21,10 @@ const SITEMAP = `<?xml version="1.0" encoding="UTF-8"?>
   <url>
     <loc>https://claude.com/blog/no-date-post</loc>
   </url>
+  <url>
+    <loc>https://claude.com/blog/bad-date-post</loc>
+    <lastmod>not-a-date</lastmod>
+  </url>
 </urlset>`;
 
 describe('parseSitemapXml', () => {
@@ -30,6 +34,7 @@ describe('parseSitemapXml', () => {
       'https://claude.com/blog/first-post',
       'https://claude.com/blog/second-post',
       'https://claude.com/blog/no-date-post',
+      'https://claude.com/blog/bad-date-post',
     ]);
   });
 
@@ -42,6 +47,12 @@ describe('parseSitemapXml', () => {
     const entries = parseSitemapXml(SITEMAP, 'https://claude.com/blog/');
     const noDate = entries.find((e) => e.url.endsWith('no-date-post'));
     expect(noDate?.lastmod).toBeNull();
+  });
+
+  it('returns null lastmod when the entry has an unparseable date', () => {
+    const entries = parseSitemapXml(SITEMAP, 'https://claude.com/blog/');
+    const badDate = entries.find((e) => e.url.endsWith('bad-date-post'));
+    expect(badDate?.lastmod).toBeNull();
   });
 
   it('returns an empty array when nothing matches the prefix', () => {
@@ -64,6 +75,6 @@ describe('fetchSitemapEntries', () => {
       'https://claude.com/sitemap.xml',
       expect.objectContaining({ responseType: 'text' }),
     );
-    expect(entries).toHaveLength(3);
+    expect(entries).toHaveLength(4);
   });
 });
