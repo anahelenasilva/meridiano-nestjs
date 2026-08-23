@@ -6,3 +6,5 @@ allowBuilds:
   esbuild: true
   msgpackr-extract: true
   unrs-resolver: true
+overrides:
+  meridiano-cli: link:../meridiano-cli
