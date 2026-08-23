@@ -1,4 +1,4 @@
-import { DatabaseService } from '@libs/database';
+import { DatabaseService, SqlParams } from '@libs/database';
 import { BadRequestException, Injectable } from '@nestjs/common';
 
 export interface TelegramSubmissionData {
@@ -250,7 +250,7 @@ export class TelegramSubmissionService {
     const db = this.getDbConnection();
 
     const conditions: string[] = [];
-    const values: unknown[] = [];
+    const values: SqlParams = [];
 
     if (options?.status) {
       conditions.push('submission_status = ?');
@@ -299,7 +299,7 @@ export class TelegramSubmissionService {
     const db = this.getDbConnection();
 
     const conditions: string[] = [];
-    const values: unknown[] = [];
+    const values: SqlParams = [];
 
     if (options?.startDate) {
       conditions.push('created_at >= ?');

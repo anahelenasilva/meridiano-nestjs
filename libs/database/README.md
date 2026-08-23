@@ -118,7 +118,7 @@ stmt.run(['John Doe', 'john@example.com'], function(err) {
 stmt.finalize();
 ```
 
-#### `run(sql: string, params?: any[], callback?: RunCallback): RunResult`
+#### `run(sql: string, params?: SqlParams, callback?: RunCallback): RunResult`
 
 Executes a SQL statement (INSERT, UPDATE, DELETE):
 
@@ -136,14 +136,14 @@ db.run('UPDATE users SET name = ? WHERE id = ?', ['Jane Doe', '123'], function(e
 
 **Note:** For INSERT statements, the service automatically appends `RETURNING id` to get the inserted ID, which is available as `this.lastID` in the callback.
 
-#### `all(sql: string, params?: any[], callback?: (err: Error | null, rows?: any[]) => void): void`
+#### `all<T = unknown>(sql: string, params?: SqlParams, callback?: (err: Error | null, rows?: T[]) => void): void`
 
-Executes a SELECT query and returns all rows:
+Executes a SELECT query and returns all rows. Pass a row type (`db.all<User>(...)`) or annotate the callback to recover typed rows:
 
 ```typescript
 const db = this.databaseService.getDbConnection();
 
-db.all('SELECT * FROM users WHERE active = ?', [true], (err, rows) => {
+db.all<User>('SELECT * FROM users WHERE active = ?', [true], (err, rows) => {
   if (err) {
     console.error('Error:', err);
   } else {
@@ -152,14 +152,14 @@ db.all('SELECT * FROM users WHERE active = ?', [true], (err, rows) => {
 });
 ```
 
-#### `get(sql: string, params?: any[], callback?: (err: Error | null, row?: any) => void): void`
+#### `get<T = unknown>(sql: string, params?: SqlParams, callback?: (err: Error | null, row?: T) => void): void`
 
-Executes a SELECT query and returns the first row:
+Executes a SELECT query and returns the first row. Pass a row type (`db.get<User>(...)`) or annotate the callback to recover a typed row:
 
 ```typescript
 const db = this.databaseService.getDbConnection();
 
-db.get('SELECT * FROM users WHERE id = ?', ['123'], (err, row) => {
+db.get<User>('SELECT * FROM users WHERE id = ?', ['123'], (err, row) => {
   if (err) {
     console.error('Error:', err);
   } else {

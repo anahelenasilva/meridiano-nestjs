@@ -15,7 +15,7 @@
  * real JwtAuthGuard. A user and JWT are minted the same way auth.e2e-spec.ts
  * does (JWT_SECRET set on process.env before the module compiles).
  */
-import { DatabaseConnection, DatabaseService } from '@libs/database';
+import { DatabaseConnection, DatabaseService, SqlParams } from '@libs/database';
 import { randomUUID } from 'crypto';
 import { INestApplication } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -30,7 +30,7 @@ import { AppModule } from '../src/app.module';
 function runQuery(
   db: DatabaseConnection,
   sql: string,
-  params: unknown[],
+  params: SqlParams,
 ): Promise<void> {
   return new Promise((resolve, reject) => {
     db.run(sql, params, (err) => (err ? reject(err) : resolve()));
@@ -40,7 +40,7 @@ function runQuery(
 function allQuery<T>(
   db: DatabaseConnection,
   sql: string,
-  params: unknown[],
+  params: SqlParams,
 ): Promise<T[]> {
   return new Promise((resolve, reject) => {
     db.all(sql, params, (err, rows) => (err ? reject(err) : resolve((rows ?? []) as T[])));

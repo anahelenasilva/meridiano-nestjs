@@ -14,13 +14,13 @@ import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
 import { App } from 'supertest/types';
-import { DatabaseConnection, DatabaseService } from '@libs/database';
+import { DatabaseConnection, DatabaseService, SqlParams } from '@libs/database';
 import { AppModule } from '../src/app.module';
 
 function runQuery(
   db: DatabaseConnection,
   sql: string,
-  params: unknown[],
+  params: SqlParams,
 ): Promise<void> {
   return new Promise((resolve, reject) => {
     db.run(sql, params, (err) => (err ? reject(err) : resolve()));
