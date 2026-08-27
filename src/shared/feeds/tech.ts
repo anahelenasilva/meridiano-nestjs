@@ -130,7 +130,16 @@ export const techRSSFeeds: RSSFeed[] = [
     url: 'https://akitaonrails.com/index.xml',
     name: 'Fabio Akita',
     category: 'tech',
-    description: 'Blog do Fabio Akita do Canal do YouTube Akitando falando sobre tecnologia, carreira e coisas geek',
+    description:
+      'Blog do Fabio Akita do Canal do YouTube Akitando falando sobre tecnologia, carreira e coisas geek',
+    enabled: true,
+  },
+  {
+    url: 'https://www.aihero.dev/skills/rss.xml',
+    name: 'AI Hero',
+    category: 'tech',
+    description:
+      "Matt Pocock's AI Hero, teaching developers how to build with AI through practical skills and tutorials.",
     enabled: true,
   },
 ];
