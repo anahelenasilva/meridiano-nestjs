@@ -31,19 +31,12 @@ export class ListFailedIngestJobsQuery {
   ) {}
 
   async execute(): Promise<FailedIngestJob[]> {
+    let jobs: Job<IngestTranscriptJobData>[];
+
     try {
-      const jobs = (await this.ingestQueue.getJobs([
+      jobs = (await this.ingestQueue.getJobs([
         'failed',
       ])) as Job<IngestTranscriptJobData>[];
-
-      const channelNames = await this.resolveChannelNames(jobs);
-
-      return jobs.map((job) => ({
-        jobId: job.id as string,
-        videoUrl: job.data.videoUrl,
-        channelName: channelNames.get(job.data.channelDbId) ?? UNKNOWN_CHANNEL,
-        reason: job.failedReason ?? 'Unknown error',
-      }));
     } catch (error) {
       this.logger.error(
         `Failed to read the ingest queue: ${
@@ -52,8 +45,20 @@ export class ListFailedIngestJobsQuery {
       );
       return [];
     }
+
+    const channelNames = await this.resolveChannelNames(jobs);
+
+    return jobs.map((job) => ({
+      jobId: job.id as string,
+      videoUrl: job.data.videoUrl,
+      channelName: channelNames.get(job.data.channelDbId) ?? UNKNOWN_CHANNEL,
+      reason: job.failedReason ?? 'Unknown error',
+    }));
   }
 
+  // A channel lookup failing (as opposed to returning null) must not blank
+  // the whole strip, so each lookup gets its own fallback instead of sharing
+  // the queue-read try/catch above.
   private async resolveChannelNames(
     jobs: Job<IngestTranscriptJobData>[],
   ): Promise<Map<string, string>> {
@@ -61,8 +66,19 @@ export class ListFailedIngestJobsQuery {
 
     const entries = await Promise.all(
       ids.map(async (id) => {
-        const channel = await this.youtubeChannelsService.getChannelById(id);
-        return [id, channel?.name ?? UNKNOWN_CHANNEL] as const;
+        try {
+          const channel = await this.youtubeChannelsService.getChannelById(
+            id,
+          );
+          return [id, channel?.name ?? UNKNOWN_CHANNEL] as const;
+        } catch (error) {
+          this.logger.error(
+            `Failed to resolve channel name for ${id}: ${
+              error instanceof Error ? error.message : String(error)
+            }`,
+          );
+          return [id, UNKNOWN_CHANNEL] as const;
+        }
       }),
     );
 

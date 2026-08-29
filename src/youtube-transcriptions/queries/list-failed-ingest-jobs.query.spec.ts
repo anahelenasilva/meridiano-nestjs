@@ -86,4 +86,44 @@ describe('ListFailedIngestJobsQuery', () => {
 
     await expect(query.execute()).resolves.toEqual([]);
   });
+
+  it('keeps the rest of the list when one channel lookup rejects', async () => {
+    mockQueue.getJobs.mockResolvedValue([
+      fakeJob('channel-x:aaa', {
+        videoUrl: 'https://www.youtube.com/watch?v=aaa',
+        channelDbId: 'channel-x',
+      }, 'boom'),
+      fakeJob('channel-y:bbb', {
+        videoUrl: 'https://www.youtube.com/watch?v=bbb',
+        channelDbId: 'channel-y',
+      }, 'boom'),
+    ] as never);
+    mockChannels.getChannelById.mockImplementation((id: string) => {
+      if (id === 'channel-x') {
+        return Promise.reject(new Error('db hiccup'));
+      }
+      return Promise.resolve({
+        id: 'channel-y',
+        name: 'Healthy Channel',
+        enabled: true,
+      } as never);
+    });
+
+    const jobs = await query.execute();
+
+    expect(jobs).toEqual([
+      {
+        jobId: 'channel-x:aaa',
+        videoUrl: 'https://www.youtube.com/watch?v=aaa',
+        channelName: 'Unknown channel',
+        reason: 'boom',
+      },
+      {
+        jobId: 'channel-y:bbb',
+        videoUrl: 'https://www.youtube.com/watch?v=bbb',
+        channelName: 'Healthy Channel',
+        reason: 'boom',
+      },
+    ]);
+  });
 });
