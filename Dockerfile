@@ -70,6 +70,7 @@ EXPOSE 3005
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
   CMD node -e "require('http').get('http://127.0.0.1:3005/api/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
 
-# Migrations run at boot because the Pi runs a single replica. A failed migration
-# must exit non-zero so deploy.sh sees an unhealthy container and rolls back.
+# Migrations run before the server starts, since nothing else runs them for a
+# container deploy. A failure exits non-zero so boot fails loudly rather than
+# serving against a stale schema.
 CMD ["sh", "-c", "pnpm run migration:run && pnpm run start:prod"]
