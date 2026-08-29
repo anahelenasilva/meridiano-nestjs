@@ -3,7 +3,7 @@ import {
   YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
 } from '@libs/queue';
 import { RedisService } from '@libs/redis';
-import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { Job, Worker } from 'bullmq';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 
@@ -15,7 +15,7 @@ import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions
  * fallbacks in the first place.
  */
 @Injectable()
-export class YoutubeTranscriptIngestProcessor implements OnModuleInit {
+export class YoutubeTranscriptIngestProcessor implements OnModuleInit, OnModuleDestroy {
   private worker: Worker;
   private readonly logger = new Logger(YoutubeTranscriptIngestProcessor.name);
 
@@ -54,6 +54,12 @@ export class YoutubeTranscriptIngestProcessor implements OnModuleInit {
     });
 
     this.logger.log('YouTube transcript ingest worker initialized');
+  }
+
+  async onModuleDestroy() {
+    if (this.worker) {
+      await this.worker.close();
+    }
   }
 
   async ingestTranscript(
