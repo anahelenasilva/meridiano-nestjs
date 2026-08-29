@@ -13,12 +13,14 @@ import { NotesCleanupModule } from '../notes/notes-cleanup.module';
 import { NotesReadModule } from '../notes/notes-read.module';
 import { YoutubeChannelsModule } from '../youtube-channels/youtube-channels.module';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
+import { DismissIngestJobCommand } from './commands/dismiss-ingest-job.command';
 import { EnqueueYoutubeTranscriptionsCommand } from './commands/enqueue-youtube-transcriptions.command';
 import { TranscriptBackupProcessor } from './processors/transcript-backup.processor';
 import { YoutubeTranscriptionProcessor } from './processors/youtube-transcription.processor';
 import { YoutubeTranscriptIngestProcessor } from './processors/youtube-transcript-ingest.processor';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
+import { ListFailedIngestJobsQuery } from './queries/list-failed-ingest-jobs.query';
 import { StorageService } from './services/storage.service';
 import { TranscriptChunkingService } from './services/transcript-chunking.service';
 import { TranscriptService } from './services/transcript.service';
@@ -59,6 +61,8 @@ import { ProcessTranscriptionFilesUseCase } from './usecases/process-transcripti
     GetYoutubeTranscriptionByIdQuery,
     DeleteYoutubeTranscriptionCommand,
     EnqueueYoutubeTranscriptionsCommand,
+    ListFailedIngestJobsQuery,
+    DismissIngestJobCommand,
     YoutubeTranscriptionProcessor,
     YoutubeTranscriptIngestProcessor,
     TranscriptBackupProcessor,

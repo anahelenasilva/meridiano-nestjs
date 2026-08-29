@@ -13,10 +13,12 @@ import { NotesReadService } from '../notes/notes-read.service';
 import type { AuthenticatedRequest } from '../shared/types/authenticated-request';
 import { ChannelCategoriesService } from '../youtube-channels/channel-categories.service';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
+import { DismissIngestJobCommand } from './commands/dismiss-ingest-job.command';
 import { EnqueueYoutubeTranscriptionsCommand } from './commands/enqueue-youtube-transcriptions.command';
 import { YoutubeTranscription } from './entities/youtube-transcription.entity';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
+import { ListFailedIngestJobsQuery } from './queries/list-failed-ingest-jobs.query';
 import { YoutubeTranscriptionsService } from './services/youtube-transcriptions.service';
 import { YoutubeTranscriptionsController } from './youtube-transcriptions.controller';
 
@@ -31,6 +33,8 @@ describe('YoutubeTranscriptionsController', () => {
   const mockNotesReadService = mock<NotesReadService>();
   const mockChannelCategoriesService = mock<ChannelCategoriesService>();
   const mockEnqueueCommand = mock<EnqueueYoutubeTranscriptionsCommand>();
+  const mockListFailedIngestJobsQuery = mock<ListFailedIngestJobsQuery>();
+  const mockDismissIngestJobCommand = mock<DismissIngestJobCommand>();
 
   const userId = 'user-1';
   const mockRequest = { user: { id: userId } } as AuthenticatedRequest;
@@ -78,6 +82,8 @@ describe('YoutubeTranscriptionsController', () => {
       mockGetYoutubeTranscriptionByIdQuery,
       mockDeleteYoutubeTranscriptionCommand,
       mockEnqueueCommand,
+      mockListFailedIngestJobsQuery,
+      mockDismissIngestJobCommand,
       mockAudioJobService,
       mockAudioFilesService,
     );
