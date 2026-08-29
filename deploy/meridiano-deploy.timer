@@ -1,5 +1,5 @@
 [Unit]
-Description=Check GHCR for a new meridiano-nestjs image every two minutes
+Description=Check origin/main for new meridiano-nestjs commits every two minutes
 
 [Timer]
 OnBootSec=2min

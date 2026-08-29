@@ -1,119 +1,150 @@
 # Deploying the API to the Raspberry Pi
 
-Pushing to `main` publishes an arm64 image to GHCR. The Pi checks GHCR every two
-minutes and deploys the image if the digest changed. Nothing on the internet
-reaches the Pi: no forwarded ports, no tunnel, and GitHub holds no credential for
-anything of yours. The Pi does all the reaching out.
+The Pi checks `origin/main` every two minutes. When it moves, the Pi backs up
+Postgres, pulls, builds, migrates, and restarts `meridiano.service`. If the API
+does not come back healthy, the previous commit gets rebuilt and restarted.
 
-Only `meridian-backend` deploys this way. Redis, Postgres, Node-RED, and the
-frontend are untouched.
+Nothing on the internet reaches the Pi. No forwarded port, no tunnel, no
+credential in either direction. The Pi does all the reaching out, and a public
+repo needs no authentication to fetch.
+
+Only the API deploys this way. `meridiano-frontend.service`, Postgres, and Redis
+are untouched.
 
 ## What runs where
 
 | Piece | Where | What it does |
 | --- | --- | --- |
-| `.github/workflows/deploy.yml` | GitHub | Lints, tests, then builds and pushes `ghcr.io/anahelenasilva/meridiano-nestjs` tagged `main` and the commit sha |
-| `deploy.sh` | Pi, `/opt/meridiano/deploy.sh` | Pulls, backs up Postgres, restarts the backend, rolls back if it does not come up healthy |
-| `meridiano-deploy.timer` | Pi, systemd | Runs `deploy.sh` every two minutes |
+| `deploy.sh` | `/usr/local/bin/meridiano-deploy` | Fetch, back up, build, migrate, restart, roll back on failure |
+| `meridiano-deploy.timer` | systemd | Runs the script every two minutes |
+| `meridiano.service` | systemd | The API itself, `pnpm run start:prod` as `anahelena` |
 
-Migrations run inside the container at boot, ahead of `start:prod`. A failed
-migration exits non-zero, the container never reports healthy, and `deploy.sh`
-puts the previous image back.
+The script runs as root so it can restart the unit and write to `/var/backups`.
+Every `git` and `pnpm` call drops to `anahelena` with `sudo -u`. Running those as
+root would leave root-owned files in the checkout and break the next deploy.
 
-## First, publish an image
-
-The GHCR package does not exist until the workflow runs, so merge to main and let
-it finish before touching the Pi.
-
-Then make the package public, once. GHCR packages are private by default even
-when the repo is public, and a private package means the Pi has to hold a token
-with `read:packages` and rotate it. Public means the Pi pulls with no credential
-at all, which is the point of the whole design. The image ships only `dist`, the
-manifests, `libs/database`, and `scripts`, so no env file rides along.
-
-Find it on the repo's Packages sidebar or at `github.com/users/anahelenasilva/packages`,
-then Package settings, Change visibility, Public.
-
-## Then set up the Pi
-
-Install the script and units:
+## Setup
 
 ```sh
-sudo install -m 755 deploy/deploy.sh /opt/meridiano/deploy.sh
+sudo install -m 755 deploy/deploy.sh /usr/local/bin/meridiano-deploy
 sudo install -m 644 deploy/meridiano-deploy.service /etc/systemd/system/
 sudo install -m 644 deploy/meridiano-deploy.timer /etc/systemd/system/
 sudo systemctl daemon-reload
 ```
 
-`/opt/meridiano/docker-compose.prod.yml` and `/opt/meridiano/.env` need to be the
-files the Pi already runs. `.env` needs `DATABASE_HOST`, `DATABASE_PORT`,
-`DATABASE_USER`, `DATABASE_PASSWORD`, and `DATABASE_NAME`, which the backup step
-reads.
-
-`CORS_ORIGINS` is optional. Left empty, the API accepts any origin, which is a
-reasonable default on a private tailnet. To lock it down, set it to the origin the
-browser shows when you load the frontend: scheme, host, and port, no path and no
-trailing slash. `http://pi.tailnet-name.ts.net` and `http://100.x.y.z` are
-different origins to a browser, so list both if you reach the Pi either way.
-
-```
-CORS_ORIGINS=http://pi-name.tailnet-name.ts.net,http://100.x.y.z
-```
-
-Do the first deploy by hand and watch it:
+Run it by hand first and watch the whole thing:
 
 ```sh
-sudo /opt/meridiano/deploy.sh
+sudo /usr/local/bin/meridiano-deploy
 ```
 
 Then start the timer:
 
 ```sh
 sudo systemctl enable --now meridiano-deploy.timer
+systemctl list-timers meridiano-deploy.timer
 ```
+
+Nothing else needs configuring. The script's defaults already match this Pi:
+the checkout at `/home/anahelena/dev/meridiano-nestjs`, the `anahelena` user,
+`meridiano.service`, and `meridiano-network-production` for the backup container.
+
+Database credentials come from `.env` in the checkout, which the script reads one
+key at a time rather than sourcing. Sourcing a `.env` as root would execute any
+command hiding in an unquoted value.
+
+`CORS_ORIGINS` lives in `meridiano.service`, not in `.env`. Change it with
+`sudo systemctl edit --full meridiano` if the frontend ever moves.
 
 ## Day to day
 
-Watch a deploy as it happens:
+Watch a deploy:
 
 ```sh
 journalctl -u meridiano-deploy.service -f
 ```
 
-Deploy immediately instead of waiting for the timer:
+Deploy now instead of waiting for the timer:
 
 ```sh
 sudo systemctl start meridiano-deploy.service
 ```
 
-Roll back to a specific commit, which survives the timer because the tag is
-pinned:
+Roll back to any commit by hand:
 
 ```sh
-cd /opt/meridiano
-IMAGE_TAG=<commit-sha> docker compose -f docker-compose.prod.yml up -d meridian-backend
+cd /home/anahelena/dev/meridiano-nestjs
+git reset --hard <sha> && pnpm install --frozen-lockfile && pnpm run build
+sudo systemctl restart meridiano
 ```
 
-To go back to tracking `main`, drop `IMAGE_TAG` and run `deploy.sh` again.
+The timer will pull it forward to `origin/main` again within two minutes, so
+revert on GitHub if you want the rollback to stick.
 
-Backups land in `/var/backups/meridiano`, gzipped, ten deep. Restore one with:
+## When a deploy fails
+
+The script writes the failing commit to `/var/lib/meridiano/failed-sha` and
+refuses to try it again until `origin/main` moves to something else. Without
+that, a commit that crashes on boot would rebuild and restart every two minutes
+forever, taking a `pg_dump` each time.
+
+So a failed deploy leaves you on the previous commit, with the Pi idle, waiting
+for you to push a fix. To force a retry of the same commit:
+
+```sh
+sudo rm /var/lib/meridiano/failed-sha
+```
+
+The script also refuses to run at all when tracked files are modified in the
+checkout, rather than resetting over your work. Untracked files are never
+touched and `git clean` is never called, so `.env-bkp`, `get-docker.sh`, and
+`transcripts/` are safe.
+
+## Backups
+
+Every deploy that has something to deploy dumps Postgres to
+`/var/backups/meridiano/meridiano-<timestamp>.sql.gz` first, keeping the ten most
+recent. The dump runs in a throwaway `postgres:16-alpine` container on
+`meridiano-network-production`, so the Pi needs no Postgres client installed.
+
+This exists because auto-rollback reverts code and not the schema. A migration
+that runs and then fails its health check leaves you on old code against a new
+schema, and if that migration dropped a column, the dump is the only way back.
+
+Restore one with:
 
 ```sh
 gunzip -c /var/backups/meridiano/meridiano-<timestamp>.sql.gz \
-  | docker run --rm -i --network meridiano-network-production -e PGPASSWORD="$DATABASE_PASSWORD" \
-    postgres:16-alpine psql -h "$DATABASE_HOST" -U "$DATABASE_USER" -d "$DATABASE_NAME"
+  | docker run --rm -i --network meridiano-network-production \
+    -e PGPASSWORD="$DATABASE_PASSWORD" postgres:16-alpine \
+    psql -h "$DATABASE_HOST" -U "$DATABASE_USER" -d "$DATABASE_NAME"
 ```
 
-Stop automatic deploys with `sudo systemctl disable --now meridiano-deploy.timer`.
-Everything keeps running, it just stops picking up new images.
+The dumps sit on the same Pi as the database, so they survive a bad migration but
+not a dead SD card. Copying them off is a separate job that does not exist yet.
+
+## Known trade-offs
+
+Rollback rebuilds from source, so a failed deploy means a few minutes of running
+the old code before it is restored, rather than a few seconds. A releases
+directory with a `current` symlink would make rollback instant, at the cost of
+more machinery than this deserves right now.
+
+`pnpm run build` rewrites `dist/` while the old process is still running. Node
+loaded its code at boot, so this is almost always fine, but a module that gets
+required lazily could in principle hit a half-written file in the window between
+the build and the restart.
+
+The Pi deploys whatever is on `origin/main` without checking whether CI passed.
+Pull requests are gated by `pr-checks.yml`, so this only matters for direct
+pushes to main. Auto-rollback and the backup are the safety net there.
 
 ## Knobs
 
-`deploy.sh` reads these from the environment, and the service file is the place to
-set them. Defaults are in the script's header.
+Set any of these in `meridiano-deploy.service`. Defaults are in the script header.
 
-`COMPOSE_FILE`, `ENV_FILE`, `SERVICE`, `IMAGE`, `IMAGE_TAG`, `DB_NETWORK`,
-`BACKUP_DIR`, `BACKUP_KEEP`, `HEALTH_TIMEOUT`, `PG_CLIENT_IMAGE`.
+`REPO`, `APP_USER`, `SERVICE`, `BRANCH`, `PNPM`, `ENV_FILE`, `DB_NETWORK`,
+`PG_CLIENT_IMAGE`, `BACKUP_DIR`, `BACKUP_KEEP`, `HEALTH_TIMEOUT`, `STATE_DIR`.
 
-`PG_CLIENT_IMAGE` needs to be at least the major version of the Postgres running
-on the Pi. `pg_dump` refuses to dump a server newer than itself.
+`PG_CLIENT_IMAGE` must be at least the major version of the Postgres on the Pi,
+currently 16. `pg_dump` refuses to dump a server newer than itself.
