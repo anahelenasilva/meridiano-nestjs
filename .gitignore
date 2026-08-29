@@ -88,3 +88,6 @@ _bmad-output/
 .pnpm-store/
 
 .claude/worktrees/
+
+# Transcript JSON written by the youtube ingest worker at runtime.
+transcripts/
