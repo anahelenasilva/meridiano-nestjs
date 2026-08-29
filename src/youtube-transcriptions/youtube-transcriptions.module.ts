@@ -16,6 +16,7 @@ import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-tra
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
 import { TranscriptBackupProcessor } from './processors/transcript-backup.processor';
 import { YoutubeTranscriptionProcessor } from './processors/youtube-transcription.processor';
+import { YoutubeTranscriptIngestProcessor } from './processors/youtube-transcript-ingest.processor';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
 import { StorageService } from './services/storage.service';
@@ -59,6 +60,7 @@ import { ProcessTranscriptionFilesUseCase } from './usecases/process-transcripti
     DeleteYoutubeTranscriptionCommand,
     CreateYoutubeTranscriptionCommand,
     YoutubeTranscriptionProcessor,
+    YoutubeTranscriptIngestProcessor,
     TranscriptBackupProcessor,
     // YouTube transcription usecases
     ExtractYoutubeTranscriptsUseCase,
