@@ -5,14 +5,16 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  IsUrl,
   MaxLength,
 } from 'class-validator';
 
 export class CreateYoutubeTranscriptionDto {
   @ArrayNotEmpty()
   @ArrayMaxSize(25, { message: 'A batch may contain at most 25 URLs' })
-  @IsUrl({}, { each: true, message: 'Invalid URL format' })
+  // Not @IsUrl: a stray non-URL line must reach the command and land in
+  // `rejected`, not fail the whole batch with a 400. extractVideoId is the
+  // single authority on what counts as a YouTube video URL.
+  @IsString({ each: true })
   urls: string[];
 
   @IsNotEmpty()

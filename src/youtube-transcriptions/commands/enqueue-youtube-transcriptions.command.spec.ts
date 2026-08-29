@@ -102,6 +102,20 @@ describe('EnqueueYoutubeTranscriptionsCommand', () => {
     expect(mockQueue.addTranscriptIngestJob).toHaveBeenCalledTimes(1);
   });
 
+  it('accepts a schemeless youtube url', async () => {
+    mockChannels.getChannelById.mockResolvedValue(enabledChannel as never);
+    mockTranscriptions.findExistingVideoUrls.mockResolvedValue(new Set());
+    mockQueue.addTranscriptIngestJob.mockResolvedValue('job-1');
+
+    const result = await command.execute({
+      urls: ['youtube.com/watch?v=aaa'],
+      channelDbId: 'channel-1',
+    });
+
+    expect(result.accepted).toEqual(['https://www.youtube.com/watch?v=aaa']);
+    expect(result.rejected).toEqual([]);
+  });
+
   it('enqueues with the video id and the batch options', async () => {
     mockChannels.getChannelById.mockResolvedValue(enabledChannel as never);
     mockTranscriptions.findExistingVideoUrls.mockResolvedValue(new Set());

@@ -58,7 +58,14 @@ export class EnqueueYoutubeTranscriptionsCommand {
     const candidates = new Map<string, string>();
 
     for (const url of urls) {
-      const videoId = extractVideoId(url.trim());
+      const trimmed = url.trim();
+      // extractVideoId parses with `new URL()`, which throws on a schemeless
+      // string. A share-sheet or hand-typed link (e.g. "youtube.com/watch?v=x")
+      // has no scheme, so assume https rather than reject a valid video URL.
+      const withScheme = /^[a-z][a-z0-9+.-]*:\/\//i.test(trimmed)
+        ? trimmed
+        : `https://${trimmed}`;
+      const videoId = extractVideoId(withScheme);
 
       if (!videoId) {
         rejected.push({ url, reason: NOT_A_YOUTUBE_URL });
