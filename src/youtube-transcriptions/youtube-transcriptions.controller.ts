@@ -16,7 +16,6 @@ import {
   Req,
 } from '@nestjs/common';
 import {
-  ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
@@ -29,11 +28,13 @@ import {
 import { AudioFilesService } from '../audio-files/audio-files.service';
 import type { AuthenticatedRequest } from '../shared/types/authenticated-request';
 import { parseIncludeAudio } from '../shared/helpers/parse-include-audio';
-import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
+import { DismissIngestJobCommand } from './commands/dismiss-ingest-job.command';
+import { EnqueueYoutubeTranscriptionsCommand } from './commands/enqueue-youtube-transcriptions.command';
 import { CreateYoutubeTranscriptionDto } from './dto/create-youtube-transcription.dto';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
+import { ListFailedIngestJobsQuery } from './queries/list-failed-ingest-jobs.query';
 
 @Controller('api/youtube')
 @ApiAuthErrorResponse()
@@ -42,7 +43,9 @@ export class YoutubeTranscriptionsController {
     private readonly listAllYoutubeTranscriptionsQuery: ListAllYoutubeTranscriptionsQuery,
     private readonly getYoutubeTranscriptionByIdQuery: GetYoutubeTranscriptionByIdQuery,
     private readonly deleteYoutubeTranscriptionCommand: DeleteYoutubeTranscriptionCommand,
-    private readonly createYoutubeTranscriptionCommand: CreateYoutubeTranscriptionCommand,
+    private readonly enqueueYoutubeTranscriptionsCommand: EnqueueYoutubeTranscriptionsCommand,
+    private readonly listFailedIngestJobsQuery: ListFailedIngestJobsQuery,
+    private readonly dismissIngestJobCommand: DismissIngestJobCommand,
     private readonly audioJobService: AudioJobService,
     private readonly audioFilesService: AudioFilesService,
   ) {}
@@ -58,16 +61,42 @@ export class YoutubeTranscriptionsController {
 
   @Post('transcriptions')
   @ApiKeyAllowed()
-  @ApiOperation({ summary: 'Create a transcription for a YouTube video' })
-  @ApiCreatedResponse({ description: 'Transcription created' })
+  @HttpCode(202)
+  @ApiOperation({
+    summary: 'Queue one or more YouTube videos for transcription',
+  })
+  @ApiResponse({
+    status: 202,
+    description: 'Videos queued, with the skipped and rejected URLs reported',
+  })
   @ApiValidationErrorResponse()
   async createTranscription(@Body() dto: CreateYoutubeTranscriptionDto) {
-    return await this.createYoutubeTranscriptionCommand.execute({
-      url: dto.url,
+    return await this.enqueueYoutubeTranscriptionsCommand.execute({
+      urls: dto.urls,
       channelDbId: dto.channelId,
       customPrompt: dto.customPrompt,
       generateAudio: dto.generateAudio,
     });
+  }
+
+  // Declared before transcriptions/:id so 'jobs' is not read as an id.
+  @Get('transcriptions/jobs/failed')
+  @ApiOperation({
+    summary: 'List failed YouTube transcript ingest jobs',
+  })
+  @ApiOkResponse({ description: 'Failed ingest jobs' })
+  async listFailedIngestJobs() {
+    return { jobs: await this.listFailedIngestJobsQuery.execute() };
+  }
+
+  // Declared before transcriptions/:id so a composite channel/video job id is
+  // not rejected by that route's ParseUUIDPipe.
+  @Delete('transcriptions/jobs/:jobId')
+  @ApiOperation({ summary: 'Dismiss a failed ingest job' })
+  @ApiOkResponse({ description: 'Ingest job dismissed' })
+  @ApiNotFoundResponse({ description: 'Ingest job not found' })
+  async dismissIngestJob(@Param('jobId') jobId: string) {
+    return await this.dismissIngestJobCommand.execute(jobId);
   }
 
   @Get('transcriptions/:id')

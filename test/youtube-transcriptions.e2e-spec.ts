@@ -34,10 +34,12 @@ import { YoutubeChannel } from '../src/youtube-channels/domain/youtube-channel';
 import { GetYoutubeChannelsQuery } from '../src/youtube-channels/queries/get-youtube-channels.query';
 import { YoutubeChannelsController } from '../src/youtube-channels/youtube-channels.controller';
 import { YoutubeChannelsService } from '../src/youtube-channels/youtube-channels.service';
-import { CreateYoutubeTranscriptionCommand } from '../src/youtube-transcriptions/commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from '../src/youtube-transcriptions/commands/delete-youtube-transcription.command';
+import { DismissIngestJobCommand } from '../src/youtube-transcriptions/commands/dismiss-ingest-job.command';
+import { EnqueueYoutubeTranscriptionsCommand } from '../src/youtube-transcriptions/commands/enqueue-youtube-transcriptions.command';
 import { GetYoutubeTranscriptionByIdQuery } from '../src/youtube-transcriptions/queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from '../src/youtube-transcriptions/queries/list-all-youtube-transcriptions.query';
+import { ListFailedIngestJobsQuery } from '../src/youtube-transcriptions/queries/list-failed-ingest-jobs.query';
 import {
   YoutubeTranscriptionListRow,
   YoutubeTranscriptionsService,
@@ -52,6 +54,9 @@ describe('YouTube Transcriptions list (e2e)', () => {
   let channelCategoriesService: MockProxy<ChannelCategoriesService>;
   let youtubeChannelsService: MockProxy<YoutubeChannelsService>;
   let findOrCreateCategoriesCommand: MockProxy<FindOrCreateCategoriesCommand>;
+  let enqueueTranscriptionsCommand: MockProxy<EnqueueYoutubeTranscriptionsCommand>;
+  let listFailedIngestJobsQuery: MockProxy<ListFailedIngestJobsQuery>;
+  let dismissIngestJobCommand: MockProxy<DismissIngestJobCommand>;
 
   const augustoInternalId = '11111111-1111-1111-1111-111111111111';
 
@@ -104,6 +109,9 @@ describe('YouTube Transcriptions list (e2e)', () => {
     channelCategoriesService = mock<ChannelCategoriesService>();
     youtubeChannelsService = mock<YoutubeChannelsService>();
     findOrCreateCategoriesCommand = mock<FindOrCreateCategoriesCommand>();
+    enqueueTranscriptionsCommand = mock<EnqueueYoutubeTranscriptionsCommand>();
+    listFailedIngestJobsQuery = mock<ListFailedIngestJobsQuery>();
+    dismissIngestJobCommand = mock<DismissIngestJobCommand>();
 
     moduleFixture = await Test.createTestingModule({
       controllers: [YoutubeTranscriptionsController, YoutubeChannelsController],
@@ -126,7 +134,12 @@ describe('YouTube Transcriptions list (e2e)', () => {
         },
         { provide: GetYoutubeTranscriptionByIdQuery, useValue: mock() },
         { provide: DeleteYoutubeTranscriptionCommand, useValue: mock() },
-        { provide: CreateYoutubeTranscriptionCommand, useValue: mock() },
+        {
+          provide: EnqueueYoutubeTranscriptionsCommand,
+          useValue: enqueueTranscriptionsCommand,
+        },
+        { provide: ListFailedIngestJobsQuery, useValue: listFailedIngestJobsQuery },
+        { provide: DismissIngestJobCommand, useValue: dismissIngestJobCommand },
         { provide: AudioJobService, useValue: mock() },
         { provide: AudioFilesService, useValue: mock() },
         {
@@ -298,5 +311,73 @@ describe('YouTube Transcriptions list (e2e)', () => {
         ],
       },
     ]);
+  });
+  describe('bulk ingest routes', () => {
+    it('accepts a batch of urls with 202 and reports the per-url outcome', async () => {
+      enqueueTranscriptionsCommand.execute.mockResolvedValue({
+        accepted: ['https://www.youtube.com/watch?v=abc123'],
+        skipped: ['https://www.youtube.com/watch?v=dup456'],
+        rejected: [{ url: 'not a url', reason: 'Not a recognizable YouTube video URL' }],
+      });
+
+      const response = await request(app.getHttpServer())
+        .post('/api/youtube/transcriptions')
+        .send({
+          urls: [
+            'https://www.youtube.com/watch?v=abc123',
+            'https://www.youtube.com/watch?v=dup456',
+            'not a url',
+          ],
+          channelId: augustoInternalId,
+        })
+        .expect(202);
+
+      expect(response.body).toEqual({
+        accepted: ['https://www.youtube.com/watch?v=abc123'],
+        skipped: ['https://www.youtube.com/watch?v=dup456'],
+        rejected: [{ url: 'not a url', reason: 'Not a recognizable YouTube video URL' }],
+      });
+    });
+
+    it('returns the failed jobs under a jobs key', async () => {
+      listFailedIngestJobsQuery.execute.mockResolvedValue([
+        {
+          jobId: `${augustoInternalId}__abc123`,
+          videoUrl: 'https://www.youtube.com/watch?v=abc123',
+          channelName: 'Augusto Galego',
+          reason: 'Transcript unavailable',
+        },
+      ]);
+
+      const response = await request(app.getHttpServer())
+        .get('/api/youtube/transcriptions/jobs/failed')
+        .expect(200);
+
+      expect(response.body).toEqual({
+        jobs: [
+          {
+            jobId: `${augustoInternalId}__abc123`,
+            videoUrl: 'https://www.youtube.com/watch?v=abc123',
+            channelName: 'Augusto Galego',
+            reason: 'Transcript unavailable',
+          },
+        ],
+      });
+    });
+
+    // Pins the route declaration order: `transcriptions/jobs/:jobId` has to be
+    // declared before `transcriptions/:id`, or the composite job id would hit
+    // that route's ParseUUIDPipe and 400 instead of reaching the handler.
+    it('routes a composite job id to the dismiss handler', async () => {
+      const jobId = `${augustoInternalId}__abc123`;
+      dismissIngestJobCommand.execute.mockResolvedValue({ dismissed: true });
+
+      const response = await request(app.getHttpServer())
+        .delete(`/api/youtube/transcriptions/jobs/${jobId}`)
+        .expect(200);
+
+      expect(response.body).toEqual({ dismissed: true });
+      expect(dismissIngestJobCommand.execute).toHaveBeenCalledWith(jobId);
+    });
   });
 });

@@ -199,13 +199,17 @@
           "generateAudio": {
             "type": "boolean"
           },
-          "url": {
-            "format": "uri",
-            "type": "string"
+          "urls": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 25,
+            "minItems": 1,
+            "type": "array"
           }
         },
         "required": [
-          "url",
+          "urls",
           "channelId"
         ],
         "type": "object"
@@ -2254,8 +2258,8 @@
           "required": true
         },
         "responses": {
-          "201": {
-            "description": "Transcription created"
+          "202": {
+            "description": "Videos queued, with the skipped and rejected URLs reported"
           },
           "400": {
             "content": {
@@ -2278,7 +2282,69 @@
             "description": "Missing or invalid bearer token"
           }
         },
-        "summary": "Create a transcription for a YouTube video",
+        "summary": "Queue one or more YouTube videos for transcription",
+        "tags": [
+          "YoutubeTranscriptions"
+        ]
+      }
+    },
+    "/api/youtube/transcriptions/jobs/failed": {
+      "get": {
+        "operationId": "YoutubeTranscriptionsController_listFailedIngestJobs",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Failed ingest jobs"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "List failed YouTube transcript ingest jobs",
+        "tags": [
+          "YoutubeTranscriptions"
+        ]
+      }
+    },
+    "/api/youtube/transcriptions/jobs/{jobId}": {
+      "delete": {
+        "operationId": "YoutubeTranscriptionsController_dismissIngestJob",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "jobId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ingest job dismissed"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          },
+          "404": {
+            "description": "Ingest job not found"
+          }
+        },
+        "summary": "Dismiss a failed ingest job",
         "tags": [
           "YoutubeTranscriptions"
         ]

@@ -10,11 +10,13 @@ import {
   BACKUP_TRANSCRIPT_JOB,
   CUSTOM_BRIEFING_GENERATION_QUEUE,
   GENERATE_CUSTOM_BRIEFING_JOB,
+  INGEST_TRANSCRIPT_JOB,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
   PROCESS_ARTICLE_JOB,
   PROCESS_MARKDOWN_ARTICLE_JOB,
   PROCESS_TRANSCRIPTION_SUMMARY_JOB,
   TRANSCRIPT_BACKUP_QUEUE,
+  YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from './constants/queue.constants';
 import type { ProcessArticleJobData } from './interfaces/article-job.interface';
@@ -22,6 +24,7 @@ import type { GenerateAudioJobData } from './interfaces/audio-job.interface';
 import type { CustomBriefingJobData } from './interfaces/custom-briefing-job.interface';
 import type { ProcessMarkdownArticleJobData } from './interfaces/markdown-article-job.interface';
 import type { BackupTranscriptJobData } from './interfaces/transcript-backup-job.interface';
+import type { IngestTranscriptJobData } from './interfaces/transcript-ingest-job.interface';
 import type { ProcessTranscriptionSummaryJobData } from './interfaces/youtube-transcription-job.interface';
 
 export interface JobInfo {
@@ -59,6 +62,8 @@ export class QueueService implements OnModuleInit, OnModuleDestroy {
     private readonly audioQueue: Queue,
     @Inject(CUSTOM_BRIEFING_GENERATION_QUEUE)
     private readonly customBriefingQueue: Queue,
+    @Inject(YOUTUBE_TRANSCRIPT_INGEST_QUEUE)
+    private readonly transcriptIngestQueue: Queue,
     @Inject(TRANSCRIPT_BACKUP_QUEUE)
     private readonly transcriptBackupQueue: Queue,
     private readonly configService: ConfigService,
@@ -374,6 +379,38 @@ Please investigate the issue.`,
     );
 
     return { jobId: job.id as string };
+  }
+
+  /**
+   * Queue one video URL for ingest. The job id is derived from the channel and
+   * video, so re-submitting a URL that is still live (waiting, active or
+   * delayed) is a no-op: BullMQ drops the duplicate id. A job that already
+   * failed is removed first, because its Redis key survives (`removeOnFail`
+   * is false so the failure strip can show it) and would otherwise swallow
+   * the enqueue. Clearing it makes re-pasting the URL a real retry.
+   *
+   * The two parts are joined with `__` because BullMQ rejects a custom job id
+   * containing `:` (it is the separator in its own Redis keys). Nothing parses
+   * the id back apart, so the separator only has to be collision-free.
+   */
+  async addTranscriptIngestJob(
+    data: IngestTranscriptJobData,
+    videoId: string,
+  ): Promise<string> {
+    const jobId = `${data.channelDbId}__${videoId}`;
+
+    const existing = await this.transcriptIngestQueue.getJob(jobId);
+    if (existing && (await existing.isFailed())) {
+      await existing.remove();
+    }
+
+    const job = await this.transcriptIngestQueue.add(
+      INGEST_TRANSCRIPT_JOB,
+      data,
+      { jobId },
+    );
+
+    return job.id as string;
   }
 
   /**

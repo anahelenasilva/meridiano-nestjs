@@ -212,9 +212,17 @@ async function createOpenApiApp(): Promise<INestApplication> {
     '../youtube-transcriptions/commands/delete-youtube-transcription.command.js',
     'DeleteYoutubeTranscriptionCommand',
   );
-  const CreateYoutubeTranscriptionCommand = loadDistExport<Type<unknown>>(
-    '../youtube-transcriptions/commands/create-youtube-transcription.command.js',
-    'CreateYoutubeTranscriptionCommand',
+  const EnqueueYoutubeTranscriptionsCommand = loadDistExport<Type<unknown>>(
+    '../youtube-transcriptions/commands/enqueue-youtube-transcriptions.command.js',
+    'EnqueueYoutubeTranscriptionsCommand',
+  );
+  const ListFailedIngestJobsQuery = loadDistExport<Type<unknown>>(
+    '../youtube-transcriptions/queries/list-failed-ingest-jobs.query.js',
+    'ListFailedIngestJobsQuery',
+  );
+  const DismissIngestJobCommand = loadDistExport<Type<unknown>>(
+    '../youtube-transcriptions/commands/dismiss-ingest-job.command.js',
+    'DismissIngestJobCommand',
   );
   const AudioFilesService = loadDistExport<Type<unknown>>(
     '../audio-files/audio-files.service.js',
@@ -314,7 +322,9 @@ async function createOpenApiApp(): Promise<INestApplication> {
       { provide: ListAllYoutubeTranscriptionsQuery, useValue: {} },
       { provide: GetYoutubeTranscriptionByIdQuery, useValue: {} },
       { provide: DeleteYoutubeTranscriptionCommand, useValue: {} },
-      { provide: CreateYoutubeTranscriptionCommand, useValue: {} },
+      { provide: EnqueueYoutubeTranscriptionsCommand, useValue: {} },
+      { provide: ListFailedIngestJobsQuery, useValue: {} },
+      { provide: DismissIngestJobCommand, useValue: {} },
       { provide: AudioFilesService, useValue: {} },
       { provide: ListAudioLibraryQuery, useValue: {} },
       { provide: ListCategoriesQuery, useValue: {} },

@@ -564,6 +564,33 @@ export class YoutubeTranscriptionsService {
   }
 
   /**
+   * Which of these canonical video URLs already have a row. Used by the enqueue
+   * command so a bulk paste reports duplicates before queueing anything.
+   */
+  async findExistingVideoUrls(urls: string[]): Promise<Set<string>> {
+    if (urls.length === 0) {
+      return new Set();
+    }
+
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+      const placeholders = urls.map(() => '?').join(', ');
+
+      db.all(
+        `SELECT video_url FROM youtube_transcriptions WHERE video_url IN (${placeholders})`,
+        urls,
+        (err: Error | null, rows: { video_url: string }[]) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          resolve(new Set((rows ?? []).map((row) => row.video_url)));
+        },
+      );
+    });
+  }
+
+  /**
    * Update transcription summary in the database
    * @param transcriptionId - The transcription ID
    * @param summary - The summary text to save

@@ -10,8 +10,10 @@ import {
   ARTICLE_PROCESSING_QUEUE,
   AUDIO_GENERATION_QUEUE,
   CUSTOM_BRIEFING_GENERATION_QUEUE,
+  INGEST_TRANSCRIPT_JOB,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
   TRANSCRIPT_BACKUP_QUEUE,
+  YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from './constants/queue.constants';
 import { QueueService } from './queue.service';
@@ -25,6 +27,7 @@ describe('QueueService', () => {
   const mockTranscriptionSummaryQueue = mock<Queue>();
   const mockAudioQueue = mock<Queue>();
   const mockCustomBriefingQueue = mock<Queue>();
+  const mockIngestQueue = mock<Queue>();
   const mockTranscriptBackupQueue = mock<Queue>();
   const mockConfigService = mock<ConfigService>();
   const mockEmailService = mock<EmailService>();
@@ -37,6 +40,7 @@ describe('QueueService', () => {
     mockReset(mockTranscriptionSummaryQueue);
     mockReset(mockAudioQueue);
     mockReset(mockCustomBriefingQueue);
+    mockReset(mockIngestQueue);
     mockReset(mockTranscriptBackupQueue);
     mockReset(mockConfigService);
     mockReset(mockEmailService);
@@ -67,6 +71,10 @@ describe('QueueService', () => {
         {
           provide: CUSTOM_BRIEFING_GENERATION_QUEUE,
           useValue: mockCustomBriefingQueue,
+        },
+        {
+          provide: YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
+          useValue: mockIngestQueue,
         },
         {
           provide: TRANSCRIPT_BACKUP_QUEUE,
@@ -149,6 +157,103 @@ describe('QueueService', () => {
         },
       );
       expect(result).toEqual({ jobId: 'backup-1' });
+    });
+  });
+
+  describe('addTranscriptIngestJob', () => {
+    it('enqueues with a deterministic job id built from channel and video', async () => {
+      mockIngestQueue.add.mockResolvedValue({ id: 'channel-1__abc123' } as never);
+
+      const jobId = await service.addTranscriptIngestJob(
+        {
+          videoUrl: 'https://www.youtube.com/watch?v=abc123',
+          channelDbId: 'channel-1',
+          customPrompt: 'Focus on architecture',
+          generateAudio: true,
+        },
+        'abc123',
+      );
+
+      expect(jobId).toBe('channel-1__abc123');
+      expect(mockIngestQueue.add).toHaveBeenCalledWith(
+        INGEST_TRANSCRIPT_JOB,
+        {
+          videoUrl: 'https://www.youtube.com/watch?v=abc123',
+          channelDbId: 'channel-1',
+          customPrompt: 'Focus on architecture',
+          generateAudio: true,
+        },
+        { jobId: 'channel-1__abc123' },
+      );
+    });
+
+    // BullMQ rejects a custom job id containing `:`, and these tests mock the
+    // queue, so nothing else here would catch the separator regressing.
+    it('builds a job id BullMQ accepts as a custom id', async () => {
+      mockIngestQueue.add.mockResolvedValue({ id: 'ignored' } as never);
+
+      await service.addTranscriptIngestJob(
+        {
+          videoUrl: 'https://www.youtube.com/watch?v=abc123',
+          channelDbId: 'a6e4b670-1c3e-4bca-b857-4527a9335593',
+        },
+        'abc123',
+      );
+
+      const [, , options] = mockIngestQueue.add.mock.calls[0] as [
+        string,
+        unknown,
+        { jobId: string },
+      ];
+      expect(options.jobId).not.toContain(':');
+    });
+
+    it('leaves no existing job untouched and enqueues as usual', async () => {
+      mockIngestQueue.getJob.mockResolvedValue(undefined as never);
+      mockIngestQueue.add.mockResolvedValue({ id: 'channel-1__abc123' } as never);
+
+      const jobId = await service.addTranscriptIngestJob(
+        { videoUrl: 'https://www.youtube.com/watch?v=abc123', channelDbId: 'channel-1' },
+        'abc123',
+      );
+
+      expect(jobId).toBe('channel-1__abc123');
+      expect(mockIngestQueue.add).toHaveBeenCalledTimes(1);
+    });
+
+    // Re-pasting a failed URL is the documented retry path, so the stale
+    // failed key has to be cleared or BullMQ would drop the new job.
+    it('clears a failed job of the same id before enqueueing the retry', async () => {
+      const failedJob = mock<Job>();
+      failedJob.isFailed.mockResolvedValue(true);
+      mockIngestQueue.getJob.mockResolvedValue(failedJob as never);
+      mockIngestQueue.add.mockResolvedValue({ id: 'channel-1__abc123' } as never);
+
+      const jobId = await service.addTranscriptIngestJob(
+        { videoUrl: 'https://www.youtube.com/watch?v=abc123', channelDbId: 'channel-1' },
+        'abc123',
+      );
+
+      expect(failedJob.remove).toHaveBeenCalledTimes(1);
+      expect(jobId).toBe('channel-1__abc123');
+      expect(mockIngestQueue.add).toHaveBeenCalledTimes(1);
+    });
+
+    // A waiting, active or delayed job of the same id is a live duplicate:
+    // dropping it is the intended behavior, so it must survive.
+    it('leaves a live job of the same id alone', async () => {
+      const liveJob = mock<Job>();
+      liveJob.isFailed.mockResolvedValue(false);
+      mockIngestQueue.getJob.mockResolvedValue(liveJob as never);
+      mockIngestQueue.add.mockResolvedValue({ id: 'channel-1__abc123' } as never);
+
+      await service.addTranscriptIngestJob(
+        { videoUrl: 'https://www.youtube.com/watch?v=abc123', channelDbId: 'channel-1' },
+        'abc123',
+      );
+
+      expect(liveJob.remove).not.toHaveBeenCalled();
+      expect(mockIngestQueue.add).toHaveBeenCalledTimes(1);
     });
   });
 
