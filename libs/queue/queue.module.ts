@@ -9,6 +9,7 @@ import {
   CUSTOM_BRIEFING_GENERATION_QUEUE,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
   TRANSCRIPT_BACKUP_QUEUE,
+  YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE
 } from './constants/queue.constants';
 import { QueueService } from './queue.service';
@@ -72,6 +73,23 @@ import { QueueService } from './queue.service';
       inject: [RedisService],
     },
     {
+      provide: YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
+      useFactory: (redisService: RedisService) => {
+        return new Queue(YOUTUBE_TRANSCRIPT_INGEST_QUEUE, {
+          connection: redisService.getClient(),
+          defaultJobOptions: {
+            attempts: 3,
+            backoff: { type: 'exponential', delay: 5000 },
+            removeOnComplete: { count: 100 },
+            // Failed jobs are the dismissible strip on the transcriptions page,
+            // so they stay until the user removes them.
+            removeOnFail: false,
+          },
+        });
+      },
+      inject: [RedisService],
+    },
+    {
       provide: TRANSCRIPT_BACKUP_QUEUE,
       useFactory: (redisService: RedisService) => {
         return new Queue(TRANSCRIPT_BACKUP_QUEUE, {
@@ -94,6 +112,7 @@ import { QueueService } from './queue.service';
     YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
     CUSTOM_BRIEFING_GENERATION_QUEUE,
     AUDIO_GENERATION_QUEUE,
+    YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
     TRANSCRIPT_BACKUP_QUEUE,
     QueueService,
   ],

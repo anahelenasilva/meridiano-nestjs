@@ -10,8 +10,10 @@ import {
   ARTICLE_PROCESSING_QUEUE,
   AUDIO_GENERATION_QUEUE,
   CUSTOM_BRIEFING_GENERATION_QUEUE,
+  INGEST_TRANSCRIPT_JOB,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
   TRANSCRIPT_BACKUP_QUEUE,
+  YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from './constants/queue.constants';
 import { QueueService } from './queue.service';
@@ -25,6 +27,7 @@ describe('QueueService', () => {
   const mockTranscriptionSummaryQueue = mock<Queue>();
   const mockAudioQueue = mock<Queue>();
   const mockCustomBriefingQueue = mock<Queue>();
+  const mockIngestQueue = mock<Queue>();
   const mockTranscriptBackupQueue = mock<Queue>();
   const mockConfigService = mock<ConfigService>();
   const mockEmailService = mock<EmailService>();
@@ -37,6 +40,7 @@ describe('QueueService', () => {
     mockReset(mockTranscriptionSummaryQueue);
     mockReset(mockAudioQueue);
     mockReset(mockCustomBriefingQueue);
+    mockReset(mockIngestQueue);
     mockReset(mockTranscriptBackupQueue);
     mockReset(mockConfigService);
     mockReset(mockEmailService);
@@ -67,6 +71,10 @@ describe('QueueService', () => {
         {
           provide: CUSTOM_BRIEFING_GENERATION_QUEUE,
           useValue: mockCustomBriefingQueue,
+        },
+        {
+          provide: YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
+          useValue: mockIngestQueue,
         },
         {
           provide: TRANSCRIPT_BACKUP_QUEUE,
@@ -149,6 +157,34 @@ describe('QueueService', () => {
         },
       );
       expect(result).toEqual({ jobId: 'backup-1' });
+    });
+  });
+
+  describe('addTranscriptIngestJob', () => {
+    it('enqueues with a deterministic job id built from channel and video', async () => {
+      mockIngestQueue.add.mockResolvedValue({ id: 'channel-1:abc123' } as never);
+
+      const jobId = await service.addTranscriptIngestJob(
+        {
+          videoUrl: 'https://www.youtube.com/watch?v=abc123',
+          channelDbId: 'channel-1',
+          customPrompt: 'Focus on architecture',
+          generateAudio: true,
+        },
+        'abc123',
+      );
+
+      expect(jobId).toBe('channel-1:abc123');
+      expect(mockIngestQueue.add).toHaveBeenCalledWith(
+        'ingest-transcript',
+        {
+          videoUrl: 'https://www.youtube.com/watch?v=abc123',
+          channelDbId: 'channel-1',
+          customPrompt: 'Focus on architecture',
+          generateAudio: true,
+        },
+        { jobId: 'channel-1:abc123' },
+      );
     });
   });
 

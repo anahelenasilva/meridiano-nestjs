@@ -20,3 +20,6 @@ export const NEWS_DIGEST_JOB = 'news-digest-job';
 
 export const TRANSCRIPT_BACKUP_QUEUE = 'transcript-backup';
 export const BACKUP_TRANSCRIPT_JOB = 'backup-transcript';
+
+export const YOUTUBE_TRANSCRIPT_INGEST_QUEUE = 'youtube-transcript-ingest';
+export const INGEST_TRANSCRIPT_JOB = 'ingest-transcript';
