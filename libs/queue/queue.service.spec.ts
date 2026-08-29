@@ -162,7 +162,7 @@ describe('QueueService', () => {
 
   describe('addTranscriptIngestJob', () => {
     it('enqueues with a deterministic job id built from channel and video', async () => {
-      mockIngestQueue.add.mockResolvedValue({ id: 'channel-1:abc123' } as never);
+      mockIngestQueue.add.mockResolvedValue({ id: 'channel-1__abc123' } as never);
 
       const jobId = await service.addTranscriptIngestJob(
         {
@@ -174,7 +174,7 @@ describe('QueueService', () => {
         'abc123',
       );
 
-      expect(jobId).toBe('channel-1:abc123');
+      expect(jobId).toBe('channel-1__abc123');
       expect(mockIngestQueue.add).toHaveBeenCalledWith(
         INGEST_TRANSCRIPT_JOB,
         {
@@ -183,20 +183,41 @@ describe('QueueService', () => {
           customPrompt: 'Focus on architecture',
           generateAudio: true,
         },
-        { jobId: 'channel-1:abc123' },
+        { jobId: 'channel-1__abc123' },
       );
+    });
+
+    // BullMQ rejects a custom job id containing `:`, and these tests mock the
+    // queue, so nothing else here would catch the separator regressing.
+    it('builds a job id BullMQ accepts as a custom id', async () => {
+      mockIngestQueue.add.mockResolvedValue({ id: 'ignored' } as never);
+
+      await service.addTranscriptIngestJob(
+        {
+          videoUrl: 'https://www.youtube.com/watch?v=abc123',
+          channelDbId: 'a6e4b670-1c3e-4bca-b857-4527a9335593',
+        },
+        'abc123',
+      );
+
+      const [, , options] = mockIngestQueue.add.mock.calls[0] as [
+        string,
+        unknown,
+        { jobId: string },
+      ];
+      expect(options.jobId).not.toContain(':');
     });
 
     it('leaves no existing job untouched and enqueues as usual', async () => {
       mockIngestQueue.getJob.mockResolvedValue(undefined as never);
-      mockIngestQueue.add.mockResolvedValue({ id: 'channel-1:abc123' } as never);
+      mockIngestQueue.add.mockResolvedValue({ id: 'channel-1__abc123' } as never);
 
       const jobId = await service.addTranscriptIngestJob(
         { videoUrl: 'https://www.youtube.com/watch?v=abc123', channelDbId: 'channel-1' },
         'abc123',
       );
 
-      expect(jobId).toBe('channel-1:abc123');
+      expect(jobId).toBe('channel-1__abc123');
       expect(mockIngestQueue.add).toHaveBeenCalledTimes(1);
     });
 
@@ -206,7 +227,7 @@ describe('QueueService', () => {
       const failedJob = mock<Job>();
       failedJob.isFailed.mockResolvedValue(true);
       mockIngestQueue.getJob.mockResolvedValue(failedJob as never);
-      mockIngestQueue.add.mockResolvedValue({ id: 'channel-1:abc123' } as never);
+      mockIngestQueue.add.mockResolvedValue({ id: 'channel-1__abc123' } as never);
 
       const jobId = await service.addTranscriptIngestJob(
         { videoUrl: 'https://www.youtube.com/watch?v=abc123', channelDbId: 'channel-1' },
@@ -214,7 +235,7 @@ describe('QueueService', () => {
       );
 
       expect(failedJob.remove).toHaveBeenCalledTimes(1);
-      expect(jobId).toBe('channel-1:abc123');
+      expect(jobId).toBe('channel-1__abc123');
       expect(mockIngestQueue.add).toHaveBeenCalledTimes(1);
     });
 
@@ -224,7 +245,7 @@ describe('QueueService', () => {
       const liveJob = mock<Job>();
       liveJob.isFailed.mockResolvedValue(false);
       mockIngestQueue.getJob.mockResolvedValue(liveJob as never);
-      mockIngestQueue.add.mockResolvedValue({ id: 'channel-1:abc123' } as never);
+      mockIngestQueue.add.mockResolvedValue({ id: 'channel-1__abc123' } as never);
 
       await service.addTranscriptIngestJob(
         { videoUrl: 'https://www.youtube.com/watch?v=abc123', channelDbId: 'channel-1' },

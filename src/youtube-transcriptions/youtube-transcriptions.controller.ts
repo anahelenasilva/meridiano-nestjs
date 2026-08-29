@@ -89,8 +89,8 @@ export class YoutubeTranscriptionsController {
     return { jobs: await this.listFailedIngestJobsQuery.execute() };
   }
 
-  // Declared before transcriptions/:id so a channel:video job id is not
-  // rejected by that route's ParseUUIDPipe.
+  // Declared before transcriptions/:id so a composite channel/video job id is
+  // not rejected by that route's ParseUUIDPipe.
   @Delete('transcriptions/jobs/:jobId')
   @ApiOperation({ summary: 'Dismiss a failed ingest job' })
   @ApiOkResponse({ description: 'Ingest job dismissed' })

@@ -388,12 +388,16 @@ Please investigate the issue.`,
    * failed is removed first, because its Redis key survives (`removeOnFail`
    * is false so the failure strip can show it) and would otherwise swallow
    * the enqueue. Clearing it makes re-pasting the URL a real retry.
+   *
+   * The two parts are joined with `__` because BullMQ rejects a custom job id
+   * containing `:` (it is the separator in its own Redis keys). Nothing parses
+   * the id back apart, so the separator only has to be collision-free.
    */
   async addTranscriptIngestJob(
     data: IngestTranscriptJobData,
     videoId: string,
   ): Promise<string> {
-    const jobId = `${data.channelDbId}:${videoId}`;
+    const jobId = `${data.channelDbId}__${videoId}`;
 
     const existing = await this.transcriptIngestQueue.getJob(jobId);
     if (existing && (await existing.isFailed())) {

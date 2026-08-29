@@ -33,11 +33,11 @@ describe('ListFailedIngestJobsQuery', () => {
 
   it('resolves each distinct channel name once', async () => {
     mockQueue.getJobs.mockResolvedValue([
-      fakeJob('channel-1:aaa', {
+      fakeJob('channel-1__aaa', {
         videoUrl: 'https://www.youtube.com/watch?v=aaa',
         channelDbId: 'channel-1',
       }, 'No transcript available'),
-      fakeJob('channel-1:bbb', {
+      fakeJob('channel-1__bbb', {
         videoUrl: 'https://www.youtube.com/watch?v=bbb',
         channelDbId: 'channel-1',
       }, 'No transcript available'),
@@ -53,13 +53,13 @@ describe('ListFailedIngestJobsQuery', () => {
     expect(mockChannels.getChannelById).toHaveBeenCalledTimes(1);
     expect(jobs).toEqual([
       {
-        jobId: 'channel-1:aaa',
+        jobId: 'channel-1__aaa',
         videoUrl: 'https://www.youtube.com/watch?v=aaa',
         channelName: 'Test Channel',
         reason: 'No transcript available',
       },
       {
-        jobId: 'channel-1:bbb',
+        jobId: 'channel-1__bbb',
         videoUrl: 'https://www.youtube.com/watch?v=bbb',
         channelName: 'Test Channel',
         reason: 'No transcript available',
@@ -69,7 +69,7 @@ describe('ListFailedIngestJobsQuery', () => {
 
   it('falls back to a placeholder name when the channel is gone', async () => {
     mockQueue.getJobs.mockResolvedValue([
-      fakeJob('channel-x:aaa', {
+      fakeJob('channel-x__aaa', {
         videoUrl: 'https://www.youtube.com/watch?v=aaa',
         channelDbId: 'channel-x',
       }, 'boom'),
@@ -89,11 +89,11 @@ describe('ListFailedIngestJobsQuery', () => {
 
   it('keeps the rest of the list when one channel lookup rejects', async () => {
     mockQueue.getJobs.mockResolvedValue([
-      fakeJob('channel-x:aaa', {
+      fakeJob('channel-x__aaa', {
         videoUrl: 'https://www.youtube.com/watch?v=aaa',
         channelDbId: 'channel-x',
       }, 'boom'),
-      fakeJob('channel-y:bbb', {
+      fakeJob('channel-y__bbb', {
         videoUrl: 'https://www.youtube.com/watch?v=bbb',
         channelDbId: 'channel-y',
       }, 'boom'),
@@ -113,13 +113,13 @@ describe('ListFailedIngestJobsQuery', () => {
 
     expect(jobs).toEqual([
       {
-        jobId: 'channel-x:aaa',
+        jobId: 'channel-x__aaa',
         videoUrl: 'https://www.youtube.com/watch?v=aaa',
         channelName: 'Unknown channel',
         reason: 'boom',
       },
       {
-        jobId: 'channel-y:bbb',
+        jobId: 'channel-y__bbb',
         videoUrl: 'https://www.youtube.com/watch?v=bbb',
         channelName: 'Healthy Channel',
         reason: 'boom',

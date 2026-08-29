@@ -342,7 +342,7 @@ describe('YouTube Transcriptions list (e2e)', () => {
     it('returns the failed jobs under a jobs key', async () => {
       listFailedIngestJobsQuery.execute.mockResolvedValue([
         {
-          jobId: `${augustoInternalId}:abc123`,
+          jobId: `${augustoInternalId}__abc123`,
           videoUrl: 'https://www.youtube.com/watch?v=abc123',
           channelName: 'Augusto Galego',
           reason: 'Transcript unavailable',
@@ -356,7 +356,7 @@ describe('YouTube Transcriptions list (e2e)', () => {
       expect(response.body).toEqual({
         jobs: [
           {
-            jobId: `${augustoInternalId}:abc123`,
+            jobId: `${augustoInternalId}__abc123`,
             videoUrl: 'https://www.youtube.com/watch?v=abc123',
             channelName: 'Augusto Galego',
             reason: 'Transcript unavailable',
@@ -366,10 +366,10 @@ describe('YouTube Transcriptions list (e2e)', () => {
     });
 
     // Pins the route declaration order: `transcriptions/jobs/:jobId` has to be
-    // declared before `transcriptions/:id`, or the colon-bearing job id would
-    // hit that route's ParseUUIDPipe and 400 instead of reaching the handler.
-    it('routes a colon-bearing job id to the dismiss handler', async () => {
-      const jobId = `${augustoInternalId}:abc123`;
+    // declared before `transcriptions/:id`, or the composite job id would hit
+    // that route's ParseUUIDPipe and 400 instead of reaching the handler.
+    it('routes a composite job id to the dismiss handler', async () => {
+      const jobId = `${augustoInternalId}__abc123`;
       dismissIngestJobCommand.execute.mockResolvedValue({ dismissed: true });
 
       const response = await request(app.getHttpServer())
