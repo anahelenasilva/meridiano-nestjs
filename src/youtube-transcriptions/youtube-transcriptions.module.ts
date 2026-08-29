@@ -12,8 +12,8 @@ import { ConfigService } from '../config/config.service';
 import { NotesCleanupModule } from '../notes/notes-cleanup.module';
 import { NotesReadModule } from '../notes/notes-read.module';
 import { YoutubeChannelsModule } from '../youtube-channels/youtube-channels.module';
-import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
+import { EnqueueYoutubeTranscriptionsCommand } from './commands/enqueue-youtube-transcriptions.command';
 import { TranscriptBackupProcessor } from './processors/transcript-backup.processor';
 import { YoutubeTranscriptionProcessor } from './processors/youtube-transcription.processor';
 import { YoutubeTranscriptIngestProcessor } from './processors/youtube-transcript-ingest.processor';
@@ -58,7 +58,7 @@ import { ProcessTranscriptionFilesUseCase } from './usecases/process-transcripti
     ListAllYoutubeTranscriptionsQuery,
     GetYoutubeTranscriptionByIdQuery,
     DeleteYoutubeTranscriptionCommand,
-    CreateYoutubeTranscriptionCommand,
+    EnqueueYoutubeTranscriptionsCommand,
     YoutubeTranscriptionProcessor,
     YoutubeTranscriptIngestProcessor,
     TranscriptBackupProcessor,

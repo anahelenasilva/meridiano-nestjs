@@ -1,4 +1,6 @@
 import {
+  ArrayMaxSize,
+  ArrayNotEmpty,
   IsBoolean,
   IsNotEmpty,
   IsOptional,
@@ -8,14 +10,16 @@ import {
 } from 'class-validator';
 
 export class CreateYoutubeTranscriptionDto {
-  @IsNotEmpty()
-  @IsUrl({}, { message: 'Invalid URL format' })
-  url: string;
+  @ArrayNotEmpty()
+  @ArrayMaxSize(25, { message: 'A batch may contain at most 25 URLs' })
+  @IsUrl({}, { each: true, message: 'Invalid URL format' })
+  urls: string[];
 
   @IsNotEmpty()
   @IsString()
   channelId: string;
 
+  // Applies to every video in the batch.
   @IsOptional()
   @IsString()
   @MaxLength(500, {
@@ -23,6 +27,7 @@ export class CreateYoutubeTranscriptionDto {
   })
   customPrompt?: string;
 
+  // Applies to every video in the batch.
   @IsOptional()
   @IsBoolean()
   generateAudio?: boolean;

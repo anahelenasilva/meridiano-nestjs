@@ -212,9 +212,9 @@ async function createOpenApiApp(): Promise<INestApplication> {
     '../youtube-transcriptions/commands/delete-youtube-transcription.command.js',
     'DeleteYoutubeTranscriptionCommand',
   );
-  const CreateYoutubeTranscriptionCommand = loadDistExport<Type<unknown>>(
-    '../youtube-transcriptions/commands/create-youtube-transcription.command.js',
-    'CreateYoutubeTranscriptionCommand',
+  const EnqueueYoutubeTranscriptionsCommand = loadDistExport<Type<unknown>>(
+    '../youtube-transcriptions/commands/enqueue-youtube-transcriptions.command.js',
+    'EnqueueYoutubeTranscriptionsCommand',
   );
   const AudioFilesService = loadDistExport<Type<unknown>>(
     '../audio-files/audio-files.service.js',
@@ -314,7 +314,7 @@ async function createOpenApiApp(): Promise<INestApplication> {
       { provide: ListAllYoutubeTranscriptionsQuery, useValue: {} },
       { provide: GetYoutubeTranscriptionByIdQuery, useValue: {} },
       { provide: DeleteYoutubeTranscriptionCommand, useValue: {} },
-      { provide: CreateYoutubeTranscriptionCommand, useValue: {} },
+      { provide: EnqueueYoutubeTranscriptionsCommand, useValue: {} },
       { provide: AudioFilesService, useValue: {} },
       { provide: ListAudioLibraryQuery, useValue: {} },
       { provide: ListCategoriesQuery, useValue: {} },

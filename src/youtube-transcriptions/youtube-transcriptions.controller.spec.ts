@@ -12,8 +12,8 @@ import { AudioFilesService } from '../audio-files/audio-files.service';
 import { NotesReadService } from '../notes/notes-read.service';
 import type { AuthenticatedRequest } from '../shared/types/authenticated-request';
 import { ChannelCategoriesService } from '../youtube-channels/channel-categories.service';
-import { CreateYoutubeTranscriptionCommand } from './commands/create-youtube-transcription.command';
 import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
+import { EnqueueYoutubeTranscriptionsCommand } from './commands/enqueue-youtube-transcriptions.command';
 import { YoutubeTranscription } from './entities/youtube-transcription.entity';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
@@ -30,6 +30,7 @@ describe('YoutubeTranscriptionsController', () => {
   const mockConfigService = mock<ConfigService>();
   const mockNotesReadService = mock<NotesReadService>();
   const mockChannelCategoriesService = mock<ChannelCategoriesService>();
+  const mockEnqueueCommand = mock<EnqueueYoutubeTranscriptionsCommand>();
 
   const userId = 'user-1';
   const mockRequest = { user: { id: userId } } as AuthenticatedRequest;
@@ -71,14 +72,12 @@ describe('YoutubeTranscriptionsController', () => {
     );
     const mockDeleteYoutubeTranscriptionCommand =
       new DeleteYoutubeTranscriptionCommand(mockYoutubeTranscriptionsService);
-    const mockCreateYoutubeTranscriptionCommand =
-      new CreateYoutubeTranscriptionCommand(mockYoutubeTranscriptionsService);
 
     controller = new YoutubeTranscriptionsController(
       mockListAllYoutubeTranscriptionsQuery,
       mockGetYoutubeTranscriptionByIdQuery,
       mockDeleteYoutubeTranscriptionCommand,
-      mockCreateYoutubeTranscriptionCommand,
+      mockEnqueueCommand,
       mockAudioJobService,
       mockAudioFilesService,
     );
@@ -89,32 +88,31 @@ describe('YoutubeTranscriptionsController', () => {
   });
 
   describe('createTranscription', () => {
-    it('should pass generateAudio to create command flow', async () => {
-      mockYoutubeTranscriptionsService.processSingleVideoUrl.mockResolvedValue(
-        transcriptionId,
-      );
+    it('passes the batch and its options through to the enqueue command', async () => {
+      mockEnqueueCommand.execute.mockResolvedValue({
+        accepted: ['https://www.youtube.com/watch?v=abc123'],
+        skipped: [],
+        rejected: [],
+      });
 
       const result = await controller.createTranscription({
-        url: 'https://www.youtube.com/watch?v=abc123',
+        urls: ['https://www.youtube.com/watch?v=abc123'],
         channelId: 'channel-1',
         customPrompt: 'Focus on backend architecture',
         generateAudio: true,
       });
 
-      expect(result).toEqual({
-        success: true,
-        transcriptionId,
-        message: 'Video transcription saved successfully',
+      expect(mockEnqueueCommand.execute).toHaveBeenCalledWith({
+        urls: ['https://www.youtube.com/watch?v=abc123'],
+        channelDbId: 'channel-1',
+        customPrompt: 'Focus on backend architecture',
+        generateAudio: true,
       });
-      expect(
-        mockYoutubeTranscriptionsService.processSingleVideoUrl,
-      ).toHaveBeenCalledWith(
-        'https://www.youtube.com/watch?v=abc123',
-        'channel-1',
-        undefined,
-        'Focus on backend architecture',
-        true,
-      );
+      expect(result).toEqual({
+        accepted: ['https://www.youtube.com/watch?v=abc123'],
+        skipped: [],
+        rejected: [],
+      });
     });
   });
 
