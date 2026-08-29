@@ -25,12 +25,25 @@ root would leave root-owned files in the checkout and break the next deploy.
 
 ## Setup
 
+Pull the files straight out of `origin/main` without moving the checkout. Do
+not `git pull` first: that makes `HEAD` equal `origin/main`, and the script would
+then report "nothing to do" and skip the build entirely.
+
 ```sh
-sudo install -m 755 deploy/deploy.sh /usr/local/bin/meridiano-deploy
-sudo install -m 644 deploy/meridiano-deploy.service /etc/systemd/system/
-sudo install -m 644 deploy/meridiano-deploy.timer /etc/systemd/system/
+cd /home/anahelena/dev/meridiano-nestjs
+git fetch origin main
+
+git show origin/main:deploy/deploy.sh | sudo tee /usr/local/bin/meridiano-deploy >/dev/null
+sudo chmod 755 /usr/local/bin/meridiano-deploy
+git show origin/main:deploy/meridiano-deploy.service | sudo tee /etc/systemd/system/meridiano-deploy.service >/dev/null
+git show origin/main:deploy/meridiano-deploy.timer | sudo tee /etc/systemd/system/meridiano-deploy.timer >/dev/null
 sudo systemctl daemon-reload
 ```
+
+These installed copies do not self-update. A deploy updates the checkout, so a
+later change to `deploy/deploy.sh` or either unit lands in
+`/home/anahelena/dev/meridiano-nestjs/deploy/` and sits there until you rerun the
+block above. Run `sudo systemctl daemon-reload` again after any unit change.
 
 Run it by hand first and watch the whole thing:
 
@@ -47,7 +60,7 @@ systemctl list-timers meridiano-deploy.timer
 
 Nothing else needs configuring. The script's defaults already match this Pi:
 the checkout at `/home/anahelena/dev/meridiano-nestjs`, the `anahelena` user,
-`meridiano.service`, and `meridiano-network-production` for the backup container.
+`meridiano.service`, and `meridiano-postgres-production` for the backup.
 
 Database credentials come from `.env` in the checkout, which the script reads one
 key at a time rather than sourcing. Sourcing a `.env` as root would execute any
@@ -104,8 +117,13 @@ touched and `git clean` is never called, so `.env-bkp`, `get-docker.sh`, and
 
 Every deploy that has something to deploy dumps Postgres to
 `/var/backups/meridiano/meridiano-<timestamp>.sql.gz` first, keeping the ten most
-recent. The dump runs in a throwaway `postgres:16-alpine` container on
-`meridiano-network-production`, so the Pi needs no Postgres client installed.
+recent. It runs `pg_dump` inside `meridiano-postgres-production` itself, so the
+client version always matches the server and there is no network name to resolve.
+
+The connection string comes from `DATABASE_URL` in `.env`, with its host rewritten
+to `localhost` because inside that container localhost is the server. Credentials
+and any percent-encoding pass through untouched. A missing `DATABASE_URL` aborts
+the deploy rather than proceeding without a backup.
 
 This exists because auto-rollback reverts code and not the schema. A migration
 that runs and then fails its health check leaves you on old code against a new
@@ -114,10 +132,12 @@ schema, and if that migration dropped a column, the dump is the only way back.
 Restore one with:
 
 ```sh
+URL=$(grep -E '^[[:space:]]*(export[[:space:]]+)?DATABASE_URL=' \
+  /home/anahelena/dev/meridiano-nestjs/.env \
+  | sed -e 's/^[^=]*=//' -e 's#@[^/]*/#@localhost:5432/#')
+
 gunzip -c /var/backups/meridiano/meridiano-<timestamp>.sql.gz \
-  | docker run --rm -i --network meridiano-network-production \
-    -e PGPASSWORD="$DATABASE_PASSWORD" postgres:16-alpine \
-    psql -h "$DATABASE_HOST" -U "$DATABASE_USER" -d "$DATABASE_NAME"
+  | docker exec -i meridiano-postgres-production psql "$URL"
 ```
 
 The dumps sit on the same Pi as the database, so they survive a bad migration but
@@ -143,8 +163,5 @@ pushes to main. Auto-rollback and the backup are the safety net there.
 
 Set any of these in `meridiano-deploy.service`. Defaults are in the script header.
 
-`REPO`, `APP_USER`, `SERVICE`, `BRANCH`, `PNPM`, `ENV_FILE`, `DB_NETWORK`,
-`PG_CLIENT_IMAGE`, `BACKUP_DIR`, `BACKUP_KEEP`, `HEALTH_TIMEOUT`, `STATE_DIR`.
-
-`PG_CLIENT_IMAGE` must be at least the major version of the Postgres on the Pi,
-currently 16. `pg_dump` refuses to dump a server newer than itself.
+`REPO`, `APP_USER`, `SERVICE`, `BRANCH`, `PNPM`, `ENV_FILE`, `PG_CONTAINER`,
+`BACKUP_DIR`, `BACKUP_KEEP`, `HEALTH_TIMEOUT`, `STATE_DIR`.

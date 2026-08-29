@@ -17,8 +17,7 @@ SERVICE="${SERVICE:-meridiano}"
 BRANCH="${BRANCH:-main}"
 PNPM="${PNPM:-/usr/bin/pnpm}"
 ENV_FILE="${ENV_FILE:-$REPO/.env}"
-DB_NETWORK="${DB_NETWORK:-meridiano-network-production}"
-PG_CLIENT_IMAGE="${PG_CLIENT_IMAGE:-postgres:16-alpine}"
+PG_CONTAINER="${PG_CONTAINER:-meridiano-postgres-production}"
 BACKUP_DIR="${BACKUP_DIR:-/var/backups/meridiano}"
 BACKUP_KEEP="${BACKUP_KEEP:-10}"
 HEALTH_TIMEOUT="${HEALTH_TIMEOUT:-120}"
@@ -50,16 +49,22 @@ tracked_changes() {
 # Aborts the deploy if it fails. Auto-rollback reverts code and not the schema,
 # so this dump is the only way back from a migration that destroys data.
 backup_database() {
-  local out port
+  local out url
   mkdir -p "$BACKUP_DIR"
   out="$BACKUP_DIR/meridiano-$(date +%Y%m%d-%H%M%S).sql.gz"
-  port="$(env_value DATABASE_PORT)"
 
-  docker run --rm --network "$DB_NETWORK" \
-    -e PGPASSWORD="$(env_value DATABASE_PASSWORD)" \
-    "$PG_CLIENT_IMAGE" \
-    pg_dump -h "$(env_value DATABASE_HOST)" -p "${port:-5432}" \
-    -U "$(env_value DATABASE_USER)" -d "$(env_value DATABASE_NAME)" \
+  url="$(env_value DATABASE_URL)"
+  if [ -z "$url" ]; then
+    log "DATABASE_URL is not set in $ENV_FILE, refusing to deploy without a backup"
+    return 1
+  fi
+
+  # Dumps from inside the database container, so the client version always
+  # matches the server and there is no network name to get wrong. The host in
+  # DATABASE_URL is how the app reaches postgres from outside; in here it is
+  # always localhost.
+  docker exec -i "$PG_CONTAINER" \
+    pg_dump "$(printf '%s' "$url" | sed -E 's#@[^/]+/#@localhost:5432/#')" \
     | gzip >"$out"
 
   log "database backed up to $out ($(du -h "$out" | cut -f1))"
