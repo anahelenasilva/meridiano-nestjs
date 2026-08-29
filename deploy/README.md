@@ -40,9 +40,10 @@ git show origin/main:deploy/meridiano-deploy.timer | sudo tee /etc/systemd/syste
 sudo systemctl daemon-reload
 ```
 
-Once the timer is running, later versions of these three files arrive with any
-other deploy, so this dance is only for the first install and for changes to the
-units themselves.
+These installed copies do not self-update. A deploy updates the checkout, so a
+later change to `deploy/deploy.sh` or either unit lands in
+`/home/anahelena/dev/meridiano-nestjs/deploy/` and sits there until you rerun the
+block above. Run `sudo systemctl daemon-reload` again after any unit change.
 
 Run it by hand first and watch the whole thing:
 
