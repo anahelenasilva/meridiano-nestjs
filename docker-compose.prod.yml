@@ -75,6 +75,9 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+      # Migrations run before the server binds. Without this grace period a slow
+      # migration reads as unhealthy and deploy.sh rolls back a good build.
+      start_period: 90s
 
   meridian-frontend:
     build:
