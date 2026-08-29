@@ -70,5 +70,6 @@ EXPOSE 3005
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
   CMD node -e "require('http').get('http://127.0.0.1:3005/api/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
 
-# Start the application (migrations run via railway.json startCommand)
-CMD ["sh", "-c", "pnpm run start:prod"]
+# Migrations run at boot because the Pi runs a single replica. A failed migration
+# must exit non-zero so deploy.sh sees an unhealthy container and rolls back.
+CMD ["sh", "-c", "pnpm run migration:run && pnpm run start:prod"]

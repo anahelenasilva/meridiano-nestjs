@@ -37,9 +37,9 @@ services:
       - meridian-backend
 
   meridian-backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    # Built and published by .github/workflows/deploy.yml, never built on the Pi.
+    # Pin IMAGE_TAG to a commit sha to roll back to that build.
+    image: ghcr.io/anahelenasilva/meridiano-nestjs:${IMAGE_TAG:-main}
     container_name: meridian-backend
     restart: unless-stopped
     depends_on:
@@ -61,7 +61,7 @@ services:
       # Mailgun API Keys
       MAILGUN_API_KEY: ${MAILGUN_API_KEY}
       MAILGUN_DOMAIN: ${MAILGUN_DOMAIN}
-      CORS_ORIGINS: http://89.116.214.113
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://89.116.214.113}
       # External Article Submission (Telegram Bot Integration)
       # Comma-separated list of valid tokens - SET IN PRODUCTION ENVIRONMENT
       EXTERNAL_API_TOKENS: ${EXTERNAL_API_TOKENS:-}

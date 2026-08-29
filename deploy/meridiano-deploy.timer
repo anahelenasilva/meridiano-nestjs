@@ -1,0 +1,12 @@
+[Unit]
+Description=Check GHCR for a new meridiano-nestjs image every two minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=2min
+# Keeps several Pi services from all waking at the same instant.
+RandomizedDelaySec=15
+Unit=meridiano-deploy.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=Deploy the newest meridiano-nestjs image from GHCR
+After=docker.service network-online.target
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/meridiano/deploy.sh
+# Override any of the script's defaults here, for example a different compose
+# path or a longer health timeout.
+Environment=COMPOSE_FILE=/opt/meridiano/docker-compose.prod.yml
+Environment=ENV_FILE=/opt/meridiano/.env
