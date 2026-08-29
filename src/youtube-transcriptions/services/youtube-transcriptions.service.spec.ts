@@ -458,4 +458,46 @@ describe('YoutubeTranscriptionsService', () => {
       );
     });
   });
+
+  describe('findExistingVideoUrls', () => {
+    it('returns the subset of urls already stored', async () => {
+      const mockDb = {
+        all: jest.fn(
+          (
+            _sql: string,
+            _params: string[],
+            cb: (e: Error | null, rows: unknown[]) => void,
+          ) =>
+            cb(null, [{ video_url: 'https://www.youtube.com/watch?v=abc123' }]),
+        ),
+      };
+      mockDatabaseService.getDbConnection.mockReturnValue(mockDb as never);
+
+      const found = await service.findExistingVideoUrls([
+        'https://www.youtube.com/watch?v=abc123',
+        'https://www.youtube.com/watch?v=def456',
+      ]);
+
+      expect(found.has('https://www.youtube.com/watch?v=abc123')).toBe(true);
+      expect(found.has('https://www.youtube.com/watch?v=def456')).toBe(false);
+      expect(mockDb.all).toHaveBeenCalledWith(
+        expect.stringContaining('IN (?, ?)'),
+        [
+          'https://www.youtube.com/watch?v=abc123',
+          'https://www.youtube.com/watch?v=def456',
+        ],
+        expect.any(Function),
+      );
+    });
+
+    it('skips the query entirely for an empty list', async () => {
+      const mockDb = { all: jest.fn() };
+      mockDatabaseService.getDbConnection.mockReturnValue(mockDb as never);
+
+      const found = await service.findExistingVideoUrls([]);
+
+      expect(found.size).toBe(0);
+      expect(mockDb.all).not.toHaveBeenCalled();
+    });
+  });
 });
