@@ -12,13 +12,13 @@ ENV_FILE="${ENV_FILE:-/opt/meridiano/.env}"
 SERVICE="${SERVICE:-meridian-backend}"
 IMAGE="${IMAGE:-ghcr.io/anahelenasilva/meridiano-nestjs}"
 IMAGE_TAG="${IMAGE_TAG:-main}"
-DB_NETWORK="${DB_NETWORK:-meridian-network}"
+DB_NETWORK="${DB_NETWORK:-meridiano-network-production}"
 BACKUP_DIR="${BACKUP_DIR:-/var/backups/meridiano}"
 BACKUP_KEEP="${BACKUP_KEEP:-10}"
 # The compose healthcheck runs every 30s with 3 retries, so a slow boot plus a
 # migration can legitimately take well over a minute to report healthy.
 HEALTH_TIMEOUT="${HEALTH_TIMEOUT:-240}"
-PG_CLIENT_IMAGE="${PG_CLIENT_IMAGE:-postgres:17-alpine}"
+PG_CLIENT_IMAGE="${PG_CLIENT_IMAGE:-postgres:16-alpine}"
 
 log() { echo "[$(date -Is)] $*"; }
 

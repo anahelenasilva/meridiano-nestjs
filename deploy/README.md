@@ -100,8 +100,8 @@ Backups land in `/var/backups/meridiano`, gzipped, ten deep. Restore one with:
 
 ```sh
 gunzip -c /var/backups/meridiano/meridiano-<timestamp>.sql.gz \
-  | docker run --rm -i --network meridian-network -e PGPASSWORD="$DATABASE_PASSWORD" \
-    postgres:17-alpine psql -h "$DATABASE_HOST" -U "$DATABASE_USER" -d "$DATABASE_NAME"
+  | docker run --rm -i --network meridiano-network-production -e PGPASSWORD="$DATABASE_PASSWORD" \
+    postgres:16-alpine psql -h "$DATABASE_HOST" -U "$DATABASE_USER" -d "$DATABASE_NAME"
 ```
 
 Stop automatic deploys with `sudo systemctl disable --now meridiano-deploy.timer`.
