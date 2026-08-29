@@ -20,11 +20,21 @@ Migrations run inside the container at boot, ahead of `start:prod`. A failed
 migration exits non-zero, the container never reports healthy, and `deploy.sh`
 puts the previous image back.
 
-## One time setup on the Pi
+## First, publish an image
 
-Make the GHCR package public once, under the repo's Packages tab, so the Pi pulls
-without storing any credential. The repo is already public, so this exposes
-nothing new.
+The GHCR package does not exist until the workflow runs, so merge to main and let
+it finish before touching the Pi.
+
+Then make the package public, once. GHCR packages are private by default even
+when the repo is public, and a private package means the Pi has to hold a token
+with `read:packages` and rotate it. Public means the Pi pulls with no credential
+at all, which is the point of the whole design. The image ships only `dist`, the
+manifests, `libs/database`, and `scripts`, so no env file rides along.
+
+Find it on the repo's Packages sidebar or at `github.com/users/anahelenasilva/packages`,
+then Package settings, Change visibility, Public.
+
+## Then set up the Pi
 
 Install the script and units:
 
@@ -37,9 +47,18 @@ sudo systemctl daemon-reload
 
 `/opt/meridiano/docker-compose.prod.yml` and `/opt/meridiano/.env` need to be the
 files the Pi already runs. `.env` needs `DATABASE_HOST`, `DATABASE_PORT`,
-`DATABASE_USER`, `DATABASE_PASSWORD`, and `DATABASE_NAME` for the backup step, and
-`CORS_ORIGINS` set to the Tailscale host the frontend is served from. The compose
-file still defaults `CORS_ORIGINS` to the old VPS IP when nothing overrides it.
+`DATABASE_USER`, `DATABASE_PASSWORD`, and `DATABASE_NAME`, which the backup step
+reads.
+
+`CORS_ORIGINS` is optional. Left empty, the API accepts any origin, which is a
+reasonable default on a private tailnet. To lock it down, set it to the origin the
+browser shows when you load the frontend: scheme, host, and port, no path and no
+trailing slash. `http://pi.tailnet-name.ts.net` and `http://100.x.y.z` are
+different origins to a browser, so list both if you reach the Pi either way.
+
+```
+CORS_ORIGINS=http://pi-name.tailnet-name.ts.net,http://100.x.y.z
+```
 
 Do the first deploy by hand and watch it:
 

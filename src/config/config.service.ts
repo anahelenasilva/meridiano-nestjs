@@ -418,8 +418,15 @@ export class ConfigService {
     );
   }
 
+  // Undefined means "allow any origin", which main.ts relies on for Tailscale
+  // access. Compose hands the variable through as an empty string when nothing
+  // sets it, so empty has to read as unset rather than as "allow nothing".
   getCorsOrigins(): string[] | undefined {
-    return process.env.CORS_ORIGINS?.split(',').map((origin) => origin.trim());
+    const origins = process.env.CORS_ORIGINS?.split(',')
+      .map((origin) => origin.trim())
+      .filter((origin) => origin.length > 0);
+
+    return origins?.length ? origins : undefined;
   }
 
   getPort(): number {

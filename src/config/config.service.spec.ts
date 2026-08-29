@@ -389,6 +389,20 @@ describe('ConfigService', () => {
         'https://b.com',
       ]);
     });
+
+    // Compose passes CORS_ORIGINS through as an empty string when the Pi's .env
+    // leaves it unset. That has to mean "allow any origin", not "allow none".
+    it('returns undefined when CORS_ORIGINS is empty', () => {
+      process.env.CORS_ORIGINS = '';
+
+      expect(service.getCorsOrigins()).toBeUndefined();
+    });
+
+    it('drops blank entries from the list', () => {
+      process.env.CORS_ORIGINS = 'https://a.com, ,';
+
+      expect(service.getCorsOrigins()).toEqual(['https://a.com']);
+    });
   });
 
   describe('getPort', () => {

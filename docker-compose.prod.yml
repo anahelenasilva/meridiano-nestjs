@@ -61,7 +61,9 @@ services:
       # Mailgun API Keys
       MAILGUN_API_KEY: ${MAILGUN_API_KEY}
       MAILGUN_DOMAIN: ${MAILGUN_DOMAIN}
-      CORS_ORIGINS: ${CORS_ORIGINS:-http://89.116.214.113}
+      # Empty means allow any origin, which is the sane default on a private
+      # tailnet. Set it in .env to lock the API to specific origins.
+      CORS_ORIGINS: ${CORS_ORIGINS:-}
       # External Article Submission (Telegram Bot Integration)
       # Comma-separated list of valid tokens - SET IN PRODUCTION ENVIRONMENT
       EXTERNAL_API_TOKENS: ${EXTERNAL_API_TOKENS:-}
