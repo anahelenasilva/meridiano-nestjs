@@ -169,5 +169,4 @@ Environment-based via `ConfigService`. Key configs:
 
 - Docker Compose with environment profiles (local, staging, production)
 - AWS CDK for S3 infrastructure
-- Railway deployment supported
 - Raspberry Pi deployment, reachable over Tailscale — see [Nextcloud News setup](./NEXTCLOUD_NEWS_SETUP.md) for consuming the Articles feed from that environment

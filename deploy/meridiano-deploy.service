@@ -1,0 +1,18 @@
+[Unit]
+Description=Deploy the newest origin/main commit of meridiano-nestjs
+# docker is needed for the pre-deploy pg_dump, not for the app itself.
+After=network-online.target docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/meridiano-deploy
+# A pnpm install plus a NestJS build on a Pi is slow. This only has to be
+# generous enough that a real build never trips it.
+TimeoutStartSec=1800
+
+# The script's defaults already match this Pi. Override here if any of the
+# paths, the app user, or the database network ever change.
+# Environment=REPO=/home/anahelena/dev/meridiano-nestjs
+# Environment=APP_USER=anahelena
+# Environment=SERVICE=meridiano

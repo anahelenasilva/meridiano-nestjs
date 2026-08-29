@@ -1,6 +1,0 @@
-{
-  "build": {
-    "buildCommand": "IS_BUILD=true pnpm install --frozen-lockfile && pnpm run build",
-    "startCommand": "pnpm run migration:run && pnpm run start:prod"
-  }
-}
