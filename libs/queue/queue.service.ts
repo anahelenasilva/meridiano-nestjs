@@ -22,9 +22,9 @@ import {
 import type { ProcessArticleJobData } from './interfaces/article-job.interface';
 import type { GenerateAudioJobData } from './interfaces/audio-job.interface';
 import type { CustomBriefingJobData } from './interfaces/custom-briefing-job.interface';
-import type { IngestTranscriptJobData } from './interfaces/transcript-ingest-job.interface';
 import type { ProcessMarkdownArticleJobData } from './interfaces/markdown-article-job.interface';
 import type { BackupTranscriptJobData } from './interfaces/transcript-backup-job.interface';
+import type { IngestTranscriptJobData } from './interfaces/transcript-ingest-job.interface';
 import type { ProcessTranscriptionSummaryJobData } from './interfaces/youtube-transcription-job.interface';
 
 export interface JobInfo {
@@ -383,14 +383,22 @@ Please investigate the issue.`,
 
   /**
    * Queue one video URL for ingest. The job id is derived from the channel and
-   * video so re-submitting a URL that is already in flight is a no-op: BullMQ
-   * drops a duplicate id.
+   * video, so re-submitting a URL that is still live (waiting, active or
+   * delayed) is a no-op: BullMQ drops the duplicate id. A job that already
+   * failed is removed first, because its Redis key survives (`removeOnFail`
+   * is false so the failure strip can show it) and would otherwise swallow
+   * the enqueue. Clearing it makes re-pasting the URL a real retry.
    */
   async addTranscriptIngestJob(
     data: IngestTranscriptJobData,
     videoId: string,
   ): Promise<string> {
     const jobId = `${data.channelDbId}:${videoId}`;
+
+    const existing = await this.transcriptIngestQueue.getJob(jobId);
+    if (existing && (await existing.isFailed())) {
+      await existing.remove();
+    }
 
     const job = await this.transcriptIngestQueue.add(
       INGEST_TRANSCRIPT_JOB,

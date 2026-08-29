@@ -34,9 +34,14 @@ export class ListFailedIngestJobsQuery {
     let jobs: Job<IngestTranscriptJobData>[];
 
     try {
-      jobs = (await this.ingestQueue.getJobs([
-        'failed',
-      ])) as Job<IngestTranscriptJobData>[];
+      // Bounded to one batch worth of rows (the 25-URL cap). `removeOnFail`
+      // is false and nothing trims the list, so an unbounded read would grow
+      // without limit and render every failure ever recorded.
+      jobs = (await this.ingestQueue.getJobs(
+        ['failed'],
+        0,
+        24,
+      )) as Job<IngestTranscriptJobData>[];
     } catch (error) {
       this.logger.error(
         `Failed to read the ingest queue: ${

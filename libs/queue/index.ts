@@ -14,9 +14,9 @@ export {
 } from './constants/queue.constants';
 
 export type { ProcessArticleJobData } from './interfaces/article-job.interface';
-export type { IngestTranscriptJobData } from './interfaces/transcript-ingest-job.interface';
 export type { ProcessMarkdownArticleJobData } from './interfaces/markdown-article-job.interface';
 export type { BackupTranscriptJobData } from './interfaces/transcript-backup-job.interface';
+export type { IngestTranscriptJobData } from './interfaces/transcript-ingest-job.interface';
 export type { ProcessTranscriptionSummaryJobData } from './interfaces/youtube-transcription-job.interface';
 
 export { QueueModule } from './queue.module';

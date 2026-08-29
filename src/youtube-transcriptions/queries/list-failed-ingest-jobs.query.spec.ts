@@ -28,7 +28,7 @@ describe('ListFailedIngestJobsQuery', () => {
 
     await query.execute();
 
-    expect(mockQueue.getJobs).toHaveBeenCalledWith(['failed']);
+    expect(mockQueue.getJobs).toHaveBeenCalledWith(['failed'], 0, 24);
   });
 
   it('resolves each distinct channel name once', async () => {
