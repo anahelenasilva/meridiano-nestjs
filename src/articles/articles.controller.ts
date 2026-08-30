@@ -21,6 +21,7 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiQuery,
   ApiResponse,
 } from '@nestjs/swagger';
 import {
@@ -28,6 +29,7 @@ import {
   ApiValidationErrorResponse,
 } from '../shared/swagger/api-error-response.decorators';
 import { parseIncludeAudio } from '../shared/helpers/parse-include-audio';
+import { parseArchiveScope } from './helpers/archive-scope';
 import { ConfigService } from '../config/config.service';
 import { ScraperService } from '../scraper/scraper.service';
 import { GenerateArticleAudioCommand } from './commands/generate-article-audio.command';
@@ -199,14 +201,33 @@ export class ArticlesController {
   @Get()
   @ApiKeyAllowed()
   @ApiOperation({ summary: 'List articles (all articles are global; per-user notes attach only for a JWT user)' })
+  @ApiQuery({
+    name: 'archive_scope',
+    required: false,
+    enum: ['active', 'archived', 'all'],
+    description: 'Defaults to active. Use archived for the Archive view.',
+  })
   @ApiOkResponse({ description: 'Paginated list of articles' })
+  @ApiValidationErrorResponse()
   async listArticles(
     // Optional: the JWT path sets a user, the api-key path (CLI/ops) does not.
     // Articles are global either way; `user?.id` only gates note attachment.
     @CurrentUser() user: AuthenticatedUser | undefined,
     @Query() input: PaginatedArticleInput,
+    @Query('archive_scope') archiveScope?: string,
   ) {
-    return await this.listArticlesQuery.execute(user?.id, input);
+    const scope = parseArchiveScope(archiveScope);
+
+    if (scope === null) {
+      throw new BadRequestException(
+        'archive_scope must be one of: active, archived, all',
+      );
+    }
+
+    return await this.listArticlesQuery.execute(user?.id, {
+      ...input,
+      archiveScope: scope,
+    });
   }
 
   // Declared before @Get(':id') so the literal path is matched first and the

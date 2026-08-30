@@ -6,6 +6,7 @@ import moment from 'moment';
 import { ProfilesService } from '../../profiles/profiles.service';
 import { ArticlesService } from '../articles.service';
 import { prepareArticleContent } from '../helpers/prepareArticleContent';
+import { ArchiveScope } from '../helpers/archive-scope';
 
 export type ListArticlesRequest = {
   page?: number;
@@ -18,6 +19,7 @@ export type ListArticlesRequest = {
   endDate?: string;
   preset?: string;
   category?: string;
+  archiveScope?: ArchiveScope;
 };
 
 // has_audio is added after prepareArticleContent (whose declared parameter
@@ -76,6 +78,7 @@ export class ListArticlesQuery {
       searchTerm,
       sortBy = 'published_date',
       startDate,
+      archiveScope = 'active',
     } = request;
 
     let startDateToSearch = startDate;
@@ -101,6 +104,7 @@ export class ListArticlesQuery {
       startDate: startDateToSearch,
       endDate: endDateToSearch,
       category: category,
+      archiveScope,
     });
 
     const totalPages = Math.ceil(totalArticles / perPage);
@@ -115,6 +119,7 @@ export class ListArticlesQuery {
       startDate: startDate,
       endDate: endDate,
       category: category,
+      archiveScope,
     });
 
     // Prepare articles with HTML content. prepareArticleContent's declared

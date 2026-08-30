@@ -1,6 +1,10 @@
 import { AUDIO_GENERATION_SUCCESS_MESSAGE } from '@libs/audio';
 import { IS_PUBLIC_KEY } from '@libs/auth';
-import { ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { mock } from 'jest-mock-extended';
 import { ArticlesController } from './articles.controller';
 import { GenerateArticleAudioCommand } from './commands/generate-article-audio.command';
@@ -159,7 +163,10 @@ describe('ArticlesController', () => {
       const result = await controller.listArticles({ id: 'user-1' }, input);
 
       expect(result).toEqual(response);
-      expect(mockListArticlesQuery.execute).toHaveBeenCalledWith('user-1', input);
+      expect(mockListArticlesQuery.execute).toHaveBeenCalledWith('user-1', {
+        ...input,
+        archiveScope: 'active',
+      });
     });
 
     it('forwards undefined user id on the api-key path (no authenticated user)', async () => {
@@ -181,10 +188,10 @@ describe('ArticlesController', () => {
 
       await controller.listArticles(undefined, input);
 
-      expect(mockListArticlesQuery.execute).toHaveBeenCalledWith(
-        undefined,
-        input,
-      );
+      expect(mockListArticlesQuery.execute).toHaveBeenCalledWith(undefined, {
+        ...input,
+        archiveScope: 'active',
+      });
     });
   });
 
@@ -307,6 +314,59 @@ describe('ArticlesController', () => {
       await expect(
         controller.generateAudio('11111111-1111-1111-1111-111111111111'),
       ).rejects.toThrow(ConflictException);
+    });
+  });
+
+  describe('listArticles archive scope', () => {
+    function buildController() {
+      return new ArticlesController(
+        mock(),
+        mockListArticlesQuery,
+        mockListArticlesLeanQuery,
+        mockGetArticleByIdQuery,
+        mock(),
+        mock(),
+        mock(),
+        mock(),
+        mock(),
+        mock(),
+      );
+    }
+
+    beforeEach(() => {
+      jest.clearAllMocks();
+      mockListArticlesQuery.execute.mockResolvedValue(null);
+    });
+
+    it('defaults to the active scope when archive_scope is absent', async () => {
+      const controller = buildController();
+
+      await controller.listArticles({ id: 'user-1' }, { page: 1 }, undefined);
+
+      expect(mockListArticlesQuery.execute).toHaveBeenCalledWith('user-1', {
+        page: 1,
+        archiveScope: 'active',
+      });
+    });
+
+    it('forwards the archived scope', async () => {
+      const controller = buildController();
+
+      await controller.listArticles({ id: 'user-1' }, { page: 1 }, 'archived');
+
+      expect(mockListArticlesQuery.execute).toHaveBeenCalledWith('user-1', {
+        page: 1,
+        archiveScope: 'archived',
+      });
+    });
+
+    it('rejects an unrecognised scope with a 400 rather than silently defaulting', async () => {
+      const controller = buildController();
+
+      await expect(
+        controller.listArticles({ id: 'user-1' }, {}, 'deleted'),
+      ).rejects.toBeInstanceOf(BadRequestException);
+      expect(mockListArticlesQuery.execute).not.toHaveBeenCalled();
     });
   });
 });
