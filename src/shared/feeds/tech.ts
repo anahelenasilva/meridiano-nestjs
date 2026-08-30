@@ -8,7 +8,7 @@ import {
 export const techRSSFeeds: RSSFeed[] = [
   {
     url: 'https://nodejs.org/en/feed/blog.xml',
-    name: 'NodeJs Blog',
+    name: 'Node.js Blog',
     category: 'technical',
     description: 'Official Node.js project blog',
     enabled: true,

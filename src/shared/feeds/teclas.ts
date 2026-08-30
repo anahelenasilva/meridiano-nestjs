@@ -3,7 +3,7 @@ import { FeedConfiguration, FeedProfile, RSSFeed } from '../types/feed';
 export const teclasRSSFeeds: RSSFeed[] = [
   {
     url: 'https://www.tecnologiaeclasse.com.br/feed',
-    name: 'Teclas',
+    name: 'Tecnologia e Classe',
     category: 'blog',
     description:
       'TeClas é um canal (e agora também uma newsletter) sobre tecnologia e luta de classes.',
