@@ -49,6 +49,7 @@ describe('RunBriefingUseCase', () => {
     useCase = module.get<RunBriefingUseCase>(RunBriefingUseCase);
 
     mockProfilesService.getEnabledSitemapSourcesForProfile.mockReturnValue([]);
+    mockScrapeSitemapsUseCase.execute.mockResolvedValue({ newArticles: 0, errors: 0 });
   });
 
   afterEach(() => {
@@ -57,7 +58,7 @@ describe('RunBriefingUseCase', () => {
 
   const input: RunBriefingInputDto = { feedProfile: FeedProfile.DEFAULT };
 
-  it('returns error immediately when no enabled feeds', async () => {
+  it('returns error when the profile has no enabled feeds or sitemap sources', async () => {
     mockProfilesService.getEnabledFeedsForProfile.mockReturnValue([]);
     mockProfilesService.getEnabledSitemapSourcesForProfile.mockReturnValue([]);
 
@@ -141,17 +142,17 @@ describe('RunBriefingUseCase', () => {
     const callOrder: string[] = [];
 
     mockProfilesService.getEnabledFeedsForProfile.mockReturnValue([enabledFeed]);
-    mockScrapeArticlesUseCase.execute.mockImplementation(async () => {
+    mockScrapeArticlesUseCase.execute.mockImplementation(() => {
       callOrder.push('rss');
-      return { newArticles: 5, errors: 0 };
+      return Promise.resolve({ newArticles: 5, errors: 0 });
     });
-    mockScrapeSitemapsUseCase.execute.mockImplementation(async () => {
+    mockScrapeSitemapsUseCase.execute.mockImplementation(() => {
       callOrder.push('sitemap');
-      return { newArticles: 3, errors: 0 };
+      return Promise.resolve({ newArticles: 3, errors: 0 });
     });
-    mockProcessArticlesUseCase.execute.mockImplementation(async () => {
+    mockProcessArticlesUseCase.execute.mockImplementation(() => {
       callOrder.push('process');
-      return { articlesProcessed: 8, errors: 0 };
+      return Promise.resolve({ articlesProcessed: 8, errors: 0 });
     });
     mockRateArticlesUseCase.execute.mockResolvedValue({ articlesRated: 8, errors: 0 });
     mockCategorizeArticlesUseCase.execute.mockResolvedValue({
