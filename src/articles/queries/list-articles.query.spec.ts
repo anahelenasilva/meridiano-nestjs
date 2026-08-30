@@ -46,6 +46,7 @@ describe('ListArticlesQuery', () => {
       FeedProfile.TECHNOLOGY,
     ]);
     mockService.getDistinctCategories.mockResolvedValue(['news']);
+    mockService.getDistinctFeedSources.mockResolvedValue(['Will Larson']);
     mockService.countTotalArticles.mockResolvedValue(2);
     mockNotesReadService.getActiveNotesBySourceIds.mockResolvedValue(new Map());
 
@@ -128,5 +129,28 @@ describe('ListArticlesQuery', () => {
       true,
       false,
     ]);
+  });
+
+  it('passes feedSource to both reads and returns the source options', async () => {
+    mockService.getArticlesPaginated.mockResolvedValue([articleA]);
+
+    const result = await query.execute(userId, { feedSource: 'Will Larson' });
+
+    expect(mockService.countTotalArticles).toHaveBeenCalledWith(
+      expect.objectContaining({ feedSource: 'Will Larson' }),
+    );
+    expect(mockService.getArticlesPaginated).toHaveBeenCalledWith(
+      expect.objectContaining({ feedSource: 'Will Larson' }),
+    );
+    expect(result?.filters.feed_source).toBe('Will Larson');
+    expect(result?.available_sources).toEqual(['Will Larson']);
+  });
+
+  it('scopes the source options to the requested archive scope', async () => {
+    mockService.getArticlesPaginated.mockResolvedValue([]);
+
+    await query.execute(userId, { archiveScope: 'archived' });
+
+    expect(mockService.getDistinctFeedSources).toHaveBeenCalledWith('archived');
   });
 });
