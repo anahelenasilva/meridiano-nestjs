@@ -136,6 +136,7 @@ describe('ArticlesController', () => {
           sort_by: 'published_date',
           direction: 'desc',
           feed_profile: '',
+          feed_source: '',
           search_term: '',
           start_date: '',
           end_date: '',
@@ -144,8 +145,9 @@ describe('ArticlesController', () => {
         },
         available_profiles: [],
         available_categories: [],
+        available_sources: [],
       };
-      mockListArticlesQuery.execute.mockResolvedValue(response as never);
+      mockListArticlesQuery.execute.mockResolvedValue(response);
 
       const controller = new ArticlesController(
         mock(),

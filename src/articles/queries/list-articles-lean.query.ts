@@ -8,6 +8,7 @@ export type ListArticlesLeanRequest = {
   page?: number;
   perPage?: number;
   feedProfile?: string;
+  feedSource?: string;
   startDate?: string;
   endDate?: string;
 };
@@ -41,6 +42,7 @@ export type ListArticlesLeanResponse = {
   };
   filters: {
     feed_profile: string;
+    feed_source: string;
     start_date: string;
     end_date: string;
   };
@@ -84,12 +86,14 @@ export class ListArticlesLeanQuery {
       page = 1,
       perPage = 20,
       feedProfile,
+      feedSource,
       startDate,
       endDate,
     } = request;
 
     const totalArticles = await this.service.countTotalArticles({
       feedProfile,
+      feedSource,
       startDate,
       endDate,
     });
@@ -99,6 +103,7 @@ export class ListArticlesLeanQuery {
       page,
       perPage,
       feedProfile,
+      feedSource,
       startDate,
       endDate,
     });
@@ -127,6 +132,7 @@ export class ListArticlesLeanQuery {
       },
       filters: {
         feed_profile: feedProfile ?? '',
+        feed_source: feedSource ?? '',
         start_date: startDate ?? '',
         end_date: endDate ?? '',
       },

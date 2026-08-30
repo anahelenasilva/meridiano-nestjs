@@ -14,6 +14,7 @@ export type ListArticlesRequest = {
   sortBy?: string;
   direction?: string;
   feedProfile?: string;
+  feedSource?: string;
   searchTerm?: string;
   startDate?: string;
   endDate?: string;
@@ -43,6 +44,7 @@ export type ListArticlesResponse = {
     sort_by: string;
     direction: string;
     feed_profile: string;
+    feed_source: string;
     search_term: string;
     start_date: string;
     end_date: string;
@@ -51,6 +53,7 @@ export type ListArticlesResponse = {
   };
   available_profiles: string[];
   available_categories: string[];
+  available_sources: string[];
 };
 
 @Injectable()
@@ -74,6 +77,7 @@ export class ListArticlesQuery {
       direction = 'desc',
       endDate,
       feedProfile,
+      feedSource,
       preset,
       searchTerm,
       sortBy = 'published_date',
@@ -96,11 +100,14 @@ export class ListArticlesQuery {
     }
 
     const availableProfiles = this.profilesService.getAvailableProfiles();
-    const availableCategories =
-      await this.service.getDistinctCategories(archiveScope);
+    const [availableCategories, availableSources] = await Promise.all([
+      this.service.getDistinctCategories(archiveScope),
+      this.service.getDistinctFeedSources(archiveScope),
+    ]);
 
     const totalArticles = await this.service.countTotalArticles({
       feedProfile: feedProfile,
+      feedSource,
       searchTerm: searchTerm,
       startDate: startDateToSearch,
       endDate: endDateToSearch,
@@ -116,6 +123,7 @@ export class ListArticlesQuery {
       sortBy,
       direction: direction as 'asc' | 'desc',
       feedProfile: feedProfile,
+      feedSource,
       searchTerm: searchTerm,
       startDate: startDate,
       endDate: endDate,
@@ -156,6 +164,7 @@ export class ListArticlesQuery {
         sort_by: sortBy,
         direction: direction,
         feed_profile: feedProfile ?? '',
+        feed_source: feedSource ?? '',
         search_term: searchTerm ?? '',
         start_date: startDate ?? '',
         end_date: endDate ?? '',
@@ -164,6 +173,7 @@ export class ListArticlesQuery {
       },
       available_profiles: availableProfiles,
       available_categories: availableCategories,
+      available_sources: availableSources,
     };
   }
 

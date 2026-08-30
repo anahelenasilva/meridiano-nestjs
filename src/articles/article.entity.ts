@@ -8,6 +8,7 @@ export interface PaginatedArticleInput {
   sortBy?: string;
   direction?: 'asc' | 'desc';
   feedProfile?: string;
+  feedSource?: string;
   searchTerm?: string;
   startDate?: string;
   endDate?: string;
@@ -17,6 +18,7 @@ export interface PaginatedArticleInput {
 
 export interface CountTotalArticlesInput {
   feedProfile?: string;
+  feedSource?: string;
   searchTerm?: string;
   startDate?: string;
   endDate?: string;

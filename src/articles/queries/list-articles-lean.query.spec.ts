@@ -133,6 +133,7 @@ describe('ListArticlesLeanQuery', () => {
       page: 2,
       perPage: 2,
       feedProfile: FeedProfile.TECHNOLOGY,
+      feedSource: 'Will Larson',
       startDate: '2024-01-01',
       endDate: '2024-02-01',
     });
@@ -145,8 +146,22 @@ describe('ListArticlesLeanQuery', () => {
     });
     expect(result.filters).toEqual({
       feed_profile: FeedProfile.TECHNOLOGY,
+      feed_source: 'Will Larson',
       start_date: '2024-01-01',
       end_date: '2024-02-01',
     });
+  });
+
+  it('passes feedSource to both reads', async () => {
+    mockService.getArticlesPaginated.mockResolvedValue([]);
+
+    await query.execute(userId, { feedSource: 'Will Larson' });
+
+    expect(mockService.countTotalArticles).toHaveBeenCalledWith(
+      expect.objectContaining({ feedSource: 'Will Larson' }),
+    );
+    expect(mockService.getArticlesPaginated).toHaveBeenCalledWith(
+      expect.objectContaining({ feedSource: 'Will Larson' }),
+    );
   });
 });
