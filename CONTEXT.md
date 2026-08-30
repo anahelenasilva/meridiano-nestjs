@@ -81,6 +81,16 @@ _Avoid_: content item, post (unless quoting a source)
 The publication or author attribution stored on an Article. For RSS-ingested articles it is the feed name (e.g. `"Will Larson"`, `"TechCrunch"`). For manually scraped URLs it is `"Manual"`. For uploaded markdown articles it is extracted from the document content via AI; falls back to `"Unknown"` when no author can be identified. `"Unknown"` is a meaningful sentinel — it means extraction was attempted and failed, distinct from legacy `"S3 Upload"` records created before this feature existed.
 _Avoid_: author (too narrow — covers publications, not just people), feed_source (implementation column name)
 
+**Archived Article**:
+An Article the user has dismissed by hand. Archiving is triage, not deletion and
+not preservation: the row stays, and `DELETE /api/articles/:id` remains the only
+way to destroy it. Orthogonal to Bookmark, so an Article can be both bookmarked
+and archived. Archived Articles are hidden from the articles list and its search,
+the Standard Briefing candidate pool, News Digest selection, and the Bookmarks
+page. They stay visible to scraper deduplication, to the AI processing pipeline,
+to a Curated Briefing built from explicit ids, and on their own detail page.
+Only Articles can be archived; YouTube Transcriptions cannot.
+
 **Bookmark**:
 An article saved by the user to read later. Not a saved briefing.
 _Avoid_: saved article, favourite, starred

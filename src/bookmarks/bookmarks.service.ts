@@ -1,6 +1,7 @@
 import { DatabaseService } from '@libs/database';
 import { Injectable } from '@nestjs/common';
 import { ArticleCategory, DBArticle } from '../articles/article.entity';
+import { archiveClause } from '../articles/helpers/archive-scope';
 import { AddBookmarkResult, BookmarkWithArticle } from './bookmark.entity';
 
 interface BookmarkRow {
@@ -28,6 +29,10 @@ interface BookmarkWithArticleRow extends BookmarkRow {
 interface CountRow {
   count: number;
 }
+
+// Archived articles are hidden everywhere articles are served, bookmarks
+// included. The alias matches the joined queries below.
+const ACTIVE_ARTICLE = archiveClause('active', 'a.archived_at');
 
 @Injectable()
 export class BookmarksService {
@@ -151,7 +156,10 @@ export class BookmarksService {
 
       // Get total count
       db.get(
-        `SELECT COUNT(*) as count FROM bookmarks WHERE user_id = ?`,
+        `SELECT COUNT(*) as count
+         FROM bookmarks b
+         INNER JOIN articles a ON b.article_id = a.id
+         WHERE b.user_id = ? AND ${ACTIVE_ARTICLE}`,
         [userId],
         (countErr: Error | null, countRow?: CountRow) => {
           if (countErr) {
@@ -182,7 +190,7 @@ export class BookmarksService {
             a.categories as article_categories
           FROM bookmarks b
           INNER JOIN articles a ON b.article_id = a.id
-          WHERE b.user_id = ?
+          WHERE b.user_id = ? AND ${ACTIVE_ARTICLE}
           ORDER BY b.created_at DESC
           LIMIT ? OFFSET ?
         `,
@@ -260,7 +268,10 @@ export class BookmarksService {
       const db = this.databaseService.getDbConnection();
 
       db.get(
-        `SELECT COUNT(*) as count FROM bookmarks WHERE user_id = ?`,
+        `SELECT COUNT(*) as count
+         FROM bookmarks b
+         INNER JOIN articles a ON b.article_id = a.id
+         WHERE b.user_id = ? AND ${ACTIVE_ARTICLE}`,
         [userId],
         (err: Error | null, row?: CountRow) => {
           if (err) {

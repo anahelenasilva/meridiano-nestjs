@@ -10,6 +10,7 @@ describe('BookmarksService', () => {
   const mockDb = {
     run: jest.fn(),
     get: jest.fn(),
+    all: jest.fn(),
   };
 
   let service: BookmarksService;
@@ -85,6 +86,36 @@ describe('BookmarksService', () => {
       await expect(service.addBookmark(USER_ID, ARTICLE_ID)).rejects.toThrow(
         'connection reset',
       );
+    });
+  });
+
+  describe('archive exclusion', () => {
+    it('excludes archived articles from both the count and the rows of getBookmarks', async () => {
+      mockDb.get.mockImplementationOnce((query, params, callback) => {
+        callback(null, { count: 0 });
+      });
+      mockDb.all.mockImplementationOnce((query, params, callback) => {
+        callback(null, []);
+      });
+
+      await service.getBookmarks(USER_ID, 1, 20);
+
+      const [countQuery] = mockDb.get.mock.calls[0];
+      const [rowsQuery] = mockDb.all.mock.calls[0];
+
+      expect(countQuery).toContain('a.archived_at IS NULL');
+      expect(rowsQuery).toContain('a.archived_at IS NULL');
+    });
+
+    it('excludes archived articles from getBookmarkCount, which feeds the same page total', async () => {
+      mockDb.get.mockImplementationOnce((query, params, callback) => {
+        callback(null, { count: 0 });
+      });
+
+      await service.getBookmarkCount(USER_ID);
+
+      const [query] = mockDb.get.mock.calls[0];
+      expect(query).toContain('a.archived_at IS NULL');
     });
   });
 });
