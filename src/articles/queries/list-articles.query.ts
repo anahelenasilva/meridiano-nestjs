@@ -96,7 +96,8 @@ export class ListArticlesQuery {
     }
 
     const availableProfiles = this.profilesService.getAvailableProfiles();
-    const availableCategories = await this.service.getDistinctCategories();
+    const availableCategories =
+      await this.service.getDistinctCategories(archiveScope);
 
     const totalArticles = await this.service.countTotalArticles({
       feedProfile: feedProfile,

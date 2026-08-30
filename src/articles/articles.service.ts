@@ -10,7 +10,7 @@ import {
   PaginatedArticleInput,
   UpdateArticlePatch,
 } from './article.entity';
-import { archiveClause } from './helpers/archive-scope';
+import { archiveClause, ArchiveScope } from './helpers/archive-scope';
 
 interface ArticleRow {
   id: string;
@@ -495,7 +495,7 @@ export class ArticlesService {
       const db = this.databaseService.getDbConnection();
 
       db.all(
-        'SELECT DISTINCT feed_profile FROM articles WHERE archived_at IS NULL ORDER BY feed_profile',
+        'SELECT DISTINCT feed_profile FROM articles ORDER BY feed_profile',
         [],
         (err, rows: ArticleRow[]) => {
           if (err) {
@@ -509,7 +509,9 @@ export class ArticlesService {
     });
   }
 
-  async getDistinctCategories(): Promise<string[]> {
+  async getDistinctCategories(
+    archiveScope: ArchiveScope = 'active',
+  ): Promise<string[]> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
@@ -518,13 +520,17 @@ export class ArticlesService {
         return;
       }
 
-      const query = `
+      let query = `
         SELECT DISTINCT categories
         FROM articles
         WHERE categories IS NOT NULL
           AND categories != ''
-          AND archived_at IS NULL
       `;
+
+      const scopeClause = archiveClause(archiveScope);
+      if (scopeClause) {
+        query += ` AND ${scopeClause}`;
+      }
 
       db.all(query, [], (err, rows: ArticleRow[]) => {
         if (err) {

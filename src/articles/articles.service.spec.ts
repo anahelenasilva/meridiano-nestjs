@@ -570,19 +570,10 @@ describe('ArticlesService', () => {
       const [relatedQuery] = mockDb.all.mock.calls[0];
       expect(relatedQuery).toContain('archived_at IS NULL');
     });
+  });
 
-    it('offers only feed profiles that have an active article', async () => {
-      mockDb.all.mockImplementationOnce((query, params, callback) => {
-        callback(null, []);
-      });
-
-      await service.getDistinctFeedProfiles();
-
-      const [query] = mockDb.all.mock.calls[0];
-      expect(query).toContain('archived_at IS NULL');
-    });
-
-    it('offers only categories that have an active article', async () => {
+  describe('archive scoping on getDistinctCategories', () => {
+    it('defaults to active rows only', async () => {
       mockDb.all.mockImplementationOnce((query, params, callback) => {
         callback(null, []);
       });
@@ -591,6 +582,30 @@ describe('ArticlesService', () => {
 
       const [query] = mockDb.all.mock.calls[0];
       expect(query).toContain('archived_at IS NULL');
+      expect(query).not.toContain('archived_at IS NOT NULL');
+    });
+
+    it('offers categories from archived rows when scope is archived', async () => {
+      mockDb.all.mockImplementationOnce((query, params, callback) => {
+        callback(null, []);
+      });
+
+      await service.getDistinctCategories('archived');
+
+      const [query] = mockDb.all.mock.calls[0];
+      expect(query).toContain('archived_at IS NOT NULL');
+    });
+
+    it('applies no archive filter for scope all, with no dangling WHERE or AND', async () => {
+      mockDb.all.mockImplementationOnce((query, params, callback) => {
+        callback(null, []);
+      });
+
+      await service.getDistinctCategories('all');
+
+      const [query] = mockDb.all.mock.calls[0];
+      expect(query).not.toContain('archived_at IS');
+      expect(query.trim().endsWith("AND categories != ''")).toBe(true);
     });
   });
 
