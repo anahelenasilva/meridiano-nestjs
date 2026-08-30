@@ -33,14 +33,20 @@ export class RunBriefingUseCase {
     const enabledFeeds = this.profilesService.getEnabledFeedsForProfile(
       input.feedProfile,
     );
+    const enabledSitemapSources =
+      this.profilesService.getEnabledSitemapSourcesForProfile(
+        input.feedProfile,
+      );
 
-    if (enabledFeeds.length === 0) {
-      this.logger.warn(`No enabled feeds found for profile '${input.feedProfile}'.`);
+    if (enabledFeeds.length === 0 && enabledSitemapSources.length === 0) {
+      this.logger.warn(
+        `No enabled feeds or sitemap sources found for profile '${input.feedProfile}'.`,
+      );
 
       return {
         success: false,
         duration: 0,
-        error: `No enabled feeds found for profile '${input.feedProfile}'.`,
+        error: `No enabled feeds or sitemap sources found for profile '${input.feedProfile}'.`,
       };
     }
 

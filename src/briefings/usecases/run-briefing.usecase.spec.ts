@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
 import { ConfigService } from '../../config/config.service';
 import { ProfilesService } from '../../profiles/profiles.service';
-import { FeedProfile, RSSFeed } from '../../shared/types/feed';
+import { FeedProfile, RSSFeed, SitemapSource } from '../../shared/types/feed';
 import { CategorizeArticlesUseCase } from './categorize-articles.usecase';
 import { RunBriefingInputDto } from './dto/run-briefing.dto';
 import { GenerateBriefUseCase } from './generate-brief.usecase';
@@ -13,6 +13,12 @@ import { ScrapeArticlesUseCase } from './scrape-articles.usecase';
 import { ScrapeSitemapsUseCase } from './scrape-sitemaps.usecase';
 
 const enabledFeed: RSSFeed = { url: 'https://example.com/feed', name: 'Example' };
+
+const enabledSitemapSource: SitemapSource = {
+  sitemapUrl: 'https://example.com/sitemap.xml',
+  urlPrefix: 'https://example.com/news/',
+  name: 'Example News',
+};
 
 describe('RunBriefingUseCase', () => {
   let useCase: RunBriefingUseCase;
@@ -41,6 +47,8 @@ describe('RunBriefingUseCase', () => {
     }).compile();
 
     useCase = module.get<RunBriefingUseCase>(RunBriefingUseCase);
+
+    mockProfilesService.getEnabledSitemapSourcesForProfile.mockReturnValue([]);
   });
 
   afterEach(() => {
@@ -51,11 +59,14 @@ describe('RunBriefingUseCase', () => {
 
   it('returns error immediately when no enabled feeds', async () => {
     mockProfilesService.getEnabledFeedsForProfile.mockReturnValue([]);
+    mockProfilesService.getEnabledSitemapSourcesForProfile.mockReturnValue([]);
 
     const result = await useCase.execute(input);
 
     expect(result.success).toBe(false);
-    expect(result.error).toContain("No enabled feeds found for profile 'default'");
+    expect(result.error).toContain(
+      "No enabled feeds or sitemap sources found for profile 'default'",
+    );
     expect(mockScrapeArticlesUseCase.execute).not.toHaveBeenCalled();
   });
 
@@ -174,5 +185,26 @@ describe('RunBriefingUseCase', () => {
     expect(result.stages?.scraping.errors).toBe(0);
     expect(result.stages?.sitemapScraping.errors).toBe(2);
     expect(result.stages?.sitemapScraping.newArticles).toBe(0);
+  });
+
+  it('runs when the profile has sitemap sources but no RSS feeds', async () => {
+    mockProfilesService.getEnabledFeedsForProfile.mockReturnValue([]);
+    mockProfilesService.getEnabledSitemapSourcesForProfile.mockReturnValue([
+      enabledSitemapSource,
+    ]);
+    mockScrapeArticlesUseCase.execute.mockResolvedValue({ newArticles: 0, errors: 0 });
+    mockScrapeSitemapsUseCase.execute.mockResolvedValue({ newArticles: 4, errors: 0 });
+    mockProcessArticlesUseCase.execute.mockResolvedValue({ articlesProcessed: 4, errors: 0 });
+    mockRateArticlesUseCase.execute.mockResolvedValue({ articlesRated: 4, errors: 0 });
+    mockCategorizeArticlesUseCase.execute.mockResolvedValue({
+      articlesCategorized: 4,
+      errors: 0,
+    });
+    mockConfigService.isBriefingsGenerationEnabled.mockReturnValue(false);
+
+    const result = await useCase.execute(input);
+
+    expect(result.error).toBeUndefined();
+    expect(result.stages?.sitemapScraping.newArticles).toBe(4);
   });
 });
