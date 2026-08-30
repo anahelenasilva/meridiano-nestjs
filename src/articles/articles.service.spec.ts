@@ -609,6 +609,103 @@ describe('ArticlesService', () => {
     });
   });
 
+  describe('feed source filter', () => {
+    it('filters getArticlesPaginated by an exact feed_source match', async () => {
+      mockDb.all.mockImplementationOnce((query, params, callback) => {
+        callback(null, []);
+      });
+
+      await service.getArticlesPaginated({ feedSource: 'Will Larson' });
+
+      const [query, params] = mockDb.all.mock.calls[0];
+      expect(query).toContain('AND feed_source = ?');
+      expect(params).toContain('Will Larson');
+    });
+
+    it('adds no feed_source clause when the filter is absent', async () => {
+      mockDb.all.mockImplementationOnce((query, params, callback) => {
+        callback(null, []);
+      });
+
+      await service.getArticlesPaginated({});
+
+      const [query] = mockDb.all.mock.calls[0];
+      expect(query).not.toContain('feed_source =');
+    });
+
+    it('filters countTotalArticles by an exact feed_source match', async () => {
+      mockDb.get.mockImplementationOnce((query, params, callback) => {
+        callback(null, { count: 0 });
+      });
+
+      await service.countTotalArticles({ feedSource: 'Will Larson' });
+
+      const [query, params] = mockDb.get.mock.calls[0];
+      expect(query).toContain('AND feed_source = ?');
+      expect(params).toContain('Will Larson');
+    });
+  });
+
+  describe('getDistinctFeedSources', () => {
+    it('returns each row feed_source in database order', async () => {
+      mockDb.all.mockImplementationOnce((query, params, callback) => {
+        callback(null, [
+          { feed_source: 'Fabio Akita' },
+          { feed_source: 'Will Larson' },
+        ]);
+      });
+
+      const sources = await service.getDistinctFeedSources();
+
+      expect(sources).toEqual(['Fabio Akita', 'Will Larson']);
+      const [query] = mockDb.all.mock.calls[0];
+      expect(query).toContain('SELECT DISTINCT feed_source');
+      expect(query).toContain('ORDER BY feed_source');
+    });
+
+    it('defaults to active rows only', async () => {
+      mockDb.all.mockImplementationOnce((query, params, callback) => {
+        callback(null, []);
+      });
+
+      await service.getDistinctFeedSources();
+
+      const [query] = mockDb.all.mock.calls[0];
+      expect(query).toContain('archived_at IS NULL');
+      expect(query).not.toContain('archived_at IS NOT NULL');
+    });
+
+    it('offers sources from archived rows when scope is archived', async () => {
+      mockDb.all.mockImplementationOnce((query, params, callback) => {
+        callback(null, []);
+      });
+
+      await service.getDistinctFeedSources('archived');
+
+      const [query] = mockDb.all.mock.calls[0];
+      expect(query).toContain('archived_at IS NOT NULL');
+    });
+
+    it('applies no archive filter for scope all', async () => {
+      mockDb.all.mockImplementationOnce((query, params, callback) => {
+        callback(null, []);
+      });
+
+      await service.getDistinctFeedSources('all');
+
+      const [query] = mockDb.all.mock.calls[0];
+      expect(query).not.toContain('archived_at IS');
+    });
+
+    it('rejects when the database query fails', async () => {
+      mockDb.all.mockImplementationOnce((query, params, callback) => {
+        callback(new Error('boom'), []);
+      });
+
+      await expect(service.getDistinctFeedSources()).rejects.toThrow('boom');
+    });
+  });
+
   // The highest-value tests in this feature. If an archived article stops
   // matching here, the RSS scraper treats it as new and re-ingests it on every
   // subsequent run, silently and forever.

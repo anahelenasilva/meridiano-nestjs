@@ -562,6 +562,37 @@ export class ArticlesService {
     });
   }
 
+  async getDistinctFeedSources(
+    archiveScope: ArchiveScope = 'active',
+  ): Promise<string[]> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      let query = `
+        SELECT DISTINCT feed_source
+        FROM articles
+        WHERE feed_source IS NOT NULL
+          AND feed_source != ''
+      `;
+
+      const scopeClause = archiveClause(archiveScope);
+      if (scopeClause) {
+        query += ` AND ${scopeClause}`;
+      }
+
+      query += ' ORDER BY feed_source';
+
+      db.all(query, [], (err, rows: Pick<ArticleRow, 'feed_source'>[]) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        resolve(rows.map((row) => row.feed_source));
+      });
+    });
+  }
+
   async getArticlesPaginated(
     options: PaginatedArticleInput,
   ): Promise<ArticleListRow[]> {
@@ -574,6 +605,7 @@ export class ArticlesService {
         sortBy = 'published_date',
         direction = 'desc',
         feedProfile,
+        feedSource,
         searchTerm,
         startDate,
         endDate,
@@ -604,6 +636,11 @@ export class ArticlesService {
       if (feedProfile) {
         query += ' AND feed_profile = ?';
         params.push(feedProfile);
+      }
+
+      if (feedSource) {
+        query += ' AND feed_source = ?';
+        params.push(feedSource);
       }
 
       if (searchTerm) {
@@ -668,6 +705,7 @@ export class ArticlesService {
 
       const {
         feedProfile,
+        feedSource,
         searchTerm,
         startDate,
         endDate,
@@ -686,6 +724,11 @@ export class ArticlesService {
       if (feedProfile) {
         query += ' AND feed_profile = ?';
         params.push(feedProfile);
+      }
+
+      if (feedSource) {
+        query += ' AND feed_source = ?';
+        params.push(feedSource);
       }
 
       if (searchTerm) {
