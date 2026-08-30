@@ -100,10 +100,10 @@ export class ListArticlesQuery {
     }
 
     const availableProfiles = this.profilesService.getAvailableProfiles();
-    const availableCategories =
-      await this.service.getDistinctCategories(archiveScope);
-    const availableSources =
-      await this.service.getDistinctFeedSources(archiveScope);
+    const [availableCategories, availableSources] = await Promise.all([
+      this.service.getDistinctCategories(archiveScope),
+      this.service.getDistinctFeedSources(archiveScope),
+    ]);
 
     const totalArticles = await this.service.countTotalArticles({
       feedProfile: feedProfile,
