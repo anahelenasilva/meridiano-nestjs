@@ -10,6 +10,7 @@ import {
   PaginatedArticleInput,
   UpdateArticlePatch,
 } from './article.entity';
+import { archiveClause } from './helpers/archive-scope';
 
 interface ArticleRow {
   id: string;
@@ -26,6 +27,7 @@ interface ArticleRow {
   categories?: string | null;
   custom_prompt?: string | null;
   created_at: string;
+  archived_at?: string | null;
 }
 
 interface CountRow {
@@ -40,6 +42,20 @@ type ArticleListDbRow = ArticleRow & { has_audio: boolean };
 // Per-query read model: has_audio is derived (EXISTS against audio_files),
 // not a schema column, so it lives here rather than on DBArticle.
 export type ArticleListRow = DBArticle & { has_audio: boolean };
+
+// Every read in this service returned an identical hand-written row mapping.
+// One mapper keeps a new column from having to be added in fourteen places.
+function mapArticleRow(row: ArticleRow): DBArticle {
+  return {
+    ...row,
+    published_date: new Date(row.published_date),
+    created_at: new Date(row.created_at),
+    categories: row.categories
+      ? (JSON.parse(row.categories) as ArticleCategory[])
+      : undefined,
+    archived_at: row.archived_at ? new Date(row.archived_at) : null,
+  };
+}
 
 @Injectable()
 export class ArticlesService {
@@ -118,15 +134,7 @@ export class ArticlesService {
         if (err) {
           reject(err);
         } else {
-          const articles: DBArticle[] = rows.map((row) => ({
-            ...row,
-            published_date: new Date(row.published_date),
-            created_at: new Date(row.created_at),
-            categories: row.categories
-              ? (JSON.parse(row.categories) as ArticleCategory[])
-              : undefined,
-          }));
-          resolve(articles);
+          resolve(rows.map(mapArticleRow));
         }
       });
     });
@@ -178,15 +186,7 @@ export class ArticlesService {
         if (err) {
           reject(err);
         } else {
-          const articles: DBArticle[] = rows.map((row) => ({
-            ...row,
-            published_date: new Date(row.published_date),
-            created_at: new Date(row.created_at),
-            categories: row.categories
-              ? (JSON.parse(row.categories) as ArticleCategory[])
-              : undefined,
-          }));
-          resolve(articles);
+          resolve(rows.map(mapArticleRow));
         }
       });
     });
@@ -210,15 +210,7 @@ export class ArticlesService {
         if (err) {
           reject(err);
         } else {
-          const articles: DBArticle[] = rows.map((row) => ({
-            ...row,
-            published_date: new Date(row.published_date),
-            created_at: new Date(row.created_at),
-            categories: row.categories
-              ? (JSON.parse(row.categories) as ArticleCategory[])
-              : undefined,
-          }));
-          resolve(articles);
+          resolve(rows.map(mapArticleRow));
         }
       });
     });
@@ -327,7 +319,7 @@ export class ArticlesService {
         RETURNING
           id, url, title, published_date, feed_source, feed_profile,
           raw_content, processed_content, impact_rating,
-          image_url, categories, custom_prompt, created_at
+          image_url, categories, custom_prompt, created_at, archived_at
       `;
 
       db.get(query, params, (err, row: ArticleRow | undefined) => {
@@ -336,20 +328,7 @@ export class ArticlesService {
           return;
         }
 
-        if (!row) {
-          resolve(null);
-          return;
-        }
-
-        const article: DBArticle = {
-          ...row,
-          published_date: new Date(row.published_date),
-          created_at: new Date(row.created_at),
-          categories: row.categories
-            ? (JSON.parse(row.categories) as ArticleCategory[])
-            : undefined,
-        };
-        resolve(article);
+        resolve(row ? mapArticleRow(row) : null);
       });
     });
   }
@@ -367,7 +346,7 @@ export class ArticlesService {
         SELECT
           id, url, title, published_date, feed_source, feed_profile,
           raw_content, processed_content, impact_rating,
-          image_url, categories, custom_prompt, created_at
+          image_url, categories, custom_prompt, created_at, archived_at
         FROM articles
         WHERE id = ANY(?::uuid[])
         ORDER BY array_position(?::uuid[], id)
@@ -379,16 +358,7 @@ export class ArticlesService {
           return;
         }
 
-        const articles: DBArticle[] = rows.map((row) => ({
-          ...row,
-          published_date: new Date(row.published_date),
-          created_at: new Date(row.created_at),
-          categories: row.categories
-            ? (JSON.parse(row.categories) as ArticleCategory[])
-            : undefined,
-        }));
-
-        resolve(articles);
+        resolve(rows.map(mapArticleRow));
       });
     });
   }
@@ -410,6 +380,7 @@ export class ArticlesService {
           AND processed_content IS NOT NULL
           AND embedding IS NOT NULL
           AND published_date >= ?
+          AND archived_at IS NULL
         ORDER BY impact_rating DESC, published_date DESC
       `;
 
@@ -420,15 +391,7 @@ export class ArticlesService {
           if (err) {
             reject(err);
           } else {
-            const articles: DBArticle[] = rows.map((row) => ({
-              ...row,
-              published_date: new Date(row.published_date),
-              created_at: new Date(row.created_at),
-              categories: row.categories
-                ? (JSON.parse(row.categories) as ArticleCategory[])
-                : undefined,
-            }));
-            resolve(articles);
+            resolve(rows.map(mapArticleRow));
           }
         },
       );
@@ -466,7 +429,7 @@ export class ArticlesService {
         SELECT
           id, url, title, published_date, feed_source, feed_profile,
           raw_content, processed_content, impact_rating,
-          image_url, categories, custom_prompt, created_at
+          image_url, categories, custom_prompt, created_at, archived_at
         FROM articles
         WHERE id = ?
       `;
@@ -477,19 +440,7 @@ export class ArticlesService {
           return;
         }
 
-        if (row) {
-          const article: DBArticle = {
-            ...row,
-            published_date: new Date(row.published_date),
-            created_at: new Date(row.created_at),
-            categories: row.categories
-              ? (JSON.parse(row.categories) as ArticleCategory[])
-              : undefined,
-          };
-          resolve(article);
-        } else {
-          resolve(null);
-        }
+        resolve(row ? mapArticleRow(row) : null);
       });
     });
   }
@@ -499,7 +450,7 @@ export class ArticlesService {
       const db = this.databaseService.getDbConnection();
 
       db.all(
-        'SELECT DISTINCT feed_profile FROM articles ORDER BY feed_profile',
+        'SELECT DISTINCT feed_profile FROM articles WHERE archived_at IS NULL ORDER BY feed_profile',
         [],
         (err, rows: ArticleRow[]) => {
           if (err) {
@@ -525,7 +476,9 @@ export class ArticlesService {
       const query = `
         SELECT DISTINCT categories
         FROM articles
-        WHERE categories IS NOT NULL AND categories != ''
+        WHERE categories IS NOT NULL
+          AND categories != ''
+          AND archived_at IS NULL
       `;
 
       db.all(query, [], (err, rows: ArticleRow[]) => {
@@ -574,13 +527,14 @@ export class ArticlesService {
         startDate,
         endDate,
         category,
+        archiveScope = 'active',
       } = options;
 
       let query = `
         SELECT
           id, url, title, published_date, feed_source, feed_profile,
           raw_content, processed_content, impact_rating,
-          image_url, categories, custom_prompt, created_at,
+          image_url, categories, custom_prompt, created_at, archived_at,
           EXISTS (
             SELECT 1 FROM audio_files af
             WHERE af.source_type = 'article' AND af.source_id = articles.id
@@ -589,6 +543,14 @@ export class ArticlesService {
         WHERE 1=1
       `;
       const params: (string | number)[] = [];
+
+      // Defaulting to active here rather than at each call site: a read path
+      // added later inherits the exclusion instead of silently leaking
+      // archived articles into a briefing.
+      const scopeClause = archiveClause(archiveScope);
+      if (scopeClause) {
+        query += ` AND ${scopeClause}`;
+      }
 
       if (feedProfile) {
         query += ' AND feed_profile = ?';
@@ -642,12 +604,7 @@ export class ArticlesService {
         // Postgres returns EXISTS as a real boolean (see youtube_channels.enabled
         // for the same driver behavior on a plain boolean column), so no coercion.
         const articles: ArticleListRow[] = rows.map((row) => ({
-          ...row,
-          published_date: new Date(row.published_date),
-          created_at: new Date(row.created_at),
-          categories: row.categories
-            ? (JSON.parse(row.categories) as ArticleCategory[])
-            : undefined,
+          ...mapArticleRow(row),
           has_audio: row.has_audio,
         }));
 
@@ -660,10 +617,22 @@ export class ArticlesService {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
-      const { feedProfile, searchTerm, startDate, endDate, category } = options;
+      const {
+        feedProfile,
+        searchTerm,
+        startDate,
+        endDate,
+        category,
+        archiveScope = 'active',
+      } = options;
 
       let query = 'SELECT COUNT(*) as count FROM articles WHERE 1=1';
       const params: (string | number)[] = [];
+
+      const scopeClause = archiveClause(archiveScope);
+      if (scopeClause) {
+        query += ` AND ${scopeClause}`;
+      }
 
       if (feedProfile) {
         query += ' AND feed_profile = ?';
@@ -724,7 +693,7 @@ export class ArticlesService {
         SELECT
           id, url, title, published_date, feed_source, feed_profile,
           raw_content, processed_content, impact_rating,
-          image_url, categories, custom_prompt, created_at
+          image_url, categories, custom_prompt, created_at, archived_at
         FROM articles
         WHERE url = ?
       `;
@@ -735,18 +704,7 @@ export class ArticlesService {
           return;
         }
 
-        if (row) {
-          resolve({
-            ...row,
-            published_date: new Date(row.published_date),
-            created_at: new Date(row.created_at),
-            categories: row.categories
-              ? (JSON.parse(row.categories) as ArticleCategory[])
-              : undefined,
-          });
-        } else {
-          resolve(null);
-        }
+        resolve(row ? mapArticleRow(row) : null);
       });
     });
   }
@@ -779,10 +737,11 @@ export class ArticlesService {
           SELECT
             id, url, title, published_date, feed_source, feed_profile,
             raw_content, processed_content, impact_rating,
-            image_url, categories, custom_prompt, created_at
+            image_url, categories, custom_prompt, created_at, archived_at
           FROM articles
           WHERE feed_profile = ?
           AND id != ?
+          AND archived_at IS NULL
           ORDER BY ABS(EXTRACT(epoch FROM (published_date - ?::timestamp))) ASC
           LIMIT ?
         `;
@@ -801,16 +760,7 @@ export class ArticlesService {
               return;
             }
 
-            const articles = rows.map((row) => ({
-              ...row,
-              published_date: new Date(row.published_date),
-              created_at: new Date(row.created_at),
-              categories: row.categories
-                ? (JSON.parse(row.categories) as ArticleCategory[])
-                : undefined,
-            }));
-
-            resolve(articles || []);
+            resolve(rows.map(mapArticleRow));
           },
         );
       });
@@ -834,19 +784,7 @@ export class ArticlesService {
           return;
         }
 
-        if (row) {
-          const article: DBArticle = {
-            ...row,
-            published_date: new Date(row.published_date),
-            created_at: new Date(row.created_at),
-            categories: row.categories
-              ? (JSON.parse(row.categories) as ArticleCategory[])
-              : undefined,
-          };
-          resolve(article);
-        } else {
-          resolve(null);
-        }
+        resolve(row ? mapArticleRow(row) : null);
       });
     });
   }
@@ -866,19 +804,7 @@ export class ArticlesService {
           return;
         }
 
-        if (row) {
-          const article: DBArticle = {
-            ...row,
-            published_date: new Date(row.published_date),
-            created_at: new Date(row.created_at),
-            categories: row.categories
-              ? (JSON.parse(row.categories) as ArticleCategory[])
-              : undefined,
-          };
-          resolve(article);
-        } else {
-          resolve(null);
-        }
+        resolve(row ? mapArticleRow(row) : null);
       });
     });
   }
@@ -910,6 +836,7 @@ export class ArticlesService {
           AND impact_rating IS NOT NULL
           AND published_date >= ?
           AND published_date < ?
+          AND archived_at IS NULL
         ORDER BY impact_rating DESC
       `;
 
@@ -924,15 +851,7 @@ export class ArticlesService {
           if (err) {
             reject(err);
           } else {
-            const articles: DBArticle[] = rows.map((row) => ({
-              ...row,
-              published_date: new Date(row.published_date),
-              created_at: new Date(row.created_at),
-              categories: row.categories
-                ? (JSON.parse(row.categories) as ArticleCategory[])
-                : undefined,
-            }));
-            resolve(articles);
+            resolve(rows.map(mapArticleRow));
           }
         },
       );
@@ -956,19 +875,7 @@ export class ArticlesService {
           return;
         }
 
-        if (row) {
-          const article: DBArticle = {
-            ...row,
-            published_date: new Date(row.published_date),
-            created_at: new Date(row.created_at),
-            categories: row.categories
-              ? (JSON.parse(row.categories) as ArticleCategory[])
-              : undefined,
-          };
-          resolve(article);
-        } else {
-          resolve(null);
-        }
+        resolve(row ? mapArticleRow(row) : null);
       });
     });
   }
