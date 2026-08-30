@@ -158,12 +158,8 @@ async function main(): Promise<void> {
       }
     } else {
       if (options.scrape) {
-        const enabledFeeds =
-          services.profilesService.getEnabledFeedsForProfile(feedProfile);
-        const feedUrls = enabledFeeds.map((f) => f.url);
         const result = await services.scrapeArticlesUseCase.execute({
           feedProfile,
-          feedUrls,
         });
         console.log(
           `Scraping completed. New articles: ${result.newArticles}, Errors: ${result.errors}`,

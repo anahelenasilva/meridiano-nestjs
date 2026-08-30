@@ -204,6 +204,8 @@ describe('ScraperService.scrapeArticles', () => {
 
   afterEach(() => jest.clearAllMocks());
 
+  afterAll(() => parseURL.mockRestore());
+
   it('writes the configured feed name as the source for a profile feed', async () => {
     profiles.getEnabledFeedsForProfile.mockReturnValue([
       { url: 'https://lethain.com/feeds/', name: 'Will Larson', enabled: true },
