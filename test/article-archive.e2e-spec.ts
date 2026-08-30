@@ -101,7 +101,7 @@ describe('Article archive endpoints (e2e)', () => {
     expect(mockArticlesService.archiveArticle).toHaveBeenCalledWith(ARTICLE_ID);
   });
 
-  it('is idempotent: a second archive succeeds and leaves the timestamp unchanged', async () => {
+  it('a second archive still returns 201', async () => {
     mockArticlesService.archiveArticle.mockResolvedValue(article(ARCHIVED_AT));
 
     const first = await request(app.getHttpServer())
@@ -124,7 +124,7 @@ describe('Article archive endpoints (e2e)', () => {
     expect(response.body.archived_at).toBeNull();
   });
 
-  it('is idempotent: unarchiving an active article still succeeds', async () => {
+  it('a second unarchive still returns 200', async () => {
     mockArticlesService.unarchiveArticle.mockResolvedValue(article(null));
 
     await request(app.getHttpServer())

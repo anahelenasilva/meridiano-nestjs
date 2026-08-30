@@ -43,6 +43,13 @@ type ArticleListDbRow = ArticleRow & { has_audio: boolean };
 // not a schema column, so it lives here rather than on DBArticle.
 export type ArticleListRow = DBArticle & { has_audio: boolean };
 
+// Every explicit-column read or RETURNING clause in this service selects the
+// same fourteen columns. One constant keeps a new column from requiring an
+// edit at each call site; missing one is a silent null field, not a compiler
+// error or a failing test.
+const ARTICLE_COLUMNS =
+  'id, url, title, published_date, feed_source, feed_profile, raw_content, processed_content, impact_rating, image_url, categories, custom_prompt, created_at, archived_at';
+
 // Every read in this service returned an identical hand-written row mapping.
 // One mapper keeps a new column from having to be added in fourteen places.
 function mapArticleRow(row: ArticleRow): DBArticle {
@@ -317,9 +324,7 @@ export class ArticlesService {
         SET ${setClauses.join(', ')}
         WHERE id = ?
         RETURNING
-          id, url, title, published_date, feed_source, feed_profile,
-          raw_content, processed_content, impact_rating,
-          image_url, categories, custom_prompt, created_at, archived_at
+          ${ARTICLE_COLUMNS}
       `;
 
       db.get(query, params, (err, row: ArticleRow | undefined) => {
@@ -351,9 +356,9 @@ export class ArticlesService {
 
   private async setArchivedAt(
     articleId: string,
-    // A literal SQL expression, never user input. The two callers above are the
-    // only ones, and both pass a constant.
-    valueExpression: string,
+    // The literal union keeps this raw-SQL-interpolation surface closed to
+    // user input at compile time, not just by convention.
+    valueExpression: 'COALESCE(archived_at, CURRENT_TIMESTAMP)' | 'NULL',
   ): Promise<DBArticle | null> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
@@ -363,9 +368,7 @@ export class ArticlesService {
         SET archived_at = ${valueExpression}
         WHERE id = ?
         RETURNING
-          id, url, title, published_date, feed_source, feed_profile,
-          raw_content, processed_content, impact_rating,
-          image_url, categories, custom_prompt, created_at, archived_at
+          ${ARTICLE_COLUMNS}
       `;
 
       db.get(query, [articleId], (err, row: ArticleRow | undefined) => {
@@ -390,9 +393,7 @@ export class ArticlesService {
 
       const query = `
         SELECT
-          id, url, title, published_date, feed_source, feed_profile,
-          raw_content, processed_content, impact_rating,
-          image_url, categories, custom_prompt, created_at, archived_at
+          ${ARTICLE_COLUMNS}
         FROM articles
         WHERE id = ANY(?::uuid[])
         ORDER BY array_position(?::uuid[], id)
@@ -473,9 +474,7 @@ export class ArticlesService {
 
       const query = `
         SELECT
-          id, url, title, published_date, feed_source, feed_profile,
-          raw_content, processed_content, impact_rating,
-          image_url, categories, custom_prompt, created_at, archived_at
+          ${ARTICLE_COLUMNS}
         FROM articles
         WHERE id = ?
       `;
@@ -578,9 +577,7 @@ export class ArticlesService {
 
       let query = `
         SELECT
-          id, url, title, published_date, feed_source, feed_profile,
-          raw_content, processed_content, impact_rating,
-          image_url, categories, custom_prompt, created_at, archived_at,
+          ${ARTICLE_COLUMNS},
           EXISTS (
             SELECT 1 FROM audio_files af
             WHERE af.source_type = 'article' AND af.source_id = articles.id
@@ -737,9 +734,7 @@ export class ArticlesService {
 
       const query = `
         SELECT
-          id, url, title, published_date, feed_source, feed_profile,
-          raw_content, processed_content, impact_rating,
-          image_url, categories, custom_prompt, created_at, archived_at
+          ${ARTICLE_COLUMNS}
         FROM articles
         WHERE url = ?
       `;
@@ -781,9 +776,7 @@ export class ArticlesService {
 
         const relatedQuery = `
           SELECT
-            id, url, title, published_date, feed_source, feed_profile,
-            raw_content, processed_content, impact_rating,
-            image_url, categories, custom_prompt, created_at, archived_at
+            ${ARTICLE_COLUMNS}
           FROM articles
           WHERE feed_profile = ?
           AND id != ?

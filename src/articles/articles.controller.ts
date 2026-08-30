@@ -299,7 +299,7 @@ export class ArticlesController {
   // sub-resource rather than joining PATCH :id.
   @Post(':id/archive')
   @ApiOperation({ summary: 'Archive an article so it leaves every article view' })
-  @ApiOkResponse({ description: 'Article archived' })
+  @ApiCreatedResponse({ description: 'Article archived' })
   @ApiNotFoundResponse({ description: 'Article not found' })
   async archiveArticle(@Param('id', ParseUUIDPipe) id: string) {
     const article = await this.articlesService.archiveArticle(id);

@@ -711,7 +711,7 @@ describe('ArticlesService', () => {
       expect(article?.archived_at).toEqual(new Date('2026-06-01T09:00:00.000Z'));
     });
 
-    it('keeps the original timestamp when the article is already archived', async () => {
+    it('uses COALESCE so a repeat archive does not re-stamp', async () => {
       mockDb.get.mockImplementationOnce((query, params, callback) => {
         callback(null, ARCHIVED_ROW);
       });
