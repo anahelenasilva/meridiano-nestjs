@@ -1,5 +1,6 @@
 import { ImpactRating } from '../shared/types/ai';
 import { FeedProfile } from '../shared/types/feed';
+import { ArchiveScope } from './helpers/archive-scope';
 
 export interface PaginatedArticleInput {
   page?: number;
@@ -11,6 +12,7 @@ export interface PaginatedArticleInput {
   startDate?: string;
   endDate?: string;
   category?: string;
+  archiveScope?: ArchiveScope;
 }
 
 export interface CountTotalArticlesInput {
@@ -19,6 +21,7 @@ export interface CountTotalArticlesInput {
   startDate?: string;
   endDate?: string;
   category?: string;
+  archiveScope?: ArchiveScope;
 }
 
 export interface ArticleSummary {
@@ -54,6 +57,7 @@ export interface DBArticle {
   created_at: Date;
   categories?: ArticleCategory[] | null;
   custom_prompt?: string | null;
+  archived_at?: Date | null;
 }
 
 export interface UpdateArticlePatch {
