@@ -240,11 +240,12 @@ export class ScraperService {
       startTime: new Date(),
     };
 
-    const feeds =
-      rssFeeds ||
-      this.profilesService
-        .getEnabledFeedsForProfile(feedProfile)
-        .map((f) => f.url);
+    // Override URLs carry no configured name, so they keep the publisher-title
+    // fallback below. Profile feeds keep RSSFeed.name, which is what CONTEXT.md
+    // says feed_source holds for RSS articles.
+    const feeds: { url: string; name?: string }[] = rssFeeds
+      ? rssFeeds.map((url) => ({ url }))
+      : this.profilesService.getEnabledFeedsForProfile(feedProfile);
 
     if (feeds.length === 0) {
       console.log(
@@ -256,7 +257,7 @@ export class ScraperService {
 
     stats.totalFeeds = feeds.length;
 
-    for (const feedUrl of feeds) {
+    for (const { url: feedUrl, name: configuredName } of feeds) {
       // console.log(`Fetching feed: ${feedUrl}`);
 
       try {
@@ -278,7 +279,7 @@ export class ScraperService {
           const publishedDate = entry.pubDate
             ? new Date(entry.pubDate)
             : new Date();
-          const feedSource = feed.title || feedUrl;
+          const feedSource = configuredName || feed.title || feedUrl;
 
           if (!url) {
             continue;

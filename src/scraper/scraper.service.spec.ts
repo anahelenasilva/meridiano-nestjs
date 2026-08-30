@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { mock } from 'jest-mock-extended';
+import Parser from 'rss-parser';
 import { ArticleIngestionService } from '../articles/ingestion/article-ingestion.service';
 import { ConfigService } from '../config/config.service';
 import { ProfilesService } from '../profiles/profiles.service';
@@ -167,5 +168,66 @@ describe('ScraperService.scrapeSitemaps', () => {
       FeedProfile.TECHNOLOGY,
     );
     expect(stats.totalFeeds).toBe(1);
+  });
+});
+
+describe('ScraperService.scrapeArticles', () => {
+  const ingestion = mock<ArticleIngestionService>();
+  const profiles = mock<ProfilesService>();
+  const config = mock<ConfigService>();
+  const parseURL = jest.spyOn(Parser.prototype, 'parseURL');
+  let service: ScraperService;
+
+  // What the publisher emits: a feed <title> that differs from the config name.
+  const publisherFeed = {
+    title: 'Irrational Exuberance',
+    items: [
+      {
+        link: 'https://lethain.com/post',
+        title: 'A post',
+        pubDate: 'Mon, 24 Aug 2026 10:00:00 GMT',
+      },
+    ],
+  };
+
+  beforeEach(() => {
+    service = new ScraperService(ingestion, profiles, config);
+    config.getAppConfig.mockReturnValue({
+      maxArticlesForScrapping: 5,
+    } as ReturnType<ConfigService['getAppConfig']>);
+    ingestion.articleExists.mockResolvedValue(false);
+    parseURL.mockResolvedValue(publisherFeed as never);
+    jest
+      .spyOn(service, 'fetchArticleContentAndOgImage')
+      .mockResolvedValue({ content: 'body', ogImage: null, title: 'A post' });
+  });
+
+  afterEach(() => jest.clearAllMocks());
+
+  it('writes the configured feed name as the source for a profile feed', async () => {
+    profiles.getEnabledFeedsForProfile.mockReturnValue([
+      { url: 'https://lethain.com/feeds/', name: 'Will Larson', enabled: true },
+    ]);
+
+    await service.scrapeArticles(FeedProfile.TECHNOLOGY);
+
+    expect(ingestion.ingest).toHaveBeenCalledWith(
+      expect.objectContaining({
+        source: { type: 'rss', feedName: 'Will Larson' },
+      }),
+    );
+  });
+
+  it('falls back to the publisher title for an override url with no configured name', async () => {
+    await service.scrapeArticles(FeedProfile.TECHNOLOGY, [
+      'https://lethain.com/feeds/',
+    ]);
+
+    expect(ingestion.ingest).toHaveBeenCalledWith(
+      expect.objectContaining({
+        source: { type: 'rss', feedName: 'Irrational Exuberance' },
+      }),
+    );
+    expect(profiles.getEnabledFeedsForProfile).not.toHaveBeenCalled();
   });
 });
