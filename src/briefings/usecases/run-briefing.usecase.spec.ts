@@ -10,12 +10,14 @@ import { ProcessArticlesUseCase } from './process-articles.usecase';
 import { RateArticlesUseCase } from './rate-articles.usecase';
 import { RunBriefingUseCase } from './run-briefing.usecase';
 import { ScrapeArticlesUseCase } from './scrape-articles.usecase';
+import { ScrapeSitemapsUseCase } from './scrape-sitemaps.usecase';
 
 const enabledFeed: RSSFeed = { url: 'https://example.com/feed', name: 'Example' };
 
 describe('RunBriefingUseCase', () => {
   let useCase: RunBriefingUseCase;
   const mockScrapeArticlesUseCase = mock<ScrapeArticlesUseCase>();
+  const mockScrapeSitemapsUseCase = mock<ScrapeSitemapsUseCase>();
   const mockProcessArticlesUseCase = mock<ProcessArticlesUseCase>();
   const mockRateArticlesUseCase = mock<RateArticlesUseCase>();
   const mockCategorizeArticlesUseCase = mock<CategorizeArticlesUseCase>();
@@ -28,6 +30,7 @@ describe('RunBriefingUseCase', () => {
       providers: [
         RunBriefingUseCase,
         { provide: ScrapeArticlesUseCase, useValue: mockScrapeArticlesUseCase },
+        { provide: ScrapeSitemapsUseCase, useValue: mockScrapeSitemapsUseCase },
         { provide: ProcessArticlesUseCase, useValue: mockProcessArticlesUseCase },
         { provide: RateArticlesUseCase, useValue: mockRateArticlesUseCase },
         { provide: CategorizeArticlesUseCase, useValue: mockCategorizeArticlesUseCase },
@@ -59,6 +62,7 @@ describe('RunBriefingUseCase', () => {
   it('runs all stages and returns success when generation enabled', async () => {
     mockProfilesService.getEnabledFeedsForProfile.mockReturnValue([enabledFeed]);
     mockScrapeArticlesUseCase.execute.mockResolvedValue({ newArticles: 5, errors: 0 });
+    mockScrapeSitemapsUseCase.execute.mockResolvedValue({ newArticles: 3, errors: 0 });
     mockProcessArticlesUseCase.execute.mockResolvedValue({ articlesProcessed: 5, errors: 0 });
     mockRateArticlesUseCase.execute.mockResolvedValue({ articlesRated: 5, errors: 0 });
     mockCategorizeArticlesUseCase.execute.mockResolvedValue({ articlesCategorized: 5, errors: 0 });
@@ -73,6 +77,7 @@ describe('RunBriefingUseCase', () => {
 
     expect(result.success).toBe(true);
     expect(result.stages?.scraping.newArticles).toBe(5);
+    expect(result.stages?.sitemapScraping.newArticles).toBe(3);
     expect(result.stages?.processing.articlesProcessed).toBe(5);
     expect(result.stages?.rating.articlesRated).toBe(5);
     expect(result.stages?.categorization.articlesCategorized).toBe(5);
@@ -119,5 +124,55 @@ describe('RunBriefingUseCase', () => {
       feedProfile: FeedProfile.DEFAULT,
       feedUrls: ['https://a.com/feed', 'https://b.com/feed'],
     });
+  });
+
+  it('scrapes sitemaps for the profile after RSS and before processing', async () => {
+    const callOrder: string[] = [];
+
+    mockProfilesService.getEnabledFeedsForProfile.mockReturnValue([enabledFeed]);
+    mockScrapeArticlesUseCase.execute.mockImplementation(async () => {
+      callOrder.push('rss');
+      return { newArticles: 5, errors: 0 };
+    });
+    mockScrapeSitemapsUseCase.execute.mockImplementation(async () => {
+      callOrder.push('sitemap');
+      return { newArticles: 3, errors: 0 };
+    });
+    mockProcessArticlesUseCase.execute.mockImplementation(async () => {
+      callOrder.push('process');
+      return { articlesProcessed: 8, errors: 0 };
+    });
+    mockRateArticlesUseCase.execute.mockResolvedValue({ articlesRated: 8, errors: 0 });
+    mockCategorizeArticlesUseCase.execute.mockResolvedValue({
+      articlesCategorized: 8,
+      errors: 0,
+    });
+    mockConfigService.isBriefingsGenerationEnabled.mockReturnValue(false);
+
+    await useCase.execute(input);
+
+    expect(mockScrapeSitemapsUseCase.execute).toHaveBeenCalledWith({
+      feedProfile: FeedProfile.DEFAULT,
+    });
+    expect(callOrder).toEqual(['rss', 'sitemap', 'process']);
+  });
+
+  it('reports sitemap errors separately from RSS errors', async () => {
+    mockProfilesService.getEnabledFeedsForProfile.mockReturnValue([enabledFeed]);
+    mockScrapeArticlesUseCase.execute.mockResolvedValue({ newArticles: 5, errors: 0 });
+    mockScrapeSitemapsUseCase.execute.mockResolvedValue({ newArticles: 0, errors: 2 });
+    mockProcessArticlesUseCase.execute.mockResolvedValue({ articlesProcessed: 5, errors: 0 });
+    mockRateArticlesUseCase.execute.mockResolvedValue({ articlesRated: 5, errors: 0 });
+    mockCategorizeArticlesUseCase.execute.mockResolvedValue({
+      articlesCategorized: 5,
+      errors: 0,
+    });
+    mockConfigService.isBriefingsGenerationEnabled.mockReturnValue(false);
+
+    const result = await useCase.execute(input);
+
+    expect(result.stages?.scraping.errors).toBe(0);
+    expect(result.stages?.sitemapScraping.errors).toBe(2);
+    expect(result.stages?.sitemapScraping.newArticles).toBe(0);
   });
 });

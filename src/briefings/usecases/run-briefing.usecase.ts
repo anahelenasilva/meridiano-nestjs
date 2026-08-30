@@ -10,6 +10,7 @@ import { GenerateBriefUseCase } from './generate-brief.usecase';
 import { ProcessArticlesUseCase } from './process-articles.usecase';
 import { RateArticlesUseCase } from './rate-articles.usecase';
 import { ScrapeArticlesUseCase } from './scrape-articles.usecase';
+import { ScrapeSitemapsUseCase } from './scrape-sitemaps.usecase';
 
 @Injectable()
 export class RunBriefingUseCase {
@@ -17,6 +18,7 @@ export class RunBriefingUseCase {
 
   constructor(
     private readonly scrapeArticlesUseCase: ScrapeArticlesUseCase,
+    private readonly scrapeSitemapsUseCase: ScrapeSitemapsUseCase,
     private readonly processArticlesUseCase: ProcessArticlesUseCase,
     private readonly rateArticlesUseCase: RateArticlesUseCase,
     private readonly categorizeArticlesUseCase: CategorizeArticlesUseCase,
@@ -47,6 +49,10 @@ export class RunBriefingUseCase {
     const scrapingStats = await this.scrapeArticlesUseCase.execute({
       feedProfile: input.feedProfile,
       feedUrls,
+    });
+
+    const sitemapScrapingStats = await this.scrapeSitemapsUseCase.execute({
+      feedProfile: input.feedProfile,
     });
 
     const processingStats = await this.processArticlesUseCase.execute({
@@ -87,6 +93,7 @@ export class RunBriefingUseCase {
       duration,
       stages: {
         scraping: scrapingStats,
+        sitemapScraping: sitemapScrapingStats,
         processing: processingStats,
         rating: ratingStats,
         categorization: categorizationStats,
