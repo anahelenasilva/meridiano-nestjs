@@ -118,7 +118,7 @@ describe('RunBriefingUseCase', () => {
     await expect(useCase.execute(input)).rejects.toThrow('scraper down');
   });
 
-  it('passes feed urls from enabled feeds to scrape use case', async () => {
+  it('lets the scraper resolve its own feed list instead of passing feed urls', async () => {
     const feeds: RSSFeed[] = [
       { url: 'https://a.com/feed', name: 'A' },
       { url: 'https://b.com/feed', name: 'B' },
@@ -134,7 +134,6 @@ describe('RunBriefingUseCase', () => {
 
     expect(mockScrapeArticlesUseCase.execute).toHaveBeenCalledWith({
       feedProfile: FeedProfile.DEFAULT,
-      feedUrls: ['https://a.com/feed', 'https://b.com/feed'],
     });
   });
 

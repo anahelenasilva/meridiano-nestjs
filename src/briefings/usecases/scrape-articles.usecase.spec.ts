@@ -49,6 +49,25 @@ describe('ScrapeArticlesUseCase', () => {
     expect(result).toEqual({ newArticles: 7, errors: 1 });
   });
 
+  it('lets the scraper resolve its own feed list when no feedUrls are given', async () => {
+    const stats: ScrapingStats = {
+      feedProfile: FeedProfile.DEFAULT,
+      totalFeeds: 1,
+      newArticles: 3,
+      errors: 0,
+      startTime: new Date(),
+    };
+    mockScraperService.scrapeArticles.mockResolvedValue(stats);
+
+    const result = await useCase.execute({ feedProfile: FeedProfile.DEFAULT });
+
+    expect(mockScraperService.scrapeArticles).toHaveBeenCalledWith(
+      FeedProfile.DEFAULT,
+      undefined,
+    );
+    expect(result).toEqual({ newArticles: 3, errors: 0 });
+  });
+
   it('propagates service errors', async () => {
     mockScraperService.scrapeArticles.mockRejectedValue(new Error('feed timeout'));
 

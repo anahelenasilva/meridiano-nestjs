@@ -10,14 +10,14 @@ export const brasilRSSFeeds: RSSFeed[] = [
   },
   {
     url: 'https://www.intercept.com.br/feed/',
-    name: 'Intercept',
+    name: 'Intercept Brasil',
     category: 'news',
     description: 'Investigative journalism in Brazil',
     enabled: true,
   },
   {
     url: 'https://averdade.org.br/feed/',
-    name: 'A Verdade',
+    name: 'Jornal A Verdade',
     category: 'news',
     description: 'Left-wing news and analysis from Brazil',
     enabled: true,

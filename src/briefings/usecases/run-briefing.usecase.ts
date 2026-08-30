@@ -50,11 +50,8 @@ export class RunBriefingUseCase {
       };
     }
 
-    const feedUrls = enabledFeeds.map((f) => f.url);
-
     const scrapingStats = await this.scrapeArticlesUseCase.execute({
       feedProfile: input.feedProfile,
-      feedUrls,
     });
 
     const sitemapScrapingStats = await this.scrapeSitemapsUseCase.execute({
