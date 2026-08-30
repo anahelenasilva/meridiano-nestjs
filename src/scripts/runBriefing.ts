@@ -125,6 +125,9 @@ async function main(): Promise<void> {
           `\nScraping completed. New articles: ${result.stages.scraping.newArticles}, Errors: ${result.stages.scraping.errors}`,
         );
         console.log(
+          `Sitemap scraping completed. New articles: ${result.stages.sitemapScraping.newArticles}, Errors: ${result.stages.sitemapScraping.errors}`,
+        );
+        console.log(
           `Processing completed. Processed: ${result.stages.processing.articlesProcessed}, Errors: ${result.stages.processing.errors}`,
         );
         console.log(

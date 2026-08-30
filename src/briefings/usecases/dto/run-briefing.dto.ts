@@ -15,6 +15,10 @@ export interface RunBriefingOutputDto {
       newArticles: number;
       errors: number;
     };
+    sitemapScraping: {
+      newArticles: number;
+      errors: number;
+    };
     processing: {
       articlesProcessed: number;
       errors: number;
