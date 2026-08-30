@@ -692,10 +692,35 @@
     "/api/articles": {
       "get": {
         "operationId": "ArticlesController_listArticles",
-        "parameters": [],
+        "parameters": [
+          {
+            "description": "Defaults to active. Use archived for the Archive view.",
+            "in": "query",
+            "name": "archive_scope",
+            "required": false,
+            "schema": {
+              "enum": [
+                "active",
+                "archived",
+                "all"
+              ],
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Paginated list of articles"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
           },
           "401": {
             "content": {
@@ -1083,6 +1108,78 @@
           }
         },
         "summary": "Update editable metadata of an article",
+        "tags": [
+          "Articles"
+        ]
+      }
+    },
+    "/api/articles/{id}/archive": {
+      "delete": {
+        "operationId": "ArticlesController_unarchiveArticle",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Article unarchived"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          },
+          "404": {
+            "description": "Article not found"
+          }
+        },
+        "summary": "Unarchive an article and return it to the article views",
+        "tags": [
+          "Articles"
+        ]
+      },
+      "post": {
+        "operationId": "ArticlesController_archiveArticle",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Article archived"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          },
+          "404": {
+            "description": "Article not found"
+          }
+        },
+        "summary": "Archive an article so it leaves every article view",
         "tags": [
           "Articles"
         ]

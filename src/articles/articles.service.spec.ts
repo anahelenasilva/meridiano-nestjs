@@ -477,6 +477,17 @@ describe('ArticlesService', () => {
       expect(query).toContain('archived_at IS NOT NULL');
     });
 
+    it('applies no archive filter for countTotalArticles with scope all', async () => {
+      mockDb.get.mockImplementationOnce((query, params, callback) => {
+        callback(null, { count: 0 });
+      });
+
+      await service.countTotalArticles({ archiveScope: 'all' });
+
+      const [query] = mockDb.get.mock.calls[0];
+      expect(query).not.toContain('archived_at IS');
+    });
+
     it('maps archived_at to a Date and a missing value to null', async () => {
       mockDb.all.mockImplementationOnce((query, params, callback) => {
         callback(null, [
@@ -669,6 +680,89 @@ describe('ArticlesService', () => {
 
       const [query] = mockDb.all.mock.calls[0];
       expect(query).not.toContain('archived_at IS');
+    });
+  });
+
+  describe('archiveArticle', () => {
+    const ARCHIVED_ROW = {
+      id: 'a-1',
+      url: 'https://example.com/1',
+      title: 'One',
+      published_date: '2026-05-15T10:00:00.000Z',
+      feed_source: 'Feed',
+      raw_content: 'raw',
+      feed_profile: 'technology',
+      created_at: '2026-05-15T10:00:00.000Z',
+      categories: null,
+      archived_at: '2026-06-01T09:00:00.000Z',
+    };
+
+    it('sets archived_at and returns the updated article', async () => {
+      mockDb.get.mockImplementationOnce((query, params, callback) => {
+        callback(null, ARCHIVED_ROW);
+      });
+
+      const article = await service.archiveArticle('a-1');
+
+      const [query, params] = mockDb.get.mock.calls[0];
+      expect(query).toContain('UPDATE articles');
+      expect(query).toContain('SET archived_at =');
+      expect(params).toEqual(['a-1']);
+      expect(article?.archived_at).toEqual(new Date('2026-06-01T09:00:00.000Z'));
+    });
+
+    it('keeps the original timestamp when the article is already archived', async () => {
+      mockDb.get.mockImplementationOnce((query, params, callback) => {
+        callback(null, ARCHIVED_ROW);
+      });
+
+      await service.archiveArticle('a-1');
+
+      // COALESCE is what makes a second POST idempotent rather than a re-stamp.
+      const [query] = mockDb.get.mock.calls[0];
+      expect(query).toContain('COALESCE(archived_at');
+    });
+
+    it('returns null for an unknown article id', async () => {
+      mockDb.get.mockImplementationOnce((query, params, callback) => {
+        callback(null, undefined);
+      });
+
+      await expect(service.archiveArticle('missing')).resolves.toBeNull();
+    });
+  });
+
+  describe('unarchiveArticle', () => {
+    it('clears archived_at and returns the updated article', async () => {
+      mockDb.get.mockImplementationOnce((query, params, callback) => {
+        callback(null, {
+          id: 'a-1',
+          url: 'https://example.com/1',
+          title: 'One',
+          published_date: '2026-05-15T10:00:00.000Z',
+          feed_source: 'Feed',
+          raw_content: 'raw',
+          feed_profile: 'technology',
+          created_at: '2026-05-15T10:00:00.000Z',
+          categories: null,
+          archived_at: null,
+        });
+      });
+
+      const article = await service.unarchiveArticle('a-1');
+
+      const [query, params] = mockDb.get.mock.calls[0];
+      expect(query).toContain('SET archived_at = NULL');
+      expect(params).toEqual(['a-1']);
+      expect(article?.archived_at).toBeNull();
+    });
+
+    it('returns null for an unknown article id', async () => {
+      mockDb.get.mockImplementationOnce((query, params, callback) => {
+        callback(null, undefined);
+      });
+
+      await expect(service.unarchiveArticle('missing')).resolves.toBeNull();
     });
   });
 });

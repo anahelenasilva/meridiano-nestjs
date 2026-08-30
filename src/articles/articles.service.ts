@@ -333,6 +333,52 @@ export class ArticlesService {
     });
   }
 
+  /**
+   * Idempotent: COALESCE keeps the first archive timestamp, so a repeated POST
+   * does not re-stamp the article and reorder it in the Archive view.
+   * Resolves null when no row matched, which the controller turns into a 404.
+   */
+  async archiveArticle(articleId: string): Promise<DBArticle | null> {
+    return this.setArchivedAt(
+      articleId,
+      'COALESCE(archived_at, CURRENT_TIMESTAMP)',
+    );
+  }
+
+  async unarchiveArticle(articleId: string): Promise<DBArticle | null> {
+    return this.setArchivedAt(articleId, 'NULL');
+  }
+
+  private async setArchivedAt(
+    articleId: string,
+    // A literal SQL expression, never user input. The two callers above are the
+    // only ones, and both pass a constant.
+    valueExpression: string,
+  ): Promise<DBArticle | null> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      const query = `
+        UPDATE articles
+        SET archived_at = ${valueExpression}
+        WHERE id = ?
+        RETURNING
+          id, url, title, published_date, feed_source, feed_profile,
+          raw_content, processed_content, impact_rating,
+          image_url, categories, custom_prompt, created_at, archived_at
+      `;
+
+      db.get(query, [articleId], (err, row: ArticleRow | undefined) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        resolve(row ? mapArticleRow(row) : null);
+      });
+    });
+  }
+
   async getArticlesByIds(ids: string[]): Promise<DBArticle[]> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();

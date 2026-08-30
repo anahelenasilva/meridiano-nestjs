@@ -295,6 +295,36 @@ export class ArticlesController {
     return { success: true };
   }
 
+  // Archive is a state transition, not an editorial field, so it gets its own
+  // sub-resource rather than joining PATCH :id.
+  @Post(':id/archive')
+  @ApiOperation({ summary: 'Archive an article so it leaves every article view' })
+  @ApiOkResponse({ description: 'Article archived' })
+  @ApiNotFoundResponse({ description: 'Article not found' })
+  async archiveArticle(@Param('id', ParseUUIDPipe) id: string) {
+    const article = await this.articlesService.archiveArticle(id);
+
+    if (!article) {
+      throw new NotFoundException('Article not found');
+    }
+
+    return article;
+  }
+
+  @Delete(':id/archive')
+  @ApiOperation({ summary: 'Unarchive an article and return it to the article views' })
+  @ApiOkResponse({ description: 'Article unarchived' })
+  @ApiNotFoundResponse({ description: 'Article not found' })
+  async unarchiveArticle(@Param('id', ParseUUIDPipe) id: string) {
+    const article = await this.articlesService.unarchiveArticle(id);
+
+    if (!article) {
+      throw new NotFoundException('Article not found');
+    }
+
+    return article;
+  }
+
   @Post(':id/audio')
   @HttpCode(202)
   @ApiOperation({ summary: 'Generate audio for an article' })

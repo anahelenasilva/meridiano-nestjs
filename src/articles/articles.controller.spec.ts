@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { mock } from 'jest-mock-extended';
 import { ArticlesController } from './articles.controller';
+import { ArticlesService } from './articles.service';
 import { GenerateArticleAudioCommand } from './commands/generate-article-audio.command';
 import { GetArticleByIdQuery } from './queries/get-article-by-id.query';
 import { ListArticlesLeanQuery } from './queries/list-articles-lean.query';
@@ -367,6 +368,68 @@ describe('ArticlesController', () => {
         controller.listArticles({ id: 'user-1' }, {}, 'deleted'),
       ).rejects.toBeInstanceOf(BadRequestException);
       expect(mockListArticlesQuery.execute).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('archive endpoints', () => {
+    const articleId = '11111111-1111-1111-1111-111111111111';
+    const mockArticlesService = mock<ArticlesService>();
+
+    function buildController() {
+      return new ArticlesController(
+        mockArticlesService,
+        mockListArticlesQuery,
+        mockListArticlesLeanQuery,
+        mockGetArticleByIdQuery,
+        mock(),
+        mock(),
+        mock(),
+        mock(),
+        mock(),
+        mock(),
+      );
+    }
+
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('returns the archived article', async () => {
+      const archived = { id: articleId, archived_at: new Date() };
+      mockArticlesService.archiveArticle.mockResolvedValue(archived as never);
+
+      const result = await buildController().archiveArticle(articleId);
+
+      expect(mockArticlesService.archiveArticle).toHaveBeenCalledWith(articleId);
+      expect(result).toBe(archived);
+    });
+
+    it('throws NotFoundException when archiving an unknown article', async () => {
+      mockArticlesService.archiveArticle.mockResolvedValue(null);
+
+      await expect(
+        buildController().archiveArticle(articleId),
+      ).rejects.toBeInstanceOf(NotFoundException);
+    });
+
+    it('returns the unarchived article', async () => {
+      const restored = { id: articleId, archived_at: null };
+      mockArticlesService.unarchiveArticle.mockResolvedValue(restored as never);
+
+      const result = await buildController().unarchiveArticle(articleId);
+
+      expect(mockArticlesService.unarchiveArticle).toHaveBeenCalledWith(
+        articleId,
+      );
+      expect(result).toBe(restored);
+    });
+
+    it('throws NotFoundException when unarchiving an unknown article', async () => {
+      mockArticlesService.unarchiveArticle.mockResolvedValue(null);
+
+      await expect(
+        buildController().unarchiveArticle(articleId),
+      ).rejects.toBeInstanceOf(NotFoundException);
     });
   });
 });
