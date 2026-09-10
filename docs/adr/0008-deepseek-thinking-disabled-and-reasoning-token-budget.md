@@ -3,6 +3,8 @@
 ## Status
 Accepted
 
+> Update (2026-09-10): the default chat model string was renamed from `deepseek-v4-flash` to `deepseek-flash`. DeepSeek retired the `v4-flash` name when V4.1-Flash shipped and now serves it only as a temporary compatibility alias. The decision below is unchanged, the identifier moved. Prose below is left as written at decision time.
+
 ## Context
 `deepseek-v4-flash` (the default chat model) is a reasoning model. Its reasoning tokens are billed inside `completion_tokens`, which `max_tokens` caps. The chat `max_tokens` was `2048`, a value sized for the older non-reasoning `deepseek-chat`. On complex articles the model spent the entire budget on chain-of-thought and emitted zero content tokens (`finish_reason: length`), so the summarise step failed with the opaque `AI chat returned no content`. The empty result was swallowed (`callChat` returns `null`, the pipeline converts `null` to a generic message), so neither the real cause nor `finish_reason` reached the logs.
 
