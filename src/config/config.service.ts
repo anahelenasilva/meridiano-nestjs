@@ -50,7 +50,7 @@ export class ConfigService {
     },
 
     models: {
-      deepseekChatModel: 'deepseek-v4-flash',
+      deepseekChatModel: 'deepseek-flash',
       openaiChatModel: 'gpt-4o-mini',
       embeddingModel: 'intfloat/multilingual-e5-large-instruct',
       enabledChatModel: 'deepseek',
@@ -202,7 +202,7 @@ export class ConfigService {
       process.env.EMBEDDING_MODEL || this.CONFIGS.models.embeddingModel;
     const deepseekChatModel =
       process.env.DEEPSEEK_CHAT_MODEL || this.CONFIGS.models.deepseekChatModel;
-    // deepseek-v4-flash is a reasoning model: reasoning tokens count against
+    // deepseek-flash is a reasoning model: reasoning tokens count against
     // max_tokens, so a starved budget yields an empty completion. Keep it
     // env-tunable without a rebuild.
     const parsedMaxTokens = Number(process.env.CHAT_MAX_TOKENS);
