@@ -3,9 +3,11 @@ import { OpenAIAdapter } from './openai.adapter';
 describe('OpenAIAdapter', () => {
   const mockChatCreate = jest.fn();
   const mockSpeechCreate = jest.fn();
+  const mockEmbeddingsCreate = jest.fn();
 
   const mockChatClient = {
     chat: { completions: { create: mockChatCreate } },
+    embeddings: { create: mockEmbeddingsCreate },
   } as any;
 
   const mockTtsClient = {
@@ -19,6 +21,7 @@ describe('OpenAIAdapter', () => {
     2048,
     0.7,
     'alloy',
+    'text-embedding-3-small',
   );
 
   afterEach(() => jest.clearAllMocks());
@@ -81,10 +84,32 @@ describe('OpenAIAdapter', () => {
   });
 
   describe('embed', () => {
-    it('throws not-supported error', async () => {
+    it('requests the configured embedding model and returns the vector', async () => {
+      mockEmbeddingsCreate.mockResolvedValue({
+        data: [{ embedding: [0.1, 0.2, 0.3], index: 0 }],
+      });
+
+      const result = await adapter.embed('texto em português');
+
+      expect(result).toEqual([0.1, 0.2, 0.3]);
+      expect(mockEmbeddingsCreate).toHaveBeenCalledWith({
+        model: 'text-embedding-3-small',
+        input: 'texto em português',
+      });
+    });
+
+    it('throws when the response has no embedding', async () => {
+      mockEmbeddingsCreate.mockResolvedValue({ data: [] });
+
       await expect(adapter.embed('text')).rejects.toThrow(
-        'Use TogetherAiAdapter for embeddings',
+        'OpenAI returned no embedding for model text-embedding-3-small',
       );
+    });
+
+    it('propagates SDK errors so the policy can retry or report them', async () => {
+      mockEmbeddingsCreate.mockRejectedValue(new Error('429 rate limit'));
+
+      await expect(adapter.embed('text')).rejects.toThrow('429 rate limit');
     });
   });
 
