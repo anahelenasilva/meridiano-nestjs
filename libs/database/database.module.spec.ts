@@ -84,12 +84,13 @@ describe('DatabaseModule', () => {
 
   it('should run migrations before initializing the injected DatabaseService', async () => {
     const calls: string[] = [];
-    mockDataSource.runMigrations.mockImplementationOnce(async () => {
+    mockDataSource.runMigrations.mockImplementationOnce(() => {
       calls.push('runMigrations');
-      return [];
+      return Promise.resolve([]);
     });
-    mockDatabaseService.initDb.mockImplementationOnce(async () => {
+    mockDatabaseService.initDb.mockImplementationOnce(() => {
       calls.push('initDb');
+      return Promise.resolve();
     });
 
     await module.init();
