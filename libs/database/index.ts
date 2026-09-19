@@ -11,6 +11,7 @@ export type {
 } from './database.interface';
 export { DatabaseModule } from './database.module';
 export { DatabaseService } from './database.service';
+export { execute, queryAll, queryOne } from './query-helpers';
 export { PostgresDatabaseService } from './postgres-database.service';
 export { default as dataSource, typeormConfig } from './typeorm.config';
 

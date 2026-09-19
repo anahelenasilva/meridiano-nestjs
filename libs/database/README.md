@@ -61,42 +61,46 @@ export class AppModule {}
 
 ```typescript
 import { Injectable } from '@nestjs/common';
-import { DatabaseService } from '@libs/database';
+import { DatabaseService, execute, queryAll, queryOne } from '@libs/database';
+
+interface UserRow {
+  id: string;
+  email: string;
+}
 
 @Injectable()
 export class MyService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async getUserById(id: string) {
+  async getUserById(id: string): Promise<UserRow | undefined> {
     const db = this.databaseService.getDbConnection();
-    
-    return new Promise((resolve, reject) => {
-      db.get('SELECT * FROM users WHERE id = ?', [id], (err, row) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(row);
-        }
-      });
-    });
+    return queryOne<UserRow>(db, 'SELECT id, email FROM users WHERE id = ?', [id]);
   }
 
-  async createUser(name: string, email: string) {
+  async listUsers(): Promise<UserRow[]> {
     const db = this.databaseService.getDbConnection();
-    const stmt = db.prepare('INSERT INTO users (name, email) VALUES (?, ?)');
-    
-    return new Promise((resolve, reject) => {
-      stmt.run([name, email], function(err) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve({ id: this.lastID, changes: this.changes });
-        }
-      });
-    });
+    return queryAll<UserRow>(db, 'SELECT id, email FROM users ORDER BY email');
+  }
+
+  async createUser(email: string): Promise<string | undefined> {
+    const db = this.databaseService.getDbConnection();
+    const row = await queryOne<{ id: string }>(
+      db,
+      'INSERT INTO users (email) VALUES (?) RETURNING id',
+      [email],
+    );
+    return row?.id;
+  }
+
+  async renameUser(id: string, email: string): Promise<boolean> {
+    const db = this.databaseService.getDbConnection();
+    const changes = await execute(db, 'UPDATE users SET email = ? WHERE id = ?', [email, id]);
+    return changes > 0;
   }
 }
 ```
+
+The raw callback methods below still exist for code that has not moved to the helpers.
 
 ### Database Connection API
 
@@ -221,69 +225,4 @@ The `DatabaseModule` implements `OnModuleInit` and `OnModuleDestroy`:
 
 ## Error Handling
 
-The database service throws errors for connection issues. Always handle errors in your callbacks:
-
-```typescript
-db.get('SELECT * FROM users WHERE id = ?', [id], (err, row) => {
-  if (err) {
-    // Handle error appropriately
-    throw new Error(`Database error: ${err.message}`);
-  }
-  // Use row
-});
-```
-
-## Example: Using in a Service
-
-```typescript
-import { Injectable } from '@nestjs/common';
-import { DatabaseService } from '@libs/database';
-
-@Injectable()
-export class ArticlesService {
-  constructor(private readonly databaseService: DatabaseService) {}
-
-  async findAll(): Promise<any[]> {
-    const db = this.databaseService.getDbConnection();
-    
-    return new Promise((resolve, reject) => {
-      db.all('SELECT * FROM articles ORDER BY created_at DESC', [], (err, rows) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(rows || []);
-        }
-      });
-    });
-  }
-
-  async findById(id: string): Promise<any | null> {
-    const db = this.databaseService.getDbConnection();
-    
-    return new Promise((resolve, reject) => {
-      db.get('SELECT * FROM articles WHERE id = ?', [id], (err, row) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(row || null);
-        }
-      });
-    });
-  }
-
-  async create(title: string, content: string): Promise<string> {
-    const db = this.databaseService.getDbConnection();
-    const stmt = db.prepare('INSERT INTO articles (title, content) VALUES (?, ?)');
-    
-    return new Promise((resolve, reject) => {
-      stmt.run([title, content], function(err) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(String(this.lastID));
-        }
-      });
-    });
-  }
-}
-```
+The helpers reject with the driver error, so callers use `try`/`catch` or `.catch()`. Postgres unique violations carry `code === '23505'`; `ArticlesService.addArticle` and `BookmarksService.addBookmark` show how to branch on it.
