@@ -1,4 +1,4 @@
-import { DatabaseService } from '@libs/database';
+import { DatabaseService, execute, queryAll, queryOne } from '@libs/database';
 import { Injectable } from '@nestjs/common';
 import { ArticleCategory, DBArticle } from '../articles/article.entity';
 import { archiveClause } from '../articles/helpers/archive-scope';
@@ -42,101 +42,67 @@ export class BookmarksService {
     userId: string,
     articleId: string,
   ): Promise<AddBookmarkResult> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      db.run(
-        `
+    const wasCreated = await execute(
+      db,
+      `
         INSERT INTO bookmarks (user_id, article_id)
         VALUES (?, ?)
         RETURNING id, user_id, article_id, created_at
       `,
-        [userId, articleId],
-        (err: Error | null) => {
-          if (err) {
-            const errorWithCode = err as Error & { code?: string };
-            if (
-              err.message.includes('duplicate key value') ||
-              errorWithCode.code === '23505' // PostgreSQL unique violation error code
-            ) {
-              // Bookmark already exists - fetch and return the existing bookmark
-              db.get(
-                `SELECT id, user_id, article_id, created_at FROM bookmarks WHERE user_id = ? AND article_id = ?`,
-                [userId, articleId],
-                (getErr: Error | null, row?: BookmarkRow) => {
-                  if (getErr) {
-                    reject(getErr);
-                  } else if (!row) {
-                    // This should not happen, but handle gracefully
-                    reject(
-                      new Error(
-                        'Duplicate bookmark detected but bookmark not found',
-                      ),
-                    );
-                  } else {
-                    resolve({
-                      bookmark: {
-                        id: row.id,
-                        user_id: row.user_id,
-                        article_id: row.article_id,
-                        created_at: new Date(row.created_at),
-                      },
-                      wasCreated: false,
-                    });
-                  }
-                },
-              );
-            } else {
-              reject(err);
-            }
-          } else {
-            // Get the newly created bookmark
-            db.get(
-              `SELECT id, user_id, article_id, created_at FROM bookmarks WHERE user_id = ? AND article_id = ?`,
-              [userId, articleId],
-              (getErr: Error | null, row?: BookmarkRow) => {
-                if (getErr) {
-                  reject(getErr);
-                } else if (!row) {
-                  reject(new Error('Bookmark not found after creation'));
-                } else {
-                  resolve({
-                    bookmark: {
-                      id: row.id,
-                      user_id: row.user_id,
-                      article_id: row.article_id,
-                      created_at: new Date(row.created_at),
-                    },
-                    wasCreated: true,
-                  });
-                }
-              },
-            );
-          }
-        },
+      [userId, articleId],
+    ).then(
+      () => true,
+      (err: unknown) => {
+        const errorWithCode = err as Error & { code?: string };
+        const isDuplicate =
+          errorWithCode.message.includes('duplicate key value') ||
+          errorWithCode.code === '23505'; // PostgreSQL unique violation error code
+        if (!isDuplicate) {
+          throw err;
+        }
+        // Bookmark already exists; the read below returns the existing row.
+        return false;
+      },
+    );
+
+    const row = await queryOne<BookmarkRow>(
+      db,
+      `SELECT id, user_id, article_id, created_at FROM bookmarks WHERE user_id = ? AND article_id = ?`,
+      [userId, articleId],
+    );
+
+    if (!row) {
+      throw new Error(
+        wasCreated
+          ? 'Bookmark not found after creation'
+          : 'Duplicate bookmark detected but bookmark not found',
       );
-    });
+    }
+
+    return {
+      bookmark: {
+        id: row.id,
+        user_id: row.user_id,
+        article_id: row.article_id,
+        created_at: new Date(row.created_at),
+      },
+      wasCreated,
+    };
   }
 
   async removeBookmark(userId: string, articleId: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
-
-      db.run(
-        `
+    const db = this.databaseService.getDbConnection();
+    const changes = await execute(
+      db,
+      `
         DELETE FROM bookmarks
         WHERE user_id = ? AND article_id = ?
       `,
-        [userId, articleId],
-        function (this: { changes?: number }, err: Error | null) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve((this.changes ?? 0) > 0);
-          }
-        },
-      );
-    });
+      [userId, articleId],
+    );
+    return changes > 0;
   }
 
   async getBookmarks(
@@ -150,27 +116,21 @@ export class BookmarksService {
     perPage: number;
   }> {
     const offset = (page - 1) * perPage;
+    const db = this.databaseService.getDbConnection();
 
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
-
-      // Get total count
-      db.get(
-        `SELECT COUNT(*) as count
+    const countRow = await queryOne<CountRow>(
+      db,
+      `SELECT COUNT(*) as count
          FROM bookmarks b
          INNER JOIN articles a ON b.article_id = a.id
          WHERE b.user_id = ? AND ${ACTIVE_ARTICLE}`,
-        [userId],
-        (countErr: Error | null, countRow?: CountRow) => {
-          if (countErr) {
-            reject(countErr);
-            return;
-          }
+      [userId],
+    );
+    const total = countRow?.count || 0;
 
-          const total = countRow?.count || 0;
-
-          db.all(
-            `
+    const rows = await queryAll<BookmarkWithArticleRow>(
+      db,
+      `
           SELECT
             b.id,
             b.user_id,
@@ -194,93 +154,60 @@ export class BookmarksService {
           ORDER BY b.created_at DESC
           LIMIT ? OFFSET ?
         `,
-            [userId, perPage, offset],
-            (err: Error | null, rows?: BookmarkWithArticleRow[]) => {
-              if (err) {
-                reject(err);
-              } else {
-                const bookmarks: BookmarkWithArticle[] = (rows || []).map(
-                  (row) => {
-                    const article: DBArticle = {
-                      id: row.article_id,
-                      url: row.article_url,
-                      title: row.article_title,
-                      published_date: new Date(row.article_published_date),
-                      feed_source: row.article_feed_source,
-                      raw_content: row.article_raw_content,
-                      processed_content: row.article_processed_content,
-                      embedding: row.article_embedding,
-                      impact_rating: row.article_impact_rating,
-                      feed_profile: row.article_feed_profile,
-                      image_url: row.article_image_url,
-                      created_at: new Date(row.article_created_at),
-                      categories: row.article_categories
-                        ? (JSON.parse(
-                            row.article_categories,
-                          ) as ArticleCategory[])
-                        : null,
-                    };
+      [userId, perPage, offset],
+    );
 
-                    return {
-                      id: row.id,
-                      user_id: row.user_id,
-                      article_id: row.article_id,
-                      created_at: new Date(row.created_at),
-                      article,
-                    };
-                  },
-                );
+    const bookmarks: BookmarkWithArticle[] = rows.map((row) => {
+      const article: DBArticle = {
+        id: row.article_id,
+        url: row.article_url,
+        title: row.article_title,
+        published_date: new Date(row.article_published_date),
+        feed_source: row.article_feed_source,
+        raw_content: row.article_raw_content,
+        processed_content: row.article_processed_content,
+        embedding: row.article_embedding,
+        impact_rating: row.article_impact_rating,
+        feed_profile: row.article_feed_profile,
+        image_url: row.article_image_url,
+        created_at: new Date(row.article_created_at),
+        categories: row.article_categories
+          ? (JSON.parse(row.article_categories) as ArticleCategory[])
+          : null,
+      };
 
-                resolve({
-                  bookmarks,
-                  total,
-                  page,
-                  perPage,
-                });
-              }
-            },
-          );
-        },
-      );
+      return {
+        id: row.id,
+        user_id: row.user_id,
+        article_id: row.article_id,
+        created_at: new Date(row.created_at),
+        article,
+      };
     });
+
+    return { bookmarks, total, page, perPage };
   }
 
   async isBookmarked(userId: string, articleId: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
-
-      db.get(
-        `SELECT 1 FROM bookmarks WHERE user_id = ? AND article_id = ? LIMIT 1`,
-        [userId, articleId],
-        (err: Error | null, row?: any) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(!!row);
-          }
-        },
-      );
-    });
+    const db = this.databaseService.getDbConnection();
+    const row = await queryOne(
+      db,
+      `SELECT 1 FROM bookmarks WHERE user_id = ? AND article_id = ? LIMIT 1`,
+      [userId, articleId],
+    );
+    return !!row;
   }
 
   async getBookmarkCount(userId: string): Promise<number> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
-
-      db.get(
-        `SELECT COUNT(*) as count
+    const db = this.databaseService.getDbConnection();
+    const row = await queryOne<CountRow>(
+      db,
+      `SELECT COUNT(*) as count
          FROM bookmarks b
          INNER JOIN articles a ON b.article_id = a.id
          WHERE b.user_id = ? AND ${ACTIVE_ARTICLE}`,
-        [userId],
-        (err: Error | null, row?: CountRow) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(row?.count || 0);
-          }
-        },
-      );
-    });
+      [userId],
+    );
+    return row?.count || 0;
   }
 }

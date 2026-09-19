@@ -1,4 +1,4 @@
-import { DatabaseService } from '@libs/database';
+import { DatabaseService, RunCallback } from '@libs/database';
 import { mock } from 'jest-mock-extended';
 import { BookmarksService } from './bookmarks.service';
 
@@ -23,8 +23,8 @@ describe('BookmarksService', () => {
 
   describe('addBookmark', () => {
     it('reports wasCreated: true for a fresh insert', async () => {
-      mockDb.run.mockImplementationOnce((query, params, callback) => {
-        callback(null);
+      mockDb.run.mockImplementationOnce((query, params, callback: RunCallback) => {
+        callback.call({ changes: 1 }, null);
       });
       mockDb.get.mockImplementationOnce((query, params, callback) => {
         callback(null, {
@@ -116,6 +116,24 @@ describe('BookmarksService', () => {
 
       const [query] = mockDb.get.mock.calls[0];
       expect(query).toContain('a.archived_at IS NULL');
+    });
+  });
+
+  describe('removeBookmark', () => {
+    it('returns true when a bookmark was deleted', async () => {
+      mockDb.run.mockImplementationOnce((query, params, callback: RunCallback) => {
+        callback.call({ changes: 1 }, null);
+      });
+
+      await expect(service.removeBookmark(USER_ID, ARTICLE_ID)).resolves.toBe(true);
+    });
+
+    it('returns false when there was nothing to delete', async () => {
+      mockDb.run.mockImplementationOnce((query, params, callback: RunCallback) => {
+        callback.call({ changes: 0 }, null);
+      });
+
+      await expect(service.removeBookmark(USER_ID, ARTICLE_ID)).resolves.toBe(false);
     });
   });
 });
