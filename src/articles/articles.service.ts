@@ -162,51 +162,31 @@ export class ArticlesService {
   async getArticlesToReembed(): Promise<
     Array<{ id: string; processed_content: string }>
   > {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      const query = `
+    const query = `
         SELECT id, processed_content FROM articles
         WHERE processed_content IS NOT NULL
         ORDER BY published_date DESC
       `;
 
-      db.all(
-        query,
-        [],
-        (err, rows: Array<{ id: string; processed_content: string }>) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(rows);
-          }
-        },
-      );
-    });
+    return queryAll<{ id: string; processed_content: string }>(db, query, []);
   }
 
   async updateArticleEmbedding(
     articleId: string,
     embedding: number[],
   ): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
-
-      const stmt = db.prepare(`
+    const db = this.databaseService.getDbConnection();
+    await execute(
+      db,
+      `
         UPDATE articles
         SET embedding = ?
         WHERE id = ?
-      `);
-
-      stmt.run([JSON.stringify(embedding), articleId], (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-        stmt.finalize();
-      });
-    });
+      `,
+      [JSON.stringify(embedding), articleId],
+    );
   }
 
   async getUnratedArticles(
