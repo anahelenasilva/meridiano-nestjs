@@ -211,9 +211,7 @@ pnpm run migration:revert
 The database module consists of:
 
 - **`DatabaseModule`**: NestJS module that initializes TypeORM and provides `DatabaseService`
-- **`DatabaseService`**: Factory service that provides the appropriate database implementation
-- **`AbstractDatabaseService`**: Abstract base class defining the database interface
-- **`PostgresDatabaseService`**: PostgreSQL implementation using `pg` connection pooling
+- **`DatabaseService`**: owns the `pg` connection pool and hands out `DatabaseConnection`s. Tests swap it with `{ provide: DatabaseService, useValue: mock<DatabaseService>() }`
 - **`DatabaseConnection`**: Interface compatible with SQLite-style database APIs
 
 ## Lifecycle
