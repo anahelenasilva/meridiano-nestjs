@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { type AxiosRequestConfig } from 'axios';
 import { Innertube } from 'youtubei.js';
 import {
   InnertubeBasicInfoError,
@@ -21,7 +21,7 @@ type TranscriptSegment = {
 /**
  * YouTube transcript segment format (matching youtubei.js structure)
  */
-type YouTubeTranscriptSegment = {
+export type YouTubeTranscriptSegment = {
   end_ms: string;
   snippet: {
     text: string;
@@ -45,7 +45,7 @@ const fetchTimedTextXml = async (
   videoId: string,
 ): Promise<string> => {
   try {
-    const config: any = {
+    const config: AxiosRequestConfig = {
       headers: {
         'Accept-Language': 'en-US,en;q=0.9',
         'User-Agent':
@@ -66,7 +66,7 @@ const fetchTimedTextXml = async (
       }
     }
 
-    const response = await axios.get(captionUrl, config);
+    const response = await axios.get<string>(captionUrl, config);
 
     if (response.status !== 200) {
       throw new InnertubeTimedTextFetchError({
@@ -76,7 +76,7 @@ const fetchTimedTextXml = async (
       });
     }
 
-    const xml = response.data as string;
+    const xml = response.data;
 
     if (!xml || xml.length === 0) {
       throw new InnertubeTimedTextFetchError({
@@ -233,12 +233,9 @@ export const fetchTranscriptViaInnertube = async (
     });
 
     // 2. Get basic info (includes caption tracks)
-    let info;
-    try {
-      info = await client.getBasicInfo(videoId);
-    } catch (error) {
+    const info = await client.getBasicInfo(videoId).catch((error: unknown) => {
       throw new InnertubeBasicInfoError({ cause: error, videoId });
-    }
+    });
 
     // 3. Check for caption tracks
     const captionTracks = info.captions?.caption_tracks;
@@ -247,20 +244,20 @@ export const fetchTranscriptViaInnertube = async (
     }
 
     // 4. Find English caption track (prefer non-ASR if available)
-    const englishTrack: any =
+    // youtubei.js types these fields as required but copies them from the raw
+    // player response unchecked, so keep the guards for tracks missing them.
+    const englishTrack =
       captionTracks.find(
-        (t: any) => t.language_code === 'en' && t.kind !== 'asr',
+        (track) => track.language_code === 'en' && track.kind !== 'asr',
       ) ||
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      captionTracks.find((t: any) => t.language_code?.startsWith('en')) ||
+      captionTracks.find((track) => track.language_code?.startsWith('en')) ||
       captionTracks[0];
 
     if (!englishTrack?.base_url) {
       throw new InnertubeNoValidCaptionUrlError({
         availableLanguages: captionTracks.map(
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-          (captionTrack: any) => captionTrack.language_code ?? 'unknown',
-        ) as string[],
+          (track) => track.language_code ?? 'unknown',
+        ),
         videoId,
       });
     }
