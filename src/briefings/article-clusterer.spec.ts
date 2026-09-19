@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import { ArticleClusterer, EmbeddedArticle } from './article-clusterer';
 
 describe('ArticleClusterer', () => {
@@ -5,6 +6,26 @@ describe('ArticleClusterer', () => {
 
   beforeEach(() => {
     clusterer = new ArticleClusterer();
+  });
+
+  it('falls back to a single cluster when embeddings have different dimensions', () => {
+    const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+    const articles: EmbeddedArticle[] = [
+      { id: 'a1', embedding: [0.1, 0.1] },
+      { id: 'a2', embedding: [0.2, 0.2] },
+      { id: 'b1', embedding: [1, 1, 1] },
+      { id: 'b2', embedding: [1, 1, 1.1] },
+    ];
+
+    const result = clusterer.cluster(articles, 2);
+
+    expect(result).toEqual([
+      { label: 0, articleIds: ['a1', 'a2', 'b1', 'b2'] },
+    ]);
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining('mixed embedding dimensions'),
+    );
+    warnSpy.mockRestore();
   });
 
   it('clusters two clearly separated groups into distinct clusters', () => {

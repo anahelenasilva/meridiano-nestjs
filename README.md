@@ -76,8 +76,7 @@ MERIDIANO_API_KEY=
 
 # AI API Keys
 DEEPSEEK_API_KEY=your-deepseek-api-key
-EMBEDDING_API_KEY=your-embedding-api-key
-# Required for text-to-speech audio generation
+# Required for embeddings and text-to-speech
 OPENAI_API_KEY=your-openai-api-key
 
 # AI Model Configuration (optional overrides)

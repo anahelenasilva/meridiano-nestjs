@@ -7,7 +7,6 @@ import {
 import Groq from 'groq-sdk';
 import OpenAI from 'openai';
 import { ConfigService } from '../config/config.service';
-import { estimateTokenCount } from '../shared/helpers/token-estimation';
 import { AiPolicyService } from './ai-policy.service';
 import { DeepseekAdapter } from './adapters/deepseek.adapter';
 import {
@@ -15,12 +14,11 @@ import {
   GROQ_TTS_MAX_CHARS,
   GROQ_TTS_INTER_CHUNK_DELAY_MS,
 } from './adapters/groq.adapter';
-import { OpenAIAdapter, OPENAI_TTS_MAX_CHARS } from './adapters/openai.adapter';
 import {
-  TogetherAiAdapter,
-  getEmbeddingTokenLimit,
-  isE5Model,
-} from './adapters/together-ai.adapter';
+  OpenAIAdapter,
+  OPENAI_EMBEDDING_MAX_TOKENS,
+  OPENAI_TTS_MAX_CHARS,
+} from './adapters/openai.adapter';
 
 @Injectable()
 export class AiService implements OnModuleInit {
@@ -28,7 +26,6 @@ export class AiService implements OnModuleInit {
 
   private deepseekAdapter: DeepseekAdapter | null = null;
   private openaiAdapter: OpenAIAdapter | null = null;
-  private togetherAiAdapter: TogetherAiAdapter | null = null;
   private groqAdapter: GroqAdapter | null = null;
 
   private chatPolicyService: AiPolicyService | null = null;
@@ -43,7 +40,7 @@ export class AiService implements OnModuleInit {
   }
 
   private initializeClients(): void {
-    const { deepseekApiKey, embeddingApiKey, openaiApiKey, groqApiKey } =
+    const { deepseekApiKey, openaiApiKey, groqApiKey } =
       this.configService.getApiKeys();
 
     if (!deepseekApiKey) {
@@ -52,9 +49,9 @@ export class AiService implements OnModuleInit {
       );
     }
 
-    if (!embeddingApiKey) {
+    if (!openaiApiKey) {
       throw new BadRequestException(
-        'EMBEDDING_API_KEY not found in environment variables',
+        'OPENAI_API_KEY not found in environment variables. It is required for embeddings.',
       );
     }
 
@@ -72,52 +69,29 @@ export class AiService implements OnModuleInit {
       config.temperature,
     );
 
-    const embeddingClient = new OpenAI({
-      apiKey: embeddingApiKey,
-      baseURL: 'https://api.together.xyz/v1',
-    });
-    this.togetherAiAdapter = new TogetherAiAdapter(
-      embeddingClient,
+    const openaiClient = new OpenAI({ apiKey: openaiApiKey });
+    this.openaiAdapter = new OpenAIAdapter(
+      openaiClient,
+      openaiClient,
+      config.openaiChatModel,
+      config.maxTokens,
+      config.temperature,
+      config.openaiTtsVoice,
       config.embeddingModel,
     );
-
-    const isE5 = isE5Model(config.embeddingModel);
-    const tokenLimit = getEmbeddingTokenLimit(config.embeddingModel);
-    const safetyFactor = isE5 ? 0.5 : 0.75;
-    const chunkTokenLimit = Math.max(64, Math.floor(tokenLimit * safetyFactor));
     this.embedPolicyService = new AiPolicyService(
-      this.togetherAiAdapter,
-      chunkTokenLimit,
+      this.openaiAdapter,
+      // estimateTokenCount is a heuristic, so chunk well under the hard limit.
+      Math.floor(OPENAI_EMBEDDING_MAX_TOKENS * 0.75),
     );
-
-    if (openaiApiKey) {
-      const openaiClient = new OpenAI({ apiKey: openaiApiKey });
-      this.openaiAdapter = new OpenAIAdapter(
-        openaiClient,
-        openaiClient,
-        config.openaiChatModel,
-        config.maxTokens,
-        config.temperature,
-        config.openaiTtsVoice,
-      );
-      this.openaiTtsPolicyService = new AiPolicyService(
-        this.openaiAdapter,
-        undefined,
-        OPENAI_TTS_MAX_CHARS,
-      );
-      this.logger.log(
-        `OpenAI TTS and Chat clients initialized successfully (provider: openai, model: ${config.openaiChatModel})`,
-      );
-    } else if (enabledChatModel === 'openai') {
-      throw new BadRequestException(
-        'Configuration error: ENABLED_CHAT_MODEL is set to "openai" but OPENAI_API_KEY is not defined. ' +
-          'Please set the OPENAI_API_KEY environment variable or change ENABLED_CHAT_MODEL to "deepseek".',
-      );
-    } else {
-      this.logger.warn(
-        'OPENAI_API_KEY not found in environment variables. TTS and OpenAI chat functionality will not be available.',
-      );
-    }
+    this.openaiTtsPolicyService = new AiPolicyService(
+      this.openaiAdapter,
+      undefined,
+      OPENAI_TTS_MAX_CHARS,
+    );
+    this.logger.log(
+      `OpenAI clients initialized (chat: ${config.openaiChatModel}, embeddings: ${config.embeddingModel})`,
+    );
 
     if (groqApiKey) {
       this.groqAdapter = new GroqAdapter(
@@ -247,77 +221,6 @@ export class AiService implements OnModuleInit {
       );
     }
     return await this.embedPolicyService.embed(text);
-  }
-
-  async getBatchEmbeddings(
-    texts: string[],
-    _model?: string,
-  ): Promise<(number[] | null)[]> {
-    if (!this.togetherAiAdapter || !this.embedPolicyService) {
-      throw new BadRequestException(
-        'Embedding client not initialized. Call initializeClients() first.',
-      );
-    }
-
-    const config = this.configService.getModelConfig();
-    const modelName = config.embeddingModel;
-    const isE5 = isE5Model(modelName);
-    const tokenLimit = getEmbeddingTokenLimit(modelName);
-    const safetyFactor = isE5 ? 0.5 : 0.75;
-    const chunkTokenLimit = Math.max(64, Math.floor(tokenLimit * safetyFactor));
-
-    const results: (number[] | null)[] = new Array(texts.length).fill(null);
-    const batchSize = 10;
-    const shortInputs: Array<{ index: number; original: string }> = [];
-    const longInputs: Array<{ index: number; original: string }> = [];
-
-    texts.forEach((text, index) => {
-      const normalized = (text || '').trim().replace(/\s+/g, ' ');
-      const prepared =
-        isE5 &&
-        !normalized.startsWith('passage:') &&
-        !normalized.startsWith('query:')
-          ? `passage: ${normalized}`
-          : normalized;
-
-      if (estimateTokenCount(prepared) <= chunkTokenLimit) {
-        shortInputs.push({ index, original: text });
-      } else {
-        longInputs.push({ index, original: text });
-      }
-    });
-
-    for (let i = 0; i < shortInputs.length; i += batchSize) {
-      const batch = shortInputs.slice(i, i + batchSize);
-      try {
-        const embeddings = await this.togetherAiAdapter.batchEmbed(
-          batch.map((item) => item.original),
-        );
-        batch.forEach((item, itemIndex) => {
-          results[item.index] = embeddings[itemIndex] ?? null;
-        });
-      } catch (error) {
-        this.logger.error(
-          `Error getting batch embeddings for batch ${i} (items: ${batch.length})`,
-          error instanceof Error ? error.stack : String(error),
-        );
-        for (let j = 0; j < batch.length; j++) {
-          const item = batch[j];
-          results[item.index] = await this.embedPolicyService.embed(
-            item.original,
-          );
-          if (j < batch.length - 1) {
-            await new Promise((resolve) => setTimeout(resolve, 200));
-          }
-        }
-      }
-    }
-
-    for (const item of longInputs) {
-      results[item.index] = await this.embedPolicyService.embed(item.original);
-    }
-
-    return results;
   }
 
   async generateAudio(text: string, voice?: string): Promise<Buffer> {

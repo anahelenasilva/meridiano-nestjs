@@ -15,7 +15,7 @@ Meridiano is a NestJS-based intelligence briefing system that aggregates content
 
 ### AI/ML
 - **Chat/Summarization**: DeepSeek (primary), OpenAI (alternative)
-- **Embeddings**: Together.xyz API
+- **Embeddings**: OpenAI `text-embedding-3-small`
 - **Text-to-Speech**: OpenAI TTS, Groq Orpheus
 
 ### Auth & Security

@@ -5,7 +5,6 @@ import { AiPolicyService } from './ai-policy.service';
 import { DeepseekAdapter } from './adapters/deepseek.adapter';
 import { GroqAdapter } from './adapters/groq.adapter';
 import { OpenAIAdapter } from './adapters/openai.adapter';
-import { TogetherAiAdapter } from './adapters/together-ai.adapter';
 import { AiService } from './ai.service';
 
 describe('AiService', () => {
@@ -13,7 +12,7 @@ describe('AiService', () => {
 
   const configService = {
     getModelConfig: jest.fn(() => ({
-      embeddingModel: 'intfloat/multilingual-e5-large-instruct',
+      embeddingModel: 'text-embedding-3-small',
       deepseekChatModel: 'deepseek-chat',
       openaiChatModel: 'gpt-4o-mini',
       openaiTtsVoice: 'alloy',
@@ -25,7 +24,6 @@ describe('AiService', () => {
     getEnabledTtsModel: jest.fn(() => 'openai'),
     getApiKeys: jest.fn(() => ({
       deepseekApiKey: 'test-deepseek-key',
-      embeddingApiKey: 'test-embedding-key',
       openaiApiKey: 'test-openai-key',
       groqApiKey: 'test-groq-key',
     })),
@@ -33,7 +31,6 @@ describe('AiService', () => {
 
   let mockDeepseekAdapter: jest.Mocked<DeepseekAdapter>;
   let mockOpenaiAdapter: jest.Mocked<OpenAIAdapter>;
-  let mockTogetherAiAdapter: jest.Mocked<TogetherAiAdapter>;
   let mockGroqAdapter: jest.Mocked<GroqAdapter>;
   let mockChatPolicy: jest.Mocked<AiPolicyService>;
   let mockEmbedPolicy: jest.Mocked<AiPolicyService>;
@@ -60,13 +57,6 @@ describe('AiService', () => {
       chat: jest.fn(),
       embed: jest.fn(),
       generateAudio: jest.fn(),
-    } as any;
-
-    mockTogetherAiAdapter = {
-      chat: jest.fn(),
-      embed: jest.fn(),
-      generateAudio: jest.fn(),
-      batchEmbed: jest.fn(),
     } as any;
 
     mockGroqAdapter = {
@@ -107,10 +97,6 @@ describe('AiService', () => {
     });
     Object.defineProperty(service, 'openaiAdapter', {
       value: mockOpenaiAdapter,
-      writable: true,
-    });
-    Object.defineProperty(service, 'togetherAiAdapter', {
-      value: mockTogetherAiAdapter,
       writable: true,
     });
     Object.defineProperty(service, 'groqAdapter', {
@@ -339,66 +325,6 @@ describe('AiService', () => {
     });
   });
 
-  describe('getBatchEmbeddings', () => {
-    it('batches short inputs in a single request', async () => {
-      mockTogetherAiAdapter.batchEmbed.mockResolvedValue([
-        [0.1, 0.2],
-        [0.3, 0.4],
-      ]);
-
-      const results = await service.getBatchEmbeddings(['first', 'second']);
-
-      expect(results).toEqual([
-        [0.1, 0.2],
-        [0.3, 0.4],
-      ]);
-      expect(mockTogetherAiAdapter.batchEmbed).toHaveBeenCalledTimes(1);
-    });
-
-    it('falls back to per-item embedding when batch fails', async () => {
-      mockTogetherAiAdapter.batchEmbed.mockRejectedValue(
-        new Error('batch failure'),
-      );
-      mockEmbedPolicy.embed
-        .mockResolvedValueOnce([5, 6])
-        .mockResolvedValueOnce([7, 8]);
-      const loggerSpy = jest
-        .spyOn(service['logger'], 'error')
-        .mockImplementation();
-
-      const results = await service.getBatchEmbeddings(['alpha', 'beta']);
-
-      expect(results).toEqual([
-        [5, 6],
-        [7, 8],
-      ]);
-      loggerSpy.mockRestore();
-    });
-
-    it('uses per-item embedding for long inputs', async () => {
-      const longText = 'Long sentence for embeddings. '.repeat(300);
-      mockTogetherAiAdapter.batchEmbed.mockResolvedValue([[10, 20]]);
-      mockEmbedPolicy.embed.mockResolvedValue([2, 2]);
-
-      const results = await service.getBatchEmbeddings(['short', longText]);
-
-      expect(results[0]).toEqual([10, 20]);
-      expect(results[1]).toEqual([2, 2]);
-      expect(mockEmbedPolicy.embed).toHaveBeenCalledWith(longText);
-    });
-
-    it('throws when adapters are null', async () => {
-      Object.defineProperty(service, 'togetherAiAdapter', {
-        value: null,
-        writable: true,
-      });
-
-      await expect(service.getBatchEmbeddings(['text'])).rejects.toThrow(
-        BadRequestException,
-      );
-    });
-  });
-
   describe('generateAudio', () => {
     const mockBuffer = Buffer.from('audio');
 
@@ -565,7 +491,7 @@ describe('AiService', () => {
             provide: ConfigService,
             useValue: {
               getModelConfig: jest.fn(() => ({
-                embeddingModel: 'intfloat/multilingual-e5-large-instruct',
+                embeddingModel: 'text-embedding-3-small',
                 deepseekChatModel: 'deepseek-chat',
                 openaiChatModel: 'gpt-4o-mini',
                 openaiTtsVoice: 'alloy',
@@ -584,28 +510,25 @@ describe('AiService', () => {
     it('throws BadRequestException when deepseekApiKey is missing', async () => {
       const mod = await makeModule({
         deepseekApiKey: undefined,
-        embeddingApiKey: 'emb-key',
         openaiApiKey: undefined,
         groqApiKey: undefined,
       });
       await expect(mod.init()).rejects.toThrow(BadRequestException);
     });
 
-    it('throws BadRequestException when embeddingApiKey is missing', async () => {
+    it('throws BadRequestException when openaiApiKey is missing', async () => {
       const mod = await makeModule({
         deepseekApiKey: 'ds-key',
-        embeddingApiKey: undefined,
         openaiApiKey: undefined,
         groqApiKey: undefined,
       });
       await expect(mod.init()).rejects.toThrow(BadRequestException);
     });
 
-    it('initializes successfully when required keys are present', async () => {
+    it('initializes successfully when deepseek and openai keys are present', async () => {
       const mod = await makeModule({
         deepseekApiKey: 'ds-key',
-        embeddingApiKey: 'emb-key',
-        openaiApiKey: undefined,
+        openaiApiKey: 'openai-key',
         groqApiKey: undefined,
       });
       await expect(mod.init()).resolves.toBeDefined();
