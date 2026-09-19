@@ -15,19 +15,11 @@ import {
 import { StorageService } from '../services/storage.service';
 import { TranscriptService } from '../services/transcript.service';
 import { YoutubeTranscriptionsAlternativeService } from './youtube-transcriptions-alternative.service';
-import { fetchTranscriptViaInnertube } from './youtube-transcriptions-innertube.service';
+import {
+  fetchTranscriptViaInnertube,
+  type YouTubeTranscriptSegment,
+} from './youtube-transcriptions-innertube.service';
 import { YouTubeService } from './youtube.service';
-
-type YouTubeTranscriptSegment = {
-  end_ms: string;
-  snippet: {
-    text: string;
-  };
-  start_ms: string;
-  start_time_text: {
-    text: string;
-  };
-};
 
 // Shared projection for transcription reads. channel_name and the external
 // channel id come from the joined channels table now that youtube_transcriptions

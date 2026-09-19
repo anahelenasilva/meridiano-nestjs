@@ -21,7 +21,7 @@ type TranscriptSegment = {
 /**
  * YouTube transcript segment format (matching youtubei.js structure)
  */
-type YouTubeTranscriptSegment = {
+export type YouTubeTranscriptSegment = {
   end_ms: string;
   snippet: {
     text: string;
