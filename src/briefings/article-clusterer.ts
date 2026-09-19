@@ -45,7 +45,7 @@ export class ArticleClusterer {
       clusterLabels = result.clusters;
     } catch (error) {
       this.logger.warn(
-        `Clustering failed (k=${effectiveK}), falling back to single cluster: ${error instanceof Error ? error.message : error}`,
+        `Clustering failed (k=${effectiveK}), falling back to single cluster: ${error instanceof Error ? error.message : String(error)}`,
       );
       return [{ label: 0, articleIds: articles.map((a) => a.id) }];
     }

@@ -284,7 +284,7 @@ export class AiService implements OnModuleInit {
         errors.push('Deepseek API returned null response');
       }
     } catch (error) {
-      errors.push(`Deepseek API error: ${error}`);
+      errors.push(`Deepseek API error: ${String(error)}`);
     }
 
     try {
@@ -298,7 +298,7 @@ export class AiService implements OnModuleInit {
         errors.push('Embedding API returned null or empty embedding');
       }
     } catch (error) {
-      errors.push(`Embedding API error: ${error}`);
+      errors.push(`Embedding API error: ${String(error)}`);
     }
 
     return { deepseek: deepseekWorking, embedding: embeddingWorking, errors };

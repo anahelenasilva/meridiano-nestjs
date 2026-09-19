@@ -22,7 +22,7 @@ export class DeleteYoutubeTranscriptionCommand {
     } catch (error) {
       return {
         sucess: false,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
       };
     }
   }
