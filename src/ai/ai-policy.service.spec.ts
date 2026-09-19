@@ -148,16 +148,39 @@ describe('AiPolicyService', () => {
       consoleSpy.mockRestore();
     });
 
-    it('returns null when all chunks fail', async () => {
+    it('throws the provider error when every chunk fails', async () => {
       const adapter = makeFakeAdapter();
-      const consoleSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
-      (adapter.embed as jest.Mock).mockRejectedValue(new Error('timeout'));
+      const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+      const errorSpy = jest.spyOn(Logger.prototype, 'error').mockImplementation();
+      (adapter.embed as jest.Mock).mockRejectedValue(
+        new Error('400 Unable to access model'),
+      );
       const svc = new AiPolicyService(adapter, 1000);
 
-      const result = await svc.embed('some text');
+      await expect(svc.embed('some text')).rejects.toThrow(
+        'Embedding failed for all 1 chunk(s): 400 Unable to access model',
+      );
+      warnSpy.mockRestore();
+      errorSpy.mockRestore();
+    });
 
-      expect(result).toBeNull();
-      consoleSpy.mockRestore();
+    it('averages the chunks that succeeded when some fail', async () => {
+      const adapter = makeFakeAdapter();
+      const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+      const errorSpy = jest.spyOn(Logger.prototype, 'error').mockImplementation();
+      (adapter.embed as jest.Mock)
+        .mockRejectedValueOnce(new Error('400 bad chunk'))
+        .mockResolvedValue([1, 3]);
+      // 10-token limit forces the text into several chunks.
+      const svc = new AiPolicyService(adapter, 10);
+
+      const result = await svc.embed(
+        'First sentence here is long. Second sentence here is long.',
+      );
+
+      expect(result).toEqual([1, 3]);
+      warnSpy.mockRestore();
+      errorSpy.mockRestore();
     });
   });
 
