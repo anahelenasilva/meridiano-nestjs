@@ -52,7 +52,7 @@ export class ConfigService {
     models: {
       deepseekChatModel: 'deepseek-flash',
       openaiChatModel: 'gpt-4o-mini',
-      embeddingModel: 'intfloat/multilingual-e5-large-instruct',
+      embeddingModel: 'text-embedding-3-small',
       enabledChatModel: 'deepseek',
       enabledTtsModel: 'openai',
       openaiTtsVoice: 'alloy',
@@ -386,7 +386,6 @@ export class ConfigService {
   getApiKeys() {
     return {
       deepseekApiKey: process.env.DEEPSEEK_API_KEY,
-      embeddingApiKey: process.env.EMBEDDING_API_KEY,
       openaiApiKey: process.env.OPENAI_API_KEY,
       groqApiKey: process.env.GROQ_API_KEY,
     };

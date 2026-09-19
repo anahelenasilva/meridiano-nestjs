@@ -158,6 +158,57 @@ export class ArticlesService {
     );
   }
 
+  // Newest first so a partial run still fixes the current briefing window.
+  async getArticlesToReembed(): Promise<
+    Array<{ id: string; processed_content: string }>
+  > {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      const query = `
+        SELECT id, processed_content FROM articles
+        WHERE processed_content IS NOT NULL
+        ORDER BY published_date DESC
+      `;
+
+      db.all(
+        query,
+        [],
+        (err, rows: Array<{ id: string; processed_content: string }>) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        },
+      );
+    });
+  }
+
+  async updateArticleEmbedding(
+    articleId: string,
+    embedding: number[],
+  ): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const db = this.databaseService.getDbConnection();
+
+      const stmt = db.prepare(`
+        UPDATE articles
+        SET embedding = ?
+        WHERE id = ?
+      `);
+
+      stmt.run([JSON.stringify(embedding), articleId], (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+        stmt.finalize();
+      });
+    });
+  }
+
   async getUnratedArticles(
     feedProfile: FeedProfile,
     limit: number = 1000,

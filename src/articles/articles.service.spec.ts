@@ -915,4 +915,62 @@ describe('ArticlesService', () => {
       await expect(service.unarchiveArticle('missing')).resolves.toBeNull();
     });
   });
+
+  describe('getArticlesToReembed', () => {
+    it('selects processed articles newest first', async () => {
+      const rows = [{ id: 'a1', processed_content: 'summary' }];
+      mockDb.all.mockImplementationOnce((query, params, callback) => {
+        callback(null, rows);
+      });
+
+      const result = await service.getArticlesToReembed();
+
+      expect(result).toEqual(rows);
+      const [query] = mockDb.all.mock.calls[0];
+      expect(query).toContain('processed_content IS NOT NULL');
+      expect(query).toContain('ORDER BY published_date DESC');
+    });
+
+    it('rejects when the database query fails', async () => {
+      mockDb.all.mockImplementationOnce((query, params, callback) => {
+        callback(new Error('db error'));
+      });
+
+      await expect(service.getArticlesToReembed()).rejects.toThrow('db error');
+    });
+  });
+
+  describe('updateArticleEmbedding', () => {
+    it('stores the embedding as JSON for the article', async () => {
+      const stmt = {
+        run: jest.fn((params: unknown[], callback: (err: Error | null) => void) => {
+          callback(null);
+        }),
+        finalize: jest.fn(),
+      };
+      mockDb.prepare.mockReturnValue(stmt);
+
+      await service.updateArticleEmbedding('a1', [0.1, 0.2]);
+
+      expect(stmt.run).toHaveBeenCalledWith(
+        ['[0.1,0.2]', 'a1'],
+        expect.any(Function),
+      );
+      expect(stmt.finalize).toHaveBeenCalled();
+    });
+
+    it('rejects when the update fails', async () => {
+      const stmt = {
+        run: jest.fn((params: unknown[], callback: (err: Error | null) => void) => {
+          callback(new Error('update failed'));
+        }),
+        finalize: jest.fn(),
+      };
+      mockDb.prepare.mockReturnValue(stmt);
+
+      await expect(
+        service.updateArticleEmbedding('a1', [0.1]),
+      ).rejects.toThrow('update failed');
+    });
+  });
 });

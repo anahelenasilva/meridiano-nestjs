@@ -32,6 +32,7 @@
     "briefing:rate": "ts-node -r tsconfig-paths/register src/scripts/runBriefing.ts --rate",
     "briefing:generate": "ts-node -r tsconfig-paths/register src/scripts/runBriefing.ts --generate",
     "generate:openapi": "ts-node -r tsconfig-paths/register src/scripts/generateOpenApi.ts",
+    "reembed": "ts-node -r tsconfig-paths/register src/scripts/runReembedArticles.ts",
     "yt-transcript": "ts-node -r tsconfig-paths/register src/scripts/runYoutubeTranscripts.ts",
     "process-transcriptions": "ts-node -r tsconfig-paths/register src/scripts/runProcessTranscriptions.ts",
     "list-transcriptions": "ts-node -r tsconfig-paths/register src/scripts/runListTranscriptions.ts",

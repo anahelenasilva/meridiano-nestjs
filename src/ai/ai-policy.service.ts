@@ -49,6 +49,7 @@ export class AiPolicyService {
     if (chunks.length === 0) return null;
 
     const vectors: number[][] = [];
+    let lastError: unknown;
 
     for (let i = 0; i < chunks.length; i++) {
       try {
@@ -57,6 +58,7 @@ export class AiPolicyService {
         );
         vectors.push(vector);
       } catch (error) {
+        lastError = error;
         const message = error instanceof Error ? error.message : String(error);
         this.logger.warn(
           `Failed to get embedding for chunk ${i + 1}/${chunks.length} after ${MAX_RETRIES} retries: ${message}`,
@@ -65,8 +67,12 @@ export class AiPolicyService {
     }
 
     if (vectors.length === 0) {
-      this.logger.warn('No embedding returned for text.');
-      return null;
+      // Returning null here hid the provider's 400 from the failure email.
+      const message =
+        lastError instanceof Error ? lastError.message : String(lastError);
+      throw new Error(
+        `Embedding failed for all ${chunks.length} chunk(s): ${message}`,
+      );
     }
 
     return averageEmbeddings(vectors);
