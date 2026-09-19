@@ -192,6 +192,18 @@ describe('DatabaseService', () => {
     it('should not throw if database not initialized', async () => {
       await expect(service.closeDb()).resolves.not.toThrow();
     });
+
+    // Shutdown calls closeDb twice: once from this service's onModuleDestroy,
+    // then again from DatabaseModule.onModuleDestroy.
+    it('should end the pool only once when closed twice', async () => {
+      mockPoolInstance.end.mockResolvedValue(undefined as unknown as never);
+
+      await service.initDb();
+      await service.closeDb();
+      await service.closeDb();
+
+      expect(mockPoolInstance.end).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('onModuleDestroy', () => {

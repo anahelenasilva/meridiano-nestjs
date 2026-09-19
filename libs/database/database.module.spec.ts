@@ -39,11 +39,13 @@ jest.mock('@nestjs/typeorm', () => {
 
 describe('DatabaseModule', () => {
   let module: TestingModule;
+  let closedByTest: boolean;
   const mockDatabaseService = mock<DatabaseService>();
   const mockDataSource = mock<DataSource>();
 
   beforeEach(async () => {
     jest.clearAllMocks();
+    closedByTest = false;
 
     mockDatabaseService.initDb.mockResolvedValue(undefined);
     mockDatabaseService.closeDb.mockResolvedValue(undefined);
@@ -62,7 +64,7 @@ describe('DatabaseModule', () => {
   });
 
   afterEach(async () => {
-    if (module) {
+    if (!closedByTest) {
       await module.close();
     }
     jest.clearAllMocks();
@@ -111,6 +113,7 @@ describe('DatabaseModule', () => {
   it('should close the injected DatabaseService on module destroy', async () => {
     await module.init();
     await module.close();
+    closedByTest = true;
 
     expect(mockDatabaseService.closeDb).toHaveBeenCalledTimes(1);
   });
