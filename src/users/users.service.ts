@@ -1,4 +1,4 @@
-import { DatabaseService } from '@libs/database';
+import { DatabaseService, execute, queryOne } from '@libs/database';
 import {
   ConflictException,
   Injectable,
@@ -26,174 +26,150 @@ export class UsersService {
     password: string,
   ): Promise<User> {
     const hashedPassword = await this.hashPassword(password);
+    const db = this.databaseService.getDbConnection();
 
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
-
-      db.run(
-        `
+    await execute(
+      db,
+      `
         INSERT INTO users (email, username, password)
         VALUES (?, ?, ?)
         RETURNING id, email, username, created_at
       `,
-        [email, username, hashedPassword],
-        (err: Error | null) => {
-          if (err) {
-            const errorWithCode = err as Error & {
-              code?: string;
-              detail?: string;
-            };
+      [email, username, hashedPassword],
+    ).catch((err: unknown) => {
+      const errorWithCode = err as Error & { code?: string; detail?: string };
 
-            if (
-              err.message.includes('duplicate key value') ||
-              errorWithCode.code === '23505'
-            ) {
-              // Determine which field caused the conflict
-              const errorDetail = errorWithCode.detail || err.message;
+      if (
+        errorWithCode.message.includes('duplicate key value') ||
+        errorWithCode.code === '23505'
+      ) {
+        // Determine which field caused the conflict
+        const errorDetail = errorWithCode.detail || errorWithCode.message;
 
-              if (errorDetail.includes('email')) {
-                reject(new ConflictException('Email already exists'));
-              } else if (errorDetail.includes('username')) {
-                reject(new ConflictException('Username already exists'));
-              } else {
-                reject(
-                  new ConflictException(
-                    'User with this email or username already exists',
-                  ),
-                );
-              }
-            } else {
-              console.error('Error creating user:', err);
-              reject(
-                new InternalServerErrorException(
-                  'Failed to create user. Please try again.',
-                ),
-              );
-            }
-          } else {
-            db.get(
-              `SELECT id, email, username, created_at FROM users WHERE email = ?`,
-              [email],
-              (getErr: Error | null, row?: UserRow) => {
-                if (getErr) {
-                  console.error('Error fetching created user:', getErr);
-                  reject(
-                    new InternalServerErrorException(
-                      'User created but failed to fetch details',
-                    ),
-                  );
-                } else if (!row) {
-                  reject(
-                    new InternalServerErrorException(
-                      'User not found after creation',
-                    ),
-                  );
-                } else {
-                  resolve({
-                    id: row.id,
-                    email: row.email,
-                    username: row.username,
-                    isEmailVerified: row.is_email_verified,
-                    created_at: new Date(row.created_at),
-                  });
-                }
-              },
-            );
-          }
-        },
+        if (errorDetail.includes('email')) {
+          throw new ConflictException('Email already exists');
+        }
+        if (errorDetail.includes('username')) {
+          throw new ConflictException('Username already exists');
+        }
+        throw new ConflictException(
+          'User with this email or username already exists',
+        );
+      }
+
+      console.error('Error creating user:', err);
+      throw new InternalServerErrorException(
+        'Failed to create user. Please try again.',
       );
     });
+
+    // Separate .catch so a read failure after a successful insert is not
+    // reported as a failed create.
+    const row = await queryOne<UserRow>(
+      db,
+      `SELECT id, email, username, created_at FROM users WHERE email = ?`,
+      [email],
+    ).catch((err: unknown) => {
+      console.error('Error fetching created user:', err);
+      throw new InternalServerErrorException(
+        'User created but failed to fetch details',
+      );
+    });
+
+    if (!row) {
+      throw new InternalServerErrorException('User not found after creation');
+    }
+
+    return {
+      id: row.id,
+      email: row.email,
+      username: row.username,
+      isEmailVerified: row.is_email_verified,
+      created_at: new Date(row.created_at),
+    };
   }
 
   async getUserById(id: string): Promise<User | null> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      db.get(
-        `SELECT id, email, username, created_at FROM users WHERE id = ?`,
-        [id],
-        (err: Error | null, row?: UserRow) => {
-          if (err) {
-            console.error('Error fetching user by id:', err);
-            reject(new InternalServerErrorException('Failed to fetch user'));
-          } else if (!row) {
-            resolve(null);
-          } else {
-            resolve({
-              id: row.id,
-              email: row.email,
-              username: row.username,
-              isEmailVerified: row.is_email_verified,
-              created_at: new Date(row.created_at),
-            });
-          }
-        },
-      );
+    const row = await queryOne<UserRow>(
+      db,
+      `SELECT id, email, username, created_at FROM users WHERE id = ?`,
+      [id],
+    ).catch((err: unknown) => {
+      console.error('Error fetching user by id:', err);
+      throw new InternalServerErrorException('Failed to fetch user');
     });
+
+    if (!row) {
+      return null;
+    }
+
+    return {
+      id: row.id,
+      email: row.email,
+      username: row.username,
+      isEmailVerified: row.is_email_verified,
+      created_at: new Date(row.created_at),
+    };
   }
 
   async getUserByEmail(
     email: string,
     includePassword = false,
   ): Promise<User | null> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      const fields = includePassword
-        ? 'id, email, username, is_email_verified, password, created_at'
-        : 'id, email, username, is_email_verified, created_at';
+    const fields = includePassword
+      ? 'id, email, username, is_email_verified, password, created_at'
+      : 'id, email, username, is_email_verified, created_at';
 
-      db.get(
-        `SELECT ${fields} FROM users WHERE email = ?`,
-        [email],
-        (err: Error | null, row?: UserRow) => {
-          if (err) {
-            console.error('Error fetching user by email:', err);
-            reject(new InternalServerErrorException('Failed to fetch user'));
-          } else if (!row) {
-            resolve(null);
-          } else {
-            resolve({
-              id: row.id,
-              email: row.email,
-              username: row.username,
-              isEmailVerified: row.is_email_verified,
-              ...(includePassword && row.password
-                ? { password: row.password }
-                : {}),
-              created_at: new Date(row.created_at),
-            });
-          }
-        },
-      );
+    const row = await queryOne<UserRow>(
+      db,
+      `SELECT ${fields} FROM users WHERE email = ?`,
+      [email],
+    ).catch((err: unknown) => {
+      console.error('Error fetching user by email:', err);
+      throw new InternalServerErrorException('Failed to fetch user');
     });
+
+    if (!row) {
+      return null;
+    }
+
+    return {
+      id: row.id,
+      email: row.email,
+      username: row.username,
+      isEmailVerified: row.is_email_verified,
+      ...(includePassword && row.password ? { password: row.password } : {}),
+      created_at: new Date(row.created_at),
+    };
   }
 
   async getUserByUsername(username: string): Promise<User | null> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      db.get(
-        `SELECT id, email, username, created_at FROM users WHERE username = ?`,
-        [username],
-        (err: Error | null, row?: UserRow) => {
-          if (err) {
-            console.error('Error fetching user by username:', err);
-            reject(new InternalServerErrorException('Failed to fetch user'));
-          } else if (!row) {
-            resolve(null);
-          } else {
-            resolve({
-              id: row.id,
-              email: row.email,
-              username: row.username,
-              isEmailVerified: row.is_email_verified,
-              created_at: new Date(row.created_at),
-            });
-          }
-        },
-      );
+    const row = await queryOne<UserRow>(
+      db,
+      `SELECT id, email, username, created_at FROM users WHERE username = ?`,
+      [username],
+    ).catch((err: unknown) => {
+      console.error('Error fetching user by username:', err);
+      throw new InternalServerErrorException('Failed to fetch user');
     });
+
+    if (!row) {
+      return null;
+    }
+
+    return {
+      id: row.id,
+      email: row.email,
+      username: row.username,
+      isEmailVerified: row.is_email_verified,
+      created_at: new Date(row.created_at),
+    };
   }
 
   async hashPassword(password: string): Promise<string> {
@@ -207,24 +183,14 @@ export class UsersService {
 
   async updateUserPassword(userId: string, password: string): Promise<void> {
     const hashedPassword = await this.hashPassword(password);
+    const db = this.databaseService.getDbConnection();
 
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
-
-      db.run(
-        `UPDATE users SET password = ? WHERE id = ?`,
-        [hashedPassword, userId],
-        (err: Error | null) => {
-          if (err) {
-            console.error('Error updating user password:', err);
-            reject(
-              new InternalServerErrorException('Failed to update password'),
-            );
-          } else {
-            resolve();
-          }
-        },
-      );
+    await execute(db, `UPDATE users SET password = ? WHERE id = ?`, [
+      hashedPassword,
+      userId,
+    ]).catch((err: unknown) => {
+      console.error('Error updating user password:', err);
+      throw new InternalServerErrorException('Failed to update password');
     });
   }
 }

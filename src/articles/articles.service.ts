@@ -1,4 +1,10 @@
-import { DatabaseService, SqlParams } from '@libs/database';
+import {
+  DatabaseService,
+  execute,
+  queryAll,
+  queryOne,
+  SqlParams,
+} from '@libs/database';
 import { Injectable } from '@nestjs/common';
 import { AudioFilesCleanupService } from '../audio-files/audio-files-cleanup.service';
 import { NotesCleanupService } from '../notes/notes-cleanup.service';
@@ -83,15 +89,16 @@ export class ArticlesService {
     categories?: ArticleCategory[],
     customPrompt?: string,
   ): Promise<string | null> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      const stmt = db.prepare(`
+    try {
+      const row = await queryOne<{ id: string }>(
+        db,
+        `
         INSERT INTO articles (url, title, published_date, feed_source, raw_content, feed_profile, image_url, categories, custom_prompt)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-      `);
-
-      stmt.run(
+        RETURNING id
+      `,
         [
           url,
           title,
@@ -103,48 +110,35 @@ export class ArticlesService {
           categories ? JSON.stringify(categories) : null,
           customPrompt || null,
         ],
-        function (this: { lastID?: string }, err: Error | null) {
-          if (err) {
-            const errorWithCode = err as Error & { code?: string };
-            if (
-              err.message.includes('duplicate key value') ||
-              errorWithCode.code === '23505' // PostgreSQL unique violation error code
-            ) {
-              resolve(null);
-            } else {
-              reject(err);
-            }
-          } else {
-            resolve(this.lastID ?? null);
-          }
-          stmt.finalize();
-        },
       );
-    });
+      return row?.id ?? null;
+    } catch (err) {
+      const errorWithCode = err as Error & { code?: string };
+      if (
+        errorWithCode.message.includes('duplicate key value') ||
+        errorWithCode.code === '23505' // PostgreSQL unique violation error code
+      ) {
+        return null;
+      }
+      throw err;
+    }
   }
 
   async getUnprocessedArticles(
     feedProfile: FeedProfile,
     limit: number = 1000,
   ): Promise<DBArticle[]> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      const query = `
+    const query = `
         SELECT * FROM articles
         WHERE feed_profile = ? AND processed_content IS NULL
         ORDER BY published_date DESC
         LIMIT ?
       `;
 
-      db.all(query, [feedProfile, limit], (err, rows: ArticleRow[]) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(rows.map(mapArticleRow));
-        }
-      });
-    });
+    const rows = await queryAll<ArticleRow>(db, query, [feedProfile, limit]);
+    return rows.map(mapArticleRow);
   }
 
   async updateArticleProcessing(
@@ -152,174 +146,113 @@ export class ArticlesService {
     processedContent: string,
     embedding?: number[] | null,
   ): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
-
-      const stmt = db.prepare(`
+    const db = this.databaseService.getDbConnection();
+    await execute(
+      db,
+      `
         UPDATE articles
         SET processed_content = ?, embedding = ?
         WHERE id = ?
-      `);
-
-      stmt.run(
-        [processedContent, embedding ? JSON.stringify(embedding) : null, articleId],
-        (err) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve();
-          }
-          stmt.finalize();
-        },
-      );
-    });
+      `,
+      [processedContent, embedding ? JSON.stringify(embedding) : null, articleId],
+    );
   }
 
   // Newest first so a partial run still fixes the current briefing window.
   async getArticlesToReembed(): Promise<
     Array<{ id: string; processed_content: string }>
   > {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      const query = `
+    const query = `
         SELECT id, processed_content FROM articles
         WHERE processed_content IS NOT NULL
         ORDER BY published_date DESC
       `;
 
-      db.all(
-        query,
-        [],
-        (err, rows: Array<{ id: string; processed_content: string }>) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(rows);
-          }
-        },
-      );
-    });
+    return queryAll<{ id: string; processed_content: string }>(db, query, []);
   }
 
   async updateArticleEmbedding(
     articleId: string,
     embedding: number[],
   ): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
-
-      const stmt = db.prepare(`
+    const db = this.databaseService.getDbConnection();
+    await execute(
+      db,
+      `
         UPDATE articles
         SET embedding = ?
         WHERE id = ?
-      `);
-
-      stmt.run([JSON.stringify(embedding), articleId], (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-        stmt.finalize();
-      });
-    });
+      `,
+      [JSON.stringify(embedding), articleId],
+    );
   }
 
   async getUnratedArticles(
     feedProfile: FeedProfile,
     limit: number = 1000,
   ): Promise<DBArticle[]> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      const query = `
+    const query = `
         SELECT * FROM articles
         WHERE feed_profile = ? AND processed_content IS NOT NULL AND impact_rating IS NULL
         ORDER BY published_date DESC
         LIMIT ?
       `;
 
-      db.all(query, [feedProfile, limit], (err, rows: ArticleRow[]) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(rows.map(mapArticleRow));
-        }
-      });
-    });
+    const rows = await queryAll<ArticleRow>(db, query, [feedProfile, limit]);
+    return rows.map(mapArticleRow);
   }
 
   async getUncategorizedArticles(
     feedProfile: FeedProfile,
     limit: number = 1000,
   ): Promise<DBArticle[]> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      const query = `
+    const query = `
         SELECT * FROM articles
         WHERE feed_profile = ? AND processed_content IS NOT NULL AND categories IS NULL
         ORDER BY published_date DESC
         LIMIT ?
       `;
 
-      db.all(query, [feedProfile, limit], (err, rows: ArticleRow[]) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(rows.map(mapArticleRow));
-        }
-      });
-    });
+    const rows = await queryAll<ArticleRow>(db, query, [feedProfile, limit]);
+    return rows.map(mapArticleRow);
   }
 
   async updateArticleRating(
     articleId: string,
     impactRating: number,
   ): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
-
-      const stmt = db.prepare(`
+    const db = this.databaseService.getDbConnection();
+    await execute(
+      db,
+      `
         UPDATE articles
         SET impact_rating = ?
         WHERE id = ?
-      `);
-
-      stmt.run([impactRating, articleId], (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-        stmt.finalize();
-      });
-    });
+      `,
+      [impactRating, articleId],
+    );
   }
 
   async updateArticleCategories(
     articleId: string,
     categories: ArticleCategory[],
   ): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
-
-      const stmt = db.prepare(`
+    const db = this.databaseService.getDbConnection();
+    await execute(
+      db,
+      `
         UPDATE articles
         SET categories = ?
         WHERE id = ?
-      `);
-
-      stmt.run([JSON.stringify(categories), articleId], (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-        stmt.finalize();
-      });
-    });
+      `,
+      [JSON.stringify(categories), articleId],
+    );
   }
 
   /**
@@ -367,10 +300,9 @@ export class ArticlesService {
 
     params.push(articleId);
 
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      const query = `
+    const query = `
         UPDATE articles
         SET ${setClauses.join(', ')}
         WHERE id = ?
@@ -378,15 +310,8 @@ export class ArticlesService {
           ${ARTICLE_COLUMNS}
       `;
 
-      db.get(query, params, (err, row: ArticleRow | undefined) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        resolve(row ? mapArticleRow(row) : null);
-      });
-    });
+    const row = await queryOne<ArticleRow>(db, query, params);
+    return row ? mapArticleRow(row) : null;
   }
 
   /**
@@ -411,10 +336,9 @@ export class ArticlesService {
     // user input at compile time, not just by convention.
     valueExpression: 'COALESCE(archived_at, CURRENT_TIMESTAMP)' | 'NULL',
   ): Promise<DBArticle | null> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      const query = `
+    const query = `
         UPDATE articles
         SET archived_at = ${valueExpression}
         WHERE id = ?
@@ -422,57 +346,41 @@ export class ArticlesService {
           ${ARTICLE_COLUMNS}
       `;
 
-      db.get(query, [articleId], (err, row: ArticleRow | undefined) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        resolve(row ? mapArticleRow(row) : null);
-      });
-    });
+    const row = await queryOne<ArticleRow>(db, query, [articleId]);
+    return row ? mapArticleRow(row) : null;
   }
 
   async getArticlesByIds(ids: string[]): Promise<DBArticle[]> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    if (!ids || ids.length === 0) {
+      return [];
+    }
 
-      if (!ids || ids.length === 0) {
-        resolve([]);
-        return;
-      }
-
-      const query = `
+    const db = this.databaseService.getDbConnection();
+    const rows = await queryAll<ArticleRow>(
+      db,
+      `
         SELECT
           ${ARTICLE_COLUMNS}
         FROM articles
         WHERE id = ANY(?::uuid[])
         ORDER BY array_position(?::uuid[], id)
-      `;
-
-      db.all(query, [ids, ids], (err, rows: ArticleRow[]) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        resolve(rows.map(mapArticleRow));
-      });
-    });
+      `,
+      [ids, ids],
+    );
+    return rows.map(mapArticleRow);
   }
 
   async getArticlesForBriefing(
     lookbackHours: number,
     feedProfile: FeedProfile,
   ): Promise<DBArticle[]> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      const millisecondsPerHour = 60 * 60 * 1000;
-      const hoursInMilliseconds = lookbackHours * millisecondsPerHour;
-      const cutoffTime = new Date(Date.now() - hoursInMilliseconds);
+    const millisecondsPerHour = 60 * 60 * 1000;
+    const hoursInMilliseconds = lookbackHours * millisecondsPerHour;
+    const cutoffTime = new Date(Date.now() - hoursInMilliseconds);
 
-      const query = `
+    const query = `
         SELECT * FROM articles
         WHERE feed_profile = ?
           AND processed_content IS NOT NULL
@@ -482,35 +390,22 @@ export class ArticlesService {
         ORDER BY impact_rating DESC, published_date DESC
       `;
 
-      db.all(
-        query,
-        [feedProfile, cutoffTime.toISOString()],
-        (err, rows: ArticleRow[]) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(rows.map(mapArticleRow));
-          }
-        },
-      );
-    });
+    const rows = await queryAll<ArticleRow>(db, query, [
+      feedProfile,
+      cutoffTime.toISOString(),
+    ]);
+    return rows.map(mapArticleRow);
   }
 
   async deleteArticleById(articleId: string): Promise<void> {
-    await new Promise<void>((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
-      const stmt = db.prepare(`DELETE FROM articles WHERE id = ?`);
+    const db = this.databaseService.getDbConnection();
 
-      stmt.run([articleId], function (err) {
-        if (err) {
-          console.error('Error deleting article:', err);
-          reject(err);
-        } else {
-          resolve();
-        }
-        stmt.finalize();
-      });
-    });
+    await execute(db, `DELETE FROM articles WHERE id = ?`, [articleId]).catch(
+      (err: unknown) => {
+        console.error('Error deleting article:', err);
+        throw err;
+      },
+    );
 
     await this.notesCleanupService.purgeNotesForSource('article', articleId);
     await this.audioFilesCleanupService.purgeAudioForSource(
@@ -520,151 +415,117 @@ export class ArticlesService {
   }
 
   async getArticleById(articleId: string): Promise<DBArticle | null> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      const query = `
+    const query = `
         SELECT
           ${ARTICLE_COLUMNS}
         FROM articles
         WHERE id = ?
       `;
 
-      db.get(query, [articleId], (err, row: ArticleRow | undefined) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        resolve(row ? mapArticleRow(row) : null);
-      });
-    });
+    const row = await queryOne<ArticleRow>(db, query, [articleId]);
+    return row ? mapArticleRow(row) : null;
   }
 
   async getDistinctFeedProfiles(): Promise<string[]> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
-
-      db.all(
-        'SELECT DISTINCT feed_profile FROM articles ORDER BY feed_profile',
-        [],
-        (err, rows: ArticleRow[]) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-
-          resolve(rows.map((row) => row.feed_profile));
-        },
-      );
-    });
+    const db = this.databaseService.getDbConnection();
+    const rows = await queryAll<Pick<ArticleRow, 'feed_profile'>>(
+      db,
+      'SELECT DISTINCT feed_profile FROM articles ORDER BY feed_profile',
+      [],
+    );
+    return rows.map((row) => row.feed_profile);
   }
 
   async getDistinctCategories(
     archiveScope: ArchiveScope = 'active',
   ): Promise<string[]> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      if (!db) {
-        reject(new Error('Database not initialized'));
-        return;
-      }
-
-      let query = `
+    let query = `
         SELECT DISTINCT categories
         FROM articles
         WHERE categories IS NOT NULL
           AND categories != ''
       `;
 
-      const scopeClause = archiveClause(archiveScope);
-      if (scopeClause) {
-        query += ` AND ${scopeClause}`;
-      }
+    const scopeClause = archiveClause(archiveScope);
+    if (scopeClause) {
+      query += ` AND ${scopeClause}`;
+    }
 
-      db.all(query, [], (err, rows: ArticleRow[]) => {
-        if (err) {
-          reject(err);
-          return;
-        }
+    const rows = await queryAll<Pick<ArticleRow, 'categories'>>(db, query, []);
 
-        const categoriesSet = new Set<string>();
+    const categoriesSet = new Set<string>();
 
-        rows.forEach((row) => {
-          if (row.categories) {
-            try {
-              const categories = JSON.parse(row.categories);
-              if (Array.isArray(categories)) {
-                categories.forEach((category) => {
-                  if (typeof category === 'string') {
-                    categoriesSet.add(category);
-                  }
-                });
+    rows.forEach((row) => {
+      if (row.categories) {
+        try {
+          const categories = JSON.parse(row.categories);
+          if (Array.isArray(categories)) {
+            categories.forEach((category) => {
+              if (typeof category === 'string') {
+                categoriesSet.add(category);
               }
-            } catch {
-              // Skip invalid JSON
-            }
+            });
           }
-        });
-
-        resolve(Array.from(categoriesSet).sort());
-      });
+        } catch {
+          // Skip invalid JSON
+        }
+      }
     });
+
+    return Array.from(categoriesSet).sort();
   }
 
   async getDistinctFeedSources(
     archiveScope: ArchiveScope = 'active',
   ): Promise<string[]> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      let query = `
+    let query = `
         SELECT DISTINCT feed_source
         FROM articles
         WHERE feed_source IS NOT NULL
           AND feed_source != ''
       `;
 
-      const scopeClause = archiveClause(archiveScope);
-      if (scopeClause) {
-        query += ` AND ${scopeClause}`;
-      }
+    const scopeClause = archiveClause(archiveScope);
+    if (scopeClause) {
+      query += ` AND ${scopeClause}`;
+    }
 
-      query += ' ORDER BY feed_source';
+    query += ' ORDER BY feed_source';
 
-      db.all(query, [], (err, rows: Pick<ArticleRow, 'feed_source'>[]) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        resolve(rows.map((row) => row.feed_source));
-      });
-    });
+    const rows = await queryAll<Pick<ArticleRow, 'feed_source'>>(
+      db,
+      query,
+      [],
+    );
+    return rows.map((row) => row.feed_source);
   }
 
   async getArticlesPaginated(
     options: PaginatedArticleInput,
   ): Promise<ArticleListRow[]> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      const {
-        page = 1,
-        perPage = 20,
-        sortBy = 'published_date',
-        direction = 'desc',
-        feedProfile,
-        feedSource,
-        searchTerm,
-        startDate,
-        endDate,
-        category,
-        archiveScope = 'active',
-      } = options;
+    const {
+      page = 1,
+      perPage = 20,
+      sortBy = 'published_date',
+      direction = 'desc',
+      feedProfile,
+      feedSource,
+      searchTerm,
+      startDate,
+      endDate,
+      category,
+      archiveScope = 'active',
+    } = options;
 
-      let query = `
+    let query = `
         SELECT
           ${ARTICLE_COLUMNS},
           EXISTS (
@@ -674,207 +535,180 @@ export class ArticlesService {
         FROM articles
         WHERE 1=1
       `;
-      const params: (string | number)[] = [];
+    const params: (string | number)[] = [];
 
-      // Defaulting to active here rather than at each call site: a read path
-      // added later inherits the exclusion instead of silently leaking
-      // archived articles into a briefing.
-      const scopeClause = archiveClause(archiveScope);
-      if (scopeClause) {
-        query += ` AND ${scopeClause}`;
-      }
+    // Defaulting to active here rather than at each call site: a read path
+    // added later inherits the exclusion instead of silently leaking
+    // archived articles into a briefing.
+    const scopeClause = archiveClause(archiveScope);
+    if (scopeClause) {
+      query += ` AND ${scopeClause}`;
+    }
 
-      if (feedProfile) {
-        query += ' AND feed_profile = ?';
-        params.push(feedProfile);
-      }
+    if (feedProfile) {
+      query += ' AND feed_profile = ?';
+      params.push(feedProfile);
+    }
 
-      if (feedSource) {
-        query += ' AND feed_source = ?';
-        params.push(feedSource);
-      }
+    if (feedSource) {
+      query += ' AND feed_source = ?';
+      params.push(feedSource);
+    }
 
-      if (searchTerm) {
-        query +=
-          ' AND (title LIKE ? OR raw_content LIKE ? OR processed_content LIKE ?)';
-        const searchPattern = `%${searchTerm}%`;
-        params.push(searchPattern, searchPattern, searchPattern);
-      }
+    if (searchTerm) {
+      query +=
+        ' AND (title LIKE ? OR raw_content LIKE ? OR processed_content LIKE ?)';
+      const searchPattern = `%${searchTerm}%`;
+      params.push(searchPattern, searchPattern, searchPattern);
+    }
 
-      if (startDate) {
-        query += ' AND DATE(published_date) >= ?';
-        params.push(startDate);
-      }
+    if (startDate) {
+      query += ' AND DATE(published_date) >= ?';
+      params.push(startDate);
+    }
 
-      if (endDate) {
-        query += ' AND DATE(published_date) <= ?';
-        params.push(endDate);
-      }
+    if (endDate) {
+      query += ' AND DATE(published_date) <= ?';
+      params.push(endDate);
+    }
 
-      if (category) {
-        query += ' AND categories LIKE ?';
-        params.push(`%"${category}"%`);
-      }
+    if (category) {
+      query += ' AND categories LIKE ?';
+      params.push(`%"${category}"%`);
+    }
 
-      const validSortColumns = [
-        'published_date',
-        'title',
-        'impact_rating',
-        'created_at',
-      ];
-      const sortColumn = validSortColumns.includes(sortBy)
-        ? sortBy
-        : 'published_date';
-      const sortDirection = direction === 'asc' ? 'ASC' : 'DESC';
-      query += ` ORDER BY ${sortColumn} ${sortDirection}`;
+    const validSortColumns = [
+      'published_date',
+      'title',
+      'impact_rating',
+      'created_at',
+    ];
+    const sortColumn = validSortColumns.includes(sortBy)
+      ? sortBy
+      : 'published_date';
+    const sortDirection = direction === 'asc' ? 'ASC' : 'DESC';
+    query += ` ORDER BY ${sortColumn} ${sortDirection}`;
 
-      const offset = (page - 1) * perPage;
-      query += ' LIMIT ? OFFSET ?';
-      params.push(perPage, offset);
+    const offset = (page - 1) * perPage;
+    query += ' LIMIT ? OFFSET ?';
+    params.push(perPage, offset);
 
-      db.all(query, params, (err, rows: ArticleListDbRow[]) => {
-        if (err) {
-          reject(err);
-          return;
-        }
+    const rows = await queryAll<ArticleListDbRow>(db, query, params);
 
-        // Postgres returns EXISTS as a real boolean (see youtube_channels.enabled
-        // for the same driver behavior on a plain boolean column), so no coercion.
-        const articles: ArticleListRow[] = rows.map((row) => ({
-          ...mapArticleRow(row),
-          has_audio: row.has_audio,
-        }));
-
-        resolve(articles);
-      });
-    });
+    // Postgres returns EXISTS as a real boolean (see youtube_channels.enabled
+    // for the same driver behavior on a plain boolean column), so no coercion.
+    return rows.map((row) => ({
+      ...mapArticleRow(row),
+      has_audio: row.has_audio,
+    }));
   }
 
   async countTotalArticles(options: CountTotalArticlesInput): Promise<number> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      const {
-        feedProfile,
-        feedSource,
-        searchTerm,
-        startDate,
-        endDate,
-        category,
-        archiveScope = 'active',
-      } = options;
+    const {
+      feedProfile,
+      feedSource,
+      searchTerm,
+      startDate,
+      endDate,
+      category,
+      archiveScope = 'active',
+    } = options;
 
-      let query = 'SELECT COUNT(*) as count FROM articles WHERE 1=1';
-      const params: (string | number)[] = [];
+    let query = 'SELECT COUNT(*) as count FROM articles WHERE 1=1';
+    const params: (string | number)[] = [];
 
-      const scopeClause = archiveClause(archiveScope);
-      if (scopeClause) {
-        query += ` AND ${scopeClause}`;
-      }
+    const scopeClause = archiveClause(archiveScope);
+    if (scopeClause) {
+      query += ` AND ${scopeClause}`;
+    }
 
-      if (feedProfile) {
-        query += ' AND feed_profile = ?';
-        params.push(feedProfile);
-      }
+    if (feedProfile) {
+      query += ' AND feed_profile = ?';
+      params.push(feedProfile);
+    }
 
-      if (feedSource) {
-        query += ' AND feed_source = ?';
-        params.push(feedSource);
-      }
+    if (feedSource) {
+      query += ' AND feed_source = ?';
+      params.push(feedSource);
+    }
 
-      if (searchTerm) {
-        query +=
-          ' AND (title LIKE ? OR raw_content LIKE ? OR processed_content LIKE ?)';
-        const searchPattern = `%${searchTerm}%`;
-        params.push(searchPattern, searchPattern, searchPattern);
-      }
+    if (searchTerm) {
+      query +=
+        ' AND (title LIKE ? OR raw_content LIKE ? OR processed_content LIKE ?)';
+      const searchPattern = `%${searchTerm}%`;
+      params.push(searchPattern, searchPattern, searchPattern);
+    }
 
-      if (startDate) {
-        query += ' AND DATE(published_date) >= ?';
-        params.push(startDate);
-      }
+    if (startDate) {
+      query += ' AND DATE(published_date) >= ?';
+      params.push(startDate);
+    }
 
-      if (endDate) {
-        query += ' AND DATE(published_date) <= ?';
-        params.push(endDate);
-      }
+    if (endDate) {
+      query += ' AND DATE(published_date) <= ?';
+      params.push(endDate);
+    }
 
-      if (category) {
-        query += ' AND categories LIKE ?';
-        params.push(`%"${category}"%`);
-      }
+    if (category) {
+      query += ' AND categories LIKE ?';
+      params.push(`%"${category}"%`);
+    }
 
-      db.get(query, params, (err, row: CountRow | undefined) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        resolve(row?.count || 0);
-      });
-    });
+    const row = await queryOne<CountRow>(db, query, params);
+    return row?.count || 0;
   }
 
   async articleExists(url: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
-      db.get('SELECT id FROM articles WHERE url = ?', [url], (err, row) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(!!row);
-        }
-      });
-    });
+    const db = this.databaseService.getDbConnection();
+    const row = await queryOne<{ id: string }>(
+      db,
+      'SELECT id FROM articles WHERE url = ?',
+      [url],
+    );
+    return !!row;
   }
 
   async getArticleByUrl(url: string): Promise<DBArticle | null> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      const query = `
+    const query = `
         SELECT
           ${ARTICLE_COLUMNS}
         FROM articles
         WHERE url = ?
       `;
 
-      db.get(query, [url], (err, row: ArticleRow | undefined) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        resolve(row ? mapArticleRow(row) : null);
-      });
-    });
+    const row = await queryOne<ArticleRow>(db, query, [url]);
+    return row ? mapArticleRow(row) : null;
   }
 
   async getRelatedArticles(
     articleId: string,
     limit: number = 5,
   ): Promise<DBArticle[]> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      const getOriginalQuery = `
+    const original = await queryOne<
+      Pick<ArticleRow, 'feed_profile' | 'published_date'>
+    >(
+      db,
+      `
         SELECT feed_profile, published_date
         FROM articles
         WHERE id = ?
-      `;
+      `,
+      [articleId],
+    );
 
-      db.get(getOriginalQuery, [articleId], (err, original: ArticleRow) => {
-        if (err) {
-          reject(err);
-          return;
-        }
+    if (!original) {
+      return [];
+    }
 
-        if (!original) {
-          resolve([]);
-          return;
-        }
-
-        const relatedQuery = `
+    const rows = await queryAll<ArticleRow>(
+      db,
+      `
           SELECT
             ${ARTICLE_COLUMNS}
           FROM articles
@@ -883,93 +717,59 @@ export class ArticlesService {
           AND archived_at IS NULL
           ORDER BY ABS(EXTRACT(epoch FROM (published_date - ?::timestamp))) ASC
           LIMIT ?
-        `;
-
-        if (!db) {
-          reject(new Error('Database not initialized'));
-          return;
-        }
-
-        db.all(
-          relatedQuery,
-          [original.feed_profile, articleId, original.published_date, limit],
-          (err, rows: ArticleRow[]) => {
-            if (err) {
-              reject(err);
-              return;
-            }
-
-            resolve(rows.map(mapArticleRow));
-          },
-        );
-      });
-    });
+        `,
+      [original.feed_profile, articleId, original.published_date, limit],
+    );
+    return rows.map(mapArticleRow);
   }
 
   async getUnprocessedArticleById(
     articleId: string,
   ): Promise<DBArticle | null> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      const query = `
+    const query = `
         SELECT * FROM articles
         WHERE id = ? AND processed_content IS NULL
       `;
 
-      db.get(query, [articleId], (err, row: ArticleRow | undefined) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        resolve(row ? mapArticleRow(row) : null);
-      });
-    });
+    const row = await queryOne<ArticleRow>(db, query, [articleId]);
+    return row ? mapArticleRow(row) : null;
   }
 
   async getUnratedArticleById(articleId: string): Promise<DBArticle | null> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      const query = `
+    const query = `
         SELECT * FROM articles
         WHERE id = ? AND processed_content IS NOT NULL AND impact_rating IS NULL
       `;
 
-      db.get(query, [articleId], (err, row: ArticleRow | undefined) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        resolve(row ? mapArticleRow(row) : null);
-      });
-    });
+    const row = await queryOne<ArticleRow>(db, query, [articleId]);
+    return row ? mapArticleRow(row) : null;
   }
 
   async getYesterdayArticlesByProfile(): Promise<DBArticle[]> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      const BRT_OFFSET_MS = 3 * 60 * 60 * 1000;
-      const now = new Date();
-      const nowBrt = new Date(now.getTime() - BRT_OFFSET_MS);
-      const todayMidnightBrt = new Date(
-        Date.UTC(
-          nowBrt.getUTCFullYear(),
-          nowBrt.getUTCMonth(),
-          nowBrt.getUTCDate(),
-        ),
-      );
-      const startOfTodayBrt = new Date(
-        todayMidnightBrt.getTime() + BRT_OFFSET_MS,
-      );
-      const startOfYesterdayBrt = new Date(
-        startOfTodayBrt.getTime() - 24 * 60 * 60 * 1000,
-      );
+    const BRT_OFFSET_MS = 3 * 60 * 60 * 1000;
+    const now = new Date();
+    const nowBrt = new Date(now.getTime() - BRT_OFFSET_MS);
+    const todayMidnightBrt = new Date(
+      Date.UTC(
+        nowBrt.getUTCFullYear(),
+        nowBrt.getUTCMonth(),
+        nowBrt.getUTCDate(),
+      ),
+    );
+    const startOfTodayBrt = new Date(
+      todayMidnightBrt.getTime() + BRT_OFFSET_MS,
+    );
+    const startOfYesterdayBrt = new Date(
+      startOfTodayBrt.getTime() - 24 * 60 * 60 * 1000,
+    );
 
-      const query = `
+    const query = `
         SELECT * FROM articles
         WHERE feed_profile = ?
           AND impact_rating IS NOT NULL
@@ -979,43 +779,25 @@ export class ArticlesService {
         ORDER BY impact_rating DESC
       `;
 
-      db.all(
-        query,
-        [
-          FeedProfile.TECHNOLOGY,
-          startOfYesterdayBrt.toISOString(),
-          startOfTodayBrt.toISOString(),
-        ],
-        (err, rows: ArticleRow[]) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(rows.map(mapArticleRow));
-          }
-        },
-      );
-    });
+    const rows = await queryAll<ArticleRow>(db, query, [
+      FeedProfile.TECHNOLOGY,
+      startOfYesterdayBrt.toISOString(),
+      startOfTodayBrt.toISOString(),
+    ]);
+    return rows.map(mapArticleRow);
   }
 
   async getUncategorizedArticleById(
     articleId: string,
   ): Promise<DBArticle | null> {
-    return new Promise((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
+    const db = this.databaseService.getDbConnection();
 
-      const query = `
+    const query = `
         SELECT * FROM articles
         WHERE id = ? AND processed_content IS NOT NULL AND categories IS NULL
       `;
 
-      db.get(query, [articleId], (err, row: ArticleRow | undefined) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        resolve(row ? mapArticleRow(row) : null);
-      });
-    });
+    const row = await queryOne<ArticleRow>(db, query, [articleId]);
+    return row ? mapArticleRow(row) : null;
   }
 }

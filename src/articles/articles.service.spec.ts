@@ -1,4 +1,4 @@
-import { DatabaseService } from '@libs/database';
+import { DatabaseService, RunCallback } from '@libs/database';
 import { mock } from 'jest-mock-extended';
 import { AudioFilesCleanupService } from '../audio-files/audio-files-cleanup.service';
 import { NotesCleanupService } from '../notes/notes-cleanup.service';
@@ -13,7 +13,7 @@ describe('ArticlesService', () => {
   const mockDb = {
     all: jest.fn(),
     get: jest.fn(),
-    prepare: jest.fn(),
+    run: jest.fn(),
   };
   let service: ArticlesService;
 
@@ -29,7 +29,9 @@ describe('ArticlesService', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    // resetAllMocks, not clearAllMocks: an unconsumed mockImplementationOnce
+    // from a failing test would otherwise leak into the next one.
+    jest.resetAllMocks();
   });
 
   describe('getYesterdayArticlesByProfile', () => {
@@ -256,22 +258,18 @@ describe('ArticlesService', () => {
     const articleId = '11111111-1111-1111-1111-111111111111';
 
     const stubDeleteSuccess = () => {
-      const stmt = {
-        run: jest.fn((params: unknown[], callback: (err: Error | null) => void) => {
-          callback(null);
-        }),
-        finalize: jest.fn(),
-      };
-      mockDb.prepare.mockReturnValue(stmt);
-      return stmt;
+      mockDb.run.mockImplementationOnce((sql, params, callback: RunCallback) => {
+        callback.call({ changes: 1 }, null);
+      });
     };
 
     it('purges every note for the article after deleting it', async () => {
-      const stmt = stubDeleteSuccess();
+      stubDeleteSuccess();
 
       await service.deleteArticleById(articleId);
 
-      expect(stmt.run).toHaveBeenCalledWith(
+      expect(mockDb.run).toHaveBeenCalledWith(
+        'DELETE FROM articles WHERE id = ?',
         [articleId],
         expect.any(Function),
       );
@@ -291,13 +289,10 @@ describe('ArticlesService', () => {
     });
 
     it('does not purge notes or audio when the article delete fails', async () => {
-      const stmt = {
-        run: jest.fn((params: unknown[], callback: (err: Error | null) => void) => {
-          callback(new Error('delete failed'));
-        }),
-        finalize: jest.fn(),
-      };
-      mockDb.prepare.mockReturnValue(stmt);
+      jest.spyOn(console, 'error').mockImplementationOnce(() => undefined);
+      mockDb.run.mockImplementationOnce((sql, params, callback: RunCallback) => {
+        callback.call({}, new Error('delete failed'));
+      });
 
       await expect(service.deleteArticleById(articleId)).rejects.toThrow(
         'delete failed',
@@ -308,6 +303,49 @@ describe('ArticlesService', () => {
       expect(
         mockAudioFilesCleanupService.purgeAudioForSource,
       ).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('addArticle', () => {
+    const add = () =>
+      service.addArticle(
+        'https://example.com/new',
+        'New',
+        new Date('2026-09-01T12:00:00.000Z'),
+        'Feed',
+        'raw',
+        FeedProfile.TECHNOLOGY,
+      );
+
+    it('returns the id of the inserted article', async () => {
+      mockDb.get.mockImplementationOnce((sql, params, callback) => {
+        callback(null, { id: 'new-id' });
+      });
+
+      await expect(add()).resolves.toBe('new-id');
+      const [sql] = mockDb.get.mock.calls[0];
+      expect(sql).toContain('RETURNING id');
+    });
+
+    it('returns null when the url already exists', async () => {
+      mockDb.get.mockImplementationOnce((sql, params, callback) => {
+        callback(
+          Object.assign(
+            new Error('duplicate key value violates unique constraint'),
+            { code: '23505' },
+          ),
+        );
+      });
+
+      await expect(add()).resolves.toBeNull();
+    });
+
+    it('rejects on any other insert failure', async () => {
+      mockDb.get.mockImplementationOnce((sql, params, callback) => {
+        callback(new Error('connection reset'));
+      });
+
+      await expect(add()).rejects.toThrow('connection reset');
     });
   });
 
@@ -904,31 +942,21 @@ describe('ArticlesService', () => {
 
   describe('updateArticleEmbedding', () => {
     it('stores the embedding as JSON for the article', async () => {
-      const stmt = {
-        run: jest.fn((params: unknown[], callback: (err: Error | null) => void) => {
-          callback(null);
-        }),
-        finalize: jest.fn(),
-      };
-      mockDb.prepare.mockReturnValue(stmt);
+      mockDb.run.mockImplementationOnce((sql, params, callback: RunCallback) => {
+        callback.call({ changes: 1 }, null);
+      });
 
       await service.updateArticleEmbedding('a1', [0.1, 0.2]);
 
-      expect(stmt.run).toHaveBeenCalledWith(
-        ['[0.1,0.2]', 'a1'],
-        expect.any(Function),
-      );
-      expect(stmt.finalize).toHaveBeenCalled();
+      const [sql, params] = mockDb.run.mock.calls[0];
+      expect(sql).toContain('SET embedding = ?');
+      expect(params).toEqual(['[0.1,0.2]', 'a1']);
     });
 
     it('rejects when the update fails', async () => {
-      const stmt = {
-        run: jest.fn((params: unknown[], callback: (err: Error | null) => void) => {
-          callback(new Error('update failed'));
-        }),
-        finalize: jest.fn(),
-      };
-      mockDb.prepare.mockReturnValue(stmt);
+      mockDb.run.mockImplementationOnce((sql, params, callback: RunCallback) => {
+        callback.call({}, new Error('update failed'));
+      });
 
       await expect(
         service.updateArticleEmbedding('a1', [0.1]),
