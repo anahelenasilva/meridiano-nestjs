@@ -96,8 +96,6 @@ The auth lib expects a provider implementing `UserLookupProvider`:
 
 - `DatabaseModule`
 - `DatabaseService`
-- `AbstractDatabaseService`
-- `PostgresDatabaseService`
 - Database connection/statement types from `database.interface.ts`
 - `typeormConfig` and default `dataSource`
 
