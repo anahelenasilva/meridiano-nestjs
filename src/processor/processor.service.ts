@@ -97,25 +97,24 @@ export class ProcessorService {
         const finalSummary = `${summary}\n\nSource: [${article.title}](${article.url})`;
 
         let embedding: number[] | null = null;
+        let embeddingError: string | null = null;
         try {
           embedding = await this.aiService.getEmbedding(finalSummary);
-        } catch (embeddingError) {
-          const errorMessage = embeddingError instanceof Error ? embeddingError.message : String(embeddingError);
-          this.logger.error(
-            `Embedding generation failed for article ${article.id} (${article.title}): ${errorMessage}`,
-          );
-
-          stats.errors++;
-          await this.notifyEmbeddingFailure(article, errorMessage);
+        } catch (error) {
+          embeddingError =
+            error instanceof Error ? error.message : String(error);
+        }
+        if (!embedding && !embeddingError) {
+          embeddingError = 'Embedding returned null';
         }
 
-        if (!embedding && !stats.errors) {
+        if (embeddingError) {
           this.logger.error(
-            `Embedding generation returned null for article ${article.id} (${article.title})`,
+            `Embedding generation failed for article ${article.id} (${article.title}): ${embeddingError}`,
           );
 
           stats.errors++;
-          await this.notifyEmbeddingFailure(article, 'Embedding returned null');
+          await this.notifyEmbeddingFailure(article, embeddingError);
         }
 
         await this.articlesService.updateArticleProcessing(

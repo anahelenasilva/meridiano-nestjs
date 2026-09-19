@@ -321,5 +321,65 @@ describe('ProcessorService', () => {
       expect(result.articlesProcessed).toBe(1);
       expect(result.errors).toBe(1);
     });
+
+    it('alerts for each article in a run when one embedding throws and a later one returns null', async () => {
+      const article2: DBArticle = {
+        ...mockArticle,
+        id: 'article-2',
+        title: 'Second Article',
+      };
+      mockArticlesService.getUnprocessedArticles.mockResolvedValue([
+        mockArticle,
+        article2,
+      ]);
+      mockAiService.callChat.mockResolvedValue('Article summary');
+      mockAiService.getEmbedding
+        .mockRejectedValueOnce(new Error('Embedding API error'))
+        .mockResolvedValueOnce(null);
+      mockConfigService.getEmbeddingFailureNotificationEmail.mockReturnValue({
+        to: 'admin@example.com',
+        from: 'noreply@example.com',
+      });
+      mockEmailService.sendEmail.mockResolvedValue({ success: true });
+
+      const result = await service.processArticles(FeedProfile.DEFAULT, 10);
+
+      expect(mockEmailService.sendEmail).toHaveBeenCalledTimes(2);
+      const [[first], [second]] = mockEmailService.sendEmail.mock.calls;
+      expect(first.text).toContain('article-1');
+      expect(first.text).toContain('Embedding API error');
+      expect(second.text).toContain('article-2');
+      expect(second.text).toContain('Embedding returned null');
+      expect(result.errors).toBe(2);
+    });
+
+    it('alerts for a null embedding after an earlier article failed summarisation', async () => {
+      const article2: DBArticle = {
+        ...mockArticle,
+        id: 'article-2',
+        title: 'Second Article',
+      };
+      mockArticlesService.getUnprocessedArticles.mockResolvedValue([
+        mockArticle,
+        article2,
+      ]);
+      mockAiService.callChat
+        .mockResolvedValueOnce(null)
+        .mockResolvedValueOnce('Article summary');
+      mockAiService.getEmbedding.mockResolvedValueOnce(null);
+      mockConfigService.getEmbeddingFailureNotificationEmail.mockReturnValue({
+        to: 'admin@example.com',
+        from: 'noreply@example.com',
+      });
+      mockEmailService.sendEmail.mockResolvedValue({ success: true });
+
+      const result = await service.processArticles(FeedProfile.DEFAULT, 10);
+
+      expect(mockEmailService.sendEmail).toHaveBeenCalledTimes(1);
+      const [[email]] = mockEmailService.sendEmail.mock.calls;
+      expect(email.text).toContain('article-2');
+      expect(email.text).toContain('Embedding returned null');
+      expect(result.errors).toBe(2);
+    });
   });
 });
