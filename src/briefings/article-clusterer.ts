@@ -33,6 +33,14 @@ export class ArticleClusterer {
     let clusterLabels: number[];
     try {
       const embeddings = articles.map((a) => a.embedding);
+      // Vectors from two embedding models coexist until `pnpm reembed` runs
+      // after a model switch; k-means across them is meaningless.
+      const dimensions = new Set(embeddings.map((e) => e.length));
+      if (dimensions.size > 1) {
+        throw new Error(
+          `mixed embedding dimensions: ${[...dimensions].join(', ')}`,
+        );
+      }
       const result = kmeans(embeddings, effectiveK, {});
       clusterLabels = result.clusters;
     } catch (error) {
