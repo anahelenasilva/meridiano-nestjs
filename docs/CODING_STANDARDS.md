@@ -25,7 +25,7 @@
   - Passed to all subprocesses that could use it
 
 ## Comment Policy
-Only add comments when the WHY is non-obvious. Never comment what the code already expresses.
+Comment **why**, not **what**: the code already says what it does. Skip comments that restate code (`// increment counter`) or a doc block that echoes the type/signature. Keep only non-obvious context: rationale, constraints, tradeoffs, warnings, issue links. Prefer a better name over a comment. If deleting a comment loses no info, delete it.
 
 Bad:
 ```typescript
