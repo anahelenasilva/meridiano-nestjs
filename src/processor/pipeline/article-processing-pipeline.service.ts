@@ -1,9 +1,6 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import type { AiAdapter } from '../../ai/adapters/ai-adapter.interface';
-import {
-  ArticleCategory,
-  DBArticle,
-} from '../../articles/article.entity';
+import { ArticleCategory, DBArticle } from '../../articles/article.entity';
 import { ArticlesService } from '../../articles/articles.service';
 import { ConfigService } from '../../config/config.service';
 import { ProfilesService } from '../../profiles/profiles.service';
@@ -13,36 +10,40 @@ import { FeedProfile } from '../../shared/types/feed';
 import { AI_ADAPTER } from './ai-adapter.token';
 import { PROCESSING_NOTIFIER } from './processing-notifier';
 import type { ProcessingNotifier } from './processing-notifier';
-import { ProcessingResult, ProcessingStep } from './processing-result';
+import {
+  ProcessingFailure,
+  ProcessingResult,
+  ProcessingStep,
+  StepResult,
+} from './processing-result';
 import { SLEEPER } from './sleeper';
 import type { Sleeper } from './sleeper';
 
 const SUMMARY_CONTENT_LIMIT = 4000;
 const CATEGORY_CONTENT_LIMIT = 2000;
 
-type ProfilePrompts = ReturnType<ProfilesService['getPromptsForProfile']>;
-
 /**
- * Signals that a pipeline step failed. Carries the step identity and any output
- * earlier steps already produced so the caller's failure result keeps it.
+ * Thrown when the summary was persisted but its embedding failed, so the
+ * failure result still carries the summary.
  */
-class PipelineStepError extends Error {
+class EmbeddingFailedError extends Error {
   constructor(
-    readonly step: ProcessingStep,
     message: string,
-    readonly partial: { summary?: string; rating?: ImpactRating } = {},
+    readonly summary: string,
   ) {
     super(message);
-    this.name = 'PipelineStepError';
+    this.name = 'EmbeddingFailedError';
   }
 }
 
 /**
  * Deep module for the Article Summary -> Impact Rating -> categorisation
- * pipeline. `processArticle` is the only public entry point; the three steps,
- * failure notification, and rate-limiting delay are internal. It depends on the
- * {@link AiAdapter} interface (never the concrete `AiService`) so it can be unit
- * tested with a fake adapter and no real provider, database, or queue.
+ * pipeline. The queue worker runs all three steps through `processArticle`; the
+ * scheduled briefing run calls `summariseArticle`, `rateArticle` and
+ * `categoriseArticle` as separate batch stages. Each entry point alerts through
+ * the notifier once when its step fails. It depends on the {@link AiAdapter}
+ * interface (never the concrete `AiService`) so it can be unit tested with a
+ * fake adapter and no real provider, database, or queue.
  */
 @Injectable()
 export class ArticleProcessingPipelineService {
@@ -60,57 +61,90 @@ export class ArticleProcessingPipelineService {
 
   async processArticle(article: DBArticle): Promise<ProcessingResult> {
     const delayMs = this.configService.getArticleProcessingDelayMs();
-    const prompts = this.profilesService.getPromptsForProfile(
-      article.feed_profile as FeedProfile,
+
+    const summarised = await this.summariseArticle(article);
+    if (!summarised.success) return summarised;
+    const summary = summarised.value;
+    await this.sleeper.sleep(delayMs);
+
+    const rated = await this.rateArticle(article, summary);
+    if (!rated.success) return rated;
+    const rating = rated.value;
+    await this.sleeper.sleep(delayMs);
+
+    const categorised = await this.categoriseArticle(article, summary);
+    if (!categorised.success) return { ...categorised, rating };
+
+    return { success: true, summary, rating, categories: categorised.value };
+  }
+
+  /**
+   * Generates the summary, embeds it, and persists both. The summary is
+   * persisted even when embedding fails, but the step still fails so the
+   * failure is alerted and counted.
+   */
+  summariseArticle(article: DBArticle): Promise<StepResult<string>> {
+    return this.runStep(article, 'summarise', {}, () =>
+      this.summarise(article),
     );
+  }
 
-    let summary: string | undefined;
-    let rating: ImpactRating | undefined;
+  /** Rates `summary`; the batch stage passes the article's saved `processed_content`. */
+  rateArticle(
+    article: DBArticle,
+    summary: string,
+  ): Promise<StepResult<ImpactRating>> {
+    return this.runStep(article, 'rate', { summary }, () =>
+      this.rate(article, summary),
+    );
+  }
 
+  /**
+   * Categorises `summary`; the batch stage passes the article's saved
+   * `processed_content`. A missing or unparseable AI response falls back to
+   * OTHER; only a persistence error fails the step.
+   */
+  categoriseArticle(
+    article: DBArticle,
+    summary: string,
+  ): Promise<StepResult<ArticleCategory[]>> {
+    return this.runStep(article, 'categorise', { summary }, () =>
+      this.categorise(article, summary),
+    );
+  }
+
+  private async runStep<T>(
+    article: DBArticle,
+    step: ProcessingStep,
+    partial: Pick<ProcessingFailure, 'summary'>,
+    run: () => Promise<T>,
+  ): Promise<StepResult<T>> {
     try {
-      summary = await this.summarise(article, prompts);
-      await this.sleeper.sleep(delayMs);
-
-      rating = await this.rate(article, summary, prompts);
-      await this.sleeper.sleep(delayMs);
-
-      const categories = await this.categorise(article, summary);
-
-      return { success: true, summary, rating, categories };
+      return { success: true, value: await run() };
     } catch (error) {
-      const step: ProcessingStep =
-        error instanceof PipelineStepError ? error.step : 'summarise';
-      const message =
-        error instanceof Error ? error.message : String(error);
-
-      if (error instanceof PipelineStepError) {
-        summary = error.partial.summary ?? summary;
-        rating = error.partial.rating ?? rating;
-      }
+      const message = error instanceof Error ? error.message : String(error);
+      const summary =
+        error instanceof EmbeddingFailedError ? error.summary : partial.summary;
 
       this.logger.error(
         `Article ${article.id} failed at ${step} step: ${message}`,
       );
       await this.notifier.notifyFailure({ article, step, error: message });
 
-      return { success: false, failedStep: step, error: message, summary, rating };
+      return { success: false, failedStep: step, error: message, summary };
     }
   }
 
-  /**
-   * Generates the summary, embeds it, and persists both. Persisting the summary
-   * even when embedding fails preserves prior behaviour: the summary is not lost,
-   * but the article still counts as failed so the job is retried.
-   */
-  private async summarise(
-    article: DBArticle,
-    prompts: ProfilePrompts,
-  ): Promise<string> {
+  private async summarise(article: DBArticle): Promise<string> {
+    const prompts = this.promptsFor(article);
     const articleTitle = article.title || article.feed_source || 'Untitled';
 
     const baseSummaryPrompt = prompts.articleSummary
       ? this.configService.formatPrompt(prompts.articleSummary, {
-          article_content: article.raw_content.substring(0, SUMMARY_CONTENT_LIMIT),
+          article_content: article.raw_content.substring(
+            0,
+            SUMMARY_CONTENT_LIMIT,
+          ),
           article_title: articleTitle,
         })
       : this.configService.getArticleSummaryPrompt(
@@ -122,10 +156,9 @@ export class ArticleProcessingPipelineService {
       article.custom_prompt,
     );
 
-    const summary = await this.callChat(summaryPrompt, 'summarise');
+    const summary = await this.ai.chat(summaryPrompt);
     if (!summary) {
-      throw new PipelineStepError(
-        'summarise',
+      throw new Error(
         `Summarisation returned no content for article ${article.id}`,
       );
     }
@@ -150,8 +183,7 @@ export class ArticleProcessingPipelineService {
     );
 
     if (embeddingError) {
-      // Summary is persisted; surface the embedding failure while keeping it.
-      throw new PipelineStepError('summarise', embeddingError, { summary });
+      throw new EmbeddingFailedError(embeddingError, summary);
     }
 
     return summary;
@@ -160,28 +192,24 @@ export class ArticleProcessingPipelineService {
   private async rate(
     article: DBArticle,
     summary: string,
-    prompts: ProfilePrompts,
   ): Promise<ImpactRating> {
+    const prompts = this.promptsFor(article);
     const ratingPrompt = prompts.impactRating
       ? this.configService.formatPrompt(prompts.impactRating, { summary })
       : this.configService.getImpactRatingPrompt(summary);
 
-    const response = await this.callChat(ratingPrompt, 'rate');
+    const response = await this.ai.chat(ratingPrompt);
     const scoreMatch = response.trim().match(/\d+/);
     if (!scoreMatch) {
-      throw new PipelineStepError(
-        'rate',
+      throw new Error(
         `Could not extract a numeric rating for article ${article.id}`,
-        { summary },
       );
     }
 
     const score = parseInt(scoreMatch[0], 10);
     if (!this.configService.isValidImpactRating(score)) {
-      throw new PipelineStepError(
-        'rate',
+      throw new Error(
         `Rating ${score} for article ${article.id} is out of range (1-10)`,
-        { summary },
       );
     }
 
@@ -189,11 +217,6 @@ export class ArticleProcessingPipelineService {
     return score;
   }
 
-  /**
-   * Assigns categories. Mirrors prior behaviour: a missing/unparseable AI
-   * response falls back to OTHER rather than failing the article; only a
-   * persistence error fails the step.
-   */
   private async categorise(
     article: DBArticle,
     summary: string,
@@ -203,28 +226,25 @@ export class ArticleProcessingPipelineService {
       summary.substring(0, CATEGORY_CONTENT_LIMIT),
     );
 
-    let categories: ArticleCategory[] = [ArticleCategory.OTHER];
     let response: string | null = null;
     try {
-      response = await this.callChat(categoryPrompt, 'categorise');
+      response = await this.ai.chat(categoryPrompt);
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       this.logger.warn(`Category classification call failed: ${message}`);
     }
 
     const parsed = this.parseCategories(response);
-    if (parsed.length > 0) {
-      categories = parsed;
-    }
+    const categories = parsed.length > 0 ? parsed : [ArticleCategory.OTHER];
 
-    try {
-      await this.articlesService.updateArticleCategories(article.id, categories);
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      throw new PipelineStepError('categorise', message, { summary });
-    }
-
+    await this.articlesService.updateArticleCategories(article.id, categories);
     return categories;
+  }
+
+  private promptsFor(article: DBArticle) {
+    return this.profilesService.getPromptsForProfile(
+      article.feed_profile as FeedProfile,
+    );
   }
 
   private parseCategories(response: string | null): ArticleCategory[] {
@@ -241,21 +261,6 @@ export class ArticleProcessingPipelineService {
       );
     } catch {
       return [];
-    }
-  }
-
-  // Surfaces an adapter failure as a typed step failure. Steps that tolerate a
-  // failed call (categorise) catch this themselves rather than having callChat
-  // hand back a null.
-  private async callChat(
-    prompt: string,
-    step: ProcessingStep,
-  ): Promise<string> {
-    try {
-      return await this.ai.chat(prompt);
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      throw new PipelineStepError(step, message);
     }
   }
 }

@@ -1,385 +1,194 @@
 import { AudioJobService } from '@libs/audio';
-import { EmailService } from '@libs/email';
-import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
-import { AiService } from '../ai/ai.service';
-import { DBArticle } from '../articles/article.entity';
+import { AiAdapter } from '../ai/adapters/ai-adapter.interface';
+import { ArticleCategory } from '../articles/article.entity';
 import { ArticlesService } from '../articles/articles.service';
 import { ConfigService } from '../config/config.service';
 import { ProfilesService } from '../profiles/profiles.service';
 import { FeedProfile } from '../shared/types/feed';
+import { ArticleProcessingPipelineService } from './pipeline/article-processing-pipeline.service';
+import { ProcessingNotifier } from './pipeline/processing-notifier';
+import { Sleeper } from './pipeline/sleeper';
+import { makeArticle } from './pipeline/test-helpers';
 import { ProcessorService } from './processor.service';
 
 describe('ProcessorService', () => {
+  const DELAY_MS = 500;
+
+  let ai: jest.Mocked<AiAdapter>;
+  let sleeper: jest.Mocked<Sleeper>;
+  let notifier: jest.Mocked<ProcessingNotifier>;
+  let articlesService: ReturnType<typeof mock<ArticlesService>>;
+  let configService: ReturnType<typeof mock<ConfigService>>;
+  let audioJobService: ReturnType<typeof mock<AudioJobService>>;
   let service: ProcessorService;
-  const mockArticlesService = mock<ArticlesService>();
-  const mockAiService = mock<AiService>();
-  const mockConfigService = mock<ConfigService>();
-  const mockProfilesService = mock<ProfilesService>();
-  const mockAudioJobService = mock<AudioJobService>();
-  const mockEmailService = mock<EmailService>();
 
-  const mockArticle: DBArticle = {
-    id: 'article-1',
-    url: 'https://example.com/article',
-    title: 'Test Article',
-    published_date: new Date('2024-01-01'),
-    feed_source: 'test-feed',
-    raw_content: 'Test content',
-    feed_profile: FeedProfile.DEFAULT,
-    created_at: new Date('2024-01-01'),
-  };
+  beforeEach(() => {
+    ai = {
+      chat: jest.fn(),
+      embed: jest.fn().mockResolvedValue([0.1, 0.2]),
+      generateAudio: jest.fn(),
+    } as jest.Mocked<AiAdapter>;
+    sleeper = { sleep: jest.fn().mockResolvedValue(undefined) };
+    notifier = { notifyFailure: jest.fn().mockResolvedValue(undefined) };
 
-  beforeEach(async () => {
+    articlesService = mock<ArticlesService>();
+    configService = mock<ConfigService>();
+    audioJobService = mock<AudioJobService>();
+    const profilesService = mock<ProfilesService>();
 
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        {
-          provide: ProcessorService,
-          useFactory: () =>
-            new ProcessorService(
-              mockArticlesService,
-              mockAiService,
-              mockConfigService,
-              mockProfilesService,
-              mockAudioJobService,
-              mockEmailService,
-            ),
-        },
-      ],
-    }).compile();
+    configService.getArticleProcessingDelayMs.mockReturnValue(DELAY_MS);
+    configService.getArticleSummaryPrompt.mockReturnValue('summary-prompt');
+    configService.getImpactRatingPrompt.mockReturnValue('rating-prompt');
+    configService.getCategoryClassificationPrompt.mockReturnValue(
+      'category-prompt',
+    );
+    configService.isValidImpactRating.mockImplementation(
+      (r: number): r is 1 => Number.isInteger(r) && r >= 1 && r <= 10,
+    );
+    profilesService.getPromptsForProfile.mockReturnValue({});
 
-    service = module.get<ProcessorService>(ProcessorService);
-
-    mockProfilesService.getPromptsForProfile.mockReturnValue({
-      articleSummary: undefined,
-      impactRating: undefined,
-    });
-    mockConfigService.formatPrompt.mockImplementation((template) => template);
-    mockConfigService.getArticleSummaryPrompt.mockReturnValue('summary prompt');
-    mockArticlesService.getUnprocessedArticles.mockResolvedValue([mockArticle]);
+    const pipeline = new ArticleProcessingPipelineService(
+      ai,
+      sleeper,
+      notifier,
+      articlesService,
+      configService,
+      profilesService,
+    );
+    service = new ProcessorService(
+      articlesService,
+      pipeline,
+      sleeper,
+      configService,
+      audioJobService,
+    );
   });
 
-  afterEach(() => {
-    jest.clearAllMocks();
+  describe('processArticles', () => {
+    it('alerts once per article whose embedding fails, and counts it as failed', async () => {
+      articlesService.getUnprocessedArticles.mockResolvedValue([
+        makeArticle({ id: 'throws' }),
+        makeArticle({ id: 'ok' }),
+        makeArticle({ id: 'null' }),
+      ]);
+      ai.chat.mockResolvedValue('A summary');
+      ai.embed
+        .mockRejectedValueOnce(new Error('provider down'))
+        .mockResolvedValueOnce([0.1])
+        .mockResolvedValueOnce(null as unknown as number[]);
+
+      const stats = await service.processArticles(FeedProfile.DEFAULT);
+
+      expect(stats).toMatchObject({ articlesProcessed: 1, errors: 2 });
+      expect(notifier.notifyFailure).toHaveBeenCalledTimes(2);
+      expect(notifier.notifyFailure).toHaveBeenCalledWith(
+        expect.objectContaining({
+          article: expect.objectContaining({ id: 'throws' }),
+          step: 'summarise',
+        }),
+      );
+      expect(notifier.notifyFailure).toHaveBeenCalledWith(
+        expect.objectContaining({
+          article: expect.objectContaining({ id: 'null' }),
+          step: 'summarise',
+        }),
+      );
+      // The summary is still saved when only the embedding fails.
+      expect(articlesService.updateArticleProcessing).toHaveBeenCalledTimes(3);
+    });
+
+    it('only summarises, leaving rating and categorisation to their own stages', async () => {
+      articlesService.getUnprocessedArticles.mockResolvedValue([makeArticle()]);
+      ai.chat.mockResolvedValue('A summary');
+
+      await service.processArticles(FeedProfile.DEFAULT);
+
+      expect(ai.chat).toHaveBeenCalledTimes(1);
+      expect(articlesService.updateArticleRating).not.toHaveBeenCalled();
+      expect(articlesService.updateArticleCategories).not.toHaveBeenCalled();
+    });
+
+    it('sleeps the configured delay after each article', async () => {
+      articlesService.getUnprocessedArticles.mockResolvedValue([
+        makeArticle({ id: 'a' }),
+        makeArticle({ id: 'b' }),
+      ]);
+      ai.chat.mockResolvedValue('A summary');
+
+      await service.processArticles(FeedProfile.DEFAULT);
+
+      expect(sleeper.sleep).toHaveBeenCalledTimes(2);
+      expect(sleeper.sleep).toHaveBeenCalledWith(DELAY_MS);
+    });
+
+    it('enqueues audio from the summary when asked', async () => {
+      articlesService.getUnprocessedArticles.mockResolvedValue([
+        makeArticle({ id: 'a' }),
+      ]);
+      ai.chat.mockResolvedValue('A summary');
+      audioJobService.enqueueAudioJob.mockResolvedValue({
+        jobId: 'job-1',
+      } as never);
+
+      await service.processArticles(FeedProfile.DEFAULT, 1000, undefined, true);
+
+      expect(audioJobService.enqueueAudioJob).toHaveBeenCalledWith(
+        expect.objectContaining({ sourceId: 'a', text: 'A summary' }),
+      );
+    });
+
+    it('processes only the given article when an id is passed', async () => {
+      articlesService.getUnprocessedArticleById.mockResolvedValue(
+        makeArticle({ id: 'x' }),
+      );
+      ai.chat.mockResolvedValue('A summary');
+
+      const stats = await service.processArticles(FeedProfile.DEFAULT, 1, 'x');
+
+      expect(articlesService.getUnprocessedArticles).not.toHaveBeenCalled();
+      expect(stats.articlesProcessed).toBe(1);
+    });
   });
 
-  describe('processArticles - article_title placeholder', () => {
-    it('passes article title to formatPrompt when profile has articleSummary', async () => {
-      mockProfilesService.getPromptsForProfile.mockReturnValue({
-        articleSummary: 'Summarize {article_title}: {article_content}',
-        impactRating: undefined,
-      });
-      mockConfigService.formatPrompt.mockReturnValue('formatted prompt');
-      mockAiService.callChat.mockResolvedValue('Article summary');
-      mockAiService.getEmbedding.mockResolvedValue([0.1, 0.2, 0.3]);
-
-      await service.processArticles(FeedProfile.DEFAULT, 10);
-
-      expect(mockConfigService.formatPrompt).toHaveBeenCalledWith(
-        'Summarize {article_title}: {article_content}',
-        {
-          article_content: 'Test content',
-          article_title: 'Test Article',
-        },
-      );
-    });
-
-    it('uses feed_source as fallback when article title is empty', async () => {
-      const articleNoTitle: DBArticle = {
-        ...mockArticle,
-        title: '',
-        feed_source: 'test-feed',
-      };
-      mockArticlesService.getUnprocessedArticles.mockResolvedValue([articleNoTitle]);
-      mockProfilesService.getPromptsForProfile.mockReturnValue({
-        articleSummary: '{article_title}: {article_content}',
-        impactRating: undefined,
-      });
-      mockConfigService.formatPrompt.mockReturnValue('formatted prompt');
-      mockAiService.callChat.mockResolvedValue('Article summary');
-      mockAiService.getEmbedding.mockResolvedValue([0.1, 0.2, 0.3]);
-
-      await service.processArticles(FeedProfile.DEFAULT, 10);
-
-      expect(mockConfigService.formatPrompt).toHaveBeenCalledWith(
-        expect.any(String),
-        expect.objectContaining({ article_title: 'test-feed' }),
-      );
-    });
-
-    it('uses "Untitled" when both title and feed_source are empty', async () => {
-      const articleNoTitleNoFeed: DBArticle = {
-        ...mockArticle,
-        title: '',
-        feed_source: '',
-      };
-      mockArticlesService.getUnprocessedArticles.mockResolvedValue([articleNoTitleNoFeed]);
-      mockProfilesService.getPromptsForProfile.mockReturnValue({
-        articleSummary: '{article_title}: {article_content}',
-        impactRating: undefined,
-      });
-      mockConfigService.formatPrompt.mockReturnValue('formatted prompt');
-      mockAiService.callChat.mockResolvedValue('Article summary');
-      mockAiService.getEmbedding.mockResolvedValue([0.1, 0.2, 0.3]);
-
-      await service.processArticles(FeedProfile.DEFAULT, 10);
-
-      expect(mockConfigService.formatPrompt).toHaveBeenCalledWith(
-        expect.any(String),
-        expect.objectContaining({ article_title: 'Untitled' }),
-      );
-    });
-  });
-
-  describe('processArticles - backward compatibility (custom prompt)', () => {
-    it('sends base prompt to AI when article has no custom_prompt', async () => {
-      const articleWithoutCustomPrompt: DBArticle = {
-        ...mockArticle,
-        custom_prompt: undefined,
-      };
-      mockArticlesService.getUnprocessedArticles.mockResolvedValue([
-        articleWithoutCustomPrompt,
+  describe('rateArticles', () => {
+    it('rates summarised articles, skips unsummarised ones, and counts failures', async () => {
+      articlesService.getUnratedArticles.mockResolvedValue([
+        makeArticle({ id: 'good', processed_content: 'summary' }),
+        makeArticle({ id: 'no-summary' }),
+        makeArticle({ id: 'bad', processed_content: 'summary' }),
       ]);
-      mockAiService.callChat.mockResolvedValue('Article summary');
-      mockAiService.getEmbedding.mockResolvedValue([0.1, 0.2, 0.3]);
+      ai.chat.mockResolvedValueOnce('7').mockResolvedValueOnce('99');
 
-      await service.processArticles(FeedProfile.DEFAULT, 10);
+      const stats = await service.rateArticles(FeedProfile.DEFAULT);
 
-      expect(mockAiService.callChat).toHaveBeenCalledWith('summary prompt');
-      expect(mockAiService.callChat).not.toHaveBeenCalledWith(
-        expect.stringContaining('Additional instructions:'),
+      expect(stats).toMatchObject({ articlesRated: 1, errors: 1 });
+      expect(articlesService.updateArticleRating).toHaveBeenCalledWith(
+        'good',
+        7,
       );
-    });
-
-    it('sends base prompt to AI when article has custom_prompt null', async () => {
-      const articleWithNullCustomPrompt: DBArticle = {
-        ...mockArticle,
-        custom_prompt: null,
-      };
-      mockArticlesService.getUnprocessedArticles.mockResolvedValue([
-        articleWithNullCustomPrompt,
-      ]);
-      mockAiService.callChat.mockResolvedValue('Article summary');
-      mockAiService.getEmbedding.mockResolvedValue([0.1, 0.2, 0.3]);
-
-      await service.processArticles(FeedProfile.DEFAULT, 10);
-
-      expect(mockAiService.callChat).toHaveBeenCalledWith('summary prompt');
-    });
-
-    it('appends custom prompt when article has custom_prompt set', async () => {
-      const articleWithCustomPrompt: DBArticle = {
-        ...mockArticle,
-        custom_prompt: 'Focus on security implications.',
-      };
-      mockArticlesService.getUnprocessedArticles.mockResolvedValue([
-        articleWithCustomPrompt,
-      ]);
-      mockAiService.callChat.mockResolvedValue('Article summary');
-      mockAiService.getEmbedding.mockResolvedValue([0.1, 0.2, 0.3]);
-
-      await service.processArticles(FeedProfile.DEFAULT, 10);
-
-      expect(mockAiService.callChat).toHaveBeenCalledWith(
-        'summary prompt\n\nAdditional instructions: Focus on security implications.',
+      expect(notifier.notifyFailure).toHaveBeenCalledTimes(1);
+      expect(notifier.notifyFailure).toHaveBeenCalledWith(
+        expect.objectContaining({ step: 'rate' }),
       );
     });
   });
 
-  describe('processArticles - embedding failure isolation', () => {
-    it('should continue processing when embedding fails and save article without embedding', async () => {
-      mockAiService.callChat.mockResolvedValue('Article summary');
-      mockAiService.getEmbedding.mockRejectedValue(new Error('Embedding API error'));
-
-      const result = await service.processArticles(FeedProfile.DEFAULT, 10);
-
-      expect(mockAiService.callChat).toHaveBeenCalled();
-      expect(mockAiService.getEmbedding).toHaveBeenCalled();
-      expect(mockArticlesService.updateArticleProcessing).toHaveBeenCalledWith(
-        'article-1',
-        expect.stringContaining('Article summary'),
-        null,
-      );
-      expect(result.articlesProcessed).toBe(1);
-      expect(result.errors).toBe(1);
-    });
-
-    it('should send email notification when embedding fails and email config is set', async () => {
-      mockAiService.callChat.mockResolvedValue('Article summary');
-      mockAiService.getEmbedding.mockRejectedValue(new Error('Embedding API error'));
-      mockConfigService.getEmbeddingFailureNotificationEmail.mockReturnValue({
-        to: 'admin@example.com',
-        from: 'noreply@example.com',
-      });
-      mockEmailService.sendEmail.mockResolvedValue({ success: true });
-
-      await service.processArticles(FeedProfile.DEFAULT, 10);
-
-      expect(mockConfigService.getEmbeddingFailureNotificationEmail).toHaveBeenCalled();
-      expect(mockEmailService.sendEmail).toHaveBeenCalledWith({
-        from: 'noreply@example.com',
-        to: 'admin@example.com',
-        subject: 'Embedding Generation Failed',
-        text: expect.stringContaining('article-1'),
-      });
-    });
-
-    it('should log warning when embedding fails but email config is not set', async () => {
-      const loggerSpy = jest.spyOn(service['logger'], 'warn');
-      mockAiService.callChat.mockResolvedValue('Article summary');
-      mockAiService.getEmbedding.mockRejectedValue(new Error('Embedding API error'));
-      mockConfigService.getEmbeddingFailureNotificationEmail.mockReturnValue(null);
-
-      await service.processArticles(FeedProfile.DEFAULT, 10);
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        expect.stringContaining('EMBEDDING_FAILURE_NOTIFICATION_EMAIL'),
-      );
-      expect(mockEmailService.sendEmail).not.toHaveBeenCalled();
-    });
-
-    it('should handle email send failure gracefully', async () => {
-      mockAiService.callChat.mockResolvedValue('Article summary');
-      mockAiService.getEmbedding.mockRejectedValue(new Error('Embedding API error'));
-      mockConfigService.getEmbeddingFailureNotificationEmail.mockReturnValue({
-        to: 'admin@example.com',
-        from: 'noreply@example.com',
-      });
-      mockEmailService.sendEmail.mockRejectedValue(new Error('Email send failed'));
-
-      const result = await service.processArticles(FeedProfile.DEFAULT, 10);
-
-      expect(mockArticlesService.updateArticleProcessing).toHaveBeenCalled();
-      expect(result.articlesProcessed).toBe(1);
-    });
-
-    it('should process multiple articles even if embedding fails for some', async () => {
-      const article2: DBArticle = {
-        ...mockArticle,
-        id: 'article-2',
-        title: 'Second Article',
-      };
-
-      mockArticlesService.getUnprocessedArticles.mockResolvedValue([mockArticle, article2]);
-      mockAiService.callChat.mockResolvedValue('Article summary');
-      mockAiService.getEmbedding
-        .mockRejectedValueOnce(new Error('Embedding API error'))
-        .mockResolvedValueOnce([0.1, 0.2, 0.3]);
-
-      const result = await service.processArticles(FeedProfile.DEFAULT, 10);
-
-      expect(mockArticlesService.updateArticleProcessing).toHaveBeenCalledTimes(2);
-      expect(mockArticlesService.updateArticleProcessing).toHaveBeenNthCalledWith(
-        1,
-        'article-1',
-        expect.any(String),
-        null,
-      );
-      expect(mockArticlesService.updateArticleProcessing).toHaveBeenNthCalledWith(
-        2,
-        'article-2',
-        expect.any(String),
-        [0.1, 0.2, 0.3],
-      );
-      expect(result.articlesProcessed).toBe(2);
-      expect(result.errors).toBe(1);
-    });
-
-    it('should increment error count when embedding fails', async () => {
-      mockAiService.callChat.mockResolvedValue('Article summary');
-      mockAiService.getEmbedding.mockRejectedValue(new Error('Embedding API error'));
-
-      const result = await service.processArticles(FeedProfile.DEFAULT, 10);
-
-      expect(result.errors).toBe(1);
-    });
-
-    it('should handle null return from getEmbedding without throwing', async () => {
-      mockAiService.callChat.mockResolvedValue('Article summary');
-      mockAiService.getEmbedding.mockResolvedValue(null);
-      mockConfigService.getEmbeddingFailureNotificationEmail.mockReturnValue({
-        to: 'admin@example.com',
-        from: 'noreply@example.com',
-      });
-      mockEmailService.sendEmail.mockResolvedValue({ success: true });
-
-      const result = await service.processArticles(FeedProfile.DEFAULT, 10);
-
-      expect(mockAiService.getEmbedding).toHaveBeenCalled();
-      expect(mockArticlesService.updateArticleProcessing).toHaveBeenCalledWith(
-        'article-1',
-        expect.stringContaining('Article summary'),
-        null,
-      );
-      expect(mockEmailService.sendEmail).toHaveBeenCalledWith({
-        from: 'noreply@example.com',
-        to: 'admin@example.com',
-        subject: 'Embedding Generation Failed',
-        text: expect.stringContaining('Embedding returned null'),
-      });
-      expect(result.articlesProcessed).toBe(1);
-      expect(result.errors).toBe(1);
-    });
-
-    it('alerts for each article in a run when one embedding throws and a later one returns null', async () => {
-      const article2: DBArticle = {
-        ...mockArticle,
-        id: 'article-2',
-        title: 'Second Article',
-      };
-      mockArticlesService.getUnprocessedArticles.mockResolvedValue([
-        mockArticle,
-        article2,
+  describe('categorizeArticles', () => {
+    it('categorises summarised articles and skips unsummarised ones', async () => {
+      articlesService.getUncategorizedArticles.mockResolvedValue([
+        makeArticle({ id: 'good', processed_content: 'summary' }),
+        makeArticle({ id: 'no-summary' }),
       ]);
-      mockAiService.callChat.mockResolvedValue('Article summary');
-      mockAiService.getEmbedding
-        .mockRejectedValueOnce(new Error('Embedding API error'))
-        .mockResolvedValueOnce(null);
-      mockConfigService.getEmbeddingFailureNotificationEmail.mockReturnValue({
-        to: 'admin@example.com',
-        from: 'noreply@example.com',
-      });
-      mockEmailService.sendEmail.mockResolvedValue({ success: true });
+      ai.chat.mockResolvedValueOnce('["news"]');
 
-      const result = await service.processArticles(FeedProfile.DEFAULT, 10);
+      const stats = await service.categorizeArticles(FeedProfile.DEFAULT);
 
-      expect(mockEmailService.sendEmail).toHaveBeenCalledTimes(2);
-      const [[first], [second]] = mockEmailService.sendEmail.mock.calls;
-      expect(first.text).toContain('article-1');
-      expect(first.text).toContain('Embedding API error');
-      expect(second.text).toContain('article-2');
-      expect(second.text).toContain('Embedding returned null');
-      expect(result.errors).toBe(2);
-    });
-
-    it('alerts for a null embedding after an earlier article failed summarisation', async () => {
-      const article2: DBArticle = {
-        ...mockArticle,
-        id: 'article-2',
-        title: 'Second Article',
-      };
-      mockArticlesService.getUnprocessedArticles.mockResolvedValue([
-        mockArticle,
-        article2,
-      ]);
-      mockAiService.callChat
-        .mockResolvedValueOnce(null)
-        .mockResolvedValueOnce('Article summary');
-      mockAiService.getEmbedding.mockResolvedValueOnce(null);
-      mockConfigService.getEmbeddingFailureNotificationEmail.mockReturnValue({
-        to: 'admin@example.com',
-        from: 'noreply@example.com',
-      });
-      mockEmailService.sendEmail.mockResolvedValue({ success: true });
-
-      const result = await service.processArticles(FeedProfile.DEFAULT, 10);
-
-      expect(mockEmailService.sendEmail).toHaveBeenCalledTimes(1);
-      const [[email]] = mockEmailService.sendEmail.mock.calls;
-      expect(email.text).toContain('article-2');
-      expect(email.text).toContain('Embedding returned null');
-      expect(result.errors).toBe(2);
+      expect(stats).toMatchObject({ articlesCategorized: 1, errors: 0 });
+      expect(articlesService.updateArticleCategories).toHaveBeenCalledWith(
+        'good',
+        [ArticleCategory.NEWS],
+      );
     });
   });
 });
