@@ -116,8 +116,6 @@ export class ListArticlesQuery {
       this.service.getDistinctFeedSources(archiveScope),
     ]);
 
-    // The count and the page read share one filter so the total always
-    // describes the rows that paging can reach.
     const filter = {
       feedProfile,
       feedSource,
