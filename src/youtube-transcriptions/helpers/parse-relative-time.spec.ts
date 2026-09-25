@@ -46,6 +46,8 @@ describe('parseRelativeTime', () => {
   it.each([
     ['2024-01-15T10:30:00Z', '2024-01-15T10:30:00.000Z'],
     ['2024-01-15', new Date(2024, 0, 15).toISOString()],
+    ['2024-01', new Date(2024, 0, 1).toISOString()],
+    ['2024', new Date(2024, 0, 1).toISOString()],
     ['2024-01-15 10:30:00', new Date(2024, 0, 15, 10, 30).toISOString()],
     ['Mar 3, 2024', new Date(2024, 2, 3).toISOString()],
   ])('falls back to parsing "%s" as a date', (input, expected) => {
@@ -61,6 +63,8 @@ describe('parseRelativeTime', () => {
     'ago 5 hours',
     'not a date',
     'hours ago',
+    '2024-02-30',
+    '2024-13-01',
   ])('returns "Unknown" for %p', (input) => {
     expect(parseRelativeTime(input)).toBe('Unknown');
   });

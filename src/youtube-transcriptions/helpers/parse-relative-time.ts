@@ -1,8 +1,11 @@
-import { subtractFromDate } from '../../shared/helpers/date-math';
+import {
+  subtractFromDate,
+  toLocalDateString,
+} from '../../shared/helpers/date-math';
 
-// A bare `YYYY-MM-DD`. `new Date` reads it as UTC midnight, moment read it as
-// local midnight, so the fallback appends a time to keep the local reading.
-const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
+// A bare `YYYY`, `YYYY-MM` or `YYYY-MM-DD`. `new Date` reads these as UTC
+// midnight, so the fallback appends a time to read them as local midnight.
+const DATE_ONLY = /^\d{4}(-\d{2}){0,2}$/;
 
 /**
  * Parse relative time string (e.g., "11 hours ago", "2 days ago") into a Date
@@ -38,10 +41,14 @@ export function parseRelativeTime(relativeTime: string): string {
     }
 
     // If no pattern matches, try to parse as a regular date
+    const isDateOnly = DATE_ONLY.test(relativeTime);
     const parsed = new Date(
-      DATE_ONLY.test(relativeTime) ? `${relativeTime}T00:00` : relativeTime,
+      isDateOnly ? `${relativeTime}T00:00` : relativeTime,
     );
-    if (!Number.isNaN(parsed.getTime())) {
+    // `new Date` rolls `2024-02-30` over to Mar 1 instead of rejecting it.
+    const rolledOver =
+      isDateOnly && !toLocalDateString(parsed).startsWith(relativeTime);
+    if (!Number.isNaN(parsed.getTime()) && !rolledOver) {
       return parsed.toISOString();
     }
 
