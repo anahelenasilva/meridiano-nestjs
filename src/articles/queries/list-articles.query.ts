@@ -116,30 +116,28 @@ export class ListArticlesQuery {
       this.service.getDistinctFeedSources(archiveScope),
     ]);
 
-    const totalArticles = await this.service.countTotalArticles({
-      feedProfile: feedProfile,
+    // The count and the page read share one filter so the total always
+    // describes the rows that paging can reach.
+    const filter = {
+      feedProfile,
       feedSource,
-      searchTerm: searchTerm,
+      searchTerm,
       startDate: startDateToSearch,
       endDate: endDateToSearch,
-      category: category,
+      category,
       archiveScope,
-    });
+    };
+
+    const totalArticles = await this.service.countTotalArticles(filter);
 
     const totalPages = Math.ceil(totalArticles / perPage);
 
     const articles = await this.service.getArticlesPaginated({
+      ...filter,
       page,
       perPage,
       sortBy,
       direction: direction as 'asc' | 'desc',
-      feedProfile: feedProfile,
-      feedSource,
-      searchTerm: searchTerm,
-      startDate: startDate,
-      endDate: endDate,
-      category: category,
-      archiveScope,
     });
 
     // Prepare articles with HTML content. prepareArticleContent's declared

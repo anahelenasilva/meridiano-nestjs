@@ -146,6 +146,48 @@ describe('ListArticlesQuery', () => {
     expect(result?.available_sources).toEqual(['Will Larson']);
   });
 
+  describe('preset', () => {
+    beforeEach(() => {
+      jest.useFakeTimers().setSystemTime(new Date('2026-09-25T12:00:00'));
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    it('filters the count and the page rows by the same preset window', async () => {
+      mockService.getArticlesPaginated.mockResolvedValue([]);
+
+      await query.execute(userId, { preset: 'last_week' });
+
+      const window = { startDate: '2026-09-18', endDate: '2026-09-25' };
+      expect(mockService.countTotalArticles).toHaveBeenCalledWith(
+        expect.objectContaining(window),
+      );
+      expect(mockService.getArticlesPaginated).toHaveBeenCalledWith(
+        expect.objectContaining(window),
+      );
+    });
+
+    it('overrides explicit dates with the preset window on both reads', async () => {
+      mockService.getArticlesPaginated.mockResolvedValue([]);
+
+      await query.execute(userId, {
+        preset: 'yesterday',
+        startDate: '2020-01-01',
+        endDate: '2020-12-31',
+      });
+
+      const window = { startDate: '2026-09-24', endDate: '2026-09-24' };
+      expect(mockService.countTotalArticles).toHaveBeenCalledWith(
+        expect.objectContaining(window),
+      );
+      expect(mockService.getArticlesPaginated).toHaveBeenCalledWith(
+        expect.objectContaining(window),
+      );
+    });
+  });
+
   it('scopes the source options to the requested archive scope', async () => {
     mockService.getArticlesPaginated.mockResolvedValue([]);
 
