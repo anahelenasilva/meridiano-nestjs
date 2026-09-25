@@ -153,4 +153,47 @@ describe('ListArticlesQuery', () => {
 
     expect(mockService.getDistinctFeedSources).toHaveBeenCalledWith('archived');
   });
+
+  describe('date presets', () => {
+    beforeEach(() => {
+      jest.useFakeTimers({ now: new Date(2024, 4, 31, 22, 30) });
+      mockService.getArticlesPaginated.mockResolvedValue([]);
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    it.each([
+      ['yesterday', '2024-05-30', '2024-05-30'],
+      ['last_week', '2024-05-24', '2024-05-31'],
+      ['last_30d', '2024-05-01', '2024-05-31'],
+      ['last_3m', '2024-02-29', '2024-05-31'],
+      ['last_12m', '2023-05-31', '2024-05-31'],
+    ])(
+      'counts %s as %s to %s in local time',
+      async (preset, startDate, endDate) => {
+        await query.execute(userId, { preset });
+
+        expect(mockService.countTotalArticles).toHaveBeenCalledWith(
+          expect.objectContaining({ startDate, endDate }),
+        );
+      },
+    );
+
+    it('keeps the request dates for an unknown preset', async () => {
+      await query.execute(userId, {
+        preset: 'bogus',
+        startDate: '2024-01-01',
+        endDate: '2024-01-31',
+      });
+
+      expect(mockService.countTotalArticles).toHaveBeenCalledWith(
+        expect.objectContaining({
+          startDate: '2024-01-01',
+          endDate: '2024-01-31',
+        }),
+      );
+    });
+  });
 });

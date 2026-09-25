@@ -2,7 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { attachNotes, WithNote } from '../../notes/attach-notes';
 import { NotesReadService } from '../../notes/notes-read.service';
 import { Note } from '../../notes/note.entity';
-import moment from 'moment';
+import {
+  subtractFromDate,
+  toLocalDateString,
+} from '../../shared/helpers/date-math';
 import { ProfilesService } from '../../profiles/profiles.service';
 import { ArticlesService } from '../articles.service';
 import { prepareArticleContent } from '../helpers/prepareArticleContent';
@@ -181,35 +184,33 @@ export class ListArticlesQuery {
     startDate?: string;
     endDate?: string;
   } {
-    const now = moment();
+    const now = new Date();
+    const today = toLocalDateString(now);
 
     switch (preset) {
       case 'yesterday': {
-        const yesterday = now.clone().subtract(1, 'day');
-        return {
-          startDate: yesterday.format('YYYY-MM-DD'),
-          endDate: yesterday.format('YYYY-MM-DD'),
-        };
+        const yesterday = toLocalDateString(subtractFromDate(now, 1, 'days'));
+        return { startDate: yesterday, endDate: yesterday };
       }
       case 'last_week':
         return {
-          startDate: now.clone().subtract(7, 'days').format('YYYY-MM-DD'),
-          endDate: now.format('YYYY-MM-DD'),
+          startDate: toLocalDateString(subtractFromDate(now, 7, 'days')),
+          endDate: today,
         };
       case 'last_30d':
         return {
-          startDate: now.clone().subtract(30, 'days').format('YYYY-MM-DD'),
-          endDate: now.format('YYYY-MM-DD'),
+          startDate: toLocalDateString(subtractFromDate(now, 30, 'days')),
+          endDate: today,
         };
       case 'last_3m':
         return {
-          startDate: now.clone().subtract(3, 'months').format('YYYY-MM-DD'),
-          endDate: now.format('YYYY-MM-DD'),
+          startDate: toLocalDateString(subtractFromDate(now, 3, 'months')),
+          endDate: today,
         };
       case 'last_12m':
         return {
-          startDate: now.clone().subtract(12, 'months').format('YYYY-MM-DD'),
-          endDate: now.format('YYYY-MM-DD'),
+          startDate: toLocalDateString(subtractFromDate(now, 12, 'months')),
+          endDate: today,
         };
       default:
         return {};
