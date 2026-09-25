@@ -3,6 +3,7 @@ import { attachNotes, WithNote } from '../../notes/attach-notes';
 import { NotesReadService } from '../../notes/notes-read.service';
 import { Note } from '../../notes/note.entity';
 import {
+  DateUnit,
   subtractFromDate,
   toLocalDateString,
 } from '../../shared/helpers/date-math';
@@ -58,6 +59,15 @@ export type ListArticlesResponse = {
   available_categories: string[];
   available_sources: string[];
 };
+
+// Presets that run from `amount` units ago through today. `yesterday` is the
+// one preset that ends before today, so parseDatePreset handles it apart.
+const PRESET_LOOKBACKS = new Map<string, readonly [number, DateUnit]>([
+  ['last_week', [7, 'days']],
+  ['last_30d', [30, 'days']],
+  ['last_3m', [3, 'months']],
+  ['last_12m', [12, 'months']],
+]);
 
 @Injectable()
 export class ListArticlesQuery {
@@ -185,35 +195,21 @@ export class ListArticlesQuery {
     endDate?: string;
   } {
     const now = new Date();
-    const today = toLocalDateString(now);
 
-    switch (preset) {
-      case 'yesterday': {
-        const yesterday = toLocalDateString(subtractFromDate(now, 1, 'days'));
-        return { startDate: yesterday, endDate: yesterday };
-      }
-      case 'last_week':
-        return {
-          startDate: toLocalDateString(subtractFromDate(now, 7, 'days')),
-          endDate: today,
-        };
-      case 'last_30d':
-        return {
-          startDate: toLocalDateString(subtractFromDate(now, 30, 'days')),
-          endDate: today,
-        };
-      case 'last_3m':
-        return {
-          startDate: toLocalDateString(subtractFromDate(now, 3, 'months')),
-          endDate: today,
-        };
-      case 'last_12m':
-        return {
-          startDate: toLocalDateString(subtractFromDate(now, 12, 'months')),
-          endDate: today,
-        };
-      default:
-        return {};
+    if (preset === 'yesterday') {
+      const yesterday = toLocalDateString(subtractFromDate(now, 1, 'days'));
+      return { startDate: yesterday, endDate: yesterday };
     }
+
+    const lookback = PRESET_LOOKBACKS.get(preset);
+    if (!lookback) {
+      return {};
+    }
+
+    const [amount, unit] = lookback;
+    return {
+      startDate: toLocalDateString(subtractFromDate(now, amount, unit)),
+      endDate: toLocalDateString(now),
+    };
   }
 }
