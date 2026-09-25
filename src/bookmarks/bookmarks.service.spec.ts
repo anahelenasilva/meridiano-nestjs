@@ -119,6 +119,64 @@ describe('BookmarksService', () => {
     });
   });
 
+  describe('getBookmarks', () => {
+    it('maps the joined article like the articles list does', async () => {
+      mockDb.get.mockImplementationOnce((query, params, callback) => {
+        callback(null, { count: 1 });
+      });
+      mockDb.all.mockImplementationOnce((query, params, callback) => {
+        callback(null, [
+          {
+            bookmark_id: 'bookmark-1',
+            bookmark_user_id: USER_ID,
+            bookmark_created_at: '2026-05-17T12:00:00.000Z',
+            id: ARTICLE_ID,
+            url: 'https://example.com/a',
+            title: 'A',
+            published_date: '2026-05-01T00:00:00.000Z',
+            feed_source: 'example',
+            feed_profile: 'default',
+            raw_content: 'raw',
+            processed_content: null,
+            impact_rating: 7,
+            image_url: null,
+            categories: null,
+            custom_prompt: 'focus on X',
+            created_at: '2026-05-02T00:00:00.000Z',
+            archived_at: null,
+          },
+        ]);
+      });
+
+      const result = await service.getBookmarks(USER_ID, 1, 20);
+
+      expect(result.bookmarks).toEqual([
+        {
+          id: 'bookmark-1',
+          user_id: USER_ID,
+          article_id: ARTICLE_ID,
+          created_at: new Date('2026-05-17T12:00:00.000Z'),
+          article: {
+            id: ARTICLE_ID,
+            url: 'https://example.com/a',
+            title: 'A',
+            published_date: new Date('2026-05-01T00:00:00.000Z'),
+            feed_source: 'example',
+            feed_profile: 'default',
+            raw_content: 'raw',
+            processed_content: null,
+            impact_rating: 7,
+            image_url: null,
+            categories: undefined,
+            custom_prompt: 'focus on X',
+            created_at: new Date('2026-05-02T00:00:00.000Z'),
+            archived_at: null,
+          },
+        },
+      ]);
+    });
+  });
+
   describe('removeBookmark', () => {
     it('returns true when a bookmark was deleted', async () => {
       mockDb.run.mockImplementationOnce((query, params, callback: RunCallback) => {

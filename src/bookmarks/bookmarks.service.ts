@@ -1,6 +1,10 @@
 import { DatabaseService, execute, queryAll, queryOne } from '@libs/database';
 import { Injectable } from '@nestjs/common';
-import { ArticleCategory, DBArticle } from '../articles/article.entity';
+import {
+  ArticleRow,
+  articleColumns,
+  mapArticleRow,
+} from '../articles/article-row';
 import { archiveClause } from '../articles/helpers/archive-scope';
 import { AddBookmarkResult, BookmarkWithArticle } from './bookmark.entity';
 
@@ -11,19 +15,12 @@ interface BookmarkRow {
   created_at: string;
 }
 
-interface BookmarkWithArticleRow extends BookmarkRow {
-  article_url: string;
-  article_title: string;
-  article_published_date: string;
-  article_feed_source: string;
-  article_raw_content: string;
-  article_processed_content?: string | null;
-  article_embedding?: string | null;
-  article_impact_rating?: number | null;
-  article_feed_profile: string;
-  article_image_url?: string | null;
-  article_created_at: string;
-  article_categories?: string | null;
+// Bookmark columns carry a prefix so the article columns keep their own names
+// and the row can go straight through mapArticleRow.
+interface BookmarkWithArticleRow extends ArticleRow {
+  bookmark_id: string;
+  bookmark_user_id: string;
+  bookmark_created_at: string;
 }
 
 interface CountRow {
@@ -132,22 +129,10 @@ export class BookmarksService {
       db,
       `
           SELECT
-            b.id,
-            b.user_id,
-            b.article_id,
-            b.created_at,
-            a.url as article_url,
-            a.title as article_title,
-            a.published_date as article_published_date,
-            a.feed_source as article_feed_source,
-            a.raw_content as article_raw_content,
-            a.processed_content as article_processed_content,
-            a.embedding as article_embedding,
-            a.impact_rating as article_impact_rating,
-            a.feed_profile as article_feed_profile,
-            a.image_url as article_image_url,
-            a.created_at as article_created_at,
-            a.categories as article_categories
+            b.id AS bookmark_id,
+            b.user_id AS bookmark_user_id,
+            b.created_at AS bookmark_created_at,
+            ${articleColumns('a')}
           FROM bookmarks b
           INNER JOIN articles a ON b.article_id = a.id
           WHERE b.user_id = ? AND ${ACTIVE_ARTICLE}
@@ -157,33 +142,20 @@ export class BookmarksService {
       [userId, perPage, offset],
     );
 
-    const bookmarks: BookmarkWithArticle[] = rows.map((row) => {
-      const article: DBArticle = {
-        id: row.article_id,
-        url: row.article_url,
-        title: row.article_title,
-        published_date: new Date(row.article_published_date),
-        feed_source: row.article_feed_source,
-        raw_content: row.article_raw_content,
-        processed_content: row.article_processed_content,
-        embedding: row.article_embedding,
-        impact_rating: row.article_impact_rating,
-        feed_profile: row.article_feed_profile,
-        image_url: row.article_image_url,
-        created_at: new Date(row.article_created_at),
-        categories: row.article_categories
-          ? (JSON.parse(row.article_categories) as ArticleCategory[])
-          : null,
-      };
-
-      return {
-        id: row.id,
-        user_id: row.user_id,
-        article_id: row.article_id,
-        created_at: new Date(row.created_at),
-        article,
-      };
-    });
+    const bookmarks: BookmarkWithArticle[] = rows.map(
+      ({
+        bookmark_id,
+        bookmark_user_id,
+        bookmark_created_at,
+        ...articleRow
+      }) => ({
+        id: bookmark_id,
+        user_id: bookmark_user_id,
+        article_id: articleRow.id,
+        created_at: new Date(bookmark_created_at),
+        article: mapArticleRow(articleRow),
+      }),
+    );
 
     return { bookmarks, total, page, perPage };
   }

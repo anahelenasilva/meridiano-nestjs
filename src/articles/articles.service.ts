@@ -16,25 +16,8 @@ import {
   PaginatedArticleInput,
   UpdateArticlePatch,
 } from './article.entity';
+import { ArticleRow, articleColumns, mapArticleRow } from './article-row';
 import { archiveClause, ArchiveScope } from './helpers/archive-scope';
-
-interface ArticleRow {
-  id: string;
-  url: string;
-  title: string;
-  published_date: string;
-  feed_source: string;
-  raw_content: string;
-  processed_content?: string | null;
-  embedding?: string | null;
-  impact_rating?: number | null;
-  feed_profile: string;
-  image_url?: string | null;
-  categories?: string | null;
-  custom_prompt?: string | null;
-  created_at: string;
-  archived_at?: string | null;
-}
 
 interface CountRow {
   count: number;
@@ -49,26 +32,7 @@ type ArticleListDbRow = ArticleRow & { has_audio: boolean };
 // not a schema column, so it lives here rather than on DBArticle.
 export type ArticleListRow = DBArticle & { has_audio: boolean };
 
-// Every explicit-column read or RETURNING clause in this service selects the
-// same fourteen columns. One constant keeps a new column from requiring an
-// edit at each call site; missing one is a silent null field, not a compiler
-// error or a failing test.
-const ARTICLE_COLUMNS =
-  'id, url, title, published_date, feed_source, feed_profile, raw_content, processed_content, impact_rating, image_url, categories, custom_prompt, created_at, archived_at';
-
-// Every read in this service returned an identical hand-written row mapping.
-// One mapper keeps a new column from having to be added in fourteen places.
-function mapArticleRow(row: ArticleRow): DBArticle {
-  return {
-    ...row,
-    published_date: new Date(row.published_date),
-    created_at: new Date(row.created_at),
-    categories: row.categories
-      ? (JSON.parse(row.categories) as ArticleCategory[])
-      : undefined,
-    archived_at: row.archived_at ? new Date(row.archived_at) : null,
-  };
-}
+const ARTICLE_COLUMNS = articleColumns();
 
 @Injectable()
 export class ArticlesService {
