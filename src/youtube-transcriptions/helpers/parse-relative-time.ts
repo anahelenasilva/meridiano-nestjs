@@ -1,4 +1,11 @@
-import moment from 'moment';
+import {
+  subtractFromDate,
+  toLocalDateString,
+} from '../../shared/helpers/date-math';
+
+// A bare `YYYY`, `YYYY-MM` or `YYYY-MM-DD`. `new Date` reads these as UTC
+// midnight, so the fallback appends a time to read them as local midnight.
+const DATE_ONLY = /^\d{4}(-\d{2}){0,2}$/;
 
 /**
  * Parse relative time string (e.g., "11 hours ago", "2 days ago") into a Date
@@ -11,7 +18,7 @@ export function parseRelativeTime(relativeTime: string): string {
   }
 
   try {
-    const now = moment();
+    const now = new Date();
     const lowerTime = relativeTime.toLowerCase().trim();
 
     // Match patterns like "11 hours ago", "2 days ago", "3 weeks ago", etc.
@@ -29,14 +36,19 @@ export function parseRelativeTime(relativeTime: string): string {
       const match = lowerTime.match(pattern.regex);
       if (match) {
         const amount = parseInt(match[1], 10);
-        const date = now.clone().subtract(amount, pattern.unit);
-        return date.toISOString();
+        return subtractFromDate(now, amount, pattern.unit).toISOString();
       }
     }
 
     // If no pattern matches, try to parse as a regular date
-    const parsed = moment(relativeTime);
-    if (parsed.isValid()) {
+    const isDateOnly = DATE_ONLY.test(relativeTime);
+    const parsed = new Date(
+      isDateOnly ? `${relativeTime}T00:00` : relativeTime,
+    );
+    // `new Date` rolls `2024-02-30` over to Mar 1 instead of rejecting it.
+    const rolledOver =
+      isDateOnly && !toLocalDateString(parsed).startsWith(relativeTime);
+    if (!Number.isNaN(parsed.getTime()) && !rolledOver) {
       return parsed.toISOString();
     }
 
