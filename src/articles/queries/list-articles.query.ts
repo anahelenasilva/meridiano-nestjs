@@ -60,8 +60,6 @@ export type ListArticlesResponse = {
   available_sources: string[];
 };
 
-// Presets that run from `amount` units ago through today. `yesterday` is the
-// one preset that ends before today, so parseDatePreset handles it apart.
 const PRESET_LOOKBACKS = new Map<string, readonly [number, DateUnit]>([
   ['last_week', [7, 'days']],
   ['last_30d', [30, 'days']],

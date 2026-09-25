@@ -55,7 +55,6 @@ function subtractMonths(date: Date, months: number): Date {
   return result;
 }
 
-/** Formats `date` as `YYYY-MM-DD` in the server's time zone, not UTC. */
 export function toLocalDateString(date: Date): string {
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
