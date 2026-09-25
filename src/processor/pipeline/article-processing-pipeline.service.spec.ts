@@ -193,6 +193,26 @@ describe('ArticleProcessingPipelineService', () => {
       expect(articlesService.updateArticleRating).toHaveBeenCalledWith('a', 6);
     });
 
+    it('categoriseArticle keeps the summary when persisting categories fails', async () => {
+      ai.chat.mockResolvedValueOnce('["news"]');
+      articlesService.updateArticleCategories.mockRejectedValueOnce(
+        new Error('db down'),
+      );
+
+      const result = await service.categoriseArticle(
+        makeArticle(),
+        'saved summary',
+      );
+
+      expect(result).toEqual({
+        success: false,
+        failedStep: 'categorise',
+        error: 'db down',
+        summary: 'saved summary',
+      });
+      expect(notifier.notifyFailure).toHaveBeenCalledTimes(1);
+    });
+
     it('reports a persistence error at the step that hit it', async () => {
       ai.chat.mockResolvedValueOnce('6');
       articlesService.updateArticleRating.mockRejectedValueOnce(

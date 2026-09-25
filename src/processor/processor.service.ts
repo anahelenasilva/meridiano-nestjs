@@ -140,9 +140,9 @@ export class ProcessorService {
     };
   }
 
-  private finish(stats: ProcessingStats, summary: string): ProcessingStats {
+  private finish(stats: ProcessingStats, outcome: string): ProcessingStats {
     stats.endTime = new Date();
-    this.logger.log(`${summary} articles, ${stats.errors} failed.`);
+    this.logger.log(`${outcome} articles, ${stats.errors} failed.`);
     return stats;
   }
 

@@ -25,5 +25,5 @@ export interface ProcessingFailure {
 
 export type ProcessingResult = ProcessingSuccess | ProcessingFailure;
 
-/** Result of a single step run on its own by the scheduled briefing run. */
+/** Result of one pipeline step, returned by the per-step entry points. */
 export type StepResult<T> = { success: true; value: T } | ProcessingFailure;
