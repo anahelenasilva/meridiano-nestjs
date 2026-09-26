@@ -9,7 +9,6 @@ import { ProcessArticlesUseCase } from '../briefings/usecases/process-articles.u
 import { RateArticlesUseCase } from '../briefings/usecases/rate-articles.usecase';
 import { RunBriefingUseCase } from '../briefings/usecases/run-briefing.usecase';
 import { ScrapeArticlesUseCase } from '../briefings/usecases/scrape-articles.usecase';
-import { ScrapeSitemapsUseCase } from '../briefings/usecases/scrape-sitemaps.usecase';
 import { ProfilesService } from '../profiles/profiles.service';
 import { FeedProfile } from '../shared/types/feed';
 
@@ -21,7 +20,6 @@ interface Services {
   app: INestApplicationContext;
   runBriefingUseCase: RunBriefingUseCase;
   scrapeArticlesUseCase: ScrapeArticlesUseCase;
-  scrapeSitemapsUseCase: ScrapeSitemapsUseCase;
   processArticlesUseCase: ProcessArticlesUseCase;
   rateArticlesUseCase: RateArticlesUseCase;
   categorizeArticlesUseCase: CategorizeArticlesUseCase;
@@ -35,7 +33,6 @@ async function initialize(): Promise<Services> {
     app,
     runBriefingUseCase: app.get(RunBriefingUseCase),
     scrapeArticlesUseCase: app.get(ScrapeArticlesUseCase),
-    scrapeSitemapsUseCase: app.get(ScrapeSitemapsUseCase),
     processArticlesUseCase: app.get(ProcessArticlesUseCase),
     rateArticlesUseCase: app.get(RateArticlesUseCase),
     categorizeArticlesUseCase: app.get(CategorizeArticlesUseCase),
@@ -164,16 +161,18 @@ async function main(): Promise<void> {
         const result = await services.scrapeArticlesUseCase.execute({
           feedProfile,
         });
-        console.log(
-          `Scraping completed. New articles: ${result.newArticles}, Errors: ${result.errors}`,
-        );
-
-        const sitemapResult = await services.scrapeSitemapsUseCase.execute({
-          feedProfile,
-        });
-        console.log(
-          `Sitemap scraping completed. New articles: ${sitemapResult.newArticles}, Errors: ${sitemapResult.errors}`,
-        );
+        if (result.status === 'no_sources') {
+          console.log(
+            `No enabled feeds or sitemap sources found for profile '${feedProfile}'.`,
+          );
+        } else {
+          console.log(
+            `Scraping completed. New articles: ${result.rss.newArticles}, Errors: ${result.rss.errors}`,
+          );
+          console.log(
+            `Sitemap scraping completed. New articles: ${result.sitemap.newArticles}, Errors: ${result.sitemap.errors}`,
+          );
+        }
       }
 
       if (options.process) {

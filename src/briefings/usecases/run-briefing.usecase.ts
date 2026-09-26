@@ -1,6 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '../../config/config.service';
-import { ProfilesService } from '../../profiles/profiles.service';
 import { CategorizeArticlesUseCase } from './categorize-articles.usecase';
 import {
   RunBriefingInputDto,
@@ -10,7 +9,6 @@ import { GenerateBriefUseCase } from './generate-brief.usecase';
 import { ProcessArticlesUseCase } from './process-articles.usecase';
 import { RateArticlesUseCase } from './rate-articles.usecase';
 import { ScrapeArticlesUseCase } from './scrape-articles.usecase';
-import { ScrapeSitemapsUseCase } from './scrape-sitemaps.usecase';
 
 @Injectable()
 export class RunBriefingUseCase {
@@ -18,45 +16,26 @@ export class RunBriefingUseCase {
 
   constructor(
     private readonly scrapeArticlesUseCase: ScrapeArticlesUseCase,
-    private readonly scrapeSitemapsUseCase: ScrapeSitemapsUseCase,
     private readonly processArticlesUseCase: ProcessArticlesUseCase,
     private readonly rateArticlesUseCase: RateArticlesUseCase,
     private readonly categorizeArticlesUseCase: CategorizeArticlesUseCase,
     private readonly generateBriefUseCase: GenerateBriefUseCase,
-    private readonly profilesService: ProfilesService,
     private readonly configService: ConfigService,
   ) {}
 
   async execute(input: RunBriefingInputDto): Promise<RunBriefingOutputDto> {
     const startTime = new Date();
 
-    const enabledFeeds = this.profilesService.getEnabledFeedsForProfile(
-      input.feedProfile,
-    );
-    const enabledSitemapSources =
-      this.profilesService.getEnabledSitemapSourcesForProfile(
-        input.feedProfile,
-      );
+    const scrape = await this.scrapeArticlesUseCase.execute({
+      feedProfile: input.feedProfile,
+    });
 
-    if (enabledFeeds.length === 0 && enabledSitemapSources.length === 0) {
-      this.logger.warn(
-        `No enabled feeds or sitemap sources found for profile '${input.feedProfile}'.`,
-      );
+    if (scrape.status === 'no_sources') {
+      const error = `No enabled feeds or sitemap sources found for profile '${input.feedProfile}'.`;
+      this.logger.warn(error);
 
-      return {
-        success: false,
-        duration: 0,
-        error: `No enabled feeds or sitemap sources found for profile '${input.feedProfile}'.`,
-      };
+      return { success: false, duration: 0, error };
     }
-
-    const scrapingStats = await this.scrapeArticlesUseCase.execute({
-      feedProfile: input.feedProfile,
-    });
-
-    const sitemapScrapingStats = await this.scrapeSitemapsUseCase.execute({
-      feedProfile: input.feedProfile,
-    });
 
     const processingStats = await this.processArticlesUseCase.execute({
       feedProfile: input.feedProfile,
@@ -95,8 +74,8 @@ export class RunBriefingUseCase {
       success: briefResult.success,
       duration,
       stages: {
-        scraping: scrapingStats,
-        sitemapScraping: sitemapScrapingStats,
+        scraping: scrape.rss,
+        sitemapScraping: scrape.sitemap,
         processing: processingStats,
         rating: ratingStats,
         categorization: categorizationStats,

@@ -7,8 +7,8 @@ import { ArticleContent } from '../articles/article.entity';
 import { ArticleIngestionService } from '../articles/ingestion/article-ingestion.service';
 import { ConfigService } from '../config/config.service';
 import { ProfilesService } from '../profiles/profiles.service';
-import { FeedProfile, SitemapSource } from '../shared/types/feed';
-import { ScrapingStats } from './scrapper.entity';
+import { FeedProfile, RSSFeed, SitemapSource } from '../shared/types/feed';
+import { FeedProfileScrape, ScrapingStats } from './scrapper.entity';
 import { fetchSitemapEntries } from './sitemap-fetcher';
 
 interface RSSEnclosure {
@@ -226,38 +226,40 @@ export class ScraperService {
     return article.id;
   }
 
-  async scrapeArticles(
+  /**
+   * Scrapes every enabled RSS feed and sitemap source of a Feed Profile.
+   * Reports `no_sources` without scraping when the profile has neither.
+   */
+  async scrapeFeedProfile(
     feedProfile: FeedProfile,
-    rssFeeds?: string[],
-  ): Promise<ScrapingStats> {
-    // console.log(`\n--- Starting Article Scraping [${feedProfile}] ---`);
+  ): Promise<FeedProfileScrape> {
+    const feeds = this.profilesService.getEnabledFeedsForProfile(feedProfile);
+    const sitemapSources =
+      this.profilesService.getEnabledSitemapSourcesForProfile(feedProfile);
 
+    if (feeds.length === 0 && sitemapSources.length === 0) {
+      return { status: 'no_sources' };
+    }
+
+    const rss = await this.scrapeRssFeeds(feedProfile, feeds);
+    const sitemap = await this.scrapeSitemaps(feedProfile, sitemapSources);
+
+    return { status: 'scraped', rss, sitemap };
+  }
+
+  private async scrapeRssFeeds(
+    feedProfile: FeedProfile,
+    feeds: RSSFeed[],
+  ): Promise<ScrapingStats> {
     const stats: ScrapingStats = {
       feedProfile,
-      totalFeeds: 0,
+      totalFeeds: feeds.length,
       newArticles: 0,
       errors: 0,
       startTime: new Date(),
     };
 
-    // Override URLs carry no configured name, so they keep the publisher-title
-    // fallback below. Profile feeds keep RSSFeed.name, which is what CONTEXT.md
-    // says feed_source holds for RSS articles.
-    const feeds: { url: string; name?: string }[] = rssFeeds
-      ? rssFeeds.map((url) => ({ url }))
-      : this.profilesService.getEnabledFeedsForProfile(feedProfile);
-
-    if (feeds.length === 0) {
-      console.log(
-        `Warning: No RSS feeds found for profile '${feedProfile}'. Skipping scrape.`,
-      );
-      stats.endTime = new Date();
-      return stats;
-    }
-
-    stats.totalFeeds = feeds.length;
-
-    for (const { url: feedUrl, name: configuredName } of feeds) {
+    for (const { url: feedUrl, name: feedName } of feeds) {
       // console.log(`Fetching feed: ${feedUrl}`);
 
       try {
@@ -279,7 +281,6 @@ export class ScraperService {
           const publishedDate = entry.pubDate
             ? new Date(entry.pubDate)
             : new Date();
-          const feedSource = configuredName || feed.title || feedUrl;
 
           if (!url) {
             continue;
@@ -325,7 +326,7 @@ export class ScraperService {
             content: rawContent,
             publishedDate,
             feedProfile,
-            source: { type: 'rss', feedName: feedSource },
+            source: { type: 'rss', feedName },
             imageUrl: finalImageUrl || undefined,
           });
 
@@ -347,28 +348,18 @@ export class ScraperService {
     return stats;
   }
 
-  async scrapeSitemaps(
+  private async scrapeSitemaps(
     feedProfile: FeedProfile,
-    sources?: SitemapSource[],
+    sitemapSources: SitemapSource[],
   ): Promise<ScrapingStats> {
     const stats: ScrapingStats = {
       feedProfile,
-      totalFeeds: 0,
+      totalFeeds: sitemapSources.length,
       newArticles: 0,
       errors: 0,
       startTime: new Date(),
     };
 
-    const sitemapSources =
-      sources ??
-      this.profilesService.getEnabledSitemapSourcesForProfile(feedProfile);
-
-    if (sitemapSources.length === 0) {
-      stats.endTime = new Date();
-      return stats;
-    }
-
-    stats.totalFeeds = sitemapSources.length;
     const appConfig = this.configService.getAppConfig();
     const maxArticles = appConfig.maxArticlesForScrapping || 15;
 

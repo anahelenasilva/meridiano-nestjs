@@ -8,3 +8,7 @@ export interface ScrapingStats {
   startTime: Date;
   endTime?: Date;
 }
+
+export type FeedProfileScrape =
+  | { status: 'no_sources' }
+  | { status: 'scraped'; rss: ScrapingStats; sitemap: ScrapingStats };
