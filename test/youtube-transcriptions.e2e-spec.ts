@@ -74,9 +74,7 @@ describe('YouTube Transcriptions list (e2e)', () => {
     };
   }
 
-  function buildChannel(
-    overrides: Partial<YoutubeChannel> = {},
-  ): YoutubeChannel {
+  function buildChannel(overrides: Partial<YoutubeChannel> = {}): YoutubeChannel {
     return {
       id: augustoInternalId,
       channelId: 'UCLW51-XEzuOm5RwPMChHBMw',
@@ -142,10 +140,7 @@ describe('YouTube Transcriptions list (e2e)', () => {
           provide: EnqueueYoutubeTranscriptionsCommand,
           useValue: enqueueTranscriptionsCommand,
         },
-        {
-          provide: ListFailedIngestJobsQuery,
-          useValue: listFailedIngestJobsQuery,
-        },
+        { provide: ListFailedIngestJobsQuery, useValue: listFailedIngestJobsQuery },
         { provide: DismissIngestJobCommand, useValue: dismissIngestJobCommand },
         { provide: AudioJobService, useValue: mock() },
         { provide: AudioFilesService, useValue: mock() },
@@ -235,7 +230,7 @@ describe('YouTube Transcriptions list (e2e)', () => {
     ]);
   });
 
-  it("surfaces each channel's categories in available_channels", async () => {
+  it('surfaces each channel\'s categories in available_channels', async () => {
     const tech = buildCategory({ id: 'category-1', name: 'tech' });
 
     mockService.getAllTranscriptions.mockResolvedValue([buildTranscription()]);
@@ -291,9 +286,7 @@ describe('YouTube Transcriptions list (e2e)', () => {
       (channelId, categoryIds) => {
         categoriesByChannel.set(
           channelId,
-          categoryIds.map((id) =>
-            id === tech.id ? tech : buildCategory({ id }),
-          ),
+          categoryIds.map((id) => (id === tech.id ? tech : buildCategory({ id }))),
         );
         return Promise.resolve();
       },
@@ -326,9 +319,7 @@ describe('YouTube Transcriptions list (e2e)', () => {
       enqueueTranscriptionsCommand.execute.mockResolvedValue({
         accepted: ['https://www.youtube.com/watch?v=abc123'],
         skipped: ['https://www.youtube.com/watch?v=dup456'],
-        rejected: [
-          { url: 'not a url', reason: 'Not a recognizable YouTube video URL' },
-        ],
+        rejected: [{ url: 'not a url', reason: 'Not a recognizable YouTube video URL' }],
       });
 
       const response = await request(app.getHttpServer())
@@ -346,9 +337,7 @@ describe('YouTube Transcriptions list (e2e)', () => {
       expect(response.body).toEqual({
         accepted: ['https://www.youtube.com/watch?v=abc123'],
         skipped: ['https://www.youtube.com/watch?v=dup456'],
-        rejected: [
-          { url: 'not a url', reason: 'Not a recognizable YouTube video URL' },
-        ],
+        rejected: [{ url: 'not a url', reason: 'Not a recognizable YouTube video URL' }],
       });
     });
 

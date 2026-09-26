@@ -51,9 +51,7 @@ export class YoutubeTranscriptionsController {
   ) {}
 
   @Get('transcriptions')
-  @ApiOperation({
-    summary: "List the authenticated user's YouTube transcriptions",
-  })
+  @ApiOperation({ summary: "List the authenticated user's YouTube transcriptions" })
   @ApiOkResponse({ description: 'List of YouTube transcriptions' })
   async listTranscriptions(@Req() request: AuthenticatedRequest) {
     return await this.listAllYoutubeTranscriptionsQuery.execute(
@@ -138,14 +136,8 @@ export class YoutubeTranscriptionsController {
   @ApiOperation({ summary: 'Generate audio for a YouTube transcription' })
   @ApiResponse({ status: 202, description: 'Audio generation job accepted' })
   @ApiNotFoundResponse({ description: 'YouTube transcription not found' })
-  @ApiResponse({
-    status: 400,
-    description: 'Transcription has no content available for audio generation',
-  })
-  @ApiResponse({
-    status: 409,
-    description: 'Audio already exists or generation already in progress',
-  })
+  @ApiResponse({ status: 400, description: 'Transcription has no content available for audio generation' })
+  @ApiResponse({ status: 409, description: 'Audio already exists or generation already in progress' })
   async generateAudio(
     @Req() request: AuthenticatedRequest,
     @Param('id', ParseUUIDPipe) id: string,

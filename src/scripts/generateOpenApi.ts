@@ -299,7 +299,7 @@ async function createOpenApiApp(): Promise<INestApplication> {
       { provide: NOTES_SERVICE, useValue: notesServiceStub },
       { provide: ArticlesService, useValue: {} },
       { provide: ListArticlesQuery, useValue: {} },
-      { provide: ListArticlesLeanQuery, useValue: {} },
+    { provide: ListArticlesLeanQuery, useValue: {} },
       { provide: GetArticleByIdQuery, useValue: {} },
       { provide: ScraperService, useValue: {} },
       { provide: GenerateArticleAudioCommand, useValue: {} },
