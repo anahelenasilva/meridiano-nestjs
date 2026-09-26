@@ -131,23 +131,11 @@ describe('ProcessorService', () => {
         jobId: 'job-1',
       } as never);
 
-      await service.processArticles(FeedProfile.DEFAULT, 1000, undefined, true);
+      await service.processArticles(FeedProfile.DEFAULT, true);
 
       expect(audioJobService.enqueueAudioJob).toHaveBeenCalledWith(
         expect.objectContaining({ sourceId: 'a', text: 'A summary' }),
       );
-    });
-
-    it('processes only the given article when an id is passed', async () => {
-      articlesService.getUnprocessedArticleById.mockResolvedValue(
-        makeArticle({ id: 'x' }),
-      );
-      ai.chat.mockResolvedValue('A summary');
-
-      const stats = await service.processArticles(FeedProfile.DEFAULT, 1, 'x');
-
-      expect(articlesService.getUnprocessedArticles).not.toHaveBeenCalled();
-      expect(stats.articlesProcessed).toBe(1);
     });
   });
 

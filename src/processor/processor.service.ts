@@ -1,19 +1,20 @@
 import { AudioJobService } from '@libs/audio';
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { DBArticle } from '../articles/article.entity';
 import { ArticlesService } from '../articles/articles.service';
 import { ConfigService } from '../config/config.service';
 import { ProcessingStats } from '../shared/types/ai';
 import { FeedProfile } from '../shared/types/feed';
+import { enqueueArticleAudio } from './enqueue-article-audio';
 import { ArticleProcessingPipelineService } from './pipeline/article-processing-pipeline.service';
 import { SLEEPER } from './pipeline/sleeper';
 import type { Sleeper } from './pipeline/sleeper';
 
+const BATCH_LIMIT = 1000;
+
 /**
- * Batch stages for the scheduled briefing run and markdown uploads. Each stage
- * loads the articles still waiting on one step, runs that step through the
- * {@link ArticleProcessingPipelineService} per article, and reports counts. Pass
- * `articleId` to run a stage for that one article.
+ * Batch stages for the scheduled briefing run. Each stage loads the articles
+ * still waiting on one step, runs that step through the
+ * {@link ArticleProcessingPipelineService} per article, and reports counts.
  */
 @Injectable()
 export class ProcessorService {
@@ -29,16 +30,13 @@ export class ProcessorService {
 
   async processArticles(
     feedProfile: FeedProfile,
-    limit: number = 1000,
-    articleId?: string,
     generateAudio?: boolean,
   ): Promise<ProcessingStats> {
     const stats = this.newStats(feedProfile);
-    const articles = articleId
-      ? await this.byId(
-          this.articlesService.getUnprocessedArticleById(articleId),
-        )
-      : await this.articlesService.getUnprocessedArticles(feedProfile, limit);
+    const articles = await this.articlesService.getUnprocessedArticles(
+      feedProfile,
+      BATCH_LIMIT,
+    );
 
     this.logger.log(`Found ${articles.length} articles to summarise.`);
 
@@ -47,7 +45,12 @@ export class ProcessorService {
       if (result.success) {
         stats.articlesProcessed++;
         if (generateAudio) {
-          await this.enqueueAudio(article, result.value);
+          await enqueueArticleAudio(
+            this.audioJobService,
+            this.logger,
+            article,
+            result.value,
+          );
         }
       } else {
         stats.errors++;
@@ -58,15 +61,12 @@ export class ProcessorService {
     return this.finish(stats, `Summarised ${stats.articlesProcessed}`);
   }
 
-  async rateArticles(
-    feedProfile: FeedProfile,
-    limit: number = 1000,
-    articleId?: string,
-  ): Promise<ProcessingStats> {
+  async rateArticles(feedProfile: FeedProfile): Promise<ProcessingStats> {
     const stats = this.newStats(feedProfile);
-    const articles = articleId
-      ? await this.byId(this.articlesService.getUnratedArticleById(articleId))
-      : await this.articlesService.getUnratedArticles(feedProfile, limit);
+    const articles = await this.articlesService.getUnratedArticles(
+      feedProfile,
+      BATCH_LIMIT,
+    );
 
     this.logger.log(`Found ${articles.length} articles to rate.`);
 
@@ -90,17 +90,12 @@ export class ProcessorService {
     return this.finish(stats, `Rated ${stats.articlesRated}`);
   }
 
-  async categorizeArticles(
-    feedProfile: FeedProfile,
-    limit: number = 1000,
-    articleId?: string,
-  ): Promise<ProcessingStats> {
+  async categorizeArticles(feedProfile: FeedProfile): Promise<ProcessingStats> {
     const stats = this.newStats(feedProfile);
-    const articles = articleId
-      ? await this.byId(
-          this.articlesService.getUncategorizedArticleById(articleId),
-        )
-      : await this.articlesService.getUncategorizedArticles(feedProfile, limit);
+    const articles = await this.articlesService.getUncategorizedArticles(
+      feedProfile,
+      BATCH_LIMIT,
+    );
 
     this.logger.log(`Found ${articles.length} articles to categorise.`);
 
@@ -124,11 +119,6 @@ export class ProcessorService {
     return this.finish(stats, `Categorised ${stats.articlesCategorized}`);
   }
 
-  private async byId(lookup: Promise<DBArticle | null>): Promise<DBArticle[]> {
-    const article = await lookup;
-    return article ? [article] : [];
-  }
-
   private newStats(feedProfile: FeedProfile): ProcessingStats {
     return {
       feedProfile,
@@ -148,28 +138,5 @@ export class ProcessorService {
 
   private pause(): Promise<void> {
     return this.sleeper.sleep(this.configService.getArticleProcessingDelayMs());
-  }
-
-  private async enqueueAudio(
-    article: DBArticle,
-    summary: string,
-  ): Promise<void> {
-    try {
-      const jobInfo = await this.audioJobService.enqueueAudioJob({
-        sourceType: 'article',
-        sourceId: article.id,
-        text: summary,
-        date: article.published_date
-          ? new Date(article.published_date)
-          : new Date(),
-      });
-      this.logger.log(`Audio generation job enqueued: ${jobInfo.jobId}`);
-    } catch (error) {
-      // Audio is best-effort; a failure here must not fail article processing.
-      this.logger.error(
-        `Error enqueuing audio generation for article ${article.id}`,
-        error instanceof Error ? error.stack : String(error),
-      );
-    }
   }
 }

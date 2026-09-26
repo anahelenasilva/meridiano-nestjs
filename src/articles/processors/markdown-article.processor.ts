@@ -1,24 +1,38 @@
+import { AudioJobService } from '@libs/audio';
 import {
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
   ProcessMarkdownArticleJobData,
 } from '@libs/queue';
 import { RedisService } from '@libs/redis';
 import { S3Service } from '@libs/s3';
-import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  OnModuleDestroy,
+  OnModuleInit,
+} from '@nestjs/common';
 import { Job, Worker } from 'bullmq';
-import { ProcessorService } from '../../processor/processor.service';
+import { enqueueArticleAudio } from '../../processor/enqueue-article-audio';
+import { ArticleProcessingPipelineService } from '../../processor/pipeline/article-processing-pipeline.service';
 import { ArticleIngestionService } from '../ingestion/article-ingestion.service';
 import { parseMarkdownArticle } from '../helpers/parse-markdown';
 
+/**
+ * Bull worker for uploaded markdown: download from S3 -> parse -> ingest (which
+ * runs ADR-0003 Article Source extraction before save) -> run the saved Article
+ * through the {@link ArticleProcessingPipelineService}.
+ */
 @Injectable()
 export class MarkdownArticleProcessor implements OnModuleInit, OnModuleDestroy {
+  private readonly logger = new Logger(MarkdownArticleProcessor.name);
   private worker: Worker;
 
   constructor(
     private readonly redisService: RedisService,
     private readonly s3Service: S3Service,
     private readonly ingestionService: ArticleIngestionService,
-    private readonly processorService: ProcessorService,
+    private readonly pipeline: ArticleProcessingPipelineService,
+    private readonly audioJobService: AudioJobService,
   ) {}
 
   onModuleInit() {
@@ -78,7 +92,7 @@ export class MarkdownArticleProcessor implements OnModuleInit, OnModuleDestroy {
       const parsedArticle = parseMarkdownArticle(markdownContent);
 
       console.log(`Step 3: Creating article in database...`);
-      const { id: articleId } = await this.ingestionService.ingest({
+      const article = await this.ingestionService.ingest({
         url: `s3://${s3Bucket}/${s3Key}`,
         title: parsedArticle.title,
         publishedDate: parsedArticle.publishedDate,
@@ -88,43 +102,26 @@ export class MarkdownArticleProcessor implements OnModuleInit, OnModuleDestroy {
         customPrompt,
       });
 
+      const articleId = article.id;
       console.log(`Article created with ID: ${articleId}`);
 
-      console.log(`Step 4: Processing article ${articleId}...`);
-      const processStats = await this.processorService.processArticles(
-        feedProfile,
-        1,
-        articleId,
-        generateAudio,
+      console.log(
+        `Step 4: Running article ${articleId} through the pipeline...`,
       );
-
-      if (processStats.errors > 0 || processStats.articlesProcessed === 0) {
-        throw new Error('Failed to process article');
+      const result = await this.pipeline.processArticle(article);
+      if (!result.success) {
+        throw new Error(
+          `Failed to process article ${articleId} at ${result.failedStep} step: ${result.error}`,
+        );
       }
 
-      console.log(`Step 5: Rating article ${articleId}...`);
-      const rateStats = await this.processorService.rateArticles(
-        feedProfile,
-        1,
-        articleId,
-      );
-
-      if (rateStats.errors > 0 || rateStats.articlesRated === 0) {
-        throw new Error('Failed to rate article');
-      }
-
-      console.log(`Step 6: Categorizing article ${articleId}...`);
-      const categorizeStats = await this.processorService.categorizeArticles(
-        feedProfile,
-        1,
-        articleId,
-      );
-
-      if (
-        categorizeStats.errors > 0 ||
-        categorizeStats.articlesCategorized === 0
-      ) {
-        throw new Error('Failed to categorize article');
+      if (generateAudio) {
+        await enqueueArticleAudio(
+          this.audioJobService,
+          this.logger,
+          article,
+          result.summary,
+        );
       }
 
       console.log(

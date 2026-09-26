@@ -14,8 +14,6 @@ export class ProcessArticlesUseCase {
   ): Promise<ProcessArticlesOutputDto> {
     const stats = await this.processorService.processArticles(
       input.feedProfile,
-      1000,
-      undefined,
       input.generateAudio,
     );
 
