@@ -16,7 +16,7 @@ describe('GetArticlesFeedQuery', () => {
   }
 
   // The RSS feed does not render has_audio; it is only present here to
-  // satisfy getArticlesPaginated's return type.
+  // satisfy listArticles's return type.
   function buildArticle(overrides: Partial<ArticleListRow> = {}): ArticleListRow {
     return {
       id: 'article-1',
@@ -34,48 +34,52 @@ describe('GetArticlesFeedQuery', () => {
   }
 
   it('requests the latest articles ordered by published date descending, bounded by the default limit', async () => {
-    mockArticlesService.getArticlesPaginated.mockResolvedValue([]);
+    mockArticlesService.listArticles.mockResolvedValue({ articles: [], total: 0 });
 
     const query = buildQuery();
     await query.execute('https://api.example.com/feeds/articles.xml');
 
-    expect(mockArticlesService.getArticlesPaginated).toHaveBeenCalledWith({
-      page: 1,
-      perPage: FEED_DEFAULT_ITEM_LIMIT,
-      sortBy: 'published_date',
-      direction: 'desc',
-      feedProfile: undefined,
-    });
+    expect(mockArticlesService.listArticles).toHaveBeenCalledWith(
+      { feedProfile: undefined },
+      {
+        page: 1,
+        perPage: FEED_DEFAULT_ITEM_LIMIT,
+        sortBy: 'published_date',
+        direction: 'desc',
+      },
+    );
   });
 
   it('requests articles bounded by the given limit', async () => {
-    mockArticlesService.getArticlesPaginated.mockResolvedValue([]);
+    mockArticlesService.listArticles.mockResolvedValue({ articles: [], total: 0 });
 
     const query = buildQuery();
     await query.execute('https://api.example.com/feeds/articles.xml', {
       limit: 5,
     });
 
-    expect(mockArticlesService.getArticlesPaginated).toHaveBeenCalledWith(
+    expect(mockArticlesService.listArticles).toHaveBeenCalledWith(
+      expect.anything(),
       expect.objectContaining({ perPage: 5 }),
     );
   });
 
   it('filters by feed profile when given', async () => {
-    mockArticlesService.getArticlesPaginated.mockResolvedValue([]);
+    mockArticlesService.listArticles.mockResolvedValue({ articles: [], total: 0 });
 
     const query = buildQuery();
     await query.execute('https://api.example.com/feeds/articles.xml', {
       feedProfile: FeedProfile.TECHNOLOGY,
     });
 
-    expect(mockArticlesService.getArticlesPaginated).toHaveBeenCalledWith(
+    expect(mockArticlesService.listArticles).toHaveBeenCalledWith(
       expect.objectContaining({ feedProfile: FeedProfile.TECHNOLOGY }),
+      expect.anything(),
     );
   });
 
   it('renders valid RSS XML with the given channel link', async () => {
-    mockArticlesService.getArticlesPaginated.mockResolvedValue([]);
+    mockArticlesService.listArticles.mockResolvedValue({ articles: [], total: 0 });
 
     const query = buildQuery();
     const xml = await query.execute(
@@ -90,7 +94,7 @@ describe('GetArticlesFeedQuery', () => {
 
   it('maps each article to a feed item with a stable GUID, title, canonical link, and pubDate', async () => {
     const article = buildArticle();
-    mockArticlesService.getArticlesPaginated.mockResolvedValue([article]);
+    mockArticlesService.listArticles.mockResolvedValue({ articles: [article], total: 1 });
 
     const query = buildQuery();
     const xml = await query.execute(
@@ -107,7 +111,7 @@ describe('GetArticlesFeedQuery', () => {
 
   it('uses processed_content as the item description when present', async () => {
     const article = buildArticle({ processed_content: 'processed body' });
-    mockArticlesService.getArticlesPaginated.mockResolvedValue([article]);
+    mockArticlesService.listArticles.mockResolvedValue({ articles: [article], total: 1 });
 
     const query = buildQuery();
     const xml = await query.execute(
@@ -119,7 +123,7 @@ describe('GetArticlesFeedQuery', () => {
 
   it('falls back to raw_content when processed_content is missing', async () => {
     const article = buildArticle({ processed_content: null });
-    mockArticlesService.getArticlesPaginated.mockResolvedValue([article]);
+    mockArticlesService.listArticles.mockResolvedValue({ articles: [article], total: 1 });
 
     const query = buildQuery();
     const xml = await query.execute(
@@ -133,7 +137,7 @@ describe('GetArticlesFeedQuery', () => {
     const article = buildArticle({
       title: 'Breaking: <script>alert(1)</script> & more',
     });
-    mockArticlesService.getArticlesPaginated.mockResolvedValue([article]);
+    mockArticlesService.listArticles.mockResolvedValue({ articles: [article], total: 1 });
 
     const query = buildQuery();
     const xml = await query.execute(
@@ -147,7 +151,7 @@ describe('GetArticlesFeedQuery', () => {
   });
 
   it('returns an empty item list when there are no articles', async () => {
-    mockArticlesService.getArticlesPaginated.mockResolvedValue([]);
+    mockArticlesService.listArticles.mockResolvedValue({ articles: [], total: 0 });
 
     const query = buildQuery();
     const xml = await query.execute(
@@ -158,7 +162,7 @@ describe('GetArticlesFeedQuery', () => {
   });
 
   it('propagates errors from the articles service', async () => {
-    mockArticlesService.getArticlesPaginated.mockRejectedValue(
+    mockArticlesService.listArticles.mockRejectedValue(
       new Error('db unavailable'),
     );
 

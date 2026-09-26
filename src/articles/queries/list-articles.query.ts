@@ -2,30 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { attachNotes, WithNote } from '../../notes/attach-notes';
 import { NotesReadService } from '../../notes/notes-read.service';
 import { Note } from '../../notes/note.entity';
-import {
-  DateUnit,
-  subtractFromDate,
-  toLocalDateString,
-} from '../../shared/helpers/date-math';
 import { ProfilesService } from '../../profiles/profiles.service';
-import { ArticlesService } from '../articles.service';
+import { ArticlePage, ArticlesService } from '../articles.service';
 import { prepareArticleContent } from '../helpers/prepareArticleContent';
-import { ArchiveScope } from '../helpers/archive-scope';
+import { ArticleFilter } from '../helpers/article-filter';
 
-export type ListArticlesRequest = {
-  page?: number;
-  perPage?: number;
-  sortBy?: string;
-  direction?: string;
-  feedProfile?: string;
-  feedSource?: string;
-  searchTerm?: string;
-  startDate?: string;
-  endDate?: string;
-  preset?: string;
-  category?: string;
-  archiveScope?: ArchiveScope;
-};
+export type ListArticlesRequest = ArticleFilter & ArticlePage;
 
 // has_audio is added after prepareArticleContent (whose declared parameter
 // type is DBArticle, not the has_audio-carrying read model) rather than
@@ -60,13 +42,6 @@ export type ListArticlesResponse = {
   available_sources: string[];
 };
 
-const PRESET_LOOKBACKS = new Map<string, readonly [number, DateUnit]>([
-  ['last_week', [7, 'days']],
-  ['last_30d', [30, 'days']],
-  ['last_3m', [3, 'months']],
-  ['last_12m', [12, 'months']],
-]);
-
 @Injectable()
 export class ListArticlesQuery {
   constructor(
@@ -96,47 +71,26 @@ export class ListArticlesQuery {
       archiveScope = 'active',
     } = request;
 
-    let startDateToSearch = startDate;
-    let endDateToSearch = endDate;
-
-    if (preset) {
-      const presetDates = this.parseDatePreset(preset);
-      if (presetDates.startDate) {
-        startDateToSearch = presetDates.startDate;
-      }
-
-      if (presetDates.endDate) {
-        endDateToSearch = presetDates.endDate;
-      }
-    }
-
     const availableProfiles = this.profilesService.getAvailableProfiles();
     const [availableCategories, availableSources] = await Promise.all([
       this.service.getDistinctCategories(archiveScope),
       this.service.getDistinctFeedSources(archiveScope),
     ]);
 
-    const filter = {
-      feedProfile,
-      feedSource,
-      searchTerm,
-      startDate: startDateToSearch,
-      endDate: endDateToSearch,
-      category,
-      archiveScope,
-    };
-
-    const totalArticles = await this.service.countTotalArticles(filter);
-
+    const { articles, total: totalArticles } = await this.service.listArticles(
+      {
+        feedProfile,
+        feedSource,
+        searchTerm,
+        startDate,
+        endDate,
+        preset,
+        category,
+        archiveScope,
+      },
+      { page, perPage, sortBy, direction },
+    );
     const totalPages = Math.ceil(totalArticles / perPage);
-
-    const articles = await this.service.getArticlesPaginated({
-      ...filter,
-      page,
-      perPage,
-      sortBy,
-      direction: direction as 'asc' | 'desc',
-    });
 
     // Prepare articles with HTML content. prepareArticleContent's declared
     // parameter type is DBArticle, so has_audio (present at runtime via the
@@ -181,29 +135,6 @@ export class ListArticlesQuery {
       available_profiles: availableProfiles,
       available_categories: availableCategories,
       available_sources: availableSources,
-    };
-  }
-
-  private parseDatePreset(preset: string): {
-    startDate?: string;
-    endDate?: string;
-  } {
-    const now = new Date();
-
-    if (preset === 'yesterday') {
-      const yesterday = toLocalDateString(subtractFromDate(now, 1, 'days'));
-      return { startDate: yesterday, endDate: yesterday };
-    }
-
-    const lookback = PRESET_LOOKBACKS.get(preset);
-    if (!lookback) {
-      return {};
-    }
-
-    const [amount, unit] = lookback;
-    return {
-      startDate: toLocalDateString(subtractFromDate(now, amount, unit)),
-      endDate: toLocalDateString(now),
     };
   }
 }

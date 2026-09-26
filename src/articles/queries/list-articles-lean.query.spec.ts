@@ -3,7 +3,10 @@ import { Note } from '../../notes/note.entity';
 import { NotesReadService } from '../../notes/notes-read.service';
 import { FeedProfile } from '../../shared/types/feed';
 import { ArticleListRow, ArticlesService } from '../articles.service';
-import { ListArticlesLeanQuery } from './list-articles-lean.query';
+import {
+  ListArticlesLeanQuery,
+  ListArticlesLeanRequest,
+} from './list-articles-lean.query';
 
 describe('ListArticlesLeanQuery', () => {
   const mockService = mock<ArticlesService>();
@@ -42,14 +45,16 @@ describe('ListArticlesLeanQuery', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    mockService.countTotalArticles.mockResolvedValue(2);
     mockNotesReadService.getActiveNotesBySourceIds.mockResolvedValue(new Map());
 
     query = new ListArticlesLeanQuery(mockService, mockNotesReadService);
   });
 
   it('projects each article to exactly the lean field set plus note', async () => {
-    mockService.getArticlesPaginated.mockResolvedValue([articleA]);
+    mockService.listArticles.mockResolvedValue({
+      articles: [articleA],
+      total: 2,
+    });
 
     const result = await query.execute(userId, {});
 
@@ -71,7 +76,10 @@ describe('ListArticlesLeanQuery', () => {
   });
 
   it('passes processed_content through as raw markdown (no html key)', async () => {
-    mockService.getArticlesPaginated.mockResolvedValue([articleA]);
+    mockService.listArticles.mockResolvedValue({
+      articles: [articleA],
+      total: 2,
+    });
 
     const result = await query.execute(userId, {});
 
@@ -81,7 +89,10 @@ describe('ListArticlesLeanQuery', () => {
   });
 
   it('embeds each owner active note via a single bulk lookup', async () => {
-    mockService.getArticlesPaginated.mockResolvedValue([articleA, articleB]);
+    mockService.listArticles.mockResolvedValue({
+      articles: [articleA, articleB],
+      total: 2,
+    });
     const noteA: Note = {
       id: 'note-a',
       user_id: userId,
@@ -115,7 +126,10 @@ describe('ListArticlesLeanQuery', () => {
   });
 
   it('skips the note lookup and returns null notes on the api-key path (no user)', async () => {
-    mockService.getArticlesPaginated.mockResolvedValue([articleA, articleB]);
+    mockService.listArticles.mockResolvedValue({
+      articles: [articleA, articleB],
+      total: 2,
+    });
 
     const result = await query.execute(undefined, {});
 
@@ -126,8 +140,10 @@ describe('ListArticlesLeanQuery', () => {
   });
 
   it('returns pagination and only the CLI-supported filter keys', async () => {
-    mockService.getArticlesPaginated.mockResolvedValue([articleA, articleB]);
-    mockService.countTotalArticles.mockResolvedValue(5);
+    mockService.listArticles.mockResolvedValue({
+      articles: [articleA, articleB],
+      total: 5,
+    });
 
     const result = await query.execute(userId, {
       page: 2,
@@ -152,16 +168,22 @@ describe('ListArticlesLeanQuery', () => {
     });
   });
 
-  it('passes feedSource to both reads', async () => {
-    mockService.getArticlesPaginated.mockResolvedValue([]);
+  it('passes only the CLI-supported filter keys to the read', async () => {
+    mockService.listArticles.mockResolvedValue({ articles: [], total: 0 });
 
-    await query.execute(userId, { feedSource: 'Will Larson' });
+    await query.execute(userId, {
+      feedSource: 'Will Larson',
+      searchTerm: 'ignored',
+    } as ListArticlesLeanRequest);
 
-    expect(mockService.countTotalArticles).toHaveBeenCalledWith(
-      expect.objectContaining({ feedSource: 'Will Larson' }),
-    );
-    expect(mockService.getArticlesPaginated).toHaveBeenCalledWith(
-      expect.objectContaining({ feedSource: 'Will Larson' }),
+    expect(mockService.listArticles).toHaveBeenCalledWith(
+      {
+        feedProfile: undefined,
+        feedSource: 'Will Larson',
+        startDate: undefined,
+        endDate: undefined,
+      },
+      { page: 1, perPage: 20 },
     );
   });
 });

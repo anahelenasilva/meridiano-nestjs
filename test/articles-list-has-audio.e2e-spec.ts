@@ -1,6 +1,6 @@
 /**
  * Seeded e2e for GET /api/articles against a real Postgres database, proving
- * the has_audio EXISTS subquery added to ArticlesService.getArticlesPaginated
+ * the has_audio EXISTS subquery added to ArticlesService.listArticles
  * round-trips correctly. Everything else about the route (pagination math,
  * notes attachment, response shape) already has coverage elsewhere; this spec
  * only needs to prove the audio_files correlation behaves.

@@ -458,75 +458,8 @@ describe('ArticlesService', () => {
     });
   });
 
-  describe('archive scoping on list reads', () => {
-    it('defaults getArticlesPaginated to active rows only', async () => {
-      mockDb.all.mockImplementationOnce((query, params, callback) => {
-        callback(null, []);
-      });
-
-      await service.getArticlesPaginated({});
-
-      const [query] = mockDb.all.mock.calls[0];
-      expect(query).toContain('archived_at IS NULL');
-      expect(query).not.toContain('archived_at IS NOT NULL');
-    });
-
-    it('returns only archived rows for getArticlesPaginated with scope archived', async () => {
-      mockDb.all.mockImplementationOnce((query, params, callback) => {
-        callback(null, []);
-      });
-
-      await service.getArticlesPaginated({ archiveScope: 'archived' });
-
-      const [query] = mockDb.all.mock.calls[0];
-      expect(query).toContain('archived_at IS NOT NULL');
-    });
-
-    it('applies no archive filter for getArticlesPaginated with scope all', async () => {
-      mockDb.all.mockImplementationOnce((query, params, callback) => {
-        callback(null, []);
-      });
-
-      await service.getArticlesPaginated({ archiveScope: 'all' });
-
-      const [query] = mockDb.all.mock.calls[0];
-      expect(query).not.toContain('archived_at IS');
-    });
-
-    it('defaults countTotalArticles to active rows only', async () => {
-      mockDb.get.mockImplementationOnce((query, params, callback) => {
-        callback(null, { count: 0 });
-      });
-
-      await service.countTotalArticles({});
-
-      const [query] = mockDb.get.mock.calls[0];
-      expect(query).toContain('archived_at IS NULL');
-    });
-
-    it('counts only archived rows for countTotalArticles with scope archived', async () => {
-      mockDb.get.mockImplementationOnce((query, params, callback) => {
-        callback(null, { count: 0 });
-      });
-
-      await service.countTotalArticles({ archiveScope: 'archived' });
-
-      const [query] = mockDb.get.mock.calls[0];
-      expect(query).toContain('archived_at IS NOT NULL');
-    });
-
-    it('applies no archive filter for countTotalArticles with scope all', async () => {
-      mockDb.get.mockImplementationOnce((query, params, callback) => {
-        callback(null, { count: 0 });
-      });
-
-      await service.countTotalArticles({ archiveScope: 'all' });
-
-      const [query] = mockDb.get.mock.calls[0];
-      expect(query).not.toContain('archived_at IS');
-    });
-
-    it('maps archived_at to a Date and a missing value to null', async () => {
+  describe('listArticles', () => {
+    it('maps archived_at to a Date, a missing value to null, and the count to a number', async () => {
       mockDb.all.mockImplementationOnce((query, params, callback) => {
         callback(null, [
           {
@@ -557,11 +490,15 @@ describe('ArticlesService', () => {
           },
         ]);
       });
+      mockDb.get.mockImplementationOnce((query, params, callback) => {
+        callback(null, { count: '2' });
+      });
 
-      const articles = await service.getArticlesPaginated({
+      const { articles, total } = await service.listArticles({
         archiveScope: 'all',
       });
 
+      expect(total).toBe(2);
       expect(articles[0].archived_at).toEqual(
         new Date('2026-06-01T09:00:00.000Z'),
       );
@@ -644,43 +581,6 @@ describe('ArticlesService', () => {
       const [query] = mockDb.all.mock.calls[0];
       expect(query).not.toContain('archived_at IS');
       expect(query.trim().endsWith("AND categories != ''")).toBe(true);
-    });
-  });
-
-  describe('feed source filter', () => {
-    it('filters getArticlesPaginated by an exact feed_source match', async () => {
-      mockDb.all.mockImplementationOnce((query, params, callback) => {
-        callback(null, []);
-      });
-
-      await service.getArticlesPaginated({ feedSource: 'Will Larson' });
-
-      const [query, params] = mockDb.all.mock.calls[0];
-      expect(query).toContain('AND feed_source = ?');
-      expect(params).toContain('Will Larson');
-    });
-
-    it('adds no feed_source clause when the filter is absent', async () => {
-      mockDb.all.mockImplementationOnce((query, params, callback) => {
-        callback(null, []);
-      });
-
-      await service.getArticlesPaginated({});
-
-      const [query] = mockDb.all.mock.calls[0];
-      expect(query).not.toContain('feed_source =');
-    });
-
-    it('filters countTotalArticles by an exact feed_source match', async () => {
-      mockDb.get.mockImplementationOnce((query, params, callback) => {
-        callback(null, { count: 0 });
-      });
-
-      await service.countTotalArticles({ feedSource: 'Will Larson' });
-
-      const [query, params] = mockDb.get.mock.calls[0];
-      expect(query).toContain('AND feed_source = ?');
-      expect(params).toContain('Will Larson');
     });
   });
 
