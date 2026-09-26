@@ -321,22 +321,28 @@ export class ArticlesService {
     return row ? mapArticleRow(row) : null;
   }
 
+  /**
+   * Articles for a Curated Briefing, in the order given. Archived Articles are
+   * included: the user picked these ids by hand.
+   */
   async getArticlesByIds(ids: string[]): Promise<DBArticle[]> {
     if (!ids || ids.length === 0) {
       return [];
     }
 
     const db = this.databaseService.getDbConnection();
+    const { where, params } = compileArticleFilter({ archiveScope: 'all' });
     const rows = await queryAll<ArticleRow>(
       db,
       `
         SELECT
           ${ARTICLE_COLUMNS}
         FROM articles
-        WHERE id = ANY(?::uuid[])
+        WHERE ${where}
+          AND id = ANY(?::uuid[])
         ORDER BY array_position(?::uuid[], id)
       `,
-      [ids, ids],
+      [...params, ids, ids],
     );
     return rows.map(mapArticleRow);
   }
@@ -351,18 +357,18 @@ export class ArticlesService {
     const hoursInMilliseconds = lookbackHours * millisecondsPerHour;
     const cutoffTime = new Date(Date.now() - hoursInMilliseconds);
 
+    const { where, params } = compileArticleFilter({ feedProfile });
     const query = `
         SELECT * FROM articles
-        WHERE feed_profile = ?
+        WHERE ${where}
           AND processed_content IS NOT NULL
           AND embedding IS NOT NULL
           AND published_date >= ?
-          AND archived_at IS NULL
         ORDER BY impact_rating DESC, published_date DESC
       `;
 
     const rows = await queryAll<ArticleRow>(db, query, [
-      feedProfile,
+      ...params,
       cutoffTime.toISOString(),
     ]);
     return rows.map(mapArticleRow);
@@ -586,19 +592,21 @@ export class ArticlesService {
       return [];
     }
 
+    const { where, params } = compileArticleFilter({
+      feedProfile: original.feed_profile,
+    });
     const rows = await queryAll<ArticleRow>(
       db,
       `
           SELECT
             ${ARTICLE_COLUMNS}
           FROM articles
-          WHERE feed_profile = ?
+          WHERE ${where}
           AND id != ?
-          AND archived_at IS NULL
           ORDER BY ABS(EXTRACT(epoch FROM (published_date - ?::timestamp))) ASC
           LIMIT ?
         `,
-      [original.feed_profile, articleId, original.published_date, limit],
+      [...params, articleId, original.published_date, limit],
     );
     return rows.map(mapArticleRow);
   }
@@ -637,18 +645,20 @@ export class ArticlesService {
       startOfTodayBrt.getTime() - 24 * 60 * 60 * 1000,
     );
 
+    const { where, params } = compileArticleFilter({
+      feedProfile: FeedProfile.TECHNOLOGY,
+    });
     const query = `
         SELECT * FROM articles
-        WHERE feed_profile = ?
+        WHERE ${where}
           AND impact_rating IS NOT NULL
           AND published_date >= ?
           AND published_date < ?
-          AND archived_at IS NULL
         ORDER BY impact_rating DESC
       `;
 
     const rows = await queryAll<ArticleRow>(db, query, [
-      FeedProfile.TECHNOLOGY,
+      ...params,
       startOfYesterdayBrt.toISOString(),
       startOfTodayBrt.toISOString(),
     ]);
