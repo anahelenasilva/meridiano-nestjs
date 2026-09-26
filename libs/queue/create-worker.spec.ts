@@ -92,6 +92,19 @@ describe('createWorker', () => {
     expect(onTerminalFailure).toHaveBeenCalledTimes(1);
   });
 
+  it('logs a failure without a job and skips onTerminalFailure', () => {
+    createWorker(queue, handler, { logger, onTerminalFailure });
+    const err = new Error('boom');
+
+    failed()(undefined, err);
+
+    expect(onTerminalFailure).not.toHaveBeenCalled();
+    expect(logger.error).toHaveBeenCalledWith(
+      'test-queue job failed without job data',
+      err.stack,
+    );
+  });
+
   it('logs connection noise at debug level and other worker errors as errors', () => {
     createWorker(queue, handler, { logger });
     const onError = listener<(err: Error) => void>('error');
