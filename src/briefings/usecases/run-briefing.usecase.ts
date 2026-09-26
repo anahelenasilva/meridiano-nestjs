@@ -1,85 +1,59 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { ConfigService } from '../../config/config.service';
-import { CategorizeArticlesUseCase } from './categorize-articles.usecase';
+import { ProcessorService } from '../../processor/processor.service';
+import { ScraperService } from '../../scraper/scraper.service';
 import {
   RunBriefingInputDto,
   RunBriefingOutputDto,
 } from './dto/run-briefing.dto';
 import { GenerateBriefUseCase } from './generate-brief.usecase';
-import { ProcessArticlesUseCase } from './process-articles.usecase';
-import { RateArticlesUseCase } from './rate-articles.usecase';
-import { ScrapeArticlesUseCase } from './scrape-articles.usecase';
 
+/**
+ * One Standard Briefing run for a Feed Profile: scrape its sources, then
+ * summarise, rate and categorise the waiting articles, then generate the brief.
+ */
 @Injectable()
 export class RunBriefingUseCase {
   private readonly logger = new Logger(RunBriefingUseCase.name);
 
   constructor(
-    private readonly scrapeArticlesUseCase: ScrapeArticlesUseCase,
-    private readonly processArticlesUseCase: ProcessArticlesUseCase,
-    private readonly rateArticlesUseCase: RateArticlesUseCase,
-    private readonly categorizeArticlesUseCase: CategorizeArticlesUseCase,
+    private readonly scraperService: ScraperService,
+    private readonly processorService: ProcessorService,
     private readonly generateBriefUseCase: GenerateBriefUseCase,
-    private readonly configService: ConfigService,
   ) {}
 
-  async execute(input: RunBriefingInputDto): Promise<RunBriefingOutputDto> {
-    const startTime = new Date();
+  async execute({
+    feedProfile,
+  }: RunBriefingInputDto): Promise<RunBriefingOutputDto> {
+    const startTime = Date.now();
 
-    const scrape = await this.scrapeArticlesUseCase.execute({
-      feedProfile: input.feedProfile,
-    });
+    const scrape = await this.scraperService.scrapeFeedProfile(feedProfile);
 
     if (scrape.status === 'no_sources') {
-      const error = `No enabled feeds or sitemap sources found for profile '${input.feedProfile}'.`;
+      const error = `No enabled feeds or sitemap sources found for profile '${feedProfile}'.`;
       this.logger.warn(error);
 
       return { success: false, duration: 0, error };
     }
 
-    const processingStats = await this.processArticlesUseCase.execute({
-      feedProfile: input.feedProfile,
+    const processing =
+      await this.processorService.processArticles(feedProfile);
+    const rating = await this.processorService.rateArticles(feedProfile);
+    const categorization =
+      await this.processorService.categorizeArticles(feedProfile);
+    const briefGeneration = await this.generateBriefUseCase.execute({
+      feedProfile,
     });
-
-    const ratingStats = await this.rateArticlesUseCase.execute({
-      feedProfile: input.feedProfile,
-    });
-
-    const categorizationStats = await this.categorizeArticlesUseCase.execute({
-      feedProfile: input.feedProfile,
-    });
-
-    let briefResult;
-    if (this.configService.isBriefingsGenerationEnabled()) {
-      briefResult = await this.generateBriefUseCase.execute({
-        feedProfile: input.feedProfile,
-      });
-    } else {
-      this.logger.warn(
-        'Briefings generation is disabled. Skipping brief generation stage.',
-      );
-      briefResult = {
-        success: false,
-        briefingId: undefined,
-        stats: undefined,
-        error:
-          'Briefings generation is disabled. Set ENABLE_BRIEFINGS_GENERATION=true to enable.',
-      };
-    }
-
-    const endTime = new Date();
-    const duration = (endTime.getTime() - startTime.getTime()) / 1000;
 
     return {
-      success: briefResult.success,
-      duration,
+      success: briefGeneration.success,
+      duration: (Date.now() - startTime) / 1000,
       stages: {
         scraping: scrape.rss,
         sitemapScraping: scrape.sitemap,
-        processing: processingStats,
-        rating: ratingStats,
-        categorization: categorizationStats,
-        briefGeneration: briefResult,
+        processing,
+        rating,
+        categorization,
+        briefGeneration,
       },
     };
   }
