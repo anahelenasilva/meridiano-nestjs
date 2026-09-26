@@ -256,6 +256,11 @@ export class ScraperService {
       startTime: new Date(),
     };
 
+    if (feeds.length === 0) {
+      stats.endTime = new Date();
+      return stats;
+    }
+
     for (const { url: feedUrl, name: feedName } of feeds) {
       // console.log(`Fetching feed: ${feedUrl}`);
 
