@@ -1,4 +1,5 @@
 import { DatabaseService, RunCallback } from '@libs/database';
+import { Logger } from '@nestjs/common';
 import { mock } from 'jest-mock-extended';
 import { AudioFilesCleanupService } from '../audio-files/audio-files-cleanup.service';
 import { NotesCleanupService } from '../notes/notes-cleanup.service';
@@ -522,6 +523,7 @@ describe('ArticlesService', () => {
     });
 
     it('returns parsed vectors and drops articles off the majority dimension', async () => {
+      const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
       mockDb.all.mockImplementationOnce((query, params, callback) => {
         callback(null, [
           row('old', [1, 2, 3]),
@@ -539,6 +541,10 @@ describe('ArticlesService', () => {
         ['a1', [0.1, 0.2]],
         ['a2', [0.3, 0.4]],
       ]);
+      expect(warnSpy).toHaveBeenCalledWith(
+        expect.stringContaining('Mixed embedding dimensions'),
+      );
+      warnSpy.mockRestore();
     });
   });
 

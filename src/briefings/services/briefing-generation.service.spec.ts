@@ -164,6 +164,42 @@ describe('BriefingGenerationService', () => {
     expect(mockAiService.callChat).not.toHaveBeenCalled();
   });
 
+  it('builds the brief from one cluster when there are too few articles for two', async () => {
+    mockConfigService.getBriefingConfig.mockReturnValue({
+      feedProfile: FeedProfile.DEFAULT,
+      lookbackHours: 24,
+      minArticles: 2,
+      clustersQtd: 10,
+      articlesPerPage: 15,
+      customPrompts: undefined,
+    });
+    mockConfigService.getProcessingConfig.mockReturnValue({
+      briefingArticleLookbackHours: 24,
+      minArticlesForBriefing: 2,
+      articlesPerPage: 15,
+      clustersQtd: 10,
+      clusterAnalysisDelayMs: 0,
+      articleProcessingDelayMs: 1000,
+    });
+    mockArticlesService.getArticlesForBriefing.mockResolvedValue([
+      createCandidate({ id: 'a1', embedding: [0.1, 0.2] }),
+      createCandidate({ id: 'a2', embedding: [0.9, 0.8] }),
+      createCandidate({ id: 'a3', embedding: [0.5, 0.5] }),
+    ]);
+    mockProfilesService.getPromptsForProfile.mockReturnValue({});
+    mockConfigService.getPrompt.mockReturnValue('prompt');
+    mockConfigService.formatPrompt.mockReturnValue('prompt');
+    mockAiService.callChat.mockResolvedValue('analysis');
+    mockBriefingsService.saveBrief.mockResolvedValue('brief-uuid');
+
+    const result = await service.generateBrief(FeedProfile.DEFAULT);
+
+    expect(result).toMatchObject({
+      success: true,
+      stats: { articlesAnalyzed: 3, clustersGenerated: 1, clustersUsed: 1 },
+    });
+  });
+
   it('generateCustomBrief saves the brief when title generation fails', async () => {
     mockArticlesService.getArticlesByIds.mockResolvedValue([
       createArticle({ id: 'article-1', title: 'First' }),
