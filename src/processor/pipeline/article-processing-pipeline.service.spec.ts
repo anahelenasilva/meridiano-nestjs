@@ -37,7 +37,9 @@ describe('ArticleProcessingPipelineService', () => {
     configService.getArticleProcessingDelayMs.mockReturnValue(DELAY_MS);
     configService.getArticleSummaryPrompt.mockReturnValue('summary-prompt');
     configService.getImpactRatingPrompt.mockReturnValue('rating-prompt');
-    configService.getCategoryClassificationPrompt.mockReturnValue('category-prompt');
+    configService.getCategoryClassificationPrompt.mockReturnValue(
+      'category-prompt',
+    );
     configService.isValidImpactRating.mockImplementation(
       (r: number): r is 1 => Number.isInteger(r) && r >= 1 && r <= 10,
     );
@@ -172,6 +174,79 @@ describe('ArticleProcessingPipelineService', () => {
       if (!result.success) throw new Error('expected success');
       expect(result.categories).toEqual([ArticleCategory.OTHER]);
       expect(notifier.notifyFailure).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('step entry points', () => {
+    it('rateArticle rates the given summary on its own', async () => {
+      ai.chat.mockResolvedValueOnce('6');
+
+      const result = await service.rateArticle(
+        makeArticle({ id: 'a' }),
+        'saved summary',
+      );
+
+      expect(result).toEqual({ success: true, value: 6 });
+      expect(configService.getImpactRatingPrompt).toHaveBeenCalledWith(
+        'saved summary',
+      );
+      expect(articlesService.updateArticleRating).toHaveBeenCalledWith('a', 6);
+    });
+
+    it('categoriseArticle keeps the summary when persisting categories fails', async () => {
+      ai.chat.mockResolvedValueOnce('["news"]');
+      articlesService.updateArticleCategories.mockRejectedValueOnce(
+        new Error('db down'),
+      );
+
+      const result = await service.categoriseArticle(
+        makeArticle(),
+        'saved summary',
+      );
+
+      expect(result).toEqual({
+        success: false,
+        failedStep: 'categorise',
+        error: 'db down',
+        summary: 'saved summary',
+      });
+      expect(notifier.notifyFailure).toHaveBeenCalledTimes(1);
+    });
+
+    it('reports a persistence error at the step that hit it', async () => {
+      ai.chat.mockResolvedValueOnce('6');
+      articlesService.updateArticleRating.mockRejectedValueOnce(
+        new Error('db down'),
+      );
+
+      const result = await service.rateArticle(makeArticle(), 'saved summary');
+
+      expect(result).toMatchObject({
+        success: false,
+        failedStep: 'rate',
+        error: 'db down',
+      });
+      expect(notifier.notifyFailure).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('summary prompt', () => {
+    it.each([
+      [{ title: 'Title', feed_source: 'Feed' }, 'Title'],
+      [{ title: '', feed_source: 'Feed' }, 'Feed'],
+      [{ title: '', feed_source: '' }, 'Untitled'],
+    ])('fills article_title from %o as %s', async (overrides, expected) => {
+      profilesService.getPromptsForProfile.mockReturnValue({
+        articleSummary: '{article_title}: {article_content}',
+      });
+      ai.chat.mockResolvedValueOnce('This is the summary');
+
+      await service.summariseArticle(makeArticle(overrides));
+
+      expect(configService.formatPrompt).toHaveBeenCalledWith(
+        '{article_title}: {article_content}',
+        { article_content: 'raw content body', article_title: expected },
+      );
     });
   });
 

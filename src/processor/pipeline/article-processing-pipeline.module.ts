@@ -50,6 +50,6 @@ import { RealSleeper, SLEEPER } from './sleeper';
       inject: [AiService],
     },
   ],
-  exports: [ArticleProcessingPipelineService],
+  exports: [ArticleProcessingPipelineService, SLEEPER],
 })
 export class ArticleProcessingPipelineModule {}

@@ -69,6 +69,12 @@ a first-class module responsibility. The email transport and config
   article, not passed separately. The worker resolves the article by id.
 - New failure paths email on rate/categorise failures too; if a narrower policy
   is wanted, constrain it inside `EmailProcessingNotifier`, not the pipeline.
+- Update (#255): the batch path now goes through the pipeline too. The
+  pipeline exposes `summariseArticle`, `rateArticle` and `categoriseArticle`
+  next to `processArticle`, because the scheduled briefing run and the CLI run
+  those steps as separate stages. `ProcessorService` loops over them, keeps its
+  `ProcessingStats`, and sleeps through the exported `SLEEPER`. Both paths
+  alert once per failed step through `ProcessingNotifier`.
 - The `AI_ADAPTER` binding hand-wraps `AiService` in the composition root. When
   the AI Provider Adapter work (#113) exposes a first-class policy-wrapped
   `AiAdapter` provider, this factory should consume it instead.

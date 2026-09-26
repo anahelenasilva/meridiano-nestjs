@@ -24,3 +24,6 @@ export interface ProcessingFailure {
 }
 
 export type ProcessingResult = ProcessingSuccess | ProcessingFailure;
+
+/** Result of one pipeline step, returned by the per-step entry points. */
+export type StepResult<T> = { success: true; value: T } | ProcessingFailure;

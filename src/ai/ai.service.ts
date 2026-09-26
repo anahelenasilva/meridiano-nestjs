@@ -195,8 +195,8 @@ export class AiService implements OnModuleInit {
    * propagates verbatim, preserving the provider message and `finish_reason`.
    *
    * Use where a hard failure with a diagnosable cause is wanted — notably the
-   * article-processing pipeline, where the error must reach `PipelineStepError`
-   * instead of being collapsed to a generic message. Every other caller keeps
+   * article-processing pipeline, where the error must reach the step's failure
+   * result instead of being collapsed to a generic message. Every other caller keeps
    * using the null-returning `callChat` and its graceful-degradation contract.
    *
    * The full 16-caller refactor (making `callChat` itself throw) is

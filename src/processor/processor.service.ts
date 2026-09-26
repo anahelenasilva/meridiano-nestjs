@@ -1,27 +1,31 @@
 import { AudioJobService } from '@libs/audio';
-import { EmailService } from '@libs/email';
-import { Injectable, Logger } from '@nestjs/common';
-import { AiService } from '../ai/ai.service';
-import { ArticleCategory, DBArticle } from '../articles/article.entity';
+import { Inject, Injectable, Logger } from '@nestjs/common';
+import { DBArticle } from '../articles/article.entity';
 import { ArticlesService } from '../articles/articles.service';
 import { ConfigService } from '../config/config.service';
-import { ProfilesService } from '../profiles/profiles.service';
-import { buildFinalPrompt } from '../shared/helpers/build-final-prompt';
 import { ProcessingStats } from '../shared/types/ai';
 import { FeedProfile } from '../shared/types/feed';
+import { ArticleProcessingPipelineService } from './pipeline/article-processing-pipeline.service';
+import { SLEEPER } from './pipeline/sleeper';
+import type { Sleeper } from './pipeline/sleeper';
 
+/**
+ * Batch stages for the scheduled briefing run and markdown uploads. Each stage
+ * loads the articles still waiting on one step, runs that step through the
+ * {@link ArticleProcessingPipelineService} per article, and reports counts. Pass
+ * `articleId` to run a stage for that one article.
+ */
 @Injectable()
 export class ProcessorService {
   private readonly logger = new Logger(ProcessorService.name);
 
   constructor(
     private readonly articlesService: ArticlesService,
-    private readonly aiService: AiService,
+    private readonly pipeline: ArticleProcessingPipelineService,
+    @Inject(SLEEPER) private readonly sleeper: Sleeper,
     private readonly configService: ConfigService,
-    private readonly profilesService: ProfilesService,
     private readonly audioJobService: AudioJobService,
-    private readonly emailService: EmailService,
-  ) { }
+  ) {}
 
   async processArticles(
     feedProfile: FeedProfile,
@@ -29,178 +33,29 @@ export class ProcessorService {
     articleId?: string,
     generateAudio?: boolean,
   ): Promise<ProcessingStats> {
-    const stats: ProcessingStats = {
-      feedProfile,
-      articlesProcessed: 0,
-      articlesRated: 0,
-      articlesCategorized: 0,
-      errors: 0,
-      startTime: new Date(),
-    };
+    const stats = this.newStats(feedProfile);
+    const articles = articleId
+      ? await this.byId(
+          this.articlesService.getUnprocessedArticleById(articleId),
+        )
+      : await this.articlesService.getUnprocessedArticles(feedProfile, limit);
 
-    let unprocessedArticles: DBArticle[] = [];
-    if (articleId) {
-      const article =
-        await this.articlesService.getUnprocessedArticleById(articleId);
-      unprocessedArticles = article ? [article] : [];
-    } else {
-      unprocessedArticles = await this.articlesService.getUnprocessedArticles(
-        feedProfile,
-        limit,
-      );
-    }
+    this.logger.log(`Found ${articles.length} articles to summarise.`);
 
-    if (unprocessedArticles.length === 0) {
-      this.logger.log('No new articles to process.');
-      stats.endTime = new Date();
-      return stats;
-    }
-
-    this.logger.log(`Found ${unprocessedArticles.length} articles to process.`);
-
-    const profilePrompts =
-      this.profilesService.getPromptsForProfile(feedProfile);
-
-    for (const article of unprocessedArticles) {
-      this.logger.log(`Processing article ID: ${article.id} - ${article.title}...`);
-
-      try {
-        const articleTitle = article.title || article.feed_source || 'Untitled';
-        let baseSummaryPrompt: string;
-
-        if (profilePrompts.articleSummary) {
-          baseSummaryPrompt = this.configService.formatPrompt(profilePrompts.articleSummary, {
-            article_content: article.raw_content.substring(0, 4000),
-            article_title: articleTitle,
-          });
-        } else {
-          baseSummaryPrompt = this.configService.getArticleSummaryPrompt(
-            article.raw_content.substring(0, 4000),
-          );
-        }
-
-        const summaryPrompt = buildFinalPrompt(
-          baseSummaryPrompt,
-          article.custom_prompt,
-        );
-
-        const summary = await this.aiService.callChat(summaryPrompt);
-
-        if (!summary) {
-          this.logger.warn(
-            `Skipping article ${article.id} due to summarization error.`,
-          );
-          stats.errors++;
-          continue;
-        }
-
-        const finalSummary = `${summary}\n\nSource: [${article.title}](${article.url})`;
-
-        let embedding: number[] | null = null;
-        let embeddingError: string | null = null;
-        try {
-          embedding = await this.aiService.getEmbedding(finalSummary);
-        } catch (error) {
-          embeddingError =
-            error instanceof Error ? error.message : String(error);
-        }
-        if (!embedding && !embeddingError) {
-          embeddingError = 'Embedding returned null';
-        }
-
-        if (embeddingError) {
-          this.logger.error(
-            `Embedding generation failed for article ${article.id} (${article.title}): ${embeddingError}`,
-          );
-
-          stats.errors++;
-          await this.notifyEmbeddingFailure(article, embeddingError);
-        }
-
-        await this.articlesService.updateArticleProcessing(
-          article.id,
-          finalSummary,
-          embedding,
-        );
-
+    for (const article of articles) {
+      const result = await this.pipeline.summariseArticle(article);
+      if (result.success) {
         stats.articlesProcessed++;
-        this.logger.log(`Successfully processed article ID: ${article.id}`);
-
         if (generateAudio) {
-          try {
-            this.logger.log(
-              `Enqueuing audio generation for article ID: ${article.id}...`,
-            );
-
-            const jobInfo = await this.audioJobService.enqueueAudioJob({
-              sourceType: 'article',
-              sourceId: article.id,
-              text: summary,
-              date: article.published_date
-                ? new Date(article.published_date)
-                : new Date(),
-            });
-
-            this.logger.log(`Audio generation job enqueued: ${jobInfo.jobId}`);
-          } catch (audioError) {
-            this.logger.error(
-              `Error enqueuing audio generation for article ID: ${article.id}`,
-              audioError instanceof Error ? audioError.stack : String(audioError),
-            );
-          }
+          await this.enqueueAudio(article, result.value);
         }
-
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-      } catch (error) {
-        this.logger.error(
-          `Error processing article ${article.id}`,
-          error instanceof Error ? error.stack : String(error),
-        );
+      } else {
         stats.errors++;
       }
+      await this.pause();
     }
 
-    stats.endTime = new Date();
-    this.logger.log(
-      `--- Processing Finished. Processed ${stats.articlesProcessed} articles. ---`,
-    );
-
-    return stats;
-  }
-
-  private async notifyEmbeddingFailure(article: DBArticle, errorMessage: string): Promise<void> {
-    const emailConfig = this.configService.getEmbeddingFailureNotificationEmail();
-
-    if (emailConfig) {
-      try {
-        await this.emailService.sendEmail({
-          from: emailConfig.from,
-          to: emailConfig.to,
-          subject: 'Embedding Generation Failed',
-          text: `Embedding generation failed for an article during processing.
-
-Details:
-- Article ID: ${article.id}
-- Article Title: ${article.title}
-- Article URL: ${article.url}
-- Error: ${errorMessage}
-- Timestamp: ${new Date().toISOString()}
-
-The article summary was successfully generated but embedding generation failed. The article processing will continue without embedding.`,
-        });
-
-        this.logger.log(`Embedding failure notification email sent to ${emailConfig.to} for article ${article.id}`);
-      } catch (emailError) {
-        this.logger.error(
-          `Failed to send embedding failure notification email for article ${article.id}:`,
-          emailError instanceof Error ? emailError.message : String(emailError),
-        );
-      }
-    } else {
-      this.logger.warn(
-        `Embedding generation failed for article ${article.id}, but EMBEDDING_FAILURE_NOTIFICATION_EMAIL (and EMBEDDING_FAILURE_NOTIFICATION_EMAIL_FROM or ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM) is not configured.`,
-      );
-    }
+    return this.finish(stats, `Summarised ${stats.articlesProcessed}`);
   }
 
   async rateArticles(
@@ -208,112 +63,31 @@ The article summary was successfully generated but embedding generation failed. 
     limit: number = 1000,
     articleId?: string,
   ): Promise<ProcessingStats> {
-    const stats: ProcessingStats = {
-      feedProfile,
-      articlesProcessed: 0,
-      articlesRated: 0,
-      articlesCategorized: 0,
-      errors: 0,
-      startTime: new Date(),
-    };
+    const stats = this.newStats(feedProfile);
+    const articles = articleId
+      ? await this.byId(this.articlesService.getUnratedArticleById(articleId))
+      : await this.articlesService.getUnratedArticles(feedProfile, limit);
 
-    let unratedArticles: DBArticle[] = [];
-    if (articleId) {
-      const article =
-        await this.articlesService.getUnratedArticleById(articleId);
-      unratedArticles = article ? [article] : [];
-    } else {
-      unratedArticles = await this.articlesService.getUnratedArticles(
-        feedProfile,
-        limit,
-      );
-    }
+    this.logger.log(`Found ${articles.length} articles to rate.`);
 
-    if (unratedArticles.length === 0) {
-      this.logger.log('No new articles to rate.');
-      stats.endTime = new Date();
-      return stats;
-    }
-
-    this.logger.log(`Found ${unratedArticles.length} processed articles to rate.`);
-
-    const profilePrompts =
-      this.profilesService.getPromptsForProfile(feedProfile);
-
-    for (const article of unratedArticles) {
-      this.logger.log(`Rating article ID: ${article.id}: ${article.title}...`);
-
+    for (const article of articles) {
       if (!article.processed_content) {
         this.logger.warn(`Skipping article ${article.id} - no summary found.`);
         continue;
       }
-
-      try {
-        const ratingPrompt = profilePrompts.impactRating
-          ? this.configService.formatPrompt(profilePrompts.impactRating, {
-            summary: article.processed_content,
-          })
-          : this.configService.getImpactRatingPrompt(article.processed_content);
-
-        const ratingResponse = await this.aiService.callChat(ratingPrompt);
-
-        if (ratingResponse) {
-          try {
-            const scoreMatch = ratingResponse.trim().match(/\d+/);
-            if (scoreMatch) {
-              const score = parseInt(scoreMatch[0], 10);
-
-              if (this.configService.isValidImpactRating(score)) {
-                await this.articlesService.updateArticleRating(
-                  article.id,
-                  score,
-                );
-                stats.articlesRated++;
-              } else {
-                this.logger.warn(
-                  `Rating ${score} for article ${article.id} is out of range (1-10).`,
-                );
-                stats.errors++;
-              }
-            } else {
-              this.logger.warn(
-                `Could not extract numeric rating from response '${ratingResponse}' for article ${article.id}.`,
-              );
-              stats.errors++;
-            }
-          } catch (error) {
-            this.logger.error(
-              `Error rating article ${article.id}`,
-              error instanceof Error ? error.stack : String(error),
-            );
-            this.logger.warn(
-              `Could not parse rating from response '${ratingResponse}' for article ${article.id}.`,
-            );
-            stats.errors++;
-          }
-        } else {
-          this.logger.warn(
-            `No rating response received for article ${article.id}.`,
-          );
-          stats.errors++;
-        }
-
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-      } catch (error) {
-        this.logger.error(
-          `Error rating article ${article.id}`,
-          error instanceof Error ? error.stack : String(error),
-        );
+      const result = await this.pipeline.rateArticle(
+        article,
+        article.processed_content,
+      );
+      if (result.success) {
+        stats.articlesRated++;
+      } else {
         stats.errors++;
       }
+      await this.pause();
     }
 
-    stats.endTime = new Date();
-    this.logger.log(
-      `--- Rating Finished. Rated ${stats.articlesRated} articles. ---`,
-    );
-
-    return stats;
+    return this.finish(stats, `Rated ${stats.articlesRated}`);
   }
 
   async categorizeArticles(
@@ -321,7 +95,42 @@ The article summary was successfully generated but embedding generation failed. 
     limit: number = 1000,
     articleId?: string,
   ): Promise<ProcessingStats> {
-    const stats: ProcessingStats = {
+    const stats = this.newStats(feedProfile);
+    const articles = articleId
+      ? await this.byId(
+          this.articlesService.getUncategorizedArticleById(articleId),
+        )
+      : await this.articlesService.getUncategorizedArticles(feedProfile, limit);
+
+    this.logger.log(`Found ${articles.length} articles to categorise.`);
+
+    for (const article of articles) {
+      if (!article.processed_content) {
+        this.logger.warn(`Skipping article ${article.id} - no summary found.`);
+        continue;
+      }
+      const result = await this.pipeline.categoriseArticle(
+        article,
+        article.processed_content,
+      );
+      if (result.success) {
+        stats.articlesCategorized++;
+      } else {
+        stats.errors++;
+      }
+      await this.pause();
+    }
+
+    return this.finish(stats, `Categorised ${stats.articlesCategorized}`);
+  }
+
+  private async byId(lookup: Promise<DBArticle | null>): Promise<DBArticle[]> {
+    const article = await lookup;
+    return article ? [article] : [];
+  }
+
+  private newStats(feedProfile: FeedProfile): ProcessingStats {
+    return {
       feedProfile,
       articlesProcessed: 0,
       articlesRated: 0,
@@ -329,117 +138,38 @@ The article summary was successfully generated but embedding generation failed. 
       errors: 0,
       startTime: new Date(),
     };
+  }
 
-    let uncategorizedArticles: DBArticle[] = [];
-    if (articleId) {
-      const article =
-        await this.articlesService.getUncategorizedArticleById(articleId);
-      uncategorizedArticles = article ? [article] : [];
-    } else {
-      uncategorizedArticles =
-        await this.articlesService.getUncategorizedArticles(feedProfile, limit);
-    }
-
-    if (uncategorizedArticles.length === 0) {
-      this.logger.log('No new articles to categorize.');
-      stats.endTime = new Date();
-      return stats;
-    }
-
-    this.logger.log(
-      `Found ${uncategorizedArticles.length} processed articles to categorize.`,
-    );
-
-    for (const article of uncategorizedArticles) {
-      if (!article.processed_content) {
-        this.logger.warn(
-          `Skipping article ${article.id} - no processed content found.`,
-        );
-        continue;
-      }
-
-      try {
-        const categoryPrompt =
-          this.configService.getCategoryClassificationPrompt(
-            article.title,
-            article.processed_content.substring(0, 2000),
-          );
-
-        const categoryResponse = await this.aiService.callChat(categoryPrompt);
-
-        if (categoryResponse) {
-          try {
-            const categories = JSON.parse(
-              categoryResponse.trim(),
-            ) as ArticleCategory[];
-
-            if (Array.isArray(categories) && categories.length > 0) {
-              const validCategories = categories.filter((cat) =>
-                Object.values(ArticleCategory).includes(cat),
-              );
-
-              if (validCategories.length > 0) {
-                await this.articlesService.updateArticleCategories(
-                  article.id,
-                  validCategories,
-                );
-                stats.articlesCategorized++;
-              } else {
-                this.logger.warn(
-                  `No valid categories found in response for article ${article.id}.`,
-                );
-                await this.articlesService.updateArticleCategories(article.id, [
-                  ArticleCategory.OTHER,
-                ]);
-                stats.articlesCategorized++;
-              }
-            } else {
-              this.logger.warn(
-                `Invalid category array format for article ${article.id}.`,
-              );
-              await this.articlesService.updateArticleCategories(article.id, [
-                ArticleCategory.OTHER,
-              ]);
-              stats.articlesCategorized++;
-            }
-          } catch (parseError) {
-            this.logger.error(
-              `Error parsing category response for article ${article.id}`,
-              parseError instanceof Error ? parseError.stack : String(parseError),
-            );
-            this.logger.warn(
-              `Could not parse category response '${categoryResponse}' for article ${article.id}.`,
-            );
-            await this.articlesService.updateArticleCategories(article.id, [
-              ArticleCategory.OTHER,
-            ]);
-            stats.articlesCategorized++;
-          }
-        } else {
-          this.logger.warn(
-            `No category response received for article ${article.id}.`,
-          );
-          await this.articlesService.updateArticleCategories(article.id, [
-            ArticleCategory.OTHER,
-          ]);
-          stats.articlesCategorized++;
-        }
-
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-      } catch (error) {
-        this.logger.error(
-          `Error categorizing article ${article.id}`,
-          error instanceof Error ? error.stack : String(error),
-        );
-        stats.errors++;
-      }
-    }
-
+  private finish(stats: ProcessingStats, outcome: string): ProcessingStats {
     stats.endTime = new Date();
-    this.logger.log(
-      `--- Categorization Finished. Categorized ${stats.articlesCategorized} articles. ---`,
-    );
-
+    this.logger.log(`${outcome} articles, ${stats.errors} failed.`);
     return stats;
+  }
+
+  private pause(): Promise<void> {
+    return this.sleeper.sleep(this.configService.getArticleProcessingDelayMs());
+  }
+
+  private async enqueueAudio(
+    article: DBArticle,
+    summary: string,
+  ): Promise<void> {
+    try {
+      const jobInfo = await this.audioJobService.enqueueAudioJob({
+        sourceType: 'article',
+        sourceId: article.id,
+        text: summary,
+        date: article.published_date
+          ? new Date(article.published_date)
+          : new Date(),
+      });
+      this.logger.log(`Audio generation job enqueued: ${jobInfo.jobId}`);
+    } catch (error) {
+      // Audio is best-effort; a failure here must not fail article processing.
+      this.logger.error(
+        `Error enqueuing audio generation for article ${article.id}`,
+        error instanceof Error ? error.stack : String(error),
+      );
+    }
   }
 }
