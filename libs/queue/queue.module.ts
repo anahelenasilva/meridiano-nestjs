@@ -8,6 +8,7 @@ import {
   AUDIO_GENERATION_QUEUE,
   CUSTOM_BRIEFING_GENERATION_QUEUE,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
+  NEWS_DIGEST_QUEUE,
   TRANSCRIPT_BACKUP_QUEUE,
   YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE
@@ -104,6 +105,21 @@ import { QueueService } from './queue.service';
       },
       inject: [RedisService],
     },
+    {
+      provide: NEWS_DIGEST_QUEUE,
+      useFactory: (redisService: RedisService) => {
+        // Retry options must live on defaultJobOptions: BullMQ ignores
+        // attempts/backoff passed to add() for repeatable jobs.
+        return new Queue(NEWS_DIGEST_QUEUE, {
+          connection: redisService.getClient(),
+          defaultJobOptions: {
+            attempts: 2,
+            backoff: { type: 'fixed', delay: 600_000 },
+          },
+        });
+      },
+      inject: [RedisService],
+    },
     QueueService,
   ],
   exports: [
@@ -114,6 +130,7 @@ import { QueueService } from './queue.service';
     AUDIO_GENERATION_QUEUE,
     YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
     TRANSCRIPT_BACKUP_QUEUE,
+    NEWS_DIGEST_QUEUE,
     QueueService,
   ],
 })

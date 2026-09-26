@@ -1,25 +1,23 @@
-import { RedisService } from '@libs/redis';
 import { Logger } from '@nestjs/common';
-import { Job, Worker } from 'bullmq';
+import { Job, Queue, Worker } from 'bullmq';
 import { mock } from 'jest-mock-extended';
+import { createWorker } from '../../../libs/queue/create-worker';
 import { ConfigService } from '../../config/config.service';
 import { FeedProfile } from '../../shared/types/feed';
 import { BriefingGenerationService } from '../services/briefing-generation.service';
 import { CustomBriefingProcessor } from './custom-briefing.processor';
 
-jest.mock('bullmq');
+jest.mock('../../../libs/queue/create-worker');
 
 describe('CustomBriefingProcessor', () => {
   let processor: CustomBriefingProcessor;
-  const mockRedisService = mock<RedisService>();
+  const mockQueue = mock<Queue>();
   const mockBriefingGenerationService = mock<BriefingGenerationService>();
   const mockConfigService = mock<ConfigService>();
   const mockWorker = mock<Worker>();
-  const redisClient = {};
 
   beforeEach(() => {
-    (Worker as unknown as jest.Mock).mockImplementation(() => mockWorker);
-    mockRedisService.getClient.mockReturnValue(redisClient as never);
+    jest.mocked(createWorker).mockReturnValue(mockWorker);
     mockConfigService.getCustomBriefingQueueConfig.mockReturnValue({
       concurrency: 4,
       attempts: 3,
@@ -27,7 +25,7 @@ describe('CustomBriefingProcessor', () => {
     });
 
     processor = new CustomBriefingProcessor(
-      mockRedisService,
+      mockQueue,
       mockBriefingGenerationService,
       mockConfigService,
     );
@@ -38,72 +36,13 @@ describe('CustomBriefingProcessor', () => {
   });
 
   describe('onModuleInit', () => {
-    it('initializes the worker with configured concurrency', () => {
+    it('starts a worker on the curated briefing queue with configured concurrency', () => {
       processor.onModuleInit();
 
-      expect(Worker).toHaveBeenCalledWith(
-        'custom-briefing-generation',
-        expect.any(Function),
-        {
-          connection: redisClient,
-          concurrency: 4,
-        },
-      );
-      expect(mockWorker.on).toHaveBeenCalledWith(
-        'completed',
-        expect.any(Function),
-      );
-      expect(mockWorker.on).toHaveBeenCalledWith('failed', expect.any(Function));
-      expect(mockWorker.on).toHaveBeenCalledWith('error', expect.any(Function));
-    });
-
-    it('logs final job failures after retries are exhausted', () => {
-      const loggerErrorSpy = jest
-        .spyOn(Logger.prototype, 'error')
-        .mockImplementation();
-
-      processor.onModuleInit();
-      const failedHandler = mockWorker.on.mock.calls.find(
-        ([event]) => event === 'failed',
-      )?.[1] as (job: Job | undefined, err: Error) => void;
-
-      failedHandler(
-        {
-          id: 'job-123',
-          attemptsMade: 3,
-          opts: { attempts: 3 },
-        } as Job,
-        new Error('generation failed'),
-      );
-
-      expect(loggerErrorSpy).toHaveBeenCalledWith(
-        'Custom briefing job job-123 failed after 3/3 attempts',
-        expect.any(String),
-      );
-    });
-
-    it('logs retryable job failures before attempts are exhausted', () => {
-      const loggerWarnSpy = jest
-        .spyOn(Logger.prototype, 'warn')
-        .mockImplementation();
-
-      processor.onModuleInit();
-      const failedHandler = mockWorker.on.mock.calls.find(
-        ([event]) => event === 'failed',
-      )?.[1] as (job: Job | undefined, err: Error) => void;
-
-      failedHandler(
-        {
-          id: 'job-123',
-          attemptsMade: 1,
-          opts: { attempts: 3 },
-        } as Job,
-        new Error('generation failed'),
-      );
-
-      expect(loggerWarnSpy).toHaveBeenCalledWith(
-        'Custom briefing job job-123 failed attempt 1/3; retry scheduled: generation failed',
-      );
+      expect(createWorker).toHaveBeenCalledWith(mockQueue, expect.any(Function), {
+        logger: expect.any(Logger),
+        concurrency: 4,
+      });
     });
   });
 
