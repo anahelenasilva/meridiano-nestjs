@@ -41,8 +41,6 @@ describe('ProcessArticlesUseCase', () => {
 
     expect(mockProcessorService.processArticles).toHaveBeenCalledWith(
       FeedProfile.DEFAULT,
-      1000,
-      undefined,
       undefined,
     );
     expect(result).toEqual({ articlesProcessed: 4, errors: 0 });

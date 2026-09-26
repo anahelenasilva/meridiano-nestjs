@@ -3,8 +3,8 @@ import { ARTICLE_PROCESSING_QUEUE, ProcessArticleJobData } from '@libs/queue';
 import { RedisService } from '@libs/redis';
 import { Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { Job, Worker } from 'bullmq';
-import { DBArticle } from '../../articles/article.entity';
 import { ArticlesService } from '../../articles/articles.service';
+import { enqueueArticleAudio } from '../enqueue-article-audio';
 import { ArticleProcessingPipelineService } from '../pipeline/article-processing-pipeline.service';
 
 /**
@@ -77,33 +77,18 @@ export class ArticleProcessor implements OnModuleInit, OnModuleDestroy {
     }
 
     if (generateAudio) {
-      await this.enqueueAudio(article, result.summary);
+      await enqueueArticleAudio(
+        this.audioJobService,
+        this.logger,
+        article,
+        result.summary,
+      );
     }
 
     return {
       success: true,
       message: `Article ${articleId} processed, rated, and categorized successfully`,
     };
-  }
-
-  private async enqueueAudio(article: DBArticle, summary: string): Promise<void> {
-    try {
-      const jobInfo = await this.audioJobService.enqueueAudioJob({
-        sourceType: 'article',
-        sourceId: article.id,
-        text: summary,
-        date: article.published_date
-          ? new Date(article.published_date)
-          : new Date(),
-      });
-      this.logger.log(`Audio generation job enqueued: ${jobInfo.jobId}`);
-    } catch (error) {
-      // Audio is best-effort; a failure here must not fail article processing.
-      this.logger.error(
-        `Error enqueuing audio generation for article ${article.id}:`,
-        error,
-      );
-    }
   }
 
   async onModuleDestroy() {

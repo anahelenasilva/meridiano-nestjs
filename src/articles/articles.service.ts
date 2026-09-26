@@ -617,18 +617,6 @@ export class ArticlesService {
     return row ? mapArticleRow(row) : null;
   }
 
-  async getUnratedArticleById(articleId: string): Promise<DBArticle | null> {
-    const db = this.databaseService.getDbConnection();
-
-    const query = `
-        SELECT * FROM articles
-        WHERE id = ? AND processed_content IS NOT NULL AND impact_rating IS NULL
-      `;
-
-    const row = await queryOne<ArticleRow>(db, query, [articleId]);
-    return row ? mapArticleRow(row) : null;
-  }
-
   async getYesterdayArticlesByProfile(): Promise<DBArticle[]> {
     const db = this.databaseService.getDbConnection();
 
@@ -665,19 +653,5 @@ export class ArticlesService {
       startOfTodayBrt.toISOString(),
     ]);
     return rows.map(mapArticleRow);
-  }
-
-  async getUncategorizedArticleById(
-    articleId: string,
-  ): Promise<DBArticle | null> {
-    const db = this.databaseService.getDbConnection();
-
-    const query = `
-        SELECT * FROM articles
-        WHERE id = ? AND processed_content IS NOT NULL AND categories IS NULL
-      `;
-
-    const row = await queryOne<ArticleRow>(db, query, [articleId]);
-    return row ? mapArticleRow(row) : null;
   }
 }

@@ -75,6 +75,13 @@ a first-class module responsibility. The email transport and config
   those steps as separate stages. `ProcessorService` loops over them, keeps its
   `ProcessingStats`, and sleeps through the exported `SLEEPER`. Both paths
   alert once per failed step through `ProcessingNotifier`.
+- Update (#256): the uploaded-markdown worker runs the ingested Article
+  through `processArticle`, like the queue worker, instead of calling
+  `ProcessorService` stage by stage. `ProcessorService` now only serves the
+  scheduled briefing run and has no per-article mode. Workers and the batch
+  summarise stage share `enqueueArticleAudio` for best-effort audio. A markdown
+  upload now enqueues audio only after all three steps succeed, as the queue
+  worker already did, instead of right after the summary.
 - The `AI_ADAPTER` binding hand-wraps `AiService` in the composition root. When
   the AI Provider Adapter work (#113) exposes a first-class policy-wrapped
   `AiAdapter` provider, this factory should consume it instead.
