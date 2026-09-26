@@ -24,6 +24,7 @@ import { ArticlesController } from '../src/articles/articles.controller';
 import { ArticlesService } from '../src/articles/articles.service';
 import { GenerateArticleAudioCommand } from '../src/articles/commands/generate-article-audio.command';
 import { GetArticleByIdQuery } from '../src/articles/queries/get-article-by-id.query';
+import { ListArticlesLeanQuery } from '../src/articles/queries/list-articles-lean.query';
 import { ListArticlesQuery } from '../src/articles/queries/list-articles.query';
 import { ConfigService } from '../src/config/config.service';
 import { ScraperService } from '../src/scraper/scraper.service';
@@ -60,6 +61,10 @@ describe('PATCH /api/articles/:id (e2e)', () => {
       providers: [
         { provide: ArticlesService, useValue: mockArticlesService },
         { provide: ListArticlesQuery, useValue: mock<ListArticlesQuery>() },
+        {
+          provide: ListArticlesLeanQuery,
+          useValue: mock<ListArticlesLeanQuery>(),
+        },
         { provide: GetArticleByIdQuery, useValue: mock<GetArticleByIdQuery>() },
         { provide: ScraperService, useValue: mock<ScraperService>() },
         { provide: QueueService, useValue: mock<QueueService>() },

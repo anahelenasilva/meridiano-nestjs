@@ -96,7 +96,7 @@ describe('GET /api/audio (e2e)', () => {
   let app: INestApplication<App> | undefined;
   let moduleFixture: TestingModule | undefined;
   let db: DatabaseConnection | undefined;
-  let originalJwtSecret: string | undefined;
+  let originalEnv: NodeJS.ProcessEnv;
   let token: string;
   // GET /api/audio reads the whole audio_files table with no filters, so the
   // exact total_audios assertions below require an empty baseline. This
@@ -132,8 +132,16 @@ describe('GET /api/audio (e2e)', () => {
   };
 
   beforeAll(async () => {
-    originalJwtSecret = process.env.JWT_SECRET;
-    process.env.JWT_SECRET = 'test-jwt-secret-key-for-e2e-tests';
+    // Presigned URLs are signed locally, so dummy AWS keys work. Without keys
+    // the SDK falls back to its credential chain, whose dynamic import() Jest's
+    // VM rejects.
+    originalEnv = process.env;
+    process.env = {
+      ...originalEnv,
+      JWT_SECRET: 'test-jwt-secret-key-for-e2e-tests',
+      AWS_ACCESS_KEY_ID: 'test-access-key-id',
+      AWS_SECRET_ACCESS_KEY: 'test-secret-access-key',
+    };
 
     moduleFixture = await Test.createTestingModule({
       imports: [AppModule],
@@ -254,11 +262,7 @@ describe('GET /api/audio (e2e)', () => {
       }
     }
 
-    if (originalJwtSecret === undefined) {
-      delete process.env.JWT_SECRET;
-    } else {
-      process.env.JWT_SECRET = originalJwtSecret;
-    }
+    process.env = originalEnv;
 
     if (app) {
       await app.close();
