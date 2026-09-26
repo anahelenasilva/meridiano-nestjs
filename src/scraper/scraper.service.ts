@@ -226,10 +226,7 @@ export class ScraperService {
     return article.id;
   }
 
-  /**
-   * Scrapes every enabled RSS feed and sitemap source of a Feed Profile.
-   * Reports `no_sources` without scraping when the profile has neither.
-   */
+  /** Reports `no_sources` without scraping when the profile has no enabled RSS feed or sitemap source. */
   async scrapeFeedProfile(
     feedProfile: FeedProfile,
   ): Promise<FeedProfileScrape> {

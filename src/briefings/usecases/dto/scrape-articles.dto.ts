@@ -1,4 +1,5 @@
 import { IsEnum } from 'class-validator';
+import { ScrapingStats } from '../../../scraper/scrapper.entity';
 import { FeedProfile } from '../../../shared/types/feed';
 
 export class ScrapeArticlesInputDto {
@@ -6,10 +7,7 @@ export class ScrapeArticlesInputDto {
   feedProfile: FeedProfile;
 }
 
-export interface ScrapeStats {
-  newArticles: number;
-  errors: number;
-}
+type ScrapeStats = Pick<ScrapingStats, 'newArticles' | 'errors'>;
 
 export type ScrapeArticlesOutputDto =
   | { status: 'no_sources' }
