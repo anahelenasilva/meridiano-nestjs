@@ -79,7 +79,9 @@ a first-class module responsibility. The email transport and config
   through `processArticle`, like the queue worker, instead of calling
   `ProcessorService` stage by stage. `ProcessorService` now only serves the
   scheduled briefing run and has no per-article mode. Workers and the batch
-  summarise stage share `enqueueArticleAudio` for best-effort audio.
+  summarise stage share `enqueueArticleAudio` for best-effort audio. A markdown
+  upload now enqueues audio only after all three steps succeed, as the queue
+  worker already did, instead of right after the summary.
 - The `AI_ADAPTER` binding hand-wraps `AiService` in the composition root. When
   the AI Provider Adapter work (#113) exposes a first-class policy-wrapped
   `AiAdapter` provider, this factory should consume it instead.
