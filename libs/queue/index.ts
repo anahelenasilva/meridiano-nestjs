@@ -21,8 +21,6 @@ export type { BackupTranscriptJobData } from './interfaces/transcript-backup-job
 export type { IngestTranscriptJobData } from './interfaces/transcript-ingest-job.interface';
 export type { ProcessTranscriptionSummaryJobData } from './interfaces/youtube-transcription-job.interface';
 
-export { createWorker } from './create-worker';
-export type { CreateWorkerOptions } from './create-worker';
 export { QueueModule } from './queue.module';
 export { QueueService } from './queue.service';
 // Note: AudioJobService is now exported from @libs/audio
