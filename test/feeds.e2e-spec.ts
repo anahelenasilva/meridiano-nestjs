@@ -17,7 +17,7 @@ describe('Feeds (e2e)', () => {
   let mockArticlesService: MockProxy<ArticlesService>;
 
   // The RSS feed does not render has_audio; it is only present here to
-  // satisfy getArticlesPaginated's return type.
+  // satisfy listArticles's return type.
   function buildArticle(overrides: Partial<ArticleListRow> = {}): ArticleListRow {
     return {
       id: 'article-1',
@@ -67,7 +67,7 @@ describe('Feeds (e2e)', () => {
   describe('GET /feeds/articles.xml', () => {
     it('returns valid RSS XML with the correct content type for an unauthenticated request', async () => {
       const article = buildArticle();
-      mockArticlesService.getArticlesPaginated.mockResolvedValue([article]);
+      mockArticlesService.listArticles.mockResolvedValue({ articles: [article], total: 1 });
 
       const response = await request(app.getHttpServer())
         .get('/feeds/articles.xml')
@@ -86,7 +86,7 @@ describe('Feeds (e2e)', () => {
     });
 
     it('does not require an Authorization header', async () => {
-      mockArticlesService.getArticlesPaginated.mockResolvedValue([]);
+      mockArticlesService.listArticles.mockResolvedValue({ articles: [], total: 0 });
 
       await request(app.getHttpServer())
         .get('/feeds/articles.xml')
@@ -95,38 +95,41 @@ describe('Feeds (e2e)', () => {
     });
 
     it('filters by feedProfile when given', async () => {
-      mockArticlesService.getArticlesPaginated.mockResolvedValue([]);
+      mockArticlesService.listArticles.mockResolvedValue({ articles: [], total: 0 });
 
       await request(app.getHttpServer())
         .get('/feeds/articles.xml?feedProfile=technology')
         .expect(200);
 
-      expect(mockArticlesService.getArticlesPaginated).toHaveBeenCalledWith(
+      expect(mockArticlesService.listArticles).toHaveBeenCalledWith(
         expect.objectContaining({ feedProfile: 'technology' }),
+        expect.anything(),
       );
     });
 
     it('bounds the item count to the given limit', async () => {
-      mockArticlesService.getArticlesPaginated.mockResolvedValue([]);
+      mockArticlesService.listArticles.mockResolvedValue({ articles: [], total: 0 });
 
       await request(app.getHttpServer())
         .get('/feeds/articles.xml?limit=5')
         .expect(200);
 
-      expect(mockArticlesService.getArticlesPaginated).toHaveBeenCalledWith(
+      expect(mockArticlesService.listArticles).toHaveBeenCalledWith(
+        expect.anything(),
         expect.objectContaining({ perPage: 5 }),
       );
     });
 
     it('falls back to safe defaults when given invalid query values', async () => {
-      mockArticlesService.getArticlesPaginated.mockResolvedValue([]);
+      mockArticlesService.listArticles.mockResolvedValue({ articles: [], total: 0 });
 
       await request(app.getHttpServer())
         .get('/feeds/articles.xml?limit=not-a-number&feedProfile=bogus')
         .expect(200);
 
-      expect(mockArticlesService.getArticlesPaginated).toHaveBeenCalledWith(
-        expect.objectContaining({ perPage: 20, feedProfile: undefined }),
+      expect(mockArticlesService.listArticles).toHaveBeenCalledWith(
+        { feedProfile: undefined },
+        expect.objectContaining({ perPage: 20 }),
       );
     });
   });

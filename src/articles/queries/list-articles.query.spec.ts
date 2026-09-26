@@ -47,7 +47,6 @@ describe('ListArticlesQuery', () => {
     ]);
     mockService.getDistinctCategories.mockResolvedValue(['news']);
     mockService.getDistinctFeedSources.mockResolvedValue(['Will Larson']);
-    mockService.countTotalArticles.mockResolvedValue(2);
     mockNotesReadService.getActiveNotesBySourceIds.mockResolvedValue(new Map());
 
     query = new ListArticlesQuery(
@@ -58,7 +57,10 @@ describe('ListArticlesQuery', () => {
   });
 
   it('embeds each owner active note on the article list via a single bulk lookup', async () => {
-    mockService.getArticlesPaginated.mockResolvedValue([articleA, articleB]);
+    mockService.listArticles.mockResolvedValue({
+      articles: [articleA, articleB],
+      total: 2,
+    });
     const noteA: Note = {
       id: 'note-a',
       user_id: userId,
@@ -96,7 +98,10 @@ describe('ListArticlesQuery', () => {
   });
 
   it('sets note to null for every article when no active notes exist', async () => {
-    mockService.getArticlesPaginated.mockResolvedValue([articleA, articleB]);
+    mockService.listArticles.mockResolvedValue({
+      articles: [articleA, articleB],
+      total: 2,
+    });
 
     const result = await query.execute(userId, {});
 
@@ -107,7 +112,10 @@ describe('ListArticlesQuery', () => {
   });
 
   it('skips the note lookup and returns null notes when there is no user (api-key path)', async () => {
-    mockService.getArticlesPaginated.mockResolvedValue([articleA, articleB]);
+    mockService.listArticles.mockResolvedValue({
+      articles: [articleA, articleB],
+      total: 2,
+    });
 
     const result = await query.execute(undefined, {});
 
@@ -121,7 +129,10 @@ describe('ListArticlesQuery', () => {
   });
 
   it('passes has_audio through unchanged from the service row to each response item', async () => {
-    mockService.getArticlesPaginated.mockResolvedValue([articleA, articleB]);
+    mockService.listArticles.mockResolvedValue({
+      articles: [articleA, articleB],
+      total: 2,
+    });
 
     const result = await query.execute(userId, {});
 
@@ -131,111 +142,38 @@ describe('ListArticlesQuery', () => {
     ]);
   });
 
-  it('passes feedSource to both reads and returns the source options', async () => {
-    mockService.getArticlesPaginated.mockResolvedValue([articleA]);
+  it('passes the request filter to the read and returns the source options', async () => {
+    mockService.listArticles.mockResolvedValue({
+      articles: [articleA],
+      total: 1,
+    });
 
-    const result = await query.execute(userId, { feedSource: 'Will Larson' });
+    const result = await query.execute(userId, {
+      feedSource: 'Will Larson',
+      preset: 'last_week',
+    });
 
-    expect(mockService.countTotalArticles).toHaveBeenCalledWith(
-      expect.objectContaining({ feedSource: 'Will Larson' }),
-    );
-    expect(mockService.getArticlesPaginated).toHaveBeenCalledWith(
-      expect.objectContaining({ feedSource: 'Will Larson' }),
+    expect(mockService.listArticles).toHaveBeenCalledWith(
+      expect.objectContaining({
+        feedSource: 'Will Larson',
+        preset: 'last_week',
+        archiveScope: 'active',
+      }),
+      { page: 1, perPage: 20, sortBy: 'published_date', direction: 'desc' },
     );
     expect(result?.filters.feed_source).toBe('Will Larson');
+    expect(result?.filters.preset).toBe('last_week');
     expect(result?.available_sources).toEqual(['Will Larson']);
   });
 
-  describe('preset', () => {
-    beforeEach(() => {
-      jest.useFakeTimers().setSystemTime(new Date('2026-09-25T12:00:00'));
-    });
-
-    afterEach(() => {
-      jest.useRealTimers();
-    });
-
-    it('filters the count and the page rows by the same preset window', async () => {
-      mockService.getArticlesPaginated.mockResolvedValue([]);
-
-      await query.execute(userId, { preset: 'last_week' });
-
-      const window = { startDate: '2026-09-18', endDate: '2026-09-25' };
-      expect(mockService.countTotalArticles).toHaveBeenCalledWith(
-        expect.objectContaining(window),
-      );
-      expect(mockService.getArticlesPaginated).toHaveBeenCalledWith(
-        expect.objectContaining(window),
-      );
-    });
-
-    it('overrides explicit dates with the preset window on both reads', async () => {
-      mockService.getArticlesPaginated.mockResolvedValue([]);
-
-      await query.execute(userId, {
-        preset: 'yesterday',
-        startDate: '2020-01-01',
-        endDate: '2020-12-31',
-      });
-
-      const window = { startDate: '2026-09-24', endDate: '2026-09-24' };
-      expect(mockService.countTotalArticles).toHaveBeenCalledWith(
-        expect.objectContaining(window),
-      );
-      expect(mockService.getArticlesPaginated).toHaveBeenCalledWith(
-        expect.objectContaining(window),
-      );
-    });
-  });
-
   it('scopes the source options to the requested archive scope', async () => {
-    mockService.getArticlesPaginated.mockResolvedValue([]);
+    mockService.listArticles.mockResolvedValue({
+      articles: [],
+      total: 2,
+    });
 
     await query.execute(userId, { archiveScope: 'archived' });
 
     expect(mockService.getDistinctFeedSources).toHaveBeenCalledWith('archived');
-  });
-
-  describe('date presets', () => {
-    beforeEach(() => {
-      jest.useFakeTimers({ now: new Date(2024, 4, 31, 22, 30) });
-      mockService.getArticlesPaginated.mockResolvedValue([]);
-    });
-
-    afterEach(() => {
-      jest.useRealTimers();
-    });
-
-    it.each([
-      ['yesterday', '2024-05-30', '2024-05-30'],
-      ['last_week', '2024-05-24', '2024-05-31'],
-      ['last_30d', '2024-05-01', '2024-05-31'],
-      ['last_3m', '2024-02-29', '2024-05-31'],
-      ['last_12m', '2023-05-31', '2024-05-31'],
-    ])(
-      'counts %s as %s to %s in local time',
-      async (preset, startDate, endDate) => {
-        await query.execute(userId, { preset });
-
-        expect(mockService.countTotalArticles).toHaveBeenCalledWith(
-          expect.objectContaining({ startDate, endDate }),
-        );
-      },
-    );
-
-    it('keeps the request dates for an unknown preset', async () => {
-      await query.execute(userId, {
-        preset: 'bogus',
-        startDate: '2024-01-01',
-        endDate: '2024-01-31',
-      });
-
-      expect(mockService.countTotalArticles).toHaveBeenCalledWith(
-        expect.objectContaining({
-          startDate: '2024-01-01',
-          endDate: '2024-01-31',
-        }),
-      );
-    });
   });
 });

@@ -1,30 +1,5 @@
 import { ImpactRating } from '../shared/types/ai';
 import { FeedProfile } from '../shared/types/feed';
-import { ArchiveScope } from './helpers/archive-scope';
-
-export interface PaginatedArticleInput {
-  page?: number;
-  perPage?: number;
-  sortBy?: string;
-  direction?: 'asc' | 'desc';
-  feedProfile?: string;
-  feedSource?: string;
-  searchTerm?: string;
-  startDate?: string;
-  endDate?: string;
-  category?: string;
-  archiveScope?: ArchiveScope;
-}
-
-export interface CountTotalArticlesInput {
-  feedProfile?: string;
-  feedSource?: string;
-  searchTerm?: string;
-  startDate?: string;
-  endDate?: string;
-  category?: string;
-  archiveScope?: ArchiveScope;
-}
 
 export interface ArticleSummary {
   id: string;

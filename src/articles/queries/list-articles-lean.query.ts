@@ -2,16 +2,18 @@ import { Injectable } from '@nestjs/common';
 import { attachNotes, WithNote } from '../../notes/attach-notes';
 import { Note } from '../../notes/note.entity';
 import { NotesReadService } from '../../notes/notes-read.service';
-import { ArticlesService, ArticleListRow } from '../articles.service';
+import {
+  ArticlePage,
+  ArticlesService,
+  ArticleListRow,
+} from '../articles.service';
+import { ArticleFilter } from '../helpers/article-filter';
 
-export type ListArticlesLeanRequest = {
-  page?: number;
-  perPage?: number;
-  feedProfile?: string;
-  feedSource?: string;
-  startDate?: string;
-  endDate?: string;
-};
+export type ListArticlesLeanRequest = Pick<
+  ArticleFilter,
+  'feedProfile' | 'feedSource' | 'startDate' | 'endDate'
+> &
+  Pick<ArticlePage, 'page' | 'perPage'>;
 
 // The lean projection: identity/metadata fields plus raw (unrendered)
 // processed_content and the derived has_audio flag. Deliberately omits the
@@ -64,8 +66,8 @@ function toLeanArticle(row: ArticleListRow): LeanArticle {
 }
 
 /**
- * Backs GET /api/articles/lean. Shares the pagination/filter SQL with the full
- * list (same service methods) but returns only the fields a CLI listing needs.
+ * Backs GET /api/articles/lean. Shares the filter and read with the full list
+ * (ArticlesService.listArticles) but returns only the fields a CLI listing needs.
  * Unlike ListArticlesQuery it does no markdown rendering and skips the
  * profiles/categories lookups.
  */
@@ -91,22 +93,12 @@ export class ListArticlesLeanQuery {
       endDate,
     } = request;
 
-    const totalArticles = await this.service.countTotalArticles({
-      feedProfile,
-      feedSource,
-      startDate,
-      endDate,
-    });
+    const { articles: rows, total: totalArticles } =
+      await this.service.listArticles(
+        { feedProfile, feedSource, startDate, endDate },
+        { page, perPage },
+      );
     const totalPages = Math.ceil(totalArticles / perPage);
-
-    const rows = await this.service.getArticlesPaginated({
-      page,
-      perPage,
-      feedProfile,
-      feedSource,
-      startDate,
-      endDate,
-    });
 
     const leanArticles = rows.map(toLeanArticle);
 

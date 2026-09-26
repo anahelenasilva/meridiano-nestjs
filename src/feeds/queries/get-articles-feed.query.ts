@@ -19,13 +19,10 @@ export class GetArticlesFeedQuery {
   ): Promise<string> {
     const { limit = FEED_DEFAULT_ITEM_LIMIT, feedProfile } = options;
 
-    const articles = await this.articlesService.getArticlesPaginated({
-      page: 1,
-      perPage: limit,
-      sortBy: 'published_date',
-      direction: 'desc',
-      feedProfile,
-    });
+    const { articles } = await this.articlesService.listArticles(
+      { feedProfile },
+      { page: 1, perPage: limit, sortBy: 'published_date', direction: 'desc' },
+    );
 
     return buildRssFeed({
       title: FEED_CHANNEL_TITLE,

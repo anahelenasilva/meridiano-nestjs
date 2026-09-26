@@ -11,19 +11,19 @@ import { NotesCleanupService } from '../notes/notes-cleanup.service';
 import { FeedProfile } from '../shared/types/feed';
 import {
   ArticleCategory,
-  CountTotalArticlesInput,
   DBArticle,
-  PaginatedArticleInput,
   UpdateArticlePatch,
 } from './article.entity';
 import { ArticleRow, articleColumns, mapArticleRow } from './article-row';
 import { archiveClause, ArchiveScope } from './helpers/archive-scope';
+import { ArticleFilter, compileArticleFilter } from './helpers/article-filter';
 
+// pg returns COUNT(*) as a bigint string.
 interface CountRow {
-  count: number;
+  count: string;
 }
 
-// Row shape for getArticlesPaginated only: has_audio comes from an EXISTS
+// Row shape for listArticles only: has_audio comes from an EXISTS
 // subquery, not a real articles column, so it stays out of the shared
 // ArticleRow used by every other query in this service.
 type ArticleListDbRow = ArticleRow & { has_audio: boolean };
@@ -31,6 +31,13 @@ type ArticleListDbRow = ArticleRow & { has_audio: boolean };
 // Per-query read model: has_audio is derived (EXISTS against audio_files),
 // not a schema column, so it lives here rather than on DBArticle.
 export type ArticleListRow = DBArticle & { has_audio: boolean };
+
+export type ArticlePage = {
+  page?: number;
+  perPage?: number;
+  sortBy?: string;
+  direction?: string;
+};
 
 const ARTICLE_COLUMNS = articleColumns();
 
@@ -470,76 +477,23 @@ export class ArticlesService {
     return rows.map((row) => row.feed_source);
   }
 
-  async getArticlesPaginated(
-    options: PaginatedArticleInput,
-  ): Promise<ArticleListRow[]> {
+  /**
+   * One page of the list plus the total for the whole filter. Both queries
+   * compile from the same filter, so the total always describes the rows.
+   */
+  async listArticles(
+    filter: ArticleFilter,
+    page: ArticlePage = {},
+  ): Promise<{ articles: ArticleListRow[]; total: number }> {
     const db = this.databaseService.getDbConnection();
 
     const {
-      page = 1,
+      page: pageNumber = 1,
       perPage = 20,
       sortBy = 'published_date',
       direction = 'desc',
-      feedProfile,
-      feedSource,
-      searchTerm,
-      startDate,
-      endDate,
-      category,
-      archiveScope = 'active',
-    } = options;
-
-    let query = `
-        SELECT
-          ${ARTICLE_COLUMNS},
-          EXISTS (
-            SELECT 1 FROM audio_files af
-            WHERE af.source_type = 'article' AND af.source_id = articles.id
-          ) AS has_audio
-        FROM articles
-        WHERE 1=1
-      `;
-    const params: (string | number)[] = [];
-
-    // Defaulting to active here rather than at each call site: a read path
-    // added later inherits the exclusion instead of silently leaking
-    // archived articles into a briefing.
-    const scopeClause = archiveClause(archiveScope);
-    if (scopeClause) {
-      query += ` AND ${scopeClause}`;
-    }
-
-    if (feedProfile) {
-      query += ' AND feed_profile = ?';
-      params.push(feedProfile);
-    }
-
-    if (feedSource) {
-      query += ' AND feed_source = ?';
-      params.push(feedSource);
-    }
-
-    if (searchTerm) {
-      query +=
-        ' AND (title LIKE ? OR raw_content LIKE ? OR processed_content LIKE ?)';
-      const searchPattern = `%${searchTerm}%`;
-      params.push(searchPattern, searchPattern, searchPattern);
-    }
-
-    if (startDate) {
-      query += ' AND DATE(published_date) >= ?';
-      params.push(startDate);
-    }
-
-    if (endDate) {
-      query += ' AND DATE(published_date) <= ?';
-      params.push(endDate);
-    }
-
-    if (category) {
-      query += ' AND categories LIKE ?';
-      params.push(`%"${category}"%`);
-    }
+    } = page;
+    const { where, params } = compileArticleFilter(filter);
 
     const validSortColumns = [
       'published_date',
@@ -551,77 +505,39 @@ export class ArticlesService {
       ? sortBy
       : 'published_date';
     const sortDirection = direction === 'asc' ? 'ASC' : 'DESC';
-    query += ` ORDER BY ${sortColumn} ${sortDirection}`;
+    const offset = (pageNumber - 1) * perPage;
 
-    const offset = (page - 1) * perPage;
-    query += ' LIMIT ? OFFSET ?';
-    params.push(perPage, offset);
-
-    const rows = await queryAll<ArticleListDbRow>(db, query, params);
+    const [rows, countRow] = await Promise.all([
+      queryAll<ArticleListDbRow>(
+        db,
+        `SELECT
+          ${ARTICLE_COLUMNS},
+          EXISTS (
+            SELECT 1 FROM audio_files af
+            WHERE af.source_type = 'article' AND af.source_id = articles.id
+          ) AS has_audio
+        FROM articles
+        WHERE ${where}
+        ORDER BY ${sortColumn} ${sortDirection}
+        LIMIT ? OFFSET ?`,
+        [...params, perPage, offset],
+      ),
+      queryOne<CountRow>(
+        db,
+        `SELECT COUNT(*) as count FROM articles WHERE ${where}`,
+        params,
+      ),
+    ]);
 
     // Postgres returns EXISTS as a real boolean (see youtube_channels.enabled
     // for the same driver behavior on a plain boolean column), so no coercion.
-    return rows.map((row) => ({
-      ...mapArticleRow(row),
-      has_audio: row.has_audio,
-    }));
-  }
-
-  async countTotalArticles(options: CountTotalArticlesInput): Promise<number> {
-    const db = this.databaseService.getDbConnection();
-
-    const {
-      feedProfile,
-      feedSource,
-      searchTerm,
-      startDate,
-      endDate,
-      category,
-      archiveScope = 'active',
-    } = options;
-
-    let query = 'SELECT COUNT(*) as count FROM articles WHERE 1=1';
-    const params: (string | number)[] = [];
-
-    const scopeClause = archiveClause(archiveScope);
-    if (scopeClause) {
-      query += ` AND ${scopeClause}`;
-    }
-
-    if (feedProfile) {
-      query += ' AND feed_profile = ?';
-      params.push(feedProfile);
-    }
-
-    if (feedSource) {
-      query += ' AND feed_source = ?';
-      params.push(feedSource);
-    }
-
-    if (searchTerm) {
-      query +=
-        ' AND (title LIKE ? OR raw_content LIKE ? OR processed_content LIKE ?)';
-      const searchPattern = `%${searchTerm}%`;
-      params.push(searchPattern, searchPattern, searchPattern);
-    }
-
-    if (startDate) {
-      query += ' AND DATE(published_date) >= ?';
-      params.push(startDate);
-    }
-
-    if (endDate) {
-      query += ' AND DATE(published_date) <= ?';
-      params.push(endDate);
-    }
-
-    if (category) {
-      query += ' AND categories LIKE ?';
-      params.push(`%"${category}"%`);
-    }
-
-    const row = await queryOne<CountRow>(db, query, params);
-    return row?.count || 0;
+    return {
+      articles: rows.map((row) => ({
+        ...mapArticleRow(row),
+        has_audio: row.has_audio,
+      })),
+      total: Number(countRow?.count ?? 0),
+    };
   }
 
   async articleExists(url: string): Promise<boolean> {
