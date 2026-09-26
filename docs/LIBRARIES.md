@@ -127,6 +127,7 @@ Supported configuration paths:
 
 - `QueueModule`
 - `QueueService`
+- `createWorker`
 - Queue names:
   - `ARTICLE_PROCESSING_QUEUE`
   - `MARKDOWN_ARTICLE_PROCESSING_QUEUE`
@@ -153,6 +154,7 @@ Supported configuration paths:
 - Handles enqueueing and status lookup for article/transcription jobs.
 - Subscribes to queue failure events and sends notification emails on terminal failures.
 - Includes processors in `libs/queue/processors/` for infrastructure-level queue execution.
+- `createWorker(queue, handler, { logger, concurrency, onTerminalFailure })` starts a worker on a `QueueModule` queue. It logs retries and terminal failures, logs Redis connection resets at debug level, and calls `onTerminalFailure` once when the job's last configured attempt fails or it throws an `UnrecoverableError`. News Digest and Curated Briefing workers use it.
 
 ## Audio Library
 

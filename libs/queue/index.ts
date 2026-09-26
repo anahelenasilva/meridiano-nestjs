@@ -5,6 +5,8 @@ export {
   GENERATE_AUDIO_JOB,
   INGEST_TRANSCRIPT_JOB,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
+  NEWS_DIGEST_JOB,
+  NEWS_DIGEST_QUEUE,
   PROCESS_ARTICLE_JOB,
   PROCESS_MARKDOWN_ARTICLE_JOB,
   PROCESS_TRANSCRIPTION_SUMMARY_JOB,
@@ -19,6 +21,8 @@ export type { BackupTranscriptJobData } from './interfaces/transcript-backup-job
 export type { IngestTranscriptJobData } from './interfaces/transcript-ingest-job.interface';
 export type { ProcessTranscriptionSummaryJobData } from './interfaces/youtube-transcription-job.interface';
 
+export { createWorker } from './create-worker';
+export type { CreateWorkerOptions } from './create-worker';
 export { QueueModule } from './queue.module';
 export { QueueService } from './queue.service';
 // Note: AudioJobService is now exported from @libs/audio

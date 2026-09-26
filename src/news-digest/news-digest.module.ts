@@ -1,4 +1,4 @@
-import { RedisModule } from '@libs/redis';
+import { QueueModule } from '@libs/queue';
 import { Logger, Module, OnModuleInit } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ArticlesModule } from '../articles/articles.module';
@@ -12,7 +12,7 @@ import { NewsDigestService } from './news-digest.service';
 @Module({
   imports: [
     ArticlesModule,
-    RedisModule,
+    QueueModule,
     TypeOrmModule.forFeature([DigestEntity]),
   ],
   controllers: [NewsDigestController],

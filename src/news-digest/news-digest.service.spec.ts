@@ -1,7 +1,7 @@
-import { NEWS_DIGEST_JOB, NEWS_DIGEST_QUEUE } from '@libs/queue/constants/queue.constants';
-import { RedisService } from '@libs/redis';
+import { NEWS_DIGEST_JOB } from '@libs/queue/constants/queue.constants';
+import { createWorker } from '@libs/queue/create-worker';
 import { Logger } from '@nestjs/common';
-import { Job, Queue, Worker } from 'bullmq';
+import { Queue, Worker } from 'bullmq';
 import { mock } from 'jest-mock-extended';
 import { ArticlesService } from '../articles/articles.service';
 import { DBArticle } from '../articles/article.entity';
@@ -9,7 +9,7 @@ import { DigestArticleSelectorService } from './digest-article-selector.service'
 import { DigestsService } from './digests.service';
 import { NewsDigestService } from './news-digest.service';
 
-jest.mock('bullmq');
+jest.mock('@libs/queue/create-worker');
 
 function makeArticle(overrides: Partial<DBArticle> = {}): DBArticle {
   return {
@@ -27,29 +27,23 @@ function makeArticle(overrides: Partial<DBArticle> = {}): DBArticle {
 
 describe('NewsDigestService', () => {
   let service: NewsDigestService;
-  let mockRedisService: ReturnType<typeof mock<RedisService>>;
   let mockArticlesService: ReturnType<typeof mock<ArticlesService>>;
   let mockSelectorService: ReturnType<typeof mock<DigestArticleSelectorService>>;
   let mockDigestsService: ReturnType<typeof mock<DigestsService>>;
   let mockQueue: ReturnType<typeof mock<Queue>>;
   let mockWorker: ReturnType<typeof mock<Worker>>;
-  const redisClient = {};
 
   beforeEach(() => {
-    mockRedisService = mock<RedisService>();
     mockArticlesService = mock<ArticlesService>();
     mockSelectorService = mock<DigestArticleSelectorService>();
     mockDigestsService = mock<DigestsService>();
     mockQueue = mock<Queue>();
     mockWorker = mock<Worker>();
 
-    (Queue as unknown as jest.Mock).mockImplementation(() => mockQueue);
-    (Worker as unknown as jest.Mock).mockImplementation(() => mockWorker);
-
-    mockRedisService.getClient.mockReturnValue(redisClient as never);
+    jest.mocked(createWorker).mockReturnValue(mockWorker);
 
     service = new NewsDigestService(
-      mockRedisService,
+      mockQueue,
       mockArticlesService,
       mockSelectorService,
       mockDigestsService,
@@ -61,21 +55,17 @@ describe('NewsDigestService', () => {
   });
 
   describe('onModuleInit', () => {
-    it('creates queue with retry config in defaultJobOptions and worker with the redis connection', () => {
+    it('starts a worker on the news digest queue that runs the digest', async () => {
+      const runDigestSpy = jest.spyOn(service, 'runDigest').mockResolvedValue();
+
       service.onModuleInit();
 
-      expect(Queue).toHaveBeenCalledWith(NEWS_DIGEST_QUEUE, {
-        connection: redisClient,
-        defaultJobOptions: {
-          attempts: 2,
-          backoff: { type: 'fixed', delay: 600_000 },
-        },
+      expect(createWorker).toHaveBeenCalledWith(mockQueue, expect.any(Function), {
+        logger: expect.any(Logger),
       });
-      expect(Worker).toHaveBeenCalledWith(
-        NEWS_DIGEST_QUEUE,
-        expect.any(Function),
-        { connection: redisClient },
-      );
+      const handler = jest.mocked(createWorker).mock.calls[0][1] as () => Promise<void>;
+      await handler();
+      expect(runDigestSpy).toHaveBeenCalled();
     });
 
     it('seeds a daily repeatable job at 10:00 UTC without retry options on add', async () => {
@@ -103,45 +93,6 @@ describe('NewsDigestService', () => {
       expect(loggerErrorSpy).toHaveBeenCalledWith(
         'Failed to seed news digest repeatable job',
         expect.anything(),
-      );
-    });
-
-    it('logs error when retries are exhausted', () => {
-      const loggerErrorSpy = jest.spyOn(Logger.prototype, 'error').mockImplementation();
-
-      service.onModuleInit();
-
-      const failedHandler = mockWorker.on.mock.calls.find(
-        ([event]) => event === 'failed',
-      )?.[1] as (job: Job | undefined, err: Error) => void;
-
-      failedHandler(
-        { id: 'job-1', attemptsMade: 2, opts: { attempts: 2 } } as Job,
-        new Error('AI failed'),
-      );
-
-      expect(loggerErrorSpy).toHaveBeenCalledWith(
-        'News digest job job-1 failed after 2/2 attempts',
-        expect.anything(),
-      );
-    });
-
-    it('logs warning for retryable failures', () => {
-      const loggerWarnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
-
-      service.onModuleInit();
-
-      const failedHandler = mockWorker.on.mock.calls.find(
-        ([event]) => event === 'failed',
-      )?.[1] as (job: Job | undefined, err: Error) => void;
-
-      failedHandler(
-        { id: 'job-1', attemptsMade: 1, opts: { attempts: 2 } } as Job,
-        new Error('AI failed'),
-      );
-
-      expect(loggerWarnSpy).toHaveBeenCalledWith(
-        'News digest job job-1 failed attempt 1/2; retry scheduled: AI failed',
       );
     });
   });
@@ -280,12 +231,11 @@ describe('NewsDigestService', () => {
   });
 
   describe('onModuleDestroy', () => {
-    it('closes worker and queue on destroy', async () => {
+    it('closes the worker on destroy', async () => {
       service.onModuleInit();
       await service.onModuleDestroy();
 
       expect(mockWorker.close).toHaveBeenCalled();
-      expect(mockQueue.close).toHaveBeenCalled();
     });
   });
 });
