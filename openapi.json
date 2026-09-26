@@ -2473,6 +2473,9 @@
               }
             },
             "description": "Missing or invalid bearer token"
+          },
+          "404": {
+            "description": "YouTube transcription not found"
           }
         },
         "summary": "Delete a YouTube transcription",
