@@ -74,7 +74,7 @@ Reusable cross-cutting concerns:
 3. AI analysis per cluster
 4. Synthesize final briefing
 
-**YouTube Transcription Fallback Chain**: youtube-transcript-plus → custom transcript service → Innertube API
+**YouTube Transcription Fallback Chain**: `TranscriptFetcherService` tries youtube-transcript-plus (`alternative`) → youtubei.js `getTranscript` (`library`) → Innertube caption tracks plus timedtext (`innertube`). The order is wired in `youtube-transcriptions.module.ts`, and the logs name the method that produced each transcript.
 
 ## Database Schema
 

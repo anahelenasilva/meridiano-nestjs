@@ -12,7 +12,6 @@ import { ConfigService } from '../config/config.service';
 import { NotesCleanupModule } from '../notes/notes-cleanup.module';
 import { NotesReadModule } from '../notes/notes-read.module';
 import { YoutubeChannelsModule } from '../youtube-channels/youtube-channels.module';
-import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
 import { DismissIngestJobCommand } from './commands/dismiss-ingest-job.command';
 import { EnqueueYoutubeTranscriptionsCommand } from './commands/enqueue-youtube-transcriptions.command';
 import { TranscriptBackupProcessor } from './processors/transcript-backup.processor';
@@ -24,7 +23,9 @@ import { ListFailedIngestJobsQuery } from './queries/list-failed-ingest-jobs.que
 import { StorageService } from './services/storage.service';
 import { TranscriptChunkingService } from './services/transcript-chunking.service';
 import { TranscriptService } from './services/transcript.service';
+import { TranscriptFetcherService } from './services/transcript-fetcher.service';
 import { YoutubeTranscriptionsAlternativeService } from './services/youtube-transcriptions-alternative.service';
+import { YoutubeTranscriptionsInnertubeService } from './services/youtube-transcriptions-innertube.service';
 import { YoutubeTranscriptionsService } from './services/youtube-transcriptions.service';
 import { YouTubeService } from './services/youtube.service';
 import { YoutubeTranscriptionsController } from './youtube-transcriptions.controller';
@@ -53,13 +54,27 @@ import { ProcessTranscriptionFilesUseCase } from './usecases/process-transcripti
     YouTubeService,
     TranscriptService,
     YoutubeTranscriptionsAlternativeService,
+    YoutubeTranscriptionsInnertubeService,
+    {
+      provide: TranscriptFetcherService,
+      // Array order is the fallback order.
+      useFactory: (
+        alternative: YoutubeTranscriptionsAlternativeService,
+        library: TranscriptService,
+        innertube: YoutubeTranscriptionsInnertubeService,
+      ) => new TranscriptFetcherService([alternative, library, innertube]),
+      inject: [
+        YoutubeTranscriptionsAlternativeService,
+        TranscriptService,
+        YoutubeTranscriptionsInnertubeService,
+      ],
+    },
     StorageService,
     AiService,
     ConfigService,
     TranscriptChunkingService,
     ListAllYoutubeTranscriptionsQuery,
     GetYoutubeTranscriptionByIdQuery,
-    DeleteYoutubeTranscriptionCommand,
     EnqueueYoutubeTranscriptionsCommand,
     ListFailedIngestJobsQuery,
     DismissIngestJobCommand,

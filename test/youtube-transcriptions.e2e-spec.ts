@@ -13,7 +13,11 @@
  * and a subsequent GET against the transcriptions list share the same
  * ChannelCategoriesService mock, proving an edit is reflected on the list.
  */
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import {
+  INestApplication,
+  NotFoundException,
+  ValidationPipe,
+} from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { ExecutionContext } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -34,7 +38,6 @@ import { YoutubeChannel } from '../src/youtube-channels/domain/youtube-channel';
 import { GetYoutubeChannelsQuery } from '../src/youtube-channels/queries/get-youtube-channels.query';
 import { YoutubeChannelsController } from '../src/youtube-channels/youtube-channels.controller';
 import { YoutubeChannelsService } from '../src/youtube-channels/youtube-channels.service';
-import { DeleteYoutubeTranscriptionCommand } from '../src/youtube-transcriptions/commands/delete-youtube-transcription.command';
 import { DismissIngestJobCommand } from '../src/youtube-transcriptions/commands/dismiss-ingest-job.command';
 import { EnqueueYoutubeTranscriptionsCommand } from '../src/youtube-transcriptions/commands/enqueue-youtube-transcriptions.command';
 import { GetYoutubeTranscriptionByIdQuery } from '../src/youtube-transcriptions/queries/get-youtube-transcription-by-id.query';
@@ -133,7 +136,6 @@ describe('YouTube Transcriptions list (e2e)', () => {
           useValue: findOrCreateCategoriesCommand,
         },
         { provide: GetYoutubeTranscriptionByIdQuery, useValue: mock() },
-        { provide: DeleteYoutubeTranscriptionCommand, useValue: mock() },
         {
           provide: EnqueueYoutubeTranscriptionsCommand,
           useValue: enqueueTranscriptionsCommand,
@@ -378,6 +380,39 @@ describe('YouTube Transcriptions list (e2e)', () => {
 
       expect(response.body).toEqual({ dismissed: true });
       expect(dismissIngestJobCommand.execute).toHaveBeenCalledWith(jobId);
+    });
+  });
+
+  describe('DELETE /api/youtube/transcriptions/:id', () => {
+    const transcriptionId = '33333333-3333-3333-3333-333333333333';
+
+    it('returns 200 with success when the transcription is deleted', async () => {
+      mockService.delete.mockResolvedValue();
+
+      const response = await request(app.getHttpServer())
+        .delete(`/api/youtube/transcriptions/${transcriptionId}`)
+        .expect(200);
+
+      expect(response.body).toEqual({ success: true });
+      expect(mockService.delete).toHaveBeenCalledWith(transcriptionId);
+    });
+
+    it('returns 404 when the transcription does not exist', async () => {
+      mockService.delete.mockRejectedValue(
+        new NotFoundException('YouTube transcription not found'),
+      );
+
+      await request(app.getHttpServer())
+        .delete(`/api/youtube/transcriptions/${transcriptionId}`)
+        .expect(404);
+    });
+
+    it('returns 500 when the delete fails', async () => {
+      mockService.delete.mockRejectedValue(new Error('connection lost'));
+
+      await request(app.getHttpServer())
+        .delete(`/api/youtube/transcriptions/${transcriptionId}`)
+        .expect(500);
     });
   });
 });

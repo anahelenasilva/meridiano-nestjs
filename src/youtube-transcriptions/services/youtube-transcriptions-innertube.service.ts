@@ -1,36 +1,20 @@
+import { Injectable } from '@nestjs/common';
 import axios, { type AxiosRequestConfig } from 'axios';
 import { Innertube } from 'youtubei.js';
+import { TranscriptItem } from '../../shared/types/video';
 import {
   InnertubeBasicInfoError,
   InnertubeClientCreateError,
   InnertubeNoCaptionTracksError,
   InnertubeNoValidCaptionUrlError,
   InnertubeTimedTextFetchError,
+  InnertubeTranscriptFetchError,
   InnertubeTranscriptParseError,
 } from '../errors/innertube-errors';
-
-/**
- * Parsed transcript segment from timedtext XML
- */
-type TranscriptSegment = {
-  durationMs: number;
-  startMs: number;
-  text: string;
-};
-
-/**
- * YouTube transcript segment format (matching youtubei.js structure)
- */
-export type YouTubeTranscriptSegment = {
-  end_ms: string;
-  snippet: {
-    text: string;
-  };
-  start_ms: string;
-  start_time_text: {
-    text: string;
-  };
-};
+import type {
+  TranscriptFetchOptions,
+  TranscriptSource,
+} from './transcript-fetcher.service';
 
 /**
  * Fetch transcript XML from timedtext API
@@ -101,8 +85,8 @@ const fetchTimedTextXml = async (
 /**
  * Parse <p t="ms" d="ms">text</p> format (Android client)
  */
-const parsePTagFormat = (xml: string): Array<TranscriptSegment> => {
-  const segments: Array<TranscriptSegment> = [];
+const parsePTagFormat = (xml: string): TranscriptItem[] => {
+  const items: TranscriptItem[] = [];
   const pTagRegex = /<p\s+t="(\d+)"\s+d="(\d+)"[^>]*>([\s\S]*?)<\/p>/g;
 
   let match = pTagRegex.exec(xml);
@@ -111,23 +95,23 @@ const parsePTagFormat = (xml: string): Array<TranscriptSegment> => {
     if (startMsStr && durationMsStr && rawText) {
       const text = decodeHtmlEntities(rawText.replace(/<[^>]+>/g, '')).trim();
       if (text) {
-        segments.push({
-          durationMs: Number.parseInt(durationMsStr, 10),
-          startMs: Number.parseInt(startMsStr, 10),
+        items.push({
           text,
+          offset: Number.parseInt(startMsStr, 10),
+          duration: Number.parseInt(durationMsStr, 10),
         });
       }
     }
     match = pTagRegex.exec(xml);
   }
-  return segments;
+  return items;
 };
 
 /**
  * Parse <text start="sec" dur="sec">text</text> format (alternative format)
  */
-const parseTextTagFormat = (xml: string): Array<TranscriptSegment> => {
-  const segments: Array<TranscriptSegment> = [];
+const parseTextTagFormat = (xml: string): TranscriptItem[] => {
+  const items: TranscriptItem[] = [];
   const textTagRegex =
     /<text\s+start="([\d.]+)"\s+dur="([\d.]+)"[^>]*>([\s\S]*?)<\/text>/g;
 
@@ -137,29 +121,27 @@ const parseTextTagFormat = (xml: string): Array<TranscriptSegment> => {
     if (startStr && durStr && rawText) {
       const text = decodeHtmlEntities(rawText.replace(/<[^>]+>/g, '')).trim();
       if (text) {
-        segments.push({
-          durationMs: Math.round(Number.parseFloat(durStr) * 1000),
-          startMs: Math.round(Number.parseFloat(startStr) * 1000),
+        items.push({
           text,
+          offset: Math.round(Number.parseFloat(startStr) * 1000),
+          duration: Math.round(Number.parseFloat(durStr) * 1000),
         });
       }
     }
     match = textTagRegex.exec(xml);
   }
-  return segments;
+  return items;
 };
 
 /**
- * Parse timedtext XML into transcript segments
- * Supports both <p> format (Android) and <text> format (alternative)
+ * Parse timedtext XML into transcript items. Supports both the <p> format
+ * (Android client) and the <text> format.
  */
-const parseTimedTextXml = (xml: string): Array<TranscriptSegment> => {
-  // Try <p> tag format first (Android client format)
-  const pSegments = parsePTagFormat(xml);
-  if (pSegments.length > 0) {
-    return pSegments;
+export const parseTimedTextXml = (xml: string): TranscriptItem[] => {
+  const pItems = parsePTagFormat(xml);
+  if (pItems.length > 0) {
+    return pItems;
   }
-  // Fall back to <text> tag format
   return parseTextTagFormat(xml);
 };
 
@@ -179,118 +161,77 @@ const decodeHtmlEntities = (text: string): string =>
     );
 
 /**
- * Convert parsed transcript segments to youtubei.js TranscriptSegmentList format
+ * Picks the English caption track, preferring a manual one over ASR, then any
+ * English variant, then whatever track comes first. youtubei.js types these
+ * fields as required but copies them from the raw player response unchecked,
+ * so the fields stay optional here.
  */
-const convertToYouTubeSegments = (
-  segments: Array<TranscriptSegment>,
-): Array<YouTubeTranscriptSegment> => {
-  return segments.map((segment) => ({
-    end_ms: globalThis.String(segment.startMs + segment.durationMs),
-    snippet: {
-      text: segment.text,
-    },
-    start_ms: globalThis.String(segment.startMs),
-    start_time_text: {
-      text: formatTimestamp(segment.startMs),
-    },
-  }));
-};
+export const pickCaptionTrack = <
+  T extends { language_code?: string; kind?: string },
+>(
+  tracks: T[],
+): T | undefined =>
+  tracks.find(
+    (track) => track.language_code === 'en' && track.kind !== 'asr',
+  ) ??
+  tracks.find((track) => track.language_code?.startsWith('en')) ??
+  tracks[0];
 
 /**
- * Format milliseconds as a timestamp string (e.g., "1:23" or "1:23:45")
+ * Transcript source that asks Innertube's WEB client for caption track URLs,
+ * then fetches the timedtext XML directly. Needs no YouTube API key, and is
+ * the only source that honors a proxy.
  */
-const formatTimestamp = (ms: number): string => {
-  const totalSeconds = Math.floor(ms / 1000);
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
+@Injectable()
+export class YoutubeTranscriptionsInnertubeService implements TranscriptSource {
+  readonly method = 'innertube';
 
-  if (hours > 0) {
-    return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-  }
-  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-};
-
-/**
- * Fetch transcript using Innertube's getBasicInfo to get caption URLs
- * This approach doesn't require a YouTube API key - it uses the standard
- * Innertube WEB client to get caption track URLs, then fetches timedtext directly.
- *
- * @param videoId - Raw YouTube video ID (without video_ prefix)
- * @param proxyUrl - The proxy URL to use for requests (optional)
- */
-export const fetchTranscriptViaInnertube = async (
-  videoId: string,
-  proxyUrl?: string,
-): Promise<Array<YouTubeTranscriptSegment>> => {
-  try {
-    // 1. Create Innertube client
-    const client = await Innertube.create({
-      generate_session_locally: true,
-      lang: 'en',
-      location: 'US',
-      retrieve_player: false,
-    });
-
-    // 2. Get basic info (includes caption tracks)
-    const info = await client.getBasicInfo(videoId).catch((error: unknown) => {
-      throw new InnertubeBasicInfoError({ cause: error, videoId });
-    });
-
-    // 3. Check for caption tracks
-    const captionTracks = info.captions?.caption_tracks;
-    if (!captionTracks || captionTracks.length === 0) {
-      throw new InnertubeNoCaptionTracksError({ videoId });
-    }
-
-    // 4. Find English caption track (prefer non-ASR if available)
-    // youtubei.js types these fields as required but copies them from the raw
-    // player response unchecked, so keep the guards for tracks missing them.
-    const englishTrack =
-      captionTracks.find(
-        (track) => track.language_code === 'en' && track.kind !== 'asr',
-      ) ||
-      captionTracks.find((track) => track.language_code?.startsWith('en')) ||
-      captionTracks[0];
-
-    if (!englishTrack?.base_url) {
-      throw new InnertubeNoValidCaptionUrlError({
-        availableLanguages: captionTracks.map(
-          (track) => track.language_code ?? 'unknown',
-        ),
-        videoId,
+  async fetchTranscript(
+    videoId: string,
+    { proxyUrl }: TranscriptFetchOptions = {},
+  ): Promise<TranscriptItem[]> {
+    try {
+      const client = await Innertube.create({
+        generate_session_locally: true,
+        lang: 'en',
+        location: 'US',
+        retrieve_player: false,
       });
-    }
 
-    // 5. Fetch timedtext XML
-    const xml = await fetchTimedTextXml(
-      englishTrack.base_url,
-      proxyUrl,
-      videoId,
-    );
+      const info = await client
+        .getBasicInfo(videoId)
+        .catch((error: unknown) => {
+          throw new InnertubeBasicInfoError({ cause: error, videoId });
+        });
 
-    // 6. Parse XML to segments
-    const segments = parseTimedTextXml(xml);
+      const captionTracks = info.captions?.caption_tracks;
+      if (!captionTracks || captionTracks.length === 0) {
+        throw new InnertubeNoCaptionTracksError({ videoId });
+      }
 
-    if (segments.length === 0) {
-      throw new InnertubeTranscriptParseError({ videoId });
-    }
+      const track = pickCaptionTrack(captionTracks);
+      if (!track?.base_url) {
+        throw new InnertubeNoValidCaptionUrlError({
+          availableLanguages: captionTracks.map(
+            (captionTrack) => captionTrack.language_code ?? 'unknown',
+          ),
+          videoId,
+        });
+      }
 
-    // 7. Convert to YouTube.js format
-    return convertToYouTubeSegments(segments);
-  } catch (error) {
-    if (error instanceof InnertubeClientCreateError) {
-      throw error;
+      const xml = await fetchTimedTextXml(track.base_url, proxyUrl, videoId);
+      const items = parseTimedTextXml(xml);
+
+      if (items.length === 0) {
+        throw new InnertubeTranscriptParseError({ videoId });
+      }
+
+      return items;
+    } catch (error) {
+      if (error instanceof InnertubeTranscriptFetchError) {
+        throw error;
+      }
+      throw new InnertubeClientCreateError({ cause: error, videoId });
     }
-    if (
-      error instanceof InnertubeBasicInfoError ||
-      error instanceof InnertubeNoCaptionTracksError ||
-      error instanceof InnertubeNoValidCaptionUrlError ||
-      error instanceof InnertubeTimedTextFetchError ||
-      error instanceof InnertubeTranscriptParseError
-    ) {
-      throw error;
-    }
-    throw new InnertubeClientCreateError({ cause: error, videoId });
   }
-};
+}

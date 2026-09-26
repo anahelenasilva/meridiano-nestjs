@@ -12,7 +12,6 @@ import { AudioFilesService } from '../audio-files/audio-files.service';
 import { NotesReadService } from '../notes/notes-read.service';
 import type { AuthenticatedRequest } from '../shared/types/authenticated-request';
 import { ChannelCategoriesService } from '../youtube-channels/channel-categories.service';
-import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
 import { DismissIngestJobCommand } from './commands/dismiss-ingest-job.command';
 import { EnqueueYoutubeTranscriptionsCommand } from './commands/enqueue-youtube-transcriptions.command';
 import { YoutubeTranscription } from './entities/youtube-transcription.entity';
@@ -74,13 +73,10 @@ describe('YoutubeTranscriptionsController', () => {
       mockConfigService,
       mockNotesReadService,
     );
-    const mockDeleteYoutubeTranscriptionCommand =
-      new DeleteYoutubeTranscriptionCommand(mockYoutubeTranscriptionsService);
-
     controller = new YoutubeTranscriptionsController(
       mockListAllYoutubeTranscriptionsQuery,
       mockGetYoutubeTranscriptionByIdQuery,
-      mockDeleteYoutubeTranscriptionCommand,
+      mockYoutubeTranscriptionsService,
       mockEnqueueCommand,
       mockListFailedIngestJobsQuery,
       mockDismissIngestJobCommand,

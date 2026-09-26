@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Innertube } from 'youtubei.js';
 import { TranscriptItem } from '../../shared/types/video';
+import type { TranscriptSource } from './transcript-fetcher.service';
 
 @Injectable()
-export class TranscriptService {
+export class TranscriptService implements TranscriptSource {
+  readonly method = 'library';
+
   private youtube: Innertube | null = null;
 
   constructor() {}
@@ -19,7 +22,7 @@ export class TranscriptService {
    * @param videoId - The YouTube video ID
    * @returns Array of transcript items
    */
-  async getTranscript(videoId: string) {
+  async fetchTranscript(videoId: string): Promise<TranscriptItem[]> {
     try {
       console.log(`Fetching transcript for video: ${videoId}`);
 
@@ -63,14 +66,5 @@ export class TranscriptService {
         `Failed to fetch transcript for video ${videoId}: ${errorMessage}`,
       );
     }
-  }
-
-  /**
-   * Convert transcript items to a single text string
-   * @param transcriptItems - Array of transcript items
-   * @returns Full transcript as a single string
-   */
-  transcriptToText(transcriptItems: TranscriptItem[]): string {
-    return transcriptItems.map((item) => item.text).join(' ');
   }
 }
