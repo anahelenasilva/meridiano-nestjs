@@ -1,8 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
 import { ConfigService } from '../../config/config.service';
-import { ProfilesService } from '../../profiles/profiles.service';
-import { FeedProfile, RSSFeed, SitemapSource } from '../../shared/types/feed';
+import { FeedProfile } from '../../shared/types/feed';
 import { CategorizeArticlesUseCase } from './categorize-articles.usecase';
 import { RunBriefingInputDto } from './dto/run-briefing.dto';
 import { GenerateBriefUseCase } from './generate-brief.usecase';
@@ -10,25 +9,14 @@ import { ProcessArticlesUseCase } from './process-articles.usecase';
 import { RateArticlesUseCase } from './rate-articles.usecase';
 import { RunBriefingUseCase } from './run-briefing.usecase';
 import { ScrapeArticlesUseCase } from './scrape-articles.usecase';
-import { ScrapeSitemapsUseCase } from './scrape-sitemaps.usecase';
-
-const enabledFeed: RSSFeed = { url: 'https://example.com/feed', name: 'Example' };
-
-const enabledSitemapSource: SitemapSource = {
-  sitemapUrl: 'https://example.com/sitemap.xml',
-  urlPrefix: 'https://example.com/news/',
-  name: 'Example News',
-};
 
 describe('RunBriefingUseCase', () => {
   let useCase: RunBriefingUseCase;
   const mockScrapeArticlesUseCase = mock<ScrapeArticlesUseCase>();
-  const mockScrapeSitemapsUseCase = mock<ScrapeSitemapsUseCase>();
   const mockProcessArticlesUseCase = mock<ProcessArticlesUseCase>();
   const mockRateArticlesUseCase = mock<RateArticlesUseCase>();
   const mockCategorizeArticlesUseCase = mock<CategorizeArticlesUseCase>();
   const mockGenerateBriefUseCase = mock<GenerateBriefUseCase>();
-  const mockProfilesService = mock<ProfilesService>();
   const mockConfigService = mock<ConfigService>();
 
   beforeEach(async () => {
@@ -36,20 +24,40 @@ describe('RunBriefingUseCase', () => {
       providers: [
         RunBriefingUseCase,
         { provide: ScrapeArticlesUseCase, useValue: mockScrapeArticlesUseCase },
-        { provide: ScrapeSitemapsUseCase, useValue: mockScrapeSitemapsUseCase },
-        { provide: ProcessArticlesUseCase, useValue: mockProcessArticlesUseCase },
+        {
+          provide: ProcessArticlesUseCase,
+          useValue: mockProcessArticlesUseCase,
+        },
         { provide: RateArticlesUseCase, useValue: mockRateArticlesUseCase },
-        { provide: CategorizeArticlesUseCase, useValue: mockCategorizeArticlesUseCase },
+        {
+          provide: CategorizeArticlesUseCase,
+          useValue: mockCategorizeArticlesUseCase,
+        },
         { provide: GenerateBriefUseCase, useValue: mockGenerateBriefUseCase },
-        { provide: ProfilesService, useValue: mockProfilesService },
         { provide: ConfigService, useValue: mockConfigService },
       ],
     }).compile();
 
     useCase = module.get<RunBriefingUseCase>(RunBriefingUseCase);
 
-    mockProfilesService.getEnabledSitemapSourcesForProfile.mockReturnValue([]);
-    mockScrapeSitemapsUseCase.execute.mockResolvedValue({ newArticles: 0, errors: 0 });
+    mockScrapeArticlesUseCase.execute.mockResolvedValue({
+      status: 'scraped',
+      rss: { newArticles: 5, errors: 0 },
+      sitemap: { newArticles: 3, errors: 2 },
+    });
+    mockProcessArticlesUseCase.execute.mockResolvedValue({
+      articlesProcessed: 8,
+      errors: 0,
+    });
+    mockRateArticlesUseCase.execute.mockResolvedValue({
+      articlesRated: 8,
+      errors: 0,
+    });
+    mockCategorizeArticlesUseCase.execute.mockResolvedValue({
+      articlesCategorized: 8,
+      errors: 0,
+    });
+    mockConfigService.isBriefingsGenerationEnabled.mockReturnValue(false);
   });
 
   afterEach(() => {
@@ -58,9 +66,10 @@ describe('RunBriefingUseCase', () => {
 
   const input: RunBriefingInputDto = { feedProfile: FeedProfile.DEFAULT };
 
-  it('returns error when the profile has no enabled feeds or sitemap sources', async () => {
-    mockProfilesService.getEnabledFeedsForProfile.mockReturnValue([]);
-    mockProfilesService.getEnabledSitemapSourcesForProfile.mockReturnValue([]);
+  it('returns an error and stops when the profile has no sources', async () => {
+    mockScrapeArticlesUseCase.execute.mockResolvedValue({
+      status: 'no_sources',
+    });
 
     const result = await useCase.execute(input);
 
@@ -68,42 +77,40 @@ describe('RunBriefingUseCase', () => {
     expect(result.error).toContain(
       "No enabled feeds or sitemap sources found for profile 'default'",
     );
-    expect(mockScrapeArticlesUseCase.execute).not.toHaveBeenCalled();
+    expect(mockProcessArticlesUseCase.execute).not.toHaveBeenCalled();
   });
 
   it('runs all stages and returns success when generation enabled', async () => {
-    mockProfilesService.getEnabledFeedsForProfile.mockReturnValue([enabledFeed]);
-    mockScrapeArticlesUseCase.execute.mockResolvedValue({ newArticles: 5, errors: 0 });
-    mockScrapeSitemapsUseCase.execute.mockResolvedValue({ newArticles: 3, errors: 0 });
-    mockProcessArticlesUseCase.execute.mockResolvedValue({ articlesProcessed: 5, errors: 0 });
-    mockRateArticlesUseCase.execute.mockResolvedValue({ articlesRated: 5, errors: 0 });
-    mockCategorizeArticlesUseCase.execute.mockResolvedValue({ articlesCategorized: 5, errors: 0 });
     mockConfigService.isBriefingsGenerationEnabled.mockReturnValue(true);
     mockGenerateBriefUseCase.execute.mockResolvedValue({
       success: true,
       briefingId: 'brief-uuid',
-      stats: { articlesAnalyzed: 5, clustersUsed: 2 },
+      stats: { articlesAnalyzed: 8, clustersUsed: 2 },
     });
 
     const result = await useCase.execute(input);
 
+    expect(mockScrapeArticlesUseCase.execute).toHaveBeenCalledWith({
+      feedProfile: FeedProfile.DEFAULT,
+    });
     expect(result.success).toBe(true);
-    expect(result.stages?.scraping.newArticles).toBe(5);
-    expect(result.stages?.sitemapScraping.newArticles).toBe(3);
-    expect(result.stages?.processing.articlesProcessed).toBe(5);
-    expect(result.stages?.rating.articlesRated).toBe(5);
-    expect(result.stages?.categorization.articlesCategorized).toBe(5);
+    expect(result.stages?.processing.articlesProcessed).toBe(8);
+    expect(result.stages?.rating.articlesRated).toBe(8);
+    expect(result.stages?.categorization.articlesCategorized).toBe(8);
     expect(result.stages?.briefGeneration.briefingId).toBe('brief-uuid');
   });
 
-  it('skips brief generation when feature flag disabled', async () => {
-    mockProfilesService.getEnabledFeedsForProfile.mockReturnValue([enabledFeed]);
-    mockScrapeArticlesUseCase.execute.mockResolvedValue({ newArticles: 0, errors: 0 });
-    mockProcessArticlesUseCase.execute.mockResolvedValue({ articlesProcessed: 0, errors: 0 });
-    mockRateArticlesUseCase.execute.mockResolvedValue({ articlesRated: 0, errors: 0 });
-    mockCategorizeArticlesUseCase.execute.mockResolvedValue({ articlesCategorized: 0, errors: 0 });
-    mockConfigService.isBriefingsGenerationEnabled.mockReturnValue(false);
+  it('reports RSS and sitemap scraping stats separately', async () => {
+    const result = await useCase.execute(input);
 
+    expect(result.stages?.scraping).toEqual({ newArticles: 5, errors: 0 });
+    expect(result.stages?.sitemapScraping).toEqual({
+      newArticles: 3,
+      errors: 2,
+    });
+  });
+
+  it('skips brief generation when feature flag disabled', async () => {
     const result = await useCase.execute(input);
 
     expect(result.success).toBe(false);
@@ -112,99 +119,10 @@ describe('RunBriefingUseCase', () => {
   });
 
   it('propagates stage failure', async () => {
-    mockProfilesService.getEnabledFeedsForProfile.mockReturnValue([enabledFeed]);
-    mockScrapeArticlesUseCase.execute.mockRejectedValue(new Error('scraper down'));
+    mockScrapeArticlesUseCase.execute.mockRejectedValue(
+      new Error('scraper down'),
+    );
 
     await expect(useCase.execute(input)).rejects.toThrow('scraper down');
-  });
-
-  it('lets the scraper resolve its own feed list instead of passing feed urls', async () => {
-    const feeds: RSSFeed[] = [
-      { url: 'https://a.com/feed', name: 'A' },
-      { url: 'https://b.com/feed', name: 'B' },
-    ];
-    mockProfilesService.getEnabledFeedsForProfile.mockReturnValue(feeds);
-    mockScrapeArticlesUseCase.execute.mockResolvedValue({ newArticles: 0, errors: 0 });
-    mockProcessArticlesUseCase.execute.mockResolvedValue({ articlesProcessed: 0, errors: 0 });
-    mockRateArticlesUseCase.execute.mockResolvedValue({ articlesRated: 0, errors: 0 });
-    mockCategorizeArticlesUseCase.execute.mockResolvedValue({ articlesCategorized: 0, errors: 0 });
-    mockConfigService.isBriefingsGenerationEnabled.mockReturnValue(false);
-
-    await useCase.execute(input);
-
-    expect(mockScrapeArticlesUseCase.execute).toHaveBeenCalledWith({
-      feedProfile: FeedProfile.DEFAULT,
-    });
-  });
-
-  it('scrapes sitemaps for the profile after RSS and before processing', async () => {
-    const callOrder: string[] = [];
-
-    mockProfilesService.getEnabledFeedsForProfile.mockReturnValue([enabledFeed]);
-    mockScrapeArticlesUseCase.execute.mockImplementation(() => {
-      callOrder.push('rss');
-      return Promise.resolve({ newArticles: 5, errors: 0 });
-    });
-    mockScrapeSitemapsUseCase.execute.mockImplementation(() => {
-      callOrder.push('sitemap');
-      return Promise.resolve({ newArticles: 3, errors: 0 });
-    });
-    mockProcessArticlesUseCase.execute.mockImplementation(() => {
-      callOrder.push('process');
-      return Promise.resolve({ articlesProcessed: 8, errors: 0 });
-    });
-    mockRateArticlesUseCase.execute.mockResolvedValue({ articlesRated: 8, errors: 0 });
-    mockCategorizeArticlesUseCase.execute.mockResolvedValue({
-      articlesCategorized: 8,
-      errors: 0,
-    });
-    mockConfigService.isBriefingsGenerationEnabled.mockReturnValue(false);
-
-    await useCase.execute(input);
-
-    expect(mockScrapeSitemapsUseCase.execute).toHaveBeenCalledWith({
-      feedProfile: FeedProfile.DEFAULT,
-    });
-    expect(callOrder).toEqual(['rss', 'sitemap', 'process']);
-  });
-
-  it('reports sitemap errors separately from RSS errors', async () => {
-    mockProfilesService.getEnabledFeedsForProfile.mockReturnValue([enabledFeed]);
-    mockScrapeArticlesUseCase.execute.mockResolvedValue({ newArticles: 5, errors: 0 });
-    mockScrapeSitemapsUseCase.execute.mockResolvedValue({ newArticles: 0, errors: 2 });
-    mockProcessArticlesUseCase.execute.mockResolvedValue({ articlesProcessed: 5, errors: 0 });
-    mockRateArticlesUseCase.execute.mockResolvedValue({ articlesRated: 5, errors: 0 });
-    mockCategorizeArticlesUseCase.execute.mockResolvedValue({
-      articlesCategorized: 5,
-      errors: 0,
-    });
-    mockConfigService.isBriefingsGenerationEnabled.mockReturnValue(false);
-
-    const result = await useCase.execute(input);
-
-    expect(result.stages?.scraping.errors).toBe(0);
-    expect(result.stages?.sitemapScraping.errors).toBe(2);
-    expect(result.stages?.sitemapScraping.newArticles).toBe(0);
-  });
-
-  it('runs when the profile has sitemap sources but no RSS feeds', async () => {
-    mockProfilesService.getEnabledFeedsForProfile.mockReturnValue([]);
-    mockProfilesService.getEnabledSitemapSourcesForProfile.mockReturnValue([
-      enabledSitemapSource,
-    ]);
-    mockScrapeArticlesUseCase.execute.mockResolvedValue({ newArticles: 0, errors: 0 });
-    mockScrapeSitemapsUseCase.execute.mockResolvedValue({ newArticles: 4, errors: 0 });
-    mockProcessArticlesUseCase.execute.mockResolvedValue({ articlesProcessed: 4, errors: 0 });
-    mockRateArticlesUseCase.execute.mockResolvedValue({ articlesRated: 4, errors: 0 });
-    mockCategorizeArticlesUseCase.execute.mockResolvedValue({
-      articlesCategorized: 4,
-      errors: 0,
-    });
-    mockConfigService.isBriefingsGenerationEnabled.mockReturnValue(false);
-
-    const result = await useCase.execute(input);
-
-    expect(result.error).toBeUndefined();
-    expect(result.stages?.sitemapScraping.newArticles).toBe(4);
   });
 });

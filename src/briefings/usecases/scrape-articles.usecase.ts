@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { ProfilesService } from '../../profiles/profiles.service';
 import { ScraperService } from '../../scraper/scraper.service';
 import {
   ScrapeArticlesInputDto,
@@ -8,22 +7,26 @@ import {
 
 @Injectable()
 export class ScrapeArticlesUseCase {
-  constructor(
-    private readonly scraperService: ScraperService,
-    private readonly profilesService: ProfilesService,
-  ) {}
+  constructor(private readonly scraperService: ScraperService) {}
 
   async execute(
     input: ScrapeArticlesInputDto,
   ): Promise<ScrapeArticlesOutputDto> {
-    const stats = await this.scraperService.scrapeArticles(
+    const result = await this.scraperService.scrapeFeedProfile(
       input.feedProfile,
-      input.feedUrls,
     );
 
+    if (result.status === 'no_sources') {
+      return result;
+    }
+
     return {
-      newArticles: stats.newArticles,
-      errors: stats.errors,
+      status: 'scraped',
+      rss: { newArticles: result.rss.newArticles, errors: result.rss.errors },
+      sitemap: {
+        newArticles: result.sitemap.newArticles,
+        errors: result.sitemap.errors,
+      },
     };
   }
 }
