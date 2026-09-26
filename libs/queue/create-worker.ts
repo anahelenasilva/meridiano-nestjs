@@ -20,7 +20,11 @@ const CONNECTION_NOISE = ['ECONNRESET', 'closed'];
 export function createWorker<Data, Result>(
   queue: Queue,
   handler: Processor<Data, Result>,
-  { logger, concurrency, onTerminalFailure }: CreateWorkerOptions<Data, Result>,
+  {
+    logger,
+    concurrency = 1,
+    onTerminalFailure,
+  }: CreateWorkerOptions<Data, Result>,
 ): Worker<Data, Result> {
   const worker = new Worker<Data, Result>(queue.name, handler, {
     connection: queue.opts.connection,

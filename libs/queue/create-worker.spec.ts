@@ -49,6 +49,17 @@ describe('createWorker', () => {
     });
   });
 
+  // BullMQ merges options over its defaults, so an explicit undefined would
+  // replace its default of 1 and make the Worker constructor throw.
+  it('runs one job at a time when concurrency is omitted', () => {
+    createWorker(queue, handler, { logger });
+
+    expect(Worker).toHaveBeenCalledWith('test-queue', handler, {
+      connection,
+      concurrency: 1,
+    });
+  });
+
   it('calls onTerminalFailure when the last configured attempt fails', () => {
     createWorker(queue, handler, { logger, onTerminalFailure });
     const err = new Error('boom');
