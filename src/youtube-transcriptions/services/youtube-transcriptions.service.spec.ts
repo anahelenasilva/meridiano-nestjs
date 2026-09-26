@@ -3,7 +3,7 @@ import { mock, mockReset } from 'jest-mock-extended';
 
 import { DatabaseService } from '@libs/database';
 import { QueueService } from '@libs/queue/queue.service';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, NotFoundException } from '@nestjs/common';
 import { ChannelConfig } from '../../shared/types/channel';
 import { VideoMetadata } from '../../shared/types/video';
 import { YoutubeChannel } from '../../youtube-channels/domain/youtube-channel';
@@ -377,60 +377,53 @@ describe('YoutubeTranscriptionsService', () => {
 
   describe('delete', () => {
     const transcriptionId = '33333333-3333-3333-3333-333333333333';
+    type RunCallback = (this: { changes?: number }, err: Error | null) => void;
 
-    it('purges every note for the transcription after deleting it', async () => {
-      const stmt = {
-        run: jest.fn(
-          (params: unknown[], callback: (err: Error | null) => void) => {
-            callback(null);
-          },
+    const deleteReports = (changes: number, err: Error | null = null) => {
+      const mockDb = {
+        run: jest.fn((_sql: string, _params: unknown[], cb: RunCallback) =>
+          cb.call({ changes }, err),
         ),
-        finalize: jest.fn(),
       };
-      const mockDb = { prepare: jest.fn().mockReturnValue(stmt) };
       mockDatabaseService.getDbConnection.mockReturnValue(mockDb as never);
+      return mockDb;
+    };
+
+    it('deletes the row, then purges its notes and audio', async () => {
+      const mockDb = deleteReports(1);
 
       await service.delete(transcriptionId);
 
-      expect(stmt.run).toHaveBeenCalledWith(
+      expect(mockDb.run).toHaveBeenCalledWith(
+        expect.stringContaining('DELETE FROM youtube_transcriptions'),
         [transcriptionId],
         expect.any(Function),
       );
-      expect(
-        mockNotesCleanupService.purgeNotesForSource,
-      ).toHaveBeenCalledWith('transcription', transcriptionId);
-    });
-
-    it('purges the transcription audio after deleting it', async () => {
-      const stmt = {
-        run: jest.fn(
-          (params: unknown[], callback: (err: Error | null) => void) => {
-            callback(null);
-          },
-        ),
-        finalize: jest.fn(),
-      };
-      const mockDb = { prepare: jest.fn().mockReturnValue(stmt) };
-      mockDatabaseService.getDbConnection.mockReturnValue(mockDb as never);
-
-      await service.delete(transcriptionId);
-
+      expect(mockNotesCleanupService.purgeNotesForSource).toHaveBeenCalledWith(
+        'transcription',
+        transcriptionId,
+      );
       expect(
         mockAudioFilesCleanupService.purgeAudioForSource,
       ).toHaveBeenCalledWith('transcription', transcriptionId);
     });
 
+    it('throws NotFoundException and purges nothing when no row matches', async () => {
+      deleteReports(0);
+
+      await expect(service.delete(transcriptionId)).rejects.toBeInstanceOf(
+        NotFoundException,
+      );
+      expect(
+        mockNotesCleanupService.purgeNotesForSource,
+      ).not.toHaveBeenCalled();
+      expect(
+        mockAudioFilesCleanupService.purgeAudioForSource,
+      ).not.toHaveBeenCalled();
+    });
+
     it('does not purge notes or audio when the transcription delete fails', async () => {
-      const stmt = {
-        run: jest.fn(
-          (params: unknown[], callback: (err: Error | null) => void) => {
-            callback(new Error('delete failed'));
-          },
-        ),
-        finalize: jest.fn(),
-      };
-      const mockDb = { prepare: jest.fn().mockReturnValue(stmt) };
-      mockDatabaseService.getDbConnection.mockReturnValue(mockDb as never);
+      deleteReports(0, new Error('delete failed'));
 
       await expect(service.delete(transcriptionId)).rejects.toThrow(
         'delete failed',

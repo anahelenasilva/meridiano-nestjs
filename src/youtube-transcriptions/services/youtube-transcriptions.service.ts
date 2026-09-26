@@ -1,6 +1,12 @@
-import { DatabaseService } from '@libs/database';
+import { DatabaseService, execute } from '@libs/database';
 import { QueueService } from '@libs/queue';
-import { Inject, Injectable, Logger, forwardRef } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  Logger,
+  NotFoundException,
+  forwardRef,
+} from '@nestjs/common';
 import { AudioFilesCleanupService } from '../../audio-files/audio-files-cleanup.service';
 import { NotesCleanupService } from '../../notes/notes-cleanup.service';
 import { ChannelConfig } from '../../shared/types/channel';
@@ -971,26 +977,15 @@ export class YoutubeTranscriptionsService {
   }
 
   async delete(id: string): Promise<void> {
-    await new Promise<void>((resolve, reject) => {
-      const db = this.databaseService.getDbConnection();
-      const stmt = db.prepare(
-        `DELETE FROM youtube_transcriptions WHERE id = ?`,
-      );
+    const changes = await execute(
+      this.databaseService.getDbConnection(),
+      'DELETE FROM youtube_transcriptions WHERE id = ?',
+      [id],
+    );
 
-      stmt.run([id], (err) => {
-        if (err) {
-          this.logger.error(
-            `Error deleting youtube_transcriptions [id=${id}]: ${err.message}`,
-            err.stack,
-          );
-          reject(err);
-        } else {
-          resolve();
-        }
-
-        stmt.finalize();
-      });
-    });
+    if (changes === 0) {
+      throw new NotFoundException('YouTube transcription not found');
+    }
 
     await this.notesCleanupService.purgeNotesForSource('transcription', id);
     await this.audioFilesCleanupService.purgeAudioForSource(

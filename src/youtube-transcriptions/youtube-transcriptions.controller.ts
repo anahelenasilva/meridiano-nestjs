@@ -28,13 +28,13 @@ import {
 import { AudioFilesService } from '../audio-files/audio-files.service';
 import type { AuthenticatedRequest } from '../shared/types/authenticated-request';
 import { parseIncludeAudio } from '../shared/helpers/parse-include-audio';
-import { DeleteYoutubeTranscriptionCommand } from './commands/delete-youtube-transcription.command';
 import { DismissIngestJobCommand } from './commands/dismiss-ingest-job.command';
 import { EnqueueYoutubeTranscriptionsCommand } from './commands/enqueue-youtube-transcriptions.command';
 import { CreateYoutubeTranscriptionDto } from './dto/create-youtube-transcription.dto';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
 import { ListFailedIngestJobsQuery } from './queries/list-failed-ingest-jobs.query';
+import { YoutubeTranscriptionsService } from './services/youtube-transcriptions.service';
 
 @Controller('api/youtube')
 @ApiAuthErrorResponse()
@@ -42,7 +42,7 @@ export class YoutubeTranscriptionsController {
   constructor(
     private readonly listAllYoutubeTranscriptionsQuery: ListAllYoutubeTranscriptionsQuery,
     private readonly getYoutubeTranscriptionByIdQuery: GetYoutubeTranscriptionByIdQuery,
-    private readonly deleteYoutubeTranscriptionCommand: DeleteYoutubeTranscriptionCommand,
+    private readonly youtubeTranscriptionsService: YoutubeTranscriptionsService,
     private readonly enqueueYoutubeTranscriptionsCommand: EnqueueYoutubeTranscriptionsCommand,
     private readonly listFailedIngestJobsQuery: ListFailedIngestJobsQuery,
     private readonly dismissIngestJobCommand: DismissIngestJobCommand,
@@ -51,7 +51,9 @@ export class YoutubeTranscriptionsController {
   ) {}
 
   @Get('transcriptions')
-  @ApiOperation({ summary: "List the authenticated user's YouTube transcriptions" })
+  @ApiOperation({
+    summary: "List the authenticated user's YouTube transcriptions",
+  })
   @ApiOkResponse({ description: 'List of YouTube transcriptions' })
   async listTranscriptions(@Req() request: AuthenticatedRequest) {
     return await this.listAllYoutubeTranscriptionsQuery.execute(
@@ -125,9 +127,10 @@ export class YoutubeTranscriptionsController {
   @Delete('transcriptions/:id')
   @ApiOperation({ summary: 'Delete a YouTube transcription' })
   @ApiOkResponse({ description: 'Transcription deleted' })
+  @ApiNotFoundResponse({ description: 'YouTube transcription not found' })
   async delete(@Param('id', ParseUUIDPipe) id: string) {
-    const data = await this.deleteYoutubeTranscriptionCommand.execute(id);
-    return data;
+    await this.youtubeTranscriptionsService.delete(id);
+    return { success: true };
   }
 
   @Post('transcriptions/:id/audio')
@@ -135,8 +138,14 @@ export class YoutubeTranscriptionsController {
   @ApiOperation({ summary: 'Generate audio for a YouTube transcription' })
   @ApiResponse({ status: 202, description: 'Audio generation job accepted' })
   @ApiNotFoundResponse({ description: 'YouTube transcription not found' })
-  @ApiResponse({ status: 400, description: 'Transcription has no content available for audio generation' })
-  @ApiResponse({ status: 409, description: 'Audio already exists or generation already in progress' })
+  @ApiResponse({
+    status: 400,
+    description: 'Transcription has no content available for audio generation',
+  })
+  @ApiResponse({
+    status: 409,
+    description: 'Audio already exists or generation already in progress',
+  })
   async generateAudio(
     @Req() request: AuthenticatedRequest,
     @Param('id', ParseUUIDPipe) id: string,
