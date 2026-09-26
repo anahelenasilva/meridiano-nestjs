@@ -11,8 +11,7 @@ import { YoutubeChannelsService } from '../../youtube-channels/youtube-channels.
 import { AudioFilesCleanupService } from '../../audio-files/audio-files-cleanup.service';
 import { NotesCleanupService } from '../../notes/notes-cleanup.service';
 import { StorageService } from '../services/storage.service';
-import { TranscriptService } from '../services/transcript.service';
-import { YoutubeTranscriptionsAlternativeService } from './youtube-transcriptions-alternative.service';
+import { TranscriptFetcherService } from './transcript-fetcher.service';
 import { YoutubeTranscriptionsService } from './youtube-transcriptions.service';
 import { YouTubeService } from './youtube.service';
 
@@ -22,9 +21,7 @@ describe('YoutubeTranscriptionsService', () => {
 
   // Mock implementations
   const mockYouTubeService = mock<YouTubeService>();
-  const mockTranscriptService = mock<TranscriptService>();
-  const mockYoutubeTranscriptionsAlternativeService =
-    mock<YoutubeTranscriptionsAlternativeService>();
+  const mockTranscriptFetcher = mock<TranscriptFetcherService>();
   const mockStorageService = mock<StorageService>();
   const mockDatabaseService = mock<DatabaseService>();
   const mockQueueService = mock<QueueService>();
@@ -41,12 +38,8 @@ describe('YoutubeTranscriptionsService', () => {
           useValue: mockYouTubeService,
         },
         {
-          provide: TranscriptService,
-          useValue: mockTranscriptService,
-        },
-        {
-          provide: YoutubeTranscriptionsAlternativeService,
-          useValue: mockYoutubeTranscriptionsAlternativeService,
+          provide: TranscriptFetcherService,
+          useValue: mockTranscriptFetcher,
         },
         {
           provide: StorageService,
@@ -85,8 +78,7 @@ describe('YoutubeTranscriptionsService', () => {
 
   beforeEach(() => {
     mockReset(mockYouTubeService);
-    mockReset(mockTranscriptService);
-    mockReset(mockYoutubeTranscriptionsAlternativeService);
+    mockReset(mockTranscriptFetcher);
     mockReset(mockStorageService);
     mockReset(mockDatabaseService);
     mockReset(mockQueueService);
@@ -165,8 +157,11 @@ describe('YoutubeTranscriptionsService', () => {
       ];
 
       mockYouTubeService.getChannelVideos.mockResolvedValue(mockVideos);
-      mockTranscriptService.getTranscript.mockResolvedValue(mockTranscript);
-      mockTranscriptService.transcriptToText.mockReturnValue('Hello World');
+      mockTranscriptFetcher.fetch.mockResolvedValue({
+        method: 'alternative',
+        transcript: mockTranscript,
+        transcriptText: 'Hello World',
+      });
       mockStorageService.saveTranscript.mockResolvedValue(undefined);
       mockYoutubeChannelsService.getChannelById.mockResolvedValue(mockChannel);
 
@@ -178,7 +173,7 @@ describe('YoutubeTranscriptionsService', () => {
         1,
         mockChannelConfig,
       );
-      expect(mockTranscriptService.getTranscript).toHaveBeenCalledTimes(2);
+      expect(mockTranscriptFetcher.fetch).toHaveBeenCalledTimes(2);
       expect(mockStorageService.saveTranscript).toHaveBeenCalledTimes(2);
     });
 
@@ -208,7 +203,7 @@ describe('YoutubeTranscriptionsService', () => {
       ];
 
       mockYouTubeService.getChannelVideos.mockResolvedValue(mockVideos);
-      mockTranscriptService.getTranscript.mockRejectedValue(
+      mockTranscriptFetcher.fetch.mockRejectedValue(
         new Error('Transcript not available'),
       );
 
@@ -260,17 +255,20 @@ describe('YoutubeTranscriptionsService', () => {
       const mockTranscript = [{ text: 'Hello', duration: 1000, offset: 0 }];
 
       mockYouTubeService.getChannelVideos.mockResolvedValue(mockVideos);
-      mockTranscriptService.getTranscript
+      mockTranscriptFetcher.fetch
         .mockRejectedValueOnce(new Error('Transcript not available'))
-        .mockResolvedValueOnce(mockTranscript);
-      mockTranscriptService.transcriptToText.mockReturnValue('Hello');
+        .mockResolvedValueOnce({
+          method: 'alternative',
+          transcript: mockTranscript,
+          transcriptText: 'Hello',
+        });
       mockStorageService.saveTranscript.mockResolvedValue(undefined);
 
       // Act
       await service.extractChannelTranscripts(mockChannelConfig);
 
       // Assert
-      expect(mockTranscriptService.getTranscript).toHaveBeenCalledTimes(2);
+      expect(mockTranscriptFetcher.fetch).toHaveBeenCalledTimes(2);
       expect(mockStorageService.saveTranscript).toHaveBeenCalledTimes(1);
     });
   });
@@ -313,8 +311,11 @@ describe('YoutubeTranscriptionsService', () => {
       const mockTranscript = [{ text: 'Hello', duration: 1000, offset: 0 }];
 
       mockYouTubeService.getChannelVideos.mockResolvedValue(mockVideos);
-      mockTranscriptService.getTranscript.mockResolvedValue(mockTranscript);
-      mockTranscriptService.transcriptToText.mockReturnValue('Hello');
+      mockTranscriptFetcher.fetch.mockResolvedValue({
+        method: 'alternative',
+        transcript: mockTranscript,
+        transcriptText: 'Hello',
+      });
       mockStorageService.saveTranscript.mockResolvedValue(undefined);
 
       // Act
@@ -360,10 +361,11 @@ describe('YoutubeTranscriptionsService', () => {
           },
         ]);
 
-      mockTranscriptService.getTranscript.mockResolvedValue([
-        { text: 'Hello', duration: 1000, offset: 0 },
-      ]);
-      mockTranscriptService.transcriptToText.mockReturnValue('Hello');
+      mockTranscriptFetcher.fetch.mockResolvedValue({
+        method: 'alternative',
+        transcript: [{ text: 'Hello', duration: 1000, offset: 0 }],
+        transcriptText: 'Hello',
+      });
       mockStorageService.saveTranscript.mockResolvedValue(undefined);
 
       // Act
@@ -381,9 +383,9 @@ describe('YoutubeTranscriptionsService', () => {
 
     const deleteReports = (changes: number, err: Error | null = null) => {
       const mockDb = {
-        run: jest.fn((_sql: string, _params: unknown[], cb: RunCallback) =>
-          cb.call({ changes }, err),
-        ),
+        run: jest.fn((_sql: string, _params: unknown[], cb: RunCallback) => {
+          cb.call({ changes }, err);
+        }),
       };
       mockDatabaseService.getDbConnection.mockReturnValue(mockDb as never);
       return mockDb;
@@ -447,6 +449,57 @@ describe('YoutubeTranscriptionsService', () => {
       ).rejects.toThrow('not found in configuration');
 
       expect(mockYoutubeChannelsService.getChannelById).toHaveBeenCalledWith(
+        channelDbId,
+      );
+    });
+
+    it('fetches the transcript through the proxy and enqueues its summary', async () => {
+      const channelDbId = 'c23fe6f0-ae5c-409d-910a-2581c7232359';
+      mockYoutubeChannelsService.getChannelById.mockResolvedValue({
+        id: channelDbId,
+        channelId: 'UC123',
+        name: 'Test Channel',
+        description: 'Test Description',
+        maxVideos: 1,
+        enabled: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        url: 'https://youtube.com/channel/UC123',
+      });
+      mockYouTubeService.getVideoMetadata.mockResolvedValue({
+        channel: {
+          id: 'UC123',
+          databaseId: channelDbId,
+          name: 'Test Channel',
+          description: 'Test Description',
+        },
+        videoId: 'dQw4w9WgXcQ',
+        title: 'Video 1',
+        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        publishedAt: '2025-01-01',
+      });
+      mockTranscriptFetcher.fetch.mockResolvedValue({
+        method: 'innertube',
+        transcript: [{ text: 'Hello', duration: 1000, offset: 0 }],
+        transcriptText: 'Hello',
+      });
+      jest.spyOn(service, 'addTranscription').mockResolvedValue('t-1');
+
+      const id = await service.processSingleVideoUrl(
+        'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        channelDbId,
+        'http://proxy:8080',
+      );
+
+      expect(id).toBe('t-1');
+      expect(mockTranscriptFetcher.fetch).toHaveBeenCalledWith('dQw4w9WgXcQ', {
+        proxyUrl: 'http://proxy:8080',
+      });
+      expect(mockQueueService.addTranscriptionSummaryJob).toHaveBeenCalledWith(
+        't-1',
+        'Hello',
+        'Video 1',
+        undefined,
         channelDbId,
       );
     });

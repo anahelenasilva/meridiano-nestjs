@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { YoutubeTranscript } from 'youtube-transcript-plus';
 import { TranscriptItem } from '../../shared/types/video';
+import type { TranscriptSource } from './transcript-fetcher.service';
 
 interface FetchTranscriptOptions {
   keepBrackets?: boolean;
@@ -11,7 +12,9 @@ interface CleanOptions {
 }
 
 @Injectable()
-export class YoutubeTranscriptionsAlternativeService {
+export class YoutubeTranscriptionsAlternativeService implements TranscriptSource {
+  readonly method = 'alternative';
+
   isYouTubeUrl(url: string): boolean {
     return /(^https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\//i.test(url);
   }
