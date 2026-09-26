@@ -5,12 +5,13 @@ import {
   queryOne,
   SqlParams,
 } from '@libs/database';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { AudioFilesCleanupService } from '../audio-files/audio-files-cleanup.service';
 import { NotesCleanupService } from '../notes/notes-cleanup.service';
 import { FeedProfile } from '../shared/types/feed';
 import {
   ArticleCategory,
+  BriefingCandidate,
   DBArticle,
   UpdateArticlePatch,
 } from './article.entity';
@@ -43,6 +44,8 @@ const ARTICLE_COLUMNS = articleColumns();
 
 @Injectable()
 export class ArticlesService {
+  private readonly logger = new Logger(ArticlesService.name);
+
   constructor(
     private readonly databaseService: DatabaseService,
     private readonly notesCleanupService: NotesCleanupService,
@@ -347,10 +350,15 @@ export class ArticlesService {
     return rows.map(mapArticleRow);
   }
 
+  /**
+   * The Standard Briefing candidate pool. Vectors from two embedding models
+   * coexist until `pnpm reembed` runs after a model switch (ADR-0010), so the
+   * pool keeps only the most common dimension and warns about the rest.
+   */
   async getArticlesForBriefing(
     lookbackHours: number,
     feedProfile: FeedProfile,
-  ): Promise<DBArticle[]> {
+  ): Promise<BriefingCandidate[]> {
     const db = this.databaseService.getDbConnection();
 
     const millisecondsPerHour = 60 * 60 * 1000;
@@ -371,7 +379,29 @@ export class ArticlesService {
       ...params,
       cutoffTime.toISOString(),
     ]);
-    return rows.map(mapArticleRow);
+    const candidates = rows.map((row) => ({
+      ...mapArticleRow(row),
+      embedding: JSON.parse(row.embedding!) as number[],
+    }));
+
+    const countByDimension = new Map<number, number>();
+    for (const { embedding } of candidates) {
+      countByDimension.set(
+        embedding.length,
+        (countByDimension.get(embedding.length) ?? 0) + 1,
+      );
+    }
+    if (countByDimension.size <= 1) {
+      return candidates;
+    }
+
+    const [majority] = [...countByDimension].reduce((best, entry) =>
+      entry[1] > best[1] ? entry : best,
+    );
+    this.logger.warn(
+      `Mixed embedding dimensions in the ${feedProfile} briefing pool (${[...countByDimension].map(([dim, count]) => `${count}x${dim}`).join(', ')}); keeping ${majority}. Run \`pnpm reembed\`.`,
+    );
+    return candidates.filter((a) => a.embedding.length === majority);
   }
 
   async deleteArticleById(articleId: string): Promise<void> {

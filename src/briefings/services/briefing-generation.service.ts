@@ -1,6 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { AiService } from '../../ai/ai.service';
-import { ClusterAnalysis, DBArticle } from '../../articles/article.entity';
+import {
+  BriefingCandidate,
+  ClusterAnalysis,
+} from '../../articles/article.entity';
 import { ArticlesService } from '../../articles/articles.service';
 import { ConfigService } from '../../config/config.service';
 import { ProfilesService } from '../../profiles/profiles.service';
@@ -27,7 +30,7 @@ export class BriefingGenerationService {
   ) { }
 
   private async analyzeCluster(
-    clusterArticles: DBArticle[],
+    clusterArticles: BriefingCandidate[],
     feedProfile: FeedProfile,
     clusterIndex: number,
     customPrompt?: string,
@@ -81,7 +84,6 @@ export class BriefingGenerationService {
       topic: `Cluster ${clusterIndex + 1}`,
       analysis: clusterAnalysis,
       size: clusterArticles.length,
-      articles: clusterArticles,
     };
   }
 
@@ -112,50 +114,16 @@ export class BriefingGenerationService {
     this.logger.log(`Generating brief from ${articles.length} articles.`);
 
     const articleIds = articles.map((a) => a.id);
-    const articlesWithEmbeddings = articles.filter((a) => a.embedding);
-
-    if (articlesWithEmbeddings.length !== articles.length) {
-      this.logger.warn(
-        `${articles.length - articlesWithEmbeddings.length} articles missing embeddings. Proceeding with available ones.`,
-      );
-    }
-
-    if (articlesWithEmbeddings.length < briefingConfig.minArticles) {
-      const error = `Not enough articles (${articlesWithEmbeddings.length}) with embeddings to cluster. Min required: ${briefingConfig.minArticles}.`;
-      this.logger.warn(error);
-      return { success: false, error };
-    }
-
-    const clustersQtd = Math.min(
+    const clusters = this.articleClusterer.cluster(
+      articles,
       briefingConfig.clustersQtd,
-      Math.floor(articlesWithEmbeddings.length / 2),
     );
 
-    if (clustersQtd < 2) {
-      this.logger.warn(
-        'Not enough articles to form meaningful clusters. Skipping clustering.',
-      );
-      return {
-        success: false,
-        error: 'Not enough articles to form meaningful clusters',
-      };
-    }
-
-    this.logger.log(
-      `Clustering ${articlesWithEmbeddings.length} articles into ${clustersQtd} clusters...`,
-    );
-
-    const embeddedArticles = articlesWithEmbeddings.map((a) => ({
-      id: a.id,
-      embedding: JSON.parse(a.embedding!) as number[],
-    }));
-    const clusters = this.articleClusterer.cluster(embeddedArticles, clustersQtd);
-
-    const articleById = new Map(articlesWithEmbeddings.map((a) => [a.id, a]));
+    const articleById = new Map(articles.map((a) => [a.id, a]));
     const clusterGroups = clusters.map((cluster) =>
       cluster.articleIds
         .map((id) => articleById.get(id))
-        .filter((a): a is DBArticle => a !== undefined),
+        .filter((a): a is BriefingCandidate => a !== undefined),
     );
 
     this.logger.log('Analyzing clusters...');
@@ -234,8 +202,8 @@ export class BriefingGenerationService {
         briefingId,
         content: finalBriefMarkdown,
         stats: {
-          articlesAnalyzed: articlesWithEmbeddings.length,
-          clustersGenerated: clustersQtd,
+          articlesAnalyzed: articles.length,
+          clustersGenerated: clusters.length,
           clustersUsed: clusterAnalyses.length,
         },
       };

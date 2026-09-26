@@ -1,4 +1,5 @@
 import { DatabaseService, RunCallback } from '@libs/database';
+import { Logger } from '@nestjs/common';
 import { mock } from 'jest-mock-extended';
 import { AudioFilesCleanupService } from '../audio-files/audio-files-cleanup.service';
 import { NotesCleanupService } from '../notes/notes-cleanup.service';
@@ -503,6 +504,47 @@ describe('ArticlesService', () => {
         new Date('2026-06-01T09:00:00.000Z'),
       );
       expect(articles[1].archived_at).toBeNull();
+    });
+  });
+
+  describe('getArticlesForBriefing', () => {
+    const row = (id: string, embedding: number[]) => ({
+      id,
+      url: `https://example.com/${id}`,
+      title: id,
+      published_date: '2026-05-15T10:00:00.000Z',
+      feed_source: 'Feed',
+      raw_content: 'raw',
+      processed_content: 'summary',
+      embedding: JSON.stringify(embedding),
+      feed_profile: 'technology',
+      created_at: '2026-05-15T10:00:00.000Z',
+      archived_at: null,
+    });
+
+    it('returns parsed vectors and drops articles off the majority dimension', async () => {
+      const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+      mockDb.all.mockImplementationOnce((query, params, callback) => {
+        callback(null, [
+          row('old', [1, 2, 3]),
+          row('a1', [0.1, 0.2]),
+          row('a2', [0.3, 0.4]),
+        ]);
+      });
+
+      const pool = await service.getArticlesForBriefing(
+        24,
+        FeedProfile.TECHNOLOGY,
+      );
+
+      expect(pool.map((a) => [a.id, a.embedding])).toEqual([
+        ['a1', [0.1, 0.2]],
+        ['a2', [0.3, 0.4]],
+      ]);
+      expect(warnSpy).toHaveBeenCalledWith(
+        expect.stringContaining('Mixed embedding dimensions'),
+      );
+      warnSpy.mockRestore();
     });
   });
 
