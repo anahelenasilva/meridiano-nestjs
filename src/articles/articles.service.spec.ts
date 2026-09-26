@@ -225,7 +225,7 @@ describe('ArticlesService', () => {
       const result = await service.getArticlesByIds(ids);
 
       expect(mockDb.all).toHaveBeenCalledWith(
-        expect.stringContaining('WHERE id = ANY(?::uuid[])'),
+        expect.stringContaining('AND id = ANY(?::uuid[])'),
         [ids, ids],
         expect.any(Function),
       );
