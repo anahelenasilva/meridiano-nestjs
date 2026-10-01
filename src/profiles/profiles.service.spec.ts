@@ -14,6 +14,7 @@ describe('ProfilesService sitemap sources', () => {
 
     expect(urls).toContain('https://claude.com/sitemap.xml');
     expect(urls).toContain('https://www.anthropic.com/sitemap.xml');
+    expect(urls).toContain('https://claude.dev/sitemap.xml');
   });
 
   it('filters out sitemap sources with enabled === false', () => {
