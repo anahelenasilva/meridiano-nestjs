@@ -152,6 +152,12 @@ export const techSitemapSources: SitemapSource[] = [
     enabled: true,
   },
   {
+    sitemapUrl: 'https://claude.dev/sitemap.xml',
+    urlPrefix: 'https://claude.dev/blog/',
+    name: 'Claude Dev',
+    enabled: true,
+  },
+  {
     sitemapUrl: 'https://www.anthropic.com/sitemap.xml',
     urlPrefix: 'https://www.anthropic.com/news/',
     name: 'Anthropic News',
