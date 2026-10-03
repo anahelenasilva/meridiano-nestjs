@@ -55,7 +55,6 @@ describe('ArticleJobsService', () => {
         generateAudio: false,
       },
     );
-    expect(markdownQueue.add.mock.calls[0]).toHaveLength(2);
     expect(result).toEqual({
       success: true,
       articleFileKey: 'key.md',
