@@ -1,128 +1,145 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
 import { ConfigService } from '../../config/config.service';
+import { ProcessorService } from '../../processor/processor.service';
+import { ScraperService } from '../../scraper/scraper.service';
+import { ScrapingStats } from '../../scraper/scrapper.entity';
+import { ProcessingStats } from '../../shared/types/ai';
 import { FeedProfile } from '../../shared/types/feed';
-import { CategorizeArticlesUseCase } from './categorize-articles.usecase';
-import { RunBriefingInputDto } from './dto/run-briefing.dto';
+import { BriefingGenerationService } from '../services/briefing-generation.service';
 import { GenerateBriefUseCase } from './generate-brief.usecase';
-import { ProcessArticlesUseCase } from './process-articles.usecase';
-import { RateArticlesUseCase } from './rate-articles.usecase';
 import { RunBriefingUseCase } from './run-briefing.usecase';
-import { ScrapeArticlesUseCase } from './scrape-articles.usecase';
+
+const scrapingStats = (newArticles: number, errors: number): ScrapingStats => ({
+  feedProfile: FeedProfile.DEFAULT,
+  totalFeeds: 1,
+  newArticles,
+  errors,
+  startTime: new Date(),
+});
+
+const processingStats = (
+  counts: Partial<ProcessingStats>,
+): ProcessingStats => ({
+  feedProfile: FeedProfile.DEFAULT,
+  articlesProcessed: 0,
+  articlesRated: 0,
+  articlesCategorized: 0,
+  errors: 0,
+  startTime: new Date(),
+  ...counts,
+});
 
 describe('RunBriefingUseCase', () => {
   let useCase: RunBriefingUseCase;
-  const mockScrapeArticlesUseCase = mock<ScrapeArticlesUseCase>();
-  const mockProcessArticlesUseCase = mock<ProcessArticlesUseCase>();
-  const mockRateArticlesUseCase = mock<RateArticlesUseCase>();
-  const mockCategorizeArticlesUseCase = mock<CategorizeArticlesUseCase>();
-  const mockGenerateBriefUseCase = mock<GenerateBriefUseCase>();
-  const mockConfigService = mock<ConfigService>();
+  const scraperService = mock<ScraperService>();
+  const processorService = mock<ProcessorService>();
+  const briefingGenerationService = mock<BriefingGenerationService>();
+  const configService = mock<ConfigService>();
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         RunBriefingUseCase,
-        { provide: ScrapeArticlesUseCase, useValue: mockScrapeArticlesUseCase },
+        GenerateBriefUseCase,
+        { provide: ScraperService, useValue: scraperService },
+        { provide: ProcessorService, useValue: processorService },
         {
-          provide: ProcessArticlesUseCase,
-          useValue: mockProcessArticlesUseCase,
+          provide: BriefingGenerationService,
+          useValue: briefingGenerationService,
         },
-        { provide: RateArticlesUseCase, useValue: mockRateArticlesUseCase },
-        {
-          provide: CategorizeArticlesUseCase,
-          useValue: mockCategorizeArticlesUseCase,
-        },
-        { provide: GenerateBriefUseCase, useValue: mockGenerateBriefUseCase },
-        { provide: ConfigService, useValue: mockConfigService },
+        { provide: ConfigService, useValue: configService },
       ],
     }).compile();
 
-    useCase = module.get<RunBriefingUseCase>(RunBriefingUseCase);
+    useCase = module.get(RunBriefingUseCase);
 
-    mockScrapeArticlesUseCase.execute.mockResolvedValue({
+    scraperService.scrapeFeedProfile.mockResolvedValue({
       status: 'scraped',
-      rss: { newArticles: 5, errors: 0 },
-      sitemap: { newArticles: 3, errors: 2 },
+      rss: scrapingStats(5, 0),
+      sitemap: scrapingStats(3, 2),
     });
-    mockProcessArticlesUseCase.execute.mockResolvedValue({
-      articlesProcessed: 8,
-      errors: 0,
+    processorService.processArticles.mockResolvedValue(
+      processingStats({ articlesProcessed: 8 }),
+    );
+    processorService.rateArticles.mockResolvedValue(
+      processingStats({ articlesRated: 7 }),
+    );
+    processorService.categorizeArticles.mockResolvedValue(
+      processingStats({ articlesCategorized: 6, errors: 1 }),
+    );
+    configService.isBriefingsGenerationEnabled.mockReturnValue(true);
+    briefingGenerationService.generateBrief.mockResolvedValue({
+      success: true,
+      briefingId: 'brief-uuid',
+      stats: { articlesAnalyzed: 8, clustersGenerated: 3, clustersUsed: 2 },
     });
-    mockRateArticlesUseCase.execute.mockResolvedValue({
-      articlesRated: 8,
-      errors: 0,
-    });
-    mockCategorizeArticlesUseCase.execute.mockResolvedValue({
-      articlesCategorized: 8,
-      errors: 0,
-    });
-    mockConfigService.isBriefingsGenerationEnabled.mockReturnValue(false);
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  const input: RunBriefingInputDto = { feedProfile: FeedProfile.DEFAULT };
+  const input = { feedProfile: FeedProfile.DEFAULT };
 
-  it('returns an error and stops when the profile has no sources', async () => {
-    mockScrapeArticlesUseCase.execute.mockResolvedValue({
+  it('scrapes, processes, rates, categorises and generates a brief when the profile has sources', async () => {
+    const result = await useCase.execute(input);
+
+    expect(scraperService.scrapeFeedProfile).toHaveBeenCalledWith(
+      FeedProfile.DEFAULT,
+    );
+    expect(processorService.processArticles).toHaveBeenCalledWith(
+      FeedProfile.DEFAULT,
+    );
+    expect(processorService.rateArticles).toHaveBeenCalledWith(
+      FeedProfile.DEFAULT,
+    );
+    expect(processorService.categorizeArticles).toHaveBeenCalledWith(
+      FeedProfile.DEFAULT,
+    );
+    expect(briefingGenerationService.generateBrief).toHaveBeenCalledWith(
+      FeedProfile.DEFAULT,
+      { customPrompts: undefined },
+    );
+    expect(result.success).toBe(true);
+    expect(result.stages).toMatchObject({
+      scraping: { newArticles: 5, errors: 0 },
+      sitemapScraping: { newArticles: 3, errors: 2 },
+      processing: { articlesProcessed: 8, errors: 0 },
+      rating: { articlesRated: 7, errors: 0 },
+      categorization: { articlesCategorized: 6, errors: 1 },
+      briefGeneration: { success: true, briefingId: 'brief-uuid' },
+    });
+  });
+
+  it('returns an error and runs no other stage when the profile has no sources', async () => {
+    scraperService.scrapeFeedProfile.mockResolvedValue({
       status: 'no_sources',
     });
 
     const result = await useCase.execute(input);
 
+    expect(result).toEqual({
+      success: false,
+      duration: 0,
+      error: "No enabled feeds or sitemap sources found for profile 'default'.",
+    });
+    expect(processorService.processArticles).not.toHaveBeenCalled();
+    expect(briefingGenerationService.generateBrief).not.toHaveBeenCalled();
+  });
+
+  it('runs every stage but skips the brief when generation is disabled', async () => {
+    configService.isBriefingsGenerationEnabled.mockReturnValue(false);
+
+    const result = await useCase.execute(input);
+
+    expect(processorService.categorizeArticles).toHaveBeenCalled();
+    expect(briefingGenerationService.generateBrief).not.toHaveBeenCalled();
     expect(result.success).toBe(false);
-    expect(result.error).toContain(
-      "No enabled feeds or sitemap sources found for profile 'default'",
-    );
-    expect(mockProcessArticlesUseCase.execute).not.toHaveBeenCalled();
-  });
-
-  it('runs all stages and returns success when generation enabled', async () => {
-    mockConfigService.isBriefingsGenerationEnabled.mockReturnValue(true);
-    mockGenerateBriefUseCase.execute.mockResolvedValue({
-      success: true,
-      briefingId: 'brief-uuid',
-      stats: { articlesAnalyzed: 8, clustersUsed: 2 },
+    expect(result.stages?.briefGeneration).toEqual({
+      success: false,
+      error:
+        'Briefings generation is disabled. Set ENABLE_BRIEFINGS_GENERATION=true to enable.',
     });
-
-    const result = await useCase.execute(input);
-
-    expect(mockScrapeArticlesUseCase.execute).toHaveBeenCalledWith({
-      feedProfile: FeedProfile.DEFAULT,
-    });
-    expect(result.success).toBe(true);
-    expect(result.stages?.processing.articlesProcessed).toBe(8);
-    expect(result.stages?.rating.articlesRated).toBe(8);
-    expect(result.stages?.categorization.articlesCategorized).toBe(8);
-    expect(result.stages?.briefGeneration.briefingId).toBe('brief-uuid');
-  });
-
-  it('reports RSS and sitemap scraping stats separately', async () => {
-    const result = await useCase.execute(input);
-
-    expect(result.stages?.scraping).toEqual({ newArticles: 5, errors: 0 });
-    expect(result.stages?.sitemapScraping).toEqual({
-      newArticles: 3,
-      errors: 2,
-    });
-  });
-
-  it('skips brief generation when feature flag disabled', async () => {
-    const result = await useCase.execute(input);
-
-    expect(result.success).toBe(false);
-    expect(mockGenerateBriefUseCase.execute).not.toHaveBeenCalled();
-    expect(result.stages?.briefGeneration.error).toContain('disabled');
-  });
-
-  it('propagates stage failure', async () => {
-    mockScrapeArticlesUseCase.execute.mockRejectedValue(
-      new Error('scraper down'),
-    );
-
-    await expect(useCase.execute(input)).rejects.toThrow('scraper down');
   });
 });

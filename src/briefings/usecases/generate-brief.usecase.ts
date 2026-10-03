@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '../../config/config.service';
 import { BriefingGenerationService } from '../services/briefing-generation.service';
 import {
@@ -8,6 +8,8 @@ import {
 
 @Injectable()
 export class GenerateBriefUseCase {
+  private readonly logger = new Logger(GenerateBriefUseCase.name);
+
   constructor(
     private readonly briefingGenerationService: BriefingGenerationService,
     private readonly configService: ConfigService,
@@ -15,13 +17,11 @@ export class GenerateBriefUseCase {
 
   async execute(input: GenerateBriefInputDto): Promise<GenerateBriefOutputDto> {
     if (!this.configService.isBriefingsGenerationEnabled()) {
-      return {
-        success: false,
-        briefingId: undefined,
-        stats: undefined,
-        error:
-          'Briefings generation is disabled. Set ENABLE_BRIEFINGS_GENERATION=true to enable.',
-      };
+      const error =
+        'Briefings generation is disabled. Set ENABLE_BRIEFINGS_GENERATION=true to enable.';
+      this.logger.warn(error);
+
+      return { success: false, error };
     }
 
     const result = await this.briefingGenerationService.generateBrief(input.feedProfile, {

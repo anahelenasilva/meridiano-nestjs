@@ -15,13 +15,9 @@ import { BriefingEntity } from './entities/briefing.entity';
 import { CustomBriefingProcessor } from './processors/custom-briefing.processor';
 import { ListBriefingsQuery } from './queries/list-briefings.query';
 import { BriefingGenerationService } from './services/briefing-generation.service';
-import { CategorizeArticlesUseCase } from './usecases/categorize-articles.usecase';
 import { GenerateBriefUseCase } from './usecases/generate-brief.usecase';
 import { GenerateCustomBriefUseCase } from './usecases/generate-custom-brief.usecase';
-import { ProcessArticlesUseCase } from './usecases/process-articles.usecase';
-import { RateArticlesUseCase } from './usecases/rate-articles.usecase';
 import { RunBriefingUseCase } from './usecases/run-briefing.usecase';
-import { ScrapeArticlesUseCase } from './usecases/scrape-articles.usecase';
 
 @Module({
   imports: [
@@ -41,13 +37,9 @@ import { ScrapeArticlesUseCase } from './usecases/scrape-articles.usecase';
     ArticleClusterer,
     ListBriefingsQuery,
     CustomBriefingProcessor,
-    CategorizeArticlesUseCase,
     GenerateBriefUseCase,
     GenerateCustomBriefUseCase,
-    ProcessArticlesUseCase,
-    RateArticlesUseCase,
     RunBriefingUseCase,
-    ScrapeArticlesUseCase,
   ],
   controllers: [BriefingsController],
   exports: [BriefingsService, BriefingGenerationService],

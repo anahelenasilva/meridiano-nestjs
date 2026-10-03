@@ -3,13 +3,11 @@ import { NestFactory } from '@nestjs/core';
 import { Command } from 'commander';
 import * as dotenv from 'dotenv';
 import { AppModule } from '../app.module';
-import { CategorizeArticlesUseCase } from '../briefings/usecases/categorize-articles.usecase';
 import { GenerateBriefUseCase } from '../briefings/usecases/generate-brief.usecase';
-import { ProcessArticlesUseCase } from '../briefings/usecases/process-articles.usecase';
-import { RateArticlesUseCase } from '../briefings/usecases/rate-articles.usecase';
 import { RunBriefingUseCase } from '../briefings/usecases/run-briefing.usecase';
-import { ScrapeArticlesUseCase } from '../briefings/usecases/scrape-articles.usecase';
+import { ProcessorService } from '../processor/processor.service';
 import { ProfilesService } from '../profiles/profiles.service';
+import { ScraperService } from '../scraper/scraper.service';
 import { FeedProfile } from '../shared/types/feed';
 
 dotenv.config();
@@ -19,10 +17,8 @@ const program = new Command();
 interface Services {
   app: INestApplicationContext;
   runBriefingUseCase: RunBriefingUseCase;
-  scrapeArticlesUseCase: ScrapeArticlesUseCase;
-  processArticlesUseCase: ProcessArticlesUseCase;
-  rateArticlesUseCase: RateArticlesUseCase;
-  categorizeArticlesUseCase: CategorizeArticlesUseCase;
+  scraperService: ScraperService;
+  processorService: ProcessorService;
   generateBriefUseCase: GenerateBriefUseCase;
   profilesService: ProfilesService;
 }
@@ -32,10 +28,8 @@ async function initialize(): Promise<Services> {
   return {
     app,
     runBriefingUseCase: app.get(RunBriefingUseCase),
-    scrapeArticlesUseCase: app.get(ScrapeArticlesUseCase),
-    processArticlesUseCase: app.get(ProcessArticlesUseCase),
-    rateArticlesUseCase: app.get(RateArticlesUseCase),
-    categorizeArticlesUseCase: app.get(CategorizeArticlesUseCase),
+    scraperService: app.get(ScraperService),
+    processorService: app.get(ProcessorService),
     generateBriefUseCase: app.get(GenerateBriefUseCase),
     profilesService: app.get(ProfilesService),
   };
@@ -158,9 +152,8 @@ async function main(): Promise<void> {
       }
     } else {
       if (options.scrape) {
-        const result = await services.scrapeArticlesUseCase.execute({
-          feedProfile,
-        });
+        const result =
+          await services.scraperService.scrapeFeedProfile(feedProfile);
         if (result.status === 'no_sources') {
           console.log(
             `No enabled feeds or sitemap sources found for profile '${feedProfile}'.`,
@@ -176,28 +169,26 @@ async function main(): Promise<void> {
       }
 
       if (options.process) {
-        const result = await services.processArticlesUseCase.execute({
+        const result = await services.processorService.processArticles(
           feedProfile,
-          generateAudio: options.generateAudio,
-        });
+          options.generateAudio,
+        );
         console.log(
           `Processing completed. Processed: ${result.articlesProcessed}, Errors: ${result.errors}`,
         );
       }
 
       if (options.rate) {
-        const result = await services.rateArticlesUseCase.execute({
-          feedProfile,
-        });
+        const result =
+          await services.processorService.rateArticles(feedProfile);
         console.log(
           `Rating completed. Rated: ${result.articlesRated}, Errors: ${result.errors}`,
         );
       }
 
       if (options.categorize) {
-        const result = await services.categorizeArticlesUseCase.execute({
-          feedProfile,
-        });
+        const result =
+          await services.processorService.categorizeArticles(feedProfile);
         console.log(
           `Categorization completed. Categorized: ${result.articlesCategorized}, Errors: ${result.errors}`,
         );
