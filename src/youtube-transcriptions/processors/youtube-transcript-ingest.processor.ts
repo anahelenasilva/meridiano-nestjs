@@ -2,9 +2,15 @@ import {
   IngestTranscriptJobData,
   YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
 } from '@libs/queue';
-import { RedisService } from '@libs/redis';
-import { Injectable, Logger, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
-import { Job, Worker } from 'bullmq';
+import { createWorker } from '@libs/queue/create-worker';
+import {
+  Inject,
+  Injectable,
+  Logger,
+  OnModuleInit,
+  OnModuleDestroy,
+} from '@nestjs/common';
+import { Job, Queue, Worker } from 'bullmq';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 
 /**
@@ -15,43 +21,24 @@ import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions
  * fallbacks in the first place.
  */
 @Injectable()
-export class YoutubeTranscriptIngestProcessor implements OnModuleInit, OnModuleDestroy {
+export class YoutubeTranscriptIngestProcessor
+  implements OnModuleInit, OnModuleDestroy
+{
   private worker: Worker;
   private readonly logger = new Logger(YoutubeTranscriptIngestProcessor.name);
 
   constructor(
-    private readonly redisService: RedisService,
+    @Inject(YOUTUBE_TRANSCRIPT_INGEST_QUEUE)
+    private readonly queue: Queue,
     private readonly youtubeTranscriptionsService: YoutubeTranscriptionsService,
   ) {}
 
   onModuleInit() {
-    this.worker = new Worker(
-      YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
-      async (job: Job<IngestTranscriptJobData>) => {
-        return await this.ingestTranscript(job);
-      },
-      {
-        connection: this.redisService.getClient(),
-        concurrency: 1,
-      },
+    this.worker = createWorker(
+      this.queue,
+      (job: Job<IngestTranscriptJobData>) => this.ingestTranscript(job),
+      { logger: this.logger },
     );
-
-    this.worker.on('failed', (job, err) => {
-      this.logger.error(
-        `Ingest job ${job?.id} failed: ${err.message} [videoUrl=${job?.data?.videoUrl}]`,
-      );
-    });
-
-    // Redis closes during shutdown and tests; those errors are expected.
-    this.worker.on('error', (err: Error) => {
-      if (
-        err.message?.includes('ECONNRESET') ||
-        err.message?.includes('closed')
-      ) {
-        return;
-      }
-      this.logger.error(`Ingest worker error: ${err.message}`);
-    });
 
     this.logger.log('YouTube transcript ingest worker initialized');
   }

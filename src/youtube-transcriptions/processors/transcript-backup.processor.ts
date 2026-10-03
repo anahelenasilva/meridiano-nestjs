@@ -1,13 +1,14 @@
 import { BackupTranscriptJobData, TRANSCRIPT_BACKUP_QUEUE } from '@libs/queue';
-import { RedisService } from '@libs/redis';
+import { createWorker } from '@libs/queue/create-worker';
 import { S3Service } from '@libs/s3';
 import {
+  Inject,
   Injectable,
   Logger,
   OnModuleDestroy,
   OnModuleInit,
 } from '@nestjs/common';
-import { Job, Worker } from 'bullmq';
+import { Job, Queue, Worker } from 'bullmq';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { ConfigService } from '../../config/config.service';
@@ -20,33 +21,18 @@ export class TranscriptBackupProcessor
   private worker: Worker;
 
   constructor(
-    private readonly redisService: RedisService,
+    @Inject(TRANSCRIPT_BACKUP_QUEUE)
+    private readonly queue: Queue,
     private readonly s3Service: S3Service,
     private readonly configService: ConfigService,
   ) {}
 
   onModuleInit() {
-    this.worker = new Worker(
-      TRANSCRIPT_BACKUP_QUEUE,
-      async (job: Job<BackupTranscriptJobData>) => {
-        return await this.backupTranscript(job);
-      },
-      {
-        connection: this.redisService.getClient(),
-        concurrency: 1,
-      },
+    this.worker = createWorker(
+      this.queue,
+      (job: Job<BackupTranscriptJobData>) => this.backupTranscript(job),
+      { logger: this.logger },
     );
-
-    this.worker.on('error', (err: Error) => {
-      // ECONNRESET/closed are expected when Redis connection closes on shutdown
-      if (
-        err.message?.includes('ECONNRESET') ||
-        err.message?.includes('closed')
-      ) {
-        return;
-      }
-      this.logger.error('Transcript backup processor worker error:', err);
-    });
 
     this.logger.log('Transcript backup processor worker initialized');
   }
@@ -83,12 +69,6 @@ export class TranscriptBackupProcessor
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : String(error);
-
-      if (job.attemptsMade + 1 >= (job.opts.attempts ?? 1)) {
-        this.logger.error(
-          `Transcript backup failed permanently for file ${filePath} (S3 key ${key}): ${errorMessage}`,
-        );
-      }
 
       // Re-throw on every attempt (including the last): BullMQ needs the throw to
       // schedule retries and, once attempts are exhausted, to move the job into the

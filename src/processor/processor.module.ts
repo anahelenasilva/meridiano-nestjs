@@ -1,4 +1,5 @@
 import { AudioModule } from '@libs/audio';
+import { QueueModule } from '@libs/queue';
 import { RedisModule } from '@libs/redis';
 import { S3Module } from '@libs/s3';
 import { Module } from '@nestjs/common';
@@ -18,6 +19,7 @@ import { ProcessorService } from './processor.service';
     S3Module,
     AudioModule,
     ConfigModule,
+    QueueModule,
     RedisModule,
   ],
   providers: [ProcessorService, ArticleProcessor, MarkdownArticleProcessor],

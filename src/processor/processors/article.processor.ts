@@ -1,8 +1,8 @@
 import { AudioJobService } from '@libs/audio';
 import { ARTICLE_PROCESSING_QUEUE, ProcessArticleJobData } from '@libs/queue';
-import { RedisService } from '@libs/redis';
-import { Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
-import { Job, Worker } from 'bullmq';
+import { createWorker } from '@libs/queue/create-worker';
+import { Inject, Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import { Job, Queue, Worker } from 'bullmq';
 import { ArticlesService } from '../../articles/articles.service';
 import { enqueueArticleAudio } from '../enqueue-article-audio';
 import { ArticleProcessingPipelineService } from '../pipeline/article-processing-pipeline.service';
@@ -19,40 +19,19 @@ export class ArticleProcessor implements OnModuleInit, OnModuleDestroy {
   private worker: Worker;
 
   constructor(
-    private readonly redisService: RedisService,
+    @Inject(ARTICLE_PROCESSING_QUEUE)
+    private readonly queue: Queue,
     private readonly pipeline: ArticleProcessingPipelineService,
     private readonly articlesService: ArticlesService,
     private readonly audioJobService: AudioJobService,
   ) {}
 
   onModuleInit() {
-    this.worker = new Worker(
-      ARTICLE_PROCESSING_QUEUE,
-      async (job: Job<ProcessArticleJobData>) => {
-        return await this.handleJob(job);
-      },
-      {
-        connection: this.redisService.getClient(),
-        concurrency: 1,
-      },
+    this.worker = createWorker(
+      this.queue,
+      (job: Job<ProcessArticleJobData>) => this.handleJob(job),
+      { logger: this.logger },
     );
-
-    this.worker.on('completed', (job) => {
-      this.logger.log(`Job ${job.id} completed successfully`);
-    });
-
-    this.worker.on('failed', (job, err) => {
-      this.logger.error(`Job ${job?.id} failed with error:`, err);
-    });
-
-    // Suppress expected ECONNRESET/closed errors during shutdown so they do not
-    // crash tests when the Redis connection closes.
-    this.worker.on('error', (err: Error) => {
-      if (err.message?.includes('ECONNRESET') || err.message?.includes('closed')) {
-        return;
-      }
-      this.logger.error('Article processor worker error:', err);
-    });
 
     this.logger.log('Article processor worker initialized');
   }

@@ -3,9 +3,9 @@ import {
   ProcessTranscriptionSummaryJobData,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from '@libs/queue';
-import { RedisService } from '@libs/redis';
-import { Injectable, OnModuleInit } from '@nestjs/common';
-import { Job, Worker } from 'bullmq';
+import { createWorker } from '@libs/queue/create-worker';
+import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { Job, Queue, Worker } from 'bullmq';
 import { AiService } from '../../ai/ai.service';
 import { ConfigService } from '../../config/config.service';
 import { buildFinalPrompt } from '../../shared/helpers/build-final-prompt';
@@ -15,9 +15,11 @@ import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions
 @Injectable()
 export class YoutubeTranscriptionProcessor implements OnModuleInit {
   private worker: Worker;
+  private readonly logger = new Logger(YoutubeTranscriptionProcessor.name);
 
   constructor(
-    private readonly redisService: RedisService,
+    @Inject(YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE)
+    private readonly queue: Queue,
     private readonly youtubeTranscriptionsService: YoutubeTranscriptionsService,
     private readonly aiService: AiService,
     private readonly configService: ConfigService,
@@ -26,38 +28,14 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
   ) {}
 
   onModuleInit() {
-    this.worker = new Worker(
-      YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
-      async (job: Job<ProcessTranscriptionSummaryJobData>) => {
-        return await this.processTranscriptionSummary(job);
-      },
-      {
-        connection: this.redisService.getClient(),
-        concurrency: 1,
-      },
+    this.worker = createWorker(
+      this.queue,
+      (job: Job<ProcessTranscriptionSummaryJobData>) =>
+        this.processTranscriptionSummary(job),
+      { logger: this.logger },
     );
 
-    this.worker.on('completed', (job) => {
-      console.log(`Job ${job.id} completed successfully`);
-    });
-
-    this.worker.on('failed', (job, err) => {
-      console.error(`Job ${job?.id} failed with error:`, err);
-    });
-
-    // Handle connection errors during shutdown to prevent ECONNRESET from crashing tests
-    this.worker.on('error', (err: Error) => {
-      // Suppress ECONNRESET errors during shutdown - these are expected when Redis connection closes
-      if (
-        err.message?.includes('ECONNRESET') ||
-        err.message?.includes('closed')
-      ) {
-        return;
-      }
-      console.error('YouTube transcription processor worker error:', err);
-    });
-
-    console.log('YouTube transcription processor worker initialized');
+    this.logger.log('YouTube transcription processor worker initialized');
   }
 
   async processTranscriptionSummary(
@@ -99,7 +77,9 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
           };
         }
 
-        console.log(`Updating transcription ${transcriptionId} with summary...`);
+        console.log(
+          `Updating transcription ${transcriptionId} with summary...`,
+        );
         await this.youtubeTranscriptionsService.updateTranscriptionSummary(
           transcriptionId,
           summary,
