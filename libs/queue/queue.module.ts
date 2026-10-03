@@ -1,8 +1,6 @@
-import { EmailModule } from '@libs/email';
 import { RedisModule, RedisService } from '@libs/redis';
 import { Module } from '@nestjs/common';
 import { Queue } from 'bullmq';
-import { ConfigModule } from '../../src/config/config.module';
 import {
   ARTICLE_PROCESSING_QUEUE,
   AUDIO_GENERATION_QUEUE,
@@ -16,11 +14,7 @@ import {
 import { QueueService } from './queue.service';
 
 @Module({
-  imports: [
-    ConfigModule,
-    EmailModule.forRoot(),
-    RedisModule,
-  ],
+  imports: [RedisModule],
   providers: [
     {
       provide: ARTICLE_PROCESSING_QUEUE,
@@ -36,6 +30,10 @@ import { QueueService } from './queue.service';
       useFactory: (redisService: RedisService) => {
         return new Queue(MARKDOWN_ARTICLE_PROCESSING_QUEUE, {
           connection: redisService.getClient(),
+          defaultJobOptions: {
+            attempts: 3,
+            backoff: { type: 'exponential', delay: 5000 },
+          },
         });
       },
       inject: [RedisService],

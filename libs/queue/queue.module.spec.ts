@@ -1,124 +1,6 @@
-// Mock the entire email module BEFORE any other imports
-// This prevents the real EmailModule from being loaded and requiring env vars
-jest.mock('@libs/email', () => {
-  const mockSendEmail = jest.fn().mockResolvedValue({ success: true });
-
-  class MockEmailService {
-    sendEmail = mockSendEmail;
-  }
-
-  return {
-    EmailModule: {
-      forRoot: jest.fn().mockReturnValue({
-        module: class MockEmailModule { },
-        providers: [
-          {
-            provide: 'EMAIL_PROVIDER',
-            useValue: {
-              sendEmail: mockSendEmail,
-            },
-          },
-          {
-            provide: MockEmailService,
-            useClass: MockEmailService,
-          },
-        ],
-        exports: [MockEmailService],
-      }),
-    },
-    EmailService: MockEmailService,
-  };
-});
-
-// Mock the database module to prevent actual DB connections in tests
-jest.mock('@libs/database', () => {
-  const mockDbConnection = {
-    prepare: jest.fn().mockReturnValue({
-      run: jest.fn(),
-      finalize: jest.fn(),
-    }),
-    get: jest.fn(),
-    all: jest.fn(),
-    run: jest.fn(),
-    exec: jest.fn(),
-  };
-
-  class MockDatabaseService {
-    initDb = jest.fn().mockResolvedValue(undefined);
-    closeDb = jest.fn().mockResolvedValue(undefined);
-    getDbConnection = jest.fn().mockReturnValue(mockDbConnection);
-  }
-
-  return {
-    DatabaseModule: class MockDatabaseModule {
-      static forRoot = jest.fn().mockReturnValue({
-        module: class MockDatabaseModuleClass { },
-        providers: [
-          {
-            provide: 'DATABASE_SERVICE',
-            useClass: MockDatabaseService,
-          },
-        ],
-        exports: ['DATABASE_SERVICE'],
-      });
-    },
-    DatabaseService: MockDatabaseService,
-  };
-});
-
-// Mock ConfigModule to prevent loading the full dependency chain (the real
-// ConfigModule pulls in YoutubeChannelsService and its TypeORM repositories).
-// Backs the real ConfigService token with a mock value so RedisModule/
-// EmailModule (which import ConfigService directly from config.service, not
-// config.module) still resolve it to the same token.
-jest.mock('../../src/config/config.module', () => {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports -- jest.mock factories can't reference out-of-scope imports
-  const { Global, Module } = require('@nestjs/common');
-  // eslint-disable-next-line @typescript-eslint/no-require-imports -- jest.mock factories can't reference out-of-scope imports
-  const { ConfigService } = require('../../src/config/config.service');
-
-  const mockConfigService = {
-    get: jest.fn().mockReturnValue('mock-value'),
-    getArticleEmailsNotifications: jest.fn().mockReturnValue({
-      failureNotificationEmail: 'test@example.com',
-      failureNotificationEmailFrom: 'from@example.com',
-    }),
-    getRedisConfig: jest.fn().mockReturnValue({
-      url: undefined,
-      host: 'localhost',
-      port: 6379,
-      password: undefined,
-    }),
-  };
-
-  // @Global() to match the real ConfigModule: RedisModule/EmailModule no
-  // longer import ConfigModule themselves (see redis.module.ts), so they
-  // only see ConfigService if it's registered globally, same as production.
-  @Global()
-  @Module({
-    providers: [{ provide: ConfigService, useValue: mockConfigService }],
-    exports: [ConfigService],
-  })
-  class MockConfigModule {}
-
-  return { ConfigModule: MockConfigModule };
-});
-
-// Mock QueueService to avoid ConfigService dependency
-jest.mock('./queue.service', () => {
-  return {
-    QueueService: class MockQueueService {
-      addArticleProcessingJob = jest.fn();
-      addMarkdownArticleProcessingJob = jest.fn();
-      addTranscriptionSummaryJob = jest.fn();
-      getJobStatus = jest.fn();
-      onModuleInit = jest.fn();
-      onModuleDestroy = jest.fn();
-    },
-  };
-});
-
+import { RedisService } from '@libs/redis';
 import { Test, TestingModule } from '@nestjs/testing';
+import { Queue } from 'bullmq';
 import {
   ARTICLE_PROCESSING_QUEUE,
   AUDIO_GENERATION_QUEUE,
@@ -135,9 +17,14 @@ describe('QueueModule', () => {
   let module: TestingModule;
 
   beforeEach(async () => {
+    // RedisService reads ConfigService, which the app registers globally.
+    // Overriding it keeps this spec free of app code.
     module = await Test.createTestingModule({
       imports: [QueueModule],
-    }).compile();
+    })
+      .overrideProvider(RedisService)
+      .useValue({ getClient: () => ({}) })
+      .compile();
   });
 
   it('should compile successfully', () => {
@@ -161,6 +48,18 @@ describe('QueueModule', () => {
 
     const audioQueue = module.get(AUDIO_GENERATION_QUEUE);
     expect(audioQueue).toBeDefined();
+  });
+
+  it('gives markdown jobs three attempts with exponential backoff', () => {
+    expect(Queue).toHaveBeenCalledWith(
+      MARKDOWN_ARTICLE_PROCESSING_QUEUE,
+      expect.objectContaining({
+        defaultJobOptions: {
+          attempts: 3,
+          backoff: { type: 'exponential', delay: 5000 },
+        },
+      }),
+    );
   });
 
   it('should export QueueService', () => {

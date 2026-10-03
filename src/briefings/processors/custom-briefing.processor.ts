@@ -2,9 +2,9 @@ import { Inject, Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nest
 import { Job, Queue, Worker } from 'bullmq';
 import { CUSTOM_BRIEFING_GENERATION_QUEUE } from '../../../libs/queue/constants/queue.constants';
 import { createWorker } from '../../../libs/queue/create-worker';
-import { CustomBriefingJobData } from '../../../libs/queue/interfaces/custom-briefing-job.interface';
 import { ConfigService } from '../../config/config.service';
 import { BriefingGenerationService } from '../services/briefing-generation.service';
+import { CustomBriefingJobData } from '../usecases/generate-custom-brief.usecase';
 
 @Injectable()
 export class CustomBriefingProcessor implements OnModuleInit, OnModuleDestroy {

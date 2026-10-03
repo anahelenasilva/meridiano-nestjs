@@ -6,13 +6,13 @@
  * telegram-article-submission.e2e-spec.ts.
  */
 import { RateLimitGuard } from '@libs/auth/rate-limit/rate-limit.guard';
-import { QueueService } from '@libs/queue';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock, MockProxy } from 'jest-mock-extended';
 import request from 'supertest';
 import { App } from 'supertest/types';
 import { ExternalArticlesController } from '../src/articles/external-articles.controller';
+import { ArticleJobsService } from '../src/articles/services/article-jobs.service';
 import { TelegramSubmissionService } from '../src/articles/services/telegram-submission.service';
 import { ConfigService } from '../src/config/config.service';
 import { ScraperService } from '../src/scraper/scraper.service';
@@ -22,7 +22,7 @@ describe('External Articles Integration Tests', () => {
   let app: INestApplication<App>;
   let moduleFixture: TestingModule;
   let mockScraperService: MockProxy<ScraperService>;
-  let mockQueueService: MockProxy<QueueService>;
+  let mockArticleJobsService: MockProxy<ArticleJobsService>;
   let mockTelegramSubmissionService: MockProxy<TelegramSubmissionService>;
   let mockConfigService: MockProxy<ConfigService>;
 
@@ -43,7 +43,7 @@ describe('External Articles Integration Tests', () => {
 
     // Create mock services
     mockScraperService = mock<ScraperService>();
-    mockQueueService = mock<QueueService>();
+    mockArticleJobsService = mock<ArticleJobsService>();
     mockTelegramSubmissionService = mock<TelegramSubmissionService>();
     mockConfigService = mock<ConfigService>();
 
@@ -65,8 +65,8 @@ describe('External Articles Integration Tests', () => {
           useValue: mockScraperService,
         },
         {
-          provide: QueueService,
-          useValue: mockQueueService,
+          provide: ArticleJobsService,
+          useValue: mockArticleJobsService,
         },
         {
           provide: TelegramSubmissionService,
@@ -211,7 +211,7 @@ describe('External Articles Integration Tests', () => {
     describe('Valid Requests', () => {
       it('should return 201 when article is successfully submitted', async () => {
         mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
-        mockQueueService.addArticleProcessingJob.mockResolvedValue({
+        mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
           success: true,
           articleFileKey: TEST_ARTICLE_ID,
           jobId: TEST_JOB_ID,
@@ -244,7 +244,7 @@ describe('External Articles Integration Tests', () => {
           FeedProfile.TECHNOLOGY,
           undefined,
         );
-        expect(mockQueueService.addArticleProcessingJob).toHaveBeenCalledWith(
+        expect(mockArticleJobsService.addArticleProcessingJob).toHaveBeenCalledWith(
           TEST_ARTICLE_ID,
           FeedProfile.TECHNOLOGY,
           undefined,
@@ -288,7 +288,7 @@ describe('External Articles Integration Tests', () => {
 
       it('should handle optional metadata fields', async () => {
         mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
-        mockQueueService.addArticleProcessingJob.mockResolvedValue({
+        mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
           success: true,
           articleFileKey: TEST_ARTICLE_ID,
           jobId: TEST_JOB_ID,
@@ -317,7 +317,7 @@ describe('External Articles Integration Tests', () => {
 
       it('should handle all valid feed profiles', async () => {
         mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
-        mockQueueService.addArticleProcessingJob.mockResolvedValue({
+        mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
           success: true,
           articleFileKey: TEST_ARTICLE_ID,
           jobId: TEST_JOB_ID,
@@ -353,7 +353,7 @@ describe('External Articles Integration Tests', () => {
           new Error('Database error'),
         );
         mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
-        mockQueueService.addArticleProcessingJob.mockResolvedValue({
+        mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
           success: true,
           articleFileKey: TEST_ARTICLE_ID,
           jobId: TEST_JOB_ID,
@@ -397,7 +397,7 @@ describe('External Articles Integration Tests', () => {
     describe('Response Structure', () => {
       it('should return correct success response structure', async () => {
         mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
-        mockQueueService.addArticleProcessingJob.mockResolvedValue({
+        mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
           success: true,
           articleFileKey: TEST_ARTICLE_ID,
           jobId: TEST_JOB_ID,

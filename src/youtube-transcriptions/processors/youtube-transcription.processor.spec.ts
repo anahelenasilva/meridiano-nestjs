@@ -1,14 +1,19 @@
+import { createWorker } from '@libs/queue/create-worker';
+import { Logger } from '@nestjs/common';
 import { AudioJobService } from '@libs/audio';
 import { ProcessTranscriptionSummaryJobData } from '@libs/queue';
 import { mock } from 'jest-mock-extended';
-import { Job } from 'bullmq';
+import { Job, Queue } from 'bullmq';
 import { AiService } from '../../ai/ai.service';
 import { ConfigService } from '../../config/config.service';
 import { TranscriptChunkingService } from '../services/transcript-chunking.service';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 import { YoutubeTranscriptionProcessor } from './youtube-transcription.processor';
 
+jest.mock('@libs/queue/create-worker');
+
 describe('YoutubeTranscriptionProcessor', () => {
+  const mockQueue = mock<Queue>();
   let processor: YoutubeTranscriptionProcessor;
   const mockYoutubeTranscriptionsService = mock<YoutubeTranscriptionsService>();
   const mockAiService = mock<AiService>();
@@ -36,7 +41,7 @@ describe('YoutubeTranscriptionProcessor', () => {
 
   beforeEach(() => {
     processor = new YoutubeTranscriptionProcessor(
-      { getClient: () => ({}) } as never,
+      mockQueue,
       mockYoutubeTranscriptionsService,
       mockAiService,
       mockConfigService,
@@ -93,6 +98,16 @@ describe('YoutubeTranscriptionProcessor', () => {
       expect(mockAiService.callChat).toHaveBeenCalledWith(
         `${basePrompt}\n\nAdditional instructions: Focus on actionable takeaways.`,
       );
+    });
+  });
+
+  describe('onModuleInit', () => {
+    it('starts a worker on the YouTube Transcription summary queue', () => {
+      processor.onModuleInit();
+
+      expect(createWorker).toHaveBeenCalledWith(mockQueue, expect.any(Function), {
+        logger: expect.any(Logger),
+      });
     });
   });
 });

@@ -1,5 +1,4 @@
 import { RateLimitGuard } from '@libs/auth/rate-limit/rate-limit.guard';
-import { QueueService } from '@libs/queue';
 import {
   ConflictException,
   BadRequestException,
@@ -17,12 +16,13 @@ import {
   ExternalArticleSuccessResponse,
   EXTERNAL_ERROR_MESSAGES,
 } from './dto/external-article-response.dto';
+import { ArticleJobsService } from './services/article-jobs.service';
 import { TelegramSubmissionService } from './services/telegram-submission.service';
 
 describe('ExternalArticlesController', () => {
   let controller: ExternalArticlesController;
   let scraperService: jest.Mocked<ScraperService>;
-  let queueService: jest.Mocked<QueueService>;
+  let articleJobsService: jest.Mocked<ArticleJobsService>;
   let telegramSubmissionService: jest.Mocked<TelegramSubmissionService>;
   let mockConfigService: {
     getAppConfig: jest.Mock;
@@ -34,7 +34,7 @@ describe('ExternalArticlesController', () => {
       scrapeSingleArticle: jest.fn(),
     };
 
-    const mockQueueService = {
+    const mockArticleJobsService = {
       addArticleProcessingJob: jest.fn(),
     };
 
@@ -56,8 +56,8 @@ describe('ExternalArticlesController', () => {
           useValue: mockScraperService,
         },
         {
-          provide: QueueService,
-          useValue: mockQueueService,
+          provide: ArticleJobsService,
+          useValue: mockArticleJobsService,
         },
         {
           provide: TelegramSubmissionService,
@@ -75,7 +75,7 @@ describe('ExternalArticlesController', () => {
 
     controller = module.get<ExternalArticlesController>(ExternalArticlesController);
     scraperService = module.get(ScraperService);
-    queueService = module.get(QueueService);
+    articleJobsService = module.get(ArticleJobsService);
     telegramSubmissionService = module.get(TelegramSubmissionService);
   });
 
@@ -104,7 +104,7 @@ describe('ExternalArticlesController', () => {
     it('does not expose a note field on the successful submission response', async () => {
       telegramSubmissionService.createSubmission.mockResolvedValue('submission-uuid');
       scraperService.scrapeSingleArticle.mockResolvedValue('article-uuid-123');
-      queueService.addArticleProcessingJob.mockResolvedValue({
+      articleJobsService.addArticleProcessingJob.mockResolvedValue({
         success: true,
         articleFileKey: 'article-uuid-123',
         jobId: 'job-uuid-456',
@@ -146,7 +146,7 @@ describe('ExternalArticlesController', () => {
 
       telegramSubmissionService.createSubmission.mockResolvedValue('submission-uuid');
       scraperService.scrapeSingleArticle.mockResolvedValue(articleId);
-      queueService.addArticleProcessingJob.mockResolvedValue({
+      articleJobsService.addArticleProcessingJob.mockResolvedValue({
         success: true,
         articleFileKey: articleId,
         jobId,
@@ -163,7 +163,7 @@ describe('ExternalArticlesController', () => {
         validDto.feedProfile,
         undefined,
       );
-      expect(queueService.addArticleProcessingJob).toHaveBeenCalledWith(
+      expect(articleJobsService.addArticleProcessingJob).toHaveBeenCalledWith(
         articleId,
         validDto.feedProfile,
         undefined,
@@ -279,7 +279,7 @@ describe('ExternalArticlesController', () => {
     it('should handle internal server error', async () => {
       telegramSubmissionService.createSubmission.mockResolvedValue('submission-uuid');
       scraperService.scrapeSingleArticle.mockResolvedValue('article-uuid-123');
-      queueService.addArticleProcessingJob.mockRejectedValue(new Error('Queue down'));
+      articleJobsService.addArticleProcessingJob.mockRejectedValue(new Error('Queue down'));
 
       try {
         await controller.createExternal(validDto);
@@ -305,7 +305,7 @@ describe('ExternalArticlesController', () => {
       const jobId = 'job-uuid-456';
 
       scraperService.scrapeSingleArticle.mockResolvedValue(articleId);
-      queueService.addArticleProcessingJob.mockResolvedValue({
+      articleJobsService.addArticleProcessingJob.mockResolvedValue({
         success: true,
         articleFileKey: articleId,
         jobId,
@@ -328,7 +328,7 @@ describe('ExternalArticlesController', () => {
       const jobId = 'job-uuid-456';
 
       scraperService.scrapeSingleArticle.mockResolvedValue(articleId);
-      queueService.addArticleProcessingJob.mockResolvedValue({
+      articleJobsService.addArticleProcessingJob.mockResolvedValue({
         success: true,
         articleFileKey: articleId,
         jobId,
@@ -358,7 +358,7 @@ describe('ExternalArticlesController', () => {
       const jobId = 'job-uuid-456';
 
       scraperService.scrapeSingleArticle.mockResolvedValue(articleId);
-      queueService.addArticleProcessingJob.mockResolvedValue({
+      articleJobsService.addArticleProcessingJob.mockResolvedValue({
         success: true,
         articleFileKey: articleId,
         jobId,

@@ -1,21 +1,21 @@
 import { AudioJobService } from '@libs/audio';
-import {
-  MARKDOWN_ARTICLE_PROCESSING_QUEUE,
-  ProcessMarkdownArticleJobData,
-} from '@libs/queue';
-import { RedisService } from '@libs/redis';
+import { MARKDOWN_ARTICLE_PROCESSING_QUEUE } from '@libs/queue';
+import { createWorker } from '@libs/queue/create-worker';
 import { S3Service } from '@libs/s3';
 import {
+  Inject,
   Injectable,
   Logger,
   OnModuleDestroy,
   OnModuleInit,
 } from '@nestjs/common';
-import { Job, Worker } from 'bullmq';
+import { Job, Queue, Worker } from 'bullmq';
 import { enqueueArticleAudio } from '../../processor/enqueue-article-audio';
 import { ArticleProcessingPipelineService } from '../../processor/pipeline/article-processing-pipeline.service';
+import { ProcessMarkdownArticleJobData } from '../services/article-jobs.service';
 import { ArticleIngestionService } from '../ingestion/article-ingestion.service';
 import { parseMarkdownArticle } from '../helpers/parse-markdown';
+import { MarkdownUploadFailureNotifier } from './markdown-upload-failure.notifier';
 
 /**
  * Bull worker for uploaded markdown: download from S3 -> parse -> ingest (which
@@ -28,44 +28,26 @@ export class MarkdownArticleProcessor implements OnModuleInit, OnModuleDestroy {
   private worker: Worker;
 
   constructor(
-    private readonly redisService: RedisService,
+    @Inject(MARKDOWN_ARTICLE_PROCESSING_QUEUE)
+    private readonly queue: Queue,
     private readonly s3Service: S3Service,
     private readonly ingestionService: ArticleIngestionService,
     private readonly pipeline: ArticleProcessingPipelineService,
     private readonly audioJobService: AudioJobService,
+    private readonly failureNotifier: MarkdownUploadFailureNotifier,
   ) {}
 
   onModuleInit() {
-    this.worker = new Worker(
-      MARKDOWN_ARTICLE_PROCESSING_QUEUE,
-      async (job: Job<ProcessMarkdownArticleJobData>) => {
-        return await this.processMarkdownArticle(job);
-      },
+    this.worker = createWorker(
+      this.queue,
+      (job: Job<ProcessMarkdownArticleJobData>) =>
+        this.processMarkdownArticle(job),
       {
-        connection: this.redisService.getClient(),
-        concurrency: 1,
+        logger: this.logger,
+        onTerminalFailure: (job, err) =>
+          void this.failureNotifier.notify(job, err),
       },
     );
-
-    this.worker.on('completed', (job) => {
-      console.log(`Markdown article job ${job.id} completed successfully`);
-    });
-
-    this.worker.on('failed', (job, err) => {
-      console.error(`Markdown article job ${job?.id} failed with error:`, err);
-    });
-
-    // Handle connection errors during shutdown to prevent ECONNRESET from crashing tests
-    this.worker.on('error', (err: Error) => {
-      // Suppress ECONNRESET errors during shutdown - these are expected when Redis connection closes
-      if (
-        err.message?.includes('ECONNRESET') ||
-        err.message?.includes('closed')
-      ) {
-        return;
-      }
-      console.error('Markdown article processor worker error:', err);
-    });
 
     console.log('Markdown article processor worker initialized');
   }

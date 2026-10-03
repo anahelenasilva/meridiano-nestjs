@@ -136,6 +136,10 @@ async function createOpenApiApp(): Promise<INestApplication> {
     '../articles/commands/generate-article-audio.command.js',
     'GenerateArticleAudioCommand',
   );
+  const ArticleJobsService = loadDistExport<Type<unknown>>(
+    '../articles/services/article-jobs.service.js',
+    'ArticleJobsService',
+  );
   const TelegramSubmissionService = loadDistExport<Type<unknown>>(
     '../articles/services/telegram-submission.service.js',
     'TelegramSubmissionService',
@@ -303,6 +307,7 @@ async function createOpenApiApp(): Promise<INestApplication> {
       { provide: GetArticleByIdQuery, useValue: {} },
       { provide: ScraperService, useValue: {} },
       { provide: GenerateArticleAudioCommand, useValue: {} },
+      { provide: ArticleJobsService, useValue: {} },
       { provide: TelegramSubmissionService, useValue: {} },
       { provide: ConfigService, useValue: {} },
       { provide: BookmarksService, useValue: {} },

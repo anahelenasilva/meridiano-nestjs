@@ -1,20 +1,22 @@
-import { RedisService } from '@libs/redis';
-import { Job } from 'bullmq';
+import { createWorker } from '@libs/queue/create-worker';
+import { Logger } from '@nestjs/common';
+import { Job, Queue } from 'bullmq';
 import { mock, mockReset } from 'jest-mock-extended';
 import { IngestTranscriptJobData } from '@libs/queue';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 import { YoutubeTranscriptIngestProcessor } from './youtube-transcript-ingest.processor';
 
+jest.mock('@libs/queue/create-worker');
+
 describe('YoutubeTranscriptIngestProcessor', () => {
-  const mockRedisService = mock<RedisService>();
+  const mockQueue = mock<Queue>();
   const mockService = mock<YoutubeTranscriptionsService>();
   let processor: YoutubeTranscriptIngestProcessor;
 
   beforeEach(() => {
-    mockReset(mockRedisService);
     mockReset(mockService);
     processor = new YoutubeTranscriptIngestProcessor(
-      mockRedisService,
+      mockQueue,
       mockService,
     );
   });
@@ -71,5 +73,15 @@ describe('YoutubeTranscriptIngestProcessor', () => {
         }),
       ),
     ).rejects.toThrow('No transcript available');
+  });
+
+  describe('onModuleInit', () => {
+    it('starts a worker on the transcript ingest queue', () => {
+      processor.onModuleInit();
+
+      expect(createWorker).toHaveBeenCalledWith(mockQueue, expect.any(Function), {
+        logger: expect.any(Logger),
+      });
+    });
   });
 });

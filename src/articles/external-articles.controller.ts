@@ -2,7 +2,7 @@ import { Public } from '@libs/auth';
 import { RateLimitGuard } from '@libs/auth/rate-limit/rate-limit.guard';
 import { RateLimit } from '@libs/auth/rate-limit/rate-limit.decorator';
 import { RateLimitRequest } from '@libs/auth/rate-limit/rate-limit.types';
-import { QueueService } from '@libs/queue';
+import { JobInfo } from '@libs/queue';
 import {
   BadRequestException,
   Body,
@@ -34,6 +34,7 @@ import {
 } from './dto/external-article-response.dto';
 import { ExternalTokenGuard } from './guards/external-token.guard';
 import { TelegramSubmissionService } from './services/telegram-submission.service';
+import { ArticleJobsService } from './services/article-jobs.service';
 
 const resolveExternalRateLimitKey = (request: RateLimitRequest): string => {
   const tokenHeader = request.headers['x-external-token'];
@@ -59,7 +60,7 @@ export class ExternalArticlesController {
 
   constructor(
     private readonly scraperService: ScraperService,
-    private readonly queueService: QueueService,
+    private readonly articleJobsService: ArticleJobsService,
     private readonly telegramSubmissionService: TelegramSubmissionService,
     private readonly configService: ConfigService,
   ) {}
@@ -358,9 +359,9 @@ export class ExternalArticlesController {
     feedProfile: FeedProfile,
     submissionId: string | null,
     generateAudio?: boolean,
-  ): Promise<Awaited<ReturnType<QueueService['addArticleProcessingJob']>>> {
+  ): Promise<JobInfo> {
     try {
-      return await this.queueService.addArticleProcessingJob(
+      return await this.articleJobsService.addArticleProcessingJob(
         articleId,
         feedProfile,
         generateAudio,

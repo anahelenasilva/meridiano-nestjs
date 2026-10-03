@@ -21,6 +21,7 @@ import { App } from 'supertest/types';
 import { AppModule } from '../src/app.module';
 import { ArticleCategory, DBArticle } from '../src/articles/article.entity';
 import { ArticlesController } from '../src/articles/articles.controller';
+import { ArticleJobsService } from '../src/articles/services/article-jobs.service';
 import { ArticlesService } from '../src/articles/articles.service';
 import { GenerateArticleAudioCommand } from '../src/articles/commands/generate-article-audio.command';
 import { GetArticleByIdQuery } from '../src/articles/queries/get-article-by-id.query';
@@ -68,6 +69,10 @@ describe('PATCH /api/articles/:id (e2e)', () => {
         { provide: GetArticleByIdQuery, useValue: mock<GetArticleByIdQuery>() },
         { provide: ScraperService, useValue: mock<ScraperService>() },
         { provide: QueueService, useValue: mock<QueueService>() },
+        {
+          provide: ArticleJobsService,
+          useValue: mock<ArticleJobsService>(),
+        },
         { provide: S3Service, useValue: mock<S3Service>() },
         { provide: AudioJobService, useValue: mock<AudioJobService>() },
         {

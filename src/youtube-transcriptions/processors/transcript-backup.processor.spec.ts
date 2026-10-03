@@ -1,6 +1,8 @@
+import { createWorker } from '@libs/queue/create-worker';
+import { Logger } from '@nestjs/common';
 import { BackupTranscriptJobData } from '@libs/queue';
 import { S3Service } from '@libs/s3';
-import { Job } from 'bullmq';
+import { Job, Queue } from 'bullmq';
 import * as fs from 'fs/promises';
 import { mock } from 'jest-mock-extended';
 import { ConfigService } from '../../config/config.service';
@@ -8,7 +10,10 @@ import { TranscriptBackupProcessor } from './transcript-backup.processor';
 
 jest.mock('fs/promises');
 
+jest.mock('@libs/queue/create-worker');
+
 describe('TranscriptBackupProcessor', () => {
+  const mockQueue = mock<Queue>();
   let processor: TranscriptBackupProcessor;
   const mockS3Service = mock<S3Service>();
   const mockConfigService = mock<ConfigService>();
@@ -31,7 +36,7 @@ describe('TranscriptBackupProcessor', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     processor = new TranscriptBackupProcessor(
-      { getClient: () => ({}) } as never,
+      mockQueue,
       mockS3Service,
       mockConfigService,
     );
@@ -81,6 +86,16 @@ describe('TranscriptBackupProcessor', () => {
       await expect(processor.backupTranscript(createJob())).rejects.toThrow(
         `Failed to back up transcript ${filePath}`,
       );
+    });
+  });
+
+  describe('onModuleInit', () => {
+    it('starts a worker on the transcript backup queue', () => {
+      processor.onModuleInit();
+
+      expect(createWorker).toHaveBeenCalledWith(mockQueue, expect.any(Function), {
+        logger: expect.any(Logger),
+      });
     });
   });
 });

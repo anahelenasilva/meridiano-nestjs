@@ -1,13 +1,18 @@
+import { createWorker } from '@libs/queue/create-worker';
+import { Logger } from '@nestjs/common';
 import { AudioJobService } from '@libs/audio';
-import { ProcessArticleJobData } from '@libs/queue';
-import { Job } from 'bullmq';
+import { Job, Queue } from 'bullmq';
 import { mock } from 'jest-mock-extended';
 import { ArticlesService } from '../../articles/articles.service';
+import { ProcessArticleJobData } from '../../articles/services/article-jobs.service';
 import { makeArticle } from '../pipeline/test-helpers';
 import { ArticleProcessingPipelineService } from '../pipeline/article-processing-pipeline.service';
 import { ArticleProcessor } from './article.processor';
 
+jest.mock('@libs/queue/create-worker');
+
 describe('ArticleProcessor', () => {
+  const mockQueue = mock<Queue>();
   let processor: ArticleProcessor;
   let pipeline: ReturnType<typeof mock<ArticleProcessingPipelineService>>;
   let articlesService: ReturnType<typeof mock<ArticlesService>>;
@@ -32,7 +37,7 @@ describe('ArticleProcessor', () => {
     audioJobService = mock<AudioJobService>();
 
     processor = new ArticleProcessor(
-      { getClient: () => ({}) } as never,
+      mockQueue,
       pipeline,
       articlesService,
       audioJobService,
@@ -138,5 +143,15 @@ describe('ArticleProcessor', () => {
     const result = await processor.handleJob(createJob({ generateAudio: true }));
 
     expect(result.success).toBe(true);
+  });
+
+  describe('onModuleInit', () => {
+    it('starts a worker on the article processing queue', () => {
+      processor.onModuleInit();
+
+      expect(createWorker).toHaveBeenCalledWith(mockQueue, expect.any(Function), {
+        logger: expect.any(Logger),
+      });
+    });
   });
 });

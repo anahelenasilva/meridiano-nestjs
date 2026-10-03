@@ -1,17 +1,19 @@
 import { AudioJobService } from '@libs/audio';
-import { ProcessMarkdownArticleJobData } from '@libs/queue';
-import { RedisService } from '@libs/redis';
+import { createWorker } from '@libs/queue/create-worker';
 import { S3Service } from '@libs/s3';
-import { Job, Worker } from 'bullmq';
+import { Logger } from '@nestjs/common';
+import { Job, Queue, Worker } from 'bullmq';
 import { mock } from 'jest-mock-extended';
 import { ArticleProcessingPipelineService } from '../../processor/pipeline/article-processing-pipeline.service';
 import { makeArticle } from '../../processor/pipeline/test-helpers';
 import { ProcessingSuccess } from '../../processor/pipeline/processing-result';
 import { FeedProfile } from '../../shared/types/feed';
 import { ArticleIngestionService } from '../ingestion/article-ingestion.service';
+import { ProcessMarkdownArticleJobData } from '../services/article-jobs.service';
 import { MarkdownArticleProcessor } from './markdown-article.processor';
+import { MarkdownUploadFailureNotifier } from './markdown-upload-failure.notifier';
 
-jest.mock('bullmq');
+jest.mock('@libs/queue/create-worker');
 
 const markdownContent = '# Test Title\n\nTest content.';
 
@@ -24,12 +26,13 @@ const processed: ProcessingSuccess = {
 
 describe('MarkdownArticleProcessor', () => {
   let processor: MarkdownArticleProcessor;
-  const mockRedisService = mock<RedisService>();
+  const mockQueue = mock<Queue>();
   const mockS3Service = mock<S3Service>();
   const mockIngestionService = mock<ArticleIngestionService>();
   const pipeline = mock<ArticleProcessingPipelineService>();
   const audioJobService = mock<AudioJobService>();
   const mockWorker = mock<Worker>();
+  const mockFailureNotifier = mock<MarkdownUploadFailureNotifier>();
 
   const createJob = (
     overrides: Partial<ProcessMarkdownArticleJobData> = {},
@@ -45,14 +48,15 @@ describe('MarkdownArticleProcessor', () => {
     }) as Job<ProcessMarkdownArticleJobData>;
 
   beforeEach(() => {
-    (Worker as unknown as jest.Mock).mockImplementation(() => mockWorker);
+    jest.mocked(createWorker).mockReturnValue(mockWorker);
 
     processor = new MarkdownArticleProcessor(
-      mockRedisService,
+      mockQueue,
       mockS3Service,
       mockIngestionService,
       pipeline,
       audioJobService,
+      mockFailureNotifier,
     );
   });
 
@@ -61,18 +65,19 @@ describe('MarkdownArticleProcessor', () => {
   });
 
   describe('onModuleInit', () => {
-    it('should initialize worker correctly', () => {
+    it('starts a worker that notifies on terminal failure', () => {
       processor.onModuleInit();
+      const { onTerminalFailure } = jest.mocked(createWorker).mock.calls[0][2];
+      const job = createJob();
+      const err = new Error('boom');
 
-      expect(Worker).toHaveBeenCalledTimes(1);
-      expect(mockWorker.on).toHaveBeenCalledWith(
-        'completed',
-        expect.any(Function),
-      );
-      expect(mockWorker.on).toHaveBeenCalledWith(
-        'failed',
-        expect.any(Function),
-      );
+      onTerminalFailure!(job, err);
+
+      expect(createWorker).toHaveBeenCalledWith(mockQueue, expect.any(Function), {
+        logger: expect.any(Logger),
+        onTerminalFailure: expect.any(Function),
+      });
+      expect(mockFailureNotifier.notify).toHaveBeenCalledWith(job, err);
     });
   });
 

@@ -36,6 +36,7 @@ import { GenerateArticleAudioCommand } from './commands/generate-article-audio.c
 import type { ListArticlesLeanRequest } from './queries/list-articles-lean.query';
 import type { ListArticlesRequest } from './queries/list-articles.query';
 import { ArticlesService } from './articles.service';
+import { ArticleJobsService } from './services/article-jobs.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { GenerateUploadUrlDto } from './dto/generate-upload-url.dto';
 import { ProcessMarkdownArticleDto } from './dto/process-markdown-article.dto';
@@ -54,6 +55,7 @@ export class ArticlesController {
     private readonly getArticleByIdQuery: GetArticleByIdQuery,
     private readonly scraperService: ScraperService,
     private readonly queueService: QueueService,
+    private readonly articleJobsService: ArticleJobsService,
     private readonly s3Service: S3Service,
     private readonly audioJobService: AudioJobService,
     private readonly generateArticleAudioCommand: GenerateArticleAudioCommand,
@@ -79,7 +81,7 @@ export class ArticlesController {
         throw new BadRequestException('Article already exists in database');
       }
 
-      const jobInfo = await this.queueService.addArticleProcessingJob(
+      const jobInfo = await this.articleJobsService.addArticleProcessingJob(
         articleId,
         feedProfile,
         generateAudio,
@@ -157,7 +159,7 @@ export class ArticlesController {
         );
       }
 
-      const jobInfo = await this.queueService.addMarkdownArticleProcessingJob(
+      const jobInfo = await this.articleJobsService.addMarkdownArticleProcessingJob(
         bucketName,
         s3Key,
         feedProfile,
