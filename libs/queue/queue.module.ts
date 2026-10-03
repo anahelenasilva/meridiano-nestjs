@@ -1,7 +1,6 @@
 import { RedisModule, RedisService } from '@libs/redis';
 import { Module } from '@nestjs/common';
 import { Queue } from 'bullmq';
-import { ConfigModule } from '../../src/config/config.module';
 import {
   ARTICLE_PROCESSING_QUEUE,
   AUDIO_GENERATION_QUEUE,
@@ -15,10 +14,7 @@ import {
 import { QueueService } from './queue.service';
 
 @Module({
-  imports: [
-    ConfigModule,
-    RedisModule,
-  ],
+  imports: [RedisModule],
   providers: [
     {
       provide: ARTICLE_PROCESSING_QUEUE,

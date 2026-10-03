@@ -1,8 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Job, Queue } from 'bullmq';
 import { mock, mockReset } from 'jest-mock-extended';
-import { ConfigService } from '../../src/config/config.service';
-import { FeedProfile } from '../../src/shared/types/feed';
 import {
   ARTICLE_PROCESSING_QUEUE,
   CUSTOM_BRIEFING_GENERATION_QUEUE,
@@ -22,7 +20,6 @@ describe('QueueService', () => {
   const mockCustomBriefingQueue = mock<Queue>();
   const mockIngestQueue = mock<Queue>();
   const mockTranscriptBackupQueue = mock<Queue>();
-  const mockConfigService = mock<ConfigService>();
 
   beforeEach(async () => {
     mockReset(mockArticleQueue);
@@ -30,7 +27,6 @@ describe('QueueService', () => {
     mockReset(mockCustomBriefingQueue);
     mockReset(mockIngestQueue);
     mockReset(mockTranscriptBackupQueue);
-    mockReset(mockConfigService);
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -55,10 +51,6 @@ describe('QueueService', () => {
           provide: TRANSCRIPT_BACKUP_QUEUE,
           useValue: mockTranscriptBackupQueue,
         },
-        {
-          provide: ConfigService,
-          useValue: mockConfigService,
-        },
       ],
     }).compile();
 
@@ -71,40 +63,6 @@ describe('QueueService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
-  });
-
-  describe('addCustomBriefingJob', () => {
-    it('adds retry options from custom briefing queue config', async () => {
-      mockConfigService.getCustomBriefingQueueConfig.mockReturnValue({
-        concurrency: 2,
-        attempts: 4,
-        backoffDelayMs: 7000,
-      });
-      mockCustomBriefingQueue.add.mockResolvedValue({ id: 'job-123' } as Job);
-
-      const result = await service.addCustomBriefingJob({
-        articleIds: ['article-1', 'article-2'],
-        feedProfile: FeedProfile.DEFAULT,
-        customPrompt: 'Focus on risks',
-      });
-
-      expect(mockCustomBriefingQueue.add).toHaveBeenCalledWith(
-        'generate-custom-briefing',
-        {
-          articleIds: ['article-1', 'article-2'],
-          feedProfile: FeedProfile.DEFAULT,
-          customPrompt: 'Focus on risks',
-        },
-        {
-          attempts: 4,
-          backoff: {
-            type: 'exponential',
-            delay: 7000,
-          },
-        },
-      );
-      expect(result).toEqual({ jobId: 'job-123' });
-    });
   });
 
   describe('addTranscriptBackupJob', () => {

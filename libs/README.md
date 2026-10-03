@@ -297,22 +297,20 @@ export class ArticlesService {
 Queue infrastructure module providing BullMQ-based job queue functionality with Redis:
 - `QueueModule`: NestJS module for queue infrastructure
 - `QueueService`: Service for managing job queues
-  - `addArticleProcessingJob()`: Add article processing job to queue
-  - `addMarkdownArticleProcessingJob()`: Add markdown article processing job to queue
   - `addTranscriptionSummaryJob()`: Add transcription summary job to queue
   - `getJobStatus()`: Get status of a job by ID
 - Queue constants: `ARTICLE_PROCESSING_QUEUE`, `MARKDOWN_ARTICLE_PROCESSING_QUEUE`, `YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE`, `PROCESS_ARTICLE_JOB`, `PROCESS_MARKDOWN_ARTICLE_JOB`, `PROCESS_TRANSCRIPTION_SUMMARY_JOB`
-- Job data interfaces: `ProcessArticleJobData`, `ProcessMarkdownArticleJobData`, `ProcessTranscriptionSummaryJobData`
+- Job data interfaces: `ProcessTranscriptionSummaryJobData`. Article and markdown payloads live in `src/articles/services/article-jobs.service.ts`
 
 **Architecture Notes**:
 - QueueModule depends on RedisModule for Redis client connection
-- Domain-specific processors (`MarkdownArticleProcessor`, `YoutubeTranscriptionProcessor`) are located in their respective domain modules (`src/articles/processors/`, `src/youtube-transcriptions/processors/`)
-- Only infrastructure processors (`ArticleProcessor`) remain in QueueModule
+- Every processor lives in its domain module and starts its worker with `createWorker` from `@libs/queue/create-worker`
+- The lib imports no app code; enqueue for payloads that carry a `FeedProfile` lives in the owning module (`ArticleJobsService`, `GenerateCustomBriefUseCase`)
 
 **Usage Example**:
 ```typescript
 import { Module } from '@nestjs/common';
-import { QueueModule, QueueService, ARTICLE_PROCESSING_QUEUE } from '@libs/queue';
+import { QueueModule } from '@libs/queue';
 
 @Module({
   imports: [QueueModule],
@@ -322,21 +320,16 @@ export class ArticlesModule {}
 // In a service
 import { Inject, Injectable } from '@nestjs/common';
 import { Queue } from 'bullmq';
-import { QueueService, ARTICLE_PROCESSING_QUEUE } from '@libs/queue';
+import { ARTICLE_PROCESSING_QUEUE, PROCESS_ARTICLE_JOB } from '@libs/queue';
 
 @Injectable()
-export class ArticlesService {
+export class ArticleJobsService {
   constructor(
-    private readonly queueService: QueueService,
     @Inject(ARTICLE_PROCESSING_QUEUE) private readonly articleQueue: Queue,
   ) {}
 
-  async processArticle(articleId: string, feedProfile: FeedProfile) {
-    const jobInfo = await this.queueService.addArticleProcessingJob(
-      articleId,
-      feedProfile,
-    );
-    return jobInfo;
+  async addArticleProcessingJob(articleFileKey: string, feedProfile: FeedProfile) {
+    return this.articleQueue.add(PROCESS_ARTICLE_JOB, { articleFileKey, feedProfile });
   }
 }
 ```

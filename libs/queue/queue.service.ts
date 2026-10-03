@@ -1,19 +1,15 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Queue } from 'bullmq';
-import { ConfigService } from '../../src/config/config.service';
-import { FeedProfile } from '../../src/shared/types/feed';
 import {
   ARTICLE_PROCESSING_QUEUE,
   BACKUP_TRANSCRIPT_JOB,
   CUSTOM_BRIEFING_GENERATION_QUEUE,
-  GENERATE_CUSTOM_BRIEFING_JOB,
   INGEST_TRANSCRIPT_JOB,
   PROCESS_TRANSCRIPTION_SUMMARY_JOB,
   TRANSCRIPT_BACKUP_QUEUE,
   YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from './constants/queue.constants';
-import type { CustomBriefingJobData } from './interfaces/custom-briefing-job.interface';
 import type { BackupTranscriptJobData } from './interfaces/transcript-backup-job.interface';
 import type { IngestTranscriptJobData } from './interfaces/transcript-ingest-job.interface';
 import type { ProcessTranscriptionSummaryJobData } from './interfaces/youtube-transcription-job.interface';
@@ -47,7 +43,6 @@ export class QueueService {
     private readonly transcriptIngestQueue: Queue,
     @Inject(TRANSCRIPT_BACKUP_QUEUE)
     private readonly transcriptBackupQueue: Queue,
-    private readonly configService: ConfigService,
   ) {}
 
   /**
@@ -160,25 +155,6 @@ export class QueueService {
       error: failedReason,
       data: job.data,
     };
-  }
-
-  async addCustomBriefingJob(
-    data: CustomBriefingJobData,
-  ): Promise<{ jobId: string }> {
-    const { attempts, backoffDelayMs } =
-      this.configService.getCustomBriefingQueueConfig();
-    const job = await this.customBriefingQueue.add(
-      GENERATE_CUSTOM_BRIEFING_JOB,
-      data,
-      {
-        attempts,
-        backoff: {
-          type: 'exponential',
-          delay: backoffDelayMs,
-        },
-      },
-    );
-    return { jobId: job.id as string };
   }
 
   async getCustomBriefingJobStatus(jobId: string): Promise<JobStatus> {
