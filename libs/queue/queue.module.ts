@@ -1,4 +1,3 @@
-import { EmailModule } from '@libs/email';
 import { RedisModule, RedisService } from '@libs/redis';
 import { Module } from '@nestjs/common';
 import { Queue } from 'bullmq';
@@ -18,7 +17,6 @@ import { QueueService } from './queue.service';
 @Module({
   imports: [
     ConfigModule,
-    EmailModule.forRoot(),
     RedisModule,
   ],
   providers: [

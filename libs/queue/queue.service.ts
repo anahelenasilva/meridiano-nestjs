@@ -1,12 +1,9 @@
-import { EmailService } from '@libs/email';
-import { RedisService } from '@libs/redis';
-import { Inject, Injectable, Logger, NotFoundException, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
-import { Queue, QueueEvents } from 'bullmq';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Queue } from 'bullmq';
 import { ConfigService } from '../../src/config/config.service';
 import { FeedProfile } from '../../src/shared/types/feed';
 import {
   ARTICLE_PROCESSING_QUEUE,
-  AUDIO_GENERATION_QUEUE,
   BACKUP_TRANSCRIPT_JOB,
   CUSTOM_BRIEFING_GENERATION_QUEUE,
   GENERATE_CUSTOM_BRIEFING_JOB,
@@ -16,7 +13,6 @@ import {
   YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from './constants/queue.constants';
-import type { GenerateAudioJobData } from './interfaces/audio-job.interface';
 import type { CustomBriefingJobData } from './interfaces/custom-briefing-job.interface';
 import type { BackupTranscriptJobData } from './interfaces/transcript-backup-job.interface';
 import type { IngestTranscriptJobData } from './interfaces/transcript-ingest-job.interface';
@@ -39,18 +35,12 @@ export interface JobStatus {
 }
 
 @Injectable()
-export class QueueService implements OnModuleInit, OnModuleDestroy {
-  private audioQueueEvents: QueueEvents;
-  private audioFailureHandler: (({ jobId, failedReason }: { jobId: string; failedReason: string }) => void) | null = null;
-  private readonly logger = new Logger(QueueService.name);
-
+export class QueueService {
   constructor(
     @Inject(ARTICLE_PROCESSING_QUEUE)
     private readonly articleQueue: Queue,
     @Inject(YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE)
     private readonly transcriptionSummaryQueue: Queue,
-    @Inject(AUDIO_GENERATION_QUEUE)
-    private readonly audioQueue: Queue,
     @Inject(CUSTOM_BRIEFING_GENERATION_QUEUE)
     private readonly customBriefingQueue: Queue,
     @Inject(YOUTUBE_TRANSCRIPT_INGEST_QUEUE)
@@ -58,114 +48,7 @@ export class QueueService implements OnModuleInit, OnModuleDestroy {
     @Inject(TRANSCRIPT_BACKUP_QUEUE)
     private readonly transcriptBackupQueue: Queue,
     private readonly configService: ConfigService,
-    private readonly emailService: EmailService,
-    private readonly redisService: RedisService,
-  ) {
-    this.audioQueueEvents = new QueueEvents(AUDIO_GENERATION_QUEUE, {
-      connection: this.redisService.getClient(),
-    });
-  }
-
-  onModuleInit() {
-    this.setupAudioGenerationFailureHandler();
-  }
-
-  async onModuleDestroy() {
-    if (this.audioFailureHandler) {
-      this.audioQueueEvents.off('failed', this.audioFailureHandler);
-      this.audioFailureHandler = null;
-    }
-    await this.audioQueueEvents.close();
-  }
-
-  private setupAudioGenerationFailureHandler() {
-    this.audioFailureHandler = ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
-      void this.handleAudioGenerationFailure(jobId, failedReason);
-    };
-    this.audioQueueEvents.on('failed', this.audioFailureHandler);
-  }
-
-  private isValidAudioJobData(data: unknown): data is GenerateAudioJobData {
-    if (data === null || typeof data !== 'object') return false;
-    const d = data as Record<string, unknown>;
-    const date = d.date;
-    const isValidDate = date instanceof Date || (typeof date === 'string' && !Number.isNaN(Date.parse(date)));
-    return (
-      typeof d.sourceType === 'string' &&
-      typeof d.sourceId === 'string' &&
-      typeof d.text === 'string' &&
-      'date' in d &&
-      isValidDate
-    );
-  }
-
-  private async handleAudioGenerationFailure(jobId: string, failedReason: string): Promise<void> {
-    try {
-      const job = await this.audioQueue.getJob(jobId);
-
-      if (!job) {
-        return;
-      }
-
-      const attemptsMade = job.attemptsMade;
-      const maxAttempts = job.opts.attempts ?? 3;
-
-      if (attemptsMade >= maxAttempts) {
-        const config = this.configService.getAudioFailureNotificationEmail();
-
-        if (!config) {
-          this.logger.warn(
-            `Audio job ${job.id} failed after ${maxAttempts} attempts, but AUDIO_FAILURE_SUPPORT_EMAIL (and AUDIO_FAILURE_SUPPORT_EMAIL_FROM or ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM) is not configured.`,
-          );
-          return;
-        }
-
-        const jobData = job.data;
-
-        if (!this.isValidAudioJobData(jobData)) {
-          this.logger.error(
-            `Audio job ${job.id} has invalid data structure. Expected GenerateAudioJobData but got:`,
-            jobData,
-          );
-          return;
-        }
-
-        const { sourceType, sourceId } = jobData;
-        const errorMessage = failedReason || 'Unknown error';
-        const timestamp = new Date().toISOString();
-
-        try {
-          await this.emailService.sendEmail({
-            from: config.from,
-            to: config.to,
-            subject: 'Audio Generation Failed',
-            text: `Audio generation job failed after ${maxAttempts} attempts.
-
-Details:
-- Job ID: ${job.id}
-- Source Type: ${sourceType}
-- Source ID: ${sourceId}
-- Error: ${errorMessage}
-- Timestamp: ${timestamp}
-
-Please investigate the issue.`,
-          });
-
-          this.logger.log(`Audio failure notification email sent to ${config.to} for job ${job.id}`);
-        } catch (emailError) {
-          this.logger.error(
-            `Failed to send audio failure notification email for job ${job.id}:`,
-            emailError instanceof Error ? emailError.message : String(emailError),
-          );
-        }
-      }
-    } catch (error) {
-      this.logger.error(
-        'Error in audio generation failure handler:',
-        error instanceof Error ? error.message : String(error),
-      );
-    }
-  }
+  ) {}
 
   /**
    * Add a transcription summary job to the queue

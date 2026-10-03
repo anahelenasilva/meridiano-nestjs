@@ -1,9 +1,10 @@
 import { AUDIO_GENERATION_QUEUE } from '@libs/queue';
-import { RedisService } from '@libs/redis';
+import { createWorker } from '@libs/queue/create-worker';
 import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
-import { Job, Queue, Worker } from 'bullmq';
+import { Job, Queue, UnrecoverableError, Worker } from 'bullmq';
 import { GenerateAudioUseCase } from '../usecases/generate-audio.usecase';
 import { GenerateAudioJobData } from '@libs/queue/interfaces/audio-job.interface';
+import { AudioGenerationFailureNotifier } from './audio-generation-failure.notifier';
 
 type ErrorType = 'retryable' | 'fatal';
 
@@ -42,44 +43,23 @@ export class AudioGenerationProcessor implements OnModuleInit {
   ];
 
   constructor(
-    private readonly redisService: RedisService,
     private readonly generateAudioUseCase: GenerateAudioUseCase,
     @Inject(AUDIO_GENERATION_QUEUE)
     private readonly audioQueue: Queue,
+    private readonly failureNotifier: AudioGenerationFailureNotifier,
   ) { }
 
   onModuleInit() {
-    this.worker = new Worker(
-      AUDIO_GENERATION_QUEUE,
-      async (job: Job<GenerateAudioJobData>) => {
-        return await this.processAudioGeneration(job);
-      },
+    this.worker = createWorker(
+      this.audioQueue,
+      (job: Job<GenerateAudioJobData>) => this.processAudioGeneration(job),
       {
-        connection: this.redisService.getClient(),
-        concurrency: 2, // Process 2 audio jobs in parallel
+        logger: this.logger,
+        concurrency: 2,
+        onTerminalFailure: (job, err) =>
+          void this.failureNotifier.notify(job, err),
       },
     );
-
-    this.worker.on('completed', (job) => {
-      this.logger.log({
-        jobId: job.id,
-        sourceType: job.data.sourceType,
-        sourceId: job.data.sourceId,
-        operation: 'process',
-        status: 'completed',
-      });
-    });
-
-    this.worker.on('failed', (job, err) => {
-      this.logger.error({
-        jobId: job?.id,
-        sourceType: job?.data?.sourceType,
-        sourceId: job?.data?.sourceId,
-        operation: 'process',
-        status: 'failed',
-        error: err.message,
-      });
-    });
 
     this.worker.on('progress', (job, progress) => {
       this.logger.log({
@@ -89,15 +69,6 @@ export class AudioGenerationProcessor implements OnModuleInit {
         operation: 'progress',
         progress,
       });
-    });
-
-    // Handle connection errors during shutdown to prevent ECONNRESET from crashing tests
-    this.worker.on('error', (err: Error) => {
-      // Suppress ECONNRESET errors during shutdown - these are expected when Redis connection closes
-      if (err.message?.includes('ECONNRESET') || err.message?.includes('closed')) {
-        return;
-      }
-      this.logger.error('Audio generation processor worker error:', err);
     });
 
     this.logger.log('Audio generation processor worker initialized');
@@ -178,11 +149,12 @@ export class AudioGenerationProcessor implements OnModuleInit {
           attempt: job.attemptsMade + 1,
         });
 
+        const message = result.error || 'Audio generation failed';
         if (errorClassification.type === 'fatal') {
-          void job.discard();
+          throw new UnrecoverableError(message);
         }
 
-        throw new Error(result.error || 'Audio generation failed');
+        throw new Error(message);
       }
     } catch (error) {
       const durationMs = Date.now() - startTime;
@@ -203,8 +175,10 @@ export class AudioGenerationProcessor implements OnModuleInit {
         attempt: job.attemptsMade + 1,
       });
 
+      // UnrecoverableError skips the remaining attempts and counts as terminal,
+      // so the failure email goes out on the first fatal error.
       if (errorClassification.type === 'fatal') {
-        void job.discard();
+        throw new UnrecoverableError(errorMessage);
       }
 
       throw error; // Re-throw to trigger BullMQ retry mechanism
