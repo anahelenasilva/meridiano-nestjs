@@ -11,7 +11,6 @@ import {
   CUSTOM_BRIEFING_GENERATION_QUEUE,
   GENERATE_CUSTOM_BRIEFING_JOB,
   INGEST_TRANSCRIPT_JOB,
-  MARKDOWN_ARTICLE_PROCESSING_QUEUE,
   PROCESS_TRANSCRIPTION_SUMMARY_JOB,
   TRANSCRIPT_BACKUP_QUEUE,
   YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
@@ -41,17 +40,13 @@ export interface JobStatus {
 
 @Injectable()
 export class QueueService implements OnModuleInit, OnModuleDestroy {
-  private markdownQueueEvents: QueueEvents;
   private audioQueueEvents: QueueEvents;
-  private markdownFailureHandler: (({ jobId, failedReason }: { jobId: string; failedReason: string }) => void) | null = null;
   private audioFailureHandler: (({ jobId, failedReason }: { jobId: string; failedReason: string }) => void) | null = null;
   private readonly logger = new Logger(QueueService.name);
 
   constructor(
     @Inject(ARTICLE_PROCESSING_QUEUE)
     private readonly articleQueue: Queue,
-    @Inject(MARKDOWN_ARTICLE_PROCESSING_QUEUE)
-    private readonly markdownArticleQueue: Queue,
     @Inject(YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE)
     private readonly transcriptionSummaryQueue: Queue,
     @Inject(AUDIO_GENERATION_QUEUE)
@@ -66,37 +61,21 @@ export class QueueService implements OnModuleInit, OnModuleDestroy {
     private readonly emailService: EmailService,
     private readonly redisService: RedisService,
   ) {
-    this.markdownQueueEvents = new QueueEvents(MARKDOWN_ARTICLE_PROCESSING_QUEUE, {
-      connection: this.redisService.getClient(),
-    });
     this.audioQueueEvents = new QueueEvents(AUDIO_GENERATION_QUEUE, {
       connection: this.redisService.getClient(),
     });
   }
 
   onModuleInit() {
-    this.setupMarkdownArticleFailureHandler();
     this.setupAudioGenerationFailureHandler();
   }
 
   async onModuleDestroy() {
-    if (this.markdownFailureHandler) {
-      this.markdownQueueEvents.off('failed', this.markdownFailureHandler);
-      this.markdownFailureHandler = null;
-    }
-    await this.markdownQueueEvents.close();
     if (this.audioFailureHandler) {
       this.audioQueueEvents.off('failed', this.audioFailureHandler);
       this.audioFailureHandler = null;
     }
     await this.audioQueueEvents.close();
-  }
-
-  private setupMarkdownArticleFailureHandler() {
-    this.markdownFailureHandler = ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
-      void this.handleMarkdownArticleFailure(jobId, failedReason);
-    };
-    this.markdownQueueEvents.on('failed', this.markdownFailureHandler);
   }
 
   private setupAudioGenerationFailureHandler() {
@@ -185,74 +164,6 @@ Please investigate the issue.`,
         'Error in audio generation failure handler:',
         error instanceof Error ? error.message : String(error),
       );
-    }
-  }
-
-  private isValidMarkdownArticleJobData(data: unknown): data is { s3Bucket: string; s3Key: string } {
-    return (
-      data !== null &&
-      typeof data === 'object' &&
-      's3Bucket' in data &&
-      's3Key' in data &&
-      typeof (data as { s3Bucket: unknown }).s3Bucket === 'string' &&
-      typeof (data as { s3Key: unknown }).s3Key === 'string'
-    );
-  }
-
-  private async handleMarkdownArticleFailure(jobId: string, failedReason: string): Promise<void> {
-    try {
-      const job = await this.markdownArticleQueue.getJob(jobId);
-
-      if (!job) {
-        return;
-      }
-
-      const attemptsMade = job.attemptsMade;
-
-      if (attemptsMade >= 3) {
-        const { failureNotificationEmail, failureNotificationEmailFrom } = this.configService.getArticleEmailsNotifications();
-
-        if (!failureNotificationEmail || !failureNotificationEmailFrom) {
-          console.warn(`Job ${job.id} failed after 3 attempts, but no notification email is configured failureNotificationEmail or failureNotificationEmailFrom`);
-          return;
-        }
-
-        const jobData = job.data;
-
-        if (!this.isValidMarkdownArticleJobData(jobData)) {
-          console.error(`Job ${job.id} has invalid data structure. Expected ProcessMarkdownArticleJobData but got:`, jobData);
-          return;
-        }
-
-        const { s3Bucket, s3Key } = jobData;
-        const errorMessage = failedReason || 'Unknown error';
-        const timestamp = new Date().toISOString();
-
-        try {
-          await this.emailService.sendEmail({
-            from: failureNotificationEmailFrom,
-            to: failureNotificationEmail,
-            subject: 'Article Processing Failed',
-            text: `Article processing failed after 3 attempts.
-
-Details:
-- S3 Bucket: ${s3Bucket}
-- S3 Key: ${s3Key}
-- Job ID: ${job.id}
-- Error: ${errorMessage}
-- Timestamp: ${timestamp}
-
-Please investigate the issue.`,
-          });
-
-          console.log(`Failure notification email sent to ${failureNotificationEmail} for job ${job.id}`);
-        } catch (emailError) {
-          console.error(`Failed to send notification email for job ${job.id}:`, emailError);
-        }
-
-      }
-    } catch (error) {
-      console.error('Error in markdown article failure handler:', error);
     }
   }
 

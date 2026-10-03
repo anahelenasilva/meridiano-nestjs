@@ -11,7 +11,6 @@ import {
   AUDIO_GENERATION_QUEUE,
   CUSTOM_BRIEFING_GENERATION_QUEUE,
   INGEST_TRANSCRIPT_JOB,
-  MARKDOWN_ARTICLE_PROCESSING_QUEUE,
   TRANSCRIPT_BACKUP_QUEUE,
   YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
@@ -23,7 +22,6 @@ jest.mock('bullmq');
 describe('QueueService', () => {
   let service: QueueService;
   const mockArticleQueue = mock<Queue>();
-  const mockMarkdownArticleQueue = mock<Queue>();
   const mockTranscriptionSummaryQueue = mock<Queue>();
   const mockAudioQueue = mock<Queue>();
   const mockCustomBriefingQueue = mock<Queue>();
@@ -36,7 +34,6 @@ describe('QueueService', () => {
 
   beforeEach(async () => {
     mockReset(mockArticleQueue);
-    mockReset(mockMarkdownArticleQueue);
     mockReset(mockTranscriptionSummaryQueue);
     mockReset(mockAudioQueue);
     mockReset(mockCustomBriefingQueue);
@@ -55,10 +52,6 @@ describe('QueueService', () => {
         {
           provide: ARTICLE_PROCESSING_QUEUE,
           useValue: mockArticleQueue,
-        },
-        {
-          provide: MARKDOWN_ARTICLE_PROCESSING_QUEUE,
-          useValue: mockMarkdownArticleQueue,
         },
         {
           provide: YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
