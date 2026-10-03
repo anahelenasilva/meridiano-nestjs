@@ -32,5 +32,8 @@
     "node_modules",
     "dist",
     "infrastructure"
-  ]
+  ],
+  "ts-node": {
+    "experimentalResolver": true
+  }
 }

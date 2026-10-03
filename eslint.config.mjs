@@ -8,6 +8,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
+  { ignores: ['libs/baml/baml_sdk/'] },
   {
     ignores: ["projectStructure.cache.json"],
     languageOptions: { parser: projectStructureParser },
