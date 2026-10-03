@@ -3,7 +3,7 @@ import { Queue } from 'bullmq';
 import {
   CUSTOM_BRIEFING_GENERATION_QUEUE,
   GENERATE_CUSTOM_BRIEFING_JOB,
-} from '../../../libs/queue/constants/queue.constants';
+} from '@libs/queue/constants/queue.constants';
 import { ConfigService } from '../../config/config.service';
 import { FeedProfile } from '../../shared/types/feed';
 import { GenerateCustomBriefInputDto } from './dto/generate-custom-brief.dto';
