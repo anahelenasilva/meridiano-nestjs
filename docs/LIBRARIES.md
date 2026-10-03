@@ -154,7 +154,7 @@ Supported configuration paths:
 - Creates BullMQ queues backed by `RedisService`, with each queue's retry options in its `defaultJobOptions`.
 - Handles enqueueing for YouTube Transcription jobs and status lookup for article and Curated Briefing jobs.
 - Imports no app code. Domain modules own their job payload types, the enqueue code for payloads that carry a `FeedProfile` (`ArticleJobsService` in articles, `GenerateCustomBriefUseCase` in briefings), and their terminal-failure notifiers (`MarkdownUploadFailureNotifier`, `AudioGenerationFailureNotifier`).
-- `createWorker(queue, handler, { logger, concurrency, onTerminalFailure })` starts a worker on a `QueueModule` queue. Import it from `@libs/queue/create-worker`; the barrel would load `QueueModule` and the email module into worker specs. It logs retries and terminal failures, logs Redis connection resets at debug level, and calls `onTerminalFailure` once when the job's last configured attempt fails or it throws an `UnrecoverableError`. Every worker uses it.
+- `createWorker(queue, handler, { logger, concurrency, onTerminalFailure })` starts a worker on a `QueueModule` queue. Import it from `@libs/queue/create-worker`; the barrel would load `QueueModule` and `RedisModule` into worker specs. It logs retries and terminal failures, logs Redis connection resets at debug level, and calls `onTerminalFailure` once when the job's last configured attempt fails or it throws an `UnrecoverableError`. Every worker uses it.
 
 ## Audio Library
 
