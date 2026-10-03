@@ -8,3 +8,4 @@
 - When creating, reading, or commenting on an issue, use [issue-tracker](./docs/agents/issue-tracker.md)
 - When applying a triage label to an issue, use [triage-labels](./docs/agents/triage-labels.md)
 - Before opening a PR, run `pnpm check:boot` in the worktree (link `.env` from the main checkout first). If it fails, run `pnpm check:boot <main checkout>`: if main fails too, the break predates the branch, so report it instead of fixing it in the branch. Use this script, not `pnpm start:dev`, since it picks a free port and always kills the server
+- When writing an LLM call, define it in `baml_src/` (use the `baml-core` skill and `baml describe`), run `baml generate`, and import it from `@libs/baml`. Jest cannot load the BAML bridge, so tests mock `@libs/baml` with a `jest.mock` factory
