@@ -395,9 +395,13 @@ export class ArticlesService {
       return candidates;
     }
 
-    const [majority] = [...countByDimension].reduce((best, entry) =>
-      entry[1] > best[1] ? entry : best,
-    );
+    // A tie goes to the dimension of the highest-impact article, since the
+    // Map keeps the query's insertion order.
+    const [majority] = [...countByDimension].reduce((best, entry) => {
+      const [, count] = entry;
+      const [, bestCount] = best;
+      return count > bestCount ? entry : best;
+    });
     this.logger.warn(
       `Mixed embedding dimensions in the ${feedProfile} briefing pool (${[...countByDimension].map(([dim, count]) => `${count}x${dim}`).join(', ')}); keeping ${majority}. Run \`pnpm reembed\`.`,
     );

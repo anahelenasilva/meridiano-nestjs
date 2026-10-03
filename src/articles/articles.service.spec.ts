@@ -33,6 +33,7 @@ describe('ArticlesService', () => {
     // resetAllMocks, not clearAllMocks: an unconsumed mockImplementationOnce
     // from a failing test would otherwise leak into the next one.
     jest.resetAllMocks();
+    jest.restoreAllMocks();
   });
 
   describe('getYesterdayArticlesByProfile', () => {
@@ -544,7 +545,6 @@ describe('ArticlesService', () => {
       expect(warnSpy).toHaveBeenCalledWith(
         expect.stringContaining('Mixed embedding dimensions'),
       );
-      warnSpy.mockRestore();
     });
   });
 

@@ -59,6 +59,27 @@ describe('BriefingGenerationService', () => {
     service = module.get<BriefingGenerationService>(BriefingGenerationService);
   });
 
+  // Briefing and processing config with a minimum of 2 articles, so tests
+  // control the pool size and the requested k.
+  function givenClustersQtd(clustersQtd: number) {
+    mockConfigService.getBriefingConfig.mockReturnValue({
+      feedProfile: FeedProfile.DEFAULT,
+      lookbackHours: 24,
+      minArticles: 2,
+      clustersQtd,
+      articlesPerPage: 15,
+      customPrompts: undefined,
+    });
+    mockConfigService.getProcessingConfig.mockReturnValue({
+      briefingArticleLookbackHours: 24,
+      minArticlesForBriefing: 2,
+      articlesPerPage: 15,
+      clustersQtd,
+      clusterAnalysisDelayMs: 0,
+      articleProcessingDelayMs: 1000,
+    });
+  }
+
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -84,22 +105,7 @@ describe('BriefingGenerationService', () => {
       createCandidate({ id: 'a4', processed_content: undefined, embedding: embedding(0.7, 0.8) }),
     ];
 
-    mockConfigService.getBriefingConfig.mockReturnValue({
-      feedProfile: FeedProfile.DEFAULT,
-      lookbackHours: 24,
-      minArticles: 2,
-      clustersQtd: 2,
-      articlesPerPage: 15,
-      customPrompts: undefined,
-    });
-    mockConfigService.getProcessingConfig.mockReturnValue({
-      briefingArticleLookbackHours: 24,
-      minArticlesForBriefing: 2,
-      articlesPerPage: 15,
-      clustersQtd: 2,
-      clusterAnalysisDelayMs: 0,
-      articleProcessingDelayMs: 1000,
-    });
+    givenClustersQtd(2);
     mockArticlesService.getArticlesForBriefing.mockResolvedValue(articles);
     mockProfilesService.getPromptsForProfile.mockReturnValue({
       clusterAnalysis: undefined,
@@ -140,22 +146,7 @@ describe('BriefingGenerationService', () => {
       createCandidate({ id: 'a4', processed_content: undefined, embedding: embedding(0.7, 0.8) }),
     ];
 
-    mockConfigService.getBriefingConfig.mockReturnValue({
-      feedProfile: FeedProfile.DEFAULT,
-      lookbackHours: 24,
-      minArticles: 2,
-      clustersQtd: 2,
-      articlesPerPage: 15,
-      customPrompts: undefined,
-    });
-    mockConfigService.getProcessingConfig.mockReturnValue({
-      briefingArticleLookbackHours: 24,
-      minArticlesForBriefing: 2,
-      articlesPerPage: 15,
-      clustersQtd: 2,
-      clusterAnalysisDelayMs: 0,
-      articleProcessingDelayMs: 1000,
-    });
+    givenClustersQtd(2);
     mockArticlesService.getArticlesForBriefing.mockResolvedValue(articles);
 
     const result = await service.generateBrief(FeedProfile.DEFAULT);
@@ -165,22 +156,7 @@ describe('BriefingGenerationService', () => {
   });
 
   it('builds the brief from one cluster when there are too few articles for two', async () => {
-    mockConfigService.getBriefingConfig.mockReturnValue({
-      feedProfile: FeedProfile.DEFAULT,
-      lookbackHours: 24,
-      minArticles: 2,
-      clustersQtd: 10,
-      articlesPerPage: 15,
-      customPrompts: undefined,
-    });
-    mockConfigService.getProcessingConfig.mockReturnValue({
-      briefingArticleLookbackHours: 24,
-      minArticlesForBriefing: 2,
-      articlesPerPage: 15,
-      clustersQtd: 10,
-      clusterAnalysisDelayMs: 0,
-      articleProcessingDelayMs: 1000,
-    });
+    givenClustersQtd(10);
     mockArticlesService.getArticlesForBriefing.mockResolvedValue([
       createCandidate({ id: 'a1', embedding: [0.1, 0.2] }),
       createCandidate({ id: 'a2', embedding: [0.9, 0.8] }),

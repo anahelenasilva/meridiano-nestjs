@@ -46,6 +46,9 @@ describe('Archived Articles in AI selection reads (e2e, real Postgres)', () => {
   const active = randomUUID();
   const archived = randomUUID();
   const seededIds: string[] = [anchor, active, archived];
+  // text-embedding-3-small's dimension, so the briefing pool's majority rule
+  // keeps the seeded rows next to real articles in a shared database.
+  const embedding = JSON.stringify(Array(1536).fill(0.1));
 
   function seededOnly(articles: { id: string }[]): string[] {
     return articles
@@ -79,7 +82,7 @@ describe('Archived Articles in AI selection reads (e2e, real Postgres)', () => {
           'Selection Source',
           'raw content',
           'summary',
-          '[0.1, 0.2]',
+          embedding,
           5,
           FeedProfile.TECHNOLOGY,
           id === archived ? new Date().toISOString() : null,
