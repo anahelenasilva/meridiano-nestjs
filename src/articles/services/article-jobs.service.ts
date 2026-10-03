@@ -25,8 +25,8 @@ export interface ProcessMarkdownArticleJobData {
 
 /**
  * Enqueues article and markdown processing jobs. Lives in the articles module
- * because both payloads carry a Feed Profile. Retry options come from each
- * queue's `defaultJobOptions` in `QueueModule`.
+ * because both payloads carry a Feed Profile. Markdown retries come from the
+ * queue's `defaultJobOptions` in `QueueModule`; article jobs run once.
  */
 @Injectable()
 export class ArticleJobsService {

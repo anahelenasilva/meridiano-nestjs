@@ -298,7 +298,10 @@ Queue infrastructure module providing BullMQ-based job queue functionality with 
 - `QueueModule`: NestJS module for queue infrastructure
 - `QueueService`: Service for managing job queues
   - `addTranscriptionSummaryJob()`: Add transcription summary job to queue
-  - `getJobStatus()`: Get status of a job by ID
+  - `addTranscriptBackupJob()`: Add transcript backup job to queue
+  - `addTranscriptIngestJob()`: Add YouTube transcript ingest job keyed by channel and video, clearing a failed one so a re-paste retries
+  - `getJobStatus()`: Get status of an article job by ID
+  - `getCustomBriefingJobStatus()`: Get status of a Curated Briefing job by ID
 - Queue constants: `ARTICLE_PROCESSING_QUEUE`, `MARKDOWN_ARTICLE_PROCESSING_QUEUE`, `YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE`, `PROCESS_ARTICLE_JOB`, `PROCESS_MARKDOWN_ARTICLE_JOB`, `PROCESS_TRANSCRIPTION_SUMMARY_JOB`
 - Job data interfaces: `ProcessTranscriptionSummaryJobData`. Article and markdown payloads live in `src/articles/services/article-jobs.service.ts`
 
@@ -316,23 +319,9 @@ import { QueueModule } from '@libs/queue';
   imports: [QueueModule],
 })
 export class ArticlesModule {}
-
-// In a service
-import { Inject, Injectable } from '@nestjs/common';
-import { Queue } from 'bullmq';
-import { ARTICLE_PROCESSING_QUEUE, PROCESS_ARTICLE_JOB } from '@libs/queue';
-
-@Injectable()
-export class ArticleJobsService {
-  constructor(
-    @Inject(ARTICLE_PROCESSING_QUEUE) private readonly articleQueue: Queue,
-  ) {}
-
-  async addArticleProcessingJob(articleFileKey: string, feedProfile: FeedProfile) {
-    return this.articleQueue.add(PROCESS_ARTICLE_JOB, { articleFileKey, feedProfile });
-  }
-}
 ```
+
+`src/articles/services/article-jobs.service.ts` shows a domain service that injects a queue with `@Inject(ARTICLE_PROCESSING_QUEUE)` and enqueues its own payload.
 
 **Migration Date**: January 2026
 **Original Location**: `src/queue/`
