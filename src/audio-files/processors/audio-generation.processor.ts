@@ -134,27 +134,8 @@ export class AudioGenerationProcessor implements OnModuleInit {
           audioFileId: result.audioFileId,
         };
       } else {
-        const errorClassification = this.classifyError(result.error || 'Unknown error');
-
-        this.logger.error({
-          jobId: job.id,
-          sourceType,
-          sourceId,
-          operation: 'complete',
-          status: 'failed',
-          durationMs,
-          error: result.error,
-          errorType: errorClassification.type,
-          shouldRetry: errorClassification.shouldRetry,
-          attempt: job.attemptsMade + 1,
-        });
-
-        const message = result.error || 'Audio generation failed';
-        if (errorClassification.type === 'fatal') {
-          throw new UnrecoverableError(message);
-        }
-
-        throw new Error(message);
+        // The catch below logs and classifies this error.
+        throw new Error(result.error || 'Audio generation failed');
       }
     } catch (error) {
       const durationMs = Date.now() - startTime;

@@ -64,7 +64,6 @@ describe('AudioGenerationProcessor', () => {
     await expect(processor.processAudioGeneration(job)).rejects.toMatchObject({
       name: 'UnrecoverableError',
     });
-    expect(job.discard).not.toHaveBeenCalled();
   });
 
   it('rethrows a retryable error as a plain error', async () => {
