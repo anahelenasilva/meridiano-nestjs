@@ -22,7 +22,8 @@ Together adapter are gone. `EMBEDDING_MODEL` still overrides the model name.
 
 - Vectors from different models are not comparable. After any model change, run
   `pnpm reembed` so every processed article shares one space.
-- `ArticleClusterer` falls back to a single cluster when it sees mixed dimensions,
-  so briefings degrade instead of clustering garbage during a switch.
+- The Standard Briefing candidate pool keeps only the most common embedding
+  dimension and warns about the rest, so briefings degrade instead of clustering
+  garbage during a switch.
 - One provider now serves chat (optional), TTS and embeddings. An OpenAI outage
   stops embeddings.

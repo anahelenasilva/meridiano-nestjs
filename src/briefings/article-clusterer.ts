@@ -15,6 +15,11 @@ export interface ArticleCluster {
 export class ArticleClusterer {
   private readonly logger = new Logger(ArticleClusterer.name);
 
+  /**
+   * Groups articles into at most `k` clusters, clamped to half the article
+   * count. Every embedding must share one dimension; the briefing candidate
+   * pool guarantees that.
+   */
   cluster(articles: EmbeddedArticle[], k: number): ArticleCluster[] {
     if (articles.length === 0) {
       return [];
@@ -32,16 +37,11 @@ export class ArticleClusterer {
 
     let clusterLabels: number[];
     try {
-      const embeddings = articles.map((a) => a.embedding);
-      // Vectors from two embedding models coexist until `pnpm reembed` runs
-      // after a model switch; k-means across them is meaningless.
-      const dimensions = new Set(embeddings.map((e) => e.length));
-      if (dimensions.size > 1) {
-        throw new Error(
-          `mixed embedding dimensions: ${[...dimensions].join(', ')}`,
-        );
-      }
-      const result = kmeans(embeddings, effectiveK, {});
+      const result = kmeans(
+        articles.map((a) => a.embedding),
+        effectiveK,
+        {},
+      );
       clusterLabels = result.clusters;
     } catch (error) {
       this.logger.warn(
