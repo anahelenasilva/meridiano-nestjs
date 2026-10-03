@@ -11,6 +11,7 @@
 - Co-locate test files with source: `feature.ts` → `feature.spec.ts`
 - Every new service class MUST have a corresponding `.spec.ts`
 - Create test file alongside implementation
+- Jest cannot load the BAML bridge, so a spec that reaches `@libs/baml` mocks it with a `jest.mock('@libs/baml', () => ({ ... }))` factory
 
 ## Coverage Requirements
 - All public methods

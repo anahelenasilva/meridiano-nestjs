@@ -2,11 +2,13 @@
 name = "meridiano"
 
 # The bridge in package.json (@boundaryml/baml-bridge) must match this version.
+# CI installs the CLI at this version.
 [toolchain]
 version = "0.20.1"
 
-# Emits libs/baml/baml_sdk (gitignored). `pnpm build` regenerates it; run
-# `baml generate` after editing baml_src/ when using ts-node or tests.
+# Emits libs/baml/baml_sdk (gitignored). The build, typecheck, start and
+# check:boot scripts regenerate it; run `baml generate` yourself after editing
+# baml_src/ before `pnpm test` or `pnpm lint`.
 [generator.typescript]
 output_type = "typescript/node"
 output_dir = "libs/baml"
