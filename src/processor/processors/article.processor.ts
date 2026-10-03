@@ -1,9 +1,10 @@
 import { AudioJobService } from '@libs/audio';
-import { ARTICLE_PROCESSING_QUEUE, ProcessArticleJobData } from '@libs/queue';
+import { ARTICLE_PROCESSING_QUEUE } from '@libs/queue';
 import { createWorker } from '@libs/queue/create-worker';
 import { Inject, Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { Job, Queue, Worker } from 'bullmq';
 import { ArticlesService } from '../../articles/articles.service';
+import { ProcessArticleJobData } from '../../articles/services/article-jobs.service';
 import { enqueueArticleAudio } from '../enqueue-article-audio';
 import { ArticleProcessingPipelineService } from '../pipeline/article-processing-pipeline.service';
 

@@ -57,6 +57,7 @@ describe('ArticlesController', () => {
         mock(),
         mock(),
         mock(),
+        mock(),
       );
     }
 
@@ -160,6 +161,7 @@ describe('ArticlesController', () => {
         mock(),
         mock(),
         mock(),
+        mock(),
       );
       const input = { page: 2, perPage: 10 };
 
@@ -186,6 +188,7 @@ describe('ArticlesController', () => {
         mock(),
         mock(),
         mock(),
+        mock(),
       );
       const input = { page: 1, perPage: 20 };
 
@@ -204,6 +207,7 @@ describe('ArticlesController', () => {
         mock(),
         mockListArticlesQuery,
         mockListArticlesLeanQuery,
+        mock(),
         mock(),
         mock(),
         mock(),
@@ -261,6 +265,7 @@ describe('ArticlesController', () => {
         mock(),
         mock(),
         mock(),
+        mock(),
         mockGenerateArticleAudioCommand,
         mock(),
       );
@@ -282,6 +287,7 @@ describe('ArticlesController', () => {
         mock(),
         mockListArticlesQuery,
         mockListArticlesLeanQuery,
+        mock(),
         mock(),
         mock(),
         mock(),
@@ -310,6 +316,7 @@ describe('ArticlesController', () => {
         mock(),
         mock(),
         mock(),
+        mock(),
         mockGenerateArticleAudioCommand,
         mock(),
       );
@@ -327,6 +334,7 @@ describe('ArticlesController', () => {
         mockListArticlesQuery,
         mockListArticlesLeanQuery,
         mockGetArticleByIdQuery,
+        mock(),
         mock(),
         mock(),
         mock(),
@@ -383,6 +391,7 @@ describe('ArticlesController', () => {
         mockListArticlesQuery,
         mockListArticlesLeanQuery,
         mockGetArticleByIdQuery,
+        mock(),
         mock(),
         mock(),
         mock(),

@@ -108,8 +108,6 @@ jest.mock('../../src/config/config.module', () => {
 jest.mock('./queue.service', () => {
   return {
     QueueService: class MockQueueService {
-      addArticleProcessingJob = jest.fn();
-      addMarkdownArticleProcessingJob = jest.fn();
       addTranscriptionSummaryJob = jest.fn();
       getJobStatus = jest.fn();
       onModuleInit = jest.fn();
@@ -119,6 +117,7 @@ jest.mock('./queue.service', () => {
 });
 
 import { Test, TestingModule } from '@nestjs/testing';
+import { Queue } from 'bullmq';
 import {
   ARTICLE_PROCESSING_QUEUE,
   AUDIO_GENERATION_QUEUE,
@@ -161,6 +160,18 @@ describe('QueueModule', () => {
 
     const audioQueue = module.get(AUDIO_GENERATION_QUEUE);
     expect(audioQueue).toBeDefined();
+  });
+
+  it('gives markdown jobs three attempts with exponential backoff', () => {
+    expect(Queue).toHaveBeenCalledWith(
+      MARKDOWN_ARTICLE_PROCESSING_QUEUE,
+      expect.objectContaining({
+        defaultJobOptions: {
+          attempts: 3,
+          backoff: { type: 'exponential', delay: 5000 },
+        },
+      }),
+    );
   });
 
   it('should export QueueService', () => {

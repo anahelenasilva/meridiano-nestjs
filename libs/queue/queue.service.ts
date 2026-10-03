@@ -12,17 +12,13 @@ import {
   GENERATE_CUSTOM_BRIEFING_JOB,
   INGEST_TRANSCRIPT_JOB,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
-  PROCESS_ARTICLE_JOB,
-  PROCESS_MARKDOWN_ARTICLE_JOB,
   PROCESS_TRANSCRIPTION_SUMMARY_JOB,
   TRANSCRIPT_BACKUP_QUEUE,
   YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from './constants/queue.constants';
-import type { ProcessArticleJobData } from './interfaces/article-job.interface';
 import type { GenerateAudioJobData } from './interfaces/audio-job.interface';
 import type { CustomBriefingJobData } from './interfaces/custom-briefing-job.interface';
-import type { ProcessMarkdownArticleJobData } from './interfaces/markdown-article-job.interface';
 import type { BackupTranscriptJobData } from './interfaces/transcript-backup-job.interface';
 import type { IngestTranscriptJobData } from './interfaces/transcript-ingest-job.interface';
 import type { ProcessTranscriptionSummaryJobData } from './interfaces/youtube-transcription-job.interface';
@@ -192,7 +188,7 @@ Please investigate the issue.`,
     }
   }
 
-  private isValidMarkdownArticleJobData(data: unknown): data is ProcessMarkdownArticleJobData {
+  private isValidMarkdownArticleJobData(data: unknown): data is { s3Bucket: string; s3Key: string } {
     return (
       data !== null &&
       typeof data === 'object' &&
@@ -258,75 +254,6 @@ Please investigate the issue.`,
     } catch (error) {
       console.error('Error in markdown article failure handler:', error);
     }
-  }
-
-  /**
-   * Add an article to the processing queue
-   * @param articleFileKey - The ID of the article to process
-   * @param feedProfile - The feed profile for the article
-   * @returns Job information including job ID
-   */
-  async addArticleProcessingJob(
-    articleFileKey: string,
-    feedProfile: FeedProfile,
-    generateAudio?: boolean,
-  ): Promise<JobInfo> {
-    const jobData: ProcessArticleJobData = {
-      articleFileKey,
-      feedProfile,
-      generateAudio,
-    };
-
-    const job = await this.articleQueue.add(PROCESS_ARTICLE_JOB, jobData);
-
-    return {
-      success: true,
-      articleFileKey,
-      jobId: job.id as string,
-      message: 'Article queued for processing',
-    };
-  }
-
-  /**
-   * Add a markdown article processing job to the queue
-   * @param s3Bucket - The S3 bucket name
-   * @param s3Key - The S3 key
-   * @param feedProfile - The feed profile for the article
-   * @returns Job information including job ID
-   */
-  async addMarkdownArticleProcessingJob(
-    s3Bucket: string,
-    s3Key: string,
-    feedProfile: FeedProfile,
-    customPrompt?: string,
-    generateAudio?: boolean,
-  ): Promise<JobInfo> {
-    const jobData: ProcessMarkdownArticleJobData = {
-      s3Bucket,
-      s3Key,
-      feedProfile,
-      customPrompt,
-      generateAudio,
-    };
-
-    const job = await this.markdownArticleQueue.add(
-      PROCESS_MARKDOWN_ARTICLE_JOB,
-      jobData,
-      {
-        attempts: 3,
-        backoff: {
-          type: 'exponential',
-          delay: 5000,
-        },
-      },
-    );
-
-    return {
-      success: true,
-      articleFileKey: s3Key,
-      jobId: job.id as string,
-      message: 'Markdown article queued for processing',
-    };
   }
 
   /**

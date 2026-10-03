@@ -1,10 +1,10 @@
 import { createWorker } from '@libs/queue/create-worker';
 import { Logger } from '@nestjs/common';
 import { AudioJobService } from '@libs/audio';
-import { ProcessArticleJobData } from '@libs/queue';
 import { Job, Queue } from 'bullmq';
 import { mock } from 'jest-mock-extended';
 import { ArticlesService } from '../../articles/articles.service';
+import { ProcessArticleJobData } from '../../articles/services/article-jobs.service';
 import { makeArticle } from '../pipeline/test-helpers';
 import { ArticleProcessingPipelineService } from '../pipeline/article-processing-pipeline.service';
 import { ArticleProcessor } from './article.processor';

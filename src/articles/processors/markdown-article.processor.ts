@@ -1,8 +1,5 @@
 import { AudioJobService } from '@libs/audio';
-import {
-  MARKDOWN_ARTICLE_PROCESSING_QUEUE,
-  ProcessMarkdownArticleJobData,
-} from '@libs/queue';
+import { MARKDOWN_ARTICLE_PROCESSING_QUEUE } from '@libs/queue';
 import { RedisService } from '@libs/redis';
 import { S3Service } from '@libs/s3';
 import {
@@ -14,6 +11,7 @@ import {
 import { Job, Worker } from 'bullmq';
 import { enqueueArticleAudio } from '../../processor/enqueue-article-audio';
 import { ArticleProcessingPipelineService } from '../../processor/pipeline/article-processing-pipeline.service';
+import { ProcessMarkdownArticleJobData } from '../services/article-jobs.service';
 import { ArticleIngestionService } from '../ingestion/article-ingestion.service';
 import { parseMarkdownArticle } from '../helpers/parse-markdown';
 

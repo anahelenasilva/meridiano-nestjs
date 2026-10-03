@@ -36,6 +36,10 @@ import { QueueService } from './queue.service';
       useFactory: (redisService: RedisService) => {
         return new Queue(MARKDOWN_ARTICLE_PROCESSING_QUEUE, {
           connection: redisService.getClient(),
+          defaultJobOptions: {
+            attempts: 3,
+            backoff: { type: 'exponential', delay: 5000 },
+          },
         });
       },
       inject: [RedisService],

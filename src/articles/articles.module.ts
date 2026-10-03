@@ -1,5 +1,6 @@
 import { AudioModule } from '@libs/audio';
 import { DatabaseModule } from '@libs/database';
+import { QueueModule } from '@libs/queue';
 import { RedisModule } from '@libs/redis';
 import { S3Module } from '@libs/s3';
 import { Module } from '@nestjs/common';
@@ -9,6 +10,7 @@ import { NotesReadModule } from '../notes/notes-read.module';
 import { ProfilesModule } from '../profiles/profiles.module';
 import { GenerateArticleAudioCommand } from './commands/generate-article-audio.command';
 import { ArticlesService } from './articles.service';
+import { ArticleJobsService } from './services/article-jobs.service';
 import { GetArticleByIdQuery } from './queries/get-article-by-id.query';
 import { ListArticlesLeanQuery } from './queries/list-articles-lean.query';
 import { ListArticlesQuery } from './queries/list-articles.query';
@@ -24,9 +26,11 @@ import { TelegramSubmissionService } from './services/telegram-submission.servic
     AudioModule,
     NotesReadModule,
     NotesCleanupModule,
+    QueueModule,
   ],
   providers: [
     ArticlesService,
+    ArticleJobsService,
     GenerateArticleAudioCommand,
     ListArticlesQuery,
     ListArticlesLeanQuery,
@@ -35,6 +39,7 @@ import { TelegramSubmissionService } from './services/telegram-submission.servic
   ],
   exports: [
     ArticlesService,
+    ArticleJobsService,
     TelegramSubmissionService,
     GenerateArticleAudioCommand,
     ListArticlesQuery,

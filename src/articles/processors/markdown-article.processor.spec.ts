@@ -1,5 +1,4 @@
 import { AudioJobService } from '@libs/audio';
-import { ProcessMarkdownArticleJobData } from '@libs/queue';
 import { RedisService } from '@libs/redis';
 import { S3Service } from '@libs/s3';
 import { Job, Worker } from 'bullmq';
@@ -9,6 +8,7 @@ import { makeArticle } from '../../processor/pipeline/test-helpers';
 import { ProcessingSuccess } from '../../processor/pipeline/processing-result';
 import { FeedProfile } from '../../shared/types/feed';
 import { ArticleIngestionService } from '../ingestion/article-ingestion.service';
+import { ProcessMarkdownArticleJobData } from '../services/article-jobs.service';
 import { MarkdownArticleProcessor } from './markdown-article.processor';
 
 jest.mock('bullmq');

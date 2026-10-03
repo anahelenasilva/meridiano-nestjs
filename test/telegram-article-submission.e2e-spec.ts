@@ -8,13 +8,13 @@
  * Error flow: Invalid URL → Error response → Telegram error message
  */
 import { RateLimitGuard } from '@libs/auth/rate-limit/rate-limit.guard';
-import { QueueService } from '@libs/queue';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock, MockProxy } from 'jest-mock-extended';
 import request from 'supertest';
 import { App } from 'supertest/types';
 import { ExternalArticlesController } from '../src/articles/external-articles.controller';
+import { ArticleJobsService } from '../src/articles/services/article-jobs.service';
 import { TelegramSubmissionService } from '../src/articles/services/telegram-submission.service';
 import { ConfigService } from '../src/config/config.service';
 import { ScraperService } from '../src/scraper/scraper.service';
@@ -47,7 +47,7 @@ describe('Telegram Article Submission E2E Flow', () => {
   let app: INestApplication<App>;
   let moduleFixture: TestingModule;
   let mockScraperService: MockProxy<ScraperService>;
-  let mockQueueService: MockProxy<QueueService>;
+  let mockArticleJobsService: MockProxy<ArticleJobsService>;
   let mockTelegramSubmissionService: MockProxy<TelegramSubmissionService>;
 
   const originalEnv = process.env;
@@ -60,7 +60,7 @@ describe('Telegram Article Submission E2E Flow', () => {
     };
 
     mockScraperService = mock<ScraperService>();
-    mockQueueService = mock<QueueService>();
+    mockArticleJobsService = mock<ArticleJobsService>();
     mockTelegramSubmissionService = mock<TelegramSubmissionService>();
     const mockConfigService = mock<ConfigService>();
     mockConfigService.isExternalArticleSubmissionEnabled.mockReturnValue(true);
@@ -74,8 +74,8 @@ describe('Telegram Article Submission E2E Flow', () => {
           useValue: mockScraperService,
         },
         {
-          provide: QueueService,
-          useValue: mockQueueService,
+          provide: ArticleJobsService,
+          useValue: mockArticleJobsService,
         },
         {
           provide: TelegramSubmissionService,
@@ -119,7 +119,7 @@ describe('Telegram Article Submission E2E Flow', () => {
     it('should successfully process article submission from Telegram message format', async () => {
       mockTelegramSubmissionService.createSubmission.mockResolvedValue('submission-uuid');
       mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
-      mockQueueService.addArticleProcessingJob.mockResolvedValue({
+      mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
         success: true,
         articleFileKey: TEST_ARTICLE_ID,
         jobId: TEST_JOB_ID,
@@ -161,7 +161,7 @@ describe('Telegram Article Submission E2E Flow', () => {
         undefined,
       );
 
-      expect(mockQueueService.addArticleProcessingJob).toHaveBeenCalledWith(
+      expect(mockArticleJobsService.addArticleProcessingJob).toHaveBeenCalledWith(
         TEST_ARTICLE_ID,
         FeedProfile.TECHNOLOGY,
         undefined,
@@ -177,7 +177,7 @@ describe('Telegram Article Submission E2E Flow', () => {
     it('should handle Telegram message with Note field', async () => {
       mockTelegramSubmissionService.createSubmission.mockResolvedValue('submission-uuid');
       mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
-      mockQueueService.addArticleProcessingJob.mockResolvedValue({
+      mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
         success: true,
         articleFileKey: TEST_ARTICLE_ID,
         jobId: TEST_JOB_ID,
@@ -213,7 +213,7 @@ describe('Telegram Article Submission E2E Flow', () => {
       mockTelegramSubmissionService.createSubmission.mockResolvedValue('submission-uuid');
       mockTelegramSubmissionService.updateSubmissionStatus.mockReturnValue(Promise.resolve());
       mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
-      mockQueueService.addArticleProcessingJob.mockResolvedValue({
+      mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
         success: true,
         articleFileKey: TEST_ARTICLE_ID,
         jobId: TEST_JOB_ID,
@@ -237,7 +237,7 @@ describe('Telegram Article Submission E2E Flow', () => {
         mockTelegramSubmissionService.createSubmission.mockResolvedValue('submission-uuid');
         mockTelegramSubmissionService.updateSubmissionStatus.mockReturnValue(Promise.resolve());
         mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
-        mockQueueService.addArticleProcessingJob.mockResolvedValue({
+        mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
           success: true,
           articleFileKey: TEST_ARTICLE_ID,
           jobId: TEST_JOB_ID,
@@ -270,7 +270,7 @@ describe('Telegram Article Submission E2E Flow', () => {
     it('should return error for invalid URL format (simulating Node-RED validation failure)', async () => {
       mockTelegramSubmissionService.createSubmission.mockResolvedValue('submission-uuid');
       mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
-      mockQueueService.addArticleProcessingJob.mockResolvedValue({
+      mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
         success: true,
         articleFileKey: TEST_ARTICLE_ID,
         jobId: TEST_JOB_ID,
@@ -297,7 +297,7 @@ describe('Telegram Article Submission E2E Flow', () => {
     it('should return error for non-existent feed profile', async () => {
       mockTelegramSubmissionService.createSubmission.mockResolvedValue('submission-uuid');
       mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
-      mockQueueService.addArticleProcessingJob.mockResolvedValue({
+      mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
         success: true,
         articleFileKey: TEST_ARTICLE_ID,
         jobId: TEST_JOB_ID,
@@ -426,7 +426,7 @@ describe('Telegram Article Submission E2E Flow', () => {
     it('should handle URL and Feed in correct order', async () => {
       mockTelegramSubmissionService.createSubmission.mockResolvedValue('submission-uuid');
       mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
-      mockQueueService.addArticleProcessingJob.mockResolvedValue({
+      mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
         success: true,
         articleFileKey: TEST_ARTICLE_ID,
         jobId: TEST_JOB_ID,
@@ -448,7 +448,7 @@ describe('Telegram Article Submission E2E Flow', () => {
     it('should handle Feed and URL in reverse order (Node-RED extracts by label)', async () => {
       mockTelegramSubmissionService.createSubmission.mockResolvedValue('submission-uuid');
       mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
-      mockQueueService.addArticleProcessingJob.mockResolvedValue({
+      mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
         success: true,
         articleFileKey: TEST_ARTICLE_ID,
         jobId: TEST_JOB_ID,
@@ -470,7 +470,7 @@ describe('Telegram Article Submission E2E Flow', () => {
     it('should handle extra whitespace in message fields', async () => {
       mockTelegramSubmissionService.createSubmission.mockResolvedValue('submission-uuid');
       mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
-      mockQueueService.addArticleProcessingJob.mockResolvedValue({
+      mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
         success: true,
         articleFileKey: TEST_ARTICLE_ID,
         jobId: TEST_JOB_ID,
@@ -531,7 +531,7 @@ describe('Telegram Article Submission E2E Flow', () => {
     it('should include retry information for rate limiting', async () => {
       mockTelegramSubmissionService.createSubmission.mockResolvedValue('submission-uuid');
       mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
-      mockQueueService.addArticleProcessingJob.mockResolvedValue({
+      mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
         success: true,
         articleFileKey: TEST_ARTICLE_ID,
         jobId: TEST_JOB_ID,
@@ -555,7 +555,7 @@ describe('Telegram Article Submission E2E Flow', () => {
     it('should store chat metadata for potential GDPR requests', async () => {
       mockTelegramSubmissionService.createSubmission.mockResolvedValue('submission-uuid');
       mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
-      mockQueueService.addArticleProcessingJob.mockResolvedValue({
+      mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
         success: true,
         articleFileKey: TEST_ARTICLE_ID,
         jobId: TEST_JOB_ID,
