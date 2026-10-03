@@ -1,7 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
 import { AiService } from '../../ai/ai.service';
-import { DBArticle } from '../../articles/article.entity';
+import {
+  BriefingCandidate,
+  DBArticle,
+} from '../../articles/article.entity';
 import { ArticlesService } from '../../articles/articles.service';
 import { ConfigService } from '../../config/config.service';
 import { ProfilesService } from '../../profiles/profiles.service';
@@ -24,6 +27,12 @@ function createArticle(overrides: Partial<DBArticle> = {}): DBArticle {
     created_at: new Date('2025-01-01'),
   };
   return { ...base, ...overrides };
+}
+
+function createCandidate(
+  overrides: Partial<BriefingCandidate> = {},
+): BriefingCandidate {
+  return { ...createArticle(), embedding: [0, 0, 0, 0], ...overrides };
 }
 
 describe('BriefingGenerationService', () => {
@@ -50,6 +59,27 @@ describe('BriefingGenerationService', () => {
     service = module.get<BriefingGenerationService>(BriefingGenerationService);
   });
 
+  // Briefing and processing config with a minimum of 2 articles, so tests
+  // control the pool size and the requested k.
+  function givenClustersQtd(clustersQtd: number) {
+    mockConfigService.getBriefingConfig.mockReturnValue({
+      feedProfile: FeedProfile.DEFAULT,
+      lookbackHours: 24,
+      minArticles: 2,
+      clustersQtd,
+      articlesPerPage: 15,
+      customPrompts: undefined,
+    });
+    mockConfigService.getProcessingConfig.mockReturnValue({
+      briefingArticleLookbackHours: 24,
+      minArticlesForBriefing: 2,
+      articlesPerPage: 15,
+      clustersQtd,
+      clusterAnalysisDelayMs: 0,
+      articleProcessingDelayMs: 1000,
+    });
+  }
+
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -59,11 +89,10 @@ describe('BriefingGenerationService', () => {
   });
 
   it('analyzeCluster filters articles with null processed_content before building prompt', async () => {
-    const embedding = (x: number, y: number) =>
-      JSON.stringify([x, y, x + 0.1, y + 0.1]);
+    const embedding = (x: number, y: number) => [x, y, x + 0.1, y + 0.1];
 
     const validArticle = (id: string, x: number, y: number) =>
-      createArticle({
+      createCandidate({
         id,
         processed_content: `content-${id}`,
         embedding: embedding(x, y),
@@ -72,26 +101,11 @@ describe('BriefingGenerationService', () => {
     const articles = [
       validArticle('a1', 0.1, 0.2),
       validArticle('a2', 0.3, 0.4),
-      createArticle({ id: 'a3', processed_content: null, embedding: embedding(0.5, 0.6) }),
-      createArticle({ id: 'a4', processed_content: undefined, embedding: embedding(0.7, 0.8) }),
+      createCandidate({ id: 'a3', processed_content: null, embedding: embedding(0.5, 0.6) }),
+      createCandidate({ id: 'a4', processed_content: undefined, embedding: embedding(0.7, 0.8) }),
     ];
 
-    mockConfigService.getBriefingConfig.mockReturnValue({
-      feedProfile: FeedProfile.DEFAULT,
-      lookbackHours: 24,
-      minArticles: 2,
-      clustersQtd: 2,
-      articlesPerPage: 15,
-      customPrompts: undefined,
-    });
-    mockConfigService.getProcessingConfig.mockReturnValue({
-      briefingArticleLookbackHours: 24,
-      minArticlesForBriefing: 2,
-      articlesPerPage: 15,
-      clustersQtd: 2,
-      clusterAnalysisDelayMs: 0,
-      articleProcessingDelayMs: 1000,
-    });
+    givenClustersQtd(2);
     mockArticlesService.getArticlesForBriefing.mockResolvedValue(articles);
     mockProfilesService.getPromptsForProfile.mockReturnValue({
       clusterAnalysis: undefined,
@@ -123,38 +137,43 @@ describe('BriefingGenerationService', () => {
   });
 
   it('analyzeCluster returns null without calling AI when all articles have null processed_content', async () => {
-    const embedding = (x: number, y: number) =>
-      JSON.stringify([x, y, x + 0.1, y + 0.1]);
+    const embedding = (x: number, y: number) => [x, y, x + 0.1, y + 0.1];
 
     const articles = [
-      createArticle({ id: 'a1', processed_content: null, embedding: embedding(0.1, 0.2) }),
-      createArticle({ id: 'a2', processed_content: null, embedding: embedding(0.3, 0.4) }),
-      createArticle({ id: 'a3', processed_content: undefined, embedding: embedding(0.5, 0.6) }),
-      createArticle({ id: 'a4', processed_content: undefined, embedding: embedding(0.7, 0.8) }),
+      createCandidate({ id: 'a1', processed_content: null, embedding: embedding(0.1, 0.2) }),
+      createCandidate({ id: 'a2', processed_content: null, embedding: embedding(0.3, 0.4) }),
+      createCandidate({ id: 'a3', processed_content: undefined, embedding: embedding(0.5, 0.6) }),
+      createCandidate({ id: 'a4', processed_content: undefined, embedding: embedding(0.7, 0.8) }),
     ];
 
-    mockConfigService.getBriefingConfig.mockReturnValue({
-      feedProfile: FeedProfile.DEFAULT,
-      lookbackHours: 24,
-      minArticles: 2,
-      clustersQtd: 2,
-      articlesPerPage: 15,
-      customPrompts: undefined,
-    });
-    mockConfigService.getProcessingConfig.mockReturnValue({
-      briefingArticleLookbackHours: 24,
-      minArticlesForBriefing: 2,
-      articlesPerPage: 15,
-      clustersQtd: 2,
-      clusterAnalysisDelayMs: 0,
-      articleProcessingDelayMs: 1000,
-    });
+    givenClustersQtd(2);
     mockArticlesService.getArticlesForBriefing.mockResolvedValue(articles);
 
     const result = await service.generateBrief(FeedProfile.DEFAULT);
 
     expect(result.success).toBe(false);
     expect(mockAiService.callChat).not.toHaveBeenCalled();
+  });
+
+  it('builds the brief from one cluster when there are too few articles for two', async () => {
+    givenClustersQtd(10);
+    mockArticlesService.getArticlesForBriefing.mockResolvedValue([
+      createCandidate({ id: 'a1', embedding: [0.1, 0.2] }),
+      createCandidate({ id: 'a2', embedding: [0.9, 0.8] }),
+      createCandidate({ id: 'a3', embedding: [0.5, 0.5] }),
+    ]);
+    mockProfilesService.getPromptsForProfile.mockReturnValue({});
+    mockConfigService.getPrompt.mockReturnValue('prompt');
+    mockConfigService.formatPrompt.mockReturnValue('prompt');
+    mockAiService.callChat.mockResolvedValue('analysis');
+    mockBriefingsService.saveBrief.mockResolvedValue('brief-uuid');
+
+    const result = await service.generateBrief(FeedProfile.DEFAULT);
+
+    expect(result).toMatchObject({
+      success: true,
+      stats: { articlesAnalyzed: 3, clustersGenerated: 1, clustersUsed: 1 },
+    });
   });
 
   it('generateCustomBrief saves the brief when title generation fails', async () => {

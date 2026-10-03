@@ -37,6 +37,11 @@ export interface DBArticle {
   archived_at?: Date | null;
 }
 
+/** A Standard Briefing candidate: its embedding parsed, one dimension across the pool. */
+export type BriefingCandidate = Omit<DBArticle, 'embedding'> & {
+  embedding: number[];
+};
+
 export interface UpdateArticlePatch {
   title?: string;
   publishedDate?: Date;
@@ -55,7 +60,6 @@ export interface ClusterAnalysis {
   topic: string;
   analysis: string;
   size: number;
-  articles?: DBArticle[];
 }
 
 export enum ArticleCategory {
