@@ -16,6 +16,63 @@ export const travelRSSFeeds: RSSFeed[] = [
       'London and UK travel guides from a Brazilian living in London',
     enabled: true,
   },
+  {
+    url: 'https://rss.buzzsprout.com/2216718.rss',
+    name: 'Big World Made Small',
+    category: 'podcast',
+    description: 'Adventure travel interviews and travel stories',
+    enabled: true,
+  },
+  {
+    url: 'https://rss.buzzsprout.com/2527689.rss',
+    name: 'A Lady Well-Travelled',
+    category: 'podcast',
+    description: 'Travel tips and destination trip stories',
+    enabled: true,
+  },
+  {
+    url: 'https://rss.buzzsprout.com/2469401.rss',
+    name: 'Truly Expat Travel',
+    category: 'podcast',
+    description: 'Long-term and expat travel podcast',
+    enabled: true,
+  },
+  {
+    url: 'https://www.spreaker.com/show/5930920/episodes/feed',
+    name: 'Untold Italy',
+    category: 'podcast',
+    description: 'Italy destination guides',
+    enabled: true,
+  },
+  {
+    url: 'https://www.packhacker.com/feed/',
+    name: 'Pack Hacker',
+    category: 'blog',
+    description: 'Carry-on travel gear guides and reviews',
+    enabled: true,
+  },
+  {
+    url: 'https://passageirodeprimeira.com/feed/',
+    name: 'Passageiro de Primeira',
+    category: 'blog',
+    description:
+      'Airline miles, lounges and flight news in Brazilian Portuguese',
+    enabled: true,
+  },
+  {
+    url: 'https://www.melhoresdestinos.com.br/feed',
+    name: 'Melhores Destinos',
+    category: 'blog',
+    description: 'Travel deals and destination tips in Brazilian Portuguese',
+    enabled: true,
+  },
+  {
+    url: 'https://travellemming.com/feed/',
+    name: 'Travel Lemming',
+    category: 'blog',
+    description: 'Destination guides',
+    enabled: true,
+  },
 ];
 
 export const travelPrompts = {
@@ -87,7 +144,7 @@ export const travelFeedConfig: FeedConfiguration = {
   profile: FeedProfile.TRAVEL,
   rssFeeds: travelRSSFeeds,
   prompts: travelPrompts,
-  // Two low-volume sources rarely reach the global 5 articles in 24 hours.
+  // Most travel sources post weekly or monthly, so they rarely reach the global 5 articles in 24 hours.
   briefing: {
     lookbackHours: 720,
     minArticles: 3,
