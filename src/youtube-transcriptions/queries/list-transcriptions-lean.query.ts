@@ -4,19 +4,12 @@ import { Note } from '../../notes/note.entity';
 import { NotesReadService } from '../../notes/notes-read.service';
 import { ListTranscriptionsLeanRequest } from '../dto/list-transcriptions-lean.dto';
 import {
-  YoutubeTranscriptionListRow,
+  LeanTranscriptionListRow,
   YoutubeTranscriptionsService,
 } from '../services/youtube-transcriptions.service';
 
-// Drops the full transcript text, the heaviest field by far, and the
-// thumbnail a terminal cannot show. The AI summary stays.
-type LeanTranscription = Omit<
-  YoutubeTranscriptionListRow,
-  'transcriptionText' | 'thumbnailUrl'
->;
-
 export type ListTranscriptionsLeanResponse = {
-  transcriptions: WithNote<LeanTranscription>[];
+  transcriptions: WithNote<LeanTranscriptionListRow>[];
   pagination: {
     page: number;
     per_page: number;
@@ -29,14 +22,6 @@ export type ListTranscriptionsLeanResponse = {
     end_date: string;
   };
 };
-
-function toLeanTranscription({
-  transcriptionText: _text,
-  thumbnailUrl: _thumbnail,
-  ...lean
-}: YoutubeTranscriptionListRow): LeanTranscription {
-  return lean;
-}
 
 /**
  * Backs GET /api/youtube/transcriptions/lean, the paginated list the CLI
@@ -58,24 +43,22 @@ export class ListTranscriptionsLeanQuery {
   ): Promise<ListTranscriptionsLeanResponse> {
     const { page = 1, perPage = 20, channelId, startDate, endDate } = request;
 
-    const { transcriptions: rows, total } =
-      await this.service.listTranscriptions(
-        { channelId, startDate, endDate },
-        { page, perPage },
-      );
-    const leanTranscriptions = rows.map(toLeanTranscription);
+    const { transcriptions, total } = await this.service.listTranscriptions(
+      { channelId, startDate, endDate },
+      { page, perPage },
+    );
 
     const notesBySourceId = userId
       ? await this.notesReadService.getActiveNotesBySourceIds(
           userId,
           'transcription',
-          leanTranscriptions.map((transcription) => transcription.id),
+          transcriptions.map((transcription) => transcription.id),
         )
       : new Map<string, Note>();
 
     return {
       transcriptions: attachNotes(
-        leanTranscriptions,
+        transcriptions,
         (transcription) => transcription.id,
         notesBySourceId,
       ),

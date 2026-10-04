@@ -349,9 +349,6 @@ describe('YouTube Transcriptions list (e2e)', () => {
         total_pages: 3,
         total_transcriptions: 21,
       });
-      expect(response.body.transcriptions[0]).not.toHaveProperty(
-        'transcriptionText',
-      );
     });
 
     it.each([

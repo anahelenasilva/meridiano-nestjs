@@ -174,6 +174,17 @@ describe('YoutubeTranscriptionsService.listTranscriptions (e2e, real Postgres)',
     ).resolves.toEqual({ ids: [], total: 3 });
   });
 
+  it('reads the summary but not the transcript text or thumbnail', async () => {
+    const { transcriptions } = await service.listTranscriptions(
+      { channelId: channelA },
+      { page: 1, perPage: 20 },
+    );
+
+    expect(transcriptions[0]).toHaveProperty('transcriptionSummary');
+    expect(transcriptions[0]).not.toHaveProperty('transcriptionText');
+    expect(transcriptions[0]).not.toHaveProperty('thumbnailUrl');
+  });
+
   it('reports has_audio and maps dates', async () => {
     const { transcriptions } = await service.listTranscriptions(
       { channelId: channelA },

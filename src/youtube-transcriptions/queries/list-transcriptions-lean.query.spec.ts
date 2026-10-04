@@ -2,7 +2,7 @@ import { mock } from 'jest-mock-extended';
 import { Note } from '../../notes/note.entity';
 import { NotesReadService } from '../../notes/notes-read.service';
 import {
-  YoutubeTranscriptionListRow,
+  LeanTranscriptionListRow,
   YoutubeTranscriptionsService,
 } from '../services/youtube-transcriptions.service';
 import { ListTranscriptionsLeanQuery } from './list-transcriptions-lean.query';
@@ -12,7 +12,7 @@ describe('ListTranscriptionsLeanQuery', () => {
   const mockNotesReadService = mock<NotesReadService>();
 
   const userId = 'user-1';
-  const transcriptionA: YoutubeTranscriptionListRow = {
+  const transcriptionA: LeanTranscriptionListRow = {
     id: '11111111-1111-1111-1111-111111111111',
     channelId: '33333333-3333-3333-3333-333333333333',
     channelName: 'Channel A',
@@ -21,13 +21,11 @@ describe('ListTranscriptionsLeanQuery', () => {
     postedAt: new Date('2026-03-10T12:00:00.000Z'),
     videoUrl: 'https://youtube.com/watch?v=a',
     processedAt: new Date('2026-03-11T00:00:00.000Z'),
-    transcriptionText: 'Full transcript A',
     transcriptionSummary: 'Summary A',
-    thumbnailUrl: 'https://img.youtube.com/a.jpg',
     custom_prompt: null,
     has_audio: true,
   };
-  const transcriptionB: YoutubeTranscriptionListRow = {
+  const transcriptionB: LeanTranscriptionListRow = {
     ...transcriptionA,
     id: '22222222-2222-2222-2222-222222222222',
     videoTitle: 'Video B',
@@ -41,32 +39,6 @@ describe('ListTranscriptionsLeanQuery', () => {
     mockNotesReadService.getActiveNotesBySourceIds.mockResolvedValue(new Map());
 
     query = new ListTranscriptionsLeanQuery(mockService, mockNotesReadService);
-  });
-
-  it('drops the transcript text and thumbnail and keeps the summary', async () => {
-    mockService.listTranscriptions.mockResolvedValue({
-      transcriptions: [transcriptionA],
-      total: 1,
-    });
-
-    const result = await query.execute(userId, {});
-
-    expect(Object.keys(result.transcriptions[0]).sort()).toEqual(
-      [
-        'id',
-        'channelId',
-        'channelName',
-        'channelExternalId',
-        'videoTitle',
-        'postedAt',
-        'videoUrl',
-        'processedAt',
-        'transcriptionSummary',
-        'custom_prompt',
-        'has_audio',
-        'note',
-      ].sort(),
-    );
   });
 
   it('embeds each owner active note via a single bulk lookup', async () => {
