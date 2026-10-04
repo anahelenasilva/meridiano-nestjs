@@ -2452,6 +2452,84 @@
         ]
       }
     },
+    "/api/youtube/transcriptions/lean": {
+      "get": {
+        "operationId": "YoutubeTranscriptionsController_listTranscriptionsLean",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "perPage",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "channelId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "startDate",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "endDate",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated lean list of YouTube transcriptions"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "List YouTube transcriptions with a lean field set for CLI listings (per-user notes attach only for a JWT user)",
+        "tags": [
+          "YoutubeTranscriptions"
+        ]
+      }
+    },
     "/api/youtube/transcriptions/{id}": {
       "delete": {
         "operationId": "YoutubeTranscriptionsController_delete",

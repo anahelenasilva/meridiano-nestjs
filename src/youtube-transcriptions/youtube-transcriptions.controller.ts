@@ -1,4 +1,4 @@
-import { ApiKeyAllowed } from '@libs/auth';
+import { ApiKeyAllowed, CurrentUser, type AuthenticatedUser } from '@libs/auth';
 import { AUDIO_GENERATION_SUCCESS_MESSAGE, AudioJobService } from '@libs/audio';
 import {
   BadRequestException,
@@ -31,9 +31,11 @@ import { parseIncludeAudio } from '../shared/helpers/parse-include-audio';
 import { DismissIngestJobCommand } from './commands/dismiss-ingest-job.command';
 import { EnqueueYoutubeTranscriptionsCommand } from './commands/enqueue-youtube-transcriptions.command';
 import { CreateYoutubeTranscriptionDto } from './dto/create-youtube-transcription.dto';
+import { ListTranscriptionsLeanRequest } from './dto/list-transcriptions-lean.dto';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
 import { ListFailedIngestJobsQuery } from './queries/list-failed-ingest-jobs.query';
+import { ListTranscriptionsLeanQuery } from './queries/list-transcriptions-lean.query';
 import { YoutubeTranscriptionsService } from './services/youtube-transcriptions.service';
 
 @Controller('api/youtube')
@@ -48,6 +50,7 @@ export class YoutubeTranscriptionsController {
     private readonly dismissIngestJobCommand: DismissIngestJobCommand,
     private readonly audioJobService: AudioJobService,
     private readonly audioFilesService: AudioFilesService,
+    private readonly listTranscriptionsLeanQuery: ListTranscriptionsLeanQuery,
   ) {}
 
   @Get('transcriptions')
@@ -57,6 +60,25 @@ export class YoutubeTranscriptionsController {
     return await this.listAllYoutubeTranscriptionsQuery.execute(
       request.user.id,
     );
+  }
+
+  // Declared before transcriptions/:id so 'lean' is not rejected by that
+  // route's ParseUUIDPipe.
+  @Get('transcriptions/lean')
+  @ApiKeyAllowed()
+  @ApiOperation({
+    summary:
+      'List YouTube transcriptions with a lean field set for CLI listings (per-user notes attach only for a JWT user)',
+  })
+  @ApiOkResponse({
+    description: 'Paginated lean list of YouTube transcriptions',
+  })
+  @ApiValidationErrorResponse()
+  async listTranscriptionsLean(
+    @CurrentUser() user: AuthenticatedUser | undefined,
+    @Query() input: ListTranscriptionsLeanRequest,
+  ) {
+    return await this.listTranscriptionsLeanQuery.execute(user?.id, input);
   }
 
   @Post('transcriptions')

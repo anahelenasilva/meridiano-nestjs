@@ -208,6 +208,10 @@ async function createOpenApiApp(): Promise<INestApplication> {
     '../youtube-transcriptions/queries/list-all-youtube-transcriptions.query.js',
     'ListAllYoutubeTranscriptionsQuery',
   );
+  const ListTranscriptionsLeanQuery = loadDistExport<Type<unknown>>(
+    '../youtube-transcriptions/queries/list-transcriptions-lean.query.js',
+    'ListTranscriptionsLeanQuery',
+  );
   const GetYoutubeTranscriptionByIdQuery = loadDistExport<Type<unknown>>(
     '../youtube-transcriptions/queries/get-youtube-transcription-by-id.query.js',
     'GetYoutubeTranscriptionByIdQuery',
@@ -325,6 +329,7 @@ async function createOpenApiApp(): Promise<INestApplication> {
       { provide: CreateYoutubeChannelCommand, useValue: {} },
       { provide: AssignChannelCategoriesCommand, useValue: {} },
       { provide: ListAllYoutubeTranscriptionsQuery, useValue: {} },
+      { provide: ListTranscriptionsLeanQuery, useValue: {} },
       { provide: GetYoutubeTranscriptionByIdQuery, useValue: {} },
       { provide: YoutubeTranscriptionsService, useValue: {} },
       { provide: EnqueueYoutubeTranscriptionsCommand, useValue: {} },

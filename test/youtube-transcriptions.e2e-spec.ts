@@ -43,6 +43,7 @@ import { EnqueueYoutubeTranscriptionsCommand } from '../src/youtube-transcriptio
 import { GetYoutubeTranscriptionByIdQuery } from '../src/youtube-transcriptions/queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from '../src/youtube-transcriptions/queries/list-all-youtube-transcriptions.query';
 import { ListFailedIngestJobsQuery } from '../src/youtube-transcriptions/queries/list-failed-ingest-jobs.query';
+import { ListTranscriptionsLeanQuery } from '../src/youtube-transcriptions/queries/list-transcriptions-lean.query';
 import {
   YoutubeTranscriptionListRow,
   YoutubeTranscriptionsService,
@@ -120,6 +121,7 @@ describe('YouTube Transcriptions list (e2e)', () => {
       controllers: [YoutubeTranscriptionsController, YoutubeChannelsController],
       providers: [
         ListAllYoutubeTranscriptionsQuery,
+        ListTranscriptionsLeanQuery,
         AssignChannelCategoriesCommand,
         { provide: GetYoutubeChannelsQuery, useValue: mock() },
         { provide: UpdateChannelEnabledCommand, useValue: mock() },
@@ -314,6 +316,59 @@ describe('YouTube Transcriptions list (e2e)', () => {
       },
     ]);
   });
+  describe('GET /api/youtube/transcriptions/lean', () => {
+    it('converts page and perPage to numbers and passes the filter to the service', async () => {
+      mockService.listTranscriptions.mockResolvedValue({
+        transcriptions: [buildTranscription()],
+        total: 21,
+      });
+
+      const response = await request(app.getHttpServer())
+        .get('/api/youtube/transcriptions/lean')
+        .query({
+          page: '2',
+          perPage: '10',
+          channelId: 'UCLW51-XEzuOm5RwPMChHBMw',
+          startDate: '2026-03-01',
+          endDate: '2026-03-31',
+        })
+        .expect(200);
+
+      expect(mockService.listTranscriptions).toHaveBeenCalledWith(
+        {
+          channelId: 'UCLW51-XEzuOm5RwPMChHBMw',
+          startDate: '2026-03-01',
+          endDate: '2026-03-31',
+        },
+        { page: 2, perPage: 10 },
+      );
+      expect(response.body.pagination).toEqual({
+        page: 2,
+        per_page: 10,
+        total_pages: 3,
+        total_transcriptions: 21,
+      });
+      expect(response.body.transcriptions[0]).not.toHaveProperty(
+        'transcriptionText',
+      );
+    });
+
+    it.each([
+      ['a non-numeric page', { page: 'abc' }],
+      ['a zero perPage', { perPage: '0' }],
+      ['an impossible date', { startDate: '2026-02-30' }],
+      ['a datetime instead of a date', { endDate: '2026-03-01T10:00:00Z' }],
+      ['an unknown filter', { feedProfile: 'technology' }],
+    ])('rejects %s with a 400', async (_label, query) => {
+      await request(app.getHttpServer())
+        .get('/api/youtube/transcriptions/lean')
+        .query(query)
+        .expect(400);
+
+      expect(mockService.listTranscriptions).not.toHaveBeenCalled();
+    });
+  });
+
   describe('bulk ingest routes', () => {
     it('accepts a batch of urls with 202 and reports the per-url outcome', async () => {
       enqueueTranscriptionsCommand.execute.mockResolvedValue({
