@@ -3,9 +3,14 @@ import { CustomTypesConfig, types } from 'pg';
 type TypeParser<I, T> = (value: I) => T;
 
 const timestampOid: number = types.builtins.TIMESTAMP;
+const wallTime = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d+)?$/;
+const parseTimestamp = types.getTypeParser(timestampOid, 'text');
 
-const parseTimestampAsUtc = (value: string): Date =>
-  new Date(`${value.replace(' ', 'T')}Z`);
+// 'infinity', '-infinity' and BC dates keep node-pg's parsing.
+const parseTimestampAsUtc = (value: string) =>
+  wallTime.test(value)
+    ? new Date(`${value.replace(' ', 'T')}Z`)
+    : parseTimestamp(value);
 
 function getTypeParser<T>(
   oid: number,

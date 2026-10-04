@@ -19,6 +19,11 @@ describe('typeParsers', () => {
     );
   });
 
+  it('leaves infinity to the node-pg parser', () => {
+    expect(parseTimestamp('infinity')).toBe(Infinity);
+    expect(parseTimestamp('-infinity')).toBe(-Infinity);
+  });
+
   it('leaves TIMESTAMPTZ to the node-pg parser', () => {
     const parseTimestamptz = typeParsers.getTypeParser(
       types.builtins.TIMESTAMPTZ,
