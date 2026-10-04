@@ -19,6 +19,7 @@ import { YoutubeTranscriptionProcessor } from './processors/youtube-transcriptio
 import { YoutubeTranscriptIngestProcessor } from './processors/youtube-transcript-ingest.processor';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
+import { ListTranscriptionsLeanQuery } from './queries/list-transcriptions-lean.query';
 import { ListFailedIngestJobsQuery } from './queries/list-failed-ingest-jobs.query';
 import { StorageService } from './services/storage.service';
 import { TranscriptChunkingService } from './services/transcript-chunking.service';
@@ -74,6 +75,7 @@ import { ProcessTranscriptionFilesUseCase } from './usecases/process-transcripti
     ConfigService,
     TranscriptChunkingService,
     ListAllYoutubeTranscriptionsQuery,
+    ListTranscriptionsLeanQuery,
     GetYoutubeTranscriptionByIdQuery,
     EnqueueYoutubeTranscriptionsCommand,
     ListFailedIngestJobsQuery,
