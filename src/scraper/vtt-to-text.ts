@@ -1,3 +1,13 @@
+// WebVTT cue text must escape these; direction marks carry nothing readable.
+const CHARACTER_REFERENCES: Record<string, string> = {
+  amp: '&',
+  lt: '<',
+  gt: '>',
+  nbsp: ' ',
+  lrm: '',
+  rlm: '',
+};
+
 /**
  * Flattens a WebVTT transcript into one line of spoken text. Only lines after a
  * cue's timing line are speech; the header, NOTE, STYLE and REGION blocks have
@@ -14,6 +24,10 @@ export function vttToText(vtt: string): string {
     })
     .join(' ')
     .replace(/<[^>]+>/g, '')
+    .replace(
+      /&(amp|lt|gt|nbsp|lrm|rlm);/g,
+      (_reference, name: string) => CHARACTER_REFERENCES[name],
+    )
     .replace(/\s+/g, ' ')
     .trim();
 }

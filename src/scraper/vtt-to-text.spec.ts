@@ -41,6 +41,13 @@ describe('vttToText', () => {
     expect(vttToText(vtt)).toBe('Welcome back.');
   });
 
+  it('decodes the character references WebVTT requires in cue text', () => {
+    const vtt =
+      'WEBVTT\n\n00:00:01.000 --> 00:00:02.000\nTom &amp; Jerry &lt;3&nbsp;London';
+
+    expect(vttToText(vtt)).toBe('Tom & Jerry <3 London');
+  });
+
   it.each([
     ['empty input', ''],
     ['a header with no cues', 'WEBVTT\n\nNOTE nothing here\n'],
