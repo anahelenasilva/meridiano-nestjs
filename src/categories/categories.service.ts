@@ -5,6 +5,7 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
+import { pickCategoryColor } from './category-colors';
 import { Category, CategoryWithChannelCount } from './domain/category';
 import { mapCategoryRow as mapRow } from './domain/map-category-row';
 
@@ -78,7 +79,7 @@ export class CategoriesService {
     });
   }
 
-  async getUsedColors(): Promise<string[]> {
+  private async getUsedColors(): Promise<string[]> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
@@ -97,7 +98,9 @@ export class CategoriesService {
     });
   }
 
-  async createCategory(name: string, color: string): Promise<Category> {
+  async createCategory(name: string): Promise<Category> {
+    const color = pickCategoryColor(await this.getUsedColors());
+
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
