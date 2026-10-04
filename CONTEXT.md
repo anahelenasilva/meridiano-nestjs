@@ -17,6 +17,10 @@ _Avoid_: custom briefing — the codebase used "custom" for this flow (`isCustom
 **Feed Profile**:
 A named topic category that drives article selection and AI prompt tuning for Standard Briefings. Profiles include general topics (`TECHNOLOGY`, `POLITICS`, `BUSINESS`, `HEALTH`, `SCIENCE`), regional news (`BRASIL` — Brazilian news), and branded sources (`TECLAS` — technology and labour-class politics, sourced from the Teclas newsletter/YouTube channel). `TRAVEL` covers travel news plus destination and inspiration content, written in English from English and pt-BR sources, with a 30 day briefing window. `DEFAULT` is the fallback profile.
 
+**Briefing Window**:
+How far back a Standard Briefing looks for articles (`lookbackHours`) and how many it needs before it generates (`minArticles`). The global default is 24 hours and 5 articles; a low-volume Feed Profile can set its own in `FeedConfiguration.briefing`, and a value passed to `generateBrief` wins over both.
+_Avoid_: lookback, briefing settings
+
 **Briefing Title**:
 A human-readable label for a briefing, editable at any time. Auto-generated as a convenience during Curated Briefing creation; the auto-generated value is not semantically distinct from a user-set one.
 _Avoid_: customTitle
