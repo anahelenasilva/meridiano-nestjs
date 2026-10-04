@@ -1,4 +1,10 @@
-import { DatabaseService, execute } from '@libs/database';
+import {
+  DatabaseService,
+  execute,
+  queryAll,
+  queryOne,
+  SqlParams,
+} from '@libs/database';
 import { QueueService } from '@libs/queue';
 import {
   Inject,
@@ -23,11 +29,10 @@ import { StorageService } from '../services/storage.service';
 import { TranscriptFetcherService } from './transcript-fetcher.service';
 import { YouTubeService } from './youtube.service';
 
-// Shared projection for transcription reads. channel_name and the external
-// channel id come from the joined channels table now that youtube_transcriptions
-// only stores the internal channel UUID (the FK). Kept in one place so the
-// column set changes in a single site rather than across every read query.
-const TRANSCRIPTION_COLUMNS = `
+// channelName and channelExternalId come from the channels join, since
+// youtube_transcriptions stores only the channel FK. The lean set skips the
+// transcript text, the heaviest column, and the thumbnail a terminal can't show.
+const TRANSCRIPTION_LEAN_COLUMNS = `
   yt.id,
   yt.channel_id AS "channelId",
   c.name AS "channelName",
@@ -36,10 +41,14 @@ const TRANSCRIPTION_COLUMNS = `
   yt.posted_at AS "postedAt",
   yt.video_url AS "videoUrl",
   yt.processed_at AS "processedAt",
-  yt.transcription_text AS "transcriptionText",
   yt.transcription_summary AS "transcriptionSummary",
-  yt.thumbnail_url AS "thumbnailUrl",
   yt.custom_prompt
+`;
+
+const TRANSCRIPTION_COLUMNS = `
+  ${TRANSCRIPTION_LEAN_COLUMNS},
+  yt.transcription_text AS "transcriptionText",
+  yt.thumbnail_url AS "thumbnailUrl"
 `;
 
 const TRANSCRIPTION_FROM_JOIN = `
@@ -47,23 +56,74 @@ const TRANSCRIPTION_FROM_JOIN = `
   JOIN youtube_channels c ON c.id = yt.channel_id
 `;
 
-// List-only projection: adds the has_audio EXISTS check on top of the shared
-// TRANSCRIPTION_COLUMNS. Kept separate so getTranscriptionById and the other
-// single/paginated readers below don't pay for a correlated subquery they
-// don't need.
-const TRANSCRIPTION_LIST_COLUMNS = `
-  ${TRANSCRIPTION_COLUMNS},
+// A correlated subquery, so only the list reads select it.
+const HAS_AUDIO = `
   EXISTS (
     SELECT 1 FROM audio_files af
     WHERE af.source_type = 'transcription' AND af.source_id = yt.id
   ) AS has_audio
 `;
 
+const TRANSCRIPTION_LIST_COLUMNS = `${TRANSCRIPTION_COLUMNS}, ${HAS_AUDIO}`;
+
 // Per-query read model: has_audio is derived (EXISTS against audio_files),
 // not a schema column, so it lives here rather than on DBYoutubeTranscription.
 export type YoutubeTranscriptionListRow = DBYoutubeTranscription & {
   has_audio: boolean;
 };
+
+export type LeanTranscriptionListRow = Omit<
+  YoutubeTranscriptionListRow,
+  'transcriptionText' | 'thumbnailUrl'
+>;
+
+export type TranscriptionFilter = {
+  // The internal channel uuid or the YouTube channel id (UC...); `meridiano
+  // channels` has printed each at different times, so both match.
+  channelId?: string;
+  startDate?: string;
+  endDate?: string;
+};
+
+export type TranscriptionPage = {
+  page: number;
+  perPage: number;
+};
+
+// posted_at is null when YouTube gave no publish date; those rows date by
+// when Meridiano processed them, matching the RSS feed's pubDate. posted_at is
+// a TEXT column holding toISOString() output; the ::timestamp cast drops its
+// "Z" and leaves UTC wall time, the same as processed_at (TIMESTAMP).
+const TRANSCRIPTION_DATE = 'COALESCE(yt.posted_at::timestamp, yt.processed_at)';
+
+function compileTranscriptionFilter(filter: TranscriptionFilter): {
+  where: string;
+  params: SqlParams;
+} {
+  const clauses: string[] = [];
+  const params: SqlParams = [];
+
+  if (filter.channelId) {
+    // ::text keeps a UC... id from failing the uuid cast.
+    clauses.push('(yt.channel_id::text = ? OR c.channel_id = ?)');
+    params.push(filter.channelId, filter.channelId);
+  }
+
+  if (filter.startDate) {
+    clauses.push(`DATE(${TRANSCRIPTION_DATE}) >= ?`);
+    params.push(filter.startDate);
+  }
+
+  if (filter.endDate) {
+    clauses.push(`DATE(${TRANSCRIPTION_DATE}) <= ?`);
+    params.push(filter.endDate);
+  }
+
+  return {
+    where: clauses.length > 0 ? clauses.join(' AND ') : 'TRUE',
+    params,
+  };
+}
 
 @Injectable()
 export class YoutubeTranscriptionsService {
@@ -443,6 +503,45 @@ export class YoutubeTranscriptionsService {
         },
       );
     });
+  }
+
+  /**
+   * One lean page of transcriptions, newest first, plus the total for the
+   * whole filter.
+   */
+  async listTranscriptions(
+    filter: TranscriptionFilter,
+    { page, perPage }: TranscriptionPage,
+  ): Promise<{ transcriptions: LeanTranscriptionListRow[]; total: number }> {
+    const db = this.databaseService.getDbConnection();
+    const { where, params } = compileTranscriptionFilter(filter);
+    const offset = (page - 1) * perPage;
+
+    const [rows, countRow] = await Promise.all([
+      queryAll<LeanTranscriptionListRow>(
+        db,
+        `SELECT ${TRANSCRIPTION_LEAN_COLUMNS}, ${HAS_AUDIO} ${TRANSCRIPTION_FROM_JOIN}
+         WHERE ${where}
+         ORDER BY ${TRANSCRIPTION_DATE} DESC, yt.id DESC
+         LIMIT ? OFFSET ?`,
+        [...params, perPage, offset],
+      ),
+      // pg returns COUNT(*) as a bigint string.
+      queryOne<{ count: string }>(
+        db,
+        `SELECT COUNT(*) AS count ${TRANSCRIPTION_FROM_JOIN} WHERE ${where}`,
+        params,
+      ),
+    ]);
+
+    return {
+      transcriptions: rows.map((row) => ({
+        ...row,
+        postedAt: row.postedAt ? new Date(row.postedAt) : undefined,
+        processedAt: new Date(row.processedAt),
+      })),
+      total: Number(countRow?.count ?? 0),
+    };
   }
 
   /**
