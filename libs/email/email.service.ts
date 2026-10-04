@@ -1,17 +1,62 @@
-import { Inject, Injectable } from '@nestjs/common';
-import type { EmailProvider } from './interfaces/email-provider.interface';
-import { SendEmailOptions, SendEmailResult } from './interfaces/send-email-options.interface';
-
-export const EMAIL_PROVIDER_TOKEN = 'EMAIL_PROVIDER';
+import { Injectable } from '@nestjs/common';
+import FormData from 'form-data';
+import Mailgun, { Interfaces } from 'mailgun.js';
+import { ConfigService } from '../../src/config/config.service';
+import {
+  SendEmailOptions,
+  SendEmailResult,
+} from './interfaces/send-email-options.interface';
 
 @Injectable()
 export class EmailService {
-  constructor(
-    @Inject(EMAIL_PROVIDER_TOKEN) private readonly emailProvider: EmailProvider,
-  ) { }
+  private readonly client: Interfaces.IMailgunClient;
+  private readonly domain: string;
 
-  async sendEmail(options: SendEmailOptions): Promise<SendEmailResult> {
-    return this.emailProvider.sendEmail(options);
+  constructor(configService: ConfigService) {
+    // For EU domains, set MAILGUN_URL=https://api.eu.mailgun.net
+    const { apiKey, domain, url } = configService.getMailgunConfig();
+
+    if (!apiKey) {
+      throw new Error('MAILGUN_API_KEY environment variable is required');
+    }
+
+    if (!domain) {
+      throw new Error('MAILGUN_DOMAIN environment variable is required');
+    }
+
+    this.domain = domain;
+    this.client = new Mailgun(FormData).client({
+      username: 'api',
+      key: apiKey,
+      url,
+    });
+  }
+
+  async sendEmail({
+    from,
+    to,
+    cc,
+    subject,
+    text,
+  }: SendEmailOptions): Promise<SendEmailResult> {
+    try {
+      const data = await this.client.messages.create(this.domain, {
+        from,
+        to,
+        cc,
+        subject,
+        text,
+      });
+
+      return { success: true, messageId: data.id };
+    } catch (error) {
+      return {
+        success: false,
+        error:
+          error instanceof Error
+            ? error.message
+            : 'Failed to send email via Mailgun',
+      };
+    }
   }
 }
-

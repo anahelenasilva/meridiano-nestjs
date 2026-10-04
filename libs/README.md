@@ -167,15 +167,12 @@ AWS S3 integration module providing:
 
 ### Email (`libs/email/`)
 
-Email service module providing provider-agnostic email sending:
-- `EmailModule`: NestJS module with `forRoot()` initialization pattern
+Email service module that sends through Mailgun:
+- `EmailModule`: NestJS module, imported with `forRoot()`
 - `EmailService`: Service for sending emails
   - `sendEmail()`: Send emails with support for multiple recipients and CC
 
-**Initialization Pattern**: Uses `EmailModule.forRoot()` to dynamically configure the email provider based on environment variables.
-
-**Supported Providers**:
-- **Mailgun** (default) - Configured via `MAILGUN_API_KEY` and `MAILGUN_DOMAIN` environment variables
+**Configuration**: `MAILGUN_API_KEY` and `MAILGUN_DOMAIN`, plus optional `MAILGUN_URL` for EU domains, read through `ConfigService.getMailgunConfig()`.
 
 **Usage Example**:
 ```typescript
