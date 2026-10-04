@@ -46,7 +46,7 @@ interface RSSEntry {
   podcastTranscripts?: RSSTranscript[];
 }
 
-const rssParser = new Parser({
+const rssParser = new Parser<Record<string, unknown>, RSSEntry>({
   customFields: {
     item: [
       ['media:content', 'mediaContent'],
@@ -341,7 +341,7 @@ export class ScraperService {
 
           console.log(`Processing new entry: ${title} (${url})`);
 
-          const rssImageUrl = this.extractRssImageUrl(entry as RSSEntry);
+          const rssImageUrl = this.extractRssImageUrl(entry);
           if (rssImageUrl) {
             console.log(
               `  Found image in RSS: ${rssImageUrl.substring(0, 60)}...`,
@@ -361,10 +361,7 @@ export class ScraperService {
           }
 
           // Show notes go first: the summary step reads only the start of raw_content.
-          const transcript = await this.fetchTranscriptText(
-            entry as RSSEntry,
-            title,
-          );
+          const transcript = await this.fetchTranscriptText(entry, title);
           const content = transcript
             ? `${rawContent}\n\nTranscript:\n${transcript}`
             : rawContent;
