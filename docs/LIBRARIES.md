@@ -104,6 +104,7 @@ The auth lib expects a provider implementing `UserLookupProvider`:
 - `DatabaseModule` is marked as global (`@Global()`).
 - It configures `TypeOrmModule.forRoot(...)`.
 - On startup, it attempts to run pending migrations with TypeORM.
+- Both `pg` pools, `DatabaseService`'s and TypeORM's, read TIMESTAMP columns as UTC through `typeParsers` in `type-parsers.ts`.
 - On shutdown, it closes DB resources.
 
 ### Environment variables

@@ -8,6 +8,7 @@ import {
   RunResult,
   SqlParams,
 } from './database.interface';
+import { typeParsers } from './type-parsers';
 
 // Helper function to convert ? placeholders to PostgreSQL-style $1, $2, etc.
 function convertPlaceholders(sql: string): string {
@@ -188,6 +189,7 @@ export class DatabaseService implements OnModuleDestroy {
       max: 20,
       idleTimeoutMillis: 30000,
       connectionTimeoutMillis: 10000,
+      types: typeParsers,
     });
 
     try {
