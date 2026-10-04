@@ -1,5 +1,5 @@
 import { AUDIO_GENERATION_SUCCESS_MESSAGE, AudioJobService } from '@libs/audio';
-import { IS_PUBLIC_KEY } from '@libs/auth';
+import { API_KEY_ALLOWED_KEY, IS_PUBLIC_KEY } from '@libs/auth';
 import { S3Service } from '@libs/s3';
 import {
   BadRequestException,
@@ -18,6 +18,7 @@ import { YoutubeTranscription } from './entities/youtube-transcription.entity';
 import { GetYoutubeTranscriptionByIdQuery } from './queries/get-youtube-transcription-by-id.query';
 import { ListAllYoutubeTranscriptionsQuery } from './queries/list-all-youtube-transcriptions.query';
 import { ListFailedIngestJobsQuery } from './queries/list-failed-ingest-jobs.query';
+import { ListTranscriptionsLeanQuery } from './queries/list-transcriptions-lean.query';
 import { YoutubeTranscriptionsService } from './services/youtube-transcriptions.service';
 import { YoutubeTranscriptionsController } from './youtube-transcriptions.controller';
 
@@ -34,6 +35,7 @@ describe('YoutubeTranscriptionsController', () => {
   const mockEnqueueCommand = mock<EnqueueYoutubeTranscriptionsCommand>();
   const mockListFailedIngestJobsQuery = mock<ListFailedIngestJobsQuery>();
   const mockDismissIngestJobCommand = mock<DismissIngestJobCommand>();
+  const mockListTranscriptionsLeanQuery = mock<ListTranscriptionsLeanQuery>();
 
   const userId = 'user-1';
   const mockRequest = { user: { id: userId } } as AuthenticatedRequest;
@@ -82,11 +84,43 @@ describe('YoutubeTranscriptionsController', () => {
       mockDismissIngestJobCommand,
       mockAudioJobService,
       mockAudioFilesService,
+      mockListTranscriptionsLeanQuery,
     );
   });
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
+  });
+
+  describe('listTranscriptionsLean', () => {
+    it('accepts the static api key', () => {
+      expect(
+        Reflect.getMetadata(
+          API_KEY_ALLOWED_KEY,
+          YoutubeTranscriptionsController.prototype.listTranscriptionsLean,
+        ),
+      ).toBe(true);
+    });
+
+    it('forwards an undefined user id on the api-key path', async () => {
+      const input = { page: 2, perPage: 10, channelId: 'UC-x' };
+
+      await controller.listTranscriptionsLean(undefined, input);
+
+      expect(mockListTranscriptionsLeanQuery.execute).toHaveBeenCalledWith(
+        undefined,
+        input,
+      );
+    });
+
+    it('forwards the authenticated user id', async () => {
+      await controller.listTranscriptionsLean({ id: 'user-1' }, {});
+
+      expect(mockListTranscriptionsLeanQuery.execute).toHaveBeenCalledWith(
+        'user-1',
+        {},
+      );
+    });
   });
 
   describe('createTranscription', () => {
