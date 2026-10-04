@@ -114,7 +114,6 @@ describe('YoutubeTranscriptionsController', () => {
     });
 
     it('forwards the authenticated user id', async () => {
-
       await controller.listTranscriptionsLean({ id: 'user-1' }, {});
 
       expect(mockListTranscriptionsLeanQuery.execute).toHaveBeenCalledWith(
