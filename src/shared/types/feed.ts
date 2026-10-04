@@ -7,6 +7,7 @@ export enum FeedProfile {
   SCIENCE = 'science',
   BRASIL = 'brasil',
   TECLAS = 'teclas',
+  TRAVEL = 'travel',
 }
 
 export interface RSSFeed {
@@ -35,8 +36,9 @@ export interface FeedConfiguration {
     briefSynthesis?: string;
     customBriefing?: string;
   };
-  settings?: {
-    priority?: number;
-    enabled?: boolean;
+  /** Overrides the global Standard Briefing window for low-volume profiles. */
+  briefing?: {
+    lookbackHours?: number;
+    minArticles?: number;
   };
 }

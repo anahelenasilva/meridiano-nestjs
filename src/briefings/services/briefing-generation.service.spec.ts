@@ -8,7 +8,7 @@ import {
 import { ArticlesService } from '../../articles/articles.service';
 import { ConfigService } from '../../config/config.service';
 import { ProfilesService } from '../../profiles/profiles.service';
-import { FeedProfile } from '../../shared/types/feed';
+import { FeedConfiguration, FeedProfile } from '../../shared/types/feed';
 import { ArticleClusterer } from '../article-clusterer';
 import { BriefingsService } from '../briefings.service';
 import { BriefingGenerationService } from './briefing-generation.service';
@@ -173,6 +173,87 @@ describe('BriefingGenerationService', () => {
     expect(result).toMatchObject({
       success: true,
       stats: { articlesAnalyzed: 3, clustersGenerated: 1, clustersUsed: 1 },
+    });
+  });
+
+  describe('briefing window', () => {
+    const profileWithWindow: FeedConfiguration = {
+      profile: FeedProfile.TECHNOLOGY,
+      rssFeeds: [],
+      briefing: { lookbackHours: 720, minArticles: 3 },
+    };
+
+    beforeEach(() => {
+      givenClustersQtd(10);
+      mockArticlesService.getArticlesForBriefing.mockResolvedValue([]);
+    });
+
+    it("uses the profile's window when the call passes none", async () => {
+      mockProfilesService.getFeedConfig.mockReturnValue(profileWithWindow);
+
+      await service.generateBrief(FeedProfile.TECHNOLOGY);
+
+      expect(mockConfigService.getBriefingConfig).toHaveBeenCalledWith(
+        expect.objectContaining({ lookbackHours: 720, minArticles: 3 }),
+      );
+    });
+
+    it("prefers a window passed in the call over the profile's", async () => {
+      mockProfilesService.getFeedConfig.mockReturnValue(profileWithWindow);
+
+      await service.generateBrief(FeedProfile.TECHNOLOGY, {
+        lookbackHours: 48,
+      });
+
+      expect(mockConfigService.getBriefingConfig).toHaveBeenCalledWith(
+        expect.objectContaining({ lookbackHours: 48, minArticles: 3 }),
+      );
+    });
+
+    it("loads articles over the profile's lookback and briefs from its minimum", async () => {
+      mockProfilesService.getFeedConfig.mockReturnValue(profileWithWindow);
+      mockConfigService.getBriefingConfig.mockImplementation((options) => ({
+        feedProfile: FeedProfile.TECHNOLOGY,
+        lookbackHours: options?.lookbackHours || 24,
+        minArticles: options?.minArticles || 5,
+        clustersQtd: 10,
+        articlesPerPage: 15,
+        customPrompts: undefined,
+      }));
+      mockArticlesService.getArticlesForBriefing.mockResolvedValue([
+        createCandidate({ id: 'a1', embedding: [0.1, 0.2] }),
+        createCandidate({ id: 'a2', embedding: [0.9, 0.8] }),
+        createCandidate({ id: 'a3', embedding: [0.5, 0.5] }),
+      ]);
+      mockProfilesService.getPromptsForProfile.mockReturnValue({});
+      mockConfigService.getPrompt.mockReturnValue('prompt');
+      mockConfigService.formatPrompt.mockReturnValue('prompt');
+      mockAiService.callChat.mockResolvedValue('analysis');
+      mockBriefingsService.saveBrief.mockResolvedValue('brief-uuid');
+
+      const result = await service.generateBrief(FeedProfile.TECHNOLOGY);
+
+      expect(mockArticlesService.getArticlesForBriefing).toHaveBeenCalledWith(
+        720,
+        FeedProfile.TECHNOLOGY,
+      );
+      expect(result).toMatchObject({
+        success: true,
+        stats: { articlesAnalyzed: 3 },
+      });
+    });
+
+    it('leaves the window to the global defaults when the profile has no config', async () => {
+      mockProfilesService.getFeedConfig.mockReturnValue(undefined);
+
+      await service.generateBrief(FeedProfile.DEFAULT);
+
+      expect(mockConfigService.getBriefingConfig).toHaveBeenCalledWith(
+        expect.objectContaining({
+          lookbackHours: undefined,
+          minArticles: undefined,
+        }),
+      );
     });
   });
 

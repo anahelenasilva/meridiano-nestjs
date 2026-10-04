@@ -10,6 +10,7 @@ import { ProfilesService } from '../profiles/profiles.service';
 import { FeedProfile, RSSFeed, SitemapSource } from '../shared/types/feed';
 import { FeedProfileScrape, ScrapingStats } from './scrapper.entity';
 import { fetchSitemapEntries } from './sitemap-fetcher';
+import { vttToText } from './vtt-to-text';
 
 interface RSSEnclosure {
   type?: string;
@@ -30,19 +31,28 @@ interface RSSMediaThumbnail {
   url?: string;
 }
 
+interface RSSTranscript {
+  $?: {
+    url?: string;
+    type?: string;
+  };
+}
+
 interface RSSEntry {
   enclosures?: RSSEnclosure[];
   mediaContent?: RSSMediaContent[];
   image?: RSSImage;
   mediaThumbnail?: RSSMediaThumbnail;
+  podcastTranscripts?: RSSTranscript[];
 }
 
-const rssParser = new Parser({
+const rssParser = new Parser<Record<string, unknown>, RSSEntry>({
   customFields: {
     item: [
       ['media:content', 'mediaContent'],
       ['enclosure', 'enclosures'],
       ['media:thumbnail', 'mediaThumbnail'],
+      ['podcast:transcript', 'podcastTranscripts', { keepArray: true }],
     ],
   },
 });
@@ -160,6 +170,43 @@ export class ScraperService {
     }
 
     return null;
+  }
+
+  /**
+   * Returns null when the entry has no usable VTT transcript, so the episode
+   * is still ingested with its show notes alone.
+   */
+  private async fetchTranscriptText(
+    entry: RSSEntry,
+    title: string,
+  ): Promise<string | null> {
+    const url = entry.podcastTranscripts?.find(
+      (transcript) => transcript.$?.type === 'text/vtt' && transcript.$?.url,
+    )?.$?.url;
+    if (!url) {
+      return null;
+    }
+
+    try {
+      const response = await axios.get<string>(url, {
+        timeout: 20000,
+        responseType: 'text',
+      });
+      const text = vttToText(response.data);
+      if (!text) {
+        console.warn(
+          `  Transcript has no cues, using show notes only: ${title} (${url})`,
+        );
+        return null;
+      }
+      return text;
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.warn(
+        `  Failed to fetch transcript, using show notes only: ${title} (${url}): ${message}`,
+      );
+      return null;
+    }
   }
 
   async scrapeSingleArticle(
@@ -294,7 +341,7 @@ export class ScraperService {
 
           console.log(`Processing new entry: ${title} (${url})`);
 
-          const rssImageUrl = this.extractRssImageUrl(entry as RSSEntry);
+          const rssImageUrl = this.extractRssImageUrl(entry);
           if (rssImageUrl) {
             console.log(
               `  Found image in RSS: ${rssImageUrl.substring(0, 60)}...`,
@@ -313,19 +360,18 @@ export class ScraperService {
             continue;
           }
 
+          // Show notes go first: the summary step reads only the start of raw_content.
+          const transcript = await this.fetchTranscriptText(entry, title);
+          const content = transcript
+            ? `${rawContent}\n\nTranscript:\n${transcript}`
+            : rawContent;
+
           const finalImageUrl = rssImageUrl || ogImageUrl;
-          // if (finalImageUrl) {
-          //   console.log(
-          //     `  Using image URL: ${finalImageUrl.substring(0, 60)}...`,
-          //   );
-          // } else {
-          //   console.log('  No image found in RSS or OG tags.');
-          // }
 
           await this.ingestionService.ingest({
             url,
             title,
-            content: rawContent,
+            content,
             publishedDate,
             feedProfile,
             source: { type: 'rss', feedName },

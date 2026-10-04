@@ -119,13 +119,11 @@ describe('ScraperService.scrapeFeedProfile', () => {
     ingestion.articleExists.mockResolvedValue(false);
     parseURL.mockResolvedValue(publisherFeed as never);
     mockedFetchEntries.mockResolvedValue([]);
-    jest
-      .spyOn(service, 'fetchArticleContentAndOgImage')
-      .mockResolvedValue({
-        content: 'body',
-        ogImage: null,
-        title: 'Post Title',
-      });
+    jest.spyOn(service, 'fetchArticleContentAndOgImage').mockResolvedValue({
+      content: 'body',
+      ogImage: null,
+      title: 'Post Title',
+    });
   });
 
   afterEach(() => jest.clearAllMocks());
@@ -185,6 +183,123 @@ describe('ScraperService.scrapeFeedProfile', () => {
     expect(ingestedSources()).toEqual([
       { type: 'rss', feedName: 'Will Larson' },
     ]);
+  });
+
+  function givenEpisodeWithTranscripts(
+    transcripts: { $: { url?: string; type: string } }[],
+  ) {
+    parseURL.mockResolvedValue({
+      title: 'And Someday Came',
+      items: [
+        {
+          link: 'https://rss.com/podcasts/and-someday-came/3181774',
+          title: 'I traded money for time',
+          pubDate: 'Thu, 01 Oct 2026 17:07:03 GMT',
+          podcastTranscripts: transcripts,
+        },
+      ],
+    } as never);
+  }
+
+  const vttTranscript = {
+    $: { url: 'https://transcripts.example/ep1.vtt', type: 'text/vtt' },
+  };
+
+  function ingestedContents() {
+    return ingestion.ingest.mock.calls.map(([input]) => input.content);
+  }
+
+  it('ingests the show notes followed by the transcript when an entry has a VTT transcript', async () => {
+    givenSources([rssFeed], []);
+    givenEpisodeWithTranscripts([vttTranscript]);
+    mockedAxios.get.mockResolvedValue({
+      data: "WEBVTT\n\n00:00:00.280 --> 00:00:04.560\nHi, I'm Maggie.",
+    });
+
+    await service.scrapeFeedProfile(FeedProfile.TECHNOLOGY);
+
+    expect(mockedAxios.get).toHaveBeenCalledWith(
+      'https://transcripts.example/ep1.vtt',
+      expect.objectContaining({ responseType: 'text' }),
+    );
+    expect(ingestedContents()).toEqual([
+      "body\n\nTranscript:\nHi, I'm Maggie.",
+    ]);
+  });
+
+  it('fetches the VTT transcript when the feed lists another format first', async () => {
+    givenSources([rssFeed], []);
+    givenEpisodeWithTranscripts([
+      {
+        $: {
+          url: 'https://transcripts.example/ep1.srt',
+          type: 'application/srt',
+        },
+      },
+      vttTranscript,
+    ]);
+    mockedAxios.get.mockResolvedValue({
+      data: 'WEBVTT\n\n00:00:00.280 --> 00:00:04.560\nHello.',
+    });
+
+    await service.scrapeFeedProfile(FeedProfile.TECHNOLOGY);
+
+    expect(mockedAxios.get).toHaveBeenCalledTimes(1);
+    expect(mockedAxios.get).toHaveBeenCalledWith(
+      'https://transcripts.example/ep1.vtt',
+      expect.anything(),
+    );
+  });
+
+  it('skips a VTT entry without a url and fetches the next VTT transcript', async () => {
+    givenSources([rssFeed], []);
+    givenEpisodeWithTranscripts([{ $: { type: 'text/vtt' } }, vttTranscript]);
+    mockedAxios.get.mockResolvedValue({
+      data: 'WEBVTT\n\n00:00:00.280 --> 00:00:04.560\nHello.',
+    });
+
+    await service.scrapeFeedProfile(FeedProfile.TECHNOLOGY);
+
+    expect(ingestedContents()).toEqual(['body\n\nTranscript:\nHello.']);
+  });
+
+  it.each([
+    [
+      'the transcript fetch fails',
+      () => mockedAxios.get.mockRejectedValue(new Error('timeout')),
+    ],
+    [
+      'the transcript has no cues',
+      () => mockedAxios.get.mockResolvedValue({ data: 'WEBVTT\n' }),
+    ],
+  ])(
+    'ingests the show notes alone and counts no error when %s',
+    async (_label, givenTranscriptResponse) => {
+      givenSources([rssFeed], []);
+      givenEpisodeWithTranscripts([vttTranscript]);
+      givenTranscriptResponse();
+
+      const result = await service.scrapeFeedProfile(FeedProfile.TECHNOLOGY);
+
+      expect(ingestedContents()).toEqual(['body']);
+      expect(result).toMatchObject({
+        rss: { newArticles: 1, errors: 0 },
+      });
+    },
+  );
+
+  it('skips an episode whose page fails to extract without fetching its transcript', async () => {
+    givenSources([rssFeed], []);
+    givenEpisodeWithTranscripts([vttTranscript]);
+    jest
+      .spyOn(service, 'fetchArticleContentAndOgImage')
+      .mockResolvedValue({ content: null, ogImage: null, title: null });
+
+    const result = await service.scrapeFeedProfile(FeedProfile.TECHNOLOGY);
+
+    expect(mockedAxios.get).not.toHaveBeenCalled();
+    expect(ingestion.ingest).not.toHaveBeenCalled();
+    expect(result).toMatchObject({ rss: { newArticles: 0, errors: 1 } });
   });
 
   it('counts an RSS error and still scrapes sitemaps when a feed fails', async () => {

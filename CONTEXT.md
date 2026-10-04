@@ -15,7 +15,11 @@ A briefing where the user explicitly selected which articles to include.
 _Avoid_: custom briefing — the codebase used "custom" for this flow (`isCustom`, `CustomBriefingProcessor`), but "custom" also appeared for prompt overrides; "curated" is unambiguous
 
 **Feed Profile**:
-A named topic category that drives article selection and AI prompt tuning for Standard Briefings. Profiles include general topics (`TECHNOLOGY`, `POLITICS`, `BUSINESS`, `HEALTH`, `SCIENCE`), regional news (`BRASIL` — Brazilian news), and branded sources (`TECLAS` — technology and labour-class politics, sourced from the Teclas newsletter/YouTube channel). `DEFAULT` is the fallback profile.
+A named topic category that drives article selection and AI prompt tuning for Standard Briefings. Profiles include general topics (`TECHNOLOGY`, `POLITICS`, `BUSINESS`, `HEALTH`, `SCIENCE`), regional news (`BRASIL` — Brazilian news), and branded sources (`TECLAS` — technology and labour-class politics, sourced from the Teclas newsletter/YouTube channel). `TRAVEL` covers travel news plus destination and inspiration content, written in English from English and pt-BR sources, with a 30 day briefing window. `DEFAULT` is the fallback profile.
+
+**Briefing Window**:
+How far back a Standard Briefing looks for articles (`lookbackHours`) and how many it needs before it generates (`minArticles`). The global default is 24 hours and 5 articles; a low-volume Feed Profile can set its own in `FeedConfiguration.briefing`, and a value passed to `generateBrief` wins over both.
+_Avoid_: lookback, briefing settings
 
 **Briefing Title**:
 A human-readable label for a briefing, editable at any time. Auto-generated as a convenience during Curated Briefing creation; the auto-generated value is not semantically distinct from a user-set one.
@@ -74,7 +78,7 @@ One queued, running, or failed attempt to produce an Audio Summary. Lives in the
 _Avoid_: audio status (blurs the durable fact with the transient one), pending audio
 
 **Article**:
-A piece of written content ingested into the platform. Sources include RSS feeds, website URLs (scraped), and uploaded markdown files (for non-public or unscrappable sites). YouTube transcriptions are not Articles.
+A piece of written content ingested into the platform. Sources include RSS feeds, website URLs (scraped), and uploaded markdown files (for non-public or unscrappable sites). A podcast episode ingested from RSS is an Article; its content is the show notes plus the feed-published transcript when one exists. YouTube transcriptions are not Articles.
 _Avoid_: content item, post (unless quoting a source)
 
 **Article Source**:
