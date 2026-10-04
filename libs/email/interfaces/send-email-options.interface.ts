@@ -6,9 +6,3 @@ export interface SendEmailOptions {
   cc?: string | string[];
 }
 
-export interface SendEmailResult {
-  success: boolean;
-  messageId?: string;
-  error?: string;
-}
-
