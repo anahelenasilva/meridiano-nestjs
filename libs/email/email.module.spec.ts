@@ -14,7 +14,7 @@ describe('EmailModule', () => {
       url: undefined,
     });
 
-    // Stands in for the app's @Global() ConfigModule, which EmailModule relies on.
+    // EmailModule relies on the app's @Global() ConfigModule.
     @Global()
     @Module({
       providers: [{ provide: ConfigService, useValue: configService }],
