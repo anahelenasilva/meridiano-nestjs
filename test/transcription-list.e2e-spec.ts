@@ -11,6 +11,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../src/app.module';
 import {
   TranscriptionFilter,
+  TranscriptionPage,
   YoutubeTranscriptionsService,
 } from '../src/youtube-transcriptions/services/youtube-transcriptions.service';
 
@@ -50,7 +51,7 @@ describe('YoutubeTranscriptionsService.listTranscriptions (e2e, real Postgres)',
 
   async function listIds(
     filter: TranscriptionFilter,
-    page: { page?: number; perPage?: number } = {},
+    page: TranscriptionPage = { page: 1, perPage: 20 },
   ): Promise<{ ids: string[]; total: number }> {
     const { transcriptions, total } = await service.listTranscriptions(filter, page);
     return { ids: transcriptions.map((transcription) => transcription.id), total };
@@ -174,7 +175,10 @@ describe('YoutubeTranscriptionsService.listTranscriptions (e2e, real Postgres)',
   });
 
   it('reports has_audio and maps dates', async () => {
-    const { transcriptions } = await service.listTranscriptions({ channelId: channelA });
+    const { transcriptions } = await service.listTranscriptions(
+      { channelId: channelA },
+      { page: 1, perPage: 20 },
+    );
     const unposted = transcriptions.find(
       (transcription) => transcription.id === unpostedProcessedMarch20,
     );

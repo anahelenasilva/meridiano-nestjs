@@ -103,9 +103,6 @@ describe('YoutubeTranscriptionsController', () => {
     });
 
     it('forwards an undefined user id on the api-key path', async () => {
-      mockListTranscriptionsLeanQuery.execute.mockResolvedValue({
-        transcriptions: [],
-      } as never);
       const input = { page: 2, perPage: 10, channelId: 'UC-x' };
 
       await controller.listTranscriptionsLean(undefined, input);
@@ -117,9 +114,6 @@ describe('YoutubeTranscriptionsController', () => {
     });
 
     it('forwards the authenticated user id', async () => {
-      mockListTranscriptionsLeanQuery.execute.mockResolvedValue({
-        transcriptions: [],
-      } as never);
 
       await controller.listTranscriptionsLean({ id: 'user-1' }, {});
 

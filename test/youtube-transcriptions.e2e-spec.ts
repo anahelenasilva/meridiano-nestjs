@@ -316,6 +316,7 @@ describe('YouTube Transcriptions list (e2e)', () => {
       },
     ]);
   });
+
   describe('GET /api/youtube/transcriptions/lean', () => {
     it('converts page and perPage to numbers and passes the filter to the service', async () => {
       mockService.listTranscriptions.mockResolvedValue({

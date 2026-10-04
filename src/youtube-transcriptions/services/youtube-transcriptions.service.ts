@@ -80,8 +80,8 @@ export type TranscriptionFilter = {
 };
 
 export type TranscriptionPage = {
-  page?: number;
-  perPage?: number;
+  page: number;
+  perPage: number;
 };
 
 // posted_at is null when YouTube gave no publish date; those rows date by
@@ -507,12 +507,11 @@ export class YoutubeTranscriptionsService {
    */
   async listTranscriptions(
     filter: TranscriptionFilter,
-    page: TranscriptionPage = {},
+    { page, perPage }: TranscriptionPage,
   ): Promise<{ transcriptions: YoutubeTranscriptionListRow[]; total: number }> {
     const db = this.databaseService.getDbConnection();
-    const { page: pageNumber = 1, perPage = 20 } = page;
     const { where, params } = compileTranscriptionFilter(filter);
-    const offset = (pageNumber - 1) * perPage;
+    const offset = (page - 1) * perPage;
 
     const [rows, countRow] = await Promise.all([
       queryAll<YoutubeTranscriptionListRow>(
