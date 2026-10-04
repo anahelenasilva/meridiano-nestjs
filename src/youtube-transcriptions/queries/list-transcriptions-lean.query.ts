@@ -36,8 +36,7 @@ export class ListTranscriptionsLeanQuery {
   ) {}
 
   async execute(
-    // Undefined on the api-key path (CLI/ops), which has no user. Notes are the
-    // only user-scoped part of the response, so a missing user just means none.
+    // Undefined on the api-key path, which has no user, so no notes attach.
     userId: string | undefined,
     request: ListTranscriptionsLeanRequest,
   ): Promise<ListTranscriptionsLeanResponse> {

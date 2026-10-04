@@ -29,12 +29,9 @@ import { StorageService } from '../services/storage.service';
 import { TranscriptFetcherService } from './transcript-fetcher.service';
 import { YouTubeService } from './youtube.service';
 
-// Shared projection for transcription reads. channel_name and the external
-// channel id come from the joined channels table now that youtube_transcriptions
-// only stores the internal channel UUID (the FK). Kept in one place so the
-// column set changes in a single site rather than across every read query.
-// The lean set leaves out the full transcript text, the heaviest column by
-// far, and the thumbnail a terminal cannot show.
+// channelName and channelExternalId come from the channels join, since
+// youtube_transcriptions stores only the channel FK. The lean set skips the
+// transcript text, the heaviest column, and the thumbnail a terminal can't show.
 const TRANSCRIPTION_LEAN_COLUMNS = `
   yt.id,
   yt.channel_id AS "channelId",
@@ -59,9 +56,7 @@ const TRANSCRIPTION_FROM_JOIN = `
   JOIN youtube_channels c ON c.id = yt.channel_id
 `;
 
-// For list reads only. Kept out of TRANSCRIPTION_COLUMNS so getTranscriptionById
-// and the other single/paginated readers below don't pay for a correlated
-// subquery they don't need.
+// A correlated subquery, so only the list reads select it.
 const HAS_AUDIO = `
   EXISTS (
     SELECT 1 FROM audio_files af
@@ -511,9 +506,8 @@ export class YoutubeTranscriptionsService {
   }
 
   /**
-   * One lean page of transcriptions plus the total for the whole filter,
-   * newest first. Both queries compile from the same filter, so the total
-   * always describes the rows.
+   * One lean page of transcriptions, newest first, plus the total for the
+   * whole filter.
    */
   async listTranscriptions(
     filter: TranscriptionFilter,

@@ -14,9 +14,9 @@ import type {
 
 const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
 
-// A class, not a plain type, so the global ValidationPipe converts page and
-// perPage to numbers and turns a malformed value or unknown key into a 400.
-// startDate and endDate are UTC calendar days, both inclusive.
+// A class so the global ValidationPipe converts page and perPage to numbers
+// and rejects a malformed value or unknown key with a 400. startDate and
+// endDate are UTC calendar days, both inclusive.
 export class ListTranscriptionsLeanRequest
   implements TranscriptionFilter, Partial<TranscriptionPage>
 {
