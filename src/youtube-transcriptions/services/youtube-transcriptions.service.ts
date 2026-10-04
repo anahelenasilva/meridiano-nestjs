@@ -1,4 +1,10 @@
-import { DatabaseService, execute } from '@libs/database';
+import {
+  DatabaseService,
+  execute,
+  queryAll,
+  queryOne,
+  SqlParams,
+} from '@libs/database';
 import { QueueService } from '@libs/queue';
 import {
   Inject,
@@ -64,6 +70,55 @@ const TRANSCRIPTION_LIST_COLUMNS = `
 export type YoutubeTranscriptionListRow = DBYoutubeTranscription & {
   has_audio: boolean;
 };
+
+export type TranscriptionFilter = {
+  // The internal channel uuid or the YouTube channel id (UC...); `meridiano
+  // channels` has printed each at different times, so both match.
+  channelId?: string;
+  startDate?: string;
+  endDate?: string;
+};
+
+export type TranscriptionPage = {
+  page?: number;
+  perPage?: number;
+};
+
+// posted_at is null when YouTube gave no publish date; those rows date by
+// when Meridiano processed them, matching the RSS feed's pubDate. posted_at is
+// a TEXT column holding toISOString() output; the ::timestamp cast drops its
+// "Z" and leaves UTC wall time, the same as processed_at (TIMESTAMP).
+const TRANSCRIPTION_DATE =
+  'COALESCE(yt.posted_at::timestamp, yt.processed_at)';
+
+function compileTranscriptionFilter(filter: TranscriptionFilter): {
+  where: string;
+  params: SqlParams;
+} {
+  const clauses: string[] = [];
+  const params: SqlParams = [];
+
+  if (filter.channelId) {
+    // ::text keeps a UC... id from failing the uuid cast.
+    clauses.push('(yt.channel_id::text = ? OR c.channel_id = ?)');
+    params.push(filter.channelId, filter.channelId);
+  }
+
+  if (filter.startDate) {
+    clauses.push(`DATE(${TRANSCRIPTION_DATE}) >= ?`);
+    params.push(filter.startDate);
+  }
+
+  if (filter.endDate) {
+    clauses.push(`DATE(${TRANSCRIPTION_DATE}) <= ?`);
+    params.push(filter.endDate);
+  }
+
+  return {
+    where: clauses.length > 0 ? clauses.join(' AND ') : 'TRUE',
+    params,
+  };
+}
 
 @Injectable()
 export class YoutubeTranscriptionsService {
@@ -443,6 +498,47 @@ export class YoutubeTranscriptionsService {
         },
       );
     });
+  }
+
+  /**
+   * One page of transcriptions plus the total for the whole filter, newest
+   * first. Both queries compile from the same filter, so the total always
+   * describes the rows.
+   */
+  async listTranscriptions(
+    filter: TranscriptionFilter,
+    page: TranscriptionPage = {},
+  ): Promise<{ transcriptions: YoutubeTranscriptionListRow[]; total: number }> {
+    const db = this.databaseService.getDbConnection();
+    const { page: pageNumber = 1, perPage = 20 } = page;
+    const { where, params } = compileTranscriptionFilter(filter);
+    const offset = (pageNumber - 1) * perPage;
+
+    const [rows, countRow] = await Promise.all([
+      queryAll<YoutubeTranscriptionListRow>(
+        db,
+        `SELECT ${TRANSCRIPTION_LIST_COLUMNS} ${TRANSCRIPTION_FROM_JOIN}
+         WHERE ${where}
+         ORDER BY ${TRANSCRIPTION_DATE} DESC, yt.id DESC
+         LIMIT ? OFFSET ?`,
+        [...params, perPage, offset],
+      ),
+      // pg returns COUNT(*) as a bigint string.
+      queryOne<{ count: string }>(
+        db,
+        `SELECT COUNT(*) AS count ${TRANSCRIPTION_FROM_JOIN} WHERE ${where}`,
+        params,
+      ),
+    ]);
+
+    return {
+      transcriptions: rows.map((row) => ({
+        ...row,
+        postedAt: row.postedAt ? new Date(row.postedAt) : undefined,
+        processedAt: new Date(row.processedAt),
+      })),
+      total: Number(countRow?.count ?? 0),
+    };
   }
 
   /**
