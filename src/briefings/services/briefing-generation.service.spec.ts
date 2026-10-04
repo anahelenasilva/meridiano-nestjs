@@ -210,6 +210,39 @@ describe('BriefingGenerationService', () => {
       );
     });
 
+    it("loads articles over the profile's lookback and briefs from its minimum", async () => {
+      mockProfilesService.getFeedConfig.mockReturnValue(profileWithWindow);
+      mockConfigService.getBriefingConfig.mockImplementation((options) => ({
+        feedProfile: FeedProfile.TECHNOLOGY,
+        lookbackHours: options?.lookbackHours || 24,
+        minArticles: options?.minArticles || 5,
+        clustersQtd: 10,
+        articlesPerPage: 15,
+        customPrompts: undefined,
+      }));
+      mockArticlesService.getArticlesForBriefing.mockResolvedValue([
+        createCandidate({ id: 'a1', embedding: [0.1, 0.2] }),
+        createCandidate({ id: 'a2', embedding: [0.9, 0.8] }),
+        createCandidate({ id: 'a3', embedding: [0.5, 0.5] }),
+      ]);
+      mockProfilesService.getPromptsForProfile.mockReturnValue({});
+      mockConfigService.getPrompt.mockReturnValue('prompt');
+      mockConfigService.formatPrompt.mockReturnValue('prompt');
+      mockAiService.callChat.mockResolvedValue('analysis');
+      mockBriefingsService.saveBrief.mockResolvedValue('brief-uuid');
+
+      const result = await service.generateBrief(FeedProfile.TECHNOLOGY);
+
+      expect(mockArticlesService.getArticlesForBriefing).toHaveBeenCalledWith(
+        720,
+        FeedProfile.TECHNOLOGY,
+      );
+      expect(result).toMatchObject({
+        success: true,
+        stats: { articlesAnalyzed: 3 },
+      });
+    });
+
     it('leaves the window to the global defaults when the profile has no config', async () => {
       mockProfilesService.getFeedConfig.mockReturnValue(undefined);
 
