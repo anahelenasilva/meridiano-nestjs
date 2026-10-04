@@ -24,10 +24,10 @@ controllers, which declare `@Controller('api/...')`, `FeedsController` declares
 
 Both are optional; invalid values fall back to the defaults below rather than erroring.
 
-| Parameter     | Values                                                                                          | Default      |
-| ------------- | ------------------------------------------------------------------------------------------------ | ------------ |
-| `limit`       | Positive integer, capped at 100                                                                  | 20           |
-| `feedProfile` | One of `default`, `technology`, `politics`, `business`, `health`, `science`, `brasil`, `teclas`   | all profiles |
+| Parameter     | Values                                                                                                    | Default      |
+| ------------- | --------------------------------------------------------------------------------------------------------- | ------------ |
+| `limit`       | Positive integer, capped at 100                                                                           | 20           |
+| `feedProfile` | One of `default`, `technology`, `politics`, `business`, `health`, `science`, `brasil`, `teclas`, `travel` | all profiles |
 
 Example — latest 10 Articles from the `technology` Feed Profile only:
 
