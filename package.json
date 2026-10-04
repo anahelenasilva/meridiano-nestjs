@@ -28,6 +28,7 @@
     "briefing:tech": "ts-node -r tsconfig-paths/register src/scripts/runBriefing.ts --feed technology",
     "briefing:brasil": "ts-node -r tsconfig-paths/register src/scripts/runBriefing.ts --feed brasil",
     "briefing:teclas": "ts-node -r tsconfig-paths/register src/scripts/runBriefing.ts --feed teclas",
+    "briefing:travel": "ts-node -r tsconfig-paths/register src/scripts/runBriefing.ts --feed travel",
     "briefing:scrape": "ts-node -r tsconfig-paths/register src/scripts/runBriefing.ts --scrape",
     "briefing:process": "ts-node -r tsconfig-paths/register src/scripts/runBriefing.ts --process",
     "briefing:rate": "ts-node -r tsconfig-paths/register src/scripts/runBriefing.ts --rate",

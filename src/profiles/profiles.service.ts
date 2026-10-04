@@ -3,6 +3,7 @@ import { brasilFeedConfig } from '../shared/feeds/brasil';
 import { politicsFeedConfig } from '../shared/feeds/politics';
 import { techFeedConfig } from '../shared/feeds/tech';
 import { teclasFeedConfig } from '../shared/feeds/teclas';
+import { travelFeedConfig } from '../shared/feeds/travel';
 import {
   FeedConfiguration,
   FeedProfile,
@@ -19,6 +20,7 @@ export class ProfilesService {
     this.registerFeedConfig(brasilFeedConfig);
     this.registerFeedConfig(teclasFeedConfig);
     this.registerFeedConfig(politicsFeedConfig);
+    this.registerFeedConfig(travelFeedConfig);
   }
 
   registerFeedConfig(config: FeedConfiguration): void {

@@ -28,7 +28,7 @@ export enum ExternalArticleErrorCode {
 
 export const EXTERNAL_ERROR_MESSAGES: Record<ExternalArticleErrorCode, string> = {
   [ExternalArticleErrorCode.INVALID_URL]: "The URL you provided doesn't seem valid. Please check and try again.",
-  [ExternalArticleErrorCode.INVALID_FEED_PROFILE]: 'Invalid feed profile. Use one of: technology, politics, business, health, science, brasil, teclas',
+  [ExternalArticleErrorCode.INVALID_FEED_PROFILE]: 'Invalid feed profile. Use one of: technology, politics, business, health, science, brasil, teclas, travel',
   [ExternalArticleErrorCode.UNAUTHORIZED]: 'Authentication error. Please contact support.',
   [ExternalArticleErrorCode.RATE_LIMIT_EXCEEDED]: "You're submitting too fast. Please wait a minute.",
   [ExternalArticleErrorCode.ARTICLE_EXISTS]: 'This article has already been submitted before.',

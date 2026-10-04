@@ -7,6 +7,7 @@ export enum FeedProfile {
   SCIENCE = 'science',
   BRASIL = 'brasil',
   TECLAS = 'teclas',
+  TRAVEL = 'travel',
 }
 
 export interface RSSFeed {
