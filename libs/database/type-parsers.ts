@@ -22,8 +22,8 @@ function getTypeParser(oid: number, format: 'text' | 'binary' = 'text') {
 }
 
 /**
- * Type parsers for the `pg` Pool. Every TIMESTAMP column stores UTC wall time
- * (writes pass `toISOString()`), so TIMESTAMP reads as UTC instead of in the
- * Node process's time zone.
+ * Type parsers for both `pg` pools, `DatabaseService`'s and TypeORM's. TIMESTAMP
+ * columns store UTC wall time, from `toISOString()` or from `CURRENT_TIMESTAMP`
+ * in a UTC session, so TIMESTAMP reads as UTC, not in the process's time zone.
  */
 export const typeParsers: CustomTypesConfig = { getTypeParser };

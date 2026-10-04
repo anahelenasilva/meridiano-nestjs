@@ -1,5 +1,6 @@
 import * as dotenv from 'dotenv';
 import { DataSource, DataSourceOptions } from 'typeorm';
+import { typeParsers } from './type-parsers';
 
 // Reads process.env directly: this file is loaded by the TypeORM CLI
 // (migration:generate/run/revert) outside of Nest's DI container, so there
@@ -33,6 +34,7 @@ export const typeormConfig: DataSourceOptions = {
   synchronize: false,
   logging: process.env.NODE_ENV === 'development',
   ssl: process.env.DATABASE_SSL === 'true' ? { rejectUnauthorized: false } : false,
+  extra: { types: typeParsers },
 };
 
 const dataSource = new DataSource(typeormConfig);

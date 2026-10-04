@@ -196,8 +196,6 @@ describe('YoutubeTranscriptionsService.listTranscriptions (e2e, real Postgres)',
 
     expect(unposted?.has_audio).toBe(false);
     expect(unposted?.postedAt).toBeUndefined();
-    // node-pg reads a TIMESTAMP (no time zone) column as local time, so the
-    // expected value has no "Z" to keep the test passing outside UTC.
     expect(unposted?.processedAt).toEqual(new Date('2026-03-20T00:00:00.000Z'));
   });
 });

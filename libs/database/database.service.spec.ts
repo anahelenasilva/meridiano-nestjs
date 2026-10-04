@@ -146,7 +146,7 @@ describe('DatabaseService', () => {
       }));
     });
 
-    it('should read TIMESTAMP columns with the UTC type parsers', async () => {
+    it('should pass the type parsers to the Pool', async () => {
       await service.initDb();
 
       expect(Pool).toHaveBeenCalledWith(expect.objectContaining({ types: typeParsers }));
