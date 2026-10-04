@@ -49,21 +49,17 @@ export class MyService {
   constructor(private readonly emailService: EmailService) {}
 
   async sendWelcomeEmail(userEmail: string) {
-    const result = await this.emailService.sendEmail({
+    await this.emailService.sendEmail({
       from: 'noreply@example.com',
       to: userEmail,
       subject: 'Welcome!',
       text: 'Welcome to our platform!',
     });
-
-    if (result.success) {
-      console.log('Email sent successfully:', result.messageId);
-    } else {
-      console.error('Failed to send email:', result.error);
-    }
   }
 }
 ```
+
+`sendEmail` rejects with Mailgun's error when the send fails, so wrap it in `try`/`catch` where a failed email must not fail the caller.
 
 ### Email Options
 
@@ -90,18 +86,12 @@ async function main() {
   const app = await NestFactory.createApplicationContext(AppModule);
   const emailService = app.get(EmailService);
 
-  const result = await emailService.sendEmail({
+  await emailService.sendEmail({
     from: process.env.EMAIL_FROM || 'noreply@yourdomain.com',
     to: process.env.EMAIL_TO || 'recipient@example.com',
     subject: 'Test Email',
     text: 'This is a test email sent via the email service.',
   });
-
-  if (result.success) {
-    console.log('Email sent successfully:', result.messageId);
-  } else {
-    console.error('Failed to send email:', result.error);
-  }
 
   await app.close();
 }

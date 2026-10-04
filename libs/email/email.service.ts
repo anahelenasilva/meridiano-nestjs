@@ -2,10 +2,7 @@ import { Injectable } from '@nestjs/common';
 import FormData from 'form-data';
 import Mailgun, { Interfaces } from 'mailgun.js';
 import { ConfigService } from '../../src/config/config.service';
-import {
-  SendEmailOptions,
-  SendEmailResult,
-} from './interfaces/send-email-options.interface';
+import { SendEmailOptions } from './interfaces/send-email-options.interface';
 
 @Injectable()
 export class EmailService {
@@ -13,7 +10,6 @@ export class EmailService {
   private readonly domain: string;
 
   constructor(configService: ConfigService) {
-    // For EU domains, set MAILGUN_URL=https://api.eu.mailgun.net
     const { apiKey, domain, url } = configService.getMailgunConfig();
 
     if (!apiKey) {
@@ -32,31 +28,20 @@ export class EmailService {
     });
   }
 
+  /** Rejects with Mailgun's error if the send fails. */
   async sendEmail({
     from,
     to,
     cc,
     subject,
     text,
-  }: SendEmailOptions): Promise<SendEmailResult> {
-    try {
-      const data = await this.client.messages.create(this.domain, {
-        from,
-        to,
-        cc,
-        subject,
-        text,
-      });
-
-      return { success: true, messageId: data.id };
-    } catch (error) {
-      return {
-        success: false,
-        error:
-          error instanceof Error
-            ? error.message
-            : 'Failed to send email via Mailgun',
-      };
-    }
+  }: SendEmailOptions): Promise<void> {
+    await this.client.messages.create(this.domain, {
+      from,
+      to,
+      cc,
+      subject,
+      text,
+    });
   }
 }

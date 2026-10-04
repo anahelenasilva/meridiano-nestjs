@@ -81,18 +81,17 @@ describe('EmailService', () => {
         status: 200,
       });
 
-      const result = await new EmailService(configService).sendEmail(options);
+      await new EmailService(configService).sendEmail(options);
 
       expect(messagesCreate).toHaveBeenCalledWith('test-domain.com', options);
-      expect(result).toEqual({ success: true, messageId: 'test-message-id' });
     });
 
-    it('returns the Mailgun error instead of throwing', async () => {
+    it('rejects with the Mailgun error', async () => {
       messagesCreate.mockRejectedValueOnce(new Error('Forbidden'));
 
-      const result = await new EmailService(configService).sendEmail(options);
-
-      expect(result).toEqual({ success: false, error: 'Forbidden' });
+      await expect(
+        new EmailService(configService).sendEmail(options),
+      ).rejects.toThrow('Forbidden');
     });
   });
 });

@@ -188,7 +188,7 @@ export class AppModule {}
 constructor(private readonly emailService: EmailService) {}
 
 async sendEmail() {
-  const result = await this.emailService.sendEmail({
+  await this.emailService.sendEmail({
     from: 'noreply@example.com',
     to: 'recipient@example.com',
     subject: 'Hello',

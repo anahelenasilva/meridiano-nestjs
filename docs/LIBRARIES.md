@@ -247,7 +247,7 @@ Import with `EmailModule.forRoot()`. `EmailService` reads its Mailgun settings f
 
 ### Service contract
 
-`EmailService.sendEmail(options)` sends through Mailgun and returns `SendEmailResult`. A Mailgun error comes back as `{ success: false, error }` instead of a throw.
+`EmailService.sendEmail(options)` sends through Mailgun and rejects with Mailgun's error when the send fails.
 
 ## Usage in AppModule
 
