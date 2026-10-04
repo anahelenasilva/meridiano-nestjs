@@ -231,8 +231,4 @@ export const techFeedConfig: FeedConfiguration = {
   rssFeeds: techRSSFeeds,
   sitemapSources: techSitemapSources,
   prompts: techPrompts,
-  settings: {
-    priority: 1,
-    enabled: true,
-  },
 };

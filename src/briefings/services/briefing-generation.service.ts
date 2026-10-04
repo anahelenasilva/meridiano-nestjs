@@ -91,14 +91,18 @@ export class BriefingGenerationService {
     feedProfile: FeedProfile,
     options: Partial<BriefGenerationOptions> = {},
   ): Promise<GenerateBriefResult> {
-    this.logger.log(`Starting Brief Generation [${feedProfile}]`);
-
+    const profileWindow =
+      this.profilesService.getFeedConfig(feedProfile)?.briefing;
     const briefingConfig = this.configService.getBriefingConfig({
       feedProfile,
-      lookbackHours: options.lookbackHours,
-      minArticles: options.minArticles,
+      lookbackHours: options.lookbackHours ?? profileWindow?.lookbackHours,
+      minArticles: options.minArticles ?? profileWindow?.minArticles,
       customPrompts: options.customPrompts,
     });
+
+    this.logger.log(
+      `Starting Brief Generation [${feedProfile}], last ${briefingConfig.lookbackHours}h, min ${briefingConfig.minArticles} articles`,
+    );
 
     const articles = await this.articlesService.getArticlesForBriefing(
       briefingConfig.lookbackHours,

@@ -76,8 +76,4 @@ export const teclasFeedConfig: FeedConfiguration = {
   profile: FeedProfile.TECLAS,
   rssFeeds: teclasRSSFeeds,
   prompts: teclasPrompts,
-  settings: {
-    priority: 2,
-    enabled: true,
-  },
 };

@@ -82,8 +82,4 @@ export const brasilFeedConfig: FeedConfiguration = {
   profile: FeedProfile.BRASIL,
   rssFeeds: brasilRSSFeeds,
   prompts: brasilPrompts,
-  settings: {
-    priority: 3,
-    enabled: true,
-  },
 };
