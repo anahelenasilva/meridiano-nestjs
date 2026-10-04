@@ -2,11 +2,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
 import { Pool } from 'pg';
 import { DatabaseService } from './database.service';
+import { typeParsers } from './type-parsers';
 
 const mockPoolInstance = mock<Pool>();
 
 jest.mock('pg', () => {
   return {
+    ...jest.requireActual<typeof import('pg')>('pg'),
     Pool: jest.fn().mockImplementation(() => mockPoolInstance),
   };
 });
@@ -142,6 +144,12 @@ describe('DatabaseService', () => {
       expect(Pool).toHaveBeenCalledWith(expect.objectContaining({
         connectionString: expect.stringContaining('fake-test-user'),
       }));
+    });
+
+    it('should pass the type parsers to the Pool', async () => {
+      await service.initDb();
+
+      expect(Pool).toHaveBeenCalledWith(expect.objectContaining({ types: typeParsers }));
     });
 
     it('should handle connection errors', async () => {
