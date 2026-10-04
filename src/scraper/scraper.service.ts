@@ -181,7 +181,7 @@ export class ScraperService {
     title: string,
   ): Promise<string | null> {
     const url = entry.podcastTranscripts?.find(
-      (transcript) => transcript.$?.type === 'text/vtt',
+      (transcript) => transcript.$?.type === 'text/vtt' && transcript.$?.url,
     )?.$?.url;
     if (!url) {
       return null;

@@ -186,7 +186,7 @@ describe('ScraperService.scrapeFeedProfile', () => {
   });
 
   function givenEpisodeWithTranscripts(
-    transcripts: { $: { url: string; type: string } }[],
+    transcripts: { $: { url?: string; type: string } }[],
   ) {
     parseURL.mockResolvedValue({
       title: 'And Someday Came',
@@ -249,6 +249,18 @@ describe('ScraperService.scrapeFeedProfile', () => {
       'https://transcripts.example/ep1.vtt',
       expect.anything(),
     );
+  });
+
+  it('skips a VTT entry without a url and fetches the next VTT transcript', async () => {
+    givenSources([rssFeed], []);
+    givenEpisodeWithTranscripts([{ $: { type: 'text/vtt' } }, vttTranscript]);
+    mockedAxios.get.mockResolvedValue({
+      data: 'WEBVTT\n\n00:00:00.280 --> 00:00:04.560\nHello.',
+    });
+
+    await service.scrapeFeedProfile(FeedProfile.TECHNOLOGY);
+
+    expect(ingestedContents()).toEqual(['body\n\nTranscript:\nHello.']);
   });
 
   it.each([
