@@ -1,12 +1,12 @@
 // WebVTT cue text must escape these; direction marks carry nothing readable.
-const CHARACTER_REFERENCES: Record<string, string> = {
-  amp: '&',
-  lt: '<',
-  gt: '>',
-  nbsp: ' ',
-  lrm: '',
-  rlm: '',
-};
+const CHARACTER_REFERENCES = new Map([
+  ['&amp;', '&'],
+  ['&lt;', '<'],
+  ['&gt;', '>'],
+  ['&nbsp;', ' '],
+  ['&lrm;', ''],
+  ['&rlm;', ''],
+]);
 
 /**
  * Flattens a WebVTT transcript into one line of spoken text. Only lines after a
@@ -25,8 +25,8 @@ export function vttToText(vtt: string): string {
     .join(' ')
     .replace(/<[^>]+>/g, '')
     .replace(
-      /&(amp|lt|gt|nbsp|lrm|rlm);/g,
-      (_reference, name: string) => CHARACTER_REFERENCES[name],
+      /&[a-z]+;/g,
+      (reference) => CHARACTER_REFERENCES.get(reference) ?? reference,
     )
     .replace(/\s+/g, ' ')
     .trim();
