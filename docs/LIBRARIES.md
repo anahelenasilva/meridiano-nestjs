@@ -38,7 +38,7 @@ Path mapping is configured in:
 | `@libs/auth` | JWT auth + auth helpers + rate limiting | `AuthModule`, `AuthService`, `JwtAuthGuard`, `CurrentUser` |
 | `@libs/audio` | Audio generation queue orchestration | `AudioModule`, `AudioJobService` |
 | `@libs/database` | Postgres access + TypeORM bootstrapping | `DatabaseModule`, `DatabaseService` |
-| `@libs/email` | Provider-based email sending (Mailgun currently) | `EmailModule.forRoot()`, `EmailService` |
+| `@libs/email` | Email sending through Mailgun | `EmailModule.forRoot()`, `EmailService` |
 | `@libs/queue` | BullMQ queues for article/transcription processing | `QueueModule`, `QueueService` |
 | `@libs/redis` | Shared Redis client lifecycle management | `RedisModule`, `RedisService` |
 | `@libs/s3` | S3 file retrieval/upload/presigned URLs | `S3Module`, `S3Service` |
@@ -238,11 +238,7 @@ Supported configuration paths:
 
 ### Initialization
 
-Always import with `EmailModule.forRoot()` so provider wiring is configured.
-
-Current provider strategy:
-
-- `EMAIL_PROVIDER=mailgun` (default if omitted)
+Import with `EmailModule.forRoot()`. `EmailService` reads its Mailgun settings from the global `ConfigService`.
 
 ### Environment variables (Mailgun)
 
@@ -252,7 +248,7 @@ Current provider strategy:
 
 ### Service contract
 
-`EmailService.sendEmail(options)` forwards to the configured provider and returns `SendEmailResult`.
+`EmailService.sendEmail(options)` sends through Mailgun and rejects with Mailgun's error when the send fails.
 
 ## Usage in AppModule
 

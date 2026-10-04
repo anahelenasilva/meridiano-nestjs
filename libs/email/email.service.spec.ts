@@ -1,56 +1,97 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
-import { EmailProvider } from './interfaces/email-provider.interface';
-import { SendEmailOptions, SendEmailResult } from './interfaces/send-email-options.interface';
-import { EMAIL_PROVIDER_TOKEN, EmailService } from './email.service';
+import Mailgun from 'mailgun.js';
+import { ConfigService } from '../../src/config/config.service';
+import { EmailService } from './email.service';
+import { SendEmailOptions } from './interfaces/send-email-options.interface';
+
+jest.mock('mailgun.js');
 
 describe('EmailService', () => {
-  let service: EmailService;
-  const mockEmailProvider = mock<EmailProvider>();
+  const messagesCreate = jest.fn();
+  const mailgunClient = jest
+    .fn()
+    .mockReturnValue({ messages: { create: messagesCreate } });
+  const configService = mock<ConfigService>();
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        EmailService,
-        {
-          provide: EMAIL_PROVIDER_TOKEN,
-          useValue: mockEmailProvider,
-        },
-      ],
-    }).compile();
+  const options: SendEmailOptions = {
+    from: 'test@example.com',
+    to: ['recipient@example.com'],
+    cc: 'copy@example.com',
+    subject: 'Test Subject',
+    text: 'Test body',
+  };
 
-    service = module.get<EmailService>(EmailService);
+  beforeEach(() => {
+    jest
+      .mocked(Mailgun)
+      .mockImplementation(
+        () => ({ client: mailgunClient }) as unknown as Mailgun,
+      );
+    configService.getMailgunConfig.mockReturnValue({
+      apiKey: 'test-key',
+      domain: 'test-domain.com',
+      url: 'https://api.eu.mailgun.net',
+    });
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  describe('constructor', () => {
+    it('builds the Mailgun client from ConfigService', () => {
+      new EmailService(configService);
+
+      expect(mailgunClient).toHaveBeenCalledWith({
+        username: 'api',
+        key: 'test-key',
+        url: 'https://api.eu.mailgun.net',
+      });
+    });
+
+    it('throws without MAILGUN_API_KEY', () => {
+      configService.getMailgunConfig.mockReturnValue({
+        apiKey: undefined,
+        domain: 'test-domain.com',
+        url: undefined,
+      });
+
+      expect(() => new EmailService(configService)).toThrow(
+        'MAILGUN_API_KEY environment variable is required',
+      );
+    });
+
+    it('throws without MAILGUN_DOMAIN', () => {
+      configService.getMailgunConfig.mockReturnValue({
+        apiKey: 'test-key',
+        domain: undefined,
+        url: undefined,
+      });
+
+      expect(() => new EmailService(configService)).toThrow(
+        'MAILGUN_DOMAIN environment variable is required',
+      );
+    });
   });
 
   describe('sendEmail', () => {
-    it('should delegate to email provider', async () => {
-      const options: SendEmailOptions = {
-        from: 'test@example.com',
-        to: 'recipient@example.com',
-        subject: 'Test Subject',
-        text: 'Test body',
-      };
+    it('sends through Mailgun on the configured domain', async () => {
+      messagesCreate.mockResolvedValueOnce({
+        id: 'test-message-id',
+        status: 200,
+      });
 
-      const expectedResult: SendEmailResult = {
-        success: true,
-        messageId: 'test-message-id',
-      };
+      await new EmailService(configService).sendEmail(options);
 
-      mockEmailProvider.sendEmail.mockResolvedValueOnce(expectedResult);
+      expect(messagesCreate).toHaveBeenCalledWith('test-domain.com', options);
+    });
 
-      const result = await service.sendEmail(options);
+    it('rejects with the Mailgun error', async () => {
+      messagesCreate.mockRejectedValueOnce(new Error('Forbidden'));
 
-      expect(result).toEqual(expectedResult);
-      expect(mockEmailProvider.sendEmail).toHaveBeenCalledWith(options);
-      expect(mockEmailProvider.sendEmail).toHaveBeenCalledTimes(1);
+      await expect(
+        new EmailService(configService).sendEmail(options),
+      ).rejects.toThrow('Forbidden');
     });
   });
 });

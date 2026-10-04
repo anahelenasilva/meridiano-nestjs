@@ -1,42 +1,25 @@
 # Email Module
 
-A generic email service module for NestJS that supports multiple email providers with easy switching via environment variables.
-
-## Features
-
-- **Provider Abstraction**: Easy to swap between email providers
-- **Environment-based Configuration**: Switch providers via `EMAIL_PROVIDER` env var
-- **Type-safe**: Full TypeScript support with interfaces
-- **Extensible**: Easy to add new providers
-
-## Supported Providers
-
-- **Mailgun** (default)
+Sends plain-text email through Mailgun. `EmailService` builds the Mailgun client from `ConfigService.getMailgunConfig()`.
 
 ## Setup
 
-### 1. Install Dependencies
-
-The required dependencies (`mailgun.js` and `form-data`) are already in your `package.json`.
-
-### 2. Environment Variables
+### 1. Environment Variables
 
 Add these to your `.env` file:
 
 ```env
-# Email Provider Selection (defaults to 'mailgun')
-EMAIL_PROVIDER=mailgun
-
-# Mailgun Configuration
 MAILGUN_API_KEY=your-api-key-here
-MAILGUN_DOMAIN=your-domain.com  # Required: Your Mailgun domain
+MAILGUN_DOMAIN=your-domain.com
 # Optional: For EU domains
 # MAILGUN_URL=https://api.eu.mailgun.net
 ```
 
-### 3. Import the Module
+`EmailService` throws at startup if `MAILGUN_API_KEY` or `MAILGUN_DOMAIN` is missing.
 
-In your `app.module.ts` or any feature module:
+### 2. Import the Module
+
+In the feature module that sends email:
 
 ```typescript
 import { Module } from '@nestjs/common';
@@ -48,19 +31,10 @@ import { EmailModule } from '@libs/email';
     // ... other modules
   ],
 })
-export class AppModule {}
+export class MyFeatureModule {}
 ```
 
-**Note:** The email module uses the `forRoot()` pattern to dynamically configure the email provider based on environment variables. Always use `EmailModule.forRoot()` when importing the module - this ensures the correct provider is initialized based on your `EMAIL_PROVIDER` environment variable.
-
-### Why `forRoot()`?
-
-The `forRoot()` static method is used because:
-- **Dynamic Provider Selection**: The email provider is selected at runtime based on the `EMAIL_PROVIDER` environment variable
-- **Dependency Injection**: It uses NestJS dependency injection tokens to abstract the provider implementation
-- **Flexibility**: Makes it easy to switch providers without changing code - just update environment variables
-
-This pattern differs from simpler modules (like `S3Module`) that don't require runtime configuration.
+`EmailModule` gets `ConfigService` from the app's global `ConfigModule`, so it does not import `ConfigModule` itself.
 
 ## Usage
 
@@ -75,21 +49,17 @@ export class MyService {
   constructor(private readonly emailService: EmailService) {}
 
   async sendWelcomeEmail(userEmail: string) {
-    const result = await this.emailService.sendEmail({
+    await this.emailService.sendEmail({
       from: 'noreply@example.com',
       to: userEmail,
       subject: 'Welcome!',
       text: 'Welcome to our platform!',
     });
-
-    if (result.success) {
-      console.log('Email sent successfully:', result.messageId);
-    } else {
-      console.error('Failed to send email:', result.error);
-    }
   }
 }
 ```
+
+`sendEmail` rejects with Mailgun's error when the send fails, so wrap it in `try`/`catch` where a failed email must not fail the caller.
 
 ### Email Options
 
@@ -102,35 +72,6 @@ interface SendEmailOptions {
   cc?: string | string[];         // Optional: CC recipients
 }
 ```
-
-## Adding New Providers
-
-To add a new email provider:
-
-1. Create a new provider class implementing `EmailProvider`:
-
-```typescript
-import { Injectable } from '@nestjs/common';
-import { EmailProvider } from '../interfaces/email-provider.interface';
-import { SendEmailOptions, SendEmailResult } from '../interfaces/send-email-options.interface';
-
-@Injectable()
-export class SendgridProvider implements EmailProvider {
-  async sendEmail(options: SendEmailOptions): Promise<SendEmailResult> {
-    // Implementation here
-  }
-}
-```
-
-2. Update `email.module.ts` to include the new provider:
-
-```typescript
-case 'sendgrid':
-  emailProviderClass = SendgridProvider;
-  break;
-```
-
-3. Set `EMAIL_PROVIDER=sendgrid` in your environment variables.
 
 ## Example: Using in a Script
 
@@ -145,18 +86,12 @@ async function main() {
   const app = await NestFactory.createApplicationContext(AppModule);
   const emailService = app.get(EmailService);
 
-  const result = await emailService.sendEmail({
+  await emailService.sendEmail({
     from: process.env.EMAIL_FROM || 'noreply@yourdomain.com',
     to: process.env.EMAIL_TO || 'recipient@example.com',
     subject: 'Test Email',
     text: 'This is a test email sent via the email service.',
   });
-
-  if (result.success) {
-    console.log('Email sent successfully:', result.messageId);
-  } else {
-    console.error('Failed to send email:', result.error);
-  }
 
   await app.close();
 }
