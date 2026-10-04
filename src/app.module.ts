@@ -6,7 +6,6 @@ import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { AiModule } from './ai/ai.module';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ArticlesModule } from './articles/articles.module';
 import { AudioFilesModule } from './audio-files/audio-files.module';
 import { AuthModule } from './auth/auth.module';
@@ -49,7 +48,6 @@ import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-tr
   ],
   controllers: [AppController],
   providers: [
-    AppService,
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,

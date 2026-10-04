@@ -21,6 +21,11 @@ describe('buildFinalPrompt', () => {
     expect(buildFinalPrompt(base, '   ')).toBe(base);
   });
 
+  it('returns base prompt when custom prompt is tab-only', () => {
+    const base = 'Summarize this article.';
+    expect(buildFinalPrompt(base, '\t')).toBe(base);
+  });
+
   it('appends custom prompt with delimiter when present', () => {
     const base = 'Summarize this article.';
     const custom = 'Focus on technical details.';
