@@ -232,6 +232,10 @@ async function createOpenApiApp(): Promise<INestApplication> {
     '../youtube-transcriptions/commands/dismiss-ingest-job.command.js',
     'DismissIngestJobCommand',
   );
+  const CategoriesService = loadDistExport<Type<unknown>>(
+    '../categories/categories.service.js',
+    'CategoriesService',
+  );
   const AudioFilesService = loadDistExport<Type<unknown>>(
     '../audio-files/audio-files.service.js',
     'AudioFilesService',
@@ -239,22 +243,6 @@ async function createOpenApiApp(): Promise<INestApplication> {
   const ListAudioLibraryQuery = loadDistExport<Type<unknown>>(
     '../audio-files/queries/list-audio-library.query.js',
     'ListAudioLibraryQuery',
-  );
-  const ListCategoriesQuery = loadDistExport<Type<unknown>>(
-    '../categories/queries/list-categories.query.js',
-    'ListCategoriesQuery',
-  );
-  const CreateCategoryCommand = loadDistExport<Type<unknown>>(
-    '../categories/commands/create-category.command.js',
-    'CreateCategoryCommand',
-  );
-  const RenameCategoryCommand = loadDistExport<Type<unknown>>(
-    '../categories/commands/rename-category.command.js',
-    'RenameCategoryCommand',
-  );
-  const DeleteCategoryCommand = loadDistExport<Type<unknown>>(
-    '../categories/commands/delete-category.command.js',
-    'DeleteCategoryCommand',
   );
 
   const QueueService = loadDistExport<Type<unknown>>(
@@ -335,12 +323,9 @@ async function createOpenApiApp(): Promise<INestApplication> {
       { provide: EnqueueYoutubeTranscriptionsCommand, useValue: {} },
       { provide: ListFailedIngestJobsQuery, useValue: {} },
       { provide: DismissIngestJobCommand, useValue: {} },
+      { provide: CategoriesService, useValue: {} },
       { provide: AudioFilesService, useValue: {} },
       { provide: ListAudioLibraryQuery, useValue: {} },
-      { provide: ListCategoriesQuery, useValue: {} },
-      { provide: CreateCategoryCommand, useValue: {} },
-      { provide: RenameCategoryCommand, useValue: {} },
-      { provide: DeleteCategoryCommand, useValue: {} },
       { provide: QueueService, useValue: {} },
       { provide: S3Service, useValue: {} },
       { provide: AudioJobService, useValue: {} },

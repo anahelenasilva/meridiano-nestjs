@@ -18,33 +18,25 @@ import {
   ApiAuthErrorResponse,
   ApiValidationErrorResponse,
 } from '../shared/swagger/api-error-response.decorators';
-import { CreateCategoryCommand } from './commands/create-category.command';
-import { DeleteCategoryCommand } from './commands/delete-category.command';
-import { RenameCategoryCommand } from './commands/rename-category.command';
+import { CategoriesService } from './categories.service';
 import {
   CategoryResponseDto,
   CategoryWithCountResponseDto,
   CreateCategoryDto,
   RenameCategoryDto,
 } from './entities/category.entity';
-import { ListCategoriesQuery } from './queries/list-categories.query';
 
 @Controller('api/youtube/categories')
 @ApiAuthErrorResponse()
 export class CategoriesController {
-  constructor(
-    private readonly listCategoriesQuery: ListCategoriesQuery,
-    private readonly createCategoryCommand: CreateCategoryCommand,
-    private readonly renameCategoryCommand: RenameCategoryCommand,
-    private readonly deleteCategoryCommand: DeleteCategoryCommand,
-  ) {}
+  constructor(private readonly categoriesService: CategoriesService) {}
 
   @Get()
   @ApiKeyAllowed()
   @ApiOperation({ summary: 'List categories with their channel counts' })
   @ApiOkResponse({ type: CategoryWithCountResponseDto, isArray: true })
   async listCategories() {
-    const categories = await this.listCategoriesQuery.execute();
+    const categories = await this.categoriesService.listCategories();
     return categories.map(
       (category) => new CategoryWithCountResponseDto(category),
     );
@@ -55,7 +47,7 @@ export class CategoriesController {
   @ApiCreatedResponse({ type: CategoryResponseDto })
   @ApiValidationErrorResponse()
   async createCategory(@Body() dto: CreateCategoryDto) {
-    const category = await this.createCategoryCommand.execute(dto.name);
+    const category = await this.categoriesService.createCategory(dto.name);
     return new CategoryResponseDto(category);
   }
 
@@ -67,7 +59,7 @@ export class CategoriesController {
     @Param('id') id: string,
     @Body() dto: RenameCategoryDto,
   ) {
-    const category = await this.renameCategoryCommand.execute(id, dto.name);
+    const category = await this.categoriesService.renameCategory(id, dto.name);
     return new CategoryResponseDto(category);
   }
 
@@ -78,6 +70,6 @@ export class CategoriesController {
   })
   @ApiOkResponse({ description: 'Category deleted' })
   async deleteCategory(@Param('id') id: string) {
-    await this.deleteCategoryCommand.execute(id);
+    await this.categoriesService.deleteCategory(id);
   }
 }

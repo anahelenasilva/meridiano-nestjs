@@ -1,14 +1,12 @@
 /**
  * E2E tests for the categories management API (issue #207).
  *
- * These exercise the HTTP boundary with a mocked CategoriesService but the
- * real commands/query, so the auto-color-assignment logic runs for real.
- * Two behaviors are enforced in SQL, not in the command layer, so here they
- * are only asserted as HTTP contract (the service is driven to the failing
- * outcome): case-insensitive name uniqueness (unique index on LOWER(name))
- * and delete-detaches-only (ON DELETE CASCADE on channel_categories). The
- * SQL itself is verified honestly once a test database is available; see the
- * note in the issue's testing decisions.
+ * The controller runs against a mocked CategoriesService, so color picking
+ * is tested in categories.service.spec.ts. SQL enforces two behaviors, so
+ * these tests assert only their HTTP contract by driving the service to fail:
+ * case-insensitive name uniqueness (unique index on LOWER(name)) and
+ * delete-detaches-only (ON DELETE CASCADE on channel_categories). The SQL
+ * itself needs a test database; see the issue's testing decisions.
  */
 import { ConflictException, NotFoundException } from '@nestjs/common';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
@@ -18,15 +16,8 @@ import request from 'supertest';
 import { App } from 'supertest/types';
 import { CategoriesController } from '../src/categories/categories.controller';
 import { CategoriesService } from '../src/categories/categories.service';
-import {
-  CATEGORY_COLORS,
-  CATEGORY_COLOR_PALETTE,
-} from '../src/categories/category-colors';
-import { CreateCategoryCommand } from '../src/categories/commands/create-category.command';
-import { DeleteCategoryCommand } from '../src/categories/commands/delete-category.command';
-import { RenameCategoryCommand } from '../src/categories/commands/rename-category.command';
+import { CATEGORY_COLORS } from '../src/categories/category-colors';
 import { Category } from '../src/categories/domain/category';
-import { ListCategoriesQuery } from '../src/categories/queries/list-categories.query';
 
 describe('Categories (e2e)', () => {
   let app: INestApplication<App>;
@@ -49,13 +40,7 @@ describe('Categories (e2e)', () => {
 
     moduleFixture = await Test.createTestingModule({
       controllers: [CategoriesController],
-      providers: [
-        ListCategoriesQuery,
-        CreateCategoryCommand,
-        RenameCategoryCommand,
-        DeleteCategoryCommand,
-        { provide: CategoriesService, useValue: service },
-      ],
+      providers: [{ provide: CategoriesService, useValue: service }],
     }).compile();
 
     app = moduleFixture.createNestApplication();
@@ -71,7 +56,6 @@ describe('Categories (e2e)', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    service.getUsedColors.mockResolvedValue([]);
   });
 
   afterAll(async () => {
@@ -116,8 +100,10 @@ describe('Categories (e2e)', () => {
 
   describe('POST /api/youtube/categories', () => {
     it('creates a category and returns its assigned color', async () => {
-      service.createCategory.mockImplementation((name, color) =>
-        Promise.resolve(buildCategory({ id: 'new', name, color })),
+      service.createCategory.mockImplementation((name) =>
+        Promise.resolve(
+          buildCategory({ id: 'new', name, color: CATEGORY_COLORS.cyan }),
+        ),
       );
 
       const response = await request(app.getHttpServer())
@@ -128,33 +114,9 @@ describe('Categories (e2e)', () => {
       expect(response.body).toEqual({
         id: 'new',
         name: 'gaming',
-        color: expect.any(String),
+        color: CATEGORY_COLORS.cyan,
       });
-      expect(CATEGORY_COLOR_PALETTE).toContain(response.body.color);
-    });
-
-    it('assigns a not-yet-used palette color', async () => {
-      // Every color but cyan is taken, so cyan must be chosen.
-      service.getUsedColors.mockResolvedValue([
-        CATEGORY_COLORS.pink,
-        CATEGORY_COLORS.blue,
-        CATEGORY_COLORS.emerald,
-        CATEGORY_COLORS.amber,
-        CATEGORY_COLORS.violet,
-      ]);
-      service.createCategory.mockImplementation((name, color) =>
-        Promise.resolve(buildCategory({ name, color })),
-      );
-
-      await request(app.getHttpServer())
-        .post('/api/youtube/categories')
-        .send({ name: 'gaming' })
-        .expect(201);
-
-      expect(service.createCategory).toHaveBeenCalledWith(
-        'gaming',
-        CATEGORY_COLORS.cyan,
-      );
+      expect(service.createCategory).toHaveBeenCalledWith('gaming');
     });
 
     it('rejects a case-insensitively duplicate name with 409', async () => {

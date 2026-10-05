@@ -13,12 +13,8 @@ import { App } from 'supertest/types';
 import { CategoriesController } from '../src/categories/categories.controller';
 import { CategoriesService } from '../src/categories/categories.service';
 import { CATEGORY_COLORS } from '../src/categories/category-colors';
-import { CreateCategoryCommand } from '../src/categories/commands/create-category.command';
-import { DeleteCategoryCommand } from '../src/categories/commands/delete-category.command';
 import { FindOrCreateCategoriesCommand } from '../src/categories/commands/find-or-create-categories.command';
-import { RenameCategoryCommand } from '../src/categories/commands/rename-category.command';
 import { Category } from '../src/categories/domain/category';
-import { ListCategoriesQuery } from '../src/categories/queries/list-categories.query';
 import { ChannelCategoriesService } from '../src/youtube-channels/channel-categories.service';
 import { AssignChannelCategoriesCommand } from '../src/youtube-channels/commands/assign-channel-categories.command';
 import { CreateYoutubeChannelCommand } from '../src/youtube-channels/commands/create-youtube-channel.command';
@@ -74,10 +70,6 @@ describe('Youtube Channels categories (e2e)', () => {
         CreateYoutubeChannelCommand,
         AssignChannelCategoriesCommand,
         FindOrCreateCategoriesCommand,
-        CreateCategoryCommand,
-        RenameCategoryCommand,
-        DeleteCategoryCommand,
-        ListCategoriesQuery,
         { provide: YoutubeChannelsService, useValue: youtubeChannelsService },
         { provide: CategoriesService, useValue: categoriesService },
         {
@@ -100,7 +92,6 @@ describe('Youtube Channels categories (e2e)', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    categoriesService.getUsedColors.mockResolvedValue([]);
   });
 
   afterAll(async () => {
@@ -152,8 +143,8 @@ describe('Youtube Channels categories (e2e)', () => {
     it('creates a category inline when its name does not already exist', async () => {
       youtubeChannelsService.getChannelById.mockResolvedValue(buildChannel());
       categoriesService.getCategoryByName.mockResolvedValue(null);
-      categoriesService.createCategory.mockImplementation((name, color) =>
-        Promise.resolve(buildCategory({ id: 'new-category', name, color })),
+      categoriesService.createCategory.mockImplementation((name) =>
+        Promise.resolve(buildCategory({ id: 'new-category', name })),
       );
       channelCategoriesService.replaceChannelCategories.mockResolvedValue(
         undefined,
@@ -167,10 +158,7 @@ describe('Youtube Channels categories (e2e)', () => {
         .send({ categoryNames: ['gaming'] })
         .expect(200);
 
-      expect(categoriesService.createCategory).toHaveBeenCalledWith(
-        'gaming',
-        expect.any(String),
-      );
+      expect(categoriesService.createCategory).toHaveBeenCalledWith('gaming');
       expect(
         channelCategoriesService.replaceChannelCategories,
       ).toHaveBeenCalledWith('channel-1', ['new-category']);
@@ -253,8 +241,8 @@ describe('Youtube Channels categories (e2e)', () => {
       categoriesService.getCategoryByName.mockImplementation((name) =>
         Promise.resolve(name.toLowerCase() === 'travel' ? travel : null),
       );
-      categoriesService.createCategory.mockImplementation((name, color) =>
-        Promise.resolve(buildCategory({ id: 'category-new', name, color })),
+      categoriesService.createCategory.mockImplementation((name) =>
+        Promise.resolve(buildCategory({ id: 'category-new', name })),
       );
       channelCategoriesService.replaceChannelCategories.mockResolvedValue(
         undefined,
@@ -273,10 +261,7 @@ describe('Youtube Channels categories (e2e)', () => {
         { id: 'category-travel', name: 'travel', color: CATEGORY_COLORS.emerald },
         { id: 'category-new', name: 'vlog', color: CATEGORY_COLORS.blue },
       ]);
-      expect(categoriesService.createCategory).toHaveBeenCalledWith(
-        'vlog',
-        expect.any(String),
-      );
+      expect(categoriesService.createCategory).toHaveBeenCalledWith('vlog');
     });
 
     it('creates a channel with no categories when none are given', async () => {

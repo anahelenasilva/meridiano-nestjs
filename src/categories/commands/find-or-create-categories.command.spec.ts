@@ -2,22 +2,17 @@ import { mock } from 'jest-mock-extended';
 import { CategoriesService } from '../categories.service';
 import { CATEGORY_COLORS } from '../category-colors';
 import { Category } from '../domain/category';
-import { CreateCategoryCommand } from './create-category.command';
 import { FindOrCreateCategoriesCommand } from './find-or-create-categories.command';
 
 describe('FindOrCreateCategoriesCommand', () => {
   const categoriesService = mock<CategoriesService>();
-  const createCategoryCommand = mock<CreateCategoryCommand>();
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   function buildCommand() {
-    return new FindOrCreateCategoriesCommand(
-      categoriesService,
-      createCategoryCommand,
-    );
+    return new FindOrCreateCategoriesCommand(categoriesService);
   }
 
   function buildCategory(overrides: Partial<Category> = {}): Category {
@@ -39,18 +34,18 @@ describe('FindOrCreateCategoriesCommand', () => {
     const result = await command.execute(['tech']);
 
     expect(result).toEqual([tech]);
-    expect(createCategoryCommand.execute).not.toHaveBeenCalled();
+    expect(categoriesService.createCategory).not.toHaveBeenCalled();
   });
 
   it('creates a category when its name does not already exist', async () => {
     const gaming = buildCategory({ id: 'category-2', name: 'gaming' });
     categoriesService.getCategoryByName.mockResolvedValue(null);
-    createCategoryCommand.execute.mockResolvedValue(gaming);
+    categoriesService.createCategory.mockResolvedValue(gaming);
 
     const command = buildCommand();
     const result = await command.execute(['gaming']);
 
-    expect(createCategoryCommand.execute).toHaveBeenCalledWith('gaming');
+    expect(categoriesService.createCategory).toHaveBeenCalledWith('gaming');
     expect(result).toEqual([gaming]);
   });
 
@@ -86,7 +81,7 @@ describe('FindOrCreateCategoriesCommand', () => {
     categoriesService.getCategoryByName.mockImplementation((name) =>
       Promise.resolve(name.toLowerCase() === 'tech' ? tech : null),
     );
-    createCategoryCommand.execute.mockResolvedValue(ai);
+    categoriesService.createCategory.mockResolvedValue(ai);
 
     const command = buildCommand();
     const result = await command.execute(['tech', 'AI']);
