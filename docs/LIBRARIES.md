@@ -10,6 +10,7 @@ Current libraries:
 
 - `auth`
 - `audio`
+- `baml`
 - `database`
 - `email`
 - `queue`
@@ -37,6 +38,7 @@ Path mapping is configured in:
 | --- | --- | --- |
 | `@libs/auth` | JWT auth + auth helpers + rate limiting | `AuthModule`, `AuthService`, `JwtAuthGuard`, `CurrentUser` |
 | `@libs/audio` | Audio generation queue orchestration | `AudioModule`, `AudioJobService` |
+| `@libs/baml` | Typed LLM functions generated from `baml_src/` | the generated function for each `.baml` definition |
 | `@libs/database` | Postgres access + TypeORM bootstrapping | `DatabaseModule`, `DatabaseService` |
 | `@libs/email` | Email sending through Mailgun | `EmailModule.forRoot()`, `EmailService` |
 | `@libs/queue` | BullMQ queues for article/transcription processing | `QueueModule`, `QueueService` |
@@ -87,6 +89,18 @@ The auth lib expects a provider implementing `UserLookupProvider`:
 
 - `JWT_SECRET`
 - `MERIDIANO_API_KEY` — optional scoped static key. When set, `JwtAuthGuard` accepts it via the `x-api-key` header on routes marked `@ApiKeyAllowed()`; unset/empty makes the key path inert (JWT-only).
+
+## BAML Library
+
+**Location:** `libs/baml/`
+
+`index.ts` re-exports the SDK that `baml generate` writes to `libs/baml/baml_sdk/`. The SDK is gitignored, so a fresh checkout has nothing to import until `baml generate` runs. The `build`, `typecheck`, `start*` and `check:boot` scripts run it first. Run it yourself before `pnpm test` or `pnpm lint`.
+
+### Behavior
+
+- Each function in `baml_src/` becomes a typed export of `@libs/baml`.
+- `baml.toml` pins the toolchain version. The `@boundaryml/baml-bridge` version in `package.json` must match it.
+- Jest cannot load the bridge, so unit tests mock `@libs/baml` (see [TESTING_STANDARDS](./TESTING_STANDARDS.md)).
 
 ## Database Library
 

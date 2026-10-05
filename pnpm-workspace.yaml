@@ -5,6 +5,9 @@ allowBuilds:
   bcrypt: true
   esbuild: true
   msgpackr-extract: true
+  protobufjs: false
   unrs-resolver: true
 overrides:
   meridiano-cli: link:../meridiano-cli
+patchedDependencies:
+  '@boundaryml/baml-bridge': patches/@boundaryml__baml-bridge.patch
