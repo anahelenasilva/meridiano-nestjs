@@ -27,3 +27,4 @@
 - **Queries**: Read operations that retrieve data (`queries/*.query.ts`)
 - **Usecases**: Complex business logic orchestration (`src/<domain>/usecases/`)
 - All should be `@Injectable()` classes with an `execute()` method
+- Add a command or query only when it owns logic (dedupe, sequencing, orchestration across services). If it would forward one call to a service unchanged, the controller calls the service directly
