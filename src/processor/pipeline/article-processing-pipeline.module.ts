@@ -5,6 +5,7 @@ import { AiModule } from '../../ai/ai.module';
 import { AiService } from '../../ai/ai.service';
 import { ArticlesModule } from '../../articles/articles.module';
 import { ConfigModule } from '../../config/config.module';
+import { ConfigService } from '../../config/config.service';
 import { ProfilesModule } from '../../profiles/profiles.module';
 import { AI_ADAPTER } from './ai-adapter.token';
 import { ArticleProcessingPipelineService } from './article-processing-pipeline.service';
@@ -27,7 +28,10 @@ import { RealSleeper, SLEEPER } from './sleeper';
     ArticlesModule,
     ConfigModule,
     ProfilesModule,
-    EmailModule.forRoot(),
+    EmailModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config) => config.getMailgunConfig(),
+    }),
   ],
   providers: [
     ArticleProcessingPipelineService,

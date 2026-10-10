@@ -6,6 +6,7 @@ import { S3Module } from '@libs/s3';
 import { Module } from '@nestjs/common';
 import { AiModule } from '../ai/ai.module';
 import { ConfigModule } from '../config/config.module';
+import { ConfigService } from '../config/config.service';
 import { AudioFilesCleanupService } from './audio-files-cleanup.service';
 import { AudioController } from './audio-files.controller';
 import { AudioFilesService } from './audio-files.service';
@@ -25,7 +26,10 @@ import { GenerateAudioUseCase } from './usecases/generate-audio.usecase';
     ConfigModule,
     QueueModule,
     AudioModule,
-    EmailModule.forRoot(),
+    EmailModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config) => config.getMailgunConfig(),
+    }),
   ],
   controllers: [AudioController],
   providers: [

@@ -1,17 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import FormData from 'form-data';
 import Mailgun, { Interfaces } from 'mailgun.js';
-import { ConfigService } from '../../src/config/config.service';
+import type { MailgunConfig } from './interfaces/mailgun-config.interface';
 import { SendEmailOptions } from './interfaces/send-email-options.interface';
+
+export const MAILGUN_CONFIG = Symbol('MAILGUN_CONFIG');
 
 @Injectable()
 export class EmailService {
   private readonly client: Interfaces.IMailgunClient;
   private readonly domain: string;
 
-  constructor(configService: ConfigService) {
-    const { apiKey, domain, url } = configService.getMailgunConfig();
-
+  constructor(@Inject(MAILGUN_CONFIG) { apiKey, domain, url }: MailgunConfig) {
     if (!apiKey) {
       throw new Error('MAILGUN_API_KEY environment variable is required');
     }
