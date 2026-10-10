@@ -319,9 +319,10 @@ describe('YoutubeTranscriptionsService', () => {
       mockStorageService.saveTranscript.mockResolvedValue(undefined);
 
       // Act
-      await service.extractAll(mockChannels);
+      const result = await service.extractAll(mockChannels);
 
       // Assert
+      expect(result).toEqual({ succeeded: 2, failed: 0 });
       expect(mockYouTubeService.getChannelVideos).toHaveBeenCalledTimes(2);
     });
 
@@ -369,9 +370,10 @@ describe('YoutubeTranscriptionsService', () => {
       mockStorageService.saveTranscript.mockResolvedValue(undefined);
 
       // Act
-      await service.extractAll(mockChannels);
+      const result = await service.extractAll(mockChannels);
 
       // Assert
+      expect(result).toEqual({ succeeded: 1, failed: 1 });
       expect(mockYouTubeService.getChannelVideos).toHaveBeenCalledTimes(2);
       expect(mockStorageService.saveTranscript).toHaveBeenCalledTimes(1);
     });

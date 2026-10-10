@@ -56,9 +56,15 @@ async function main() {
 
     console.log();
 
-    await services.youtubeTranscriptionsService.extractAll(channels);
+    const { succeeded, failed } =
+      await services.youtubeTranscriptionsService.extractAll(channels);
 
-    console.log(`\n✓ Successfully processed ${channels.length} channel(s)`);
+    console.log(`\nProcessed ${succeeded}/${channels.length} channel(s)`);
+
+    if (failed > 0) {
+      console.error(`❌ ${failed} channel(s) failed, see the logs above`);
+      process.exitCode = 1;
+    }
 
     console.log(`\n✓ Script finished - ${new Date().toISOString()}\n`);
 

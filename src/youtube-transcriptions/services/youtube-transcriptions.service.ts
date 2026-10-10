@@ -218,7 +218,8 @@ export class YoutubeTranscriptionsService {
   }
 
   /**
-   * Extract transcripts from all configured channels
+   * Extract transcripts from all configured channels. A failing channel does
+   * not stop the remaining ones.
    * @param channels - Array of channel configurations
    */
   async extractAll(channels: ChannelConfig[]) {
@@ -227,19 +228,19 @@ export class YoutubeTranscriptionsService {
     );
 
     const startTime = Date.now();
-    let totalSuccess = 0;
-    let totalFailure = 0;
+    let succeeded = 0;
+    let failed = 0;
 
     for (const channel of channels) {
       try {
         await this.extractChannelTranscripts(channel);
-        totalSuccess++;
+        succeeded++;
       } catch (error) {
-        totalFailure++;
+        failed++;
         const errorMessage =
           error instanceof Error ? error.message : String(error);
         this.logger.error(
-          `Total failed: ${totalFailure} to process channel: ${channel.channelName} [channelId=${channel.channelId}]: ${errorMessage}`,
+          `Total failed: ${failed} to process channel: ${channel.channelName} [channelId=${channel.channelId}]: ${errorMessage}`,
           error instanceof Error ? error.stack : undefined,
         );
       }
@@ -249,8 +250,10 @@ export class YoutubeTranscriptionsService {
     const duration = ((endTime - startTime) / 1000).toFixed(2);
 
     this.logger.log(
-      `🎉 Extraction complete! Total channels processed: ${totalSuccess}/${channels.length}, total time: ${duration}s`,
+      `🎉 Extraction complete! Total channels processed: ${succeeded}/${channels.length}, total time: ${duration}s`,
     );
+
+    return { succeeded, failed };
   }
 
   /**
