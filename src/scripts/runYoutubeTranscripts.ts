@@ -32,7 +32,7 @@ async function main() {
       channelId: channel.channelId,
       channelName: channel.name,
       channelDescription: channel.description || '',
-      maxVideos: channel.maxVideos || 1, // Default to 1 if not specified
+      maxVideos: channel.maxVideos || 1,
     }));
 
     if (channels.length === 0) {

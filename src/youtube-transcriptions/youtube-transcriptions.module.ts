@@ -30,8 +30,6 @@ import { YoutubeTranscriptionsInnertubeService } from './services/youtube-transc
 import { YoutubeTranscriptionsService } from './services/youtube-transcriptions.service';
 import { YouTubeService } from './services/youtube.service';
 import { YoutubeTranscriptionsController } from './youtube-transcriptions.controller';
-
-// Usecases
 import { ListTranscriptionsUseCase } from './usecases/list-transcriptions.usecase';
 import { ProcessTranscriptionFilesUseCase } from './usecases/process-transcription-files.usecase';
 
@@ -82,13 +80,11 @@ import { ProcessTranscriptionFilesUseCase } from './usecases/process-transcripti
     YoutubeTranscriptionProcessor,
     YoutubeTranscriptIngestProcessor,
     TranscriptBackupProcessor,
-    // YouTube transcription usecases
     ListTranscriptionsUseCase,
     ProcessTranscriptionFilesUseCase,
   ],
   exports: [
     YoutubeTranscriptionsService,
-    // Export usecases for external use
     ListTranscriptionsUseCase,
     ProcessTranscriptionFilesUseCase,
   ],
