@@ -2,6 +2,7 @@ import { DatabaseService, RunCallback } from '@libs/database';
 import {
   ConflictException,
   InternalServerErrorException,
+  NotFoundException,
 } from '@nestjs/common';
 import { mock } from 'jest-mock-extended';
 import { YoutubeChannelsService } from './youtube-channels.service';
@@ -97,7 +98,9 @@ describe('YoutubeChannelsService', () => {
 
       await expect(
         service.updateChannelEnabled('missing', false),
-      ).rejects.toThrow('Channel with ID missing not found');
+      ).rejects.toThrow(
+        new NotFoundException('Channel with ID missing not found'),
+      );
     });
   });
 

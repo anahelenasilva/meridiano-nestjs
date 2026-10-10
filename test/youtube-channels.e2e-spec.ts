@@ -5,7 +5,11 @@
  * classes (YoutubeChannelsService, CategoriesService, ChannelCategoriesService)
  * and exercise the real controllers/commands/queries on top of them.
  */
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import {
+  INestApplication,
+  NotFoundException,
+  ValidationPipe,
+} from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock, MockProxy } from 'jest-mock-extended';
 import request from 'supertest';
@@ -18,7 +22,6 @@ import { Category } from '../src/categories/domain/category';
 import { ChannelCategoriesService } from '../src/youtube-channels/channel-categories.service';
 import { AssignChannelCategoriesCommand } from '../src/youtube-channels/commands/assign-channel-categories.command';
 import { CreateYoutubeChannelCommand } from '../src/youtube-channels/commands/create-youtube-channel.command';
-import { UpdateChannelEnabledCommand } from '../src/youtube-channels/commands/update-channel-enabled.command';
 import { YoutubeChannel } from '../src/youtube-channels/domain/youtube-channel';
 import { GetYoutubeChannelsQuery } from '../src/youtube-channels/queries/get-youtube-channels.query';
 import { YoutubeChannelsController } from '../src/youtube-channels/youtube-channels.controller';
@@ -31,7 +34,9 @@ describe('Youtube Channels categories (e2e)', () => {
   let categoriesService: MockProxy<CategoriesService>;
   let channelCategoriesService: MockProxy<ChannelCategoriesService>;
 
-  function buildChannel(overrides: Partial<YoutubeChannel> = {}): YoutubeChannel {
+  function buildChannel(
+    overrides: Partial<YoutubeChannel> = {},
+  ): YoutubeChannel {
     return {
       id: 'channel-1',
       channelId: 'UC-external-1',
@@ -66,7 +71,6 @@ describe('Youtube Channels categories (e2e)', () => {
       controllers: [YoutubeChannelsController, CategoriesController],
       providers: [
         GetYoutubeChannelsQuery,
-        UpdateChannelEnabledCommand,
         CreateYoutubeChannelCommand,
         AssignChannelCategoriesCommand,
         FindOrCreateCategoriesCommand,
@@ -209,6 +213,37 @@ describe('Youtube Channels categories (e2e)', () => {
     });
   });
 
+  describe('PATCH /api/youtube/channels/:channelId', () => {
+    it.each([
+      [true, 'Channel enabled successfully'],
+      [false, 'Channel disabled successfully'],
+    ])('sets enabled to %s', async (enabled, message) => {
+      youtubeChannelsService.updateChannelEnabled.mockResolvedValue(undefined);
+
+      const response = await request(app.getHttpServer())
+        .patch('/api/youtube/channels/channel-1')
+        .send({ enabled })
+        .expect(200);
+
+      expect(response.body).toEqual({ success: true, message });
+      expect(youtubeChannelsService.updateChannelEnabled).toHaveBeenCalledWith(
+        'channel-1',
+        enabled,
+      );
+    });
+
+    it('returns 404 when the channel does not exist', async () => {
+      youtubeChannelsService.updateChannelEnabled.mockRejectedValue(
+        new NotFoundException('Channel with ID missing not found'),
+      );
+
+      await request(app.getHttpServer())
+        .patch('/api/youtube/channels/missing')
+        .send({ enabled: false })
+        .expect(404);
+    });
+  });
+
   describe('POST /api/youtube/channels', () => {
     function validCreatePayload(overrides: Record<string, unknown> = {}) {
       return {
@@ -228,16 +263,20 @@ describe('Youtube Channels categories (e2e)', () => {
         color: CATEGORY_COLORS.emerald,
       });
 
-      youtubeChannelsService.createChannel.mockResolvedValue(buildChannel({
-        id: 'channel-2',
-        channelId: 'UC-external-2',
-        name: 'Away Together',
-      }));
-      youtubeChannelsService.getChannelById.mockResolvedValue(buildChannel({
-        id: 'channel-2',
-        channelId: 'UC-external-2',
-        name: 'Away Together',
-      }));
+      youtubeChannelsService.createChannel.mockResolvedValue(
+        buildChannel({
+          id: 'channel-2',
+          channelId: 'UC-external-2',
+          name: 'Away Together',
+        }),
+      );
+      youtubeChannelsService.getChannelById.mockResolvedValue(
+        buildChannel({
+          id: 'channel-2',
+          channelId: 'UC-external-2',
+          name: 'Away Together',
+        }),
+      );
       categoriesService.getCategoryByName.mockImplementation((name) =>
         Promise.resolve(name.toLowerCase() === 'travel' ? travel : null),
       );
@@ -258,17 +297,23 @@ describe('Youtube Channels categories (e2e)', () => {
         .expect(201);
 
       expect(response.body.categories).toEqual([
-        { id: 'category-travel', name: 'travel', color: CATEGORY_COLORS.emerald },
+        {
+          id: 'category-travel',
+          name: 'travel',
+          color: CATEGORY_COLORS.emerald,
+        },
         { id: 'category-new', name: 'vlog', color: CATEGORY_COLORS.blue },
       ]);
       expect(categoriesService.createCategory).toHaveBeenCalledWith('vlog');
     });
 
     it('creates a channel with no categories when none are given', async () => {
-      youtubeChannelsService.createChannel.mockResolvedValue(buildChannel({
-        id: 'channel-3',
-        channelId: 'UC-external-3',
-      }));
+      youtubeChannelsService.createChannel.mockResolvedValue(
+        buildChannel({
+          id: 'channel-3',
+          channelId: 'UC-external-3',
+        }),
+      );
 
       const response = await request(app.getHttpServer())
         .post('/api/youtube/channels')
@@ -276,7 +321,9 @@ describe('Youtube Channels categories (e2e)', () => {
         .expect(201);
 
       expect(response.body.categories).toEqual([]);
-      expect(channelCategoriesService.replaceChannelCategories).not.toHaveBeenCalled();
+      expect(
+        channelCategoriesService.replaceChannelCategories,
+      ).not.toHaveBeenCalled();
     });
   });
 
