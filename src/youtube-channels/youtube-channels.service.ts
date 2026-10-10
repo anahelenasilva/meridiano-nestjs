@@ -3,6 +3,7 @@ import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
+  NotFoundException,
 } from '@nestjs/common';
 import { YoutubeChannel } from './domain/youtube-channel';
 
@@ -81,7 +82,7 @@ export class YoutubeChannelsService {
     );
 
     if (changes === 0) {
-      throw new Error(`Channel with ID ${channelId} not found`);
+      throw new NotFoundException(`Channel with ID ${channelId} not found`);
     }
   }
 

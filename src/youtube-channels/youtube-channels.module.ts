@@ -4,7 +4,6 @@ import { CategoriesModule } from '../categories/categories.module';
 import { ChannelCategoriesService } from './channel-categories.service';
 import { AssignChannelCategoriesCommand } from './commands/assign-channel-categories.command';
 import { CreateYoutubeChannelCommand } from './commands/create-youtube-channel.command';
-import { UpdateChannelEnabledCommand } from './commands/update-channel-enabled.command';
 import { GetYoutubeChannelsQuery } from './queries/get-youtube-channels.query';
 import { YoutubeChannelsController } from './youtube-channels.controller';
 import { YoutubeChannelsService } from './youtube-channels.service';
@@ -15,7 +14,6 @@ import { YoutubeChannelsService } from './youtube-channels.service';
     YoutubeChannelsService,
     ChannelCategoriesService,
     GetYoutubeChannelsQuery,
-    UpdateChannelEnabledCommand,
     CreateYoutubeChannelCommand,
     AssignChannelCategoriesCommand,
   ],
@@ -24,7 +22,6 @@ import { YoutubeChannelsService } from './youtube-channels.service';
     YoutubeChannelsService,
     ChannelCategoriesService,
     GetYoutubeChannelsQuery,
-    UpdateChannelEnabledCommand,
     CreateYoutubeChannelCommand,
     AssignChannelCategoriesCommand,
   ],

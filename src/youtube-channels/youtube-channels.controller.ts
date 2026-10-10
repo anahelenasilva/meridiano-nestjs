@@ -8,7 +8,6 @@ import {
 } from '../shared/swagger/api-error-response.decorators';
 import { AssignChannelCategoriesCommand } from './commands/assign-channel-categories.command';
 import { CreateYoutubeChannelCommand } from './commands/create-youtube-channel.command';
-import { UpdateChannelEnabledCommand } from './commands/update-channel-enabled.command';
 import { SetChannelCategoriesDto } from './dto/set-channel-categories.dto';
 import { UpdateChannelEnabledDto } from './dto/update-channel-enabled.dto';
 import {
@@ -16,13 +15,14 @@ import {
   YoutubeChannelResponseDto,
 } from './entities/youtube-channel.entity';
 import { GetYoutubeChannelsQuery } from './queries/get-youtube-channels.query';
+import { YoutubeChannelsService } from './youtube-channels.service';
 
 @Controller('api/youtube/channels')
 @ApiAuthErrorResponse()
 export class YoutubeChannelsController {
   constructor(
     private readonly getYoutubeChannelsQuery: GetYoutubeChannelsQuery,
-    private readonly updateChannelEnabledCommand: UpdateChannelEnabledCommand,
+    private readonly youtubeChannelsService: YoutubeChannelsService,
     private readonly createYoutubeChannelCommand: CreateYoutubeChannelCommand,
     private readonly assignChannelCategoriesCommand: AssignChannelCategoriesCommand,
   ) {}
@@ -61,10 +61,15 @@ export class YoutubeChannelsController {
     @Param('channelId') channelId: string,
     @Body() dto: UpdateChannelEnabledDto,
   ) {
-    return await this.updateChannelEnabledCommand.execute({
+    await this.youtubeChannelsService.updateChannelEnabled(
       channelId,
-      enabled: dto.enabled,
-    });
+      dto.enabled,
+    );
+
+    return {
+      success: true,
+      message: `Channel ${dto.enabled ? 'enabled' : 'disabled'} successfully`,
+    };
   }
 
   @Put(':channelId/categories')
