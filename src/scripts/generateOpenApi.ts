@@ -192,9 +192,9 @@ async function createOpenApiApp(): Promise<INestApplication> {
     '../youtube-channels/queries/get-youtube-channels.query.js',
     'GetYoutubeChannelsQuery',
   );
-  const UpdateChannelEnabledCommand = loadDistExport<Type<unknown>>(
-    '../youtube-channels/commands/update-channel-enabled.command.js',
-    'UpdateChannelEnabledCommand',
+  const YoutubeChannelsService = loadDistExport<Type<unknown>>(
+    '../youtube-channels/youtube-channels.service.js',
+    'YoutubeChannelsService',
   );
   const CreateYoutubeChannelCommand = loadDistExport<Type<unknown>>(
     '../youtube-channels/commands/create-youtube-channel.command.js',
@@ -313,7 +313,7 @@ async function createOpenApiApp(): Promise<INestApplication> {
       { provide: ProfilesService, useValue: {} },
       { provide: UsersService, useValue: {} },
       { provide: GetYoutubeChannelsQuery, useValue: {} },
-      { provide: UpdateChannelEnabledCommand, useValue: {} },
+      { provide: YoutubeChannelsService, useValue: {} },
       { provide: CreateYoutubeChannelCommand, useValue: {} },
       { provide: AssignChannelCategoriesCommand, useValue: {} },
       { provide: ListAllYoutubeTranscriptionsQuery, useValue: {} },

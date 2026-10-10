@@ -33,7 +33,6 @@ import { NotesReadService } from '../src/notes/notes-read.service';
 import { ChannelCategoriesService } from '../src/youtube-channels/channel-categories.service';
 import { AssignChannelCategoriesCommand } from '../src/youtube-channels/commands/assign-channel-categories.command';
 import { CreateYoutubeChannelCommand } from '../src/youtube-channels/commands/create-youtube-channel.command';
-import { UpdateChannelEnabledCommand } from '../src/youtube-channels/commands/update-channel-enabled.command';
 import { YoutubeChannel } from '../src/youtube-channels/domain/youtube-channel';
 import { GetYoutubeChannelsQuery } from '../src/youtube-channels/queries/get-youtube-channels.query';
 import { YoutubeChannelsController } from '../src/youtube-channels/youtube-channels.controller';
@@ -124,7 +123,6 @@ describe('YouTube Transcriptions list (e2e)', () => {
         ListTranscriptionsLeanQuery,
         AssignChannelCategoriesCommand,
         { provide: GetYoutubeChannelsQuery, useValue: mock() },
-        { provide: UpdateChannelEnabledCommand, useValue: mock() },
         { provide: CreateYoutubeChannelCommand, useValue: mock() },
         { provide: YoutubeTranscriptionsService, useValue: mockService },
         { provide: NotesReadService, useValue: mockNotesReadService },
