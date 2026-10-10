@@ -4,7 +4,7 @@ import * as dotenv from 'dotenv';
 import { AppModule } from '../app.module';
 import { ChannelConfig } from '../shared/types/channel';
 import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
-import { ExtractYoutubeTranscriptsUseCase } from '../youtube-transcriptions/usecases/extract-youtube-transcripts.usecase';
+import { YoutubeTranscriptionsService } from '../youtube-transcriptions/services/youtube-transcriptions.service';
 
 dotenv.config();
 
@@ -12,8 +12,8 @@ async function initialize() {
   const app = await NestFactory.createApplicationContext(AppModule);
   return {
     app,
-    extractYoutubeTranscriptsUseCase: app.get(ExtractYoutubeTranscriptsUseCase),
     youtubeChannelsService: app.get(YoutubeChannelsService),
+    youtubeTranscriptionsService: app.get(YoutubeTranscriptionsService),
   };
 }
 
@@ -56,17 +56,9 @@ async function main() {
 
     console.log();
 
-    const result = await services.extractYoutubeTranscriptsUseCase.execute({
-      channels,
-    });
+    await services.youtubeTranscriptionsService.extractAll(channels);
 
-    if (result.success) {
-      console.log(
-        `\n✓ Successfully processed ${result.channelsProcessed} channel(s)`,
-      );
-    } else {
-      console.error(`\n❌ Error: ${result.message}`);
-    }
+    console.log(`\n✓ Successfully processed ${channels.length} channel(s)`);
 
     console.log(`\n✓ Script finished - ${new Date().toISOString()}\n`);
 
