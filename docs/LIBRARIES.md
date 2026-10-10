@@ -269,4 +269,4 @@ EmailModule.forRootAsync({
 - `S3Module`
 - `JwtAuthGuard` (as global `APP_GUARD`, provided through auth setup)
 
-Other libs are imported through feature modules as needed. For example, `AudioFilesModule`, `ProcessorModule` and `ArticleProcessingPipelineModule` each import `EmailModule.forRootAsync()`.
+Other libs are imported through feature modules as needed. Each feature module that sends email imports `EmailModule.forRootAsync()` itself.
