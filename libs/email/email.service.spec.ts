@@ -1,7 +1,6 @@
-import { mock } from 'jest-mock-extended';
 import Mailgun from 'mailgun.js';
-import { ConfigService } from '../../src/config/config.service';
 import { EmailService } from './email.service';
+import { MailgunConfig } from './interfaces/mailgun-config.interface';
 import { SendEmailOptions } from './interfaces/send-email-options.interface';
 
 jest.mock('mailgun.js');
@@ -11,7 +10,12 @@ describe('EmailService', () => {
   const mailgunClient = jest
     .fn()
     .mockReturnValue({ messages: { create: messagesCreate } });
-  const configService = mock<ConfigService>();
+
+  const config: MailgunConfig = {
+    apiKey: 'test-key',
+    domain: 'test-domain.com',
+    url: 'https://api.eu.mailgun.net',
+  };
 
   const options: SendEmailOptions = {
     from: 'test@example.com',
@@ -27,11 +31,6 @@ describe('EmailService', () => {
       .mockImplementation(
         () => ({ client: mailgunClient }) as unknown as Mailgun,
       );
-    configService.getMailgunConfig.mockReturnValue({
-      apiKey: 'test-key',
-      domain: 'test-domain.com',
-      url: 'https://api.eu.mailgun.net',
-    });
   });
 
   afterEach(() => {
@@ -39,8 +38,8 @@ describe('EmailService', () => {
   });
 
   describe('constructor', () => {
-    it('builds the Mailgun client from ConfigService', () => {
-      new EmailService(configService);
+    it('builds the Mailgun client from its config', () => {
+      new EmailService(config);
 
       expect(mailgunClient).toHaveBeenCalledWith({
         username: 'api',
@@ -49,26 +48,24 @@ describe('EmailService', () => {
       });
     });
 
-    it('throws without MAILGUN_API_KEY', () => {
-      configService.getMailgunConfig.mockReturnValue({
-        apiKey: undefined,
-        domain: 'test-domain.com',
+    it('passes no url when the config has none', () => {
+      new EmailService({ apiKey: 'test-key', domain: 'test-domain.com' });
+
+      expect(mailgunClient).toHaveBeenCalledWith({
+        username: 'api',
+        key: 'test-key',
         url: undefined,
       });
+    });
 
-      expect(() => new EmailService(configService)).toThrow(
+    it.each(['', undefined])('throws when the API key is %p', (apiKey) => {
+      expect(() => new EmailService({ ...config, apiKey })).toThrow(
         'MAILGUN_API_KEY environment variable is required',
       );
     });
 
-    it('throws without MAILGUN_DOMAIN', () => {
-      configService.getMailgunConfig.mockReturnValue({
-        apiKey: 'test-key',
-        domain: undefined,
-        url: undefined,
-      });
-
-      expect(() => new EmailService(configService)).toThrow(
+    it.each(['', undefined])('throws when the domain is %p', (domain) => {
+      expect(() => new EmailService({ ...config, domain })).toThrow(
         'MAILGUN_DOMAIN environment variable is required',
       );
     });
@@ -81,7 +78,7 @@ describe('EmailService', () => {
         status: 200,
       });
 
-      await new EmailService(configService).sendEmail(options);
+      await new EmailService(config).sendEmail(options);
 
       expect(messagesCreate).toHaveBeenCalledWith('test-domain.com', options);
     });
@@ -89,9 +86,9 @@ describe('EmailService', () => {
     it('rejects with the Mailgun error', async () => {
       messagesCreate.mockRejectedValueOnce(new Error('Forbidden'));
 
-      await expect(
-        new EmailService(configService).sendEmail(options),
-      ).rejects.toThrow('Forbidden');
+      await expect(new EmailService(config).sendEmail(options)).rejects.toThrow(
+        'Forbidden',
+      );
     });
   });
 });

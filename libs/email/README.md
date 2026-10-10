@@ -1,6 +1,6 @@
 # Email Module
 
-Sends plain-text email through Mailgun. `EmailService` builds the Mailgun client from `ConfigService.getMailgunConfig()`.
+Sends plain-text email through Mailgun. The app passes its Mailgun settings in through `EmailModule.forRootAsync`, so the lib never imports the app's `ConfigService`.
 
 ## Setup
 
@@ -24,17 +24,21 @@ In the feature module that sends email:
 ```typescript
 import { Module } from '@nestjs/common';
 import { EmailModule } from '@libs/email';
+import { ConfigService } from '../config/config.service';
 
 @Module({
   imports: [
-    EmailModule.forRoot(),
+    EmailModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config) => config.getMailgunConfig(),
+    }),
     // ... other modules
   ],
 })
 export class MyFeatureModule {}
 ```
 
-`EmailModule` gets `ConfigService` from the app's global `ConfigModule`, so it does not import `ConfigModule` itself.
+`useFactory` returns a `MailgunConfig` (`apiKey`, `domain`, optional `url`) or a Promise of one. Its arguments take their types from `inject`, so `config` above is a `ConfigService`. `inject` tokens must come from a global module. The app's `ConfigModule` is `@Global()`, so `EmailModule` imports nothing.
 
 ## Usage
 

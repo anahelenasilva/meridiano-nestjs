@@ -168,21 +168,28 @@ AWS S3 integration module providing:
 ### Email (`libs/email/`)
 
 Email service module that sends through Mailgun:
-- `EmailModule`: NestJS module, imported with `forRoot()`
+- `EmailModule`: NestJS module, imported with `forRootAsync()`
+- `MailgunConfig`: the `apiKey`, `domain` and optional `url` the app hands `forRootAsync`
 - `EmailService`: Service for sending emails
   - `sendEmail()`: Send emails with support for multiple recipients and CC
 
-**Configuration**: `MAILGUN_API_KEY` and `MAILGUN_DOMAIN`, plus optional `MAILGUN_URL` for EU domains, read through `ConfigService.getMailgunConfig()`.
+**Configuration**: `MAILGUN_API_KEY` and `MAILGUN_DOMAIN`, plus optional `MAILGUN_URL` for EU domains. The app reads them through `ConfigService.getMailgunConfig()` and hands them to `EmailModule.forRootAsync`.
 
 **Usage Example**:
 ```typescript
 import { Module } from '@nestjs/common';
 import { EmailModule, EmailService } from '@libs/email';
+import { ConfigService } from '../config/config.service';
 
 @Module({
-  imports: [EmailModule.forRoot()],
+  imports: [
+    EmailModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config) => config.getMailgunConfig(),
+    }),
+  ],
 })
-export class AppModule {}
+export class MyFeatureModule {}
 
 // In a service
 constructor(private readonly emailService: EmailService) {}
