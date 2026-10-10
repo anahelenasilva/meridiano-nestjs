@@ -2,6 +2,11 @@ import { ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { ExternalTokenGuard } from './external-token.guard';
 import { ConfigService } from '../../config/config.service';
 
+type ExternalTokenRequest = {
+  headers: { 'x-external-token': string | string[] };
+  externalToken?: string;
+};
+
 describe('ExternalTokenGuard', () => {
   let guard: ExternalTokenGuard;
   let mockContext: ExecutionContext;
@@ -37,7 +42,7 @@ describe('ExternalTokenGuard', () => {
     it('should return true for valid token', () => {
       mockConfigService.getExternalApiTokens.mockReturnValue(['valid-token-1', 'valid-token-2']);
 
-      const request = {
+      const request: ExternalTokenRequest = {
         headers: {
           'x-external-token': 'valid-token-1',
         },
@@ -50,7 +55,7 @@ describe('ExternalTokenGuard', () => {
       const result = guard.canActivate(mockContext);
 
       expect(result).toBe(true);
-      expect(request['externalToken']).toBe('valid-token-1');
+      expect(request.externalToken).toBe('valid-token-1');
       expect(mockConfigService.getExternalApiTokens).toHaveBeenCalled();
     });
 
@@ -135,7 +140,7 @@ describe('ExternalTokenGuard', () => {
     it('should accept first token when header is an array', () => {
       mockConfigService.getExternalApiTokens.mockReturnValue(['valid-token-1', 'valid-token-2']);
 
-      const request = {
+      const request: ExternalTokenRequest = {
         headers: {
           'x-external-token': ['valid-token-1', 'ignored-token'],
         },
@@ -147,7 +152,7 @@ describe('ExternalTokenGuard', () => {
 
       const result = guard.canActivate(mockContext);
       expect(result).toBe(true);
-      expect(request['externalToken']).toBe('valid-token-1');
+      expect(request.externalToken).toBe('valid-token-1');
     });
   });
 });

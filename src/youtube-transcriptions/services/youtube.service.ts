@@ -158,17 +158,15 @@ export class YouTubeService {
         data: Types.BuildScriptResult,
         env: Record<string, Types.VMPrimative>,
       ) => {
-        const properties = [];
+        const properties: string[] = [];
 
         if (env.n) {
-          properties.push(
-            `n: exportedVars.nFunction("${env.n as string}")` as never,
-          );
+          properties.push(`n: exportedVars.nFunction("${env.n as string}")`);
         }
 
         if (env.sig) {
           properties.push(
-            `sig: exportedVars.sigFunction("${env.sig as string}")` as never,
+            `sig: exportedVars.sigFunction("${env.sig as string}")`,
           );
         }
 
