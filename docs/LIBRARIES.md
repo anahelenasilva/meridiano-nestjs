@@ -38,7 +38,7 @@ Path mapping is configured in:
 | `@libs/auth` | JWT auth + auth helpers + rate limiting | `AuthModule`, `AuthService`, `JwtAuthGuard`, `CurrentUser` |
 | `@libs/audio` | Audio generation queue orchestration | `AudioModule`, `AudioJobService` |
 | `@libs/database` | Postgres access + TypeORM bootstrapping | `DatabaseModule`, `DatabaseService` |
-| `@libs/email` | Email sending through Mailgun | `EmailModule.forRoot()`, `EmailService` |
+| `@libs/email` | Email sending through Mailgun | `EmailModule.forRootAsync()`, `EmailService` |
 | `@libs/queue` | BullMQ queues for article/transcription processing | `QueueModule`, `QueueService` |
 | `@libs/redis` | Shared Redis client lifecycle management | `RedisModule`, `RedisService` |
 | `@libs/s3` | S3 file retrieval/upload/presigned URLs | `S3Module`, `S3Service` |
@@ -235,10 +235,20 @@ Supported configuration paths:
 
 - `EmailModule`
 - `EmailService`
+- `MailgunConfig` (type)
 
 ### Initialization
 
-Import with `EmailModule.forRoot()`. `EmailService` reads its Mailgun settings from the global `ConfigService`.
+The app passes its Mailgun settings in, so the lib never imports `src/config`:
+
+```typescript
+EmailModule.forRootAsync({
+  inject: [ConfigService],
+  useFactory: (config) => config.getMailgunConfig(),
+});
+```
+
+`useFactory` returns a `MailgunConfig` or a Promise of one, and its arguments take their types from `inject`. `inject` tokens must come from a global module, like the app's `ConfigModule`.
 
 ### Environment variables (Mailgun)
 
@@ -259,4 +269,4 @@ Import with `EmailModule.forRoot()`. `EmailService` reads its Mailgun settings f
 - `S3Module`
 - `JwtAuthGuard` (as global `APP_GUARD`, provided through auth setup)
 
-Other libs are imported through feature modules as needed (for example `EmailModule.forRoot()` inside queue module wiring).
+Other libs are imported through feature modules as needed. Each feature module that sends email imports `EmailModule.forRootAsync()` itself.

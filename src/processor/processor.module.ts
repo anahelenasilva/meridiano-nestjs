@@ -8,6 +8,7 @@ import { ArticleIngestionModule } from '../articles/ingestion/article-ingestion.
 import { MarkdownArticleProcessor } from '../articles/processors/markdown-article.processor';
 import { MarkdownUploadFailureNotifier } from '../articles/processors/markdown-upload-failure.notifier';
 import { ConfigModule } from '../config/config.module';
+import { ConfigService } from '../config/config.service';
 import { ArticleProcessingPipelineModule } from './pipeline/article-processing-pipeline.module';
 import { ArticleProcessor } from './processors/article.processor';
 import { ProcessorService } from './processor.service';
@@ -21,7 +22,10 @@ import { ProcessorService } from './processor.service';
     AudioModule,
     ConfigModule,
     QueueModule,
-    EmailModule.forRoot(),
+    EmailModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config) => config.getMailgunConfig(),
+    }),
   ],
   providers: [
     ProcessorService,
