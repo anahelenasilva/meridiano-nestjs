@@ -35,8 +35,6 @@ export class ExternalTokenGuard implements CanActivate {
       throw new UnauthorizedException('Invalid authentication token');
     }
 
-    request.externalToken = token;
-
     return true;
   }
 
