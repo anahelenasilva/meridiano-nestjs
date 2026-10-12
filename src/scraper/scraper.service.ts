@@ -8,6 +8,7 @@ import { ArticleIngestionService } from '../articles/ingestion/article-ingestion
 import { ConfigService } from '../config/config.service';
 import { ProfilesService } from '../profiles/profiles.service';
 import { FeedProfile, RSSFeed, SitemapSource } from '../shared/types/feed';
+import { guardedAgents } from './private-address-guard';
 import { FeedProfileScrape, ScrapingStats } from './scrapper.entity';
 import { fetchSitemapEntries } from './sitemap-fetcher';
 import { vttToText } from './vtt-to-text';
@@ -91,6 +92,7 @@ export class ScraperService {
       const response = await axios.get(url, {
         headers,
         timeout: 20000,
+        ...guardedAgents,
       });
 
       const htmlContent = response.data as string;
@@ -191,6 +193,7 @@ export class ScraperService {
       const response = await axios.get<string>(url, {
         timeout: 20000,
         responseType: 'text',
+        ...guardedAgents,
       });
       const text = vttToText(response.data);
       if (!text) {
@@ -222,45 +225,21 @@ export class ScraperService {
     }
 
     console.log('Fetching article content and OG image...');
-    const { content: rawContent, ogImage: ogImageUrl } =
-      await this.fetchArticleContentAndOgImage(url);
+    const {
+      content: rawContent,
+      ogImage: ogImageUrl,
+      title,
+    } = await this.fetchArticleContentAndOgImage(url);
 
     if (!rawContent) {
       throw new Error('Failed to extract article content');
-    }
-
-    let title = 'Untitled Article';
-    try {
-      const response = await axios.get(url, {
-        headers: {
-          'User-Agent':
-            'Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0',
-        },
-        timeout: 20000,
-      });
-      const htmlContent = response.data as string;
-      const dom = new JSDOM(htmlContent, { url });
-
-      // Try to extract title from various sources
-      const titleElement = dom.window.document.querySelector('title');
-      const ogTitleElement = dom.window.document.querySelector(
-        'meta[property="og:title"]',
-      );
-
-      if (ogTitleElement && ogTitleElement.getAttribute('content')) {
-        title = ogTitleElement.getAttribute('content') || title;
-      } else if (titleElement && titleElement.textContent) {
-        title = titleElement.textContent.trim();
-      }
-    } catch (error) {
-      console.warn('Failed to extract title, using default', error);
     }
 
     const publishedDate = new Date();
 
     const article = await this.ingestionService.ingest({
       url,
-      title,
+      title: title ?? 'Untitled Article',
       content: rawContent,
       publishedDate,
       feedProfile,

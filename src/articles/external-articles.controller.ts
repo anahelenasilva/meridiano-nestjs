@@ -21,9 +21,9 @@ import {
   ApiResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { isIP } from 'net';
 import { ApiValidationErrorResponse } from '../shared/swagger/api-error-response.decorators';
 import { ConfigService } from '../config/config.service';
+import { isBlockedIpAddress } from '../scraper/private-address-guard';
 import { ScraperService } from '../scraper/scraper.service';
 import { FeedProfile } from '../shared/types/feed';
 import { ExternalCreateArticleDto } from './dto/external-create-article.dto';
@@ -38,17 +38,22 @@ import { ArticleJobsService } from './services/article-jobs.service';
 
 const resolveExternalRateLimitKey = (request: RateLimitRequest): string => {
   const tokenHeader = request.headers['x-external-token'];
-  const token = typeof tokenHeader === 'string'
-    ? tokenHeader
-    : Array.isArray(tokenHeader)
-      ? tokenHeader[0]
-      : '';
+  const token =
+    typeof tokenHeader === 'string'
+      ? tokenHeader
+      : Array.isArray(tokenHeader)
+        ? tokenHeader[0]
+        : '';
 
   if (token.trim()) {
     return `external:token:${token}`;
   }
 
-  const ip = request.ip ?? request.socket?.remoteAddress ?? request.connection?.remoteAddress ?? 'unknown';
+  const ip =
+    request.ip ??
+    request.socket?.remoteAddress ??
+    request.connection?.remoteAddress ??
+    'unknown';
   return `external:ip:${ip}`;
 };
 
@@ -71,14 +76,25 @@ export class ExternalArticlesController {
     maxAttempts: 10,
     keyGenerator: resolveExternalRateLimitKey,
   })
-  @ApiOperation({ summary: 'Submit an external article URL for scraping and processing' })
-  @ApiCreatedResponse({ description: 'Article submitted successfully and queued for processing' })
+  @ApiOperation({
+    summary: 'Submit an external article URL for scraping and processing',
+  })
+  @ApiCreatedResponse({
+    description: 'Article submitted successfully and queued for processing',
+  })
   @ApiValidationErrorResponse()
-  @ApiUnauthorizedResponse({ description: 'Missing or invalid X-External-Token header' })
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid X-External-Token header',
+  })
   @ApiResponse({ status: 409, description: 'Article already exists' })
   @ApiResponse({ status: 429, description: 'Rate limit exceeded' })
-  @ApiResponse({ status: 503, description: 'External article submission is currently disabled' })
-  async createExternal(@Body() dto: ExternalCreateArticleDto): Promise<ExternalArticleResponse> {
+  @ApiResponse({
+    status: 503,
+    description: 'External article submission is currently disabled',
+  })
+  async createExternal(
+    @Body() dto: ExternalCreateArticleDto,
+  ): Promise<ExternalArticleResponse> {
     if (!this.isFeatureEnabled()) {
       throw new ServiceUnavailableException({
         success: false,
@@ -143,7 +159,8 @@ export class ExternalArticlesController {
         success: false,
         error: {
           code: ExternalArticleErrorCode.ARTICLE_EXISTS,
-          message: EXTERNAL_ERROR_MESSAGES[ExternalArticleErrorCode.ARTICLE_EXISTS],
+          message:
+            EXTERNAL_ERROR_MESSAGES[ExternalArticleErrorCode.ARTICLE_EXISTS],
         },
       });
     }
@@ -183,13 +200,19 @@ export class ExternalArticlesController {
   ): Promise<never> {
     const mapped = this.mapError(error, fallback);
 
-    if (submissionId && mapped.code !== ExternalArticleErrorCode.ARTICLE_EXISTS) {
+    if (
+      submissionId &&
+      mapped.code !== ExternalArticleErrorCode.ARTICLE_EXISTS
+    ) {
       await this.safeUpdateSubmissionStatus(submissionId, 'failed', {
         errorMessage: mapped.message,
       });
     }
 
-    this.logger.error(`External article submission failed: ${mapped.code}`, error);
+    this.logger.error(
+      `External article submission failed: ${mapped.code}`,
+      error,
+    );
 
     throw new HttpException(
       {
@@ -224,7 +247,8 @@ export class ExternalArticlesController {
     if (statusCode === 409) {
       return {
         code: ExternalArticleErrorCode.ARTICLE_EXISTS,
-        message: EXTERNAL_ERROR_MESSAGES[ExternalArticleErrorCode.ARTICLE_EXISTS],
+        message:
+          EXTERNAL_ERROR_MESSAGES[ExternalArticleErrorCode.ARTICLE_EXISTS],
         status: HttpStatus.CONFLICT,
       };
     }
@@ -240,7 +264,8 @@ export class ExternalArticlesController {
     if (statusCode === 429) {
       return {
         code: ExternalArticleErrorCode.RATE_LIMIT_EXCEEDED,
-        message: EXTERNAL_ERROR_MESSAGES[ExternalArticleErrorCode.RATE_LIMIT_EXCEEDED],
+        message:
+          EXTERNAL_ERROR_MESSAGES[ExternalArticleErrorCode.RATE_LIMIT_EXCEEDED],
         status: HttpStatus.TOO_MANY_REQUESTS,
       };
     }
@@ -269,7 +294,7 @@ export class ExternalArticlesController {
       throw this.createInvalidUrlException();
     }
 
-    if (this.isBlockedIpAddress(hostname)) {
+    if (isBlockedIpAddress(hostname)) {
       throw this.createInvalidUrlException();
     }
   }
@@ -282,55 +307,6 @@ export class ExternalArticlesController {
         message: EXTERNAL_ERROR_MESSAGES[ExternalArticleErrorCode.INVALID_URL],
       },
     });
-  }
-
-  private isBlockedIpAddress(host: string): boolean {
-    const ipVersion = isIP(host);
-    if (ipVersion === 4) {
-      const octets = host.split('.').map((segment) => Number.parseInt(segment, 10));
-      const first = octets[0];
-      const second = octets[1];
-
-      if (host === '100.100.100.200') {
-        return true;
-      }
-
-      return (
-        first === 0 ||
-        first === 10 ||
-        first === 127 ||
-        (first === 169 && second === 254) ||
-        (first === 172 && second >= 16 && second <= 31) ||
-        (first === 192 && second === 168)
-      );
-    }
-
-    if (ipVersion === 6) {
-      const normalizedHost = host.toLowerCase();
-      if (normalizedHost === '::1') {
-        return true;
-      }
-
-      if (normalizedHost.startsWith('fc') || normalizedHost.startsWith('fd')) {
-        return true;
-      }
-
-      if (
-        normalizedHost.startsWith('fe8') ||
-        normalizedHost.startsWith('fe9') ||
-        normalizedHost.startsWith('fea') ||
-        normalizedHost.startsWith('feb')
-      ) {
-        return true;
-      }
-
-      if (normalizedHost.startsWith('::ffff:')) {
-        const ipv4Part = normalizedHost.replace('::ffff:', '');
-        return this.isBlockedIpAddress(ipv4Part);
-      }
-    }
-
-    return false;
   }
 
   private async scrapeArticleOrThrow(
@@ -381,7 +357,11 @@ export class ExternalArticlesController {
     options?: { articleId?: string; errorMessage?: string },
   ): Promise<void> {
     try {
-      await this.telegramSubmissionService.updateSubmissionStatus(submissionId, status, options);
+      await this.telegramSubmissionService.updateSubmissionStatus(
+        submissionId,
+        status,
+        options,
+      );
     } catch (error) {
       this.logger.error('Failed to update submission status', error);
     }

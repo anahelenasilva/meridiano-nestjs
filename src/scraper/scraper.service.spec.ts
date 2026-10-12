@@ -5,6 +5,7 @@ import { ArticleIngestionService } from '../articles/ingestion/article-ingestion
 import { ConfigService } from '../config/config.service';
 import { ProfilesService } from '../profiles/profiles.service';
 import { FeedProfile, RSSFeed, SitemapSource } from '../shared/types/feed';
+import { guardedAgents } from './private-address-guard';
 import { ScraperService } from './scraper.service';
 import * as sitemapFetcher from './sitemap-fetcher';
 
@@ -58,6 +59,17 @@ describe('ScraperService.fetchArticleContentAndOgImage', () => {
     expect(result.title).toBe('Plain Title');
   });
 
+  it('fetches the page through the private-address guard', async () => {
+    mockedAxios.get.mockResolvedValue({ data: '<html></html>' });
+
+    await service.fetchArticleContentAndOgImage('https://claude.com/blog/x');
+
+    expect(mockedAxios.get).toHaveBeenCalledWith(
+      'https://claude.com/blog/x',
+      expect.objectContaining(guardedAgents),
+    );
+  });
+
   it('returns null title when the fetch throws', async () => {
     mockedAxios.get.mockRejectedValue(new Error('network down'));
     mockedAxios.isAxiosError.mockReturnValue(false);
@@ -67,6 +79,40 @@ describe('ScraperService.fetchArticleContentAndOgImage', () => {
     );
 
     expect(result.title).toBeNull();
+  });
+});
+
+describe('ScraperService.scrapeSingleArticle', () => {
+  const ingestion = mock<ArticleIngestionService>();
+  let service: ScraperService;
+
+  beforeEach(() => {
+    service = new ScraperService(
+      ingestion,
+      mock<ProfilesService>(),
+      mock<ConfigService>(),
+    );
+    ingestion.articleExists.mockResolvedValue(false);
+    ingestion.ingest.mockResolvedValue({ id: 'article-1' } as never);
+  });
+
+  afterEach(() => jest.clearAllMocks());
+
+  it('fetches the page once and ingests the title it extracted', async () => {
+    mockedAxios.get.mockResolvedValue({
+      data: `<html><head><meta property="og:title" content="Guarded Fetches" /></head>
+        <body><article><p>Body text that is long enough to parse.</p></article></body></html>`,
+    });
+
+    await service.scrapeSingleArticle(
+      'https://claude.com/blog/guarded',
+      FeedProfile.TECHNOLOGY,
+    );
+
+    expect(mockedAxios.get).toHaveBeenCalledTimes(1);
+    expect(ingestion.ingest).toHaveBeenCalledWith(
+      expect.objectContaining({ title: 'Guarded Fetches' }),
+    );
   });
 });
 
@@ -220,7 +266,7 @@ describe('ScraperService.scrapeFeedProfile', () => {
 
     expect(mockedAxios.get).toHaveBeenCalledWith(
       'https://transcripts.example/ep1.vtt',
-      expect.objectContaining({ responseType: 'text' }),
+      expect.objectContaining({ responseType: 'text', ...guardedAgents }),
     );
     expect(ingestedContents()).toEqual([
       "body\n\nTranscript:\nHi, I'm Maggie.",
