@@ -12,7 +12,9 @@ interface CleanOptions {
 }
 
 @Injectable()
-export class YoutubeTranscriptionsAlternativeService implements TranscriptSource {
+export class YoutubeTranscriptionsAlternativeService
+  implements TranscriptSource
+{
   readonly method = 'alternative';
 
   isYouTubeUrl(url: string): boolean {
@@ -98,7 +100,10 @@ export class YoutubeTranscriptionsAlternativeService implements TranscriptSource
       throw new Error(`Invalid YouTube video ID: ${videoId}`);
     }
 
-    const transcript = await YoutubeTranscript.fetchTranscript(id);
+    // Without lang the library takes the first track, sorted by language name.
+    const transcript = await YoutubeTranscript.fetchTranscript(id, {
+      lang: 'en',
+    });
 
     return transcript.map((entry) => {
       const decodedText = this.decodeHtmlEntities(entry.text);
