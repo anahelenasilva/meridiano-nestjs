@@ -1,5 +1,5 @@
 import dns from 'node:dns';
-import { Agent, Agent as HttpAgent } from 'node:http';
+import { Agent as HttpAgent } from 'node:http';
 import { Agent as HttpsAgent } from 'node:https';
 import {
   BlockList,
@@ -76,7 +76,7 @@ function guardedLookup(isBlocked: IsBlocked): LookupFunction {
   };
 }
 
-function guardAgent<T extends Agent>(agent: T, isBlocked: IsBlocked): T {
+function guardAgent<T extends HttpAgent>(agent: T, isBlocked: IsBlocked): T {
   const lookup = guardedLookup(isBlocked);
   const target = agent as T & { createConnection: CreateConnection };
   // strictBindCallApply is off in this repo, so bind() returns any.

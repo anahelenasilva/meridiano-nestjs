@@ -1,7 +1,6 @@
 import { Readability } from '@mozilla/readability';
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
-import { guardedAgents } from './private-address-guard';
 import { JSDOM } from 'jsdom';
 import Parser from 'rss-parser';
 import { ArticleContent } from '../articles/article.entity';
@@ -9,6 +8,7 @@ import { ArticleIngestionService } from '../articles/ingestion/article-ingestion
 import { ConfigService } from '../config/config.service';
 import { ProfilesService } from '../profiles/profiles.service';
 import { FeedProfile, RSSFeed, SitemapSource } from '../shared/types/feed';
+import { guardedAgents } from './private-address-guard';
 import { FeedProfileScrape, ScrapingStats } from './scrapper.entity';
 import { fetchSitemapEntries } from './sitemap-fetcher';
 import { vttToText } from './vtt-to-text';
