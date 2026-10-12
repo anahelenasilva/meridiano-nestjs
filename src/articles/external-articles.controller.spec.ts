@@ -397,5 +397,16 @@ describe('ExternalArticlesController', () => {
         BadRequestException,
       );
     });
+
+    it.each([
+      'http://[::1]/article',
+      'http://[::]/article',
+      'http://[::ffff:127.0.0.1]/article',
+    ])('should reject the bracketed IPv6 URL %s', async (url) => {
+      await expect(
+        controller.createExternal({ ...validDto, url }),
+      ).rejects.toBeInstanceOf(BadRequestException);
+      expect(scraperService.scrapeSingleArticle).not.toHaveBeenCalled();
+    });
   });
 });

@@ -21,9 +21,9 @@ import {
   ApiResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { isIP } from 'net';
 import { ApiValidationErrorResponse } from '../shared/swagger/api-error-response.decorators';
 import { ConfigService } from '../config/config.service';
+import { isBlockedIpAddress } from '../scraper/private-address-guard';
 import { ScraperService } from '../scraper/scraper.service';
 import { FeedProfile } from '../shared/types/feed';
 import { ExternalCreateArticleDto } from './dto/external-create-article.dto';
@@ -269,7 +269,7 @@ export class ExternalArticlesController {
       throw this.createInvalidUrlException();
     }
 
-    if (this.isBlockedIpAddress(hostname)) {
+    if (isBlockedIpAddress(hostname)) {
       throw this.createInvalidUrlException();
     }
   }
@@ -282,55 +282,6 @@ export class ExternalArticlesController {
         message: EXTERNAL_ERROR_MESSAGES[ExternalArticleErrorCode.INVALID_URL],
       },
     });
-  }
-
-  private isBlockedIpAddress(host: string): boolean {
-    const ipVersion = isIP(host);
-    if (ipVersion === 4) {
-      const octets = host.split('.').map((segment) => Number.parseInt(segment, 10));
-      const first = octets[0];
-      const second = octets[1];
-
-      if (host === '100.100.100.200') {
-        return true;
-      }
-
-      return (
-        first === 0 ||
-        first === 10 ||
-        first === 127 ||
-        (first === 169 && second === 254) ||
-        (first === 172 && second >= 16 && second <= 31) ||
-        (first === 192 && second === 168)
-      );
-    }
-
-    if (ipVersion === 6) {
-      const normalizedHost = host.toLowerCase();
-      if (normalizedHost === '::1') {
-        return true;
-      }
-
-      if (normalizedHost.startsWith('fc') || normalizedHost.startsWith('fd')) {
-        return true;
-      }
-
-      if (
-        normalizedHost.startsWith('fe8') ||
-        normalizedHost.startsWith('fe9') ||
-        normalizedHost.startsWith('fea') ||
-        normalizedHost.startsWith('feb')
-      ) {
-        return true;
-      }
-
-      if (normalizedHost.startsWith('::ffff:')) {
-        const ipv4Part = normalizedHost.replace('::ffff:', '');
-        return this.isBlockedIpAddress(ipv4Part);
-      }
-    }
-
-    return false;
   }
 
   private async scrapeArticleOrThrow(
