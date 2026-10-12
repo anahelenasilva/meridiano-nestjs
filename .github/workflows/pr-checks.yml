@@ -41,8 +41,18 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Install BAML and generate the SDK
+        run: |
+          version="$(sed -n 's/^version = "\(.*\)"$/\1/p' baml.toml)"
+          curl -fsSL https://pkg.boundaryml.com/install.sh | sh -s -- --version "$version" --no-modify-path
+          echo "$HOME/.baml/bin" >> $GITHUB_PATH
+          $HOME/.baml/bin/baml generate
+
       - name: Run linter
         run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
 
       - name: Run tests
         run: pnpm test

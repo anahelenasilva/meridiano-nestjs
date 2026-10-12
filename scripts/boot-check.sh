@@ -5,7 +5,8 @@
 #
 # Runs on a free port so a worktree and the main checkout can boot side by
 # side, and kills the server on every exit path: pass, fail, timeout, Ctrl+C.
-# BOOT_TIMEOUT overrides the 120s limit, which covers the `nest start` build.
+# BOOT_TIMEOUT overrides the 120s limit, which covers `baml generate` and the
+# `nest start` build.
 set -uo pipefail
 
 dir="$(cd "${1:-.}" && pwd)" || exit 1
@@ -23,7 +24,7 @@ log="$(mktemp "${TMPDIR:-/tmp}/boot-check.XXXXXX")"
 # Job control gives the server its own process group, so one kill reaches
 # npx, nest and the node child.
 set -m
-(cd "$dir" && PORT="$port" exec npx nest start) >"$log" 2>&1 &
+(cd "$dir" && baml generate && PORT="$port" exec npx nest start) >"$log" 2>&1 &
 pid=$!
 
 cleanup() {
