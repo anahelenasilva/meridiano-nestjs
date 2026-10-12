@@ -67,7 +67,9 @@ describe('QueueService', () => {
 
   describe('addTranscriptBackupJob', () => {
     it('enqueues a backup job with the file path and channel id', async () => {
-      mockTranscriptBackupQueue.add.mockResolvedValue({ id: 'backup-1' } as Job);
+      mockTranscriptBackupQueue.add.mockResolvedValue({
+        id: 'backup-1',
+      } as Job);
 
       const result = await service.addTranscriptBackupJob({
         filePath: 'transcripts/UC123_20260816_120000.json',
@@ -87,7 +89,9 @@ describe('QueueService', () => {
 
   describe('addTranscriptIngestJob', () => {
     it('enqueues with a deterministic job id built from channel and video', async () => {
-      mockIngestQueue.add.mockResolvedValue({ id: 'channel-1__abc123' } as never);
+      mockIngestQueue.add.mockResolvedValue({
+        id: 'channel-1__abc123',
+      } as never);
 
       const jobId = await service.addTranscriptIngestJob(
         {
@@ -135,10 +139,15 @@ describe('QueueService', () => {
 
     it('leaves no existing job untouched and enqueues as usual', async () => {
       mockIngestQueue.getJob.mockResolvedValue(undefined as never);
-      mockIngestQueue.add.mockResolvedValue({ id: 'channel-1__abc123' } as never);
+      mockIngestQueue.add.mockResolvedValue({
+        id: 'channel-1__abc123',
+      } as never);
 
       const jobId = await service.addTranscriptIngestJob(
-        { videoUrl: 'https://www.youtube.com/watch?v=abc123', channelDbId: 'channel-1' },
+        {
+          videoUrl: 'https://www.youtube.com/watch?v=abc123',
+          channelDbId: 'channel-1',
+        },
         'abc123',
       );
 
@@ -146,16 +155,19 @@ describe('QueueService', () => {
       expect(mockIngestQueue.add).toHaveBeenCalledTimes(1);
     });
 
-    // Re-pasting a failed URL is the documented retry path, so the stale
-    // failed key has to be cleared or BullMQ would drop the new job.
     it('clears a failed job of the same id before enqueueing the retry', async () => {
       const failedJob = mock<Job>();
-      failedJob.isFailed.mockResolvedValue(true);
+      failedJob.getState.mockResolvedValue('failed');
       mockIngestQueue.getJob.mockResolvedValue(failedJob as never);
-      mockIngestQueue.add.mockResolvedValue({ id: 'channel-1__abc123' } as never);
+      mockIngestQueue.add.mockResolvedValue({
+        id: 'channel-1__abc123',
+      } as never);
 
       const jobId = await service.addTranscriptIngestJob(
-        { videoUrl: 'https://www.youtube.com/watch?v=abc123', channelDbId: 'channel-1' },
+        {
+          videoUrl: 'https://www.youtube.com/watch?v=abc123',
+          channelDbId: 'channel-1',
+        },
         'abc123',
       );
 
@@ -164,16 +176,39 @@ describe('QueueService', () => {
       expect(mockIngestQueue.add).toHaveBeenCalledTimes(1);
     });
 
-    // A waiting, active or delayed job of the same id is a live duplicate:
-    // dropping it is the intended behavior, so it must survive.
-    it('leaves a live job of the same id alone', async () => {
-      const liveJob = mock<Job>();
-      liveJob.isFailed.mockResolvedValue(false);
-      mockIngestQueue.getJob.mockResolvedValue(liveJob as never);
-      mockIngestQueue.add.mockResolvedValue({ id: 'channel-1__abc123' } as never);
+    it('clears a completed job of the same id before enqueueing again', async () => {
+      const completedJob = mock<Job>();
+      completedJob.getState.mockResolvedValue('completed');
+      mockIngestQueue.getJob.mockResolvedValue(completedJob as never);
+      mockIngestQueue.add.mockResolvedValue({
+        id: 'channel-1__abc123',
+      } as never);
 
       await service.addTranscriptIngestJob(
-        { videoUrl: 'https://www.youtube.com/watch?v=abc123', channelDbId: 'channel-1' },
+        {
+          videoUrl: 'https://www.youtube.com/watch?v=abc123',
+          channelDbId: 'channel-1',
+        },
+        'abc123',
+      );
+
+      expect(completedJob.remove).toHaveBeenCalledTimes(1);
+      expect(mockIngestQueue.add).toHaveBeenCalledTimes(1);
+    });
+
+    it('leaves a live job of the same id alone', async () => {
+      const liveJob = mock<Job>();
+      liveJob.getState.mockResolvedValue('waiting');
+      mockIngestQueue.getJob.mockResolvedValue(liveJob as never);
+      mockIngestQueue.add.mockResolvedValue({
+        id: 'channel-1__abc123',
+      } as never);
+
+      await service.addTranscriptIngestJob(
+        {
+          videoUrl: 'https://www.youtube.com/watch?v=abc123',
+          channelDbId: 'channel-1',
+        },
         'abc123',
       );
 
