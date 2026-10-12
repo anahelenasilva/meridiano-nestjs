@@ -38,17 +38,22 @@ import { ArticleJobsService } from './services/article-jobs.service';
 
 const resolveExternalRateLimitKey = (request: RateLimitRequest): string => {
   const tokenHeader = request.headers['x-external-token'];
-  const token = typeof tokenHeader === 'string'
-    ? tokenHeader
-    : Array.isArray(tokenHeader)
-      ? tokenHeader[0]
-      : '';
+  const token =
+    typeof tokenHeader === 'string'
+      ? tokenHeader
+      : Array.isArray(tokenHeader)
+        ? tokenHeader[0]
+        : '';
 
   if (token.trim()) {
     return `external:token:${token}`;
   }
 
-  const ip = request.ip ?? request.socket?.remoteAddress ?? request.connection?.remoteAddress ?? 'unknown';
+  const ip =
+    request.ip ??
+    request.socket?.remoteAddress ??
+    request.connection?.remoteAddress ??
+    'unknown';
   return `external:ip:${ip}`;
 };
 
@@ -71,14 +76,25 @@ export class ExternalArticlesController {
     maxAttempts: 10,
     keyGenerator: resolveExternalRateLimitKey,
   })
-  @ApiOperation({ summary: 'Submit an external article URL for scraping and processing' })
-  @ApiCreatedResponse({ description: 'Article submitted successfully and queued for processing' })
+  @ApiOperation({
+    summary: 'Submit an external article URL for scraping and processing',
+  })
+  @ApiCreatedResponse({
+    description: 'Article submitted successfully and queued for processing',
+  })
   @ApiValidationErrorResponse()
-  @ApiUnauthorizedResponse({ description: 'Missing or invalid X-External-Token header' })
+  @ApiUnauthorizedResponse({
+    description: 'Missing or invalid X-External-Token header',
+  })
   @ApiResponse({ status: 409, description: 'Article already exists' })
   @ApiResponse({ status: 429, description: 'Rate limit exceeded' })
-  @ApiResponse({ status: 503, description: 'External article submission is currently disabled' })
-  async createExternal(@Body() dto: ExternalCreateArticleDto): Promise<ExternalArticleResponse> {
+  @ApiResponse({
+    status: 503,
+    description: 'External article submission is currently disabled',
+  })
+  async createExternal(
+    @Body() dto: ExternalCreateArticleDto,
+  ): Promise<ExternalArticleResponse> {
     if (!this.isFeatureEnabled()) {
       throw new ServiceUnavailableException({
         success: false,
@@ -143,7 +159,8 @@ export class ExternalArticlesController {
         success: false,
         error: {
           code: ExternalArticleErrorCode.ARTICLE_EXISTS,
-          message: EXTERNAL_ERROR_MESSAGES[ExternalArticleErrorCode.ARTICLE_EXISTS],
+          message:
+            EXTERNAL_ERROR_MESSAGES[ExternalArticleErrorCode.ARTICLE_EXISTS],
         },
       });
     }
@@ -183,13 +200,19 @@ export class ExternalArticlesController {
   ): Promise<never> {
     const mapped = this.mapError(error, fallback);
 
-    if (submissionId && mapped.code !== ExternalArticleErrorCode.ARTICLE_EXISTS) {
+    if (
+      submissionId &&
+      mapped.code !== ExternalArticleErrorCode.ARTICLE_EXISTS
+    ) {
       await this.safeUpdateSubmissionStatus(submissionId, 'failed', {
         errorMessage: mapped.message,
       });
     }
 
-    this.logger.error(`External article submission failed: ${mapped.code}`, error);
+    this.logger.error(
+      `External article submission failed: ${mapped.code}`,
+      error,
+    );
 
     throw new HttpException(
       {
@@ -224,7 +247,8 @@ export class ExternalArticlesController {
     if (statusCode === 409) {
       return {
         code: ExternalArticleErrorCode.ARTICLE_EXISTS,
-        message: EXTERNAL_ERROR_MESSAGES[ExternalArticleErrorCode.ARTICLE_EXISTS],
+        message:
+          EXTERNAL_ERROR_MESSAGES[ExternalArticleErrorCode.ARTICLE_EXISTS],
         status: HttpStatus.CONFLICT,
       };
     }
@@ -240,7 +264,8 @@ export class ExternalArticlesController {
     if (statusCode === 429) {
       return {
         code: ExternalArticleErrorCode.RATE_LIMIT_EXCEEDED,
-        message: EXTERNAL_ERROR_MESSAGES[ExternalArticleErrorCode.RATE_LIMIT_EXCEEDED],
+        message:
+          EXTERNAL_ERROR_MESSAGES[ExternalArticleErrorCode.RATE_LIMIT_EXCEEDED],
         status: HttpStatus.TOO_MANY_REQUESTS,
       };
     }
@@ -332,7 +357,11 @@ export class ExternalArticlesController {
     options?: { articleId?: string; errorMessage?: string },
   ): Promise<void> {
     try {
-      await this.telegramSubmissionService.updateSubmissionStatus(submissionId, status, options);
+      await this.telegramSubmissionService.updateSubmissionStatus(
+        submissionId,
+        status,
+        options,
+      );
     } catch (error) {
       this.logger.error('Failed to update submission status', error);
     }
