@@ -99,11 +99,11 @@ export class QueueService {
 
   /**
    * Queue one video URL for ingest. The job id is derived from the channel and
-   * video, so re-submitting a URL that is still live (waiting, active or
-   * delayed) is a no-op: BullMQ drops the duplicate id. A job that already
-   * failed is removed first, because its Redis key survives (`removeOnFail`
-   * is false so the failure strip can show it) and would otherwise swallow
-   * the enqueue. Clearing it makes re-pasting the URL a real retry.
+   * video, so BullMQ drops a re-submit while the job is live (waiting, active
+   * or delayed). A finished job's Redis key also survives, failed ones for the
+   * failure strip and completed ones until `removeOnComplete` trims them, and
+   * would swallow the enqueue. Removing it first lets a failed URL be retried
+   * and a deleted transcription be ingested again.
    *
    * The two parts are joined with `__` because BullMQ rejects a custom job id
    * containing `:` (it is the separator in its own Redis keys). Nothing parses
@@ -116,8 +116,11 @@ export class QueueService {
     const jobId = `${data.channelDbId}__${videoId}`;
 
     const existing = await this.transcriptIngestQueue.getJob(jobId);
-    if (existing && (await existing.isFailed())) {
-      await existing.remove();
+    if (existing) {
+      const state = await existing.getState();
+      if (state === 'failed' || state === 'completed') {
+        await existing.remove();
+      }
     }
 
     const job = await this.transcriptIngestQueue.add(
