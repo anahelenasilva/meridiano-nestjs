@@ -51,7 +51,7 @@ export class ConfigService {
 
     models: {
       deepseekChatModel: 'deepseek-flash',
-      openaiChatModel: 'gpt-4o-mini',
+      openaiChatModel: 'gpt-6-luna',
       embeddingModel: 'text-embedding-3-small',
       enabledChatModel: 'deepseek',
       enabledTtsModel: 'openai',

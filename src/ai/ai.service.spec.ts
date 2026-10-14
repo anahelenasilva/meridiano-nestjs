@@ -14,7 +14,7 @@ describe('AiService', () => {
     getModelConfig: jest.fn(() => ({
       embeddingModel: 'text-embedding-3-small',
       deepseekChatModel: 'deepseek-chat',
-      openaiChatModel: 'gpt-4o-mini',
+      openaiChatModel: 'gpt-6-luna',
       openaiTtsVoice: 'alloy',
       groqTtsVoice: 'hannah',
       maxTokens: 2048,
@@ -493,7 +493,7 @@ describe('AiService', () => {
               getModelConfig: jest.fn(() => ({
                 embeddingModel: 'text-embedding-3-small',
                 deepseekChatModel: 'deepseek-chat',
-                openaiChatModel: 'gpt-4o-mini',
+                openaiChatModel: 'gpt-6-luna',
                 openaiTtsVoice: 'alloy',
                 groqTtsVoice: 'hannah',
                 maxTokens: 2048,

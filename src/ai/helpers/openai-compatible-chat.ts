@@ -6,26 +6,26 @@ export async function openaiCompatibleChat(
   prompt: string,
   systemPrompt: string | undefined,
   model: string,
-  maxTokens: number,
-  temperature: number,
   adapterName: string,
-  // Provider-specific body fields (e.g. DeepSeek's `thinking`). Kept generic so
-  // this helper stays provider-agnostic and the OpenAI path never receives them.
-  extraBody: Record<string, unknown> = {},
+  // Token cap and sampling fields go here because providers disagree on them:
+  // OpenAI reasoning models reject `max_tokens` and any non-default
+  // `temperature`, while DeepSeek takes both plus its own `thinking` toggle.
+  providerParams: Record<string, unknown>,
 ): Promise<string> {
   const messages: Array<{ role: 'system' | 'user'; content: string }> = [];
 
   if (systemPrompt) {
-    messages.push({ role: 'system', content: sanitizeChatContent(systemPrompt) });
+    messages.push({
+      role: 'system',
+      content: sanitizeChatContent(systemPrompt),
+    });
   }
   messages.push({ role: 'user', content: sanitizeChatContent(prompt) });
 
   const response = await client.chat.completions.create({
     model,
     messages,
-    max_tokens: maxTokens,
-    temperature,
-    ...extraBody,
+    ...providerParams,
   } as OpenAI.Chat.ChatCompletionCreateParamsNonStreaming);
 
   const choice = response.choices[0];

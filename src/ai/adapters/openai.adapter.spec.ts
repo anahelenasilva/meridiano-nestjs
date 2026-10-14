@@ -17,9 +17,8 @@ describe('OpenAIAdapter', () => {
   const adapter = new OpenAIAdapter(
     mockChatClient,
     mockTtsClient,
-    'gpt-4o-mini',
+    'gpt-6-luna',
     2048,
-    0.7,
     'alloy',
     'text-embedding-3-small',
   );
@@ -37,12 +36,23 @@ describe('OpenAIAdapter', () => {
       expect(result).toBe('response');
       expect(mockChatCreate).toHaveBeenCalledWith(
         expect.objectContaining({
-          model: 'gpt-4o-mini',
+          model: 'gpt-6-luna',
           messages: [{ role: 'user', content: 'prompt' }],
-          max_tokens: 2048,
-          temperature: 0.7,
         }),
       );
+    });
+
+    it('sends max_completion_tokens and no temperature, which reasoning models reject', async () => {
+      mockChatCreate.mockResolvedValue({
+        choices: [{ message: { content: 'ok' } }],
+      });
+
+      await adapter.chat('prompt');
+
+      const body = mockChatCreate.mock.calls[0][0];
+      expect(body.max_completion_tokens).toBe(2048);
+      expect(body).not.toHaveProperty('max_tokens');
+      expect(body).not.toHaveProperty('temperature');
     });
 
     it('includes system prompt when provided', async () => {

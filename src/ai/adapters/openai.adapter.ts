@@ -23,20 +23,21 @@ export class OpenAIAdapter implements AiAdapter {
     private readonly ttsClient: OpenAI,
     private readonly defaultChatModel: string,
     private readonly maxTokens: number,
-    private readonly temperature: number,
     private readonly defaultVoice: string,
     private readonly embeddingModel: string,
   ) {}
 
   chat(prompt: string, systemPrompt?: string, model?: string): Promise<string> {
+    // gpt-6-luna is a reasoning model: it only accepts the default
+    // temperature, so none is sent, and reasoning tokens count against
+    // max_completion_tokens.
     return openaiCompatibleChat(
       this.chatClient,
       prompt,
       systemPrompt,
       model ?? this.defaultChatModel,
-      this.maxTokens,
-      this.temperature,
       'OpenAI',
+      { max_completion_tokens: this.maxTokens },
     );
   }
 

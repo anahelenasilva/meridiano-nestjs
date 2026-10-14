@@ -75,7 +75,6 @@ export class AiService implements OnModuleInit {
       openaiClient,
       config.openaiChatModel,
       config.maxTokens,
-      config.temperature,
       config.openaiTtsVoice,
       config.embeddingModel,
     );
