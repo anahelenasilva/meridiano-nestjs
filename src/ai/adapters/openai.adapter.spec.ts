@@ -55,6 +55,18 @@ describe('OpenAIAdapter', () => {
       expect(body).not.toHaveProperty('temperature');
     });
 
+    it('disables reasoning by default', async () => {
+      mockChatCreate.mockResolvedValue({
+        choices: [{ message: { content: 'ok' } }],
+      });
+
+      await adapter.chat('prompt');
+
+      expect(mockChatCreate).toHaveBeenCalledWith(
+        expect.objectContaining({ reasoning_effort: 'none' }),
+      );
+    });
+
     it('includes system prompt when provided', async () => {
       mockChatCreate.mockResolvedValue({
         choices: [{ message: { content: 'ok' } }],
