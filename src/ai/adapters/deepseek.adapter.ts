@@ -14,17 +14,19 @@ export class DeepseekAdapter implements AiAdapter {
     // Thinking is off by default: every current caller is a summarise/extract/
     // classify task that needs no chain-of-thought, and on reasoning models CoT
     // is billed against max_tokens (starving the response) and can leak into
-    // JSON outputs. Re-enable per call by omitting this extraBody when a future
+    // JSON outputs. Re-enable per call by omitting `thinking` when a future
     // caller actually benefits from reasoning.
     return openaiCompatibleChat(
       this.client,
       prompt,
       systemPrompt,
       model ?? this.defaultModel,
-      this.maxTokens,
-      this.temperature,
       'Deepseek',
-      { thinking: { type: 'disabled' } },
+      {
+        max_tokens: this.maxTokens,
+        temperature: this.temperature,
+        thinking: { type: 'disabled' },
+      },
     );
   }
 
@@ -33,6 +35,8 @@ export class DeepseekAdapter implements AiAdapter {
   }
 
   generateAudio(_text: string, _voice: string): Promise<Buffer> {
-    return Promise.reject(new Error('Deepseek does not support audio generation'));
+    return Promise.reject(
+      new Error('Deepseek does not support audio generation'),
+    );
   }
 }

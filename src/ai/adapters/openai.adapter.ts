@@ -23,20 +23,20 @@ export class OpenAIAdapter implements AiAdapter {
     private readonly ttsClient: OpenAI,
     private readonly defaultChatModel: string,
     private readonly maxTokens: number,
-    private readonly temperature: number,
     private readonly defaultVoice: string,
     private readonly embeddingModel: string,
   ) {}
 
   chat(prompt: string, systemPrompt?: string, model?: string): Promise<string> {
+    // Reasoning models reject `max_tokens` and any non-default temperature.
+    // Reasoning is off for the reason given in DeepseekAdapter.chat.
     return openaiCompatibleChat(
       this.chatClient,
       prompt,
       systemPrompt,
       model ?? this.defaultChatModel,
-      this.maxTokens,
-      this.temperature,
       'OpenAI',
+      { max_completion_tokens: this.maxTokens, reasoning_effort: 'none' },
     );
   }
 
