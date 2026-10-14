@@ -7,9 +7,8 @@ export async function openaiCompatibleChat(
   systemPrompt: string | undefined,
   model: string,
   adapterName: string,
-  // Token cap and sampling fields go here because providers disagree on them:
-  // OpenAI reasoning models reject `max_tokens` and any non-default
-  // `temperature`, while DeepSeek takes both plus its own `thinking` toggle.
+  // Providers disagree on the token cap and sampling fields, so each adapter
+  // supplies them.
   providerParams: Record<string, unknown>,
 ): Promise<string> {
   const messages: Array<{ role: 'system' | 'user'; content: string }> = [];

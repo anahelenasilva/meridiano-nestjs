@@ -28,10 +28,8 @@ export class OpenAIAdapter implements AiAdapter {
   ) {}
 
   chat(prompt: string, systemPrompt?: string, model?: string): Promise<string> {
-    // gpt-6-luna is a reasoning model: it only accepts the default
-    // temperature, so none is sent. Reasoning is off for the same reason as
-    // DeepseekAdapter: callers summarise/extract/classify, and reasoning
-    // tokens count against max_completion_tokens.
+    // Reasoning models reject `max_tokens` and any non-default temperature.
+    // Reasoning is off for the reason given in DeepseekAdapter.chat.
     return openaiCompatibleChat(
       this.chatClient,
       prompt,
