@@ -30,11 +30,9 @@ type PlayerResponse = {
 };
 
 /**
- * Player fetch for youtube-transcript-plus that moves the original-language
- * caption track to the front, since the library takes the first track and
- * YouTube sorts tracks by language name. Auto-dubbed videos list an ASR track
- * per dub, so MN9dGgmLyso came back in Arabic. The default audio track's first
- * caption index points at the original language.
+ * youtube-transcript-plus takes the first caption track, and YouTube sorts
+ * tracks by language name, so an auto-dubbed video can start with a dub. The
+ * default audio track's first caption index points at the original language.
  */
 export const fetchPlayerWithOriginalTrackFirst = async ({
   url,
