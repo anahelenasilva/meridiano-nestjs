@@ -11,6 +11,60 @@ interface CleanOptions {
   keepBrackets?: boolean;
 }
 
+type PlayerFetchParams = {
+  url: string;
+  method?: string;
+  body?: string;
+  headers?: Record<string, string>;
+  userAgent?: string;
+};
+
+type PlayerResponse = {
+  captions?: {
+    playerCaptionsTracklistRenderer?: {
+      captionTracks?: unknown[];
+      audioTracks?: { captionTrackIndices?: number[] }[];
+      defaultAudioTrackIndex?: number;
+    };
+  };
+};
+
+/**
+ * youtube-transcript-plus takes the first caption track, and YouTube sorts
+ * tracks by language name, so an auto-dubbed video can start with a dub. The
+ * default audio track's first caption index points at the original language.
+ */
+export const fetchPlayerWithOriginalTrackFirst = async ({
+  url,
+  method,
+  body,
+  headers,
+  userAgent,
+}: PlayerFetchParams): Promise<Response> => {
+  const response = await fetch(url, {
+    method,
+    body,
+    headers: { ...(userAgent && { 'User-Agent': userAgent }), ...headers },
+  });
+  if (!response.ok) return response;
+
+  const player = (await response.json()) as PlayerResponse;
+  const tracklist = player.captions?.playerCaptionsTracklistRenderer;
+  const tracks = tracklist?.captionTracks;
+  const originalIndex =
+    tracklist?.audioTracks?.[tracklist.defaultAudioTrackIndex ?? 0]
+      ?.captionTrackIndices?.[0];
+
+  if (tracks && originalIndex !== undefined && tracks[originalIndex]) {
+    tracklist.captionTracks = [
+      tracks[originalIndex],
+      ...tracks.filter((_, index) => index !== originalIndex),
+    ];
+  }
+
+  return Response.json(player);
+};
+
 @Injectable()
 export class YoutubeTranscriptionsAlternativeService
   implements TranscriptSource
@@ -100,9 +154,8 @@ export class YoutubeTranscriptionsAlternativeService
       throw new Error(`Invalid YouTube video ID: ${videoId}`);
     }
 
-    // Without lang the library takes the first track, sorted by language name.
     const transcript = await YoutubeTranscript.fetchTranscript(id, {
-      lang: 'en',
+      playerFetch: fetchPlayerWithOriginalTrackFirst,
     });
 
     return transcript.map((entry) => {
