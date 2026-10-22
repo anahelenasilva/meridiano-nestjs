@@ -75,7 +75,7 @@ export const politicsPrompts = {
   - Translate complex points into clear, simple language.
   - Organize the summary so it is easy to scan.
 
-  Output on the {article_content} property:
+  Output:
   1) 3-5 sentence overview in plain English.
   2) Key takeaways as concise bullet points and/or short sections, as appropriate.
   3) Notable data, trends, or memorable quotes called out clearly.
