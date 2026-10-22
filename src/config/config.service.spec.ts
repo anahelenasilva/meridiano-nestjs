@@ -49,6 +49,28 @@ describe('ConfigService', () => {
 
       expect(result).toBe('Content:\nSome text');
     });
+
+    it('should insert values containing $ replacement patterns literally', () => {
+      const result = service.formatPrompt('Summary: {summary} end', {
+        summary: "cost $$5 and $& and $` and $'",
+      });
+
+      expect(result).toBe("Summary: cost $$5 and $& and $` and $' end");
+    });
+
+    it('should not substitute placeholders that appear inside an inserted value', () => {
+      const result = service.formatPrompt(
+        'Title: {title}\nContent: {content}',
+        {
+          title: 'Why {content} matters',
+          content: 'Article body',
+        },
+      );
+
+      expect(result).toBe(
+        'Title: Why {content} matters\nContent: Article body',
+      );
+    });
   });
 
   describe('getArticleEmailsNotifications', () => {

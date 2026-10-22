@@ -11,6 +11,7 @@ import {
   transcriptionSummaryPrompt,
 } from '../../config/prompts';
 import { buildFinalPrompt } from '../../shared/helpers/build-final-prompt';
+import { fillPromptTemplate } from '../../shared/helpers/fill-prompt-template';
 import { estimateChatTokens } from '../../shared/helpers/token-estimation';
 import {
   StructureExtractionError,
@@ -65,10 +66,9 @@ export class TranscriptChunkingService {
     // Structure extraction only needs themes and section markers, not full content
     const truncatedText = this.truncateIfNeeded(transcriptText, 50000);
 
-    const prompt = structureExtractionPrompt.replace(
-      '{article_content}',
-      truncatedText,
-    );
+    const prompt = fillPromptTemplate(structureExtractionPrompt, {
+      article_content: truncatedText,
+    });
 
     const response = await this.aiService.callChat(prompt);
 
@@ -266,9 +266,10 @@ export class TranscriptChunkingService {
       .map((s, i) => `## Section ${i + 1}\n${s}`)
       .join('\n\n');
 
-    const basePrompt = synthesisWithStructurePrompt
-      .replace('{video_structure}', videoStructure)
-      .replace('{chunk_summaries}', chunkSummaries);
+    const basePrompt = fillPromptTemplate(synthesisWithStructurePrompt, {
+      video_structure: videoStructure,
+      chunk_summaries: chunkSummaries,
+    });
 
     const prompt = buildFinalPrompt(basePrompt, customPrompt);
 
@@ -332,10 +333,9 @@ export class TranscriptChunkingService {
       );
 
       const truncatedText = this.truncateIfNeeded(transcriptText, 120000);
-      const basePrompt = transcriptionSummaryPrompt.replace(
-        '{article_content}',
-        truncatedText,
-      );
+      const basePrompt = fillPromptTemplate(transcriptionSummaryPrompt, {
+        article_content: truncatedText,
+      });
       const prompt = buildFinalPrompt(basePrompt, customPrompt);
 
       const result = await this.aiService.callChat(prompt);
@@ -409,13 +409,17 @@ export class TranscriptChunkingService {
           .map((cr) => cr.description)
           .join('\n');
 
-        const baseChunkPrompt = chunkSummaryWithStructurePrompt
-          .replace('{section_number}', String(i + 1))
-          .replace('{total_sections}', String(chunks.length))
-          .replace('{key_themes}', structure.keyThemes.join(', '))
-          .replace('{sections_overview}', sectionsOverview)
-          .replace('{cross_references}', relevantCrossRefs || 'None')
-          .replace('{chunk_content}', chunk.text);
+        const baseChunkPrompt = fillPromptTemplate(
+          chunkSummaryWithStructurePrompt,
+          {
+            section_number: String(i + 1),
+            total_sections: String(chunks.length),
+            key_themes: structure.keyThemes.join(', '),
+            sections_overview: sectionsOverview,
+            cross_references: relevantCrossRefs || 'None',
+            chunk_content: chunk.text,
+          },
+        );
 
         const prompt = buildFinalPrompt(baseChunkPrompt, customPrompt);
 
@@ -506,7 +510,9 @@ export class TranscriptChunkingService {
 
     for (let i = 0; i < chunks.length; i++) {
       const chunk = chunks[i];
-      const baseChunkPrompt = chunkSummaryPrompt.replace('{chunk_content}', chunk.text);
+      const baseChunkPrompt = fillPromptTemplate(chunkSummaryPrompt, {
+        chunk_content: chunk.text,
+      });
       const prompt = buildFinalPrompt(baseChunkPrompt, customPrompt);
 
       const summary = await this.aiService.callChat(prompt);

@@ -1,7 +1,7 @@
 export const transcriptionSummaryPrompt = `
 You are an expert summarizer and critical reader.
 
-I will paste a YouTube video transcription and after reading the real content of that transcription, output on the {article_content} property the following:
+I will paste a YouTube video transcription and after reading the real content of that transcription, output the following:
 1) Summarize the 5 most important points and the conclusion.
 2) After the summary, tell the reader what key details, data and insights they are missing by not watching the full video. Be specific enough to make them curious.
 3) Key takeaways as concise bullet points and/or short sections, as appropriate
