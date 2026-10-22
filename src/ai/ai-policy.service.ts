@@ -1,19 +1,21 @@
 import { Logger } from '@nestjs/common';
+import * as Effect from 'effect/Effect';
+import * as Schedule from 'effect/Schedule';
 import { averageEmbeddings } from './helpers/average-embeddings';
 import { splitTextIntoChunks } from './helpers/split-text-into-chunks';
 import { estimateTokenCount } from '../shared/helpers/token-estimation';
 import { AiAdapter } from './adapters/ai-adapter.interface';
+import { ProviderError, toProviderError } from './provider-error';
 
-const RETRYABLE_PATTERNS = [
-  '429',
-  'rate',
-  'timeout',
-  'ECONN',
-  'ETIMEDOUT',
-  'ECONNRESET',
-];
 const MAX_RETRIES = 2;
-const RETRY_DELAY_MS = 500;
+
+const retryPolicy = {
+  schedule: Schedule.exponential('500 millis').pipe(Schedule.jittered),
+  times: MAX_RETRIES,
+  // The SDK already retried timeouts internally; another round only stacks waits.
+  while: (error: ProviderError) =>
+    error._tag === 'RateLimited' || error._tag === 'ProviderUnreachable',
+};
 
 export class AiPolicyService {
   private readonly logger = new Logger(AiPolicyService.name);
@@ -99,35 +101,28 @@ export class AiPolicyService {
     return Buffer.concat(audioBuffers);
   }
 
-  private async withRetry<T>(fn: () => Promise<T>): Promise<T> {
-    let lastError: unknown;
+  private withRetry<T>(fn: () => Promise<T>): Promise<T> {
+    const program = Effect.tryPromise({ try: fn, catch: toProviderError }).pipe(
+      Effect.tapError((error) =>
+        Effect.sync(() => {
+          const cause = error.cause;
+          const message =
+            cause instanceof Error ? cause.message : String(cause);
+          const line = `AI provider call failed (${error._tag}): ${message}`;
+          if (retryPolicy.while(error)) {
+            this.logger.warn(line);
+          } else {
+            this.logger.error(line);
+          }
+        }),
+      ),
+      Effect.retry(retryPolicy),
+    );
 
-    for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
-      try {
-        return await fn();
-      } catch (error) {
-        const message = error instanceof Error ? error.message : String(error);
-
-        if (!this.isRetryable(message)) {
-          this.logger.error(`Non-retryable error: ${message}`);
-          throw error;
-        }
-
-        lastError = error;
-        if (attempt < MAX_RETRIES) {
-          this.logger.warn(
-            `Attempt ${attempt + 1}/${MAX_RETRIES + 1} failed, retrying...`,
-          );
-          await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
-        }
-      }
-    }
-
-    throw lastError;
-  }
-
-  private isRetryable(message: string): boolean {
-    return RETRYABLE_PATTERNS.some((pattern) => message.includes(pattern));
+    // Callers match on the provider's message, so reject with the original error, not the tag.
+    return Effect.runPromise(
+      program.pipe(Effect.mapError((error) => error.cause)),
+    );
   }
 
   private splitTextByEstimatedTokens(
