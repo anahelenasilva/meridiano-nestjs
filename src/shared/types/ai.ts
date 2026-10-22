@@ -1,6 +1,6 @@
 export type ImpactRating = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
-export interface PromptVariables {
+export type PromptVariables = {
   article_content?: string;
   article_title?: string;
   summary?: string;
@@ -10,7 +10,7 @@ export interface PromptVariables {
   cluster_summaries_text?: string;
   cluster_analyses_text?: string;
   summaries_text?: string;
-}
+};
 
 export interface EmbeddingResponse {
   data: Array<{

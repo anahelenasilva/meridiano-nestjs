@@ -360,6 +360,20 @@ describe('TranscriptChunkingService', () => {
         expect(prompt).toContain('Additional instructions: Custom instructions');
       });
 
+      it('inserts transcript text containing $ replacement patterns literally', async () => {
+        mockAiService.callChat.mockResolvedValue('Summary');
+
+        await service.processTranscript(
+          "costs $$5, $& and $' too",
+          transcriptionId,
+          jobId,
+          channelId,
+        );
+
+        const prompt = mockAiService.callChat.mock.calls[0][0];
+        expect(prompt).toContain("Transcription:\ncosts $$5, $& and $' too\n");
+      });
+
       it('throws TranscriptChunkingError on empty response', async () => {
         mockAiService.callChat.mockResolvedValue(null);
 

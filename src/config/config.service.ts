@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ImpactRating, PromptVariables } from '../shared/types/ai';
+import { fillPromptTemplate } from '../shared/helpers/fill-prompt-template';
 import { BriefingOptions } from '../shared/types/briefing-options';
 import { FeedProfile } from '../shared/types/feed';
 import {
@@ -86,11 +87,7 @@ export class ConfigService {
   }
 
   formatPrompt(template: string, variables: PromptVariables): string {
-    return template.replace(/\{(\w+)\}/g, (placeholder, key: string) =>
-      Object.hasOwn(variables, key)
-        ? (variables[key as keyof PromptVariables] ?? '')
-        : placeholder,
-    );
+    return fillPromptTemplate(template, variables);
   }
 
   getArticleSummaryPrompt(articleContent: string): string {
