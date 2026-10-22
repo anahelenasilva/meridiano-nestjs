@@ -47,6 +47,7 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-argument': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/unbound-method': 'off',
+      'no-restricted-imports': ['error', { paths: [{ name: 'effect', message: "Import a sub-path such as 'effect/Effect'. The barrel loads effect/ConfigProvider, whose import.meta breaks Jest's CommonJS transform." }] }],
     },
   },
 );

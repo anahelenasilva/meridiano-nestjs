@@ -13,6 +13,7 @@
       "ts-jest",
       {
         "tsconfig": {
+          "allowJs": true,
           "paths": {
             "@libs/*": [
               "libs/*"
@@ -23,7 +24,7 @@
     ]
   },
   "transformIgnorePatterns": [
-    "node_modules/(?!(\\.pnpm/(youtubei\\.js|marked|youtube-transcript-plus)@[^/]+/node_modules/)?(youtubei\\.js|marked|youtube-transcript-plus)/)"
+    "node_modules/(?!(\\.pnpm/(youtubei\\.js|marked|youtube-transcript-plus|effect)@[^/]+/node_modules/)?(youtubei\\.js|marked|youtube-transcript-plus|effect)/)"
   ],
   "moduleNameMapper": {
     "^youtubei\\.js$": "<rootDir>/../src/__mocks__/youtubei.js.ts",
