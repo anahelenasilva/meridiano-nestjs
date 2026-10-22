@@ -86,10 +86,10 @@ export class ConfigService {
   }
 
   formatPrompt(template: string, variables: PromptVariables): string {
-    return Object.entries(variables).reduce(
-      (prompt, [key, value]) =>
-        prompt.replace(new RegExp(`{${key}}`, 'g'), String(value || '')),
-      template,
+    return template.replace(/\{(\w+)\}/g, (placeholder, key: string) =>
+      Object.hasOwn(variables, key)
+        ? (variables[key as keyof PromptVariables] ?? '')
+        : placeholder,
     );
   }
 
