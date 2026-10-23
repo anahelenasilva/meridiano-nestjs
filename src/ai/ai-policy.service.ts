@@ -1,6 +1,5 @@
 import { Logger } from '@nestjs/common';
-import * as Effect from 'effect/Effect';
-import * as Schedule from 'effect/Schedule';
+import { Cause, Effect, Exit, Schedule } from 'effect';
 import { averageEmbeddings } from './helpers/average-embeddings';
 import { splitTextIntoChunks } from './helpers/split-text-into-chunks';
 import { estimateTokenCount } from '../shared/helpers/token-estimation';
@@ -101,7 +100,7 @@ export class AiPolicyService {
     return Buffer.concat(audioBuffers);
   }
 
-  private withRetry<T>(fn: () => Promise<T>): Promise<T> {
+  private async withRetry<T>(fn: () => Promise<T>): Promise<T> {
     const program = Effect.tryPromise({ try: fn, catch: toProviderError }).pipe(
       Effect.tapError((error) =>
         Effect.sync(() => {
@@ -117,12 +116,14 @@ export class AiPolicyService {
         }),
       ),
       Effect.retry(retryPolicy),
+      Effect.mapError((error) => error.cause),
     );
 
-    // Callers match on the provider's message, so reject with the original error, not the tag.
-    return Effect.runPromise(
-      program.pipe(Effect.mapError((error) => error.cause)),
-    );
+    // runPromise would reject with a FiberFailure wrapper. Callers match on the
+    // provider's message, so rethrow the adapter's own error.
+    const exit = await Effect.runPromiseExit(program);
+    if (Exit.isSuccess(exit)) return exit.value;
+    throw Cause.squash(exit.cause);
   }
 
   private splitTextByEstimatedTokens(

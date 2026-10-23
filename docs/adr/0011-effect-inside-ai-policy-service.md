@@ -33,24 +33,27 @@ only. Adapters, `AiAdapter`, `AiService` and every Nest module stay Promise-base
   completion can outlast the 30s the issue suggests. `AiAdapter` takes no
   `AbortSignal` either, so an Effect timeout would stop waiting while the HTTP
   request kept running and billing.
-- **The boundary rejects with the original error.** `withRetry` runs its program
-  with `Effect.runPromise` after mapping each tag back to its `cause`. Callers such
-  as `AiService.callChatOrThrow` keep the provider's own message.
-- **`effect` 4.0.5, imported by sub-path.** 4.x ships only ES modules. The app
-  compiles to CommonJS and loads it through Node's `require(esm)`, available from
-  Node 22.12, so `engines.node` is now `>=22.12 <23`. Jest transforms `effect`
-  through ts-jest (`allowJs`, `transformIgnorePatterns`), and that transform fails
-  on `import.meta` in `effect/ConfigProvider`. The `effect` barrel loads that
-  module, and `effect/Data`, `effect/Effect` and `effect/Schedule` do not. An
-  ESLint rule rejects `import ... from 'effect'`.
+- **The boundary rejects with the original error.** `withRetry` maps each tag back
+  to its `cause`, runs the program with `Effect.runPromiseExit` and throws
+  `Cause.squash` of a failure. `Effect.runPromise` would reject with a
+  `FiberFailure` wrapper instead. Callers such as `AiService.callChatOrThrow` keep
+  the provider's own message.
+- **`effect` 3.21.2.** `@ai-hero/sandcastle` already installs 3.21.2, and 12 of its
+  `@effect/*` packages take `effect` (`^3.20.0`) as a peer resolved from the root.
+  Pinning the same version keeps one Effect in the tree. 3.x ships CommonJS, so the
+  build, Jest and ESLint need no changes.
 - **Tests stay in Jest.** Fake timers drive Effect's schedule, so retry tests do not
   wait in real time.
 
 ## Alternatives considered
 
-**`effect` 3.22.3**
-Rejected. It ships CommonJS and would need no Jest changes, but 4.x is the current
-major and 3.x is tagged `prev`. Starting the pilot on it means a migration later.
+**`effect` 4.x**
+Rejected. It is the current major, but a root `effect@4` becomes the peer of
+sandcastle's `@effect/*` packages, and `@ai-hero/sandcastle` then fails to import
+(`effect/dist/FiberRef.js` is gone in 4.x). Neither `resolvePeersFromWorkspaceRoot:
+false` nor scoped `overrides` re-bind those auto-installed peers. 4.x also ships
+only ES modules, which needed Jest transform changes and Node 22.12 for
+`require(esm)`.
 
 **Adapters that return Effects**
 Rejected for the pilot. It changes `AiAdapter`, which ADR-0007's `AI_ADAPTER`
@@ -69,4 +72,4 @@ Rejected. It adds a second test runner for one service.
 - If the pilot holds, #280's next step is the article processing pipeline, where
   Effect's error channel and clock would replace `StepResult` and the `Sleeper`
   seam from ADR-0007.
-- Code that imports Effect uses sub-paths such as `effect/Effect`. ESLint enforces it.
+- Moving to Effect 4 waits for sandcastle to move. Both upgrade together.

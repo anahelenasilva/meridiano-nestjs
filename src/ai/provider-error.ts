@@ -1,4 +1,4 @@
-import * as Data from 'effect/Data';
+import { Data } from 'effect';
 import Groq from 'groq-sdk';
 import OpenAI from 'openai';
 
