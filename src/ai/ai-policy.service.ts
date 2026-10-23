@@ -8,12 +8,15 @@ import { ProviderError, toProviderError } from './provider-error';
 
 const MAX_RETRIES = 2;
 
+// Timeouts are left out: each SDK attempt already waits out the full client
+// timeout (600s on OpenAI), so another round multiplies that wait.
+const isRetryable = (error: ProviderError) =>
+  error._tag === 'RateLimited' || error._tag === 'ProviderUnreachable';
+
 const retryPolicy = {
   schedule: Schedule.exponential('500 millis').pipe(Schedule.jittered),
   times: MAX_RETRIES,
-  // The SDK already retried timeouts internally; another round only stacks waits.
-  while: (error: ProviderError) =>
-    error._tag === 'RateLimited' || error._tag === 'ProviderUnreachable',
+  while: isRetryable,
 };
 
 export class AiPolicyService {
@@ -108,7 +111,7 @@ export class AiPolicyService {
           const message =
             cause instanceof Error ? cause.message : String(cause);
           const line = `AI provider call failed (${error._tag}): ${message}`;
-          if (retryPolicy.while(error)) {
+          if (isRetryable(error)) {
             this.logger.warn(line);
           } else {
             this.logger.error(line);
