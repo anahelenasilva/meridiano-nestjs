@@ -38,7 +38,8 @@ describe('YoutubeTranscriptionsController', () => {
   const mockListTranscriptionsLeanQuery = mock<ListTranscriptionsLeanQuery>();
 
   const userId = 'user-1';
-  const mockRequest = { user: { id: userId } } as AuthenticatedRequest;
+  const mockUser = { id: userId };
+  const mockRequest = { user: mockUser } as AuthenticatedRequest;
   const transcriptionId = '11111111-1111-1111-1111-111111111111';
   const mockTranscription: YoutubeTranscription = {
     id: transcriptionId,
@@ -159,7 +160,7 @@ describe('YoutubeTranscriptionsController', () => {
       );
 
       const result = await controller.getTranscription(
-        mockRequest,
+        mockUser,
         transcriptionId,
       );
 
@@ -169,6 +170,22 @@ describe('YoutubeTranscriptionsController', () => {
       expect(
         mockYoutubeTranscriptionsService.getTranscriptionById,
       ).toHaveBeenCalledWith(transcriptionId);
+    });
+
+    it('returns the transcription with a null note on the api-key path, which has no user', async () => {
+      mockYoutubeTranscriptionsService.getTranscriptionById.mockResolvedValue(
+        mockTranscription,
+      );
+
+      const result = await controller.getTranscription(
+        undefined,
+        transcriptionId,
+      );
+
+      expect(result).toEqual({
+        transcription: { ...mockTranscription, note: null },
+      });
+      expect(mockNotesReadService.getActiveNote).not.toHaveBeenCalled();
     });
 
     it('should return transcription with audio when includeAudio=true and audio exists', async () => {
@@ -197,7 +214,7 @@ describe('YoutubeTranscriptionsController', () => {
       );
 
       const result = await controller.getTranscription(
-        mockRequest,
+        mockUser,
         transcriptionId,
         'true',
       );
@@ -231,7 +248,7 @@ describe('YoutubeTranscriptionsController', () => {
       );
 
       const result = await controller.getTranscription(
-        mockRequest,
+        mockUser,
         transcriptionId,
         '1',
       );
@@ -261,7 +278,7 @@ describe('YoutubeTranscriptionsController', () => {
       );
 
       const result = await controller.getTranscription(
-        mockRequest,
+        mockUser,
         transcriptionId,
         'yes',
       );
@@ -276,7 +293,7 @@ describe('YoutubeTranscriptionsController', () => {
 
       await expect(
         controller.getTranscription(
-          mockRequest,
+          mockUser,
           '00000000-0000-0000-0000-000000000000',
         ),
       ).rejects.toThrow(NotFoundException);
