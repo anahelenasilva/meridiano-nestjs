@@ -1,13 +1,7 @@
 import dns from 'node:dns';
 import { Agent as HttpAgent } from 'node:http';
 import { Agent as HttpsAgent } from 'node:https';
-import {
-  BlockList,
-  isIP,
-  type LookupFunction,
-  type NetConnectOpts,
-  type Socket,
-} from 'node:net';
+import { BlockList, isIP, type LookupFunction } from 'node:net';
 
 const blockedAddresses = new BlockList();
 blockedAddresses.addSubnet('0.0.0.0', 8, 'ipv4');
@@ -41,12 +35,9 @@ export function isBlockedIpAddress(address: string): boolean {
 
 type IsBlocked = (address: string) => boolean;
 
-// Agent.createConnection exists at runtime on both agents but @types/node
-// does not declare it.
-type CreateConnection = (
-  options: NetConnectOpts & { host?: string | null },
-  callback: (error: Error | null, socket?: Socket) => void,
-) => Socket | undefined;
+// The agent always passes a callback, and Node documents `callback(err)` for a
+// failed connection, but @types/node types it as optional with a required stream.
+type ConnectionErrorCallback = (error: Error) => void;
 
 function blockedAddressError(host: string, address: string): Error {
   return new Error(
@@ -78,15 +69,16 @@ function guardedLookup(isBlocked: IsBlocked): LookupFunction {
 
 function guardAgent<T extends HttpAgent>(agent: T, isBlocked: IsBlocked): T {
   const lookup = guardedLookup(isBlocked);
-  const target = agent as T & { createConnection: CreateConnection };
   // strictBindCallApply is off in this repo, so bind() returns any.
-  const createConnection = target.createConnection.bind(
-    target,
-  ) as CreateConnection;
-  target.createConnection = (options, callback) => {
+  const createConnection = agent.createConnection.bind(
+    agent,
+  ) as HttpAgent['createConnection'];
+  agent.createConnection = (options, callback) => {
     // Node never calls `lookup` for an IP literal host, so check it here.
     if (options.host && isBlocked(options.host)) {
-      callback(blockedAddressError(options.host, options.host));
+      (callback as ConnectionErrorCallback)(
+        blockedAddressError(options.host, options.host),
+      );
       return undefined;
     }
     return createConnection({ ...options, lookup }, callback);
