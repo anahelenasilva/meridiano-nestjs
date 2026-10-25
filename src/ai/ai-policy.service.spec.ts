@@ -1,7 +1,24 @@
 import { Logger } from '@nestjs/common';
+import OpenAI from 'openai';
 import { averageEmbeddings } from './helpers/average-embeddings';
 import { AiPolicyService } from './ai-policy.service';
 import { AiAdapter } from './adapters/ai-adapter.interface';
+
+const rateLimited = () =>
+  new OpenAI.RateLimitError(429, undefined, 'Rate limit reached', undefined);
+const connectionError = () =>
+  new OpenAI.APIConnectionError({ message: 'Connection error.' });
+
+// Call with fake timers on. The longest backoff is 600ms + 1200ms, so 2s of
+// fake time settles any retry chain.
+async function settle<T>(
+  promise: Promise<T>,
+): Promise<PromiseSettledResult<T>> {
+  const settled = Promise.allSettled([promise]);
+  await jest.advanceTimersByTimeAsync(2_000);
+  const [result] = await settled;
+  return result;
+}
 
 function makeFakeAdapter(
   overrides: Partial<AiAdapter> = {},
@@ -15,7 +32,13 @@ function makeFakeAdapter(
 }
 
 describe('AiPolicyService', () => {
-  afterEach(() => jest.clearAllMocks());
+  afterEach(() => {
+    jest.clearAllMocks();
+    // Restore spies before timers: a setTimeout spy left on the fake clock
+    // removes global.setTimeout when useRealTimers runs.
+    jest.restoreAllMocks();
+    jest.useRealTimers();
+  });
 
   describe('chat', () => {
     it('delegates to adapter and returns result', async () => {
@@ -30,57 +53,110 @@ describe('AiPolicyService', () => {
     });
 
     it('retries on retryable error and returns eventual result', async () => {
+      jest.useFakeTimers();
       const adapter = makeFakeAdapter();
-      const consoleSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+      const consoleSpy = jest
+        .spyOn(Logger.prototype, 'warn')
+        .mockImplementation();
       (adapter.chat as jest.Mock)
-        .mockRejectedValueOnce(new Error('rate limit 429'))
+        .mockRejectedValueOnce(rateLimited())
         .mockResolvedValueOnce('ok');
       const svc = new AiPolicyService(adapter);
 
-      const result = await svc.chat('prompt');
+      const result = await settle(svc.chat('prompt'));
 
-      expect(result).toBe('ok');
+      expect(result).toEqual({ status: 'fulfilled', value: 'ok' });
       expect(adapter.chat).toHaveBeenCalledTimes(2);
       consoleSpy.mockRestore();
     });
 
     it('retries N=2 and returns result on third attempt', async () => {
+      jest.useFakeTimers();
       const adapter = makeFakeAdapter();
-      const consoleSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+      const consoleSpy = jest
+        .spyOn(Logger.prototype, 'warn')
+        .mockImplementation();
       (adapter.chat as jest.Mock)
-        .mockRejectedValueOnce(new Error('rate limit 429'))
-        .mockRejectedValueOnce(new Error('timeout'))
+        .mockRejectedValueOnce(rateLimited())
+        .mockRejectedValueOnce(connectionError())
         .mockResolvedValueOnce('ok');
       const svc = new AiPolicyService(adapter);
 
-      const result = await svc.chat('prompt');
+      const result = await settle(svc.chat('prompt'));
 
-      expect(result).toBe('ok');
+      expect(result).toEqual({ status: 'fulfilled', value: 'ok' });
       expect(adapter.chat).toHaveBeenCalledTimes(3);
       consoleSpy.mockRestore();
     });
 
     it('does not retry on non-retryable error', async () => {
       const adapter = makeFakeAdapter();
-      const consoleSpy = jest.spyOn(Logger.prototype, 'error').mockImplementation();
-      (adapter.chat as jest.Mock).mockRejectedValue(
-        new Error('invalid API key'),
-      );
+      const consoleSpy = jest
+        .spyOn(Logger.prototype, 'error')
+        .mockImplementation();
+      const error = new Error('invalid API key');
+      (adapter.chat as jest.Mock).mockRejectedValue(error);
       const svc = new AiPolicyService(adapter);
 
-      await expect(svc.chat('prompt')).rejects.toThrow('invalid API key');
+      await expect(svc.chat('prompt')).rejects.toBe(error);
       expect(adapter.chat).toHaveBeenCalledTimes(1);
       consoleSpy.mockRestore();
     });
 
-    it('exhausts retries and throws after max retries', async () => {
+    it("exhausts retries and rejects with the adapter's error", async () => {
+      jest.useFakeTimers();
       const adapter = makeFakeAdapter();
-      const consoleSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
-      (adapter.chat as jest.Mock).mockRejectedValue(new Error('timeout'));
+      const consoleSpy = jest
+        .spyOn(Logger.prototype, 'warn')
+        .mockImplementation();
+      const error = connectionError();
+      (adapter.chat as jest.Mock).mockRejectedValue(error);
       const svc = new AiPolicyService(adapter);
 
-      await expect(svc.chat('prompt')).rejects.toThrow('timeout');
+      const result = await settle(svc.chat('prompt'));
+
+      expect(result.status).toBe('rejected');
+      expect((result as PromiseRejectedResult).reason).toBe(error);
       expect(adapter.chat).toHaveBeenCalledTimes(3);
+      consoleSpy.mockRestore();
+    });
+
+    it('does not retry a provider timeout', async () => {
+      const adapter = makeFakeAdapter();
+      const consoleSpy = jest
+        .spyOn(Logger.prototype, 'error')
+        .mockImplementation();
+      (adapter.chat as jest.Mock).mockRejectedValue(
+        new OpenAI.APIConnectionTimeoutError(),
+      );
+      const svc = new AiPolicyService(adapter);
+
+      await expect(svc.chat('prompt')).rejects.toThrow('Request timed out.');
+      expect(adapter.chat).toHaveBeenCalledTimes(1);
+      consoleSpy.mockRestore();
+    });
+
+    it('backs off about 500ms, then about 1000ms', async () => {
+      jest.useFakeTimers();
+      const adapter = makeFakeAdapter();
+      const consoleSpy = jest
+        .spyOn(Logger.prototype, 'warn')
+        .mockImplementation();
+      const timeoutSpy = jest.spyOn(global, 'setTimeout');
+      (adapter.chat as jest.Mock).mockRejectedValue(rateLimited());
+      const svc = new AiPolicyService(adapter);
+
+      await settle(svc.chat('prompt'));
+
+      const delays = timeoutSpy.mock.calls
+        .map(([, ms]) => ms)
+        .filter((ms): ms is number => typeof ms === 'number' && ms > 0);
+      expect(delays).toHaveLength(2);
+      expect(delays[0]).toBeGreaterThanOrEqual(400);
+      expect(delays[0]).toBeLessThanOrEqual(600);
+      expect(delays[1]).toBeGreaterThanOrEqual(800);
+      expect(delays[1]).toBeLessThanOrEqual(1200);
+      timeoutSpy.mockRestore();
       consoleSpy.mockRestore();
     });
   });
@@ -88,7 +164,9 @@ describe('AiPolicyService', () => {
   describe('embed', () => {
     it('returns null for empty text', async () => {
       const adapter = makeFakeAdapter();
-      const consoleSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+      const consoleSpy = jest
+        .spyOn(Logger.prototype, 'warn')
+        .mockImplementation();
       const svc = new AiPolicyService(adapter);
 
       const result = await svc.embed('');
@@ -100,7 +178,9 @@ describe('AiPolicyService', () => {
 
     it('returns null for whitespace-only text', async () => {
       const adapter = makeFakeAdapter();
-      const consoleSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+      const consoleSpy = jest
+        .spyOn(Logger.prototype, 'warn')
+        .mockImplementation();
       const svc = new AiPolicyService(adapter);
 
       expect(await svc.embed('   ')).toBeNull();
@@ -134,16 +214,19 @@ describe('AiPolicyService', () => {
     });
 
     it('retries on retryable embedding error and returns eventual result', async () => {
+      jest.useFakeTimers();
       const adapter = makeFakeAdapter();
-      const consoleSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+      const consoleSpy = jest
+        .spyOn(Logger.prototype, 'warn')
+        .mockImplementation();
       (adapter.embed as jest.Mock)
-        .mockRejectedValueOnce(new Error('rate limit 429'))
+        .mockRejectedValueOnce(rateLimited())
         .mockResolvedValueOnce([0.5, 0.5]);
       const svc = new AiPolicyService(adapter, 1000);
 
-      const result = await svc.embed('some text');
+      const result = await settle(svc.embed('some text'));
 
-      expect(result).toEqual([0.5, 0.5]);
+      expect(result).toEqual({ status: 'fulfilled', value: [0.5, 0.5] });
       expect(adapter.embed).toHaveBeenCalledTimes(2);
       consoleSpy.mockRestore();
     });
@@ -151,7 +234,9 @@ describe('AiPolicyService', () => {
     it('throws the provider error when every chunk fails', async () => {
       const adapter = makeFakeAdapter();
       const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
-      const errorSpy = jest.spyOn(Logger.prototype, 'error').mockImplementation();
+      const errorSpy = jest
+        .spyOn(Logger.prototype, 'error')
+        .mockImplementation();
       (adapter.embed as jest.Mock).mockRejectedValue(
         new Error('400 Unable to access model'),
       );
@@ -167,7 +252,9 @@ describe('AiPolicyService', () => {
     it('averages the chunks that succeeded when some fail', async () => {
       const adapter = makeFakeAdapter();
       const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
-      const errorSpy = jest.spyOn(Logger.prototype, 'error').mockImplementation();
+      const errorSpy = jest
+        .spyOn(Logger.prototype, 'error')
+        .mockImplementation();
       (adapter.embed as jest.Mock)
         .mockRejectedValueOnce(new Error('400 bad chunk'))
         .mockResolvedValue([1, 3]);
@@ -283,17 +370,40 @@ describe('AiPolicyService', () => {
     });
 
     it('retries a chunk on a retryable error', async () => {
-      const consoleSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+      jest.useFakeTimers();
+      const consoleSpy = jest
+        .spyOn(Logger.prototype, 'warn')
+        .mockImplementation();
       const adapter = makeFakeAdapter();
       (adapter.generateAudio as jest.Mock)
-        .mockRejectedValueOnce(new Error('rate limit 429'))
+        .mockRejectedValueOnce(rateLimited())
         .mockResolvedValueOnce(Buffer.from('ok'));
       const svc = new AiPolicyService(adapter, undefined, 4096);
 
-      const result = await svc.generateAudio('Hello', 'alloy');
+      const result = await settle(svc.generateAudio('Hello', 'alloy'));
 
       expect(adapter.generateAudio).toHaveBeenCalledTimes(2);
-      expect(result.equals(Buffer.from('ok'))).toBe(true);
+      expect(result).toEqual({ status: 'fulfilled', value: Buffer.from('ok') });
+      consoleSpy.mockRestore();
+    });
+
+    it('stops at a failing chunk and requests no later chunks', async () => {
+      const consoleSpy = jest
+        .spyOn(Logger.prototype, 'error')
+        .mockImplementation();
+      const adapter = makeFakeAdapter();
+      (adapter.generateAudio as jest.Mock)
+        .mockResolvedValueOnce(Buffer.from('first'))
+        .mockRejectedValue(new Error('400 bad voice'));
+      const svc = new AiPolicyService(adapter, undefined, 20);
+
+      await expect(
+        svc.generateAudio(
+          'First sentence here. Second sentence here. Third sentence here.',
+          'alloy',
+        ),
+      ).rejects.toThrow('400 bad voice');
+      expect(adapter.generateAudio).toHaveBeenCalledTimes(2);
       consoleSpy.mockRestore();
     });
   });
