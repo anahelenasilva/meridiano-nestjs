@@ -6,13 +6,7 @@ import {
   SqlParams,
 } from '@libs/database';
 import { QueueService } from '@libs/queue';
-import {
-  Inject,
-  Injectable,
-  Logger,
-  NotFoundException,
-  forwardRef,
-} from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { AudioFilesCleanupService } from '../../audio-files/audio-files-cleanup.service';
 import { NotesCleanupService } from '../../notes/notes-cleanup.service';
 import { ChannelConfig } from '../../shared/types/channel';
@@ -134,7 +128,6 @@ export class YoutubeTranscriptionsService {
     private readonly transcriptFetcher: TranscriptFetcherService,
     private readonly storageService: StorageService,
     private readonly databaseService: DatabaseService,
-    @Inject(forwardRef(() => QueueService))
     private readonly queueService: QueueService,
     private readonly youtubeChannelsService: YoutubeChannelsService,
     private readonly notesCleanupService: NotesCleanupService,
