@@ -3,9 +3,13 @@ import { ArticleCategory } from '../article.entity';
 
 /**
  * The shape of one `GET /api/articles` item, so `openapi.json` carries a schema
- * the frontend can generate types from. `ListArticlesQuery.execute` returns
- * these types, so a field added to the response without being declared here is
- * a compile error rather than a silently untyped field on the client.
+ * the frontend can generate types from.
+ *
+ * `ListArticlesQuery`'s return type intersects this one, so dropping a declared
+ * field from the assembly is a compile error. The reverse is not checked: items
+ * are built by a function call, not a fresh object literal, so a field added to
+ * the response and not declared here compiles and is simply absent from the
+ * published schema. Add it in both places.
  *
  * `embedding` is deliberately absent: `articleColumns()` does not select it, so
  * the list item never carries it.
