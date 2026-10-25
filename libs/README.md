@@ -210,7 +210,7 @@ async sendEmail() {
 ### Auth (`libs/auth/`)
 
 Authentication infrastructure module providing JWT-based authentication:
-- `AuthModule`: NestJS module with `forRoot()` and `forRootAsync()` initialization patterns
+- `AuthModule`: NestJS module with a `forRootAsync()` initialization pattern
 - `AuthService`: Service for user authentication and JWT token generation
   - `login()`: Authenticate user and generate JWT token
   - `validateUser()`: Validate user by ID
@@ -219,23 +219,21 @@ Authentication infrastructure module providing JWT-based authentication:
 - `LoginDto`: DTO for login requests
 - `LoginResponseDto`: DTO for login responses
 
-**Initialization Pattern**: Uses `AuthModule.forRoot()` or `AuthModule.forRootAsync()` to configure a `UserLookupProvider` implementation. The provider interface decouples the auth module from domain-specific user services.
+**Initialization Pattern**: Uses `AuthModule.forRootAsync()` to configure a `UserLookupProvider` implementation. The provider interface decouples the auth module from domain-specific user services.
 
 **Usage Example**:
 ```typescript
 import { Module } from '@nestjs/common';
-import { AuthModule } from '@libs/auth';
+import { AuthModule as LibsAuthModule } from '@libs/auth';
 import { UsersModule } from '../users/users.module';
-import { UserLookupProviderImpl } from './providers/user-lookup.provider';
+import { UsersService } from '../users/users.service';
 
 @Module({
   imports: [
     UsersModule,
-    AuthModule.forRootAsync({
+    LibsAuthModule.forRootAsync({
       imports: [UsersModule],
-      useFactory: (usersService: UsersService) => {
-        return new UserLookupProviderImpl(usersService);
-      },
+      useFactory: (usersService: UsersService) => usersService,
       inject: [UsersService],
     }),
   ],
