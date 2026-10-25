@@ -64,9 +64,8 @@ Path mapping is configured in:
 
 ### Initialization
 
-`AuthModule` is dynamic and supports:
+`AuthModule` is dynamic and is initialized with:
 
-- `AuthModule.forRoot(UserLookupProviderClass)`
 - `AuthModule.forRootAsync({ useFactory, inject, imports })`
 
 `JWT_SECRET` is required and validated during module initialization.
@@ -78,10 +77,12 @@ Path mapping is configured in:
 
 ### User lookup contract
 
-The auth lib expects a provider implementing `UserLookupProvider`:
+The auth lib expects the factory to return something matching `UserLookupProvider`:
 
 - `getUserByEmail(email, includePassword)`
 - `getUserById(userId)`
+
+The app passes `UsersService`, which already has both methods.
 
 ### Environment variables
 
