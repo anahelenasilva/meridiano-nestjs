@@ -14,33 +14,6 @@ import type { UserLookupProvider } from './interfaces/user-lookup-provider.inter
 // -> @libs/auth (this file).
 @Module({})
 export class AuthModule {
-  static forRoot(userLookupProvider: new () => UserLookupProvider): DynamicModule {
-    return {
-      module: AuthModule,
-      imports: [
-        PassportModule,
-        JwtModule.registerAsync({
-          useFactory: (configService: ConfigService) => ({
-            secret: configService.getJwtSecret(),
-            signOptions: { expiresIn: '24h' },
-          }),
-          inject: [ConfigService],
-        }),
-        RedisModule,
-      ],
-      providers: [
-        {
-          provide: USER_LOOKUP_PROVIDER_TOKEN,
-          useClass: userLookupProvider,
-        },
-        AuthService,
-        RateLimitService,
-        RateLimitGuard,
-      ],
-      exports: [AuthService, RateLimitService, RateLimitGuard],
-    };
-  }
-
   static forRootAsync(options: {
     useFactory: (...args: any[]) => UserLookupProvider | Promise<UserLookupProvider>;
     inject?: any[];
