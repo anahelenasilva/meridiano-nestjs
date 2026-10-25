@@ -25,6 +25,178 @@
         ],
         "type": "object"
       },
+      "ArticleListItemDto": {
+        "properties": {
+          "archived_at": {
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "categories": {
+            "items": {
+              "enum": [
+                "news",
+                "blog",
+                "research",
+                "nodejs",
+                "typescript",
+                "tutorial",
+                "other"
+              ],
+              "type": "string"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "content_html": {
+            "nullable": true,
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "custom_prompt": {
+            "nullable": true,
+            "type": "string"
+          },
+          "feed_profile": {
+            "type": "string"
+          },
+          "feed_source": {
+            "type": "string"
+          },
+          "has_audio": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "image_url": {
+            "nullable": true,
+            "type": "string"
+          },
+          "impact_rating": {
+            "nullable": true,
+            "type": "number"
+          },
+          "is_bookmarked": {
+            "type": "boolean"
+          },
+          "note": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/NoteResponseDto"
+              }
+            ],
+            "nullable": true,
+            "type": "object"
+          },
+          "processed_content": {
+            "nullable": true,
+            "type": "string"
+          },
+          "processed_content_html": {
+            "nullable": true,
+            "type": "string"
+          },
+          "published_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "raw_content": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "url",
+          "title",
+          "published_date",
+          "feed_source",
+          "feed_profile",
+          "raw_content",
+          "content_html",
+          "processed_content_html",
+          "created_at",
+          "has_audio",
+          "note",
+          "is_bookmarked"
+        ],
+        "type": "object"
+      },
+      "ArticlesFiltersDto": {
+        "properties": {
+          "category": {
+            "type": "string"
+          },
+          "direction": {
+            "type": "string"
+          },
+          "end_date": {
+            "type": "string"
+          },
+          "feed_profile": {
+            "type": "string"
+          },
+          "feed_source": {
+            "type": "string"
+          },
+          "preset": {
+            "type": "string"
+          },
+          "search_term": {
+            "type": "string"
+          },
+          "sort_by": {
+            "type": "string"
+          },
+          "start_date": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sort_by",
+          "direction",
+          "feed_profile",
+          "feed_source",
+          "search_term",
+          "start_date",
+          "end_date",
+          "preset",
+          "category"
+        ],
+        "type": "object"
+      },
+      "ArticlesPaginationDto": {
+        "properties": {
+          "page": {
+            "type": "number"
+          },
+          "per_page": {
+            "type": "number"
+          },
+          "total_articles": {
+            "type": "number"
+          },
+          "total_pages": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "page",
+          "per_page",
+          "total_pages",
+          "total_articles"
+        ],
+        "type": "object"
+      },
       "CategoryResponseDto": {
         "properties": {
           "color": {
@@ -325,6 +497,49 @@
         },
         "required": [
           "articleFileName"
+        ],
+        "type": "object"
+      },
+      "ListArticlesResponseDto": {
+        "properties": {
+          "articles": {
+            "items": {
+              "$ref": "#/components/schemas/ArticleListItemDto"
+            },
+            "type": "array"
+          },
+          "available_categories": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "available_profiles": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "available_sources": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "filters": {
+            "$ref": "#/components/schemas/ArticlesFiltersDto"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/ArticlesPaginationDto"
+          }
+        },
+        "required": [
+          "articles",
+          "pagination",
+          "filters",
+          "available_profiles",
+          "available_categories",
+          "available_sources"
         ],
         "type": "object"
       },
@@ -715,6 +930,13 @@
         ],
         "responses": {
           "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListArticlesResponseDto"
+                }
+              }
+            },
             "description": "Paginated list of articles"
           },
           "400": {
@@ -738,7 +960,7 @@
             "description": "Missing or invalid bearer token"
           }
         },
-        "summary": "List articles (all articles are global; per-user notes attach only for a JWT user)",
+        "summary": "List articles (all articles are global; per-user notes and bookmark state attach only for a JWT user)",
         "tags": [
           "Articles"
         ]

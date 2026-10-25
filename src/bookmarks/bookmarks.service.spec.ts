@@ -1,5 +1,6 @@
 import { DatabaseService, RunCallback } from '@libs/database';
 import { mock } from 'jest-mock-extended';
+import { BookmarksReadService } from './bookmarks-read.service';
 import { BookmarksService } from './bookmarks.service';
 
 const USER_ID = '11111111-1111-1111-1111-111111111111';
@@ -7,6 +8,7 @@ const ARTICLE_ID = '22222222-2222-2222-2222-222222222222';
 
 describe('BookmarksService', () => {
   const mockDatabaseService = mock<DatabaseService>();
+  const mockBookmarksReadService = mock<BookmarksReadService>();
   const mockDb = {
     run: jest.fn(),
     get: jest.fn(),
@@ -18,7 +20,25 @@ describe('BookmarksService', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockDatabaseService.getDbConnection.mockReturnValue(mockDb as never);
-    service = new BookmarksService(mockDatabaseService);
+    service = new BookmarksService(
+      mockDatabaseService,
+      mockBookmarksReadService,
+    );
+  });
+
+  describe('isBookmarked', () => {
+    it('delegates to BookmarksReadService rather than running its own query', async () => {
+      mockBookmarksReadService.isBookmarked.mockResolvedValue(true);
+
+      await expect(service.isBookmarked(USER_ID, ARTICLE_ID)).resolves.toBe(
+        true,
+      );
+      expect(mockBookmarksReadService.isBookmarked).toHaveBeenCalledWith(
+        USER_ID,
+        ARTICLE_ID,
+      );
+      expect(mockDb.get).not.toHaveBeenCalled();
+    });
   });
 
   describe('addBookmark', () => {

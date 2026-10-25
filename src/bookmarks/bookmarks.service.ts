@@ -7,6 +7,7 @@ import {
 } from '../articles/article-row';
 import { archiveClause } from '../articles/helpers/archive-scope';
 import { AddBookmarkResult, BookmarkWithArticle } from './bookmark.entity';
+import { BookmarksReadService } from './bookmarks-read.service';
 
 interface BookmarkRow {
   id: string;
@@ -33,7 +34,10 @@ const ACTIVE_ARTICLE = archiveClause('active', 'a.archived_at');
 
 @Injectable()
 export class BookmarksService {
-  constructor(private readonly databaseService: DatabaseService) {}
+  constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly bookmarksReadService: BookmarksReadService,
+  ) {}
 
   async addBookmark(
     userId: string,
@@ -161,13 +165,7 @@ export class BookmarksService {
   }
 
   async isBookmarked(userId: string, articleId: string): Promise<boolean> {
-    const db = this.databaseService.getDbConnection();
-    const row = await queryOne(
-      db,
-      `SELECT 1 FROM bookmarks WHERE user_id = ? AND article_id = ? LIMIT 1`,
-      [userId, articleId],
-    );
-    return !!row;
+    return this.bookmarksReadService.isBookmarked(userId, articleId);
   }
 
   async getBookmarkCount(userId: string): Promise<number> {
