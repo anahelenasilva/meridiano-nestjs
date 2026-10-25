@@ -40,7 +40,8 @@ export class GetYoutubeTranscriptionByIdQuery {
 
   async execute(
     id: string,
-    userId: string,
+    // Undefined on the api-key path, which has no user, so no note attaches.
+    userId: string | undefined,
     options: GetYoutubeTranscriptionByIdOptions = {},
   ): Promise<GetYoutubeTranscriptionByIdResponse | null> {
     const { includeAudio = false, embedOwnerNote = true } = options;
@@ -57,7 +58,7 @@ export class GetYoutubeTranscriptionByIdQuery {
       },
     };
 
-    if (embedOwnerNote) {
+    if (embedOwnerNote && userId) {
       // Embed the owner's active private note on the transcription, mirroring
       // the Article-detail contract (issue #124): note is a field of the resource.
       const activeNote = await this.notesReadService.getActiveNote(

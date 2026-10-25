@@ -122,18 +122,22 @@ export class YoutubeTranscriptionsController {
   }
 
   @Get('transcriptions/:id')
-  @ApiOperation({ summary: 'Get a YouTube transcription by id' })
+  @ApiKeyAllowed()
+  @ApiOperation({
+    summary:
+      'Get a YouTube transcription by id (the owner note attaches only for a JWT user)',
+  })
   @ApiOkResponse({ description: 'Transcription retrieved' })
   @ApiNotFoundResponse({ description: 'YouTube transcription not found' })
   async getTranscription(
-    @Req() request: AuthenticatedRequest,
+    @CurrentUser() user: AuthenticatedUser | undefined,
     @Param('id', ParseUUIDPipe) id: string,
     @Query('includeAudio') includeAudio?: string,
   ) {
     const shouldIncludeAudio = parseIncludeAudio(includeAudio);
     const data = await this.getYoutubeTranscriptionByIdQuery.execute(
       id,
-      request.user.id,
+      user?.id,
       { includeAudio: shouldIncludeAudio },
     );
 

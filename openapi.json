@@ -2604,7 +2604,7 @@
             "description": "YouTube transcription not found"
           }
         },
-        "summary": "Get a YouTube transcription by id",
+        "summary": "Get a YouTube transcription by id (the owner note attaches only for a JWT user)",
         "tags": [
           "YoutubeTranscriptions"
         ]
