@@ -1,4 +1,5 @@
 import { mock } from 'jest-mock-extended';
+import { BookmarksReadService } from '../../bookmarks/bookmarks-read.service';
 import { Note } from '../../notes/note.entity';
 import { NotesReadService } from '../../notes/notes-read.service';
 import { ProfilesService } from '../../profiles/profiles.service';
@@ -10,6 +11,7 @@ describe('ListArticlesQuery', () => {
   const mockService = mock<ArticlesService>();
   const mockProfilesService = mock<ProfilesService>();
   const mockNotesReadService = mock<NotesReadService>();
+  const mockBookmarksReadService = mock<BookmarksReadService>();
 
   const userId = 'user-1';
   const articleA: ArticleListRow = {
@@ -48,11 +50,15 @@ describe('ListArticlesQuery', () => {
     mockService.getDistinctCategories.mockResolvedValue(['news']);
     mockService.getDistinctFeedSources.mockResolvedValue(['Will Larson']);
     mockNotesReadService.getActiveNotesBySourceIds.mockResolvedValue(new Map());
+    mockBookmarksReadService.getBookmarkedArticleIds.mockResolvedValue(
+      new Set(),
+    );
 
     query = new ListArticlesQuery(
       mockService,
       mockProfilesService,
       mockNotesReadService,
+      mockBookmarksReadService,
     );
   });
 
@@ -126,6 +132,93 @@ describe('ListArticlesQuery', () => {
       null,
       null,
     ]);
+  });
+
+  describe('is_bookmarked', () => {
+    it('is true for a bookmarked article and false for an unbookmarked one, via a single bulk lookup', async () => {
+      mockService.listArticles.mockResolvedValue({
+        articles: [articleA, articleB],
+        total: 2,
+      });
+      mockBookmarksReadService.getBookmarkedArticleIds.mockResolvedValue(
+        new Set([articleA.id]),
+      );
+
+      const result = await query.execute(userId, {});
+
+      expect(
+        mockBookmarksReadService.getBookmarkedArticleIds,
+      ).toHaveBeenCalledTimes(1);
+      expect(
+        mockBookmarksReadService.getBookmarkedArticleIds,
+      ).toHaveBeenCalledWith(userId, [articleA.id, articleB.id]);
+      expect(result?.articles.map((article) => article.is_bookmarked)).toEqual([
+        true,
+        false,
+      ]);
+    });
+
+    it('asks only about the ids on the page, so bookmark count and recency cannot hide a flag', async () => {
+      mockService.listArticles.mockResolvedValue({
+        articles: [articleB],
+        total: 500,
+      });
+      mockBookmarksReadService.getBookmarkedArticleIds.mockResolvedValue(
+        new Set([articleB.id]),
+      );
+
+      const result = await query.execute(userId, { page: 7 });
+
+      expect(
+        mockBookmarksReadService.getBookmarkedArticleIds,
+      ).toHaveBeenCalledWith(userId, [articleB.id]);
+      expect(result?.articles[0].is_bookmarked).toBe(true);
+    });
+
+    it('is false for every article when the user has none bookmarked', async () => {
+      mockService.listArticles.mockResolvedValue({
+        articles: [articleA, articleB],
+        total: 2,
+      });
+
+      const result = await query.execute(userId, {});
+
+      expect(result?.articles.map((article) => article.is_bookmarked)).toEqual([
+        false,
+        false,
+      ]);
+    });
+
+    it('skips the bookmark lookup and returns false when there is no user (api-key path)', async () => {
+      mockService.listArticles.mockResolvedValue({
+        articles: [articleA, articleB],
+        total: 2,
+      });
+
+      const result = await query.execute(undefined, {});
+
+      expect(
+        mockBookmarksReadService.getBookmarkedArticleIds,
+      ).not.toHaveBeenCalled();
+      expect(result?.articles.map((article) => article.is_bookmarked)).toEqual([
+        false,
+        false,
+      ]);
+    });
+
+    it('reports the real bookmark state under archiveScope=archived', async () => {
+      mockService.listArticles.mockResolvedValue({
+        articles: [articleA],
+        total: 1,
+      });
+      mockBookmarksReadService.getBookmarkedArticleIds.mockResolvedValue(
+        new Set([articleA.id]),
+      );
+
+      const result = await query.execute(userId, { archiveScope: 'archived' });
+
+      expect(result?.articles[0].is_bookmarked).toBe(true);
+    });
   });
 
   it('passes has_audio through unchanged from the service row to each response item', async () => {

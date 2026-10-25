@@ -10,7 +10,16 @@ import {
 } from './database.interface';
 import { typeParsers } from './type-parsers';
 
-// Helper function to convert ? placeholders to PostgreSQL-style $1, $2, etc.
+// Numbers every `?` left to right into the $1, $2 form pg accepts. It does not
+// parse the SQL, so a `?` that is not a placeholder gets numbered too and
+// shifts every later parameter. Two cases to avoid:
+//
+//   LIKE '%?%'   a ? inside a string literal. Pass the pattern as a parameter
+//                instead: `LIKE ?` with '%?%' in the params array.
+//   ? ?| ?&      the jsonb operators. Use jsonb_exists, jsonb_exists_any or
+//                jsonb_exists_all instead.
+//
+// libs/database/database.service.spec.ts pins both. See issue #79.
 function convertPlaceholders(sql: string): string {
   let index = 0;
   return sql.replace(/\?/g, () => {
