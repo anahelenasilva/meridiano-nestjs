@@ -232,4 +232,48 @@ describe('DatabaseService', () => {
       await expect(service.onModuleDestroy()).rejects.toThrow('Destroy failed');
     });
   });
+
+  describe('placeholder conversion', () => {
+    async function queriedSql(sql: string): Promise<string> {
+      await service.initDb();
+      service.getDbConnection().all(sql, []);
+
+      return mockPoolInstance.query.mock.calls[0][0];
+    }
+
+    it('numbers each ? left to right', async () => {
+      const converted = await queriedSql(
+        'SELECT id FROM articles WHERE feed = ? AND rating >= ? LIMIT ?',
+      );
+
+      expect(converted).toBe(
+        'SELECT id FROM articles WHERE feed = $1 AND rating >= $2 LIMIT $3',
+      );
+    });
+
+    // The documented limitation from issue #79: a ? inside a string literal is
+    // numbered like a placeholder and shifts every parameter after it, so the
+    // id below binds $2 while the caller passes it as the first parameter.
+    // Pass the LIKE pattern as a parameter instead.
+    it("rewrites a ? inside a string literal and shifts the parameters after it", async () => {
+      const converted = await queriedSql(
+        "SELECT id FROM articles WHERE title LIKE '%?%' AND id = ?",
+      );
+
+      expect(converted).toBe(
+        "SELECT id FROM articles WHERE title LIKE '%$1%' AND id = $2",
+      );
+    });
+
+    // Same cause as the literal case: jsonb ? ?| ?& read as placeholders.
+    it('rewrites the jsonb ? operator', async () => {
+      const converted = await queriedSql(
+        "SELECT id FROM articles WHERE metadata ? 'author' AND id = ?",
+      );
+
+      expect(converted).toBe(
+        "SELECT id FROM articles WHERE metadata $1 'author' AND id = $2",
+      );
+    });
+  });
 });
