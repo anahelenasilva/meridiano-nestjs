@@ -5,6 +5,7 @@ import { RedisModule } from '@libs/redis';
 import { S3Module } from '@libs/s3';
 import { Module } from '@nestjs/common';
 import { AudioFilesModule } from '../audio-files/audio-files.module';
+import { BookmarksReadModule } from '../bookmarks/bookmarks-read.module';
 import { NotesCleanupModule } from '../notes/notes-cleanup.module';
 import { NotesReadModule } from '../notes/notes-read.module';
 import { ProfilesModule } from '../profiles/profiles.module';
@@ -26,6 +27,7 @@ import { TelegramSubmissionService } from './services/telegram-submission.servic
     AudioModule,
     NotesReadModule,
     NotesCleanupModule,
+    BookmarksReadModule,
     QueueModule,
   ],
   providers: [

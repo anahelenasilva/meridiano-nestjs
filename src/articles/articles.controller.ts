@@ -39,6 +39,7 @@ import { ArticlesService } from './articles.service';
 import { ArticleJobsService } from './services/article-jobs.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { GenerateUploadUrlDto } from './dto/generate-upload-url.dto';
+import { ListArticlesResponseDto } from './dto/list-articles-response.dto';
 import { ProcessMarkdownArticleDto } from './dto/process-markdown-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { GetArticleByIdQuery } from './queries/get-article-by-id.query';
@@ -203,14 +204,17 @@ export class ArticlesController {
 
   @Get()
   @ApiKeyAllowed()
-  @ApiOperation({ summary: 'List articles (all articles are global; per-user notes attach only for a JWT user)' })
+  @ApiOperation({ summary: 'List articles (all articles are global; per-user notes and bookmark state attach only for a JWT user)' })
   @ApiQuery({
     name: 'archive_scope',
     required: false,
     enum: ['active', 'archived', 'all'],
     description: 'Defaults to active. Use archived for the Archive view.',
   })
-  @ApiOkResponse({ description: 'Paginated list of articles' })
+  @ApiOkResponse({
+    description: 'Paginated list of articles',
+    type: ListArticlesResponseDto,
+  })
   @ApiValidationErrorResponse()
   async listArticles(
     // Optional: the JWT path sets a user, the api-key path (CLI/ops) does not.
