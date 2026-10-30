@@ -3,6 +3,9 @@
  * surrogates (e.g. an emoji cut in half by `substring`) become U+FFFD, since
  * JSON.stringify emits them as `\udXXX` escapes that strict parsers like
  * DeepSeek's reject with "unexpected end of hex escape".
+ *
+ * Returns a plain string, not JSON. The SDK JSON-encodes the body itself
+ * (`openai/core.js:219`), so escaping anything here reaches the model doubled.
  */
 export function sanitizeChatContent(content: string): string {
   return content
@@ -13,6 +16,5 @@ export function sanitizeChatContent(content: string): string {
     .replace(
       /[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/g,
       '�',
-    )
-    .replace(/\\(?!["\\/bfnrtu])/g, '\\\\');
+    );
 }
