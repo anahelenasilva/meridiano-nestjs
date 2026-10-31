@@ -17,13 +17,11 @@ import {
   EXTERNAL_ERROR_MESSAGES,
 } from './dto/external-article-response.dto';
 import { ArticleJobsService } from './services/article-jobs.service';
-import { TelegramSubmissionService } from './services/telegram-submission.service';
 
 describe('ExternalArticlesController', () => {
   let controller: ExternalArticlesController;
   let scraperService: jest.Mocked<ScraperService>;
   let articleJobsService: jest.Mocked<ArticleJobsService>;
-  let telegramSubmissionService: jest.Mocked<TelegramSubmissionService>;
   let mockConfigService: {
     getAppConfig: jest.Mock;
     isExternalArticleSubmissionEnabled: jest.Mock;
@@ -36,11 +34,6 @@ describe('ExternalArticlesController', () => {
 
     const mockArticleJobsService = {
       addArticleProcessingJob: jest.fn(),
-    };
-
-    const mockTelegramSubmissionService = {
-      createSubmission: jest.fn(),
-      updateSubmissionStatus: jest.fn().mockResolvedValue(undefined),
     };
 
     mockConfigService = {
@@ -60,10 +53,6 @@ describe('ExternalArticlesController', () => {
           useValue: mockArticleJobsService,
         },
         {
-          provide: TelegramSubmissionService,
-          useValue: mockTelegramSubmissionService,
-        },
-        {
           provide: ConfigService,
           useValue: mockConfigService,
         },
@@ -78,7 +67,6 @@ describe('ExternalArticlesController', () => {
     );
     scraperService = module.get(ScraperService);
     articleJobsService = module.get(ArticleJobsService);
-    telegramSubmissionService = module.get(TelegramSubmissionService);
   });
 
   it('should be defined', () => {
@@ -103,9 +91,6 @@ describe('ExternalArticlesController', () => {
     });
 
     it('does not expose a note field on the successful submission response', async () => {
-      telegramSubmissionService.createSubmission.mockResolvedValue(
-        'submission-uuid',
-      );
       scraperService.scrapeSingleArticle.mockResolvedValue('article-uuid-123');
       articleJobsService.addArticleProcessingJob.mockResolvedValue({
         success: true,
@@ -117,13 +102,7 @@ describe('ExternalArticlesController', () => {
       const result = await controller.createExternal({
         url: 'https://example.com/article',
         feedProfile: FeedProfile.TECHNOLOGY,
-        source: 'telegram',
-        metadata: {
-          chatId: '123456789',
-          messageId: '456',
-          username: '@testuser',
-          note: 'Great article about AI',
-        },
+        source: 'external',
       });
 
       expect(result).not.toHaveProperty('note');
@@ -134,22 +113,13 @@ describe('ExternalArticlesController', () => {
     const validDto = {
       url: 'https://example.com/article',
       feedProfile: FeedProfile.TECHNOLOGY,
-      source: 'telegram',
-      metadata: {
-        chatId: '123456789',
-        messageId: '456',
-        username: '@testuser',
-        note: 'Great article about AI',
-      },
+      source: 'external',
     };
 
     it('should successfully submit an article', async () => {
       const articleId = 'article-uuid-123';
       const jobId = 'job-uuid-456';
 
-      telegramSubmissionService.createSubmission.mockResolvedValue(
-        'submission-uuid',
-      );
       scraperService.scrapeSingleArticle.mockResolvedValue(articleId);
       articleJobsService.addArticleProcessingJob.mockResolvedValue({
         success: true,
@@ -178,9 +148,6 @@ describe('ExternalArticlesController', () => {
     });
 
     it('should return error when article already exists', async () => {
-      telegramSubmissionService.createSubmission.mockResolvedValue(
-        'submission-uuid',
-      );
       scraperService.scrapeSingleArticle.mockResolvedValue(null); // Article exists
 
       try {
@@ -198,16 +165,6 @@ describe('ExternalArticlesController', () => {
               EXTERNAL_ERROR_MESSAGES[ExternalArticleErrorCode.ARTICLE_EXISTS],
           },
         });
-        expect(
-          telegramSubmissionService.updateSubmissionStatus,
-        ).toHaveBeenCalledWith('submission-uuid', 'duplicate', undefined);
-        expect(
-          telegramSubmissionService.updateSubmissionStatus,
-        ).not.toHaveBeenCalledWith(
-          'submission-uuid',
-          'failed',
-          expect.anything(),
-        );
       }
     });
 
@@ -222,9 +179,6 @@ describe('ExternalArticlesController', () => {
     });
 
     it('should handle scraping failure', async () => {
-      telegramSubmissionService.createSubmission.mockResolvedValue(
-        'submission-uuid',
-      );
       scraperService.scrapeSingleArticle.mockRejectedValue(
         new Error('Failed to extract content'),
       );
@@ -248,9 +202,6 @@ describe('ExternalArticlesController', () => {
     });
 
     it('should handle bad request with URL error', async () => {
-      telegramSubmissionService.createSubmission.mockResolvedValue(
-        'submission-uuid',
-      );
       scraperService.scrapeSingleArticle.mockRejectedValue(
         new ConflictException('Article already exists in database'),
       );
@@ -274,9 +225,6 @@ describe('ExternalArticlesController', () => {
     });
 
     it('should handle rate limit exceeded', async () => {
-      telegramSubmissionService.createSubmission.mockResolvedValue(
-        'submission-uuid',
-      );
       scraperService.scrapeSingleArticle.mockRejectedValue(
         new HttpException('Too many requests', HttpStatus.TOO_MANY_REQUESTS),
       );
@@ -302,9 +250,6 @@ describe('ExternalArticlesController', () => {
     });
 
     it('should handle internal server error', async () => {
-      telegramSubmissionService.createSubmission.mockResolvedValue(
-        'submission-uuid',
-      );
       scraperService.scrapeSingleArticle.mockResolvedValue('article-uuid-123');
       articleJobsService.addArticleProcessingJob.mockRejectedValue(
         new Error('Queue down'),
@@ -326,94 +271,6 @@ describe('ExternalArticlesController', () => {
           },
         });
       }
-    });
-
-    it('should continue even if submission record creation fails', async () => {
-      telegramSubmissionService.createSubmission.mockRejectedValue(
-        new Error('DB error'),
-      );
-
-      const articleId = 'article-uuid-123';
-      const jobId = 'job-uuid-456';
-
-      scraperService.scrapeSingleArticle.mockResolvedValue(articleId);
-      articleJobsService.addArticleProcessingJob.mockResolvedValue({
-        success: true,
-        articleFileKey: articleId,
-        jobId,
-        message: 'Article queued',
-      });
-
-      const result = (await controller.createExternal(
-        validDto,
-      )) as ExternalArticleSuccessResponse;
-
-      expect(result.success).toBe(true);
-      expect(result.articleId).toBe(articleId);
-    });
-
-    it('should continue even if submission status update fails', async () => {
-      telegramSubmissionService.createSubmission.mockResolvedValue(
-        'submission-uuid',
-      );
-      telegramSubmissionService.updateSubmissionStatus.mockRejectedValue(
-        new Error('DB error'),
-      );
-
-      const articleId = 'article-uuid-123';
-      const jobId = 'job-uuid-456';
-
-      scraperService.scrapeSingleArticle.mockResolvedValue(articleId);
-      articleJobsService.addArticleProcessingJob.mockResolvedValue({
-        success: true,
-        articleFileKey: articleId,
-        jobId,
-        message: 'Article queued',
-      });
-
-      const result = (await controller.createExternal(
-        validDto,
-      )) as ExternalArticleSuccessResponse;
-
-      expect(result.success).toBe(true);
-      expect(result.articleId).toBe(articleId);
-      expect(
-        telegramSubmissionService.updateSubmissionStatus,
-      ).toHaveBeenCalledWith('submission-uuid', 'success', { articleId });
-    });
-
-    it('should handle missing optional metadata', async () => {
-      const dtoWithoutMetadata = {
-        url: 'https://example.com/article',
-        feedProfile: FeedProfile.TECHNOLOGY,
-      };
-
-      telegramSubmissionService.createSubmission.mockResolvedValue(
-        'submission-uuid',
-      );
-
-      const articleId = 'article-uuid-123';
-      const jobId = 'job-uuid-456';
-
-      scraperService.scrapeSingleArticle.mockResolvedValue(articleId);
-      articleJobsService.addArticleProcessingJob.mockResolvedValue({
-        success: true,
-        articleFileKey: articleId,
-        jobId,
-        message: 'Article queued',
-      });
-
-      const result = (await controller.createExternal(
-        dtoWithoutMetadata,
-      )) as ExternalArticleSuccessResponse;
-
-      expect(result.success).toBe(true);
-      expect(telegramSubmissionService.createSubmission).toHaveBeenCalledWith(
-        expect.objectContaining({
-          chatId: 'unknown',
-          messageId: 'unknown',
-        }),
-      );
     });
 
     it('should reject localhost URLs', async () => {
