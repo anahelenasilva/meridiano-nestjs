@@ -67,16 +67,6 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
           transcription?.custom_prompt,
         );
 
-        if (!summary) {
-          console.log(
-            `Warning: Failed to generate summary for transcription ${transcriptionId}. Transcription saved without summary.`,
-          );
-          return {
-            success: true,
-            message: `Transcription ${transcriptionId} saved without summary (AI did not generate summary)`,
-          };
-        }
-
         console.log(
           `Updating transcription ${transcriptionId} with summary...`,
         );
@@ -109,17 +99,11 @@ export class YoutubeTranscriptionProcessor implements OnModuleInit {
       );
 
       console.log(`Generating summary for transcription ${transcriptionId}...`);
-      const summary = await this.aiService.callChat(summaryPrompt);
-
-      if (!summary) {
-        console.log(
-          `Warning: Failed to generate summary for transcription ${transcriptionId}. Transcription saved without summary.`,
-        );
-        return {
-          success: true,
-          message: `Transcription ${transcriptionId} saved without summary (AI did not generate summary)`,
-        };
-      }
+      // callChatOrThrow, not callChat: the null callChat returns on a provider
+      // error is indistinguishable from "no summary wanted", and reading it as
+      // the latter completed the job, spending none of BullMQ's attempts and
+      // leaving transcription_summary NULL with no failed job to show (#332).
+      const summary = await this.aiService.callChatOrThrow(summaryPrompt);
 
       console.log(`Updating transcription ${transcriptionId} with summary...`);
       await this.youtubeTranscriptionsService.updateTranscriptionSummary(
