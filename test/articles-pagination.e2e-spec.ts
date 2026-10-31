@@ -128,6 +128,8 @@ describe('Article listing pagination (e2e)', () => {
       ['page=0, which makes OFFSET negative', { page: '0' }],
       ['a negative page', { page: '-5' }],
       ['a fractional page', { page: '1.5' }],
+      ['page past the 1000000 cap', { page: '1000001' }],
+      ['page as 1e18, which overflows bigint OFFSET', { page: '1e18' }],
     ])('rejects %s with a 400', async (_label, query) => {
       await request(app.getHttpServer())
         .get('/api/articles')
@@ -167,6 +169,7 @@ describe('Article listing pagination (e2e)', () => {
       ['perPage=0', { perPage: '0' }],
       ['a non-numeric perPage', { perPage: 'abc' }],
       ['page=0', { page: '0' }],
+      ['page as 1e18, which overflows bigint OFFSET', { page: '1e18' }],
     ])('rejects %s with a 400', async (_label, query) => {
       await request(app.getHttpServer())
         .get('/api/articles/lean')
