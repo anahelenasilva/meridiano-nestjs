@@ -1,4 +1,3 @@
-import { Type } from 'class-transformer';
 import {
   IsBoolean,
   IsEnum,
@@ -7,29 +6,10 @@ import {
   IsString,
   IsUrl,
   MaxLength,
-  ValidateNested,
 } from 'class-validator';
 import { FeedProfile } from '../../shared/types/feed';
 
 const CUSTOM_PROMPT_MAX_LENGTH = 500;
-
-export class ExternalSubmissionMetadataDto {
-  @IsOptional()
-  @IsString()
-  chatId?: string;
-
-  @IsOptional()
-  @IsString()
-  messageId?: string;
-
-  @IsOptional()
-  @IsString()
-  username?: string;
-
-  @IsOptional()
-  @IsString()
-  note?: string;
-}
 
 export class ExternalCreateArticleDto {
   @IsNotEmpty()
@@ -54,9 +34,4 @@ export class ExternalCreateArticleDto {
   @IsOptional()
   @IsBoolean()
   generateAudio?: boolean;
-
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => ExternalSubmissionMetadataDto)
-  metadata?: ExternalSubmissionMetadataDto;
 }
