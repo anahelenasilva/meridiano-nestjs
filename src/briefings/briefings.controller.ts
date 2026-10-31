@@ -1,5 +1,6 @@
 import { JwtAuthGuard } from '@libs/auth';
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
@@ -46,6 +47,7 @@ export class BriefingsController {
   @Get()
   @ApiOperation({ summary: 'List briefings, optionally filtered by feed profile' })
   @ApiOkResponse({ description: 'List of briefings' })
+  @ApiValidationErrorResponse()
   async listBriefings(
     @Query('feedProfile') feedProfile?: FeedProfile,
     @Query('limit') limit?: string,
@@ -55,6 +57,13 @@ export class BriefingsController {
       parsed !== undefined && !isNaN(parsed)
         ? Math.min(parsed, BriefingsController.MAX_LIMIT)
         : undefined;
+
+    // TypeORM passes any non-null take through, so a limit under 1 would reach
+    // Postgres as `LIMIT 0`/`LIMIT -5` (issue #331).
+    if (parsedLimit !== undefined && parsedLimit < 1) {
+      throw new BadRequestException('limit must be an integer of 1 or more');
+    }
+
     return this.listBriefingsQuery.execute(feedProfile, parsedLimit);
   }
 
