@@ -662,40 +662,20 @@ export class ArticlesService {
   async getYesterdayArticlesByProfile(): Promise<DBArticle[]> {
     const db = this.databaseService.getDbConnection();
 
-    const BRT_OFFSET_MS = 3 * 60 * 60 * 1000;
-    const now = new Date();
-    const nowBrt = new Date(now.getTime() - BRT_OFFSET_MS);
-    const todayMidnightBrt = new Date(
-      Date.UTC(
-        nowBrt.getUTCFullYear(),
-        nowBrt.getUTCMonth(),
-        nowBrt.getUTCDate(),
-      ),
-    );
-    const startOfTodayBrt = new Date(
-      todayMidnightBrt.getTime() + BRT_OFFSET_MS,
-    );
-    const startOfYesterdayBrt = new Date(
-      startOfTodayBrt.getTime() - 24 * 60 * 60 * 1000,
-    );
-
+    // The window is the filter's own `yesterday` preset, so the News Digest and
+    // GET /api/articles?preset=yesterday cannot drift apart (issue #333).
     const { where, params } = compileArticleFilter({
       feedProfile: FeedProfile.TECHNOLOGY,
+      preset: 'yesterday',
     });
     const query = `
         SELECT * FROM articles
         WHERE ${where}
           AND impact_rating IS NOT NULL
-          AND published_date >= ?
-          AND published_date < ?
         ORDER BY impact_rating DESC
       `;
 
-    const rows = await queryAll<ArticleRow>(db, query, [
-      ...params,
-      startOfYesterdayBrt.toISOString(),
-      startOfTodayBrt.toISOString(),
-    ]);
+    const rows = await queryAll<ArticleRow>(db, query, params);
     return rows.map(mapArticleRow);
   }
 }
