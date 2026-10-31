@@ -1,12 +1,12 @@
 import { NestFactory } from '@nestjs/core';
-import * as dotenv from 'dotenv';
 
 import { AppModule } from '../app.module';
+import { loadEnv } from '../config/load-env';
 import { ChannelConfig } from '../shared/types/channel';
 import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
 import { YoutubeTranscriptionsService } from '../youtube-transcriptions/services/youtube-transcriptions.service';
 
-dotenv.config();
+loadEnv();
 
 async function initialize() {
   const app = await NestFactory.createApplicationContext(AppModule);

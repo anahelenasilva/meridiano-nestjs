@@ -44,6 +44,8 @@ This project uses PostgreSQL as the primary database with TypeORM for migrations
 
 Create a `.env` file in the root directory with your database configuration:
 
+A variable already exported in your shell wins over `.env`, and a variable exported as an empty or whitespace-only string counts as unset, so `.env` fills it.
+
 ```bash
 # Database Configuration
 DATABASE_TYPE=postgres

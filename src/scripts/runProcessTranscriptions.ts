@@ -1,11 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { Command } from 'commander';
-import * as dotenv from 'dotenv';
 
 import { AppModule } from '../app.module';
+import { loadEnv } from '../config/load-env';
 import { ProcessTranscriptionFilesUseCase } from '../youtube-transcriptions/usecases/process-transcription-files.usecase';
 
-dotenv.config();
+loadEnv();
 
 const program = new Command();
 

@@ -1,8 +1,8 @@
-import * as dotenv from 'dotenv';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { typeormConfig } from '../libs/database/typeorm.config';
+import { loadEnv } from '../src/config/load-env';
 
-dotenv.config({ override: false });
+loadEnv();
 
 async function runMigrationsWithDataSource(config: DataSourceOptions, maxRetries = 5, delayMs = 2000): Promise<void> {
   const dataSource = new DataSource(config);
