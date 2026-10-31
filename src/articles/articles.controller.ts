@@ -33,12 +33,12 @@ import { parseArchiveScope } from './helpers/archive-scope';
 import { ConfigService } from '../config/config.service';
 import { ScraperService } from '../scraper/scraper.service';
 import { GenerateArticleAudioCommand } from './commands/generate-article-audio.command';
-import type { ListArticlesLeanRequest } from './queries/list-articles-lean.query';
-import type { ListArticlesRequest } from './queries/list-articles.query';
 import { ArticlesService } from './articles.service';
 import { ArticleJobsService } from './services/article-jobs.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { GenerateUploadUrlDto } from './dto/generate-upload-url.dto';
+import { ListArticlesLeanRequestDto } from './dto/list-articles-lean-request.dto';
+import { ListArticlesRequestDto } from './dto/list-articles-request.dto';
 import { ListArticlesResponseDto } from './dto/list-articles-response.dto';
 import { ProcessMarkdownArticleDto } from './dto/process-markdown-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
@@ -220,10 +220,12 @@ export class ArticlesController {
     // Optional: the JWT path sets a user, the api-key path (CLI/ops) does not.
     // Articles are global either way; `user?.id` only gates note attachment.
     @CurrentUser() user: AuthenticatedUser | undefined,
-    @Query() input: ListArticlesRequest,
-    @Query('archive_scope') archiveScope?: string,
+    @Query() input: ListArticlesRequestDto,
   ) {
-    const scope = parseArchiveScope(archiveScope);
+    // Taken off the DTO by its wire name and resolved here, so the snake_case
+    // key never reaches the query alongside the ArchiveScope it parses into.
+    const { archive_scope, ...filter } = input;
+    const scope = parseArchiveScope(archive_scope);
 
     if (scope === null) {
       throw new BadRequestException(
@@ -232,7 +234,7 @@ export class ArticlesController {
     }
 
     return await this.listArticlesQuery.execute(user?.id, {
-      ...input,
+      ...filter,
       archiveScope: scope,
     });
   }
@@ -246,9 +248,10 @@ export class ArticlesController {
       'List articles with a lean field set for CLI listings (all articles are global; per-user notes attach only for a JWT user)',
   })
   @ApiOkResponse({ description: 'Paginated lean list of articles' })
+  @ApiValidationErrorResponse()
   async listArticlesLean(
     @CurrentUser() user: AuthenticatedUser | undefined,
-    @Query() input: ListArticlesLeanRequest,
+    @Query() input: ListArticlesLeanRequestDto,
   ) {
     return await this.listArticlesLeanQuery.execute(user?.id, input);
   }

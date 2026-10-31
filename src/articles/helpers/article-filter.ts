@@ -1,15 +1,18 @@
 import { SqlParams } from '@libs/database';
 import {
-  DateUnit,
-  subtractFromDate,
-  toLocalDateString,
-} from '../../shared/helpers/date-math';
+  CalendarUnit,
+  meridianoDate,
+  startOfMeridianoDay,
+  startOfNextMeridianoDay,
+  subtractFromMeridianoDate,
+} from '../../shared/helpers/meridiano-day';
 import { archiveClause, ArchiveScope } from './archive-scope';
 
 export type ArticleFilter = {
   feedProfile?: string;
   feedSource?: string;
   searchTerm?: string;
+  // Meridiano Days as YYYY-MM-DD, both inclusive.
   startDate?: string;
   endDate?: string;
   // A known preset replaces startDate/endDate; an unknown one is ignored.
@@ -19,7 +22,7 @@ export type ArticleFilter = {
   archiveScope?: ArchiveScope;
 };
 
-const PRESET_LOOKBACKS = new Map<string, readonly [number, DateUnit]>([
+const PRESET_LOOKBACKS = new Map<string, readonly [number, CalendarUnit]>([
   ['last_week', [7, 'days']],
   ['last_30d', [30, 'days']],
   ['last_3m', [3, 'months']],
@@ -31,7 +34,7 @@ function presetWindow(
   now: Date,
 ): { startDate: string; endDate: string } | undefined {
   if (preset === 'yesterday') {
-    const yesterday = toLocalDateString(subtractFromDate(now, 1, 'days'));
+    const yesterday = subtractFromMeridianoDate(now, 1, 'days');
     return { startDate: yesterday, endDate: yesterday };
   }
 
@@ -42,15 +45,15 @@ function presetWindow(
 
   const [amount, unit] = lookback;
   return {
-    startDate: toLocalDateString(subtractFromDate(now, amount, unit)),
-    endDate: toLocalDateString(now),
+    startDate: subtractFromMeridianoDate(now, amount, unit),
+    endDate: meridianoDate(now),
   };
 }
 
 /**
  * Compiles a filter to a WHERE body (without the keyword) and its params, for
- * queries against the unaliased `articles` table. Preset windows are local
- * dates relative to `now`.
+ * queries against the unaliased `articles` table. Preset windows are Meridiano
+ * Days relative to `now`.
  */
 export function compileArticleFilter(
   filter: ArticleFilter,
@@ -87,14 +90,18 @@ export function compileArticleFilter(
     params.push(searchPattern, searchPattern, searchPattern);
   }
 
+  // Compared as instants, not through DATE(published_date): the column holds a
+  // UTC wall clock, so truncating it cuts the day at 21:00 in Sao Paulo and
+  // disagrees with the News Digest (issue #333). Half-open, so all of endDate
+  // is inside the window.
   if (startDate) {
-    clauses.push('DATE(published_date) >= ?');
-    params.push(startDate);
+    clauses.push('published_date >= ?');
+    params.push(startOfMeridianoDay(startDate).toISOString());
   }
 
   if (endDate) {
-    clauses.push('DATE(published_date) <= ?');
-    params.push(endDate);
+    clauses.push('published_date < ?');
+    params.push(startOfNextMeridianoDay(endDate).toISOString());
   }
 
   if (category) {

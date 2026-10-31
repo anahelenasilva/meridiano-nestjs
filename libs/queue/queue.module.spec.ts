@@ -4,7 +4,11 @@ import { Queue } from 'bullmq';
 import {
   ARTICLE_PROCESSING_QUEUE,
   AUDIO_GENERATION_QUEUE,
+  CUSTOM_BRIEFING_GENERATION_QUEUE,
   MARKDOWN_ARTICLE_PROCESSING_QUEUE,
+  NEWS_DIGEST_QUEUE,
+  TRANSCRIPT_BACKUP_QUEUE,
+  YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from './constants/queue.constants';
 import { QueueModule } from './queue.module';
@@ -65,5 +69,24 @@ describe('QueueModule', () => {
   it('should export QueueService', () => {
     const service = module.get<QueueService>(QueueService);
     expect(service).toBeDefined();
+  });
+
+  it('closes every queue on shutdown', async () => {
+    const queues = [
+      ARTICLE_PROCESSING_QUEUE,
+      MARKDOWN_ARTICLE_PROCESSING_QUEUE,
+      YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
+      CUSTOM_BRIEFING_GENERATION_QUEUE,
+      AUDIO_GENERATION_QUEUE,
+      YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
+      TRANSCRIPT_BACKUP_QUEUE,
+      NEWS_DIGEST_QUEUE,
+    ].map((token) => module.get<Queue>(token));
+
+    await module.close();
+
+    for (const queue of queues) {
+      expect(queue.close).toHaveBeenCalledTimes(1);
+    }
   });
 });
