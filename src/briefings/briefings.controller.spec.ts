@@ -1,5 +1,5 @@
 import { IS_PUBLIC_KEY } from '@libs/auth';
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
 import { QueueService } from '../../libs/queue/queue.service';
@@ -103,6 +103,15 @@ describe('BriefingsController', () => {
       await controller.listBriefings(undefined, 'abc');
 
       expect(mockListBriefingsQuery.execute).toHaveBeenCalledWith(undefined, undefined);
+    });
+
+    // TypeORM passes any non-null take straight through, so a negative limit
+    // reaches Postgres as `LIMIT -5` (issue #331).
+    it.each(['0', '-5'])('rejects limit=%s with a 400', async (limit) => {
+      await expect(
+        controller.listBriefings(undefined, limit),
+      ).rejects.toBeInstanceOf(BadRequestException);
+      expect(mockListBriefingsQuery.execute).not.toHaveBeenCalled();
     });
   });
 
