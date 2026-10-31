@@ -342,7 +342,7 @@ export class ConfigService {
   }
 
   isExternalArticleSubmissionEnabled(): boolean {
-    const value = process.env.TELEGRAM_INTEGRATION_ENABLED;
+    const value = process.env.EXTERNAL_ARTICLE_SUBMISSION_ENABLED;
     return value === 'true' || value === '1';
   }
 

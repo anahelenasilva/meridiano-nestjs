@@ -421,9 +421,6 @@
           "generateAudio": {
             "type": "boolean"
           },
-          "metadata": {
-            "$ref": "#/components/schemas/ExternalSubmissionMetadataDto"
-          },
           "source": {
             "type": "string"
           },
@@ -436,23 +433,6 @@
           "url",
           "feedProfile"
         ],
-        "type": "object"
-      },
-      "ExternalSubmissionMetadataDto": {
-        "properties": {
-          "chatId": {
-            "type": "string"
-          },
-          "messageId": {
-            "type": "string"
-          },
-          "note": {
-            "type": "string"
-          },
-          "username": {
-            "type": "string"
-          }
-        },
         "type": "object"
       },
       "GenerateBriefInputDto": {

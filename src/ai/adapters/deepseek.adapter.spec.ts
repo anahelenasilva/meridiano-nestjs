@@ -84,7 +84,7 @@ describe('DeepseekAdapter', () => {
       await expect(adapter.chat('prompt')).rejects.toThrow('SDK failure');
     });
 
-    it('sanitizes invalid backslash escapes', async () => {
+    it('hands the SDK the prompt backslashes unchanged', async () => {
       mockCreate.mockResolvedValue({
         choices: [{ message: { content: 'ok' } }],
       });
@@ -93,7 +93,7 @@ describe('DeepseekAdapter', () => {
 
       expect(mockCreate).toHaveBeenCalledWith(
         expect.objectContaining({
-          messages: [{ role: 'user', content: 'path \\\\x invalid' }],
+          messages: [{ role: 'user', content: 'path \\x invalid' }],
         }),
       );
     });

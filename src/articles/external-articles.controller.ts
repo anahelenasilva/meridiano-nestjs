@@ -33,7 +33,6 @@ import {
   EXTERNAL_ERROR_MESSAGES,
 } from './dto/external-article-response.dto';
 import { ExternalTokenGuard } from './guards/external-token.guard';
-import { TelegramSubmissionService } from './services/telegram-submission.service';
 import { ArticleJobsService } from './services/article-jobs.service';
 
 const resolveExternalRateLimitKey = (request: RateLimitRequest): string => {
@@ -66,7 +65,6 @@ export class ExternalArticlesController {
   constructor(
     private readonly scraperService: ScraperService,
     private readonly articleJobsService: ArticleJobsService,
-    private readonly telegramSubmissionService: TelegramSubmissionService,
     private readonly configService: ConfigService,
   ) {}
 
@@ -111,50 +109,16 @@ export class ExternalArticlesController {
       customPrompt,
       generateAudio,
       source = 'external',
-      metadata,
     } = dto;
     this.assertSafeExternalUrl(url);
-
-    const submissionMetadata = {
-      // Default to 'unknown' for chatId and messageId to ensure submission record
-      // can be created even if metadata is missing. This allows graceful handling
-      // of non-Telegram sources or misconfigured clients.
-      chatId: metadata?.chatId || 'unknown',
-      username: metadata?.username,
-      messageId: metadata?.messageId || 'unknown',
-      messageText: metadata?.note,
-    };
-
-    let submissionId: string | null = null;
-    try {
-      submissionId = await this.telegramSubmissionService.createSubmission({
-        chatId: submissionMetadata.chatId,
-        username: submissionMetadata.username,
-        messageId: submissionMetadata.messageId,
-        messageText: submissionMetadata.messageText,
-        feedProfile,
-        url,
-        submissionStatus: 'pending',
-      });
-    } catch (error) {
-      // Graceful degradation: If submission record creation fails, log the error
-      // but continue processing the article. This ensures the article submission
-      // still works even if the analytics database has issues.
-      this.logger.error('Failed to create submission record', error);
-    }
 
     const articleId = await this.scrapeArticleOrThrow(
       url,
       feedProfile,
-      submissionId,
       customPrompt,
     );
 
     if (articleId === null) {
-      if (submissionId) {
-        await this.safeUpdateSubmissionStatus(submissionId, 'duplicate');
-      }
-
       throw new ConflictException({
         success: false,
         error: {
@@ -168,15 +132,8 @@ export class ExternalArticlesController {
     const jobInfo = await this.enqueueArticleOrThrow(
       articleId,
       feedProfile,
-      submissionId,
       generateAudio,
     );
-
-    if (submissionId) {
-      await this.safeUpdateSubmissionStatus(submissionId, 'success', {
-        articleId,
-      });
-    }
 
     this.logSubmission({
       source,
@@ -193,21 +150,11 @@ export class ExternalArticlesController {
     };
   }
 
-  private async handleError(
+  private handleError(
     error: unknown,
-    submissionId: string | null,
     fallback: { code: ExternalArticleErrorCode; status: HttpStatus },
-  ): Promise<never> {
+  ): never {
     const mapped = this.mapError(error, fallback);
-
-    if (
-      submissionId &&
-      mapped.code !== ExternalArticleErrorCode.ARTICLE_EXISTS
-    ) {
-      await this.safeUpdateSubmissionStatus(submissionId, 'failed', {
-        errorMessage: mapped.message,
-      });
-    }
 
     this.logger.error(
       `External article submission failed: ${mapped.code}`,
@@ -312,7 +259,6 @@ export class ExternalArticlesController {
   private async scrapeArticleOrThrow(
     url: string,
     feedProfile: FeedProfile,
-    submissionId: string | null,
     customPrompt?: string,
   ): Promise<string | null> {
     try {
@@ -322,18 +268,16 @@ export class ExternalArticlesController {
         customPrompt,
       );
     } catch (error) {
-      await this.handleError(error, submissionId, {
+      this.handleError(error, {
         code: ExternalArticleErrorCode.SCRAPE_FAILED,
         status: HttpStatus.BAD_GATEWAY,
       });
     }
-    throw new Error('Unreachable');
   }
 
   private async enqueueArticleOrThrow(
     articleId: string,
     feedProfile: FeedProfile,
-    submissionId: string | null,
     generateAudio?: boolean,
   ): Promise<JobInfo> {
     try {
@@ -343,27 +287,10 @@ export class ExternalArticlesController {
         generateAudio,
       );
     } catch (error) {
-      await this.handleError(error, submissionId, {
+      this.handleError(error, {
         code: ExternalArticleErrorCode.INTERNAL_ERROR,
         status: HttpStatus.INTERNAL_SERVER_ERROR,
       });
-    }
-    throw new Error('Unreachable');
-  }
-
-  private async safeUpdateSubmissionStatus(
-    submissionId: string,
-    status: 'success' | 'failed' | 'duplicate',
-    options?: { articleId?: string; errorMessage?: string },
-  ): Promise<void> {
-    try {
-      await this.telegramSubmissionService.updateSubmissionStatus(
-        submissionId,
-        status,
-        options,
-      );
-    } catch (error) {
-      this.logger.error('Failed to update submission status', error);
     }
   }
 
