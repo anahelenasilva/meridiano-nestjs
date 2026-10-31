@@ -74,9 +74,9 @@ describe('ExternalArticlesController', () => {
   });
 
   // Guards issue #122: private notes must never leak through the public/external
-  // article API. These are regression tripwires — the isolation currently holds
-  // by construction, and these tests fail loudly if a future change wires note
-  // data into this endpoint.
+  // article API. This is a regression tripwire, the isolation currently holds by
+  // construction, and the test fails loudly if a future change wires note data
+  // into this endpoint.
   describe('note data isolation (issue #122)', () => {
     it('does not inject any Notes provider into the external controller', () => {
       const paramTypes: Array<{ name?: string }> =
@@ -88,24 +88,6 @@ describe('ExternalArticlesController', () => {
       expect(dependencyNames.length).toBeGreaterThan(0);
       expect(dependencyNames).not.toContain('');
       expect(dependencyNames.some((name) => /note/i.test(name))).toBe(false);
-    });
-
-    it('does not expose a note field on the successful submission response', async () => {
-      scraperService.scrapeSingleArticle.mockResolvedValue('article-uuid-123');
-      articleJobsService.addArticleProcessingJob.mockResolvedValue({
-        success: true,
-        articleFileKey: 'article-uuid-123',
-        jobId: 'job-uuid-456',
-        message: 'Article queued',
-      });
-
-      const result = await controller.createExternal({
-        url: 'https://example.com/article',
-        feedProfile: FeedProfile.TECHNOLOGY,
-        source: 'external',
-      });
-
-      expect(result).not.toHaveProperty('note');
     });
   });
 

@@ -281,6 +281,32 @@ describe('ConfigService', () => {
     });
   });
 
+  // Unlike isBriefingsGenerationEnabled, an unset env var leaves external
+  // submission disabled, so the endpoint stays off until it is opted in.
+  describe('isExternalArticleSubmissionEnabled', () => {
+    afterEach(() => {
+      delete process.env.EXTERNAL_ARTICLE_SUBMISSION_ENABLED;
+    });
+
+    it("returns true when the env var is 'true'", () => {
+      process.env.EXTERNAL_ARTICLE_SUBMISSION_ENABLED = 'true';
+
+      expect(service.isExternalArticleSubmissionEnabled()).toBe(true);
+    });
+
+    it("returns true when the env var is '1'", () => {
+      process.env.EXTERNAL_ARTICLE_SUBMISSION_ENABLED = '1';
+
+      expect(service.isExternalArticleSubmissionEnabled()).toBe(true);
+    });
+
+    it('returns false when the env var is not set', () => {
+      delete process.env.EXTERNAL_ARTICLE_SUBMISSION_ENABLED;
+
+      expect(service.isExternalArticleSubmissionEnabled()).toBe(false);
+    });
+  });
+
   describe('getCustomBriefingQueueConfig', () => {
     afterEach(() => {
       delete process.env.CUSTOM_BRIEFING_WORKER_CONCURRENCY;
