@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core';
-import * as dotenv from 'dotenv';
 
 import { AppModule } from '../app.module';
+import { loadEnv } from '../config/load-env';
 import { ListTranscriptionsUseCase } from '../youtube-transcriptions/usecases/list-transcriptions.usecase';
 
-dotenv.config();
+loadEnv();
 
 async function initialize() {
   const app = await NestFactory.createApplicationContext(AppModule);

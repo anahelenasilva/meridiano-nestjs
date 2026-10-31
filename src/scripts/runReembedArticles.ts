@@ -1,11 +1,11 @@
 import { NestFactory } from '@nestjs/core';
-import * as dotenv from 'dotenv';
 
 import { AiService } from '../ai/ai.service';
 import { AppModule } from '../app.module';
 import { ArticlesService } from '../articles/articles.service';
+import { loadEnv } from '../config/load-env';
 
-dotenv.config();
+loadEnv();
 
 // Re-embeds every processed article with the current EMBEDDING_MODEL. Run it after
 // switching models so all stored vectors share one space. Safe to rerun.

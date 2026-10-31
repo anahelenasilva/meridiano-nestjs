@@ -1,16 +1,16 @@
 import { INestApplicationContext } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { Command } from 'commander';
-import * as dotenv from 'dotenv';
 import { AppModule } from '../app.module';
 import { GenerateBriefUseCase } from '../briefings/usecases/generate-brief.usecase';
 import { RunBriefingUseCase } from '../briefings/usecases/run-briefing.usecase';
+import { loadEnv } from '../config/load-env';
 import { ProcessorService } from '../processor/processor.service';
 import { ProfilesService } from '../profiles/profiles.service';
 import { ScraperService } from '../scraper/scraper.service';
 import { FeedProfile } from '../shared/types/feed';
 
-dotenv.config();
+loadEnv();
 
 const program = new Command();
 
