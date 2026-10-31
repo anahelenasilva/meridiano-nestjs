@@ -17,4 +17,16 @@ describe('sanitizeChatContent', () => {
   it('replaces a lone low surrogate', () => {
     expect(sanitizeChatContent('\uDD16 texto')).toBe('� texto');
   });
+
+  it('leaves backslashes single after the SDK encodes and the provider parses', () => {
+    const source = 'O caminho é C:\\Users\\ana\\relatorio.txt e a regex \\d+';
+
+    // What openai/core.js:219 writes into the request body and the provider's
+    // JSON parser hands the model.
+    const seenByModel = JSON.parse(
+      JSON.stringify(sanitizeChatContent(source)),
+    ) as string;
+
+    expect(seenByModel).toBe(source);
+  });
 });
