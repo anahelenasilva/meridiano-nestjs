@@ -352,7 +352,7 @@ describe('ArticlesController', () => {
     it('defaults to the active scope when archive_scope is absent', async () => {
       const controller = buildController();
 
-      await controller.listArticles({ id: 'user-1' }, { page: 1 }, undefined);
+      await controller.listArticles({ id: 'user-1' }, { page: 1 });
 
       expect(mockListArticlesQuery.execute).toHaveBeenCalledWith('user-1', {
         page: 1,
@@ -363,7 +363,10 @@ describe('ArticlesController', () => {
     it('forwards the archived scope', async () => {
       const controller = buildController();
 
-      await controller.listArticles({ id: 'user-1' }, { page: 1 }, 'archived');
+      await controller.listArticles(
+        { id: 'user-1' },
+        { page: 1, archive_scope: 'archived' },
+      );
 
       expect(mockListArticlesQuery.execute).toHaveBeenCalledWith('user-1', {
         page: 1,
@@ -375,7 +378,7 @@ describe('ArticlesController', () => {
       const controller = buildController();
 
       await expect(
-        controller.listArticles({ id: 'user-1' }, {}, 'deleted'),
+        controller.listArticles({ id: 'user-1' }, { archive_scope: 'deleted' }),
       ).rejects.toBeInstanceOf(BadRequestException);
       expect(mockListArticlesQuery.execute).not.toHaveBeenCalled();
     });
