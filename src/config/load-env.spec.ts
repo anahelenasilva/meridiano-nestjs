@@ -1,4 +1,50 @@
-import { dropEmptyEnvVars } from './load-env';
+import { mkdtempSync, rmdirSync, unlinkSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+
+import { dropEmptyEnvVars, loadEnv } from './load-env';
+
+describe('loadEnv', () => {
+  const KEY = 'MERIDIANO_LOAD_ENV_SPEC_KEY';
+  const originalCwd = process.cwd();
+  let envFile: string;
+
+  /**
+   * Every caller runs `loadEnv()` with no arguments, so dotenv resolves `.env`
+   * from the cwd. Moving into a tmp dir is how the spec hands it a file without
+   * touching the real one.
+   */
+  function chdirToEnvFile(contents: string): void {
+    envFile = join(mkdtempSync(join(tmpdir(), 'load-env-spec-')), '.env');
+    writeFileSync(envFile, contents);
+    process.chdir(join(envFile, '..'));
+  }
+
+  afterEach(() => {
+    process.chdir(originalCwd);
+    delete process.env[KEY];
+    unlinkSync(envFile);
+    rmdirSync(join(envFile, '..'));
+  });
+
+  it('fills a variable the shell exported empty from .env', () => {
+    chdirToEnvFile(`${KEY}=from-dotenv\n`);
+    process.env[KEY] = '';
+
+    loadEnv();
+
+    expect(process.env[KEY]).toBe('from-dotenv');
+  });
+
+  it('keeps the value the shell exported over the one in .env', () => {
+    chdirToEnvFile(`${KEY}=from-dotenv\n`);
+    process.env[KEY] = 'from-shell';
+
+    loadEnv();
+
+    expect(process.env[KEY]).toBe('from-shell');
+  });
+});
 
 describe('dropEmptyEnvVars', () => {
   it('drops a variable exported as an empty string', () => {
