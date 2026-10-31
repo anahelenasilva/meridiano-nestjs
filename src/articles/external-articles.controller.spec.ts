@@ -69,14 +69,20 @@ describe('ExternalArticlesController', () => {
     articleJobsService = module.get(ArticleJobsService);
   });
 
+  const validDto = {
+    url: 'https://example.com/article',
+    feedProfile: FeedProfile.TECHNOLOGY,
+    source: 'external',
+  };
+
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
 
   // Guards issue #122: private notes must never leak through the public/external
-  // article API. These are regression tripwires — the isolation currently holds
-  // by construction, and these tests fail loudly if a future change wires note
-  // data into this endpoint.
+  // article API. The isolation holds by construction, and these tests watch the two
+  // pieces of it: no Notes provider reaches the controller, and the success response
+  // carries no extra key. Typecheck misses an extra key arriving through a spread.
   describe('note data isolation (issue #122)', () => {
     it('does not inject any Notes provider into the external controller', () => {
       const paramTypes: Array<{ name?: string }> =
@@ -90,7 +96,7 @@ describe('ExternalArticlesController', () => {
       expect(dependencyNames.some((name) => /note/i.test(name))).toBe(false);
     });
 
-    it('does not expose a note field on the successful submission response', async () => {
+    it('returns only the documented keys on a successful submission', async () => {
       scraperService.scrapeSingleArticle.mockResolvedValue('article-uuid-123');
       articleJobsService.addArticleProcessingJob.mockResolvedValue({
         success: true,
@@ -99,23 +105,18 @@ describe('ExternalArticlesController', () => {
         message: 'Article queued',
       });
 
-      const result = await controller.createExternal({
-        url: 'https://example.com/article',
-        feedProfile: FeedProfile.TECHNOLOGY,
-        source: 'external',
-      });
+      const result = await controller.createExternal(validDto);
 
-      expect(result).not.toHaveProperty('note');
+      expect(Object.keys(result).sort()).toEqual([
+        'articleId',
+        'jobId',
+        'message',
+        'success',
+      ]);
     });
   });
 
   describe('createExternal', () => {
-    const validDto = {
-      url: 'https://example.com/article',
-      feedProfile: FeedProfile.TECHNOLOGY,
-      source: 'external',
-    };
-
     it('should successfully submit an article', async () => {
       const articleId = 'article-uuid-123';
       const jobId = 'job-uuid-456';
