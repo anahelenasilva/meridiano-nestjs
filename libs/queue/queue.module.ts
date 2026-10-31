@@ -1,5 +1,6 @@
 import { RedisModule, RedisService } from '@libs/redis';
-import { Module } from '@nestjs/common';
+import { Module, OnModuleDestroy } from '@nestjs/common';
+import { ModuleRef } from '@nestjs/core';
 import { Queue } from 'bullmq';
 import {
   ARTICLE_PROCESSING_QUEUE,
@@ -12,6 +13,17 @@ import {
   YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE
 } from './constants/queue.constants';
 import { QueueService } from './queue.service';
+
+const QUEUE_TOKENS = [
+  ARTICLE_PROCESSING_QUEUE,
+  MARKDOWN_ARTICLE_PROCESSING_QUEUE,
+  YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
+  CUSTOM_BRIEFING_GENERATION_QUEUE,
+  AUDIO_GENERATION_QUEUE,
+  YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
+  TRANSCRIPT_BACKUP_QUEUE,
+  NEWS_DIGEST_QUEUE,
+];
 
 @Module({
   imports: [RedisModule],
@@ -120,16 +132,23 @@ import { QueueService } from './queue.service';
     },
     QueueService,
   ],
-  exports: [
-    ARTICLE_PROCESSING_QUEUE,
-    MARKDOWN_ARTICLE_PROCESSING_QUEUE,
-    YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
-    CUSTOM_BRIEFING_GENERATION_QUEUE,
-    AUDIO_GENERATION_QUEUE,
-    YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
-    TRANSCRIPT_BACKUP_QUEUE,
-    NEWS_DIGEST_QUEUE,
-    QueueService,
-  ],
+  exports: [...QUEUE_TOKENS, QueueService],
 })
-export class QueueModule { }
+export class QueueModule implements OnModuleDestroy {
+  constructor(private readonly moduleRef: ModuleRef) { }
+
+  /**
+   * Nest does not close BullMQ queues for us. Each one keeps an error listener
+   * on the ioredis client RedisService owns and only drops it on close(), so
+   * the queues have to go first. Nest runs this before RedisModule quits that
+   * client, since QueueModule depends on RedisModule. The client itself is
+   * RedisService's to close: BullMQ treats a connection it was handed as
+   * shared and never quits it (bullmq@5.66.0
+   * dist/cjs/classes/queue-base.js:38).
+   */
+  async onModuleDestroy() {
+    await Promise.all(
+      QUEUE_TOKENS.map((token) => this.moduleRef.get<Queue>(token).close()),
+    );
+  }
+}
