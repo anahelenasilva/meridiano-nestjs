@@ -34,6 +34,7 @@ describe('ArticlesService', () => {
     // from a failing test would otherwise leak into the next one.
     jest.resetAllMocks();
     jest.restoreAllMocks();
+    jest.useRealTimers();
   });
 
   describe('getYesterdayArticlesByProfile', () => {
@@ -53,10 +54,10 @@ describe('ArticlesService', () => {
       expect(params[0]).toBe(FeedProfile.TECHNOLOGY);
     });
 
-    it('sets a 24-hour date range ending at today midnight BRT (UTC-3)', async () => {
-      const BRT_OFFSET_MS = 3 * 60 * 60 * 1000;
-      const callTime = new Date();
-
+    it('spans the Meridiano Day before the current one', async () => {
+      // 22:00 on 2026-10-25 in Sao Paulo, already 2026-10-26 in UTC: the
+      // instant where the digest and preset=yesterday used to disagree (#333).
+      jest.useFakeTimers().setSystemTime(new Date('2026-10-26T01:00:00Z'));
       mockDb.all.mockImplementationOnce((query, params, callback) => {
         callback(null, []);
       });
@@ -64,25 +65,11 @@ describe('ArticlesService', () => {
       await service.getYesterdayArticlesByProfile();
 
       const [, params] = mockDb.all.mock.calls[0];
-      const startParam = new Date(params[1] as string);
-      const endParam = new Date(params[2] as string);
-
-      // interval must be exactly 24 hours
-      expect(endParam.getTime() - startParam.getTime()).toBe(24 * 60 * 60 * 1000);
-
-      // end must be today's midnight in BRT — UTC hour must be 3 and minutes/seconds 0
-      expect(endParam.getUTCHours()).toBe(3);
-      expect(endParam.getUTCMinutes()).toBe(0);
-      expect(endParam.getUTCSeconds()).toBe(0);
-
-      // end date in BRT must equal today's date in BRT at the time of the call
-      const nowBrt = new Date(callTime.getTime() - BRT_OFFSET_MS);
-      expect(endParam.getUTCFullYear()).toBe(nowBrt.getUTCFullYear());
-      expect(endParam.getUTCMonth()).toBe(nowBrt.getUTCMonth());
-      // allow same day or next (edge case if test runs near midnight BRT)
-      expect([nowBrt.getUTCDate(), nowBrt.getUTCDate() + 1]).toContain(
-        endParam.getUTCDate(),
-      );
+      expect(params).toEqual([
+        FeedProfile.TECHNOLOGY,
+        '2026-10-24T03:00:00.000Z',
+        '2026-10-25T03:00:00.000Z',
+      ]);
     });
 
     it('maps rows to DBArticle with parsed dates and categories', async () => {

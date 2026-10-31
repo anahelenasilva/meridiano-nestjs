@@ -95,6 +95,15 @@ page. They stay visible to scraper deduplication, to the AI processing pipeline,
 to a Curated Briefing built from explicit ids, and on their own detail page.
 Only Articles can be archived; YouTube Transcriptions cannot.
 
+**Meridiano Day**:
+The calendar day the reader is living in, which is always a day in Sao Paulo and
+never a day in the host's time zone. Every day boundary the app resolves is one:
+the `yesterday` and lookback presets on the articles list, the inclusive
+`startDate`/`endDate` bounds that filter it, and the News Digest window. Runs
+from midnight to midnight in `America/Sao_Paulo`, not from midnight UTC. See
+ADR-0012.
+_Avoid_: BRT day, local day, calendar date in UTC
+
 **Bookmark**:
 An article saved by the user to read later. Not a saved briefing.
 _Avoid_: saved article, favourite, starred
