@@ -6,6 +6,7 @@ import { mock } from 'jest-mock-extended';
 import { Job, Queue } from 'bullmq';
 import { AiService } from '../../ai/ai.service';
 import { ConfigService } from '../../config/config.service';
+import { TranscriptChunkingError } from '../errors/transcript-chunking.errors';
 import { TranscriptChunkingService } from '../services/transcript-chunking.service';
 import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
 import { YoutubeTranscriptionProcessor } from './youtube-transcription.processor';
@@ -64,12 +65,12 @@ describe('YoutubeTranscriptionProcessor', () => {
         id: transcriptionId,
         custom_prompt: undefined,
       } as never);
-      mockAiService.callChat.mockResolvedValue('Generated summary');
+      mockAiService.callChatOrThrow.mockResolvedValue('Generated summary');
 
       await processor.processTranscriptionSummary(createJob());
 
-      expect(mockAiService.callChat).toHaveBeenCalledWith(basePrompt);
-      expect(mockAiService.callChat).not.toHaveBeenCalledWith(
+      expect(mockAiService.callChatOrThrow).toHaveBeenCalledWith(basePrompt);
+      expect(mockAiService.callChatOrThrow).not.toHaveBeenCalledWith(
         expect.stringContaining('Additional instructions:'),
       );
     });
@@ -79,11 +80,11 @@ describe('YoutubeTranscriptionProcessor', () => {
         id: transcriptionId,
         custom_prompt: null,
       } as never);
-      mockAiService.callChat.mockResolvedValue('Generated summary');
+      mockAiService.callChatOrThrow.mockResolvedValue('Generated summary');
 
       await processor.processTranscriptionSummary(createJob());
 
-      expect(mockAiService.callChat).toHaveBeenCalledWith(basePrompt);
+      expect(mockAiService.callChatOrThrow).toHaveBeenCalledWith(basePrompt);
     });
 
     it('appends custom prompt when transcription has custom_prompt set', async () => {
@@ -91,13 +92,55 @@ describe('YoutubeTranscriptionProcessor', () => {
         id: transcriptionId,
         custom_prompt: 'Focus on actionable takeaways.',
       } as never);
-      mockAiService.callChat.mockResolvedValue('Generated summary');
+      mockAiService.callChatOrThrow.mockResolvedValue('Generated summary');
 
       await processor.processTranscriptionSummary(createJob());
 
-      expect(mockAiService.callChat).toHaveBeenCalledWith(
+      expect(mockAiService.callChatOrThrow).toHaveBeenCalledWith(
         `${basePrompt}\n\nAdditional instructions: Focus on actionable takeaways.`,
       );
+    });
+  });
+
+  describe('processTranscriptionSummary - provider failure', () => {
+    beforeEach(() => {
+      mockYoutubeTranscriptionsService.getTranscriptionById.mockResolvedValue({
+        id: transcriptionId,
+        custom_prompt: null,
+      } as never);
+    });
+
+    it('fails the job when the provider errors on the single-pass path', async () => {
+      mockAiService.callChatOrThrow.mockRejectedValue(
+        new Error('401 Incorrect API key provided'),
+      );
+
+      await expect(
+        processor.processTranscriptionSummary(createJob()),
+      ).rejects.toThrow('401 Incorrect API key provided');
+
+      expect(
+        mockYoutubeTranscriptionsService.updateTranscriptionSummary,
+      ).not.toHaveBeenCalled();
+    });
+
+    it('fails the job when the provider errors on the chunked path', async () => {
+      mockTranscriptChunkingService.needsChunking.mockReturnValue(true);
+      mockTranscriptChunkingService.processTranscript.mockRejectedValue(
+        new TranscriptChunkingError(
+          'Chunk 1 processing failed',
+          transcriptionId,
+          'job-1',
+        ),
+      );
+
+      await expect(
+        processor.processTranscriptionSummary(createJob()),
+      ).rejects.toThrow('Chunk 1 processing failed');
+
+      expect(
+        mockYoutubeTranscriptionsService.updateTranscriptionSummary,
+      ).not.toHaveBeenCalled();
     });
   });
 

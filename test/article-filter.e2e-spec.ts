@@ -39,9 +39,16 @@ describe('ArticleFilter (e2e, real Postgres)', () => {
   const oldBusiness = randomUUID();
   const archivedTech = randomUUID();
 
+  // Scoped away from `marker` so the two rows that straddle a Meridiano Day
+  // boundary stay out of the counts the other tests assert.
+  const boundaryMarker = `ArticleBoundaryE2E-${randomUUID()}`;
+  const lateEvening = randomUUID();
+  const afterMidnight = randomUUID();
+
   const seeds = [
     {
       id: recentTech,
+      titleMarker: marker,
       profile: 'technology',
       source: 'Filter Source A',
       published: daysAgo(2),
@@ -51,6 +58,7 @@ describe('ArticleFilter (e2e, real Postgres)', () => {
     },
     {
       id: oldBusiness,
+      titleMarker: marker,
       profile: 'business',
       source: 'Filter Source B',
       published: daysAgo(60),
@@ -60,6 +68,7 @@ describe('ArticleFilter (e2e, real Postgres)', () => {
     },
     {
       id: archivedTech,
+      titleMarker: marker,
       profile: 'technology',
       source: 'Filter Source A',
       published: daysAgo(3),
@@ -67,14 +76,37 @@ describe('ArticleFilter (e2e, real Postgres)', () => {
       processed: 'summary',
       archivedAt: daysAgo(1),
     },
+    {
+      // 23:30 on 2026-03-10 in Sao Paulo, already the 11th in UTC.
+      id: lateEvening,
+      titleMarker: boundaryMarker,
+      profile: 'technology',
+      source: 'Filter Source C',
+      published: '2026-03-11T02:30:00.000Z',
+      categories: '["AI"]',
+      processed: 'summary',
+      archivedAt: null,
+    },
+    {
+      // 00:30 on 2026-03-11 in Sao Paulo, an hour later.
+      id: afterMidnight,
+      titleMarker: boundaryMarker,
+      profile: 'technology',
+      source: 'Filter Source C',
+      published: '2026-03-11T03:30:00.000Z',
+      categories: '["AI"]',
+      processed: 'summary',
+      archivedAt: null,
+    },
   ];
 
   async function listIds(
     filter: ArticleFilter,
     perPage = 20,
+    searchTerm = marker,
   ): Promise<{ ids: string[]; total: number }> {
     const { articles, total } = await service.listArticles(
-      { searchTerm: marker, ...filter },
+      { searchTerm, ...filter },
       { perPage },
     );
     return { ids: articles.map((article) => article.id).sort(), total };
@@ -99,7 +131,7 @@ describe('ArticleFilter (e2e, real Postgres)', () => {
         [
           seed.id,
           `https://example.com/${seed.id}`,
-          `${marker} ${seed.id}`,
+          `${seed.titleMarker} ${seed.id}`,
           seed.published,
           seed.source,
           'raw content',
@@ -115,10 +147,12 @@ describe('ArticleFilter (e2e, real Postgres)', () => {
   afterAll(async () => {
     if (db) {
       try {
-        await runQuery(db, `DELETE FROM articles WHERE id IN (?, ?, ?)`, [
+        await runQuery(db, `DELETE FROM articles WHERE id IN (?, ?, ?, ?, ?)`, [
           recentTech,
           oldBusiness,
           archivedTech,
+          lateEvening,
+          afterMidnight,
         ]);
       } catch (err) {
         console.error('Failed to clean up seeded rows', err);
@@ -188,6 +222,26 @@ describe('ArticleFilter (e2e, real Postgres)', () => {
 
     expect(articles.map((article) => article.id)).toEqual([oldBusiness]);
     expect(total).toBe(1);
+  });
+
+  it('ends a date window at midnight in Sao Paulo, not at midnight UTC', async () => {
+    await expect(
+      listIds(
+        { startDate: '2026-03-10', endDate: '2026-03-10' },
+        20,
+        boundaryMarker,
+      ),
+    ).resolves.toEqual({ ids: [lateEvening], total: 1 });
+  });
+
+  it('starts the next date window at the same boundary', async () => {
+    await expect(
+      listIds(
+        { startDate: '2026-03-11', endDate: '2026-03-11' },
+        20,
+        boundaryMarker,
+      ),
+    ).resolves.toEqual({ ids: [afterMidnight], total: 1 });
   });
 
   it('counts the whole filter, not just the page', async () => {

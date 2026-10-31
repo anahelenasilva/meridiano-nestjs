@@ -15,7 +15,6 @@ import { ArticleJobsService } from './services/article-jobs.service';
 import { GetArticleByIdQuery } from './queries/get-article-by-id.query';
 import { ListArticlesLeanQuery } from './queries/list-articles-lean.query';
 import { ListArticlesQuery } from './queries/list-articles.query';
-import { TelegramSubmissionService } from './services/telegram-submission.service';
 
 @Module({
   imports: [
@@ -37,12 +36,10 @@ import { TelegramSubmissionService } from './services/telegram-submission.servic
     ListArticlesQuery,
     ListArticlesLeanQuery,
     GetArticleByIdQuery,
-    TelegramSubmissionService,
   ],
   exports: [
     ArticlesService,
     ArticleJobsService,
-    TelegramSubmissionService,
     GenerateArticleAudioCommand,
     ListArticlesQuery,
     ListArticlesLeanQuery,

@@ -2,8 +2,6 @@
  * E2E Tests for External Articles API Contract
  *
  * Scope: API contract, authentication, validation, feature flag, response structure.
- * For Telegram-specific flow (message format, metadata, Node-RED integration) see
- * telegram-article-submission.e2e-spec.ts.
  */
 import { RateLimitGuard } from '@libs/auth/rate-limit/rate-limit.guard';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
@@ -13,7 +11,6 @@ import request from 'supertest';
 import { App } from 'supertest/types';
 import { ExternalArticlesController } from '../src/articles/external-articles.controller';
 import { ArticleJobsService } from '../src/articles/services/article-jobs.service';
-import { TelegramSubmissionService } from '../src/articles/services/telegram-submission.service';
 import { ConfigService } from '../src/config/config.service';
 import { ScraperService } from '../src/scraper/scraper.service';
 import { FeedProfile } from '../src/shared/types/feed';
@@ -23,7 +20,6 @@ describe('External Articles Integration Tests', () => {
   let moduleFixture: TestingModule;
   let mockScraperService: MockProxy<ScraperService>;
   let mockArticleJobsService: MockProxy<ArticleJobsService>;
-  let mockTelegramSubmissionService: MockProxy<TelegramSubmissionService>;
   let mockConfigService: MockProxy<ConfigService>;
 
   const VALID_TOKEN = 'test-external-token-12345';
@@ -38,18 +34,15 @@ describe('External Articles Integration Tests', () => {
     process.env = {
       ...originalEnv,
       EXTERNAL_API_TOKENS: VALID_TOKEN,
-      TELEGRAM_INTEGRATION_ENABLED: 'true',
+      EXTERNAL_ARTICLE_SUBMISSION_ENABLED: 'true',
     };
 
     // Create mock services
     mockScraperService = mock<ScraperService>();
     mockArticleJobsService = mock<ArticleJobsService>();
-    mockTelegramSubmissionService = mock<TelegramSubmissionService>();
     mockConfigService = mock<ConfigService>();
 
     // Setup default mock behavior
-    mockTelegramSubmissionService.createSubmission.mockResolvedValue('submission-uuid');
-    mockTelegramSubmissionService.updateSubmissionStatus.mockReturnValue(Promise.resolve());
     mockConfigService.getAppConfig.mockReturnValue({
       defaultFeedProfile: FeedProfile.DEFAULT,
       maxArticlesForScrapping: 100,
@@ -67,10 +60,6 @@ describe('External Articles Integration Tests', () => {
         {
           provide: ArticleJobsService,
           useValue: mockArticleJobsService,
-        },
-        {
-          provide: TelegramSubmissionService,
-          useValue: mockTelegramSubmissionService,
         },
         {
           provide: ConfigService,
@@ -96,8 +85,6 @@ describe('External Articles Integration Tests', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     // Reset default mock behavior
-    mockTelegramSubmissionService.createSubmission.mockResolvedValue('submission-uuid');
-    mockTelegramSubmissionService.updateSubmissionStatus.mockReturnValue(Promise.resolve());
     mockConfigService.getExternalApiTokens.mockReturnValue([VALID_TOKEN]);
   });
 
@@ -198,6 +185,19 @@ describe('External Articles Integration Tests', () => {
         expect(response.status).toBe(400);
       });
 
+      it('should return 400 when the body carries a metadata field', async () => {
+        const response = await request(app.getHttpServer())
+          .post('/api/articles/external')
+          .set('X-External-Token', VALID_TOKEN)
+          .send({
+            url: TEST_URL,
+            feedProfile: FeedProfile.TECHNOLOGY,
+            metadata: { chatId: '123456789' },
+          });
+
+        expect(response.status).toBe(400);
+      });
+
       it('should return 400 when request body is empty', async () => {
         const response = await request(app.getHttpServer())
           .post('/api/articles/external')
@@ -224,12 +224,6 @@ describe('External Articles Integration Tests', () => {
           .send({
             url: TEST_URL,
             feedProfile: FeedProfile.TECHNOLOGY,
-            source: 'telegram',
-            metadata: {
-              chatId: '123456789',
-              messageId: '456',
-              username: '@testuser',
-            },
           });
 
         expect(response.status).toBe(201);
@@ -249,7 +243,6 @@ describe('External Articles Integration Tests', () => {
           FeedProfile.TECHNOLOGY,
           undefined,
         );
-        expect(mockTelegramSubmissionService.createSubmission).toHaveBeenCalled();
       });
 
       it('should return 409 when article already exists', async () => {
@@ -286,35 +279,6 @@ describe('External Articles Integration Tests', () => {
         expect(response.body.error).toHaveProperty('code', 'SCRAPE_FAILED');
       });
 
-      it('should handle optional metadata fields', async () => {
-        mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
-        mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
-          success: true,
-          articleFileKey: TEST_ARTICLE_ID,
-          jobId: TEST_JOB_ID,
-          message: 'Article queued',
-        });
-
-        const response = await request(app.getHttpServer())
-          .post('/api/articles/external')
-          .set('X-External-Token', VALID_TOKEN)
-          .send({
-            url: TEST_URL,
-            feedProfile: FeedProfile.TECHNOLOGY,
-          });
-
-        expect(response.status).toBe(201);
-        expect(response.body.success).toBe(true);
-
-        // Verify submission was created with default metadata
-        expect(mockTelegramSubmissionService.createSubmission).toHaveBeenCalledWith(
-          expect.objectContaining({
-            chatId: 'unknown',
-            messageId: 'unknown',
-          }),
-        );
-      });
-
       it('should handle all valid feed profiles', async () => {
         mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
         mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
@@ -348,30 +312,6 @@ describe('External Articles Integration Tests', () => {
         }
       });
 
-      it('should continue when submission record creation fails', async () => {
-        mockTelegramSubmissionService.createSubmission.mockRejectedValue(
-          new Error('Database error'),
-        );
-        mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
-        mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
-          success: true,
-          articleFileKey: TEST_ARTICLE_ID,
-          jobId: TEST_JOB_ID,
-          message: 'Article queued',
-        });
-
-        const response = await request(app.getHttpServer())
-          .post('/api/articles/external')
-          .set('X-External-Token', VALID_TOKEN)
-          .send({
-            url: TEST_URL,
-            feedProfile: FeedProfile.TECHNOLOGY,
-          });
-
-        // Should still succeed
-        expect(response.status).toBe(201);
-        expect(response.body.success).toBe(true);
-      });
     });
 
     describe('Feature Flag', () => {
