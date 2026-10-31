@@ -9,13 +9,9 @@ describe('ExternalCreateArticleDto', () => {
     const dto = plainToInstance(ExternalCreateArticleDto, {
       url: 'https://example.com/article',
       feedProfile: FeedProfile.TECHNOLOGY,
-      source: 'telegram',
-      metadata: {
-        chatId: '123456789',
-        messageId: '456',
-        username: '@testuser',
-        note: 'Great article',
-      },
+      source: 'external',
+      customPrompt: 'Summarise the key argument',
+      generateAudio: true,
     });
 
     const errors = await validate(dto);
@@ -65,7 +61,7 @@ describe('ExternalCreateArticleDto', () => {
     expect(errors.some(e => e.property === 'feedProfile')).toBe(true);
   });
 
-  it('should validate without optional metadata', async () => {
+  it('should validate without the optional fields', async () => {
     const dto = plainToInstance(ExternalCreateArticleDto, {
       url: 'https://example.com/article',
       feedProfile: FeedProfile.BUSINESS,
@@ -73,46 +69,6 @@ describe('ExternalCreateArticleDto', () => {
 
     const errors = await validate(dto);
     expect(errors).toHaveLength(0);
-  });
-
-  it('should validate with partial metadata', async () => {
-    const dto = plainToInstance(ExternalCreateArticleDto, {
-      url: 'https://example.com/article',
-      feedProfile: FeedProfile.POLITICS,
-      metadata: {
-        chatId: '123456789',
-      },
-    });
-
-    const errors = await validate(dto);
-    expect(errors).toHaveLength(0);
-  });
-
-  it('should fail validation when metadata has invalid field types', async () => {
-    const dto = plainToInstance(ExternalCreateArticleDto, {
-      url: 'https://example.com/article',
-      feedProfile: FeedProfile.POLITICS,
-      metadata: {
-        chatId: 12345,
-      },
-    });
-
-    const errors = await validate(dto);
-    expect(errors).toHaveLength(1);
-    expect(errors[0].property).toBe('metadata');
-    expect(errors[0].children?.some(e => e.property === 'chatId')).toBe(true);
-  });
-
-  it('should fail validation when metadata is not an object', async () => {
-    const dto = plainToInstance(ExternalCreateArticleDto, {
-      url: 'https://example.com/article',
-      feedProfile: FeedProfile.TECHNOLOGY,
-      metadata: 'invalid',
-    });
-
-    const errors = await validate(dto);
-    expect(errors).toHaveLength(1);
-    expect(errors[0].property).toBe('metadata');
   });
 
   it('should accept all valid feed profiles', async () => {
