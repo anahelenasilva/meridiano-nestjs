@@ -20,6 +20,7 @@ add `--detectOpenHandles`.
 
 ## Coverage Requirements
 - All public methods
+- A wrapper function needs a test that calls the wrapper itself, not only the functions it delegates to; if real I/O makes that look unsafe, use a fixture (tmp dir, mock) instead of excluding the wrapper from coverage
 - Error cases and edge cases
 - Fallback paths, not just happy paths
 - When a function accepts a new parameter, test each code path with it
