@@ -42,8 +42,13 @@ have fixed the preset without new code, but it leaves the answer depending on
 an environment variable that no file in the repo sets, and it does nothing for
 the `DATE(published_date)` truncation. The rule now holds on any host.
 
-The frontend keeps sending date-only strings and the API keeps resolving them,
-so the browser's zone never enters the query (meridiano-frontend #99).
+The API resolves whatever `startDate` or `endDate` it receives as a Meridiano
+Day (`src/articles/helpers/article-filter.ts:97-104`), but the client still
+picks which day to send. `meridiano-cli` passes through what the user types
+(`meridiano-cli/src/commands/list-articles.command.ts:69-83`). The frontend
+computes its preset bounds with local `Date` getters, so a browser outside
+Brazil asks for its own calendar day (meridiano-frontend #105). The rule holds
+end to end once that lands.
 
 `GET /api/youtube-transcriptions/lean` has its own date filter and still
 documents its `startDate` and `endDate` as UTC calendar days
