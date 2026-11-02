@@ -6,5 +6,7 @@ allowBuilds:
   esbuild: true
   msgpackr-extract: true
   unrs-resolver: true
+minimumReleaseAgeExclude:
+  - '@ai-hero/sandcastle@0.13.0'
 overrides:
   meridiano-cli: link:../meridiano-cli
