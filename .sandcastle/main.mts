@@ -112,7 +112,7 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
         name: "implementer",
         maxIterations: 1,
         idleTimeoutSeconds: 420,
-        agent: sandcastle.claudeCode("claude-sonnet-4-6"),
+        agent: sandcastle.claudeCode("claude-sonnet-5-5"),
         promptFile: "./.sandcastle/implement-prompt.md",
         signal: controller.signal,
       });
@@ -172,7 +172,7 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
     await sandbox.run({
       name: "reviewer",
       maxIterations: 1,
-      agent: sandcastle.claudeCode("claude-sonnet-4-6"),
+      agent: sandcastle.claudeCode("claude-sonnet-5-5"),
       promptFile: "./.sandcastle/review-prompt.md",
       promptArgs: {
         BRANCH: branch,
@@ -204,7 +204,7 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
     branchStrategy: { type: "merge-to-head" },
     name: "merger",
     maxIterations: 1,
-    agent: sandcastle.claudeCode("claude-sonnet-4-6"),
+    agent: sandcastle.claudeCode("claude-sonnet-5-5"),
     promptFile: "./.sandcastle/merge-prompt.md",
     promptArgs: {
       BRANCH: branch,
