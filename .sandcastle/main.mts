@@ -112,7 +112,7 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
         name: "implementer",
         maxIterations: 1,
         idleTimeoutSeconds: 420,
-        agent: sandcastle.claudeCode("claude-sonnet-4-6"),
+        agent: sandcastle.claudeCode("claude-sonnet-5-5"),
         promptFile: "./.sandcastle/implement-prompt.md",
         signal: controller.signal,
       });
@@ -136,27 +136,29 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
     }
 
     branch = implementResult != null ? sandbox.branch : branch;
-    issueId = implementResult?.stdout.match(/<issue>([\s\S]*?)<\/issue>/)?.[1]?.trim();
+
+    const logBranch = (format: string): string => {
+      const args = ["log", branch, "--not", "main", `--format=${format}`];
+      try {
+        return execFileSync("git", recoveredWorktreePath ? ["-C", recoveredWorktreePath, ...args] : args, {
+          encoding: "utf8",
+        }).trim();
+      } catch (err) {
+        console.warn(`git log failed for branch ${branch}:`, err);
+        return "";
+      }
+    };
+
+    // Read from the commit message, not stdout: an idle timeout throws the
+    // implementer's stdout away, but its commits survive on the branch.
+    issueId = logBranch("%B").match(/^Issue: #(\d+)$/m)?.[1];
 
     if (!issueId) {
-      console.warn("Warning: implementer did not output an <issue> tag. The issue will not be closed after merge.");
+      console.warn('Warning: no "Issue: #N" line in the branch commits. The issue will not be closed after merge.');
     }
 
     // When implementResult is undefined (idle timeout recovery), count commits directly.
-    const commits =
-      implementResult?.commits ??
-      (() => {
-        try {
-          const gitArgs = recoveredWorktreePath
-            ? ["-C", recoveredWorktreePath, "log", branch, "--not", "main", "--oneline"]
-            : ["log", branch, "--not", "main", "--oneline"];
-          const out = execFileSync("git", gitArgs, { encoding: "utf8" }).trim();
-          return out ? out.split("\n") : [];
-        } catch (err) {
-          console.warn(`git log failed for branch ${branch}:`, err);
-          return [];
-        }
-      })();
+    const commits = implementResult?.commits ?? logBranch("%h").split("\n").filter(Boolean);
 
     if (!commits.length) {
       console.log("Implementation agent made no commits. Skipping review.");
@@ -172,7 +174,7 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
     await sandbox.run({
       name: "reviewer",
       maxIterations: 1,
-      agent: sandcastle.claudeCode("claude-sonnet-4-6"),
+      agent: sandcastle.claudeCode("claude-sonnet-5-5"),
       promptFile: "./.sandcastle/review-prompt.md",
       promptArgs: {
         BRANCH: branch,
@@ -204,7 +206,7 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
     branchStrategy: { type: "merge-to-head" },
     name: "merger",
     maxIterations: 1,
-    agent: sandcastle.claudeCode("claude-sonnet-4-6"),
+    agent: sandcastle.claudeCode("claude-sonnet-5-5"),
     promptFile: "./.sandcastle/merge-prompt.md",
     promptArgs: {
       BRANCH: branch,

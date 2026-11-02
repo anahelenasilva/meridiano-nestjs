@@ -17,7 +17,7 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
 
 # Preinstall the repo's package manager directly so sandbox hooks do not depend
 # on Corepack downloads or prompts at runtime.
-RUN npm install -g pnpm@10
+RUN npm install -g pnpm@11
 
 # Rename the base image's "node" user to "agent" and align it with the host
 # UID/GID Sandcastle uses when starting Docker containers.
