@@ -37,12 +37,12 @@ Pick the highest-priority open issue that is not blocked by another open issue.
    - List key decisions made
    - List files changed
    - Note any blockers for the next iteration
-6. **Report** (after the commit): output the issue number in an issue tag, e.g. `<issue>42</issue>`. Do not close the issue yourself. The merge step closes it once the branch is merged.
+   - End with the line `Issue: #<number>` for the issue you worked on, e.g. `Issue: #42`. The merge step reads it to close the issue once the branch is merged.
 
 ## Rules
 
 - Work on **one issue per iteration**. Do not attempt multiple issues in a single iteration.
-- Never close an issue. Only output its issue tag after you have committed the fix and verified tests pass.
+- Never close an issue yourself. The merge step closes it.
 - Do not leave commented-out code or TODO comments in committed code.
 - If you are blocked (missing context, failing tests you cannot fix, external dependency), leave a comment on the issue and move on — do not close it.
 
