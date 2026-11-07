@@ -4,6 +4,7 @@ export interface RssFeedItem {
   link: string;
   pubDate: Date;
   description?: string | null;
+  imageUrl?: string | null;
 }
 
 export interface RssFeedChannel {
@@ -42,6 +43,13 @@ function buildItemXml(item: RssFeedItem): string {
     `      <guid isPermaLink="false">${escapeXml(item.guid)}</guid>`,
     `      <pubDate>${toRfc822(item.pubDate)}</pubDate>`,
   ];
+
+  // RSS 2.0 requires `length`; the image size is unknown and readers ignore it.
+  if (item.imageUrl) {
+    lines.push(
+      `      <enclosure url="${escapeXml(item.imageUrl)}" type="image/jpeg" length="0" />`,
+    );
+  }
 
   if (item.description) {
     lines.push(`      <description>${escapeXml(item.description)}</description>`);
