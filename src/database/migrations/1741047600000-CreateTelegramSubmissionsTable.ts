@@ -5,7 +5,11 @@ export class CreateTelegramSubmissionsTable1741047600000 implements MigrationInt
     await queryRunner.query(`
       CREATE TABLE IF NOT EXISTS telegram_submissions (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-        article_id UUID REFERENCES articles(id) ON DELETE SET NULL,
+        -- No FK to articles(id): on an empty database articles.id is still
+        -- SERIAL at this point in the chain (1735027200000-InitialSchema), and
+        -- 1793448300280-DropTelegramSubmissionsTable drops this table later in
+        -- the same chain, so the column shape never outlives the run.
+        article_id UUID,
         chat_id VARCHAR(255) NOT NULL,
         username VARCHAR(255),
         message_id VARCHAR(255) NOT NULL,

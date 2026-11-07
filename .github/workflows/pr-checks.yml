@@ -54,3 +54,97 @@ jobs:
         run: |
           pnpm generate:openapi
           git diff --exit-code openapi.json
+
+  e2e:
+    name: E2E
+    runs-on: ubuntu-latest
+    # Point the suite at a closed Redis port and it does not fail fast, it
+    # retries until something kills it. See issue #353.
+    timeout-minutes: 15
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: meridian_e2e
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d meridian_e2e"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    # Dummy credentials on purpose: nothing in test/ reaches Mailgun, DeepSeek
+    # or OpenAI over the network, but their clients throw at construction when
+    # the key is unset. The DATABASE_* block is spelled out so a misconfigured
+    # job fails instead of falling back to the defaults in
+    # libs/database/typeorm.config.ts and dialing some other database.
+    env:
+      DATABASE_HOST: localhost
+      DATABASE_PORT: '5432'
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_NAME: meridian_e2e
+      DATABASE_SSL: 'false'
+      REDIS_HOST: 127.0.0.1
+      REDIS_PORT: '6379'
+      JWT_SECRET: ci-e2e-secret
+      MAILGUN_API_KEY: ci-e2e-dummy
+      MAILGUN_DOMAIN: ci-e2e.invalid
+      DEEPSEEK_API_KEY: ci-e2e-dummy
+      OPENAI_API_KEY: ci-e2e-dummy
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 11
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Build first: libs/database/typeorm.config.ts:32 globs migrations from
+      # dist/, so without it migration:run applies nothing and exits 0, and the
+      # e2e failures that follow read like app bugs.
+      - name: Build
+        run: pnpm build
+
+      - name: Run migrations
+        run: pnpm migration:run
+
+      - name: Run e2e tests
+        run: pnpm test:e2e
