@@ -171,6 +171,41 @@ describe('GetYoutubeFeedQuery', () => {
     expect(itemBlock).not.toContain('<description>');
   });
 
+  it('attaches the YouTube hqdefault thumbnail of the video as the item enclosure', async () => {
+    const transcription = buildTranscription({
+      videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    });
+    mockYoutubeTranscriptionsService.getTranscriptionsPaginated.mockResolvedValue(
+      [transcription],
+    );
+
+    const query = buildQuery();
+    const xml = await query.execute(
+      'https://api.example.com/feeds/youtube.xml',
+    );
+
+    expect(xml).toContain(
+      '<enclosure url="https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg" type="image/jpeg" length="0" />',
+    );
+  });
+
+  it('still lists a transcription whose URL has no recognisable video id, without an enclosure', async () => {
+    const transcription = buildTranscription({
+      videoUrl: 'https://vimeo.com/12345',
+    });
+    mockYoutubeTranscriptionsService.getTranscriptionsPaginated.mockResolvedValue(
+      [transcription],
+    );
+
+    const query = buildQuery();
+    const xml = await query.execute(
+      'https://api.example.com/feeds/youtube.xml',
+    );
+
+    expect(xml).toContain('<title>Video One</title>');
+    expect(xml).not.toContain('<enclosure');
+  });
+
   it('escapes XML-unsafe characters so one malformed transcription cannot break the feed', async () => {
     const transcription = buildTranscription({
       videoTitle: 'Breaking: <script>alert(1)</script> & more',
