@@ -94,6 +94,50 @@ describe('buildRssFeed', () => {
     expect(itemBlock).not.toContain('<description>');
   });
 
+  it('includes an escaped image enclosure between pubDate and description when the item has an image URL', () => {
+    const xml = buildRssFeed({
+      title: 'Feed',
+      link: 'https://example.com',
+      description: 'Desc',
+      items: [
+        {
+          guid: 'video-1',
+          title: 'Video One',
+          link: 'https://www.youtube.com/watch?v=abc123',
+          pubDate: new Date('2026-07-25T12:00:00.000Z'),
+          description: 'Summary',
+          imageUrl: 'https://i.ytimg.com/vi/a"b&c/hqdefault.jpg',
+        },
+      ],
+    });
+
+    const enclosure =
+      '<enclosure url="https://i.ytimg.com/vi/a&quot;b&amp;c/hqdefault.jpg" type="image/jpeg" length="0" />';
+    expect(xml).toContain(enclosure);
+    expect(xml.indexOf('</pubDate>')).toBeLessThan(xml.indexOf(enclosure));
+    expect(xml.indexOf(enclosure)).toBeLessThan(
+      xml.indexOf('<description>Summary</description>'),
+    );
+  });
+
+  it('omits the enclosure element when the item has no image URL', () => {
+    const xml = buildRssFeed({
+      title: 'Feed',
+      link: 'https://example.com',
+      description: 'Desc',
+      items: [
+        {
+          guid: 'article-1',
+          title: 'Article One',
+          link: 'https://source.example.com/article-1',
+          pubDate: new Date('2026-07-25T12:00:00.000Z'),
+        },
+      ],
+    });
+
+    expect(xml).not.toContain('<enclosure');
+  });
+
   it('renders multiple items in the given order', () => {
     const xml = buildRssFeed({
       title: 'Feed',

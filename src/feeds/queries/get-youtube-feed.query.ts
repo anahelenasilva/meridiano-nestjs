@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { YoutubeTranscriptionsService } from '../../youtube-transcriptions/services/youtube-transcriptions.service';
 import { YoutubeTranscription } from '../../youtube-transcriptions/entities/youtube-transcription.entity';
+import { extractVideoId } from '../../youtube-transcriptions/helpers/extract-video-id';
 import { buildRssFeed, RssFeedItem } from '../helpers/build-rss-feed';
 import { YoutubeFeedQueryOptions } from '../feeds.types';
 import { FEED_DEFAULT_ITEM_LIMIT } from '../helpers/parse-feed-query';
@@ -46,5 +47,11 @@ function toFeedItem(transcription: YoutubeTranscription): RssFeedItem {
     link: transcription.videoUrl,
     pubDate: transcription.postedAt ?? transcription.processedAt,
     description: transcription.transcriptionSummary,
+    imageUrl: toThumbnailUrl(transcription.videoUrl),
   };
+}
+
+function toThumbnailUrl(videoUrl: string): string | null {
+  const videoId = extractVideoId(videoUrl);
+  return videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : null;
 }
