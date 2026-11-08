@@ -6,6 +6,7 @@ import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { AiModule } from './ai/ai.module';
 import { AppController } from './app.controller';
+import { ArticleActionsModule } from './article-actions/article-actions.module';
 import { ArticlesModule } from './articles/articles.module';
 import { AudioFilesModule } from './audio-files/audio-files.module';
 import { AuthModule } from './auth/auth.module';
@@ -30,6 +31,7 @@ import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-tr
     AuthModule,
     AiModule,
     ArticlesModule,
+    ArticleActionsModule,
     AudioFilesModule,
     BriefingsModule,
     FeedsModule,

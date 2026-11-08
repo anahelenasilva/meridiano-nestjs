@@ -108,6 +108,15 @@ _Avoid_: BRT day, local day, calendar date in UTC
 An article saved by the user to read later. Not a saved briefing.
 _Avoid_: saved article, favourite, starred
 
+**Article Action**:
+The one disposition Hermes assigns to a processed Article whose Article Source
+is `"Manual"`: `reference_only`, `connect_to_note`, `experiment`, `task` or
+`verify_claim`. Anything but `reference_only` carries a proposal the owner
+approves or dismisses by replying to its Discord card with the short id, the
+first 8 hex characters of the Article id. Approval runs the proposal once, as a
+Notion task or a wiki edit. Stored in `article_actions`, one row per Article.
+_Avoid_: article review, classification (that is the step that produces it)
+
 ## Scope
 
 Meridiano is intentionally single-user. The owner is the only operator; there is no concept of tenancy or per-user data isolation in the current model. Multi-user support is planned but deferred. See ADR-0001.
@@ -119,6 +128,7 @@ Meridiano is intentionally single-user. The owner is the only operator; there is
 - A **Standard Briefing** draws from **Articles** filtered and grouped into **Article Clusters** by **Feed Profile**
 - A **Curated Briefing** draws from an explicit set of **Articles** supplied by the user
 - A **Bookmark** references an **Article**
+- An **Article** with Article Source `"Manual"` has at most one **Article Action**
 - A **YouTube Transcription** has one optional **Audio Summary**
 - A **YouTube Transcription** is processed independently from **Articles** and **Briefings**, sharing no briefing pipeline
 
