@@ -78,22 +78,13 @@ export interface PendingArticle {
 
 // `proposal` is JSONB, which pg parses into an object, and `title`/`url` come
 // from the joined `articles` row.
-export interface ArticleActionRow {
-  id: string;
-  article_id: string;
-  title: string;
-  url: string;
-  disposition: Disposition;
-  confidence: number;
-  rationale: string;
-  proposal: ActionProposal | null;
-  status: ActionStatus;
-  downgraded_from: Disposition | null;
-  external_ref: string | null;
-  error: string | null;
+export type ArticleActionRow = Omit<
+  ArticleAction,
+  'short_id' | 'created_at' | 'updated_at'
+> & {
   created_at: string;
   updated_at: string;
-}
+};
 
 export const SHORT_ID_PATTERN = /^[0-9a-f]{8}$/;
 
@@ -171,13 +162,12 @@ export class TransitionArticleActionDto {
   })
   status: TransitionTarget;
 
-  // Required when status is executed: the Notion page id or wiki commit.
+  // The Notion page id or wiki commit the executor produced.
   @IsOptional()
   @IsString()
   @MaxLength(500)
   external_ref?: string;
 
-  // Required when status is failed.
   @IsOptional()
   @IsString()
   @MaxLength(2000)

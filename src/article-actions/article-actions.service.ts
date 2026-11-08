@@ -199,32 +199,19 @@ export class ArticleActionsService {
   }
 
   async create(input: SaveArticleActionDto): Promise<ArticleAction> {
-    const action = classify(input);
-
     try {
-      const row = await queryOne<ArticleActionRow>(
-        this.databaseService.getDbConnection(),
-        returningAction(`
+      return await this.save(
+        `
           INSERT INTO article_actions
-            (article_id, disposition, confidence, rationale, proposal, status, downgraded_from)
-          VALUES (?, ?, ?, ?, ?::jsonb, ?, ?)
-        `),
-        [
-          input.article_id,
-          action.disposition,
-          input.confidence,
-          input.rationale,
-          action.proposal && JSON.stringify(action.proposal),
-          action.status,
-          action.downgraded_from,
-        ],
+            (disposition, confidence, rationale, proposal, status, downgraded_from, article_id)
+          VALUES (?, ?, ?, ?::jsonb, ?, ?, ?)
+        `,
+        input,
+        () =>
+          new Error(
+            `article_actions insert for article ${input.article_id} returned no row`,
+          ),
       );
-      if (!row) {
-        throw new Error(
-          `article_actions insert for article ${input.article_id} returned no row`,
-        );
-      }
-      return mapRowToArticleAction(row);
     } catch (error) {
       const { code } = error as PgError;
       if (code === '23505') {
@@ -256,15 +243,33 @@ export class ArticleActionsService {
       );
     }
 
-    const action = classify(input);
-    const row = await queryOne<ArticleActionRow>(
-      this.databaseService.getDbConnection(),
-      returningAction(`
+    return this.save(
+      `
         UPDATE article_actions
         SET disposition = ?, confidence = ?, rationale = ?, proposal = ?::jsonb,
             status = ?, downgraded_from = ?, updated_at = CURRENT_TIMESTAMP
         WHERE article_id = ? AND status = 'proposed'
-      `),
+      `,
+      input,
+      () =>
+        new ConflictException(
+          `Action ${shortId} changed status while it was being revised`,
+        ),
+    );
+  }
+
+  // `writeSql` takes the classified fields in this order, article_id last so
+  // an UPDATE can match on it. `noRowError` is what a write that touched no
+  // row means to the caller.
+  private async save(
+    writeSql: string,
+    input: SaveArticleActionDto,
+    noRowError: () => Error,
+  ): Promise<ArticleAction> {
+    const action = classify(input);
+    const row = await queryOne<ArticleActionRow>(
+      this.databaseService.getDbConnection(),
+      returningAction(writeSql),
       [
         action.disposition,
         input.confidence,
@@ -272,13 +277,11 @@ export class ArticleActionsService {
         action.proposal && JSON.stringify(action.proposal),
         action.status,
         action.downgraded_from,
-        current.article_id,
+        input.article_id,
       ],
     );
     if (!row) {
-      throw new ConflictException(
-        `Action ${shortId} changed status while it was being revised`,
-      );
+      throw noRowError();
     }
     return mapRowToArticleAction(row);
   }

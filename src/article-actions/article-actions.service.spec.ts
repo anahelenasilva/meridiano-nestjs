@@ -128,13 +128,13 @@ describe('ArticleActionsService', () => {
     expect(result.status).toBe('reference');
     expect(result.short_id).toBe('a22a8280');
     expect(mockDb.get.mock.calls[0][1]).toEqual([
-      ARTICLE_ID,
       'reference_only',
       0.85,
       'Concrete setup steps Ana can follow',
       null,
       'reference',
       null,
+      ARTICLE_ID,
     ]);
   });
 
@@ -150,13 +150,13 @@ describe('ArticleActionsService', () => {
     await service.create(saveInput({ confidence: 0.6 }));
 
     expect(mockDb.get.mock.calls[0][1]).toEqual([
-      ARTICLE_ID,
       'reference_only',
       0.6,
       'Concrete setup steps Ana can follow',
       null,
       'reference',
       'task',
+      ARTICLE_ID,
     ]);
   });
 
@@ -177,9 +177,9 @@ describe('ArticleActionsService', () => {
     );
 
     const params = mockDb.get.mock.calls[0][1];
-    expect(params[1]).toBe('verify_claim');
-    expect(JSON.parse(params[4])).toEqual(claim);
-    expect(params[5]).toBe('proposed');
+    expect(params[0]).toBe('verify_claim');
+    expect(JSON.parse(params[3])).toEqual(claim);
+    expect(params[4]).toBe('proposed');
   });
 
   it('create rejects a task titled "Read more about MCP"', async () => {
@@ -252,6 +252,15 @@ describe('ArticleActionsService', () => {
 
   it('transition to executing from executed returns 409', async () => {
     nextAll([actionRow({ status: 'executed', external_ref: 'notion-page' })]);
+    nextGet(undefined);
+
+    await expect(
+      service.transition('a22a8280', { status: 'executing' }),
+    ).rejects.toThrow(ConflictException);
+  });
+
+  it('transition to executing on an executing row updated under 10 minutes ago returns 409', async () => {
+    nextAll([actionRow({ status: 'executing' })]);
     nextGet(undefined);
 
     await expect(
