@@ -1,4 +1,4 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Queue } from 'bullmq';
 import {
   CUSTOM_BRIEFING_GENERATION_QUEUE,
@@ -25,16 +25,6 @@ export class GenerateCustomBriefUseCase {
   async execute(
     input: GenerateCustomBriefInputDto,
   ): Promise<{ jobId: string }> {
-    if (!input.articleIds || input.articleIds.length < 2) {
-      throw new BadRequestException('At least 2 articles must be selected');
-    }
-    if (input.articleIds.length > 10) {
-      throw new BadRequestException('Maximum 10 articles can be selected');
-    }
-    if (!Object.values(FeedProfile).includes(input.feedProfile)) {
-      throw new BadRequestException('Invalid feed profile');
-    }
-
     const data: CustomBriefingJobData = {
       articleIds: input.articleIds,
       feedProfile: input.feedProfile,

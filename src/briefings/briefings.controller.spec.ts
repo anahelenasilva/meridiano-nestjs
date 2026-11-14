@@ -2,6 +2,7 @@ import { IS_PUBLIC_KEY } from '@libs/auth';
 import {
   BadRequestException,
   NotFoundException,
+  Type,
   ValidationPipe,
 } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -14,6 +15,30 @@ import { BriefingsService } from './briefings.service';
 import { ListBriefingsQuery } from './queries/list-briefings.query';
 import { GenerateBriefUseCase } from './usecases/generate-brief.usecase';
 import { GenerateCustomBriefUseCase } from './usecases/generate-custom-brief.usecase';
+
+// Same options as the global pipe in main.ts. The body type comes from the
+// route's own parameter metadata, so an inline or type-only body (which the
+// pipe skips) fails the tests that use this.
+const validationPipe = new ValidationPipe({
+  whitelist: true,
+  forbidNonWhitelisted: true,
+  transform: true,
+});
+const validateBody = (
+  route: keyof BriefingsController,
+  bodyIndex: number,
+  body: unknown,
+) => {
+  const paramTypes: unknown[] = Reflect.getMetadata(
+    'design:paramtypes',
+    BriefingsController.prototype,
+    route,
+  );
+  return validationPipe.transform(body, {
+    type: 'body',
+    metatype: paramTypes[bodyIndex] as Type<unknown>,
+  });
+};
 
 describe('BriefingsController', () => {
   let controller: BriefingsController;
@@ -187,6 +212,68 @@ describe('BriefingsController', () => {
       expect(mockGenerateCustomBriefUseCase.execute).toHaveBeenCalledWith(input);
       expect(result).toBe(expected);
     });
+
+    describe('body validation', () => {
+      const validateCustomBody = (body: unknown) =>
+        validateBody('generateCustomBriefing', 0, body);
+      const articleId = '5f1c9a4e-2b7d-4c3a-9e8f-1a2b3c4d5e6f';
+      // Each rejection test changes one field of this body, so it fails only
+      // for the reason it names.
+      const validBody = {
+        articleIds: [articleId, '8d3e7b21-6a4f-4e9c-b1d2-7f8e9a0b1c2d'],
+        feedProfile: FeedProfile.DEFAULT,
+      };
+      const expectRejected = (overrides: Record<string, unknown>) =>
+        expect(
+          validateCustomBody({ ...validBody, ...overrides }),
+        ).rejects.toBeInstanceOf(BadRequestException);
+
+      it('accepts a valid body without a customPrompt', async () => {
+        await expect(validateCustomBody(validBody)).resolves.toEqual(validBody);
+      });
+
+      it('rejects articleIds that is not an array', async () => {
+        await expectRejected({ articleIds: 'abcd' });
+      });
+
+      it('rejects fewer than 2 articleIds', async () => {
+        await expectRejected({ articleIds: [articleId] });
+      });
+
+      it('rejects more than 10 articleIds', async () => {
+        const elevenIds = Array.from(
+          { length: 11 },
+          (_, index) =>
+            `5f1c9a4e-2b7d-4c3a-9e8f-${String(index).padStart(12, '0')}`,
+        );
+        await expectRejected({ articleIds: elevenIds });
+      });
+
+      it('rejects an articleId that is not a UUID', async () => {
+        await expectRejected({ articleIds: [articleId, 'article-2'] });
+      });
+
+      it('rejects a feedProfile outside FeedProfile', async () => {
+        await expectRejected({ feedProfile: 'invalid-profile' });
+      });
+
+      it('rejects a body with an extra property', async () => {
+        await expectRejected({ generateAudio: true });
+      });
+
+      it('rejects a customPrompt that is not a string', async () => {
+        await expectRejected({ customPrompt: 42 });
+      });
+
+      it('rejects a customPrompt longer than 500 characters', async () => {
+        await expectRejected({ customPrompt: 'a'.repeat(501) });
+      });
+
+      it('accepts a customPrompt of exactly 500 characters', async () => {
+        const body = { ...validBody, customPrompt: 'a'.repeat(500) };
+        await expect(validateCustomBody(body)).resolves.toEqual(body);
+      });
+    });
   });
 
   describe('getCustomBriefingJobStatus', () => {
@@ -211,25 +298,8 @@ describe('BriefingsController', () => {
   });
 
   describe('updateBriefTitle', () => {
-    // Same options as the global pipe in main.ts. The body type comes from the
-    // route's own parameter metadata, so an inline type (which the pipe skips)
-    // fails these tests.
-    const validationPipe = new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-    });
-    const validateTitleBody = (body: unknown) => {
-      const [, bodyType] = Reflect.getMetadata(
-        'design:paramtypes',
-        BriefingsController.prototype,
-        'updateBriefTitle',
-      );
-      return validationPipe.transform(body, {
-        type: 'body',
-        metatype: bodyType,
-      });
-    };
+    const validateTitleBody = (body: unknown) =>
+      validateBody('updateBriefTitle', 1, body);
 
     it('rejects a customTitle that is not a string', async () => {
       await expect(
