@@ -1,5 +1,9 @@
 import { IS_PUBLIC_KEY } from '@libs/auth';
-import { BadRequestException, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  NotFoundException,
+  ValidationPipe,
+} from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
 import { QueueService } from '../../libs/queue/queue.service';
@@ -207,6 +211,50 @@ describe('BriefingsController', () => {
   });
 
   describe('updateBriefTitle', () => {
+    // Same options as the global pipe in main.ts. The body type comes from the
+    // route's own parameter metadata, so an inline type (which the pipe skips)
+    // fails these tests.
+    const validationPipe = new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    });
+    const validateTitleBody = (body: unknown) => {
+      const [, bodyType] = Reflect.getMetadata(
+        'design:paramtypes',
+        BriefingsController.prototype,
+        'updateBriefTitle',
+      );
+      return validationPipe.transform(body, {
+        type: 'body',
+        metatype: bodyType,
+      });
+    };
+
+    it('rejects a customTitle that is not a string', async () => {
+      await expect(
+        validateTitleBody({ customTitle: 42 }),
+      ).rejects.toBeInstanceOf(BadRequestException);
+    });
+
+    it('rejects a customTitle longer than 200 characters', async () => {
+      await expect(
+        validateTitleBody({ customTitle: 'a'.repeat(201) }),
+      ).rejects.toBeInstanceOf(BadRequestException);
+    });
+
+    it('accepts a customTitle of exactly 200 characters', async () => {
+      await expect(
+        validateTitleBody({ customTitle: 'a'.repeat(200) }),
+      ).resolves.toEqual({ customTitle: 'a'.repeat(200) });
+    });
+
+    it('rejects a body with an extra property', async () => {
+      await expect(
+        validateTitleBody({ customTitle: 'Title', isCustom: false }),
+      ).rejects.toBeInstanceOf(BadRequestException);
+    });
+
     it('is not marked public', () => {
       const isPublic = Reflect.getMetadata(
         IS_PUBLIC_KEY,

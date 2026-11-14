@@ -1,4 +1,3 @@
-import { JwtAuthGuard } from '@libs/auth';
 import {
   BadRequestException,
   Body,
@@ -10,7 +9,6 @@ import {
   Patch,
   Post,
   Query,
-  UseGuards,
 } from '@nestjs/common';
 import {
   ApiCreatedResponse,
@@ -25,6 +23,7 @@ import {
 import { QueueService } from '../../libs/queue/queue.service';
 import type { FeedProfile } from '../shared/types/feed';
 import { BriefingsService } from './briefings.service';
+import { UpdateBriefTitleDto } from './dto/update-brief-title.dto';
 import { ListBriefingsQuery } from './queries/list-briefings.query';
 import { GenerateBriefInputDto } from './usecases/dto/generate-brief.dto';
 import type { GenerateCustomBriefInputDto } from './usecases/dto/generate-custom-brief.dto';
@@ -102,12 +101,12 @@ export class BriefingsController {
   }
 
   @Patch(':id/title')
-  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Update the custom title of a briefing' })
   @ApiOkResponse({ description: 'Brief title updated' })
+  @ApiValidationErrorResponse()
   async updateBriefTitle(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() body: { customTitle: string },
+    @Body() body: UpdateBriefTitleDto,
   ) {
     await this.briefingsService.updateBriefTitle(id, body.customTitle);
     return { success: true };

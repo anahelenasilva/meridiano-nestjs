@@ -764,6 +764,18 @@
         },
         "type": "object"
       },
+      "UpdateBriefTitleDto": {
+        "properties": {
+          "customTitle": {
+            "maxLength": 200,
+            "type": "string"
+          }
+        },
+        "required": [
+          "customTitle"
+        ],
+        "type": "object"
+      },
       "UpdateChannelEnabledDto": {
         "properties": {
           "enabled": {
@@ -2119,9 +2131,29 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBriefTitleDto"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Brief title updated"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
           },
           "401": {
             "content": {
