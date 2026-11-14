@@ -142,6 +142,30 @@ export const techRSSFeeds: RSSFeed[] = [
       "Matt Pocock's AI Hero, teaching developers how to build with AI through practical skills and tutorials.",
     enabled: true,
   },
+  {
+    url: 'https://earendil.com/posts/feed.rss',
+    name: 'Earendil',
+    category: 'tech',
+    description:
+      'Earendil is a public benefit corporation crafting software and open protocols to strengthen human agency, bridge division, and cultivate lasting joy.',
+    enabled: true,
+  },
+  {
+    url: 'https://mariozechner.at/rss.xml',
+    name: 'Mario Zechner',
+    category: 'tech',
+    description:
+      'Mario Zechner, developer, coach and speaker, writing musings from an old computer guy.',
+    enabled: true,
+  },
+  {
+    url: 'https://lucumr.pocoo.org/feed.xml',
+    name: 'Armin Ronacher',
+    category: 'tech',
+    description:
+      "Armin Ronacher's personal blog about programming, games and random thoughts that come to his mind.",
+    enabled: true,
+  },
 ];
 
 export const techSitemapSources: SitemapSource[] = [
