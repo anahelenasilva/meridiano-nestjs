@@ -26,7 +26,7 @@ import { BriefingsService } from './briefings.service';
 import { UpdateBriefTitleDto } from './dto/update-brief-title.dto';
 import { ListBriefingsQuery } from './queries/list-briefings.query';
 import { GenerateBriefInputDto } from './usecases/dto/generate-brief.dto';
-import type { GenerateCustomBriefInputDto } from './usecases/dto/generate-custom-brief.dto';
+import { GenerateCustomBriefInputDto } from './usecases/dto/generate-custom-brief.dto';
 import { GenerateBriefUseCase } from './usecases/generate-brief.usecase';
 import { GenerateCustomBriefUseCase } from './usecases/generate-custom-brief.usecase';
 
@@ -89,6 +89,7 @@ export class BriefingsController {
   @Post('custom')
   @ApiOperation({ summary: 'Generate a custom briefing from a specific set of articles' })
   @ApiCreatedResponse({ description: 'Generated custom briefing' })
+  @ApiValidationErrorResponse()
   async generateCustomBriefing(@Body() input: GenerateCustomBriefInputDto) {
     return this.generateCustomBriefUseCase.execute(input);
   }
