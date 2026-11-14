@@ -1,4 +1,4 @@
-import { RateLimitGuard } from '@libs/auth/rate-limit/rate-limit.guard';
+import { ExternalRateLimitGuard } from './guards/external-rate-limit.guard';
 import {
   ConflictException,
   BadRequestException,
@@ -58,7 +58,7 @@ describe('ExternalArticlesController', () => {
         },
       ],
     })
-      .overrideGuard(RateLimitGuard)
+      .overrideGuard(ExternalRateLimitGuard)
       .useValue({ canActivate: () => true })
       .compile();
 

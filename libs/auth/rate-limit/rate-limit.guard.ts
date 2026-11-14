@@ -2,7 +2,7 @@ import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { RateLimitService, RateLimitConfig } from './rate-limit.service';
 import { RATE_LIMIT_KEY } from './rate-limit.decorator';
-import { RateLimitOptions } from './rate-limit.types';
+import { RateLimitOptions, RateLimitRequest } from './rate-limit.types';
 
 @Injectable()
 export class RateLimitGuard implements CanActivate {
@@ -26,10 +26,7 @@ export class RateLimitGuard implements CanActivate {
       maxAttempts: options.maxAttempts || 5, // 5 attempts default
     };
 
-    // Generate key from IP or provided key generator
-    const key = options.keyGenerator
-      ? options.keyGenerator(request)
-      : request.ip || request.connection?.remoteAddress || 'unknown';
+    const key = this.resolveKey(request);
 
     try {
       await this.rateLimitService.checkRateLimit(key, config);
@@ -47,5 +44,10 @@ export class RateLimitGuard implements CanActivate {
       response.setHeader('X-RateLimit-Remaining', 0);
       throw error;
     }
+  }
+
+  /** The bucket a request counts against. Subclasses override it to bucket by something other than the caller's IP. */
+  protected resolveKey(request: RateLimitRequest): string {
+    return request.ip || request.connection?.remoteAddress || 'unknown';
   }
 }

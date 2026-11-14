@@ -269,6 +269,10 @@ async function createOpenApiApp(): Promise<INestApplication> {
     '../articles/guards/external-token.guard.js',
     'ExternalTokenGuard',
   );
+  const ExternalRateLimitGuard = loadDistExport<Type<unknown>>(
+    '../articles/guards/external-rate-limit.guard.js',
+    'ExternalRateLimitGuard',
+  );
 
   const moduleRef = await Test.createTestingModule({
     controllers: [
@@ -291,7 +295,7 @@ async function createOpenApiApp(): Promise<INestApplication> {
       { provide: NOTES_SERVICE, useValue: notesServiceStub },
       { provide: ArticlesService, useValue: {} },
       { provide: ListArticlesQuery, useValue: {} },
-    { provide: ListArticlesLeanQuery, useValue: {} },
+      { provide: ListArticlesLeanQuery, useValue: {} },
       { provide: GetArticleByIdQuery, useValue: {} },
       { provide: ScraperService, useValue: {} },
       { provide: GenerateArticleAudioCommand, useValue: {} },
@@ -336,6 +340,8 @@ async function createOpenApiApp(): Promise<INestApplication> {
     .overrideGuard(RateLimitGuard)
     .useValue({ canActivate: () => true })
     .overrideGuard(ExternalTokenGuard)
+    .useValue({ canActivate: () => true })
+    .overrideGuard(ExternalRateLimitGuard)
     .useValue({ canActivate: () => true })
     .compile();
 
