@@ -91,10 +91,6 @@ async function createOpenApiApp(): Promise<INestApplication> {
     '../profiles/profiles.controller.js',
     'ProfilesController',
   );
-  const UsersController = loadDistExport<Type<unknown>>(
-    '../users/users.controller.js',
-    'UsersController',
-  );
   const YoutubeChannelsController = loadDistExport<Type<unknown>>(
     '../youtube-channels/youtube-channels.controller.js',
     'YoutubeChannelsController',
@@ -179,10 +175,6 @@ async function createOpenApiApp(): Promise<INestApplication> {
   const ProfilesService = loadDistExport<Type<unknown>>(
     '../profiles/profiles.service.js',
     'ProfilesService',
-  );
-  const UsersService = loadDistExport<Type<unknown>>(
-    '../users/users.service.js',
-    'UsersService',
   );
   const GetYoutubeChannelsQuery = loadDistExport<Type<unknown>>(
     '../youtube-channels/queries/get-youtube-channels.query.js',
@@ -285,7 +277,6 @@ async function createOpenApiApp(): Promise<INestApplication> {
       FeedsController,
       NotesController,
       ProfilesController,
-      UsersController,
       YoutubeChannelsController,
       YoutubeTranscriptionsController,
       CategoriesController,
@@ -310,7 +301,6 @@ async function createOpenApiApp(): Promise<INestApplication> {
       { provide: GetArticlesFeedQuery, useValue: {} },
       { provide: GetYoutubeFeedQuery, useValue: {} },
       { provide: ProfilesService, useValue: {} },
-      { provide: UsersService, useValue: {} },
       { provide: GetYoutubeChannelsQuery, useValue: {} },
       { provide: YoutubeChannelsService, useValue: {} },
       { provide: CreateYoutubeChannelCommand, useValue: {} },
