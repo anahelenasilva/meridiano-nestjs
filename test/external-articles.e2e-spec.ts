@@ -3,7 +3,8 @@
  *
  * Scope: API contract, authentication, validation, feature flag, response structure.
  */
-import { RateLimitGuard } from '@libs/auth/rate-limit/rate-limit.guard';
+import { RateLimitService } from '@libs/auth/rate-limit/rate-limit.service';
+import { RedisService } from '@libs/redis';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock, MockProxy } from 'jest-mock-extended';
@@ -15,12 +16,38 @@ import { ConfigService } from '../src/config/config.service';
 import { ScraperService } from '../src/scraper/scraper.service';
 import { FeedProfile } from '../src/shared/types/feed';
 
+// Counts rate-limit attempts in memory so the real RateLimitService runs
+// without Redis.
+class InMemoryRedis {
+  readonly counts = new Map<string, number>();
+
+  get(key: string) {
+    const count = this.counts.get(key);
+    return Promise.resolve(count === undefined ? null : String(count));
+  }
+
+  incr(key: string) {
+    const count = (this.counts.get(key) ?? 0) + 1;
+    this.counts.set(key, count);
+    return Promise.resolve(count);
+  }
+
+  pexpire() {
+    return Promise.resolve(1);
+  }
+
+  ttl() {
+    return Promise.resolve(60);
+  }
+}
+
 describe('External Articles Integration Tests', () => {
   let app: INestApplication<App>;
   let moduleFixture: TestingModule;
   let mockScraperService: MockProxy<ScraperService>;
   let mockArticleJobsService: MockProxy<ArticleJobsService>;
   let mockConfigService: MockProxy<ConfigService>;
+  const redis = new InMemoryRedis();
 
   const VALID_TOKEN = 'test-external-token-12345';
   const TEST_URL = 'https://example.com/article';
@@ -65,11 +92,13 @@ describe('External Articles Integration Tests', () => {
           provide: ConfigService,
           useValue: mockConfigService,
         },
+        RateLimitService,
+        {
+          provide: RedisService,
+          useValue: { getClient: () => redis },
+        },
       ],
-    })
-      .overrideGuard(RateLimitGuard)
-      .useValue({ canActivate: () => true })
-      .compile();
+    }).compile();
 
     app = moduleFixture.createNestApplication();
     app.useGlobalPipes(
@@ -84,6 +113,7 @@ describe('External Articles Integration Tests', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    redis.counts.clear();
     // Reset default mock behavior
     mockConfigService.getExternalApiTokens.mockReturnValue([VALID_TOKEN]);
   });
@@ -135,6 +165,52 @@ describe('External Articles Integration Tests', () => {
           });
 
         expect(response.status).toBe(401);
+      });
+    });
+
+    describe('Rate Limiting', () => {
+      const submit = (token: string) =>
+        request(app.getHttpServer())
+          .post('/api/articles/external')
+          .set('X-External-Token', token)
+          .send({ url: TEST_URL, feedProfile: FeedProfile.TECHNOLOGY });
+
+      it('shares one per-IP bucket across invented tokens and returns 429 on the 11th', async () => {
+        const statuses: number[] = [];
+        for (let attempt = 1; attempt <= 11; attempt++) {
+          statuses.push((await submit(`invented-token-${attempt}`)).status);
+        }
+
+        expect(statuses).toEqual([...Array(10).fill(401), 429]);
+      });
+
+      it('gives a valid token its own 10 per minute, apart from the IP bucket', async () => {
+        mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
+        mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
+          success: true,
+          articleFileKey: TEST_ARTICLE_ID,
+          jobId: TEST_JOB_ID,
+          message: 'Article queued',
+        });
+        for (let attempt = 1; attempt <= 10; attempt++) {
+          await submit(`invented-token-${attempt}`);
+        }
+
+        const statuses: number[] = [];
+        for (let attempt = 1; attempt <= 11; attempt++) {
+          statuses.push((await submit(VALID_TOKEN)).status);
+        }
+
+        expect(statuses).toEqual([...Array(10).fill(201), 429]);
+      });
+
+      it('keys a valid token bucket by digest, never by the token itself', async () => {
+        await submit(VALID_TOKEN);
+
+        const keys = [...redis.counts.keys()];
+        expect(keys).toHaveLength(1);
+        expect(keys[0]).toMatch(/^rate_limit:external:token:[0-9a-f]{64}$/);
+        expect(keys[0]).not.toContain(VALID_TOKEN);
       });
     });
 

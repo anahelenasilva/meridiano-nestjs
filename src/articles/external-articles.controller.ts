@@ -1,7 +1,5 @@
 import { Public } from '@libs/auth';
-import { RateLimitGuard } from '@libs/auth/rate-limit/rate-limit.guard';
 import { RateLimit } from '@libs/auth/rate-limit/rate-limit.decorator';
-import { RateLimitRequest } from '@libs/auth/rate-limit/rate-limit.types';
 import { JobInfo } from '@libs/queue';
 import {
   BadRequestException,
@@ -32,33 +30,14 @@ import {
   ExternalArticleResponse,
   EXTERNAL_ERROR_MESSAGES,
 } from './dto/external-article-response.dto';
+import { ExternalRateLimitGuard } from './guards/external-rate-limit.guard';
 import { ExternalTokenGuard } from './guards/external-token.guard';
 import { ArticleJobsService } from './services/article-jobs.service';
 
-const resolveExternalRateLimitKey = (request: RateLimitRequest): string => {
-  const tokenHeader = request.headers['x-external-token'];
-  const token =
-    typeof tokenHeader === 'string'
-      ? tokenHeader
-      : Array.isArray(tokenHeader)
-        ? tokenHeader[0]
-        : '';
-
-  if (token.trim()) {
-    return `external:token:${token}`;
-  }
-
-  const ip =
-    request.ip ??
-    request.socket?.remoteAddress ??
-    request.connection?.remoteAddress ??
-    'unknown';
-  return `external:ip:${ip}`;
-};
-
 @Controller('api/articles/external')
 @Public()
-@UseGuards(RateLimitGuard, ExternalTokenGuard)
+// Rate limiting runs first so requests the token guard rejects still count.
+@UseGuards(ExternalRateLimitGuard, ExternalTokenGuard)
 export class ExternalArticlesController {
   private readonly logger = new Logger(ExternalArticlesController.name);
 
@@ -69,11 +48,7 @@ export class ExternalArticlesController {
   ) {}
 
   @Post()
-  @RateLimit({
-    windowMs: 60 * 1000,
-    maxAttempts: 10,
-    keyGenerator: resolveExternalRateLimitKey,
-  })
+  @RateLimit({ windowMs: 60 * 1000, maxAttempts: 10 })
   @ApiOperation({
     summary: 'Submit an external article URL for scraping and processing',
   })

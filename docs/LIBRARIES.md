@@ -61,6 +61,7 @@ Path mapping is configured in:
 - `LoginDto`, `LoginResponseDto`
 - `RateLimit`, `RateLimitGuard`, `RateLimitService`
 - `RateLimitOptions` (type)
+- `StaticCredential`, `CredentialCheck` (type)
 
 ### Initialization
 
@@ -69,6 +70,14 @@ Path mapping is configured in:
 - `AuthModule.forRootAsync({ useFactory, inject, imports })`
 
 `JWT_SECRET` is required and validated during module initialization.
+
+### Static credentials
+
+`StaticCredential.from(configured)` wraps a secret from env (one string or a list). `check(request, header)` returns `'valid'`, `'missing'` (header absent or blank) or `'invalid'`, and each guard maps that to allow, fall through to JWT, or 401. `verifiedDigest(request, header)` gives the sha256 hex of a matching value, for keys that must not hold the secret. `JwtAuthGuard` (`x-api-key`) and the external articles guards (`x-external-token`) all use it, so there is one constant-time compare.
+
+### Rate limiting
+
+`RateLimitGuard` buckets requests by caller IP, with window and limit from `@RateLimit()`. A route that buckets by something else subclasses the guard and overrides `resolveKey`, as `ExternalRateLimitGuard` does to give verified external tokens their own bucket.
 
 ### Request-scoped auth helpers
 
