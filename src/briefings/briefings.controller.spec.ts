@@ -223,6 +223,12 @@ describe('BriefingsController', () => {
         articleIds: [articleId, '8d3e7b21-6a4f-4e9c-b1d2-7f8e9a0b1c2d'],
         feedProfile: FeedProfile.DEFAULT,
       };
+      const uuids = (count: number) =>
+        Array.from(
+          { length: count },
+          (_, index) =>
+            `5f1c9a4e-2b7d-4c3a-9e8f-${String(index).padStart(12, '0')}`,
+        );
       const expectRejected = (overrides: Record<string, unknown>) =>
         expect(
           validateCustomBody({ ...validBody, ...overrides }),
@@ -241,12 +247,12 @@ describe('BriefingsController', () => {
       });
 
       it('rejects more than 10 articleIds', async () => {
-        const elevenIds = Array.from(
-          { length: 11 },
-          (_, index) =>
-            `5f1c9a4e-2b7d-4c3a-9e8f-${String(index).padStart(12, '0')}`,
-        );
-        await expectRejected({ articleIds: elevenIds });
+        await expectRejected({ articleIds: uuids(11) });
+      });
+
+      it('accepts exactly 10 articleIds', async () => {
+        const body = { ...validBody, articleIds: uuids(10) };
+        await expect(validateCustomBody(body)).resolves.toEqual(body);
       });
 
       it('rejects an articleId that is not a UUID', async () => {
