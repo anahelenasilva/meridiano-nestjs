@@ -79,6 +79,8 @@ Path mapping is configured in:
 
 `RateLimitGuard` buckets requests by caller IP, with window and limit from `@RateLimit()`. A route that buckets by something else subclasses the guard and overrides `resolveKey`, as `ExternalRateLimitGuard` does to give verified external tokens their own bucket.
 
+The guard calls `RateLimitService.consume(key, { windowMs, maxAttempts })`, which counts the request in one Redis transaction and returns `{ allowed, remaining, resetAt }` for the `X-RateLimit-*` headers and the 429. If Redis fails, `consume` lets the request through. Tests run it on `InMemoryRedis` (`libs/auth/rate-limit/in-memory-redis.fake.ts`).
+
 ### Request-scoped auth helpers
 
 - `CurrentUser`: controller param decorator that injects the authenticated JWT user
