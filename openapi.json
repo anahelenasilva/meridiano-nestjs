@@ -435,6 +435,42 @@
         ],
         "type": "object"
       },
+      "GenerateCustomBriefInputDto": {
+        "properties": {
+          "articleIds": {
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "maxItems": 10,
+            "minItems": 2,
+            "type": "array"
+          },
+          "customPrompt": {
+            "maxLength": 500,
+            "type": "string"
+          },
+          "feedProfile": {
+            "enum": [
+              "default",
+              "technology",
+              "politics",
+              "business",
+              "health",
+              "science",
+              "brasil",
+              "teclas",
+              "travel"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "articleIds",
+          "feedProfile"
+        ],
+        "type": "object"
+      },
       "GenerateUploadUrlDto": {
         "properties": {
           "articleFileName": {
@@ -1932,9 +1968,29 @@
       "post": {
         "operationId": "BriefingsController_generateCustomBriefing",
         "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateCustomBriefInputDto"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "201": {
             "description": "Generated custom briefing"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
           },
           "401": {
             "content": {

@@ -1,4 +1,3 @@
-import { BadRequestException } from '@nestjs/common';
 import { Job, Queue } from 'bullmq';
 import { mock } from 'jest-mock-extended';
 import { GENERATE_CUSTOM_BRIEFING_JOB } from '../../../libs/queue/constants/queue.constants';
@@ -51,34 +50,5 @@ describe('GenerateCustomBriefUseCase', () => {
       expect.objectContaining({ customPrompt: 'Focus on risks' }),
       expect.any(Object),
     );
-  });
-
-  it('rejects invalid feed profiles', async () => {
-    await expect(
-      useCase.execute({
-        articleIds: ['article-1', 'article-2'],
-        feedProfile: 'invalid-profile' as FeedProfile,
-      }),
-    ).rejects.toThrow(BadRequestException);
-
-    expect(mockQueue.add).not.toHaveBeenCalled();
-  });
-
-  it('requires at least two articles', async () => {
-    await expect(
-      useCase.execute({
-        articleIds: ['article-1'],
-        feedProfile: FeedProfile.DEFAULT,
-      }),
-    ).rejects.toThrow(BadRequestException);
-  });
-
-  it('allows no more than ten articles', async () => {
-    await expect(
-      useCase.execute({
-        articleIds: Array.from({ length: 11 }, (_, index) => `article-${index}`),
-        feedProfile: FeedProfile.DEFAULT,
-      }),
-    ).rejects.toThrow(BadRequestException);
   });
 });
