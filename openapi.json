@@ -297,31 +297,6 @@
         ],
         "type": "object"
       },
-      "CreateUserDto": {
-        "properties": {
-          "email": {
-            "format": "email",
-            "type": "string"
-          },
-          "password": {
-            "minLength": 8,
-            "pattern": "^(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*\\d).+$",
-            "type": "string"
-          },
-          "username": {
-            "maxLength": 30,
-            "minLength": 3,
-            "pattern": "^[a-zA-Z0-9_-]+$",
-            "type": "string"
-          }
-        },
-        "required": [
-          "email",
-          "username",
-          "password"
-        ],
-        "type": "object"
-      },
       "CreateYoutubeChannelDto": {
         "properties": {
           "categoryNames": {
@@ -784,30 +759,6 @@
         },
         "required": [
           "enabled"
-        ],
-        "type": "object"
-      },
-      "UserResponseDto": {
-        "properties": {
-          "created_at": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          },
-          "username": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "email",
-          "username",
-          "created_at"
         ],
         "type": "object"
       },
@@ -2261,92 +2212,6 @@
         "summary": "List the available feed profiles",
         "tags": [
           "Profiles"
-        ]
-      }
-    },
-    "/api/users": {
-      "post": {
-        "operationId": "UsersController_createUser",
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateUserDto"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResponseDto"
-                }
-              }
-            },
-            "description": ""
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
-                }
-              }
-            },
-            "description": "Request failed class-validator validation"
-          }
-        },
-        "summary": "Create a new user account",
-        "tags": [
-          "Users"
-        ]
-      }
-    },
-    "/api/users/{id}": {
-      "get": {
-        "operationId": "UsersController_getUserById",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResponseDto"
-                }
-              }
-            },
-            "description": ""
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
-                }
-              }
-            },
-            "description": "Missing or invalid bearer token"
-          },
-          "404": {
-            "description": "Invalid user"
-          }
-        },
-        "summary": "Get a user by id",
-        "tags": [
-          "Users"
         ]
       }
     },

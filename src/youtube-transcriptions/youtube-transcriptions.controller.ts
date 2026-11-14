@@ -217,11 +217,4 @@ export class YoutubeTranscriptionsController {
       message: AUDIO_GENERATION_SUCCESS_MESSAGE,
     };
   }
-
-  // @Public()
-  // @Get('transcriptions/:id/audio')
-  // async downloadAudio(@Param('id') id: string) {
-  //   const audio = await this.youtubeService.downloadAudioFromVideo(id);
-  //   return audio;
-  // }
 }

@@ -96,7 +96,6 @@ All endpoints prefixed with `/api/`. Authentication required globally except exp
 | Endpoint Group                | Key Operations                                                                                                  |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------- |
 | `/api/auth`                   | Login (public)                                                                                                  |
-| `/api/users`                  | Create user (public), get user                                                                                  |
 | `/api/profiles`               | List available feed profiles                                                                                    |
 | `/api/articles`               | List/detail/create/delete, markdown upload flow, job status, audio enqueue/status                               |
 | `/api/articles/external`      | Public external submission (token-protected, rate-limited)                                                      |
