@@ -9,7 +9,7 @@ The `libs/` directory separates infrastructure concerns from domain logic, makin
 ## What Belongs in `libs/` vs `src/`
 
 ### `libs/` - Infrastructure & Shared Modules
-- **Shared infrastructure modules**: S3, email, auth, database, redis, queue
+- **Shared infrastructure modules**: S3, email, database, redis, queue
 - **Reusable utilities** used across multiple domain modules
 - **Cross-cutting concerns** that don't belong to a specific domain
 - **Modules that provide services** to multiple domain modules
@@ -206,58 +206,6 @@ async sendEmail() {
 
 **Migration Date**: January 2026
 **Original Location**: `src/email/`
-
-### Auth (`libs/auth/`)
-
-Authentication infrastructure module providing JWT-based authentication:
-- `AuthModule`: NestJS module with a `forRootAsync()` initialization pattern
-- `AuthService`: Service for user authentication and JWT token generation
-  - `login()`: Authenticate user and generate JWT token
-  - `validateUser()`: Validate user by ID
-- `JwtAuthGuard`: Guard for protecting routes with JWT authentication
-- `Public` decorator: Decorator to mark routes as public (bypass authentication)
-- `LoginDto`: DTO for login requests
-- `LoginResponseDto`: DTO for login responses
-
-**Initialization Pattern**: Uses `AuthModule.forRootAsync()` to configure a `UserLookupProvider` implementation. The provider interface decouples the auth module from domain-specific user services.
-
-**Usage Example**:
-```typescript
-import { Module } from '@nestjs/common';
-import { AuthModule as LibsAuthModule } from '@libs/auth';
-import { UsersModule } from '../users/users.module';
-import { UsersService } from '../users/users.service';
-
-@Module({
-  imports: [
-    UsersModule,
-    LibsAuthModule.forRootAsync({
-      imports: [UsersModule],
-      useFactory: (usersService: UsersService) => usersService,
-      inject: [UsersService],
-    }),
-  ],
-})
-export class AuthModule {}
-
-// In a controller
-import { Controller, Post, Body } from '@nestjs/common';
-import { AuthService, LoginDto, LoginResponseDto, Public } from '@libs/auth';
-
-@Controller('api/auth')
-export class AuthController {
-  constructor(private readonly authService: AuthService) {}
-
-  @Public()
-  @Post('login')
-  async login(@Body() loginDto: LoginDto): Promise<LoginResponseDto> {
-    return this.authService.login(loginDto.email, loginDto.password);
-  }
-}
-```
-
-**Migration Date**: January 2026
-**Original Location**: `src/auth/`
 
 ### Redis (`libs/redis/`)
 

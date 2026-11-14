@@ -1,10 +1,10 @@
-import { StaticCredential } from '@libs/auth/static-credential';
 import {
   CanActivate,
   ExecutionContext,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
+import { StaticCredential } from '../../auth/static-credential';
 import { ConfigService } from '../../config/config.service';
 
 export const EXTERNAL_TOKEN_HEADER = 'x-external-token';

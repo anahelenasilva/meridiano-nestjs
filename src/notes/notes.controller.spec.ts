@@ -1,6 +1,6 @@
-import { IS_PUBLIC_KEY } from '@libs/auth';
 import { ValidationPipe } from '@nestjs/common';
 import { mock } from 'jest-mock-extended';
+import { IS_PUBLIC_KEY } from '../auth/decorators/public.decorator';
 import { SaveNoteDto } from './note.entity';
 import { NotesController } from './notes.controller';
 import { NotesService } from './notes.service';

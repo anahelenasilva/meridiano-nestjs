@@ -246,15 +246,15 @@ async function createOpenApiApp(): Promise<INestApplication> {
     'AudioJobService',
   );
   const AuthService = loadDistExport<Type<unknown>>(
-    '../../libs/auth/auth.service.js',
+    '../auth/auth.service.js',
     'AuthService',
   );
   const JwtAuthGuard = loadDistExport<Type<unknown>>(
-    '../../libs/auth/guards/jwt-auth.guard.js',
+    '../auth/guards/jwt-auth.guard.js',
     'JwtAuthGuard',
   );
   const RateLimitGuard = loadDistExport<Type<unknown>>(
-    '../../libs/auth/rate-limit/rate-limit.guard.js',
+    '../auth/rate-limit/rate-limit.guard.js',
     'RateLimitGuard',
   );
   const ExternalTokenGuard = loadDistExport<Type<unknown>>(

@@ -1,10 +1,13 @@
-import { CurrentUser, type AuthenticatedUser } from '@libs/auth';
 import { Body, Controller, Inject, Post } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOperation } from '@nestjs/swagger';
 import {
   ApiAuthErrorResponse,
   ApiValidationErrorResponse,
 } from '../shared/swagger/api-error-response.decorators';
+import {
+  CurrentUser,
+  type AuthenticatedUser,
+} from '../auth/decorators/current-user.decorator';
 import { SaveNoteDto, SaveNoteResponseDto } from './note.entity';
 import { NOTES_SERVICE, type NotesWriter } from './notes.tokens';
 

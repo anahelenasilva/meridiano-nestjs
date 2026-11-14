@@ -1,4 +1,3 @@
-import { ApiKeyAllowed, CurrentUser, type AuthenticatedUser } from '@libs/auth';
 import { AUDIO_GENERATION_SUCCESS_MESSAGE, AudioJobService } from '@libs/audio';
 import {
   BadRequestException,
@@ -13,7 +12,6 @@ import {
   ParseUUIDPipe,
   Post,
   Query,
-  Req,
 } from '@nestjs/common';
 import {
   ApiNotFoundResponse,
@@ -25,8 +23,9 @@ import {
   ApiAuthErrorResponse,
   ApiValidationErrorResponse,
 } from '../shared/swagger/api-error-response.decorators';
+import { ApiKeyAllowed } from '../auth/decorators/api-key-allowed.decorator';
+import { CurrentUser, type AuthenticatedUser } from '../auth/decorators/current-user.decorator';
 import { AudioFilesService } from '../audio-files/audio-files.service';
-import type { AuthenticatedRequest } from '../shared/types/authenticated-request';
 import { parseIncludeAudio } from '../shared/helpers/parse-include-audio';
 import { DismissIngestJobCommand } from './commands/dismiss-ingest-job.command';
 import { EnqueueYoutubeTranscriptionsCommand } from './commands/enqueue-youtube-transcriptions.command';
@@ -56,9 +55,9 @@ export class YoutubeTranscriptionsController {
   @Get('transcriptions')
   @ApiOperation({ summary: "List the authenticated user's YouTube transcriptions" })
   @ApiOkResponse({ description: 'List of YouTube transcriptions' })
-  async listTranscriptions(@Req() request: AuthenticatedRequest) {
+  async listTranscriptions(@CurrentUser() user: AuthenticatedUser) {
     return await this.listAllYoutubeTranscriptionsQuery.execute(
-      request.user.id,
+      user.id,
     );
   }
 
@@ -165,12 +164,12 @@ export class YoutubeTranscriptionsController {
   @ApiResponse({ status: 400, description: 'Transcription has no content available for audio generation' })
   @ApiResponse({ status: 409, description: 'Audio already exists or generation already in progress' })
   async generateAudio(
-    @Req() request: AuthenticatedRequest,
+    @CurrentUser() user: AuthenticatedUser,
     @Param('id', ParseUUIDPipe) id: string,
   ) {
     const data = await this.getYoutubeTranscriptionByIdQuery.execute(
       id,
-      request.user.id,
+      user.id,
       { embedOwnerNote: false },
     );
 

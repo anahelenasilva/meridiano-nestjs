@@ -1,5 +1,3 @@
-import { Public } from '@libs/auth';
-import { RateLimit } from '@libs/auth/rate-limit/rate-limit.decorator';
 import { JobInfo } from '@libs/queue';
 import {
   BadRequestException,
@@ -19,6 +17,8 @@ import {
   ApiResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { Public } from '../auth/decorators/public.decorator';
+import { RateLimit } from '../auth/rate-limit/rate-limit.decorator';
 import { ApiValidationErrorResponse } from '../shared/swagger/api-error-response.decorators';
 import { ConfigService } from '../config/config.service';
 import { isBlockedIpAddress } from '../scraper/private-address-guard';

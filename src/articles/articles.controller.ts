@@ -1,4 +1,3 @@
-import { ApiKeyAllowed, CurrentUser, type AuthenticatedUser } from '@libs/auth';
 import { AudioJobService } from '@libs/audio';
 import { QueueService } from '@libs/queue';
 import { S3Service } from '@libs/s3';
@@ -28,6 +27,8 @@ import {
   ApiAuthErrorResponse,
   ApiValidationErrorResponse,
 } from '../shared/swagger/api-error-response.decorators';
+import { ApiKeyAllowed } from '../auth/decorators/api-key-allowed.decorator';
+import { CurrentUser, type AuthenticatedUser } from '../auth/decorators/current-user.decorator';
 import { parseIncludeAudio } from '../shared/helpers/parse-include-audio';
 import { parseArchiveScope } from './helpers/archive-scope';
 import { ConfigService } from '../config/config.service';

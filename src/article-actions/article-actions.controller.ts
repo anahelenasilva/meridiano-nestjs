@@ -1,4 +1,3 @@
-import { ApiKeyAllowed } from '@libs/auth';
 import {
   BadRequestException,
   Body,
@@ -30,6 +29,7 @@ import {
   SHORT_ID_PATTERN,
   TransitionArticleActionDto,
 } from './article-action.entity';
+import { ApiKeyAllowed } from '../auth/decorators/api-key-allowed.decorator';
 import { ArticleActionsService } from './article-actions.service';
 
 class ShortIdPipe implements PipeTransform<string, string> {

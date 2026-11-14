@@ -1,8 +1,8 @@
-import { API_KEY_ALLOWED_KEY } from '@libs/auth';
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
 import request from 'supertest';
+import { API_KEY_ALLOWED_KEY } from '../auth/decorators/api-key-allowed.decorator';
 import { ArticleActionsController } from './article-actions.controller';
 import { ArticleActionsService } from './article-actions.service';
 
