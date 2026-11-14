@@ -21,7 +21,10 @@ import {
   ApiAuthErrorResponse,
   ApiValidationErrorResponse,
 } from '../shared/swagger/api-error-response.decorators';
-import { CurrentUser, type AuthenticatedUser } from '../auth/decorators/current-user.decorator';
+import {
+  CurrentUser,
+  type AuthenticatedUser,
+} from '../auth/decorators/current-user.decorator';
 import { ArticlesService } from '../articles/articles.service';
 import { attachNotes } from '../notes/attach-notes';
 import { NotesReadService } from '../notes/notes-read.service';
