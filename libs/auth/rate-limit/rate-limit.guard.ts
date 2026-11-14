@@ -1,8 +1,17 @@
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { RateLimitService, RateLimitConfig } from './rate-limit.service';
 import { RATE_LIMIT_KEY } from './rate-limit.decorator';
+import { RateLimitConfig, RateLimitService } from './rate-limit.service';
 import { RateLimitOptions, RateLimitRequest } from './rate-limit.types';
+
+const DEFAULT_WINDOW_MS = 15 * 60 * 1000;
+const DEFAULT_MAX_ATTEMPTS = 5;
 
 @Injectable()
 export class RateLimitGuard implements CanActivate {
@@ -12,38 +21,39 @@ export class RateLimitGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request = context.switchToHttp().getRequest();
-    const response = context.switchToHttp().getResponse();
-
-    // Get rate limit options from decorator or use defaults
-    const options = this.reflector.get<RateLimitOptions>(
-      RATE_LIMIT_KEY,
-      context.getHandler(),
-    ) || {};
-
+    const http = context.switchToHttp();
+    const options =
+      this.reflector.get<RateLimitOptions>(
+        RATE_LIMIT_KEY,
+        context.getHandler(),
+      ) ?? {};
     const config: RateLimitConfig = {
-      windowMs: options.windowMs || 15 * 60 * 1000, // 15 minutes default
-      maxAttempts: options.maxAttempts || 5, // 5 attempts default
+      windowMs: options.windowMs || DEFAULT_WINDOW_MS,
+      maxAttempts: options.maxAttempts || DEFAULT_MAX_ATTEMPTS,
     };
 
-    const key = this.resolveKey(request);
+    const { allowed, remaining, resetAt } = await this.rateLimitService.consume(
+      this.resolveKey(http.getRequest()),
+      config,
+    );
 
-    try {
-      await this.rateLimitService.checkRateLimit(key, config);
+    const response = http.getResponse();
+    response.setHeader('X-RateLimit-Limit', config.maxAttempts);
+    response.setHeader('X-RateLimit-Remaining', remaining);
+    response.setHeader('X-RateLimit-Reset', resetAt);
 
-      // Add rate limit headers to response
-      const remaining = await this.rateLimitService.getRemainingAttempts(key, config);
-      response.setHeader('X-RateLimit-Limit', config.maxAttempts);
-      response.setHeader('X-RateLimit-Remaining', remaining);
-      response.setHeader('X-RateLimit-Reset', Date.now() + config.windowMs);
-
-      return true;
-    } catch (error) {
-      // Add rate limit headers even on failure
-      response.setHeader('X-RateLimit-Limit', config.maxAttempts);
-      response.setHeader('X-RateLimit-Remaining', 0);
-      throw error;
+    if (!allowed) {
+      const minutes = Math.max(1, Math.ceil((resetAt - Date.now()) / 60_000));
+      throw new HttpException(
+        {
+          statusCode: HttpStatus.TOO_MANY_REQUESTS,
+          message: `Too many requests. Please try again in ${minutes} minute${minutes === 1 ? '' : 's'}`,
+          error: 'Too Many Requests',
+        },
+        HttpStatus.TOO_MANY_REQUESTS,
+      );
     }
+    return true;
   }
 
   /** The bucket a request counts against. Subclasses override it to bucket by something other than the caller's IP. */

@@ -1,81 +1,84 @@
 import { RedisService } from '@libs/redis';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 export interface RateLimitConfig {
-  windowMs: number; // Time window in milliseconds
-  maxAttempts: number; // Maximum attempts allowed in the window
+  windowMs: number;
+  maxAttempts: number;
 }
 
-const DEFAULT_RATE_LIMIT_CONFIG: RateLimitConfig = {
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  maxAttempts: 5, // 5 attempts
-};
+export interface RateLimitResult {
+  allowed: boolean;
+  remaining: number;
+  /** Epoch milliseconds when the current window ends. */
+  resetAt: number;
+}
 
 @Injectable()
 export class RateLimitService {
-  constructor(private readonly redisService: RedisService) { }
+  private readonly logger = new Logger(RateLimitService.name);
 
-  async checkRateLimit(
-    identifier: string,
-    config: RateLimitConfig = DEFAULT_RATE_LIMIT_CONFIG,
-  ): Promise<boolean> {
-    const key = `rate_limit:${identifier}`;
-    const client = this.redisService.getClient();
+  constructor(private readonly redisService: RedisService) {}
 
+  /** Counts one request against `key` and reports whether it fits in the current window. */
+  async consume(
+    key: string,
+    config: RateLimitConfig,
+  ): Promise<RateLimitResult> {
     try {
-      const currentAttempts = await client.get(key);
-
-      if (currentAttempts && parseInt(currentAttempts, 10) >= config.maxAttempts) {
-        const ttl = await client.ttl(key);
-        throw new HttpException(
-          {
-            statusCode: HttpStatus.TOO_MANY_REQUESTS,
-            message: `Too many login attempts. Please try again in ${Math.ceil(ttl / 60)} minutes`,
-            error: 'Too Many Requests',
-          },
-          HttpStatus.TOO_MANY_REQUESTS,
-        );
-      }
-
-      const attempts = await client.incr(key);
-
-      if (attempts === 1) {
-        await client.pexpire(key, config.windowMs);
-      }
-
-      return true;
+      const { count, ttlMs } = await this.countRequest(
+        `rate_limit:${key}`,
+        config.windowMs,
+      );
+      return {
+        allowed: count <= config.maxAttempts,
+        remaining: Math.max(0, config.maxAttempts - count),
+        resetAt: Date.now() + ttlMs,
+      };
     } catch (error) {
-      if (error instanceof HttpException) {
-        throw error;
-      }
-      // If Redis fails, allow the request but log a warning
-      console.warn('[RateLimitService] Redis error, allowing request:', error);
-      return true;
+      return this.allowWhileRedisIsDown(key, config, error);
     }
   }
 
-  async resetRateLimit(identifier: string): Promise<void> {
-    const key = `rate_limit:${identifier}`;
-    const client = this.redisService.getClient();
-    await client.del(key);
+  // One round trip. SET ... NX opens the window only on the first request and
+  // INCR keeps the TTL, so the window never slides. Works on Redis < 7, unlike
+  // PEXPIRE ... NX.
+  private async countRequest(
+    redisKey: string,
+    windowMs: number,
+  ): Promise<{ count: number; ttlMs: number }> {
+    const replies = await this.redisService
+      .getClient()
+      .multi()
+      .set(redisKey, 0, 'PX', windowMs, 'NX')
+      .incr(redisKey)
+      .pttl(redisKey)
+      .exec();
+
+    if (!replies) {
+      throw new Error(`Rate limit transaction for ${redisKey} was aborted`);
+    }
+    const failed = replies.find(([error]) => error);
+    if (failed?.[0]) {
+      throw failed[0];
+    }
+    const [, [, count], [, ttlMs]] = replies;
+    return { count: Number(count), ttlMs: Number(ttlMs) };
   }
 
-  async getRemainingAttempts(
-    identifier: string,
-    config: RateLimitConfig = DEFAULT_RATE_LIMIT_CONFIG,
-  ): Promise<number> {
-    const key = `rate_limit:${identifier}`;
-    const client = this.redisService.getClient();
-
-    try {
-      const currentAttempts = await client.get(key);
-      if (!currentAttempts) {
-        return config.maxAttempts;
-      }
-      return Math.max(0, config.maxAttempts - parseInt(currentAttempts, 10));
-    } catch (error) {
-      console.warn('[RateLimitService] Redis error:', error);
-      return config.maxAttempts;
-    }
+  // A Redis outage should not lock everyone out of login, so the limiter
+  // fails open and treats the request as the first in a fresh window.
+  private allowWhileRedisIsDown(
+    key: string,
+    config: RateLimitConfig,
+    error: unknown,
+  ): RateLimitResult {
+    this.logger.warn(
+      `Redis error while rate limiting ${key}, allowing the request: ${error instanceof Error ? error.message : String(error)}`,
+    );
+    return {
+      allowed: true,
+      remaining: config.maxAttempts,
+      resetAt: Date.now() + config.windowMs,
+    };
   }
 }

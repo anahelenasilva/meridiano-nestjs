@@ -3,6 +3,7 @@
  *
  * Scope: API contract, authentication, validation, feature flag, response structure.
  */
+import { InMemoryRedis } from '@libs/auth/rate-limit/in-memory-redis.fake';
 import { RateLimitService } from '@libs/auth/rate-limit/rate-limit.service';
 import { RedisService } from '@libs/redis';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
@@ -15,31 +16,6 @@ import { ArticleJobsService } from '../src/articles/services/article-jobs.servic
 import { ConfigService } from '../src/config/config.service';
 import { ScraperService } from '../src/scraper/scraper.service';
 import { FeedProfile } from '../src/shared/types/feed';
-
-// Counts rate-limit attempts in memory so the real RateLimitService runs
-// without Redis.
-class InMemoryRedis {
-  readonly counts = new Map<string, number>();
-
-  get(key: string) {
-    const count = this.counts.get(key);
-    return Promise.resolve(count === undefined ? null : String(count));
-  }
-
-  incr(key: string) {
-    const count = (this.counts.get(key) ?? 0) + 1;
-    this.counts.set(key, count);
-    return Promise.resolve(count);
-  }
-
-  pexpire() {
-    return Promise.resolve(1);
-  }
-
-  ttl() {
-    return Promise.resolve(60);
-  }
-}
 
 describe('External Articles Integration Tests', () => {
   let app: INestApplication<App>;
@@ -113,7 +89,7 @@ describe('External Articles Integration Tests', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    redis.counts.clear();
+    redis.clear();
     // Reset default mock behavior
     mockConfigService.getExternalApiTokens.mockReturnValue([VALID_TOKEN]);
   });
@@ -207,7 +183,7 @@ describe('External Articles Integration Tests', () => {
       it('keys a valid token bucket by digest, never by the token itself', async () => {
         await submit(VALID_TOKEN);
 
-        const keys = [...redis.counts.keys()];
+        const keys = redis.keys();
         expect(keys).toHaveLength(1);
         expect(keys[0]).toMatch(/^rate_limit:external:token:[0-9a-f]{64}$/);
         expect(keys[0]).not.toContain(VALID_TOKEN);
