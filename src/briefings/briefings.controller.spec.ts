@@ -1,4 +1,3 @@
-import { IS_PUBLIC_KEY } from '@libs/auth';
 import {
   BadRequestException,
   NotFoundException,
@@ -7,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
+import { IS_PUBLIC_KEY } from '../auth/decorators/public.decorator';
 import { QueueService } from '../../libs/queue/queue.service';
 import { ConfigService } from '../config/config.service';
 import { FeedProfile } from '../shared/types/feed';

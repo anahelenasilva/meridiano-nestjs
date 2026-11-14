@@ -1,14 +1,12 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import {
-  AuthService,
-  LoginDto,
-  LoginResponseDto,
-  Public,
-  RateLimit,
-  RateLimitGuard,
-} from '@libs/auth';
 import { ApiValidationErrorResponse } from '../shared/swagger/api-error-response.decorators';
+import { AuthService } from './auth.service';
+import { Public } from './decorators/public.decorator';
+import { LoginDto } from './dto/login.dto';
+import { LoginResponseDto } from './dto/login-response.dto';
+import { RateLimit } from './rate-limit/rate-limit.decorator';
+import { RateLimitGuard } from './rate-limit/rate-limit.guard';
 
 @Controller('api/auth')
 export class AuthController {
@@ -18,7 +16,9 @@ export class AuthController {
   @UseGuards(RateLimitGuard)
   @RateLimit({ windowMs: 15 * 60 * 1000, maxAttempts: 5 })
   @Post('login')
-  @ApiOperation({ summary: 'Authenticate a user and obtain a JWT access token' })
+  @ApiOperation({
+    summary: 'Authenticate a user and obtain a JWT access token',
+  })
   @ApiCreatedResponse({ type: LoginResponseDto })
   @ApiValidationErrorResponse()
   @ApiResponse({ status: 401, description: 'Invalid email or password' })

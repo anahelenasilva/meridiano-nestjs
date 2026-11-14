@@ -1,6 +1,6 @@
-import { ApiKeyAllowed } from '@libs/auth';
 import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiKeyAllowed } from '../auth/decorators/api-key-allowed.decorator';
 import { CategoryResponseDto } from '../categories/entities/category.entity';
 import {
   ApiAuthErrorResponse,

@@ -1,6 +1,3 @@
-import { AuthModule as LibsAuthModule } from '@libs/auth';
-import { RateLimitGuard } from '@libs/auth/rate-limit/rate-limit.guard';
-import { UserLookupProvider } from '@libs/auth/interfaces/user-lookup-provider.interface';
 import { DynamicModule, INestApplication, Module, ValidationPipe } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -8,9 +5,12 @@ import * as bcrypt from 'bcrypt';
 import { mock, MockProxy } from 'jest-mock-extended';
 import request from 'supertest';
 import { App } from 'supertest/types';
-import { AuthController } from '../src/auth/auth.controller';
+import { AuthModule } from '../src/auth/auth.module';
+import { RateLimitGuard } from '../src/auth/rate-limit/rate-limit.guard';
 import { ConfigService } from '../src/config/config.service';
 import { User } from '../src/users/user.entity';
+import { UsersModule } from '../src/users/users.module';
+import { UsersService } from '../src/users/users.service';
 
 // Test fixture data
 const MOCK_USER_PASSWORD = 'TestPass123';
@@ -32,11 +32,10 @@ const mockUserWithoutPassword: User = {
   isEmailVerified: false,
 };
 
-// Factory function for creating fresh mock instances
-const createMockUserLookupProvider = (): MockProxy<UserLookupProvider> => {
-  const mockProvider = mock<UserLookupProvider>();
-  mockProvider.getUserByEmail.mockImplementation(
-    (email: string, includePassword: boolean) => {
+const createMockUsersService = (): MockProxy<UsersService> => {
+  const mockService = mock<UsersService>();
+  mockService.getUserByEmail.mockImplementation(
+    (email: string, includePassword?: boolean) => {
       if (email === mockUser.email) {
         if (includePassword) {
           return Promise.resolve(mockUser);
@@ -47,20 +46,18 @@ const createMockUserLookupProvider = (): MockProxy<UserLookupProvider> => {
     },
   );
 
-  mockProvider.getUserById.mockImplementation((userId: string) => {
+  mockService.getUserById.mockImplementation((userId: string) => {
     if (userId === mockUser.id) {
       return Promise.resolve({ ...mockUser, password: undefined });
     }
     return Promise.resolve(null);
   });
-  return mockProvider;
+  return mockService;
 };
 
-// AuthModule.forRootAsync() imports JwtModule and RedisModule, both of which
-// inject ConfigService but deliberately don't import ConfigModule themselves
-// (see the comments in libs/auth/auth.module.ts and libs/redis/redis.module.ts —
-// ConfigService is @Global(), normally registered once via AppModule). This
-// stands in for that global registration, the same way AppModule does in prod.
+// JwtModule and RedisModule inject ConfigService without importing
+// ConfigModule, since ConfigService is @Global() and AppModule registers it
+// once. This stands in for that global registration.
 @Module({})
 class MockConfigModule {}
 
@@ -73,10 +70,23 @@ const buildMockConfigModule = (
   exports: [ConfigService],
 });
 
+// Replaces UsersModule so the test never loads DatabaseModule, which connects
+// to Postgres and runs migrations on init.
+@Module({})
+class FakeUsersModule {}
+
+const buildFakeUsersModule = (
+  mockUsersService: MockProxy<UsersService>,
+): DynamicModule => ({
+  module: FakeUsersModule,
+  providers: [{ provide: UsersService, useValue: mockUsersService }],
+  exports: [UsersService],
+});
+
 describe('Authentication (e2e)', () => {
   let app: INestApplication<App>;
   let moduleFixture: TestingModule;
-  let mockUserLookupProvider: ReturnType<typeof createMockUserLookupProvider>;
+  let mockUsersService: ReturnType<typeof createMockUsersService>;
   let originalJwtSecret: string | undefined;
 
   beforeAll(async () => {
@@ -86,8 +96,7 @@ describe('Authentication (e2e)', () => {
     // Set JWT_SECRET for testing
     process.env.JWT_SECRET = 'test-jwt-secret-key-for-e2e-tests';
 
-    // Create fresh mock instance
-    mockUserLookupProvider = createMockUserLookupProvider();
+    mockUsersService = createMockUsersService();
 
     const mockConfigService = mock<ConfigService>();
     mockConfigService.getJwtSecret.mockImplementation(() => {
@@ -107,14 +116,10 @@ describe('Authentication (e2e)', () => {
     });
 
     moduleFixture = await Test.createTestingModule({
-      imports: [
-        buildMockConfigModule(mockConfigService),
-        LibsAuthModule.forRootAsync({
-          useFactory: () => mockUserLookupProvider,
-        }),
-      ],
-      controllers: [AuthController],
+      imports: [buildMockConfigModule(mockConfigService), AuthModule],
     })
+      .overrideModule(UsersModule)
+      .useModule(buildFakeUsersModule(mockUsersService))
       .overrideGuard(RateLimitGuard)
       .useValue({
         canActivate: () => true, // Bypass rate limiting in tests
@@ -142,8 +147,8 @@ describe('Authentication (e2e)', () => {
   afterAll(async () => {
     await app.close();
     await moduleFixture.close();
-    mockUserLookupProvider.getUserByEmail.mockClear();
-    mockUserLookupProvider.getUserById.mockClear();
+    mockUsersService.getUserByEmail.mockClear();
+    mockUsersService.getUserById.mockClear();
     jest.clearAllMocks();
 
     // Restore original JWT_SECRET or delete if it was undefined
@@ -197,8 +202,8 @@ describe('Authentication (e2e)', () => {
       // Verify password is NOT included in response
       expect(response.body.user).not.toHaveProperty('password');
 
-      // Verify the provider was called
-      expect(mockUserLookupProvider.getUserByEmail).toHaveBeenCalledWith(
+      // Verify the users service was called
+      expect(mockUsersService.getUserByEmail).toHaveBeenCalledWith(
         mockUser.email,
         true, // includePassword should be true
       );
@@ -217,8 +222,8 @@ describe('Authentication (e2e)', () => {
       expect(response.body).toHaveProperty('message');
       expect(response.body.message).toBe('Failed to login');
 
-      // Verify the provider was called
-      expect(mockUserLookupProvider.getUserByEmail).toHaveBeenCalledWith(
+      // Verify the users service was called
+      expect(mockUsersService.getUserByEmail).toHaveBeenCalledWith(
         mockUser.email,
         true,
       );
@@ -240,8 +245,8 @@ describe('Authentication (e2e)', () => {
       expect(response.body).toHaveProperty('message');
       expect(response.body.message).toBe('Failed to login');
 
-      // Verify the provider was called
-      expect(mockUserLookupProvider.getUserByEmail).toHaveBeenCalledWith(
+      // Verify the users service was called
+      expect(mockUsersService.getUserByEmail).toHaveBeenCalledWith(
         'nonexistent@example.com',
         true,
       );
@@ -291,7 +296,7 @@ describe('Authentication (e2e)', () => {
 
     it('should return 401 for user without password', async () => {
       // Temporarily override the mock to return user without password
-      mockUserLookupProvider.getUserByEmail.mockResolvedValueOnce(
+      mockUsersService.getUserByEmail.mockResolvedValueOnce(
         mockUserWithoutPassword,
       );
 

@@ -1,10 +1,10 @@
 import { AudioModule } from '@libs/audio';
-import { RateLimitGuard } from '@libs/auth/rate-limit/rate-limit.guard';
-import { RateLimitService } from '@libs/auth/rate-limit/rate-limit.service';
 import { QueueModule } from '@libs/queue';
 import { RedisModule } from '@libs/redis';
 import { S3Module } from '@libs/s3';
 import { Module } from '@nestjs/common';
+import { RateLimitGuard } from '../auth/rate-limit/rate-limit.guard';
+import { RateLimitService } from '../auth/rate-limit/rate-limit.service';
 import { ArticlesModule } from '../articles/articles.module';
 import { ArticlesController } from '../articles/articles.controller';
 import { ExternalArticlesController } from '../articles/external-articles.controller';

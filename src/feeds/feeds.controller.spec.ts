@@ -1,6 +1,6 @@
-import { IS_PUBLIC_KEY } from '@libs/auth';
 import { HEADERS_METADATA } from '@nestjs/common/constants';
 import { mock } from 'jest-mock-extended';
+import { IS_PUBLIC_KEY } from '../auth/decorators/public.decorator';
 import { FeedsController } from './feeds.controller';
 import { GetArticlesFeedQuery } from './queries/get-articles-feed.query';
 import { GetYoutubeFeedQuery } from './queries/get-youtube-feed.query';

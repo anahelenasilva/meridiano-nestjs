@@ -1,10 +1,10 @@
-import { JwtAuthGuard } from '@libs/auth';
 import { INestApplication } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock, MockProxy } from 'jest-mock-extended';
 import request from 'supertest';
 import { App } from 'supertest/types';
+import { JwtAuthGuard } from '../src/auth/guards/jwt-auth.guard';
 import { ArticleListRow, ArticlesService } from '../src/articles/articles.service';
 import { ConfigService } from '../src/config/config.service';
 import { FeedsController } from '../src/feeds/feeds.controller';

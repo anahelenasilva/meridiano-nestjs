@@ -1,4 +1,3 @@
-import { ApiKeyAllowed } from '@libs/auth';
 import {
   Body,
   Controller,
@@ -18,6 +17,7 @@ import {
   ApiAuthErrorResponse,
   ApiValidationErrorResponse,
 } from '../shared/swagger/api-error-response.decorators';
+import { ApiKeyAllowed } from '../auth/decorators/api-key-allowed.decorator';
 import { CategoriesService } from './categories.service';
 import {
   CategoryResponseDto,

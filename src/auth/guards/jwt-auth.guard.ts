@@ -1,7 +1,7 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
-import { ConfigService } from '../../../src/config/config.service';
+import { ConfigService } from '../../config/config.service';
 import { API_KEY_ALLOWED_KEY } from '../decorators/api-key-allowed.decorator';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
 import { StaticCredential } from '../static-credential';

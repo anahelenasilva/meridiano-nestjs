@@ -1,11 +1,11 @@
 import { AUDIO_GENERATION_SUCCESS_MESSAGE } from '@libs/audio';
-import { IS_PUBLIC_KEY } from '@libs/auth';
 import {
   BadRequestException,
   ConflictException,
   NotFoundException,
 } from '@nestjs/common';
 import { mock } from 'jest-mock-extended';
+import { IS_PUBLIC_KEY } from '../auth/decorators/public.decorator';
 import { ArticlesController } from './articles.controller';
 import { ArticlesService } from './articles.service';
 import { GenerateArticleAudioCommand } from './commands/generate-article-audio.command';

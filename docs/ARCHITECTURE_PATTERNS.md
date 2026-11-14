@@ -8,7 +8,7 @@
 
 **What belongs in `libs/`:**
 
-- Shared infrastructure modules (S3, email, auth, database, queue)
+- Shared infrastructure modules (S3, email, database, queue)
 - Reusable utilities used across multiple domain modules
 - Cross-cutting concerns that don't belong to a specific domain
 

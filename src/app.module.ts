@@ -1,15 +1,15 @@
-import { JwtAuthGuard } from '@libs/auth';
 import { DatabaseModule } from '@libs/database';
 import { QueueModule } from '@libs/queue';
 import { S3Module } from '@libs/s3';
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { AuthModule } from './auth/auth.module';
 import { AiModule } from './ai/ai.module';
 import { AppController } from './app.controller';
 import { ArticleActionsModule } from './article-actions/article-actions.module';
 import { ArticlesModule } from './articles/articles.module';
 import { AudioFilesModule } from './audio-files/audio-files.module';
-import { AuthModule } from './auth/auth.module';
 import { BookmarksModule } from './bookmarks/bookmarks.module';
 import { BriefingsModule } from './briefings/briefings.module';
 import { CategoriesModule } from './categories/categories.module';

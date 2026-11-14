@@ -3,14 +3,14 @@
  *
  * Scope: API contract, authentication, validation, feature flag, response structure.
  */
-import { InMemoryRedis } from '@libs/auth/rate-limit/in-memory-redis.fake';
-import { RateLimitService } from '@libs/auth/rate-limit/rate-limit.service';
 import { RedisService } from '@libs/redis';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock, MockProxy } from 'jest-mock-extended';
 import request from 'supertest';
 import { App } from 'supertest/types';
+import { InMemoryRedis } from '../src/auth/rate-limit/in-memory-redis.fake';
+import { RateLimitService } from '../src/auth/rate-limit/rate-limit.service';
 import { ExternalArticlesController } from '../src/articles/external-articles.controller';
 import { ArticleJobsService } from '../src/articles/services/article-jobs.service';
 import { ConfigService } from '../src/config/config.service';

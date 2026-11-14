@@ -8,7 +8,6 @@ The `libs/` directory contains reusable infrastructure modules and cross-cutting
 
 Current libraries:
 
-- `auth`
 - `audio`
 - `database`
 - `email`
@@ -35,70 +34,12 @@ Path mapping is configured in:
 
 | Library | Main role | Typical import |
 | --- | --- | --- |
-| `@libs/auth` | JWT auth + auth helpers + rate limiting | `AuthModule`, `AuthService`, `JwtAuthGuard`, `CurrentUser` |
 | `@libs/audio` | Audio generation queue orchestration | `AudioModule`, `AudioJobService` |
 | `@libs/database` | Postgres access + TypeORM bootstrapping | `DatabaseModule`, `DatabaseService` |
 | `@libs/email` | Email sending through Mailgun | `EmailModule.forRootAsync()`, `EmailService` |
 | `@libs/queue` | BullMQ queues for article/transcription processing | `QueueModule`, `QueueService` |
 | `@libs/redis` | Shared Redis client lifecycle management | `RedisModule`, `RedisService` |
 | `@libs/s3` | S3 file retrieval/upload/presigned URLs | `S3Module`, `S3Service` |
-
-## Auth Library
-
-**Location:** `libs/auth/`
-
-### Exports
-
-- `AuthModule`
-- `AuthService`
-- `USER_LOOKUP_PROVIDER_TOKEN`
-- `CurrentUser`
-- `AuthenticatedUser` (type)
-- `JwtAuthGuard`
-- `JwtStrategy`
-- `Public`, `IS_PUBLIC_KEY`
-- `ApiKeyAllowed`, `API_KEY_ALLOWED_KEY`
-- `LoginDto`, `LoginResponseDto`
-- `RateLimit`, `RateLimitGuard`, `RateLimitService`
-- `RateLimitOptions` (type)
-- `StaticCredential`, `CredentialCheck` (type)
-
-### Initialization
-
-`AuthModule` is dynamic and is initialized with:
-
-- `AuthModule.forRootAsync({ useFactory, inject, imports })`
-
-`JWT_SECRET` is required and validated during module initialization.
-
-### Static credentials
-
-`StaticCredential.from(configured)` wraps a secret from env (one string or a list). `check(request, header)` returns `'valid'`, `'missing'` (header absent or blank) or `'invalid'`, and each guard maps that to allow, fall through to JWT, or 401. `verifiedDigest(request, header)` gives the sha256 hex of a matching value, for keys that must not hold the secret. `JwtAuthGuard` (`x-api-key`) and the external articles guards (`x-external-token`) all use it, so there is one constant-time compare.
-
-### Rate limiting
-
-`RateLimitGuard` buckets requests by caller IP, with window and limit from `@RateLimit()`. A route that buckets by something else subclasses the guard and overrides `resolveKey`, as `ExternalRateLimitGuard` does to give verified external tokens their own bucket.
-
-The guard calls `RateLimitService.consume(key, { windowMs, maxAttempts })`, which counts the request in one Redis transaction and returns `{ allowed, remaining, resetAt }` for the `X-RateLimit-*` headers and the 429. If Redis fails, `consume` lets the request through. Tests run it on `InMemoryRedis` (`libs/auth/rate-limit/in-memory-redis.fake.ts`).
-
-### Request-scoped auth helpers
-
-- `CurrentUser`: controller param decorator that injects the authenticated JWT user
-- `AuthenticatedUser`: shared type for the authenticated user payload currently exposed to controllers
-
-### User lookup contract
-
-The auth lib expects the factory to return something matching `UserLookupProvider`:
-
-- `getUserByEmail(email, includePassword)`
-- `getUserById(userId)`
-
-The app passes `UsersService`, which already has both methods.
-
-### Environment variables
-
-- `JWT_SECRET`
-- `MERIDIANO_API_KEY` — optional scoped static key. When set, `JwtAuthGuard` accepts it via the `x-api-key` header on routes marked `@ApiKeyAllowed()`; unset/empty makes the key path inert (JWT-only).
 
 ## Database Library
 
@@ -279,6 +220,5 @@ EmailModule.forRootAsync({
 - `DatabaseModule`
 - `QueueModule`
 - `S3Module`
-- `JwtAuthGuard` (as global `APP_GUARD`, provided through auth setup)
 
 Other libs are imported through feature modules as needed. Each feature module that sends email imports `EmailModule.forRootAsync()` itself.

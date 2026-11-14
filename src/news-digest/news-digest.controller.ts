@@ -1,6 +1,6 @@
-import { ApiKeyAllowed } from '@libs/auth';
 import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiKeyAllowed } from '../auth/decorators/api-key-allowed.decorator';
 import { ApiAuthErrorResponse } from '../shared/swagger/api-error-response.decorators';
 import { NewsDigestService } from './news-digest.service';
 

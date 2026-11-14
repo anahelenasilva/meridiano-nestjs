@@ -1,6 +1,6 @@
-import { API_KEY_ALLOWED_KEY } from '@libs/auth';
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
+import { API_KEY_ALLOWED_KEY } from '../auth/decorators/api-key-allowed.decorator';
 import { NewsDigestController } from './news-digest.controller';
 import { NewsDigestService } from './news-digest.service';
 
