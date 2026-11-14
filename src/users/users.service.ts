@@ -1,10 +1,5 @@
-import { DatabaseService, execute, queryOne } from '@libs/database';
-import {
-  ConflictException,
-  Injectable,
-  InternalServerErrorException,
-} from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
+import { DatabaseService, queryOne } from '@libs/database';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { User } from './user.entity';
 
 interface UserRow {
@@ -19,75 +14,6 @@ interface UserRow {
 @Injectable()
 export class UsersService {
   constructor(private readonly databaseService: DatabaseService) {}
-
-  async createUser(
-    email: string,
-    username: string,
-    password: string,
-  ): Promise<User> {
-    const hashedPassword = await this.hashPassword(password);
-    const db = this.databaseService.getDbConnection();
-
-    await execute(
-      db,
-      `
-        INSERT INTO users (email, username, password)
-        VALUES (?, ?, ?)
-        RETURNING id, email, username, created_at
-      `,
-      [email, username, hashedPassword],
-    ).catch((err: unknown) => {
-      const errorWithCode = err as Error & { code?: string; detail?: string };
-
-      if (
-        errorWithCode.message.includes('duplicate key value') ||
-        errorWithCode.code === '23505'
-      ) {
-        // Determine which field caused the conflict
-        const errorDetail = errorWithCode.detail || errorWithCode.message;
-
-        if (errorDetail.includes('email')) {
-          throw new ConflictException('Email already exists');
-        }
-        if (errorDetail.includes('username')) {
-          throw new ConflictException('Username already exists');
-        }
-        throw new ConflictException(
-          'User with this email or username already exists',
-        );
-      }
-
-      console.error('Error creating user:', err);
-      throw new InternalServerErrorException(
-        'Failed to create user. Please try again.',
-      );
-    });
-
-    // Separate .catch so a read failure after a successful insert is not
-    // reported as a failed create.
-    const row = await queryOne<UserRow>(
-      db,
-      `SELECT id, email, username, created_at FROM users WHERE email = ?`,
-      [email],
-    ).catch((err: unknown) => {
-      console.error('Error fetching created user:', err);
-      throw new InternalServerErrorException(
-        'User created but failed to fetch details',
-      );
-    });
-
-    if (!row) {
-      throw new InternalServerErrorException('User not found after creation');
-    }
-
-    return {
-      id: row.id,
-      email: row.email,
-      username: row.username,
-      isEmailVerified: row.is_email_verified,
-      created_at: new Date(row.created_at),
-    };
-  }
 
   async getUserById(id: string): Promise<User | null> {
     const db = this.databaseService.getDbConnection();
@@ -170,27 +96,5 @@ export class UsersService {
       isEmailVerified: row.is_email_verified,
       created_at: new Date(row.created_at),
     };
-  }
-
-  async hashPassword(password: string): Promise<string> {
-    const saltRounds = 10;
-    return bcrypt.hash(password, saltRounds);
-  }
-
-  async comparePassword(password: string, hash: string): Promise<boolean> {
-    return bcrypt.compare(password, hash);
-  }
-
-  async updateUserPassword(userId: string, password: string): Promise<void> {
-    const hashedPassword = await this.hashPassword(password);
-    const db = this.databaseService.getDbConnection();
-
-    await execute(db, `UPDATE users SET password = ? WHERE id = ?`, [
-      hashedPassword,
-      userId,
-    ]).catch((err: unknown) => {
-      console.error('Error updating user password:', err);
-      throw new InternalServerErrorException('Failed to update password');
-    });
   }
 }
