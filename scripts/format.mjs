@@ -36,6 +36,7 @@ const prettier = await import('prettier').catch(() => {
 });
 
 const failures = [];
+const unformatted = [];
 for (const path of paths) {
   try {
     const options = {
@@ -47,7 +48,10 @@ for (const path of paths) {
         git('show', `:${path}`),
         options,
       );
-      if (!isFormatted) failures.push(`  ${path}`);
+      if (!isFormatted) {
+        failures.push(`  ${path}`);
+        unformatted.push(path);
+      }
       continue;
     }
     const source = readFileSync(path, 'utf8');
@@ -61,10 +65,20 @@ for (const path of paths) {
   }
 }
 
+// Quotes a path for the copy-paste command when it has shell characters.
+const shellQuote = (path) =>
+  /^[\w@%+=:,./-]+$/.test(path) ? path : `'${path.replaceAll("'", "'\\''")}'`;
+
 if (failures.length > 0) {
+  // The fix names only the blocked files: `pnpm format` would rewrite every
+  // unformatted file in the repo, not just the ones in this commit.
+  const fix =
+    unformatted.length > 0
+      ? `\n\nFormat them, stage them and commit again:\n  pnpm exec prettier --write ${unformatted.map(shellQuote).join(' ')}`
+      : '';
   console.error(
     isStagedCheck
-      ? `format: Prettier would change the staged copy of these files:\n${failures.join('\n')}\n\nRun \`pnpm format\`, stage the files above and commit again.`
+      ? `format: these staged files fail Prettier:\n${failures.join('\n')}${fix}`
       : `format: Prettier could not format these files:\n${failures.join('\n')}`,
   );
   process.exitCode = 1;
