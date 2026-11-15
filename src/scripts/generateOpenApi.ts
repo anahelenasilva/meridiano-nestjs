@@ -71,6 +71,10 @@ async function createOpenApiApp(): Promise<INestApplication> {
     '../articles/external-articles.controller.js',
     'ExternalArticlesController',
   );
+  const AskController = loadDistExport<Type<unknown>>(
+    '../ask/ask.controller.js',
+    'AskController',
+  );
   const AuthController = loadDistExport<Type<unknown>>(
     '../auth/auth.controller.js',
     'AuthController',
@@ -108,6 +112,10 @@ async function createOpenApiApp(): Promise<INestApplication> {
     'AudioController',
   );
 
+  const AskService = loadDistExport<Type<unknown>>(
+    '../ask/ask.service.js',
+    'AskService',
+  );
   const ArticlesService = loadDistExport<Type<unknown>>(
     '../articles/articles.service.js',
     'ArticlesService',
@@ -271,6 +279,7 @@ async function createOpenApiApp(): Promise<INestApplication> {
       AppController,
       ArticlesController,
       ExternalArticlesController,
+      AskController,
       AuthController,
       BookmarksController,
       BriefingsController,
@@ -284,6 +293,7 @@ async function createOpenApiApp(): Promise<INestApplication> {
     ],
     providers: [
       { provide: NOTES_SERVICE, useValue: notesServiceStub },
+      { provide: AskService, useValue: {} },
       { provide: ArticlesService, useValue: {} },
       { provide: ListArticlesQuery, useValue: {} },
       { provide: ListArticlesLeanQuery, useValue: {} },

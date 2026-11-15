@@ -2,6 +2,7 @@ import {
   estimateTokenCount,
   estimateChatTokens,
   estimateEmbeddingTokens,
+  truncateToChatTokens,
 } from './token-estimation';
 
 describe('estimateTokenCount', () => {
@@ -135,5 +136,24 @@ describe('estimateEmbeddingTokens', () => {
     const text = 'This is a longer piece of text for embedding.';
     const result = estimateEmbeddingTokens(text);
     expect(result).toBeGreaterThan(0);
+  });
+});
+
+describe('truncateToChatTokens', () => {
+  const sentences = Array.from(
+    { length: 200 },
+    (_, i) => `Sentence number ${i} talks about the topic.`,
+  ).join(' ');
+
+  it('returns text under the cap unchanged', () => {
+    expect(truncateToChatTokens('A short text.', 1000)).toBe('A short text.');
+  });
+
+  it('cuts text over the cap at a sentence boundary', () => {
+    const result = truncateToChatTokens(sentences, 100);
+
+    expect(result.length).toBeLessThan(sentences.length);
+    expect(sentences.startsWith(result)).toBe(true);
+    expect(result.endsWith('topic.')).toBe(true);
   });
 });

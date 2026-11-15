@@ -108,6 +108,20 @@ _Avoid_: BRT day, local day, calendar date in UTC
 An article saved by the user to read later. Not a saved briefing.
 _Avoid_: saved article, favourite, starred
 
+**Note**:
+The owner's private free-text note on one Article or YouTube Transcription. At
+most one active Note per source; saving blank content soft-deletes it.
+
+**Ask**:
+A question-and-answer conversation about one Article or YouTube Transcription,
+answered by a chat model from that source's text only. Held in the browser for
+the life of the page and never persisted.
+_Avoid_: chat, AI chat, Q&A session
+
+**Ask Turn**:
+One question and the answer to it inside an Ask, tagged with the model that
+answered. The owner can save an Ask Turn to the source's Note, which appends it.
+
 **Article Action**:
 The one disposition Hermes assigns to a processed Article whose Article Source
 is `"Manual"`: `reference_only`, `connect_to_note`, `experiment`, `task` or
@@ -131,6 +145,9 @@ Meridiano is intentionally single-user. The owner is the only operator; there is
 - An **Article** with Article Source `"Manual"` has at most one **Article Action**
 - A **YouTube Transcription** has one optional **Audio Summary**
 - A **YouTube Transcription** is processed independently from **Articles** and **Briefings**, sharing no briefing pipeline
+- An **Article** or **YouTube Transcription** has at most one active **Note**
+- An **Ask** is about exactly one **Article** or **YouTube Transcription**
+- A saved **Ask Turn** becomes text in that source's **Note**; the **Note** does not keep a link back to the **Ask**
 
 ## Example dialogue
 
