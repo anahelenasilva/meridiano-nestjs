@@ -136,6 +136,28 @@ describe('Ask (e2e)', () => {
     );
   });
 
+  it('cuts an oversized source and reports truncated: true', async () => {
+    const longBody = 'This sentence repeats to make the source long. '.repeat(
+      30_000,
+    );
+    articlesService.getArticleById.mockResolvedValue({
+      id: ARTICLE_ID,
+      title: 'Article title',
+      raw_content: longBody,
+    } as DBArticle);
+
+    const response = await ask({
+      source_type: 'article',
+      source_id: ARTICLE_ID,
+      question: 'How does it end?',
+    }).expect(200);
+
+    expect(response.body.truncated).toBe(true);
+    expect(answerer.answer.mock.calls[0][0].sourceText.length).toBeLessThan(
+      longBody.length,
+    );
+  });
+
   it('returns 404 for an unknown source', async () => {
     articlesService.getArticleById.mockResolvedValue(null);
 
