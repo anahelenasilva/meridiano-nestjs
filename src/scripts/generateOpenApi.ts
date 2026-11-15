@@ -254,7 +254,7 @@ async function createOpenApiApp(): Promise<INestApplication> {
     'JwtAuthGuard',
   );
   const RateLimitGuard = loadDistExport<Type<unknown>>(
-    '../auth/rate-limit/rate-limit.guard.js',
+    '../../libs/rate-limit/rate-limit.guard.js',
     'RateLimitGuard',
   );
   const ExternalTokenGuard = loadDistExport<Type<unknown>>(

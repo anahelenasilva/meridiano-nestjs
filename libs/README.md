@@ -276,6 +276,37 @@ export class ArticlesModule {}
 **Migration Date**: January 2026
 **Original Location**: `src/queue/`
 
+### Rate Limit (`libs/rate-limit/`)
+
+Redis-backed request throttling for HTTP routes:
+- `RateLimitModule`: imports `RedisModule`, provides and exports `RateLimitService` and `RateLimitGuard`
+- `RateLimitGuard` and `@RateLimit({ windowMs, maxAttempts })`: bucket requests by caller IP. Subclass the guard and override `resolveKey` to bucket by something else, as `src/articles/guards/external-rate-limit.guard.ts` does
+- `RateLimitService.consume(key, config)`: counts one request and reports whether it fits in the window, letting it through if Redis is down
+- `@libs/rate-limit/in-memory-redis.fake`: `InMemoryRedis` for tests
+
+**Usage Example**:
+```typescript
+import { Controller, Module, Post, UseGuards } from '@nestjs/common';
+import { RateLimit, RateLimitGuard, RateLimitModule } from '@libs/rate-limit';
+
+@Controller('api/auth')
+export class AuthController {
+  @UseGuards(RateLimitGuard)
+  @RateLimit({ windowMs: 15 * 60 * 1000, maxAttempts: 5 })
+  @Post('login')
+  login() {}
+}
+
+@Module({
+  imports: [RateLimitModule],
+  controllers: [AuthController],
+})
+export class AuthModule {}
+```
+
+**Migration Date**: November 2026
+**Original Location**: `src/auth/rate-limit/`
+
 ## Planned Migrations
 
 The following modules are candidates for migration to `libs/`:
