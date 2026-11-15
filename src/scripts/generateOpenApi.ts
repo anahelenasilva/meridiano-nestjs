@@ -7,7 +7,7 @@ import { writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
-import type { Note, SaveNoteDto } from '../notes/note.entity';
+import type { AppendNoteDto, Note, SaveNoteDto } from '../notes/note.entity';
 import type { NotesWriter } from '../notes/notes.tokens';
 
 type JsonValue =
@@ -21,6 +21,9 @@ type JsonValue =
 const notesServiceStub: NotesWriter = {
   saveNote(_userId: string, _input: SaveNoteDto): Promise<Note | null> {
     return Promise.resolve(null);
+  },
+  appendToNote(_userId: string, _input: AppendNoteDto): Promise<Note> {
+    return Promise.reject(new Error('Not called while generating the spec'));
   },
 };
 

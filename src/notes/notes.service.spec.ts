@@ -223,4 +223,142 @@ describe('NotesService', () => {
       }),
     ).rejects.toThrow(new NotFoundException('Article not found'));
   });
+
+  describe('appendToNote', () => {
+    const userId = 'user-1';
+    const articleId = '11111111-1111-1111-1111-111111111111';
+    const activeNote = {
+      id: 'note-1',
+      user_id: userId,
+      source_type: 'article',
+      source_id: articleId,
+      content: 'Existing note',
+      created_at: new Date('2026-05-17T12:00:00.000Z'),
+      updated_at: new Date('2026-05-17T12:00:00.000Z'),
+    } as Note;
+
+    beforeEach(() => {
+      mockArticlesService.getArticleById.mockResolvedValue({
+        id: articleId,
+      } as never);
+    });
+
+    it('appends to the active note after a blank line, in the database', async () => {
+      mockNotesReadService.getActiveNote.mockResolvedValue(activeNote);
+      mockDb.get.mockImplementationOnce((query, params, callback) => {
+        callback(null, {
+          id: 'note-1',
+          user_id: userId,
+          source_type: 'article',
+          source_id: articleId,
+          content: 'Existing note\n\n**Q:** Why?\n\nBecause.',
+          created_at: '2026-05-17T12:00:00.000Z',
+          updated_at: '2026-05-17T12:05:00.000Z',
+        });
+      });
+
+      const result = await service.appendToNote(userId, {
+        source_type: 'article',
+        source_id: articleId,
+        content: '**Q:** Why?\n\nBecause.',
+      });
+
+      expect(result.content).toBe('Existing note\n\n**Q:** Why?\n\nBecause.');
+      const [query, params] = mockDb.get.mock.calls[0];
+      expect(query).toContain('content = content || ?');
+      expect(params).toEqual(['\n\n**Q:** Why?\n\nBecause.', 'note-1']);
+    });
+
+    it('creates the note with the appended content when none exists', async () => {
+      mockNotesReadService.getActiveNote.mockResolvedValue(null);
+      mockDb.get.mockImplementationOnce((query, params, callback) => {
+        callback(null, {
+          id: 'note-2',
+          user_id: userId,
+          source_type: 'article',
+          source_id: articleId,
+          content: '**Q:** Why?\n\nBecause.',
+          created_at: '2026-05-17T12:00:00.000Z',
+          updated_at: '2026-05-17T12:00:00.000Z',
+        });
+      });
+
+      const result = await service.appendToNote(userId, {
+        source_type: 'article',
+        source_id: articleId,
+        content: '**Q:** Why?\n\nBecause.',
+      });
+
+      expect(result.content).toBe('**Q:** Why?\n\nBecause.');
+      const [query, params] = mockDb.get.mock.calls[0];
+      expect(query).toContain('INSERT INTO notes');
+      expect(params).toEqual([
+        userId,
+        'article',
+        articleId,
+        '**Q:** Why?\n\nBecause.',
+      ]);
+    });
+
+    it('throws not found when the parent transcription does not exist', async () => {
+      mockYoutubeTranscriptionsService.getTranscriptionById.mockResolvedValue(
+        null,
+      );
+
+      await expect(
+        service.appendToNote(userId, {
+          source_type: 'transcription',
+          source_id: '22222222-2222-2222-2222-222222222222',
+          content: 'Turn',
+        }),
+      ).rejects.toThrow(
+        new NotFoundException('YouTube transcription not found'),
+      );
+      expect(mockDb.get).not.toHaveBeenCalled();
+    });
+
+    it('rejects an append that would take the note past 20,000 characters', async () => {
+      mockNotesReadService.getActiveNote.mockResolvedValue({
+        ...activeNote,
+        content: 'a'.repeat(19_990),
+      });
+
+      await expect(
+        service.appendToNote(userId, {
+          source_type: 'article',
+          source_id: articleId,
+          content: 'b'.repeat(9),
+        }),
+      ).rejects.toMatchObject({
+        status: 400,
+        response: {
+          message: ['Note would exceed 20000 characters'],
+        },
+      });
+      expect(mockDb.get).not.toHaveBeenCalled();
+    });
+
+    it('accepts an append that lands exactly on 20,000 characters', async () => {
+      mockNotesReadService.getActiveNote.mockResolvedValue({
+        ...activeNote,
+        content: 'a'.repeat(19_990),
+      });
+      mockDb.get.mockImplementationOnce((query, params, callback) => {
+        callback(null, {
+          ...activeNote,
+          content: `${'a'.repeat(19_990)}\n\n${'b'.repeat(8)}`,
+          created_at: '2026-05-17T12:00:00.000Z',
+          updated_at: '2026-05-17T12:05:00.000Z',
+        });
+      });
+
+      const result = await service.appendToNote(userId, {
+        source_type: 'article',
+        source_id: articleId,
+        content: 'b'.repeat(8),
+      });
+
+      expect(result.content).toHaveLength(20_000);
+    });
+  });
 });

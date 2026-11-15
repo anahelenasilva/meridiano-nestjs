@@ -1,7 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { mock } from 'jest-mock-extended';
 import { IS_PUBLIC_KEY } from '../auth/decorators/public.decorator';
-import { SaveNoteDto } from './note.entity';
+import { AppendNoteDto, SaveNoteDto } from './note.entity';
 import { NotesController } from './notes.controller';
 import { NotesService } from './notes.service';
 
@@ -155,7 +155,7 @@ describe('NotesController', () => {
         {
           source_type: 'article',
           source_id: '22222222-2222-2222-2222-222222222222',
-          content: 'a'.repeat(5001),
+          content: 'a'.repeat(20_001),
         },
         {
           type: 'body',
@@ -165,9 +165,85 @@ describe('NotesController', () => {
     ).rejects.toMatchObject({
       response: {
         message: expect.arrayContaining([
-          'content must not exceed 5000 characters',
+          'content must not exceed 20000 characters',
         ]),
       },
+    });
+  });
+
+  describe('appendToNote', () => {
+    it('appends to the authenticated user note and returns { note }', async () => {
+      mockNotesService.appendToNote.mockResolvedValue({
+        id: 'note-1',
+        user_id: '11111111-1111-1111-1111-111111111111',
+        source_type: 'article',
+        source_id: '22222222-2222-2222-2222-222222222222',
+        content: 'Existing\n\n**Q:** Why?\n\nBecause.',
+        created_at: new Date('2026-05-17T12:00:00.000Z'),
+        updated_at: new Date('2026-05-17T12:05:00.000Z'),
+      });
+
+      const result = await controller.appendToNote(
+        { id: '11111111-1111-1111-1111-111111111111' },
+        {
+          source_type: 'article',
+          source_id: '22222222-2222-2222-2222-222222222222',
+          content: '**Q:** Why?\n\nBecause.',
+        },
+      );
+
+      expect(mockNotesService.appendToNote).toHaveBeenCalledWith(
+        '11111111-1111-1111-1111-111111111111',
+        {
+          source_type: 'article',
+          source_id: '22222222-2222-2222-2222-222222222222',
+          content: '**Q:** Why?\n\nBecause.',
+        },
+      );
+      expect(result).toEqual({
+        note: {
+          id: 'note-1',
+          content: 'Existing\n\n**Q:** Why?\n\nBecause.',
+          created_at: new Date('2026-05-17T12:00:00.000Z'),
+          updated_at: new Date('2026-05-17T12:05:00.000Z'),
+        },
+      });
+    });
+
+    it('rejects blank content, which a save would treat as a delete', async () => {
+      await expect(
+        validationPipe.transform(
+          {
+            source_type: 'article',
+            source_id: '22222222-2222-2222-2222-222222222222',
+            content: ' \n ',
+          },
+          { type: 'body', metatype: AppendNoteDto },
+        ),
+      ).rejects.toMatchObject({
+        response: {
+          message: expect.arrayContaining(['content must not be blank']),
+        },
+      });
+    });
+
+    it('keeps the save rules: rejects content over 20,000 characters', async () => {
+      await expect(
+        validationPipe.transform(
+          {
+            source_type: 'article',
+            source_id: '22222222-2222-2222-2222-222222222222',
+            content: 'a'.repeat(20_001),
+          },
+          { type: 'body', metatype: AppendNoteDto },
+        ),
+      ).rejects.toMatchObject({
+        response: {
+          message: expect.arrayContaining([
+            'content must not exceed 20000 characters',
+          ]),
+        },
+      });
     });
   });
 });
