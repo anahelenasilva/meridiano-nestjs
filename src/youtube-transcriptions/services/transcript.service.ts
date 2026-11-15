@@ -1,7 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { Innertube } from 'youtubei.js';
+import type { YTNodes } from 'youtubei.js';
 import { TranscriptItem } from '../../shared/types/video';
 import type { TranscriptSource } from './transcript-fetcher.service';
+
+// Compares the node's type string instead of calling filterType, because the
+// jest youtubei.js mock has no YTNodes. The string is the one filterType uses.
+const isSpokenSegment = (
+  node: YTNodes.TranscriptSegment | YTNodes.TranscriptSectionHeader,
+): node is YTNodes.TranscriptSegment => node.type === 'TranscriptSegment';
 
 @Injectable()
 export class TranscriptService implements TranscriptSource {
@@ -46,17 +53,13 @@ export class TranscriptService implements TranscriptSource {
       }
 
       const transcriptItems: TranscriptItem[] =
-        transcriptData.transcript.content.body.initial_segments.map(
-          // youtubei.js types start_ms as a string and mixes in section
-          // headers; typing this changes stored transcripts, so it waits for
-          // a spec.
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (segment: any) => ({
-            text: segment.snippet.text,
-            duration: segment.end_ms - segment.start_ms,
-            offset: segment.start_ms,
-          }),
-        );
+        transcriptData.transcript.content.body.initial_segments
+          .filter(isSpokenSegment)
+          .map((segment) => ({
+            text: segment.snippet.text ?? '',
+            duration: Number(segment.end_ms) - Number(segment.start_ms),
+            offset: Number(segment.start_ms),
+          }));
 
       console.log(
         `Successfully fetched transcript for video ${videoId} (${transcriptItems.length} items)`,
