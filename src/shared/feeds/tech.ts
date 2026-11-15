@@ -26,7 +26,7 @@ export const techRSSFeeds: RSSFeed[] = [
     category: 'technical',
     description:
       "Technology articles and news; it's also a Brazilian platform and community",
-    enabled: true,
+    enabled: false,
   },
   {
     url: 'https://leaddev.com/feed',
