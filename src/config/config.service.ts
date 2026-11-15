@@ -256,15 +256,6 @@ export class ConfigService {
     return parsed;
   }
 
-  getRedisConfig() {
-    return {
-      url: process.env.REDIS_URL || process.env.REDISCLOUD_URL || undefined,
-      host: process.env.REDIS_HOST || 'localhost',
-      port: parseInt(process.env.REDIS_PORT || '6379', 10),
-      password: process.env.REDIS_PASSWORD || undefined,
-    };
-  }
-
   getCustomBriefingQueueConfig() {
     return {
       concurrency: this.getPositiveInteger(
@@ -436,18 +427,6 @@ export class ConfigService {
 
   getTranscriptsBackupBucketName(): string | undefined {
     return process.env.TRANSCRIPTS_BACKUP_BUCKET_NAME;
-  }
-
-  getAwsConfig() {
-    const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-    const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
-    return {
-      credentials:
-        accessKeyId && secretAccessKey
-          ? { accessKeyId, secretAccessKey }
-          : undefined,
-      region: process.env.AWS_REGION || 'us-east-1',
-    };
   }
 
   getJwtSecret(): string {

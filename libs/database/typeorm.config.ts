@@ -1,5 +1,5 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { loadEnv } from '../../src/config/load-env';
+import { loadEnv } from '@libs/env/load-env';
 import { typeParsers } from './type-parsers';
 
 // Reads process.env directly: this file is loaded by the TypeORM CLI

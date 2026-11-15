@@ -11,6 +11,7 @@ Current libraries:
 - `audio`
 - `database`
 - `email`
+- `env`
 - `queue`
 - `rate-limit`
 - `redis`
@@ -38,6 +39,7 @@ Path mapping is configured in:
 | `@libs/audio` | Audio generation queue orchestration | `AudioModule`, `AudioJobService` |
 | `@libs/database` | Postgres access + TypeORM bootstrapping | `DatabaseModule`, `DatabaseService` |
 | `@libs/email` | Email sending through Mailgun | `EmailModule.forRootAsync()`, `EmailService` |
+| `@libs/env` | Loads `.env` into `process.env` at each entry point | `loadEnv` from `@libs/env/load-env` |
 | `@libs/queue` | BullMQ queues for article/transcription processing | `QueueModule`, `QueueService` |
 | `@libs/rate-limit` | Redis-backed request throttling for HTTP routes | `RateLimitModule`, `RateLimitGuard`, `@RateLimit()` |
 | `@libs/redis` | Shared Redis client lifecycle management | `RedisModule`, `RedisService` |
@@ -137,6 +139,20 @@ Supported configuration paths:
 - Prevents duplicate enqueue operations using a Redis lock.
 - Supports fire-and-forget and optional wait-for-completion modes.
 - Exposes querying and cancellation helpers for audio jobs.
+
+## Env Library
+
+**Location:** `libs/env/`
+
+### Exports
+
+- `loadEnv()` and `dropEmptyEnvVars(env)`, from `@libs/env/load-env`
+
+### Behavior
+
+- Every entry point calls `loadEnv()` before anything reads `process.env`: `src/main.ts`, the `src/scripts/run*.ts` scripts, `libs/database/typeorm.config.ts` and `scripts/run-migrations.ts`.
+- A variable the shell exported wins over `.env`, but one exported empty counts as unset, so `.env` fills it.
+- The TypeORM CLI and `pnpm migration:run` resolve `@libs/*` through the `ts-node.require` entry in `tsconfig.json`, which loads `tsconfig-paths/register`.
 
 ## Rate Limit Library
 

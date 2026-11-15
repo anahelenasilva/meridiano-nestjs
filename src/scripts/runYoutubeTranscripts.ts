@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from '../app.module';
-import { loadEnv } from '../config/load-env';
+import { loadEnv } from '@libs/env/load-env';
 import { ChannelConfig } from '../shared/types/channel';
 import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
 import { YoutubeTranscriptionsService } from '../youtube-transcriptions/services/youtube-transcriptions.service';

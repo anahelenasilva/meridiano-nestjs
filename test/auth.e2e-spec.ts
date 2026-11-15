@@ -108,12 +108,6 @@ describe('Authentication (e2e)', () => {
       }
       return secret;
     });
-    mockConfigService.getRedisConfig.mockReturnValue({
-      url: process.env.REDIS_URL || process.env.REDISCLOUD_URL || undefined,
-      host: process.env.REDIS_HOST || 'localhost',
-      port: parseInt(process.env.REDIS_PORT || '6379', 10),
-      password: process.env.REDIS_PASSWORD || undefined,
-    });
 
     moduleFixture = await Test.createTestingModule({
       imports: [buildMockConfigModule(mockConfigService), AuthModule],

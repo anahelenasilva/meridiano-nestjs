@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from '../app.module';
-import { loadEnv } from '../config/load-env';
+import { loadEnv } from '@libs/env/load-env';
 import { ListTranscriptionsUseCase } from '../youtube-transcriptions/usecases/list-transcriptions.usecase';
 
 loadEnv();

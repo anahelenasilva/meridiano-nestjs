@@ -1,6 +1,6 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { typeormConfig } from '../libs/database/typeorm.config';
-import { loadEnv } from '../src/config/load-env';
+import { loadEnv } from '@libs/env/load-env';
 
 loadEnv();
 

@@ -3,7 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AiService } from '../ai/ai.service';
 import { AppModule } from '../app.module';
 import { ArticlesService } from '../articles/articles.service';
-import { loadEnv } from '../config/load-env';
+import { loadEnv } from '@libs/env/load-env';
 
 loadEnv();
 

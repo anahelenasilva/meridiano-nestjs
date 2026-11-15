@@ -9,14 +9,25 @@ import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { Injectable } from '@nestjs/common';
 import { Readable } from 'stream';
-import { ConfigService } from '../../src/config/config.service';
+
+function readAwsConfig() {
+  const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+  const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+  return {
+    credentials:
+      accessKeyId && secretAccessKey
+        ? { accessKeyId, secretAccessKey }
+        : undefined,
+    region: process.env.AWS_REGION || 'us-east-1',
+  };
+}
 
 @Injectable()
 export class S3Service {
   private readonly s3Client: S3Client;
 
-  constructor(configService: ConfigService) {
-    const { credentials, region } = configService.getAwsConfig();
+  constructor() {
+    const { credentials, region } = readAwsConfig();
 
     this.s3Client = new S3Client({
       region,
