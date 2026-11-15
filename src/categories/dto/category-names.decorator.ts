@@ -1,4 +1,5 @@
 import { applyDecorators } from '@nestjs/common';
+import { ApiProperty } from '@nestjs/swagger';
 import { ArrayMaxSize, IsArray, IsString } from 'class-validator';
 
 const MAX_CATEGORIES_PER_CHANNEL = 20;
@@ -12,5 +13,8 @@ export function IsCategoryNamesArray() {
       message: `A channel may have at most ${MAX_CATEGORIES_PER_CHANNEL} categories`,
     }),
     IsString({ each: true, message: 'Each category name must be a string' }),
+    // The swagger plugin cannot see inside applyDecorators, so ArrayMaxSize
+    // alone never reaches openapi.json.
+    ApiProperty({ maxItems: MAX_CATEGORIES_PER_CHANNEL }),
   );
 }

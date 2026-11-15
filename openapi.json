@@ -371,6 +371,7 @@
             "items": {
               "type": "string"
             },
+            "maxItems": 20,
             "type": "array"
           },
           "channelId": {
@@ -772,6 +773,7 @@
             "items": {
               "type": "string"
             },
+            "maxItems": 20,
             "type": "array"
           }
         },
