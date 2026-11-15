@@ -300,6 +300,37 @@ describe('NotesService', () => {
       ]);
     });
 
+    it('creates the note when the active one is deleted before the append lands', async () => {
+      mockNotesReadService.getActiveNote
+        .mockResolvedValueOnce(activeNote)
+        .mockResolvedValueOnce(null);
+      mockDb.get
+        .mockImplementationOnce((query, params, callback) => {
+          callback(null, undefined);
+        })
+        .mockImplementationOnce((query, params, callback) => {
+          callback(null, {
+            id: 'note-2',
+            user_id: userId,
+            source_type: 'article',
+            source_id: articleId,
+            content: 'Turn',
+            created_at: '2026-05-17T12:00:00.000Z',
+            updated_at: '2026-05-17T12:00:00.000Z',
+          });
+        });
+
+      const result = await service.appendToNote(userId, {
+        source_type: 'article',
+        source_id: articleId,
+        content: 'Turn',
+      });
+
+      expect(result.content).toBe('Turn');
+      expect(mockDb.get.mock.calls[0][0]).toContain('UPDATE notes');
+      expect(mockDb.get.mock.calls[1][0]).toContain('INSERT INTO notes');
+    });
+
     it('throws not found when the parent transcription does not exist', async () => {
       mockYoutubeTranscriptionsService.getTranscriptionById.mockResolvedValue(
         null,
