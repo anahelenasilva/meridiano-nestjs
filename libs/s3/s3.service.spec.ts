@@ -5,37 +5,33 @@ import {
 } from '@aws-sdk/client-s3';
 import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
 import { Test, TestingModule } from '@nestjs/testing';
-import { mock } from 'jest-mock-extended';
 import { Readable } from 'stream';
-import { ConfigService } from '../../src/config/config.service';
 import { S3Service } from './s3.service';
 
 jest.mock('@aws-sdk/client-s3');
 jest.mock('@aws-sdk/s3-presigned-post');
 
+const AWS_ENV_KEYS = [
+  'AWS_ACCESS_KEY_ID',
+  'AWS_SECRET_ACCESS_KEY',
+  'AWS_REGION',
+] as const;
+
 describe('S3Service', () => {
   let service: S3Service;
   let mockSend: jest.Mock;
-  const mockConfigService = mock<ConfigService>();
 
   beforeEach(async () => {
     jest.clearAllMocks();
     mockSend = jest.fn();
+    for (const key of AWS_ENV_KEYS) delete process.env[key];
 
     (S3Client as jest.Mock).mockImplementation(() => ({
       send: mockSend,
     }));
 
-    mockConfigService.getAwsConfig.mockReturnValue({
-      credentials: undefined,
-      region: 'us-east-1',
-    });
-
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        S3Service,
-        { provide: ConfigService, useValue: mockConfigService },
-      ],
+      providers: [S3Service],
     }).compile();
 
     service = module.get<S3Service>(S3Service);
@@ -46,10 +42,33 @@ describe('S3Service', () => {
     if (mockSend) {
       mockSend.mockReset();
     }
+    for (const key of AWS_ENV_KEYS) delete process.env[key];
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  describe('client config', () => {
+    it('uses us-east-1 and the default credential chain when no AWS variable is set', () => {
+      expect(S3Client).toHaveBeenCalledWith({
+        region: 'us-east-1',
+        credentials: undefined,
+      });
+    });
+
+    it('uses AWS_REGION and the access keys when both keys are set', () => {
+      process.env.AWS_ACCESS_KEY_ID = 'key-id';
+      process.env.AWS_SECRET_ACCESS_KEY = 'secret';
+      process.env.AWS_REGION = 'eu-west-1';
+
+      new S3Service();
+
+      expect(S3Client).toHaveBeenLastCalledWith({
+        region: 'eu-west-1',
+        credentials: { accessKeyId: 'key-id', secretAccessKey: 'secret' },
+      });
+    });
   });
 
   describe('downloadMarkdownFile', () => {

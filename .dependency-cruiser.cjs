@@ -84,6 +84,14 @@ module.exports = {
         dependencyTypesNot: ["aliased"],
       },
     },
+    {
+      name: "packages-import-no-app-code",
+      comment:
+        "A lib imports no app code from src/ (libs/README.md#best-practices). A lib that needs a setting reads its own env vars, or takes it from the app through a forRootAsync factory like libs/email.",
+      severity: "error",
+      from: { path: `^${R}/` },
+      to: { path: "^src/" },
+    },
 
     // --- Layering (optional, off by default) ----------------------------------
     // Interface-hiding controls HOW you import (through the entry points).

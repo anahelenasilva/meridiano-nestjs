@@ -62,7 +62,7 @@ To make something public, export it from a root file. Prefer several small entry
 pnpm lint:boundaries
 ```
 
-dependency-cruiser (`.dependency-cruiser.cjs`) cruises `src`, `libs` and `test`, type-only imports included, and fails on any import into a lib's subfolder from outside that lib, and on any import cycle. PR checks run it after typecheck. Privacy is decided by folder depth, so adding a lib or a subfolder needs no config change.
+dependency-cruiser (`.dependency-cruiser.cjs`) cruises `src`, `libs` and `test`, type-only imports included, and fails on any import into a lib's subfolder from outside that lib, on any import from a lib into `src/`, and on any import cycle. PR checks run it after typecheck. Privacy is decided by folder depth, so adding a lib or a subfolder needs no config change.
 
 ## Testing Patterns
 
@@ -326,6 +326,7 @@ Jest path mapping is configured in `package.json`:
 4. **Co-locate tests**: Place test files next to the source files they test
 5. **Document exports**: Ensure public APIs are clearly documented
 6. **Follow NestJS patterns**: Use `@Injectable()`, `@Module()`, etc. consistently
+7. **A lib imports no app code from `src/`**: A lib that needs a setting reads its own env vars (`libs/redis`, `libs/s3`) or takes it from the app through `forRootAsync` (`libs/email`). `pnpm lint:boundaries` enforces this
 
 ## Migration Guide
 
