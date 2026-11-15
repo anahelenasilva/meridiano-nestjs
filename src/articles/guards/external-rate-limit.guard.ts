@@ -5,7 +5,7 @@ import {
 } from '@libs/rate-limit';
 import { Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { StaticCredential } from '../../auth/static-credential';
+import { StaticCredential } from '../../shared/helpers/static-credential';
 import { ConfigService } from '../../config/config.service';
 import { EXTERNAL_TOKEN_HEADER } from './external-token.guard';
 

@@ -7,7 +7,7 @@ import { ProfilesService } from '../../profiles/profiles.service';
 import { ArticleProcessingPipelineService } from './article-processing-pipeline.service';
 import { ProcessingNotifier } from './processing-notifier';
 import { Sleeper } from './sleeper';
-import { makeArticle } from './test-helpers';
+import { makeArticle } from '../../articles/test-helpers';
 
 describe('ArticleProcessingPipelineService', () => {
   const DELAY_MS = 500;

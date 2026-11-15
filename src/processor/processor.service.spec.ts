@@ -9,7 +9,7 @@ import { FeedProfile } from '../shared/types/feed';
 import { ArticleProcessingPipelineService } from './pipeline/article-processing-pipeline.service';
 import { ProcessingNotifier } from './pipeline/processing-notifier';
 import { Sleeper } from './pipeline/sleeper';
-import { makeArticle } from './pipeline/test-helpers';
+import { makeArticle } from '../articles/test-helpers';
 import { ProcessorService } from './processor.service';
 
 describe('ProcessorService', () => {

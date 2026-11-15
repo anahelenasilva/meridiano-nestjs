@@ -1,4 +1,4 @@
-import { DBArticle } from '../../articles/article.entity';
+import { DBArticle } from './article.entity';
 
 export function makeArticle(overrides: Partial<DBArticle> = {}): DBArticle {
   return {

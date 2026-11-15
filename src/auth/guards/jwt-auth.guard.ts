@@ -4,7 +4,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { ConfigService } from '../../config/config.service';
 import { API_KEY_ALLOWED_KEY } from '../decorators/api-key-allowed.decorator';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
-import { StaticCredential } from '../static-credential';
+import { StaticCredential } from '../../shared/helpers/static-credential';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {

@@ -5,7 +5,7 @@ import { Logger } from '@nestjs/common';
 import { Job, Queue, Worker } from 'bullmq';
 import { mock } from 'jest-mock-extended';
 import { ArticleProcessingPipelineService } from '../../processor/pipeline/article-processing-pipeline.service';
-import { makeArticle } from '../../processor/pipeline/test-helpers';
+import { makeArticle } from '../test-helpers';
 import { ProcessingSuccess } from '../../processor/pipeline/processing-result';
 import { FeedProfile } from '../../shared/types/feed';
 import { ArticleIngestionService } from '../ingestion/article-ingestion.service';
