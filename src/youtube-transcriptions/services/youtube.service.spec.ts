@@ -116,6 +116,17 @@ describe('YouTubeService', () => {
         ['def', ONE_HOUR_AGO],
       ]);
     });
+
+    it('rethrows when the channel fetch fails', async () => {
+      const failure = new Error('Channel not found');
+      jest.spyOn(Innertube, 'create').mockResolvedValue({
+        getChannel: jest.fn().mockRejectedValue(failure),
+      } as never);
+
+      await expect(
+        new YouTubeService().getChannelVideos(channelConfig),
+      ).rejects.toBe(failure);
+    });
   });
 
   describe('getVideoMetadata', () => {

@@ -1,5 +1,5 @@
 // Mock for youtubei.js
- 
+
 export const ClientType = {
   WEB: 'web',
   WEB_EMBED: 'web_embed',
@@ -7,6 +7,7 @@ export const ClientType = {
 
 export const Platform = {
   WEB: 'web',
+  // YouTubeService.downloadAudioFromVideo assigns Platform.shim.eval.
   shim: {},
 };
 
