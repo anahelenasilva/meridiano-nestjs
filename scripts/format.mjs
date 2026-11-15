@@ -1,7 +1,7 @@
 // Formats the repo's code files with Prettier. `pnpm format` and
 // .githooks/pre-commit both run it, so they share one list of code files:
 //
-//   node scripts/format.mjs                  rewrite every git-listed code file
+//   node scripts/format.mjs                  rewrite every git-listed code file but committed migrations
 //   node scripts/format.mjs --check-staged   fail when the staged copy of a code file is unformatted
 //
 // --check-staged reads each file from the index, not the working tree, so a
@@ -23,9 +23,25 @@ const git = (...args) =>
 const listFiles = isStagedCheck
   ? ['diff', '--cached', '--name-only', '--diff-filter=ACM']
   : ['ls-files', '--cached', '--others', '--exclude-standard'];
+// The pre-commit hook's check-migration-edits.sh blocks any edit to a
+// migration committed to HEAD, so `pnpm format` leaves those alone. A new
+// migration still gets formatted, and --check-staged still checks it.
+const committedMigrations = new Set(
+  isStagedCheck
+    ? []
+    : git(
+        'ls-tree',
+        '-r',
+        '-z',
+        '--name-only',
+        'HEAD',
+        '--',
+        'src/database/migrations',
+      ).split('\0'),
+);
 const paths = git(...listFiles, '-z', '--', ...codeFiles)
   .split('\0')
-  .filter(Boolean);
+  .filter((path) => path && !committedMigrations.has(path));
 if (paths.length === 0) process.exit(0);
 
 // Loaded only when there is a file to check, so a commit with no code files
