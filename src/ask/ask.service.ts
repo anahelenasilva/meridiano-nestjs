@@ -7,14 +7,11 @@ import {
 } from '@nestjs/common';
 import { ArticlesService } from '../articles/articles.service';
 import { ConfigService } from '../config/config.service';
+import type { NoteSourceType } from '../notes/note.entity';
 import { truncateToChatTokens } from '../shared/helpers/token-estimation';
 import { YoutubeTranscriptionsService } from '../youtube-transcriptions/services/youtube-transcriptions.service';
 import { ANSWERER, type Answerer, type AnswerInput } from './answerer';
-import type {
-  AskRequestDto,
-  AskResponseDto,
-  AskSourceType,
-} from './dto/ask.dto';
+import type { AskRequestDto, AskResponseDto } from './dto/ask.dto';
 
 // Matches the cap transcript structure extraction uses (issue #390).
 const MAX_SOURCE_TOKENS = 50_000;
@@ -83,7 +80,7 @@ export class AskService {
   }
 
   private async loadSource(
-    sourceType: AskSourceType,
+    sourceType: NoteSourceType,
     sourceId: string,
   ): Promise<AskSource> {
     if (sourceType === 'article') {

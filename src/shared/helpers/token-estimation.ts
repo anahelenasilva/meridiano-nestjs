@@ -24,7 +24,8 @@ export const estimateEmbeddingTokens = (text: string): number =>
 
 /**
  * Cuts `text` to roughly `maxTokens` estimated chat tokens, ending on the last
- * sentence boundary when one sits in the final 20% of the cut. Returns `text`
+ * sentence boundary when one sits in the final 20% of the cut, else on the last
+ * word boundary there (unpunctuated YouTube captions). Returns `text`
  * unchanged when it already fits, so callers detect a cut by comparing lengths.
  */
 export function truncateToChatTokens(text: string, maxTokens: number): string {
@@ -45,6 +46,11 @@ export function truncateToChatTokens(text: string, maxTokens: number): string {
 
   if (lastSentenceEnd > targetChars * 0.8) {
     return truncated.substring(0, lastSentenceEnd + 1);
+  }
+
+  const lastWordEnd = truncated.lastIndexOf(' ');
+  if (lastWordEnd > targetChars * 0.8) {
+    return truncated.substring(0, lastWordEnd);
   }
 
   return truncated;

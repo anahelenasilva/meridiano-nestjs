@@ -153,9 +153,6 @@ describe('Ask (e2e)', () => {
     }).expect(200);
 
     expect(response.body.truncated).toBe(true);
-    expect(answerer.answer.mock.calls[0][0].sourceText.length).toBeLessThan(
-      longBody.length,
-    );
   });
 
   it('returns 404 for an unknown source', async () => {

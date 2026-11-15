@@ -42,6 +42,7 @@ Feature-specific business logic organized by domain:
 | `bookmarks/`              | Article bookmarking                                    |
 | `audio-files/`            | Audio metadata and retrieval support                   |
 | `ai/`                     | AI service abstraction layer                           |
+| `ask/`                    | Answers a question about one Article or Transcription  |
 | `scraper/`                | RSS feed scraping                                      |
 | `profiles/`               | Feed profile configuration                             |
 | `config/`                 | Application configuration                              |
@@ -116,6 +117,7 @@ All endpoints prefixed with `/api/`. Authentication required globally except exp
 | `/api/youtube/transcriptions` | List, get, process video, delete, audio enqueue                                                                 |
 | `/api/youtube/channels`       | List, create, enable/disable                                                                                    |
 | `/api/bookmarks`              | Create, list, delete, check, count                                                                              |
+| `/api/ask`                    | Answer a question about one Article or YouTube Transcription, with earlier turns as `history`                   |
 | `/feeds/articles.xml`         | Public RSS feed of Articles (no `/api` prefix, no auth) — see [Nextcloud News setup](./NEXTCLOUD_NEWS_SETUP.md) |
 
 ### Unified Audio Library: GET /api/audio

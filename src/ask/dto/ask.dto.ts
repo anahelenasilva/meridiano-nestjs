@@ -10,13 +10,13 @@ import {
   MaxLength,
   ValidateNested,
 } from 'class-validator';
-
-export const ASK_SOURCE_TYPES = ['article', 'transcription'] as const;
-export type AskSourceType = (typeof ASK_SOURCE_TYPES)[number];
+import {
+  NOTE_SOURCE_TYPES,
+  type NoteSourceType,
+} from '../../notes/note.entity';
 
 export const MAX_ASK_QUESTION_LENGTH = 2000;
 export const MAX_ASK_ANSWER_LENGTH = 20000;
-export const MAX_ASK_HISTORY_TURNS = 20;
 
 const NOT_BLANK = /\S/;
 
@@ -35,10 +35,10 @@ export class AskTurnDto {
 }
 
 export class AskRequestDto {
-  @IsIn(ASK_SOURCE_TYPES, {
-    message: `source_type must be one of: ${ASK_SOURCE_TYPES.join(', ')}`,
+  @IsIn(NOTE_SOURCE_TYPES, {
+    message: `source_type must be one of: ${NOTE_SOURCE_TYPES.join(', ')}`,
   })
-  source_type: AskSourceType;
+  source_type: NoteSourceType;
 
   @IsUUID('4', { message: 'source_id must be a valid UUID' })
   source_id: string;
@@ -53,8 +53,9 @@ export class AskRequestDto {
   /** Earlier turns of the same Ask, oldest first. The server keeps no state. */
   @IsOptional()
   @IsArray({ message: 'history must be an array' })
-  @ArrayMaxSize(MAX_ASK_HISTORY_TURNS, {
-    message: `history must not exceed ${MAX_ASK_HISTORY_TURNS} turns`,
+  // A literal, not a constant: the swagger plugin only copies a literal into maxItems.
+  @ArrayMaxSize(20, {
+    message: 'history must not exceed 20 turns',
   })
   @ValidateNested({ each: true })
   @Type(() => AskTurnDto)

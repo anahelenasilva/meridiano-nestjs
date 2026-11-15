@@ -203,6 +203,7 @@
             "items": {
               "$ref": "#/components/schemas/AskTurnDto"
             },
+            "maxItems": 20,
             "type": "array"
           },
           "question": {

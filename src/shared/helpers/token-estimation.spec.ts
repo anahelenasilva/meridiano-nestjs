@@ -156,4 +156,14 @@ describe('truncateToChatTokens', () => {
     expect(sentences.startsWith(result)).toBe(true);
     expect(result.endsWith('topic.')).toBe(true);
   });
+
+  it('cuts unpunctuated text at a word boundary', () => {
+    // 100 tokens is 400 chars here, which lands inside a word.
+    const captions = 'abcdefghij '.repeat(1000);
+
+    const result = truncateToChatTokens(captions, 100);
+
+    expect(captions.startsWith(result)).toBe(true);
+    expect(captions.charAt(result.length)).toBe(' ');
+  });
 });
