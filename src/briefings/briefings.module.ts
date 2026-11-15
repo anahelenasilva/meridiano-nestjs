@@ -1,7 +1,7 @@
+import { QueueModule } from '@libs/queue';
 import { RedisModule } from '@libs/redis';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { QueueModule } from '../../libs/queue/queue.module';
 import { AiModule } from '../ai/ai.module';
 import { ArticlesModule } from '../articles/articles.module';
 import { ConfigModule } from '../config/config.module';

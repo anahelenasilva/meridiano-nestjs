@@ -72,6 +72,18 @@ module.exports = {
       from: {},
       to: { circular: true },
     },
+    {
+      name: "across-packages-through-alias",
+      comment:
+        "A package reaches another package through @libs/*, never a relative path (libs/README.md#import-conventions). ESLint's no-restricted-imports covers src/ and test/, but it can't tell `../queue/` (another package) from `../interfaces/` (same package), so this rule does it with resolved paths.",
+      severity: "error",
+      from: { path: `^${R}/([^/]+)/` },
+      to: {
+        path: `^${R}/`,
+        pathNot: `^${R}/$1/`,
+        dependencyTypesNot: ["aliased"],
+      },
+    },
 
     // --- Layering (optional, off by default) ----------------------------------
     // Interface-hiding controls HOW you import (through the entry points).

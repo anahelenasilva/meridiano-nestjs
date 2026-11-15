@@ -1,3 +1,4 @@
+import { QueueService } from '@libs/queue';
 import {
   BadRequestException,
   Body,
@@ -20,7 +21,6 @@ import {
   ApiAuthErrorResponse,
   ApiValidationErrorResponse,
 } from '../shared/swagger/api-error-response.decorators';
-import { QueueService } from '../../libs/queue/queue.service';
 import type { FeedProfile } from '../shared/types/feed';
 import { BriefingsService } from './briefings.service';
 import { UpdateBriefTitleDto } from './dto/update-brief-title.dto';
