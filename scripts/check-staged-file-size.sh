@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Pre-commit check: fails when a staged file is over 5000 tokens, estimated as
-# bytes / 4, and tells the agent how to split it. Runs from .husky/pre-commit;
+# bytes / 4, and tells the agent how to split it. Runs from .githooks/pre-commit;
 # run it by hand with:
 #
 #   bash scripts/check-staged-file-size.sh

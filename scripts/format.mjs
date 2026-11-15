@@ -1,5 +1,5 @@
 // Formats the repo's code files with Prettier. `pnpm format` and
-// .husky/pre-commit both run it, so they share one list of code files:
+// .githooks/pre-commit both run it, so they share one list of code files:
 //
 //   node scripts/format.mjs                  rewrite every git-listed code file
 //   node scripts/format.mjs --check-staged   fail when the staged copy of a code file is unformatted
@@ -11,7 +11,6 @@
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import * as prettier from 'prettier';
 
 const codeFiles = ['*.ts', '*.mts', '*.cts', '*.js', '*.mjs', '*.cjs'];
 const isStagedCheck = process.argv.includes('--check-staged');
@@ -27,6 +26,14 @@ const listFiles = isStagedCheck
 const paths = git(...listFiles, '-z', '--', ...codeFiles)
   .split('\0')
   .filter(Boolean);
+if (paths.length === 0) process.exit(0);
+
+// Loaded only when there is a file to check, so a commit with no code files
+// works in a worktree that has no node_modules yet.
+const prettier = await import('prettier').catch(() => {
+  console.error('format: cannot load prettier. Run `pnpm install` first.');
+  process.exit(1);
+});
 
 const failures = [];
 for (const path of paths) {

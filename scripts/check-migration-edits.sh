@@ -7,7 +7,7 @@
 #   bash scripts/check-migration-edits.sh --staged
 #
 # base-ref defaults to origin/main and head-ref to HEAD. --staged checks the
-# staged changes instead, and is what .husky/pre-commit runs.
+# staged changes instead, and is what .githooks/pre-commit runs.
 #
 # A deliberate edit (docs/DATABASE_MIGRATIONS.md, "Never edit a migration that
 # already ran") gets the `migration-edit` PR label, which skips this check in

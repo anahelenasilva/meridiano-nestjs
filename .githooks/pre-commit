@@ -1,5 +1,11 @@
-# Stays under 3 seconds: every check reads only the staged files. Typecheck,
-# lint and tests are too slow for this budget and run in PR Checks instead.
+#!/bin/sh
+# Git runs this before every commit: core.hooksPath=.githooks, set by the
+# prepare script on pnpm install. Skip it once with git commit --no-verify.
+#
+# Every check reads only the staged files, so a commit waits seconds at most.
+# Typecheck, lint and tests are slower and run in PR Checks instead.
+
+set -e
 
 bash scripts/check-staged-file-size.sh
 bash scripts/check-migration-edits.sh --staged >/dev/null
