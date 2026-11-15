@@ -1,0 +1,18 @@
+#!/bin/sh
+# Git runs this before every commit: core.hooksPath=.githooks, set by the
+# prepare script on pnpm install. Skip it once with git commit --no-verify.
+#
+# Every check reads only the staged files, so a commit waits seconds at most.
+# Typecheck, lint and tests are slower and run in PR Checks instead.
+
+set -e
+
+bash scripts/check-staged-file-size.sh
+bash scripts/check-migration-edits.sh --staged >/dev/null
+
+staged="$(git diff --cached --name-only)"
+if echo "$staged" | grep -qx pnpm-lock.yaml && ! echo "$staged" | grep -qx -e package.json -e pnpm-workspace.yaml; then
+  echo "pre-commit: warning, pnpm-lock.yaml is staged without package.json or pnpm-workspace.yaml. Unstage it unless you meant to change dependencies." >&2
+fi
+
+node scripts/format.mjs --check-staged
