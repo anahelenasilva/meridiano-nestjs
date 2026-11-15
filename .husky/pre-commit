@@ -1,0 +1,12 @@
+# Stays under 3 seconds: every check reads only the staged files. Typecheck,
+# lint and tests are too slow for this budget and run in PR Checks instead.
+
+bash scripts/check-staged-file-size.sh
+bash scripts/check-migration-edits.sh --staged >/dev/null
+
+staged="$(git diff --cached --name-only)"
+if echo "$staged" | grep -qx pnpm-lock.yaml && ! echo "$staged" | grep -qx -e package.json -e pnpm-workspace.yaml; then
+  echo "pre-commit: warning, pnpm-lock.yaml is staged without package.json or pnpm-workspace.yaml. Unstage it unless you meant to change dependencies." >&2
+fi
+
+node scripts/format.mjs --check-staged
