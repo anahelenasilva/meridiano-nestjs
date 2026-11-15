@@ -11,18 +11,18 @@ Rules:
 - Format the answer as markdown.`;
 
 /**
- * v1 answerer: one prompt with the whole source text, sent to the configured
- * chat provider through `callChatOrThrow` so retries apply and a provider
- * failure reaches `AskService` as an error.
+ * v1 answerer: one prompt with the whole source text, sent to the chat
+ * provider the owner picked through `callChatModelOrThrow`, so retries apply
+ * and a provider failure reaches `AskService` as an error.
  */
 @Injectable()
 export class ChatAnswerer implements Answerer {
   constructor(private readonly aiService: AiService) {}
 
   answer(input: AnswerInput): Promise<string> {
-    return this.aiService.callChatOrThrow(
+    return this.aiService.callChatModelOrThrow(
+      input.model,
       buildPrompt(input),
-      undefined,
       SYSTEM_PROMPT,
     );
   }

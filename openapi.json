@@ -197,6 +197,33 @@
         ],
         "type": "object"
       },
+      "AskModelDto": {
+        "properties": {
+          "id": {
+            "enum": [
+              "openai",
+              "deepseek"
+            ],
+            "type": "string"
+          },
+          "is_default": {
+            "type": "boolean"
+          },
+          "label": {
+            "type": "string"
+          },
+          "model_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "model_name",
+          "is_default"
+        ],
+        "type": "object"
+      },
       "AskRequestDto": {
         "properties": {
           "history": {
@@ -205,6 +232,13 @@
             },
             "maxItems": 20,
             "type": "array"
+          },
+          "model": {
+            "enum": [
+              "openai",
+              "deepseek"
+            ],
+            "type": "string"
           },
           "question": {
             "maxLength": 2000,
@@ -235,6 +269,10 @@
             "type": "string"
           },
           "model": {
+            "enum": [
+              "openai",
+              "deepseek"
+            ],
             "type": "string"
           },
           "truncated": {
@@ -1748,6 +1786,41 @@
           }
         },
         "summary": "Answer a question about one Article or YouTube Transcription",
+        "tags": [
+          "Ask"
+        ]
+      }
+    },
+    "/api/ask/models": {
+      "get": {
+        "operationId": "AskController_listModels",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AskModelDto"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          }
+        },
+        "summary": "List the chat models an Ask can use",
         "tags": [
           "Ask"
         ]
