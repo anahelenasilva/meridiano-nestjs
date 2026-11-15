@@ -1,6 +1,14 @@
 import { Category } from './category';
 
-export function mapCategoryRow(row: any): Category {
+export interface CategoryRow {
+  id: string;
+  name: string;
+  color: string;
+  created_at: string | Date;
+  updated_at: string | Date;
+}
+
+export function mapCategoryRow(row: CategoryRow): Category {
   return {
     id: row.id,
     name: row.name,

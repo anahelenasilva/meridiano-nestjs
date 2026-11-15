@@ -47,6 +47,10 @@ export class TranscriptService implements TranscriptSource {
 
       const transcriptItems: TranscriptItem[] =
         transcriptData.transcript.content.body.initial_segments.map(
+          // youtubei.js types start_ms as a string and mixes in section
+          // headers; typing this changes stored transcripts, so it waits for
+          // a spec.
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (segment: any) => ({
             text: segment.snippet.text,
             duration: segment.end_ms - segment.start_ms,

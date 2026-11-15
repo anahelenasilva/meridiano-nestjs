@@ -50,6 +50,9 @@ jobs:
       - name: Check lib import boundaries and cycles
         run: pnpm lint:boundaries
 
+      - name: Check file layout
+        run: pnpm lint:layout
+
       - name: Run tests
         run: pnpm test
 
@@ -57,6 +60,37 @@ jobs:
         run: |
           pnpm generate:openapi
           git diff --exit-code openapi.json
+
+  migration-guard:
+    name: Existing migrations unchanged
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # The workflow does not listen to `labeled`, since that would rerun every
+      # job. After adding the label, re-run this job. The step reads labels
+      # through gh because a re-run reuses the original event payload, whose
+      # label list predates the new label.
+      - name: Fail on edited, renamed or deleted migrations
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          labels="$(gh pr view "$PR_NUMBER" --json labels --jq '.labels[].name')"
+          if grep -qx migration-edit <<<"$labels"; then
+            echo "check-migration-edits: skipped, the PR has the migration-edit label"
+            exit 0
+          fi
+          bash scripts/check-migration-edits.sh "origin/$BASE_REF"
 
   e2e:
     name: E2E

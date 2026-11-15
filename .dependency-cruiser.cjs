@@ -87,10 +87,24 @@ module.exports = {
     {
       name: "packages-import-no-app-code",
       comment:
-        "A lib imports no app code from src/ (libs/README.md#best-practices). A lib that needs a setting reads its own env vars, or takes it from the app through a forRootAsync factory like libs/email.",
+        "A lib imports no app code from src/ (libs/README.md#a-lib-imports-no-app-code).",
       severity: "error",
       from: { path: `^${R}/` },
       to: { path: "^src/" },
+    },
+    {
+      name: "workers-live-in-processors",
+      comment:
+        "A class that runs a queue worker lives in a processors/ folder, so the next reader finds every worker in one place. libs/queue/ is exempt because it defines createWorker and tests it. NewsDigestService is allowlisted: it serves digests and also runs its own worker, and extracting the worker is a separate refactor. Drop the entry once it moves.",
+      severity: "error",
+      from: {
+        pathNot: [
+          "/processors/",
+          `^${R}/queue/`,
+          "^src/news-digest/news-digest\\.service(\\.spec)?\\.ts$",
+        ],
+      },
+      to: { path: `^${R}/queue/create-worker\\.ts$` },
     },
 
     // --- Layering (optional, off by default) ----------------------------------

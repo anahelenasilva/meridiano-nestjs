@@ -25,9 +25,9 @@ export interface JobStatus {
   jobId: string;
   state: string;
   progress: string | boolean | number | object;
-  result: any;
+  result: unknown;
   error: string | undefined;
-  data: any;
+  data: unknown;
 }
 
 @Injectable()

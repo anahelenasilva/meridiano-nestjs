@@ -7,7 +7,10 @@ import {
 } from '@nestjs/common';
 import { pickCategoryColor } from './category-colors';
 import { Category, CategoryWithChannelCount } from './domain/category';
-import { mapCategoryRow as mapRow } from './domain/map-category-row';
+import {
+  CategoryRow,
+  mapCategoryRow as mapRow,
+} from './domain/map-category-row';
 
 function isUniqueViolation(err: Error): boolean {
   const withCode = err as Error & { code?: string };
@@ -41,7 +44,10 @@ export class CategoriesService {
         ORDER BY LOWER(c.name)
         `,
         [],
-        (err: Error | null, rows?: any[]) => {
+        (
+          err: Error | null,
+          rows?: (CategoryRow & { channel_count: string })[],
+        ) => {
           if (err) {
             reject(err);
             return;
@@ -65,7 +71,7 @@ export class CategoriesService {
       db.get(
         'SELECT id, name, color, created_at, updated_at FROM categories WHERE LOWER(name) = LOWER(?)',
         [name],
-        (err: Error | null, row?: any) => {
+        (err: Error | null, row?: CategoryRow) => {
           if (err) {
             reject(
               new InternalServerErrorException('Failed to look up category'),
@@ -111,7 +117,7 @@ export class CategoriesService {
         RETURNING id, name, color, created_at, updated_at
         `,
         [name, color],
-        (err: Error | null, row?: any) => {
+        (err: Error | null, row?: CategoryRow) => {
           if (err) {
             reject(
               isUniqueViolation(err)
@@ -119,6 +125,15 @@ export class CategoriesService {
                     `A category named "${name}" already exists`,
                   )
                 : new InternalServerErrorException('Failed to create category'),
+            );
+            return;
+          }
+
+          if (!row) {
+            reject(
+              new InternalServerErrorException(
+                `Creating category "${name}" returned no row`,
+              ),
             );
             return;
           }
@@ -141,7 +156,7 @@ export class CategoriesService {
         RETURNING id, name, color, created_at, updated_at
         `,
         [name, id],
-        (err: Error | null, row?: any) => {
+        (err: Error | null, row?: CategoryRow) => {
           if (err) {
             reject(
               isUniqueViolation(err)

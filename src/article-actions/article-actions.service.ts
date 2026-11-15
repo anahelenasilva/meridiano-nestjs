@@ -57,6 +57,19 @@ const TRANSITION_FROM: Record<TransitionTarget, string> = {
   failed: `status = 'executing'`,
 };
 
+function transitionAssignments(
+  input: TransitionArticleActionDto,
+): [string, SqlParams] {
+  switch (input.status) {
+    case 'executed':
+      return [', external_ref = ?, error = NULL', [input.external_ref]];
+    case 'failed':
+      return [', error = ?', [input.error]];
+    default:
+      return ['', []];
+  }
+}
+
 interface ClassifiedAction {
   disposition: Disposition;
   status: Extract<ActionStatus, 'reference' | 'proposed'>;
@@ -331,12 +344,7 @@ export class ArticleActionsService {
       return current;
     }
 
-    const [assignments, params]: [string, SqlParams] =
-      input.status === 'executed'
-        ? [', external_ref = ?, error = NULL', [input.external_ref]]
-        : input.status === 'failed'
-          ? [', error = ?', [input.error]]
-          : ['', []];
+    const [assignments, params] = transitionAssignments(input);
 
     const row = await queryOne<ArticleActionRow>(
       this.databaseService.getDbConnection(),

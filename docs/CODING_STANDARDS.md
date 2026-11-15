@@ -1,31 +1,25 @@
 # Coding Standards
 
-## Git Operations
-- Use conventional commit messages: `feat:`, `fix:`, `refactor:`, `test:`, `docs:`
-
-## Documentation
-- Whenever you change a pattern or architecture, update the corresponding documentation.
-- For library changes, update the [docs/LIBRARIES.md](docs/LIBRARIES.md) file.
+The judgement rules no tool can check. The mechanical rules run in PR checks: `pnpm lint`, `pnpm lint:boundaries`, `pnpm lint:layout` and `pnpm lint:migrations`.
 
 ## Error Handling
-- NEVER silently ignore a null/error return from an operation
-- ALWAYS either:
-  - Throw a descriptive error with context (include IDs, operation name)
-  - Store partial results for retry (if applicable)
-  - Log the failure with structured data
-- Empty catch blocks are FORBIDDEN
+- Never silently ignore a null or error return. Either:
+  - throw a descriptive error with context (IDs, operation name),
+  - store partial results for retry, if that applies,
+  - or log the failure with structured data.
 
-## API Limits Safety
-- BEFORE sending data to any AI/external API, check for size limits
-- If input could exceed limits, truncate or chunk BEFORE the API call
+## API Limits
+- Before sending data to an AI or external API, check its size limits. If input can exceed them, truncate or chunk before the call.
 
 ## Parameter Propagation
-- When a function accepts a parameter (e.g., `customPrompt`), it MUST be:
-  - Applied consistently to ALL code paths (single-pass, chunked, fallback)
-  - Passed to all subprocesses that could use it
+- A parameter a function accepts (e.g. `customPrompt`) reaches every code path (single-pass, chunked, fallback) and every subprocess that could use it, and each path has a test that passes it.
 
-## Comment Policy
-Comment **why**, not **what**: the code already says what it does. Skip comments that restate code (`// increment counter`) or a doc block that echoes the type/signature. Keep only non-obvious context: rationale, constraints, tradeoffs, warnings, issue links. Prefer a better name over a comment. If deleting a comment loses no info, delete it.
+## Tests
+- Tests cover public methods, error and edge cases, and fallback paths, not only the happy path.
+- A wrapper function gets a test that calls the wrapper itself, not only the functions it delegates to. If real I/O makes that look unsafe, use a fixture (tmp dir, mock) instead of excluding the wrapper from coverage.
+
+## Comments
+Comment **why**, not **what**: the code already says what it does. Skip comments that restate code (`// increment counter`) or a doc block that echoes the type or signature. Keep only non-obvious context: rationale, constraints, tradeoffs, warnings, issue links. Prefer a better name over a comment. If deleting a comment loses no info, delete it.
 
 Bad:
 ```typescript
@@ -35,3 +29,16 @@ type ErrorType = 'retryable' | 'fatal';
 // Validate input data
 if (!text || text.trim().length === 0) { ... }
 ```
+
+## Documentation
+- A change to a pattern or the architecture updates the doc that describes it.
+- A change to a lib updates [docs/LIBRARIES.md](./LIBRARIES.md).
+
+## Module Layout
+- Modules are domain contexts (Articles, Audio, Users), never a central aggregator like `UsecasesModule`. What goes in `libs/` instead of `src/` is in [libs/README.md](../libs/README.md#what-belongs-in-libs-vs-src).
+- Add a command, query or usecase only when it owns logic (dedupe, sequencing, orchestration across services). If it would forward one call to a service unchanged, the controller calls the service directly.
+- A module starts flat, with its files in `src/<domain>/`, and gets `commands/`, `queries/` or `usecases/` only when it has a file that passes the rule above. A flat module is finished, not legacy: `bookmarks`, `scraper` and `users` keep their logic in their services.
+- Entities, helpers and extra services sit flat or in a folder named for the kind (`entities/`, `helpers/`, `services/`). Match the module you are editing, and start flat in a new one.
+
+## Migrations
+- Don't delete or rename an entity's ID column without a migration plan.
