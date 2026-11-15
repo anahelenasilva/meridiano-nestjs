@@ -1,3 +1,4 @@
+import { RateLimit, RateLimitGuard } from '@libs/rate-limit';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ApiValidationErrorResponse } from '../shared/swagger/api-error-response.decorators';
@@ -5,8 +6,6 @@ import { AuthService } from './auth.service';
 import { Public } from './decorators/public.decorator';
 import { LoginDto } from './dto/login.dto';
 import { LoginResponseDto } from './dto/login-response.dto';
-import { RateLimit } from './rate-limit/rate-limit.decorator';
-import { RateLimitGuard } from './rate-limit/rate-limit.guard';
 
 @Controller('api/auth')
 export class AuthController {

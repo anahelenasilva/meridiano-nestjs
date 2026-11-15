@@ -1,8 +1,10 @@
+import {
+  RateLimitGuard,
+  RateLimitService,
+  RateLimitRequest,
+} from '@libs/rate-limit';
 import { Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { RateLimitGuard } from '../../auth/rate-limit/rate-limit.guard';
-import { RateLimitService } from '../../auth/rate-limit/rate-limit.service';
-import { RateLimitRequest } from '../../auth/rate-limit/rate-limit.types';
 import { StaticCredential } from '../../auth/static-credential';
 import { ConfigService } from '../../config/config.service';
 import { EXTERNAL_TOKEN_HEADER } from './external-token.guard';

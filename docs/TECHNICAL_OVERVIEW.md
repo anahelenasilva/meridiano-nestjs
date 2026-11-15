@@ -45,7 +45,7 @@ Feature-specific business logic organized by domain:
 | `scraper/`                | RSS feed scraping                                      |
 | `profiles/`               | Feed profile configuration                             |
 | `config/`                 | Application configuration                              |
-| `auth/`                   | Login, JWT and API key guards, rate limiting           |
+| `auth/`                   | Login, JWT and API key guards                          |
 
 ### Infrastructure Libraries (`libs/`)
 Reusable cross-cutting concerns:
@@ -54,6 +54,7 @@ Reusable cross-cutting concerns:
 | ----------- | ------------------------------------------------ |
 | `database/` | PostgreSQL connection and TypeORM config         |
 | `queue/`    | BullMQ queue service and processors              |
+| `rate-limit/` | Redis-backed request throttling guard          |
 | `redis/`    | Redis client wrapper                             |
 | `s3/`       | S3 operations (upload, download, presigned URLs) |
 | `email/`    | Email provider abstraction                       |
@@ -85,7 +86,7 @@ After JWT validation `request.user` is `{ id }`. Handlers read it with `@Current
 
 **Static credentials**: `StaticCredential.from(configured)` wraps a secret from env (one string or a list). `check(request, header)` returns `'valid'`, `'missing'` (header absent or blank) or `'invalid'`, and each guard maps that to allow, fall through to JWT, or 401. `verifiedDigest(request, header)` gives the sha256 hex of a matching value, for keys that must not hold the secret. `JwtAuthGuard` (`x-api-key`) and the external articles guards (`x-external-token`) all use it, so there is one constant-time compare.
 
-**Rate limiting**: `RateLimitGuard` buckets requests by caller IP, with window and limit from `@RateLimit()`. A route that buckets by something else subclasses the guard and overrides `resolveKey`, as `ExternalRateLimitGuard` does to give verified external tokens their own bucket. The guard calls `RateLimitService.consume(key, { windowMs, maxAttempts })`, which counts the request in one Redis transaction and returns `{ allowed, remaining, resetAt }` for the `X-RateLimit-*` headers and the 429. If Redis fails, `consume` lets the request through. Tests run it on `InMemoryRedis` (`src/auth/rate-limit/in-memory-redis.fake.ts`).
+**Rate limiting**: login uses `RateLimitGuard` from `libs/rate-limit` (5 attempts per 15 minutes per IP). See the Rate Limit Library section in [LIBRARIES.md](./LIBRARIES.md).
 
 ## Database Schema
 
