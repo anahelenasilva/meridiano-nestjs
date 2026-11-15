@@ -7,6 +7,7 @@ export const ClientType = {
 
 export const Platform = {
   WEB: 'web',
+  shim: {},
 };
 
 export const Types = {
