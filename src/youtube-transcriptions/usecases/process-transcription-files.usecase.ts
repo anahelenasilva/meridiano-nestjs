@@ -3,7 +3,7 @@ import * as fs from 'fs/promises';
 import * as path from 'path';
 import { VideoWithTranscript } from '../../shared/types/video';
 import { YoutubeChannelsService } from '../../youtube-channels/youtube-channels.service';
-import { YoutubeTranscriptionsService } from '../../youtube-transcriptions/services/youtube-transcriptions.service';
+import { YoutubeTranscriptionsExtractionService } from '../../youtube-transcriptions/services/youtube-transcriptions-extraction.service';
 import {
   ProcessTranscriptionFilesInputDto,
   ProcessTranscriptionFilesOutputDto,
@@ -12,7 +12,7 @@ import {
 @Injectable()
 export class ProcessTranscriptionFilesUseCase {
   constructor(
-    private readonly youtubeTranscriptionsService: YoutubeTranscriptionsService,
+    private readonly extractionService: YoutubeTranscriptionsExtractionService,
     private readonly youtubeChannelsService: YoutubeChannelsService,
   ) {}
 
@@ -63,11 +63,10 @@ export class ProcessTranscriptionFilesUseCase {
           continue;
         }
 
-        const result =
-          await this.youtubeTranscriptionsService.processTranscriptionFile(
-            videoData,
-            input.generateAudio,
-          );
+        const result = await this.extractionService.processTranscriptionFile(
+          videoData,
+          input.generateAudio,
+        );
 
         if (result.success) {
           stats.processed++;

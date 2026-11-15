@@ -11,7 +11,7 @@ import {
   OnModuleDestroy,
 } from '@nestjs/common';
 import { Job, Queue, Worker } from 'bullmq';
-import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
+import { YoutubeTranscriptionsExtractionService } from '../services/youtube-transcriptions-extraction.service';
 
 /**
  * Drains the hand-picked video URLs queued by POST /api/youtube/transcriptions.
@@ -30,7 +30,7 @@ export class YoutubeTranscriptIngestProcessor
   constructor(
     @Inject(YOUTUBE_TRANSCRIPT_INGEST_QUEUE)
     private readonly queue: Queue,
-    private readonly youtubeTranscriptionsService: YoutubeTranscriptionsService,
+    private readonly extractionService: YoutubeTranscriptionsExtractionService,
   ) {}
 
   onModuleInit() {
@@ -54,14 +54,13 @@ export class YoutubeTranscriptIngestProcessor
   ): Promise<{ success: boolean; transcriptionId: string | null }> {
     const { videoUrl, channelDbId, customPrompt, generateAudio } = job.data;
 
-    const transcriptionId =
-      await this.youtubeTranscriptionsService.processSingleVideoUrl(
-        videoUrl,
-        channelDbId,
-        undefined,
-        customPrompt,
-        generateAudio,
-      );
+    const transcriptionId = await this.extractionService.processSingleVideoUrl(
+      videoUrl,
+      channelDbId,
+      undefined,
+      customPrompt,
+      generateAudio,
+    );
 
     return { success: true, transcriptionId };
   }
