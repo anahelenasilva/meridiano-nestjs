@@ -95,7 +95,7 @@ module.exports = {
     {
       name: "workers-live-in-processors",
       comment:
-        "A class that runs a queue worker lives in a processors/ folder, so the next reader finds every worker in one place. NewsDigestService is allowlisted: it serves digests and also runs its own worker, and extracting the worker is a separate refactor. Drop the entry once it moves.",
+        "A class that runs a queue worker lives in a processors/ folder, so the next reader finds every worker in one place. libs/queue/ is exempt because it defines createWorker and tests it. NewsDigestService is allowlisted: it serves digests and also runs its own worker, and extracting the worker is a separate refactor. Drop the entry once it moves.",
       severity: "error",
       from: {
         pathNot: [

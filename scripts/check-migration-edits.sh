@@ -3,15 +3,16 @@
 # migration that already ran is never rewritten by accident; new migrations
 # pass.
 #
-#   pnpm lint:migrations <base-ref> [head-ref]    head-ref defaults to HEAD
-#   pnpm lint:migrations origin/main
+#   pnpm lint:migrations [base-ref] [head-ref]
+#
+# base-ref defaults to origin/main and head-ref to HEAD.
 #
 # A deliberate edit (docs/DATABASE_MIGRATIONS.md, "Never edit a migration that
 # already ran") gets the `migration-edit` PR label, which skips this check in
 # PR Checks.
 set -uo pipefail
 
-base="${1:?usage: check-migration-edits.sh <base-ref> [head-ref]}"
+base="${1:-origin/main}"
 head="${2:-HEAD}"
 migrations='src/database/migrations'
 
