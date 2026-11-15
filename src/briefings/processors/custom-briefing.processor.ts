@@ -1,7 +1,7 @@
 import { Inject, Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { Job, Queue, Worker } from 'bullmq';
-import { CUSTOM_BRIEFING_GENERATION_QUEUE } from '../../../libs/queue/constants/queue.constants';
-import { createWorker } from '../../../libs/queue/create-worker';
+import { CUSTOM_BRIEFING_GENERATION_QUEUE } from '@libs/queue';
+import { createWorker } from '@libs/queue/create-worker';
 import { ConfigService } from '../../config/config.service';
 import { BriefingGenerationService } from '../services/briefing-generation.service';
 import { CustomBriefingJobData } from '../usecases/generate-custom-brief.usecase';

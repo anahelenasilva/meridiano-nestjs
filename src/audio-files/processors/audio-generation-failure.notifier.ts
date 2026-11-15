@@ -1,5 +1,5 @@
 import { EmailService } from '@libs/email';
-import { GenerateAudioJobData } from '@libs/queue/interfaces/audio-job.interface';
+import type { GenerateAudioJobData } from '@libs/audio';
 import { Injectable, Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 import { ConfigService } from '../../config/config.service';

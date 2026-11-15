@@ -28,7 +28,7 @@ Each library module follows NestJS conventions:
 ```
 libs/
 └── s3/
-    ├── index.ts          # Barrel export (exports module and service)
+    ├── index.ts          # Entry point (exports module and service)
     ├── s3.module.ts      # NestJS module definition
     ├── s3.service.ts     # Service implementation
     ├── s3.module.spec.ts # Module tests
@@ -37,32 +37,32 @@ libs/
 
 ## Import Conventions
 
-### Use `@libs/*` Path Aliases
+### Import a lib only through its root files
 
-Always use the `@libs/*` path alias for importing from libs modules:
+A lib's root files are its entry points. Its subfolders (`constants/`, `interfaces/`, `services/`) are internals: the lib's own files import them freely, and nothing outside the lib may.
 
 ```typescript
-// ✅ Preferred: Barrel export
-import { S3Module, S3Service } from '@libs/s3';
+// ✅ Entry points: root files of the lib
+import { QueueModule, NEWS_DIGEST_QUEUE } from '@libs/queue';
+import { createWorker } from '@libs/queue/create-worker';
+import type { GenerateAudioJobData } from '@libs/audio';
 
-// ✅ Also valid: Direct file import
-import { S3Module } from '@libs/s3/s3.module';
+// ❌ Internals: a file in a lib's subfolder
+import { NEWS_DIGEST_QUEUE } from '@libs/queue/constants/queue.constants';
 
-// ❌ Avoid: Relative paths
+// ❌ Relative paths into libs
 import { S3Service } from '../../libs/s3/s3.service';
 ```
 
-### Barrel Export Pattern
+To make something public, export it from a root file. Prefer several small entry points (`create-worker.ts` next to `index.ts`) over one `index.ts` that re-exports the whole lib, so a caller loads only what it uses.
 
-Each lib module should have an `index.ts` file that exports the module and service:
+### Checking the rule
 
-```typescript
-// libs/s3/index.ts
-export { S3Module } from './s3.module';
-export { S3Service } from './s3.service';
+```bash
+pnpm lint:boundaries
 ```
 
-This enables clean imports via `@libs/module-name` without specifying file paths.
+dependency-cruiser (`.dependency-cruiser.cjs`) cruises `src`, `libs` and `test`, type-only imports included, and fails on any import into a lib's subfolder from outside that lib, and on any import cycle. PR checks run it after typecheck. Privacy is decided by folder depth, so adding a lib or a subfolder needs no config change.
 
 ## Testing Patterns
 
@@ -320,7 +320,7 @@ Jest path mapping is configured in `package.json`:
 
 ## Best Practices
 
-1. **Always use barrel exports**: Create an `index.ts` file that exports the module and service
+1. **Import through entry points**: Import a lib only through its root files, see [Import Conventions](#import-conventions)
 2. **Use `@libs/*` imports**: Never use relative paths to libs modules
 3. **Keep libs focused**: Each lib should have a single, well-defined purpose
 4. **Co-locate tests**: Place test files next to the source files they test
@@ -333,7 +333,7 @@ When migrating a module from `src/` to `libs/`:
 
 1. **Create lib directory**: `mkdir -p libs/module-name`
 2. **Move files with git**: `git mv src/module-name/* libs/module-name/`
-3. **Create barrel export**: Add `libs/module-name/index.ts`
+3. **Create entry points**: Add `libs/module-name/index.ts` at the lib root
 4. **Update TypeScript config**: Path alias should already work
 5. **Update Jest config**: Path mapping should already work
 6. **Update imports**: Change all imports to use `@libs/module-name`

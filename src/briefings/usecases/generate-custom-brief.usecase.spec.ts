@@ -1,6 +1,6 @@
 import { Job, Queue } from 'bullmq';
 import { mock } from 'jest-mock-extended';
-import { GENERATE_CUSTOM_BRIEFING_JOB } from '../../../libs/queue/constants/queue.constants';
+import { GENERATE_CUSTOM_BRIEFING_JOB } from '@libs/queue';
 import { ConfigService } from '../../config/config.service';
 import { FeedProfile } from '../../shared/types/feed';
 import { GenerateCustomBriefUseCase } from './generate-custom-brief.usecase';

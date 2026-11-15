@@ -3,7 +3,7 @@ import { createWorker } from '@libs/queue/create-worker';
 import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { Job, Queue, UnrecoverableError, Worker } from 'bullmq';
 import { GenerateAudioUseCase } from '../usecases/generate-audio.usecase';
-import { GenerateAudioJobData } from '@libs/queue/interfaces/audio-job.interface';
+import type { GenerateAudioJobData } from '@libs/audio';
 import { AudioGenerationFailureNotifier } from './audio-generation-failure.notifier';
 
 type ErrorType = 'retryable' | 'fatal';

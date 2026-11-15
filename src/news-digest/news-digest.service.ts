@@ -1,4 +1,4 @@
-import { NEWS_DIGEST_JOB, NEWS_DIGEST_QUEUE } from '@libs/queue/constants/queue.constants';
+import { NEWS_DIGEST_JOB, NEWS_DIGEST_QUEUE } from '@libs/queue';
 import { createWorker } from '@libs/queue/create-worker';
 import { Inject, Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { Queue, Worker } from 'bullmq';

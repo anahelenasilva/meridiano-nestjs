@@ -1,5 +1,5 @@
 import { createWorker } from '@libs/queue/create-worker';
-import { GenerateAudioJobData } from '@libs/queue/interfaces/audio-job.interface';
+import type { GenerateAudioJobData } from '@libs/audio';
 import { Logger } from '@nestjs/common';
 import { Job, Queue, Worker } from 'bullmq';
 import { mock } from 'jest-mock-extended';

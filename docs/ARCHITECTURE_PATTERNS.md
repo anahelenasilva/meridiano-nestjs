@@ -22,8 +22,7 @@
 ## Import Conventions
 
 - Use `@libs/*` path aliases for all libs imports
-- Prefer barrel exports: `import { S3Module, S3Service } from '@libs/s3'`
-- Direct file imports also work: `import { S3Module } from '@libs/s3/s3.module'`
+- Import a lib only through its root files, never a file in one of its subfolders. `pnpm lint:boundaries` enforces this, see the [libs README](../libs/README.md#import-conventions)
 - Avoid relative paths like `../../libs/s3` — use `@libs/s3` instead
 
 ## CQRS Pattern
