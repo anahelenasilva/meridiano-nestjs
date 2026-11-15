@@ -14,8 +14,6 @@ cd "$(dirname "$0")/.." || exit 1
 # spec is written; the check then keeps the spec from going missing again.
 services_without_spec=(
   src/youtube-channels/channel-categories.service.ts
-  src/youtube-transcriptions/services/transcript.service.ts
-  src/youtube-transcriptions/services/youtube.service.ts
 )
 
 violations=0

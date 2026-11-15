@@ -2,9 +2,16 @@ import { Injectable } from '@nestjs/common';
 import * as fs from 'fs/promises';
 import path from 'path';
 import { ClientType, Innertube, Platform, Types } from 'youtubei.js/web';
+import type { Helpers, YTNodes } from 'youtubei.js/web';
 import { ChannelConfig } from '../../shared/types/channel';
 import { VideoMetadata } from '../../shared/types/video';
 import { parseRelativeTime } from '../helpers/parse-relative-time';
+
+// Compares the node's type string instead of calling is(YTNodes.Video),
+// because the jest youtubei.js mock has no YTNodes. The string is the one is()
+// uses.
+const isVideo = (node: Helpers.YTNode): node is YTNodes.Video =>
+  node.type === 'Video';
 
 @Injectable()
 export class YouTubeService {
@@ -102,38 +109,23 @@ export class YouTubeService {
       const channelData = await this.youtube.getChannel(channelId);
       const videos = await channelData.getVideos();
 
-      const videoMetadataList: VideoMetadata[] = [];
-      let count = 0;
-
-      for (const video of videos.videos) {
-        if (count >= maxVideos) break;
-
-        if (video.type === 'Video') {
-          // youtubei.js types `published` as optional; typing this turns a
-          // missing date from a thrown error into 'Unknown', so it waits for
-          // a spec.
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const v = video as any;
-
-          const metadata: VideoMetadata = {
-            channel: {
-              id: channelId,
-              databaseId,
-              name: channelName,
-              description: channelDescription,
-            },
-            videoId: v.id,
-            title: v.title.text || 'No title',
-            url: `https://www.youtube.com/watch?v=${v.id}`,
-            publishedAt: parseRelativeTime(v.published.text || 'Unknown'),
-            description: v.description || undefined,
-            thumbnailUrl: v.thumbnails[0]?.url || undefined,
-          };
-
-          videoMetadataList.push(metadata);
-          count++;
-        }
-      }
+      const videoMetadataList: VideoMetadata[] = videos.videos
+        .filter(isVideo)
+        .slice(0, maxVideos)
+        .map((video) => ({
+          channel: {
+            id: channelId,
+            databaseId,
+            name: channelName,
+            description: channelDescription,
+          },
+          videoId: video.video_id,
+          title: video.title.text || 'No title',
+          url: `https://www.youtube.com/watch?v=${video.video_id}`,
+          publishedAt: parseRelativeTime(video.published?.text || 'Unknown'),
+          description: video.description || undefined,
+          thumbnailUrl: video.thumbnails[0]?.url || undefined,
+        }));
 
       console.log(
         `Found ${videoMetadataList.length} videos from channel ${channelName}`,
