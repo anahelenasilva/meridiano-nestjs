@@ -8,9 +8,7 @@ import {
   Min,
 } from 'class-validator';
 import { IsCategoryNamesArray } from '../../categories/dto/category-names.decorator';
-import {
-  CategoryResponseDto,
-} from '../../categories/entities/category.entity';
+import { CategoryResponseDto } from '../../categories/entities/category.entity';
 import { Category } from '../../categories/domain/category';
 import { YoutubeChannel } from '../domain/youtube-channel';
 

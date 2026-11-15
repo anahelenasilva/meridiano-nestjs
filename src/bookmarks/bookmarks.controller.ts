@@ -103,7 +103,9 @@ export class BookmarksController {
 
   @Get()
   @ApiOperation({ summary: "List the authenticated user's bookmarks" })
-  @ApiOkResponse({ description: 'Paginated list of bookmarks with their articles' })
+  @ApiOkResponse({
+    description: 'Paginated list of bookmarks with their articles',
+  })
   async getBookmarks(
     @CurrentUser() user: AuthenticatedUser,
     @Query() query: Record<string, string | undefined>,
@@ -126,11 +128,12 @@ export class BookmarksController {
       pageNum,
       perPageNum,
     );
-    const notesBySourceId = await this.notesReadService.getActiveNotesBySourceIds(
-      user.id,
-      'article',
-      result.bookmarks.map((bookmark) => bookmark.article.id),
-    );
+    const notesBySourceId =
+      await this.notesReadService.getActiveNotesBySourceIds(
+        user.id,
+        'article',
+        result.bookmarks.map((bookmark) => bookmark.article.id),
+      );
     const articlesWithNotes = attachNotes(
       result.bookmarks.map((bookmark) => bookmark.article),
       (article) => article.id,
@@ -153,7 +156,9 @@ export class BookmarksController {
   }
 
   @Get('check/:articleId')
-  @ApiOperation({ summary: 'Check whether an article is bookmarked by the authenticated user' })
+  @ApiOperation({
+    summary: 'Check whether an article is bookmarked by the authenticated user',
+  })
   @ApiOkResponse({ description: 'Bookmark status for the article' })
   async checkBookmark(
     @CurrentUser() user: AuthenticatedUser,
@@ -171,7 +176,9 @@ export class BookmarksController {
   }
 
   @Get('count')
-  @ApiOperation({ summary: "Get the authenticated user's total bookmark count" })
+  @ApiOperation({
+    summary: "Get the authenticated user's total bookmark count",
+  })
   @ApiOkResponse({ description: 'Bookmark count' })
   async getBookmarkCount(
     @CurrentUser() user: AuthenticatedUser,
@@ -184,7 +191,9 @@ export class BookmarksController {
     return { count };
   }
 
-  private rejectClientSuppliedUserId(query: Record<string, string | undefined>) {
+  private rejectClientSuppliedUserId(
+    query: Record<string, string | undefined>,
+  ) {
     if (query.user_id !== undefined) {
       throw new BadRequestException('property user_id should not exist');
     }

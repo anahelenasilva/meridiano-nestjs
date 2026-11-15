@@ -39,10 +39,14 @@ describe('CustomBriefingProcessor', () => {
     it('starts a worker on the curated briefing queue with configured concurrency', () => {
       processor.onModuleInit();
 
-      expect(createWorker).toHaveBeenCalledWith(mockQueue, expect.any(Function), {
-        logger: expect.any(Logger),
-        concurrency: 4,
-      });
+      expect(createWorker).toHaveBeenCalledWith(
+        mockQueue,
+        expect.any(Function),
+        {
+          logger: expect.any(Logger),
+          concurrency: 4,
+        },
+      );
     });
   });
 
@@ -63,7 +67,9 @@ describe('CustomBriefingProcessor', () => {
         },
       } as Job);
 
-      expect(mockBriefingGenerationService.generateCustomBrief).toHaveBeenCalledWith(
+      expect(
+        mockBriefingGenerationService.generateCustomBrief,
+      ).toHaveBeenCalledWith(
         ['article-1', 'article-2'],
         FeedProfile.DEFAULT,
         'Focus on impact',

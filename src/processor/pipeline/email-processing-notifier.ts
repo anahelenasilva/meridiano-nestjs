@@ -26,7 +26,8 @@ export class EmailProcessingNotifier implements ProcessingNotifier {
     step,
     error,
   }: ProcessingFailureNotification): Promise<void> {
-    const emailConfig = this.configService.getEmbeddingFailureNotificationEmail();
+    const emailConfig =
+      this.configService.getEmbeddingFailureNotificationEmail();
 
     if (!emailConfig) {
       this.logger.warn(

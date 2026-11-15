@@ -111,7 +111,11 @@ export function subtractFromMeridianoDate(
   const lastDayOfTargetMonth = new Date(
     Date.UTC(year, month - months, 0),
   ).getUTCDate();
-  return calendarDate(year, month - months, Math.min(day, lastDayOfTargetMonth));
+  return calendarDate(
+    year,
+    month - months,
+    Math.min(day, lastDayOfTargetMonth),
+  );
 }
 
 /** The instant the Meridiano Day `date` starts: a window's inclusive bound. */

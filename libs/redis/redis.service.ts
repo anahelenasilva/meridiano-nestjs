@@ -22,11 +22,19 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
 
   async onModuleInit() {
     this.errorHandler = (error: Error) => {
-      if (error.message?.includes('ECONNREFUSED') && error.message?.includes('127.0.0.1')) {
-        console.warn('[RedisService] Connection refused to localhost - this may be from BullMQ retries. Redis should connect via URL.');
+      if (
+        error.message?.includes('ECONNREFUSED') &&
+        error.message?.includes('127.0.0.1')
+      ) {
+        console.warn(
+          '[RedisService] Connection refused to localhost - this may be from BullMQ retries. Redis should connect via URL.',
+        );
         return;
       }
-      console.error('[RedisService] Redis connection error:', error.message || error);
+      console.error(
+        '[RedisService] Redis connection error:',
+        error.message || error,
+      );
     };
 
     this.connectHandler = () => {
@@ -40,7 +48,10 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
       await this.client.ping();
       console.log('[RedisService] Redis ping successful - client ready');
     } catch (error) {
-      console.warn('[RedisService] Redis ping failed, but client will retry:', error instanceof Error ? error.message : error);
+      console.warn(
+        '[RedisService] Redis ping failed, but client will retry:',
+        error instanceof Error ? error.message : error,
+      );
     }
   }
 
@@ -77,14 +88,18 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
         retryStrategy: (times) => {
           const delay = Math.min(times * 50, 2000);
           if (times <= 3) {
-            console.log(`[RedisService] Retrying connection in ${delay}ms (attempt ${times})`);
+            console.log(
+              `[RedisService] Retrying connection in ${delay}ms (attempt ${times})`,
+            );
           }
           return delay;
         },
       });
     }
 
-    console.log(`[RedisService] Initializing Redis client - Connecting to ${host}:${port}`);
+    console.log(
+      `[RedisService] Initializing Redis client - Connecting to ${host}:${port}`,
+    );
 
     return new Redis({
       host,
@@ -96,7 +111,9 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
       retryStrategy: (times) => {
         const delay = Math.min(times * 50, 2000);
         if (times <= 3) {
-          console.log(`[RedisService] Retrying connection in ${delay}ms (attempt ${times})`);
+          console.log(
+            `[RedisService] Retrying connection in ${delay}ms (attempt ${times})`,
+          );
         }
         return delay;
       },

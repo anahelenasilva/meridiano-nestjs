@@ -128,7 +128,11 @@ export class ArticlesService {
         SET processed_content = ?, embedding = ?
         WHERE id = ?
       `,
-      [processedContent, embedding ? JSON.stringify(embedding) : null, articleId],
+      [
+        processedContent,
+        embedding ? JSON.stringify(embedding) : null,
+        articleId,
+      ],
     );
   }
 
@@ -509,11 +513,7 @@ export class ArticlesService {
 
     query += ' ORDER BY feed_source';
 
-    const rows = await queryAll<Pick<ArticleRow, 'feed_source'>>(
-      db,
-      query,
-      [],
-    );
+    const rows = await queryAll<Pick<ArticleRow, 'feed_source'>>(db, query, []);
     return rows.map((row) => row.feed_source);
   }
 

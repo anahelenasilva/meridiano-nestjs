@@ -18,7 +18,11 @@ describe('attachNotes', () => {
   it('embeds a NoteResponseDto-shaped note when one exists for the source_id', () => {
     const items = [{ id: idA, title: 'Article A' }];
 
-    const result = attachNotes(items, (item) => item.id, new Map([[idA, noteA]]));
+    const result = attachNotes(
+      items,
+      (item) => item.id,
+      new Map([[idA, noteA]]),
+    );
 
     expect(result[0]).toEqual({
       id: idA,
@@ -38,7 +42,11 @@ describe('attachNotes', () => {
   it('embeds note: null for items whose source_id has no active note', () => {
     const items = [{ id: idB, title: 'Article B' }];
 
-    const result = attachNotes(items, (item) => item.id, new Map([[idA, noteA]]));
+    const result = attachNotes(
+      items,
+      (item) => item.id,
+      new Map([[idA, noteA]]),
+    );
 
     expect(result[0].note).toBeNull();
   });
@@ -49,9 +57,16 @@ describe('attachNotes', () => {
       { id: idB, title: 'Article B' },
     ];
 
-    const result = attachNotes(items, (item) => item.id, new Map([[idA, noteA]]));
+    const result = attachNotes(
+      items,
+      (item) => item.id,
+      new Map([[idA, noteA]]),
+    );
 
-    expect(result.map((item) => item.title)).toEqual(['Article A', 'Article B']);
+    expect(result.map((item) => item.title)).toEqual([
+      'Article A',
+      'Article B',
+    ]);
     expect(result[0].note?.id).toBe('note-a');
     expect(result[1].note).toBeNull();
   });
@@ -65,8 +80,8 @@ describe('attachNotes', () => {
   });
 
   it('returns an empty list for empty input', () => {
-    expect(attachNotes([], (item: { id: string }) => item.id, new Map())).toEqual(
-      [],
-    );
+    expect(
+      attachNotes([], (item: { id: string }) => item.id, new Map()),
+    ).toEqual([]);
   });
 });

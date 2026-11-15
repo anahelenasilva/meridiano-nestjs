@@ -91,7 +91,9 @@ describe('estimateTokenCount', () => {
       const longChars = 'a'.repeat(100);
       const charEstimate = Math.ceil(100 / 2.5);
       const wordEstimate = 1;
-      expect(estimateTokenCount(longChars)).toBe(Math.max(charEstimate, wordEstimate));
+      expect(estimateTokenCount(longChars)).toBe(
+        Math.max(charEstimate, wordEstimate),
+      );
     });
 
     it('uses word estimate when higher than char estimate', () => {

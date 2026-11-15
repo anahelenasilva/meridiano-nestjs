@@ -1,9 +1,4 @@
-import {
-  DynamicModule,
-  InjectionToken,
-  Module,
-  Type,
-} from '@nestjs/common';
+import { DynamicModule, InjectionToken, Module, Type } from '@nestjs/common';
 import { EmailService, MAILGUN_CONFIG } from './email.service';
 import { MailgunConfig } from './interfaces/mailgun-config.interface';
 

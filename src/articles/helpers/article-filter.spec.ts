@@ -13,14 +13,20 @@ describe('compileArticleFilter preset windows', () => {
     ['last_30d', '2026-09-25T03:00:00.000Z', '2026-10-26T03:00:00.000Z'],
     ['last_3m', '2026-07-25T03:00:00.000Z', '2026-10-26T03:00:00.000Z'],
     ['last_12m', '2025-10-25T03:00:00.000Z', '2026-10-26T03:00:00.000Z'],
-  ])('resolves %s to the Meridiano Days %s through %s', (preset, start, end) => {
-    const { params } = compileArticleFilter({ preset }, lateEvening);
+  ])(
+    'resolves %s to the Meridiano Days %s through %s',
+    (preset, start, end) => {
+      const { params } = compileArticleFilter({ preset }, lateEvening);
 
-    expect(params).toEqual([start, end]);
-  });
+      expect(params).toEqual([start, end]);
+    },
+  );
 
   it('bounds the window half-open, so the whole end day is inside it', () => {
-    const { where } = compileArticleFilter({ preset: 'yesterday' }, lateEvening);
+    const { where } = compileArticleFilter(
+      { preset: 'yesterday' },
+      lateEvening,
+    );
 
     expect(where).toBe(
       'archived_at IS NULL AND published_date >= ? AND published_date < ?',

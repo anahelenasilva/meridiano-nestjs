@@ -11,7 +11,9 @@ describe('NewsDigestController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [NewsDigestController],
-      providers: [{ provide: NewsDigestService, useValue: mockNewsDigestService }],
+      providers: [
+        { provide: NewsDigestService, useValue: mockNewsDigestService },
+      ],
     }).compile();
 
     controller = module.get<NewsDigestController>(NewsDigestController);
@@ -35,7 +37,12 @@ describe('NewsDigestController', () => {
 
     it('returns the latest digest items', async () => {
       const items = [
-        { articleId: 'a1', title: 'Title 1', feedSource: 'Source 1', url: 'https://example.com/1' },
+        {
+          articleId: 'a1',
+          title: 'Title 1',
+          feedSource: 'Source 1',
+          url: 'https://example.com/1',
+        },
       ];
       mockNewsDigestService.getLatestDigest.mockResolvedValue(items);
 

@@ -33,14 +33,22 @@ describe('ListFailedIngestJobsQuery', () => {
 
   it('resolves each distinct channel name once', async () => {
     mockQueue.getJobs.mockResolvedValue([
-      fakeJob('channel-1__aaa', {
-        videoUrl: 'https://www.youtube.com/watch?v=aaa',
-        channelDbId: 'channel-1',
-      }, 'No transcript available'),
-      fakeJob('channel-1__bbb', {
-        videoUrl: 'https://www.youtube.com/watch?v=bbb',
-        channelDbId: 'channel-1',
-      }, 'No transcript available'),
+      fakeJob(
+        'channel-1__aaa',
+        {
+          videoUrl: 'https://www.youtube.com/watch?v=aaa',
+          channelDbId: 'channel-1',
+        },
+        'No transcript available',
+      ),
+      fakeJob(
+        'channel-1__bbb',
+        {
+          videoUrl: 'https://www.youtube.com/watch?v=bbb',
+          channelDbId: 'channel-1',
+        },
+        'No transcript available',
+      ),
     ] as never);
     mockChannels.getChannelById.mockResolvedValue({
       id: 'channel-1',
@@ -69,10 +77,14 @@ describe('ListFailedIngestJobsQuery', () => {
 
   it('falls back to a placeholder name when the channel is gone', async () => {
     mockQueue.getJobs.mockResolvedValue([
-      fakeJob('channel-x__aaa', {
-        videoUrl: 'https://www.youtube.com/watch?v=aaa',
-        channelDbId: 'channel-x',
-      }, 'boom'),
+      fakeJob(
+        'channel-x__aaa',
+        {
+          videoUrl: 'https://www.youtube.com/watch?v=aaa',
+          channelDbId: 'channel-x',
+        },
+        'boom',
+      ),
     ] as never);
     mockChannels.getChannelById.mockResolvedValue(null);
 
@@ -89,14 +101,22 @@ describe('ListFailedIngestJobsQuery', () => {
 
   it('keeps the rest of the list when one channel lookup rejects', async () => {
     mockQueue.getJobs.mockResolvedValue([
-      fakeJob('channel-x__aaa', {
-        videoUrl: 'https://www.youtube.com/watch?v=aaa',
-        channelDbId: 'channel-x',
-      }, 'boom'),
-      fakeJob('channel-y__bbb', {
-        videoUrl: 'https://www.youtube.com/watch?v=bbb',
-        channelDbId: 'channel-y',
-      }, 'boom'),
+      fakeJob(
+        'channel-x__aaa',
+        {
+          videoUrl: 'https://www.youtube.com/watch?v=aaa',
+          channelDbId: 'channel-x',
+        },
+        'boom',
+      ),
+      fakeJob(
+        'channel-y__bbb',
+        {
+          videoUrl: 'https://www.youtube.com/watch?v=bbb',
+          channelDbId: 'channel-y',
+        },
+        'boom',
+      ),
     ] as never);
     mockChannels.getChannelById.mockImplementation((id: string) => {
       if (id === 'channel-x') {

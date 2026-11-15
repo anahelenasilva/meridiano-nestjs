@@ -29,7 +29,7 @@ function convertPlaceholders(sql: string): string {
 }
 
 class PostgresConnection implements DatabaseConnection {
-  constructor(private pool: Pool) { }
+  constructor(private pool: Pool) {}
 
   prepare(sql: string): PreparedStatement {
     return new PostgresPreparedStatement(this.pool, sql);
@@ -122,7 +122,7 @@ class PostgresPreparedStatement implements PreparedStatement {
   constructor(
     private pool: Pool,
     private sql: string,
-  ) { }
+  ) {}
 
   run(params: SqlParams, callback?: RunCallback): RunResult {
     const result: RunResult = {};
@@ -179,11 +179,16 @@ export class DatabaseService implements OnModuleDestroy {
     const connectionString =
       process.env.DATABASE_URL ||
       (() => {
-        const dbUser = process.env.DATABASE_USER || process.env.PGUSER || 'postgres';
-        const dbPassword = process.env.DATABASE_PASSWORD || process.env.PGPASSWORD || '';
-        const dbHost = process.env.DATABASE_HOST || process.env.PGHOST || 'localhost';
-        const dbPort = process.env.DATABASE_PORT || process.env.PGPORT || '5432';
-        const dbName = process.env.DATABASE_NAME || process.env.PGDATABASE || 'meridian';
+        const dbUser =
+          process.env.DATABASE_USER || process.env.PGUSER || 'postgres';
+        const dbPassword =
+          process.env.DATABASE_PASSWORD || process.env.PGPASSWORD || '';
+        const dbHost =
+          process.env.DATABASE_HOST || process.env.PGHOST || 'localhost';
+        const dbPort =
+          process.env.DATABASE_PORT || process.env.PGPORT || '5432';
+        const dbName =
+          process.env.DATABASE_NAME || process.env.PGDATABASE || 'meridian';
 
         const encodedUser = encodeURIComponent(dbUser);
         const encodedPassword = encodeURIComponent(dbPassword);
@@ -194,7 +199,10 @@ export class DatabaseService implements OnModuleDestroy {
 
     this.pool = new Pool({
       connectionString,
-      ssl: process.env.DATABASE_SSL === 'true' ? { rejectUnauthorized: false } : false,
+      ssl:
+        process.env.DATABASE_SSL === 'true'
+          ? { rejectUnauthorized: false }
+          : false,
       max: 20,
       idleTimeoutMillis: 30000,
       connectionTimeoutMillis: 10000,

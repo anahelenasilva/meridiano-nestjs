@@ -5,7 +5,10 @@ import { mock, MockProxy } from 'jest-mock-extended';
 import request from 'supertest';
 import { App } from 'supertest/types';
 import { JwtAuthGuard } from '../src/auth/guards/jwt-auth.guard';
-import { ArticleListRow, ArticlesService } from '../src/articles/articles.service';
+import {
+  ArticleListRow,
+  ArticlesService,
+} from '../src/articles/articles.service';
 import { ConfigService } from '../src/config/config.service';
 import { FeedsController } from '../src/feeds/feeds.controller';
 import { GetArticlesFeedQuery } from '../src/feeds/queries/get-articles-feed.query';
@@ -18,7 +21,9 @@ describe('Feeds (e2e)', () => {
 
   // The RSS feed does not render has_audio; it is only present here to
   // satisfy listArticles's return type.
-  function buildArticle(overrides: Partial<ArticleListRow> = {}): ArticleListRow {
+  function buildArticle(
+    overrides: Partial<ArticleListRow> = {},
+  ): ArticleListRow {
     return {
       id: 'article-1',
       url: 'https://source.example.com/article-1',
@@ -67,7 +72,10 @@ describe('Feeds (e2e)', () => {
   describe('GET /feeds/articles.xml', () => {
     it('returns valid RSS XML with the correct content type for an unauthenticated request', async () => {
       const article = buildArticle();
-      mockArticlesService.listArticles.mockResolvedValue({ articles: [article], total: 1 });
+      mockArticlesService.listArticles.mockResolvedValue({
+        articles: [article],
+        total: 1,
+      });
 
       const response = await request(app.getHttpServer())
         .get('/feeds/articles.xml')
@@ -76,9 +84,7 @@ describe('Feeds (e2e)', () => {
       expect(response.headers['content-type']).toBe(
         'application/rss+xml; charset=utf-8',
       );
-      expect(response.text).toContain(
-        '<?xml version="1.0" encoding="UTF-8"?>',
-      );
+      expect(response.text).toContain('<?xml version="1.0" encoding="UTF-8"?>');
       expect(response.text).toContain(
         `<guid isPermaLink="false">${article.id}</guid>`,
       );
@@ -86,7 +92,10 @@ describe('Feeds (e2e)', () => {
     });
 
     it('does not require an Authorization header', async () => {
-      mockArticlesService.listArticles.mockResolvedValue({ articles: [], total: 0 });
+      mockArticlesService.listArticles.mockResolvedValue({
+        articles: [],
+        total: 0,
+      });
 
       await request(app.getHttpServer())
         .get('/feeds/articles.xml')
@@ -95,7 +104,10 @@ describe('Feeds (e2e)', () => {
     });
 
     it('filters by feedProfile when given', async () => {
-      mockArticlesService.listArticles.mockResolvedValue({ articles: [], total: 0 });
+      mockArticlesService.listArticles.mockResolvedValue({
+        articles: [],
+        total: 0,
+      });
 
       await request(app.getHttpServer())
         .get('/feeds/articles.xml?feedProfile=technology')
@@ -108,7 +120,10 @@ describe('Feeds (e2e)', () => {
     });
 
     it('bounds the item count to the given limit', async () => {
-      mockArticlesService.listArticles.mockResolvedValue({ articles: [], total: 0 });
+      mockArticlesService.listArticles.mockResolvedValue({
+        articles: [],
+        total: 0,
+      });
 
       await request(app.getHttpServer())
         .get('/feeds/articles.xml?limit=5')
@@ -121,7 +136,10 @@ describe('Feeds (e2e)', () => {
     });
 
     it('falls back to safe defaults when given invalid query values', async () => {
-      mockArticlesService.listArticles.mockResolvedValue({ articles: [], total: 0 });
+      mockArticlesService.listArticles.mockResolvedValue({
+        articles: [],
+        total: 0,
+      });
 
       await request(app.getHttpServer())
         .get('/feeds/articles.xml?limit=not-a-number&feedProfile=bogus')

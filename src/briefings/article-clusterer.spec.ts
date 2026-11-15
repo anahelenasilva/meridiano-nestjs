@@ -46,9 +46,7 @@ describe('ArticleClusterer', () => {
     const clusters = clusterer.cluster(articles, 2);
 
     const assignedIds = clusters.flatMap((c) => c.articleIds).sort();
-    expect(assignedIds).toEqual(
-      articles.map((a) => a.id).sort(),
-    );
+    expect(assignedIds).toEqual(articles.map((a) => a.id).sort());
   });
 
   it('degrades gracefully when fewer articles than k', () => {
@@ -68,7 +66,10 @@ describe('ArticleClusterer', () => {
   });
 
   it('returns single cluster for one article', () => {
-    const clusters = clusterer.cluster([{ id: 'a1', embedding: [1.0, 2.0] }], 2);
+    const clusters = clusterer.cluster(
+      [{ id: 'a1', embedding: [1.0, 2.0] }],
+      2,
+    );
 
     expect(clusters).toHaveLength(1);
     expect(clusters[0].articleIds).toEqual(['a1']);

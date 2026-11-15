@@ -120,9 +120,9 @@ describe('FeedsController', () => {
 
     const controller = buildController();
 
-    await expect(
-      controller.getArticlesFeed(buildRequest()),
-    ).rejects.toThrow('feed generation failed');
+    await expect(controller.getArticlesFeed(buildRequest())).rejects.toThrow(
+      'feed generation failed',
+    );
   });
 
   it('has @Public() on the getYoutubeFeed endpoint', () => {
@@ -196,7 +196,9 @@ describe('FeedsController', () => {
     const controller = buildController();
 
     await expect(
-      controller.getYoutubeFeed(buildRequest({ originalUrl: '/feeds/youtube.xml' })),
+      controller.getYoutubeFeed(
+        buildRequest({ originalUrl: '/feeds/youtube.xml' }),
+      ),
     ).rejects.toThrow('feed generation failed');
   });
 });

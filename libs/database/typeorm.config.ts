@@ -10,13 +10,19 @@ loadEnv();
 const connectionString =
   process.env.DATABASE_URL ||
   (() => {
-    const dbUser = process.env.DATABASE_USER || process.env.PGUSER || 'postgres';
-    const dbPassword = process.env.DATABASE_PASSWORD || process.env.PGPASSWORD || 'postgres';
-    const dbHost = process.env.DATABASE_HOST || process.env.PGHOST || 'localhost';
+    const dbUser =
+      process.env.DATABASE_USER || process.env.PGUSER || 'postgres';
+    const dbPassword =
+      process.env.DATABASE_PASSWORD || process.env.PGPASSWORD || 'postgres';
+    const dbHost =
+      process.env.DATABASE_HOST || process.env.PGHOST || 'localhost';
     const dbPort = process.env.DATABASE_PORT || process.env.PGPORT || '5432';
-    const dbName = process.env.DATABASE_NAME || process.env.PGDATABASE || 'meridian';
+    const dbName =
+      process.env.DATABASE_NAME || process.env.PGDATABASE || 'meridian';
 
-    console.log(`  Connecting to database at ${dbHost}:${dbPort}/${dbName} (user: ${dbUser})`);
+    console.log(
+      `  Connecting to database at ${dbHost}:${dbPort}/${dbName} (user: ${dbUser})`,
+    );
 
     const encodedUser = encodeURIComponent(dbUser);
     const encodedPassword = encodeURIComponent(dbPassword);
@@ -33,7 +39,8 @@ export const typeormConfig: DataSourceOptions = {
   migrationsTableName: 'typeorm_migrations',
   synchronize: false,
   logging: process.env.NODE_ENV === 'development',
-  ssl: process.env.DATABASE_SSL === 'true' ? { rejectUnauthorized: false } : false,
+  ssl:
+    process.env.DATABASE_SSL === 'true' ? { rejectUnauthorized: false } : false,
   extra: { types: typeParsers },
 };
 

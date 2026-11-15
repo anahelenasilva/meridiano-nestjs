@@ -122,13 +122,17 @@ describe('DatabaseService', () => {
     });
 
     it('should use DATABASE_URL if provided', async () => {
-      process.env.DATABASE_URL = 'postgresql://fake-user:fake-password@fake-host:5432/fake-db';
+      process.env.DATABASE_URL =
+        'postgresql://fake-user:fake-password@fake-host:5432/fake-db';
 
       await service.initDb();
 
-      expect(Pool).toHaveBeenCalledWith(expect.objectContaining({
-        connectionString: 'postgresql://fake-user:fake-password@fake-host:5432/fake-db',
-      }));
+      expect(Pool).toHaveBeenCalledWith(
+        expect.objectContaining({
+          connectionString:
+            'postgresql://fake-user:fake-password@fake-host:5432/fake-db',
+        }),
+      );
     });
 
     it('should build connection string from environment variables', async () => {
@@ -141,15 +145,19 @@ describe('DatabaseService', () => {
 
       await service.initDb();
 
-      expect(Pool).toHaveBeenCalledWith(expect.objectContaining({
-        connectionString: expect.stringContaining('fake-test-user'),
-      }));
+      expect(Pool).toHaveBeenCalledWith(
+        expect.objectContaining({
+          connectionString: expect.stringContaining('fake-test-user'),
+        }),
+      );
     });
 
     it('should pass the type parsers to the Pool', async () => {
       await service.initDb();
 
-      expect(Pool).toHaveBeenCalledWith(expect.objectContaining({ types: typeParsers }));
+      expect(Pool).toHaveBeenCalledWith(
+        expect.objectContaining({ types: typeParsers }),
+      );
     });
 
     it('should handle connection errors', async () => {
@@ -255,7 +263,7 @@ describe('DatabaseService', () => {
     // numbered like a placeholder and shifts every parameter after it, so the
     // id below binds $2 while the caller passes it as the first parameter.
     // Pass the LIKE pattern as a parameter instead.
-    it("rewrites a ? inside a string literal and shifts the parameters after it", async () => {
+    it('rewrites a ? inside a string literal and shifts the parameters after it', async () => {
       const converted = await queriedSql(
         "SELECT id FROM articles WHERE title LIKE '%?%' AND id = ?",
       );

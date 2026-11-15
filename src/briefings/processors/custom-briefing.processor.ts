@@ -1,4 +1,10 @@
-import { Inject, Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  Logger,
+  OnModuleDestroy,
+  OnModuleInit,
+} from '@nestjs/common';
 import { Job, Queue, Worker } from 'bullmq';
 import { CUSTOM_BRIEFING_GENERATION_QUEUE } from '@libs/queue';
 import { createWorker } from '@libs/queue/create-worker';
@@ -16,7 +22,7 @@ export class CustomBriefingProcessor implements OnModuleInit, OnModuleDestroy {
     private readonly queue: Queue,
     private readonly briefingGenerationService: BriefingGenerationService,
     private readonly configService: ConfigService,
-  ) { }
+  ) {}
 
   onModuleInit() {
     const { concurrency } = this.configService.getCustomBriefingQueueConfig();

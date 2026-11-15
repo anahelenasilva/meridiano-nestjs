@@ -140,7 +140,9 @@ describe('ArticleProcessor', () => {
     } as never);
     audioJobService.enqueueAudioJob.mockRejectedValue(new Error('queue down'));
 
-    const result = await processor.handleJob(createJob({ generateAudio: true }));
+    const result = await processor.handleJob(
+      createJob({ generateAudio: true }),
+    );
 
     expect(result.success).toBe(true);
   });
@@ -149,9 +151,13 @@ describe('ArticleProcessor', () => {
     it('starts a worker on the article processing queue', () => {
       processor.onModuleInit();
 
-      expect(createWorker).toHaveBeenCalledWith(mockQueue, expect.any(Function), {
-        logger: expect.any(Logger),
-      });
+      expect(createWorker).toHaveBeenCalledWith(
+        mockQueue,
+        expect.any(Function),
+        {
+          logger: expect.any(Logger),
+        },
+      );
     });
   });
 });

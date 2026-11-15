@@ -56,12 +56,12 @@ export class YoutubeTranscriptionsController {
   ) {}
 
   @Get('transcriptions')
-  @ApiOperation({ summary: "List the authenticated user's YouTube transcriptions" })
+  @ApiOperation({
+    summary: "List the authenticated user's YouTube transcriptions",
+  })
   @ApiOkResponse({ description: 'List of YouTube transcriptions' })
   async listTranscriptions(@CurrentUser() user: AuthenticatedUser) {
-    return await this.listAllYoutubeTranscriptionsQuery.execute(
-      user.id,
-    );
+    return await this.listAllYoutubeTranscriptionsQuery.execute(user.id);
   }
 
   // Declared before transcriptions/:id so 'lean' is not rejected by that
@@ -164,8 +164,14 @@ export class YoutubeTranscriptionsController {
   @ApiOperation({ summary: 'Generate audio for a YouTube transcription' })
   @ApiResponse({ status: 202, description: 'Audio generation job accepted' })
   @ApiNotFoundResponse({ description: 'YouTube transcription not found' })
-  @ApiResponse({ status: 400, description: 'Transcription has no content available for audio generation' })
-  @ApiResponse({ status: 409, description: 'Audio already exists or generation already in progress' })
+  @ApiResponse({
+    status: 400,
+    description: 'Transcription has no content available for audio generation',
+  })
+  @ApiResponse({
+    status: 409,
+    description: 'Audio already exists or generation already in progress',
+  })
   async generateAudio(
     @CurrentUser() user: AuthenticatedUser,
     @Param('id', ParseUUIDPipe) id: string,

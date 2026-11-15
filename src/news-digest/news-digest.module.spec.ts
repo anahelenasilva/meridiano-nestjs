@@ -18,7 +18,9 @@ describe('NewsDigestModule.onModuleInit', () => {
 
   function makeModule(overrides: { prompt?: string }) {
     const mockConfig = mock<ConfigService>();
-    mockConfig.getNewsDigestPrompt.mockReturnValue(overrides.prompt ?? 'prompt');
+    mockConfig.getNewsDigestPrompt.mockReturnValue(
+      overrides.prompt ?? 'prompt',
+    );
     return new NewsDigestModule(mockConfig);
   }
 

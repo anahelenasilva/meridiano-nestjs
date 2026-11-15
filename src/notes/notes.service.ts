@@ -136,7 +136,10 @@ export class NotesService {
     });
   }
 
-  private async updateActiveNote(noteId: string, content: string): Promise<Note> {
+  private async updateActiveNote(
+    noteId: string,
+    content: string,
+  ): Promise<Note> {
     const db = this.databaseService.getDbConnection();
 
     return new Promise((resolve, reject) => {

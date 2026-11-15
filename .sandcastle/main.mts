@@ -18,12 +18,12 @@
 // Or add to package.json:
 //   "scripts": { "sandcastle": "npx tsx .sandcastle/main.mts" }
 
-import * as sandcastle from "@ai-hero/sandcastle";
-import { docker } from "@ai-hero/sandcastle/sandboxes/docker";
-import { execFileSync } from "node:child_process";
-import { mkdirSync } from "node:fs";
-import { homedir } from "node:os";
-import { join } from "node:path";
+import * as sandcastle from '@ai-hero/sandcastle';
+import { docker } from '@ai-hero/sandcastle/sandboxes/docker';
+import { execFileSync } from 'node:child_process';
+import { mkdirSync } from 'node:fs';
+import { homedir } from 'node:os';
+import { join } from 'node:path';
 
 // ---------------------------------------------------------------------------
 // Configuration
@@ -40,7 +40,7 @@ const hooks = {
   sandbox: {
     onSandboxReady: [
       {
-        command: "CI=true pnpm install --frozen-lockfile --prefer-offline",
+        command: 'CI=true pnpm install --frozen-lockfile --prefer-offline',
         timeoutMs: 500_000,
       },
     ],
@@ -50,7 +50,7 @@ const hooks = {
 // Persist the pnpm store across sandbox runs on the host so that
 // --prefer-offline installs are fast after the first run.
 // resolveUserMounts requires the directory to exist, so we create it here.
-const pnpmStoreDir = join(homedir(), ".cache", "sandcastle-pnpm-store");
+const pnpmStoreDir = join(homedir(), '.cache', 'sandcastle-pnpm-store');
 mkdirSync(pnpmStoreDir, { recursive: true });
 
 // node_modules is intentionally excluded: copying macOS-specific modules into
@@ -64,7 +64,7 @@ const copyToWorktree: string[] = [];
 // ---------------------------------------------------------------------------
 
 const controller = new AbortController();
-process.on("SIGINT", () => controller.abort());
+process.on('SIGINT', () => controller.abort());
 
 // ---------------------------------------------------------------------------
 // Main loop
@@ -81,7 +81,7 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
   // sandbox[Symbol.asyncDispose] runs exactly once when this block exits,
   // even if an exception is thrown mid-phase.
   // -------------------------------------------------------------------------
-  const implementBranch = `sandcastle/impl/${new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19)}`;
+  const implementBranch = `sandcastle/impl/${new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19)}`;
 
   // Hoist so the merge phase (outside the block) can read these.
   let branch = implementBranch;
@@ -96,7 +96,7 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
         mounts: [
           {
             hostPath: pnpmStoreDir,
-            sandboxPath: "~/.local/share/pnpm/store",
+            sandboxPath: '~/.local/share/pnpm/store',
           },
         ],
       }),
@@ -109,59 +109,72 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
     let implementResult: Awaited<ReturnType<typeof sandbox.run>> | undefined;
     try {
       implementResult = await sandbox.run({
-        name: "implementer",
+        name: 'implementer',
         maxIterations: 1,
         idleTimeoutSeconds: 420,
-        agent: sandcastle.claudeCode("claude-sonnet-5-5"),
-        promptFile: "./.sandcastle/implement-prompt.md",
+        agent: sandcastle.claudeCode('claude-sonnet-5-5'),
+        promptFile: './.sandcastle/implement-prompt.md',
         signal: controller.signal,
       });
     } catch (err) {
       const error = err as Record<string, unknown>;
-      if (error["_tag"] !== "AgentIdleTimeoutError") {
-        const sandboxInfo = (error["containerId"] ?? "(unavailable)") as string;
+      if (error['_tag'] !== 'AgentIdleTimeoutError') {
+        const sandboxInfo = (error['containerId'] ?? '(unavailable)') as string;
         console.error(`Implementer failed. Container: ${sandboxInfo}`, err);
         throw err;
       }
-      const worktreePath = error["preservedWorktreePath"] as string | undefined;
+      const worktreePath = error['preservedWorktreePath'] as string | undefined;
       if (worktreePath) {
         recoveredWorktreePath = worktreePath;
-        branch = execFileSync("git", ["-C", worktreePath, "rev-parse", "--abbrev-ref", "HEAD"], {
-          encoding: "utf8",
-        }).trim();
+        branch = execFileSync(
+          'git',
+          ['-C', worktreePath, 'rev-parse', '--abbrev-ref', 'HEAD'],
+          {
+            encoding: 'utf8',
+          },
+        ).trim();
         console.warn(`Recovered from idle timeout: branch ${branch}`);
       } else {
-        console.warn(`Idle timeout — no preserved worktree path, will check branch ${branch} for commits.`);
+        console.warn(
+          `Idle timeout — no preserved worktree path, will check branch ${branch} for commits.`,
+        );
       }
     }
 
     branch = implementResult != null ? sandbox.branch : branch;
 
     const logBranch = (format: string): string => {
-      const args = ["log", branch, "--not", "main", `--format=${format}`];
+      const args = ['log', branch, '--not', 'main', `--format=${format}`];
       try {
-        return execFileSync("git", recoveredWorktreePath ? ["-C", recoveredWorktreePath, ...args] : args, {
-          encoding: "utf8",
-        }).trim();
+        return execFileSync(
+          'git',
+          recoveredWorktreePath ? ['-C', recoveredWorktreePath, ...args] : args,
+          {
+            encoding: 'utf8',
+          },
+        ).trim();
       } catch (err) {
         console.warn(`git log failed for branch ${branch}:`, err);
-        return "";
+        return '';
       }
     };
 
     // Read from the commit message, not stdout: an idle timeout throws the
     // implementer's stdout away, but its commits survive on the branch.
-    issueId = logBranch("%B").match(/^Issue: #(\d+)$/m)?.[1];
+    issueId = logBranch('%B').match(/^Issue: #(\d+)$/m)?.[1];
 
     if (!issueId) {
-      console.warn('Warning: no "Issue: #N" line in the branch commits. The issue will not be closed after merge.');
+      console.warn(
+        'Warning: no "Issue: #N" line in the branch commits. The issue will not be closed after merge.',
+      );
     }
 
     // When implementResult is undefined (idle timeout recovery), count commits directly.
-    const commits = implementResult?.commits ?? logBranch("%h").split("\n").filter(Boolean);
+    const commits =
+      implementResult?.commits ?? logBranch('%h').split('\n').filter(Boolean);
 
     if (!commits.length) {
-      console.log("Implementation agent made no commits. Skipping review.");
+      console.log('Implementation agent made no commits. Skipping review.');
       continue;
     }
 
@@ -172,17 +185,17 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
     // Phase 2: Review
     // -----------------------------------------------------------------------
     await sandbox.run({
-      name: "reviewer",
+      name: 'reviewer',
       maxIterations: 1,
-      agent: sandcastle.claudeCode("claude-sonnet-5-5"),
-      promptFile: "./.sandcastle/review-prompt.md",
+      agent: sandcastle.claudeCode('claude-sonnet-5-5'),
+      promptFile: './.sandcastle/review-prompt.md',
       promptArgs: {
         BRANCH: branch,
       },
       signal: controller.signal,
     });
 
-    console.log("\nReview complete.");
+    console.log('\nReview complete.');
   }
   // sandbox disposed here — one container for both phases above.
 
@@ -199,23 +212,23 @@ for (let iteration = 1; iteration <= MAX_ITERATIONS; iteration++) {
       mounts: [
         {
           hostPath: pnpmStoreDir,
-          sandboxPath: "~/.local/share/pnpm/store",
+          sandboxPath: '~/.local/share/pnpm/store',
         },
       ],
     }),
-    branchStrategy: { type: "merge-to-head" },
-    name: "merger",
+    branchStrategy: { type: 'merge-to-head' },
+    name: 'merger',
     maxIterations: 1,
-    agent: sandcastle.claudeCode("claude-sonnet-5-5"),
-    promptFile: "./.sandcastle/merge-prompt.md",
+    agent: sandcastle.claudeCode('claude-sonnet-5-5'),
+    promptFile: './.sandcastle/merge-prompt.md',
     promptArgs: {
       BRANCH: branch,
-      ISSUE_ID: issueId ?? "",
+      ISSUE_ID: issueId ?? '',
     },
     signal: controller.signal,
   });
 
-  console.log("\nMerge complete.");
+  console.log('\nMerge complete.');
 }
 
-console.log("\nAll done.");
+console.log('\nAll done.');

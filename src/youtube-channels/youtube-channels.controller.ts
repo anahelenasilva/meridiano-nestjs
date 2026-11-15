@@ -1,5 +1,9 @@
 import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiOperation,
+} from '@nestjs/swagger';
 import { ApiKeyAllowed } from '../auth/decorators/api-key-allowed.decorator';
 import { CategoryResponseDto } from '../categories/entities/category.entity';
 import {
@@ -74,8 +78,7 @@ export class YoutubeChannelsController {
 
   @Put(':channelId/categories')
   @ApiOperation({
-    summary:
-      "Replace a channel's category assignments with the submitted set",
+    summary: "Replace a channel's category assignments with the submitted set",
   })
   @ApiOkResponse({ type: CategoryResponseDto, isArray: true })
   @ApiValidationErrorResponse()

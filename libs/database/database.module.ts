@@ -19,7 +19,7 @@ export class DatabaseModule implements OnModuleInit, OnModuleDestroy {
   constructor(
     private readonly databaseService: DatabaseService,
     private readonly dataSource: DataSource,
-  ) { }
+  ) {}
 
   async onModuleInit() {
     // Run migrations automatically on startup for PostgreSQL

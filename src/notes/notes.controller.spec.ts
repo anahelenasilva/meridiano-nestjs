@@ -83,9 +83,7 @@ describe('NotesController', () => {
       ),
     ).rejects.toMatchObject({
       response: {
-        message: expect.arrayContaining([
-          'property user_id should not exist',
-        ]),
+        message: expect.arrayContaining(['property user_id should not exist']),
       },
     });
   });

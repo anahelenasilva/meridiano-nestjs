@@ -114,7 +114,9 @@ describe('External Articles Integration Tests', () => {
 
         expect(response.status).toBe(401);
         expect(response.body).toHaveProperty('message');
-        expect(response.body.message).toContain('Missing X-External-Token header');
+        expect(response.body.message).toContain(
+          'Missing X-External-Token header',
+        );
       });
 
       it('should return 401 when X-External-Token header is invalid', async () => {
@@ -161,7 +163,9 @@ describe('External Articles Integration Tests', () => {
       });
 
       it('gives a valid token its own 10 per minute, apart from the IP bucket', async () => {
-        mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
+        mockScraperService.scrapeSingleArticle.mockResolvedValue(
+          TEST_ARTICLE_ID,
+        );
         mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
           success: true,
           articleFileKey: TEST_ARTICLE_ID,
@@ -262,7 +266,9 @@ describe('External Articles Integration Tests', () => {
 
     describe('Valid Requests', () => {
       it('should return 201 when article is successfully submitted', async () => {
-        mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
+        mockScraperService.scrapeSingleArticle.mockResolvedValue(
+          TEST_ARTICLE_ID,
+        );
         mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
           success: true,
           articleFileKey: TEST_ARTICLE_ID,
@@ -290,7 +296,9 @@ describe('External Articles Integration Tests', () => {
           FeedProfile.TECHNOLOGY,
           undefined,
         );
-        expect(mockArticleJobsService.addArticleProcessingJob).toHaveBeenCalledWith(
+        expect(
+          mockArticleJobsService.addArticleProcessingJob,
+        ).toHaveBeenCalledWith(
           TEST_ARTICLE_ID,
           FeedProfile.TECHNOLOGY,
           undefined,
@@ -332,7 +340,9 @@ describe('External Articles Integration Tests', () => {
       });
 
       it('should handle all valid feed profiles', async () => {
-        mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
+        mockScraperService.scrapeSingleArticle.mockResolvedValue(
+          TEST_ARTICLE_ID,
+        );
         mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
           success: true,
           articleFileKey: TEST_ARTICLE_ID,
@@ -363,12 +373,13 @@ describe('External Articles Integration Tests', () => {
           expect(response.status).toBe(201);
         }
       });
-
     });
 
     describe('Feature Flag', () => {
       it('should return 503 when feature is disabled', async () => {
-        mockConfigService.isExternalArticleSubmissionEnabled.mockReturnValue(false);
+        mockConfigService.isExternalArticleSubmissionEnabled.mockReturnValue(
+          false,
+        );
 
         const response = await request(app.getHttpServer())
           .post('/api/articles/external')
@@ -382,13 +393,17 @@ describe('External Articles Integration Tests', () => {
         expect(response.body).toHaveProperty('success', false);
         expect(response.body.error).toHaveProperty('code', 'INTERNAL_ERROR');
 
-        mockConfigService.isExternalArticleSubmissionEnabled.mockReturnValue(true);
+        mockConfigService.isExternalArticleSubmissionEnabled.mockReturnValue(
+          true,
+        );
       });
     });
 
     describe('Response Structure', () => {
       it('should return correct success response structure', async () => {
-        mockScraperService.scrapeSingleArticle.mockResolvedValue(TEST_ARTICLE_ID);
+        mockScraperService.scrapeSingleArticle.mockResolvedValue(
+          TEST_ARTICLE_ID,
+        );
         mockArticleJobsService.addArticleProcessingJob.mockResolvedValue({
           success: true,
           articleFileKey: TEST_ARTICLE_ID,

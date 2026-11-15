@@ -1,10 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
 import { AiService } from '../../ai/ai.service';
-import {
-  BriefingCandidate,
-  DBArticle,
-} from '../../articles/article.entity';
+import { BriefingCandidate, DBArticle } from '../../articles/article.entity';
 import { ArticlesService } from '../../articles/articles.service';
 import { ConfigService } from '../../config/config.service';
 import { ProfilesService } from '../../profiles/profiles.service';
@@ -101,8 +98,16 @@ describe('BriefingGenerationService', () => {
     const articles = [
       validArticle('a1', 0.1, 0.2),
       validArticle('a2', 0.3, 0.4),
-      createCandidate({ id: 'a3', processed_content: null, embedding: embedding(0.5, 0.6) }),
-      createCandidate({ id: 'a4', processed_content: undefined, embedding: embedding(0.7, 0.8) }),
+      createCandidate({
+        id: 'a3',
+        processed_content: null,
+        embedding: embedding(0.5, 0.6),
+      }),
+      createCandidate({
+        id: 'a4',
+        processed_content: undefined,
+        embedding: embedding(0.7, 0.8),
+      }),
     ];
 
     givenClustersQtd(2);
@@ -114,13 +119,16 @@ describe('BriefingGenerationService', () => {
     });
     mockConfigService.getPrompt.mockReturnValue('{cluster_summaries_text}');
     mockConfigService.formatPrompt.mockImplementation((template, vars) =>
-      template.replace(
-        '{cluster_summaries_text}',
-        (vars as Record<string, string>).cluster_summaries_text ?? '',
-      ).replace(
-        '{cluster_analyses_text}',
-        (vars as Record<string, string>).cluster_analyses_text ?? '',
-      ).replace('{feed_profile}', ''),
+      template
+        .replace(
+          '{cluster_summaries_text}',
+          (vars as Record<string, string>).cluster_summaries_text ?? '',
+        )
+        .replace(
+          '{cluster_analyses_text}',
+          (vars as Record<string, string>).cluster_analyses_text ?? '',
+        )
+        .replace('{feed_profile}', ''),
     );
     mockAiService.callChat.mockResolvedValue('cluster-analysis-text');
     mockBriefingsService.saveBrief.mockResolvedValue('brief-uuid');
@@ -140,10 +148,26 @@ describe('BriefingGenerationService', () => {
     const embedding = (x: number, y: number) => [x, y, x + 0.1, y + 0.1];
 
     const articles = [
-      createCandidate({ id: 'a1', processed_content: null, embedding: embedding(0.1, 0.2) }),
-      createCandidate({ id: 'a2', processed_content: null, embedding: embedding(0.3, 0.4) }),
-      createCandidate({ id: 'a3', processed_content: undefined, embedding: embedding(0.5, 0.6) }),
-      createCandidate({ id: 'a4', processed_content: undefined, embedding: embedding(0.7, 0.8) }),
+      createCandidate({
+        id: 'a1',
+        processed_content: null,
+        embedding: embedding(0.1, 0.2),
+      }),
+      createCandidate({
+        id: 'a2',
+        processed_content: null,
+        embedding: embedding(0.3, 0.4),
+      }),
+      createCandidate({
+        id: 'a3',
+        processed_content: undefined,
+        embedding: embedding(0.5, 0.6),
+      }),
+      createCandidate({
+        id: 'a4',
+        processed_content: undefined,
+        embedding: embedding(0.7, 0.8),
+      }),
     ];
 
     givenClustersQtd(2);

@@ -12,7 +12,9 @@ export class NewsDigestController {
   @Get('latest')
   @ApiKeyAllowed()
   @ApiOperation({ summary: 'Get the most recently persisted news digest' })
-  @ApiOkResponse({ description: 'Latest digest items (empty array if no digest exists)' })
+  @ApiOkResponse({
+    description: 'Latest digest items (empty array if no digest exists)',
+  })
   async getLatest() {
     return this.newsDigestService.getLatestDigest();
   }

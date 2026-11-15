@@ -5,6 +5,6 @@ export type {
   AudioJobStatus,
   EnqueueOptions,
   GenerateAudioJobData,
-  JobInfo
+  JobInfo,
 } from './interfaces/audio-job.interface';
 export { AudioJobService } from './services/audio-job.service';

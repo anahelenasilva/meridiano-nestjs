@@ -108,9 +108,9 @@ describe('ListArticlesLeanQuery', () => {
 
     const result = await query.execute(userId, {});
 
-    expect(mockNotesReadService.getActiveNotesBySourceIds).toHaveBeenCalledTimes(
-      1,
-    );
+    expect(
+      mockNotesReadService.getActiveNotesBySourceIds,
+    ).toHaveBeenCalledTimes(1);
     expect(mockNotesReadService.getActiveNotesBySourceIds).toHaveBeenCalledWith(
       userId,
       'article',
@@ -136,7 +136,10 @@ describe('ListArticlesLeanQuery', () => {
     expect(
       mockNotesReadService.getActiveNotesBySourceIds,
     ).not.toHaveBeenCalled();
-    expect(result.articles.map((article) => article.note)).toEqual([null, null]);
+    expect(result.articles.map((article) => article.note)).toEqual([
+      null,
+      null,
+    ]);
   });
 
   it('returns pagination and only the CLI-supported filter keys', async () => {

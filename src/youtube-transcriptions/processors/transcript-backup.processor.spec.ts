@@ -93,9 +93,13 @@ describe('TranscriptBackupProcessor', () => {
     it('starts a worker on the transcript backup queue', () => {
       processor.onModuleInit();
 
-      expect(createWorker).toHaveBeenCalledWith(mockQueue, expect.any(Function), {
-        logger: expect.any(Logger),
-      });
+      expect(createWorker).toHaveBeenCalledWith(
+        mockQueue,
+        expect.any(Function),
+        {
+          logger: expect.any(Logger),
+        },
+      );
     });
   });
 });

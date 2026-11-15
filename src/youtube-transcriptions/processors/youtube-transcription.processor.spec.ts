@@ -148,9 +148,13 @@ describe('YoutubeTranscriptionProcessor', () => {
     it('starts a worker on the YouTube Transcription summary queue', () => {
       processor.onModuleInit();
 
-      expect(createWorker).toHaveBeenCalledWith(mockQueue, expect.any(Function), {
-        logger: expect.any(Logger),
-      });
+      expect(createWorker).toHaveBeenCalledWith(
+        mockQueue,
+        expect.any(Function),
+        {
+          logger: expect.any(Logger),
+        },
+      );
     });
   });
 });

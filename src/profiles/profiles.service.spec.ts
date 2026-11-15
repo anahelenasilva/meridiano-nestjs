@@ -25,6 +25,8 @@ describe('ProfilesService sitemap sources', () => {
   });
 
   it('returns an empty array for a profile without sitemap sources', () => {
-    expect(service.getSitemapSourcesForProfile(FeedProfile.POLITICS)).toEqual([]);
+    expect(service.getSitemapSourcesForProfile(FeedProfile.POLITICS)).toEqual(
+      [],
+    );
   });
 });

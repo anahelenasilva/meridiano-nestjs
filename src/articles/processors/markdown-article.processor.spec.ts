@@ -73,10 +73,14 @@ describe('MarkdownArticleProcessor', () => {
 
       onTerminalFailure!(job, err);
 
-      expect(createWorker).toHaveBeenCalledWith(mockQueue, expect.any(Function), {
-        logger: expect.any(Logger),
-        onTerminalFailure: expect.any(Function),
-      });
+      expect(createWorker).toHaveBeenCalledWith(
+        mockQueue,
+        expect.any(Function),
+        {
+          logger: expect.any(Logger),
+          onTerminalFailure: expect.any(Function),
+        },
+      );
       expect(mockFailureNotifier.notify).toHaveBeenCalledWith(job, err);
     });
   });

@@ -151,7 +151,11 @@ describe('BriefingsService', () => {
 
   describe('updateBriefTitle', () => {
     it('updates only custom briefings', async () => {
-      mockRepo.update.mockResolvedValue({ affected: 1, raw: {}, generatedMaps: [] });
+      mockRepo.update.mockResolvedValue({
+        affected: 1,
+        raw: {},
+        generatedMaps: [],
+      });
 
       await service.updateBriefTitle('brief-uuid', 'New Title');
 
@@ -162,7 +166,11 @@ describe('BriefingsService', () => {
     });
 
     it('throws NotFoundException when no custom briefing is updated', async () => {
-      mockRepo.update.mockResolvedValue({ affected: 0, raw: {}, generatedMaps: [] });
+      mockRepo.update.mockResolvedValue({
+        affected: 0,
+        raw: {},
+        generatedMaps: [],
+      });
 
       await expect(
         service.updateBriefTitle('brief-uuid', 'New Title'),

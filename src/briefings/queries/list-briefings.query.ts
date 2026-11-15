@@ -14,8 +14,10 @@ export class ListBriefingsQuery {
     const availableProfiles =
       await this.articleService.getDistinctFeedProfiles();
 
-    const briefings =
-      await this.briefingsService.getAllBriefsMetadata(feedProfile, limit);
+    const briefings = await this.briefingsService.getAllBriefsMetadata(
+      feedProfile,
+      limit,
+    );
 
     return {
       briefings,

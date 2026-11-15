@@ -17,7 +17,7 @@ jest.mock('typeorm', () => {
 jest.mock('@nestjs/typeorm', () => {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { DataSource } = require('typeorm');
-  const MockTypeOrmModule = class { } as any;
+  const MockTypeOrmModule = class {} as any;
   MockTypeOrmModule.forRoot = jest.fn(() => ({
     module: MockTypeOrmModule,
     providers: [
@@ -101,8 +101,12 @@ describe('DatabaseModule', () => {
   });
 
   it('should still initialize the injected DatabaseService when migrations fail', async () => {
-    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => undefined);
-    mockDataSource.runMigrations.mockRejectedValueOnce(new Error('migration failed'));
+    const consoleError = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => undefined);
+    mockDataSource.runMigrations.mockRejectedValueOnce(
+      new Error('migration failed'),
+    );
 
     await module.init();
 

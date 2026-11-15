@@ -89,7 +89,9 @@ describe('TranscriptChunkingService', () => {
     });
 
     it('returns full-context for configured channels', () => {
-      mockConfigService.getProcessingModeForChannel.mockReturnValue('full-context');
+      mockConfigService.getProcessingModeForChannel.mockReturnValue(
+        'full-context',
+      );
 
       const result = service.getProcessingMode('premium-channel-id');
 
@@ -133,7 +135,7 @@ describe('TranscriptChunkingService', () => {
         const secondChunkStart = chunks[1].text.slice(0, 100);
         expect(
           secondChunkStart.includes(firstChunkEnd.trim().slice(-30)) ||
-          chunks[1].startIndex > 0,
+            chunks[1].startIndex > 0,
         ).toBe(true);
       }
     });
@@ -302,7 +304,9 @@ describe('TranscriptChunkingService', () => {
       );
 
       const prompt = mockAiService.callChat.mock.calls[0][0];
-      expect(prompt).toContain('Additional instructions: Focus on technical details');
+      expect(prompt).toContain(
+        'Additional instructions: Focus on technical details',
+      );
     });
 
     it('throws TranscriptChunkingError on empty response', async () => {
@@ -328,7 +332,9 @@ describe('TranscriptChunkingService', () => {
 
     describe('full-context mode', () => {
       beforeEach(() => {
-        mockConfigService.getProcessingModeForChannel.mockReturnValue('full-context');
+        mockConfigService.getProcessingModeForChannel.mockReturnValue(
+          'full-context',
+        );
       });
 
       it('processes transcript without chunking in full-context mode', async () => {
@@ -357,7 +363,9 @@ describe('TranscriptChunkingService', () => {
         );
 
         const prompt = mockAiService.callChat.mock.calls[0][0];
-        expect(prompt).toContain('Additional instructions: Custom instructions');
+        expect(prompt).toContain(
+          'Additional instructions: Custom instructions',
+        );
       });
 
       it('inserts transcript text containing $ replacement patterns literally', async () => {
@@ -378,31 +386,39 @@ describe('TranscriptChunkingService', () => {
         mockAiService.callChat.mockResolvedValue(null);
 
         await expect(
-          service.processTranscript(shortText, transcriptionId, jobId, channelId),
+          service.processTranscript(
+            shortText,
+            transcriptionId,
+            jobId,
+            channelId,
+          ),
         ).rejects.toThrow(TranscriptChunkingError);
       });
     });
 
     describe('chunked mode', () => {
       const validStructureJson = JSON.stringify({
-        sections: [
-          { title: 'Section 1', startPhrase: 'Start' },
-        ],
+        sections: [{ title: 'Section 1', startPhrase: 'Start' }],
         keyThemes: ['theme1'],
         crossReferences: [],
       });
 
       beforeEach(() => {
-        mockConfigService.getProcessingModeForChannel.mockReturnValue('chunked');
-        mockConfigService.getYoutubeTranscriptionsChunkingConfig.mockReturnValue({
-          maxTranscriptionTokens: 100,
-          transcriptionChunkSize: 100,
-          transcriptionChunkOverlap: 10,
-        });
+        mockConfigService.getProcessingModeForChannel.mockReturnValue(
+          'chunked',
+        );
+        mockConfigService.getYoutubeTranscriptionsChunkingConfig.mockReturnValue(
+          {
+            maxTranscriptionTokens: 100,
+            transcriptionChunkSize: 100,
+            transcriptionChunkOverlap: 10,
+          },
+        );
       });
 
       it('extracts structure and processes chunks', async () => {
-        const longText = 'This is sentence one. This is sentence two. This is sentence three. This is sentence four.';
+        const longText =
+          'This is sentence one. This is sentence two. This is sentence three. This is sentence four.';
         mockAiService.callChat
           .mockResolvedValueOnce(validStructureJson)
           .mockResolvedValueOnce('Chunk 1 summary')
@@ -420,7 +436,8 @@ describe('TranscriptChunkingService', () => {
       });
 
       it('applies custom prompt to chunk summaries', async () => {
-        const longText = 'This is sentence one. This is sentence two. This is sentence three.';
+        const longText =
+          'This is sentence one. This is sentence two. This is sentence three.';
         mockAiService.callChat
           .mockResolvedValueOnce(validStructureJson)
           .mockResolvedValueOnce('Chunk summary')
@@ -435,25 +452,34 @@ describe('TranscriptChunkingService', () => {
         );
 
         const chunkPrompt = mockAiService.callChat.mock.calls[1][0];
-        expect(chunkPrompt).toContain('Additional instructions: Focus on key points');
+        expect(chunkPrompt).toContain(
+          'Additional instructions: Focus on key points',
+        );
       });
 
       it('stores partial results on chunk failure', async () => {
-        const longText = 'This is sentence one. This is sentence two. This is sentence three.';
+        const longText =
+          'This is sentence one. This is sentence two. This is sentence three.';
         mockAiService.callChat
           .mockResolvedValueOnce(validStructureJson)
           .mockResolvedValueOnce('Chunk 1 summary')
           .mockResolvedValueOnce(null);
 
         await expect(
-          service.processTranscript(longText, transcriptionId, jobId, channelId),
+          service.processTranscript(
+            longText,
+            transcriptionId,
+            jobId,
+            channelId,
+          ),
         ).rejects.toThrow(TranscriptChunkingError);
 
         expect(mockRedisClient.setex).toHaveBeenCalled();
       });
 
       it('falls back to simple chunking on structure extraction failure', async () => {
-        const longText = 'This is sentence one. This is sentence two. This is sentence three.';
+        const longText =
+          'This is sentence one. This is sentence two. This is sentence three.';
         mockAiService.callChat
           .mockRejectedValueOnce(new Error('Structure extraction failed'))
           .mockResolvedValueOnce('Chunk summary')

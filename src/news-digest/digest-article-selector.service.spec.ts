@@ -26,8 +26,13 @@ describe('DigestArticleSelectorService', () => {
   beforeEach(() => {
     mockAiService = mock<AiService>();
     mockConfigService = mock<ConfigService>();
-    mockConfigService.getNewsDigestPrompt.mockReturnValue('Focus on AI and cloud infrastructure');
-    service = new DigestArticleSelectorService(mockAiService, mockConfigService);
+    mockConfigService.getNewsDigestPrompt.mockReturnValue(
+      'Focus on AI and cloud infrastructure',
+    );
+    service = new DigestArticleSelectorService(
+      mockAiService,
+      mockConfigService,
+    );
   });
 
   afterEach(() => {
@@ -67,26 +72,29 @@ describe('DigestArticleSelectorService', () => {
     it('returns empty array when AI returns null', async () => {
       mockAiService.callChat.mockResolvedValue(null);
 
-      await expect(service.selectTopArticles([makeArticle()])).resolves.toEqual([]);
+      await expect(service.selectTopArticles([makeArticle()])).resolves.toEqual(
+        [],
+      );
     });
 
     it('returns empty array for a malformed (non-JSON) AI response', async () => {
       mockAiService.callChat.mockResolvedValue('Sorry, I cannot process this.');
 
-      await expect(service.selectTopArticles([makeArticle()])).resolves.toEqual([]);
+      await expect(service.selectTopArticles([makeArticle()])).resolves.toEqual(
+        [],
+      );
     });
 
     it('returns empty array for a JSON response that is not an array', async () => {
       mockAiService.callChat.mockResolvedValue('{"ids": ["id-1"]}');
 
-      await expect(service.selectTopArticles([makeArticle({ id: 'id-1' })])).resolves.toEqual([]);
+      await expect(
+        service.selectTopArticles([makeArticle({ id: 'id-1' })]),
+      ).resolves.toEqual([]);
     });
 
     it('handles fewer than 10 input articles', async () => {
-      const articles = [
-        makeArticle({ id: 'a-1' }),
-        makeArticle({ id: 'a-2' }),
-      ];
+      const articles = [makeArticle({ id: 'a-1' }), makeArticle({ id: 'a-2' })];
       mockAiService.callChat.mockResolvedValue('["a-2", "a-1"]');
 
       const result = await service.selectTopArticles(articles);

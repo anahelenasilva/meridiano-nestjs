@@ -35,8 +35,7 @@ export class RunBriefingUseCase {
       return { success: false, duration: 0, error };
     }
 
-    const processing =
-      await this.processorService.processArticles(feedProfile);
+    const processing = await this.processorService.processArticles(feedProfile);
     const rating = await this.processorService.rateArticles(feedProfile);
     const categorization =
       await this.processorService.categorizeArticles(feedProfile);

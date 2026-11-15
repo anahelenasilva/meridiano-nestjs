@@ -61,7 +61,9 @@ describe('ListTranscriptionsLeanQuery', () => {
 
     const result = await query.execute(userId, {});
 
-    expect(mockNotesReadService.getActiveNotesBySourceIds).toHaveBeenCalledTimes(1);
+    expect(
+      mockNotesReadService.getActiveNotesBySourceIds,
+    ).toHaveBeenCalledTimes(1);
     expect(mockNotesReadService.getActiveNotesBySourceIds).toHaveBeenCalledWith(
       userId,
       'transcription',
@@ -84,15 +86,19 @@ describe('ListTranscriptionsLeanQuery', () => {
 
     const result = await query.execute(undefined, {});
 
-    expect(mockNotesReadService.getActiveNotesBySourceIds).not.toHaveBeenCalled();
-    expect(result.transcriptions.map((transcription) => transcription.note)).toEqual([
-      null,
-      null,
-    ]);
+    expect(
+      mockNotesReadService.getActiveNotesBySourceIds,
+    ).not.toHaveBeenCalled();
+    expect(
+      result.transcriptions.map((transcription) => transcription.note),
+    ).toEqual([null, null]);
   });
 
   it('defaults to page 1 of 20 and echoes empty filters', async () => {
-    mockService.listTranscriptions.mockResolvedValue({ transcriptions: [], total: 0 });
+    mockService.listTranscriptions.mockResolvedValue({
+      transcriptions: [],
+      total: 0,
+    });
 
     const result = await query.execute(userId, {});
 
@@ -106,7 +112,11 @@ describe('ListTranscriptionsLeanQuery', () => {
       total_pages: 0,
       total_transcriptions: 0,
     });
-    expect(result.filters).toEqual({ channel_id: '', start_date: '', end_date: '' });
+    expect(result.filters).toEqual({
+      channel_id: '',
+      start_date: '',
+      end_date: '',
+    });
   });
 
   it('passes the filter and page through and reports the page count', async () => {
@@ -124,7 +134,11 @@ describe('ListTranscriptionsLeanQuery', () => {
     });
 
     expect(mockService.listTranscriptions).toHaveBeenCalledWith(
-      { channelId: 'UC-channel-a', startDate: '2026-03-01', endDate: '2026-03-31' },
+      {
+        channelId: 'UC-channel-a',
+        startDate: '2026-03-01',
+        endDate: '2026-03-31',
+      },
       { page: 2, perPage: 2 },
     );
     expect(result.pagination).toEqual({

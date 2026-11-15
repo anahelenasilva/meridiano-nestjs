@@ -1,6 +1,12 @@
 import { NEWS_DIGEST_JOB, NEWS_DIGEST_QUEUE } from '@libs/queue';
 import { createWorker } from '@libs/queue/create-worker';
-import { Inject, Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  Logger,
+  OnModuleDestroy,
+  OnModuleInit,
+} from '@nestjs/common';
 import { Queue, Worker } from 'bullmq';
 import { ArticlesService } from '../articles/articles.service';
 import { DBArticle } from '../articles/article.entity';
@@ -55,7 +61,8 @@ export class NewsDigestService implements OnModuleInit, OnModuleDestroy {
 
   async runDigest(): Promise<void> {
     const articles = await this.articlesService.getYesterdayArticlesByProfile();
-    const selected = await this.digestArticleSelectorService.selectTopArticles(articles);
+    const selected =
+      await this.digestArticleSelectorService.selectTopArticles(articles);
 
     if (selected.length === 0) {
       this.logger.log('No articles selected; skipping digest');

@@ -37,7 +37,7 @@ describe('ExternalCreateArticleDto', () => {
 
     const errors = await validate(dto);
     expect(errors.length).toBeGreaterThan(0);
-    expect(errors.some(e => e.property === 'url')).toBe(true);
+    expect(errors.some((e) => e.property === 'url')).toBe(true);
   });
 
   it('should fail validation with invalid feed profile', async () => {
@@ -58,7 +58,7 @@ describe('ExternalCreateArticleDto', () => {
 
     const errors = await validate(dto);
     expect(errors.length).toBeGreaterThan(0);
-    expect(errors.some(e => e.property === 'feedProfile')).toBe(true);
+    expect(errors.some((e) => e.property === 'feedProfile')).toBe(true);
   });
 
   it('should validate without the optional fields', async () => {

@@ -52,7 +52,9 @@ function buildItemXml(item: RssFeedItem): string {
   }
 
   if (item.description) {
-    lines.push(`      <description>${escapeXml(item.description)}</description>`);
+    lines.push(
+      `      <description>${escapeXml(item.description)}</description>`,
+    );
   }
 
   lines.push('    </item>');

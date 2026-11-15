@@ -25,8 +25,7 @@ export function parseSitemapXml(
       .match(/<lastmod>\s*([\s\S]*?)\s*<\/lastmod>/)?.[1]
       ?.trim();
     const parsed = lastmodRaw ? new Date(lastmodRaw) : null;
-    const lastmod =
-      parsed && !Number.isNaN(parsed.getTime()) ? parsed : null;
+    const lastmod = parsed && !Number.isNaN(parsed.getTime()) ? parsed : null;
 
     entries.push({ url: loc, lastmod });
   }

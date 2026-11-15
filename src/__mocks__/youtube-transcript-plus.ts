@@ -1,5 +1,4 @@
 export class YoutubeTranscript {
-   
   static fetchTranscript(_videoId: string) {
     return [
       {

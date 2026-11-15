@@ -3,16 +3,16 @@ import eslint from '@eslint/js';
 import {
   projectStructureParser,
   projectStructurePlugin,
-} from "eslint-plugin-project-structure";
+} from 'eslint-plugin-project-structure';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   {
-    ignores: ["projectStructure.cache.json"],
+    ignores: ['projectStructure.cache.json'],
     languageOptions: { parser: projectStructureParser },
     plugins: {
-      "project-structure": projectStructurePlugin,
+      'project-structure': projectStructurePlugin,
     },
   },
   eslint.configs.recommended,
@@ -39,11 +39,14 @@ export default tseslint.config(
   {
     files: ['**/*.ts', '**/*.tsx'],
     rules: {
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_' },
+      ],
       'no-nested-ternary': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-floating-promises': 'error',
-      "@typescript-eslint/no-unsafe-call": "off",
+      '@typescript-eslint/no-unsafe-call': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-argument': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',

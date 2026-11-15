@@ -1,5 +1,8 @@
 import { applyDecorators } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import {
   UnauthorizedResponseDto,
   ValidationErrorResponseDto,

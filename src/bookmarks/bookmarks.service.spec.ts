@@ -43,9 +43,11 @@ describe('BookmarksService', () => {
 
   describe('addBookmark', () => {
     it('reports wasCreated: true for a fresh insert', async () => {
-      mockDb.run.mockImplementationOnce((query, params, callback: RunCallback) => {
-        callback.call({ changes: 1 }, null);
-      });
+      mockDb.run.mockImplementationOnce(
+        (query, params, callback: RunCallback) => {
+          callback.call({ changes: 1 }, null);
+        },
+      );
       mockDb.get.mockImplementationOnce((query, params, callback) => {
         callback(null, {
           id: 'bookmark-1',
@@ -70,7 +72,9 @@ describe('BookmarksService', () => {
 
     it('reports wasCreated: false and returns the existing row on a unique-violation', async () => {
       mockDb.run.mockImplementationOnce((query, params, callback) => {
-        const err = new Error('duplicate key value violates unique constraint') as Error & {
+        const err = new Error(
+          'duplicate key value violates unique constraint',
+        ) as Error & {
           code?: string;
         };
         err.code = '23505';
@@ -199,19 +203,27 @@ describe('BookmarksService', () => {
 
   describe('removeBookmark', () => {
     it('returns true when a bookmark was deleted', async () => {
-      mockDb.run.mockImplementationOnce((query, params, callback: RunCallback) => {
-        callback.call({ changes: 1 }, null);
-      });
+      mockDb.run.mockImplementationOnce(
+        (query, params, callback: RunCallback) => {
+          callback.call({ changes: 1 }, null);
+        },
+      );
 
-      await expect(service.removeBookmark(USER_ID, ARTICLE_ID)).resolves.toBe(true);
+      await expect(service.removeBookmark(USER_ID, ARTICLE_ID)).resolves.toBe(
+        true,
+      );
     });
 
     it('returns false when there was nothing to delete', async () => {
-      mockDb.run.mockImplementationOnce((query, params, callback: RunCallback) => {
-        callback.call({ changes: 0 }, null);
-      });
+      mockDb.run.mockImplementationOnce(
+        (query, params, callback: RunCallback) => {
+          callback.call({ changes: 0 }, null);
+        },
+      );
 
-      await expect(service.removeBookmark(USER_ID, ARTICLE_ID)).resolves.toBe(false);
+      await expect(service.removeBookmark(USER_ID, ARTICLE_ID)).resolves.toBe(
+        false,
+      );
     });
   });
 });

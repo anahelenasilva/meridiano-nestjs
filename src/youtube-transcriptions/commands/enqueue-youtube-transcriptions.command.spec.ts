@@ -37,10 +37,7 @@ describe('EnqueueYoutubeTranscriptionsCommand', () => {
     mockQueue.addTranscriptIngestJob.mockResolvedValue('job-1');
 
     await command.execute({
-      urls: [
-        'https://www.youtube.com/watch?v=aaa',
-        'https://youtu.be/bbb',
-      ],
+      urls: ['https://www.youtube.com/watch?v=aaa', 'https://youtu.be/bbb'],
       channelDbId: 'channel-1',
     });
 

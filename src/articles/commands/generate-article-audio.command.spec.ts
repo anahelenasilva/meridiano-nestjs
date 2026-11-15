@@ -57,7 +57,9 @@ describe('GenerateArticleAudioCommand', () => {
         jobId: 'job-123',
         message: AUDIO_GENERATION_SUCCESS_MESSAGE,
       });
-      expect(mockArticlesService.getArticleById).toHaveBeenCalledWith(articleId);
+      expect(mockArticlesService.getArticleById).toHaveBeenCalledWith(
+        articleId,
+      );
       expect(mockAudioFilesService.getAudioFileBySource).toHaveBeenCalledWith(
         'article',
         articleId,
@@ -100,7 +102,9 @@ describe('GenerateArticleAudioCommand', () => {
     it('should throw NotFoundException when article does not exist', async () => {
       mockArticlesService.getArticleById.mockResolvedValue(null);
 
-      await expect(command.execute(articleId)).rejects.toThrow(NotFoundException);
+      await expect(command.execute(articleId)).rejects.toThrow(
+        NotFoundException,
+      );
       await expect(command.execute(articleId)).rejects.toMatchObject({
         message: 'Article not found',
       });
@@ -122,7 +126,9 @@ describe('GenerateArticleAudioCommand', () => {
         created_at: new Date(),
       });
 
-      await expect(command.execute(articleId)).rejects.toThrow(ConflictException);
+      await expect(command.execute(articleId)).rejects.toThrow(
+        ConflictException,
+      );
       await expect(command.execute(articleId)).rejects.toMatchObject({
         message:
           'Audio already exists for this resource. Use the detail endpoint with includeAudio=true to fetch the audio.',
@@ -177,7 +183,9 @@ describe('GenerateArticleAudioCommand', () => {
       mockAudioFilesService.getAudioFileBySource.mockResolvedValue(null);
       mockAudioJobService.enqueueAudioJobIfNotDuplicate.mockResolvedValue(null);
 
-      await expect(command.execute(articleId)).rejects.toThrow(ConflictException);
+      await expect(command.execute(articleId)).rejects.toThrow(
+        ConflictException,
+      );
       await expect(command.execute(articleId)).rejects.toMatchObject({
         message: 'Audio generation is already in progress for this resource.',
       });

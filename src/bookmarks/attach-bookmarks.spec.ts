@@ -32,7 +32,10 @@ describe('attachBookmarks', () => {
 
     const result = attachBookmarks(items, (item) => item.id, new Set([idA]));
 
-    expect(result.map((item) => item.title)).toEqual(['Article A', 'Article B']);
+    expect(result.map((item) => item.title)).toEqual([
+      'Article A',
+      'Article B',
+    ]);
     expect(result.map((item) => item.is_bookmarked)).toEqual([true, false]);
   });
 

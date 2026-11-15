@@ -5,4 +5,3 @@ export interface SendEmailOptions {
   text: string;
   cc?: string | string[];
 }
-

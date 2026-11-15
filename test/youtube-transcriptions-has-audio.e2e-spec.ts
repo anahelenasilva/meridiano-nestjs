@@ -147,10 +147,11 @@ describe('GET /api/youtube/transcriptions has_audio (e2e)', () => {
           `DELETE FROM audio_files WHERE source_type = ? AND source_id = ?`,
           ['transcription', transcriptionWithAudioId],
         );
-        await runQuery(db, `DELETE FROM youtube_transcriptions WHERE id IN (?, ?)`, [
-          transcriptionWithAudioId,
-          transcriptionWithoutAudioId,
-        ]);
+        await runQuery(
+          db,
+          `DELETE FROM youtube_transcriptions WHERE id IN (?, ?)`,
+          [transcriptionWithAudioId, transcriptionWithoutAudioId],
+        );
         await runQuery(db, `DELETE FROM youtube_channels WHERE id = ?`, [
           channelId,
         ]);

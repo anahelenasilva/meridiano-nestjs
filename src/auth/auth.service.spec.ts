@@ -73,7 +73,9 @@ describe('AuthService', () => {
 
       mockUsersService.getUserByEmail.mockResolvedValueOnce(null);
 
-      await expect(service.login(email, password)).rejects.toThrow(UnauthorizedException);
+      await expect(service.login(email, password)).rejects.toThrow(
+        UnauthorizedException,
+      );
     });
 
     it('should throw UnauthorizedException when password is invalid', async () => {
@@ -91,7 +93,9 @@ describe('AuthService', () => {
       mockUsersService.getUserByEmail.mockResolvedValueOnce(user);
       (bcrypt.compare as jest.Mock).mockResolvedValueOnce(false);
 
-      await expect(service.login(email, password)).rejects.toThrow(UnauthorizedException);
+      await expect(service.login(email, password)).rejects.toThrow(
+        UnauthorizedException,
+      );
       expect(bcrypt.compare).toHaveBeenCalledWith(password, user.password);
     });
 

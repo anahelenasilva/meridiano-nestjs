@@ -1,4 +1,8 @@
-import { BadRequestException, NotFoundException, ValidationPipe } from '@nestjs/common';
+import {
+  BadRequestException,
+  NotFoundException,
+  ValidationPipe,
+} from '@nestjs/common';
 import { mock } from 'jest-mock-extended';
 import { ArticlesService } from '../articles/articles.service';
 import { DBArticle } from '../articles/article.entity';
@@ -125,7 +129,9 @@ describe('BookmarksController', () => {
         ),
       ).rejects.toMatchObject({
         response: {
-          message: expect.arrayContaining(['property user_id should not exist']),
+          message: expect.arrayContaining([
+            'property user_id should not exist',
+          ]),
         },
       });
     });
@@ -182,11 +188,9 @@ describe('BookmarksController', () => {
         1,
         20,
       );
-      expect(mockNotesReadService.getActiveNotesBySourceIds).toHaveBeenCalledWith(
-        OWNER_ID,
-        'article',
-        [],
-      );
+      expect(
+        mockNotesReadService.getActiveNotesBySourceIds,
+      ).toHaveBeenCalledWith(OWNER_ID, 'article', []);
     });
 
     it('embeds article notes via a single bulk lookup and keeps the note nested under article', async () => {
@@ -240,11 +244,9 @@ describe('BookmarksController', () => {
       expect(
         mockNotesReadService.getActiveNotesBySourceIds,
       ).toHaveBeenCalledTimes(1);
-      expect(mockNotesReadService.getActiveNotesBySourceIds).toHaveBeenCalledWith(
-        OWNER_ID,
-        'article',
-        [ARTICLE_ID],
-      );
+      expect(
+        mockNotesReadService.getActiveNotesBySourceIds,
+      ).toHaveBeenCalledWith(OWNER_ID, 'article', [ARTICLE_ID]);
       const articleWithNote = result.bookmarks[0].article as DBArticle & {
         note: {
           id: string;
@@ -294,7 +296,9 @@ describe('BookmarksController', () => {
         page: 1,
         perPage: 20,
       });
-      mockNotesReadService.getActiveNotesBySourceIds.mockResolvedValue(new Map());
+      mockNotesReadService.getActiveNotesBySourceIds.mockResolvedValue(
+        new Map(),
+      );
 
       const result = await controller.getBookmarks({ id: OWNER_ID }, {});
       const articleWithNote = result.bookmarks[0].article as DBArticle & {
@@ -361,10 +365,7 @@ describe('BookmarksController', () => {
 
     it('rejects a client-supplied user_id query param', async () => {
       await expect(
-        controller.getBookmarkCount(
-          { id: OWNER_ID },
-          { user_id: ATTACKER_ID },
-        ),
+        controller.getBookmarkCount({ id: OWNER_ID }, { user_id: ATTACKER_ID }),
       ).rejects.toMatchObject({
         response: {
           message: 'property user_id should not exist',

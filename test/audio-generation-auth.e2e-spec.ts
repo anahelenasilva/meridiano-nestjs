@@ -75,13 +75,17 @@ describe('Audio generation endpoints authentication (e2e)', () => {
   describe('GET /api/youtube/transcriptions/:id (playback with includeAudio)', () => {
     it('should return 401 when request has no Authorization header', async () => {
       await request(app.getHttpServer())
-        .get(`/api/youtube/transcriptions/${TRANSCRIPTION_ID}?includeAudio=true`)
+        .get(
+          `/api/youtube/transcriptions/${TRANSCRIPTION_ID}?includeAudio=true`,
+        )
         .expect(401);
     });
 
     it('should return 401 when request has invalid Authorization header', async () => {
       await request(app.getHttpServer())
-        .get(`/api/youtube/transcriptions/${TRANSCRIPTION_ID}?includeAudio=true`)
+        .get(
+          `/api/youtube/transcriptions/${TRANSCRIPTION_ID}?includeAudio=true`,
+        )
         .set('Authorization', 'Bearer invalid-token')
         .expect(401);
     });

@@ -1,14 +1,14 @@
 #!/usr/bin/env ts-node
 /**
  * Ralph - Autonomous Coding Agent
- * 
+ *
  * When referenced in Cursor chat (@scripts/ralph/ralph.ts), the AI assistant should:
  * 1. Read this script and execute it to get the current story
  * 2. AUTONOMOUSLY execute the instructions from prompt.md to implement the story
  * 3. Update prd.json to mark the story as complete (set passes: true)
  * 4. Append progress to progress.txt
  * 5. Loop to the next story until all are complete
- * 
+ *
  * This script provides the context and instructions - the AI executes them autonomously.
  */
 import * as fs from 'fs';
@@ -58,10 +58,11 @@ function writeProgress(content: string): void {
   fs.writeFileSync(PROGRESS_FILE, content, 'utf-8');
 }
 
-
 function initializeProgress(): void {
   if (!fs.existsSync(PROGRESS_FILE)) {
-    writeProgress(`# Ralph Progress Log\nStarted: ${new Date().toString()}\n---\n`);
+    writeProgress(
+      `# Ralph Progress Log\nStarted: ${new Date().toString()}\n---\n`,
+    );
   }
 }
 
@@ -82,7 +83,9 @@ function archivePreviousRun(lastBranch: string): void {
 
   console.log(`   Archived to: ${archiveFolder}`);
 
-  writeProgress(`# Ralph Progress Log\nStarted: ${new Date().toString()}\n---\n`);
+  writeProgress(
+    `# Ralph Progress Log\nStarted: ${new Date().toString()}\n---\n`,
+  );
 }
 
 function checkAndArchiveIfNeeded(): void {
@@ -147,7 +150,10 @@ function getProgressSummary(): string {
   return summary;
 }
 
-function executeRalphIteration(iteration: number, maxIterations: number): boolean {
+function executeRalphIteration(
+  iteration: number,
+  maxIterations: number,
+): boolean {
   const prd = readPRD();
   const prompt = readPrompt();
   const progress = readProgress();
@@ -186,8 +192,12 @@ function executeRalphIteration(iteration: number, maxIterations: number): boolea
   console.log('\n' + '-'.repeat(64));
   console.log('🤖 AUTONOMOUS EXECUTION MODE');
   console.log('-'.repeat(64));
-  console.log('When this script is referenced in Cursor chat, the AI assistant');
-  console.log('should AUTONOMOUSLY execute the instructions above to implement');
+  console.log(
+    'When this script is referenced in Cursor chat, the AI assistant',
+  );
+  console.log(
+    'should AUTONOMOUSLY execute the instructions above to implement',
+  );
   console.log('this story, then continue to the next story automatically.');
   console.log('-'.repeat(64) + '\n');
 
@@ -221,7 +231,7 @@ function main(): void {
     }
   } else {
     console.log(`🚀 Starting Ralph - Max iterations: ${maxIterations}\n`);
-    
+
     let pausedEarly = false;
     for (let i = 1; i <= maxIterations; i++) {
       const isComplete = executeRalphIteration(i, maxIterations);
@@ -232,9 +242,13 @@ function main(): void {
       }
 
       if (i < maxIterations) {
-        console.log(`\n⏸️  Iteration ${i} paused. Execute the instructions above, then run:`);
+        console.log(
+          `\n⏸️  Iteration ${i} paused. Execute the instructions above, then run:`,
+        );
         console.log(`   pnpm ralph:single`);
-        console.log(`   or continue in chat by referencing: @scripts/ralph/ralph.ts`);
+        console.log(
+          `   or continue in chat by referencing: @scripts/ralph/ralph.ts`,
+        );
         pausedEarly = true;
         break;
       }
@@ -252,4 +266,13 @@ if (require.main === module) {
   main();
 }
 
-export { executeRalphIteration, readPRD, readPrompt, readProgress, getNextStory, allStoriesComplete, markStoryComplete, getProgressSummary };
+export {
+  executeRalphIteration,
+  readPRD,
+  readPrompt,
+  readProgress,
+  getNextStory,
+  allStoriesComplete,
+  markStoryComplete,
+  getProgressSummary,
+};

@@ -27,7 +27,7 @@ export class BriefingGenerationService {
     private readonly configService: ConfigService,
     private readonly profilesService: ProfilesService,
     private readonly articleClusterer: ArticleClusterer,
-  ) { }
+  ) {}
 
   private async analyzeCluster(
     clusterArticles: BriefingCandidate[],
@@ -66,8 +66,7 @@ export class BriefingGenerationService {
       cluster_summaries_text: clusterSummariesText,
     });
 
-    const clusterAnalysis =
-      await this.aiService.callChat(analysisPrompt);
+    const clusterAnalysis = await this.aiService.callChat(analysisPrompt);
 
     if (!clusterAnalysis) {
       return null;
@@ -152,7 +151,9 @@ export class BriefingGenerationService {
       }
 
       if (clusterAnalysisDelayMs > 0 && index < clusterGroups.length - 1) {
-        await new Promise((resolve) => setTimeout(resolve, clusterAnalysisDelayMs));
+        await new Promise((resolve) =>
+          setTimeout(resolve, clusterAnalysisDelayMs),
+        );
       }
     }
 
@@ -199,7 +200,9 @@ export class BriefingGenerationService {
         feedProfile,
       );
 
-      this.logger.log(`Brief Generation Finished Successfully [${feedProfile}]`);
+      this.logger.log(
+        `Brief Generation Finished Successfully [${feedProfile}]`,
+      );
 
       return {
         success: true,
@@ -224,7 +227,9 @@ export class BriefingGenerationService {
     feedProfile: FeedProfile,
     customPrompt?: string,
   ): Promise<SimpleBriefResult> {
-    this.logger.log(`Generating Custom Brief [${feedProfile}] with ${articleIds.length} articles`);
+    this.logger.log(
+      `Generating Custom Brief [${feedProfile}] with ${articleIds.length} articles`,
+    );
 
     const articles = await this.articlesService.getArticlesByIds(articleIds);
 
@@ -233,7 +238,10 @@ export class BriefingGenerationService {
     );
 
     if (articlesWithContent.length === 0) {
-      return { success: false, error: 'No articles with processed content found' };
+      return {
+        success: false,
+        error: 'No articles with processed content found',
+      };
     }
 
     const summariesText = articlesWithContent
@@ -243,7 +251,8 @@ export class BriefingGenerationService {
       )
       .join('\n');
 
-    const profilePrompts = this.profilesService.getPromptsForProfile(feedProfile);
+    const profilePrompts =
+      this.profilesService.getPromptsForProfile(feedProfile);
     const promptToUse = customPrompt || profilePrompts.customBriefing;
     const briefPrompt = this.configService.getCustomBriefPrompt(
       feedProfile,
