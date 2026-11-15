@@ -1,13 +1,13 @@
 import { Logger } from '@nestjs/common';
 import { Job, Queue, Worker } from 'bullmq';
 import { mock } from 'jest-mock-extended';
-import { createWorker } from '../../../libs/queue/create-worker';
+import { createWorker } from '@libs/queue/create-worker';
 import { ConfigService } from '../../config/config.service';
 import { FeedProfile } from '../../shared/types/feed';
 import { BriefingGenerationService } from '../services/briefing-generation.service';
 import { CustomBriefingProcessor } from './custom-briefing.processor';
 
-jest.mock('../../../libs/queue/create-worker');
+jest.mock('@libs/queue/create-worker');
 
 describe('CustomBriefingProcessor', () => {
   let processor: CustomBriefingProcessor;

@@ -1,3 +1,4 @@
+import { QueueService } from '@libs/queue';
 import {
   BadRequestException,
   NotFoundException,
@@ -7,7 +8,6 @@ import {
 import { Test, TestingModule } from '@nestjs/testing';
 import { mock } from 'jest-mock-extended';
 import { IS_PUBLIC_KEY } from '../auth/decorators/public.decorator';
-import { QueueService } from '../../libs/queue/queue.service';
 import { ConfigService } from '../config/config.service';
 import { FeedProfile } from '../shared/types/feed';
 import { BriefingsController } from './briefings.controller';

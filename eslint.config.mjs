@@ -47,6 +47,18 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-argument': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/unbound-method': 'off',
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['**/libs/**'],
+              message:
+                'Import a lib through @libs/*, never a relative path. See libs/README.md#import-conventions',
+            },
+          ],
+        },
+      ],
     },
   },
 );
