@@ -113,9 +113,12 @@ describe('Youtube Channels categories (e2e)', () => {
       });
 
       youtubeChannelsService.getChannelById.mockResolvedValue(buildChannel());
-      const byName: Partial<Record<string, typeof tech>> = { tech, ai };
+      const byName = new Map([
+        ['tech', tech],
+        ['ai', ai],
+      ]);
       categoriesService.getCategoryByName.mockImplementation((name) =>
-        Promise.resolve(byName[name.toLowerCase()] ?? null),
+        Promise.resolve(byName.get(name.toLowerCase()) ?? null),
       );
       channelCategoriesService.replaceChannelCategories.mockResolvedValue(
         undefined,
