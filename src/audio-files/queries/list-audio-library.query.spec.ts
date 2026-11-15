@@ -1,10 +1,7 @@
 import { S3Service } from '@libs/s3';
 import { mock } from 'jest-mock-extended';
 import { ConfigService } from '../../config/config.service';
-import {
-  AudioFilesService,
-  AudioLibraryEntry,
-} from '../audio-files.service';
+import { AudioFilesService, AudioLibraryEntry } from '../audio-files.service';
 import { ListAudioLibraryQuery } from './list-audio-library.query';
 
 describe('ListAudioLibraryQuery', () => {
@@ -41,7 +38,9 @@ describe('ListAudioLibraryQuery', () => {
   it('maps rows to the wire shape with a presigned url and omits s3 fields', async () => {
     mockAudioFilesService.countAudioLibrary.mockResolvedValue(1);
     mockAudioFilesService.listAudioLibrary.mockResolvedValue([entry]);
-    mockS3Service.generatePresignedGetUrl.mockResolvedValue('https://signed/one');
+    mockS3Service.generatePresignedGetUrl.mockResolvedValue(
+      'https://signed/one',
+    );
 
     const result = await query.execute({ page: 1, perPage: 20 });
 

@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { attachBookmarks, WithBookmark } from '../../bookmarks/attach-bookmarks';
+import {
+  attachBookmarks,
+  WithBookmark,
+} from '../../bookmarks/attach-bookmarks';
 import { BookmarksReadService } from '../../bookmarks/bookmarks-read.service';
 import { attachNotes, WithNote } from '../../notes/attach-notes';
 import { NotesReadService } from '../../notes/notes-read.service';

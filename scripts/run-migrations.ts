@@ -4,7 +4,11 @@ import { loadEnv } from '@libs/env/load-env';
 
 loadEnv();
 
-async function runMigrationsWithDataSource(config: DataSourceOptions, maxRetries = 5, delayMs = 2000): Promise<void> {
+async function runMigrationsWithDataSource(
+  config: DataSourceOptions,
+  maxRetries = 5,
+  delayMs = 2000,
+): Promise<void> {
   const dataSource = new DataSource(config);
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
@@ -21,7 +25,10 @@ async function runMigrationsWithDataSource(config: DataSourceOptions, maxRetries
       await dataSource.destroy();
       return;
     } catch (error) {
-      console.error(`Migration attempt ${attempt} failed:`, error instanceof Error ? error.message : error);
+      console.error(
+        `Migration attempt ${attempt} failed:`,
+        error instanceof Error ? error.message : error,
+      );
 
       if (dataSource.isInitialized) {
         try {
@@ -33,7 +40,7 @@ async function runMigrationsWithDataSource(config: DataSourceOptions, maxRetries
 
       if (attempt < maxRetries) {
         console.log(`Retrying in ${delayMs}ms...`);
-        await new Promise(resolve => setTimeout(resolve, delayMs));
+        await new Promise((resolve) => setTimeout(resolve, delayMs));
         delayMs = Math.min(delayMs * 1.5, 10000);
       } else {
         throw error;
@@ -50,7 +57,10 @@ async function runMigrationsWithRetry(): Promise<void> {
     await runMigrationsWithDataSource(config, 5, 2000);
     process.exit(0);
   } catch (error) {
-    console.error('Migrations failed:', error instanceof Error ? error.message : error);
+    console.error(
+      'Migrations failed:',
+      error instanceof Error ? error.message : error,
+    );
     process.exit(1);
   }
 }

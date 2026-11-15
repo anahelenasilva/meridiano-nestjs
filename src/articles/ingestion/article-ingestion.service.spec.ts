@@ -3,7 +3,10 @@ import { AiService } from '../../ai/ai.service';
 import { FeedProfile } from '../../shared/types/feed';
 import { DBArticle } from '../article.entity';
 import { ArticlesService } from '../articles.service';
-import { ArticleIngestionService, RawArticleInput } from './article-ingestion.service';
+import {
+  ArticleIngestionService,
+  RawArticleInput,
+} from './article-ingestion.service';
 
 const makeArticle = (overrides: Partial<DBArticle> = {}): DBArticle => ({
   id: 'article-id-1',
@@ -17,7 +20,9 @@ const makeArticle = (overrides: Partial<DBArticle> = {}): DBArticle => ({
   ...overrides,
 });
 
-const makeInput = (overrides: Partial<RawArticleInput> = {}): RawArticleInput => ({
+const makeInput = (
+  overrides: Partial<RawArticleInput> = {},
+): RawArticleInput => ({
   url: 'https://example.com/article',
   title: 'Test Article',
   content: 'article content',
@@ -45,12 +50,16 @@ describe('ArticleIngestionService', () => {
   describe('articleExists', () => {
     it('returns true when articlesService reports the url exists', async () => {
       articlesService.articleExists.mockResolvedValue(true);
-      expect(await service.articleExists('https://example.com/article')).toBe(true);
+      expect(await service.articleExists('https://example.com/article')).toBe(
+        true,
+      );
     });
 
     it('returns false when articlesService reports the url does not exist', async () => {
       articlesService.articleExists.mockResolvedValue(false);
-      expect(await service.articleExists('https://example.com/article')).toBe(false);
+      expect(await service.articleExists('https://example.com/article')).toBe(
+        false,
+      );
     });
   });
 
@@ -74,7 +83,9 @@ describe('ArticleIngestionService', () => {
     });
 
     it('uses feed name for RSS source', async () => {
-      await service.ingest(makeInput({ source: { type: 'rss', feedName: 'Hacker News' } }));
+      await service.ingest(
+        makeInput({ source: { type: 'rss', feedName: 'Hacker News' } }),
+      );
 
       expect(articlesService.addArticle).toHaveBeenCalledWith(
         expect.any(String),
@@ -188,7 +199,9 @@ describe('ArticleIngestionService', () => {
       const result = await service.ingest(makeInput());
 
       expect(result).toBe(newArticle);
-      expect(articlesService.getArticleById).toHaveBeenCalledWith('new-article-id');
+      expect(articlesService.getArticleById).toHaveBeenCalledWith(
+        'new-article-id',
+      );
     });
 
     it('handles concurrent insert race by returning the concurrently inserted article', async () => {

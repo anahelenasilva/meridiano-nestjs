@@ -47,7 +47,7 @@ export class AudioGenerationProcessor implements OnModuleInit {
     @Inject(AUDIO_GENERATION_QUEUE)
     private readonly audioQueue: Queue,
     private readonly failureNotifier: AudioGenerationFailureNotifier,
-  ) { }
+  ) {}
 
   onModuleInit() {
     this.worker = createWorker(
@@ -99,8 +99,13 @@ export class AudioGenerationProcessor implements OnModuleInit {
         throw new Error('Invalid input: sourceId is required');
       }
 
-      if (!sourceType || (sourceType !== 'article' && sourceType !== 'transcription')) {
-        throw new Error('Invalid input: sourceType must be "article" or "transcription"');
+      if (
+        !sourceType ||
+        (sourceType !== 'article' && sourceType !== 'transcription')
+      ) {
+        throw new Error(
+          'Invalid input: sourceType must be "article" or "transcription"',
+        );
       }
 
       await job.updateProgress(25);
@@ -139,7 +144,8 @@ export class AudioGenerationProcessor implements OnModuleInit {
       }
     } catch (error) {
       const durationMs = Date.now() - startTime;
-      const errorMessage = error instanceof Error ? error.message : String(error);
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
 
       const errorClassification = this.classifyError(errorMessage);
 

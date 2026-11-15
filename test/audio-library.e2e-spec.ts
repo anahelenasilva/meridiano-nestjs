@@ -43,7 +43,9 @@ function allQuery<T>(
   params: SqlParams,
 ): Promise<T[]> {
   return new Promise((resolve, reject) => {
-    db.all(sql, params, (err, rows) => (err ? reject(err) : resolve((rows ?? []) as T[])));
+    db.all(sql, params, (err, rows) =>
+      err ? reject(err) : resolve((rows ?? []) as T[]),
+    );
   });
 }
 
@@ -86,7 +88,6 @@ async function restoreAudioFiles(
         ],
       );
     } catch (err) {
-       
       console.error(`Failed to restore audio_files row ${row.id}`, err);
     }
   }
@@ -167,7 +168,13 @@ describe('GET /api/audio (e2e)', () => {
       db,
       `INSERT INTO users (id, email, username, password, is_email_verified)
        VALUES (?, ?, ?, ?, ?)`,
-      [userId, `audio-library-e2e-${userId}@example.com`, `audio-library-e2e-${userId}`, 'unused', true],
+      [
+        userId,
+        `audio-library-e2e-${userId}@example.com`,
+        `audio-library-e2e-${userId}`,
+        'unused',
+        true,
+      ],
     );
 
     const jwtService = moduleFixture.get(JwtService);
@@ -197,7 +204,13 @@ describe('GET /api/audio (e2e)', () => {
       db,
       `INSERT INTO youtube_channels (id, channel_id, name, url, enabled)
        VALUES (?, ?, ?, ?, ?)`,
-      [channelId, `ext-${channelId}`, seededChannel.name, 'https://youtube.com/channel/seeded', true],
+      [
+        channelId,
+        `ext-${channelId}`,
+        seededChannel.name,
+        'https://youtube.com/channel/seeded',
+        true,
+      ],
     );
     await runQuery(
       db,
@@ -219,13 +232,29 @@ describe('GET /api/audio (e2e)', () => {
       db,
       `INSERT INTO audio_files (source_type, source_id, s3_bucket, s3_key, file_size_bytes, duration_seconds, created_at)
        VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      ['article', articleId, 'test-bucket', 'audio/article.mp3', 1000, 60, '2026-01-10T00:00:00.000Z'],
+      [
+        'article',
+        articleId,
+        'test-bucket',
+        'audio/article.mp3',
+        1000,
+        60,
+        '2026-01-10T00:00:00.000Z',
+      ],
     );
     await runQuery(
       db,
       `INSERT INTO audio_files (source_type, source_id, s3_bucket, s3_key, file_size_bytes, duration_seconds, created_at)
        VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      ['transcription', transcriptionId, 'test-bucket', 'audio/transcription.mp3', 2000, 120, '2026-01-20T00:00:00.000Z'],
+      [
+        'transcription',
+        transcriptionId,
+        'test-bucket',
+        'audio/transcription.mp3',
+        2000,
+        120,
+        '2026-01-20T00:00:00.000Z',
+      ],
     );
     // Orphan: newest created_at of all three, so it would sort first if the
     // join back to Articles/Transcriptions failed to drop it.
@@ -233,7 +262,15 @@ describe('GET /api/audio (e2e)', () => {
       db,
       `INSERT INTO audio_files (source_type, source_id, s3_bucket, s3_key, file_size_bytes, duration_seconds, created_at)
        VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      ['article', orphanSourceId, 'test-bucket', 'audio/orphan.mp3', 500, 30, '2026-01-25T00:00:00.000Z'],
+      [
+        'article',
+        orphanSourceId,
+        'test-bucket',
+        'audio/orphan.mp3',
+        500,
+        30,
+        '2026-01-25T00:00:00.000Z',
+      ],
     );
   });
 
@@ -245,19 +282,21 @@ describe('GET /api/audio (e2e)', () => {
       try {
         await restoreAudioFiles(db, preexistingAudioFiles);
       } catch (err) {
-         
         console.error('Failed to restore audio_files snapshot', err);
       }
     }
 
     if (db) {
       try {
-        await runQuery(db, `DELETE FROM youtube_transcriptions WHERE id = ?`, [transcriptionId]);
-        await runQuery(db, `DELETE FROM youtube_channels WHERE id = ?`, [channelId]);
+        await runQuery(db, `DELETE FROM youtube_transcriptions WHERE id = ?`, [
+          transcriptionId,
+        ]);
+        await runQuery(db, `DELETE FROM youtube_channels WHERE id = ?`, [
+          channelId,
+        ]);
         await runQuery(db, `DELETE FROM articles WHERE id = ?`, [articleId]);
         await runQuery(db, `DELETE FROM users WHERE id = ?`, [userId]);
       } catch (err) {
-         
         console.error('Failed to clean up seeded rows', err);
       }
     }

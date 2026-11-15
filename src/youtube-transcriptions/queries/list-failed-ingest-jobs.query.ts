@@ -72,9 +72,7 @@ export class ListFailedIngestJobsQuery {
     const entries = await Promise.all(
       ids.map(async (id) => {
         try {
-          const channel = await this.youtubeChannelsService.getChannelById(
-            id,
-          );
+          const channel = await this.youtubeChannelsService.getChannelById(id);
           return [id, channel?.name ?? UNKNOWN_CHANNEL] as const;
         } catch (error) {
           this.logger.error(

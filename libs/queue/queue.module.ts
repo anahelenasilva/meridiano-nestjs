@@ -10,7 +10,7 @@ import {
   NEWS_DIGEST_QUEUE,
   TRANSCRIPT_BACKUP_QUEUE,
   YOUTUBE_TRANSCRIPT_INGEST_QUEUE,
-  YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE
+  YOUTUBE_TRANSCRIPTION_SUMMARY_QUEUE,
 } from './constants/queue.constants';
 import { QueueService } from './queue.service';
 
@@ -135,7 +135,7 @@ const QUEUE_TOKENS = [
   exports: [...QUEUE_TOKENS, QueueService],
 })
 export class QueueModule implements OnModuleDestroy {
-  constructor(private readonly moduleRef: ModuleRef) { }
+  constructor(private readonly moduleRef: ModuleRef) {}
 
   /**
    * Nest does not close BullMQ queues for us. Each one keeps an error listener

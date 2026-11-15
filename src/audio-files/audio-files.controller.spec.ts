@@ -34,7 +34,12 @@ describe('AudioController', () => {
 
   it('wraps the job service result in a jobs envelope', async () => {
     const descriptors: AudioJobDescriptor[] = [
-      { source_type: 'article', source_id: 'a-1', state: 'queued', error: null },
+      {
+        source_type: 'article',
+        source_id: 'a-1',
+        state: 'queued',
+        error: null,
+      },
     ];
     mockAudioJobService.listActiveAndFailedJobs.mockResolvedValue(descriptors);
 

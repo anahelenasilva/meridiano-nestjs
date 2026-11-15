@@ -346,7 +346,10 @@ export class ConfigService {
     if (!tokensEnv) {
       return [];
     }
-    return tokensEnv.split(',').map(t => t.trim()).filter(Boolean);
+    return tokensEnv
+      .split(',')
+      .map((t) => t.trim())
+      .filter(Boolean);
   }
 
   getEnabledChatModel(): ValidChatModel {

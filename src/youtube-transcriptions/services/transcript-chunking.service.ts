@@ -46,7 +46,7 @@ export class TranscriptChunkingService {
     private readonly configService: ConfigService,
     private readonly aiService: AiService,
     private readonly redisService: RedisService,
-  ) { }
+  ) {}
 
   needsChunking(transcriptText: string): boolean {
     const config = this.configService.getYoutubeTranscriptionsChunkingConfig();
@@ -286,10 +286,7 @@ export class TranscriptChunkingService {
     return result;
   }
 
-  private truncateIfNeeded(
-    transcriptText: string,
-    maxTokens: number,
-  ): string {
+  private truncateIfNeeded(transcriptText: string, maxTokens: number): string {
     const tokens = estimateChatTokens(transcriptText);
     if (tokens <= maxTokens) {
       return transcriptText;
@@ -402,9 +399,7 @@ export class TranscriptChunkingService {
         const relevantCrossRefs = structure.crossReferences
           .filter(
             (cr) =>
-              cr.from === i ||
-              cr.to === i ||
-              (cr.from <= i && cr.to >= i),
+              cr.from === i || cr.to === i || (cr.from <= i && cr.to >= i),
           )
           .map((cr) => cr.description)
           .join('\n');

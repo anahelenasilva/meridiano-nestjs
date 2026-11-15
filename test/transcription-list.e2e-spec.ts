@@ -42,10 +42,30 @@ describe('YoutubeTranscriptionsService.listTranscriptions (e2e, real Postgres)',
   const otherChannel = randomUUID();
 
   const seeds = [
-    { id: marchTen, channel: channelA, postedAt: '2026-03-10T12:00:00.000Z', processedAt: '2026-03-11T00:00:00.000Z' },
-    { id: marchTenTwin, channel: channelA, postedAt: '2026-03-10T12:00:00.000Z', processedAt: '2026-03-11T00:00:00.000Z' },
-    { id: unpostedProcessedMarch20, channel: channelA, postedAt: null, processedAt: '2026-03-20T00:00:00.000Z' },
-    { id: otherChannel, channel: channelB, postedAt: '2026-03-12T12:00:00.000Z', processedAt: '2026-03-13T00:00:00.000Z' },
+    {
+      id: marchTen,
+      channel: channelA,
+      postedAt: '2026-03-10T12:00:00.000Z',
+      processedAt: '2026-03-11T00:00:00.000Z',
+    },
+    {
+      id: marchTenTwin,
+      channel: channelA,
+      postedAt: '2026-03-10T12:00:00.000Z',
+      processedAt: '2026-03-11T00:00:00.000Z',
+    },
+    {
+      id: unpostedProcessedMarch20,
+      channel: channelA,
+      postedAt: null,
+      processedAt: '2026-03-20T00:00:00.000Z',
+    },
+    {
+      id: otherChannel,
+      channel: channelB,
+      postedAt: '2026-03-12T12:00:00.000Z',
+      processedAt: '2026-03-13T00:00:00.000Z',
+    },
   ];
   const marchTenPair = [marchTen, marchTenTwin].sort().reverse();
 
@@ -53,8 +73,14 @@ describe('YoutubeTranscriptionsService.listTranscriptions (e2e, real Postgres)',
     filter: TranscriptionFilter,
     page: TranscriptionPage = { page: 1, perPage: 20 },
   ): Promise<{ ids: string[]; total: number }> {
-    const { transcriptions, total } = await service.listTranscriptions(filter, page);
-    return { ids: transcriptions.map((transcription) => transcription.id), total };
+    const { transcriptions, total } = await service.listTranscriptions(
+      filter,
+      page,
+    );
+    return {
+      ids: transcriptions.map((transcription) => transcription.id),
+      total,
+    };
   }
 
   beforeAll(async () => {
@@ -76,7 +102,13 @@ describe('YoutubeTranscriptionsService.listTranscriptions (e2e, real Postgres)',
         db,
         `INSERT INTO youtube_channels (id, channel_id, name, url, enabled)
          VALUES (?, ?, ?, ?, ?)`,
-        [id, externalId, `Channel ${externalId}`, `https://www.youtube.com/@${externalId}`, true],
+        [
+          id,
+          externalId,
+          `Channel ${externalId}`,
+          `https://www.youtube.com/@${externalId}`,
+          true,
+        ],
       );
     }
 
@@ -138,7 +170,9 @@ describe('YoutubeTranscriptionsService.listTranscriptions (e2e, real Postgres)',
   });
 
   it('returns an empty page, not an error, for a channel id that matches nothing', async () => {
-    await expect(listIds({ channelId: `UC-${marker}-missing` })).resolves.toEqual({
+    await expect(
+      listIds({ channelId: `UC-${marker}-missing` }),
+    ).resolves.toEqual({
       ids: [],
       total: 0,
     });
@@ -158,7 +192,9 @@ describe('YoutubeTranscriptionsService.listTranscriptions (e2e, real Postgres)',
 
   it('returns each row once when paging across equal dates', async () => {
     const pages = await Promise.all(
-      [1, 2, 3].map((page) => listIds({ channelId: channelA }, { page, perPage: 1 })),
+      [1, 2, 3].map((page) =>
+        listIds({ channelId: channelA }, { page, perPage: 1 }),
+      ),
     );
 
     expect(pages.flatMap(({ ids }) => ids)).toEqual([

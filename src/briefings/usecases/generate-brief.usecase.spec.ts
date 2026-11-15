@@ -15,7 +15,10 @@ describe('GenerateBriefUseCase', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         GenerateBriefUseCase,
-        { provide: BriefingGenerationService, useValue: mockBriefingGenerationService },
+        {
+          provide: BriefingGenerationService,
+          useValue: mockBriefingGenerationService,
+        },
         { provide: ConfigService, useValue: mockConfigService },
       ],
     }).compile();
@@ -89,7 +92,9 @@ describe('GenerateBriefUseCase', () => {
 
   it('passes undefined customPrompts when not provided', async () => {
     mockConfigService.isBriefingsGenerationEnabled.mockReturnValue(true);
-    mockBriefingGenerationService.generateBrief.mockResolvedValue({ success: true });
+    mockBriefingGenerationService.generateBrief.mockResolvedValue({
+      success: true,
+    });
 
     await useCase.execute(input);
 

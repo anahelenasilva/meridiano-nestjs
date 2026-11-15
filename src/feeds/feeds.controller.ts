@@ -21,7 +21,10 @@ export class FeedsController {
   @Public()
   @Header('Content-Type', 'application/rss+xml; charset=utf-8')
   @ApiOperation({ summary: 'Get the public RSS feed of articles' })
-  @ApiOkResponse({ description: 'RSS XML feed', content: { 'application/rss+xml': { schema: { type: 'string' } } } })
+  @ApiOkResponse({
+    description: 'RSS XML feed',
+    content: { 'application/rss+xml': { schema: { type: 'string' } } },
+  })
   async getArticlesFeed(
     @Req() request: FeedRequest,
     @Query('limit') limit?: string,
@@ -37,8 +40,13 @@ export class FeedsController {
   @Get('youtube.xml')
   @Public()
   @Header('Content-Type', 'application/rss+xml; charset=utf-8')
-  @ApiOperation({ summary: 'Get the public RSS feed of YouTube transcriptions' })
-  @ApiOkResponse({ description: 'RSS XML feed', content: { 'application/rss+xml': { schema: { type: 'string' } } } })
+  @ApiOperation({
+    summary: 'Get the public RSS feed of YouTube transcriptions',
+  })
+  @ApiOkResponse({
+    description: 'RSS XML feed',
+    content: { 'application/rss+xml': { schema: { type: 'string' } } },
+  })
   async getYoutubeFeed(
     @Req() request: FeedRequest,
     @Query('limit') limit?: string,

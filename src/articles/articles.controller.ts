@@ -69,8 +69,12 @@ export class ArticlesController {
 
   @Post()
   @ApiKeyAllowed()
-  @ApiOperation({ summary: 'Scrape a URL and queue the resulting article for processing' })
-  @ApiCreatedResponse({ description: 'Article scraped and queued for processing' })
+  @ApiOperation({
+    summary: 'Scrape a URL and queue the resulting article for processing',
+  })
+  @ApiCreatedResponse({
+    description: 'Article scraped and queued for processing',
+  })
   @ApiValidationErrorResponse()
   async create(@Body() createArticleDto: CreateArticleDto) {
     const { url, feedProfile, customPrompt, generateAudio } = createArticleDto;
@@ -111,14 +115,17 @@ export class ArticlesController {
   }
 
   @Post('upload-url')
-  @ApiOperation({ summary: 'Generate a presigned S3 upload URL for an article file' })
+  @ApiOperation({
+    summary: 'Generate a presigned S3 upload URL for an article file',
+  })
   @ApiCreatedResponse({ description: 'Presigned upload URL generated' })
   @ApiValidationErrorResponse()
   async generateUploadUrl(@Body() dto: GenerateUploadUrlDto) {
     const { articleFileName, s3Bucket, contentType, fileSize } = dto;
 
     try {
-      const bucketName = s3Bucket || this.configService.getS3ArticlesBucketName();
+      const bucketName =
+        s3Bucket || this.configService.getS3ArticlesBucketName();
 
       if (!bucketName) {
         throw new BadRequestException(
@@ -149,14 +156,17 @@ export class ArticlesController {
   }
 
   @Post('markdown')
-  @ApiOperation({ summary: 'Queue a markdown article stored in S3 for processing' })
+  @ApiOperation({
+    summary: 'Queue a markdown article stored in S3 for processing',
+  })
   @ApiCreatedResponse({ description: 'Markdown article queued for processing' })
   @ApiValidationErrorResponse()
   async processMarkdownArticle(@Body() dto: ProcessMarkdownArticleDto) {
     const { s3Key, feedProfile, s3Bucket, customPrompt, generateAudio } = dto;
 
     try {
-      const bucketName = s3Bucket || this.configService.getS3ArticlesBucketName();
+      const bucketName =
+        s3Bucket || this.configService.getS3ArticlesBucketName();
 
       if (!bucketName) {
         throw new BadRequestException(
@@ -164,13 +174,14 @@ export class ArticlesController {
         );
       }
 
-      const jobInfo = await this.articleJobsService.addMarkdownArticleProcessingJob(
-        bucketName,
-        s3Key,
-        feedProfile,
-        customPrompt,
-        generateAudio,
-      );
+      const jobInfo =
+        await this.articleJobsService.addMarkdownArticleProcessingJob(
+          bucketName,
+          s3Key,
+          feedProfile,
+          customPrompt,
+          generateAudio,
+        );
 
       return {
         ...jobInfo,
@@ -208,7 +219,10 @@ export class ArticlesController {
 
   @Get()
   @ApiKeyAllowed()
-  @ApiOperation({ summary: 'List articles (all articles are global; per-user notes and bookmark state attach only for a JWT user)' })
+  @ApiOperation({
+    summary:
+      'List articles (all articles are global; per-user notes and bookmark state attach only for a JWT user)',
+  })
   @ApiQuery({
     name: 'archive_scope',
     required: false,
@@ -312,7 +326,9 @@ export class ArticlesController {
   // Archive is a state transition, not an editorial field, so it gets its own
   // sub-resource rather than joining PATCH :id.
   @Post(':id/archive')
-  @ApiOperation({ summary: 'Archive an article so it leaves every article view' })
+  @ApiOperation({
+    summary: 'Archive an article so it leaves every article view',
+  })
   @ApiCreatedResponse({ description: 'Article archived' })
   @ApiNotFoundResponse({ description: 'Article not found' })
   async archiveArticle(@Param('id', ParseUUIDPipe) id: string) {
@@ -326,7 +342,9 @@ export class ArticlesController {
   }
 
   @Delete(':id/archive')
-  @ApiOperation({ summary: 'Unarchive an article and return it to the article views' })
+  @ApiOperation({
+    summary: 'Unarchive an article and return it to the article views',
+  })
   @ApiOkResponse({ description: 'Article unarchived' })
   @ApiNotFoundResponse({ description: 'Article not found' })
   async unarchiveArticle(@Param('id', ParseUUIDPipe) id: string) {
@@ -348,7 +366,9 @@ export class ArticlesController {
   }
 
   @Get(':id/audio/status/:jobId')
-  @ApiOperation({ summary: 'Get the status of an article audio generation job' })
+  @ApiOperation({
+    summary: 'Get the status of an article audio generation job',
+  })
   @ApiOkResponse({ description: 'Audio job status retrieved' })
   @ApiNotFoundResponse({ description: 'Audio job not found' })
   async getAudioJobStatus(

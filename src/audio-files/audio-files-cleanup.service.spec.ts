@@ -21,7 +21,10 @@ describe('AudioFilesCleanupService', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    service = new AudioFilesCleanupService(mockAudioFilesService, mockS3Service);
+    service = new AudioFilesCleanupService(
+      mockAudioFilesService,
+      mockS3Service,
+    );
   });
 
   it('deletes the S3 object then the row for the exact key the source owns', async () => {
@@ -42,8 +45,7 @@ describe('AudioFilesCleanupService', () => {
 
     const s3Order = mockS3Service.deleteObject.mock.invocationCallOrder[0];
     const dbOrder =
-      mockAudioFilesService.deleteAudioFileBySource.mock
-        .invocationCallOrder[0];
+      mockAudioFilesService.deleteAudioFileBySource.mock.invocationCallOrder[0];
     expect(s3Order).toBeLessThan(dbOrder);
   });
 

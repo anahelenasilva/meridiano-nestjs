@@ -68,7 +68,13 @@ describe('GET /api/articles has_audio (e2e)', () => {
       db,
       `INSERT INTO users (id, email, username, password, is_email_verified)
        VALUES (?, ?, ?, ?, ?)`,
-      [userId, `articles-has-audio-e2e-${userId}@example.com`, `articles-has-audio-e2e-${userId}`, 'unused', true],
+      [
+        userId,
+        `articles-has-audio-e2e-${userId}@example.com`,
+        `articles-has-audio-e2e-${userId}`,
+        'unused',
+        true,
+      ],
     );
 
     const jwtService = moduleFixture.get(JwtService);
@@ -110,17 +116,26 @@ describe('GET /api/articles has_audio (e2e)', () => {
       db,
       `INSERT INTO audio_files (source_type, source_id, s3_bucket, s3_key, file_size_bytes, duration_seconds, created_at)
        VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      ['article', articleWithAudioId, 'test-bucket', 'audio/article.mp3', 1000, 60, '2026-01-10T00:00:00.000Z'],
+      [
+        'article',
+        articleWithAudioId,
+        'test-bucket',
+        'audio/article.mp3',
+        1000,
+        60,
+        '2026-01-10T00:00:00.000Z',
+      ],
     );
   });
 
   afterAll(async () => {
     if (db) {
       try {
-        await runQuery(db, `DELETE FROM audio_files WHERE source_type = ? AND source_id = ?`, [
-          'article',
-          articleWithAudioId,
-        ]);
+        await runQuery(
+          db,
+          `DELETE FROM audio_files WHERE source_type = ? AND source_id = ?`,
+          ['article', articleWithAudioId],
+        );
         await runQuery(db, `DELETE FROM articles WHERE id IN (?, ?)`, [
           articleWithAudioId,
           articleWithoutAudioId,

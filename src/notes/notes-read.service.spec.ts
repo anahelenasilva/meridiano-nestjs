@@ -106,11 +106,11 @@ describe('NotesReadService', () => {
         ]);
       });
 
-      const result = await service.getActiveNotesBySourceIds(userId, 'article', [
-        idA,
-        idB,
-        idC,
-      ]);
+      const result = await service.getActiveNotesBySourceIds(
+        userId,
+        'article',
+        [idA, idB, idC],
+      );
 
       expect(result.size).toBe(2);
       expect(result.get(idA)).toEqual({
@@ -155,11 +155,19 @@ describe('NotesReadService', () => {
         idB,
       ]);
 
-      expect(mockDb.all.mock.calls[0][1]).toEqual([userId, 'article', [idA, idB]]);
+      expect(mockDb.all.mock.calls[0][1]).toEqual([
+        userId,
+        'article',
+        [idA, idB],
+      ]);
     });
 
     it('short-circuits to an empty map without querying when given no ids', async () => {
-      const result = await service.getActiveNotesBySourceIds(userId, 'article', []);
+      const result = await service.getActiveNotesBySourceIds(
+        userId,
+        'article',
+        [],
+      );
 
       expect(result.size).toBe(0);
       expect(mockDb.all).not.toHaveBeenCalled();

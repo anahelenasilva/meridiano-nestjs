@@ -8,4 +8,4 @@ import { AudioJobService } from './services/audio-job.service';
   providers: [AudioJobService],
   exports: [AudioJobService],
 })
-export class AudioModule { }
+export class AudioModule {}

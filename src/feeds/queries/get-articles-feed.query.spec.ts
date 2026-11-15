@@ -1,5 +1,8 @@
 import { mock } from 'jest-mock-extended';
-import { ArticleListRow, ArticlesService } from '../../articles/articles.service';
+import {
+  ArticleListRow,
+  ArticlesService,
+} from '../../articles/articles.service';
 import { FeedProfile } from '../../shared/types/feed';
 import { FEED_DEFAULT_ITEM_LIMIT } from '../helpers/parse-feed-query';
 import { GetArticlesFeedQuery } from './get-articles-feed.query';
@@ -17,7 +20,9 @@ describe('GetArticlesFeedQuery', () => {
 
   // The RSS feed does not render has_audio; it is only present here to
   // satisfy listArticles's return type.
-  function buildArticle(overrides: Partial<ArticleListRow> = {}): ArticleListRow {
+  function buildArticle(
+    overrides: Partial<ArticleListRow> = {},
+  ): ArticleListRow {
     return {
       id: 'article-1',
       url: 'https://source.example.com/article-1',
@@ -34,7 +39,10 @@ describe('GetArticlesFeedQuery', () => {
   }
 
   it('requests the latest articles ordered by published date descending, bounded by the default limit', async () => {
-    mockArticlesService.listArticles.mockResolvedValue({ articles: [], total: 0 });
+    mockArticlesService.listArticles.mockResolvedValue({
+      articles: [],
+      total: 0,
+    });
 
     const query = buildQuery();
     await query.execute('https://api.example.com/feeds/articles.xml');
@@ -51,7 +59,10 @@ describe('GetArticlesFeedQuery', () => {
   });
 
   it('requests articles bounded by the given limit', async () => {
-    mockArticlesService.listArticles.mockResolvedValue({ articles: [], total: 0 });
+    mockArticlesService.listArticles.mockResolvedValue({
+      articles: [],
+      total: 0,
+    });
 
     const query = buildQuery();
     await query.execute('https://api.example.com/feeds/articles.xml', {
@@ -65,7 +76,10 @@ describe('GetArticlesFeedQuery', () => {
   });
 
   it('filters by feed profile when given', async () => {
-    mockArticlesService.listArticles.mockResolvedValue({ articles: [], total: 0 });
+    mockArticlesService.listArticles.mockResolvedValue({
+      articles: [],
+      total: 0,
+    });
 
     const query = buildQuery();
     await query.execute('https://api.example.com/feeds/articles.xml', {
@@ -79,7 +93,10 @@ describe('GetArticlesFeedQuery', () => {
   });
 
   it('renders valid RSS XML with the given channel link', async () => {
-    mockArticlesService.listArticles.mockResolvedValue({ articles: [], total: 0 });
+    mockArticlesService.listArticles.mockResolvedValue({
+      articles: [],
+      total: 0,
+    });
 
     const query = buildQuery();
     const xml = await query.execute(
@@ -94,7 +111,10 @@ describe('GetArticlesFeedQuery', () => {
 
   it('maps each article to a feed item with a stable GUID, title, canonical link, and pubDate', async () => {
     const article = buildArticle();
-    mockArticlesService.listArticles.mockResolvedValue({ articles: [article], total: 1 });
+    mockArticlesService.listArticles.mockResolvedValue({
+      articles: [article],
+      total: 1,
+    });
 
     const query = buildQuery();
     const xml = await query.execute(
@@ -111,7 +131,10 @@ describe('GetArticlesFeedQuery', () => {
 
   it('uses processed_content as the item description when present', async () => {
     const article = buildArticle({ processed_content: 'processed body' });
-    mockArticlesService.listArticles.mockResolvedValue({ articles: [article], total: 1 });
+    mockArticlesService.listArticles.mockResolvedValue({
+      articles: [article],
+      total: 1,
+    });
 
     const query = buildQuery();
     const xml = await query.execute(
@@ -123,7 +146,10 @@ describe('GetArticlesFeedQuery', () => {
 
   it('falls back to raw_content when processed_content is missing', async () => {
     const article = buildArticle({ processed_content: null });
-    mockArticlesService.listArticles.mockResolvedValue({ articles: [article], total: 1 });
+    mockArticlesService.listArticles.mockResolvedValue({
+      articles: [article],
+      total: 1,
+    });
 
     const query = buildQuery();
     const xml = await query.execute(
@@ -137,7 +163,10 @@ describe('GetArticlesFeedQuery', () => {
     const article = buildArticle({
       title: 'Breaking: <script>alert(1)</script> & more',
     });
-    mockArticlesService.listArticles.mockResolvedValue({ articles: [article], total: 1 });
+    mockArticlesService.listArticles.mockResolvedValue({
+      articles: [article],
+      total: 1,
+    });
 
     const query = buildQuery();
     const xml = await query.execute(
@@ -151,7 +180,10 @@ describe('GetArticlesFeedQuery', () => {
   });
 
   it('returns an empty item list when there are no articles', async () => {
-    mockArticlesService.listArticles.mockResolvedValue({ articles: [], total: 0 });
+    mockArticlesService.listArticles.mockResolvedValue({
+      articles: [],
+      total: 0,
+    });
 
     const query = buildQuery();
     const xml = await query.execute(

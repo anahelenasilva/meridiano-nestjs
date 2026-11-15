@@ -55,7 +55,10 @@ describe('BriefingsController', () => {
         { provide: BriefingsService, useValue: mockBriefingsService },
         { provide: ListBriefingsQuery, useValue: mockListBriefingsQuery },
         { provide: GenerateBriefUseCase, useValue: mockGenerateBriefUseCase },
-        { provide: GenerateCustomBriefUseCase, useValue: mockGenerateCustomBriefUseCase },
+        {
+          provide: GenerateCustomBriefUseCase,
+          useValue: mockGenerateCustomBriefUseCase,
+        },
         { provide: QueueService, useValue: mockQueueService },
         { provide: ConfigService, useValue: mock<ConfigService>() },
       ],
@@ -79,7 +82,10 @@ describe('BriefingsController', () => {
 
       const result = await controller.listBriefings();
 
-      expect(mockListBriefingsQuery.execute).toHaveBeenCalledWith(undefined, undefined);
+      expect(mockListBriefingsQuery.execute).toHaveBeenCalledWith(
+        undefined,
+        undefined,
+      );
       expect(result).toBe(expected);
     });
 
@@ -107,7 +113,10 @@ describe('BriefingsController', () => {
 
       await controller.listBriefings(undefined, '200');
 
-      expect(mockListBriefingsQuery.execute).toHaveBeenCalledWith(undefined, 100);
+      expect(mockListBriefingsQuery.execute).toHaveBeenCalledWith(
+        undefined,
+        100,
+      );
     });
 
     it('passes parsed limit when within max', async () => {
@@ -119,7 +128,10 @@ describe('BriefingsController', () => {
 
       await controller.listBriefings(undefined, '25');
 
-      expect(mockListBriefingsQuery.execute).toHaveBeenCalledWith(undefined, 25);
+      expect(mockListBriefingsQuery.execute).toHaveBeenCalledWith(
+        undefined,
+        25,
+      );
     });
 
     it('treats non-numeric limit as undefined', async () => {
@@ -131,7 +143,10 @@ describe('BriefingsController', () => {
 
       await controller.listBriefings(undefined, 'abc');
 
-      expect(mockListBriefingsQuery.execute).toHaveBeenCalledWith(undefined, undefined);
+      expect(mockListBriefingsQuery.execute).toHaveBeenCalledWith(
+        undefined,
+        undefined,
+      );
     });
 
     // TypeORM passes any non-null take straight through, so a negative limit
@@ -209,7 +224,9 @@ describe('BriefingsController', () => {
 
       const result = await controller.generateCustomBriefing(input);
 
-      expect(mockGenerateCustomBriefUseCase.execute).toHaveBeenCalledWith(input);
+      expect(mockGenerateCustomBriefUseCase.execute).toHaveBeenCalledWith(
+        input,
+      );
       expect(result).toBe(expected);
     });
 

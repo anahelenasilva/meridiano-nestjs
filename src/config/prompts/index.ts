@@ -2,7 +2,12 @@ export { articleSourceExtractionPrompt } from './article-source-extraction.promp
 export { articleSummaryPrompt } from './article-summary.prompt';
 export { briefSynthesisPrompt } from './brief-synthesis.prompt';
 export { categoryClassificationPrompt } from './category-classification.prompt';
-export { chunkSummaryPrompt, chunkSummaryWithStructurePrompt, structureExtractionPrompt, synthesisWithStructurePrompt } from './transcription-summary.prompt';
+export {
+  chunkSummaryPrompt,
+  chunkSummaryWithStructurePrompt,
+  structureExtractionPrompt,
+  synthesisWithStructurePrompt,
+} from './transcription-summary.prompt';
 export { clusterAnalysisPrompt } from './cluster-analysis.prompt';
 export { impactRatingPrompt } from './impact-rating.prompt';
 export { customBriefingPrompt } from './custom-briefing.prompt';

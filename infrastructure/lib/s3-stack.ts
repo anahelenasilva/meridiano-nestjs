@@ -40,9 +40,7 @@ export class S3Stack extends cdk.Stack {
             s3.HttpMethods.GET,
             s3.HttpMethods.HEAD,
           ],
-          allowedHeaders: [
-            '*',
-          ],
+          allowedHeaders: ['*'],
           exposedHeaders: [
             'ETag',
             'x-amz-server-side-encryption',
@@ -63,21 +61,18 @@ export class S3Stack extends cdk.Stack {
 
     const readWritePolicy = new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
-      actions: [
-        's3:GetObject',
-        's3:PutObject',
-        's3:ListBucket',
-      ],
-      resources: [
-        this.bucket.bucketArn,
-        `${this.bucket.bucketArn}/*`,
-      ],
+      actions: ['s3:GetObject', 's3:PutObject', 's3:ListBucket'],
+      resources: [this.bucket.bucketArn, `${this.bucket.bucketArn}/*`],
     });
 
-    const managedPolicy = new iam.ManagedPolicy(this, 'ArticlesBucketReadPolicy', {
-      description: `Read and write access to Meridiano articles S3 bucket for ${environment} environment`,
-      statements: [readWritePolicy],
-    });
+    const managedPolicy = new iam.ManagedPolicy(
+      this,
+      'ArticlesBucketReadPolicy',
+      {
+        description: `Read and write access to Meridiano articles S3 bucket for ${environment} environment`,
+        statements: [readWritePolicy],
+      },
+    );
 
     new cdk.CfnOutput(this, 'BucketName', {
       value: this.bucket.bucketName,

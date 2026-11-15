@@ -5,4 +5,4 @@ import { S3Service } from './s3.service';
   providers: [S3Service],
   exports: [S3Service],
 })
-export class S3Module { }
+export class S3Module {}

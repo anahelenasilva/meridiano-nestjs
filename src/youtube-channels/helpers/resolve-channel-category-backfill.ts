@@ -51,14 +51,18 @@ export function resolveChannelCategoryBackfill(
     channels.map((channel) => [channel.channelId, channel.id] as const),
   );
   const categoryIdByLowerName = new Map(
-    categories.map((category) => [category.name.toLowerCase(), category.id] as const),
+    categories.map(
+      (category) => [category.name.toLowerCase(), category.id] as const,
+    ),
   );
 
   const pairs: ChannelCategoryPair[] = [];
   const unmatchedCategoryNames: string[] = [];
 
   for (const mapping of mappings) {
-    const internalChannelId = internalIdByExternalChannelId.get(mapping.channelId);
+    const internalChannelId = internalIdByExternalChannelId.get(
+      mapping.channelId,
+    );
     if (!internalChannelId) continue;
 
     for (const categoryName of mapping.categoryNames) {

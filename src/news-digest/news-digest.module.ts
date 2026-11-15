@@ -16,11 +16,7 @@ import { NewsDigestService } from './news-digest.service';
     TypeOrmModule.forFeature([DigestEntity]),
   ],
   controllers: [NewsDigestController],
-  providers: [
-    DigestArticleSelectorService,
-    DigestsService,
-    NewsDigestService,
-  ],
+  providers: [DigestArticleSelectorService, DigestsService, NewsDigestService],
 })
 export class NewsDigestModule implements OnModuleInit {
   private readonly logger = new Logger(NewsDigestModule.name);

@@ -16,10 +16,19 @@ describe('DigestsService', () => {
   describe('saveDigest', () => {
     it('creates and saves a digest entity from the given items', async () => {
       const items: DigestItem[] = [
-        { articleId: 'a1', title: 'Title 1', feedSource: 'Source 1', url: 'https://example.com/1' },
+        {
+          articleId: 'a1',
+          title: 'Title 1',
+          feedSource: 'Source 1',
+          url: 'https://example.com/1',
+        },
       ];
       const created = { items } as DigestEntity;
-      const saved = { id: 'digest-1', items, createdAt: new Date() } as DigestEntity;
+      const saved = {
+        id: 'digest-1',
+        items,
+        createdAt: new Date(),
+      } as DigestEntity;
 
       mockRepository.create.mockReturnValue(created);
       mockRepository.save.mockResolvedValue(saved);
@@ -33,7 +42,11 @@ describe('DigestsService', () => {
 
     it('persists an empty items array as-is', async () => {
       const created = { items: [] } as unknown as DigestEntity;
-      const saved = { id: 'digest-2', items: [], createdAt: new Date() } as DigestEntity;
+      const saved = {
+        id: 'digest-2',
+        items: [],
+        createdAt: new Date(),
+      } as DigestEntity;
 
       mockRepository.create.mockReturnValue(created);
       mockRepository.save.mockResolvedValue(saved);
@@ -46,23 +59,39 @@ describe('DigestsService', () => {
 
     it('propagates the error when the repository fails to save', async () => {
       const items: DigestItem[] = [
-        { articleId: 'a1', title: 'Title 1', feedSource: 'Source 1', url: 'https://example.com/1' },
+        {
+          articleId: 'a1',
+          title: 'Title 1',
+          feedSource: 'Source 1',
+          url: 'https://example.com/1',
+        },
       ];
       const created = { items } as DigestEntity;
 
       mockRepository.create.mockReturnValue(created);
       mockRepository.save.mockRejectedValue(new Error('DB connection lost'));
 
-      await expect(service.saveDigest(items)).rejects.toThrow('DB connection lost');
+      await expect(service.saveDigest(items)).rejects.toThrow(
+        'DB connection lost',
+      );
     });
   });
 
   describe('findLatest', () => {
     it('returns the newest digest ordered by created_at DESC', async () => {
       const items: DigestItem[] = [
-        { articleId: 'a1', title: 'Title 1', feedSource: 'Source 1', url: 'https://example.com/1' },
+        {
+          articleId: 'a1',
+          title: 'Title 1',
+          feedSource: 'Source 1',
+          url: 'https://example.com/1',
+        },
       ];
-      const latest = { id: 'digest-1', items, createdAt: new Date() } as DigestEntity;
+      const latest = {
+        id: 'digest-1',
+        items,
+        createdAt: new Date(),
+      } as DigestEntity;
 
       mockRepository.find.mockResolvedValue([latest]);
 

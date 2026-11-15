@@ -142,7 +142,9 @@ export class YoutubeChannelsService {
     });
 
     if (!row) {
-      throw new InternalServerErrorException('Channel not found after creation');
+      throw new InternalServerErrorException(
+        'Channel not found after creation',
+      );
     }
 
     return mapChannelRow(row);

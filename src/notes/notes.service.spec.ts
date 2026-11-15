@@ -33,7 +33,9 @@ describe('NotesService', () => {
   it('creates a new article note when no active note exists', async () => {
     const userId = 'user-1';
     const articleId = '11111111-1111-1111-1111-111111111111';
-    mockArticlesService.getArticleById.mockResolvedValue({ id: articleId } as never);
+    mockArticlesService.getArticleById.mockResolvedValue({
+      id: articleId,
+    } as never);
     mockNotesReadService.getActiveNote.mockResolvedValue(null);
     mockDb.get.mockImplementationOnce((query, params, callback) => {
       callback(null, {
@@ -111,7 +113,9 @@ describe('NotesService', () => {
   it('soft-deletes the active note when content is whitespace-only', async () => {
     const userId = 'user-1';
     const articleId = '11111111-1111-1111-1111-111111111111';
-    mockArticlesService.getArticleById.mockResolvedValue({ id: articleId } as never);
+    mockArticlesService.getArticleById.mockResolvedValue({
+      id: articleId,
+    } as never);
     mockNotesReadService.getActiveNote.mockResolvedValue({
       id: 'note-1',
       user_id: userId,
@@ -143,7 +147,9 @@ describe('NotesService', () => {
   it('returns null without writing when blank content is saved with no active note', async () => {
     const userId = 'user-1';
     const articleId = '11111111-1111-1111-1111-111111111111';
-    mockArticlesService.getArticleById.mockResolvedValue({ id: articleId } as never);
+    mockArticlesService.getArticleById.mockResolvedValue({
+      id: articleId,
+    } as never);
     mockNotesReadService.getActiveNote.mockResolvedValue(null);
 
     const result = await service.saveNote(userId, {
@@ -160,7 +166,9 @@ describe('NotesService', () => {
   it('retries on unique constraint conflicts so concurrent creates become last-write-wins', async () => {
     const userId = 'user-1';
     const articleId = '11111111-1111-1111-1111-111111111111';
-    mockArticlesService.getArticleById.mockResolvedValue({ id: articleId } as never);
+    mockArticlesService.getArticleById.mockResolvedValue({
+      id: articleId,
+    } as never);
     mockNotesReadService.getActiveNote
       .mockResolvedValueOnce(null)
       .mockResolvedValueOnce({
@@ -174,7 +182,9 @@ describe('NotesService', () => {
       } as Note);
     mockDb.get
       .mockImplementationOnce((query, params, callback) => {
-        const error = new Error('duplicate key value violates unique constraint');
+        const error = new Error(
+          'duplicate key value violates unique constraint',
+        );
         (error as Error & { code?: string }).code = '23505';
         callback(error);
       })

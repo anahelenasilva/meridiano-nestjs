@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { QueueModule } from '@libs/queue';
 import { QueueService } from '@libs/queue';
-import { YoutubeTranscriptionsService } from './services/youtube-transcriptions.service';
+import { YoutubeTranscriptionsExtractionService } from './services/youtube-transcriptions-extraction.service';
 import { YoutubeTranscriptionsModule } from './youtube-transcriptions.module';
 
 // QueueModule imports only RedisModule and queue.service.ts imports nothing
@@ -20,12 +20,15 @@ describe('YoutubeTranscriptionsModule queue wiring', () => {
   it('injects QueueService by type, with no @Inject override', () => {
     const paramTypes = Reflect.getMetadata(
       'design:paramtypes',
-      YoutubeTranscriptionsService,
+      YoutubeTranscriptionsExtractionService,
     ) as unknown[];
 
     expect(paramTypes).toContain(QueueService);
     expect(
-      Reflect.getMetadata('self:paramtypes', YoutubeTranscriptionsService),
+      Reflect.getMetadata(
+        'self:paramtypes',
+        YoutubeTranscriptionsExtractionService,
+      ),
     ).toBeUndefined();
   });
 });

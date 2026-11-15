@@ -4,7 +4,7 @@ import { AppModule } from '../app.module';
 import { loadEnv } from '@libs/env/load-env';
 import { ChannelConfig } from '../shared/types/channel';
 import { YoutubeChannelsService } from '../youtube-channels/youtube-channels.service';
-import { YoutubeTranscriptionsService } from '../youtube-transcriptions/services/youtube-transcriptions.service';
+import { YoutubeTranscriptionsExtractionService } from '../youtube-transcriptions/services/youtube-transcriptions-extraction.service';
 
 loadEnv();
 
@@ -13,7 +13,7 @@ async function initialize() {
   return {
     app,
     youtubeChannelsService: app.get(YoutubeChannelsService),
-    youtubeTranscriptionsService: app.get(YoutubeTranscriptionsService),
+    extractionService: app.get(YoutubeTranscriptionsExtractionService),
   };
 }
 
@@ -57,7 +57,7 @@ async function main() {
     console.log();
 
     const { succeeded, failed } =
-      await services.youtubeTranscriptionsService.extractAll(channels);
+      await services.extractionService.extractAll(channels);
 
     console.log(`\nProcessed ${succeeded}/${channels.length} channel(s)`);
 

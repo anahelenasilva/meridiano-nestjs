@@ -1,11 +1,6 @@
 import { DatabaseService } from '@libs/database';
 import { Injectable } from '@nestjs/common';
-import {
-  mapRowToNote,
-  Note,
-  NoteRow,
-  NoteSourceType,
-} from './note.entity';
+import { mapRowToNote, Note, NoteRow, NoteSourceType } from './note.entity';
 
 /**
  * Read-only access to notes.

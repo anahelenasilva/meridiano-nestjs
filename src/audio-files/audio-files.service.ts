@@ -189,7 +189,10 @@ export class AudioFilesService {
    * Reads the unified audio library, newest generated audio first.
    * `id` breaks ties so pagination stays stable across pages.
    */
-  async listAudioLibrary(limit: number, offset: number): Promise<AudioLibraryEntry[]> {
+  async listAudioLibrary(
+    limit: number,
+    offset: number,
+  ): Promise<AudioLibraryEntry[]> {
     return new Promise((resolve, reject) => {
       const db = this.databaseService.getDbConnection();
 
@@ -211,24 +214,20 @@ export class AudioFilesService {
         LIMIT ? OFFSET ?
       `;
 
-      db.all(
-        query,
-        [limit, offset],
-        (err, rows: AudioLibraryRow[] = []) => {
-          if (err) {
-            reject(err);
-            return;
-          }
+      db.all(query, [limit, offset], (err, rows: AudioLibraryRow[] = []) => {
+        if (err) {
+          reject(err);
+          return;
+        }
 
-          resolve(
-            rows.map((row) => ({
-              ...row,
-              created_at: new Date(row.created_at),
-              duration_seconds: row.duration_seconds ?? undefined,
-            })),
-          );
-        },
-      );
+        resolve(
+          rows.map((row) => ({
+            ...row,
+            created_at: new Date(row.created_at),
+            duration_seconds: row.duration_seconds ?? undefined,
+          })),
+        );
+      });
     });
   }
 

@@ -57,7 +57,9 @@ export class DigestArticleSelectorService {
       const articleMap = new Map(articles.map((a) => [a.id, a]));
 
       return (parsed as unknown[])
-        .filter((id): id is string => typeof id === 'string' && articleMap.has(id))
+        .filter(
+          (id): id is string => typeof id === 'string' && articleMap.has(id),
+        )
         .slice(0, 10)
         .map((id) => articleMap.get(id)!);
     } catch {

@@ -32,7 +32,11 @@ describe('GenerateCustomBriefUseCase', () => {
 
     expect(mockQueue.add).toHaveBeenCalledWith(
       GENERATE_CUSTOM_BRIEFING_JOB,
-      { articleIds: ['a', 'b'], feedProfile: FeedProfile.TECHNOLOGY, customPrompt: undefined },
+      {
+        articleIds: ['a', 'b'],
+        feedProfile: FeedProfile.TECHNOLOGY,
+        customPrompt: undefined,
+      },
       { attempts: 4, backoff: { type: 'exponential', delay: 7000 } },
     );
     expect(result).toEqual({ jobId: 'job-123' });

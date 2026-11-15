@@ -44,7 +44,9 @@ export class BriefingsController {
   private static readonly MAX_LIMIT = 100;
 
   @Get()
-  @ApiOperation({ summary: 'List briefings, optionally filtered by feed profile' })
+  @ApiOperation({
+    summary: 'List briefings, optionally filtered by feed profile',
+  })
   @ApiOkResponse({ description: 'List of briefings' })
   @ApiValidationErrorResponse()
   async listBriefings(
@@ -87,7 +89,9 @@ export class BriefingsController {
   }
 
   @Post('custom')
-  @ApiOperation({ summary: 'Generate a custom briefing from a specific set of articles' })
+  @ApiOperation({
+    summary: 'Generate a custom briefing from a specific set of articles',
+  })
   @ApiCreatedResponse({ description: 'Generated custom briefing' })
   @ApiValidationErrorResponse()
   async generateCustomBriefing(@Body() input: GenerateCustomBriefInputDto) {
@@ -95,7 +99,9 @@ export class BriefingsController {
   }
 
   @Get('jobs/:jobId')
-  @ApiOperation({ summary: 'Get the status of a custom briefing generation job' })
+  @ApiOperation({
+    summary: 'Get the status of a custom briefing generation job',
+  })
   @ApiOkResponse({ description: 'Job status retrieved' })
   async getCustomBriefingJobStatus(@Param('jobId') jobId: string) {
     return this.queueService.getCustomBriefingJobStatus(jobId);

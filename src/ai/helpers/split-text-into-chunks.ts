@@ -1,4 +1,7 @@
-export function splitTextIntoChunks(text: string, maxChunkSize: number): string[] {
+export function splitTextIntoChunks(
+  text: string,
+  maxChunkSize: number,
+): string[] {
   if (text.length <= maxChunkSize) {
     return [text];
   }

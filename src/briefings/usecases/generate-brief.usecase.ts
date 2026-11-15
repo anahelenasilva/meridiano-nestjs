@@ -24,9 +24,12 @@ export class GenerateBriefUseCase {
       return { success: false, error };
     }
 
-    const result = await this.briefingGenerationService.generateBrief(input.feedProfile, {
-      customPrompts: input.customPrompts,
-    });
+    const result = await this.briefingGenerationService.generateBrief(
+      input.feedProfile,
+      {
+        customPrompts: input.customPrompts,
+      },
+    );
 
     return {
       success: result.success,

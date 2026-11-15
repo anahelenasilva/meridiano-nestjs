@@ -3,25 +3,24 @@ import { Logger } from '@nestjs/common';
 import { Job, Queue } from 'bullmq';
 import { mock, mockReset } from 'jest-mock-extended';
 import { IngestTranscriptJobData } from '@libs/queue';
-import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions.service';
+import { YoutubeTranscriptionsExtractionService } from '../services/youtube-transcriptions-extraction.service';
 import { YoutubeTranscriptIngestProcessor } from './youtube-transcript-ingest.processor';
 
 jest.mock('@libs/queue/create-worker');
 
 describe('YoutubeTranscriptIngestProcessor', () => {
   const mockQueue = mock<Queue>();
-  const mockService = mock<YoutubeTranscriptionsService>();
+  const mockService = mock<YoutubeTranscriptionsExtractionService>();
   let processor: YoutubeTranscriptIngestProcessor;
 
   beforeEach(() => {
     mockReset(mockService);
-    processor = new YoutubeTranscriptIngestProcessor(
-      mockQueue,
-      mockService,
-    );
+    processor = new YoutubeTranscriptIngestProcessor(mockQueue, mockService);
   });
 
-  function fakeJob(data: IngestTranscriptJobData): Job<IngestTranscriptJobData> {
+  function fakeJob(
+    data: IngestTranscriptJobData,
+  ): Job<IngestTranscriptJobData> {
     return { id: 'channel-1:abc123', data } as Job<IngestTranscriptJobData>;
   }
 
@@ -44,7 +43,10 @@ describe('YoutubeTranscriptIngestProcessor', () => {
       'Focus on architecture',
       true,
     );
-    expect(result).toEqual({ success: true, transcriptionId: 'transcription-1' });
+    expect(result).toEqual({
+      success: true,
+      transcriptionId: 'transcription-1',
+    });
   });
 
   it('reports a duplicate as success with no transcription id', async () => {
@@ -79,9 +81,13 @@ describe('YoutubeTranscriptIngestProcessor', () => {
     it('starts a worker on the transcript ingest queue', () => {
       processor.onModuleInit();
 
-      expect(createWorker).toHaveBeenCalledWith(mockQueue, expect.any(Function), {
-        logger: expect.any(Logger),
-      });
+      expect(createWorker).toHaveBeenCalledWith(
+        mockQueue,
+        expect.any(Function),
+        {
+          logger: expect.any(Logger),
+        },
+      );
     });
   });
 });

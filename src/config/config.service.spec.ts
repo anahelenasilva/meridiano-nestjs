@@ -19,19 +19,23 @@ describe('ConfigService', () => {
 
   describe('formatPrompt', () => {
     it('should replace both {article_content} and {article_title} placeholders', () => {
-      const template = '## Title\n- {article_title}\n\nContent:\n{article_content}';
+      const template =
+        '## Title\n- {article_title}\n\nContent:\n{article_content}';
       const result = service.formatPrompt(template, {
         article_content: 'Some article text',
         article_title: 'My Article Title',
       });
 
-      expect(result).toBe('## Title\n- My Article Title\n\nContent:\nSome article text');
+      expect(result).toBe(
+        '## Title\n- My Article Title\n\nContent:\nSome article text',
+      );
       expect(result).not.toContain('{article_title}');
       expect(result).not.toContain('{article_content}');
     });
 
     it('should replace {article_title} with empty string when value is explicitly undefined', () => {
-      const template = '## Title\n- {article_title}\n\nContent:\n{article_content}';
+      const template =
+        '## Title\n- {article_title}\n\nContent:\n{article_content}';
       const result = service.formatPrompt(template, {
         article_content: 'Some text',
         article_title: undefined,
@@ -124,7 +128,10 @@ describe('ConfigService', () => {
 
       const result = service.getAudioFailureNotificationEmail();
 
-      expect(result).toEqual({ to: 'support@example.com', from: 'noreply@example.com' });
+      expect(result).toEqual({
+        to: 'support@example.com',
+        from: 'noreply@example.com',
+      });
 
       delete process.env.AUDIO_FAILURE_SUPPORT_EMAIL;
       delete process.env.AUDIO_FAILURE_SUPPORT_EMAIL_FROM;
@@ -132,11 +139,15 @@ describe('ConfigService', () => {
 
     it('should fall back to ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM when AUDIO_FAILURE_SUPPORT_EMAIL_FROM is not set', () => {
       process.env.AUDIO_FAILURE_SUPPORT_EMAIL = 'support@example.com';
-      process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM = 'article-from@example.com';
+      process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM =
+        'article-from@example.com';
 
       const result = service.getAudioFailureNotificationEmail();
 
-      expect(result).toEqual({ to: 'support@example.com', from: 'article-from@example.com' });
+      expect(result).toEqual({
+        to: 'support@example.com',
+        from: 'article-from@example.com',
+      });
 
       delete process.env.AUDIO_FAILURE_SUPPORT_EMAIL;
       delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM;
@@ -166,24 +177,34 @@ describe('ConfigService', () => {
 
   describe('getEmbeddingFailureNotificationEmail', () => {
     it('should return config when both to and from are set', () => {
-      process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL = 'embedding@example.com';
-      process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL_FROM = 'noreply@example.com';
+      process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL =
+        'embedding@example.com';
+      process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL_FROM =
+        'noreply@example.com';
 
       const result = service.getEmbeddingFailureNotificationEmail();
 
-      expect(result).toEqual({ to: 'embedding@example.com', from: 'noreply@example.com' });
+      expect(result).toEqual({
+        to: 'embedding@example.com',
+        from: 'noreply@example.com',
+      });
 
       delete process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL;
       delete process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL_FROM;
     });
 
     it('should fall back to ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM when EMBEDDING_FAILURE_NOTIFICATION_EMAIL_FROM is not set', () => {
-      process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL = 'embedding@example.com';
-      process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM = 'article-from@example.com';
+      process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL =
+        'embedding@example.com';
+      process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM =
+        'article-from@example.com';
 
       const result = service.getEmbeddingFailureNotificationEmail();
 
-      expect(result).toEqual({ to: 'embedding@example.com', from: 'article-from@example.com' });
+      expect(result).toEqual({
+        to: 'embedding@example.com',
+        from: 'article-from@example.com',
+      });
 
       delete process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL;
       delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM;
@@ -199,7 +220,8 @@ describe('ConfigService', () => {
     });
 
     it('should return null when from is not configured', () => {
-      process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL = 'embedding@example.com';
+      process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL =
+        'embedding@example.com';
       delete process.env.EMBEDDING_FAILURE_NOTIFICATION_EMAIL_FROM;
       delete process.env.ARTICLE_FAILURE_NOTIFICATION_EMAIL_FROM;
 
@@ -355,7 +377,9 @@ describe('ConfigService', () => {
     it('returns the prompt when it is set', () => {
       process.env.NEWS_DIGEST_PROMPT = 'Focus on AI and cloud infrastructure';
 
-      expect(service.getNewsDigestPrompt()).toBe('Focus on AI and cloud infrastructure');
+      expect(service.getNewsDigestPrompt()).toBe(
+        'Focus on AI and cloud infrastructure',
+      );
     });
 
     it('returns empty string when the prompt is not set', () => {
@@ -578,5 +602,4 @@ describe('ConfigService', () => {
       });
     });
   });
-
 });

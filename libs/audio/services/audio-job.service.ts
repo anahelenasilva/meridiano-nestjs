@@ -1,7 +1,4 @@
-import {
-  AUDIO_GENERATION_QUEUE,
-  GENERATE_AUDIO_JOB,
-} from '@libs/queue';
+import { AUDIO_GENERATION_QUEUE, GENERATE_AUDIO_JOB } from '@libs/queue';
 import { RedisService } from '@libs/redis';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Job, Queue } from 'bullmq';
@@ -22,7 +19,7 @@ export class AudioJobService {
     @Inject(AUDIO_GENERATION_QUEUE)
     private readonly audioQueue: Queue,
     private readonly redisService: RedisService,
-  ) { }
+  ) {}
 
   async hasPendingAudioJob(
     sourceType: 'article' | 'transcription',
@@ -57,13 +54,9 @@ export class AudioJobService {
     options?: EnqueueOptions,
   ): Promise<JobInfo | AudioJobStatus | null> {
     const lockKey = `audio:enqueue-lock:${data.sourceType}:${data.sourceId}`;
-    const lockAcquired = await this.redisService.getClient().set(
-      lockKey,
-      '1',
-      'EX',
-      this.enqueueLockTtlSeconds,
-      'NX',
-    );
+    const lockAcquired = await this.redisService
+      .getClient()
+      .set(lockKey, '1', 'EX', this.enqueueLockTtlSeconds, 'NX');
 
     if (!lockAcquired) {
       return null;
@@ -189,7 +182,14 @@ export class AudioJobService {
     sourceId: string,
   ): Promise<AudioJobStatus[]> {
     try {
-      const jobs = await this.audioQueue.getJobs(['waiting', 'active', 'completed', 'failed', 'delayed', 'paused']);
+      const jobs = await this.audioQueue.getJobs([
+        'waiting',
+        'active',
+        'completed',
+        'failed',
+        'delayed',
+        'paused',
+      ]);
 
       const matchingJobs = jobs.filter((job) => {
         const data = job.data as GenerateAudioJobData;
@@ -328,7 +328,7 @@ export class AudioJobService {
       source_type: data.sourceType,
       source_id: data.sourceId,
       state,
-      error: state === 'failed' ? job.failedReason ?? null : null,
+      error: state === 'failed' ? (job.failedReason ?? null) : null,
     };
   }
 

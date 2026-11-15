@@ -72,7 +72,11 @@ describe('ArticlesController', () => {
 
       const controller = buildController();
 
-      const result = await controller.getArticle({ id: userId }, articleId, 'true');
+      const result = await controller.getArticle(
+        { id: userId },
+        articleId,
+        'true',
+      );
 
       expect(result).toEqual(expectedResponse);
       expect(mockGetArticleByIdQuery.execute).toHaveBeenCalledWith(
@@ -175,7 +179,9 @@ describe('ArticlesController', () => {
     });
 
     it('forwards undefined user id on the api-key path (no authenticated user)', async () => {
-      mockListArticlesQuery.execute.mockResolvedValue({ articles: [] } as never);
+      mockListArticlesQuery.execute.mockResolvedValue({
+        articles: [],
+      } as never);
 
       const controller = new ArticlesController(
         mock(),
@@ -254,7 +260,9 @@ describe('ArticlesController', () => {
         jobId: 'job-123',
         message: AUDIO_GENERATION_SUCCESS_MESSAGE,
       };
-      mockGenerateArticleAudioCommand.execute.mockResolvedValue(expectedResponse);
+      mockGenerateArticleAudioCommand.execute.mockResolvedValue(
+        expectedResponse,
+      );
 
       const controller = new ArticlesController(
         mock(),
@@ -414,7 +422,9 @@ describe('ArticlesController', () => {
 
       const result = await buildController().archiveArticle(articleId);
 
-      expect(mockArticlesService.archiveArticle).toHaveBeenCalledWith(articleId);
+      expect(mockArticlesService.archiveArticle).toHaveBeenCalledWith(
+        articleId,
+      );
       expect(result).toBe(archived);
     });
 

@@ -53,7 +53,13 @@ describe('GET /api/audio/jobs (e2e)', () => {
       db,
       `INSERT INTO users (id, email, username, password, is_email_verified)
        VALUES (?, ?, ?, ?, ?)`,
-      [userId, `audio-jobs-e2e-${userId}@example.com`, `audio-jobs-e2e-${userId}`, 'unused', true],
+      [
+        userId,
+        `audio-jobs-e2e-${userId}@example.com`,
+        `audio-jobs-e2e-${userId}`,
+        'unused',
+        true,
+      ],
     );
 
     const jwtService = moduleFixture.get(JwtService);
@@ -68,7 +74,6 @@ describe('GET /api/audio/jobs (e2e)', () => {
       try {
         await runQuery(db, `DELETE FROM users WHERE id = ?`, [userId]);
       } catch (err) {
-         
         console.error('Failed to clean up seeded user', err);
       }
     }

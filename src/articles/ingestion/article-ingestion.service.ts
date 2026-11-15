@@ -55,7 +55,9 @@ export class ArticleIngestionService {
 
     if (!articleId) {
       // Race: another process inserted between our check and our insert
-      const concurrent = await this.articlesService.getArticleByUrl(rawArticle.url);
+      const concurrent = await this.articlesService.getArticleByUrl(
+        rawArticle.url,
+      );
       if (concurrent) {
         return concurrent;
       }

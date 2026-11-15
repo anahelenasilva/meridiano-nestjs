@@ -16,9 +16,7 @@ export class AssignChannelCategoriesCommand {
     channelId: string,
     categoryNames: string[],
   ): Promise<Category[]> {
-    const channel = await this.youtubeChannelsService.getChannelById(
-      channelId,
-    );
+    const channel = await this.youtubeChannelsService.getChannelById(channelId);
     if (!channel) {
       throw new NotFoundException(`Channel with ID ${channelId} not found`);
     }

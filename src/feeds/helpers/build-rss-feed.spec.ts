@@ -50,9 +50,7 @@ describe('buildRssFeed', () => {
 
     expect(xml).toContain('<guid isPermaLink="false">article-1</guid>');
     expect(xml).toContain('<title>Article One</title>');
-    expect(xml).toContain(
-      '<link>https://source.example.com/article-1</link>',
-    );
+    expect(xml).toContain('<link>https://source.example.com/article-1</link>');
     expect(xml).toContain(`<pubDate>${pubDate.toUTCString()}</pubDate>`);
   });
 

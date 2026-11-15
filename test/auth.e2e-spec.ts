@@ -1,5 +1,10 @@
 import { RateLimitGuard } from '@libs/rate-limit';
-import { DynamicModule, INestApplication, Module, ValidationPipe } from '@nestjs/common';
+import {
+  DynamicModule,
+  INestApplication,
+  Module,
+  ValidationPipe,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as bcrypt from 'bcrypt';

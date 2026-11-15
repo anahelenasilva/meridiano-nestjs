@@ -6,8 +6,7 @@ import { FeedQueryOptions } from '../feeds.types';
 import { FEED_DEFAULT_ITEM_LIMIT } from '../helpers/parse-feed-query';
 
 export const FEED_CHANNEL_TITLE = 'Meridiano Articles';
-export const FEED_CHANNEL_DESCRIPTION =
-  'Latest Articles curated by Meridiano';
+export const FEED_CHANNEL_DESCRIPTION = 'Latest Articles curated by Meridiano';
 
 @Injectable()
 export class GetArticlesFeedQuery {

@@ -27,6 +27,7 @@ import { TranscriptService } from './services/transcript.service';
 import { TranscriptFetcherService } from './services/transcript-fetcher.service';
 import { YoutubeTranscriptionsAlternativeService } from './services/youtube-transcriptions-alternative.service';
 import { YoutubeTranscriptionsInnertubeService } from './services/youtube-transcriptions-innertube.service';
+import { YoutubeTranscriptionsExtractionService } from './services/youtube-transcriptions-extraction.service';
 import { YoutubeTranscriptionsService } from './services/youtube-transcriptions.service';
 import { YouTubeService } from './services/youtube.service';
 import { YoutubeTranscriptionsController } from './youtube-transcriptions.controller';
@@ -49,6 +50,7 @@ import { ProcessTranscriptionFilesUseCase } from './usecases/process-transcripti
   ],
   providers: [
     YoutubeTranscriptionsService,
+    YoutubeTranscriptionsExtractionService,
     YouTubeService,
     TranscriptService,
     YoutubeTranscriptionsAlternativeService,

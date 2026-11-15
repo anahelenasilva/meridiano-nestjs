@@ -36,7 +36,13 @@ export class BriefingsService {
     const entities = await this.briefingRepository.find({
       where: feedProfile ? { feedProfile } : {},
       order: { createdAt: 'DESC' },
-      select: { id: true, createdAt: true, feedProfile: true, isCustom: true, customTitle: true },
+      select: {
+        id: true,
+        createdAt: true,
+        feedProfile: true,
+        isCustom: true,
+        customTitle: true,
+      },
       take: limit,
     });
 

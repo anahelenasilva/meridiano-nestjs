@@ -63,19 +63,39 @@ describe('AudioJobService', () => {
     it('maps waiting, delayed, prioritized and waiting-children to queued', async () => {
       const jobs = [
         fakeJob(
-          { sourceType: 'article', sourceId: 'art-1', text: 't', date: new Date() },
+          {
+            sourceType: 'article',
+            sourceId: 'art-1',
+            text: 't',
+            date: new Date(),
+          },
           'waiting',
         ),
         fakeJob(
-          { sourceType: 'article', sourceId: 'art-2', text: 't', date: new Date() },
+          {
+            sourceType: 'article',
+            sourceId: 'art-2',
+            text: 't',
+            date: new Date(),
+          },
           'delayed',
         ),
         fakeJob(
-          { sourceType: 'transcription', sourceId: 'tr-1', text: 't', date: new Date() },
+          {
+            sourceType: 'transcription',
+            sourceId: 'tr-1',
+            text: 't',
+            date: new Date(),
+          },
           'prioritized',
         ),
         fakeJob(
-          { sourceType: 'transcription', sourceId: 'tr-6', text: 't', date: new Date() },
+          {
+            sourceType: 'transcription',
+            sourceId: 'tr-6',
+            text: 't',
+            date: new Date(),
+          },
           'waiting-children',
         ),
       ];
@@ -84,17 +104,42 @@ describe('AudioJobService', () => {
       const result = await service.listActiveAndFailedJobs();
 
       expect(result).toEqual([
-        { source_type: 'article', source_id: 'art-1', state: 'queued', error: null },
-        { source_type: 'article', source_id: 'art-2', state: 'queued', error: null },
-        { source_type: 'transcription', source_id: 'tr-1', state: 'queued', error: null },
-        { source_type: 'transcription', source_id: 'tr-6', state: 'queued', error: null },
+        {
+          source_type: 'article',
+          source_id: 'art-1',
+          state: 'queued',
+          error: null,
+        },
+        {
+          source_type: 'article',
+          source_id: 'art-2',
+          state: 'queued',
+          error: null,
+        },
+        {
+          source_type: 'transcription',
+          source_id: 'tr-1',
+          state: 'queued',
+          error: null,
+        },
+        {
+          source_type: 'transcription',
+          source_id: 'tr-6',
+          state: 'queued',
+          error: null,
+        },
       ]);
     });
 
     it('maps active to generating', async () => {
       mockAudioQueue.getJobs.mockResolvedValue([
         fakeJob(
-          { sourceType: 'transcription', sourceId: 'tr-2', text: 't', date: new Date() },
+          {
+            sourceType: 'transcription',
+            sourceId: 'tr-2',
+            text: 't',
+            date: new Date(),
+          },
           'active',
         ),
       ]);
@@ -102,14 +147,24 @@ describe('AudioJobService', () => {
       const result = await service.listActiveAndFailedJobs();
 
       expect(result).toEqual([
-        { source_type: 'transcription', source_id: 'tr-2', state: 'generating', error: null },
+        {
+          source_type: 'transcription',
+          source_id: 'tr-2',
+          state: 'generating',
+          error: null,
+        },
       ]);
     });
 
     it('maps failed to failed, carrying the failedReason as error', async () => {
       mockAudioQueue.getJobs.mockResolvedValue([
         fakeJob(
-          { sourceType: 'article', sourceId: 'art-3', text: 't', date: new Date() },
+          {
+            sourceType: 'article',
+            sourceId: 'art-3',
+            text: 't',
+            date: new Date(),
+          },
           'failed',
           'TTS provider timed out',
         ),
@@ -130,7 +185,12 @@ describe('AudioJobService', () => {
     it('sets error to null for non-failed states even when data allows it', async () => {
       mockAudioQueue.getJobs.mockResolvedValue([
         fakeJob(
-          { sourceType: 'article', sourceId: 'art-4', text: 't', date: new Date() },
+          {
+            sourceType: 'article',
+            sourceId: 'art-4',
+            text: 't',
+            date: new Date(),
+          },
           'active',
         ),
       ]);
@@ -143,7 +203,12 @@ describe('AudioJobService', () => {
     it('omits a job that reports completed despite the scan excluding it', async () => {
       mockAudioQueue.getJobs.mockResolvedValue([
         fakeJob(
-          { sourceType: 'article', sourceId: 'art-5', text: 't', date: new Date() },
+          {
+            sourceType: 'article',
+            sourceId: 'art-5',
+            text: 't',
+            date: new Date(),
+          },
           'completed',
         ),
       ]);

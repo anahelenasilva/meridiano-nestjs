@@ -28,7 +28,9 @@ function makeArticle(overrides: Partial<DBArticle> = {}): DBArticle {
 describe('NewsDigestService', () => {
   let service: NewsDigestService;
   let mockArticlesService: ReturnType<typeof mock<ArticlesService>>;
-  let mockSelectorService: ReturnType<typeof mock<DigestArticleSelectorService>>;
+  let mockSelectorService: ReturnType<
+    typeof mock<DigestArticleSelectorService>
+  >;
   let mockDigestsService: ReturnType<typeof mock<DigestsService>>;
   let mockQueue: ReturnType<typeof mock<Queue>>;
   let mockWorker: ReturnType<typeof mock<Worker>>;
@@ -60,10 +62,15 @@ describe('NewsDigestService', () => {
 
       service.onModuleInit();
 
-      expect(createWorker).toHaveBeenCalledWith(mockQueue, expect.any(Function), {
-        logger: expect.any(Logger),
-      });
-      const handler = jest.mocked(createWorker).mock.calls[0][1] as () => Promise<void>;
+      expect(createWorker).toHaveBeenCalledWith(
+        mockQueue,
+        expect.any(Function),
+        {
+          logger: expect.any(Logger),
+        },
+      );
+      const handler = jest.mocked(createWorker).mock
+        .calls[0][1] as () => Promise<void>;
       await handler();
       expect(runDigestSpy).toHaveBeenCalled();
     });
@@ -83,7 +90,9 @@ describe('NewsDigestService', () => {
     });
 
     it('logs error when seed fails', async () => {
-      const loggerErrorSpy = jest.spyOn(Logger.prototype, 'error').mockImplementation();
+      const loggerErrorSpy = jest
+        .spyOn(Logger.prototype, 'error')
+        .mockImplementation();
       mockQueue.add.mockRejectedValueOnce(new Error('Redis unavailable'));
 
       service.onModuleInit();
@@ -141,19 +150,29 @@ describe('NewsDigestService', () => {
   describe('runDigest', () => {
     it('fetches articles, selects top 10, and persists the digest without sending any email', async () => {
       const articles = [makeArticle({ id: 'a1' }), makeArticle({ id: 'a2' })];
-      mockArticlesService.getYesterdayArticlesByProfile.mockResolvedValue(articles);
+      mockArticlesService.getYesterdayArticlesByProfile.mockResolvedValue(
+        articles,
+      );
       mockSelectorService.selectTopArticles.mockResolvedValue(articles);
       mockDigestsService.saveDigest.mockResolvedValue('digest-1');
 
       await service.runDigest();
 
-      expect(mockArticlesService.getYesterdayArticlesByProfile).toHaveBeenCalled();
-      expect(mockSelectorService.selectTopArticles).toHaveBeenCalledWith(articles);
-      expect(mockDigestsService.saveDigest).toHaveBeenCalledWith(service.buildDigest(articles));
+      expect(
+        mockArticlesService.getYesterdayArticlesByProfile,
+      ).toHaveBeenCalled();
+      expect(mockSelectorService.selectTopArticles).toHaveBeenCalledWith(
+        articles,
+      );
+      expect(mockDigestsService.saveDigest).toHaveBeenCalledWith(
+        service.buildDigest(articles),
+      );
     });
 
     it('skips persistence when no articles are selected', async () => {
-      mockArticlesService.getYesterdayArticlesByProfile.mockResolvedValue([makeArticle()]);
+      mockArticlesService.getYesterdayArticlesByProfile.mockResolvedValue([
+        makeArticle(),
+      ]);
       mockSelectorService.selectTopArticles.mockResolvedValue([]);
 
       await service.runDigest();
@@ -163,7 +182,9 @@ describe('NewsDigestService', () => {
 
     it('throws when saveDigest fails, allowing BullMQ to retry', async () => {
       const articles = [makeArticle({ id: 'a1' })];
-      mockArticlesService.getYesterdayArticlesByProfile.mockResolvedValue(articles);
+      mockArticlesService.getYesterdayArticlesByProfile.mockResolvedValue(
+        articles,
+      );
       mockSelectorService.selectTopArticles.mockResolvedValue(articles);
       mockDigestsService.saveDigest.mockRejectedValue(new Error('DB error'));
 
@@ -171,8 +192,12 @@ describe('NewsDigestService', () => {
     });
 
     it('throws when selectTopArticles fails, allowing BullMQ to retry', async () => {
-      mockArticlesService.getYesterdayArticlesByProfile.mockResolvedValue([makeArticle()]);
-      mockSelectorService.selectTopArticles.mockRejectedValue(new Error('AI service error'));
+      mockArticlesService.getYesterdayArticlesByProfile.mockResolvedValue([
+        makeArticle(),
+      ]);
+      mockSelectorService.selectTopArticles.mockRejectedValue(
+        new Error('AI service error'),
+      );
 
       await expect(service.runDigest()).rejects.toThrow('AI service error');
       expect(mockDigestsService.saveDigest).not.toHaveBeenCalled();
@@ -180,7 +205,9 @@ describe('NewsDigestService', () => {
 
     it('succeeds on second call after AI failure, simulating BullMQ retry', async () => {
       const articles = [makeArticle({ id: 'a1' })];
-      mockArticlesService.getYesterdayArticlesByProfile.mockResolvedValue(articles);
+      mockArticlesService.getYesterdayArticlesByProfile.mockResolvedValue(
+        articles,
+      );
       mockSelectorService.selectTopArticles
         .mockRejectedValueOnce(new Error('AI service error'))
         .mockResolvedValueOnce(articles);
@@ -194,8 +221,12 @@ describe('NewsDigestService', () => {
 
     it('propagates failure after exhausted retries (total failure scenario)', async () => {
       const articles = [makeArticle({ id: 'a1' })];
-      mockArticlesService.getYesterdayArticlesByProfile.mockResolvedValue(articles);
-      mockSelectorService.selectTopArticles.mockRejectedValue(new Error('AI permanently down'));
+      mockArticlesService.getYesterdayArticlesByProfile.mockResolvedValue(
+        articles,
+      );
+      mockSelectorService.selectTopArticles.mockRejectedValue(
+        new Error('AI permanently down'),
+      );
 
       await expect(service.runDigest()).rejects.toThrow('AI permanently down');
       await expect(service.runDigest()).rejects.toThrow('AI permanently down');
@@ -207,7 +238,12 @@ describe('NewsDigestService', () => {
   describe('getLatestDigest', () => {
     it('returns the latest digest items', async () => {
       const items = [
-        { articleId: 'a1', title: 'Title 1', feedSource: 'Source 1', url: 'https://example.com/1' },
+        {
+          articleId: 'a1',
+          title: 'Title 1',
+          feedSource: 'Source 1',
+          url: 'https://example.com/1',
+        },
       ];
       mockDigestsService.findLatest.mockResolvedValue({
         id: 'digest-1',

@@ -14,7 +14,9 @@ describe('archiveClause', () => {
   });
 
   it('qualifies the column when one is given, for joined queries', () => {
-    expect(archiveClause('active', 'a.archived_at')).toBe('a.archived_at IS NULL');
+    expect(archiveClause('active', 'a.archived_at')).toBe(
+      'a.archived_at IS NULL',
+    );
     expect(archiveClause('archived', 'a.archived_at')).toBe(
       'a.archived_at IS NOT NULL',
     );
