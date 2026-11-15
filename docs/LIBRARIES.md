@@ -13,6 +13,7 @@ Current libraries:
 - `email`
 - `env`
 - `queue`
+- `rate-limit`
 - `redis`
 - `s3`
 
@@ -40,6 +41,7 @@ Path mapping is configured in:
 | `@libs/email` | Email sending through Mailgun | `EmailModule.forRootAsync()`, `EmailService` |
 | `@libs/env` | Loads `.env` into `process.env` at each entry point | `loadEnv` from `@libs/env/load-env` |
 | `@libs/queue` | BullMQ queues for article/transcription processing | `QueueModule`, `QueueService` |
+| `@libs/rate-limit` | Redis-backed request throttling for HTTP routes | `RateLimitModule`, `RateLimitGuard`, `@RateLimit()` |
 | `@libs/redis` | Shared Redis client lifecycle management | `RedisModule`, `RedisService` |
 | `@libs/s3` | S3 file retrieval/upload/presigned URLs | `S3Module`, `S3Service` |
 
@@ -151,6 +153,24 @@ Supported configuration paths:
 - Every entry point calls `loadEnv()` before anything reads `process.env`: `src/main.ts`, the `src/scripts/run*.ts` scripts, `libs/database/typeorm.config.ts` and `scripts/run-migrations.ts`.
 - A variable the shell exported wins over `.env`, but one exported empty counts as unset, so `.env` fills it.
 - The TypeORM CLI and `pnpm migration:run` resolve `@libs/*` through the `ts-node.require` entry in `tsconfig.json`, which loads `tsconfig-paths/register`.
+
+## Rate Limit Library
+
+**Location:** `libs/rate-limit/`
+
+### Exports
+
+- `RateLimitModule`: imports `RedisModule`, provides and exports `RateLimitService` and `RateLimitGuard`. Import it in any module whose controllers use the guard or a subclass of it.
+- `RateLimitGuard`, `@RateLimit({ windowMs, maxAttempts })`
+- `RateLimitService`
+- Types: `RateLimitConfig`, `RateLimitResult`, `RateLimitOptions`, `RateLimitRequest`
+- `@libs/rate-limit/in-memory-redis.fake`: `InMemoryRedis`, a test stand-in for the Redis client. Tests only.
+
+### Behavior
+
+- `RateLimitGuard` buckets requests by caller IP, with window and limit from `@RateLimit()` (default 15 minutes, 5 attempts). A route that buckets by something else subclasses the guard and overrides `resolveKey`, as `ExternalRateLimitGuard` in `src/articles/guards/` does to give verified external tokens their own bucket.
+- The guard calls `RateLimitService.consume(key, { windowMs, maxAttempts })`, which counts the request in one Redis transaction under `rate_limit:<key>` and returns `{ allowed, remaining, resetAt }` for the `X-RateLimit-*` headers and the 429.
+- If Redis fails, `consume` lets the request through.
 
 ## Redis Library
 

@@ -1,3 +1,4 @@
+import { RateLimitGuard } from '@libs/rate-limit';
 import { DynamicModule, INestApplication, Module, ValidationPipe } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -6,7 +7,6 @@ import { mock, MockProxy } from 'jest-mock-extended';
 import request from 'supertest';
 import { App } from 'supertest/types';
 import { AuthModule } from '../src/auth/auth.module';
-import { RateLimitGuard } from '../src/auth/rate-limit/rate-limit.guard';
 import { ConfigService } from '../src/config/config.service';
 import { User } from '../src/users/user.entity';
 import { UsersModule } from '../src/users/users.module';

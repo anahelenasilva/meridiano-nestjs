@@ -1,4 +1,4 @@
-import { RedisModule } from '@libs/redis';
+import { RateLimitModule } from '@libs/rate-limit';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
@@ -6,8 +6,6 @@ import { ConfigService } from '../config/config.service';
 import { UsersModule } from '../users/users.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { RateLimitGuard } from './rate-limit/rate-limit.guard';
-import { RateLimitService } from './rate-limit/rate-limit.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
@@ -20,10 +18,10 @@ import { JwtStrategy } from './strategies/jwt.strategy';
       }),
       inject: [ConfigService],
     }),
-    RedisModule,
+    RateLimitModule,
     UsersModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, RateLimitService, RateLimitGuard],
+  providers: [AuthService, JwtStrategy],
 })
 export class AuthModule {}

@@ -1,10 +1,8 @@
 import { AudioModule } from '@libs/audio';
 import { QueueModule } from '@libs/queue';
-import { RedisModule } from '@libs/redis';
+import { RateLimitModule } from '@libs/rate-limit';
 import { S3Module } from '@libs/s3';
 import { Module } from '@nestjs/common';
-import { RateLimitGuard } from '../auth/rate-limit/rate-limit.guard';
-import { RateLimitService } from '../auth/rate-limit/rate-limit.service';
 import { ArticlesModule } from '../articles/articles.module';
 import { ArticlesController } from '../articles/articles.controller';
 import { ExternalArticlesController } from '../articles/external-articles.controller';
@@ -22,9 +20,9 @@ import { ScraperService } from './scraper.service';
     QueueModule,
     AudioModule,
     S3Module,
-    RedisModule,
+    RateLimitModule,
   ],
-  providers: [ScraperService, RateLimitService, RateLimitGuard],
+  providers: [ScraperService],
   controllers: [ArticlesController, ExternalArticlesController],
   exports: [ScraperService],
 })
