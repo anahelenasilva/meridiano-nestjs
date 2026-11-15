@@ -1,8 +1,7 @@
 # General repo rules
 
-- Always check the comments that you make on changes: are they useful for future humans and future agents reading them? Do those comments just state what the code does? If they aren't useful and/or just state what the code does, drop them
 - When writing or reviewing code, use [CODING_STANDARDS](./docs/CODING_STANDARDS.md)
-- When updating a testing file or creating a test, use [TESTING_STANDARDS](./docs/TESTING_STANDARDS.md)
+- When an e2e suite hangs or you touch `test/jest-e2e.json`, read [TESTING_STANDARDS](./docs/TESTING_STANDARDS.md)
 - Before importing from or adding a lib in `libs/`, read [libs/README](./libs/README.md#import-conventions): import a lib only through its root files
 - When modifying entities or working with migrations, use [DATABASE_MIGRATIONS](./docs/DATABASE_MIGRATIONS.md)
 - Before exploring the codebase, or when naming a domain concept, read [domain](./docs/agents/domain.md)

@@ -1,7 +1,10 @@
 import { DatabaseService } from '@libs/database';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Category } from '../categories/domain/category';
-import { mapCategoryRow } from '../categories/domain/map-category-row';
+import {
+  CategoryRow,
+  mapCategoryRow,
+} from '../categories/domain/map-category-row';
 
 @Injectable()
 export class ChannelCategoriesService {
@@ -20,7 +23,7 @@ export class ChannelCategoriesService {
         ORDER BY LOWER(c.name)
         `,
         [channelId],
-        (err: Error | null, rows?: any[]) => {
+        (err: Error | null, rows?: CategoryRow[]) => {
           if (err) {
             reject(
               new InternalServerErrorException(
@@ -55,7 +58,10 @@ export class ChannelCategoriesService {
         ORDER BY LOWER(c.name)
         `,
         [channelIds],
-        (err: Error | null, rows?: any[]) => {
+        (
+          err: Error | null,
+          rows?: (CategoryRow & { channel_id: string })[],
+        ) => {
           if (err) {
             reject(
               new InternalServerErrorException(

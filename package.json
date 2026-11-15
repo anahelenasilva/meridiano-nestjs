@@ -21,6 +21,8 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
     "lint:fix": "pnpm lint --fix",
     "lint:boundaries": "depcruise src libs test",
+    "lint:layout": "bash scripts/lint-layout.sh",
+    "lint:migrations": "bash scripts/check-migration-edits.sh",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",

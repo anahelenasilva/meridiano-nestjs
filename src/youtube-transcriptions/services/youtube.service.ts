@@ -109,6 +109,10 @@ export class YouTubeService {
         if (count >= maxVideos) break;
 
         if (video.type === 'Video') {
+          // youtubei.js types `published` as optional; typing this turns a
+          // missing date from a thrown error into 'Unknown', so it waits for
+          // a spec.
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const v = video as any;
 
           const metadata: VideoMetadata = {
