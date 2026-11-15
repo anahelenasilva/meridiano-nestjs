@@ -4,7 +4,7 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { StaticCredential } from '../../auth/static-credential';
+import { StaticCredential } from '../../shared/helpers/static-credential';
 import { ConfigService } from '../../config/config.service';
 
 export const EXTERNAL_TOKEN_HEADER = 'x-external-token';

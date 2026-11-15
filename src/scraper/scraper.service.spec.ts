@@ -5,7 +5,7 @@ import { ArticleIngestionService } from '../articles/ingestion/article-ingestion
 import { ConfigService } from '../config/config.service';
 import { ProfilesService } from '../profiles/profiles.service';
 import { FeedProfile, RSSFeed, SitemapSource } from '../shared/types/feed';
-import { guardedAgents } from './private-address-guard';
+import { guardedAgents } from '../shared/helpers/private-address-guard';
 import { ScraperService } from './scraper.service';
 import * as sitemapFetcher from './sitemap-fetcher';
 

@@ -2,7 +2,7 @@ import { EmailService } from '@libs/email';
 import { mock } from 'jest-mock-extended';
 import { ConfigService } from '../../config/config.service';
 import { EmailProcessingNotifier } from './email-processing-notifier';
-import { makeArticle } from './test-helpers';
+import { makeArticle } from '../../articles/test-helpers';
 
 describe('EmailProcessingNotifier', () => {
   let emailService: ReturnType<typeof mock<EmailService>>;
