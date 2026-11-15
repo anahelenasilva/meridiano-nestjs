@@ -12,7 +12,10 @@ import {
 } from '../../config/prompts';
 import { buildFinalPrompt } from '../../shared/helpers/build-final-prompt';
 import { fillPromptTemplate } from '../../shared/helpers/fill-prompt-template';
-import { estimateChatTokens } from '../../shared/helpers/token-estimation';
+import {
+  estimateChatTokens,
+  truncateToChatTokens,
+} from '../../shared/helpers/token-estimation';
 import {
   StructureExtractionError,
   TranscriptChunkingError,
@@ -64,7 +67,7 @@ export class TranscriptChunkingService {
   ): Promise<VideoStructure> {
     // Truncate for structure extraction to avoid API limits
     // Structure extraction only needs themes and section markers, not full content
-    const truncatedText = this.truncateIfNeeded(transcriptText, 50000);
+    const truncatedText = truncateToChatTokens(transcriptText, 50000);
 
     const prompt = fillPromptTemplate(structureExtractionPrompt, {
       article_content: truncatedText,
@@ -286,31 +289,6 @@ export class TranscriptChunkingService {
     return result;
   }
 
-  private truncateIfNeeded(transcriptText: string, maxTokens: number): string {
-    const tokens = estimateChatTokens(transcriptText);
-    if (tokens <= maxTokens) {
-      return transcriptText;
-    }
-
-    // Approximate character position
-    const charsPerToken = transcriptText.length / tokens;
-    const targetChars = Math.floor(maxTokens * charsPerToken);
-
-    // Find sentence boundary near the target
-    const truncated = transcriptText.substring(0, targetChars);
-    const lastSentenceEnd = Math.max(
-      truncated.lastIndexOf('. '),
-      truncated.lastIndexOf('! '),
-      truncated.lastIndexOf('? '),
-    );
-
-    if (lastSentenceEnd > targetChars * 0.8) {
-      return truncated.substring(0, lastSentenceEnd + 1);
-    }
-
-    return truncated;
-  }
-
   async processTranscript(
     transcriptText: string,
     transcriptionId: string,
@@ -329,7 +307,7 @@ export class TranscriptChunkingService {
         }),
       );
 
-      const truncatedText = this.truncateIfNeeded(transcriptText, 120000);
+      const truncatedText = truncateToChatTokens(transcriptText, 120000);
       const basePrompt = fillPromptTemplate(transcriptionSummaryPrompt, {
         article_content: truncatedText,
       });

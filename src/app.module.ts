@@ -9,6 +9,7 @@ import { AiModule } from './ai/ai.module';
 import { AppController } from './app.controller';
 import { ArticleActionsModule } from './article-actions/article-actions.module';
 import { ArticlesModule } from './articles/articles.module';
+import { AskModule } from './ask/ask.module';
 import { AudioFilesModule } from './audio-files/audio-files.module';
 import { BookmarksModule } from './bookmarks/bookmarks.module';
 import { BriefingsModule } from './briefings/briefings.module';
@@ -31,6 +32,7 @@ import { YoutubeTranscriptionsModule } from './youtube-transcriptions/youtube-tr
     AuthModule,
     AiModule,
     ArticlesModule,
+    AskModule,
     ArticleActionsModule,
     AudioFilesModule,
     BriefingsModule,

@@ -197,6 +197,74 @@
         ],
         "type": "object"
       },
+      "AskRequestDto": {
+        "properties": {
+          "history": {
+            "items": {
+              "$ref": "#/components/schemas/AskTurnDto"
+            },
+            "maxItems": 20,
+            "type": "array"
+          },
+          "question": {
+            "maxLength": 2000,
+            "type": "string"
+          },
+          "source_id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "source_type": {
+            "enum": [
+              "article",
+              "transcription"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_type",
+          "source_id",
+          "question"
+        ],
+        "type": "object"
+      },
+      "AskResponseDto": {
+        "properties": {
+          "answer": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "truncated": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "answer",
+          "model",
+          "truncated"
+        ],
+        "type": "object"
+      },
+      "AskTurnDto": {
+        "properties": {
+          "answer": {
+            "maxLength": 20000,
+            "type": "string"
+          },
+          "question": {
+            "maxLength": 2000,
+            "type": "string"
+          }
+        },
+        "required": [
+          "question",
+          "answer"
+        ],
+        "type": "object"
+      },
       "CategoryResponseDto": {
         "properties": {
           "color": {
@@ -1624,6 +1692,64 @@
         "summary": "Get the status of an article audio generation job",
         "tags": [
           "Articles"
+        ]
+      }
+    },
+    "/api/ask": {
+      "post": {
+        "operationId": "AskController_ask",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AskRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AskResponseDto"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          },
+          "404": {
+            "description": "Source not found"
+          },
+          "502": {
+            "description": "The chat model failed to answer"
+          }
+        },
+        "summary": "Answer a question about one Article or YouTube Transcription",
+        "tags": [
+          "Ask"
         ]
       }
     },

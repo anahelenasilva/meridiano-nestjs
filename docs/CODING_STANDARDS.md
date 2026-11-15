@@ -11,6 +11,9 @@ The judgement rules no tool can check. The mechanical rules run in PR checks: `p
 ## API Limits
 - Before sending data to an AI or external API, check its size limits. If input can exceed them, truncate or chunk before the call.
 
+## OpenAPI
+- The swagger plugin copies `@ArrayMaxSize` and `@ArrayMinSize` into `openapi.json` only when the argument is a number literal written on the DTO property. A named constant, or the decorator wrapped in `applyDecorators`, is dropped without a warning, and the CI diff check regenerates the file with the same gap. Write the literal or add `@ApiProperty({ maxItems })`, then check the limit appears in `openapi.json`.
+
 ## Parameter Propagation
 - A parameter a function accepts (e.g. `customPrompt`) reaches every code path (single-pass, chunked, fallback) and every subprocess that could use it, and each path has a test that passes it.
 
