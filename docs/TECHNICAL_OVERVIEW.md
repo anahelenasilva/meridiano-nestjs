@@ -67,7 +67,7 @@ Reusable cross-cutting concerns:
 
 **Queue Architecture**: Each heavy operation (article processing, transcription summary, audio generation) has its own queue with dedicated processors. Jobs are added via `QueueService` and processed by processor classes.
 
-**AI Service Abstraction**: Single `AiService`. Application code should call `callChat` for chat completions so the configured provider (`ENABLED_CHAT_MODEL`: DeepSeek or OpenAI) is respected. Direct `callDeepseekChat` / `callOpenAIChat` exist for lower-level use; `getEmbedding` and `generateAudio` cover other capabilities.
+**AI Service Abstraction**: Single `AiService`. Application code should call `callChat` for chat completions so the configured provider (`ENABLED_CHAT_MODEL`: DeepSeek or OpenAI) is respected. `callChatModelOrThrow` calls one named provider through its own retry policy, for callers that let the owner pick the model (the Ask panel); `getEmbedding` and `generateAudio` cover other capabilities.
 
 **Briefing Generation Pipeline**:
 1. Fetch recent articles with embeddings
@@ -117,7 +117,7 @@ All endpoints prefixed with `/api/`. Authentication required globally except exp
 | `/api/youtube/transcriptions` | List, get, process video, delete, audio enqueue                                                                 |
 | `/api/youtube/channels`       | List, create, enable/disable                                                                                    |
 | `/api/bookmarks`              | Create, list, delete, check, count                                                                              |
-| `/api/ask`                    | Answer a question about one Article or YouTube Transcription, with earlier turns as `history`                   |
+| `/api/ask`                    | Answer about one Article or YouTube Transcription, with `history` and `model`; `GET /api/ask/models` lists them |
 | `/feeds/articles.xml`         | Public RSS feed of Articles (no `/api` prefix, no auth) — see [Nextcloud News setup](./NEXTCLOUD_NEWS_SETUP.md) |
 
 ### Unified Audio Library: GET /api/audio

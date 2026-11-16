@@ -53,6 +53,7 @@ describe('AskService', () => {
     });
 
     expect(answerer.answer).toHaveBeenCalledWith({
+      model: 'deepseek',
       sourceTitle: 'Article title',
       sourceText: 'The raw article body.',
       history: [],

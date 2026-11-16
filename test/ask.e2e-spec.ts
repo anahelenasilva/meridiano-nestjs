@@ -1,7 +1,8 @@
 /**
- * E2E for `POST /api/ask`. The answerer and the source read services are mocked
- * below the real controller and AskService, so these tests assert the HTTP
- * contract: status codes, response body and what reaches the answerer.
+ * E2E for `POST /api/ask` and `GET /api/ask/models`. The answerer and the
+ * source read services are mocked below the real controller and AskService, so
+ * these tests assert the HTTP contract: status codes, response body and what
+ * reaches the answerer.
  */
 import {
   ExecutionContext,
@@ -38,6 +39,10 @@ describe('Ask (e2e)', () => {
     answerer = mock<Answerer>();
     const configService = mock<ConfigService>();
     configService.getEnabledChatModel.mockReturnValue('deepseek');
+    configService.getModelConfig.mockReturnValue({
+      deepseekChatModel: 'deepseek-override',
+      openaiChatModel: 'gpt-6-luna',
+    } as ReturnType<ConfigService['getModelConfig']>);
 
     moduleFixture = await Test.createTestingModule({
       controllers: [AskController],
@@ -110,6 +115,53 @@ describe('Ask (e2e)', () => {
     });
   });
 
+  it('answers with the configured model when none is picked', async () => {
+    await ask({
+      source_type: 'article',
+      source_id: ARTICLE_ID,
+      question: 'What is it about?',
+    }).expect(200);
+
+    expect(answerer.answer).toHaveBeenCalledWith(
+      expect.objectContaining({ model: 'deepseek' }),
+    );
+  });
+
+  it('answers with the picked model and names it in the response', async () => {
+    const response = await ask({
+      source_type: 'article',
+      source_id: ARTICLE_ID,
+      question: 'What is it about?',
+      model: 'openai',
+    }).expect(200);
+
+    expect(answerer.answer).toHaveBeenCalledWith(
+      expect.objectContaining({ model: 'openai' }),
+    );
+    expect(response.body.model).toBe('openai');
+  });
+
+  it('lists both chat models with the model each uses and marks the default', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/api/ask/models')
+      .expect(200);
+
+    expect(response.body).toEqual([
+      {
+        id: 'openai',
+        label: 'OpenAI',
+        model_name: 'gpt-6-luna',
+        is_default: false,
+      },
+      {
+        id: 'deepseek',
+        label: 'DeepSeek',
+        model_name: 'deepseek-override',
+        is_default: true,
+      },
+    ]);
+  });
+
   it('answers a question about a YouTube Transcription', async () => {
     const response = await ask({
       source_type: 'transcription',
@@ -168,6 +220,7 @@ describe('Ask (e2e)', () => {
   it.each([
     ['an empty question', { question: '   ' }],
     ['an invalid source_type', { source_type: 'briefing' }],
+    ['an unknown model', { model: 'gemini' }],
     [
       'too many history turns',
       {
