@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import Groq from 'groq-sdk';
 import OpenAI from 'openai';
+import type { ValidChatModel } from '../config/config.entity';
 import { ConfigService } from '../config/config.service';
 import { AiPolicyService } from './ai-policy.service';
 import { DeepseekAdapter } from './adapters/deepseek.adapter';
@@ -29,6 +30,7 @@ export class AiService implements OnModuleInit {
   private groqAdapter: GroqAdapter | null = null;
 
   private chatPolicyService: AiPolicyService | null = null;
+  private chatPolicies: Record<ValidChatModel, AiPolicyService> | null = null;
   private embedPolicyService: AiPolicyService | null = null;
   private openaiTtsPolicyService: AiPolicyService | null = null;
   private groqTtsPolicyService: AiPolicyService | null = null;
@@ -112,61 +114,19 @@ export class AiService implements OnModuleInit {
       );
     }
 
-    const chatAdapter =
-      enabledChatModel === 'openai' && this.openaiAdapter
-        ? this.openaiAdapter
-        : this.deepseekAdapter;
-    this.chatPolicyService = new AiPolicyService(chatAdapter);
+    this.chatPolicies = {
+      deepseek: new AiPolicyService(this.deepseekAdapter),
+      openai: new AiPolicyService(this.openaiAdapter),
+    };
+    this.chatPolicyService = this.chatPolicies[enabledChatModel];
 
     const chatModel =
-      enabledChatModel === 'openai' && this.openaiAdapter
+      enabledChatModel === 'openai'
         ? config.openaiChatModel
         : config.deepseekChatModel;
     this.logger.log(
       `API clients initialized successfully (chat provider: ${enabledChatModel}, model: ${chatModel})`,
     );
-  }
-
-  async callDeepseekChat(
-    prompt: string,
-    model?: string,
-    systemPrompt?: string,
-  ): Promise<string | null> {
-    if (!this.deepseekAdapter) {
-      throw new BadRequestException(
-        'Deepseek client not initialized. Call initializeClients() first.',
-      );
-    }
-    try {
-      return await this.deepseekAdapter.chat(prompt, systemPrompt, model);
-    } catch (error) {
-      this.logger.error(
-        'Error calling Deepseek Chat API',
-        error instanceof Error ? error.stack : String(error),
-      );
-      return null;
-    }
-  }
-
-  async callOpenAIChat(
-    prompt: string,
-    model?: string,
-    systemPrompt?: string,
-  ): Promise<string | null> {
-    if (!this.openaiAdapter) {
-      throw new BadRequestException(
-        'OpenAI chat client not initialized. OPENAI_API_KEY may be missing.',
-      );
-    }
-    try {
-      return await this.openaiAdapter.chat(prompt, systemPrompt, model);
-    } catch (error) {
-      this.logger.error(
-        'Error calling OpenAI Chat API',
-        error instanceof Error ? error.stack : String(error),
-      );
-      return null;
-    }
   }
 
   async callChat(
@@ -211,6 +171,23 @@ export class AiService implements OnModuleInit {
       throw new BadRequestException('Chat service not initialized.');
     }
     return await this.chatPolicyService.chat(prompt, systemPrompt, model);
+  }
+
+  /**
+   * Throwing chat call to one named provider, for callers that let the owner
+   * pick the model (the Ask panel, issue #392). It runs through that
+   * provider's own `AiPolicyService`, so it gets the same retries as the
+   * default provider, and DeepSeek keeps thinking disabled (ADR-0008).
+   */
+  async callChatModelOrThrow(
+    provider: ValidChatModel,
+    prompt: string,
+    systemPrompt?: string,
+  ): Promise<string> {
+    if (!this.chatPolicies) {
+      throw new BadRequestException('Chat service not initialized.');
+    }
+    return await this.chatPolicies[provider].chat(prompt, systemPrompt);
   }
 
   async getEmbedding(text: string, _model?: string): Promise<number[] | null> {

@@ -1,5 +1,6 @@
 import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import OpenAI from 'openai';
 import { ConfigService } from '../config/config.service';
 import { AiPolicyService } from './ai-policy.service';
 import { DeepseekAdapter } from './adapters/deepseek.adapter';
@@ -123,94 +124,6 @@ describe('AiService', () => {
 
   afterEach(() => jest.clearAllMocks());
 
-  describe('callDeepseekChat', () => {
-    it('delegates to deepseekAdapter.chat and returns result', async () => {
-      mockDeepseekAdapter.chat.mockResolvedValue('deepseek response');
-
-      const result = await service.callDeepseekChat(
-        'prompt',
-        'model',
-        'system',
-      );
-
-      expect(result).toBe('deepseek response');
-      expect(mockDeepseekAdapter.chat).toHaveBeenCalledWith(
-        'prompt',
-        'system',
-        'model',
-      );
-    });
-
-    it('returns null and logs error when adapter throws', async () => {
-      const loggerSpy = jest
-        .spyOn(service['logger'], 'error')
-        .mockImplementation();
-      mockDeepseekAdapter.chat.mockRejectedValue(new Error('API failure'));
-
-      const result = await service.callDeepseekChat('prompt');
-
-      expect(result).toBeNull();
-      expect(loggerSpy).toHaveBeenCalledWith(
-        'Error calling Deepseek Chat API',
-        expect.any(String),
-      );
-      loggerSpy.mockRestore();
-    });
-
-    it('throws when deepseekAdapter is null', async () => {
-      Object.defineProperty(service, 'deepseekAdapter', {
-        value: null,
-        writable: true,
-      });
-
-      await expect(service.callDeepseekChat('test')).rejects.toThrow(
-        BadRequestException,
-      );
-    });
-  });
-
-  describe('callOpenAIChat', () => {
-    it('delegates to openaiAdapter.chat and returns result', async () => {
-      mockOpenaiAdapter.chat.mockResolvedValue('openai response');
-
-      const result = await service.callOpenAIChat('prompt', 'gpt-4', 'system');
-
-      expect(result).toBe('openai response');
-      expect(mockOpenaiAdapter.chat).toHaveBeenCalledWith(
-        'prompt',
-        'system',
-        'gpt-4',
-      );
-    });
-
-    it('returns null and logs error when adapter throws', async () => {
-      const loggerSpy = jest
-        .spyOn(service['logger'], 'error')
-        .mockImplementation();
-      mockOpenaiAdapter.chat.mockRejectedValue(new Error('quota exceeded'));
-
-      const result = await service.callOpenAIChat('prompt');
-
-      expect(result).toBeNull();
-      expect(loggerSpy).toHaveBeenCalledWith(
-        'Error calling OpenAI Chat API',
-        expect.any(String),
-      );
-      loggerSpy.mockRestore();
-    });
-
-    it('throws when openaiAdapter is null', async () => {
-      Object.defineProperty(service, 'openaiAdapter', {
-        value: null,
-        writable: true,
-      });
-
-      await expect(service.callOpenAIChat('test')).rejects.toThrow(
-        BadRequestException,
-      );
-    });
-  });
-
   describe('callChat', () => {
     it('delegates to chatPolicyService and returns result', async () => {
       mockChatPolicy.chat.mockResolvedValue('policy response');
@@ -286,6 +199,70 @@ describe('AiService', () => {
       await expect(service.callChatOrThrow('test')).rejects.toThrow(
         BadRequestException,
       );
+    });
+  });
+
+  describe('callChatModelOrThrow', () => {
+    // A real init, so the call runs through the provider's own AiPolicyService.
+    // Only the adapters' network call is replaced.
+    let deepseekChat: jest.SpyInstance;
+    let openaiChat: jest.SpyInstance;
+    let initialized: AiService;
+
+    beforeEach(async () => {
+      deepseekChat = jest.spyOn(DeepseekAdapter.prototype, 'chat');
+      openaiChat = jest.spyOn(OpenAIAdapter.prototype, 'chat');
+      const mod = await Test.createTestingModule({
+        providers: [
+          AiService,
+          { provide: ConfigService, useValue: configService },
+        ],
+      }).compile();
+      await mod.init();
+      initialized = mod.get(AiService);
+    });
+
+    afterEach(() => jest.restoreAllMocks());
+
+    it('sends the prompt to the picked provider, not the enabled one', async () => {
+      openaiChat.mockResolvedValue('openai answer');
+
+      const result = await initialized.callChatModelOrThrow(
+        'openai',
+        'prompt',
+        'system',
+      );
+
+      expect(result).toBe('openai answer');
+      expect(openaiChat).toHaveBeenCalledWith('prompt', 'system', undefined);
+      expect(deepseekChat).not.toHaveBeenCalled();
+    });
+
+    it('retries a rate-limited call like the default chat provider', async () => {
+      openaiChat
+        .mockRejectedValueOnce(
+          new OpenAI.RateLimitError(
+            429,
+            undefined,
+            'Rate limit reached',
+            undefined,
+          ),
+        )
+        .mockResolvedValueOnce('answer after retry');
+
+      await expect(
+        initialized.callChatModelOrThrow('openai', 'prompt'),
+      ).resolves.toBe('answer after retry');
+      expect(openaiChat).toHaveBeenCalledTimes(2);
+    });
+
+    it('throws the provider error instead of returning null', async () => {
+      const providerError = new Error('AI chat returned no content');
+      deepseekChat.mockRejectedValue(providerError);
+
+      await expect(
+        initialized.callChatModelOrThrow('deepseek', 'prompt'),
+      ).rejects.toBe(providerError);
     });
   });
 

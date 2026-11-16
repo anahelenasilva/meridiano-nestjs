@@ -1,3 +1,5 @@
+import type { ValidChatModel } from '../config/config.entity';
+
 /**
  * DI token for the {@link Answerer} `AskService` talks to. Production binds
  * `ChatAnswerer`; a web-search answerer can replace it later without touching
@@ -11,6 +13,7 @@ export interface AskTurn {
 }
 
 export interface AnswerInput {
+  model: ValidChatModel;
   sourceTitle: string;
   sourceText: string;
   history: AskTurn[];

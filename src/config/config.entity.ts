@@ -20,6 +20,9 @@ export const VALID_CHAT_MODELS = {
   deepseek: 'deepseek-flash',
 } as const;
 export type ValidChatModel = keyof typeof VALID_CHAT_MODELS;
+export const CHAT_MODEL_IDS = Object.keys(
+  VALID_CHAT_MODELS,
+) as ValidChatModel[];
 
 export const VALID_TTS_MODELS = {
   openai: 'tts-1',

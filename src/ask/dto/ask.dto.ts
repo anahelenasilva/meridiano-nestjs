@@ -11,6 +11,10 @@ import {
   ValidateNested,
 } from 'class-validator';
 import {
+  CHAT_MODEL_IDS,
+  type ValidChatModel,
+} from '../../config/config.entity';
+import {
   NOTE_SOURCE_TYPES,
   type NoteSourceType,
 } from '../../notes/note.entity';
@@ -60,13 +64,28 @@ export class AskRequestDto {
   @ValidateNested({ each: true })
   @Type(() => AskTurnDto)
   history?: AskTurnDto[];
+
+  /** One of the ids from `GET /api/ask/models`. Defaults to the configured chat model. */
+  @IsOptional()
+  @IsIn(CHAT_MODEL_IDS, {
+    message: `model must be one of: ${CHAT_MODEL_IDS.join(', ')}`,
+  })
+  model?: ValidChatModel;
 }
 
 export class AskResponseDto {
   /** Markdown. */
   answer: string;
-  /** The chat model id that answered, `deepseek` or `openai`. */
-  model: string;
+  model: ValidChatModel;
   /** True when the source text was cut to fit the model's input. */
   truncated: boolean;
+}
+
+export class AskModelDto {
+  id: ValidChatModel;
+  label: string;
+  /** The provider's model string, such as `deepseek-flash`. */
+  model_name: string;
+  /** True for the configured chat model, which answers when `model` is omitted. */
+  is_default: boolean;
 }
