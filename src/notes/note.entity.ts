@@ -1,9 +1,16 @@
-import { IsDefined, IsIn, IsString, IsUUID, MaxLength } from 'class-validator';
+import {
+  IsDefined,
+  IsIn,
+  IsString,
+  IsUUID,
+  Matches,
+  MaxLength,
+} from 'class-validator';
 
 export const NOTE_SOURCE_TYPES = ['article', 'transcription'] as const;
 export type NoteSourceType = (typeof NOTE_SOURCE_TYPES)[number];
 
-export const MAX_NOTE_CONTENT_LENGTH = 5000;
+export const MAX_NOTE_CONTENT_LENGTH = 20_000;
 
 export interface Note {
   id: string;
@@ -52,6 +59,19 @@ export class SaveNoteDto {
     message: `content must not exceed ${MAX_NOTE_CONTENT_LENGTH} characters`,
   })
   content: string;
+}
+
+// Unlike a save, blank content has no meaning for an append, so it is rejected.
+// class-validator drops a parent's decorators on a property the subclass
+// decorates again, so `content` restates every rule from SaveNoteDto.
+export class AppendNoteDto extends SaveNoteDto {
+  @IsDefined({ message: 'content is required' })
+  @IsString({ message: 'content must be a string' })
+  @MaxLength(MAX_NOTE_CONTENT_LENGTH, {
+    message: `content must not exceed ${MAX_NOTE_CONTENT_LENGTH} characters`,
+  })
+  @Matches(/\S/, { message: 'content must not be blank' })
+  declare content: string;
 }
 
 export class NoteResponseDto {

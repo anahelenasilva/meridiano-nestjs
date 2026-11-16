@@ -25,6 +25,32 @@
         ],
         "type": "object"
       },
+      "AppendNoteDto": {
+        "properties": {
+          "content": {
+            "maxLength": 20000,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "source_id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "source_type": {
+            "enum": [
+              "article",
+              "transcription"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_type",
+          "source_id",
+          "content"
+        ],
+        "type": "object"
+      },
       "ArticleListItemDto": {
         "properties": {
           "archived_at": {
@@ -766,7 +792,7 @@
       "SaveNoteDto": {
         "properties": {
           "content": {
-            "maxLength": 5000,
+            "maxLength": 20000,
             "type": "string"
           },
           "source_id": {
@@ -2442,6 +2468,61 @@
           }
         },
         "summary": "Save an authenticated user note",
+        "tags": [
+          "Notes"
+        ]
+      }
+    },
+    "/api/notes/append": {
+      "post": {
+        "operationId": "NotesController_appendToNote",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppendNoteDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SaveNoteResponseDto"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          },
+          "404": {
+            "description": "Article or YouTube transcription not found"
+          }
+        },
+        "summary": "Append text to the authenticated user's note on a source after a blank line, creating the note when absent",
         "tags": [
           "Notes"
         ]
