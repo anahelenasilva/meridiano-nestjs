@@ -32,7 +32,7 @@ describe('NotesController', () => {
       id: 'note-1',
       user_id: '11111111-1111-1111-1111-111111111111',
       source_type: 'article',
-      source_id: '22222222-2222-2222-2222-222222222222',
+      source_id: '22222222-2222-4222-8222-222222222222',
       content: 'Owner note',
       created_at: new Date('2026-05-17T12:00:00.000Z'),
       updated_at: new Date('2026-05-17T12:00:00.000Z'),
@@ -44,7 +44,7 @@ describe('NotesController', () => {
       },
       {
         source_type: 'article',
-        source_id: '22222222-2222-2222-2222-222222222222',
+        source_id: '22222222-2222-4222-8222-222222222222',
         content: 'Owner note',
       },
     );
@@ -53,7 +53,7 @@ describe('NotesController', () => {
       '11111111-1111-1111-1111-111111111111',
       {
         source_type: 'article',
-        source_id: '22222222-2222-2222-2222-222222222222',
+        source_id: '22222222-2222-4222-8222-222222222222',
         content: 'Owner note',
       },
     );
@@ -72,7 +72,7 @@ describe('NotesController', () => {
       validationPipe.transform(
         {
           source_type: 'article',
-          source_id: '22222222-2222-2222-2222-222222222222',
+          source_id: '22222222-2222-4222-8222-222222222222',
           content: 'Owner note',
           user_id: 'malicious-user-id',
         },
@@ -83,7 +83,7 @@ describe('NotesController', () => {
       ),
     ).rejects.toMatchObject({
       response: {
-        message: expect.arrayContaining(['property user_id should not exist']),
+        message: ['property user_id should not exist'],
       },
     });
   });
@@ -93,7 +93,7 @@ describe('NotesController', () => {
       validationPipe.transform(
         {
           source_type: 'youtube_transcription',
-          source_id: '22222222-2222-2222-2222-222222222222',
+          source_id: '22222222-2222-4222-8222-222222222222',
           content: 'Owner note',
         },
         {
@@ -103,9 +103,7 @@ describe('NotesController', () => {
       ),
     ).rejects.toMatchObject({
       response: {
-        message: expect.arrayContaining([
-          'source_type must be one of: article, transcription',
-        ]),
+        message: ['source_type must be one of: article, transcription'],
       },
     });
   });
@@ -125,7 +123,7 @@ describe('NotesController', () => {
       ),
     ).rejects.toMatchObject({
       response: {
-        message: expect.arrayContaining(['source_id must be a valid UUID']),
+        message: ['source_id must be a valid UUID'],
       },
     });
   });
@@ -135,7 +133,7 @@ describe('NotesController', () => {
       validationPipe.transform(
         {
           source_type: 'article',
-          source_id: '22222222-2222-2222-2222-222222222222',
+          source_id: '22222222-2222-4222-8222-222222222222',
         },
         {
           type: 'body',
@@ -144,7 +142,11 @@ describe('NotesController', () => {
       ),
     ).rejects.toMatchObject({
       response: {
-        message: expect.arrayContaining(['content is required']),
+        message: [
+          'content is required',
+          'content must not exceed 20000 characters',
+          'content must be a string',
+        ],
       },
     });
   });
@@ -154,7 +156,7 @@ describe('NotesController', () => {
       validationPipe.transform(
         {
           source_type: 'article',
-          source_id: '22222222-2222-2222-2222-222222222222',
+          source_id: '22222222-2222-4222-8222-222222222222',
           content: 'a'.repeat(20_001),
         },
         {
@@ -164,9 +166,7 @@ describe('NotesController', () => {
       ),
     ).rejects.toMatchObject({
       response: {
-        message: expect.arrayContaining([
-          'content must not exceed 20000 characters',
-        ]),
+        message: ['content must not exceed 20000 characters'],
       },
     });
   });
@@ -177,7 +177,7 @@ describe('NotesController', () => {
         id: 'note-1',
         user_id: '11111111-1111-1111-1111-111111111111',
         source_type: 'article',
-        source_id: '22222222-2222-2222-2222-222222222222',
+        source_id: '22222222-2222-4222-8222-222222222222',
         content: 'Existing\n\n**Q:** Why?\n\nBecause.',
         created_at: new Date('2026-05-17T12:00:00.000Z'),
         updated_at: new Date('2026-05-17T12:05:00.000Z'),
@@ -187,7 +187,7 @@ describe('NotesController', () => {
         { id: '11111111-1111-1111-1111-111111111111' },
         {
           source_type: 'article',
-          source_id: '22222222-2222-2222-2222-222222222222',
+          source_id: '22222222-2222-4222-8222-222222222222',
           content: '**Q:** Why?\n\nBecause.',
         },
       );
@@ -196,7 +196,7 @@ describe('NotesController', () => {
         '11111111-1111-1111-1111-111111111111',
         {
           source_type: 'article',
-          source_id: '22222222-2222-2222-2222-222222222222',
+          source_id: '22222222-2222-4222-8222-222222222222',
           content: '**Q:** Why?\n\nBecause.',
         },
       );
@@ -215,14 +215,14 @@ describe('NotesController', () => {
         validationPipe.transform(
           {
             source_type: 'article',
-            source_id: '22222222-2222-2222-2222-222222222222',
+            source_id: '22222222-2222-4222-8222-222222222222',
             content: ' \n ',
           },
           { type: 'body', metatype: AppendNoteDto },
         ),
       ).rejects.toMatchObject({
         response: {
-          message: expect.arrayContaining(['content must not be blank']),
+          message: ['content must not be blank'],
         },
       });
     });
@@ -232,16 +232,14 @@ describe('NotesController', () => {
         validationPipe.transform(
           {
             source_type: 'article',
-            source_id: '22222222-2222-2222-2222-222222222222',
+            source_id: '22222222-2222-4222-8222-222222222222',
             content: 'a'.repeat(20_001),
           },
           { type: 'body', metatype: AppendNoteDto },
         ),
       ).rejects.toMatchObject({
         response: {
-          message: expect.arrayContaining([
-            'content must not exceed 20000 characters',
-          ]),
+          message: ['content must not exceed 20000 characters'],
         },
       });
     });
