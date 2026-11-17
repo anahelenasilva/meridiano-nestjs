@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { AiAdapter } from '../../ai/adapters/ai-adapter.interface';
 import { AiModule } from '../../ai/ai.module';
 import { AiService } from '../../ai/ai.service';
+import { runPromiseOrThrow } from '../../ai/run-effect';
 import { ArticlesModule } from '../../articles/articles.module';
 import { ConfigModule } from '../../config/config.module';
 import { ConfigService } from '../../config/config.service';
@@ -49,7 +50,8 @@ import { RealSleeper, SLEEPER } from './sleeper';
           }
           return result;
         },
-        generateAudio: (text, voice) => ai.generateAudio(text, voice),
+        generateAudio: (text, voice) =>
+          runPromiseOrThrow(ai.generateAudio(text, voice)),
       }),
       inject: [AiService],
     },

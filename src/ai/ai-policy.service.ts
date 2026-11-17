@@ -1,10 +1,11 @@
 import { Logger } from '@nestjs/common';
-import { Cause, Effect, Exit, Schedule } from 'effect';
+import { Effect, Schedule } from 'effect';
 import { averageEmbeddings } from './helpers/average-embeddings';
 import { splitTextIntoChunks } from './helpers/split-text-into-chunks';
 import { estimateTokenCount } from '../shared/helpers/token-estimation';
 import { AiAdapter } from './adapters/ai-adapter.interface';
 import { ProviderError, toProviderError } from './provider-error';
+import { runPromiseOrThrow } from './run-effect';
 
 const MAX_RETRIES = 2;
 
@@ -82,29 +83,36 @@ export class AiPolicyService {
     return averageEmbeddings(vectors);
   }
 
-  async generateAudio(text: string, voice: string): Promise<Buffer> {
+  /**
+   * Fails with the typed {@link ProviderError} instead of rejecting, so a
+   * caller such as the audio worker can decide what to retry by tag.
+   */
+  generateAudio(
+    text: string,
+    voice: string,
+  ): Effect.Effect<Buffer, ProviderError> {
     const chunks = splitTextIntoChunks(text, this.ttsMaxChars);
-    const audioBuffers: Buffer[] = [];
+    const pause =
+      this.ttsInterChunkDelayMs > 0
+        ? Effect.sleep(this.ttsInterChunkDelayMs)
+        : Effect.void;
 
-    for (let i = 0; i < chunks.length; i++) {
-      audioBuffers.push(
-        await this.withRetry(() =>
-          this.adapter.generateAudio(chunks[i], voice),
-        ),
-      );
-
-      if (this.ttsInterChunkDelayMs > 0 && i < chunks.length - 1) {
-        await new Promise((resolve) =>
-          setTimeout(resolve, this.ttsInterChunkDelayMs),
-        );
-      }
-    }
-
-    return Buffer.concat(audioBuffers);
+    return Effect.forEach(chunks, (chunk, i) =>
+      this.retrying(() => this.adapter.generateAudio(chunk, voice)).pipe(
+        Effect.tap(() => (i < chunks.length - 1 ? pause : Effect.void)),
+      ),
+    ).pipe(Effect.map((buffers) => Buffer.concat(buffers)));
   }
 
-  private async withRetry<T>(fn: () => Promise<T>): Promise<T> {
-    const program = Effect.tryPromise({ try: fn, catch: toProviderError }).pipe(
+  // Rejects with the adapter's own error: callers match on the provider's message.
+  private withRetry<T>(fn: () => Promise<T>): Promise<T> {
+    return runPromiseOrThrow(
+      this.retrying(fn).pipe(Effect.mapError((error) => error.cause)),
+    );
+  }
+
+  private retrying<T>(fn: () => Promise<T>): Effect.Effect<T, ProviderError> {
+    return Effect.tryPromise({ try: fn, catch: toProviderError }).pipe(
       Effect.tapError((error) =>
         Effect.sync(() => {
           const cause = error.cause;
@@ -119,14 +127,7 @@ export class AiPolicyService {
         }),
       ),
       Effect.retry(retryPolicy),
-      Effect.mapError((error) => error.cause),
     );
-
-    // runPromise would reject with a FiberFailure wrapper. Callers match on the
-    // provider's message, so rethrow the adapter's own error.
-    const exit = await Effect.runPromiseExit(program);
-    if (Exit.isSuccess(exit)) return exit.value;
-    throw Cause.squash(exit.cause);
   }
 
   private splitTextByEstimatedTokens(

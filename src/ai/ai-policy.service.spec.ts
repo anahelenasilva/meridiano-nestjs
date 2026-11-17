@@ -1,4 +1,5 @@
 import { Logger } from '@nestjs/common';
+import { Effect } from 'effect';
 import OpenAI from 'openai';
 import { averageEmbeddings } from './helpers/average-embeddings';
 import { AiPolicyService } from './ai-policy.service';
@@ -310,7 +311,9 @@ describe('AiPolicyService', () => {
       (adapter.generateAudio as jest.Mock).mockResolvedValue(mockBuffer);
       const svc = new AiPolicyService(adapter, undefined, 4096);
 
-      const result = await svc.generateAudio('Hello', 'alloy');
+      const result = await Effect.runPromise(
+        svc.generateAudio('Hello', 'alloy'),
+      );
 
       expect(adapter.generateAudio).toHaveBeenCalledTimes(1);
       expect(adapter.generateAudio).toHaveBeenCalledWith('Hello', 'alloy');
@@ -325,7 +328,9 @@ describe('AiPolicyService', () => {
       const svc = new AiPolicyService(adapter, undefined, 20);
       const longText = 'First sentence here. Second sentence here.';
 
-      const result = await svc.generateAudio(longText, 'alloy');
+      const result = await Effect.runPromise(
+        svc.generateAudio(longText, 'alloy'),
+      );
 
       const sentChunks = (adapter.generateAudio as jest.Mock).mock.calls.map(
         (call) => call[0] as string,
@@ -345,7 +350,7 @@ describe('AiPolicyService', () => {
       const svc = new AiPolicyService(adapter, undefined, 20, 100);
       const longText = 'First sentence here. Second sentence here.';
 
-      await svc.generateAudio(longText, 'alloy');
+      await Effect.runPromise(svc.generateAudio(longText, 'alloy'));
 
       const chunkCount = (adapter.generateAudio as jest.Mock).mock.calls.length;
       const pacingCalls = timeoutSpy.mock.calls.filter(([, ms]) => ms === 100);
@@ -363,7 +368,7 @@ describe('AiPolicyService', () => {
       const svc = new AiPolicyService(adapter, undefined, 20);
       const longText = 'First sentence here. Second sentence here.';
 
-      await svc.generateAudio(longText, 'alloy');
+      await Effect.runPromise(svc.generateAudio(longText, 'alloy'));
 
       expect(timeoutSpy).not.toHaveBeenCalled();
       timeoutSpy.mockRestore();
@@ -380,14 +385,16 @@ describe('AiPolicyService', () => {
         .mockResolvedValueOnce(Buffer.from('ok'));
       const svc = new AiPolicyService(adapter, undefined, 4096);
 
-      const result = await settle(svc.generateAudio('Hello', 'alloy'));
+      const result = await settle(
+        Effect.runPromise(svc.generateAudio('Hello', 'alloy')),
+      );
 
       expect(adapter.generateAudio).toHaveBeenCalledTimes(2);
       expect(result).toEqual({ status: 'fulfilled', value: Buffer.from('ok') });
       consoleSpy.mockRestore();
     });
 
-    it('stops at a failing chunk and requests no later chunks', async () => {
+    it('stops at a failing chunk with a typed error and requests no later chunks', async () => {
       const consoleSpy = jest
         .spyOn(Logger.prototype, 'error')
         .mockImplementation();
@@ -397,12 +404,17 @@ describe('AiPolicyService', () => {
         .mockRejectedValue(new Error('400 bad voice'));
       const svc = new AiPolicyService(adapter, undefined, 20);
 
-      await expect(
-        svc.generateAudio(
-          'First sentence here. Second sentence here. Third sentence here.',
-          'alloy',
+      const error = await Effect.runPromise(
+        Effect.flip(
+          svc.generateAudio(
+            'First sentence here. Second sentence here. Third sentence here.',
+            'alloy',
+          ),
         ),
-      ).rejects.toThrow('400 bad voice');
+      );
+
+      expect(error._tag).toBe('ProviderRejected');
+      expect(error.cause).toEqual(new Error('400 bad voice'));
       expect(adapter.generateAudio).toHaveBeenCalledTimes(2);
       consoleSpy.mockRestore();
     });
