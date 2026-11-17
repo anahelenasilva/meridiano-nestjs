@@ -22,7 +22,6 @@ export class AudioRecordNotSaved extends Data.TaggedError(
   readonly cause: unknown;
 }> {}
 
-/** Every way `execute` can fail, inferred from the steps it runs. */
 export type GenerateAudioError = Effect.Effect.Error<
   ReturnType<GenerateAudioUseCase['execute']>
 >;

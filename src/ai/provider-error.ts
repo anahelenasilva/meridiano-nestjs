@@ -41,6 +41,17 @@ export class ProviderNotConfigured extends Data.TaggedError(
   readonly message: string;
 }> {}
 
+// Both SDKs read the response body through node-fetch after the request
+// resolves, so a socket that drops mid-body throws node-fetch's FetchError,
+// carrying the socket's code, instead of the SDK's APIConnectionError.
+const SOCKET_ERROR_CODES = new Set(['ECONNRESET', 'ECONNREFUSED', 'ETIMEDOUT']);
+
+const isSocketError = (error: unknown) =>
+  error instanceof Error &&
+  'code' in error &&
+  typeof error.code === 'string' &&
+  SOCKET_ERROR_CODES.has(error.code);
+
 export function toProviderError(error: unknown): ProviderError {
   // Timeout first: APIConnectionTimeoutError extends APIConnectionError.
   if (
@@ -51,7 +62,8 @@ export function toProviderError(error: unknown): ProviderError {
   }
   if (
     error instanceof OpenAI.APIConnectionError ||
-    error instanceof Groq.APIConnectionError
+    error instanceof Groq.APIConnectionError ||
+    isSocketError(error)
   ) {
     return new ProviderUnreachable({ cause: error });
   }

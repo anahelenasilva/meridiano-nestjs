@@ -22,7 +22,7 @@ const RETRYABLE = {
   AudioRecordNotSaved: true,
 } satisfies Record<GenerateAudioError['_tag'], boolean>;
 
-function describe(error: GenerateAudioError): string {
+function failureMessage(error: GenerateAudioError): string {
   if (error.message) return `${error._tag}: ${error.message}`;
   const cause = error.cause;
   return `${error._tag}: ${cause instanceof Error ? cause.message : String(cause)}`;
@@ -122,7 +122,7 @@ export class AudioGenerationProcessor implements OnModuleInit {
         job,
         startTime,
         error._tag,
-        describe(error),
+        failureMessage(error),
         RETRYABLE[error._tag],
       );
     }
@@ -147,7 +147,7 @@ export class AudioGenerationProcessor implements OnModuleInit {
   private failed(
     job: Job<GenerateAudioJobData>,
     startTime: number,
-    errorType: string,
+    errorType: GenerateAudioError['_tag'] | 'InvalidInput',
     message: string,
     shouldRetry: boolean,
   ): Error {

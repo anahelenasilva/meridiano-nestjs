@@ -1,7 +1,9 @@
 # ADR-0011: Effect Inside AiPolicyService
 
 ## Status
-Accepted, 2026-10-22.
+Accepted, 2026-10-22. Amended by PR #400 (2026-11): text-to-speech calls carry
+their typed error out to the audio worker, which decides BullMQ retries by tag.
+Chat and embeddings keep the original boundary.
 
 ## Context
 `AiPolicyService.withRetry` decided what to retry by searching the error message
@@ -15,14 +17,26 @@ starting with this service as a pilot, and keeping the NestJS shell (modules, DI
 controllers, BullMQ, TypeORM) as it is.
 
 ## Decision
-Effect runs inside `src/ai/provider-error.ts` and `src/ai/ai-policy.service.ts`
-only. Adapters, `AiAdapter`, `AiService` and every Nest module stay Promise-based.
+Effect runs inside `src/ai/provider-error.ts` and `src/ai/ai-policy.service.ts`,
+plus the text-to-speech path below. Adapters, `AiAdapter` and every other Nest
+module stay Promise-based.
 
-- **Typed provider errors.** `toProviderError` maps the SDKs' error classes to four
+- **Typed provider errors.** `toProviderError` maps the SDKs' error classes to five
   tags: `RateLimited` (`RateLimitError`), `ProviderUnreachable`
-  (`APIConnectionError`), `ProviderTimeout` (`APIConnectionTimeoutError`) and
-  `ProviderRejected` (everything else). It checks the OpenAI and Groq classes
-  separately because they are distinct classes.
+  (`APIConnectionError`, or a `FetchError` whose `code` is `ECONNRESET`,
+  `ECONNREFUSED` or `ETIMEDOUT`), `ProviderTimeout` (`APIConnectionTimeoutError`),
+  `ProviderUnavailable` (`InternalServerError`, a 5xx) and `ProviderRejected`
+  (everything else). It checks the OpenAI and Groq classes separately because they
+  are distinct classes. The `FetchError` case covers a socket that drops while the
+  adapter reads the response body, after the SDK has already returned.
+- **Text-to-speech returns Effects up to the worker.**
+  `AiPolicyService.generateAudio`, `AiService.generateAudio` and
+  `GenerateAudioUseCase.execute` fail with typed errors instead of rejecting.
+  `AudioGenerationProcessor` sorts each tag into retry or `UnrecoverableError` with
+  one `RETRYABLE` table, which `satisfies` checks against the use case's inferred
+  error union. This replaced regexes over a message that `AiService` had already
+  rewrapped as a string. `ProviderNotConfigured` (no client because the API key is
+  unset) joins the provider tags on this path.
 - **Declared retry policy.** `RateLimited` and `ProviderUnreachable` retry at most
   twice on `Schedule.exponential('500 millis')` with `Schedule.jittered`, which
   waits 400 to 600ms, then 800 to 1200ms.
@@ -35,8 +49,10 @@ only. Adapters, `AiAdapter`, `AiService` and every Nest module stay Promise-base
   `AbortSignal` either, so an Effect timeout would stop waiting while the HTTP
   request kept running and billing.
 - **The boundary rejects with the original error.** `withRetry` maps each tag back
-  to its `cause`, runs the program with `Effect.runPromiseExit` and throws
-  `Cause.squash` of a failure. `Effect.runPromise` would reject with a
+  to its `cause` and runs the program through `runPromiseOrThrow`
+  (`src/ai/run-effect.ts`), which uses `Effect.runPromiseExit` and throws
+  `Cause.squash` of a failure. The pipeline's `AI_ADAPTER.generateAudio` uses the
+  same helper but keeps the tag, so it rejects with the tagged error. `Effect.runPromise` would reject with a
   `FiberFailure` wrapper instead. Callers such as `AiService.callChatOrThrow` keep
   the provider's own message.
 - **`effect` 3.21.2.** `@ai-hero/sandcastle` already installs 3.21.2, and 12 of its
@@ -58,7 +74,8 @@ only ES modules, which needed Jest transform changes and Node 22.12 for
 
 **Adapters that return Effects**
 Rejected for the pilot. It changes `AiAdapter`, which ADR-0007's `AI_ADAPTER`
-factory implements, so the pipeline would change too.
+factory implements, so the pipeline would change too. The text-to-speech path
+starts its Effect in `AiPolicyService` and leaves `AiAdapter` Promise-based.
 
 **A 30s `Effect.timeout` per attempt**
 Rejected for the reasons under "No Effect timeout".
