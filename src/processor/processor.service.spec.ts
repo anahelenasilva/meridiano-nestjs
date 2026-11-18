@@ -161,6 +161,27 @@ describe('ProcessorService', () => {
   });
 
   describe('rateArticles', () => {
+    it('counts an article whose step throws synchronously as failed and moves on', async () => {
+      articlesService.getUnratedArticles.mockResolvedValue([
+        makeArticle({ id: 'crash', processed_content: 'summary' }),
+        makeArticle({ id: 'good', processed_content: 'summary' }),
+      ]);
+      configService.getImpactRatingPrompt
+        .mockImplementationOnce(() => {
+          throw new Error('template broken');
+        })
+        .mockReturnValueOnce('rating-prompt');
+      ai.chat.mockResolvedValueOnce('7');
+
+      const stats = await settle(service.rateArticles(FeedProfile.DEFAULT));
+
+      expect(stats).toMatchObject({ articlesRated: 1, errors: 1 });
+      expect(articlesService.updateArticleRating).toHaveBeenCalledWith(
+        'good',
+        7,
+      );
+    });
+
     it('rates summarised articles, skips unsummarised ones, and counts failures', async () => {
       articlesService.getUnratedArticles.mockResolvedValue([
         makeArticle({ id: 'good', processed_content: 'summary' }),

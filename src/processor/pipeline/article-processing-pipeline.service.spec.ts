@@ -244,6 +244,26 @@ describe('ArticleProcessingPipelineService', () => {
     });
   });
 
+  it('fails the step with StepCrashed and notifies when a step throws synchronously', async () => {
+    profilesService.getPromptsForProfile.mockImplementation(() => {
+      throw new Error('profile config broken');
+    });
+
+    const failure = await runFailure(service.summariseArticle(makeArticle()));
+
+    expect(failure).toMatchObject({
+      _tag: 'StepCrashed',
+      message: 'profile config broken',
+    });
+    expect(notifier.notifyFailure).toHaveBeenCalledTimes(1);
+    expect(notifier.notifyFailure).toHaveBeenCalledWith(
+      expect.objectContaining({
+        step: 'summarise',
+        error: 'profile config broken',
+      }),
+    );
+  });
+
   describe('categorisation fallback', () => {
     it('falls back to OTHER when the category response is unparseable', async () => {
       ai.chat

@@ -101,7 +101,9 @@ Rejected. It adds a second test runner for one service.
   or setting the clients' `maxRetries` to 0, would leave one layer in charge.
 - #403 took #280's second step, the article processing pipeline. #280 stops
   there unless the team wants more, so a further port needs its own issue.
-- A synchronous throw inside a pipeline step, such as a prompt builder bug, is now
-  an Effect defect. It rejects the caller's Promise and sends no failure email.
-  The old `runStep` caught it as a step failure.
+- A synchronous throw inside a pipeline step, such as a prompt builder bug, is an
+  Effect defect, which `Effect.either` does not catch. The pipeline turns it into
+  a `StepCrashed` failure with `Effect.catchAllDefect`, so it still sends one
+  failure email and a `ProcessorService` batch moves on to the next article, as
+  the old try/catch `runStep` did.
 - Moving to Effect 4 waits for sandcastle to move. Both upgrade together.

@@ -62,7 +62,20 @@ export class RatingOutOfRange extends Data.TaggedError('RatingOutOfRange')<{
   }
 }
 
+/**
+ * A step threw synchronously, such as a prompt builder bug. Kept as a step
+ * failure so it still alerts and a batch moves on to the next article.
+ */
+export class StepCrashed extends Data.TaggedError('StepCrashed')<{
+  readonly cause: unknown;
+}> {
+  override get message() {
+    return messageOf(this.cause);
+  }
+}
+
 export type StepError =
+  | StepCrashed
   | AiCallFailed
   | SaveFailed
   | SummaryEmpty

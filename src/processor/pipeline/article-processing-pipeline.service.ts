@@ -17,6 +17,7 @@ import {
   RatingOutOfRange,
   RatingUnparseable,
   SaveFailed,
+  StepCrashed,
   StepError,
   SummaryEmpty,
 } from './processing-errors';
@@ -124,8 +125,11 @@ export class ArticleProcessingPipelineService {
     article: DBArticle,
     step: ProcessingStep,
     effect: Effect.Effect<A, E>,
-  ): Effect.Effect<A, E> {
-    return Effect.tapError(effect, (error) => {
+  ): Effect.Effect<A, E | StepCrashed> {
+    const crashAsFailure = Effect.catchAllDefect(effect, (cause) =>
+      Effect.fail(new StepCrashed({ cause })),
+    );
+    return Effect.tapError(crashAsFailure, (error) => {
       this.logger.error(
         `Article ${article.id} failed at ${step} step: ${error.message}`,
       );
