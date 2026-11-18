@@ -3,8 +3,10 @@
 ## Status
 Accepted, 2026-10-22. Amended by PR #400 (2026-11): text-to-speech calls carry
 their typed error out to the audio worker, which decides BullMQ retries by tag.
-Chat and embeddings keep the original boundary. Amended by #403 (2026-11): the
-article processing pipeline runs its steps as Effects.
+Chat and embeddings keep the original boundary. Amended again (2026-11): the
+policy retries only a socket that drops mid-body, and leaves every other retry to
+the SDK clients. Amended by #403 (2026-11): the article processing pipeline runs
+its steps as Effects.
 
 ## Context
 `AiPolicyService.withRetry` decided what to retry by searching the error message
@@ -49,13 +51,14 @@ plus the text-to-speech path and the article processing pipeline below. Adapters
   error union. This replaced regexes over a message that `AiService` had already
   rewrapped as a string. `ProviderNotConfigured` (no client because the API key is
   unset) joins the provider tags on this path.
-- **Declared retry policy.** `RateLimited` and `ProviderUnreachable` retry at most
-  twice on `Schedule.exponential('500 millis')` with `Schedule.jittered`, which
-  waits 400 to 600ms, then 800 to 1200ms.
-- **Timeouts are not retried.** The SDK already retried a timed-out request twice
-  before it throws, with a 600s client timeout for OpenAI and 60s for Groq. A policy
-  retry on top would let one chat call wait up to 3 × 3 × 600s. A connection error
-  ends before that timeout fires, so it is retried.
+- **One retry layer per failure.** The OpenAI and Groq clients keep their default
+  `maxRetries: 2` and retry 408, 409, 429, 5xx, timeouts and connection errors,
+  honouring `retry-after`. The policy retries only a `ProviderUnreachable` whose
+  cause is a socket error (`isSocketError`), since that drop happens after the SDK
+  has returned. It retries at most twice on `Schedule.exponential('500 millis')`
+  with `Schedule.jittered`, which waits 400 to 600ms, then 800 to 1200ms. Retrying
+  `RateLimited` and `APIConnectionError` here as well let one call make 9 HTTP
+  requests.
 - **No Effect timeout.** `CHAT_MAX_TOKENS` defaults to 8192, so a legitimate
   completion can outlast the 30s the issue suggests. `AiAdapter` takes no
   `AbortSignal` either, so an Effect timeout would stop waiting while the HTTP
@@ -96,9 +99,9 @@ Rejected for the reasons under "No Effect timeout".
 Rejected. It adds a second test runner for one service.
 
 ## Consequences
-- The SDKs still retry 408, 409, 429, 5xx and connection errors twice on their own,
-  so a rate-limited or unreachable call can make up to 9 HTTP requests. Dropping the policy retry,
-  or setting the clients' `maxRetries` to 0, would leave one layer in charge.
+- A 429 waits on the SDK's backoff (`retry-after` when under 60s, else about 0.5s,
+  then 1s) and gets 3 requests in total. The audio worker's BullMQ attempt still re-runs the whole job
+  for retryable tags.
 - #403 took #280's second step, the article processing pipeline. #280 stops
   there unless the team wants more, so a further port needs its own issue.
 - A synchronous throw inside a pipeline step, such as a prompt builder bug, is an

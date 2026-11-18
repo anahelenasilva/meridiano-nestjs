@@ -4,15 +4,20 @@ import { averageEmbeddings } from './helpers/average-embeddings';
 import { splitTextIntoChunks } from './helpers/split-text-into-chunks';
 import { estimateTokenCount } from '../shared/helpers/token-estimation';
 import { AiAdapter } from './adapters/ai-adapter.interface';
-import { ProviderError, toProviderError } from './provider-error';
+import {
+  isSocketError,
+  ProviderError,
+  toProviderError,
+} from './provider-error';
 import { runPromiseOrThrow } from './run-effect';
 
 const MAX_RETRIES = 2;
 
-// Timeouts are left out: each SDK attempt already waits out the full client
-// timeout (600s on OpenAI), so another round multiplies that wait.
+// The SDK clients already retry 408, 409, 429, 5xx, timeouts and connection
+// errors twice, honouring retry-after. A socket that drops while the body is
+// read fails after the SDK has returned, so it is the only error left to retry.
 const isRetryable = (error: ProviderError) =>
-  error._tag === 'RateLimited' || error._tag === 'ProviderUnreachable';
+  error._tag === 'ProviderUnreachable' && isSocketError(error.cause);
 
 const retryPolicy = {
   schedule: Schedule.exponential('500 millis').pipe(Schedule.jittered),
