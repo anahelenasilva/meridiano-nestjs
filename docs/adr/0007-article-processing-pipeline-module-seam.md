@@ -82,6 +82,15 @@ a first-class module responsibility. The email transport and config
   summarise stage share `enqueueArticleAudio` for best-effort audio. A markdown
   upload now enqueues audio only after all three steps succeed, as the queue
   worker already did, instead of right after the summary.
+- Update (#403): the steps run as Effects (ADR-0011). `summariseArticle`,
+  `rateArticle` and `categoriseArticle` fail with the tagged errors in
+  `processing-errors.ts`. `processArticle` fails with `ArticleProcessingFailed`,
+  which carries the failed step, that step's error, and the summary and rating
+  the earlier steps produced. `ProcessingResult` and `StepResult` are gone. The
+  waits between steps and between batch items are `Effect.sleep`, so the
+  `Sleeper` seam is gone too, and the specs drive the delay with Jest fake
+  timers. The workers run `processArticle` through `runPromiseOrThrow`, and
+  `ProcessorService` runs each step through `Effect.either`.
 - The `AI_ADAPTER` binding hand-wraps `AiService` in the composition root. When
   the AI Provider Adapter work (#113) exposes a first-class policy-wrapped
   `AiAdapter` provider, this factory should consume it instead.

@@ -9,6 +9,7 @@ import {
   OnModuleInit,
 } from '@nestjs/common';
 import { Job, Queue, Worker } from 'bullmq';
+import { runPromiseOrThrow } from '../../ai/run-effect';
 import { ArticlesService } from '../../articles/articles.service';
 import { ProcessArticleJobData } from '../../articles/services/article-jobs.service';
 import { enqueueArticleAudio } from '../enqueue-article-audio';
@@ -54,20 +55,16 @@ export class ArticleProcessor implements OnModuleInit, OnModuleDestroy {
       throw new Error(`Article ${articleId} not found or already processed`);
     }
 
-    const result = await this.pipeline.processArticle(article);
-
-    if (!result.success) {
-      throw new Error(
-        `Failed to process article ${articleId} at ${result.failedStep} step: ${result.error}`,
-      );
-    }
+    const { summary } = await runPromiseOrThrow(
+      this.pipeline.processArticle(article),
+    );
 
     if (generateAudio) {
       await enqueueArticleAudio(
         this.audioJobService,
         this.logger,
         article,
-        result.summary,
+        summary,
       );
     }
 

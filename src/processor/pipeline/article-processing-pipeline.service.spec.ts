@@ -1,3 +1,4 @@
+import { Effect, Either } from 'effect';
 import { mock } from 'jest-mock-extended';
 import { AiAdapter } from '../../ai/adapters/ai-adapter.interface';
 import { ArticleCategory } from '../../articles/article.entity';
@@ -6,34 +7,52 @@ import { ConfigService } from '../../config/config.service';
 import { ProfilesService } from '../../profiles/profiles.service';
 import { ArticleProcessingPipelineService } from './article-processing-pipeline.service';
 import { ProcessingNotifier } from './processing-notifier';
-import { Sleeper } from './sleeper';
 import { makeArticle } from '../../articles/test-helpers';
 
 describe('ArticleProcessingPipelineService', () => {
   const DELAY_MS = 500;
 
   let ai: jest.Mocked<AiAdapter>;
-  let sleeper: jest.Mocked<Sleeper>;
   let notifier: jest.Mocked<ProcessingNotifier>;
   let articlesService: ReturnType<typeof mock<ArticlesService>>;
   let configService: ReturnType<typeof mock<ConfigService>>;
   let profilesService: ReturnType<typeof mock<ProfilesService>>;
   let service: ArticleProcessingPipelineService;
 
+  // Fake timers carry Effect.sleep's waits between steps, so a run passes in
+  // no real time.
+  async function run<A, E>(
+    effect: Effect.Effect<A, E>,
+  ): Promise<Either.Either<A, E>> {
+    const result = Effect.runPromise(Effect.either(effect));
+    await jest.advanceTimersByTimeAsync(2 * DELAY_MS);
+    return result;
+  }
+
+  async function runFailure<A, E>(effect: Effect.Effect<A, E>): Promise<E> {
+    const result = await run(effect);
+    if (Either.isRight(result)) throw new Error('expected failure');
+    return result.left;
+  }
+
   beforeEach(() => {
+    jest.useFakeTimers();
+
     ai = {
       chat: jest.fn(),
       embed: jest.fn().mockResolvedValue([0.1, 0.2]),
       generateAudio: jest.fn(),
     } as jest.Mocked<AiAdapter>;
 
-    sleeper = { sleep: jest.fn().mockResolvedValue(undefined) };
     notifier = { notifyFailure: jest.fn().mockResolvedValue(undefined) };
 
     articlesService = mock<ArticlesService>();
     configService = mock<ConfigService>();
     profilesService = mock<ProfilesService>();
 
+    articlesService.updateArticleProcessing.mockResolvedValue(undefined);
+    articlesService.updateArticleRating.mockResolvedValue(undefined);
+    articlesService.updateArticleCategories.mockResolvedValue(undefined);
     configService.getArticleProcessingDelayMs.mockReturnValue(DELAY_MS);
     configService.getArticleSummaryPrompt.mockReturnValue('summary-prompt');
     configService.getImpactRatingPrompt.mockReturnValue('rating-prompt');
@@ -48,12 +67,15 @@ describe('ArticleProcessingPipelineService', () => {
 
     service = new ArticleProcessingPipelineService(
       ai,
-      sleeper,
       notifier,
       articlesService,
       configService,
       profilesService,
     );
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
   });
 
   describe('happy path', () => {
@@ -64,20 +86,21 @@ describe('ArticleProcessingPipelineService', () => {
         .mockResolvedValueOnce('["news","blog"]');
     });
 
-    it('returns a result carrying summary, rating, and categories', async () => {
-      const result = await service.processArticle(makeArticle());
+    it('succeeds with the summary, rating, and categories', async () => {
+      const result = await run(service.processArticle(makeArticle()));
 
-      expect(result).toEqual({
-        success: true,
-        summary: 'This is the summary',
-        rating: 8,
-        categories: [ArticleCategory.NEWS, ArticleCategory.BLOG],
-      });
+      expect(result).toEqual(
+        Either.right({
+          summary: 'This is the summary',
+          rating: 8,
+          categories: [ArticleCategory.NEWS, ArticleCategory.BLOG],
+        }),
+      );
       expect(notifier.notifyFailure).not.toHaveBeenCalled();
     });
 
     it('persists each step through ArticlesService', async () => {
-      await service.processArticle(makeArticle({ id: 'article-1' }));
+      await run(service.processArticle(makeArticle({ id: 'article-1' })));
 
       expect(articlesService.updateArticleProcessing).toHaveBeenCalledWith(
         'article-1',
@@ -94,12 +117,18 @@ describe('ArticleProcessingPipelineService', () => {
       );
     });
 
-    it('sleeps the configured delay between AI calls', async () => {
-      await service.processArticle(makeArticle());
+    it('waits the configured delay before the rate and categorise calls', async () => {
+      const done = Effect.runPromise(service.processArticle(makeArticle()));
 
-      expect(sleeper.sleep).toHaveBeenCalledTimes(2);
-      expect(sleeper.sleep).toHaveBeenNthCalledWith(1, DELAY_MS);
-      expect(sleeper.sleep).toHaveBeenNthCalledWith(2, DELAY_MS);
+      await jest.advanceTimersByTimeAsync(DELAY_MS - 1);
+      expect(ai.chat).toHaveBeenCalledTimes(1);
+      await jest.advanceTimersByTimeAsync(1);
+      expect(ai.chat).toHaveBeenCalledTimes(2);
+      await jest.advanceTimersByTimeAsync(DELAY_MS - 1);
+      expect(ai.chat).toHaveBeenCalledTimes(2);
+      await jest.advanceTimersByTimeAsync(1);
+      expect(ai.chat).toHaveBeenCalledTimes(3);
+      await done;
     });
   });
 
@@ -110,18 +139,19 @@ describe('ArticleProcessingPipelineService', () => {
         .mockResolvedValueOnce('not a number');
     });
 
-    it('reflects the failure without discarding the summary', async () => {
-      const result = await service.processArticle(makeArticle());
+    it('fails at rate and keeps the summary', async () => {
+      const failure = await runFailure(service.processArticle(makeArticle()));
 
-      expect(result.success).toBe(false);
-      if (result.success) throw new Error('expected failure');
-      expect(result.failedStep).toBe('rate');
-      expect(result.summary).toBe('This is the summary');
-      expect(result.rating).toBeUndefined();
+      expect(failure).toMatchObject({
+        step: 'rate',
+        reason: { _tag: 'RatingUnparseable' },
+        summary: 'This is the summary',
+      });
+      expect(failure.rating).toBeUndefined();
     });
 
     it('still persisted the summary and never rated', async () => {
-      await service.processArticle(makeArticle());
+      await run(service.processArticle(makeArticle()));
 
       expect(articlesService.updateArticleProcessing).toHaveBeenCalledTimes(1);
       expect(articlesService.updateArticleRating).not.toHaveBeenCalled();
@@ -129,34 +159,87 @@ describe('ArticleProcessingPipelineService', () => {
     });
   });
 
+  it('keeps the summary and rating when categorise fails', async () => {
+    ai.chat
+      .mockResolvedValueOnce('This is the summary')
+      .mockResolvedValueOnce('8')
+      .mockResolvedValueOnce('["news"]');
+    articlesService.updateArticleCategories.mockRejectedValueOnce(
+      new Error('db down'),
+    );
+
+    const failure = await runFailure(
+      service.processArticle(makeArticle({ id: 'x' })),
+    );
+
+    expect(failure).toMatchObject({
+      step: 'categorise',
+      reason: { _tag: 'SaveFailed' },
+      summary: 'This is the summary',
+      rating: 8,
+    });
+    expect(failure.message).toBe(
+      'Failed to process article x at categorise step: db down',
+    );
+  });
+
   describe('failure notification', () => {
-    it('notifies (email, via the injected notifier) when embedding fails', async () => {
+    it('notifies when embedding fails, after saving the summary', async () => {
       ai.chat.mockResolvedValueOnce('This is the summary');
       ai.embed.mockRejectedValueOnce(new Error('embedding provider down'));
 
-      const result = await service.processArticle(makeArticle({ id: 'x' }));
+      const failure = await runFailure(
+        service.processArticle(makeArticle({ id: 'x' })),
+      );
 
+      expect(notifier.notifyFailure).toHaveBeenCalledTimes(1);
       expect(notifier.notifyFailure).toHaveBeenCalledWith({
         article: expect.objectContaining({ id: 'x' }),
         step: 'summarise',
         error: 'embedding provider down',
       });
-      // Failure result still carries the summary that was produced and persisted.
-      expect(result.success).toBe(false);
-      if (result.success) throw new Error('expected failure');
-      expect(result.summary).toBe('This is the summary');
-      expect(articlesService.updateArticleProcessing).toHaveBeenCalled();
+      expect(failure).toMatchObject({
+        step: 'summarise',
+        reason: { _tag: 'EmbeddingFailed' },
+        summary: 'This is the summary',
+      });
+      expect(articlesService.updateArticleProcessing).toHaveBeenCalledWith(
+        'x',
+        expect.stringContaining('This is the summary'),
+        null,
+      );
     });
 
-    it('notifies when the rate step fails', async () => {
+    it('notifies once when the rating is out of range', async () => {
       ai.chat
         .mockResolvedValueOnce('This is the summary')
-        .mockResolvedValueOnce('99'); // out of range
+        .mockResolvedValueOnce('99');
 
-      await service.processArticle(makeArticle());
+      const failure = await runFailure(
+        service.processArticle(makeArticle({ id: 'x' })),
+      );
 
+      expect(failure.reason._tag).toBe('RatingOutOfRange');
+      expect(notifier.notifyFailure).toHaveBeenCalledTimes(1);
       expect(notifier.notifyFailure).toHaveBeenCalledWith(
-        expect.objectContaining({ step: 'rate' }),
+        expect.objectContaining({
+          step: 'rate',
+          error: 'Rating 99 for article x is out of range (1-10)',
+        }),
+      );
+    });
+
+    it('notifies with the provider message when the AI call rejects', async () => {
+      ai.chat.mockRejectedValueOnce(new Error('provider exploded'));
+
+      const failure = await runFailure(service.processArticle(makeArticle()));
+
+      expect(failure.reason._tag).toBe('AiCallFailed');
+      expect(notifier.notifyFailure).toHaveBeenCalledWith(
+        expect.objectContaining({
+          step: 'summarise',
+          error: 'provider exploded',
+        }),
       );
     });
   });
@@ -168,11 +251,24 @@ describe('ArticleProcessingPipelineService', () => {
         .mockResolvedValueOnce('5')
         .mockResolvedValueOnce('not json');
 
-      const result = await service.processArticle(makeArticle());
+      const result = await run(service.processArticle(makeArticle()));
 
-      expect(result.success).toBe(true);
-      if (!result.success) throw new Error('expected success');
-      expect(result.categories).toEqual([ArticleCategory.OTHER]);
+      expect(result).toEqual(
+        Either.right(
+          expect.objectContaining({ categories: [ArticleCategory.OTHER] }),
+        ),
+      );
+      expect(notifier.notifyFailure).not.toHaveBeenCalled();
+    });
+
+    it('falls back to OTHER when the category call rejects', async () => {
+      ai.chat.mockRejectedValueOnce(new Error('provider down'));
+
+      const result = await run(
+        service.categoriseArticle(makeArticle(), 'saved summary'),
+      );
+
+      expect(result).toEqual(Either.right([ArticleCategory.OTHER]));
       expect(notifier.notifyFailure).not.toHaveBeenCalled();
     });
   });
@@ -181,36 +277,32 @@ describe('ArticleProcessingPipelineService', () => {
     it('rateArticle rates the given summary on its own', async () => {
       ai.chat.mockResolvedValueOnce('6');
 
-      const result = await service.rateArticle(
-        makeArticle({ id: 'a' }),
-        'saved summary',
+      const result = await run(
+        service.rateArticle(makeArticle({ id: 'a' }), 'saved summary'),
       );
 
-      expect(result).toEqual({ success: true, value: 6 });
+      expect(result).toEqual(Either.right(6));
       expect(configService.getImpactRatingPrompt).toHaveBeenCalledWith(
         'saved summary',
       );
       expect(articlesService.updateArticleRating).toHaveBeenCalledWith('a', 6);
     });
 
-    it('categoriseArticle keeps the summary when persisting categories fails', async () => {
+    it('categoriseArticle fails with SaveFailed when persisting categories fails', async () => {
       ai.chat.mockResolvedValueOnce('["news"]');
       articlesService.updateArticleCategories.mockRejectedValueOnce(
         new Error('db down'),
       );
 
-      const result = await service.categoriseArticle(
-        makeArticle(),
-        'saved summary',
+      const failure = await runFailure(
+        service.categoriseArticle(makeArticle(), 'saved summary'),
       );
 
-      expect(result).toEqual({
-        success: false,
-        failedStep: 'categorise',
-        error: 'db down',
-        summary: 'saved summary',
-      });
+      expect(failure).toMatchObject({ _tag: 'SaveFailed', message: 'db down' });
       expect(notifier.notifyFailure).toHaveBeenCalledTimes(1);
+      expect(notifier.notifyFailure).toHaveBeenCalledWith(
+        expect.objectContaining({ step: 'categorise', error: 'db down' }),
+      );
     });
 
     it('reports a persistence error at the step that hit it', async () => {
@@ -219,14 +311,15 @@ describe('ArticleProcessingPipelineService', () => {
         new Error('db down'),
       );
 
-      const result = await service.rateArticle(makeArticle(), 'saved summary');
+      const failure = await runFailure(
+        service.rateArticle(makeArticle(), 'saved summary'),
+      );
 
-      expect(result).toMatchObject({
-        success: false,
-        failedStep: 'rate',
-        error: 'db down',
-      });
+      expect(failure._tag).toBe('SaveFailed');
       expect(notifier.notifyFailure).toHaveBeenCalledTimes(1);
+      expect(notifier.notifyFailure).toHaveBeenCalledWith(
+        expect.objectContaining({ step: 'rate', error: 'db down' }),
+      );
     });
   });
 
@@ -241,7 +334,7 @@ describe('ArticleProcessingPipelineService', () => {
       });
       ai.chat.mockResolvedValueOnce('This is the summary');
 
-      await service.summariseArticle(makeArticle(overrides));
+      await run(service.summariseArticle(makeArticle(overrides)));
 
       expect(configService.formatPrompt).toHaveBeenCalledWith(
         '{article_title}: {article_content}',
@@ -254,12 +347,13 @@ describe('ArticleProcessingPipelineService', () => {
     it('fails at summarise with no summary when the AI returns nothing', async () => {
       ai.chat.mockResolvedValueOnce('');
 
-      const result = await service.processArticle(makeArticle());
+      const failure = await runFailure(service.processArticle(makeArticle()));
 
-      expect(result.success).toBe(false);
-      if (result.success) throw new Error('expected failure');
-      expect(result.failedStep).toBe('summarise');
-      expect(result.summary).toBeUndefined();
+      expect(failure).toMatchObject({
+        step: 'summarise',
+        reason: { _tag: 'SummaryEmpty' },
+      });
+      expect(failure.summary).toBeUndefined();
       expect(articlesService.updateArticleProcessing).not.toHaveBeenCalled();
       expect(notifier.notifyFailure).toHaveBeenCalledWith(
         expect.objectContaining({ step: 'summarise' }),

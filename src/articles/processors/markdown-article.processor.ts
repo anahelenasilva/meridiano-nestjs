@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { Job, Queue, Worker } from 'bullmq';
 import { enqueueArticleAudio } from '../../processor/enqueue-article-audio';
+import { runPromiseOrThrow } from '../../ai/run-effect';
 import { ArticleProcessingPipelineService } from '../../processor/pipeline/article-processing-pipeline.service';
 import { ProcessMarkdownArticleJobData } from '../services/article-jobs.service';
 import { ArticleIngestionService } from '../ingestion/article-ingestion.service';
@@ -90,19 +91,16 @@ export class MarkdownArticleProcessor implements OnModuleInit, OnModuleDestroy {
       console.log(
         `Step 4: Running article ${articleId} through the pipeline...`,
       );
-      const result = await this.pipeline.processArticle(article);
-      if (!result.success) {
-        throw new Error(
-          `Failed to process article ${articleId} at ${result.failedStep} step: ${result.error}`,
-        );
-      }
+      const { summary } = await runPromiseOrThrow(
+        this.pipeline.processArticle(article),
+      );
 
       if (generateAudio) {
         await enqueueArticleAudio(
           this.audioJobService,
           this.logger,
           article,
-          result.summary,
+          summary,
         );
       }
 

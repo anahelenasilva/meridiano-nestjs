@@ -1,5 +1,5 @@
 import { DBArticle } from '../../articles/article.entity';
-import { ProcessingStep } from './processing-result';
+import { ProcessingStep } from './processing-errors';
 
 export const PROCESSING_NOTIFIER = Symbol('PROCESSING_NOTIFIER');
 
