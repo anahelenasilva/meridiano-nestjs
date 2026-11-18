@@ -1,7 +1,6 @@
 import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Effect } from 'effect';
-import OpenAI from 'openai';
 import { ConfigService } from '../config/config.service';
 import { AiPolicyService } from './ai-policy.service';
 import { DeepseekAdapter } from './adapters/deepseek.adapter';
@@ -240,15 +239,10 @@ describe('AiService', () => {
       expect(deepseekChat).not.toHaveBeenCalled();
     });
 
-    it('retries a rate-limited call like the default chat provider', async () => {
+    it('retries a dropped socket like the default chat provider', async () => {
       openaiChat
         .mockRejectedValueOnce(
-          new OpenAI.RateLimitError(
-            429,
-            undefined,
-            'Rate limit reached',
-            undefined,
-          ),
+          Object.assign(new Error('socket hang up'), { code: 'ECONNRESET' }),
         )
         .mockResolvedValueOnce('answer after retry');
 

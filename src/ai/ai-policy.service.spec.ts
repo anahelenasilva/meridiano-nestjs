@@ -9,6 +9,14 @@ const rateLimited = () =>
   new OpenAI.RateLimitError(429, undefined, 'Rate limit reached', undefined);
 const connectionError = () =>
   new OpenAI.APIConnectionError({ message: 'Connection error.' });
+// node-fetch's FetchError when the socket drops while the SDK reads the body.
+const socketDrop = () =>
+  Object.assign(
+    new Error(
+      'Invalid response body while trying to fetch https://api.openai.com/v1/chat/completions: socket hang up',
+    ),
+    { code: 'ECONNRESET' },
+  );
 
 // Call with fake timers on. The longest backoff is 600ms + 1200ms, so 2s of
 // fake time settles any retry chain.
@@ -60,7 +68,7 @@ describe('AiPolicyService', () => {
         .spyOn(Logger.prototype, 'warn')
         .mockImplementation();
       (adapter.chat as jest.Mock)
-        .mockRejectedValueOnce(rateLimited())
+        .mockRejectedValueOnce(socketDrop())
         .mockResolvedValueOnce('ok');
       const svc = new AiPolicyService(adapter);
 
@@ -78,8 +86,8 @@ describe('AiPolicyService', () => {
         .spyOn(Logger.prototype, 'warn')
         .mockImplementation();
       (adapter.chat as jest.Mock)
-        .mockRejectedValueOnce(rateLimited())
-        .mockRejectedValueOnce(connectionError())
+        .mockRejectedValueOnce(socketDrop())
+        .mockRejectedValueOnce(socketDrop())
         .mockResolvedValueOnce('ok');
       const svc = new AiPolicyService(adapter);
 
@@ -110,7 +118,7 @@ describe('AiPolicyService', () => {
       const consoleSpy = jest
         .spyOn(Logger.prototype, 'warn')
         .mockImplementation();
-      const error = connectionError();
+      const error = socketDrop();
       (adapter.chat as jest.Mock).mockRejectedValue(error);
       const svc = new AiPolicyService(adapter);
 
@@ -122,17 +130,25 @@ describe('AiPolicyService', () => {
       consoleSpy.mockRestore();
     });
 
-    it('does not retry a provider timeout', async () => {
+    it.each([
+      ['a rate limit', rateLimited],
+      ['a connection error', connectionError],
+      ['a timeout', () => new OpenAI.APIConnectionTimeoutError()],
+      [
+        'a 5xx',
+        () =>
+          new OpenAI.InternalServerError(500, undefined, 'Server error', {}),
+      ],
+    ])('does not retry %s, which the SDK already retried', async (_, make) => {
       const adapter = makeFakeAdapter();
       const consoleSpy = jest
         .spyOn(Logger.prototype, 'error')
         .mockImplementation();
-      (adapter.chat as jest.Mock).mockRejectedValue(
-        new OpenAI.APIConnectionTimeoutError(),
-      );
+      const error = make();
+      (adapter.chat as jest.Mock).mockRejectedValue(error);
       const svc = new AiPolicyService(adapter);
 
-      await expect(svc.chat('prompt')).rejects.toThrow('Request timed out.');
+      await expect(svc.chat('prompt')).rejects.toBe(error);
       expect(adapter.chat).toHaveBeenCalledTimes(1);
       consoleSpy.mockRestore();
     });
@@ -144,7 +160,7 @@ describe('AiPolicyService', () => {
         .spyOn(Logger.prototype, 'warn')
         .mockImplementation();
       const timeoutSpy = jest.spyOn(global, 'setTimeout');
-      (adapter.chat as jest.Mock).mockRejectedValue(rateLimited());
+      (adapter.chat as jest.Mock).mockRejectedValue(socketDrop());
       const svc = new AiPolicyService(adapter);
 
       await settle(svc.chat('prompt'));
@@ -221,7 +237,7 @@ describe('AiPolicyService', () => {
         .spyOn(Logger.prototype, 'warn')
         .mockImplementation();
       (adapter.embed as jest.Mock)
-        .mockRejectedValueOnce(rateLimited())
+        .mockRejectedValueOnce(socketDrop())
         .mockResolvedValueOnce([0.5, 0.5]);
       const svc = new AiPolicyService(adapter, 1000);
 
@@ -381,7 +397,7 @@ describe('AiPolicyService', () => {
         .mockImplementation();
       const adapter = makeFakeAdapter();
       (adapter.generateAudio as jest.Mock)
-        .mockRejectedValueOnce(rateLimited())
+        .mockRejectedValueOnce(socketDrop())
         .mockResolvedValueOnce(Buffer.from('ok'));
       const svc = new AiPolicyService(adapter, undefined, 4096);
 
