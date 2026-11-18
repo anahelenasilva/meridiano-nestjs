@@ -3,10 +3,14 @@ import { createWorker } from '@libs/queue/create-worker';
 import { S3Service } from '@libs/s3';
 import { Logger } from '@nestjs/common';
 import { Job, Queue, Worker } from 'bullmq';
+import { Effect } from 'effect';
 import { mock } from 'jest-mock-extended';
 import { ArticleProcessingPipelineService } from '../../processor/pipeline/article-processing-pipeline.service';
 import { makeArticle } from '../test-helpers';
-import { ProcessingSuccess } from '../../processor/pipeline/processing-result';
+import {
+  ArticleProcessingFailed,
+  RatingUnparseable,
+} from '../../processor/pipeline/processing-errors';
 import { FeedProfile } from '../../shared/types/feed';
 import { ArticleIngestionService } from '../ingestion/article-ingestion.service';
 import { ProcessMarkdownArticleJobData } from '../services/article-jobs.service';
@@ -17,12 +21,11 @@ jest.mock('@libs/queue/create-worker');
 
 const markdownContent = '# Test Title\n\nTest content.';
 
-const processed: ProcessingSuccess = {
-  success: true,
+const processed = Effect.succeed({
   summary: 'the summary',
-  rating: 7,
+  rating: 7 as const,
   categories: [],
-};
+});
 
 describe('MarkdownArticleProcessor', () => {
   let processor: MarkdownArticleProcessor;
@@ -90,7 +93,7 @@ describe('MarkdownArticleProcessor', () => {
       const article = makeArticle({ id: 'article-123' });
       mockS3Service.downloadMarkdownFile.mockResolvedValueOnce(markdownContent);
       mockIngestionService.ingest.mockResolvedValueOnce(article);
-      pipeline.processArticle.mockResolvedValueOnce(processed);
+      pipeline.processArticle.mockReturnValueOnce(processed);
 
       const result = await processor.processMarkdownArticle(createJob());
 
@@ -117,7 +120,7 @@ describe('MarkdownArticleProcessor', () => {
     it('passes the job feed profile and custom prompt to ingest', async () => {
       mockS3Service.downloadMarkdownFile.mockResolvedValueOnce(markdownContent);
       mockIngestionService.ingest.mockResolvedValueOnce(makeArticle());
-      pipeline.processArticle.mockResolvedValueOnce(processed);
+      pipeline.processArticle.mockReturnValueOnce(processed);
 
       await processor.processMarkdownArticle(
         createJob({
@@ -137,16 +140,22 @@ describe('MarkdownArticleProcessor', () => {
     it('fails the job with the failed step when the pipeline fails', async () => {
       mockS3Service.downloadMarkdownFile.mockResolvedValueOnce(markdownContent);
       mockIngestionService.ingest.mockResolvedValueOnce(makeArticle());
-      pipeline.processArticle.mockResolvedValueOnce({
-        success: false,
-        failedStep: 'rate',
-        error: 'bad rating',
-        summary: 'the summary',
-      });
+      pipeline.processArticle.mockReturnValueOnce(
+        Effect.fail(
+          new ArticleProcessingFailed({
+            articleId: 'article-123',
+            step: 'rate',
+            reason: new RatingUnparseable({ articleId: 'article-123' }),
+            summary: 'the summary',
+          }),
+        ),
+      );
 
       await expect(
         processor.processMarkdownArticle(createJob({ generateAudio: true })),
-      ).rejects.toThrow(/test-file\.md.*at rate step: bad rating/);
+      ).rejects.toThrow(
+        /test-file\.md.*at rate step: Could not extract a numeric rating/,
+      );
 
       expect(audioJobService.enqueueAudioJob).not.toHaveBeenCalled();
     });
@@ -156,7 +165,7 @@ describe('MarkdownArticleProcessor', () => {
       mockIngestionService.ingest.mockResolvedValueOnce(
         makeArticle({ id: 'article-123' }),
       );
-      pipeline.processArticle.mockResolvedValueOnce(processed);
+      pipeline.processArticle.mockReturnValueOnce(processed);
       audioJobService.enqueueAudioJob.mockResolvedValueOnce({
         jobId: 'audio-1',
       } as never);
@@ -177,7 +186,7 @@ describe('MarkdownArticleProcessor', () => {
     it('does not enqueue audio unless asked', async () => {
       mockS3Service.downloadMarkdownFile.mockResolvedValueOnce(markdownContent);
       mockIngestionService.ingest.mockResolvedValueOnce(makeArticle());
-      pipeline.processArticle.mockResolvedValueOnce(processed);
+      pipeline.processArticle.mockReturnValueOnce(processed);
 
       await processor.processMarkdownArticle(createJob());
 
@@ -187,7 +196,7 @@ describe('MarkdownArticleProcessor', () => {
     it('does not fail the job when audio enqueue throws', async () => {
       mockS3Service.downloadMarkdownFile.mockResolvedValueOnce(markdownContent);
       mockIngestionService.ingest.mockResolvedValueOnce(makeArticle());
-      pipeline.processArticle.mockResolvedValueOnce(processed);
+      pipeline.processArticle.mockReturnValueOnce(processed);
       audioJobService.enqueueAudioJob.mockRejectedValueOnce(
         new Error('queue down'),
       );

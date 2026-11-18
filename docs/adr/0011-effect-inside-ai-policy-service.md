@@ -5,7 +5,8 @@ Accepted, 2026-10-22. Amended by PR #400 (2026-11): text-to-speech calls carry
 their typed error out to the audio worker, which decides BullMQ retries by tag.
 Chat and embeddings keep the original boundary. Amended again (2026-11): the
 policy retries only a socket that drops mid-body, and leaves every other retry to
-the SDK clients.
+the SDK clients. Amended by #403 (2026-11): the article processing pipeline runs
+its steps as Effects.
 
 ## Context
 `AiPolicyService.withRetry` decided what to retry by searching the error message
@@ -20,8 +21,19 @@ controllers, BullMQ, TypeORM) as it is.
 
 ## Decision
 Effect runs inside `src/ai/provider-error.ts` and `src/ai/ai-policy.service.ts`,
-plus the text-to-speech path below. Adapters, `AiAdapter` and every other Nest
-module stay Promise-based.
+plus the text-to-speech path and the article processing pipeline below. Adapters,
+`AiAdapter` and every other Nest module stay Promise-based.
+
+- **The article processing pipeline returns Effects to its callers.**
+  `ArticleProcessingPipelineService` runs each step as an Effect that fails with a
+  tagged error from `src/processor/pipeline/processing-errors.ts`, such as
+  `SummaryEmpty`, `EmbeddingFailed` (carrying the saved summary) or
+  `RatingOutOfRange`. `processArticle` is one `Effect.gen` with `Effect.sleep`
+  between steps. It replaced the try/catch `runStep` helper, the `StepResult`
+  type and the `Sleeper` seam from ADR-0007. `AiAdapter.chat` still returns a
+  Promise, so the pipeline wraps it in `Effect.tryPromise` and adds no retries of
+  its own. The queue workers run `processArticle` through `runPromiseOrThrow`, and
+  `ProcessorService` runs each batch step through `Effect.either`.
 
 - **Typed provider errors.** `toProviderError` maps the SDKs' error classes to five
   tags: `RateLimited` (`RateLimitError`), `ProviderUnreachable`
@@ -90,7 +102,11 @@ Rejected. It adds a second test runner for one service.
 - A 429 waits on the SDK's backoff (`retry-after` when under 60s, else about 0.5s,
   then 1s) and gets 3 requests in total. The audio worker's BullMQ attempt still re-runs the whole job
   for retryable tags.
-- If the pilot holds, #280's next step is the article processing pipeline, where
-  Effect's error channel and clock would replace `StepResult` and the `Sleeper`
-  seam from ADR-0007.
+- #403 took #280's second step, the article processing pipeline. #280 stops
+  there unless the team wants more, so a further port needs its own issue.
+- A synchronous throw inside a pipeline step, such as a prompt builder bug, is an
+  Effect defect, which `Effect.either` does not catch. The pipeline turns it into
+  a `StepCrashed` failure with `Effect.catchAllDefect`, so it still sends one
+  failure email and a `ProcessorService` batch moves on to the next article, as
+  the old try/catch `runStep` did.
 - Moving to Effect 4 waits for sandcastle to move. Both upgrade together.

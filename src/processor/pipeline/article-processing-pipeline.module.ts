@@ -12,7 +12,6 @@ import { AI_ADAPTER } from './ai-adapter.token';
 import { ArticleProcessingPipelineService } from './article-processing-pipeline.service';
 import { EmailProcessingNotifier } from './email-processing-notifier';
 import { PROCESSING_NOTIFIER } from './processing-notifier';
-import { RealSleeper, SLEEPER } from './sleeper';
 
 /**
  * Binds the pipeline's seams to production implementations. AI_ADAPTER wraps
@@ -36,7 +35,6 @@ import { RealSleeper, SLEEPER } from './sleeper';
   ],
   providers: [
     ArticleProcessingPipelineService,
-    { provide: SLEEPER, useClass: RealSleeper },
     { provide: PROCESSING_NOTIFIER, useClass: EmailProcessingNotifier },
     {
       provide: AI_ADAPTER,
@@ -56,6 +54,6 @@ import { RealSleeper, SLEEPER } from './sleeper';
       inject: [AiService],
     },
   ],
-  exports: [ArticleProcessingPipelineService, SLEEPER],
+  exports: [ArticleProcessingPipelineService],
 })
 export class ArticleProcessingPipelineModule {}

@@ -1,13 +1,12 @@
 import { AudioJobService } from '@libs/audio';
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
+import { Effect, Either } from 'effect';
 import { ArticlesService } from '../articles/articles.service';
 import { ConfigService } from '../config/config.service';
 import { ProcessingStats } from '../shared/types/ai';
 import { FeedProfile } from '../shared/types/feed';
 import { enqueueArticleAudio } from './enqueue-article-audio';
 import { ArticleProcessingPipelineService } from './pipeline/article-processing-pipeline.service';
-import { SLEEPER } from './pipeline/sleeper';
-import type { Sleeper } from './pipeline/sleeper';
 
 const BATCH_LIMIT = 1000;
 
@@ -23,7 +22,6 @@ export class ProcessorService {
   constructor(
     private readonly articlesService: ArticlesService,
     private readonly pipeline: ArticleProcessingPipelineService,
-    @Inject(SLEEPER) private readonly sleeper: Sleeper,
     private readonly configService: ConfigService,
     private readonly audioJobService: AudioJobService,
   ) {}
@@ -41,15 +39,17 @@ export class ProcessorService {
     this.logger.log(`Found ${articles.length} articles to summarise.`);
 
     for (const article of articles) {
-      const result = await this.pipeline.summariseArticle(article);
-      if (result.success) {
+      const result = await Effect.runPromise(
+        Effect.either(this.pipeline.summariseArticle(article)),
+      );
+      if (Either.isRight(result)) {
         stats.articlesProcessed++;
         if (generateAudio) {
           await enqueueArticleAudio(
             this.audioJobService,
             this.logger,
             article,
-            result.value,
+            result.right,
           );
         }
       } else {
@@ -75,11 +75,12 @@ export class ProcessorService {
         this.logger.warn(`Skipping article ${article.id} - no summary found.`);
         continue;
       }
-      const result = await this.pipeline.rateArticle(
-        article,
-        article.processed_content,
+      const result = await Effect.runPromise(
+        Effect.either(
+          this.pipeline.rateArticle(article, article.processed_content),
+        ),
       );
-      if (result.success) {
+      if (Either.isRight(result)) {
         stats.articlesRated++;
       } else {
         stats.errors++;
@@ -104,11 +105,12 @@ export class ProcessorService {
         this.logger.warn(`Skipping article ${article.id} - no summary found.`);
         continue;
       }
-      const result = await this.pipeline.categoriseArticle(
-        article,
-        article.processed_content,
+      const result = await Effect.runPromise(
+        Effect.either(
+          this.pipeline.categoriseArticle(article, article.processed_content),
+        ),
       );
-      if (result.success) {
+      if (Either.isRight(result)) {
         stats.articlesCategorized++;
       } else {
         stats.errors++;
@@ -137,6 +139,8 @@ export class ProcessorService {
   }
 
   private pause(): Promise<void> {
-    return this.sleeper.sleep(this.configService.getArticleProcessingDelayMs());
+    return Effect.runPromise(
+      Effect.sleep(this.configService.getArticleProcessingDelayMs()),
+    );
   }
 }

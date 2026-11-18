@@ -1,4 +1,5 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Effect, Either } from 'effect';
 import type { AiAdapter } from '../../ai/adapters/ai-adapter.interface';
 import { ArticleCategory, DBArticle } from '../../articles/article.entity';
 import { ArticlesService } from '../../articles/articles.service';
@@ -8,42 +9,33 @@ import { buildFinalPrompt } from '../../shared/helpers/build-final-prompt';
 import { ImpactRating } from '../../shared/types/ai';
 import { FeedProfile } from '../../shared/types/feed';
 import { AI_ADAPTER } from './ai-adapter.token';
+import {
+  AiCallFailed,
+  ArticleProcessingFailed,
+  EmbeddingFailed,
+  ProcessingStep,
+  RatingOutOfRange,
+  RatingUnparseable,
+  SaveFailed,
+  StepCrashed,
+  StepError,
+  SummaryEmpty,
+} from './processing-errors';
 import { PROCESSING_NOTIFIER } from './processing-notifier';
 import type { ProcessingNotifier } from './processing-notifier';
-import {
-  ProcessingFailure,
-  ProcessingResult,
-  ProcessingStep,
-  StepResult,
-} from './processing-result';
-import { SLEEPER } from './sleeper';
-import type { Sleeper } from './sleeper';
 
 const SUMMARY_CONTENT_LIMIT = 4000;
 const CATEGORY_CONTENT_LIMIT = 2000;
 
 /**
- * Thrown when the summary was persisted but its embedding failed, so the
- * failure result still carries the summary.
- */
-class EmbeddingFailedError extends Error {
-  constructor(
-    message: string,
-    readonly summary: string,
-  ) {
-    super(message);
-    this.name = 'EmbeddingFailedError';
-  }
-}
-
-/**
  * Deep module for the Article Summary -> Impact Rating -> categorisation
- * pipeline. The queue worker runs all three steps through `processArticle`; the
+ * pipeline. The queue workers run all three steps through `processArticle`; the
  * scheduled briefing run calls `summariseArticle`, `rateArticle` and
- * `categoriseArticle` as separate batch stages. Each entry point alerts through
- * the notifier once when its step fails. It depends on the {@link AiAdapter}
- * interface (never the concrete `AiService`) so it can be unit tested with a
- * fake adapter and no real provider, database, or queue.
+ * `categoriseArticle` as separate batch stages. Every entry point returns an
+ * Effect for the caller to run, and each step alerts through the notifier once
+ * when it fails. It depends on the {@link AiAdapter} interface (never the
+ * concrete `AiService`) so it can be unit tested with a fake adapter and no real
+ * provider, database, or queue.
  */
 @Injectable()
 export class ArticleProcessingPipelineService {
@@ -51,7 +43,6 @@ export class ArticleProcessingPipelineService {
 
   constructor(
     @Inject(AI_ADAPTER) private readonly ai: AiAdapter,
-    @Inject(SLEEPER) private readonly sleeper: Sleeper,
     @Inject(PROCESSING_NOTIFIER)
     private readonly notifier: ProcessingNotifier,
     private readonly articlesService: ArticlesService,
@@ -59,186 +50,208 @@ export class ArticleProcessingPipelineService {
     private readonly profilesService: ProfilesService,
   ) {}
 
-  async processArticle(article: DBArticle): Promise<ProcessingResult> {
-    const delayMs = this.configService.getArticleProcessingDelayMs();
+  /** Waits `getArticleProcessingDelayMs()` before each AI step after the first. */
+  processArticle(article: DBArticle) {
+    return Effect.gen(this, function* () {
+      const delayMs = this.configService.getArticleProcessingDelayMs();
+      const failed = (
+        step: ProcessingStep,
+        reason: StepError,
+        earlier: { summary?: string; rating?: ImpactRating } = {},
+      ) =>
+        new ArticleProcessingFailed({
+          articleId: article.id,
+          step,
+          reason,
+          ...earlier,
+        });
 
-    const summarised = await this.summariseArticle(article);
-    if (!summarised.success) return summarised;
-    const summary = summarised.value;
-    await this.sleeper.sleep(delayMs);
+      const summary = yield* this.summariseArticle(article).pipe(
+        Effect.mapError((reason) =>
+          failed(
+            'summarise',
+            reason,
+            reason._tag === 'EmbeddingFailed'
+              ? { summary: reason.summary }
+              : {},
+          ),
+        ),
+      );
+      yield* Effect.sleep(delayMs);
 
-    const rated = await this.rateArticle(article, summary);
-    if (!rated.success) return rated;
-    const rating = rated.value;
-    await this.sleeper.sleep(delayMs);
+      const rating = yield* this.rateArticle(article, summary).pipe(
+        Effect.mapError((reason) => failed('rate', reason, { summary })),
+      );
+      yield* Effect.sleep(delayMs);
 
-    const categorised = await this.categoriseArticle(article, summary);
-    if (!categorised.success) return { ...categorised, rating };
+      const categories = yield* this.categoriseArticle(article, summary).pipe(
+        Effect.mapError((reason) =>
+          failed('categorise', reason, { summary, rating }),
+        ),
+      );
 
-    return { success: true, summary, rating, categories: categorised.value };
+      return { summary, rating, categories };
+    });
   }
 
   /**
    * Generates the summary, embeds it, and persists both. The summary is
-   * persisted even when embedding fails, but the step still fails so the
-   * failure is alerted and counted.
+   * persisted even when embedding fails, but the step still fails with
+   * `EmbeddingFailed` so the failure is alerted and counted.
    */
-  summariseArticle(article: DBArticle): Promise<StepResult<string>> {
-    return this.runStep(article, 'summarise', {}, () =>
-      this.summarise(article),
-    );
+  summariseArticle(article: DBArticle) {
+    return this.alertOnFailure(article, 'summarise', this.summarise(article));
   }
 
   /** Rates `summary`; the batch stage passes the article's saved `processed_content`. */
-  rateArticle(
-    article: DBArticle,
-    summary: string,
-  ): Promise<StepResult<ImpactRating>> {
-    return this.runStep(article, 'rate', { summary }, () =>
-      this.rate(article, summary),
-    );
+  rateArticle(article: DBArticle, summary: string) {
+    return this.alertOnFailure(article, 'rate', this.rate(article, summary));
   }
 
   /**
    * Categorises `summary`; the batch stage passes the article's saved
-   * `processed_content`. A missing or unparseable AI response falls back to
+   * `processed_content`. A failed or unparseable AI response falls back to
    * OTHER; only a persistence error fails the step.
    */
-  categoriseArticle(
-    article: DBArticle,
-    summary: string,
-  ): Promise<StepResult<ArticleCategory[]>> {
-    return this.runStep(article, 'categorise', { summary }, () =>
+  categoriseArticle(article: DBArticle, summary: string) {
+    return this.alertOnFailure(
+      article,
+      'categorise',
       this.categorise(article, summary),
     );
   }
 
-  private async runStep<T>(
+  private alertOnFailure<A, E extends StepError>(
     article: DBArticle,
     step: ProcessingStep,
-    partial: Pick<ProcessingFailure, 'summary'>,
-    run: () => Promise<T>,
-  ): Promise<StepResult<T>> {
-    try {
-      return { success: true, value: await run() };
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      const summary =
-        error instanceof EmbeddingFailedError ? error.summary : partial.summary;
-
+    effect: Effect.Effect<A, E>,
+  ): Effect.Effect<A, E | StepCrashed> {
+    const crashAsFailure = Effect.catchAllDefect(effect, (cause) =>
+      Effect.fail(new StepCrashed({ cause })),
+    );
+    return Effect.tapError(crashAsFailure, (error) => {
       this.logger.error(
-        `Article ${article.id} failed at ${step} step: ${message}`,
+        `Article ${article.id} failed at ${step} step: ${error.message}`,
       );
-      await this.notifier.notifyFailure({ article, step, error: message });
-
-      return { success: false, failedStep: step, error: message, summary };
-    }
+      // EmailProcessingNotifier catches its own send errors, so this never rejects.
+      return Effect.promise(() =>
+        this.notifier.notifyFailure({ article, step, error: error.message }),
+      );
+    });
   }
 
-  private async summarise(article: DBArticle): Promise<string> {
-    const prompts = this.promptsFor(article);
-    const articleTitle = article.title || article.feed_source || 'Untitled';
+  private summarise(article: DBArticle) {
+    return Effect.gen(this, function* () {
+      const prompts = this.promptsFor(article);
+      const articleTitle = article.title || article.feed_source || 'Untitled';
+      const content = article.raw_content.substring(0, SUMMARY_CONTENT_LIMIT);
 
-    const baseSummaryPrompt = prompts.articleSummary
-      ? this.configService.formatPrompt(prompts.articleSummary, {
-          article_content: article.raw_content.substring(
-            0,
-            SUMMARY_CONTENT_LIMIT,
+      const baseSummaryPrompt = prompts.articleSummary
+        ? this.configService.formatPrompt(prompts.articleSummary, {
+            article_content: content,
+            article_title: articleTitle,
+          })
+        : this.configService.getArticleSummaryPrompt(content);
+
+      const summary = yield* this.chat(
+        buildFinalPrompt(baseSummaryPrompt, article.custom_prompt),
+      );
+      if (!summary) {
+        return yield* new SummaryEmpty({ articleId: article.id });
+      }
+
+      const finalSummary = `${summary}\n\nSource: [${article.title}](${article.url})`;
+
+      const embedding = yield* Effect.tryPromise({
+        try: () => this.ai.embed(finalSummary),
+        catch: (cause) => new EmbeddingFailed({ summary, cause }),
+      }).pipe(
+        Effect.filterOrFail(
+          (vector) => vector != null,
+          () =>
+            new EmbeddingFailed({ summary, cause: 'Embedding returned null' }),
+        ),
+        Effect.either,
+      );
+
+      yield* this.save(() =>
+        this.articlesService.updateArticleProcessing(
+          article.id,
+          finalSummary,
+          Either.getOrNull(embedding),
+        ),
+      );
+      yield* embedding;
+
+      return summary;
+    });
+  }
+
+  private rate(article: DBArticle, summary: string) {
+    return Effect.gen(this, function* () {
+      const prompts = this.promptsFor(article);
+      const ratingPrompt = prompts.impactRating
+        ? this.configService.formatPrompt(prompts.impactRating, { summary })
+        : this.configService.getImpactRatingPrompt(summary);
+
+      const response = yield* this.chat(ratingPrompt);
+      const scoreMatch = response.trim().match(/\d+/);
+      if (!scoreMatch) {
+        return yield* new RatingUnparseable({ articleId: article.id });
+      }
+
+      const score = parseInt(scoreMatch[0], 10);
+      if (!this.configService.isValidImpactRating(score)) {
+        return yield* new RatingOutOfRange({ articleId: article.id, score });
+      }
+
+      yield* this.save(() =>
+        this.articlesService.updateArticleRating(article.id, score),
+      );
+      return score;
+    });
+  }
+
+  private categorise(article: DBArticle, summary: string) {
+    return Effect.gen(this, function* () {
+      const categoryPrompt = this.configService.getCategoryClassificationPrompt(
+        article.title,
+        summary.substring(0, CATEGORY_CONTENT_LIMIT),
+      );
+
+      const response = yield* this.chat(categoryPrompt).pipe(
+        Effect.tapError((error) =>
+          Effect.sync(() =>
+            this.logger.warn(
+              `Category classification call failed: ${error.message}`,
+            ),
           ),
-          article_title: articleTitle,
-        })
-      : this.configService.getArticleSummaryPrompt(
-          article.raw_content.substring(0, SUMMARY_CONTENT_LIMIT),
-        );
-
-    const summaryPrompt = buildFinalPrompt(
-      baseSummaryPrompt,
-      article.custom_prompt,
-    );
-
-    const summary = await this.ai.chat(summaryPrompt);
-    if (!summary) {
-      throw new Error(
-        `Summarisation returned no content for article ${article.id}`,
+        ),
+        Effect.orElseSucceed(() => null),
       );
-    }
 
-    const finalSummary = `${summary}\n\nSource: [${article.title}](${article.url})`;
+      const parsed = this.parseCategories(response);
+      const categories = parsed.length > 0 ? parsed : [ArticleCategory.OTHER];
 
-    let embedding: number[] | null = null;
-    let embeddingError: string | null = null;
-    try {
-      embedding = await this.ai.embed(finalSummary);
-    } catch (error) {
-      embeddingError = error instanceof Error ? error.message : String(error);
-    }
-    if (!embedding && !embeddingError) {
-      embeddingError = 'Embedding returned null';
-    }
-
-    await this.articlesService.updateArticleProcessing(
-      article.id,
-      finalSummary,
-      embedding,
-    );
-
-    if (embeddingError) {
-      throw new EmbeddingFailedError(embeddingError, summary);
-    }
-
-    return summary;
+      yield* this.save(() =>
+        this.articlesService.updateArticleCategories(article.id, categories),
+      );
+      return categories;
+    });
   }
 
-  private async rate(
-    article: DBArticle,
-    summary: string,
-  ): Promise<ImpactRating> {
-    const prompts = this.promptsFor(article);
-    const ratingPrompt = prompts.impactRating
-      ? this.configService.formatPrompt(prompts.impactRating, { summary })
-      : this.configService.getImpactRatingPrompt(summary);
-
-    const response = await this.ai.chat(ratingPrompt);
-    const scoreMatch = response.trim().match(/\d+/);
-    if (!scoreMatch) {
-      throw new Error(
-        `Could not extract a numeric rating for article ${article.id}`,
-      );
-    }
-
-    const score = parseInt(scoreMatch[0], 10);
-    if (!this.configService.isValidImpactRating(score)) {
-      throw new Error(
-        `Rating ${score} for article ${article.id} is out of range (1-10)`,
-      );
-    }
-
-    await this.articlesService.updateArticleRating(article.id, score);
-    return score;
+  private chat(prompt: string) {
+    return Effect.tryPromise({
+      try: () => this.ai.chat(prompt),
+      catch: (cause) => new AiCallFailed({ cause }),
+    });
   }
 
-  private async categorise(
-    article: DBArticle,
-    summary: string,
-  ): Promise<ArticleCategory[]> {
-    const categoryPrompt = this.configService.getCategoryClassificationPrompt(
-      article.title,
-      summary.substring(0, CATEGORY_CONTENT_LIMIT),
-    );
-
-    let response: string | null = null;
-    try {
-      response = await this.ai.chat(categoryPrompt);
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      this.logger.warn(`Category classification call failed: ${message}`);
-    }
-
-    const parsed = this.parseCategories(response);
-    const categories = parsed.length > 0 ? parsed : [ArticleCategory.OTHER];
-
-    await this.articlesService.updateArticleCategories(article.id, categories);
-    return categories;
+  private save(write: () => Promise<unknown>) {
+    return Effect.tryPromise({
+      try: write,
+      catch: (cause) => new SaveFailed({ cause }),
+    });
   }
 
   private promptsFor(article: DBArticle) {
