@@ -4,11 +4,14 @@ import {
   Logger,
   OnModuleInit,
 } from '@nestjs/common';
+import { Effect } from 'effect';
 import Groq from 'groq-sdk';
 import OpenAI from 'openai';
 import type { ValidChatModel } from '../config/config.entity';
 import { ConfigService } from '../config/config.service';
 import { AiPolicyService } from './ai-policy.service';
+import { ProviderNotConfigured } from './provider-error';
+import type { ProviderError } from './provider-error';
 import { DeepseekAdapter } from './adapters/deepseek.adapter';
 import {
   GroqAdapter,
@@ -199,11 +202,13 @@ export class AiService implements OnModuleInit {
     return await this.embedPolicyService.embed(text);
   }
 
-  async generateAudio(text: string, voice?: string): Promise<Buffer> {
-    const enabledTtsModel = this.configService.getEnabledTtsModel();
+  generateAudio(
+    text: string,
+    voice?: string,
+  ): Effect.Effect<Buffer, ProviderError | ProviderNotConfigured> {
     const selectedVoice = voice || '';
 
-    switch (enabledTtsModel) {
+    switch (this.configService.getEnabledTtsModel()) {
       case 'groq':
         return this.generateGroqAudio(text, selectedVoice);
       case 'openai':
@@ -212,32 +217,33 @@ export class AiService implements OnModuleInit {
     }
   }
 
-  async generateOpenAiAudio(text: string, voice?: string): Promise<Buffer> {
+  generateOpenAiAudio(
+    text: string,
+    voice?: string,
+  ): Effect.Effect<Buffer, ProviderError | ProviderNotConfigured> {
     if (!this.openaiTtsPolicyService) {
-      throw new Error(
-        'OpenAI TTS client not initialized. OPENAI_API_KEY may be missing.',
+      return Effect.fail(
+        new ProviderNotConfigured({
+          message:
+            'OpenAI TTS client not initialized. OPENAI_API_KEY may be missing.',
+        }),
       );
     }
-    try {
-      return await this.openaiTtsPolicyService.generateAudio(text, voice || '');
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      throw new Error(`OpenAI TTS failed: ${message}`);
-    }
+    return this.openaiTtsPolicyService.generateAudio(text, voice || '');
   }
 
-  async generateGroqAudio(text: string, voice?: string): Promise<Buffer> {
+  generateGroqAudio(
+    text: string,
+    voice?: string,
+  ): Effect.Effect<Buffer, ProviderError | ProviderNotConfigured> {
     if (!this.groqTtsPolicyService) {
-      throw new Error(
-        'Groq client not initialized. GROQ_API_KEY may be missing.',
+      return Effect.fail(
+        new ProviderNotConfigured({
+          message: 'Groq client not initialized. GROQ_API_KEY may be missing.',
+        }),
       );
     }
-    try {
-      return await this.groqTtsPolicyService.generateAudio(text, voice || '');
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      throw new Error(`Groq TTS failed: ${message}`);
-    }
+    return this.groqTtsPolicyService.generateAudio(text, voice || '');
   }
 
   async testApiConnectivity(): Promise<{

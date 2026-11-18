@@ -2,45 +2,53 @@ import { AUDIO_GENERATION_QUEUE } from '@libs/queue';
 import { createWorker } from '@libs/queue/create-worker';
 import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { Job, Queue, UnrecoverableError, Worker } from 'bullmq';
+import { Effect, Either } from 'effect';
 import { GenerateAudioUseCase } from '../usecases/generate-audio.usecase';
+import type { GenerateAudioError } from '../usecases/generate-audio.usecase';
 import type { GenerateAudioJobData } from '@libs/audio';
 import { AudioGenerationFailureNotifier } from './audio-generation-failure.notifier';
 
-type ErrorType = 'retryable' | 'fatal';
+// Whether BullMQ should spend another attempt on each failure. `satisfies` fails
+// the build when the use case gains a failure this table does not sort.
+const RETRYABLE = {
+  RateLimited: true,
+  ProviderUnreachable: true,
+  ProviderTimeout: true,
+  ProviderUnavailable: true,
+  ProviderRejected: false,
+  ProviderNotConfigured: false,
+  StorageNotConfigured: false,
+  AudioUploadFailed: true,
+  AudioRecordNotSaved: true,
+} satisfies Record<GenerateAudioError['_tag'], boolean>;
 
-interface ErrorClassification {
-  type: ErrorType;
-  shouldRetry: boolean;
+function failureMessage(error: GenerateAudioError): string {
+  if (error.message) return `${error._tag}: ${error.message}`;
+  const cause = error.cause;
+  return `${error._tag}: ${cause instanceof Error ? cause.message : String(cause)}`;
+}
+
+function findInvalidInput({
+  sourceType,
+  sourceId,
+  text,
+}: GenerateAudioJobData): string | null {
+  if (!text || text.trim().length === 0) {
+    return 'Invalid input: text is required and cannot be empty';
+  }
+  if (!sourceId) {
+    return 'Invalid input: sourceId is required';
+  }
+  if (sourceType !== 'article' && sourceType !== 'transcription') {
+    return 'Invalid input: sourceType must be "article" or "transcription"';
+  }
+  return null;
 }
 
 @Injectable()
 export class AudioGenerationProcessor implements OnModuleInit {
   private worker: Worker;
   private readonly logger = new Logger(AudioGenerationProcessor.name);
-
-  private readonly retryablePatterns = [
-    /timeout/i,
-    /ETIMEDOUT/i,
-    /ECONNRESET/i,
-    /ECONNREFUSED/i,
-    /rate limit/i,
-    /throttl/i,
-    /too many requests/i,
-    /service unavailable/i,
-    /temporarily unavailable/i,
-    /network error/i,
-    /socket hang up/i,
-  ];
-
-  private readonly fatalPatterns = [
-    /invalid input/i,
-    /missing environment variable/i,
-    /authentication failed/i,
-    /unauthorized/i,
-    /invalid api key/i,
-    /malformed/i,
-    /validation error/i,
-  ];
 
   constructor(
     private readonly generateAudioUseCase: GenerateAudioUseCase,
@@ -76,7 +84,7 @@ export class AudioGenerationProcessor implements OnModuleInit {
 
   async processAudioGeneration(
     job: Job<GenerateAudioJobData>,
-  ): Promise<{ success: boolean; audioFileId?: string; error?: string }> {
+  ): Promise<{ success: true; audioFileId: string }> {
     const { sourceType, sourceId, text, date } = job.data;
     const startTime = Date.now();
 
@@ -88,104 +96,74 @@ export class AudioGenerationProcessor implements OnModuleInit {
       status: 'processing',
     });
 
-    try {
-      await job.updateProgress(0);
+    await job.updateProgress(0);
 
-      if (!text || text.trim().length === 0) {
-        throw new Error('Invalid input: text is required and cannot be empty');
-      }
+    const invalidInput = findInvalidInput(job.data);
+    if (invalidInput) {
+      throw this.failed(job, startTime, 'InvalidInput', invalidInput, false);
+    }
 
-      if (!sourceId) {
-        throw new Error('Invalid input: sourceId is required');
-      }
+    await job.updateProgress(25);
 
-      if (
-        !sourceType ||
-        (sourceType !== 'article' && sourceType !== 'transcription')
-      ) {
-        throw new Error(
-          'Invalid input: sourceType must be "article" or "transcription"',
-        );
-      }
-
-      await job.updateProgress(25);
-
-      const result = await this.generateAudioUseCase.execute({
-        sourceType,
-        sourceId,
-        text,
-        date: date ? new Date(date) : new Date(),
-      });
-
-      await job.updateProgress(75);
-
-      const durationMs = Date.now() - startTime;
-
-      if (result.success) {
-        await job.updateProgress(100);
-
-        this.logger.log({
-          jobId: job.id,
+    const result = await Effect.runPromise(
+      Effect.either(
+        this.generateAudioUseCase.execute({
           sourceType,
           sourceId,
-          operation: 'complete',
-          status: 'success',
-          durationMs,
-          audioFileId: result.audioFileId,
-        });
+          text,
+          date: date ? new Date(date) : new Date(),
+        }),
+      ),
+    );
 
-        return {
-          success: true,
-          audioFileId: result.audioFileId,
-        };
-      } else {
-        // The catch below logs and classifies this error.
-        throw new Error(result.error || 'Audio generation failed');
-      }
-    } catch (error) {
-      const durationMs = Date.now() - startTime;
-      const errorMessage =
-        error instanceof Error ? error.message : String(error);
-
-      const errorClassification = this.classifyError(errorMessage);
-
-      this.logger.error({
-        jobId: job.id,
-        sourceType,
-        sourceId,
-        operation: 'complete',
-        status: 'error',
-        durationMs,
-        error: errorMessage,
-        errorType: errorClassification.type,
-        shouldRetry: errorClassification.shouldRetry,
-        attempt: job.attemptsMade + 1,
-      });
-
-      // UnrecoverableError skips the remaining attempts and counts as terminal,
-      // so the failure email goes out on the first fatal error.
-      if (errorClassification.type === 'fatal') {
-        throw new UnrecoverableError(errorMessage);
-      }
-
-      throw error; // Re-throw to trigger BullMQ retry mechanism
+    if (Either.isLeft(result)) {
+      const error = result.left;
+      throw this.failed(
+        job,
+        startTime,
+        error._tag,
+        failureMessage(error),
+        RETRYABLE[error._tag],
+      );
     }
+
+    await job.updateProgress(100);
+
+    this.logger.log({
+      jobId: job.id,
+      sourceType,
+      sourceId,
+      operation: 'complete',
+      status: 'success',
+      durationMs: Date.now() - startTime,
+      audioFileId: result.right,
+    });
+
+    return { success: true, audioFileId: result.right };
   }
 
-  private classifyError(errorMessage: string): ErrorClassification {
-    for (const pattern of this.fatalPatterns) {
-      if (pattern.test(errorMessage)) {
-        return { type: 'fatal', shouldRetry: false };
-      }
-    }
-
-    for (const pattern of this.retryablePatterns) {
-      if (pattern.test(errorMessage)) {
-        return { type: 'retryable', shouldRetry: true };
-      }
-    }
-
-    return { type: 'retryable', shouldRetry: true };
+  // UnrecoverableError skips the remaining attempts and counts as terminal,
+  // so the failure email goes out on the first fatal error.
+  private failed(
+    job: Job<GenerateAudioJobData>,
+    startTime: number,
+    errorType: GenerateAudioError['_tag'] | 'InvalidInput',
+    message: string,
+    shouldRetry: boolean,
+  ): Error {
+    this.logger.error({
+      jobId: job.id,
+      sourceType: job.data.sourceType,
+      sourceId: job.data.sourceId,
+      operation: 'complete',
+      status: 'error',
+      durationMs: Date.now() - startTime,
+      error: message,
+      errorType,
+      shouldRetry,
+      attempt: job.attemptsMade + 1,
+    });
+    return shouldRetry ? new Error(message) : new UnrecoverableError(message);
   }
 
   async getQueueMetrics(): Promise<{

@@ -1,5 +1,6 @@
 import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import { Effect } from 'effect';
 import OpenAI from 'openai';
 import { ConfigService } from '../config/config.service';
 import { AiPolicyService } from './ai-policy.service';
@@ -7,6 +8,7 @@ import { DeepseekAdapter } from './adapters/deepseek.adapter';
 import { GroqAdapter } from './adapters/groq.adapter';
 import { OpenAIAdapter } from './adapters/openai.adapter';
 import { AiService } from './ai.service';
+import { RateLimited } from './provider-error';
 
 describe('AiService', () => {
   let service: AiService;
@@ -307,9 +309,11 @@ describe('AiService', () => {
 
     it('routes to OpenAI when TTS model is openai', async () => {
       configService.getEnabledTtsModel.mockReturnValue('openai');
-      mockOpenaiTtsPolicy.generateAudio.mockResolvedValue(mockBuffer);
+      mockOpenaiTtsPolicy.generateAudio.mockReturnValue(
+        Effect.succeed(mockBuffer),
+      );
 
-      const result = await service.generateAudio('Hello');
+      const result = await Effect.runPromise(service.generateAudio('Hello'));
 
       expect(result).toBe(mockBuffer);
       expect(mockOpenaiTtsPolicy.generateAudio).toHaveBeenCalledTimes(1);
@@ -318,9 +322,11 @@ describe('AiService', () => {
 
     it('routes to Groq when TTS model is groq', async () => {
       configService.getEnabledTtsModel.mockReturnValue('groq');
-      mockGroqTtsPolicy.generateAudio.mockResolvedValue(mockBuffer);
+      mockGroqTtsPolicy.generateAudio.mockReturnValue(
+        Effect.succeed(mockBuffer),
+      );
 
-      const result = await service.generateAudio('Hello');
+      const result = await Effect.runPromise(service.generateAudio('Hello'));
 
       expect(result).toBe(mockBuffer);
       expect(mockGroqTtsPolicy.generateAudio).toHaveBeenCalledTimes(1);
@@ -329,20 +335,40 @@ describe('AiService', () => {
 
     it('defaults to OpenAI for unknown TTS provider', async () => {
       configService.getEnabledTtsModel.mockReturnValue('unknown' as any);
-      mockOpenaiTtsPolicy.generateAudio.mockResolvedValue(mockBuffer);
+      mockOpenaiTtsPolicy.generateAudio.mockReturnValue(
+        Effect.succeed(mockBuffer),
+      );
 
-      await service.generateAudio('Hello');
+      await Effect.runPromise(service.generateAudio('Hello'));
 
       expect(mockOpenaiTtsPolicy.generateAudio).toHaveBeenCalledTimes(1);
+    });
+
+    it("passes the policy's typed error through unchanged", async () => {
+      configService.getEnabledTtsModel.mockReturnValue('openai');
+      const rateLimited = new RateLimited({ cause: new Error('429') });
+      mockOpenaiTtsPolicy.generateAudio.mockReturnValue(
+        Effect.fail(rateLimited),
+      );
+
+      const error = await Effect.runPromise(
+        Effect.flip(service.generateAudio('Hello')),
+      );
+
+      expect(error).toBe(rateLimited);
     });
   });
 
   describe('generateOpenAiAudio', () => {
     it('delegates to the OpenAI TTS policy and returns buffer', async () => {
       const mockBuffer = Buffer.from('openai-audio');
-      mockOpenaiTtsPolicy.generateAudio.mockResolvedValue(mockBuffer);
+      mockOpenaiTtsPolicy.generateAudio.mockReturnValue(
+        Effect.succeed(mockBuffer),
+      );
 
-      const result = await service.generateOpenAiAudio('text', 'nova');
+      const result = await Effect.runPromise(
+        service.generateOpenAiAudio('text', 'nova'),
+      );
 
       expect(result).toBe(mockBuffer);
       expect(mockOpenaiTtsPolicy.generateAudio).toHaveBeenCalledWith(
@@ -351,34 +377,31 @@ describe('AiService', () => {
       );
     });
 
-    it('throws when the OpenAI TTS policy is null', async () => {
+    it('fails with ProviderNotConfigured when the OpenAI TTS policy is null', async () => {
       Object.defineProperty(service, 'openaiTtsPolicyService', {
         value: null,
         writable: true,
       });
 
-      await expect(service.generateOpenAiAudio('text')).rejects.toThrow(
-        'OpenAI TTS client not initialized',
-      );
-    });
-
-    it('wraps policy error with descriptive message', async () => {
-      mockOpenaiTtsPolicy.generateAudio.mockRejectedValue(
-        new Error('quota exceeded'),
+      const error = await Effect.runPromise(
+        Effect.flip(service.generateOpenAiAudio('text')),
       );
 
-      await expect(service.generateOpenAiAudio('text')).rejects.toThrow(
-        'OpenAI TTS failed: quota exceeded',
-      );
+      expect(error._tag).toBe('ProviderNotConfigured');
+      expect(error.message).toContain('OpenAI TTS client not initialized');
     });
   });
 
   describe('generateGroqAudio', () => {
     it('delegates to the Groq TTS policy and returns buffer', async () => {
       const mockBuffer = Buffer.from('groq-audio');
-      mockGroqTtsPolicy.generateAudio.mockResolvedValue(mockBuffer);
+      mockGroqTtsPolicy.generateAudio.mockReturnValue(
+        Effect.succeed(mockBuffer),
+      );
 
-      const result = await service.generateGroqAudio('text', 'troy');
+      const result = await Effect.runPromise(
+        service.generateGroqAudio('text', 'troy'),
+      );
 
       expect(result).toBe(mockBuffer);
       expect(mockGroqTtsPolicy.generateAudio).toHaveBeenCalledWith(
@@ -387,25 +410,18 @@ describe('AiService', () => {
       );
     });
 
-    it('throws when the Groq TTS policy is null', async () => {
+    it('fails with ProviderNotConfigured when the Groq TTS policy is null', async () => {
       Object.defineProperty(service, 'groqTtsPolicyService', {
         value: null,
         writable: true,
       });
 
-      await expect(service.generateGroqAudio('text')).rejects.toThrow(
-        'Groq client not initialized',
-      );
-    });
-
-    it('wraps policy error with Groq TTS failed prefix', async () => {
-      mockGroqTtsPolicy.generateAudio.mockRejectedValue(
-        new Error('unknown error'),
+      const error = await Effect.runPromise(
+        Effect.flip(service.generateGroqAudio('text')),
       );
 
-      await expect(service.generateGroqAudio('text')).rejects.toThrow(
-        'Groq TTS failed: unknown error',
-      );
+      expect(error._tag).toBe('ProviderNotConfigured');
+      expect(error.message).toContain('Groq client not initialized');
     });
   });
 

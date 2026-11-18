@@ -30,11 +30,36 @@ describe('toProviderError', () => {
       new Groq.APIConnectionError({ message: 'Connection error.' }),
     ],
     [
+      'socket dropped while reading the response body',
+      'ProviderUnreachable',
+      Object.assign(
+        new Error(
+          'Invalid response body while trying to fetch https://api.openai.com/v1/audio/speech: socket hang up',
+        ),
+        { code: 'ECONNRESET' },
+      ),
+    ],
+    [
       'OpenAI timeout',
       'ProviderTimeout',
       new OpenAI.APIConnectionTimeoutError(),
     ],
     ['Groq timeout', 'ProviderTimeout', new Groq.APIConnectionTimeoutError()],
+    [
+      'OpenAI 500',
+      'ProviderUnavailable',
+      new OpenAI.InternalServerError(
+        500,
+        undefined,
+        'Internal server error',
+        undefined,
+      ),
+    ],
+    [
+      'Groq 503',
+      'ProviderUnavailable',
+      new Groq.InternalServerError(503, undefined, 'Service Unavailable', {}),
+    ],
     [
       'OpenAI 400',
       'ProviderRejected',

@@ -4,9 +4,3 @@ export interface GenerateAudioInputDto {
   text: string;
   date: Date;
 }
-
-export interface GenerateAudioOutputDto {
-  success: boolean;
-  audioFileId?: string;
-  error?: string;
-}
