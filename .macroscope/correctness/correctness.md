@@ -1,4 +1,6 @@
 ---
+waitsFor:
+  - Test and Lint
 requires:
   - Test and Lint
 waitsForTimeout: 20
@@ -21,12 +23,13 @@ Flat modules that keep their logic in a service (bookmarks, scraper, users)
 are intentional. A controller that calls a service directly, with no
 command or usecase in between, is intentional. Do not suggest adding layers.
 
-A Prettier hook runs on every file an agent edits, so a PR can carry
-whitespace-only hunks in lines it did not otherwise change. Do not comment
-on them.
+A Prettier hook runs on every .ts file an agent edits, so a PR can carry
+whitespace-only hunks in .ts lines it did not otherwise change. Do not
+comment on them.
 
 The dummy API keys in .github/workflows/pr-checks.yml (e2e job env) are
 intentional placeholders, not leaked secrets.
 
-An already-run migration in src/database/migrations may be edited only on a
-PR with the migration-edit label, and the PR body explains why.
+An already-run migration in src/database/migrations may be edited only when
+the edited path cannot run on a database that already applied it. That PR
+carries the migration-edit label and its body explains why.

@@ -8,6 +8,7 @@ include:
   - "libs/**/*.ts"
 exclude:
   - "**/*.spec.ts"
+  - "**/*.d.ts"
 maxRuns: 1
 maxBudgetPerRun: 0.4
 maxBudgetPerPR: 0.4
