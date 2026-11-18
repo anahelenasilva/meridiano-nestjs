@@ -46,7 +46,7 @@ export class ProviderNotConfigured extends Data.TaggedError(
 // carrying the socket's code, instead of the SDK's APIConnectionError.
 const SOCKET_ERROR_CODES = new Set(['ECONNRESET', 'ECONNREFUSED', 'ETIMEDOUT']);
 
-const isSocketError = (error: unknown) =>
+export const isSocketError = (error: unknown) =>
   error instanceof Error &&
   'code' in error &&
   typeof error.code === 'string' &&
