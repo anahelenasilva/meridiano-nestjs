@@ -4,8 +4,8 @@ This directory is the maintained source for verifying user-facing API behavior. 
 
 ## Baseline preconditions
 
-- `$S/launch.sh` printed `VERIFY_RUN=<dir>` and `$S/doctor.sh` prints only `ok` lines.
-- `$S/login.sh` cached the verify user's token.
+- `$S/launch.sh` printed `VERIFY_RUN=<dir>` and `$S/login.sh` cached the verify user's token.
+- `$S/record.sh doctor $S/doctor.sh` prints only `ok` lines, and the evidence dir keeps them.
 - The dev DB holds at least one article (`GET /api/articles?perPage=1&archive_scope=all` returns one).
 - Never drive an instance this run did not launch.
 

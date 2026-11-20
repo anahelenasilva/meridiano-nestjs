@@ -5,7 +5,7 @@ description: Use when proving a meridiano-nestjs API change against the real run
 
 # Verify the Meridiano API
 
-The user-facing surface is the HTTP API under `/api` (the frontend and the CLI both call it). This skill boots one extra API instance from a checkout, drives it with curl through `scripts/api.sh`, and proves behavior with recorded responses plus read-only DB queries. The e2e specs in `test/` mock services below the controller; this skill exercises the real path down to Postgres, Redis and the AI providers.
+The user-facing surface is the HTTP API under `/api` (the frontend and the CLI both call it). This skill boots one extra API instance from a checkout, drives it with curl through `scripts/api.sh`, and proves behavior with recorded responses plus read-only DB queries. Several e2e specs in `test/` mock the services below the controller (`test/ask.e2e-spec.ts`, `test/external-articles.e2e-spec.ts`); this skill calls a running instance as a real user, down to Postgres, Redis and the AI providers.
 
 All helpers live in `.claude/skills/verify-meridiano-api/scripts/` (called `$S` below). Bash state does not persist between tool calls, so prefix every helper call with the `VERIFY_RUN=...` line `launch.sh` printed.
 
@@ -29,15 +29,15 @@ The instance shares Ana's local data, so treat it as a guest:
 
 ## Doctor
 
-`VERIFY_RUN=<dir> $S/doctor.sh` is read-only and runs whenever anything looks off. Every line must read `ok`: process alive, port owned by this run's process group, health 200, build matches checkout HEAD with no uncommitted `src/` or `libs/` edits, queues in Redis db 9, verify token accepted, no pending migrations. Fix a `FAIL` before driving.
+`VERIFY_RUN=<dir> $S/record.sh doctor $S/doctor.sh` is read-only, saves the result as evidence, and runs at the start of every journey and whenever anything looks off. Every line must read `ok`: process alive, port owned by this run's process group, health 200, build matches checkout HEAD with no uncommitted `src/` or `libs/` edits, queues in Redis db 9, verify token accepted, no pending migrations. Fix a `FAIL` before driving.
 
 ## Drive
 
 Pick the journey from [`features/README.md`](features/README.md); each feature file lists exact requests and expected statuses. The tools:
 
-- `VERIFY_RUN=<dir> [AUTH=jwt|apikey|external|none] [HDR='Name: value'] [EXPECT=<status>] $S/api.sh <label> <METHOD> <path> [json | @file]` sends one request. `jwt` (default) is the verify user; `apikey` is `x-api-key` for routes marked `@ApiKeyAllowed`; `external` is a valid `X-External-Token`. The body prints on stdout (pipe to `jq`), the status and evidence path on stderr. Set `EXPECT` on every call so a wrong status fails the step.
-- `VERIFY_RUN=<dir> $S/sql.sh <label> "<select ...>"` runs a read-only query (writes fail) and records it. Use it for side effects.
-- `VERIFY_RUN=<dir> $S/record.sh <label> <command> [args...]` records any other read-only proof, such as `redis-cli -n 9 --scan --pattern 'rate_limit:*'` or a `grep` over `$VERIFY_RUN/server.log`.
+- `VERIFY_RUN=<dir> [AUTH=jwt|apikey|external|none] [HDR='Name: value'] [EXPECT=<status>] [JQ='<filter>'] $S/api.sh <label> <METHOD> <path> [json | @file]` sends one request. `jwt` (default) is the verify user; `apikey` is `x-api-key` for routes marked `@ApiKeyAllowed`; `external` is a valid `X-External-Token`. The body prints on stdout, the status and evidence path on stderr. Set `EXPECT` on every call so a wrong status fails the step. Evidence keeps only the first 4000 bytes of a response, so when the proof sits inside a list, pass the filter as `JQ` (not a `| jq` pipe) and the filtered result is recorded in full.
+- `VERIFY_RUN=<dir> $S/sql.sh <label> "<select ...>"` runs a query in a read-only session (writes fail) and records it. Use it for side effects.
+- `VERIFY_RUN=<dir> $S/record.sh <label> <command> [args...]` records the output of any other command. It runs whatever it is given, so pass only read-only commands, such as `redis-cli -n 9 --scan --pattern 'rate_limit:*'` or a `grep` over `$VERIFY_RUN/server.log`.
 - Large bodies go in `$VERIFY_RUN/<name>.json` (built with `jq -nc`) and are sent as `@$VERIFY_RUN/<name>.json`. Cleanup deletes them.
 
 ## Evidence

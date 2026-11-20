@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Runs one read-only command and records its output as evidence.
+# Runs one command and records its output as evidence. It runs whatever it is
+# given, so pass only read-only commands.
 #
 #   VERIFY_RUN=<dir> .claude/skills/verify-meridiano-api/scripts/record.sh <label> <command> [args...]
 #

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Sends one request to the verify instance and records it as evidence.
 #
-#   VERIFY_RUN=<dir> [AUTH=jwt|apikey|external|none] [HDR='Name: value'] [EXPECT=<status>] \
+#   VERIFY_RUN=<dir> [AUTH=jwt|apikey|external|none] [HDR='Name: value'] [EXPECT=<status>] [JQ='<filter>'] \
 #     .claude/skills/verify-meridiano-api/scripts/api.sh <label> <METHOD> <path> [json | @file]
 #
 # AUTH picks the credential: jwt (default) is the verify user's token from
@@ -9,7 +9,10 @@
 # X-External-Token with the first EXTERNAL_API_TOKENS entry, none sends nothing.
 # HDR adds one extra header. Prints the response body on stdout and
 # "HTTP <status> -> <evidence file>" on stderr. With EXPECT set, exits 1 when
-# the status differs. Evidence never contains a credential.
+# the status differs. With JQ set, stdout and the evidence file carry the
+# filtered result in full, so proof inside a large body (a list response is
+# cut at 4000 bytes in evidence) is still recorded. Evidence never contains a
+# credential.
 set -euo pipefail
 here="$(cd "$(dirname "$0")" && pwd)"
 . "$here/_common.sh"
@@ -53,13 +56,21 @@ resp_len="$(wc -c <"$VERIFY_RUN/last-body" | tr -d ' ')"
   echo "auth: $auth${HDR:+ + header ${HDR%%:*}}"
   echo "body: $body_desc"
   echo "status: $status${EXPECT:+ (expected $EXPECT)}"
+  if [ -n "${JQ:-}" ]; then
+    echo "filtered (jq -c '$JQ'):"
+    jq -c "$JQ" "$VERIFY_RUN/last-body" 2>&1
+  fi
   echo "response ($resp_len bytes, first 4000 shown):"
   head -c 4000 "$VERIFY_RUN/last-body"
   echo
 } >"$file"
 
-cat "$VERIFY_RUN/last-body"
-echo
+if [ -n "${JQ:-}" ]; then
+  jq -c "$JQ" "$VERIFY_RUN/last-body"
+else
+  cat "$VERIFY_RUN/last-body"
+  echo
+fi
 echo "HTTP $status -> $file" >&2
 if [ -n "${EXPECT:-}" ] && [ "$status" != "$EXPECT" ]; then
   echo "api: expected $EXPECT, got $status" >&2
