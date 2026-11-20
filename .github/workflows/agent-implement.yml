@@ -272,6 +272,14 @@ jobs:
             git status --short
             exit 1
           fi
+          # The prompt asks the agent to leave .github/ alone, and this
+          # enforces it: agent-review.yml runs from the PR's own copy, so an
+          # edited workflow would run with the factory's secrets.
+          if [ -n "$(git diff --name-only "$BASE..HEAD" -- .github)" ]; then
+            echo "::error::The agent changed files under .github/. The factory never pushes those."
+            git diff --name-only "$BASE..HEAD" -- .github
+            exit 1
+          fi
           git log --oneline "$BASE..HEAD"
 
       - name: Push

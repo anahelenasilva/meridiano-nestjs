@@ -268,6 +268,14 @@ jobs:
             echo "The review made no commits. Nothing to push."
             exit 0
           fi
+          # The prompt asks the agent to leave .github/ alone, and this
+          # enforces it: agent-review.yml runs from the PR's own copy, so an
+          # edited workflow would run with the factory's secrets.
+          if [ -n "$(git diff --name-only "$HEAD_SHA..HEAD" -- .github)" ]; then
+            echo "::error::The agent changed files under .github/. The factory never pushes those."
+            git diff --name-only "$HEAD_SHA..HEAD" -- .github
+            exit 1
+          fi
           git log --oneline "$HEAD_SHA..HEAD"
           # The token exists for these commands. Hooks are off, so nothing
           # the PR or the agent wrote runs while it does.
