@@ -330,16 +330,18 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 - [ ] Possibility to add comments to an article or youtube transcription (goal: add my notes to them)
 - [ ] Move the processor module to articles module
 
-# How to use Sandcastle in this project
+# Software factory
 
-1. Build the image:
-   ```bash
-   pnpm run sandcastle:build
-   ```
-2. Run sandcastle:
-   ```bash
-   pnpm run sandcastle:run
-   ```
+Agents build and review issues in GitHub Actions. You start each step with a label:
+
+| Label | On | Workflow | What happens |
+| --- | --- | --- | --- |
+| `agent:explore` | issues | `agent-explore.yml` | One read-only run over every labelled issue: a findings comment each, duplicates closed, easy calls handed on with `agent:implement` |
+| `agent:implement` | an issue | `agent-implement.yml` | Builds the issue, opens a draft PR, labels it `agent:review` |
+| `agent:review` | a PR | `agent-review.yml` | A fresh agent reviews the PR, fixes what it can, comments the rest, marks it ready |
+| `agent:implement-spec` | a spec issue | `agent-implement-spec.yml` | Cuts the spec into `agent:queued` tickets, then builds them one run at a time |
+
+Nothing merges on its own. The agent scripts and prompts live in `.sandcastle/agent-workflows/`.
 
 # API Documentation
 

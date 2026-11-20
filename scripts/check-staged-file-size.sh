@@ -6,13 +6,14 @@
 #   bash scripts/check-staged-file-size.sh
 #
 # It measures the staged blob, not the working tree, so it judges exactly what
-# the commit will contain. Binary files and the generated files in `skip` are
-# never checked.
+# the commit will contain. Binary files and the files in `skip` are never
+# checked: generated files, and workflow files, which GitHub reads as one file
+# each and which cannot be split.
 set -uo pipefail
 
 max_tokens=5000
 max_bytes=$((max_tokens * 4))
-skip='^(pnpm-lock\.yaml|openapi\.json)$'
+skip='^(pnpm-lock\.yaml|openapi\.json|\.github/workflows/[^/]+\.yml)$'
 
 cd "$(dirname "$0")/.." || exit 1
 

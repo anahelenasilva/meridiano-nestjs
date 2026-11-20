@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "nest build",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p .sandcastle/agent-workflows",
     "format": "node scripts/format.mjs",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -28,6 +28,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:factory": "tsx --test \".sandcastle/agent-workflows/**/*.test.ts\"",
     "briefing": "ts-node -r tsconfig-paths/register src/scripts/runBriefing.ts",
     "briefing:tech": "ts-node -r tsconfig-paths/register src/scripts/runBriefing.ts --feed technology",
     "briefing:brasil": "ts-node -r tsconfig-paths/register src/scripts/runBriefing.ts --feed brasil",
@@ -50,8 +51,6 @@
     "docker:up": "docker-compose --profile local up -d",
     "docker:down": "docker-compose down",
     "docker:logs": "docker-compose logs -f postgres",
-    "sandcastle:run": "npx tsx .sandcastle/main.mts",
-    "sandcastle:build": "docker build -t sandcastle:meridiano-nestjs --build-arg HOST_UID=\"$(id -u)\" --build-arg HOST_GID=\"$(id -g)\" .sandcastle/",
     "prepare": "git config core.hooksPath .githooks || true"
   },
   "dependencies": {
@@ -125,7 +124,8 @@
     "tsconfig-paths": "4.2.0",
     "tsx": "^4.21.0",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.46.1"
+    "typescript-eslint": "8.46.1",
+    "zod": "^3.25.76"
   },
   "jest": {
     "globalSetup": "<rootDir>/test/jest-global-setup.ts",
