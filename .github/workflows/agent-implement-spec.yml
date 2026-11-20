@@ -199,15 +199,28 @@ jobs:
                 | select(.author_association | IN("OWNER", "MEMBER", "COLLABORATOR"))
                 | select(.body | contains("<!-- factory:queue-written -->"))
                 | .id')
+          # Every ticket the queue holds is labelled `spec:<number>`.
+          gh issue list --state all --label "spec:${spec}" --limit 100 \
+            --json number,title,state,labels,body > /tmp/queue.json
+
           if [ -z "$written" ]; then
+            # Decompose closes every `spec:<n>` ticket before it writes the
+            # queue again. A dead decompose only leaves open tickets labelled
+            # `agent:queued`. A ticket that is closed, or that the implement
+            # job has touched, means the queue was live and someone deleted
+            # the queue-written comment, so stop instead of wiping it.
+            progressed=$(jq -r '[ .[]
+              | select(.state == "CLOSED"
+                  or ([.labels[].name] | any(IN("agent:in-progress", "agent:awaiting-merge", "agent:blocked"))))
+              | "#\(.number)" ] | join(" ")' /tmp/queue.json)
+            if [ -n "$progressed" ]; then
+              echo "::error::Spec #$spec has no queue-written comment, but tickets $progressed show its queue was already being built. Nothing was changed. Post a comment on #$spec containing <!-- factory:queue-written --> to put the queue back."
+              exit 1
+            fi
             echo "No complete queue for spec #$spec yet. This run decomposes it."
             echo "mode=decompose" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-
-          # Every ticket the queue holds is labelled `spec:<number>`.
-          gh issue list --state all --label "spec:${spec}" --limit 100 \
-            --json number,title,state,labels,body > /tmp/queue.json
 
           # 3. The frontier. The lowest open position whose `Depends on:`
           #    positions are all closed. Ticket bodies carry both lines,
@@ -414,7 +427,7 @@ jobs:
           # The last write, and the one that makes the queue real: survey
           # treats the tickets as a queue only once this comment exists.
           gh issue comment "$SPEC" --body \
-            "Decomposed into ${total} tickets, labelled \`spec:${SPEC}\`. The chain takes it from here. <!-- factory:status --> <!-- factory:queue-written -->"
+            "Decomposed into ${total} tickets, labelled \`spec:${SPEC}\`. The chain takes it from here. Keep this comment, the queue reads it. <!-- factory:status --> <!-- factory:queue-written -->"
 
   # ── LOOP TWO: implement one ticket ────────────────────────────────────────
   # Identical in spirit to agent-implement.yml, with one difference that makes
