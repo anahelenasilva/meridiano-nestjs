@@ -16,10 +16,12 @@ name: Agent — Implement A Ticket
 #   which starts agent-review.yml. The reviewer marks the PR ready once its
 #   verdict is posted. The merge stays a human's.
 #
-#   Every run pushes to a branch of its own, `agent/issue-<n>-<run id>`. A
-#   retry never pushes onto the branch an earlier run left behind, so nothing
-#   is there to reject the push and no run's work is lost. Two runs on one
-#   ticket means two pull requests; close the one you do not want.
+#   Every run pushes to a branch of its own,
+#   `agent/issue-<n>-<run id>-<attempt>`. A retry, whether a new label or a
+#   re-run of a failed run, never pushes onto the branch an earlier attempt
+#   left behind, so nothing is there to reject the push and no run's work is
+#   lost. Two runs on one ticket means two pull requests; close the one you
+#   do not want.
 #
 #   The agent itself is a Sandcastle script:
 #   .sandcastle/agent-workflows/implement/implement.ts, with its prompt next
@@ -142,8 +144,9 @@ jobs:
       OPENAI_API_KEY: ci-e2e-dummy
       GH_REPO: ${{ github.repository }}
       ISSUE_NUMBER: ${{ github.event.issue.number }}
-      # The run id makes the branch new on every run. See WHAT IT DOES.
-      BRANCH: agent/issue-${{ github.event.issue.number }}-${{ github.run_id }}
+      # The run id and attempt make the branch new on every run and every
+      # re-run. See WHAT IT DOES.
+      BRANCH: agent/issue-${{ github.event.issue.number }}-${{ github.run_id }}-${{ github.run_attempt }}
       RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
     steps:

@@ -20,9 +20,13 @@ name: Agent — Implement A Spec
 #     triggers the next. That is the chain, and it is four lines at the bottom
 #     of this file.
 #
+#     A ticket closes when its pull request merges, not when it opens. So a
+#     ticket is never built before the code it depends on is on main, and
+#     the merge that closes a ticket starts this workflow again too.
+#
 # THE SHAPE, AS A PICTURE
 #
-#   label / button / self-dispatch
+#   label / button / self-dispatch / merged ticket
 #             │
 #             ▼
 #        ┌─────────┐   no queue yet    ┌───────────┐
@@ -81,9 +85,11 @@ name: Agent — Implement A Spec
 # ═══════════════════════════════════════════════════════════════════════════
 
 on:
-  # 1. A person opens the queue by labelling the spec issue.
+  # 1. A person opens the queue by labelling the spec issue. A queue ticket
+  #    closing restarts the chain: its pull request merged (the body says
+  #    `Closes #<ticket>`), so the tickets that depend on it can now build.
   issues:
-    types: [labeled]
+    types: [labeled, closed]
 
   # 2. The clock is off in this repo. The cohort version adds
   #    `schedule: - cron: "*/15 * * * *"` here so the queue drains with no
@@ -110,15 +116,17 @@ permissions:
 # and build it twice. `cancel-in-progress: false` matters just as much — a
 # cron tick must not kill a build that is halfway through.
 #
-# Only the runs that can do something join that group. Every label on every
-# issue starts this workflow, and the factory's own labels do too now that
-# FACTORY_PAT applies them (`agent:in-progress` when it claims a ticket,
-# `agent:blocked` when it parks one). A group holds one running run and one
-# waiting run, and a newcomer replaces the one waiting — so those label runs,
-# left in the group, could bump the chain's next run out of the queue. Every
-# other label gets a throwaway group of its own, and is skipped for free.
+# Only the runs that can do something join that group: the button, the chain,
+# the spec label, and a queue ticket (one labelled `spec:<n>`) closing. Every
+# label and every close on every issue starts this workflow, and the
+# factory's own labels do too now that FACTORY_PAT applies them
+# (`agent:in-progress` when it claims a ticket, `agent:blocked` when it parks
+# one). A group holds one running run and one waiting run, and a newcomer
+# replaces the one waiting, so those runs, left in the group, could bump the
+# chain's next run out of the queue. Every other event gets a throwaway group
+# of its own, and is skipped for free.
 concurrency:
-  group: ${{ (github.event_name != 'issues' || github.event.label.name == 'agent:implement-spec') && 'agent-implement-spec' || format('ignore-{0}', github.run_id) }}
+  group: ${{ (github.event_name != 'issues' || github.event.label.name == 'agent:implement-spec' || (github.event.action == 'closed' && contains(toJSON(github.event.issue.labels.*.name), '"spec:'))) && 'agent-implement-spec' || format('ignore-{0}', github.run_id) }}
   cancel-in-progress: false
 
 jobs:
@@ -127,11 +135,13 @@ jobs:
   # consequence — just `gh` and `jq`, so it is cheap enough to run every
   # fifteen minutes forever.
   survey:
-    # Label runs are filtered here; cron and dispatch runs carry no label and
+    # Issue events are filtered here, the same way the concurrency group
+    # filters them: the spec label, or a queue ticket closing. Dispatch runs
     # fall through.
     if: >-
       github.event_name != 'issues' ||
-      github.event.label.name == 'agent:implement-spec'
+      github.event.label.name == 'agent:implement-spec' ||
+      (github.event.action == 'closed' && contains(toJSON(github.event.issue.labels.*.name), '"spec:'))
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -147,8 +157,10 @@ jobs:
       # nothing else — no checkout, no agent.
       GH_TOKEN: ${{ secrets.FACTORY_PAT }}
       GH_REPO: ${{ github.repository }}
-      # Whichever of the three triggers fired, the spec number ends up here.
+      # The spec label and the button name the spec here. A closed ticket is
+      # not the spec, so the survey step reads its `spec:<n>` label instead.
       REQUESTED_SPEC: ${{ github.event.issue.number || inputs.spec_issue }}
+      EVENT_ACTION: ${{ github.event.action }}
 
     steps:
       - name: Find the spec and the frontier ticket
@@ -160,6 +172,10 @@ jobs:
           #    cron tick did not, so find the open issue that is labelled as
           #    the live spec.
           spec="${REQUESTED_SPEC:-}"
+          if [ "${EVENT_ACTION:-}" = "closed" ]; then
+            spec=$(jq -r '[.issue.labels[].name | select(startswith("spec:")) | ltrimstr("spec:")] | .[0] // empty' \
+              "$GITHUB_EVENT_PATH")
+          fi
           if [ -z "$spec" ]; then
             spec=$(gh issue list --state open --label "agent:implement-spec" \
               --limit 1 --json number --jq '.[0].number // empty')
@@ -172,17 +188,26 @@ jobs:
           echo "spec=$spec" >> "$GITHUB_OUTPUT"
           echo "Working spec #$spec"
 
-          # 2. Does a queue exist for it yet? Every ticket this workflow
-          #    writes is labelled `spec:<number>`. No such issues, open or
-          #    closed, means the spec has never been decomposed.
-          gh issue list --state all --label "spec:${spec}" --limit 100 \
-            --json number,title,state,labels,body > /tmp/queue.json
-          total=$(jq 'length' /tmp/queue.json)
-          if [ "$total" -eq 0 ]; then
-            echo "No queue for spec #$spec yet. This run decomposes it."
+          # 2. Has the whole queue been written? The decompose job's last
+          #    write is a comment on the spec carrying
+          #    `<!-- factory:queue-written -->`. Without it there is no queue,
+          #    or only the first few tickets of a run that died partway, and
+          #    either way this run decomposes. Only a comment from someone
+          #    with write access counts, so nobody else can fake the marker.
+          written=$(gh api --paginate "repos/${GH_REPO}/issues/${spec}/comments" \
+            | jq -r '.[]
+                | select(.author_association | IN("OWNER", "MEMBER", "COLLABORATOR"))
+                | select(.body | contains("<!-- factory:queue-written -->"))
+                | .id')
+          if [ -z "$written" ]; then
+            echo "No complete queue for spec #$spec yet. This run decomposes it."
             echo "mode=decompose" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+
+          # Every ticket the queue holds is labelled `spec:<number>`.
+          gh issue list --state all --label "spec:${spec}" --limit 100 \
+            --json number,title,state,labels,body > /tmp/queue.json
 
           # 3. The frontier. The lowest open position whose `Depends on:`
           #    positions are all closed. Ticket bodies carry both lines,
@@ -205,24 +230,40 @@ jobs:
           # must not drain silently out of the queue — so without this filter
           # every cron tick picks the same broken ticket, forever. Parked means
           # out of the frontier until a person takes the label off.
+          #
+          # `agent:awaiting-merge` is the label the implement job puts on a
+          # ticket it built. The ticket stays OPEN until its pull request
+          # merges, so it is out of the frontier too, or the next run would
+          # build it again.
           ticket=$(jq -r --argjson closed "$closed_positions" '
             [ .[]
               | select(.state=="OPEN")
               | select(.labels | index("agent:blocked") | not)
+              | select(.labels | index("agent:awaiting-merge") | not)
               | select(all(.depends[]; . as $d | $closed | index($d) != null))
             ] | .[0].number // empty
           ' /tmp/queue-sorted.json)
 
           parked_count=$(jq '[ .[] | select(.state=="OPEN") | select(.labels | index("agent:blocked")) ] | length' /tmp/queue-sorted.json)
-          open_count=$(jq '[ .[] | select(.state=="OPEN") | select(.labels | index("agent:blocked") | not) ] | length' /tmp/queue-sorted.json)
+          waiting_count=$(jq '[ .[] | select(.state=="OPEN") | select(.labels | index("agent:awaiting-merge")) | select(.labels | index("agent:blocked") | not) ] | length' /tmp/queue-sorted.json)
+          open_count=$(jq '[ .[] | select(.state=="OPEN") | select(.labels | (index("agent:blocked") or index("agent:awaiting-merge")) | not) ] | length' /tmp/queue-sorted.json)
           echo "remaining=$open_count" >> "$GITHUB_OUTPUT"
           if [ "$parked_count" -gt 0 ]; then
             echo "::notice::Spec #$spec has $parked_count ticket(s) parked for a person. Take \`agent:blocked\` off one to put it back in the queue."
+          fi
+          if [ "$waiting_count" -gt 0 ]; then
+            echo "::notice::Spec #$spec has $waiting_count ticket(s) whose pull request has not merged yet. Each merge closes its ticket and starts the chain again."
           fi
 
           if [ -z "$ticket" ]; then
             if [ "$open_count" -eq 0 ]; then
               echo "Queue for spec #$spec is drained."
+              echo "mode=drained" >> "$GITHUB_OUTPUT"
+            elif [ "$waiting_count" -gt 0 ]; then
+              # The open tickets depend on pull requests nobody has merged
+              # yet. The merge that closes a ticket starts this workflow, so
+              # the chain stops here and picks up then.
+              echo "Spec #$spec has $open_count open ticket(s) waiting on $waiting_count pull request(s) to merge."
               echo "mode=drained" >> "$GITHUB_OUTPUT"
             else
               # Open tickets exist but every one is blocked. That is a cycle
@@ -239,9 +280,9 @@ jobs:
           echo "mode=implement" >> "$GITHUB_OUTPUT"
 
   # ── LOOP ONE: decompose ───────────────────────────────────────────────────
-  # One spec in, a queue of tickets out. Runs at most once per spec: the
-  # moment it creates the first `spec:<n>` issue, `survey` will never choose
-  # this mode again.
+  # One spec in, a queue of tickets out. Runs until one run writes the whole
+  # queue: its last write is the `factory:queue-written` comment on the spec,
+  # and once that is there `survey` never chooses this mode again.
   decompose:
     needs: survey
     if: needs.survey.outputs.mode == 'decompose'
@@ -318,6 +359,18 @@ jobs:
           gh label create "agent:queued" --color FEF2C0 \
             --description "Waiting for the implement-spec chain" || true
 
+          # A run that died partway through the loop below left some tickets
+          # and no queue-written comment, which is why survey sent this run
+          # here. Take those leftovers out of the queue before writing it
+          # again: the label first, since that is what survey reads, then
+          # close them. The label comes off before the close, so the close
+          # does not restart the chain.
+          for n in $(gh issue list --state all --label "spec:${SPEC}" --limit 100 --json number --jq '.[].number'); do
+            gh issue edit "$n" --remove-label "spec:${SPEC}" --remove-label "agent:queued"
+            gh issue close "$n" --reason "not planned" \
+              --comment "Left over from a decompose run that did not finish. The queue for #${SPEC} was written again. <!-- factory:status -->" || true
+          done
+
           total=$(jq '.tickets | length' /tmp/queue.json)
           echo "Writing $total tickets for spec #${SPEC}."
 
@@ -358,17 +411,23 @@ jobs:
               "${attach[@]}"
           done
 
+          # The last write, and the one that makes the queue real: survey
+          # treats the tickets as a queue only once this comment exists.
           gh issue comment "$SPEC" --body \
-            "Decomposed into ${total} tickets, labelled \`spec:${SPEC}\`. The chain takes it from here. <!-- factory:status -->"
+            "Decomposed into ${total} tickets, labelled \`spec:${SPEC}\`. The chain takes it from here. <!-- factory:status --> <!-- factory:queue-written -->"
 
   # ── LOOP TWO: implement one ticket ────────────────────────────────────────
   # Identical in spirit to agent-implement.yml, with one difference that makes
-  # it a queue rather than a one-off: it closes the ticket it finished, which
-  # is what lets the next run's `survey` step move the frontier forward.
+  # it a queue rather than a one-off: it labels the ticket it built
+  # `agent:awaiting-merge`, which takes it out of the frontier. The ticket
+  # closes when its pull request merges, through `Closes #<ticket>` in the
+  # body, and that close is what lets the tickets depending on it build, on a
+  # main that has its code.
   #
   # Like agent-implement.yml, every run pushes to a branch of its own: the run
-  # id is in the name. A parked ticket that a person puts back in the queue is
-  # built on a new branch, not pushed onto the one the failed run left.
+  # id and attempt are in the name. A parked ticket that a person puts back in
+  # the queue, or a failed run that is re-run, is built on a new branch, not
+  # pushed onto the one the failed run left.
   implement:
     needs: survey
     if: needs.survey.outputs.mode == 'implement'
@@ -422,7 +481,7 @@ jobs:
       GH_REPO: ${{ github.repository }}
       SPEC: ${{ needs.survey.outputs.spec }}
       TICKET: ${{ needs.survey.outputs.ticket }}
-      BRANCH: agent/spec-${{ needs.survey.outputs.spec }}-ticket-${{ needs.survey.outputs.ticket }}-${{ github.run_id }}
+      BRANCH: agent/spec-${{ needs.survey.outputs.spec }}-ticket-${{ needs.survey.outputs.ticket }}-${{ github.run_id }}-${{ github.run_attempt }}
       RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
     steps:
@@ -627,7 +686,7 @@ jobs:
           # a chain that ended is worse than a red one.
           gh pr edit "$BRANCH" --add-label "agent:review"
 
-      - name: Close the ticket and move the queue on
+      - name: Move the ticket out of the frontier
         if: always()
         env:
           GH_TOKEN: ${{ secrets.FACTORY_PAT }}
@@ -637,11 +696,15 @@ jobs:
           gh issue edit "$TICKET" --remove-label "agent:in-progress" || true
 
           if [ "${{ steps.ship.outputs.shipped }}" = "true" ]; then
-            # Closing it is what advances the frontier: the next run's survey
-            # sees this position as satisfied, and whatever depended on it
-            # becomes buildable.
-            gh issue close "$TICKET" \
-              --comment "Built and opened as a draft PR, ${PR_URL}, from \`${BRANCH}\` — [logs](${RUN_URL}). Closing so the queue moves on; the pull request is where the review happens. <!-- factory:status -->"
+            # Left open until the pull request merges. Its `Closes #<ticket>`
+            # closes it then, and that close starts this workflow, so the
+            # tickets depending on this one build on a main with its code.
+            # The label keeps survey from building it again meanwhile.
+            gh label create "agent:awaiting-merge" --color 0E8A16 \
+              --description "Its draft PR is open. Merging the PR closes this ticket" || true
+            gh issue edit "$TICKET" --add-label "agent:awaiting-merge"
+            gh issue comment "$TICKET" --body \
+              "Built and opened as a draft PR, ${PR_URL}, from \`${BRANCH}\` ([logs](${RUN_URL})). Merging it closes this ticket, and the tickets that depend on this one start then. If you close the pull request without merging it, take \`agent:awaiting-merge\` off, then run this workflow from the Actions tab with \`spec_issue=${SPEC}\` to build this ticket again. <!-- factory:status -->"
           else
             # Left open on purpose. A failed ticket must not silently drain
             # out of the queue, and it must not be retried forever either — so
@@ -663,22 +726,29 @@ jobs:
   # It runs after either loop: after `decompose`, to start building what was
   # just written; after `implement`, to take the next ticket.
   #
-  # It stops when `survey` reports `drained` or `no-spec` — that is, when a run
-  # looks at the queue and finds nothing to do. The chain has no counter and no
-  # limit, so an empty queue is genuinely the only brake on it. That is worth
-  # sitting with before you point this at your own repository.
+  # It stops when `survey` reports `drained` or `no-spec`, that is, when a run
+  # looks at the queue and finds nothing it can build, or when a decompose
+  # fails (below). The chain has no counter and no limit, so those are the
+  # only brakes on it. That is worth sitting with before you point this at
+  # your own repository.
   #
   # It re-dispatches after a *failed* ticket too, and that is deliberate: the
   # implement job parks a ticket it could not finish with `agent:blocked`, and
   # `survey` skips a parked ticket, so the next run moves on to a different one
   # instead of rebuilding the failure. Without that filter this `always()` would
   # be an infinite retry of the same broken ticket, with a cron on top of it.
+  #
+  # A failed decompose is different, and the chain stops there. Nothing parks
+  # a spec, so the next survey would choose decompose again and the chain
+  # would retry the same failure forever. The run goes red instead, and a
+  # person retries with the button.
   chain:
     needs: [survey, decompose, implement]
     if: |
       always() &&
       needs.survey.result == 'success' &&
-      contains(fromJSON('["decompose", "implement"]'), needs.survey.outputs.mode)
+      (needs.survey.outputs.mode == 'implement' ||
+       (needs.survey.outputs.mode == 'decompose' && needs.decompose.result == 'success'))
     runs-on: ubuntu-latest
     timeout-minutes: 5
 

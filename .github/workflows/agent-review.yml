@@ -35,9 +35,9 @@ name: Agent — Review A Pull Request
 #   rest as inline comments on their file and line. The workflow pushes the
 #   commits, never forced. If someone pushed to the branch during the run,
 #   GitHub rejects the push, and the commits go to a new branch,
-#   `<pr branch>-<run id>`, opened as a draft PR against the same base. The
-#   original PR gets the `agent:blocked` label, because a person has to pick
-#   which to keep.
+#   `<pr branch>-<run id>-<attempt>`, opened as a draft PR against the same
+#   base. The original PR gets the `agent:blocked` label, because a person
+#   has to pick which to keep.
 #
 # HOW IT ENDS: THE PR GOES READY
 #   The implementer opens every PR as a draft, and the draft means "nobody
@@ -139,8 +139,9 @@ jobs:
       GH_REPO: ${{ github.repository }}
       PR_NUMBER: ${{ github.event.pull_request.number }}
       BRANCH: ${{ github.event.pull_request.head.ref }}
-      # Where the fixes go if the push to BRANCH is rejected. New every run.
-      FALLBACK_BRANCH: ${{ github.event.pull_request.head.ref }}-${{ github.run_id }}
+      # Where the fixes go if the push to BRANCH is rejected. New on every run
+      # and every re-run of a failed one.
+      FALLBACK_BRANCH: ${{ github.event.pull_request.head.ref }}-${{ github.run_id }}-${{ github.run_attempt }}
       BASE_REF: ${{ github.event.pull_request.base.ref }}
       HEAD_SHA: ${{ github.event.pull_request.head.sha }}
       RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
@@ -291,7 +292,7 @@ jobs:
             exit 0
           fi
           # Rejected. Never force it, and never lose the fixes: push them to a
-          # branch of their own, which this run's id makes new.
+          # branch of their own, which this run's id and attempt make new.
           echo "::warning::The push to $BRANCH was rejected. Pushing the fixes to $FALLBACK_BRANCH instead."
           push_to "$FALLBACK_BRANCH"
           echo "fallback=true" >> "$GITHUB_OUTPUT"
@@ -303,11 +304,17 @@ jobs:
           GH_TOKEN: ${{ secrets.FACTORY_PAT }}
         run: |
           set -euo pipefail
+          # The original PR's closing line comes along, so merging this PR
+          # instead still closes its ticket. agent-implement-spec.yml waits
+          # for that close before it builds the tickets that depend on it.
+          closes=$(gh pr view "$PR_NUMBER" --json body --jq .body \
+            | grep -oiE '(closes|fixes|resolves) #[0-9]+' | head -n 1 || true)
           {
             echo "The \`agent:review\` run on #${PR_NUMBER} committed fixes on top of \`${BRANCH}\`,"
             echo "but \`${BRANCH}\` moved during the run and the push was rejected. These are those fixes,"
             echo "so they are not lost. Keep this PR or #${PR_NUMBER}, and close the other."
             echo ""
+            [ -z "$closes" ] || { echo "${closes}."; echo ""; }
             echo "Built unattended by [this run](${RUN_URL})."
           } > /tmp/review-fallback.md
           url="$(gh pr create \
