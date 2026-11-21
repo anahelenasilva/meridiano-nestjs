@@ -6,7 +6,7 @@ open any code. Build the ticket, and only the ticket.
 
 Read docs/CODING_STANDARDS.md and docs/agents/domain.md.
 
-- Domain behaviour goes in a module under src/, shared infrastructure in a
+- Domain behavior goes in a module under src/, shared infrastructure in a
   lib under libs/, imported only through its root files (libs/README.md).
   Logic sits behind a service method a test can call, never inline in a
   controller.

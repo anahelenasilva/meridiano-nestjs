@@ -1,7 +1,7 @@
 // @ts-check
 // Deep-module enforcement for dependency-cruiser.
 //
-// Each package under the packages root is a DEEP MODULE: a lot of behaviour
+// Each package under the packages root is a DEEP MODULE: a lot of behavior
 // behind a small interface. A package's PUBLIC SURFACE is its ENTRY POINTS:
 // the files at the package root. Implementation lives in SUBFOLDERS and is
 // private (by convention `lib/` for implementation and `tests/` for tests,

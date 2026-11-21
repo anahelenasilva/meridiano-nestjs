@@ -7,7 +7,7 @@ entities the spec touches.
 
 Cut the spec into tickets on these lines:
 
-- **One ticket, one module.** A ticket that adds behaviour adds it to a
+- **One ticket, one module.** A ticket that adds behavior adds it to a
   service in a module under src/ (or a lib under libs/ when more than one
   module needs it), behind a method a test can call, with its tests in the
   same ticket. A ticket whose whole diff would land in a controller is a

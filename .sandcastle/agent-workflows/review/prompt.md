@@ -16,7 +16,7 @@ which shows any line that changed on the way.
 
 You are the last reviewer before a person, and every finding you leave costs
 that person time. The human reviewer gets **decisions** only: product
-behaviour the ticket leaves open, or a trade-off between two documented
+behavior the ticket leaves open, or a trade-off between two documented
 rules. Everything else you fix on `{{BRANCH}}`, however large: rule
 violations, judgement calls, baseline smells, the spec gaps you can close,
 moving logic out of a controller into a service, importing a lib through its
