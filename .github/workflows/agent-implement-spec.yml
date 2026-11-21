@@ -201,7 +201,7 @@ jobs:
                 | .id')
           # Every ticket the queue holds is labelled `spec:<number>`.
           gh issue list --state all --label "spec:${spec}" --limit 100 \
-            --json number,title,state,labels,body > /tmp/queue.json
+            --json number,title,state,stateReason,labels,body > /tmp/queue.json
 
           if [ -z "$written" ]; then
             # Decompose closes every `spec:<n>` ticket before it writes the
@@ -223,12 +223,19 @@ jobs:
           fi
 
           # 3. The frontier. The lowest open position whose `Depends on:`
-          #    positions are all closed. Ticket bodies carry both lines,
+          #    positions are all done. Ticket bodies carry both lines,
           #    written by the decompose loop.
+          #
+          #    Done means closed as completed, which is what a merged
+          #    `Closes #<ticket>` pull request does. A ticket a person closes
+          #    as not planned is not done, so the tickets that depend on it
+          #    stay out of the frontier instead of building on a main that
+          #    lacks it.
           jq -r '
             [ .[]
               | { number,
                   state,
+                  done: (.state == "CLOSED" and .stateReason == "COMPLETED"),
                   labels: [ .labels[].name ],
                   position: ((.body | capture("Position:\\s*(?<p>[0-9]+)").p // "999") | tonumber),
                   depends: ((.body | capture("Depends on:\\s*(?<d>[0-9, ]*)").d // "")
@@ -236,7 +243,7 @@ jobs:
             ] | sort_by(.position)
           ' /tmp/queue.json > /tmp/queue-sorted.json
 
-          closed_positions=$(jq -c '[ .[] | select(.state=="CLOSED") | .position ]' /tmp/queue-sorted.json)
+          done_positions=$(jq -c '[ .[] | select(.done) | .position ]' /tmp/queue-sorted.json)
 
           # `agent:blocked` is the label the implement job puts on a ticket it
           # could not finish. Such a ticket stays OPEN on purpose - a failure
@@ -248,12 +255,12 @@ jobs:
           # ticket it built. The ticket stays OPEN until its pull request
           # merges, so it is out of the frontier too, or the next run would
           # build it again.
-          ticket=$(jq -r --argjson closed "$closed_positions" '
+          ticket=$(jq -r --argjson done "$done_positions" '
             [ .[]
               | select(.state=="OPEN")
               | select(.labels | index("agent:blocked") | not)
               | select(.labels | index("agent:awaiting-merge") | not)
-              | select(all(.depends[]; . as $d | $closed | index($d) != null))
+              | select(all(.depends[]; . as $d | $done | index($d) != null))
             ] | .[0].number // empty
           ' /tmp/queue-sorted.json)
 
@@ -279,10 +286,12 @@ jobs:
               echo "Spec #$spec has $open_count open ticket(s) waiting on $waiting_count pull request(s) to merge."
               echo "mode=drained" >> "$GITHUB_OUTPUT"
             else
-              # Open tickets exist but every one is blocked. That is a cycle
-              # or a ticket waiting on a human, and either way looping on it
-              # would burn a run every fifteen minutes forever.
-              echo "::warning::Spec #$spec has $open_count open tickets and none are unblocked."
+              # Open tickets exist but every one is blocked. That is a cycle,
+              # a ticket waiting on a human, or a dependency closed as not
+              # planned, and either way looping on it would burn a run every
+              # fifteen minutes forever.
+              dropped=$(jq -r '[ .[] | select(.state=="CLOSED" and (.done | not)) | "#\(.number)" ] | join(" ")' /tmp/queue-sorted.json)
+              echo "::warning::Spec #$spec has $open_count open tickets and none are unblocked.${dropped:+ Tickets $dropped were closed without completing, so the tickets that depend on them wait. Reopen one, or edit the Depends on: line of the tickets waiting on it.}"
               echo "mode=drained" >> "$GITHUB_OUTPUT"
             fi
             exit 0
