@@ -1,4 +1,4 @@
-name: Agent — Explore The Tickets
+name: Agent - Explore The Tickets
 
 # The third workflow in the software factory, and the one that runs first.
 #
@@ -14,7 +14,7 @@ name: Agent — Explore The Tickets
 #   every ticket first, groups the ones that look related, explores each group
 #   once with a subagent, and closes the duplicates onto the oldest ticket.
 #
-# WHAT IT DOES — AND, MORE IMPORTANTLY, WHAT IT DOES NOT
+# WHAT IT DOES - AND, MORE IMPORTANTLY, WHAT IT DOES NOT
 #   It reads. It reads the tickets and the code they would touch, and it hands
 #   back a plan: one entry per ticket, with the comment to post on it. It does
 #   not edit a file, open a branch or open a pull request.
@@ -70,17 +70,17 @@ name: Agent — Explore The Tickets
 #   its prompt next to it in prompt.md.
 #
 # WHAT IT NEEDS
-#   secrets.CLAUDE_CODE_OAUTH_TOKEN — the agent's auth token.
-#   secrets.FACTORY_PAT — a fine-grained personal access token on this
+#   secrets.CLAUDE_CODE_OAUTH_TOKEN - the agent's auth token.
+#   secrets.FACTORY_PAT - a fine-grained personal access token on this
 #     repository. Every call this workflow makes to GitHub uses it: listing
 #     the batch, posting the findings, moving the labels, closing duplicates.
 #     One hop is why it exists at all. A label applied with the built-in
 #     GITHUB_TOKEN does NOT start another workflow. GitHub suppresses that on
 #     purpose, so a workflow cannot trigger itself into a loop. The chain from
 #     explore to implement is exactly the loop we do want, so `agent:implement`
-#     has to go on with a token that is not the built-in one — and once that
+#     has to go on with a token that is not the built-in one - and once that
 #     token is in the room, the factory uses it for everything.
-#   secrets.GITHUB_TOKEN — supplied by Actions, and used only to check the
+#   secrets.GITHUB_TOKEN - supplied by Actions, and used only to check the
 #     code out. Scoped per job below.
 #   The `agent:explore` label. A fresh clone of this repository does not have
 #     it, and no workflow can create the label that starts it. Create it once:
@@ -380,7 +380,7 @@ jobs:
               | grep -qx "agent:exploring" || continue
             gh issue edit "$n" --add-label "agent:blocked" || true
             gh issue comment "$n" --body \
-              "Explore run **failed** — [logs](${RUN_URL}). Re-add \`agent:explore\` to retry. <!-- factory:status -->"
+              "Explore run **failed** - [logs](${RUN_URL}). Re-add \`agent:explore\` to retry. <!-- factory:status -->"
           done
 
       - name: Always remove exploring

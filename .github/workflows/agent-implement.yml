@@ -1,10 +1,10 @@
-name: Agent — Implement A Ticket
+name: Agent - Implement A Ticket
 
 # The first workflow in the software factory.
 #
 # WHAT TRIGGERS IT
 #   Someone puts the `agent:implement` label on an issue. That is the whole
-#   interface. No comment, no trigger phrase, no @mention — one label.
+#   interface. No comment, no trigger phrase, no @mention - one label.
 #
 # WHAT IT DOES
 #   Checks the repo out, gives an agent the ticket and the repo's own
@@ -28,17 +28,17 @@ name: Agent — Implement A Ticket
 #   to it in prompt.md.
 #
 # WHAT IT NEEDS
-#   secrets.CLAUDE_CODE_OAUTH_TOKEN — the agent's auth token. To change the
+#   secrets.CLAUDE_CODE_OAUTH_TOKEN - the agent's auth token. To change the
 #     agent or how it is billed, see
 #     .sandcastle/agent-workflows/shared/common.ts.
-#   secrets.FACTORY_PAT — a fine-grained PAT on this repository with Issues,
+#   secrets.FACTORY_PAT - a fine-grained PAT on this repository with Issues,
 #     Pull requests, Contents, Workflows and Actions, all read/write. Every
 #     step that talks to GitHub uses it: reading the ticket, pushing, opening
 #     the pull request, commenting. One token for the whole factory, because some
-#     hops need it anyway — by default the built-in GITHUB_TOKEN cannot open a
+#     hops need it anyway - by default the built-in GITHUB_TOKEN cannot open a
 #     pull request at all, and a label it applies starts no workflow. That
 #     second hop is `agent:review`, the label that starts the reviewer.
-#   secrets.GITHUB_TOKEN — supplied by Actions, and now used for one thing:
+#   secrets.GITHUB_TOKEN - supplied by Actions, and now used for one thing:
 #     the checkout. The `permissions:` block below shrinks it to match.
 #   The `agent:implement` label. A fresh clone of this repository does not
 #     have it, and no workflow can create the label that starts it. Create it
@@ -62,7 +62,7 @@ name: Agent — Implement A Ticket
 #
 # WHO COMMITS
 #   The agent does, and the repo's own pre-commit hook runs on every commit it
-#   makes — `pnpm install` installs it, through the `prepare` script that sets
+#   makes - `pnpm install` installs it, through the `prepare` script that sets
 #   core.hooksPath to .githooks, exactly as it does on your machine. When the hook rejects a commit, the agent reads
 #   the failure, fixes its work and commits again. The hook is code from the
 #   repo, so it runs only where there is no token: every git command that
@@ -70,7 +70,7 @@ name: Agent — Implement A Ticket
 #
 # A CAUTION THAT COMES WITH IT
 #   `issues: labeled` fires on issues, which cannot come from a fork. Do not
-#   copy this trigger onto `pull_request_target` — that runs fork code with
+#   copy this trigger onto `pull_request_target` - that runs fork code with
 #   this job's secrets, and a fork can label nothing but can change the code
 #   the agent runs.
 
@@ -79,7 +79,7 @@ on:
     types: [labeled]
 
 # The permissions block. It is per-workflow, and it is a ceiling on the
-# GITHUB_TOKEN — and the GITHUB_TOKEN now only checks the code out. Everything
+# GITHUB_TOKEN - and the GITHUB_TOKEN now only checks the code out. Everything
 # that writes goes through FACTORY_PAT, whose reach is set where you created
 # it, not here.
 permissions:
@@ -381,7 +381,7 @@ jobs:
           fi
           # Tagged, so the next run on this ticket leaves it out of the ticket.
           gh issue comment "$ISSUE_NUMBER" --body \
-            "Implementer run **${JOB_STATUS}** — [logs](${RUN_URL}).${where}${retry} <!-- factory:status -->"
+            "Implementer run **${JOB_STATUS}** - [logs](${RUN_URL}).${where}${retry} <!-- factory:status -->"
 
       - name: Always remove in-progress
         if: always()

@@ -1,4 +1,4 @@
-name: Agent — Review A Pull Request
+name: Agent - Review A Pull Request
 
 # The second workflow in the software factory. It reviews what the first one
 # built.
@@ -14,16 +14,16 @@ name: Agent — Review A Pull Request
 #   transcript, no scratch files, no "as we discussed". It starts from a cold
 #   checkout and three primary sources it fetches itself:
 #
-#     1. the diff              — what actually changed
-#     2. docs/CODING_STANDARDS.md — the rules
-#     3. the originating issue — what was asked for, read from the ticket the
+#     1. the diff              - what actually changed
+#     2. docs/CODING_STANDARDS.md - the rules
+#     3. the originating issue - what was asked for, read from the ticket the
 #                                PR closes, not from the PR description
 #
 #   That independence is the whole value. An implementer that has argued
 #   itself into a shortcut will argue a reviewer that shares its context into
 #   the same shortcut. A reviewer that has never seen the argument cannot be.
 #   If you find yourself wanting to pass context from the build run into this
-#   one — that is the instinct to resist.
+#   one - that is the instinct to resist.
 #
 #   The agent itself is a Sandcastle script:
 #   .sandcastle/agent-workflows/review/review.ts, with its prompt next to it
@@ -42,20 +42,20 @@ name: Agent — Review A Pull Request
 # HOW IT ENDS: THE PR GOES READY
 #   The implementer opens every PR as a draft, and the draft means "nobody
 #   has read this yet". Once the verdict is posted, somebody has. So the last
-#   step marks the PR ready for review — on a fail as well as a pass. Ready is
+#   step marks the PR ready for review - on a fail as well as a pass. Ready is
 #   not approved. A failing verdict is for a human to read, and the merge is
 #   still a human's.
 #
 # WHAT IT NEEDS
-#   secrets.CLAUDE_CODE_OAUTH_TOKEN — the agent's auth token.
-#   secrets.FACTORY_PAT — the factory's one token. Only the steps that call
+#   secrets.CLAUDE_CODE_OAUTH_TOKEN - the agent's auth token.
+#   secrets.FACTORY_PAT - the factory's one token. Only the steps that call
 #     GitHub get it; the agent's step does not. It pushes the review's
 #     commits and posts its verdict and inline comments, so it needs
 #     Contents and Pull requests: write. Keeping it out of the agent's
 #     environment is tidiness, not a wall: the agent shares the machine with
 #     the steps that push and post. The real defence is who can reach the
-#     agent — same-repo PRs only, and a label only a collaborator can apply.
-#   secrets.GITHUB_TOKEN — supplied by Actions, used only for the checkout.
+#     agent - same-repo PRs only, and a label only a collaborator can apply.
+#   secrets.GITHUB_TOKEN - supplied by Actions, used only for the checkout.
 #   The `agent:review` label. A fresh clone of this repository does not have
 #     it, and no workflow can create the label that starts it. Create it once:
 #       gh label create "agent:review" --color 5319E7 \
@@ -63,7 +63,7 @@ name: Agent — Review A Pull Request
 #
 # A CAUTION THAT COMES WITH IT
 #   `pull_request` (not `pull_request_target`), so a PR from a fork runs with
-#   a read-only token and no secrets — no FACTORY_PAT either, so the run
+#   a read-only token and no secrets - no FACTORY_PAT either, so the run
 #   fails at its first `gh` call. That means this workflow will not review a
 #   fork PR. That is the correct trade: reviewing a stranger's code
 #   with a writable token is how a factory gets robbed.
@@ -181,7 +181,7 @@ jobs:
           #    base as it is now, three-dot, so anything pushed to the base
           #    since the PR opened is not blamed on the PR.
           # 2. The standards: docs/CODING_STANDARDS.md, in the checkout.
-          # 3. The spec. Whatever issue this PR closes — found in the PR body,
+          # 3. The spec. Whatever issue this PR closes - found in the PR body,
           #    which is the one thing here we do read from the PR. If there is
           #    no `Closes #n`, the Spec axis reports "no spec available"
           #    rather than inventing one.
@@ -348,7 +348,7 @@ jobs:
             echo ""
             echo "---"
             echo ""
-            echo "Reviewed by the review workflow — [logs](${RUN_URL}). This run"
+            echo "Reviewed by the review workflow - [logs](${RUN_URL}). This run"
             echo "saw the diff, the standards and the ticket, and nothing else."
           } >> /tmp/review-verdict.md
           # Uploads the agent's screenshots and swaps each /tmp/evidence path
