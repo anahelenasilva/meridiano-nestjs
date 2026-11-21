@@ -1,9 +1,11 @@
 # ADR-0007: Extract ArticleProcessingPipelineModule as a Testable Seam
 
 ## Status
+
 Accepted
 
 ## Context
+
 The Article Summary -> Impact Rating -> categorisation flow lived inline in
 `ProcessorService` (a ~436-line batch service) and was driven by the
 `ArticleProcessor` Bull worker, which held the step orchestration and error
@@ -16,6 +18,7 @@ Issue #116 (under parent #111) required a single entry point for processing one
 article, testable in milliseconds with no real infrastructure.
 
 ## Decision
+
 Extract `ArticleProcessingPipelineModule` (`src/processor/pipeline/`) whose only
 public surface is `ArticleProcessingPipelineService.processArticle(article)`,
 returning a typed `ProcessingResult`. The three steps are private methods.
@@ -49,18 +52,19 @@ Rejected — depending on the concrete `AiService` is the exact coupling that ma
 the flow untestable without a real provider. The `AiAdapter` seam is the point.
 
 **Make the pipeline a pure function returning results for the caller to persist**
-Rejected — parent #111 mandates no behaviour change. The prior flow persisted
+Rejected — parent #111 mandates no behavior change. The prior flow persisted
 summary/rating/categories inline; moving persistence to the caller would spread
 the logic back out and risk drift. The pipeline persists via `ArticlesService`
 (a second, fakeable seam) and also returns the result.
 
-**Notify only on embedding failure (prior behaviour)**
+**Notify only on embedding failure (prior behavior)**
 The original code emailed solely on embedding failure. We broadened the notifier
 to fire on any step failure, matching #111's decision that error notification is
 a first-class module responsibility. The email transport and config
 (`getEmbeddingFailureNotificationEmail`) are unchanged.
 
 ## Consequences
+
 - The pipeline is unit-tested against fakes (fake `AiAdapter`, spy `Sleeper`,
   fake `ProcessingNotifier`) with no provider, DB, or queue — happy path,
   partial failure (summary preserved when rate fails), notification, and the
