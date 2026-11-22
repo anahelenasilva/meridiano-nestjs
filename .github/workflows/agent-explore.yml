@@ -45,6 +45,10 @@ name: Agent - Explore The Tickets
 #     easy-call       →  swap `agent:explore` for `agent:implement`, which is
 #                        the trigger for agent-implement.yml. The factory
 #                        keeps going without being asked.
+#     easy-call on a  →  treated as `needs-a-human`. The app's feedback box
+#     `feedback` issue   files these with text from its users, so a human
+#                        looks before the implementer runs. Apply reads the
+#                        label from GitHub, never from the plan.
 #     anything else   →  swap it for `needs-a-human` and stop. Somebody has
 #                        to come and look.
 #     a duplicate     →  closed, whatever its tag.
@@ -201,6 +205,19 @@ jobs:
         if: steps.batch.outputs.numbers != '[]'
         run: npm install -g @anthropic-ai/claude-code
 
+      - name: Write the explore allow list
+        if: steps.batch.outputs.numbers != '[]'
+        # The only tools the explorer may use. Today Sandcastle skips the
+        # agent's permission checks, so this list changes nothing until
+        # explore.ts passes `permissionMode: 'dontAsk'`, which denies every
+        # tool not listed here. On this runner only, so the other factory
+        # workflows keep their own mode.
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.claude
+          echo '{"permissions":{"allow":["Read","Grep","Glob","Agent","Bash(pnpm test *)"]}}' \
+            > ~/.claude/settings.json
+
       - name: Explore
         if: steps.batch.outputs.numbers != '[]'
         env:
@@ -216,14 +233,6 @@ jobs:
         run: |
           set -euo pipefail
           echo "json=$(jq -c . "$RUNNER_TEMP/plan.json")" >> "$GITHUB_OUTPUT"
-
-      - name: Hand the screenshots to the apply job
-        if: steps.batch.outputs.numbers != '[]'
-        uses: actions/upload-artifact@v4
-        with:
-          name: explore-evidence
-          path: /tmp/evidence/*.png
-          if-no-files-found: ignore
 
   apply:
     needs: explore
@@ -243,15 +252,6 @@ jobs:
       RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
     steps:
-      - name: Take the screenshots from the explore job
-        # A pattern, not a name, so a run with no screenshots finds nothing
-        # and carries on.
-        uses: actions/download-artifact@v4
-        with:
-          pattern: explore-evidence
-          path: /tmp/evidence
-          merge-multiple: true
-
       - name: Check the plan
         env:
           # Through env, never pasted into the script. A `${{ }}` inside
@@ -262,7 +262,10 @@ jobs:
         run: |
           set -euo pipefail
           printf '%s' "$PLAN" > /tmp/plan.json
-          [ -s /tmp/plan.json ] || { echo "The explore run returned no plan." >&2; exit 1; }
+          # An empty plan can also mean it leaked CLAUDE_CODE_OAUTH_TOKEN:
+          # GitHub drops any job output that contains a secret. So this check
+          # is the token check too, and apply never needs the secret.
+          [ -s /tmp/plan.json ] || { echo "The explore run returned no plan. Either it wrote none, or GitHub redacted it because it contained a secret." >&2; exit 1; }
 
           # Every rule, written as "what is wrong". An empty list means apply.
           jq -r --argjson batch "$BATCH" '
@@ -284,7 +287,11 @@ jobs:
                 # A duplicate points at an issue in this batch that survives.
                 ($plan[] | select(.duplicate_of) | . as $dup
                  | select([$plan[] | select(.number == $dup.duplicate_of and (.duplicate_of | not))] == [])
-                 | "#\(.number) is a duplicate of #\(.duplicate_of), which is not a surviving issue in this batch.")
+                 | "#\(.number) is a duplicate of #\(.duplicate_of), which is not a surviving issue in this batch."),
+
+                # A duplicate closes onto an older issue, never a newer one.
+                ($plan[] | select(.duplicate_of and .duplicate_of >= .number)
+                 | "#\(.number) is a duplicate of #\(.duplicate_of), which is not older than it.")
               ]
             | .[]
           ' /tmp/plan.json > /tmp/problems.txt
@@ -311,15 +318,21 @@ jobs:
           gh label create "agent:implement" --color 5319E7 \
             --description "Hand this issue to the implementer agent" || true
 
-          # nullglob: an issue with no screenshots gets no --attach.
-          shopt -s nullglob
-
           # Survivors first, so "closed as duplicate of #N" points at an issue
           # that already has its findings on it.
           for n in $(jq -r '.issues | sort_by([.duplicate_of != null, .number]) | .[].number' /tmp/plan.json); do
             entry="$(jq -c --argjson n "$n" '.issues[] | select(.number == $n)' /tmp/plan.json)"
             dup="$(jq -r '.duplicate_of // empty' <<< "$entry")"
             tag="$(jq -r '.tag' <<< "$entry")"
+
+            # A feedback issue never goes straight to the implementer. The
+            # labels come from GitHub now, not from the plan, because the
+            # agent writes the plan. Read into a variable first, so a failed
+            # `gh` call stops the run instead of letting the issue through.
+            labels="$(gh issue view "$n" --json labels --jq '.labels[].name')"
+            if [ "$tag" = "easy-call" ] && grep -qx "feedback" <<< "$labels"; then
+              tag="needs-a-human"
+            fi
 
             if [ -n "$dup" ]; then
               next="Closed as duplicate of #$dup."
@@ -331,11 +344,7 @@ jobs:
 
             jq -r '.comment' <<< "$entry" > /tmp/comment.md
             printf '\n\n---\n\n_%s_ [Logs](%s)\n' "$next" "$RUN_URL" >> /tmp/comment.md
-            # This issue's screenshots, /tmp/evidence/<n>-*.png. --attach
-            # uploads them and swaps each path in the comment for its URL.
-            attach=()
-            for png in /tmp/evidence/"$n"-*.png; do attach+=(--attach "$png"); done
-            gh issue comment "$n" --body-file /tmp/comment.md "${attach[@]}"
+            gh issue comment "$n" --body-file /tmp/comment.md
 
             # The branch. Every path takes `agent:exploring` off: this
             # issue is done, and the finish job leaves it alone.
