@@ -2481,7 +2481,7 @@
             "description": "Missing or invalid bearer token"
           },
           "429": {
-            "description": "More than 5 feedback requests from this user in an hour"
+            "description": "More than 5 feedback requests from this user in 60 minutes"
           },
           "502": {
             "description": "GitHub did not create the issue"

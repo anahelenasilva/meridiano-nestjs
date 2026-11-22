@@ -37,7 +37,7 @@ export class FeedbackController {
   @ApiValidationErrorResponse()
   @ApiResponse({
     status: 429,
-    description: 'More than 5 feedback requests from this user in an hour',
+    description: `More than ${FEEDBACK_RATE_LIMIT.maxAttempts} feedback requests from this user in ${FEEDBACK_RATE_LIMIT.windowMs / 60_000} minutes`,
   })
   @ApiBadGatewayResponse({ description: 'GitHub did not create the issue' })
   @ApiServiceUnavailableResponse({
