@@ -9,11 +9,12 @@ import {
 } from '../articles.service';
 import { ArticleFilter } from '../helpers/article-filter';
 
-export type ListArticlesLeanRequest = Pick<
-  ArticleFilter,
-  'feedProfile' | 'feedSource' | 'startDate' | 'endDate'
-> &
-  Pick<ArticlePage, 'page' | 'perPage'>;
+export interface ListArticlesLeanRequest
+  extends Pick<
+      ArticleFilter,
+      'feedProfile' | 'feedSource' | 'startDate' | 'endDate'
+    >,
+    Pick<ArticlePage, 'page' | 'perPage'> {}
 
 // The lean projection: identity/metadata fields plus raw (unrendered)
 // processed_content and the derived has_audio flag. Deliberately omits the
