@@ -207,11 +207,10 @@ jobs:
 
       - name: Write the explore allow list
         if: steps.batch.outputs.numbers != '[]'
-        # The only tools the explorer may use. Today Sandcastle skips the
-        # agent's permission checks, so this list changes nothing until
-        # explore.ts passes `permissionMode: 'dontAsk'`, which denies every
-        # tool not listed here. On this runner only, so the other factory
-        # workflows keep their own mode.
+        # The only tools the explorer may use. explore.ts passes
+        # `permissionMode: 'dontAsk'`, so Claude Code denies every tool not
+        # listed here. On this runner only, so the other factory workflows
+        # keep their own mode.
         run: |
           set -euo pipefail
           mkdir -p ~/.claude
