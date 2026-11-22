@@ -155,6 +155,19 @@ Place each visual next to the short text it supports. Keep only the calls, files
 
 You may use one of these, you may use several, it is unlikely you will use all of them. Use your judgement and don't overwhelm the user.
 
+Fence each code block with more backticks than any fence inside it. When a block shows markdown that has its own ` ``` ` fence, such as an issue body or a README, open and close the block with ` ```` `:
+
+`````markdown
+````diff
+ Submitted through the feedback box.
++Page: `/articles/123`
+
+ ```text
+ <message>
+ ```
+````
+`````
+
 ### Evidence
 
 Concrete evidence that the change works. Show a before and after.
