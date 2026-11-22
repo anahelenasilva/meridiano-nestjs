@@ -20,6 +20,7 @@ The judgement rules no tool can check. The mechanical rules run in PR checks: `p
 ## Tests
 - Tests cover public methods, error and edge cases, and fallback paths, not only the happy path.
 - A wrapper function gets a test that calls the wrapper itself, not only the functions it delegates to. If real I/O makes that look unsafe, use a fixture (tmp dir, mock) instead of excluding the wrapper from coverage.
+- An assertion on a mock call or a result names only the fields the test is about. Use `expect.objectContaining` unless the test checks the exact set of keys.
 
 ## Comments
 Comment **why**, not **what**: the code already says what it does. Skip comments that restate code (`// increment counter`) or a doc block that echoes the type or signature. Keep only non-obvious context: rationale, constraints, tradeoffs, warnings, issue links. Prefer a better name over a comment. If deleting a comment loses no info, delete it.
