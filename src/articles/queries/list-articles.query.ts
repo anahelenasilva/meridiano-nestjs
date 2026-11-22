@@ -13,23 +13,24 @@ import { ListArticlesResponseDto } from '../dto/list-articles-response.dto';
 import { prepareArticleContent } from '../helpers/prepareArticleContent';
 import { ArticleFilter } from '../helpers/article-filter';
 
-export type ListArticlesRequest = ArticleFilter & ArticlePage;
+export interface ListArticlesRequest extends ArticleFilter, ArticlePage {}
 
 // has_audio is added after prepareArticleContent (whose declared parameter
 // type is DBArticle, not the has_audio-carrying read model) rather than
 // folded into its return type.
-type PreparedArticle = Awaited<ReturnType<typeof prepareArticleContent>> & {
+interface PreparedArticle
+  extends Awaited<ReturnType<typeof prepareArticleContent>> {
   has_audio: boolean;
-};
+}
 
 type ListArticleItem = WithBookmark<WithNote<PreparedArticle>>;
 
-// Intersected with the DTO that publishes this response's OpenAPI schema, so a
+// Extends the DTO that publishes this response's OpenAPI schema, so a
 // field dropped from the assembly fails to compile instead of silently leaving
 // the schema the frontend generates its types from.
-export type ListArticlesResponse = ListArticlesResponseDto & {
+export interface ListArticlesResponse extends ListArticlesResponseDto {
   articles: ListArticleItem[];
-};
+}
 
 @Injectable()
 export class ListArticlesQuery {

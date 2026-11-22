@@ -259,6 +259,39 @@ describe('ListArticlesQuery', () => {
     expect(result?.available_sources).toEqual(['Will Larson']);
   });
 
+  it('splits one request carrying filter and page fields into the filter and page arguments', async () => {
+    mockService.listArticles.mockResolvedValue({
+      articles: [articleA],
+      total: 45,
+    });
+
+    const result = await query.execute(userId, {
+      category: 'news',
+      searchTerm: 'rust',
+      page: 2,
+      perPage: 10,
+      sortBy: 'impact_rating',
+      direction: 'asc',
+    });
+
+    expect(mockService.listArticles).toHaveBeenCalledWith(
+      {
+        feedProfile: undefined,
+        feedSource: undefined,
+        searchTerm: 'rust',
+        startDate: undefined,
+        endDate: undefined,
+        preset: undefined,
+        category: 'news',
+        archiveScope: 'active',
+      },
+      { page: 2, perPage: 10, sortBy: 'impact_rating', direction: 'asc' },
+    );
+    expect(result?.pagination).toEqual(
+      expect.objectContaining({ page: 2, per_page: 10, total_pages: 5 }),
+    );
+  });
+
   it('scopes the source options to the requested archive scope', async () => {
     mockService.listArticles.mockResolvedValue({
       articles: [],

@@ -38,9 +38,9 @@ export interface DBArticle {
 }
 
 /** A Standard Briefing candidate: its embedding parsed, one dimension across the pool. */
-export type BriefingCandidate = Omit<DBArticle, 'embedding'> & {
+export interface BriefingCandidate extends Omit<DBArticle, 'embedding'> {
   embedding: number[];
-};
+}
 
 export interface UpdateArticlePatch {
   title?: string;

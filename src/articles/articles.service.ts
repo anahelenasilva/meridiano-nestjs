@@ -27,11 +27,15 @@ interface CountRow {
 // Row shape for listArticles only: has_audio comes from an EXISTS
 // subquery, not a real articles column, so it stays out of the shared
 // ArticleRow used by every other query in this service.
-type ArticleListDbRow = ArticleRow & { has_audio: boolean };
+interface ArticleListDbRow extends ArticleRow {
+  has_audio: boolean;
+}
 
 // Per-query read model: has_audio is derived (EXISTS against audio_files),
 // not a schema column, so it lives here rather than on DBArticle.
-export type ArticleListRow = DBArticle & { has_audio: boolean };
+export interface ArticleListRow extends DBArticle {
+  has_audio: boolean;
+}
 
 export type ArticlePage = {
   page?: number;
