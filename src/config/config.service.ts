@@ -442,6 +442,19 @@ export class ConfigService {
     return jwtSecret;
   }
 
+  /**
+   * Null when either variable is unset or the repo is not `owner/name`, so the
+   * feedback route answers 503 instead of calling GitHub half-configured.
+   */
+  getGithubFeedbackConfig(): { token: string; repo: string } | null {
+    const token = process.env.GITHUB_FEEDBACK_TOKEN?.trim();
+    const repo = process.env.GITHUB_FEEDBACK_REPO?.trim();
+    if (!token || !repo || !/^[\w.-]+\/[\w.-]+$/.test(repo)) {
+      return null;
+    }
+    return { token, repo };
+  }
+
   getMeridianoApiKey(): string | undefined {
     return process.env.MERIDIANO_API_KEY || undefined;
   }
