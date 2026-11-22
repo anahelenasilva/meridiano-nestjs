@@ -29,7 +29,7 @@ Include filenames, and lines of code. Remember that the agent that implements wi
      - the blast radius, in prose: the 2–3 places that matter (modules under src/, libs under libs/, routes, entities). A schema change or a migration goes first, and loudly;
      - whether it's a one-way or a two-way door
      - the duplicates closed onto it, crediting by number any detail only they had;
-     - whether the issue ends with a `## Done when` checklist, per docs/agents/issue-tracker.md. If it does not, write the checklist you would give it;
+     - whether the issue ends with a `## Done when` checklist, per docs/agents/issue-tracker.md. If it does not, write the checklist you would give it. Put this part under a real Markdown heading, the line `## Done when` on its own, so a human can paste the checklist into the issue as-is. Do not make it a bold label like the other parts, and do not wrap it in backticks;
      - last, the open questions a human has to settle. An empty list is a claim, and usually a wrong one.
 
 You and every subagent are read-only. The plan is your only output, and you will be asked for it as structured output. The workflow checks it, posts every comment and closes every duplicate.
