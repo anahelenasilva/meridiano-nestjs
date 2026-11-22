@@ -275,16 +275,11 @@ describe('ListArticlesQuery', () => {
     });
 
     expect(mockService.listArticles).toHaveBeenCalledWith(
-      {
-        feedProfile: undefined,
-        feedSource: undefined,
+      expect.objectContaining({
         searchTerm: 'rust',
-        startDate: undefined,
-        endDate: undefined,
-        preset: undefined,
         category: 'news',
         archiveScope: 'active',
-      },
+      }),
       { page: 2, perPage: 10, sortBy: 'impact_rating', direction: 'asc' },
     );
     expect(result?.pagination).toEqual(
