@@ -429,6 +429,18 @@
         ],
         "type": "object"
       },
+      "CreateFeedbackDto": {
+        "properties": {
+          "message": {
+            "maxLength": 5000,
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
       "CreateYoutubeChannelDto": {
         "properties": {
           "categoryNames": {
@@ -540,6 +552,23 @@
         "required": [
           "url",
           "feedProfile"
+        ],
+        "type": "object"
+      },
+      "FeedbackResponseDto": {
+        "properties": {
+          "issueNumber": {
+            "example": 412,
+            "type": "number"
+          },
+          "issueUrl": {
+            "example": "https://github.com/owner/repo/issues/412",
+            "type": "string"
+          }
+        },
+        "required": [
+          "issueNumber",
+          "issueUrl"
         ],
         "type": "object"
       },
@@ -2403,6 +2432,67 @@
         "summary": "Update the custom title of a briefing",
         "tags": [
           "Briefings"
+        ]
+      }
+    },
+    "/api/feedback": {
+      "post": {
+        "operationId": "FeedbackController_submit",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFeedbackDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackResponseDto"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationErrorResponseDto"
+                }
+              }
+            },
+            "description": "Request failed class-validator validation"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponseDto"
+                }
+              }
+            },
+            "description": "Missing or invalid bearer token"
+          },
+          "429": {
+            "description": "More than 5 feedback requests from this user in an hour"
+          },
+          "502": {
+            "description": "GitHub did not create the issue"
+          },
+          "503": {
+            "description": "GITHUB_FEEDBACK_TOKEN or GITHUB_FEEDBACK_REPO is unset"
+          }
+        },
+        "summary": "Send feedback, filed as a GitHub issue labelled feedback",
+        "tags": [
+          "Feedback"
         ]
       }
     },

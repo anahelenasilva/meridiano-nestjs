@@ -90,6 +90,10 @@ async function createOpenApiApp(): Promise<INestApplication> {
     '../briefings/briefings.controller.js',
     'BriefingsController',
   );
+  const FeedbackController = loadDistExport<Type<unknown>>(
+    '../feedback/feedback.controller.js',
+    'FeedbackController',
+  );
   const FeedsController = loadDistExport<Type<unknown>>(
     '../feeds/feeds.controller.js',
     'FeedsController',
@@ -231,6 +235,10 @@ async function createOpenApiApp(): Promise<INestApplication> {
     '../youtube-transcriptions/commands/dismiss-ingest-job.command.js',
     'DismissIngestJobCommand',
   );
+  const FeedbackService = loadDistExport<Type<unknown>>(
+    '../feedback/feedback.service.js',
+    'FeedbackService',
+  );
   const CategoriesService = loadDistExport<Type<unknown>>(
     '../categories/categories.service.js',
     'CategoriesService',
@@ -276,6 +284,10 @@ async function createOpenApiApp(): Promise<INestApplication> {
     '../articles/guards/external-rate-limit.guard.js',
     'ExternalRateLimitGuard',
   );
+  const FeedbackRateLimitGuard = loadDistExport<Type<unknown>>(
+    '../feedback/feedback-rate-limit.guard.js',
+    'FeedbackRateLimitGuard',
+  );
 
   const moduleRef = await Test.createTestingModule({
     controllers: [
@@ -286,6 +298,7 @@ async function createOpenApiApp(): Promise<INestApplication> {
       AuthController,
       BookmarksController,
       BriefingsController,
+      FeedbackController,
       FeedsController,
       NotesController,
       ProfilesController,
@@ -325,6 +338,7 @@ async function createOpenApiApp(): Promise<INestApplication> {
       { provide: EnqueueYoutubeTranscriptionsCommand, useValue: {} },
       { provide: ListFailedIngestJobsQuery, useValue: {} },
       { provide: DismissIngestJobCommand, useValue: {} },
+      { provide: FeedbackService, useValue: {} },
       { provide: CategoriesService, useValue: {} },
       { provide: AudioFilesService, useValue: {} },
       { provide: ListAudioLibraryQuery, useValue: {} },
@@ -345,6 +359,8 @@ async function createOpenApiApp(): Promise<INestApplication> {
     .overrideGuard(ExternalTokenGuard)
     .useValue({ canActivate: () => true })
     .overrideGuard(ExternalRateLimitGuard)
+    .useValue({ canActivate: () => true })
+    .overrideGuard(FeedbackRateLimitGuard)
     .useValue({ canActivate: () => true })
     .compile();
 

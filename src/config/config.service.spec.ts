@@ -571,6 +571,42 @@ describe('ConfigService', () => {
     });
   });
 
+  describe('getGithubFeedbackConfig', () => {
+    afterEach(() => {
+      delete process.env.GITHUB_FEEDBACK_TOKEN;
+      delete process.env.GITHUB_FEEDBACK_REPO;
+    });
+
+    it('returns null when the token is unset', () => {
+      process.env.GITHUB_FEEDBACK_REPO = 'owner/repo';
+
+      expect(service.getGithubFeedbackConfig()).toBeNull();
+    });
+
+    it('returns null when the repo is unset', () => {
+      process.env.GITHUB_FEEDBACK_TOKEN = 'github-token';
+
+      expect(service.getGithubFeedbackConfig()).toBeNull();
+    });
+
+    it('returns null when the repo is not owner/name', () => {
+      process.env.GITHUB_FEEDBACK_TOKEN = 'github-token';
+      process.env.GITHUB_FEEDBACK_REPO = 'https://github.com/owner/repo';
+
+      expect(service.getGithubFeedbackConfig()).toBeNull();
+    });
+
+    it('returns the trimmed token and repo', () => {
+      process.env.GITHUB_FEEDBACK_TOKEN = ' github-token ';
+      process.env.GITHUB_FEEDBACK_REPO = 'owner/meridiano-nestjs';
+
+      expect(service.getGithubFeedbackConfig()).toEqual({
+        token: 'github-token',
+        repo: 'owner/meridiano-nestjs',
+      });
+    });
+  });
+
   describe('getMailgunConfig', () => {
     afterEach(() => {
       delete process.env.MAILGUN_API_KEY;
