@@ -26,7 +26,7 @@ export class FeedbackService {
     private readonly githubIssuesClient: GithubIssuesClient,
   ) {}
 
-  /** Opens a GitHub issue for the feedback. Nothing is stored in the database. */
+  // Nothing is stored in the database: the GitHub issue is the only record.
   async submit(userId: string, message: string): Promise<FeedbackResponseDto> {
     const access = this.configService.getGithubFeedbackConfig();
     if (!access) {
