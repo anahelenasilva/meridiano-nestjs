@@ -8,7 +8,9 @@ import { explorePlanSchema } from './plan-schema';
 
 const result = await runWithExtraction({
   name: 'explore',
-  agent: claudeAgent('claude-sonnet-5-5'),
+  // Issue text is untrusted, so explore gets only the tools in the allow list
+  // agent-explore.yml writes. See docs/agents/explore-threat-model.md.
+  agent: claudeAgent('claude-sonnet-5-5', { permissionMode: 'dontAsk' }),
   sandbox: noSandbox(),
   logging: { type: 'stdout' },
   promptFile: path.join(import.meta.dirname, 'prompt.md'),
