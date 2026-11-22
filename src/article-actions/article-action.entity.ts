@@ -78,13 +78,11 @@ export interface PendingArticle {
 
 // `proposal` is JSONB, which pg parses into an object, and `title`/`url` come
 // from the joined `articles` row.
-export type ArticleActionRow = Omit<
-  ArticleAction,
-  'short_id' | 'created_at' | 'updated_at'
-> & {
+export interface ArticleActionRow
+  extends Omit<ArticleAction, 'short_id' | 'created_at' | 'updated_at'> {
   created_at: string;
   updated_at: string;
-};
+}
 
 export const SHORT_ID_PATTERN = /^[0-9a-f]{8}$/;
 

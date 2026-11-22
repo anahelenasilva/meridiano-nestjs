@@ -12,10 +12,13 @@ import { YoutubeTranscriptionsService } from '../services/youtube-transcriptions
  * has_audio is added back since it belongs to the list-only read model
  * (see YoutubeTranscriptionListRow), not DBYoutubeTranscription.
  */
-export type YoutubeTranscriptionListItem = Omit<
-  DBYoutubeTranscription,
-  'transcriptionText' | 'transcriptionSummary'
-> & { has_audio: boolean };
+export interface YoutubeTranscriptionListItem
+  extends Omit<
+    DBYoutubeTranscription,
+    'transcriptionText' | 'transcriptionSummary'
+  > {
+  has_audio: boolean;
+}
 
 export type ListAllYoutubeTranscriptionsResponse = {
   transcriptions: WithNote<YoutubeTranscriptionListItem>[];

@@ -54,9 +54,9 @@ const TRANSCRIPTION_LIST_COLUMNS = `${TRANSCRIPTION_COLUMNS}, ${HAS_AUDIO}`;
 
 // Per-query read model: has_audio is derived (EXISTS against audio_files),
 // not a schema column, so it lives here rather than on DBYoutubeTranscription.
-export type YoutubeTranscriptionListRow = DBYoutubeTranscription & {
+export interface YoutubeTranscriptionListRow extends DBYoutubeTranscription {
   has_audio: boolean;
-};
+}
 
 export type LeanTranscriptionListRow = Omit<
   YoutubeTranscriptionListRow,
