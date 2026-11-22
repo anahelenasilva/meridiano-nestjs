@@ -21,7 +21,10 @@ import { LoginResponseDto } from '../src/auth/dto/login-response.dto';
 import { JwtAuthGuard } from '../src/auth/guards/jwt-auth.guard';
 import { JwtStrategy } from '../src/auth/strategies/jwt.strategy';
 import { ConfigService } from '../src/config/config.service';
-import { FEEDBACK_MESSAGE_MAX_LENGTH } from '../src/feedback/dto/feedback.dto';
+import {
+  FEEDBACK_MESSAGE_MAX_LENGTH,
+  FEEDBACK_PAGE_CONTEXT_MAX_LENGTH,
+} from '../src/feedback/dto/feedback.dto';
 import { FeedbackController } from '../src/feedback/feedback.controller';
 import { FeedbackRateLimitGuard } from '../src/feedback/feedback-rate-limit.guard';
 import { FeedbackService } from '../src/feedback/feedback.service';
@@ -172,6 +175,28 @@ describe('Feedback (e2e)', () => {
     expect(issue.body.body).not.toContain('anahelenasilva@hotmail.com');
   });
 
+  it('shows the page context in the GitHub issue body', async () => {
+    await sendFeedback({
+      message: 'The play button overlaps the title',
+      pageContext: '/articles/123',
+    }).expect(201);
+
+    const body: string = sentIssue().body.body;
+    expect(body).toContain('Page: `/articles/123`');
+    expect(body.indexOf('Page:')).toBeLessThan(
+      body.indexOf('The play button overlaps the title'),
+    );
+  });
+
+  it.each([
+    ['without a page context', { message: 'Hi' }],
+    ['with a blank page context', { message: 'Hi', pageContext: '   ' }],
+  ])('leaves the Page line out of the issue body %s', async (_, body) => {
+    await sendFeedback(body).expect(201);
+
+    expect(sentIssue().body.body).not.toContain('Page:');
+  });
+
   it('returns 401 without a JWT and does not call GitHub', async () => {
     await sendFeedback({ message: 'Hi' }, null).expect(401);
 
@@ -186,6 +211,18 @@ describe('Feedback (e2e)', () => {
       'a message over the length limit',
       { message: 'a'.repeat(FEEDBACK_MESSAGE_MAX_LENGTH + 1) },
     ],
+    [
+      'a page context over the length limit',
+      {
+        message: 'Hi',
+        pageContext: '/'.repeat(FEEDBACK_PAGE_CONTEXT_MAX_LENGTH + 1),
+      },
+    ],
+    [
+      'a page context spanning lines',
+      { message: 'Hi', pageContext: '/a\n\n# Heading' },
+    ],
+    ['a page context that is not a string', { message: 'Hi', pageContext: 7 }],
   ])('returns 400 for %s and does not call GitHub', async (_, body) => {
     await sendFeedback(body).expect(400);
 
