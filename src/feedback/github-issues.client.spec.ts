@@ -84,4 +84,12 @@ describe('GithubIssuesClient.createIssue', () => {
       GithubIssueError,
     );
   });
+
+  it('throws a GithubIssueError when the answer is not JSON', async () => {
+    fetchSpy.mockResolvedValue(new Response('<html>', { status: 201 }));
+
+    await expect(client.createIssue(access, issue)).rejects.toBeInstanceOf(
+      GithubIssueError,
+    );
+  });
 });

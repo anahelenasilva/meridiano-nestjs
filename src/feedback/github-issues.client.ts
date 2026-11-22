@@ -51,12 +51,12 @@ export class GithubIssuesClient {
       );
     }
 
-    const created = (await response.json()) as {
+    const created = (await response.json().catch(() => null)) as {
       number?: unknown;
       html_url?: unknown;
-    };
+    } | null;
     if (
-      typeof created.number !== 'number' ||
+      typeof created?.number !== 'number' ||
       typeof created.html_url !== 'string'
     ) {
       throw new GithubIssueError(
