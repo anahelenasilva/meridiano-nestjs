@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { before, describe, it } from 'node:test';
+import { after, before, describe, it } from 'node:test';
 import { claudeAgent } from './common';
 
 const printCommand = (agent: ReturnType<typeof claudeAgent>): string =>
@@ -9,8 +9,16 @@ const printCommand = (agent: ReturnType<typeof claudeAgent>): string =>
   }).command;
 
 describe('claudeAgent', () => {
+  const tokenBefore = process.env.CLAUDE_CODE_OAUTH_TOKEN;
+
   before(() => {
     process.env.CLAUDE_CODE_OAUTH_TOKEN ??= 'test-token';
+  });
+
+  // The other factory tests run in this process, so leave the env as found.
+  after(() => {
+    if (tokenBefore === undefined) delete process.env.CLAUDE_CODE_OAUTH_TOKEN;
+    else process.env.CLAUDE_CODE_OAUTH_TOKEN = tokenBefore;
   });
 
   it('skips permission checks when no mode is given, as the other workflows expect', () => {
