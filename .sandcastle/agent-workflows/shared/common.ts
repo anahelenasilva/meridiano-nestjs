@@ -30,12 +30,19 @@ export type ClaudeModel = 'claude-opus-5-5' | 'claude-sonnet-5-5';
 // instead, pass ANTHROPIC_API_KEY here and in the workflow's env in place of
 // CLAUDE_CODE_OAUTH_TOKEN.
 //
-// Sandcastle runs every agent with its permission checks skipped, so it can
-// use any tool. Claude Code also accepts `permissionMode: "auto"` here for
-// AI-mediated approvals instead (Claude only; other agents don't offer it).
-export const claudeAgent = (model: ClaudeModel) =>
+// With no `permissionMode`, Sandcastle runs the agent with its permission
+// checks skipped, so it can use any tool. Explore passes `dontAsk` instead:
+// Claude Code then denies every tool its settings.json does not allow, and
+// agent-explore.yml writes that allow list on its own runner (#409).
+export type ClaudePermissionMode = 'dontAsk';
+
+export const claudeAgent = (
+  model: ClaudeModel,
+  options: { permissionMode?: ClaudePermissionMode } = {},
+) =>
   sandcastle.claudeCode(model, {
     env: {
       CLAUDE_CODE_OAUTH_TOKEN: required('CLAUDE_CODE_OAUTH_TOKEN'),
     },
+    ...(options.permissionMode && { permissionMode: options.permissionMode }),
   });
