@@ -25,7 +25,7 @@
 
 `Read` can still open files outside the repo, such as `/proc/self/environ`. So a plan carrying `CLAUDE_CODE_OAUTH_TOKEN` is refused: GitHub drops any job output that contains a secret, the plan arrives at apply empty, and apply's "no plan" check fails the run. Apply never holds the secret itself.
 
-**Accepted.** `pnpm test` runs jest over code already on `main`, with the token in env. With no `Write` or `Edit`, the agent can't add code for jest to run, and flags after `pnpm test` only pick among files already on disk. If a run looks off, the owner rotates the token.
+**Accepted.** `pnpm test` runs jest over code already on `main`, with the token in env. With no `Write` or `Edit`, the agent can't write source for jest to run. Flags after `pnpm test` still reach jest, though, and some of them write: `--json --outputFile=<path>` writes jest's result JSON to any path the runner user can write, and `--coverageDirectory` writes coverage reports. The agent picks the path but not the content, which is jest's own report on tests already on `main`. `--config` and its friends only point at files already on disk. If a run looks off, the owner rotates the token. Narrowing the rule to the exact `Bash(pnpm test)` would close the flags, at the cost of the explorer running a single spec file.
 
 ### B. Data fence
 
