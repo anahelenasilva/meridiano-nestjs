@@ -76,6 +76,28 @@ describe('FeedbackService.submit', () => {
     expect(sentIssue().body).toContain(`\`\`\`\`text\n${message}\n\`\`\`\``);
   });
 
+  it('shows the page context above the message', async () => {
+    await service.submit('user-1', 'Hi', '/articles/123');
+
+    const body = sentIssue().body;
+    expect(body).toContain('Page: `/articles/123`');
+    expect(body.indexOf('Page:')).toBeLessThan(body.indexOf('```text'));
+  });
+
+  it('leaves out the Page line without a page context', async () => {
+    await service.submit('user-1', 'Hi');
+
+    expect(sentIssue().body).not.toContain('Page:');
+  });
+
+  it('fences the page context so its backticks cannot close the span', async () => {
+    await service.submit('user-1', 'Hi', '`/a` [x](http://evil) ``b');
+
+    expect(sentIssue().body).toContain(
+      'Page: ``` `/a` [x](http://evil) ``b ```',
+    );
+  });
+
   it('answers 503 without calling GitHub when the feedback config is unset', async () => {
     configService.getGithubFeedbackConfig.mockReturnValue(null);
 

@@ -434,6 +434,13 @@
           "message": {
             "maxLength": 5000,
             "type": "string"
+          },
+          "pageContext": {
+            "description": "Where the user was when they wrote the feedback, such as the route",
+            "example": "/articles/123",
+            "maxLength": 500,
+            "pattern": "^[^\\r\\n]*$",
+            "type": "string"
           }
         },
         "required": [

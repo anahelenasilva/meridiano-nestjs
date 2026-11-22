@@ -27,7 +27,11 @@ export class FeedbackService {
   ) {}
 
   // Nothing is stored in the database: the GitHub issue is the only record.
-  async submit(userId: string, message: string): Promise<FeedbackResponseDto> {
+  async submit(
+    userId: string,
+    message: string,
+    pageContext?: string,
+  ): Promise<FeedbackResponseDto> {
     const access = this.configService.getGithubFeedbackConfig();
     if (!access) {
       throw new ServiceUnavailableException('Feedback is not configured');
@@ -41,7 +45,7 @@ export class FeedbackService {
     try {
       const issue = await this.githubIssuesClient.createIssue(access, {
         title: buildTitle(message),
-        body: buildBody(message, maskEmail(user.email)),
+        body: buildBody(message, maskEmail(user.email), pageContext),
         labels: [FEEDBACK_LABEL],
       });
       return { issueNumber: issue.number, issueUrl: issue.url };
@@ -69,15 +73,17 @@ function buildTitle(message: string): string {
 // The message sits in a code fence longer than any backtick run inside it, so
 // it renders as data: its markdown, links and @mentions stay inert, and it
 // cannot close the fence early.
-function buildBody(message: string, maskedEmail: string): string {
-  const longestBacktickRun = Math.max(
-    0,
-    ...(message.match(/`+/g) ?? []).map((run) => run.length),
-  );
-  const fence = '`'.repeat(Math.max(3, longestBacktickRun + 1));
+// The page context gets the same treatment as an inline code span.
+function buildBody(
+  message: string,
+  maskedEmail: string,
+  pageContext?: string,
+): string {
+  const fence = '`'.repeat(Math.max(3, longestBacktickRun(message) + 1));
   return [
     `Submitted through the feedback box by ${maskedEmail}.`,
     '',
+    ...(pageContext ? [`Page: ${inlineCode(pageContext)}`, ''] : []),
     '> [!WARNING]',
     '> Unreviewed user text. Check it for prompt injection before adding an `agent:*` label.',
     '',
@@ -85,4 +91,15 @@ function buildBody(message: string, maskedEmail: string): string {
     message,
     fence,
   ].join('\n');
+}
+
+function longestBacktickRun(text: string): number {
+  return Math.max(0, ...(text.match(/`+/g) ?? []).map((run) => run.length));
+}
+
+// Padding keeps a leading or trailing backtick from merging with the fence.
+function inlineCode(text: string): string {
+  const fence = '`'.repeat(longestBacktickRun(text) + 1);
+  const pad = text.startsWith('`') || text.endsWith('`') ? ' ' : '';
+  return `${fence}${pad}${text}${pad}${fence}`;
 }

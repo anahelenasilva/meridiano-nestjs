@@ -47,6 +47,6 @@ export class FeedbackController {
     @CurrentUser() user: AuthenticatedUser,
     @Body() dto: CreateFeedbackDto,
   ): Promise<FeedbackResponseDto> {
-    return this.feedbackService.submit(user.id, dto.message);
+    return this.feedbackService.submit(user.id, dto.message, dto.pageContext);
   }
 }
