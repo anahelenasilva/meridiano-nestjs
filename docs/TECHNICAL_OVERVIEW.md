@@ -24,6 +24,7 @@ Meridiano is a NestJS-based intelligence briefing system that aggregates content
 
 ### External Services
 - **Email**: Mailgun
+- **Feedback issues**: GitHub REST API (`GITHUB_FEEDBACK_TOKEN`, `GITHUB_FEEDBACK_REPO`)
 - **Content Extraction**: Mozilla Readability, rss-parser
 - **YouTube**: youtube-transcript-plus, youtubei.js
 
@@ -47,6 +48,7 @@ Feature-specific business logic organized by domain:
 | `profiles/`               | Feed profile configuration                             |
 | `config/`                 | Application configuration                              |
 | `auth/`                   | Login, JWT and API key guards                          |
+| `feedback/`               | Files user feedback as a GitHub issue, stores nothing  |
 
 ### Infrastructure Libraries (`libs/`)
 Reusable cross-cutting concerns:
@@ -118,6 +120,7 @@ All endpoints prefixed with `/api/`. Authentication required globally except exp
 | `/api/youtube/channels`       | List, create, enable/disable                                                                                    |
 | `/api/bookmarks`              | Create, list, delete, check, count                                                                              |
 | `/api/ask`                    | Answer about one Article or YouTube Transcription, with `history` and `model`; `GET /api/ask/models` lists them |
+| `/api/feedback`               | Send feedback (5 an hour per user); opens a GitHub issue labelled `feedback` on `GITHUB_FEEDBACK_REPO`, 503 when it or `GITHUB_FEEDBACK_TOKEN` is unset |
 | `/feeds/articles.xml`         | Public RSS feed of Articles (no `/api` prefix, no auth) — see [Nextcloud News setup](./NEXTCLOUD_NEWS_SETUP.md) |
 
 ### Unified Audio Library: GET /api/audio

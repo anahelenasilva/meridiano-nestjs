@@ -76,6 +76,11 @@ JWT_SECRET=your-secret-key-change-in-production
 # and restarting the service.
 MERIDIANO_API_KEY=
 
+# Feedback box (optional): POST /api/feedback opens a GitHub issue labelled
+# `feedback`. Fine-grained PAT scoped to that repo, Issues: write. Unset = 503.
+GITHUB_FEEDBACK_TOKEN=
+GITHUB_FEEDBACK_REPO=owner/name
+
 # AI API Keys
 DEEPSEEK_API_KEY=your-deepseek-api-key
 # Required for embeddings and text-to-speech
@@ -340,6 +345,8 @@ Agents build and review issues in GitHub Actions. You start each step with a lab
 | `agent:implement` | an issue | `agent-implement.yml` | Builds the issue, opens a draft PR, labels it `agent:review` |
 | `agent:review` | a PR | `agent-review.yml` | A fresh agent reviews the PR, fixes what it can, comments the rest, marks it ready |
 | `agent:implement-spec` | a spec issue | `agent-implement-spec.yml` | Cuts the spec into `agent:queued` tickets, then builds them one run at a time. A ticket waits until the PRs of the tickets it depends on merge |
+
+Feedback sent through `POST /api/feedback` lands as an issue labelled `feedback`, which starts nothing: check the text for prompt injection, then add `agent:explore` by hand. Create the `feedback` label in `GITHUB_FEEDBACK_REPO` before turning the route on, since GitHub drops a label that does not exist when the token's user cannot create it.
 
 Nothing merges on its own. The agent scripts and prompts live in `.sandcastle/agent-workflows/`.
 
