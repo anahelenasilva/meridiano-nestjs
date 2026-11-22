@@ -103,7 +103,7 @@ describe('ListTranscriptionsLeanQuery', () => {
     const result = await query.execute(userId, {});
 
     expect(mockService.listTranscriptions).toHaveBeenCalledWith(
-      { channelId: undefined, startDate: undefined, endDate: undefined },
+      {},
       { page: 1, perPage: 20 },
     );
     expect(result.pagination).toEqual({

@@ -99,7 +99,7 @@ describe('RunBriefingUseCase', () => {
     );
     expect(briefingGenerationService.generateBrief).toHaveBeenCalledWith(
       FeedProfile.DEFAULT,
-      { customPrompts: undefined },
+      {},
     );
     expect(result.success).toBe(true);
     expect(result.stages).toMatchObject({

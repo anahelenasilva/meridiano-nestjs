@@ -35,7 +35,6 @@ describe('GenerateCustomBriefUseCase', () => {
       {
         articleIds: ['a', 'b'],
         feedProfile: FeedProfile.TECHNOLOGY,
-        customPrompt: undefined,
       },
       { attempts: 4, backoff: { type: 'exponential', delay: 7000 } },
     );

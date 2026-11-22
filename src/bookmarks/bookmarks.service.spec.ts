@@ -191,7 +191,6 @@ describe('BookmarksService', () => {
             processed_content: null,
             impact_rating: 7,
             image_url: null,
-            categories: undefined,
             custom_prompt: 'focus on X',
             created_at: new Date('2026-05-02T00:00:00.000Z'),
             archived_at: null,

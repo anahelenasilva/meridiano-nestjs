@@ -631,11 +631,7 @@ describe('ConfigService', () => {
       delete process.env.MAILGUN_DOMAIN;
       delete process.env.MAILGUN_URL;
 
-      expect(service.getMailgunConfig()).toEqual({
-        apiKey: undefined,
-        domain: undefined,
-        url: undefined,
-      });
+      expect(service.getMailgunConfig()).toEqual({});
     });
   });
 });

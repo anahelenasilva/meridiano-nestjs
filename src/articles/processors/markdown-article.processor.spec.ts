@@ -108,7 +108,6 @@ describe('MarkdownArticleProcessor', () => {
         content: markdownContent,
         feedProfile: FeedProfile.DEFAULT,
         source: { type: 'markdown' },
-        customPrompt: undefined,
       });
       expect(pipeline.processArticle).toHaveBeenCalledWith(article);
       expect(result).toEqual({

@@ -306,7 +306,7 @@ describe('BriefingGenerationService', () => {
       '# Custom Brief',
       ['article-1', 'article-2'],
       FeedProfile.DEFAULT,
-      { isCustom: true, customTitle: undefined },
+      { isCustom: true },
     );
   });
 
