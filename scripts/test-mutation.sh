@@ -4,7 +4,7 @@
 #   pnpm test:mutation <file>
 #
 # Reports land in reports/mutation/mutation.{html,json}. The command passes
-# --mutate itself so stryker.config.json carries no mutate list.
+# --mutate itself so stryker.config.mjs carries no mutate list.
 # MUTATION_DRY_RUN=1 prints the --mutate value and exits before Stryker starts,
 # so the command's tests check its arguments without a minutes-long run.
 set -euo pipefail
