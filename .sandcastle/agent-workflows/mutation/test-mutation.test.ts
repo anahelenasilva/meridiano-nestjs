@@ -284,6 +284,35 @@ describe('pnpm test:mutation with no file (changed lines)', () => {
     assert.equal(result.stdout.trim(), 'libs/b.ts:4-4');
   });
 
+  it('accepts --base=<ref> like --base <ref>', () => {
+    write('src/a.ts', replaceLines('a', { 1: 'export const a1 = 10;' }));
+    commit('parent branch edit');
+    git('branch', 'parent');
+    write('libs/b.ts', replaceLines('b', { 4: 'export const b4 = 40;' }));
+    commit('stacked edit');
+
+    const result = run(['--base=parent']);
+
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(result.stdout.trim(), 'libs/b.ts:4-4');
+  });
+
+  it('fails with usage when --base has no ref', () => {
+    const result = run(['--base']);
+
+    assert.equal(result.status, 2);
+    assert.match(result.stderr, /--base needs a git ref\. Usage:/);
+    assert.equal(result.stdout, '');
+  });
+
+  it('fails with usage on an unknown option', () => {
+    const result = run(['--nope']);
+
+    assert.equal(result.status, 2);
+    assert.match(result.stderr, /unknown option --nope\. Usage:/);
+    assert.equal(result.stdout, '');
+  });
+
   it('exits 1 naming --base when git cannot diff against the base', () => {
     const result = run(['--base', 'nope']);
 
