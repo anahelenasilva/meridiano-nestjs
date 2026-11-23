@@ -54,7 +54,6 @@ describe('EmailService', () => {
       expect(mailgunClient).toHaveBeenCalledWith({
         username: 'api',
         key: 'test-key',
-        url: undefined,
       });
     });
 

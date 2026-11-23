@@ -63,7 +63,7 @@ describe('FeedsController', () => {
     expect(result).toBe(xml);
     expect(mockGetArticlesFeedQuery.execute).toHaveBeenCalledWith(
       'https://api.example.com/feeds/articles.xml',
-      { limit: FEED_DEFAULT_ITEM_LIMIT, feedProfile: undefined },
+      { limit: FEED_DEFAULT_ITEM_LIMIT },
     );
   });
 
@@ -91,7 +91,7 @@ describe('FeedsController', () => {
 
     expect(mockGetArticlesFeedQuery.execute).toHaveBeenCalledWith(
       'https://api.example.com/feeds/articles.xml',
-      { limit: FEED_DEFAULT_ITEM_LIMIT, feedProfile: undefined },
+      { limit: FEED_DEFAULT_ITEM_LIMIT },
     );
   });
 
@@ -109,7 +109,7 @@ describe('FeedsController', () => {
 
     expect(mockGetArticlesFeedQuery.execute).toHaveBeenCalledWith(
       'http://localhost:3001/feeds/articles.xml?feedProfile=technology',
-      { limit: FEED_DEFAULT_ITEM_LIMIT, feedProfile: undefined },
+      { limit: FEED_DEFAULT_ITEM_LIMIT },
     );
   });
 
@@ -156,7 +156,7 @@ describe('FeedsController', () => {
     expect(result).toBe(xml);
     expect(mockGetYoutubeFeedQuery.execute).toHaveBeenCalledWith(
       'https://api.example.com/feeds/youtube.xml',
-      { limit: FEED_DEFAULT_ITEM_LIMIT, channelId: undefined },
+      { limit: FEED_DEFAULT_ITEM_LIMIT },
     );
   });
 
@@ -184,7 +184,7 @@ describe('FeedsController', () => {
 
     expect(mockGetYoutubeFeedQuery.execute).toHaveBeenCalledWith(
       'https://api.example.com/feeds/youtube.xml',
-      { limit: FEED_DEFAULT_ITEM_LIMIT, channelId: undefined },
+      { limit: FEED_DEFAULT_ITEM_LIMIT },
     );
   });
 

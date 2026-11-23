@@ -48,7 +48,7 @@ describe('GetArticlesFeedQuery', () => {
     await query.execute('https://api.example.com/feeds/articles.xml');
 
     expect(mockArticlesService.listArticles).toHaveBeenCalledWith(
-      { feedProfile: undefined },
+      {},
       {
         page: 1,
         perPage: FEED_DEFAULT_ITEM_LIMIT,

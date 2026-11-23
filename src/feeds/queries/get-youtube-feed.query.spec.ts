@@ -48,7 +48,6 @@ describe('GetYoutubeFeedQuery', () => {
       perPage: FEED_DEFAULT_ITEM_LIMIT,
       sort_by: 'processed_at',
       direction: 'desc',
-      channel_id: undefined,
     });
   });
 

@@ -146,7 +146,7 @@ describe('Feeds (e2e)', () => {
         .expect(200);
 
       expect(mockArticlesService.listArticles).toHaveBeenCalledWith(
-        { feedProfile: undefined },
+        {},
         expect.objectContaining({ perPage: 20 }),
       );
     });

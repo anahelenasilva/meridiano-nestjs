@@ -181,10 +181,7 @@ describe('ListArticlesLeanQuery', () => {
 
     expect(mockService.listArticles).toHaveBeenCalledWith(
       {
-        feedProfile: undefined,
         feedSource: 'Will Larson',
-        startDate: undefined,
-        endDate: undefined,
       },
       { page: 1, perPage: 20 },
     );

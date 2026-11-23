@@ -53,7 +53,6 @@ describe('S3Service', () => {
     it('uses us-east-1 and the default credential chain when no AWS variable is set', () => {
       expect(S3Client).toHaveBeenCalledWith({
         region: 'us-east-1',
-        credentials: undefined,
       });
     });
 

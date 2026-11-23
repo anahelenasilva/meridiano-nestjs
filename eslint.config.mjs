@@ -72,6 +72,14 @@ export default tseslint.config(
           message:
             'Write a named object type as `interface X extends A { ... }`. If it flows into a Record<...> parameter, keep the `type` (an interface has no implicit index signature) and add `// eslint-disable-next-line no-restricted-syntax -- flows into Record`.',
         },
+        // toEqual and toHaveBeenCalledWith treat `key: undefined` as a missing key, so in an exact object it asserts nothing.
+        // Inside expect.objectContaining it checks the key is present and undefined, so the selector skips that.
+        {
+          selector:
+            "CallExpression[callee.property.name=/^(toEqual|toHaveBeenCalledWith|toHaveBeenNthCalledWith|toHaveBeenLastCalledWith)$/] Property[value.type='Identifier'][value.name='undefined']:not(CallExpression[callee.property.name='objectContaining'] Property)",
+          message:
+            'In an exact toEqual / toHaveBeenCalledWith object, `key: undefined` matches a missing key and asserts nothing. Delete it; the exact object already fails if the key gets a value.',
+        },
       ],
     },
   },

@@ -100,7 +100,7 @@ describe('GenerateBriefUseCase', () => {
 
     expect(mockBriefingGenerationService.generateBrief).toHaveBeenCalledWith(
       FeedProfile.DEFAULT,
-      { customPrompts: undefined },
+      {},
     );
   });
 });
