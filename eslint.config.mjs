@@ -61,6 +61,18 @@ export default tseslint.config(
           ],
         },
       ],
+      // Issue #419: a named type built on object types uses `interface X extends A`.
+      // The selector flags a non-generic alias only when every part is a type reference or an object literal,
+      // so a brand, union, array, function or conditional part keeps the `type`.
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector:
+            'TSTypeAliasDeclaration:not([typeParameters]) > TSIntersectionType:not(:has(> :not(TSTypeReference, TSTypeLiteral, TSIntersectionType)))',
+          message:
+            'Write a named object type as `interface X extends A { ... }`. If it flows into a Record<...> parameter, keep the `type` (an interface has no implicit index signature) and add `// eslint-disable-next-line no-restricted-syntax -- flows into Record`.',
+        },
+      ],
     },
   },
   {
