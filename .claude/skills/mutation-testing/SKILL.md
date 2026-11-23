@@ -23,7 +23,7 @@ One line per mutant: file, line, status, mutator, replacement. The line count eq
 
 Every mutant gets exactly one of these outcomes.
 
-- **Survived: kill it with a test.** A survivor means a unit test runs the line but asserts nothing that the replacement changes. Add or tighten an assertion in the sibling spec (`foo.ts` → `foo.spec.ts`) that fails with the replacement in place and passes without it. Check that by applying the replacement by hand, running the spec, and reverting.
+- **Survived: kill it with a test.** A survivor means a unit test runs the line but asserts nothing that the replacement changes. Add or tighten an assertion in the sibling spec (`foo.ts` → `foo.spec.ts`) that fails with the replacement in place and passes without it. Check that by applying the replacement by hand, running the spec, and reverting the source file with `git checkout -- <file>` before you commit.
 - **NoCoverage: cover it with a unit test,** unless an e2e spec already exercises the line. Stryker runs the unit suite only, so a line only an e2e spec reaches, such as controller wiring or a guard, reports as NoCoverage. Find the route or caller that reaches the line, `grep` `test/*.e2e-spec.ts` for it, and when a spec makes that request, skip the mutant and name the spec and the request it makes. A Survived mutant is never skipped this way: a unit test already runs that line, so kill it there.
 - **Equivalent: skip it with one reason.** The replacement behaves the same as the original, for example a changed log or error-message string nobody asserts on, or `>=` where both sides can never be equal. Name the mutant and the reason in one line.
 
