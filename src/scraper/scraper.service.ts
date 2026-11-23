@@ -47,7 +47,12 @@ interface RSSEntry {
   podcastTranscripts?: RSSTranscript[];
 }
 
+const BROWSER_USER_AGENT =
+  'Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0';
+
 const rssParser = new Parser<Record<string, unknown>, RSSEntry>({
+  // Some publishers (TechCrunch since 2026-11-17) answer 403 to rss-parser's default User-Agent.
+  headers: { 'User-Agent': BROWSER_USER_AGENT },
   customFields: {
     item: [
       ['media:content', 'mediaContent'],
@@ -73,8 +78,7 @@ export class ScraperService {
 
     try {
       const headers = {
-        'User-Agent':
-          'Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0',
+        'User-Agent': BROWSER_USER_AGENT,
         Accept:
           'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.5',
