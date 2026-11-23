@@ -270,7 +270,13 @@ $ pnpm run test:cov
 
 # mutation testing of one file against the unit suite (StrykerJS)
 $ pnpm run test:mutation libs/database/type-parsers.ts
+
+# mutation testing of only the lines this branch changed in src/ and libs/
+$ pnpm run test:mutation
+$ pnpm run test:mutation --base my-parent-branch
 ```
+
+With no file, `test:mutation` diffs the working tree against its merge base with `origin/main` (or `--base <ref>`), so uncommitted edits and untracked files count. Specs, `*.module.ts`, `src/main.ts`, mocks, migrations and `src/scripts/` are skipped. With nothing left to mutate it prints a line and exits 0 without starting Stryker. Surviving mutants do not fail the command.
 
 `test:mutation` writes `reports/mutation/mutation.html` and `reports/mutation/mutation.json`, both git-ignored. Stryker's settings live in `stryker.config.mjs`.
 

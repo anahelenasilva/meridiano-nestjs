@@ -177,6 +177,7 @@ Environment-based via `ConfigService`. Key configs:
 - `pnpm run test` - Unit tests
 - `pnpm run test:e2e` - E2E tests
 - `pnpm run test:mutation <file>` - Mutation-test one file with StrykerJS (reports in `reports/mutation/`)
+- `pnpm run test:mutation [--base <ref>]` - Mutation-test only the lines the branch changed in `src/` and `libs/` (default base `origin/main`)
 - `pnpm run docker:up` - Start PostgreSQL and Redis
 - `pnpm run migration:run` - Run database migrations
 - `pnpm run briefing:tech` - Generate tech briefing
