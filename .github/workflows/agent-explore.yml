@@ -397,3 +397,28 @@ jobs:
           for n in $(jq -r '.[]' <<< "$BATCH"); do
             gh issue edit "$n" --remove-label "agent:exploring" || true
           done
+
+      - name: Post to the factory board
+        # One line on Vercel Board's meridiano/factory channel, labelled
+        # needs=ana when the run failed or a ticket stopped at needs-a-human.
+        # See README, Software factory. The labels come from GitHub, not from
+        # the plan. Board is experimental, so it never turns a run red.
+        if: always()
+        continue-on-error: true
+        working-directory: ${{ runner.temp }}
+        env:
+          BOARD_TOKEN: ${{ secrets.BOARD_TOKEN }}
+          STATUS: ${{ (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')) && 'failure' || 'success' }}
+        run: |
+          batch="$(jq -r 'map("#\(.)") | join(" ")' <<< "$BATCH")"
+          human=""
+          for n in $(jq -r '.[]' <<< "$BATCH"); do
+            gh issue view "$n" --json labels --jq '.labels[].name' \
+              | grep -qx "needs-a-human" && human="$human #$n"
+          done
+          needs=()
+          { [ "$STATUS" != "success" ] || [ -n "$human" ]; } && needs=(--label needs=ana)
+          npx --yes vercel@66.6.0 board post meridiano/factory \
+            "explore ${batch}: ${STATUS}.${human:+ Needs a human:${human}.} ${RUN_URL}" \
+            --as factory-explore --label "status=${STATUS}" "${needs[@]}" \
+            --idempotency-key "${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-explore"

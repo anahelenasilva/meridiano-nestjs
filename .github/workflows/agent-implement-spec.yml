@@ -738,6 +738,27 @@ jobs:
               --body "The chain could not finish this one (**${{ job.status }}**) - [logs](${RUN_URL}). Left open and labelled for a person. The queue will skip past it. Take \`agent:blocked\` off to put it back in the queue. <!-- factory:status -->"
           fi
 
+      - name: Post to the factory board
+        # One line on Vercel Board's meridiano/factory channel, labelled
+        # needs=ana when the ticket is parked for a person. See README,
+        # Software factory. It runs from the runner's temp dir, so nothing in
+        # the checkout reaches the install that holds BOARD_TOKEN. Board is
+        # experimental, so it never turns a run red.
+        if: always()
+        continue-on-error: true
+        working-directory: ${{ runner.temp }}
+        env:
+          BOARD_TOKEN: ${{ secrets.BOARD_TOKEN }}
+          JOB_STATUS: ${{ job.status }}
+          PR_URL: ${{ steps.ship.outputs.url }}
+        run: |
+          needs=()
+          [ "$JOB_STATUS" = "success" ] || needs=(--label needs=ana)
+          npx --yes vercel@66.6.0 board post meridiano/factory \
+            "implement-spec #${SPEC}, ticket #${TICKET}: ${JOB_STATUS}. ${PR_URL:-$RUN_URL}" \
+            --as factory-implement-spec --label "spec=${SPEC}" --label "issue=${TICKET}" --label "status=${JOB_STATUS}" "${needs[@]}" \
+            --idempotency-key "${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-implement-spec"
+
   # ── THE CHAIN ─────────────────────────────────────────────────────────────
   #
   # This is the loop. Four lines of `gh` at the end of a run, starting the same
