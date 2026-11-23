@@ -19,6 +19,11 @@ Read docs/CODING_STANDARDS.md and docs/agents/domain.md.
   `pnpm lint`, `pnpm lint:boundaries`, `pnpm lint:layout`, `pnpm test`,
   `pnpm build`, `pnpm test:e2e`. The job's Postgres and Redis are already up
   and migrated.
+- Then run `pnpm test:mutation` and follow the mutation-testing skill
+  (.claude/skills/mutation-testing/SKILL.md) on its Survived and NoCoverage
+  mutants: kill survivors with tests, never by changing src/ or libs/ code.
+  The score informs you; it does not gate the ticket. List the score per
+  file, before and after, in the Evidence section.
 - When the API's shape changes, run `pnpm generate:openapi` and commit
   openapi.json.
 - Commit with `git commit` on the current branch. When the pre-commit hook

@@ -1,0 +1,560 @@
+{
+  "schemaVersion": "1.0",
+  "thresholds": {
+    "high": 80,
+    "low": 60,
+    "break": null
+  },
+  "files": {
+    "libs/database/type-parsers.ts": {
+      "language": "typescript",
+      "source": "import { CustomTypesConfig, types } from 'pg';\n\ntype TypeParser<I, T> = (value: I) => T;\n\nconst timestampOid: number = types.builtins.TIMESTAMP;\nconst wallTime = /^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}(\\.\\d+)?$/;\nconst parseTimestamp = types.getTypeParser(timestampOid, 'text');\n\n// 'infinity', '-infinity' and BC dates keep node-pg's parsing.\nconst parseTimestampAsUtc = (value: string) =>\n  wallTime.test(value)\n    ? new Date(`${value.replace(' ', 'T')}Z`)\n    : parseTimestamp(value);\n\nfunction getTypeParser<T>(\n  oid: number,\n  format?: 'text',\n): TypeParser<string, T | string>;\nfunction getTypeParser<T>(\n  oid: number,\n  format: 'binary',\n): TypeParser<Buffer, T | string>;\nfunction getTypeParser(oid: number, format: 'text' | 'binary' = 'text') {\n  if (format === 'binary') return types.getTypeParser(oid, 'binary');\n  if (oid === timestampOid) return parseTimestampAsUtc;\n  return types.getTypeParser(oid, 'text');\n}\n\n/**\n * Type parsers for both `pg` pools, `DatabaseService`'s and TypeORM's. TIMESTAMP\n * columns store UTC wall time, from `toISOString()` or from `CURRENT_TIMESTAMP`\n * in a UTC session, so TIMESTAMP reads as UTC, not in the process's time zone.\n */\nexport const typeParsers: CustomTypesConfig = { getTypeParser };\n",
+      "mutants": [
+        {
+          "id": "22",
+          "mutatorName": "StringLiteral",
+          "replacement": "\"\"",
+          "status": "NoCoverage",
+          "location": {
+            "end": {
+              "column": 71,
+              "line": 23
+            },
+            "start": {
+              "column": 65,
+              "line": 23
+            }
+          }
+        },
+        {
+          "id": "28",
+          "mutatorName": "StringLiteral",
+          "replacement": "\"\"",
+          "status": "NoCoverage",
+          "location": {
+            "end": {
+              "column": 68,
+              "line": 24
+            },
+            "start": {
+              "column": 60,
+              "line": 24
+            }
+          }
+        },
+        {
+          "id": "0",
+          "mutatorName": "Regex",
+          "replacement": "/\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}(\\.\\d+)?$/",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 65,
+              "line": 6
+            },
+            "start": {
+              "column": 18,
+              "line": 6
+            }
+          }
+        },
+        {
+          "id": "1",
+          "mutatorName": "Regex",
+          "replacement": "/^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}(\\.\\d+)?/",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 65,
+              "line": 6
+            },
+            "start": {
+              "column": 18,
+              "line": 6
+            }
+          }
+        },
+        {
+          "id": "2",
+          "mutatorName": "Regex",
+          "replacement": "/^\\d-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}(\\.\\d+)?$/",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 65,
+              "line": 6
+            },
+            "start": {
+              "column": 18,
+              "line": 6
+            }
+          }
+        },
+        {
+          "id": "3",
+          "mutatorName": "Regex",
+          "replacement": "/^\\D{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}(\\.\\d+)?$/",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 65,
+              "line": 6
+            },
+            "start": {
+              "column": 18,
+              "line": 6
+            }
+          }
+        },
+        {
+          "id": "4",
+          "mutatorName": "Regex",
+          "replacement": "/^\\d{4}-\\d-\\d{2} \\d{2}:\\d{2}:\\d{2}(\\.\\d+)?$/",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 65,
+              "line": 6
+            },
+            "start": {
+              "column": 18,
+              "line": 6
+            }
+          }
+        },
+        {
+          "id": "5",
+          "mutatorName": "Regex",
+          "replacement": "/^\\d{4}-\\D{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}(\\.\\d+)?$/",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 65,
+              "line": 6
+            },
+            "start": {
+              "column": 18,
+              "line": 6
+            }
+          }
+        },
+        {
+          "id": "6",
+          "mutatorName": "Regex",
+          "replacement": "/^\\d{4}-\\d{2}-\\d \\d{2}:\\d{2}:\\d{2}(\\.\\d+)?$/",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 65,
+              "line": 6
+            },
+            "start": {
+              "column": 18,
+              "line": 6
+            }
+          }
+        },
+        {
+          "id": "7",
+          "mutatorName": "Regex",
+          "replacement": "/^\\d{4}-\\d{2}-\\D{2} \\d{2}:\\d{2}:\\d{2}(\\.\\d+)?$/",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 65,
+              "line": 6
+            },
+            "start": {
+              "column": 18,
+              "line": 6
+            }
+          }
+        },
+        {
+          "id": "8",
+          "mutatorName": "Regex",
+          "replacement": "/^\\d{4}-\\d{2}-\\d{2} \\d:\\d{2}:\\d{2}(\\.\\d+)?$/",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 65,
+              "line": 6
+            },
+            "start": {
+              "column": 18,
+              "line": 6
+            }
+          }
+        },
+        {
+          "id": "9",
+          "mutatorName": "Regex",
+          "replacement": "/^\\d{4}-\\d{2}-\\d{2} \\D{2}:\\d{2}:\\d{2}(\\.\\d+)?$/",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 65,
+              "line": 6
+            },
+            "start": {
+              "column": 18,
+              "line": 6
+            }
+          }
+        },
+        {
+          "id": "10",
+          "mutatorName": "Regex",
+          "replacement": "/^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d:\\d{2}(\\.\\d+)?$/",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 65,
+              "line": 6
+            },
+            "start": {
+              "column": 18,
+              "line": 6
+            }
+          }
+        },
+        {
+          "id": "11",
+          "mutatorName": "Regex",
+          "replacement": "/^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\D{2}:\\d{2}(\\.\\d+)?$/",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 65,
+              "line": 6
+            },
+            "start": {
+              "column": 18,
+              "line": 6
+            }
+          }
+        },
+        {
+          "id": "12",
+          "mutatorName": "Regex",
+          "replacement": "/^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d(\\.\\d+)?$/",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 65,
+              "line": 6
+            },
+            "start": {
+              "column": 18,
+              "line": 6
+            }
+          }
+        },
+        {
+          "id": "13",
+          "mutatorName": "Regex",
+          "replacement": "/^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\D{2}(\\.\\d+)?$/",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 65,
+              "line": 6
+            },
+            "start": {
+              "column": 18,
+              "line": 6
+            }
+          }
+        },
+        {
+          "id": "14",
+          "mutatorName": "Regex",
+          "replacement": "/^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}(\\.\\d+)$/",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 65,
+              "line": 6
+            },
+            "start": {
+              "column": 18,
+              "line": 6
+            }
+          }
+        },
+        {
+          "id": "15",
+          "mutatorName": "Regex",
+          "replacement": "/^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}(\\.\\d)?$/",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 65,
+              "line": 6
+            },
+            "start": {
+              "column": 18,
+              "line": 6
+            }
+          }
+        },
+        {
+          "id": "16",
+          "mutatorName": "Regex",
+          "replacement": "/^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}(\\.\\D+)?$/",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 65,
+              "line": 6
+            },
+            "start": {
+              "column": 18,
+              "line": 6
+            }
+          }
+        },
+        {
+          "id": "17",
+          "mutatorName": "StringLiteral",
+          "replacement": "\"\"",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 64,
+              "line": 7
+            },
+            "start": {
+              "column": 58,
+              "line": 7
+            }
+          }
+        },
+        {
+          "id": "18",
+          "mutatorName": "ArrowFunction",
+          "replacement": "() => undefined",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 28,
+              "line": 13
+            },
+            "start": {
+              "column": 29,
+              "line": 10
+            }
+          }
+        },
+        {
+          "id": "33",
+          "mutatorName": "ObjectLiteral",
+          "replacement": "{}",
+          "status": "Ignored",
+          "location": {
+            "end": {
+              "column": 64,
+              "line": 34
+            },
+            "start": {
+              "column": 47,
+              "line": 34
+            }
+          }
+        },
+        {
+          "id": "20",
+          "mutatorName": "StringLiteral",
+          "replacement": "\"\"",
+          "status": "Killed",
+          "location": {
+            "end": {
+              "column": 36,
+              "line": 12
+            },
+            "start": {
+              "column": 33,
+              "line": 12
+            }
+          }
+        },
+        {
+          "id": "21",
+          "mutatorName": "StringLiteral",
+          "replacement": "\"\"",
+          "status": "Killed",
+          "location": {
+            "end": {
+              "column": 41,
+              "line": 12
+            },
+            "start": {
+              "column": 38,
+              "line": 12
+            }
+          }
+        },
+        {
+          "id": "19",
+          "mutatorName": "StringLiteral",
+          "replacement": "``",
+          "status": "Killed",
+          "location": {
+            "end": {
+              "column": 45,
+              "line": 12
+            },
+            "start": {
+              "column": 16,
+              "line": 12
+            }
+          }
+        },
+        {
+          "id": "32",
+          "mutatorName": "StringLiteral",
+          "replacement": "\"\"",
+          "status": "Survived",
+          "location": {
+            "end": {
+              "column": 41,
+              "line": 26
+            },
+            "start": {
+              "column": 35,
+              "line": 26
+            }
+          }
+        },
+        {
+          "id": "24",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "true",
+          "status": "Killed",
+          "location": {
+            "end": {
+              "column": 26,
+              "line": 24
+            },
+            "start": {
+              "column": 7,
+              "line": 24
+            }
+          }
+        },
+        {
+          "id": "23",
+          "mutatorName": "BlockStatement",
+          "replacement": "{}",
+          "status": "Killed",
+          "location": {
+            "end": {
+              "column": 2,
+              "line": 27
+            },
+            "start": {
+              "column": 73,
+              "line": 23
+            }
+          }
+        },
+        {
+          "id": "25",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "status": "Survived",
+          "location": {
+            "end": {
+              "column": 26,
+              "line": 24
+            },
+            "start": {
+              "column": 7,
+              "line": 24
+            }
+          }
+        },
+        {
+          "id": "26",
+          "mutatorName": "EqualityOperator",
+          "replacement": "format !== 'binary'",
+          "status": "Killed",
+          "location": {
+            "end": {
+              "column": 26,
+              "line": 24
+            },
+            "start": {
+              "column": 7,
+              "line": 24
+            }
+          }
+        },
+        {
+          "id": "27",
+          "mutatorName": "StringLiteral",
+          "replacement": "\"\"",
+          "status": "Survived",
+          "location": {
+            "end": {
+              "column": 26,
+              "line": 24
+            },
+            "start": {
+              "column": 18,
+              "line": 24
+            }
+          }
+        },
+        {
+          "id": "29",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "true",
+          "status": "Survived",
+          "location": {
+            "end": {
+              "column": 27,
+              "line": 25
+            },
+            "start": {
+              "column": 7,
+              "line": 25
+            }
+          }
+        },
+        {
+          "id": "30",
+          "mutatorName": "ConditionalExpression",
+          "replacement": "false",
+          "status": "Survived",
+          "location": {
+            "end": {
+              "column": 27,
+              "line": 25
+            },
+            "start": {
+              "column": 7,
+              "line": 25
+            }
+          }
+        },
+        {
+          "id": "31",
+          "mutatorName": "EqualityOperator",
+          "replacement": "oid !== timestampOid",
+          "status": "Survived",
+          "location": {
+            "end": {
+              "column": 27,
+              "line": 25
+            },
+            "start": {
+              "column": 7,
+              "line": 25
+            }
+          }
+        }
+      ]
+    }
+  }
+}
