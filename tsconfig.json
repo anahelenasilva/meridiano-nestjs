@@ -35,6 +35,8 @@
     "node_modules",
     "dist",
     "infrastructure",
-    ".sandcastle"
+    ".sandcastle",
+    "reports",
+    ".stryker-tmp"
   ]
 }

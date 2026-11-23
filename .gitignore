@@ -91,3 +91,7 @@ _bmad-output/
 
 # Transcript JSON written by the youtube ingest worker at runtime.
 transcripts/
+
+# StrykerJS: `pnpm test:mutation` reports and its sandbox copy of the repo.
+/reports/
+/.stryker-tmp/

@@ -267,7 +267,12 @@ $ pnpm run test:e2e
 
 # test coverage
 $ pnpm run test:cov
+
+# mutation testing of one file against the unit suite (StrykerJS)
+$ pnpm run test:mutation libs/database/type-parsers.ts
 ```
+
+`test:mutation` writes `reports/mutation/mutation.html` and `reports/mutation/mutation.json`, both git-ignored. Stryker's settings live in `stryker.config.mjs`.
 
 ## How to run Redis
 
