@@ -1,4 +1,5 @@
 import axios from 'axios';
+import https from 'https';
 import { mock } from 'jest-mock-extended';
 import Parser from 'rss-parser';
 import { ArticleIngestionService } from '../articles/ingestion/article-ingestion.service';
@@ -120,6 +121,7 @@ describe('ScraperService.scrapeFeedProfile', () => {
   const ingestion = mock<ArticleIngestionService>();
   const profiles = mock<ProfilesService>();
   const config = mock<ConfigService>();
+  const realParseURL = Parser.prototype.parseURL;
   const parseURL = jest.spyOn(Parser.prototype, 'parseURL');
   let service: ScraperService;
 
@@ -362,6 +364,32 @@ describe('ScraperService.scrapeFeedProfile', () => {
       rss: { newArticles: 0, errors: 1 },
       sitemap: { newArticles: 1, errors: 0 },
     });
+  });
+
+  it('requests RSS feeds with a browser User-Agent', async () => {
+    givenSources([rssFeed], []);
+    parseURL.mockImplementationOnce(function (this: Parser, feedUrl: string) {
+      return realParseURL.call(this, feedUrl) as ReturnType<Parser['parseURL']>;
+    });
+    const get = jest.spyOn(https, 'get').mockImplementation(((
+      _options: unknown,
+      onResponse: (res: { statusCode: number; headers: object }) => void,
+    ) => {
+      onResponse({ statusCode: 403, headers: {} });
+      return { on: jest.fn() };
+    }) as unknown as typeof https.get);
+
+    await service.scrapeFeedProfile(FeedProfile.TECHNOLOGY);
+
+    expect(get).toHaveBeenCalledWith(
+      expect.objectContaining({
+        headers: expect.objectContaining({
+          'User-Agent': expect.stringMatching(/^Mozilla\/5\.0/),
+        }),
+      }),
+      expect.any(Function),
+    );
+    get.mockRestore();
   });
 
   it('ingests sitemap entries newest-first, capped at maxArticlesForScrapping', async () => {
