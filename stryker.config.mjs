@@ -17,13 +17,19 @@ export default {
   // on top of the dry run's overhead turned killable mutants into timeouts.
   timeoutMS: 60000,
   reporters: ['clear-text', 'progress', 'html', 'json'],
+  // Anchored to the repo root so a same-named folder under src/ or libs/ still
+  // reaches the sandbox. Stryker already skips node_modules, .git and its own
+  // temp dir.
   ignorePatterns: [
-    'dist',
-    'coverage',
-    'reports',
-    'infrastructure',
-    'transcripts',
-    '.claude/worktrees',
-    '.pnpm-store',
+    '/dist',
+    '/build',
+    '/coverage',
+    '/.nyc_output',
+    '/reports',
+    '/infrastructure',
+    '/transcripts',
+    '/.claude/worktrees',
+    '/.sandcastle/worktrees',
+    '/.pnpm-store',
   ],
 };
