@@ -278,7 +278,7 @@ $ pnpm run test:mutation --base my-parent-branch
 
 With no file, `test:mutation` diffs the working tree against its merge base with `origin/main` (or `--base <ref>`), so uncommitted edits and untracked files count. Files Stryker gains nothing from, such as specs and migrations, are skipped; `is_mutable` in `scripts/test-mutation.sh` holds the list. With nothing left to mutate it prints a line and exits 0 without starting Stryker. Surviving mutants do not fail the command.
 
-`test:mutation` writes `reports/mutation/mutation.html` and `reports/mutation/mutation.json`, both git-ignored. Stryker's settings live in `stryker.config.mjs`.
+`test:mutation` writes `reports/mutation/mutation.html` and `reports/mutation/mutation.json`, both git-ignored. Stryker's settings live in `stryker.config.mjs`. Factory implementers run it after the PR checks and follow `.claude/skills/mutation-testing/SKILL.md` to kill its survivors with tests.
 
 ## How to run Redis
 
