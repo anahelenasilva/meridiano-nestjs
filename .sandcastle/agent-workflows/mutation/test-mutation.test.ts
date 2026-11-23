@@ -2,8 +2,7 @@ import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { describe, it } from 'node:test';
 
-// MUTATION_DRY_RUN stops scripts/test-mutation.sh before Stryker starts, so
-// these check the command's arguments without a minutes-long mutation run.
+// MUTATION_DRY_RUN: see scripts/test-mutation.sh.
 // --silent drops pnpm's script banner, which echoes the arguments too.
 const runTestMutation = (args: string[]) =>
   spawnSync('pnpm', ['--silent', 'test:mutation', ...args], {
@@ -22,6 +21,17 @@ describe('pnpm test:mutation', () => {
     const result = runTestMutation([]);
     assert.equal(result.status, 2);
     assert.match(result.stderr, /Usage: pnpm test:mutation <file>/);
+    assert.equal(result.stdout, '');
+  });
+
+  it('fails with usage when more than one file is given', () => {
+    const result = runTestMutation([
+      'libs/database/type-parsers.ts',
+      'libs/database/index.ts',
+    ]);
+    assert.equal(result.status, 2);
+    assert.match(result.stderr, /expected one file, got 2/);
+    assert.equal(result.stdout, '');
   });
 
   it('fails when the file does not exist', () => {
