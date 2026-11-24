@@ -12,7 +12,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { afterEach, beforeEach, describe, it } from 'node:test';
 
-const repoRoot = resolve(import.meta.dirname, '../../..');
+const repoRoot = resolve(__dirname, '..');
 
 // A git hook exports GIT_DIR and GIT_INDEX_FILE, which would point the
 // throwaway repo's git calls at this checkout.
@@ -96,8 +96,6 @@ describe('pnpm test:mutation with no file (changed lines)', () => {
       .join('\n');
   const run = (args: string[] = []) => runTestMutation(args, repo);
 
-  // origin/main points at a commit holding src/a.ts and libs/b.ts, and the
-  // feature branch starts there.
   beforeEach(() => {
     repo = mkdtempSync(join(tmpdir(), 'test-mutation-'));
     mkdirSync(join(repo, 'scripts'));

@@ -1,5 +1,28 @@
 // Run through `pnpm test:mutation <file>`, which passes --mutate, so no
 // mutate list lives here.
+import { execFileSync } from 'node:child_process';
+
+// Stryker matches ignorePatterns with minimatch, not git's rules: `transcripts/`
+// would only match at the root and `logs` at any depth. Asking git for the
+// paths it ignores, each anchored with `/`, skips exactly what git skips.
+const gitignored = execFileSync(
+  'git',
+  [
+    'ls-files',
+    '--others',
+    '--ignored',
+    '--exclude-standard',
+    '--directory',
+    '-z',
+  ],
+  { cwd: new URL('.', import.meta.url), encoding: 'utf8' },
+)
+  .split('\0')
+  .filter((path) => path !== '')
+  .map((path) => `/${path}`);
+const trackedWithoutUnitTests = ['/infrastructure'];
+const untrackedAgentWorktrees = ['/.sandcastle/worktrees'];
+
 export default {
   testRunner: 'jest',
   // pnpm keeps the runner out of core's node_modules, where Stryker's default
@@ -12,24 +35,11 @@ export default {
   // NestJS decorator arguments run at module load, and Stryker reruns every
   // test for each such static mutant.
   ignoreStatic: true,
-  // Each mutant run loads every spec related to the file (about 16 s for
-  // libs/database), and parallel runners slow that further. The default 5 s
-  // on top of the dry run's overhead turned killable mutants into timeouts.
   timeoutMS: 60000,
   reporters: ['clear-text', 'progress', 'html', 'json'],
-  // Anchored to the repo root so a same-named folder under src/ or libs/ still
-  // reaches the sandbox. Stryker already skips node_modules, .git and its own
-  // temp dir.
   ignorePatterns: [
-    '/dist',
-    '/build',
-    '/coverage',
-    '/.nyc_output',
-    '/reports',
-    '/infrastructure',
-    '/transcripts',
-    '/.claude/worktrees',
-    '/.sandcastle/worktrees',
-    '/.pnpm-store',
+    ...gitignored,
+    ...trackedWithoutUnitTests,
+    ...untrackedAgentWorktrees,
   ],
 };
