@@ -96,8 +96,6 @@ describe('pnpm test:mutation with no file (changed lines)', () => {
       .join('\n');
   const run = (args: string[] = []) => runTestMutation(args, repo);
 
-  // origin/main points at a commit holding src/a.ts and libs/b.ts, and the
-  // feature branch starts there.
   beforeEach(() => {
     repo = mkdtempSync(join(tmpdir(), 'test-mutation-'));
     mkdirSync(join(repo, 'scripts'));
