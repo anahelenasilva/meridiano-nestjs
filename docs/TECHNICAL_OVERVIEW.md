@@ -173,7 +173,7 @@ Environment-based via `ConfigService`. Key configs:
 
 ## Development Commands
 
-The `scripts` in [package.json](../package.json) are the list.
+The `scripts` in [package.json](../package.json) are the list. The [README](../README.md#run-tests) shows how to run the app, the tests and `test:mutation`.
 
 ## Deployment
 
