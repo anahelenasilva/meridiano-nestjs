@@ -1,5 +1,11 @@
 // Run through `pnpm test:mutation <file>`, which passes --mutate, so no
 // mutate list lives here.
+import { readFileSync } from 'node:fs';
+
+const gitignored = readFileSync(new URL('.gitignore', import.meta.url), 'utf8')
+  .split('\n')
+  .filter((line) => line.trim() !== '' && !line.startsWith('#'));
+
 export default {
   testRunner: 'jest',
   // pnpm keeps the runner out of core's node_modules, where Stryker's default
@@ -17,19 +23,7 @@ export default {
   // on top of the dry run's overhead turned killable mutants into timeouts.
   timeoutMS: 60000,
   reporters: ['clear-text', 'progress', 'html', 'json'],
-  // Anchored to the repo root so a same-named folder under src/ or libs/ still
-  // reaches the sandbox. Stryker already skips node_modules, .git and its own
-  // temp dir.
-  ignorePatterns: [
-    '/dist',
-    '/build',
-    '/coverage',
-    '/.nyc_output',
-    '/reports',
-    '/infrastructure',
-    '/transcripts',
-    '/.claude/worktrees',
-    '/.sandcastle/worktrees',
-    '/.pnpm-store',
-  ],
+  // Stryker matches these the way git matches .gitignore, so the sandbox skips
+  // everything git ignores, plus tracked folders no unit test reads.
+  ignorePatterns: [...gitignored, '/infrastructure', '/.sandcastle/worktrees'],
 };
