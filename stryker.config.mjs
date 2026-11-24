@@ -20,6 +20,8 @@ const gitignored = execFileSync(
   .split('\0')
   .filter((path) => path !== '')
   .map((path) => `/${path}`);
+const trackedWithoutUnitTests = ['/infrastructure'];
+const untrackedAgentWorktrees = ['/.sandcastle/worktrees'];
 
 export default {
   testRunner: 'jest',
@@ -38,7 +40,9 @@ export default {
   // on top of the dry run's overhead turned killable mutants into timeouts.
   timeoutMS: 60000,
   reporters: ['clear-text', 'progress', 'html', 'json'],
-  // On top of what git ignores: infrastructure is tracked but no unit test
-  // reads it, and agent worktrees may sit untracked under .sandcastle.
-  ignorePatterns: [...gitignored, '/infrastructure', '/.sandcastle/worktrees'],
+  ignorePatterns: [
+    ...gitignored,
+    ...trackedWithoutUnitTests,
+    ...untrackedAgentWorktrees,
+  ],
 };
