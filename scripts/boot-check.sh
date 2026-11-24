@@ -12,7 +12,9 @@ dir="$(cd "${1:-.}" && pwd)" || exit 1
 timeout="${BOOT_TIMEOUT:-120}"
 ready='Meridiano API server running'
 
-if [ ! -e "$dir/.env" ]; then
+# CI exports its settings instead of writing a .env; loadEnv lets exported
+# variables win, so DATABASE_HOST in the environment stands in for the file.
+if [ ! -e "$dir/.env" ] && [ -z "${DATABASE_HOST:-}" ]; then
   echo "boot-check: no .env in $dir. In a worktree: ln -s <main checkout>/.env $dir/.env" >&2
   exit 1
 fi
