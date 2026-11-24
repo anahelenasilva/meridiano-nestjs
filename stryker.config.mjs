@@ -1,10 +1,25 @@
 // Run through `pnpm test:mutation <file>`, which passes --mutate, so no
 // mutate list lives here.
-import { readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 
-const gitignored = readFileSync(new URL('.gitignore', import.meta.url), 'utf8')
-  .split('\n')
-  .filter((line) => line.trim() !== '' && !line.startsWith('#'));
+// Stryker matches ignorePatterns with minimatch, not git's rules: `transcripts/`
+// would only match at the root and `logs` at any depth. Asking git for the
+// paths it ignores, each anchored with `/`, skips exactly what git skips.
+const gitignored = execFileSync(
+  'git',
+  [
+    'ls-files',
+    '--others',
+    '--ignored',
+    '--exclude-standard',
+    '--directory',
+    '-z',
+  ],
+  { cwd: new URL('.', import.meta.url), encoding: 'utf8' },
+)
+  .split('\0')
+  .filter((path) => path !== '')
+  .map((path) => `/${path}`);
 
 export default {
   testRunner: 'jest',
@@ -23,7 +38,7 @@ export default {
   // on top of the dry run's overhead turned killable mutants into timeouts.
   timeoutMS: 60000,
   reporters: ['clear-text', 'progress', 'html', 'json'],
-  // Stryker matches these the way git matches .gitignore, so the sandbox skips
-  // everything git ignores, plus tracked folders no unit test reads.
+  // On top of what git ignores: infrastructure is tracked but no unit test
+  // reads it, and agent worktrees may sit untracked under .sandcastle.
   ignorePatterns: [...gitignored, '/infrastructure', '/.sandcastle/worktrees'],
 };
