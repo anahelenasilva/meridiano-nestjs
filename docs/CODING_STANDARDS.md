@@ -25,6 +25,8 @@ The judgement rules no tool can check. The mechanical rules run in PR checks: `p
 ## Comments
 Comment **why**, not **what**: the code already says what it does. Skip comments that restate code (`// increment counter`) or a doc block that echoes the type or signature. Keep only non-obvious context: rationale, constraints, tradeoffs, warnings, issue links. Prefer a better name over a comment. If deleting a comment loses no info, delete it.
 
+A comment that says how a tool or library behaves links the source that shows it: the docs page, or the file under `node_modules`.
+
 Bad:
 ```typescript
 /** Error types for audio generation jobs */
@@ -37,6 +39,9 @@ if (!text || text.trim().length === 0) { ... }
 ## Documentation
 - A change to a pattern or the architecture updates the doc that describes it.
 - A change to a lib updates [docs/LIBRARIES.md](./LIBRARIES.md).
+
+## Single Source of Truth
+- A config, script or doc that needs a list another file owns (ignore patterns, tsconfig paths, script names, folder sets) reads it from that file at run time or links to it.
 
 ## Module Layout
 - Modules are domain contexts (Articles, Audio, Users), never a central aggregator like `UsecasesModule`. What goes in `libs/` instead of `src/` is in [libs/README.md](../libs/README.md#what-belongs-in-libs-vs-src).
