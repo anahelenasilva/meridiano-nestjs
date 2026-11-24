@@ -401,6 +401,26 @@ jobs:
           GH_TOKEN: ${{ secrets.FACTORY_PAT }}
         run: gh pr edit "$PR_NUMBER" --add-label "agent:blocked" || true
 
+      - name: Post to the factory board
+        # One line on Vercel Board's meridiano/factory channel. A review
+        # always ends with the PR waiting on a person, to merge it or to read
+        # why the run failed, so it is always labelled needs=ana. See README,
+        # Software factory. It runs from the runner's temp dir, so nothing in
+        # the checkout reaches the install that holds BOARD_TOKEN. Board is
+        # experimental, so it never turns a run red.
+        if: always()
+        continue-on-error: true
+        working-directory: ${{ runner.temp }}
+        env:
+          BOARD_TOKEN: ${{ secrets.BOARD_TOKEN }}
+          JOB_STATUS: ${{ job.status }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          npx --yes vercel@66.6.0 board post meridiano/factory \
+            "review PR #${PR_NUMBER}: ${JOB_STATUS}. ${PR_URL}" \
+            --as factory-review --label "pr=${PR_NUMBER}" --label "status=${JOB_STATUS}" --label needs=ana \
+            --idempotency-key "${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-review"
+
       - name: Always remove in-progress
         if: always()
         env:

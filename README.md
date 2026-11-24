@@ -361,6 +361,8 @@ Feedback sent through `POST /api/feedback` lands as an issue labelled `feedback`
 
 Nothing merges on its own. The agent scripts and prompts live in `.sandcastle/agent-workflows/`.
 
+Each run also posts one line to the `meridiano/factory` channel on Vercel Board, labelled `needs=ana` when a person has to act. GitHub stays the record and the queue; the board is a feed a local session can block on with `vercel board wait meridiano/factory --label needs=ana`. The `BOARD_TOKEN` secret is a Vercel token scoped to the empty `meridiano-factory` project, and it expires on 2027-02-21.
+
 # API Documentation
 
 For detailed API documentation, see:

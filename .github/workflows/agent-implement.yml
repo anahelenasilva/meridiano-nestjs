@@ -383,6 +383,27 @@ jobs:
           gh issue comment "$ISSUE_NUMBER" --body \
             "Implementer run **${JOB_STATUS}** - [logs](${RUN_URL}).${where}${retry} <!-- factory:status -->"
 
+      - name: Post to the factory board
+        # One line on Vercel Board's meridiano/factory channel, labelled
+        # needs=ana when a person has to act. See README, Software factory.
+        # It runs from the runner's temp dir, so nothing in the checkout,
+        # such as an .npmrc the agent wrote, reaches the install that holds
+        # BOARD_TOKEN. Board is experimental, so it never turns a run red.
+        if: always()
+        continue-on-error: true
+        working-directory: ${{ runner.temp }}
+        env:
+          BOARD_TOKEN: ${{ secrets.BOARD_TOKEN }}
+          JOB_STATUS: ${{ job.status }}
+          PR_URL: ${{ steps.pr.outputs.url }}
+        run: |
+          needs=()
+          [ "$JOB_STATUS" = "success" ] || needs=(--label needs=ana)
+          npx --yes vercel@66.6.0 board post meridiano/factory \
+            "implement #${ISSUE_NUMBER}: ${JOB_STATUS}. ${PR_URL:-$RUN_URL}" \
+            --as factory-implement --label "issue=${ISSUE_NUMBER}" --label "status=${JOB_STATUS}" "${needs[@]}" \
+            --idempotency-key "${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-implement"
+
       - name: Always remove in-progress
         if: always()
         env:
