@@ -28,7 +28,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "test:factory": "tsx --test \".sandcastle/agent-workflows/**/*.test.ts\"",
+    "test:factory": "tsx --test \".sandcastle/agent-workflows/**/*.test.ts\" \"scripts/**/*.test.ts\"",
     "test:mutation": "bash scripts/test-mutation.sh",
     "briefing": "ts-node -r tsconfig-paths/register src/scripts/runBriefing.ts",
     "briefing:tech": "ts-node -r tsconfig-paths/register src/scripts/runBriefing.ts --feed technology",

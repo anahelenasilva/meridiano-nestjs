@@ -12,7 +12,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { afterEach, beforeEach, describe, it } from 'node:test';
 
-const repoRoot = resolve(import.meta.dirname, '../../..');
+const repoRoot = resolve(__dirname, '..');
 
 // A git hook exports GIT_DIR and GIT_INDEX_FILE, which would point the
 // throwaway repo's git calls at this checkout.
