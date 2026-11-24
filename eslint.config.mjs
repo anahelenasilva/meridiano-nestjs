@@ -8,6 +8,9 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
+  // `pnpm lint` passes every tracked .ts file. infrastructure/ is a separate
+  // CDK package with its own package.json and tsconfig.
+  { ignores: ['infrastructure/**'] },
   {
     ignores: ['projectStructure.cache.json'],
     languageOptions: { parser: projectStructureParser },
@@ -39,11 +42,23 @@ export default tseslint.config(
     rules: {
       '@typescript-eslint/no-unused-vars': [
         'error',
-        { argsIgnorePattern: '^_' },
+        { argsIgnorePattern: '^_', ignoreRestSiblings: true },
       ],
       'no-nested-ternary': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/no-floating-promises': 'error',
+      // node:test's describe/it/test return promises its runner awaits.
+      '@typescript-eslint/no-floating-promises': [
+        'error',
+        {
+          allowForKnownSafeCalls: [
+            {
+              from: 'package',
+              package: 'node:test',
+              name: ['describe', 'it', 'test'],
+            },
+          ],
+        },
+      ],
       '@typescript-eslint/no-unsafe-call': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-argument': 'off',

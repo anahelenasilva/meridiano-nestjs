@@ -18,7 +18,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/src/main",
     "check:boot": "bash scripts/boot-check.sh",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
+    "lint": "eslint --no-warn-ignored $(git ls-files '*.ts')",
     "lint:fix": "pnpm lint --fix",
     "lint:boundaries": "depcruise src libs test",
     "lint:layout": "bash scripts/lint-layout.sh",
