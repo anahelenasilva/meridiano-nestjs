@@ -173,15 +173,7 @@ Environment-based via `ConfigService`. Key configs:
 
 ## Development Commands
 
-- `pnpm run start:dev` - Development server
-- `pnpm run test` - Unit tests
-- `pnpm run test:e2e` - E2E tests
-- `pnpm run test:mutation <file>` - Mutation-test one file with StrykerJS (reports in `reports/mutation/`)
-- `pnpm run test:mutation [--base <ref>]` - Mutation-test only the lines the branch changed in `src/` and `libs/` (default base `origin/main`)
-- `pnpm run docker:up` - Start PostgreSQL and Redis
-- `pnpm run migration:run` - Run database migrations
-- `pnpm run briefing:tech` - Generate tech briefing
-- `pnpm run yt-transcript` - Extract YouTube transcripts
+The `scripts` in [package.json](../package.json) are the list.
 
 ## Deployment
 
