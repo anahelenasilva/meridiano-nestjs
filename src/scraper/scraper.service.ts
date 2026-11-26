@@ -105,8 +105,16 @@ export class ScraperService {
       const reader = new Readability(dom.window.document);
       const article = reader.parse();
 
-      if (article) {
-        content = article.textContent;
+      if (article?.textContent) {
+        // textContent keeps the page template's indentation, and raw_content is later
+        // rendered as markdown, where a line indented 4+ spaces becomes a code block:
+        // https://spec.commonmark.org/0.31.2/#indented-code-blocks
+        content = article.textContent
+          .split('\n')
+          .map((line) => line.trim())
+          .join('\n')
+          .replace(/\n{3,}/g, '\n\n')
+          .trim();
       }
 
       const ogImageElement = dom.window.document.querySelector(
