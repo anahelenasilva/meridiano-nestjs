@@ -60,6 +60,27 @@ describe('ScraperService.fetchArticleContentAndOgImage', () => {
     expect(result.title).toBe('Plain Title');
   });
 
+  it('strips template indentation so markdown rendering never makes code blocks', async () => {
+    mockedAxios.get.mockResolvedValue({
+      data: `<html><body><article>
+        <p>Body text that is long enough to parse as the article.</p>
+
+
+					<div>
+						Kirsten Korosec is a reporter and editor.
+					</div>
+      </article></body></html>`,
+    });
+
+    const result = await service.fetchArticleContentAndOgImage(
+      'https://techcrunch.com/2026/11/25/fcc-approves-spacex-plan/',
+    );
+
+    expect(result.content).toBe(
+      'Body text that is long enough to parse as the article.\n\nKirsten Korosec is a reporter and editor.',
+    );
+  });
+
   it('fetches the page through the private-address guard', async () => {
     mockedAxios.get.mockResolvedValue({ data: '<html></html>' });
 
