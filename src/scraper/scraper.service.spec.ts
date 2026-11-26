@@ -81,6 +81,30 @@ describe('ScraperService.fetchArticleContentAndOgImage', () => {
     );
   });
 
+  it('drops the TechCrunch affiliate disclaimer, author card and Most Popular block', async () => {
+    mockedAxios.get.mockResolvedValue({
+      data: `<html><body><article>
+        <div class="is-style-default wp-block-tc23-author-card">Kirsten Korosec</div>
+        <p>Body text that is long enough to parse as the article.</p>
+        <p>The FCC has given SpaceX seven years to launch its first satellite.</p>
+        <p class="affiliate-disclaimer-text">When you purchase through links in our articles, we may earn a small commission.</p>
+        <div class="is-style-post-authors wp-block-tc23-author-card">
+          <div class="wp-block-tc23-author-card-bio">Kirsten Korosec is a reporter and editor.</div>
+          <div class="wp-block-button"><a href="/author/kirsten-korosec/">View Bio</a></div>
+        </div>
+        <div class="wp-block-techcrunch-most-popular-posts"><h2 id="h-most-popular">Most Popular</h2></div>
+      </article></body></html>`,
+    });
+
+    const result = await service.fetchArticleContentAndOgImage(
+      'https://techcrunch.com/2026/11/25/fcc-approves-spacex-plan/',
+    );
+
+    expect(result.content).toBe(
+      'Body text that is long enough to parse as the article.\nThe FCC has given SpaceX seven years to launch its first satellite.',
+    );
+  });
+
   it('fetches the page through the private-address guard', async () => {
     mockedAxios.get.mockResolvedValue({ data: '<html></html>' });
 

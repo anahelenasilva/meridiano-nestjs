@@ -50,6 +50,15 @@ interface RSSEntry {
 const BROWSER_USER_AGENT =
   'Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0';
 
+// Page parts Readability keeps inside the article body. All are TechCrunch's, seen 2026-11-26:
+// the affiliate disclaimer, the author card (byline, bio, "View Bio" link) and the
+// "Most Popular" block.
+const BOILERPLATE_SELECTORS = [
+  '.affiliate-disclaimer-text',
+  '.wp-block-tc23-author-card',
+  '.wp-block-techcrunch-most-popular-posts',
+].join(', ');
+
 const rssParser = new Parser<Record<string, unknown>, RSSEntry>({
   // Some publishers (TechCrunch since 2026-11-17) answer 403 to rss-parser's default User-Agent.
   headers: { 'User-Agent': BROWSER_USER_AGENT },
@@ -102,6 +111,9 @@ export class ScraperService {
       const htmlContent = response.data as string;
 
       const dom = new JSDOM(htmlContent, { url });
+      dom.window.document
+        .querySelectorAll(BOILERPLATE_SELECTORS)
+        .forEach((element) => element.remove());
       const reader = new Readability(dom.window.document);
       const article = reader.parse();
 
